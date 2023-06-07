@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 05/06/2022.
 //
 
+import PoieticCore
+
 /// Structure used by the simulator.
 ///
 /// Compiled model is a version of the model that is interpreted by the

@@ -6,7 +6,8 @@
 //
 
 import XCTest
-@testable import Poietic
+@testable import PoieticFlows
+@testable import PoieticCore
 
 
 final class TestCompiler: XCTestCase {

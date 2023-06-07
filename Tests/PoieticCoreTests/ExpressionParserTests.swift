@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Poietic
+@testable import PoieticCore
 
 
 final class ExpressionParserTests: XCTestCase {

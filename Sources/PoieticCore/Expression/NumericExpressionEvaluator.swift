@@ -27,11 +27,11 @@ enum SimpleExpressionError: Error {
 /// with identity comparison operator (`===`).
 ///
 public class BuiltinVariable: Hashable {
-    let name: String
-    let initialValue: (any ValueProtocol)?
-    let description: String?
+    public let name: String
+    public let initialValue: (any ValueProtocol)?
+    public let description: String?
     
-    init(name: String,
+    public init(name: String,
          value: (any ValueProtocol)? = nil,
          description: String?) {
         self.name = name
@@ -71,7 +71,7 @@ extension ArithmeticExpression where V == String, F == String {
     /// Bound expression is an expression where the variable references are
     /// resolved to match their respective nodes.
     ///
-    func bind(variables: [String:BoundVariableReference]) -> BoundExpression {
+    public func bind(variables: [String:BoundVariableReference]) -> BoundExpression {
         switch self {
         case let .value(value): return .value(value)
         case let .binary(op, lhs, rhs):

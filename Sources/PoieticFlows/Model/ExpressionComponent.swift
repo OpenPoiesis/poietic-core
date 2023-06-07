@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 17/06/2022.
 //
 
+import PoieticCore
 
 public typealias Point = SIMD2<Double>
 

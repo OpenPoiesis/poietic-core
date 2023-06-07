@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 06/06/2023.
 //
 
+import PoieticCore
+
 /// Protocol for meta–models – models describing problem domain models.
 ///
 /// The metamodel is the ultimate source of truth for the model domain and

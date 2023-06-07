@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Poietic",
-            targets: ["Poietic"]),
+            targets: ["PoieticCore", "PoieticFlows"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -19,10 +19,16 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "Poietic",
+            name: "PoieticCore",
             dependencies: []),
+        .target(
+            name: "PoieticFlows",
+            dependencies: ["PoieticCore"]),
         .testTarget(
-            name: "PoieticTests",
-            dependencies: ["Poietic"]),
+            name: "PoieticCoreTests",
+            dependencies: ["PoieticCore"]),
+        .testTarget(
+            name: "PoieticFlowsTests",
+            dependencies: ["PoieticFlows"]),
     ]
 )

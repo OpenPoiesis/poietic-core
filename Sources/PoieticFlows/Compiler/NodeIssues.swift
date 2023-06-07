@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 05/01/2023.
 //
 
+import PoieticCore
+
 public enum NodeIssue: Equatable, CustomStringConvertible, Error {
     case expressionSyntaxError(SyntaxError)
     case unusedInput(String)

@@ -27,10 +27,10 @@ public enum EdgeDirection {
 
 
 public class NeighborhoodSelector {
-    let direction: EdgeDirection
-    let predicate: EdgePredicate
+    public let direction: EdgeDirection
+    public let predicate: EdgePredicate
     
-    init(predicate: EdgePredicate,
+    public init(predicate: EdgePredicate,
          direction: EdgeDirection) {
         self.predicate = predicate
         self.direction = direction
@@ -39,12 +39,12 @@ public class NeighborhoodSelector {
 
 
 public class Neighborhood {
-    let graph: Graph
-    let nodeID: ObjectID
-    let selector: NeighborhoodSelector
-    let edges: [Edge]
+    public let graph: Graph
+    public let nodeID: ObjectID
+    public let selector: NeighborhoodSelector
+    public let edges: [Edge]
     
-    init(graph: Graph,
+    public init(graph: Graph,
          nodeID: ObjectID,
          selector: NeighborhoodSelector,
          edges: [Edge]) {

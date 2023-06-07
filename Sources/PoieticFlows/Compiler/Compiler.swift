@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 21/06/2022.
 //
 
+import PoieticCore
+
 /// An object that compiles the model into a ``CompiledModel``.
 ///
 /// The compiler makes sure that the model is valid, references

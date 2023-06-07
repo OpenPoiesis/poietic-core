@@ -4,6 +4,7 @@
 //
 //  Created by Stefan Urbanek on 06/06/2023.
 //
+import PoieticCore
 
 /// Component representing a position of a node in a canvas.
 ///

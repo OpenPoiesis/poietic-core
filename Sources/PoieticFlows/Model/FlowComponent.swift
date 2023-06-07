@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 13/06/2022.
 //
 
+import PoieticCore
+
 /// Object representing a flow.
 ///
 /// Flow is a node that can be connected to two stocks by a flow edge. One stock

@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 06/06/2023.
 //
 
+import PoieticCore
+
 public struct DomainError: Error {
     var issues: [ObjectID:[NodeIssue]]
 }
