@@ -42,19 +42,12 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
     
     open var description: String {
-        return "Object(id: \(idDebugString))"
+        return "Object(id: \(id), ssid: \(snapshotID), type:\(type?.name))"
     }
     
     func freeze() {
         assert(self.state != .frozen)
         self.state = .frozen
-    }
-    
-    /// String representing the object's ID for debugging purposes - either the
-    /// object ID or ObjectIdentifier of the object
-    public var idDebugString: String {
-        // TODO: This method is no longer needed
-        return String(id)
     }
     
     var structuralDependencies: [ObjectID] {

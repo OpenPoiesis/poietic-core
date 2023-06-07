@@ -94,12 +94,13 @@ public class MutableFrame: FrameBase {
     /// prototype snapshots.
     ///
     func insertDerived(_ original: ObjectSnapshot,
-                       id: ObjectID? = nil) {
+                       id: ObjectID? = nil) -> ObjectID {
         // TODO: This should be used in the mutable unbound graph (see .py)
         let actualObjectID = id ?? self.memory.identityGenerator.next()
         let snapshotID = self.memory.identityGenerator.next()
         let derived = original.derive(snapshotID: snapshotID, objectID: actualObjectID)
         self.insert(derived, owned: true)
+        return actualObjectID
     }
 
     public func create(_ objectType: ObjectType? = nil,
@@ -191,5 +192,9 @@ public class MutableFrame: FrameBase {
     public func setComponent<T>(_ id: ObjectID, component: T) where T : Component {
         let object = self.mutableObject(id)
         object.components[T.self] = component
+    }
+    
+    public var mutableGraph: MutableGraph {
+        MutableUnboudGraph(frame: self)
     }
 }

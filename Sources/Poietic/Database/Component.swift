@@ -8,11 +8,16 @@
 public protocol Component {
 }
 
+public protocol PersistableComponent: Component {
+    var persistableTypeName: String { get }
+    init(record: ForeignRecord) throws
+}
+
 
 /// Protocol for components that can be instantiated without any parameters
 /// and will be set-up by component's default values.
 ///
-public protocol DefaultValueComponent {
+public protocol DefaultValueComponent: Component {
     init()
 }
 
