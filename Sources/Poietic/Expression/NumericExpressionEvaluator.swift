@@ -5,37 +5,95 @@
 //  Created by Stefan Urbanek on 28/05/2022.
 //
 
-// TODO: Do not depend on HolonKit
+// TODO: Needs attention, a bit older design.
+
 enum SimpleExpressionError: Error {
-    case unknownVariableReference(VariableReference)
+    case unknownVariableReference(BoundVariableReference)
     case unknownFunctionReference(BoundExpression.FunctionReference)
 }
 
+/// Object representing a built-in variable.
+///
+/// Each instance of this type represents a variable within a domain model. It
+/// provides information about the variable such as description or expected
+/// type.
+///
+/// Example built-in variables: `time`, `time_delta`, `previous_value`, …
+///
+/// The instance does not represent the value of the variable.
+///
+/// There should be only one instance of the variable per concept within the
+/// domain model. Therefore instances of built-in variables can be compared
+/// with identity comparison operator (`===`).
+///
 public class BuiltinVariable: Hashable {
-    public static func == (lhs: BuiltinVariable, rhs: BuiltinVariable) -> Bool {
-        return lhs.name == rhs.name && lhs.initialValue.isEqual(to: rhs.initialValue)
+    let name: String
+    let initialValue: (any ValueProtocol)?
+    let description: String?
+    
+    init(name: String,
+         value: (any ValueProtocol)? = nil,
+         description: String?) {
+        self.name = name
+        self.initialValue = value
+        self.description = description
+    }
+    
+    public static func ==(lhs: BuiltinVariable, rhs: BuiltinVariable) -> Bool {
+        return lhs.name == rhs.name
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
-        hasher.combine(initialValue)
-    }
-    
-    let name: String
-    let initialValue: any ValueProtocol
-    
-    init(name: String, value: any ValueProtocol) {
-        self.name = name
-        self.initialValue = value
     }
 }
 
-public enum VariableReference: Hashable {
+public enum BoundVariableReference: Hashable {
+    
     case object(ObjectID)
     case builtin(BuiltinVariable)
+    
+    public static func ==(lhs: BoundVariableReference, rhs: BoundVariableReference) -> Bool {
+        switch (lhs, rhs) {
+        case let (.object(left), .object(right)): return left == right
+        case let (.builtin(left), .builtin(right)): return left == right
+        default: return false
+        }
+    }
 }
-public typealias BoundExpression = ArithmeticExpression<VariableReference, String>
 
+
+public typealias BoundExpression = ArithmeticExpression<BoundVariableReference, String>
+
+extension ArithmeticExpression where V == String, F == String {
+    /// Bind an expression to a compiled model. Return a bound expression.
+    ///
+    /// Bound expression is an expression where the variable references are
+    /// resolved to match their respective nodes.
+    ///
+    func bind(variables: [String:BoundVariableReference]) -> BoundExpression {
+        switch self {
+        case let .value(value): return .value(value)
+        case let .binary(op, lhs, rhs):
+            return .binary(op, lhs.bind(variables: variables),
+                           rhs.bind(variables: variables))
+        case let .unary(op, operand):
+            return .unary(op, operand.bind(variables: variables))
+        case let .function(name, arguments):
+            let boundArgs = arguments.map { $0.bind(variables: variables) }
+            return .function(name, boundArgs)
+        case let .variable(name):
+            if let ref = variables[name]{
+                return .variable(ref)
+            }
+            else {
+                // TODO: Raise an error here
+                fatalError("Unknown variable name: '\(name)'")
+            }
+        case .null: return .null
+        }
+    }
+}
 
 /// Object that evaluates numeric expressions.
 ///
@@ -47,9 +105,9 @@ class NumericExpressionEvaluator {
     typealias FunctionReference = BoundExpression.FunctionReference
 
     var functions: [FunctionReference:FunctionProtocol] = [:]
-    var variables: [VariableReference:any ValueProtocol]
+    var variables: [BoundVariableReference:any ValueProtocol]
     
-    init(variables: [VariableReference:any ValueProtocol]=[:], functions: [String:FunctionProtocol]=[:]) {
+    init(variables: [BoundVariableReference:any ValueProtocol]=[:], functions: [String:FunctionProtocol]=[:]) {
         self.variables = variables
         self.functions = functions
     }

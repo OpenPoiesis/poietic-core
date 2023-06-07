@@ -17,7 +17,7 @@ public typealias UnboundExpression = ArithmeticExpression<String, String>
 /// Represents components of an arithmetic expression: values, variables,
 /// operators and functions.
 ///
-public indirect enum ArithmeticExpression<V,F> where V: Hashable, F: Hashable {
+public indirect enum ArithmeticExpression<V,F> {
     // TODO: Remove generic
     public typealias VariableReference = V
     public typealias FunctionReference = F

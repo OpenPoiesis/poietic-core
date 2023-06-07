@@ -9,6 +9,11 @@
 // https://stackoverflow.com/questions/2245962/writing-a-parser-like-flex-bison-that-is-usable-on-8-bit-embedded-systems/2336769#2336769
 
 
+/// Parser for arithmetic expressions.
+///
+/// The parses takes a string as an input and creates an unbound arithmetic
+/// expression.
+///
 public class ExpressionParser {
     let lexer: Lexer
     var currentToken: Token?
@@ -62,6 +67,7 @@ public class ExpressionParser {
 
     // ----------------------------------------------------------------
     
+    /// Parse an operator.
     func `operator`(_ op: String) -> Token? {
         guard let token = currentToken else {
             return nil
@@ -76,6 +82,8 @@ public class ExpressionParser {
 
     }
     
+    /// Parse an identifier - a variable name or a function name.
+    ///
     func identifier() -> Token? {
         if let token = accept(.identifier) {
             return token
@@ -85,6 +93,8 @@ public class ExpressionParser {
         }
     }
 
+    /// Parse an integer or a float.
+    ///
     func number() -> ExpressionAST? {
         if let token = accept(.int) {
             return ExpressionAST(.int(token.text),
@@ -99,8 +109,10 @@ public class ExpressionParser {
         }
     }
     
-    // variable_call -> IDENTIFIER ["(" ARGUMENTS ")"]
-    
+    /// Rule:
+    ///
+    ///     variable_call -> IDENTIFIER ["(" ARGUMENTS ")"]
+    ///
     func variable_or_call() throws -> ExpressionAST? {
         guard let ident = identifier() else {
             return nil
@@ -137,8 +149,10 @@ public class ExpressionParser {
         }
     }
     
-    // primary -> NUMBER | STRING | VARIABLE_OR_CALL | "(" expression ")" ;
-
+    /// Rule:
+    ///
+    ///     primary -> NUMBER | STRING | VARIABLE_OR_CALL | "(" expression ")" ;
+    ///
     func primary() throws -> ExpressionAST? {
         // TODO: true, false, nil
         if let node = number() {
@@ -165,8 +179,10 @@ public class ExpressionParser {
         return nil
     }
     
-    // unary -> "-" unary | primary ;
-    //
+    /// Rule:
+    ///
+    ///     unary -> "-" unary | primary ;
+    ///
     func unary() throws -> ExpressionAST? {
         // TODO: Add '!'
         if let op = `operator`("-") {
@@ -182,9 +198,10 @@ public class ExpressionParser {
         
     }
 
-    // factor -> unary ( ( "/" | "*" ) unary )* ;
-    //
-
+    /// Rule:
+    ///
+    ///     factor -> unary ( ( "/" | "*" ) unary )* ;
+    ///
     func factor() throws -> ExpressionAST? {
         guard var left = try unary() else {
             return nil
@@ -201,8 +218,10 @@ public class ExpressionParser {
         return left
     }
 
-    // term -> factor ( ( "-" | "+" ) factor )* ;
-    //
+    /// Rule:
+    ///
+    ///     term -> factor ( ( "-" | "+" ) factor )* ;
+    ///
     func term() throws -> ExpressionAST? {
         guard var left = try factor() else {
             return nil
@@ -224,6 +243,9 @@ public class ExpressionParser {
     }
     
     
+    /// Parse the expression and return an unbound arithmetic expression.
+    ///
+    /// - Throws: `SyntaxError` when there is an issue with the expression.
     public func parse() throws -> UnboundExpression {
         guard let expr = try expression() else {
             throw SyntaxError.expressionExpected
