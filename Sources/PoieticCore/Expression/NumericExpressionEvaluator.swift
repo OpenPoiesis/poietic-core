@@ -100,14 +100,14 @@ extension ArithmeticExpression where V == String, F == String {
 /// The object is associated with list of numeric functions and variables that
 /// will be used during each expression evaluation.
 ///
-class NumericExpressionEvaluator {
+public class NumericExpressionEvaluator {
     // TODO: This is rather "evaluation context"
-    typealias FunctionReference = BoundExpression.FunctionReference
+    public typealias FunctionReference = BoundExpression.FunctionReference
 
-    var functions: [FunctionReference:FunctionProtocol] = [:]
-    var variables: [BoundVariableReference:any ValueProtocol]
+    public var functions: [FunctionReference:FunctionProtocol] = [:]
+    public var variables: [BoundVariableReference:any ValueProtocol]
     
-    init(variables: [BoundVariableReference:any ValueProtocol]=[:], functions: [String:FunctionProtocol]=[:]) {
+    public init(variables: [BoundVariableReference:any ValueProtocol]=[:], functions: [String:FunctionProtocol]=[:]) {
         self.variables = variables
         self.functions = functions
     }
@@ -117,7 +117,7 @@ class NumericExpressionEvaluator {
     ///
     /// - Throws: The function throws an error when it encounters a variable
     ///   or a function with unknown name
-    func evaluate(_ expression: BoundExpression) throws -> (any ValueProtocol)? {
+    public func evaluate(_ expression: BoundExpression) throws -> (any ValueProtocol)? {
         switch expression {
         case let .value(value): return value
         case let .binary(op, lhs, rhs):
@@ -143,7 +143,7 @@ class NumericExpressionEvaluator {
     /// - Throws: If the function with given name does not exist, it throws
     ///   an error.
     ///
-    func apply(_ functionReference: FunctionReference, arguments: [(any ValueProtocol)?]) throws -> any ValueProtocol {
+    public func apply(_ functionReference: FunctionReference, arguments: [(any ValueProtocol)?]) throws -> any ValueProtocol {
         guard let function = functions[functionReference] else {
             throw SimpleExpressionError.unknownFunctionReference(functionReference)
         }

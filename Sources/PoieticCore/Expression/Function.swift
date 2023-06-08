@@ -74,7 +74,7 @@ public class NumericBinaryOperator: FunctionProtocol {
     public let name: String
     public let implementation: Implementation
     
-    init(name: String, implementation: @escaping Implementation) {
+    public init(name: String, implementation: @escaping Implementation) {
         self.name = name
         self.implementation = implementation
     }
