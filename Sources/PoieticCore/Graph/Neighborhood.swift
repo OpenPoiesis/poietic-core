@@ -38,6 +38,9 @@ public class NeighborhoodSelector {
 }
 
 
+// TODO: Split this into Bound and Unbound
+// TODO: Document complexity O(n) - all edges are traversed
+
 public class Neighborhood {
     public let graph: Graph
     public let nodeID: ObjectID

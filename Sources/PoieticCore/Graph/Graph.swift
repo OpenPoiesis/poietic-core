@@ -64,7 +64,7 @@ public class Edge: ObjectSnapshot {
                     components: components.components)
     }
     public override var description: String {
-        return "Edge(id: \(id), sshot:\(snapshotID), \(origin) -> \(target), type: \(type?.name)"
+        return "Edge(id: \(id), sshot:\(snapshotID), \(origin) -> \(target), type: \(type?.name ?? "(none)")"
     }
 
 }
@@ -151,6 +151,7 @@ public protocol Graph {
     ///
 
     func incoming(_ target: ObjectID) -> [Edge]
+    
     /// Get a list of edges that are related to the neighbours of the node. That
     /// is, list of edges where the node is either an origin or a target.
     ///
@@ -161,15 +162,13 @@ public protocol Graph {
 
     func neighbours(_ node: ObjectID) -> [Edge]
     
-    /// Returns edges that are related to the node and that match the given
-    /// edge selector.
-    ///
-    // FIXME: Remove this
-    func neighbours(_ node: ObjectID, selector: NeighborhoodSelector) -> [Edge]
-
     func selectNodes(_ predicate: NodePredicate) -> [Node]
     func selectEdges(_ predicate: EdgePredicate) -> [Edge]
-    func selectNeighbors(nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood
+
+    /// Get a neighbourhood of a node where the edges match the neighbourhood
+    /// selector `selector`.
+    ///
+    func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood
 }
 
 extension Graph {
@@ -242,7 +241,7 @@ extension Graph {
         return edges.filter { predicate.match(graph: self, edge: $0) }
     }
     
-    public func selectNeighbors(nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
+    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
         let edges: [Edge]
         switch selector.direction {
         case .incoming: edges = incoming(nodeID)
@@ -256,6 +255,23 @@ extension Graph {
                             nodeID: nodeID,
                             selector: selector,
                             edges: filtered)
+    }
+    
+    public var prettyDebugDescription: String {
+        var result: String = ""
+        
+        result += "NODES:\n"
+        for node in nodes {
+            result += "  \(node.id) \(node.type?.name ?? "(no type)")\n"
+        }
+        result += "EDGES:\n"
+        for edge in edges {
+            var str: String = ""
+            str += "  \(edge.id) \(edge.type?.name ?? "(no type)") "
+            + "\(edge.origin) --> \(edge.target)\n"
+            result += str
+        }
+        return result
     }
 
     
@@ -319,10 +335,10 @@ extension MutableGraph {
 
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
-public class MutableUnboudGraph: MutableGraph {
-    let frame: MutableFrame
+public class UnboundGraph: Graph {
+    let frame: FrameBase
     
-    public init(frame: MutableFrame) {
+    public init(frame: FrameBase) {
         self.frame = frame
     }
     
@@ -350,12 +366,35 @@ public class MutableUnboudGraph: MutableGraph {
         fatalError("Neighbours of mutable graph not implemented")
     }
     
+    public var nodes: [Node] {
+        return self.frame.snapshots.compactMap {
+            $0 as? Node
+        }
+    }
+    
+    public var edges: [Edge] {
+        return self.frame.snapshots.compactMap {
+            $0 as? Edge
+        }
+    }
+}
+
+
+/// Graph contained within a mutable frame where the references to the nodes and
+/// edges are not directly bound and are resolved at the time of querying.
+public class MutableUnboundGraph: UnboundGraph, MutableGraph {
+    // FIXME: IMPORTANT!: This is a quick hack due to some redesign.
+    
+    var mutableFrame: MutableFrame {
+        self.frame as! MutableFrame
+    }
+    
     public func insert(_ node: Node) {
-        self.frame.insert(node)
+        self.mutableFrame.insert(node)
     }
     
     public func insert(_ edge: Edge) {
-        self.frame.insert(edge)
+        self.mutableFrame.insert(edge)
     }
     // Object creation
     public func createEdge(_ type: ObjectType,
@@ -386,7 +425,7 @@ public class MutableUnboudGraph: MutableGraph {
             }
         }
         
-        let derived = frame.insertDerived(object)
+        let derived = mutableFrame.insertDerived(object)
         return derived
     }
     public func createNode(_ type: ObjectType,
@@ -409,29 +448,14 @@ public class MutableUnboudGraph: MutableGraph {
             }
         }
         
-        return frame.insertDerived(object)
+        return mutableFrame.insertDerived(object)
     }
 
     public func remove(node nodeID: ObjectID) {
-        self.frame.removeCascading(nodeID)
+        self.mutableFrame.removeCascading(nodeID)
     }
     
     public func remove(edge edgeID: ObjectID) {
-        self.frame.removeCascading(edgeID)
+        self.mutableFrame.removeCascading(edgeID)
     }
-    
-    public var nodes: [Node] {
-        return self.frame.snapshots.compactMap {
-            $0 as? Node
-        }
-    }
-    
-    public var edges: [Edge] {
-        return self.frame.snapshots.compactMap {
-            $0 as? Edge
-        }
-    }
-    
-
-    
 }

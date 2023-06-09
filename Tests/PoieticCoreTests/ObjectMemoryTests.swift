@@ -12,12 +12,16 @@ struct TestComponent: Component {
     let text: String
 }
 
+let TestObjectType = ObjectType(name: "Test",
+                                structuralType: Node.self,
+                                components: [])
+
 final class TestObjectMemory: XCTestCase {
     func testEmpty() throws {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
         
-        db.accept(frame)
+        try db.accept(frame)
         
         XCTAssertFalse(frame.state.isMutable)
         XCTAssertTrue(db.containsFrame(frame.id))
@@ -36,7 +40,7 @@ final class TestObjectMemory: XCTestCase {
         XCTAssertTrue(frame.hasChanges)
         XCTAssertEqual(db.versionHistory.count, 1)
         
-        db.accept(frame)
+        try db.accept(frame)
         
         XCTAssertEqual(db.versionHistory, [v1, frame.id])
         XCTAssertEqual(db.currentFrame.id, frame.id)
@@ -48,7 +52,7 @@ final class TestObjectMemory: XCTestCase {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
         let a = frame.create()
-        db.accept(frame)
+        try db.accept(frame)
         
         let obj = db.currentFrame.object(a)
         XCTAssertEqual(obj?.state, VersionState.frozen)
@@ -70,7 +74,7 @@ final class TestObjectMemory: XCTestCase {
         let originalFrame = db.deriveFrame()
         
         let a = originalFrame.create()
-        db.accept(originalFrame)
+        try db.accept(originalFrame)
         
         let originalVersion = db.currentFrameID
         
@@ -80,7 +84,7 @@ final class TestObjectMemory: XCTestCase {
         XCTAssertTrue(removalFrame.hasChanges)
         XCTAssertFalse(removalFrame.contains(a))
         
-        db.accept(removalFrame)
+        try db.accept(removalFrame)
         XCTAssertEqual(db.currentFrame.id, removalFrame.id)
         XCTAssertFalse(db.currentFrame.contains(a))
         
@@ -93,7 +97,7 @@ final class TestObjectMemory: XCTestCase {
         let original = db.deriveFrame()
         let id = original.create()
         let originalSnap = original.object(id)!
-        db.accept(original)
+        try db.accept(original)
         
         let derived = db.deriveFrame()
         let derivedSnap = derived.mutableObject(id)
@@ -110,7 +114,7 @@ final class TestObjectMemory: XCTestCase {
         let original = db.deriveFrame()
         
         let a = original.create(components: [TestComponent(text: "before")])
-        db.accept(original)
+        try db.accept(original)
         
         let a2 = db.currentFrame.object(a)!
         XCTAssertEqual(a2[TestComponent.self]!.text, "before")
@@ -122,7 +126,7 @@ final class TestObjectMemory: XCTestCase {
         let a3 = altered.object(a)!
         XCTAssertEqual(a3[TestComponent.self]!.text, "after")
         
-        db.accept(altered)
+        try db.accept(altered)
         
         let aCurrentAlt = db.currentFrame.object(a)!
         XCTAssertEqual(aCurrentAlt[TestComponent.self]!.text, "after")
@@ -137,11 +141,11 @@ final class TestObjectMemory: XCTestCase {
         
         let frame1 = db.deriveFrame()
         let a = frame1.create()
-        db.accept(frame1)
+        try db.accept(frame1)
         
         let frame2 = db.deriveFrame()
         let b = frame2.create()
-        db.accept(frame2)
+        try db.accept(frame2)
         
         XCTAssertTrue(db.currentFrame.contains(a))
         XCTAssertTrue(db.currentFrame.contains(b))
@@ -168,12 +172,12 @@ final class TestObjectMemory: XCTestCase {
         
         let frame1 = db.deriveFrame()
         let a = frame1.create(components: [TestComponent(text: "before")])
-        db.accept(frame1)
+        try db.accept(frame1)
         
         let frame2 = db.deriveFrame()
         frame2.setComponent(a, component: TestComponent(text: "after"))
         
-        db.accept(frame2)
+        try db.accept(frame2)
         
         db.undo(to: frame1.id)
         let altered = db.currentFrame.object(a)!
@@ -186,11 +190,11 @@ final class TestObjectMemory: XCTestCase {
 
         let frame1 = db.deriveFrame()
         let a = frame1.create()
-        db.accept(frame1)
+        try db.accept(frame1)
 
         let frame2 = db.deriveFrame()
         let b = frame2.create()
-        db.accept(frame2)
+        try db.accept(frame2)
         
         db.undo(to: frame1.id)
         db.redo(to: frame2.id)
@@ -226,13 +230,13 @@ final class TestObjectMemory: XCTestCase {
 
         let frame1 = db.deriveFrame()
         let a = frame1.create()
-        db.accept(frame1)
+        try db.accept(frame1)
 
         db.undo(to: v0)
         
         let frame2 = db.deriveFrame()
         let b = frame2.create()
-        db.accept(frame2)
+        try db.accept(frame2)
         
         XCTAssertEqual(db.currentFrameID, frame2.id)
         XCTAssertEqual(db.versionHistory, [v0, frame2.id])
@@ -241,5 +245,35 @@ final class TestObjectMemory: XCTestCase {
 
         XCTAssertFalse(db.currentFrame.contains(a))
         XCTAssertTrue(db.currentFrame.contains(b))
+    }
+    
+    func testConstraintViolationAccept() throws {
+        // TODO: Change this to non-graph constraint check
+        let db = ObjectMemory()
+        let frame = db.deriveFrame()
+        let graph = frame.mutableGraph
+        let a = graph.createNode(TestObjectType, components: [])
+        let b = graph.createNode(TestObjectType, components: [])
+        
+        let constraint = NodeConstraint(name: "test",
+                                        match: AnyPredicate(),
+                                        requirement: RejectAll())
+
+        // TODO: Test this separately
+        try db.addConstraint(constraint)
+        
+        XCTAssertThrowsError(try db.accept(frame)) {
+            
+            guard let error = $0 as? ConstraintViolationError else {
+                XCTFail("Expected ConstraintViolationError")
+                return
+            }
+            
+            XCTAssertEqual(error.violations.count, 1)
+            let violation = error.violations[0]
+            XCTAssertIdentical(violation.constraint, constraint)
+            XCTAssertTrue(violation.objects.contains(a))
+            XCTAssertTrue(violation.objects.contains(b))
+        }
     }
 }

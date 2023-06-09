@@ -7,9 +7,34 @@
 
 public protocol FrameBase {
     // TODO: Change this to Sequence<ObjectSnapshot>
+    /// Get a list of all snapshots in the frame.
+    ///
     var  snapshots: [ObjectSnapshot] { get }
+
+    /// Get a graph view of the frame.
+    ///
+    var graph: Graph { get }
+
+    /// Check whether the frame contains an object with given ID.
+    ///
+    /// - Returns: `true` if the frame contains the object, otherwise `false`.
+    ///
     func contains(_ id: ObjectID) -> Bool
+
+    /// Return an object with given ID from the frame or `nil` if the frame
+    /// does not contain such object.
+    ///
+    /// - TODO: This should rather return an non-optional and raise an error.
+    ///
     func object(_ id: ObjectID) -> ObjectSnapshot?
+    
+    /// Asserts that the frame satisfies the given constraint. Raises a
+    /// `ConstraintViolation` error if the frame objects violate the constraints.
+    ///
+    /// - Throws: `ConstraintViolation` when the frame violates given constraint.
+    ///
+    func assert(constraint: Constraint) throws
+
     func structuralDependants(id: ObjectID) -> [ObjectID]
     func hasReferentialIntegrity() -> Bool
     func referentialIntegrityViolators() -> [ObjectID]
@@ -34,6 +59,16 @@ extension FrameBase{
             }
         }
         return violators
+    }
+    
+    public func assert(constraint: Constraint) throws {
+        let violators = constraint.check(self.graph)
+        if violators.isEmpty {
+            return
+        }
+        let violation = ConstraintViolation(constraint: constraint,
+                                            objects:violators)
+        throw violation
     }
 }
 
@@ -76,4 +111,10 @@ public class StableFrame: FrameBase {
     public func object(_ id: ObjectID) -> ObjectSnapshot? {
         return _snapshots[id]
     }
+    
+    public var graph: Graph {
+        return UnboundGraph(frame: self)
+    }
+    
+
 }

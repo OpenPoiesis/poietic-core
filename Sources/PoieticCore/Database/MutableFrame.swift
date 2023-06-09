@@ -194,7 +194,27 @@ public class MutableFrame: FrameBase {
         object.components[T.self] = component
     }
     
+    /// Get a mutable graph for the frame.
+    ///
+    /// The returned graph is an unbound graph - a view on top of the mutable
+    /// frame. Any query of the graph is translated into a query of the frame
+    /// at the same time.
+    ///
+    /// - SeeAlso: `MutableUnboundGraph`.
+    ///
     public var mutableGraph: MutableGraph {
-        MutableUnboudGraph(frame: self)
+        MutableUnboundGraph(frame: self)
+    }
+    
+    /// Get an immutable graph for the frame.
+    ///
+    /// The returned graph is an unbound graph - a view on top of the mutable
+    /// frame. Any query of the graph is translated into a query of the frame
+    /// at the same time.
+    ///
+    /// - SeeAlso: `UnboundGraph`.
+    ///
+    public var graph: Graph {
+        UnboundGraph(frame: self)
     }
 }

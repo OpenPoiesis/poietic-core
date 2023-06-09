@@ -5,11 +5,17 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
-import Foundation
+/// Error thrown when constraint violations were detected in the graph during
+/// `accept()`.
+///
+public struct ConstraintViolationError: Error {
+    let violations: [ConstraintViolation]
+}
 
 class ObjectMemory {
     var identityGenerator: SequentialIDGenerator
    
+    var constraints: [Constraint]
     var _stableFrames: [FrameID: StableFrame]
     var _mutableFrames: [FrameID: MutableFrame]
     
@@ -41,11 +47,12 @@ class ObjectMemory {
 
     // var metamodel:
     
-    init() {
+    init(constraints: [Constraint] = []) {
         self.identityGenerator = SequentialIDGenerator()
         self._stableFrames = [:]
         self._mutableFrames = [:]
         self.versionHistory = []
+        self.constraints = constraints
 
         
         let firstFrame = StableFrame(id: identityGenerator.next())
@@ -145,7 +152,7 @@ class ObjectMemory {
             fatalError("Removing frame failed: unknown frame ID \(id)")
         }
     }
-    func accept(_ frame: MutableFrame, appendHistory: Bool = true) {
+    func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
         precondition(frame.memory === self,
                      "Trying to accept a frame from a different memory")
         precondition(frame.state.isMutable,
@@ -155,6 +162,8 @@ class ObjectMemory {
         precondition(_mutableFrames[frame.id] != nil,
                      "Trying to accept am unknown frame with ID (\(frame.id))")
 
+        // Check referential integrity
+        // ------------------------------------------------------------
         var missing: [ObjectID] = []
         
         // TODO: Move this to frame
@@ -165,10 +174,33 @@ class ObjectMemory {
                 }
             }
         }
+        // TODO: Should we make this into an exception? For now it is a programming error.
         assert(missing.isEmpty,
                "Violated referential integrity of frame ID \(frame.id)")
 
+        // Check constraints
+        // ------------------------------------------------------------
+        // TODO: What about non-graph constraints – Pure object constraints?
+        
+        // TODO: We need to get an immutable graph here.
+        let graph = frame.mutableGraph
+        var violations: [ConstraintViolation] = []
+        for constraint in constraints {
+            let violators = constraint.check(graph)
+            if violators.isEmpty {
+                continue
+            }
+            let violation = ConstraintViolation(constraint: constraint,
+                                                objects:violators)
+            violations.append(violation)
+        }
+        
+        if !violations.isEmpty {
+            throw ConstraintViolationError(violations: violations)
+        }
+
         frame.freeze()
+        
         let stableFrame = StableFrame(id: frame.id,
                                       snapshots: frame.snapshots)
         _stableFrames[frame.id] = stableFrame
@@ -189,6 +221,36 @@ class ObjectMemory {
             }
         }
     }
+    
+    /// Add a constraint to the memory.
+    ///
+    /// Before adding the constraint to the memory, all stable frames are
+    /// checked whether they violate the new constraint or not. If none
+    /// of the frames violates the constraint, then it is added to the
+    /// list of constraints.
+    ///
+    /// - Throws: `ConstraintViolation` for the first frame that violates the new
+    /// constraint.
+    ///
+    func addConstraint(_ constraint: Constraint) throws {
+        // TODO: Check all frames and include violating frame ID.
+        // TODO: Add tests.
+        
+        for (_, frame) in self._stableFrames {
+            try frame.assert(constraint: constraint)
+        }
+        constraints.append(constraint)
+    }
+    /// Remove a constraint from the memory.
+    ///
+    /// This method just removes the constraint and takes no other action.
+    ///
+    func removeConstraint(_ constraint: Constraint) {
+        constraints.removeAll {
+            $0 === constraint
+        }
+    }
+    
     func discard(_ frame: MutableFrame) {
         precondition(frame.memory === self,
                      "Trying to discard a frame from a different memory")
