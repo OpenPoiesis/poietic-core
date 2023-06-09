@@ -43,23 +43,41 @@ public struct CompiledModel {
     ///
     let sortedExpressionNodes: [Node]
     
-    /// Stocks, by order of computation dependency
+    /// Stocks ordered by the computation (parameter) dependency.
     let stocks: [ObjectID]
+    
+    /// Extracted stock components from the stock objects.
     let stockComponents: [ObjectID:StockComponent]
     
-    /// Auxiliaries required by stocks, by order of dependency
+    /// Auxiliaries required by stocks, by order of dependency.
     let auxiliaries: [ObjectID]
 
-    /// All flows in order of computation
+    /// Flows ordered by the computation (parameter) dependency.
     let flows: [ObjectID]
+
+    /// Extracted flow components from the flow objects.
     let flowComponents: [ObjectID:FlowComponent]
 
-    /// Stock -> [Flow]
+    /// Map containing information about which flows fill a stock.
+    ///
+    /// The key is a stock, the value of the dictionary is a list of flows that
+    /// "inflow" into or fill the stock.
+    ///
+    /// The mapping is expected to have an entry for each stock. For stocks
+    /// without inflows the list is going to be empty.
+    ///
     let inflows: [ObjectID:[ObjectID]]
-    /// Stock -> [Flow]
     // TODO: Sort by priority
     //                 $0[Flow.self]!.priority < $1[Flow.self]!.priority
 
+    /// Map containing information about which flows drain a stock.
+    ///
+    /// The key is a stock, the value of the dictionary is a list of flows that
+    /// "outflow" from or drain the stock.
+    ///
+    /// The mapping is expected to have an entry for each stock. For stocks
+    /// without inflows the list is going to be empty.
+    ///
     let outflows: [ObjectID:[ObjectID]]
 
 //    public init() {

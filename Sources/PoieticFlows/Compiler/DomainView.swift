@@ -29,6 +29,8 @@ public class DomainView {
     /// Collect names of objects.
     ///
     public func collectNames() throws -> [String:ObjectID] {
+        // TODO: Rename to "namedNodes"
+
         var names: [String: [ObjectID]] = [:]
         var issues: [ObjectID: [NodeIssue]] = [:]
         
@@ -61,6 +63,8 @@ public class DomainView {
     }
     
     public func compileExpressions(names: [String:ObjectID]) throws -> [ObjectID:BoundExpression] {
+        // TODO: Rename to "boundExpressions"
+
         var result: [ObjectID:BoundExpression] = [:]
         var issues: [ObjectID: [NodeIssue]] = [:]
         
@@ -86,8 +90,9 @@ public class DomainView {
     }
     
     public func validateInputs(nodeID: ObjectID, required: [String]) -> [NodeIssue] {
-        let incomingParams = graph.selectNeighbors(nodeID: nodeID,
-                                                   selector: FlowsMetamodel.incomingParameters)
+        // TODO: Rename to "parameterIssues"
+
+        let incomingParams = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
         let vars: Set<String> = Set(required)
         var incomingNames: Set<String> = Set()
         
@@ -120,6 +125,8 @@ public class DomainView {
     /// - Throws: `GraphCycleError` when cycle was detected.
     ///
     public func sortNodes(nodes: [ObjectID]) throws -> [Node] {
+        // TODO: Rename to "sortedNodesByParameter"
+        
         let edges: [Edge] = graph.selectEdges(FlowsMetamodel.parameterEdges)
         let sorted = try graph.topologicalSort(nodes, edges: edges)
         
@@ -135,8 +142,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
-        let hood = graph.selectNeighbors(nodeID: flowID,
-                                         selector: FlowsMetamodel.fills)
+        let hood = graph.hood(flowID, selector: FlowsMetamodel.fills)
         if let node = hood.nodes.first {
             return node.id
         }
@@ -150,8 +156,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
-        let hood = graph.selectNeighbors(nodeID: flowID,
-                                         selector: FlowsMetamodel.drains)
+        let hood = graph.hood(flowID, selector: FlowsMetamodel.drains)
         if let node = hood.nodes.first {
             return node.id
         }
@@ -160,13 +165,30 @@ public class DomainView {
         }
     }
     
+    public func stockInflows(_ stockID: ObjectID) -> [ObjectID] {
+        let stockNode = graph.node(stockID)!
+        // TODO: Do we need to check it here? We assume model is valid.
+        precondition(stockNode.type === FlowsMetamodel.Stock)
+        
+        let hood = graph.hood(stockID, selector: FlowsMetamodel.inflows)
+        return hood.nodes.map { $0.id }
+    }
+    
+    public func stockOutflows(_ stockID: ObjectID) -> [ObjectID] {
+        let stockNode = graph.node(stockID)!
+        // TODO: Do we need to check it here? We assume model is valid.
+        precondition(stockNode.type === FlowsMetamodel.Stock)
+        
+        let hood = graph.hood(stockID, selector: FlowsMetamodel.outflows)
+        return hood.nodes.map { $0.id }
+    }
+
     public func implicitFills(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.selectNeighbors(nodeID: stockID,
-                                         selector: FlowsMetamodel.implicitFills)
+        let hood = graph.hood(stockID, selector: FlowsMetamodel.implicitFills)
         
         return hood.nodes.map { $0.id }
     }
@@ -176,8 +198,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.selectNeighbors(nodeID: stockID,
-                                         selector: FlowsMetamodel.implicitDrains)
+        let hood = graph.hood(stockID, selector: FlowsMetamodel.implicitDrains)
         
         return hood.nodes.map { $0.id }
     }
