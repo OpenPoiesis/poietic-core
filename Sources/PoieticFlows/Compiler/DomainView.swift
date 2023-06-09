@@ -137,6 +137,19 @@ public class DomainView {
         return result
     }
     
+    public func sortedStocksByImplicitFlows(_ nodes: [ObjectID]) throws -> [Node] {
+        // TODO: Rename to "sortedNodesByParameter"
+        
+        let edges: [Edge] = graph.selectEdges(FlowsMetamodel.implicitFlowEdge)
+        let sorted = try graph.topologicalSort(nodes, edges: edges)
+        
+        let result: [Node] = sorted.map {
+            graph.node($0)!
+        }
+        
+        return result
+    }
+    
     public func flowFills(_ flowID: ObjectID) -> ObjectID? {
         let flowNode = graph.node(flowID)!
         // TODO: Do we need to check it here? We assume model is valid.

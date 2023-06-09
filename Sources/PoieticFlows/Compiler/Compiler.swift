@@ -9,9 +9,14 @@ import PoieticCore
 
 /// An object that compiles the model into a ``CompiledModel``.
 ///
+/// We are treating the user's design as a non-linear/graphical
+/// programming language. The compiler transforms the design to a form that
+/// can be interpreted - simulated.
+///
 /// The compiler makes sure that the model is valid, references
 /// are resolved. It resolves the order in which the nodes are
 /// to be evaluated.
+///
 ///
 public class Compiler {
     // NOTE: This class is intended to synchronise a state between a model and
@@ -62,13 +67,33 @@ public class Compiler {
         //
         let sortedNodes = try view.sortNodes(nodes: Array(expressions.keys))
         
-        // 4. Finalise and collect issues
+        // 4. Filter by node type
         // -----------------------------------------------------------------
         //
-        let stocks = sortedNodes.filter { $0.type === FlowsMetamodel.Stock }
+        let unsortedStocks = sortedNodes.filter { $0.type === FlowsMetamodel.Stock }
         let flows = sortedNodes.filter { $0.type === FlowsMetamodel.Flow }
         let auxiliaries = sortedNodes.filter { $0.type === FlowsMetamodel.Auxiliary }
+        
+        // 4. Sort stocks in order of flow dependency
+        // -----------------------------------------------------------------
+        //
+        // This step is needed for proper computation of non-negative stocks
 
+        updateImplicitFlows()
+        var stocks: [Node]
+        do {
+            let unsorted = unsortedStocks.map { $0.id }
+            let sorted = try view.sortedStocksByImplicitFlows(unsorted)
+            stocks = sorted
+        }
+        catch let error as GraphCycleError {
+            // FIXME: Handle the error
+            fatalError("Unhandled graph cycle error")
+        }
+        
+        // Finalize
+        // -----------------------------------------------------------------
+        //
         var stockComponents: [ObjectID:StockComponent] = [:]
         for stock in stocks {
             stockComponents[stock.id] = stock[StockComponent.self]!
