@@ -41,8 +41,54 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         self.state = .unstable
     }
     
+    public convenience init(fromRecord record: ForeignRecord,
+                            metamodel: Metamodel.Type,
+                            components: [String:ForeignRecord]=[:]) throws {
+        // TODO: Handle wrong IDs
+        let id: ObjectID = try record.IDValue(for: "object_id")
+        let snapshotID: SnapshotID = try record.IDValue(for: "snapshot_id")
+        
+        let type: ObjectType?
+        
+        if let typeName = try record.stringValueIfPresent(for: "type") {
+            if let objectType = metamodel.objectType(name: typeName) {
+                type = objectType
+            }
+            else {
+                fatalError("Unknown object type: \(typeName)")
+            }
+        }
+        else {
+            type = nil
+        }
+        
+        var componentInstances: [any Component] = []
+        
+        for (name, record) in components {
+            let type: PersistableComponent.Type = persistableComponent(name: name)!
+            let component = try type.init(record: record)
+            componentInstances.append(component)
+        }
+
+        self.init(id: id,
+                  snapshotID: snapshotID,
+                  type: type,
+                  components: componentInstances)
+    }
+    
+    /// Create a foreign record from the snapshot.
+    ///
+    public func asForeignRecord() -> ForeignRecord {
+        let record = ForeignRecord([
+            "object_id": ForeignValue(id),
+            "snapshot_id": ForeignValue(snapshotID),
+            "type": ForeignValue(type?.name ?? "none"),
+        ])
+        return record
+    }
+    
     open var description: String {
-        return "Object(id: \(id), ssid: \(snapshotID), type:\(type?.name))"
+        return "Object(id: \(id), ssid: \(snapshotID), type:\(String(describing: type?.name)))"
     }
     
     func freeze() {

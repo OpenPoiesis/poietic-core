@@ -6,10 +6,21 @@
 //
 
 // TODO: Use ValueProtocol and then Something.asValue
+// TODO: IMPORTANT: Read the following note.
+// IMPORTANT NOTE:
+//
+// The value protocol has been designed originally to serve two purposes:
+// - internal representation of a value
+// - foreign value – value imported/exported
+//
+// The internal value should be represented as enum.
+// The foreign value has been separated, making this protocol irrelevant in its
+// original form.
+// 
 
 /// Protocol for objects that can be represented as ``Value``.
 ///
-public protocol ValueProtocol: Hashable {
+public protocol ValueProtocol: Hashable, Codable {
     /// Representation of the receiver as a ``Value``
     /// 
 //    func asValue() -> Value

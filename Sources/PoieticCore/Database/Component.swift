@@ -5,14 +5,15 @@
 //  Created by Stefan Urbanek on 11/08/2022.
 //
 
+
+/// Protocol for object components.
+///
+/// Component is a collection of attributes of an object.
+///
+/// The protocol has no requirements at this moment. It it serves as a marker.
+///
 public protocol Component {
 }
-
-public protocol PersistableComponent: Component {
-    var persistableTypeName: String { get }
-    init(record: ForeignRecord) throws
-}
-
 
 /// Protocol for components that can be instantiated without any parameters
 /// and will be set-up by component's default values.
@@ -20,6 +21,42 @@ public protocol PersistableComponent: Component {
 public protocol DefaultValueComponent: Component {
     init()
 }
+
+public protocol InspectableComponent: Component {
+    var attributeKeys: [AttributeKey] { get }
+    func attribute(forKey key: AttributeKey) -> (any AttributeValue)?
+    mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey)
+}
+
+/// Protocol for components that can be persisted in a store or transferred
+/// from/to a foreign environment.
+///
+public protocol PersistableComponent: Component {
+    var componentName: String { get }
+    
+    /// Create a component from a foreign record.
+    init(record: ForeignRecord) throws
+    func asForeignRecord() -> ForeignRecord
+}
+
+var _PersistableComponentRegistry: [String:PersistableComponent.Type] = [:]
+
+/// Register a persistable component by name.
+///
+/// - SeeAlso: `persistableComponent()`
+///
+public func registerPersistableComponent(name: String,
+                                         type: PersistableComponent.Type) {
+    _PersistableComponentRegistry[name] = type
+}
+/// Get a class of persistable component by name.
+///
+/// - SeeAlso: `registerPersistableComponent()`
+///
+public func persistableComponent(name: String) -> PersistableComponent.Type? {
+    return _PersistableComponentRegistry[name]
+}
+
 
 public struct ComponentSet {
     var components: [Component] = []

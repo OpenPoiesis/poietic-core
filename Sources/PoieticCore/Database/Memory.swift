@@ -12,7 +12,7 @@ public struct ConstraintViolationError: Error {
     let violations: [ConstraintViolation]
 }
 
-class ObjectMemory {
+public class ObjectMemory {
     var identityGenerator: SequentialIDGenerator
    
     var constraints: [Constraint]
@@ -47,7 +47,7 @@ class ObjectMemory {
 
     // var metamodel:
     
-    init(constraints: [Constraint] = []) {
+    public init(constraints: [Constraint] = []) {
         self.identityGenerator = SequentialIDGenerator()
         self._stableFrames = [:]
         self._mutableFrames = [:]
@@ -60,10 +60,66 @@ class ObjectMemory {
         _stableFrames[firstFrame.id] = firstFrame
         self.currentHistoryIndex = versionHistory.startIndex
     }
+    
+    // TODO: Use Store/Writer protocol
+    func write(writer: JSONFilePackageWriter) {
+        // TODO: This is preliminary implementation, which is not fully normalized
+        // Collections to be written
+        //
+        var framesetsOut: [ForeignRecord] = []
+        var framesOut: [ForeignRecord] = []
+        var snapshotsOut: [ForeignRecord] = []
+        var componentsOut: [ForeignRecord] = []
+        
+        // 1. Write Snapshots
+        // ----------------------------------------------------------------
+        
+        for snapshot in snapshots {
+            let record = snapshot.asForeignRecord()
+            snapshotsOut.append(record)
+            
+//            for component in snapshot.
+            
+            
+        }
+
+        // 2. Write Stable Frames
+        // ----------------------------------------------------------------
+        // Unstable frames should not be persisted.
+        
+        for frame in frames {
+            let ids: [SnapshotID] = frame.snapshots.map { $0.snapshotID }
+            let record: ForeignRecord = ForeignRecord([
+                "frame_id": ForeignValue(frame.id),
+                "snapshots": ForeignValue(ids: ids),
+            ])
+            framesOut.append(record)
+        }
+        // 3. Write Framesets
+        // ----------------------------------------------------------------
+        // We have only one frameset at the moment - undo history
+        // TODO: What about current frame?
+        let historyRecord = ForeignRecord([
+            "name": "undo",
+            "frames": ForeignValue(ids: undoableFrames)
+        ])
+        framesetsOut.append(historyRecord)
+        
+        
+        // Final. Write output
+        // ----------------------------------------------------------------
+        writer.replaceRecords(type: "snapshots", records: snapshotsOut)
+        writer.replaceRecords(type: "frames", records: framesOut)
+        writer.replaceRecords(type: "framesets", records: framesetsOut)
+        writer.replaceRecords(type: "components", records: framesetsOut)
+
+        
+
+    }
         
     /// Create an ID if needed or use a proposed ID.
     ///
-    func createID(_ proposedID: ID? = nil) -> ID {
+    public func createID(_ proposedID: ID? = nil) -> ID {
         if let id = proposedID {
             self.identityGenerator.markUsed(id)
             return id
@@ -73,11 +129,11 @@ class ObjectMemory {
         }
     }
     
-    var frames: any Sequence<StableFrame> {
-        return _stableFrames.values
+    public var frames: [StableFrame] {
+        return Array(_stableFrames.values)
     }
     
-    func frame(_ id: FrameID) -> StableFrame? {
+    public func frame(_ id: FrameID) -> StableFrame? {
         return _stableFrames[id]
     }
     
@@ -86,7 +142,7 @@ class ObjectMemory {
     ///
     /// The order of the returned snapshots is arbitrary.
     ///
-    var snapshots: [ObjectSnapshot] {
+    public var snapshots: [ObjectSnapshot] {
         // TODO: Change this to an iterator
         var seen: Set<SnapshotID> = Set()
         var result: [ObjectSnapshot] = []
@@ -105,11 +161,11 @@ class ObjectMemory {
     }
     
     
-    func containsFrame(_ id: FrameID) -> Bool {
+    public func containsFrame(_ id: FrameID) -> Bool {
         return _stableFrames[id] != nil
     }
     
-    func createFrame(id: FrameID? = nil) -> MutableFrame {
+    public func createFrame(id: FrameID? = nil) -> MutableFrame {
         let actualID = createID(id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
@@ -121,7 +177,7 @@ class ObjectMemory {
         return frame
     }
     
-    func deriveFrame(original originalID: FrameID? = nil,
+    public func deriveFrame(original originalID: FrameID? = nil,
                      id: FrameID? = nil) -> MutableFrame {
         let actualID = createID(id)
         guard _stableFrames[actualID] == nil
@@ -141,7 +197,7 @@ class ObjectMemory {
         return derived
     }
     
-    func removeFrame(_ id: FrameID) {
+    public func removeFrame(_ id: FrameID) {
         if _stableFrames[id] != nil {
             _stableFrames[id] = nil
         }
@@ -152,7 +208,7 @@ class ObjectMemory {
             fatalError("Removing frame failed: unknown frame ID \(id)")
         }
     }
-    func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
+    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
         precondition(frame.memory === self,
                      "Trying to accept a frame from a different memory")
         precondition(frame.state.isMutable,
@@ -260,14 +316,14 @@ class ObjectMemory {
         _mutableFrames[frame.id] = nil
     }
     
-    func undo(to frameID: FrameID) {
+    public func undo(to frameID: FrameID) {
         guard let index = versionHistory.firstIndex(of: frameID) else {
             fatalError("Trying to undo to frame \(frameID), which does not exist in the history")
         }
         assert(index < currentHistoryIndex!)
         currentHistoryIndex = index
     }
-    func redo(to frameID: FrameID) {
+    public func redo(to frameID: FrameID) {
         guard let index = versionHistory.firstIndex(of: frameID) else {
             fatalError("Trying to redo to frame \(frameID), which does not exist in the history")
         }
