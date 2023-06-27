@@ -8,16 +8,29 @@ import PoieticCore
 
 /// Component representing a position of a node in a canvas.
 ///
-public struct PositionComponent: Component, PersistableComponent, CustomStringConvertible {
+public struct PositionComponent: Component,
+                                 CustomStringConvertible {
+    
+    public static var componentDescription = ComponentDescription(
+        name: "Position",
+        attributes: [
+            AttributeDescription(name: "x", type: .double),
+            AttributeDescription(name: "y", type: .double),
+        ]
+    )
     // TODO: Consider renaming this to CanvasComponent or GraphicsComponent
     
-    public var persistableTypeName: String { "Position" }
+    public var componentName: String { "Position" }
     
     /// Flag whether the value of the node can be negative.
     var position: Point = Point()
     
-    public init(x: Double = 0,
-                y: Double = 0) {
+    public init() {
+        self.init(x: 0.0, y: 0.0)
+    }
+    
+    public init(x: Double,
+                y: Double) {
         self.position = Point(x: x, y: y)
     }
     
@@ -26,7 +39,15 @@ public struct PositionComponent: Component, PersistableComponent, CustomStringCo
         let y = try record.doubleValue(for: "y")
         self.position = Point(x: x, y: y)
     }
-    
+   
+    public func foreignRecord() -> PoieticCore.ForeignRecord {
+        let record = ForeignRecord([
+            "x": ForeignValue(position.x),
+            "y": ForeignValue(position.y),
+        ])
+        return record
+    }
+
     public var attributeKeys: [AttributeKey] {
         [
             "x",

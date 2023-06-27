@@ -174,7 +174,8 @@ final class TestSolver: XCTestCase {
                          origin: sadFlow, target: sad, components: [])
 
         let compiled: CompiledModel = try compiler.compile()
-        let outflows = compiled.outflows[source]
+        // TODO: Needed?
+        // let outflows = compiled.outflows[source]
         
         // We require that the stocks will be computed in the following order:
         // 1. source

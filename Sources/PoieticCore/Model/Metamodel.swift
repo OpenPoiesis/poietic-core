@@ -40,10 +40,16 @@ public protocol Metamodel: AnyObject {
     /// List of components that are available within the domain described by
     /// this metamodel.
     static var components: [Component.Type] { get }
-    
+
     /// List of object types allowed in the model.
     ///
     static var objectTypes: [ObjectType] { get }
     
     static var variables: [BuiltinVariable] { get }
+}
+
+extension Metamodel {
+    public static func objectType(name: String) -> ObjectType? {
+        return objectTypes.first { $0.name == name}
+    }
 }

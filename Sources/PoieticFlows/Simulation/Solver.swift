@@ -266,7 +266,7 @@ public class Solver {
         // FIXME: IMPORTANT: This is failing when not sorted, why? (testNonNegativeTwo)
 //        for compiledStock in compiledModel.stocks.sorted( by: { $0.node.id < $1.node.id}) {
         for stock in compiledModel.stocks {
-            let delta = try compute(stock: stock, at: time, with: &estimate)
+            let delta = compute(stock: stock, at: time, with: &estimate)
             estimate[stock] = estimate[stock]! + delta
             deltaVector[stock] = delta
         }

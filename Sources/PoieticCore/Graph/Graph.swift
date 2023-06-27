@@ -54,7 +54,7 @@ public class Edge: ObjectSnapshot {
     }
 
     public override func derive(snapshotID: SnapshotID,
-                       objectID: ObjectID? = nil) -> ObjectSnapshot {
+                                objectID: ObjectID? = nil) -> ObjectSnapshot {
         // FIXME: This breaks Edge
         return Edge(id: objectID ?? self.id,
                     snapshotID: snapshotID,

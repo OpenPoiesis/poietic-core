@@ -43,11 +43,11 @@ extension Graph {
         
         var sorted: [ObjectID] = []
         let nodes: [ObjectID] = toSort
-
+        
         // Create a copy
         var edges = edges
         
-        var targets = Set(edges.map {$0.target})
+        let targets = Set(edges.map {$0.target})
         // S ← Set of all nodes with no incoming edge
         var sources: [ObjectID] = nodes.filter { !targets.contains($0) }
 

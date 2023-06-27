@@ -7,7 +7,7 @@
 
 public enum ComponentRequirement {
     case required(Component.Type)
-    case defaultValue(DefaultValueComponent.Type)
+    case defaultValue(Component.Type)
 }
 
 public class ObjectType {
@@ -23,7 +23,7 @@ public class ObjectType {
         self.components = components
     }
     
-    public var defaultValueComponents: [DefaultValueComponent.Type] {
+    public var defaultValueComponents: [Component.Type] {
         let components = self.components.compactMap {
             if case let .defaultValue(component) = $0 {
                 return component

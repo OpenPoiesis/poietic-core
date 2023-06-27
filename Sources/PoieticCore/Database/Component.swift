@@ -13,47 +13,45 @@
 /// The protocol has no requirements at this moment. It it serves as a marker.
 ///
 public protocol Component {
-}
-
-/// Protocol for components that can be instantiated without any parameters
-/// and will be set-up by component's default values.
-///
-public protocol DefaultValueComponent: Component {
-    init()
-}
-
-public protocol InspectableComponent: Component {
-    var attributeKeys: [AttributeKey] { get }
-    func attribute(forKey key: AttributeKey) -> (any AttributeValue)?
-    mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey)
-}
-
-/// Protocol for components that can be persisted in a store or transferred
-/// from/to a foreign environment.
-///
-public protocol PersistableComponent: Component {
-    var componentName: String { get }
+    static var componentDescription: ComponentDescription { get }
     
     /// Create a component from a foreign record.
+    ///
+    /// Throws an error if the foreign record contains malformed data.
     init(record: ForeignRecord) throws
-    func asForeignRecord() -> ForeignRecord
+    
+    /// Create a new component with default component values.
+    init()
+    
+    /// Create a foreign record from the component.
+    ///
+    /// Default implementation is provided and creates an empty record.
+    ///
+    func foreignRecord() -> ForeignRecord
 }
 
-var _PersistableComponentRegistry: [String:PersistableComponent.Type] = [:]
+extension Component {
+    public var componentName: String {
+        Self.componentDescription.name
+    }
+}
+
+// TODO: REMOVE the following
+var _PersistableComponentRegistry: [String:Component.Type] = [:]
 
 /// Register a persistable component by name.
 ///
 /// - SeeAlso: `persistableComponent()`
 ///
 public func registerPersistableComponent(name: String,
-                                         type: PersistableComponent.Type) {
+                                         type: Component.Type) {
     _PersistableComponentRegistry[name] = type
 }
 /// Get a class of persistable component by name.
 ///
 /// - SeeAlso: `registerPersistableComponent()`
 ///
-public func persistableComponent(name: String) -> PersistableComponent.Type? {
+public func persistableComponent(name: String) -> Component.Type? {
     return _PersistableComponentRegistry[name]
 }
 
@@ -168,4 +166,16 @@ extension ComponentSet: ExpressibleByArrayLiteral {
     public typealias ArrayLiteralElement = Component
     
     
+}
+
+extension ComponentSet: Collection {
+    public typealias Index = Array<any Component>.Index
+    public var startIndex: Index { return components.startIndex }
+    public var endIndex: Index { return components.endIndex }
+    public func index(after index: Index) -> Index {
+        return components.index(after: index)
+    }
+    public subscript(index: Index) -> any Component {
+        return components[index]
+    }
 }

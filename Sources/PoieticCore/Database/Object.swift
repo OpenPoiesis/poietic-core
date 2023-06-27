@@ -65,7 +65,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         var componentInstances: [any Component] = []
         
         for (name, record) in components {
-            let type: PersistableComponent.Type = persistableComponent(name: name)!
+            let type: Component.Type = persistableComponent(name: name)!
             let component = try type.init(record: record)
             componentInstances.append(component)
         }
@@ -82,6 +82,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         let record = ForeignRecord([
             "object_id": ForeignValue(id),
             "snapshot_id": ForeignValue(snapshotID),
+            "structural_type": "object",
             "type": ForeignValue(type?.name ?? "none"),
         ])
         return record

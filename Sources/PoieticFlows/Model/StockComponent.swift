@@ -10,9 +10,17 @@ import PoieticCore
 
 /// A node representing a stock – accumulator, container, reservoir, a pool.
 ///
-public struct StockComponent: DefaultValueComponent, PersistableComponent, CustomStringConvertible {
-    public var persistableTypeName: String { "Stock" }
-
+public struct StockComponent: Component,
+                              CustomStringConvertible {
+    
+    public static var componentDescription = ComponentDescription(
+        name: "Stock",
+        attributes: [
+            AttributeDescription(name: "allowsNegative", type: .bool),
+            AttributeDescription(name: "delayedInflow", type: .bool),
+        ]
+    )
+    
     /// Flag whether the value of the node can be negative.
     var allowsNegative: Bool = false
     
@@ -38,29 +46,44 @@ public struct StockComponent: DefaultValueComponent, PersistableComponent, Custo
     }
     
     public init(record: ForeignRecord) throws {
-        self.allowsNegative = try record.boolValue(for: "allowsNegative")
-        self.delayedInflow = try record.boolValue(for: "delayedInflow")
+        self.allowsNegative = try record.boolValue(for: "allows_negative")
+        self.delayedInflow = try record.boolValue(for: "delayed_inflow")
+    }
+    public func foreignRecord() -> ForeignRecord {
+        let record = ForeignRecord([
+            "allows_negative": ForeignValue(allowsNegative),
+            "delayed_inflow": ForeignValue(delayedInflow),
+        ])
+        return record
     }
 
+    public func asForeignRecord() -> ForeignRecord {
+        let record = ForeignRecord([
+            "allows_negative": ForeignValue(allowsNegative),
+            "delayed_inflow": ForeignValue(delayedInflow),
+        ])
+        return record
+    }
+    
     public var attributeKeys: [AttributeKey] {
         [
-            "allowsNegative",
-            "delayedInflow"
+            "allows_negative",
+            "delayed_inflow"
         ]
     }
     
     public func attribute(forKey key: AttributeKey) -> (any AttributeValue)? {
         switch key {
-        case "allowsNegative": return allowsNegative
-        case "delayedInflow": return delayedInflow
+        case "allows_negative": return allowsNegative
+        case "delayed_inflow": return delayedInflow
         default: return nil
         }
     }
     
     public mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey) {
         switch key {
-        case "allowsNegative": self.allowsNegative = value.boolValue()!
-        case "delayedInflow": self.delayedInflow = value.boolValue()!
+        case "allows_negative": self.allowsNegative = value.boolValue()!
+        case "delayed_inflow": self.delayedInflow = value.boolValue()!
         default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
         }
     }

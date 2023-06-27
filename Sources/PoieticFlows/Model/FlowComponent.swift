@@ -13,8 +13,14 @@ import PoieticCore
 /// is an inflow - stock from which the node drains, and another stock is an
 /// outflow - stock to which the node fills.
 ///
-public struct FlowComponent: DefaultValueComponent, PersistableComponent, CustomStringConvertible {
-    public var persistableTypeName: String { "Flow" }
+public struct FlowComponent: Component,
+                             CustomStringConvertible {
+    public static var componentDescription = ComponentDescription(
+        name: "Flow",
+        attributes: [
+            AttributeDescription(name: "priority", type: .int),
+        ]
+    )
     
     /// Default priority – when a priority is not specified, then the priority
     /// is in the order of Flow nodes created.
@@ -46,6 +52,12 @@ public struct FlowComponent: DefaultValueComponent, PersistableComponent, Custom
     public init(record: ForeignRecord) throws {
         self.priority = try record.intValue(for: "priority")
     }
+    public func foreignRecord() -> ForeignRecord {
+        let record = ForeignRecord([
+            "priority": ForeignValue(priority),
+        ])
+        return record
+    }
 
     public var attributeKeys: [AttributeKey] {
         ["priority"]
@@ -67,6 +79,7 @@ public struct FlowComponent: DefaultValueComponent, PersistableComponent, Custom
         default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
         }
     }
+    
 
 }
 

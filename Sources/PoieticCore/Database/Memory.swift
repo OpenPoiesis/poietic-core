@@ -61,62 +61,6 @@ public class ObjectMemory {
         self.currentHistoryIndex = versionHistory.startIndex
     }
     
-    // TODO: Use Store/Writer protocol
-    func write(writer: JSONFilePackageWriter) {
-        // TODO: This is preliminary implementation, which is not fully normalized
-        // Collections to be written
-        //
-        var framesetsOut: [ForeignRecord] = []
-        var framesOut: [ForeignRecord] = []
-        var snapshotsOut: [ForeignRecord] = []
-        var componentsOut: [ForeignRecord] = []
-        
-        // 1. Write Snapshots
-        // ----------------------------------------------------------------
-        
-        for snapshot in snapshots {
-            let record = snapshot.asForeignRecord()
-            snapshotsOut.append(record)
-            
-//            for component in snapshot.
-            
-            
-        }
-
-        // 2. Write Stable Frames
-        // ----------------------------------------------------------------
-        // Unstable frames should not be persisted.
-        
-        for frame in frames {
-            let ids: [SnapshotID] = frame.snapshots.map { $0.snapshotID }
-            let record: ForeignRecord = ForeignRecord([
-                "frame_id": ForeignValue(frame.id),
-                "snapshots": ForeignValue(ids: ids),
-            ])
-            framesOut.append(record)
-        }
-        // 3. Write Framesets
-        // ----------------------------------------------------------------
-        // We have only one frameset at the moment - undo history
-        // TODO: What about current frame?
-        let historyRecord = ForeignRecord([
-            "name": "undo",
-            "frames": ForeignValue(ids: undoableFrames)
-        ])
-        framesetsOut.append(historyRecord)
-        
-        
-        // Final. Write output
-        // ----------------------------------------------------------------
-        writer.replaceRecords(type: "snapshots", records: snapshotsOut)
-        writer.replaceRecords(type: "frames", records: framesOut)
-        writer.replaceRecords(type: "framesets", records: framesetsOut)
-        writer.replaceRecords(type: "components", records: framesetsOut)
-
-        
-
-    }
-        
     /// Create an ID if needed or use a proposed ID.
     ///
     public func createID(_ proposedID: ID? = nil) -> ID {

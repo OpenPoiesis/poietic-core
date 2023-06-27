@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,6 +10,9 @@ let package = Package(
         .library(
             name: "Poietic",
             targets: ["PoieticCore", "PoieticFlows"]),
+        .executable(
+            name: "poietic",
+            targets: ["PoieticTool"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,6 +24,9 @@ let package = Package(
         .target(
             name: "PoieticCore",
             dependencies: []),
+        .executableTarget(
+            name: "PoieticTool",
+            dependencies: ["PoieticCore"]),
         .target(
             name: "PoieticFlows",
             dependencies: ["PoieticCore"]),

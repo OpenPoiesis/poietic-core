@@ -8,13 +8,6 @@
 import XCTest
 @testable import PoieticCore
 
-struct TestComponent: Component {
-    let text: String
-}
-
-let TestObjectType = ObjectType(name: "Test",
-                                structuralType: Node.self,
-                                components: [])
 
 final class TestObjectMemory: XCTestCase {
     func testEmpty() throws {

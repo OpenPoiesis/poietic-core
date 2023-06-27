@@ -1,208 +1,216 @@
 //
-//  File.swift
-//  
+//  Value.swift
 //
-//  Created by Stefan Urbanek on 2020/12/14.
+//
+//  Created by Stefan Urbanek on 26/06/2023.
 //
 
-// TODO: Use ValueProtocol and then Something.asValue
-// TODO: IMPORTANT: Read the following note.
-// IMPORTANT NOTE:
-//
-// The value protocol has been designed originally to serve two purposes:
-// - internal representation of a value
-// - foreign value – value imported/exported
-//
-// The internal value should be represented as enum.
-// The foreign value has been separated, making this protocol irrelevant in its
-// original form.
-// 
 
-/// Protocol for objects that can be represented as ``Value``.
+/// Scalar value representation. The type can represent one of the
+/// following values:
 ///
-public protocol ValueProtocol: Hashable, Codable {
-    /// Representation of the receiver as a ``Value``
-    /// 
-//    func asValue() -> Value
-    var valueType: ValueType { get }
+/// - `bool` – a boolean value
+/// - `int` – an integer value
+/// - `double` – a double precision floating point number
+/// - `string` – a string representing a valid identifier
+///
+public enum Value: Equatable, Hashable, Codable {
+    /// A string value representation
+    case string(String)
     
-    /// Return bool equivalent of the object, if possible.
-    func boolValue() -> Bool?
-
-    /// Return integer equivalent of the object, if possible.
-    func intValue() -> Int?
-
-    /// Return double floating point equivalent of the object, if possible.
-    func doubleValue() -> Double?
-
-    /// Return string equivalent of the object, if possible.
-    func stringValue() -> String?
+    /// A boolean value representation
+    case bool(Bool)
     
-    // FIXME: Replace this with Equatable
-    /// Tests whether two values are equal.
-    ///
-    /// Two objects conforming to value protocol are equal if they
-    /// are of the same type and if their values are equal.
-    ///
-    func isEqual(to other: any ValueProtocol) -> Bool
-    //    func convert(to otherType: ValueType) -> Value?
-}
+    /// An integer value representation
+    case int(Int)
+    
+    /// A double precision floating point number value representation
+    case double(Double)
+    
+    // TODO: case point2d(Double, Double)
+    // TODO: case point3d(Double, Double, Double)
+    // TODO: case date(Date)
 
-extension ValueProtocol {
-    public func isEqual(to other: any ValueProtocol) -> Bool {
-        guard self.valueType == other.valueType else {
-            return false
+    
+    /// Initialise value from any object and match type according to the
+    /// argument type. If no type can be matched, then returns nil.
+    ///
+    /// Matches to built-in types:
+    ///
+    /// - string: String
+    /// - bool: Bool
+    /// - int: Int
+    /// - double: Double
+    ///
+    public init?(any value: Any) {
+        if let value = value as? Int {
+            self = .int(value)
         }
-        switch self.valueType {
-        case .bool: return self.boolValue() == other.boolValue()
-        case .int: return self.intValue() == other.intValue()
-        case .double: return self.doubleValue() == other.doubleValue()
-        case .string: return self.stringValue() == other.stringValue()
+        else if let value = value as? String {
+            self = .string(value)
+        }
+        else if let value = value as? Bool {
+            self = .bool(value)
+        }
+        else if let value = value as? Double {
+            self = .double(value)
+        }
+        else {
+            return nil
         }
     }
-}
-
-/// ValueType specifies a data type of a value that is used in interfaces.
-///
-public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
-    case bool
-    case int
-    case double
-    case string
-    // TODO: case date
     
-    /// Returns `true` if the value of this type is convertible to
-    /// another type.
-    /// Conversion might not be precise, just possible.
+    
+    public var valueType: ValueType {
+        switch self {
+        case .string: return .string
+        case .bool: return .bool
+        case .int: return .int
+        case .double: return .double
+        }
+    }
+    
+    // Note: When changing the following conversion methods,
+    // check ValueType.isConvertible method for maintaining consistency
+    //
+    
+    /// Get a boolean value. String is converted to boolean when it contains
+    /// values `true` or `false`. Int and float can not be converted to
+    /// booleans.
     ///
-    public func isConvertible(to other: ValueType) -> Bool{
+    public func boolValue() -> Bool? {
+        switch self {
+        case .string(let value): return Bool(value)
+        case .bool(let value): return value
+        case .int(_): return nil
+        case .double(_): return nil
+        }
+    }
+    
+    /// Get an integer value. All types can be attempted to be converted to an
+    /// integer except boolean.
+    ///
+    public func intValue() -> Int? {
+        switch self {
+        case .string(let value): return Int(value)
+        case .bool(_): return nil
+        case .int(let value): return value
+        case .double(let value): return Int(value)
+        }
+    }
+
+    /// Get a floating point value. All types can be attempted to be converted
+    /// to a floating point value except boolean.
+    ///
+    public func doubleValue() -> Double? {
+        switch self {
+        case .string(let value): return Double(value)
+        case .bool(_): return nil
+        case .int(let value): return Double(value)
+        case .double(let value): return value
+        }
+    }
+    
+    /// Get a string value. Any type can be converted to a string.
+    ///
+    public func stringValue() -> String {
+        switch self {
+        case .string(let value): return String(value)
+        case .bool(let value): return String(value)
+        case .int(let value): return String(value)
+        case .double(let value): return String(value)
+        }
+    }
+
+    /// Get a type erased value.
+    ///
+    public func anyValue() -> Any {
+        switch self {
+        case .string(let value): return String(value)
+        case .bool(let value): return Bool(value)
+        case .int(let value): return Int(value)
+        case .double(let value): return Float(value)
+        }
+    }
+
+    /// `true` if the value is considered empty empty.
+    ///
+    /// The respective types and their values that are considered to be empty:
+    ///
+    /// - `string` value is considered empty if the length of
+    ///    a string is zero
+    /// - `int` and `double` numeric value is considered empty if the value is
+    ///    equal to zero
+    /// - `bool` value is never considered empty.
+    ///
+    public var isEmpty: Bool {
+        return stringValue() == "" || intValue() == 0 || doubleValue() == 0.0
+    }
+    
+    /// Converts value to a value of another type, if possible. Caller is
+    /// advised to call ``ValueType.isConvertible()`` to prevent potential
+    /// convention errors.
+    ///
+    public func convert(to otherType:ValueType) -> Value? {
+        switch (otherType) {
+        case .int: return self.intValue().map { .int($0) } ?? nil
+        case .string: return .string(self.stringValue())
+        case .bool: return self.boolValue().map { .bool($0) } ?? nil
+        case .double: return self.doubleValue().map { .double($0) } ?? nil
+            // FIXME: Suuport point
+        case .point: fatalError("Point not supported")
+        }
+    }
+    
+    /// Compare a value to other value. Returns true if the other value is in
+    /// increasing order compared to this value.
+    ///
+    /// Only values of the same type can be compared. If the types are different,
+    /// then the result is undefined.
+    ///
+    public func isLessThan(other: Value) -> Bool {
         switch (self, other) {
-        // Bool to string, not to int or float
-        case (.bool,   .string): return true
-        case (.bool,   .bool):   return true
-        case (.bool,   .int):    return false
-        case (.bool,   .double): return false
-
-        // Int to all except bool
-        case (.int,    .string): return true
-        case (.int,    .bool):   return false
-        case (.int,    .int):    return true
-        case (.int,    .double): return true
-
-        // Float to all except bool
-        case (.double, .string): return true
-        case (.double, .bool):   return false
-        case (.double, .int):    return true
-        case (.double, .double): return true
-
-        // String to all
-        case (.string, .string): return true
-        case (.string, .bool):   return true
-        case (.string, .int):    return true
-        case (.string, .double): return true
-        }
-    }
-    
-    public var description: String {
-        switch self {
-        case .bool: return "bool"
-        case .int: return "int"
-        case .double: return "double"
-        case .string: return "string"
-        }
-    }
-    /// True if the type is either `int` or `float`
-    public var isNumeric: Bool {
-        switch self {
-        case .double: return true
-        case .int: return true
+        case let (.int(lhs), .int(rhs)): return lhs < rhs
+        case let (.double(lhs), .double(rhs)): return lhs < rhs
+        case let (.string(lhs), .string(rhs)): return lhs < rhs
         default: return false
         }
-    }    
-}
-
-extension String: ValueProtocol {
-    public var valueType: ValueType { .string }
-
-    public func boolValue() -> Bool? {
-        return Bool(self)
     }
-    public func intValue() -> Int? {
-        return Int(self)
-    }
-    public func doubleValue() -> Double? {
-        return Double(self)
-    }
-    public func stringValue() -> String? {
-        return self
-    }
-}
-
-extension Int: ValueProtocol {
-    public var valueType: ValueType { .int }
     
-    public func boolValue() -> Bool? {
-        return nil
-    }
-    public func intValue() -> Int? {
+    /// Returns itself. Conformance to the `ValueProtocol`.
+    public func asValue() -> Value {
         return self
-    }
-    public func doubleValue() -> Double? {
-        return Double(self)
-    }
-    public func stringValue() -> String? {
-        return String(self)
     }
 }
 
-extension Bool: ValueProtocol {
-    public var valueType: ValueType { .bool }
-
-    public func boolValue() -> Bool? {
-        return self
-    }
-    public func intValue() -> Int? {
-        return nil
-    }
-    public func doubleValue() -> Double? {
-        return nil
-    }
-    public func stringValue() -> String? {
-        return String(self)
+extension Value: CustomStringConvertible {
+    public var description: String {
+        return stringValue()
     }
 }
 
-extension Double: ValueProtocol {
-    public var valueType: ValueType { .double }
-
-    public func boolValue() -> Bool? {
-        return nil
-    }
-    public func intValue() -> Int? {
-        return Int(self)
-    }
-    public func doubleValue() -> Double? {
-        return self
-    }
-    public func stringValue() -> String? {
-        return String(self)
+extension Value: ExpressibleByStringLiteral {
+    public init(stringLiteral: String) {
+        self = .string(stringLiteral)
     }
 }
 
-extension Float: ValueProtocol {
-    public var valueType: ValueType { .double }
+extension Value: ExpressibleByBooleanLiteral {
+    public init(booleanLiteral: Bool) {
+        self = .bool(booleanLiteral)
+    }
+    
+}
 
-    public func boolValue() -> Bool? {
-        return nil
+extension Value: ExpressibleByIntegerLiteral {
+    public init(integerLiteral: Int) {
+        self = .int(integerLiteral)
     }
-    public func intValue() -> Int? {
-        return Int(self)
-    }
-    public func doubleValue() -> Double? {
-        return Double(self)
-    }
-    public func stringValue() -> String? {
-        return String(self)
+}
+
+extension Value: ExpressibleByFloatLiteral {
+    public init(floatLiteral: Float) {
+        self = .double(Double(floatLiteral))
     }
 }
 

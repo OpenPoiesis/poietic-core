@@ -86,7 +86,8 @@ public class Compiler {
             let sorted = try view.sortedStocksByImplicitFlows(unsorted)
             stocks = sorted
         }
-        catch let error as GraphCycleError {
+        // catch let error as GraphCycleError {
+        catch is GraphCycleError {
             // FIXME: Handle the error
             fatalError("Unhandled graph cycle error")
         }
