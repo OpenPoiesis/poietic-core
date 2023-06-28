@@ -16,10 +16,6 @@ struct TestComponent: Component {
         ]
     )
     
-    init(record: PoieticCore.ForeignRecord) throws {
-        fatalError("Test component cannot be created from a foreign record")
-    }
-    
     init(text: String) {
         self.text = text
     }
@@ -28,20 +24,29 @@ struct TestComponent: Component {
         fatalError("Test component cannot be initialized as empty")
     }
     
-    func foreignRecord() -> PoieticCore.ForeignRecord {
-        fatalError("Test component cannot be converted to a foreign record")
-    }
-    
     var componentName: String = "Test"
     
-    let text: String
+    var text: String
+    
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "text": return ForeignValue(text)
+        default: return nil
+        }
+    }
+    
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "text": self.text = value.stringValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
+    }
 }
 
 struct IntegerComponent: Component, Equatable {
-    func foreignRecord() -> PoieticCore.ForeignRecord {
-        fatalError("Test Integer component cannot be converted to a foreign record")
-    }
-    
     static var componentDescription = ComponentDescription(
         name: "Integer",
         attributes: [
@@ -49,7 +54,7 @@ struct IntegerComponent: Component, Equatable {
         ]
     )
 
-    let value: Int
+    var value: Int
     
     init() {
         self.value = 0
@@ -59,14 +64,21 @@ struct IntegerComponent: Component, Equatable {
         self.value = value
     }
     
-    init(record: PoieticCore.ForeignRecord) throws {
-        self.value = try record.intValueIfPresent(for: "value") ?? 0
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "value": return ForeignValue(value)
+        default: return nil
+        }
     }
     
-    func asForeignRecord() -> ForeignRecord {
-        return ForeignRecord([
-            "value": ForeignValue(value)
-        ])
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "value": self.value = value.intValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
     }
 }
 

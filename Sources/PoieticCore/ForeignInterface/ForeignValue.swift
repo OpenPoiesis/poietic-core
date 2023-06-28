@@ -6,14 +6,14 @@
 //
 
 
-public enum ForeignScalar: Equatable {
+public enum ForeignScalar: Equatable, CustomStringConvertible {
     case int(Int)
     case double(Double)
     case string(String)
     case bool(Bool)
     case id(ObjectID)
 
-    var intValue: Int? {
+    public var intValue: Int? {
         switch self {
         case let .int(value): return value
         case let .double(value): return Int(value)
@@ -23,7 +23,7 @@ public enum ForeignScalar: Equatable {
         }
     }
     
-    var doubleValue: Double? {
+    public var doubleValue: Double? {
         switch self {
         case .int(let value): return Double(value)
         case .double(let value): return value
@@ -33,7 +33,7 @@ public enum ForeignScalar: Equatable {
         }
     }
     
-    var stringValue: String? {
+    public var stringValue: String {
         switch self {
         case let .int(value): return String(value)
         case let .double(value): return String(value)
@@ -43,7 +43,7 @@ public enum ForeignScalar: Equatable {
         }
     }
 
-    var boolValue: Bool? {
+    public var boolValue: Bool? {
         switch self {
         case .int(let value): return (value != 0)
         case .double(_): return nil
@@ -57,7 +57,7 @@ public enum ForeignScalar: Equatable {
         }
     }
     
-    var idValue: ObjectID? {
+    public var idValue: ObjectID? {
         switch self {
         case .int(let value): return ObjectID(value)
         case .double(_): return nil
@@ -65,6 +65,10 @@ public enum ForeignScalar: Equatable {
         case .bool(_): return nil
         case .id(let value): return value
         }
+    }
+    
+    public var description: String {
+        return stringValue
     }
 }
 
@@ -117,7 +121,7 @@ extension ForeignScalar: Codable {
 
 }
 
-public enum ForeignValue: Equatable {
+public enum ForeignValue: Equatable, CustomStringConvertible {
     case scalar(ForeignScalar)
     case array([ForeignScalar])
 
@@ -142,34 +146,45 @@ public enum ForeignValue: Equatable {
         self = .array(ids.map { ForeignScalar.id($0)} )
     }
 
-    var intValue: Int? {
+    public var intValue: Int? {
         switch self {
         case .scalar(let value): return value.intValue
         case .array: return nil
         }
     }
-    var stringValue: String? {
+    public var stringValue: String? {
         switch self {
         case .scalar(let value): return value.stringValue
         case .array: return nil
         }
     }
-    var boolValue: Bool? {
+    public var boolValue: Bool? {
         switch self {
         case .scalar(let value): return value.boolValue
         case .array: return nil
         }
     }
-    var doubleValue: Double? {
+    public var doubleValue: Double? {
         switch self {
         case .scalar(let value): return value.doubleValue
         case .array: return nil
         }
     }
-    var idValue: ObjectID? {
+    public var idValue: ObjectID? {
         switch self {
         case .scalar(let value): return value.idValue
         case .array: return nil
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .scalar(let value):
+            return value.description
+        case .array(let array):
+            let arrayStr = array.map { $0.description }
+                            .joined(separator:", ")
+            return "[\(arrayStr)]"
         }
     }
 }

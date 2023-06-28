@@ -15,6 +15,7 @@ import PoieticCore
 ///
 public struct FlowComponent: Component,
                              CustomStringConvertible {
+    
     public static var componentDescription = ComponentDescription(
         name: "Flow",
         attributes: [
@@ -49,37 +50,25 @@ public struct FlowComponent: Component,
         self.priority = priority
     }
 
-    public init(record: ForeignRecord) throws {
-        self.priority = try record.intValue(for: "priority")
-    }
-    public func foreignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
-            "priority": ForeignValue(priority),
-        ])
-        return record
-    }
-
-    public var attributeKeys: [AttributeKey] {
-        ["priority"]
-    }
-    public func attribute(forKey key: AttributeKey) -> (any AttributeValue)? {
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
         switch key {
-        case "priority": return priority
+        case "priority": return ForeignValue(priority)
         default: return nil
+        }
+    }
+    
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "priority": self.priority = value.intValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
         }
     }
     
     public var description: String {
         "Flow(priority: \(priority))"
     }
-
-    public mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey) {
-        switch key {
-        case "priority": self.priority = value.intValue()!
-        default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
-        }
-    }
-    
-
 }
 

@@ -76,6 +76,10 @@ public struct ForeignRecord {
         self.dict = dict
     }
     
+    public subscript(key: String) -> ForeignValue? {
+        return dict[key]
+    }
+    
     public var allKeys: [String] {
         return Array(dict.keys)
     }

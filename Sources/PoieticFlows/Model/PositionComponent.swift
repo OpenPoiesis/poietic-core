@@ -11,6 +11,8 @@ import PoieticCore
 public struct PositionComponent: Component,
                                  CustomStringConvertible {
     
+    // TODO: Consider renaming this to CanvasComponent or GraphicsComponent
+
     public static var componentDescription = ComponentDescription(
         name: "Position",
         attributes: [
@@ -18,10 +20,6 @@ public struct PositionComponent: Component,
             AttributeDescription(name: "y", type: .double),
         ]
     )
-    // TODO: Consider renaming this to CanvasComponent or GraphicsComponent
-    
-    public var componentName: String { "Position" }
-    
     /// Flag whether the value of the node can be negative.
     var position: Point = Point()
     
@@ -33,41 +31,23 @@ public struct PositionComponent: Component,
                 y: Double) {
         self.position = Point(x: x, y: y)
     }
-    
-    public init(record: ForeignRecord) throws {
-        let x = try record.doubleValue(for: "x")
-        let y = try record.doubleValue(for: "y")
-        self.position = Point(x: x, y: y)
-    }
-   
-    public func foreignRecord() -> PoieticCore.ForeignRecord {
-        let record = ForeignRecord([
-            "x": ForeignValue(position.x),
-            "y": ForeignValue(position.y),
-        ])
-        return record
-    }
 
-    public var attributeKeys: [AttributeKey] {
-        [
-            "x",
-            "y"
-        ]
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> (any AttributeValue)? {
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
         switch key {
-        case "x": return position.x
-        case "y": return position.y
+        case "x": return ForeignValue(position.x)
+        case "y": return ForeignValue(position.y)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey) {
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
         switch key {
-        case "x": self.position.x = value.doubleValue()!
-        case "y": self.position.y = value.doubleValue()!
-        default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
+        case "x": self.position.x = value.doubleValue!
+        case "y": self.position.y = value.doubleValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
         }
     }
     public var description: String {

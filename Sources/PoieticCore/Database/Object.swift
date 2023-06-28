@@ -141,7 +141,51 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
             components[componentType] = component
         }
     }
-
+    
+    
+    public func attribute(forKey key: String) -> ForeignValue? {
+        // FIXME: This needs attention. It was written hastily without deeper thought.
+        let keyPath = key.split(separator: ".", maxSplits: 2)
+        let componentName: String?
+        let attributeName: String
+        
+        if keyPath.count == 1 {
+            componentName = nil
+            attributeName = String(keyPath[0])
+        }
+        else {
+            componentName = String(keyPath[0])
+            attributeName = String(keyPath[1])
+        }
+        
+        if let componentName {
+            guard let component = _component(named: componentName) else {
+                fatalError("Unknown component: \(componentName)")
+            }
+            
+            return component.attribute(forKey: attributeName)
+        }
+        else {
+            switch attributeName {
+            case "id": return ForeignValue(id)
+            case "snapshot_id": return ForeignValue(snapshotID)
+            case "type":
+                if let type {
+                    return ForeignValue(type.name)
+                }
+                else {
+                    return ForeignValue("untyped")
+                }
+            case "structural_type": return ForeignValue(structuralTypeName)
+            default: fatalError("Unknown attribute: \(attributeName)")
+            }
+        }
+        
+        
+    }
+    private func _component(named name: String) -> (any Component)? {
+        return components.first { $0.componentName == name }
+    }
 }
 
 

@@ -1,20 +1,32 @@
 //
-//  File.swift
-//  
+//  KeyedAttributes.swift
+//
 //
 //  Created by Stefan Urbanek on 17/07/2022.
 //
 //  Ported from Tarot.
 
+public enum AttributeError: Error {
+    /// Raised when reading or setting an attribute of a type that is not
+    /// convertible to the required value.
+    ///
+    case typeMismatch(ForeignValue, ValueType)
+    
+    /// Raised when a non-nil value was expected.
+    case unexpectedNil
+    
+    /// Raised when an attribute is expected.
+    case unknownAttribute(name: String, type: String)
+}
 
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
 /// Type for object attribute values.
-public typealias AttributeValue = ValueProtocol
+public typealias AttributeValue = ForeignValue
 
 /// Type for a dictionary of graph object attributes.
-public typealias AttributeDictionary = [AttributeKey:any AttributeValue]
+public typealias AttributeDictionary = [AttributeKey:AttributeValue]
 
 /// A protocol for objects that provide their attributes by keys.
 ///
@@ -29,8 +41,7 @@ public protocol KeyedAttributes {
 
     /// Returns an attribute value for given key.
     ///
-    func attribute(forKey key: String) -> (any AttributeValue)?
-    subscript(key key: AttributeKey) -> (any AttributeValue)? { get }
+    func attribute(forKey key: String) -> AttributeValue?
 }
 
 extension KeyedAttributes {
@@ -41,10 +52,6 @@ extension KeyedAttributes {
         
         return AttributeDictionary(uniqueKeysWithValues: tuples)
     }
-    
-    public subscript(key key: AttributeKey) -> (any AttributeValue)? {
-        return attribute(forKey: key)
-    }
 }
 
 /// Protocol for objects where attributes can be modified by using the attribute
@@ -53,24 +60,14 @@ extension KeyedAttributes {
 /// This protocol is provided for inspectors and import/export functionality.
 ///
 public protocol MutableKeyedAttributes: KeyedAttributes {
-    func setAttribute(value: any AttributeValue, forKey key: AttributeKey)
-    func setAttributes(_ dict: AttributeDictionary)
-    subscript(key key: AttributeKey) -> (any AttributeValue)? { get set }
+    mutating func setAttribute(value: AttributeValue, forKey key: AttributeKey) throws
+    mutating func setAttributes(_ dict: AttributeDictionary) throws
 }
 
 extension MutableKeyedAttributes {
-    public func setAttributes(_ dict: AttributeDictionary) {
+    public mutating func setAttributes(_ dict: AttributeDictionary) throws {
         for (key, value) in dict {
-            self.setAttribute(value: value, forKey: key)
+            try self.setAttribute(value: value, forKey: key)
         }
     }
-    public subscript(key key: AttributeKey) -> (any AttributeValue)? {
-        get {
-            return attribute(forKey: key)
-        }
-        set(value) {
-            setAttribute(value: value!, forKey: key)
-        }
-    }
-
 }

@@ -45,46 +45,22 @@ public struct StockComponent: Component,
         self.delayedInflow = delayedInflow
     }
     
-    public init(record: ForeignRecord) throws {
-        self.allowsNegative = try record.boolValue(for: "allows_negative")
-        self.delayedInflow = try record.boolValue(for: "delayed_inflow")
-    }
-    public func foreignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
-            "allows_negative": ForeignValue(allowsNegative),
-            "delayed_inflow": ForeignValue(delayedInflow),
-        ])
-        return record
-    }
-
-    public func asForeignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
-            "allows_negative": ForeignValue(allowsNegative),
-            "delayed_inflow": ForeignValue(delayedInflow),
-        ])
-        return record
-    }
-    
-    public var attributeKeys: [AttributeKey] {
-        [
-            "allows_negative",
-            "delayed_inflow"
-        ]
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> (any AttributeValue)? {
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
         switch key {
-        case "allows_negative": return allowsNegative
-        case "delayed_inflow": return delayedInflow
+        case "allows_negative": return ForeignValue(allowsNegative)
+        case "delayed_inflow": return ForeignValue(delayedInflow)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey) {
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
         switch key {
-        case "allows_negative": self.allowsNegative = value.boolValue()!
-        case "delayed_inflow": self.delayedInflow = value.boolValue()!
-        default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
+        case "allows_negative": self.allowsNegative = value.boolValue!
+        case "delayed_inflow": self.delayedInflow = value.boolValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
         }
     }
     

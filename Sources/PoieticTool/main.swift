@@ -28,7 +28,7 @@ struct PoieticTool: ParsableCommand {
 //            Print.self,
 //            Import.self,
 //            Export.self,
-//            WriteDOT.self,
+            WriteDOT.self,
         ],
         defaultSubcommand: List.self)
 }

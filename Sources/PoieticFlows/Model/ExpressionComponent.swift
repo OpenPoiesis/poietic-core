@@ -47,20 +47,6 @@ public struct ExpressionComponent: Component,
         self.expressionString = expression
     }
     
-    public init(record: ForeignRecord) throws {
-        self.name = try record.stringValue(for: "name")
-        self.expressionString = try record.stringValue(for: "expression")
-    }
-    
-    public func foreignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
-            "name": ForeignValue(self.name),
-            "expression": ForeignValue(expressionString),
-        ])
-        return record
-    }
-    
-
     // TODO: Deprecate
     public init(name: String, float value: Float) {
         self.init(name: name, expression: String(value))
@@ -72,26 +58,22 @@ public struct ExpressionComponent: Component,
         return "\(typename)(\(name), expr: \(expressionString))"
     }
     
-        
-    public var attributeKeys: [AttributeKey] {
-        [
-            "name",
-            "expression",
-        ]
-    }
-    public func attribute(forKey key: AttributeKey) -> (any AttributeValue)? {
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
         switch key {
-        case "name": return name
-        case "expression": return expressionString
+        case "name": return ForeignValue(name)
+        case "expression": return ForeignValue(expressionString)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: any AttributeValue, forKey key: AttributeKey) {
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
         switch key {
-        case "name": self.name = value.stringValue()!
-        case "expression": self.expressionString = value.stringValue()!
-        default: fatalError("Unknown attribute: \(key) in \(type(of:self))")
+        case "name": self.name = value.stringValue!
+        case "expression": self.expressionString = value.stringValue!
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
         }
     }
 }

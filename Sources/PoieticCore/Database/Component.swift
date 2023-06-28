@@ -12,27 +12,52 @@
 ///
 /// The protocol has no requirements at this moment. It it serves as a marker.
 ///
-public protocol Component {
+public protocol Component: MutableKeyedAttributes {
     static var componentDescription: ComponentDescription { get }
+    
+    /// Create a new component with default component values.
+    ///
+    /// This is a required method.
+    ///
+    init()
     
     /// Create a component from a foreign record.
     ///
     /// Throws an error if the foreign record contains malformed data.
+    ///
+    /// This is an optional method. Default implementation is provided,
+    /// uses the component description to get the relevant attributes from the
+    /// foreign record.
+    ///
     init(record: ForeignRecord) throws
-    
-    /// Create a new component with default component values.
-    init()
     
     /// Create a foreign record from the component.
     ///
-    /// Default implementation is provided and creates an empty record.
+    /// Default implementation is provided. Uses the component description
+    /// to populate the foreign record.
     ///
     func foreignRecord() -> ForeignRecord
 }
 
 extension Component {
+    public init(record: ForeignRecord) throws {
+        self.init()
+        for key in record.allKeys {
+            let value = record[key]!
+            try self.setAttribute(value: value, forKey: key)
+        }
+    }
+    
+    public var attributeKeys: [String] {
+        Self.componentDescription.attributes.map { $0.name }
+    }
     public var componentName: String {
         Self.componentDescription.name
+    }
+    
+    public func foreignRecord() -> ForeignRecord {
+        let dict = self.dictionary(withKeys: self.attributeKeys)
+        return ForeignRecord(dict)
     }
 }
 
