@@ -14,7 +14,7 @@ public class ObjectType {
     public let name: String
     public let structuralType: ObjectSnapshot.Type
     public let components: [ComponentRequirement]
-    
+        
     public init(name: String,
          structuralType: ObjectSnapshot.Type,
          components: [ComponentRequirement]) {

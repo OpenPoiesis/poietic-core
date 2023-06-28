@@ -12,6 +12,9 @@ import XCTest
 final class TestObjectMemory: XCTestCase {
     func testEmpty() throws {
         let db = ObjectMemory()
+        
+        XCTAssertNil(db.currentFrameID)
+        
         let frame = db.deriveFrame()
         
         try db.accept(frame)
@@ -22,7 +25,6 @@ final class TestObjectMemory: XCTestCase {
     
     func testSimpleAccept() throws {
         let db = ObjectMemory()
-        let v1 = db.currentFrameID
         
         let frame = db.deriveFrame()
         let a = frame.create()
@@ -31,11 +33,11 @@ final class TestObjectMemory: XCTestCase {
         XCTAssertTrue(frame.contains(a))
         XCTAssertTrue(frame.contains(b))
         XCTAssertTrue(frame.hasChanges)
-        XCTAssertEqual(db.versionHistory.count, 1)
+        XCTAssertEqual(db.versionHistory.count, 0)
         
         try db.accept(frame)
         
-        XCTAssertEqual(db.versionHistory, [v1, frame.id])
+        XCTAssertEqual(db.versionHistory, [frame.id])
         XCTAssertEqual(db.currentFrame.id, frame.id)
         XCTAssertTrue(db.currentFrame.contains(a))
         XCTAssertTrue(db.currentFrame.contains(b))
@@ -58,7 +60,7 @@ final class TestObjectMemory: XCTestCase {
         
         db.discard(frame)
         
-        XCTAssertEqual(db.versionHistory.count, 1)
+        XCTAssertEqual(db.versionHistory.count, 0)
         XCTAssertEqual(frame.state, VersionState.frozen)
     }
     
@@ -81,7 +83,7 @@ final class TestObjectMemory: XCTestCase {
         XCTAssertEqual(db.currentFrame.id, removalFrame.id)
         XCTAssertFalse(db.currentFrame.contains(a))
         
-        let original2 = db.frame(originalVersion)!
+        let original2 = db.frame(originalVersion!)!
         XCTAssertTrue(original2.contains(a))
     }
     
@@ -130,7 +132,8 @@ final class TestObjectMemory: XCTestCase {
     
     func testUndo() throws {
         let db = ObjectMemory()
-        let v0 = db.currentFrameID
+        try db.accept(db.createFrame())
+        let v0 = db.currentFrameID!
         
         let frame1 = db.deriveFrame()
         let a = frame1.create()
@@ -179,7 +182,8 @@ final class TestObjectMemory: XCTestCase {
     
     func testRedo() throws {
         let db = ObjectMemory()
-        let v0 = db.currentFrameID
+        try db.accept(db.createFrame())
+        let v0 = db.currentFrameID!
 
         let frame1 = db.deriveFrame()
         let a = frame1.create()
@@ -219,7 +223,8 @@ final class TestObjectMemory: XCTestCase {
     
     func testRedoReset() throws {
         let db = ObjectMemory()
-        let v0 = db.currentFrameID
+        try db.accept(db.createFrame())
+        let v0 = db.currentFrameID!
 
         let frame1 = db.deriveFrame()
         let a = frame1.create()

@@ -12,11 +12,11 @@ import PoieticCore
 /// - SeeAlso: `Metamodel` protocol description for more information and reasons
 /// behind this approach of describing the metamodel.
 ///
-class FlowsMetamodel: Metamodel {
+public class FlowsMetamodel: Metamodel {
     // MARK: Components
     // ---------------------------------------------------------------------
 
-    static let components: [Component.Type] = [
+    public static let components: [Component.Type] = [
         StockComponent.self,
         FlowComponent.self,
         ExpressionComponent.self,
@@ -27,7 +27,7 @@ class FlowsMetamodel: Metamodel {
     // MARK: Object Types
     // ---------------------------------------------------------------------
 
-    static let Stock = ObjectType(
+    public static let Stock = ObjectType(
         name: "Stock",
         structuralType: Node.self,
         components: [
@@ -39,7 +39,7 @@ class FlowsMetamodel: Metamodel {
         ]
     )
     
-    static let Flow = ObjectType(
+    public static let Flow = ObjectType(
         name: "Flow",
         structuralType: Node.self,
         components: [
@@ -51,7 +51,7 @@ class FlowsMetamodel: Metamodel {
         ]
     )
     
-    static let Auxiliary = ObjectType(
+    public static let Auxiliary = ObjectType(
         name: "Auxiliary",
         structuralType: Node.self,
         components: [
@@ -64,7 +64,7 @@ class FlowsMetamodel: Metamodel {
     
     /// Edge from a stock to a flow. Denotes "what the flow drains".
     ///
-    static let Drains = ObjectType(
+    public static let Drains = ObjectType(
         name: "Drains",
         structuralType: Edge.self,
         components: [
@@ -74,21 +74,21 @@ class FlowsMetamodel: Metamodel {
 
     /// Edge from a flow to a stock. Denotes "what the flow fills".
     ///
-    static let Fills = ObjectType(
+    public static let Fills = ObjectType(
         name: "Fills",
         structuralType: Edge.self,
         components: [
             // None for now
         ]
     )
-    static let Parameter = ObjectType(
+    public static let Parameter = ObjectType(
         name: "Parameter",
         structuralType: Edge.self,
         components: [
             // None for now
         ]
     )
-    static let ImplicitFlow = ObjectType(
+    public static let ImplicitFlow = ObjectType(
         name: "ImplicitFlow",
         structuralType: Edge.self,
         components: [
@@ -96,7 +96,7 @@ class FlowsMetamodel: Metamodel {
         ]
     )
     
-    static let objectTypes: [ObjectType] = [
+    public static let objectTypes: [ObjectType] = [
         Stock,
         Flow,
         Auxiliary,
@@ -109,7 +109,7 @@ class FlowsMetamodel: Metamodel {
     
     // MARK: Constraints
     // ---------------------------------------------------------------------
-    static let constraints: [any Constraint] = [
+    public static let constraints: [any Constraint] = [
         EdgeConstraint(
             name: "flow_fill_is_stock",
             description: """
@@ -140,16 +140,16 @@ class FlowsMetamodel: Metamodel {
     // MARK: Queries and Predicates
     // ---------------------------------------------------------------------
     
-    static let expressionNodes = HasComponentPredicate(ExpressionComponent.self)
-    static let flowNodes = IsTypePredicate(Flow)
+    public static let expressionNodes = HasComponentPredicate(ExpressionComponent.self)
+    public static let flowNodes = IsTypePredicate(Flow)
 
-    static let parameterEdges = IsTypePredicate(Parameter)
-    static let incomingParameters = NeighborhoodSelector(
+    public static let parameterEdges = IsTypePredicate(Parameter)
+    public static let incomingParameters = NeighborhoodSelector(
         predicate: parameterEdges,
         direction: .incoming
     )
     
-    static let fillsEdge = IsTypePredicate(Fills)
+    public static let fillsEdge = IsTypePredicate(Fills)
     // TODO: Rename to flowFills to prevent confusion
     /// Selector for an edge originating in a flow and ending in a stock denoting
     /// which stock the flow fills. There must be only one of such edges
@@ -163,7 +163,7 @@ class FlowsMetamodel: Metamodel {
     ///      |
     ///      Node of interest
     ///
-    static let fills = NeighborhoodSelector(
+    public static let fills = NeighborhoodSelector(
         predicate: fillsEdge,
         direction: .outgoing
     )
@@ -176,12 +176,12 @@ class FlowsMetamodel: Metamodel {
     ///      |
     ///      Neighbourhood (many)
     ///
-    static let inflows = NeighborhoodSelector(
+    public static let inflows = NeighborhoodSelector(
         predicate: fillsEdge,
         direction: .incoming
     )
 
-    static let drainsEdge = IsTypePredicate(Drains)
+    public static let drainsEdge = IsTypePredicate(Drains)
     // TODO: Rename to flowDrains to prevent confusion
     /// Selector for an edge originating in a stock and ending in a flow denoting
     /// which stock the flow drains. There must be only one of such edges
@@ -196,7 +196,7 @@ class FlowsMetamodel: Metamodel {
     ///      Neighbourhood (only one)
     ///
     ///
-    static let drains = NeighborhoodSelector(
+    public static let drains = NeighborhoodSelector(
         predicate: drainsEdge,
         direction: .incoming
     )
@@ -212,34 +212,34 @@ class FlowsMetamodel: Metamodel {
     ///      Node of interest
     ///
     ///
-    static let outflows = NeighborhoodSelector(
+    public static let outflows = NeighborhoodSelector(
         predicate: drainsEdge,
         direction: .outgoing
     )
 
-    static let implicitFlowEdge = IsTypePredicate(ImplicitFlow)
-    static let implicitFills = NeighborhoodSelector(
+    public static let implicitFlowEdge = IsTypePredicate(ImplicitFlow)
+    public static let implicitFills = NeighborhoodSelector(
         predicate: implicitFlowEdge,
         direction: .outgoing
     )
-    static let implicitDrains = NeighborhoodSelector(
+    public static let implicitDrains = NeighborhoodSelector(
         predicate: implicitFlowEdge,
         direction: .incoming
     )
     
     // MARK: Built-in variables
     // ---------------------------------------------------------------------
-    static let TimeVariable = BuiltinVariable(
+    public static let TimeVariable = BuiltinVariable(
         name: "time",
         description: "Current simulation time"
     )
 
-    static let TimeDeltaVariable = BuiltinVariable(
+    public static let TimeDeltaVariable = BuiltinVariable(
         name: "time_delta",
         description: "Simulation time delta - time between discrete steps of the simulation."
     )
     
-    static let variables: [BuiltinVariable] = [
+    public static let variables: [BuiltinVariable] = [
         TimeVariable,
         TimeDeltaVariable,
     ]

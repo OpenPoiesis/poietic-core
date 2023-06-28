@@ -8,11 +8,14 @@
 
 public class Node: ObjectSnapshot {
     public override func derive(snapshotID: SnapshotID,
-                       objectID: ObjectID? = nil) -> ObjectSnapshot {
+                                objectID: ObjectID? = nil) -> ObjectSnapshot {
         return Node(id: objectID ?? self.id,
                     snapshotID: snapshotID,
                     type: self.type,
                     components: components.components)
+    }
+    override var structuralTypeName: String {
+        return "node"
     }
 
 }
@@ -23,6 +26,9 @@ public class Node: ObjectSnapshot {
 /// with it.
 ///
 public class Edge: ObjectSnapshot {
+    override var structuralTypeName: String {
+        return "edge"
+    }
 
     /// Origin node of the edge - a node from which the edge points from.
     ///
@@ -67,6 +73,27 @@ public class Edge: ObjectSnapshot {
         return "Edge(id: \(id), sshot:\(snapshotID), \(origin) -> \(target), type: \(type?.name ?? "(none)")"
     }
 
+    public override var prettyDescription: String {
+        let superDesc = super.prettyDescription
+
+        return superDesc + " \(origin) -> \(target)"
+    }
+
+    /// Create a foreign record from the snapshot.
+    ///
+    public override func foreignRecord() -> ForeignRecord {
+        let record = ForeignRecord([
+            "object_id": ForeignValue(id),
+            "snapshot_id": ForeignValue(snapshotID),
+            "structural_type": ForeignValue(structuralTypeName),
+            "type": ForeignValue(type?.name ?? "none"),
+            "origin": ForeignValue(origin),
+            "target": ForeignValue(target),
+        ])
+        return record
+    }
+
+    
 }
 
 // TODO: Change node() and edge() to return non-optional

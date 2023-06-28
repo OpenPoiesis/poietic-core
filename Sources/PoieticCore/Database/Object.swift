@@ -23,6 +23,10 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     public var state: VersionState
     
+    var structuralTypeName: String {
+        return "object"
+    }
+    
     // TODO: Make this private. Use Holon.create() and Holon.connect()
     /// Create an empty object.
     ///
@@ -78,18 +82,27 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     /// Create a foreign record from the snapshot.
     ///
-    public func asForeignRecord() -> ForeignRecord {
+    public func foreignRecord() -> ForeignRecord {
         let record = ForeignRecord([
             "object_id": ForeignValue(id),
             "snapshot_id": ForeignValue(snapshotID),
-            "structural_type": "object",
+            "structural_type": ForeignValue(structuralTypeName),
             "type": ForeignValue(type?.name ?? "none"),
         ])
         return record
     }
     
     open var description: String {
-        return "Object(id: \(id), ssid: \(snapshotID), type:\(String(describing: type?.name)))"
+        let typeName = self.type?.name ?? "(untyped)"
+        let selfName = String(describing: Swift.type(of: self))
+        return "\(selfName)(id: \(id), ssid: \(snapshotID), type:\(typeName))"
+    }
+   
+    open var prettyDescription: String {
+        let typeName = self.type?.name ?? "(untyped)"
+        let selfName = String(describing: Swift.type(of: self))
+
+        return "\(id) \(selfName) \(typeName)"
     }
     
     func freeze() {

@@ -6,45 +6,6 @@
 //
 
 
-// FIXME: THIS IS CODE FROM FRUSTRATION
-// ---------------------
-// FIXME: BEGIN FRUSTRATION
-
-public struct ForeignPackageInfo: Codable {
-    let formatVersion: String
-}
-
-public struct ForeignPackage: Encodable {
-    let info: ForeignPackageInfo
-    let framesets: [ForeignRecord]
-    let frames: [ForeignRecord]
-    let snapshots: [ExtendedForeignRecord]
-
-//    public init(from decoder: Decoder) throws {
-//        
-//    }
-
-    enum CodingKeys: String, CodingKey {
-        case info = "info"
-        case framesets = "framesets"
-        case frames = "frames"
-        case snapshots = "snapshots"
-    }
-    
-    public func encode(using encoder: Encoder) throws {
-        var encoder = encoder.container(keyedBy: ForeignPackage.CodingKeys.self)
-        
-        try encoder.encode(info, forKey: .info)
-        try encoder.encode(framesets, forKey: .framesets)
-        try encoder.encode(frames, forKey: .frames)
-        try encoder.encode(snapshots, forKey: .snapshots)
-    }
-}
-
-
-// FIXME: END FRUSTRATION
-
-
 public enum ForeignRecordError: Error {
     case unknownKey(String)
     case typeMismatch(String, String)
@@ -75,7 +36,7 @@ extension ForeignRecord: Codable {
         self.dict = dict
     }
     
-    public func encode(using encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ForeignCodingKey.self)
 
         for (key, value) in dict {
@@ -281,19 +242,15 @@ extension ExtendedForeignRecord: Codable {
 
     }
     
-    public func encode(using encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ForeignCodingKey.self)
 
         for (key, value) in main.dict {
             let codingKey = ForeignCodingKey(stringValue: key)
             try container.encode(value, forKey: codingKey)
         }
-        
-        var subContainer = container.nestedContainer(keyedBy: ForeignCodingKey.self,
-                                                     forKey: ForeignCodingKey(stringValue: "components"))
-        for (name, component) in components {
-            let codingKey = ForeignCodingKey(stringValue: name)
-            try subContainer.encode(component, forKey: codingKey)
-        }
+  
+        let codingKey = ForeignCodingKey(stringValue: "components")
+        try container.encode(components, forKey: codingKey)
     }
 }

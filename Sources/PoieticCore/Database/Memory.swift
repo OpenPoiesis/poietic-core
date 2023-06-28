@@ -12,53 +12,56 @@ public struct ConstraintViolationError: Error {
     let violations: [ConstraintViolation]
 }
 
+
 public class ObjectMemory {
     var identityGenerator: SequentialIDGenerator
    
+    let metamodel: Metamodel.Type
+    
     var constraints: [Constraint]
+    
     var _stableFrames: [FrameID: StableFrame]
     var _mutableFrames: [FrameID: MutableFrame]
     
     // TODO: Decouple the version history from the object memory.
     
-    var versionHistory: [FrameID]
-    var currentHistoryIndex: Array<FrameID>.Index?
+    var versionHistory: [FrameID] { undoableFrames + redoableFrames }
     
-    var currentFrameID: FrameID { versionHistory[currentHistoryIndex!] }
-    var currentFrame: StableFrame { _stableFrames[currentFrameID]! }
-
-    var undoableFrames: [FrameID] {
-        if let index = currentHistoryIndex {
-            return Array(versionHistory.prefix(through: index))
+    var currentFrameID: FrameID? { undoableFrames.last }
+    public var currentFrame: StableFrame {
+        guard let id = currentFrameID else {
+            // TODO: What should we do here?
+            fatalError("Trying to get current frame without any undo history")
         }
-        else {
-            return []
-        }
-    }
-    var redoableFrames: [FrameID] {
-        if let index = currentHistoryIndex {
-            let next = versionHistory.index(after:index)
-            return Array(versionHistory.suffix(from: next))
-        }
-        else {
-            return []
-        }
+        return _stableFrames[id]!
     }
 
-    // var metamodel:
-    
-    public init(constraints: [Constraint] = []) {
+    var undoableFrames: [FrameID] = []
+    var redoableFrames: [FrameID] = []
+
+    /// Create a new object memory that conforms to the given metamodel.
+    ///
+    /// Newly created memory will be set-up as follows:
+    ///
+    /// - The memory will create a copy of the list of metamodel constraints
+    ///   during the initialisation. However, the constraints can be changed
+    ///   later.
+    /// - A new empty frame will be created and committed as first frame.
+    /// - The history will be initialised with the first empty frame.
+    ///
+    public init(metamodel: Metamodel.Type = EmptyMetamodel.self) {
         self.identityGenerator = SequentialIDGenerator()
         self._stableFrames = [:]
         self._mutableFrames = [:]
-        self.versionHistory = []
-        self.constraints = constraints
-
+        self.undoableFrames = []
+        self.redoableFrames = []
+        self.metamodel = metamodel
+        self.constraints = metamodel.constraints
         
-        let firstFrame = StableFrame(id: identityGenerator.next())
-        versionHistory.append(firstFrame.id)
-        _stableFrames[firstFrame.id] = firstFrame
-        self.currentHistoryIndex = versionHistory.startIndex
+//        let firstFrame = StableFrame(id: identityGenerator.next())
+//        versionHistory.append(firstFrame.id)
+//        _stableFrames[firstFrame.id] = firstFrame
+//        self.currentHistoryIndex = versionHistory.startIndex
     }
     
     /// Create an ID if needed or use a proposed ID.
@@ -109,6 +112,7 @@ public class ObjectMemory {
         return _stableFrames[id] != nil
     }
     
+    @discardableResult
     public func createFrame(id: FrameID? = nil) -> MutableFrame {
         let actualID = createID(id)
         guard _stableFrames[actualID] == nil
@@ -121,21 +125,37 @@ public class ObjectMemory {
         return frame
     }
     
+    @discardableResult
     public func deriveFrame(original originalID: FrameID? = nil,
-                     id: FrameID? = nil) -> MutableFrame {
+                            id: FrameID? = nil) -> MutableFrame {
         let actualID = createID(id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
             fatalError("Can not derive frame: Frame with ID \(actualID) already exists")
         }
         
-        let actualOriginalID = originalID ?? currentFrameID
-        guard let originalFrame = _stableFrames[actualOriginalID] else {
-            fatalError("Can not derive frame: Unknown original stable frame ID \(actualOriginalID)")
+        let snapshots: [ObjectSnapshot]
+        let derived: MutableFrame
+
+        if let originalID {
+            guard let originalFrame = _stableFrames[originalID] else {
+                fatalError("Can not derive frame: Unknown original stable frame ID \(originalID)")
+            }
+            snapshots = originalFrame.snapshots
         }
-        let derived = MutableFrame(memory: self,
-                                   id: actualID,
-                                   snapshots: originalFrame.snapshots)
+        else {
+            if currentFrameID != nil {
+                snapshots = currentFrame.snapshots
+            }
+            else {
+                // Empty – we have no current frame
+                snapshots = []
+            }
+        }
+
+        derived = MutableFrame(memory: self,
+                               id: actualID,
+                               snapshots: snapshots)
 
         _mutableFrames[actualID] = derived
         return derived
@@ -207,18 +227,8 @@ public class ObjectMemory {
         _mutableFrames[frame.id] = nil
         
         if appendHistory {
-            if let index = currentHistoryIndex {
-                let pruneIndex = versionHistory.index(after: index)
-                if pruneIndex < versionHistory.endIndex {
-                    versionHistory.removeSubrange(pruneIndex..<versionHistory.endIndex)
-                }
-                versionHistory.append(frame.id)
-                currentHistoryIndex = versionHistory.index(after: index)
-            }
-            else {
-                versionHistory.append(frame.id)
-                currentHistoryIndex = versionHistory.endIndex
-            }
+            undoableFrames.append(frame.id)
+            redoableFrames.removeAll()
         }
     }
     
@@ -261,20 +271,23 @@ public class ObjectMemory {
     }
     
     public func undo(to frameID: FrameID) {
-        guard let index = versionHistory.firstIndex(of: frameID) else {
+        guard let index = undoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to undo to frame \(frameID), which does not exist in the history")
         }
-        assert(index < currentHistoryIndex!)
-        currentHistoryIndex = index
+
+        let after = undoableFrames.index(after: index)
+        let suffix = undoableFrames.suffix(from: after)
+        redoableFrames = suffix + redoableFrames
+        undoableFrames = Array(undoableFrames.prefix(through: index))
     }
     public func redo(to frameID: FrameID) {
-        guard let index = versionHistory.firstIndex(of: frameID) else {
+        guard let index = redoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to redo to frame \(frameID), which does not exist in the history")
         }
-        assert(index > currentHistoryIndex!)
-
-        currentHistoryIndex = index
-
+        let after = redoableFrames.index(after: index)
+        let prefix = redoableFrames.prefix(through: index)
+        undoableFrames = undoableFrames + prefix
+        redoableFrames = Array(redoableFrames.suffix(from:after))
     }
     
     func checkConstraints() {

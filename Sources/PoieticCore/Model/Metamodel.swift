@@ -46,10 +46,27 @@ public protocol Metamodel: AnyObject {
     static var objectTypes: [ObjectType] { get }
     
     static var variables: [BuiltinVariable] { get }
+    
+    static var constraints: [Constraint] { get }
 }
 
 extension Metamodel {
     public static func objectType(name: String) -> ObjectType? {
         return objectTypes.first { $0.name == name}
     }
+    public static func componentType(name: String) -> Component.Type? {
+        return components.first {
+            $0.componentDescription.name == name
+        }
+    }
+}
+
+public class EmptyMetamodel: Metamodel {
+    public static var components: [Component.Type] = []
+    
+    public static var objectTypes: [ObjectType] = []
+    
+    public static var variables: [BuiltinVariable] = []
+    
+    public static var constraints: [Constraint] = []
 }

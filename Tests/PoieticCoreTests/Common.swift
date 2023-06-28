@@ -75,6 +75,8 @@ let TestObjectType = ObjectType(name: "Test",
                                 components: [])
 
 class TestMetamodel: Metamodel {
+    static var constraints: [PoieticCore.Constraint] = []
+    
     static var objectTypes: [PoieticCore.ObjectType] = [
         Stock,
         Flow,

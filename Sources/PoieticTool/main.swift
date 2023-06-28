@@ -6,6 +6,37 @@
 //
 
 import PoieticCore
-import PoieticFlows
 
-print("Hello Poietic!")
+import ArgumentParser
+
+// The Command
+// ------------------------------------------------------------------------
+
+struct PoieticTool: ParsableCommand {
+    static var configuration = CommandConfiguration(
+        commandName: "poietic",
+        abstract: "Poietic design utility.",
+        subcommands: [
+            CreateDB.self,
+//            CreateNode.self,
+//            Remove.self,
+//            SetAttribute.self,
+//            Undo.self,
+//            Redo.self,
+//            Connect.self,
+            List.self,
+//            Print.self,
+//            Import.self,
+//            Export.self,
+//            WriteDOT.self,
+        ],
+        defaultSubcommand: List.self)
+}
+
+struct Options: ParsableArguments {
+    @Option(name: [.long, .customShort("d")], help: "Path to a poietic design")
+    var database: String?
+}
+
+
+PoieticTool.main()
