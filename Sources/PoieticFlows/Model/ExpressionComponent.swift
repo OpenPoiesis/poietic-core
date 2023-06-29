@@ -27,7 +27,7 @@ public struct ExpressionComponent: Component,
     public var name: String
     // TODO: Use both: string and expression -> depending where is the source of it
     /// Arithmetic expression
-    var expressionString: String
+    public var expressionString: String
     
     /// Creates a a default expression component.
     ///

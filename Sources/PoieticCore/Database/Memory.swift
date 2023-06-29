@@ -25,7 +25,7 @@ public class ObjectMemory {
     
     // TODO: Decouple the version history from the object memory.
     
-    var versionHistory: [FrameID] {
+    public var versionHistory: [FrameID] {
         guard let currentFrameID else {
             return []
         }

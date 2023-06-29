@@ -20,12 +20,21 @@ extension PoieticTool {
             let frame = memory.currentFrame
             let graph = frame.graph
             
-            let items: [(String, String)] = [
+            let items: [(String?, String?)] = [
                 ("Current frame", "\(frame.id)"),
                 ("Frame objects", "\(frame.snapshots.count)"),
+                ("Total snapshots", "\(memory.snapshots.count)"),
+
+                (nil, nil),
+                ("Graph", nil),
                 ("Nodes", "\(graph.nodes.count)"),
                 ("Edges", "\(graph.edges.count)"),
-                ("Total snapshots", "\(memory.snapshots.count)"),
+
+                (nil, nil),
+                ("History", nil),
+                ("History frames", "\(memory.versionHistory.count)"),
+                ("Undoable frames", "\(memory.undoableFrames.count)"),
+                ("Redoable frames", "\(memory.redoableFrames.count)"),
             ]
             
             let formattedItems = FormatLabelledList(items)

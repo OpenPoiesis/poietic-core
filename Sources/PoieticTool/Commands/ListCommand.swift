@@ -20,6 +20,7 @@ extension PoieticTool {
         enum ListType: String, CaseIterable, ExpressibleByArgument{
             case all = "all"
             case names = "names"
+            case formulas = "formulas"
             var defaultValueDescription: String { "all" }
             
             static var allValueStrings: [String] {
@@ -39,6 +40,8 @@ extension PoieticTool {
                 listAll(memory)
             case .names:
                 listNames(memory)
+            case .formulas:
+                listFormulas(memory)
             }
         }
         func listAll(_ memory: ObjectMemory) {
@@ -63,12 +66,32 @@ extension PoieticTool {
         
         func listNames(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
-            
-            for object in frame.snapshots {
-                guard let component: ExpressionComponent = object[ExpressionComponent.self] else {
-                    continue
+            let names: [String] = frame.snapshots.compactMap {
+                    guard let component: ExpressionComponent = $0[ExpressionComponent.self] else {
+                        return nil
+                    }
+                    return component.name
                 }
-                print(component.name)
+                .sorted { $0.lexicographicallyPrecedes($1)}
+            
+            for name in names {
+                print(name)
+            }
+        }
+        
+        func listFormulas(_ memory: ObjectMemory) {
+            let frame = memory.currentFrame
+            
+            let items: [(String, String)] = frame.snapshots.compactMap {
+                guard let component: ExpressionComponent = $0[ExpressionComponent.self] else {
+                        return nil
+                    }
+                    return (component.name, component.expressionString)
+                }
+            .sorted { $0.0.lexicographicallyPrecedes($1.0)}
+            
+            for (name, formula) in items {
+                print("\(name) = \(formula)")
             }
         }
     }
