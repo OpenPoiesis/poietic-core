@@ -18,6 +18,7 @@ struct PoieticTool: ParsableCommand {
         abstract: "Poietic design utility.",
         subcommands: [
             CreateDB.self,
+            Info.self,
 //            CreateNode.self,
 //            Remove.self,
 //            SetAttribute.self,

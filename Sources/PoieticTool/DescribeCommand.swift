@@ -34,21 +34,21 @@ extension PoieticTool {
                 throw ToolError.unknownObject(reference)
             }
             
-            print("Type".alignRight(AttributeColumnWidth) + ": \(object.type?.name ?? "untyped")")
-            print("")
-                  
-            print("Object ID".alignRight(AttributeColumnWidth) + ": \(object.id)")
-            print("Snapshot ID".alignRight(AttributeColumnWidth) + ": \(object.snapshotID)")
-            print("Structure".alignRight(AttributeColumnWidth) + ": \(object.structuralTypeName)")
+            var items: [(String?, String?)] = [
+                ("Type", "\(object.type?.name ?? "untyped")"),
+                ("Object ID", "\(object.id)"),
+                ("Snapshot ID", "\(object.snapshotID)"),
+                ("Structure", "\(object.structuralTypeName)"),
+            ]
             
             
             // TODO: Assure consistent order of components
             for component in object.components {
                 let desc = type(of: component).componentDescription
-                
-                print("")
-                print("".alignRight(AttributeColumnWidth) + "  " + desc.label)
-                print("")
+
+                items.append((nil, nil))
+                items.append((desc.label, nil))
+
                 for attr in desc.attributes {
                     let key = "\(desc.name).\(attr.name)"
                     let rawValue = object.attribute(forKey: key)
@@ -59,10 +59,18 @@ extension PoieticTool {
                     else {
                         displayValue = "(no value)"
                     }
-                    let paddedKey = attr.name.alignRight(AttributeColumnWidth)
-                    print("\(paddedKey): \(displayValue)")
+
+                    items.append((attr.name, displayValue))
                 }
             }
+            
+            let formattedItems = FormatLabelledList(items,
+                                                    labelWidth: AttributeColumnWidth)
+            
+            for item in formattedItems {
+                print(item)
+            }
+
         }
     }
 }

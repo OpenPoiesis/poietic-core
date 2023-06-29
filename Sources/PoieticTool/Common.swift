@@ -12,18 +12,25 @@ import PoieticFlows
 import SystemPackage
 
 enum ToolError: Error, CustomStringConvertible {
+    // I/O errors
     case malformedLocation(String)
     case unableToCreateFile(Error)
     
-    case unknownSolver(String)
+    // Simulation errors
     case unknownObjectName(String)
+    case unknownSolver(String)
     case compilationError
     
+    // Query errors
     case malformedObjectReference(String)
     case unknownObject(String)
     
+    // Editing errors
     case noChangesToUndo
     case noChangesToRedo
+    
+    // Metamodel errors
+    case unknownObjectType(String)
 
     public var description: String {
         switch self {
@@ -45,6 +52,8 @@ enum ToolError: Error, CustomStringConvertible {
             return "No changes to undo"
         case .noChangesToRedo:
             return "No changes to re-do"
+        case .unknownObjectType(let value):
+            return "Unknown object type '\(value)'"
         }
     }
 }
@@ -105,15 +114,3 @@ func closeMemory(memory: ObjectMemory, options: Options) throws {
 
     try memory.saveAll(to: dataURL)
 }
-
-extension String {
-    /// Returns a right-aligned string padded with `padding` to the desired
-    /// width `width`.
-    ///
-    public func alignRight(_ width: Int, padding: String = " ") -> String {
-        // TODO: Allow leght of padding to be more than one character
-        let repeats = width - self.count
-        return String(repeating: padding, count: repeats) + self
-    }
-}
-

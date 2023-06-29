@@ -31,6 +31,8 @@ extension PoieticTool {
                 SetAttribute.self,
                 Undo.self,
                 Redo.self,
+                NewNode.self,
+                RemoveNode.self,
             ]
         )
         
@@ -40,6 +42,7 @@ extension PoieticTool {
 
 extension PoieticTool {
     struct SetAttribute: ParsableCommand {
+        // TODO: Add import from CSV with format: id,attr,value
         static var configuration
             = CommandConfiguration(
                 commandName: "set",
@@ -75,6 +78,8 @@ extension PoieticTool {
             try memory.accept(newFrame)
 
             try closeMemory(memory: memory, options: options)
+            print("Property set in \(reference): \(attributeName) = \(value)")
+            print("Current frame: \(memory.currentFrame.id)")
         }
     }
 
@@ -101,6 +106,8 @@ extension PoieticTool {
             memory.undo(to: frameID)
 
             try closeMemory(memory: memory, options: options)
+            print("Did undo")
+            print("Current frame: \(memory.currentFrame.id)")
         }
     }
 
@@ -127,6 +134,76 @@ extension PoieticTool {
             memory.redo(to: frameID)
 
             try closeMemory(memory: memory, options: options)
+            print("Did redo.")
+            print("Current frame: \(memory.currentFrame.id)")
+        }
+    }
+
+}
+
+extension PoieticTool {
+    struct NewNode: ParsableCommand {
+        static var configuration
+            = CommandConfiguration(
+                abstract: "Create a new node"
+            )
+
+        @OptionGroup var options: Options
+
+        @Argument(help: "Type of the node to be created")
+        var typeName: String
+
+        
+        mutating func run() throws {
+            let memory = try openMemory(options: options)
+            let frame = memory.deriveFrame()
+            let graph = frame.mutableGraph
+            
+            guard let type = FlowsMetamodel.objectType(name: typeName) else {
+                throw ToolError.unknownObjectType(typeName)
+            }
+            
+            let id = graph.createNode(type, components: [])
+            
+            try memory.accept(frame)
+            try closeMemory(memory: memory, options: options)
+
+            print("Created node \(id)")
+            print("Current frame: \(memory.currentFrame.id)")
+        }
+    }
+
+}
+
+extension PoieticTool {
+    struct RemoveNode: ParsableCommand {
+        static var configuration
+            = CommandConfiguration(
+                abstract: "Create a new node"
+            )
+
+        @OptionGroup var options: Options
+
+        @Argument(help: "ID of an object to be removed")
+        var reference: String
+
+        
+        mutating func run() throws {
+            let memory = try openMemory(options: options)
+            let frame = memory.deriveFrame()
+            let graph = frame.mutableGraph
+            
+            guard let object = frame.object(stringReference: reference) else {
+                throw ToolError.unknownObject(reference)
+            }
+
+            graph.remove(node: object.id)
+            
+            try memory.accept(frame)
+            try closeMemory(memory: memory, options: options)
+
+            print("Removed node: \(object.id)")
+            print("Current frame: \(memory.currentFrame.id)")
         }
     }
 
