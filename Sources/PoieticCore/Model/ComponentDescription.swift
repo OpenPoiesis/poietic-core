@@ -10,6 +10,7 @@
 public class ComponentDescription {
 
     public let name: String
+    public let label: String
     
     /// List of attributes of the component.
     ///
@@ -19,9 +20,12 @@ public class ComponentDescription {
     
     /// Create a new component description.
     ///
-    public init(name: String, attributes: [AttributeDescription],
+    public init(name: String,
+                label: String? = nil,
+                attributes: [AttributeDescription] = [],
                 synopsis: String? = nil) {
         self.name = name
+        self.label = label ?? name
         self.attributes = attributes
         self.synopsis = synopsis
     }

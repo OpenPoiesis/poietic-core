@@ -9,54 +9,58 @@ import SystemPackage
 import Foundation
 import ArgumentParser
 
-//let DefaultDOTStyle = DotStyle(
-//    nodes: [
-//        DotNodeStyle(predicate: AnyNodePredicate(),
-//                     attributes: [
-//                        "labelloc": "b",
-//                     ]),
-//        DotNodeStyle(predicate: LabelPredicate(all: "Flow"),
-//                     attributes: [
-//                        "shape": "ellipse",
-//                        "style": "bold",
-//
-//                     ]),
-//        DotNodeStyle(predicate: LabelPredicate(all: "Stock"),
-//                     attributes: [
-//                        "style": "bold",
-//                        "shape": "box",
-//                     ]),
-//        DotNodeStyle(predicate: LabelPredicate(all: "Auxiliary"),
-//                     attributes: [
-//                        "shape": "ellipse",
-//                        "style": "dotted",
-//                     ]),
-//    ],
-//    edges: [
-//        DotEdgeStyle(predicate: LabelPredicate(all: "flow"),
-//                     attributes: [
-//                        "shape": "ellipse",
-//                        "style": "bold",
-//                        "color": "blue",
-//                        "dir": "both",
-//                     ]),
-//        DotEdgeStyle(predicate: LabelPredicate(all: "drains"),
-//                     attributes: [
-//                        "arrowhead": "none",
-//                        "arrowtail": "inv",
-//                     ]),
-//        DotEdgeStyle(predicate: LabelPredicate(all: "fills"),
-//                     attributes: [
-//                        "arrowhead": "normal",
-//                        "arrowtail": "none",
-//                     ]),
-//        DotEdgeStyle(predicate: LabelPredicate(all: "parameter"),
-//                     attributes: [
-//                        "arrowhead": "open",
-//                        "color": "red",
-//                     ]),
-//    ]
-//)
+import PoieticFlows
+import PoieticCore
+
+let DefaultDOTStyle = DotStyle(
+    nodes: [
+        DotNodeStyle(predicate: AnyPredicate(),
+                     attributes: [
+                        "labelloc": "b",
+                     ]),
+        DotNodeStyle(predicate: IsTypePredicate(FlowsMetamodel.Flow.self),
+                     attributes: [
+                        "shape": "ellipse",
+                        "style": "bold",
+
+                     ]),
+        DotNodeStyle(predicate: IsTypePredicate(FlowsMetamodel.Stock.self),
+                     attributes: [
+                        "style": "bold",
+                        "shape": "box",
+                     ]),
+        DotNodeStyle(predicate: IsTypePredicate(FlowsMetamodel.Auxiliary.self),
+                     attributes: [
+                        "shape": "ellipse",
+                        "style": "dotted",
+                     ]),
+    ],
+    edges: [
+        DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Drains.self),
+                     attributes: [
+                        "shape": "ellipse",
+                        "style": "bold",
+                        "color": "blue",
+                        "dir": "both",
+                        "arrowhead": "none",
+                        "arrowtail": "inv",
+                     ]),
+        DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Fills.self),
+                     attributes: [
+                        "shape": "ellipse",
+                        "style": "bold",
+                        "color": "blue",
+                        "dir": "both",
+                        "arrowhead": "normal",
+                        "arrowtail": "none",
+                     ]),
+        DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Parameter.self),
+                     attributes: [
+                        "arrowhead": "open",
+                        "color": "red",
+                     ]),
+    ]
+)
 
 
 extension PoieticTool {
@@ -95,7 +99,8 @@ extension PoieticTool {
 
             let exporter = DotExporter(path: FilePath(outputURL.path),
                                        name: name,
-                                       labelAttribute: labelAttribute)
+                                       labelAttribute: labelAttribute,
+                                       style: DefaultDOTStyle)
 
             // TODO: Allow export of a selection
             let graph = memory.currentFrame.graph

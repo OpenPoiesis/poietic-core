@@ -23,7 +23,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     public var state: VersionState
     
-    var structuralTypeName: String {
+    public var structuralTypeName: String {
         return "object"
     }
     

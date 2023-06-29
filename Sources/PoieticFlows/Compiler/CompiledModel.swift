@@ -80,19 +80,26 @@ public struct CompiledModel {
     ///
     let outflows: [ObjectID:[ObjectID]]
 
-//    public init() {
-//        expressions = [:]
-//        sortedExpressionNodes = []
-//
-//        auxiliaries = []
-//        stocks = []
-//        stockComponents = [:]
-//        flows = []
-//        flowComponents = [:]
-//
-//        inflows = [:]
-//        outflows = [:]
-//    }
     
+    public var namedNodes: [String: Node] {
+        var result: [String: Node] = [:]
+        
+        for node in sortedExpressionNodes {
+            let expr: ExpressionComponent = node[ExpressionComponent.self]!
+            result[expr.name] = node
+        }
+        return result
+    }
+
+    /// Get expression node with given name.
+    public func expressionNode(name: String) -> Node? {
+        for node in sortedExpressionNodes {
+            let expr: ExpressionComponent = node[ExpressionComponent.self]!
+            if expr.name == name {
+                return node
+            }
+        }
+        return nil
+    }
 }
 

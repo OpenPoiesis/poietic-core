@@ -14,7 +14,7 @@ public class Node: ObjectSnapshot {
                     type: self.type,
                     components: components.components)
     }
-    override var structuralTypeName: String {
+    public override var structuralTypeName: String {
         return "node"
     }
 
@@ -26,7 +26,7 @@ public class Node: ObjectSnapshot {
 /// with it.
 ///
 public class Edge: ObjectSnapshot {
-    override var structuralTypeName: String {
+    public override var structuralTypeName: String {
         return "edge"
     }
 

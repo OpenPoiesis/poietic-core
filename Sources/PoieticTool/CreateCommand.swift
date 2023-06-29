@@ -25,19 +25,19 @@ extension PoieticTool {
 
         
         mutating func run() throws {
-            let memory = try createMemory(options: options)
+            let memory = createMemory(options: options)
             
             if includeDemo {
                 try CreatePredatorPreyDemo(in: memory)
             }
             
-            let url = databaseURL(options: options)
+            let url = try databaseURL(options: options)
             
             do {
                 try memory.saveAll(to: url)
             }
             catch {
-                fatalError("Unable to create design file: \(error)")
+                throw ToolError.unableToCreateFile(error)
             }
         }
     }

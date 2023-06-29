@@ -55,7 +55,7 @@ public class Solver {
     ///
     /// This method is called by solver subclasses to initialize it.
     ///
-    required init(_ compiledModel: CompiledModel) {
+    public required init(_ compiledModel: CompiledModel) {
         self.compiledModel = compiledModel
         self.evaluator = NumericExpressionEvaluator()
 
@@ -150,7 +150,7 @@ public class Solver {
     /// - Precondition: The simulation state vector must have all variables
     ///   that are required to compute the stock difference.
     ///
-    public func compute(stock stockID: ObjectID,
+    public func computeStock(stock stockID: ObjectID,
                         at time: Double,
                         with state: inout StateVector) -> Double {
         guard let stock = compiledModel.stockComponents[stockID] else {
@@ -266,7 +266,7 @@ public class Solver {
         // FIXME: IMPORTANT: This is failing when not sorted, why? (testNonNegativeTwo)
 //        for compiledStock in compiledModel.stocks.sorted( by: { $0.node.id < $1.node.id}) {
         for stock in compiledModel.stocks {
-            let delta = compute(stock: stock, at: time, with: &estimate)
+            let delta = computeStock(stock: stock, at: time, with: &estimate)
             estimate[stock] = estimate[stock]! + delta
             deltaVector[stock] = delta
         }
@@ -274,7 +274,7 @@ public class Solver {
         return deltaVector
     }
     
-    func compute(at time: Double,
+    public func compute(at time: Double,
                  with state: StateVector,
                  timeDelta: Double = 1.0) throws -> StateVector {
         fatalError("Subclasses of Solver are expected to override \(#function)")

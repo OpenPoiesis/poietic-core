@@ -80,7 +80,7 @@ extension FrameBase{
 ///   concept, we go with _arrangement_.
 ///
 public class StableFrame: FrameBase {
-    let id: FrameID
+    public let id: FrameID
     
     /// Versions of objects in the plane.
     ///
