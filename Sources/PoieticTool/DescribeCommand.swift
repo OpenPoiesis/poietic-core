@@ -30,19 +30,8 @@ extension PoieticTool {
             let memory = try openMemory(options: options)
             let frame = memory.currentFrame
             
-            let object: ObjectSnapshot
-            
-            if let id = ObjectID(reference) {
-                guard frame.contains(id) else {
-                    throw ToolError.unknownObject(reference)
-                }
-                object = frame.object(id)!
-            }
-            else {
-                guard let snapshot = frame.object(named: reference) else {
-                    throw ToolError.unknownObject(reference)
-                }
-                object = snapshot
+            guard let object = frame.object(stringReference: reference) else {
+                throw ToolError.unknownObject(reference)
             }
             
             print("Type".alignRight(AttributeColumnWidth) + ": \(object.type?.name ?? "untyped")")

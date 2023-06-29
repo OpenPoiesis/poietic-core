@@ -30,7 +30,7 @@ public class MutableFrame: FrameBase {
     }
     
     unowned let memory: ObjectMemory
-    let id: FrameID
+    public let id: FrameID
     // TODO: Remove state
     var state: VersionState = .unstable
     

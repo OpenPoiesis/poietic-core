@@ -25,19 +25,34 @@ public class ObjectMemory {
     
     // TODO: Decouple the version history from the object memory.
     
-    var versionHistory: [FrameID] { undoableFrames + redoableFrames }
+    var versionHistory: [FrameID] {
+        guard let currentFrameID else {
+            return []
+        }
+        return undoableFrames + [currentFrameID] + redoableFrames
+    }
     
-    var currentFrameID: FrameID? { undoableFrames.last }
+    /// ID of the current frame from the history perspective.
+    ///
+    /// - Note: `currentFrameID` is guaranteed not to be `nil` when there is
+    ///   a history.
+    var currentFrameID: FrameID?
+
+    /// Get the current stable frame.
+    ///
+    /// - Note: It is a programming error to get current frame when there is no
+    ///         history.
+    ///
     public var currentFrame: StableFrame {
         guard let id = currentFrameID else {
             // TODO: What should we do here?
-            fatalError("Trying to get current frame without any undo history")
+            fatalError("There is no current frame in the history.")
         }
         return _stableFrames[id]!
     }
 
-    var undoableFrames: [FrameID] = []
-    var redoableFrames: [FrameID] = []
+    public internal(set) var undoableFrames: [FrameID] = []
+    public internal(set) var redoableFrames: [FrameID] = []
 
     /// Create a new object memory that conforms to the given metamodel.
     ///
@@ -227,9 +242,13 @@ public class ObjectMemory {
         _mutableFrames[frame.id] = nil
         
         if appendHistory {
-            undoableFrames.append(frame.id)
+            if let currentFrameID {
+                undoableFrames.append(currentFrameID)
+            }
             redoableFrames.removeAll()
         }
+        currentFrameID = frame.id
+        
     }
     
     /// Add a constraint to the memory.
@@ -270,24 +289,40 @@ public class ObjectMemory {
         _mutableFrames[frame.id] = nil
     }
     
+    public var canUndo: Bool {
+        return !undoableFrames.isEmpty
+    }
+
+    public var canRedo: Bool {
+        return !redoableFrames.isEmpty
+    }
+
     public func undo(to frameID: FrameID) {
         guard let index = undoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to undo to frame \(frameID), which does not exist in the history")
         }
 
-        let after = undoableFrames.index(after: index)
-        let suffix = undoableFrames.suffix(from: after)
-        redoableFrames = suffix + redoableFrames
-        undoableFrames = Array(undoableFrames.prefix(through: index))
+        var suffix = undoableFrames.suffix(from: index)
+
+        let newCurrentFrameID = suffix.removeFirst()
+
+        undoableFrames = Array(undoableFrames.prefix(upTo: index))
+        redoableFrames = suffix + [currentFrameID!] + redoableFrames
+
+        currentFrameID = newCurrentFrameID
     }
+    
     public func redo(to frameID: FrameID) {
         guard let index = redoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to redo to frame \(frameID), which does not exist in the history")
         }
+        var prefix = redoableFrames.prefix(through: index)
+
+        let newCurrentFrameID = prefix.removeLast()
+        undoableFrames = undoableFrames + [currentFrameID!] + prefix
         let after = redoableFrames.index(after: index)
-        let prefix = redoableFrames.prefix(through: index)
-        undoableFrames = undoableFrames + prefix
-        redoableFrames = Array(redoableFrames.suffix(from:after))
+        redoableFrames = Array(redoableFrames.suffix(from: after))
+        currentFrameID = newCurrentFrameID
     }
     
     func checkConstraints() {

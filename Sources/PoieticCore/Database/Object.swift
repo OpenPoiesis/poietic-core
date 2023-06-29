@@ -143,6 +143,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
     
     
+    // TODO: Add tests
     public func attribute(forKey key: String) -> ForeignValue? {
         // FIXME: This needs attention. It was written hastily without deeper thought.
         let keyPath = key.split(separator: ".", maxSplits: 2)
@@ -180,9 +181,31 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
             default: fatalError("Unknown attribute: \(attributeName)")
             }
         }
-        
-        
     }
+    
+    // TODO: Add tests
+    public func setAttribute(value: ForeignValue, forKey key: String) throws {
+        precondition(state.isMutable,
+                     "Trying to set attribute on an immutable snapshot \(snapshotID)")
+
+        // FIXME: This needs attention. It was written hastily without deeper thought.
+        let keyPath = key.split(separator: ".", maxSplits: 2)
+        
+        guard keyPath.count == 2 else {
+            fatalError("Trying to set a non-component attribute: '\(key)'")
+        }
+
+        let componentName = String(keyPath[0])
+        let attributeName = String(keyPath[1])
+        
+        guard var component = _component(named: componentName) else {
+            fatalError("Unknown component: \(componentName)")
+        }
+        try component.setAttribute(value: value, forKey: attributeName)
+        components.set(component)
+    }
+
+    // TODO: Add tests
     private func _component(named name: String) -> (any Component)? {
         return components.first { $0.componentName == name }
     }

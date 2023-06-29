@@ -150,13 +150,13 @@ final class TestObjectMemory: XCTestCase {
         db.undo(to: frame1.id)
         
         XCTAssertEqual(db.currentFrameID, frame1.id)
-        XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
+        XCTAssertEqual(db.undoableFrames, [v0])
         XCTAssertEqual(db.redoableFrames, [frame2.id])
         
         db.undo(to: v0)
         
         XCTAssertEqual(db.currentFrameID, v0)
-        XCTAssertEqual(db.undoableFrames, [v0])
+        XCTAssertEqual(db.undoableFrames, [])
         XCTAssertEqual(db.redoableFrames, [frame1.id, frame2.id])
         
         XCTAssertFalse(db.currentFrame.contains(a))
@@ -200,22 +200,25 @@ final class TestObjectMemory: XCTestCase {
         XCTAssertTrue(db.currentFrame.contains(b))
 
         XCTAssertEqual(db.currentFrameID, frame2.id)
-        XCTAssertEqual(db.undoableFrames, [v0, frame1.id, frame2.id])
+        XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
         XCTAssertEqual(db.redoableFrames, [])
+        XCTAssertFalse(db.canRedo)
 
         db.undo(to: v0)
         db.redo(to: frame2.id)
 
         XCTAssertEqual(db.currentFrameID, frame2.id)
-        XCTAssertEqual(db.undoableFrames, [v0, frame1.id, frame2.id])
+        XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
         XCTAssertEqual(db.redoableFrames, [])
+        XCTAssertFalse(db.canRedo)
 
         db.undo(to: v0)
         db.redo(to: frame1.id)
 
         XCTAssertEqual(db.currentFrameID, frame1.id)
-        XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
+        XCTAssertEqual(db.undoableFrames, [v0])
         XCTAssertEqual(db.redoableFrames, [frame2.id])
+        XCTAssertTrue(db.canRedo)
 
         XCTAssertTrue(db.currentFrame.contains(a))
         XCTAssertFalse(db.currentFrame.contains(b))
@@ -238,7 +241,7 @@ final class TestObjectMemory: XCTestCase {
         
         XCTAssertEqual(db.currentFrameID, frame2.id)
         XCTAssertEqual(db.versionHistory, [v0, frame2.id])
-        XCTAssertEqual(db.undoableFrames, [v0, frame2.id])
+        XCTAssertEqual(db.undoableFrames, [v0])
         XCTAssertEqual(db.redoableFrames, [])
 
         XCTAssertFalse(db.currentFrame.contains(a))

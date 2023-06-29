@@ -52,6 +52,6 @@ public class SequentialIDGenerator: IdentityGenerator {
     }
 
     public func markUsed(_ id: ObjectID) {
-        self.current = id + 1
+        self.current = max(self.current, id + 1)
     }
 }

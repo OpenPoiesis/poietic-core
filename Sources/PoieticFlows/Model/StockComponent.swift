@@ -16,8 +16,8 @@ public struct StockComponent: Component,
     public static var componentDescription = ComponentDescription(
         name: "Stock",
         attributes: [
-            AttributeDescription(name: "allowsNegative", type: .bool),
-            AttributeDescription(name: "delayedInflow", type: .bool),
+            AttributeDescription(name: "allows_negative", type: .bool),
+            AttributeDescription(name: "delayed_inflow", type: .bool),
         ]
     )
     

@@ -33,6 +33,7 @@ enum ForeignInterfaceError: Error {
 
 struct ArchiveInfo: Codable {
     var formatVersion: String = "0.0.1"
+    var currentFrameID: FrameID?
 }
 
 
@@ -138,6 +139,8 @@ extension ObjectMemory {
         // Collections to be written
         //
         var archive = MemoryArchive()
+        
+        archive.info.currentFrameID = currentFrameID
         
         // 1. Write Snapshots
         // ----------------------------------------------------------------
@@ -280,6 +283,19 @@ extension ObjectMemory {
 
         undoableFrames = undoFrameset
         redoableFrames = redoFrameset
+        
+        if let currentID = archive.info.currentFrameID {
+            guard containsFrame(currentID) else {
+                fatalError("Current frame not found. ID: \(currentID)")
+            }
+            currentFrameID = currentID
+        }
+
+        // Consistency check: currentFrameID must be set when there is history.
+        if currentFrameID == nil
+            && (!undoableFrames.isEmpty || !redoableFrames.isEmpty) {
+            fatalError("Corrupted archive: Current frame ID is not set while undo/redo history is not-empty")
+        }
     }
 
     
