@@ -11,17 +11,6 @@ import PoieticCore
 import PoieticFlows
 
 
-/**
- 
- Commands:
- 
-create node TYPE name=asdf expression=asdasdf
- 
- SET sharks expression "10 + 20"
-
- 
- */
-
 extension PoieticTool {
     struct Edit: ParsableCommand {
         static var configuration
@@ -32,6 +21,7 @@ extension PoieticTool {
                 Undo.self,
                 Redo.self,
                 NewNode.self,
+                NewConnection.self,
                 RemoveNode.self,
             ]
         )
@@ -75,7 +65,7 @@ extension PoieticTool {
             try newFrame.setAttribute(object.id,
                                       value: ForeignValue(value),
                                       forKey: attributeName)
-            try memory.accept(newFrame)
+            try acceptFrame(newFrame, in: memory)
 
             try closeMemory(memory: memory, options: options)
             print("Property set in \(reference): \(attributeName) = \(value)")
@@ -165,7 +155,7 @@ extension PoieticTool {
             
             let id = graph.createNode(type, components: [])
             
-            try memory.accept(frame)
+            try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
             print("Created node \(id)")
@@ -199,10 +189,70 @@ extension PoieticTool {
 
             graph.remove(node: object.id)
             
-            try memory.accept(frame)
+            try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
             print("Removed node: \(object.id)")
+            print("Current frame: \(memory.currentFrame.id)")
+        }
+    }
+}
+
+extension PoieticTool {
+    struct NewConnection: ParsableCommand {
+        static var configuration
+            = CommandConfiguration(
+                abstract: "Create a new connection between two nodes"
+            )
+
+        @OptionGroup var options: Options
+
+        @Argument(help: "Type of the connection to be created")
+        var typeName: String
+
+        @Argument(help: "Reference to the connection's origin node")
+        var origin: String
+
+        @Argument(help: "Reference to the connection's target node")
+        var target: String
+
+        
+        mutating func run() throws {
+            let memory = try openMemory(options: options)
+            let frame = memory.deriveFrame()
+            let graph = frame.mutableGraph
+            
+            guard let type = FlowsMetamodel.objectType(name: typeName) else {
+                throw ToolError.unknownObjectType(typeName)
+            }
+            
+            guard let originObject = frame.object(stringReference: self.origin) else {
+                throw ToolError.unknownObject( self.origin)
+            }
+            
+            guard let origin = originObject as? Node else {
+                throw ToolError.nodeExpected(self.origin)
+
+            }
+            
+            guard let targetObject = frame.object(stringReference: self.target) else {
+                throw ToolError.unknownObject(self.target)
+            }
+
+            guard let target = targetObject as? Node else {
+                throw ToolError.nodeExpected(target)
+
+            }
+
+            let id = graph.createEdge(type,
+                                      origin: origin.id,
+                                      target: target.id,
+                                      components: [])
+            
+            try acceptFrame(frame, in: memory)
+            try closeMemory(memory: memory, options: options)
+
+            print("Created node \(id)")
             print("Current frame: \(memory.currentFrame.id)")
         }
     }

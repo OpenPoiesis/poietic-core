@@ -20,11 +20,13 @@ enum ToolError: Error, CustomStringConvertible {
     case unknownObjectName(String)
     case unknownSolver(String)
     case compilationError
+    case constraintError
     
     // Query errors
     case malformedObjectReference(String)
     case unknownObject(String)
-    
+    case nodeExpected(String)
+
     // Editing errors
     case noChangesToUndo
     case noChangesToRedo
@@ -38,12 +40,16 @@ enum ToolError: Error, CustomStringConvertible {
             return "Malformed location: \(value)"
         case .unableToCreateFile(let value):
             return "Unable to create file. Reason: \(value)"
+
         case .unknownSolver(let value):
             return "Unknown solver '\(value)'"
         case .unknownObjectName(let value):
             return "Unknown object with name '\(value)'"
         case .compilationError:
             return "Design compilation failed"
+        case .constraintError:
+            return "Model constraint violation"
+
         case .malformedObjectReference(let value):
             return "Malformed object reference '\(value). Use either object ID or object identifier."
         case .unknownObject(let value):
@@ -54,6 +60,8 @@ enum ToolError: Error, CustomStringConvertible {
             return "No changes to re-do"
         case .unknownObjectType(let value):
             return "Unknown object type '\(value)'"
+        case .nodeExpected(let value):
+            return "Object is not a node: '\(value)'"
         }
     }
 }
@@ -113,4 +121,25 @@ func closeMemory(memory: ObjectMemory, options: Options) throws {
     let dataURL = try databaseURL(options: options)
 
     try memory.saveAll(to: dataURL)
+}
+
+/// Try to accept a frame in a memory.
+///
+/// Tries to accept the frame. If the frame contains constraint violations, then
+/// the violations are printed out in a more human-readable format.
+///
+func acceptFrame(_ frame: MutableFrame, in memory: ObjectMemory) throws {
+    // TODO: Print on stderr
+    
+    do {
+        try memory.accept(frame)
+    }
+    catch let error as ConstraintViolationError {
+        for (id, messages) in error.prettyDescriptionsByObject {
+            for message in messages {
+                print("ERROR: Object \(id): \(message)")
+            }
+        }
+        throw ToolError.constraintError
+    }
 }

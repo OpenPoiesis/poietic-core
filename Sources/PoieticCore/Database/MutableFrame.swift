@@ -31,7 +31,7 @@ public class MutableFrame: FrameBase {
     
     unowned let memory: ObjectMemory
     public let id: FrameID
-    // TODO: Remove state
+    // TODO: Remove state or change to FrameState: open, accepted, discarded
     var state: VersionState = .unstable
     
     var snapshotIDs: Set<SnapshotID>

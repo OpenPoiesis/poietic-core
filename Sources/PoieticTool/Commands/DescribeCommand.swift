@@ -64,7 +64,7 @@ extension PoieticTool {
                 }
             }
             
-            let formattedItems = FormatLabelledList(items,
+            let formattedItems = formatLabelledList(items,
                                                     labelWidth: AttributeColumnWidth)
             
             for item in formattedItems {

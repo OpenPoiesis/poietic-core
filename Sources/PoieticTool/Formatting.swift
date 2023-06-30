@@ -18,7 +18,7 @@ extension String {
     }
 }
 
-func FormatLabelledList(_ items: [(String?, String?)],
+func formatLabelledList(_ items: [(String?, String?)],
                         separator: String = ": ",
                         labelWidth: Int? = nil) -> [String] {
     let actualWidth = labelWidth
@@ -53,3 +53,4 @@ func FormatLabelledList(_ items: [(String?, String?)],
     
     return result
 }
+

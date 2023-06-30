@@ -9,7 +9,21 @@
 /// `accept()`.
 ///
 public struct ConstraintViolationError: Error {
-    let violations: [ConstraintViolation]
+    public let violations: [ConstraintViolation]
+    
+    public var prettyDescriptionsByObject: [ObjectID: [String]] {
+        var result: [ObjectID:[String]] = [:]
+        
+        for violation in violations {
+            let message = violation.constraint.description ?? "(no constraint description)"
+            let desc = "[\(violation.constraint.name)] \(message)"
+            for id in violation.objects {
+                result[id, default: []].append(desc)
+            }
+        }
+        
+        return result
+    }
 }
 
 
@@ -187,6 +201,36 @@ public class ObjectMemory {
             fatalError("Removing frame failed: unknown frame ID \(id)")
         }
     }
+    
+    /// Accepts a frame and make it a stable frame.
+    ///
+    /// Accepting a frame is analogous to a transaction commit in a database.
+    ///
+    /// The acceptance of the frame to the memory involves:
+    ///
+    /// - Check whether the structural referential integrity is assured – whether
+    ///   edges refer to nodes that are present in the frame.
+    /// - Check the constraints and collect all detected violations that can
+    ///   be identified.
+    /// - If there are any violations, raise `ConstraintViolationError` with a
+    ///   list of all detected violations.
+    /// - If the frame does not violate any constraints and has referential
+    ///   integrity, then it is frozen: all owned objects in the frame are
+    ///   frozen.
+    /// - New `StableFrame` is created with all objects from the original
+    ///   frame.
+    /// - The new frame is added to the list of stable frames.
+    /// - If `appendHistory` is `true` then the frame is also added at the end
+    ///   of the undo list. If there are any redo-able frames, they are all
+    ///   removed.
+    ///
+    ///
+    ///
+    /// - Throws: `ConstraintViolationError` when the frame contents violates
+    ///   constraints of the memory.
+    ///
+    /// - SeeAlso: `discard()`
+    ///
     public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
         precondition(frame.memory === self,
                      "Trying to accept a frame from a different memory")
@@ -280,7 +324,11 @@ public class ObjectMemory {
         }
     }
     
+    /// Discards the mutable frame that is associated with the memory.
+    ///
     func discard(_ frame: MutableFrame) {
+        // TODO: Clean-up all the objects.
+        
         precondition(frame.memory === self,
                      "Trying to discard a frame from a different memory")
         precondition(frame.state.isMutable,

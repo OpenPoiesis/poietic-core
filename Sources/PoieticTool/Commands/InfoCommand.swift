@@ -37,7 +37,7 @@ extension PoieticTool {
                 ("Redoable frames", "\(memory.redoableFrames.count)"),
             ]
             
-            let formattedItems = FormatLabelledList(items)
+            let formattedItems = formatLabelledList(items)
             
             for item in formattedItems {
                 print(item)
