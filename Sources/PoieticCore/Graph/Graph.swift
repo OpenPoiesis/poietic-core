@@ -84,6 +84,16 @@ public class Edge: ObjectSnapshot {
                    components: components)
     }
 
+    /// List of objects that this object depends on. If one of the objects from
+    /// the list is removed from the frame, this object must be removed as well.
+    ///
+    /// For an edge it is the origin node and the target node – if one of those
+    /// is removed, the edge is removed with them.
+    ///
+    override var structuralDependencies: [ObjectID] {
+        return [origin, target]
+    }
+
     public override func derive(snapshotID: SnapshotID,
                                 objectID: ObjectID? = nil) -> ObjectSnapshot {
         // FIXME: This breaks Edge

@@ -86,7 +86,23 @@ final class TestObjectMemory: XCTestCase {
         let original2 = db.frame(originalVersion!)!
         XCTAssertTrue(original2.contains(a))
     }
-    
+    func testRemoveObjectCascading() throws {
+        let db = ObjectMemory()
+        let frame = db.deriveFrame()
+        frame.insert(Node(id: 1, snapshotID: 10), owned: true)
+        frame.insert(Node(id: 2, snapshotID: 20), owned: true)
+        frame.insert(Edge(id: 3, snapshotID: 40,
+                          origin: 1,
+                          target: 2), owned: true)
+        let removed = frame.removeCascading(1)
+        XCTAssertEqual(removed.count, 1)
+        XCTAssertTrue(removed.contains(3))
+
+        XCTAssertFalse(frame.contains(1))
+        XCTAssertFalse(frame.contains(3))
+        XCTAssertTrue(frame.contains(2))
+    }
+
     func testFrameMutableObject() throws {
         let db = ObjectMemory()
         let original = db.deriveFrame()

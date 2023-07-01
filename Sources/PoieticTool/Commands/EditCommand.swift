@@ -192,24 +192,18 @@ extension PoieticTool {
         mutating func run() throws {
             let memory = try openMemory(options: options)
             let frame = memory.deriveFrame()
-            let graph = frame.mutableGraph
             
             guard let object = frame.object(stringReference: reference) else {
                 throw ToolError.unknownObject(reference)
             }
 
-            guard graph.contains(node: object.id) else {
-                throw ToolError.nodeExpected(String(object.id))
-            }
             let removed = frame.removeCascading(object.id)
-            
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
             print("Removed object: \(object.id)")
             if !removed.isEmpty {
                 let list = removed.map { String($0) }.joined(separator: ", ")
-                print("Removed object: \(object.id)")
                 print("Removed cascading: \(list)")
             }
             print("Current frame: \(memory.currentFrame.id)")

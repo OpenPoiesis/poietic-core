@@ -110,6 +110,9 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         self.state = .frozen
     }
     
+    /// List of objects that this object depends on. If one of the objects from
+    /// the list is removed from the frame, this object must be removed as well.
+    ///
     var structuralDependencies: [ObjectID] {
         return []
     }
