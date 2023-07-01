@@ -30,7 +30,8 @@ enum ToolError: Error, CustomStringConvertible {
     // Editing errors
     case noChangesToUndo
     case noChangesToRedo
-    
+    case creatingSystemOwnedType(String)
+    case structuralTypeMismatch(String, String)
     // Metamodel errors
     case unknownObjectType(String)
 
@@ -49,7 +50,6 @@ enum ToolError: Error, CustomStringConvertible {
             return "Design compilation failed"
         case .constraintError:
             return "Model constraint violation"
-
         case .malformedObjectReference(let value):
             return "Malformed object reference '\(value). Use either object ID or object identifier."
         case .unknownObject(let value):
@@ -58,12 +58,52 @@ enum ToolError: Error, CustomStringConvertible {
             return "No changes to undo"
         case .noChangesToRedo:
             return "No changes to re-do"
+        case .creatingSystemOwnedType(let value):
+            return "Trying to create an object of type '\(value)'. It can be created only by the system"
+        case .structuralTypeMismatch(let given, let expected):
+            return "Mismatch of structural type. Expected: \(expected), given: \(given)"
         case .unknownObjectType(let value):
             return "Unknown object type '\(value)'"
         case .nodeExpected(let value):
             return "Object is not a node: '\(value)'"
         }
     }
+    public var hint: String? {
+        // NOTE: Keep this list without 'default' so we know which cases we
+        //       covered.
+        
+        switch self {
+        case .malformedLocation(_):
+            return nil
+        case .unableToCreateFile(_):
+            return nil
+        case .unknownSolver(_):
+            return "Check the list of available solvers by running the 'info' command."
+        case .unknownObjectName(_):
+            return "See the list of available names by using the 'list' command."
+        case .compilationError:
+            return nil
+        case .constraintError:
+            return nil
+        case .malformedObjectReference(_):
+            return "Use either object ID or object identifier."
+        case .unknownObject(_):
+            return nil
+        case .noChangesToUndo:
+            return nil
+        case .noChangesToRedo:
+            return nil
+        case .creatingSystemOwnedType(_):
+            return "Users can not create objects of this type, they can only read it."
+        case .structuralTypeMismatch(_, _):
+            return "See the metamodel to know structural type of the object type."
+        case .unknownObjectType(_):
+            return "See the metamodel for a list of known object types."
+        case .nodeExpected(_):
+            return nil
+        }
+    }
+
 }
 
 let defaultDatabase = "Design.poietic"

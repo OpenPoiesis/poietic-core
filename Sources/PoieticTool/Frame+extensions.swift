@@ -44,18 +44,5 @@ extension FrameBase {
         else {
             return nil
         }
-
-    }
-}
-
-extension MutableFrame {
-    public func setAttribute(_ id: ObjectID,
-                             value: ForeignValue,
-                             forKey key: AttributeKey) throws {
-        let orig = self.object(id)!
-        let object = self.mutableObject(id)
-        try object.setAttribute(value: value, forKey: key)
-
-        let value2 = object.attribute(forKey: key)!
     }
 }

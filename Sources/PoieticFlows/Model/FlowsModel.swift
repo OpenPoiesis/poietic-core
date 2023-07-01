@@ -69,7 +69,8 @@ public class FlowsMetamodel: Metamodel {
         structuralType: .edge,
         components: [
             // None for now
-        ]
+        ],
+        abstract: "Edge from a stock node to a flow node, representing what the flow drains."
     )
 
     /// Edge from a flow to a stock. Denotes "what the flow fills".
@@ -79,7 +80,9 @@ public class FlowsMetamodel: Metamodel {
         structuralType: .edge,
         components: [
             // None for now
-        ]
+        ],
+        abstract: "Edge from a flow node to a stock node, representing what the flow fills."
+        
     )
     public static let Parameter = ObjectType(
         name: "Parameter",
@@ -91,11 +94,14 @@ public class FlowsMetamodel: Metamodel {
     public static let ImplicitFlow = ObjectType(
         name: "ImplicitFlow",
         structuralType: .edge,
+        isSystemOwned: true,
         components: [
             // None for now
-        ]
+        ],
+        abstract: "Edge between two stocks."
     )
     
+    // NOTE: If we were able to use Mirror on types, we would not need this
     public static let objectTypes: [ObjectType] = [
         Stock,
         Flow,

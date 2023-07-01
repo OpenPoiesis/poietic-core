@@ -106,7 +106,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
     
     func freeze() {
-        assert(self.state != .frozen)
+        precondition(self.state != .frozen)
         self.state = .frozen
     }
     

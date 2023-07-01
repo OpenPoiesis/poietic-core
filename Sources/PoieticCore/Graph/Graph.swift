@@ -218,7 +218,7 @@ public protocol Graph {
     func selectNodes(_ predicate: NodePredicate) -> [Node]
 
     /// Get a list of edges that match the given predicate.
-    /// 
+    ///
     func selectEdges(_ predicate: EdgePredicate) -> [Edge]
 
     /// Get a neighbourhood of a node where the edges match the neighbourhood
@@ -457,7 +457,8 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                            origin: ObjectID,
                            target: ObjectID,
                            components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == .edge)
+        precondition(type.structuralType == .edge,
+                     "Trying to create an edge using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
         precondition(frame.contains(origin),
                      "Trying to create an edge with unknown origin ID \(origin) in the frame")
         precondition(frame.contains(target),
@@ -486,7 +487,8 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
     }
     public func createNode(_ type: ObjectType,
                            components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == .node)
+        precondition(type.structuralType == .node,
+                     "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
 
         // TODO: This is not very clean: we create a template, then we derive the concrete object.
         // Frame is not aware of structural types, can only create plain objects.

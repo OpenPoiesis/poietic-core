@@ -254,8 +254,9 @@ public class ObjectMemory {
             }
         }
         // TODO: Should we make this into an exception? For now it is a programming error.
-        assert(missing.isEmpty,
-               "Violated referential integrity of frame ID \(frame.id)")
+        guard missing.isEmpty else {
+            fatalError("Violated referential integrity of frame ID \(frame.id)")
+        }
 
         // Check constraints
         // ------------------------------------------------------------

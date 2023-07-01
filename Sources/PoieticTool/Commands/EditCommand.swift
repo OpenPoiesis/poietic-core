@@ -20,7 +20,7 @@ extension PoieticTool {
                 SetAttribute.self,
                 Undo.self,
                 Redo.self,
-                NewNode.self,
+                Add.self,
                 NewConnection.self,
                 Remove.self,
             ]
@@ -62,9 +62,10 @@ extension PoieticTool {
 
             let newFrame: MutableFrame = memory.deriveFrame(original: frame.id)
 
-            try newFrame.setAttribute(object.id,
-                                      value: ForeignValue(value),
-                                      forKey: attributeName)
+            let mutableObject = newFrame.mutableObject(object.id)
+            try mutableObject.setAttribute(value: ForeignValue(value),
+                                           forKey: attributeName)
+
             try acceptFrame(newFrame, in: memory)
 
             try closeMemory(memory: memory, options: options)
@@ -132,9 +133,10 @@ extension PoieticTool {
 }
 
 extension PoieticTool {
-    struct NewNode: ParsableCommand {
+    struct Add: ParsableCommand {
         static var configuration
             = CommandConfiguration(
+                commandName: "add",
                 abstract: "Create a new node"
             )
 
@@ -151,6 +153,15 @@ extension PoieticTool {
             
             guard let type = FlowsMetamodel.objectType(name: typeName) else {
                 throw ToolError.unknownObjectType(typeName)
+            }
+            
+            guard type.structuralType == .node else {
+                throw ToolError.structuralTypeMismatch(StructuralType.node.rawValue,
+                                                       type.structuralType.rawValue)
+            }
+
+            guard !type.isSystemOwned else {
+                throw ToolError.creatingSystemOwnedType(type.name)
             }
             
             let id = graph.createNode(type, components: [])
@@ -235,6 +246,15 @@ extension PoieticTool {
                 throw ToolError.unknownObjectType(typeName)
             }
             
+            guard type.structuralType == .edge else {
+                throw ToolError.structuralTypeMismatch(StructuralType.edge.rawValue,
+                                                       type.structuralType.rawValue)
+            }
+            
+            guard !type.isSystemOwned else {
+                throw ToolError.creatingSystemOwnedType(type.name)
+            }
+
             guard let originObject = frame.object(stringReference: self.origin) else {
                 throw ToolError.unknownObject( self.origin)
             }

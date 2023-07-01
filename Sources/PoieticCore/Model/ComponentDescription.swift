@@ -16,18 +16,18 @@ public class ComponentDescription {
     ///
     public let attributes: [AttributeDescription]
     
-    public let synopsis: String?
+    public let abstract: String?
     
     /// Create a new component description.
     ///
     public init(name: String,
                 label: String? = nil,
                 attributes: [AttributeDescription] = [],
-                synopsis: String? = nil) {
+                abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.attributes = attributes
-        self.synopsis = synopsis
+        self.abstract = abstract
     }
     
     public var description: String {
@@ -54,12 +54,11 @@ public class AttributeDescription: CustomStringConvertible {
     public let label: String
 
     /// Short description of the attribute.
-    public let synopsis: String?
+    public let abstract: String?
     
     /// Create a new attribute description.
     ///
     /// - Parameters:
-    ///
     ///     - name: Name of the attribute.
     ///     - type: Data type of the attribute.
     ///     - label: User-oriented label of the attribute. If none provided,
@@ -70,10 +69,10 @@ public class AttributeDescription: CustomStringConvertible {
     public init(name: String,
                 type: ValueType,
                 label: String?=nil,
-                synopsis: String? = nil) {
+                abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
-        self.synopsis = synopsis
+        self.abstract = abstract
         self.type = type
     }
     

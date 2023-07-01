@@ -69,9 +69,27 @@ public class ObjectType {
     ///
     public let structuralType: StructuralType
     
+    /// Flag whether the objects of this type are being created by the
+    /// system
+    ///
+    /// Objects of this type are usually derived from other user objects and
+    /// placed into the design, so a user interface or a tool can present the
+    /// derived information to the user.
+    ///
+    /// Users or any external tools must not be allowed to create objects of
+    /// this type.
+    ///
+    public let isSystemOwned: Bool
+    
     /// List of component requirements for objects of this type.
     ///
     public let components: [ComponentRequirement]
+    
+    /// Short description and the purpose of the object type.
+    ///
+    /// It is recommended that metamodel creators provide this attribute.
+    ///
+    public let abstract: String?
 
     /// Create a new object type.
     ///
@@ -87,10 +105,14 @@ public class ObjectType {
     public init(name: String,
                 label: String? = nil,
                 structuralType: StructuralType,
-                components: [ComponentRequirement]) {
+                isSystemOwned: Bool = false,
+                components: [ComponentRequirement],
+                abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.structuralType = structuralType
+        self.isSystemOwned = isSystemOwned
         self.components = components
+        self.abstract = abstract
     }
 }

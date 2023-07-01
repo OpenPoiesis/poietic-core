@@ -19,12 +19,6 @@ struct PoieticTool: ParsableCommand {
         subcommands: [
             CreateDB.self,
             Info.self,
-//            CreateNode.self,
-//            Remove.self,
-//            SetAttribute.self,
-//            Undo.self,
-//            Redo.self,
-//            Connect.self,
             List.self,
             Describe.self,
             Edit.self,

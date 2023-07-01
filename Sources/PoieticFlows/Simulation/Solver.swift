@@ -27,7 +27,7 @@ import PoieticCore
 
 /// An abstract class for equations solvers.
 ///
-/// Purpose of a solver is to initialize values of the nodes and then
+/// Purpose of a solver is to initialise values of the nodes and then
 /// to compute each step of the simulation.
 ///
 /// - Note: Solver requires a compiled model. The compiled model is expected to
@@ -279,11 +279,6 @@ public class Solver {
                  timeDelta: Double = 1.0) throws -> StateVector {
         fatalError("Subclasses of Solver are expected to override \(#function)")
     }
-
-
-
-
-    
 }
 
 
