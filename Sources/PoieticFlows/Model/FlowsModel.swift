@@ -29,7 +29,7 @@ public class FlowsMetamodel: Metamodel {
 
     public static let Stock = ObjectType(
         name: "Stock",
-        structuralType: Node.self,
+        structuralType: .node,
         components: [
             .defaultValue(ExpressionComponent.self),
             .defaultValue(StockComponent.self),
@@ -41,7 +41,7 @@ public class FlowsMetamodel: Metamodel {
     
     public static let Flow = ObjectType(
         name: "Flow",
-        structuralType: Node.self,
+        structuralType: .node,
         components: [
             .defaultValue(ExpressionComponent.self),
             .defaultValue(FlowComponent.self),
@@ -53,7 +53,7 @@ public class FlowsMetamodel: Metamodel {
     
     public static let Auxiliary = ObjectType(
         name: "Auxiliary",
-        structuralType: Node.self,
+        structuralType: .node,
         components: [
             .defaultValue(ExpressionComponent.self),
             // PositionComponent.self,
@@ -66,7 +66,7 @@ public class FlowsMetamodel: Metamodel {
     ///
     public static let Drains = ObjectType(
         name: "Drains",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]
@@ -76,21 +76,21 @@ public class FlowsMetamodel: Metamodel {
     ///
     public static let Fills = ObjectType(
         name: "Fills",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]
     )
     public static let Parameter = ObjectType(
         name: "Parameter",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]
     )
     public static let ImplicitFlow = ObjectType(
         name: "ImplicitFlow",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]

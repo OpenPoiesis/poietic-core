@@ -83,7 +83,7 @@ struct IntegerComponent: Component, Equatable {
 }
 
 let TestObjectType = ObjectType(name: "Test",
-                                structuralType: Node.self,
+                                structuralType: .node,
                                 components: [])
 
 class TestMetamodel: Metamodel {
@@ -104,7 +104,7 @@ class TestMetamodel: Metamodel {
     
     static let Stock = ObjectType(
         name: "Stock",
-        structuralType: Node.self,
+        structuralType: .node,
         components: [
             .defaultValue(IntegerComponent.self),
         ]
@@ -112,7 +112,7 @@ class TestMetamodel: Metamodel {
     
     static let Flow = ObjectType(
         name: "Flow",
-        structuralType: Node.self,
+        structuralType: .node,
         components: [
             .defaultValue(IntegerComponent.self),
         ]
@@ -120,14 +120,14 @@ class TestMetamodel: Metamodel {
     
     static let Parameter = ObjectType(
         name: "Parameter",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]
     )
     static let Arrow = ObjectType(
         name: "Arrow",
-        structuralType: Edge.self,
+        structuralType: .edge,
         components: [
             // None for now
         ]

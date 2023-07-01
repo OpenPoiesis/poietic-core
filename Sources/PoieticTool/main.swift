@@ -33,8 +33,10 @@ struct PoieticTool: ParsableCommand {
 //            Export.self,
             Run.self,
             WriteDOT.self,
-        ],
-        defaultSubcommand: List.self)
+            Metamodel.self,
+        ]
+//        defaultSubcommand: List.self
+    )
 }
 
 struct Options: ParsableArguments {

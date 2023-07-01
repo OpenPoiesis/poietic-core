@@ -1,11 +1,17 @@
 //
-//  File.swift
-//  
+//  Graph.swift
+//
 //
 //  Created by Stefan Urbanek on 04/06/2023.
 //
 
 
+/// Object representing a graph node.
+///
+/// Graph nodes are objects that can be connected to other nodes with edges.
+///
+/// - SeeAlso: `Edge`, `Graph`, `MutableGraph`
+///
 public class Node: ObjectSnapshot {
     public override func derive(snapshotID: SnapshotID,
                                 objectID: ObjectID? = nil) -> ObjectSnapshot {
@@ -25,12 +31,17 @@ public class Node: ObjectSnapshot {
 /// The edges in the graph have an origin node and a target node associated
 /// with it.
 ///
+/// - SeeAlso: `Node`, `Graph`, `MutableGraph`
 public class Edge: ObjectSnapshot {
     public override var structuralTypeName: String {
         return "edge"
     }
 
     /// Origin node of the edge - a node from which the edge points from.
+    ///
+    /// Origin is a structural dependency. If the origin node is removed from the
+    /// design, then all edges referencing the removed objects will be removed
+    /// as well.
     ///
     public var origin: ObjectID {
         willSet {
@@ -39,12 +50,26 @@ public class Edge: ObjectSnapshot {
     }
     /// Target node of the edge - a node to which the edge points to.
     ///
+    /// Target is a structural dependency. If the target node is removed from the
+    /// design, then all edges referencing the removed objects will be removed
+    /// as well.
+    ///
     public var target: ObjectID {
         willSet {
             precondition(self.state.isMutable)
         }
     }
     
+    /// Create a new edge.
+    ///
+    /// - Parameters:
+    ///     - id: ObjectID of the new edge
+    ///     - snapshotID: Snapshot ID (version) of the new edge
+    ///     - type: Object type of the edge.
+    ///     - origin: An origin node of the edge.
+    ///     - target: A target node of the edge.
+    ///     - components: List of components to be assigned to the edge.
+    ///
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
                 type: ObjectType? = nil,
@@ -186,10 +211,14 @@ public protocol Graph {
     ///
     /// - Complexity: O(n). All edges are traversed.
     ///
-
     func neighbours(_ node: ObjectID) -> [Edge]
     
+    /// Get a list of nodes that match the given predicate.
+    ///
     func selectNodes(_ predicate: NodePredicate) -> [Node]
+
+    /// Get a list of edges that match the given predicate.
+    /// 
     func selectEdges(_ predicate: EdgePredicate) -> [Edge]
 
     /// Get a neighbourhood of a node where the edges match the neighbourhood
@@ -428,7 +457,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                            origin: ObjectID,
                            target: ObjectID,
                            components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == Edge.self)
+        precondition(type.structuralType == .edge)
         precondition(frame.contains(origin),
                      "Trying to create an edge with unknown origin ID \(origin) in the frame")
         precondition(frame.contains(target),
@@ -457,7 +486,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
     }
     public func createNode(_ type: ObjectType,
                            components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == Node.self)
+        precondition(type.structuralType == .node)
 
         // TODO: This is not very clean: we create a template, then we derive the concrete object.
         // Frame is not aware of structural types, can only create plain objects.

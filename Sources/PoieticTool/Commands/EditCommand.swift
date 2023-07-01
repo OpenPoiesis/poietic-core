@@ -22,7 +22,7 @@ extension PoieticTool {
                 Redo.self,
                 NewNode.self,
                 NewConnection.self,
-                RemoveNode.self,
+                Remove.self,
             ]
         )
         
@@ -166,10 +166,10 @@ extension PoieticTool {
 }
 
 extension PoieticTool {
-    struct RemoveNode: ParsableCommand {
+    struct Remove: ParsableCommand {
         static var configuration
             = CommandConfiguration(
-                abstract: "Create a new node"
+                abstract: "Remove an object – a node or a connection"
             )
 
         @OptionGroup var options: Options
@@ -187,12 +187,20 @@ extension PoieticTool {
                 throw ToolError.unknownObject(reference)
             }
 
-            graph.remove(node: object.id)
+            guard graph.contains(node: object.id) else {
+                throw ToolError.nodeExpected(String(object.id))
+            }
+            let removed = frame.removeCascading(object.id)
             
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
-            print("Removed node: \(object.id)")
+            print("Removed object: \(object.id)")
+            if !removed.isEmpty {
+                let list = removed.map { String($0) }.joined(separator: ", ")
+                print("Removed object: \(object.id)")
+                print("Removed cascading: \(list)")
+            }
             print("Current frame: \(memory.currentFrame.id)")
         }
     }
@@ -202,7 +210,8 @@ extension PoieticTool {
     struct NewConnection: ParsableCommand {
         static var configuration
             = CommandConfiguration(
-                abstract: "Create a new connection between two nodes"
+                commandName: "connect",
+                abstract: "Create a new connection (edge) between two nodes"
             )
 
         @OptionGroup var options: Options
@@ -252,7 +261,7 @@ extension PoieticTool {
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
-            print("Created node \(id)")
+            print("Created edge \(id)")
             print("Current frame: \(memory.currentFrame.id)")
         }
     }

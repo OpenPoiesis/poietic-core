@@ -30,9 +30,9 @@ public struct ConstraintViolationError: Error {
 public class ObjectMemory {
     var identityGenerator: SequentialIDGenerator
    
-    let metamodel: Metamodel.Type
+    public let metamodel: Metamodel.Type
     
-    var constraints: [Constraint]
+    public internal(set) var constraints: [Constraint]
     
     var _stableFrames: [FrameID: StableFrame]
     var _mutableFrames: [FrameID: MutableFrame]
@@ -50,7 +50,7 @@ public class ObjectMemory {
     ///
     /// - Note: `currentFrameID` is guaranteed not to be `nil` when there is
     ///   a history.
-    var currentFrameID: FrameID?
+    public internal(set) var currentFrameID: FrameID?
 
     /// Get the current stable frame.
     ///

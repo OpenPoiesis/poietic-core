@@ -36,6 +36,8 @@
 /// - there are going to be multiple versions of the toolkit in the wild, users
 ///   can investigate the capabilities of their installed version of the toolkit
 ///
+/// - Note: Each application is expected to provide their own domain specific metamodel.
+
 public protocol Metamodel: AnyObject {
     /// List of components that are available within the domain described by
     /// this metamodel.
@@ -45,8 +47,16 @@ public protocol Metamodel: AnyObject {
     ///
     static var objectTypes: [ObjectType] { get }
     
+    /// List of built-in variables.
+    ///
     static var variables: [BuiltinVariable] { get }
     
+    /// List of constraints.
+    ///
+    /// Constraints are validated before a frame is accepted to the memory.
+    /// Memory must not contain stable frames that violate any of the
+    /// constraints.
+    ///
     static var constraints: [Constraint] { get }
 }
 
@@ -54,13 +64,20 @@ extension Metamodel {
     public static func objectType(name: String) -> ObjectType? {
         return objectTypes.first { $0.name == name}
     }
+    
     public static func componentType(name: String) -> Component.Type? {
         return components.first {
             $0.componentDescription.name == name
         }
     }
+    
 }
 
+/// A concrete metamodel without any specification.
+///
+/// Used for testing and playground purposes.
+///
+/// Each application is expected to provide their own domain specific metamodel.
 public class EmptyMetamodel: Metamodel {
     public static var components: [Component.Type] = []
     
