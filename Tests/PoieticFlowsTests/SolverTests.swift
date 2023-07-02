@@ -31,19 +31,19 @@ final class TestSolver: XCTestCase {
     func testInitializeStocks() throws {
         
         let a = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [ExpressionComponent(name: "a",
+                                 components: [FormulaComponent(name: "a",
                                                                   expression: "1")])
         let b = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [ExpressionComponent(name: "b",
+                                 components: [FormulaComponent(name: "b",
                                                                   expression: "a + 1")])
         let c =  graph.createNode(FlowsMetamodel.Stock,
-                                  components: [ExpressionComponent(name: "const",
+                                  components: [FormulaComponent(name: "const",
                                                                    expression: "100")])
         let s_a = graph.createNode(FlowsMetamodel.Stock,
-                                   components: [ExpressionComponent(name: "use_a",
+                                   components: [FormulaComponent(name: "use_a",
                                                                     expression: "a")])
         let s_b = graph.createNode(FlowsMetamodel.Stock,
-                                   components: [ExpressionComponent(name: "use_b",
+                                   components: [FormulaComponent(name: "use_b",
                                                                     expression: "b")])
         
         graph.createEdge(FlowsMetamodel.Parameter, origin: a, target: b, components: [])
@@ -64,7 +64,7 @@ final class TestSolver: XCTestCase {
     func testOrphanedInitialize() throws {
         
         let a = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [ExpressionComponent(name: "a",
+                                 components: [FormulaComponent(name: "a",
                                                                   expression: "1")])
         let compiled = try compiler.compile()
         let solver = Solver(compiled)
@@ -75,13 +75,13 @@ final class TestSolver: XCTestCase {
     }
     func testEverythingInitialized() throws {
         let aux = graph.createNode(FlowsMetamodel.Auxiliary,
-                                   components: [ExpressionComponent(name: "a",
+                                   components: [FormulaComponent(name: "a",
                                                                     expression: "10")])
         let stock = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "b",
+                                     components: [FormulaComponent(name: "b",
                                                                       expression: "20")])
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [ExpressionComponent(name:"c",
+                                    components: [FormulaComponent(name:"c",
                                                                      expression: "30")])
         
         let compiled = try compiler.compile()
@@ -96,13 +96,13 @@ final class TestSolver: XCTestCase {
    
     func testNegativeStock() throws {
         let stock = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "stock",
+                                     components: [FormulaComponent(name: "stock",
                                                                       expression: "5")])
         let obj = graph.node(stock)!
         obj[StockComponent.self]!.allowsNegative = true
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                     components: [ExpressionComponent(name: "flow",
+                                     components: [FormulaComponent(name: "flow",
                                                                       expression: "10")])
 
         graph.createEdge(FlowsMetamodel.Drains, origin: stock, target: flow, components: [])
@@ -118,13 +118,13 @@ final class TestSolver: XCTestCase {
 
     func testNonNegativeStock() throws {
         let stock = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "stock",
+                                     components: [FormulaComponent(name: "stock",
                                                                       expression: "5")])
         let obj = graph.node(stock)!
         obj[StockComponent.self]!.allowsNegative = false
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                     components: [ExpressionComponent(name: "flow",
+                                     components: [FormulaComponent(name: "flow",
                                                                       expression: "10")])
 
         graph.createEdge(FlowsMetamodel.Drains, origin: stock, target: flow, components: [])
@@ -140,19 +140,19 @@ final class TestSolver: XCTestCase {
     func testNonNegativeToTwo() throws {
         // TODO: Break this into multiple tests
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "stock",
+                                     components: [FormulaComponent(name: "stock",
                                                                       expression: "5")])
         let sourceNode = graph.node(source)!
         sourceNode[StockComponent.self]!.allowsNegative = false
 
         let happy = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "happy",
+                                     components: [FormulaComponent(name: "happy",
                                                                       expression: "0")])
         let sad = graph.createNode(FlowsMetamodel.Stock,
-                                     components: [ExpressionComponent(name: "sad",
+                                     components: [FormulaComponent(name: "sad",
                                                                       expression: "0")])
         let happyFlow = graph.createNode(FlowsMetamodel.Flow,
-                                     components: [ExpressionComponent(name: "happy_flow",
+                                     components: [FormulaComponent(name: "happy_flow",
                                                                       expression: "10")])
         let happyFlowNode = graph.node(happyFlow)!
         happyFlowNode[FlowComponent.self]!.priority = 1
@@ -163,7 +163,7 @@ final class TestSolver: XCTestCase {
                          origin: happyFlow, target: happy, components: [])
 
         let sadFlow = graph.createNode(FlowsMetamodel.Flow,
-                                     components: [ExpressionComponent(name: "sad_flow",
+                                     components: [FormulaComponent(name: "sad_flow",
                                                                       expression: "10")])
         let sadFlowNode = graph.node(sadFlow)!
         sadFlowNode[FlowComponent.self]!.priority = 2

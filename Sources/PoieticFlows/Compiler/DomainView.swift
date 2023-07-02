@@ -35,7 +35,7 @@ public class DomainView {
         var issues: [ObjectID: [NodeIssue]] = [:]
         
         for node in expressionNodes {
-            let name = node[ExpressionComponent.self]!.name
+            let name = node[FormulaComponent.self]!.name
             names[name, default: []].append(node.id)
         }
         var dupes: [String] = []
@@ -69,7 +69,7 @@ public class DomainView {
         var issues: [ObjectID: [NodeIssue]] = [:]
         
         for node in expressionNodes {
-            let component: ExpressionComponent = node[ExpressionComponent.self]!
+            let component: FormulaComponent = node[FormulaComponent.self]!
             do {
                 let parser = ExpressionParser(string: component.expressionString)
                 let unboundExpr = try parser.parse()
@@ -97,7 +97,7 @@ public class DomainView {
         var incomingNames: Set<String> = Set()
         
         for paramNode in incomingParams.nodes {
-            let expr: ExpressionComponent = paramNode[ExpressionComponent.self]!
+            let expr: FormulaComponent = paramNode[FormulaComponent.self]!
             let name = expr.name
             incomingNames.insert(name)
         }

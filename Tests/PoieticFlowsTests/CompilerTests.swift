@@ -23,11 +23,11 @@ final class TestCompiler: XCTestCase {
     
     func testInflowOutflow() throws {
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                      components: [ExpressionComponent(name:"source",expression:"0")])
+                                      components: [FormulaComponent(name:"source",expression:"0")])
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [ExpressionComponent(name:"f",expression:"1")])
+                                    components: [FormulaComponent(name:"f",expression:"1")])
         let sink = graph.createNode(FlowsMetamodel.Stock,
-                                    components: [ExpressionComponent(name:"sink",expression:"0")])
+                                    components: [FormulaComponent(name:"sink",expression:"0")])
         
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source,
@@ -51,11 +51,11 @@ final class TestCompiler: XCTestCase {
     
     func testUpdateImplicitFlows() throws {
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [ExpressionComponent(name:"f",expression:"1")])
+                                    components: [FormulaComponent(name:"f",expression:"1")])
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                      components: [ExpressionComponent(name:"source",expression:"0")])
+                                      components: [FormulaComponent(name:"source",expression:"0")])
         let sink = graph.createNode(FlowsMetamodel.Stock,
-                                    components: [ExpressionComponent(name:"sink",expression:"0")])
+                                    components: [FormulaComponent(name:"sink",expression:"0")])
         
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source,

@@ -14,7 +14,7 @@ import PoieticFlows
 extension FrameBase {
     public func object(named name: String) -> ObjectSnapshot? {
         for object in snapshots {
-            guard let component: ExpressionComponent = object[ExpressionComponent.self] else {
+            guard let component: FormulaComponent = object[FormulaComponent.self] else {
                 continue
             }
             if component.name == name {

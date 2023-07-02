@@ -8,22 +8,22 @@
 import PoieticCore
 
 // FIXME: Consider consolidating all node types into this class.
-/// Component of all nodes that can contain arithmetic expression.
+/// Component of all nodes that can contain arithmetic formula or a constant.
 ///
-/// All components with arithmetic expression are also named components.
+/// All components with arithmetic formula are also named components.
 ///
-public struct ExpressionComponent: Component,
+public struct FormulaComponent: Component,
                                    CustomStringConvertible {
     
     public static var componentDescription = ComponentDescription(
-        name: "Expression",
+        name: "Formula",
         attributes: [
             AttributeDescription(
                 name: "name",
                 type: .string,
                 abstract: "Node name. Can be used to refer to the node in in formulas."),
             AttributeDescription(
-                name: "expression",
+                name: "formula",
                 type: .string,
                 abstract: "Arithmetic formula or a constant value represented by the node."
             ),
@@ -48,8 +48,7 @@ public struct ExpressionComponent: Component,
     
     /// Creates an expression node.
     public init(name: String,
-                expression: String,
-                position: Point = Point()) {
+                expression: String) {
         self.name = name
         self.expressionString = expression
     }
@@ -61,14 +60,13 @@ public struct ExpressionComponent: Component,
     
     
     public var description: String {
-        let typename = "\(type(of: self))"
-        return "\(typename)(\(name), expr: \(expressionString))"
+        return "Formula(\(name), '\(expressionString))'"
     }
     
     public func attribute(forKey key: AttributeKey) -> AttributeValue? {
         switch key {
         case "name": return ForeignValue(name)
-        case "expression": return ForeignValue(expressionString)
+        case "formula": return ForeignValue(expressionString)
         default: return nil
         }
     }
@@ -77,7 +75,7 @@ public struct ExpressionComponent: Component,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "name": self.name = try value.stringValue()
-        case "expression": self.expressionString = try value.stringValue()
+        case "formula": self.expressionString = try value.stringValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))
@@ -85,8 +83,8 @@ public struct ExpressionComponent: Component,
     }
 }
 
-extension ExpressionComponent {
-    public static func == (lhs: ExpressionComponent, rhs: ExpressionComponent) -> Bool {
+extension FormulaComponent {
+    public static func == (lhs: FormulaComponent, rhs: FormulaComponent) -> Bool {
         lhs.name == rhs.name
         && lhs.expressionString == rhs.expressionString
     }

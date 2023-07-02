@@ -70,7 +70,7 @@ extension PoieticTool {
         func listNames(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
             let names: [String] = frame.snapshots.compactMap {
-                    guard let component: ExpressionComponent = $0[ExpressionComponent.self] else {
+                    guard let component: FormulaComponent = $0[FormulaComponent.self] else {
                         return nil
                     }
                     return component.name
@@ -86,7 +86,7 @@ extension PoieticTool {
             let frame = memory.currentFrame
             
             let items: [(String, String)] = frame.snapshots.compactMap {
-                guard let component: ExpressionComponent = $0[ExpressionComponent.self] else {
+                guard let component: FormulaComponent = $0[FormulaComponent.self] else {
                         return nil
                     }
                     return (component.name, component.expressionString)

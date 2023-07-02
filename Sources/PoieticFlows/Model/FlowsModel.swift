@@ -19,7 +19,7 @@ public class FlowsMetamodel: Metamodel {
     public static let components: [Component.Type] = [
         StockComponent.self,
         FlowComponent.self,
-        ExpressionComponent.self,
+        FormulaComponent.self,
         PositionComponent.self,
     ]
     
@@ -31,7 +31,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Stock",
         structuralType: .node,
         components: [
-            ExpressionComponent.self,
+            FormulaComponent.self,
             StockComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
@@ -43,7 +43,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Flow",
         structuralType: .node,
         components: [
-            ExpressionComponent.self,
+            FormulaComponent.self,
             FlowComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
@@ -55,7 +55,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Auxiliary",
         structuralType: .node,
         components: [
-            ExpressionComponent.self,
+            FormulaComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
@@ -146,7 +146,7 @@ public class FlowsMetamodel: Metamodel {
     // MARK: Queries and Predicates
     // ---------------------------------------------------------------------
     
-    public static let expressionNodes = HasComponentPredicate(ExpressionComponent.self)
+    public static let expressionNodes = HasComponentPredicate(FormulaComponent.self)
     public static let flowNodes = IsTypePredicate(Flow)
 
     public static let parameterEdges = IsTypePredicate(Parameter)
