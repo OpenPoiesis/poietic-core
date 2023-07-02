@@ -31,8 +31,8 @@ public class FlowsMetamodel: Metamodel {
         name: "Stock",
         structuralType: .node,
         components: [
-            .defaultValue(ExpressionComponent.self),
-            .defaultValue(StockComponent.self),
+            ExpressionComponent.self,
+            StockComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
@@ -43,8 +43,8 @@ public class FlowsMetamodel: Metamodel {
         name: "Flow",
         structuralType: .node,
         components: [
-            .defaultValue(ExpressionComponent.self),
-            .defaultValue(FlowComponent.self),
+            ExpressionComponent.self,
+            FlowComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
@@ -55,7 +55,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Auxiliary",
         structuralType: .node,
         components: [
-            .defaultValue(ExpressionComponent.self),
+            ExpressionComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,

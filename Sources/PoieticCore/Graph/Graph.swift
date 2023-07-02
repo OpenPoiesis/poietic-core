@@ -484,9 +484,6 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                           target: target,
                           components: components)
         for componentType in type.components {
-            guard case let .defaultValue(componentType) = componentType else {
-                continue
-            }
             if !object.components.has(componentType) {
                 object.components.set(componentType.init())
             }
@@ -508,9 +505,6 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                           type: type,
                           components: components)
         for componentType in type.components {
-            guard case let .defaultValue(componentType) = componentType else {
-                continue
-            }
             if !object.components.has(componentType) {
                 object.components.set(componentType.init())
             }

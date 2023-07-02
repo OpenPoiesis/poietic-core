@@ -106,7 +106,7 @@ class TestMetamodel: Metamodel {
         name: "Stock",
         structuralType: .node,
         components: [
-            .defaultValue(IntegerComponent.self),
+            IntegerComponent.self,
         ]
     )
     
@@ -114,7 +114,7 @@ class TestMetamodel: Metamodel {
         name: "Flow",
         structuralType: .node,
         components: [
-            .defaultValue(IntegerComponent.self),
+            IntegerComponent.self,
         ]
     )
     

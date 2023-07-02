@@ -19,7 +19,10 @@ public struct FlowComponent: Component,
     public static var componentDescription = ComponentDescription(
         name: "Flow",
         attributes: [
-            AttributeDescription(name: "priority", type: .int),
+            AttributeDescription(
+                name: "priority",
+                type: .int,
+                abstract: "Priority during computation. The flows are considered in the ascending order of priority."),
         ]
     )
     

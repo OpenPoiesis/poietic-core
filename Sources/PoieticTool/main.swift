@@ -27,7 +27,7 @@ struct PoieticTool: ParsableCommand {
 //            Export.self,
             Run.self,
             WriteDOT.self,
-            Metamodel.self,
+            MetamodelCommand.self,
         ]
 //        defaultSubcommand: List.self
     )

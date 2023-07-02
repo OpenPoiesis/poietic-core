@@ -5,31 +5,6 @@
 //  Created by Stefan Urbanek on 31/05/2023.
 //
 
-/// Specification of an object type requirement for presence of a component.
-///
-public enum ComponentRequirement {
-    // TODO: Is this still needed?
-    
-    /// Component is required by the object type. If not present, then it
-    /// is considered a constraint violation.
-    ///
-    case required(Component.Type)
-
-    /// Component's presence is optional in an object type, but it will be
-    /// created during object creation.
-    ///
-    case defaultValue(Component.Type)
-
-    public var description: String {
-        switch self{
-        case .required(let type):
-            return "\(type.componentDescription.label) (required)"
-        case .defaultValue(let type):
-            return "\(type.componentDescription.label) (optional)"
-        }
-    }
-}
-
 /// Structural type of an object.
 ///
 /// Structural type denotes how the object can relate to other objects in
@@ -54,6 +29,8 @@ public enum StructuralType: String, Equatable {
 /// what are their structural types.
 ///
 public class ObjectType {
+    // TODO: Rename to "ObjectClass" (referred to as 'Class' within the system, yet not to conflict with Class in the host language)
+    
     /// Name of the object type.
     public let name: String
     
@@ -83,7 +60,7 @@ public class ObjectType {
     
     /// List of component requirements for objects of this type.
     ///
-    public let components: [ComponentRequirement]
+    public let components: [Component.Type]
     
     /// Short description and the purpose of the object type.
     ///
@@ -91,6 +68,14 @@ public class ObjectType {
     ///
     public let abstract: String?
 
+    
+    /// Mapping between attribute name and a component type that contains the
+    /// attribute.
+    ///
+    /// - Note: The attributes in the components share the same name-space
+    /// within the object type.
+    public let _attributeComponentMap: [String:Component.Type]
+    
     /// Create a new object type.
     ///
     /// - Parameters:
@@ -102,11 +87,15 @@ public class ObjectType {
     ///     - components: Specification of components that are required to be
     ///       present for an object of this type.
     ///
+    /// - Note: The attributes in components share the same name-space within an
+    ///         object type. In other words, there must not be two components with
+    ///         the same attribute in an object type.
+    ///
     public init(name: String,
                 label: String? = nil,
                 structuralType: StructuralType,
                 isSystemOwned: Bool = false,
-                components: [ComponentRequirement],
+                components: [Component.Type],
                 abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
@@ -114,5 +103,28 @@ public class ObjectType {
         self.isSystemOwned = isSystemOwned
         self.components = components
         self.abstract = abstract
+        
+        let pairs: [(String, Component.Type)] = components.flatMap { component in
+            let desc = component.componentDescription
+            return desc.attributes.map { ($0.name, component) }
+        }
+        self._attributeComponentMap = Dictionary(uniqueKeysWithValues: pairs)
+
+    }
+    
+    /// List of attributes from all components.
+    ///
+    public var attributes: [AttributeDescription] {
+        return components.flatMap {
+            $0.componentDescription.attributes
+        }
+    }
+    
+    public func hasAttribute(_ name: String) -> Bool {
+        return _attributeComponentMap[name] != nil
+    }
+    
+    public func componentType(forAttribute name: String) -> Component.Type? {
+        return _attributeComponentMap[name]
     }
 }

@@ -7,6 +7,10 @@
 
 /// Description of a component.
 ///
+/// - Note: The attributes in components share the same name-space within an
+///         object type. In other words, there must not be two components with
+///         the same attribute in an object type.
+///
 public class ComponentDescription {
 
     public let name: String
@@ -40,6 +44,9 @@ public class ComponentDescription {
 
 /// Description of an attribute.
 ///
+/// - Note: The attributes in components share the same name-space within an
+///         object type. In other words, there must not be two components with
+///         the same attribute in an object type.
 public class AttributeDescription: CustomStringConvertible {
     /// Attribute name – an identifier.
     ///

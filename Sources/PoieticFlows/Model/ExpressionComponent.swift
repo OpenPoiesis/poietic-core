@@ -18,8 +18,15 @@ public struct ExpressionComponent: Component,
     public static var componentDescription = ComponentDescription(
         name: "Expression",
         attributes: [
-            AttributeDescription(name: "name", type: .string),
-            AttributeDescription(name: "expression", type: .string),
+            AttributeDescription(
+                name: "name",
+                type: .string,
+                abstract: "Node name. Can be used to refer to the node in in formulas."),
+            AttributeDescription(
+                name: "expression",
+                type: .string,
+                abstract: "Arithmetic formula or a constant value represented by the node."
+            ),
         ]
     )
     
