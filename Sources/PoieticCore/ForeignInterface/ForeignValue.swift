@@ -5,6 +5,17 @@
 //  Created by Stefan Urbanek on 2020/12/14.
 //
 
+public enum ValueError: Error, CustomStringConvertible{
+    case typeMismatch(String, String)
+    case invalidBooleanValue(String)
+    
+    public var description: String {
+        switch self {
+        case .typeMismatch(let given, let expected): "\(given) is not convertible to a \(expected) type."
+        case .invalidBooleanValue(let value): "Value '\(value)' is not a valid boolean value."
+        }
+    }
+}
 
 public enum ForeignScalar: Equatable, CustomStringConvertible {
     case int(Int)
@@ -13,27 +24,39 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
     case bool(Bool)
     case id(ObjectID)
 
-    public var intValue: Int? {
+    public func intValue() throws -> Int {
         switch self {
         case let .int(value): return value
         case let .double(value): return Int(value)
-        case let .string(value): return Int(value)
+        case let .string(value):
+            if let value = Int(value){
+                return value
+            }
+            else {
+                throw ValueError.typeMismatch(value, "int")
+            }
         case let .bool(value): return value ? 1 : 0
         case let .id(value): return Int(value)
         }
     }
     
-    public var doubleValue: Double? {
+    public func doubleValue() throws -> Double  {
         switch self {
         case .int(let value): return Double(value)
         case .double(let value): return value
-        case .string(let value): return Double(value)
-        case .bool(_): return nil
-        case .id(_): return nil
+        case .string(let value):
+            if let value = Double(value){
+                return value
+            }
+            else {
+                throw ValueError.typeMismatch(value, "double")
+            }
+        case .bool(let value): throw ValueError.typeMismatch("\(value)", "double")
+        case .id(let value): throw ValueError.typeMismatch("\(value)", "double")
         }
     }
     
-    public var stringValue: String {
+    public func stringValue() -> String {
         switch self {
         case let .int(value): return String(value)
         case let .double(value): return String(value)
@@ -43,32 +66,38 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         }
     }
 
-    public var boolValue: Bool? {
+    public func boolValue() throws -> Bool {
         switch self {
         case .int(let value): return (value != 0)
-        case .double(_): return nil
+        case .double(let value): throw ValueError.typeMismatch("\(value)", "bool")
         case .string(let value): switch value {
                                     case "true": return true
                                     case "false": return false
-                                    default: return nil
+                                    default: throw ValueError.invalidBooleanValue(value)
                                     }
         case .bool(let value): return value
-        case .id(_): return nil
+        case .id(let value): throw ValueError.typeMismatch("\(value)", "bool")
         }
     }
     
-    public var idValue: ObjectID? {
+    public func idValue() throws -> ObjectID {
         switch self {
         case .int(let value): return ObjectID(value)
-        case .double(_): return nil
-        case .string(let value): return ObjectID(value)
-        case .bool(_): return nil
+        case .double(let value): throw ValueError.typeMismatch("\(value)", "ID")
+        case .string(let value):
+            if let value = ObjectID(value) {
+                return value
+            }
+            else {
+                throw ValueError.typeMismatch("\(value)", "ID")
+            }
+        case .bool(let value): throw ValueError.typeMismatch("\(value)", "ID")
         case .id(let value): return value
         }
     }
     
     public var description: String {
-        return stringValue
+        stringValue()
     }
 }
 
@@ -146,34 +175,34 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         self = .array(ids.map { ForeignScalar.id($0)} )
     }
 
-    public var intValue: Int? {
+    public func intValue() throws -> Int {
         switch self {
-        case .scalar(let value): return value.intValue
-        case .array: return nil
+        case .scalar(let value): return try value.intValue()
+        case .array: throw ValueError.typeMismatch("Array", "int")
         }
     }
-    public var stringValue: String? {
+    public func stringValue() throws -> String {
         switch self {
-        case .scalar(let value): return value.stringValue
-        case .array: return nil
+        case .scalar(let value): return try value.stringValue()
+        case .array: throw ValueError.typeMismatch("Array", "string")
         }
     }
-    public var boolValue: Bool? {
+    public func boolValue() throws -> Bool {
         switch self {
-        case .scalar(let value): return value.boolValue
-        case .array: return nil
+        case .scalar(let value): return try value.boolValue()
+        case .array: throw ValueError.typeMismatch("Array", "bool")
         }
     }
-    public var doubleValue: Double? {
+    public func doubleValue() throws -> Double {
         switch self {
-        case .scalar(let value): return value.doubleValue
-        case .array: return nil
+        case .scalar(let value): return try value.doubleValue()
+        case .array: throw ValueError.typeMismatch("Array", "double")
         }
     }
-    public var idValue: ObjectID? {
+    public func idValue() throws -> ObjectID {
         switch self {
-        case .scalar(let value): return value.idValue
-        case .array: return nil
+        case .scalar(let value): return try value.idValue()
+        case .array: throw ValueError.typeMismatch("Array", "ID")
         }
     }
     

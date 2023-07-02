@@ -149,40 +149,42 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     // TODO: Add tests
     public func attribute(forKey key: String) -> ForeignValue? {
         // FIXME: This needs attention. It was written hastily without deeper thought.
-        let keyPath = key.split(separator: ".", maxSplits: 2)
-        let componentName: String?
-        let attributeName: String
-        
-        if keyPath.count == 1 {
-            componentName = nil
-            attributeName = String(keyPath[0])
-        }
-        else {
-            componentName = String(keyPath[0])
-            attributeName = String(keyPath[1])
-        }
-        
-        if let componentName {
-            guard let component = _component(named: componentName) else {
-                fatalError("Unknown component: \(componentName)")
+        // TODO: This is asymmetric with setAttribute, it should not be (that much)
+        switch key {
+        case "id": return ForeignValue(id)
+        case "snapshot_id": return ForeignValue(snapshotID)
+        case "type":
+            if let type {
+                return ForeignValue(type.name)
+            }
+            else {
+                return ForeignValue("untyped")
+            }
+        case "structural_type": return ForeignValue(structuralTypeName)
+        default:
+            guard let type else {
+                // TODO: Is this a programming error or an user error?
+                // NOTE: I assume this should be a programming error, as the program
+                //       should check for an attribute existence prior trying
+                //       setting it.
+                //       On the other hand, the method is already throwing, so we
+                //       might just throw some unknownAttribute(name) error here.
+                //
+                //       I am undecided at this moment.
+                //
+                
+                fatalError("Trying to set an attribute of an object \(composedIDString) that has no type")
             }
             
-            return component.attribute(forKey: attributeName)
-        }
-        else {
-            switch attributeName {
-            case "id": return ForeignValue(id)
-            case "snapshot_id": return ForeignValue(snapshotID)
-            case "type":
-                if let type {
-                    return ForeignValue(type.name)
-                }
-                else {
-                    return ForeignValue("untyped")
-                }
-            case "structural_type": return ForeignValue(structuralTypeName)
-            default: fatalError("Unknown attribute: \(attributeName)")
+            guard let componentType = type.componentType(forAttribute: key) else {
+                // TODO: What to do here? Fail? Throw?
+                fatalError("Object type \(type.name) has no component with attribute \(key).")
             }
+            
+            guard var component = components[componentType] else {
+                fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
+            }
+            return component.attribute(forKey: key)
         }
     }
     
@@ -191,26 +193,36 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")
 
-        // FIXME: This needs attention. It was written hastily without deeper thought.
-        let keyPath = key.split(separator: ".", maxSplits: 2)
+        guard let type else {
+            // TODO: Is this a programming error or an user error?
+            // NOTE: I assume this should be a programming error, as the program
+            //       should check for an attribute existence prior trying
+            //       setting it.
+            //       On the other hand, the method is already throwing, so we
+            //       might just throw some unknownAttribute(name) error here.
+            //
+            //       I am undecided at this moment.
+            //
+            
+            fatalError("Trying to set an attribute of an object \(composedIDString) that has no type")
+        }
         
-        guard keyPath.count == 2 else {
-            fatalError("Trying to set a non-component attribute: '\(key)'")
+        guard let componentType = type.componentType(forAttribute: key) else {
+            // TODO: What to do here? Fail? Throw?
+            fatalError("Object type \(type.name) has no component with attribute \(key).")
+        }
+        
+        guard var component = components[componentType] else {
+            fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
         }
 
-        let componentName = String(keyPath[0])
-        let attributeName = String(keyPath[1])
-        
-        guard var component = _component(named: componentName) else {
-            fatalError("Unknown component: \(componentName)")
-        }
-        try component.setAttribute(value: value, forKey: attributeName)
+        try component.setAttribute(value: value, forKey: key)
         components.set(component)
     }
 
-    // TODO: Add tests
-    private func _component(named name: String) -> (any Component)? {
-        return components.first { $0.componentName == name }
+    
+    public var composedIDString: String {
+        return "\(self.id).\(self.snapshotID)"
     }
 }
 

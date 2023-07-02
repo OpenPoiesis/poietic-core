@@ -38,7 +38,7 @@ struct TestComponent: Component {
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "text": self.text = value.stringValue!
+        case "text": self.text = try value.stringValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))
@@ -74,7 +74,7 @@ struct IntegerComponent: Component, Equatable {
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "value": self.value = value.intValue!
+        case "value": self.value = try value.intValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))

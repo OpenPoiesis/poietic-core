@@ -43,8 +43,8 @@ public struct PositionComponent: Component,
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "x": self.position.x = value.doubleValue!
-        case "y": self.position.y = value.doubleValue!
+        case "x": self.position.x = try value.doubleValue()
+        case "y": self.position.y = try value.doubleValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))

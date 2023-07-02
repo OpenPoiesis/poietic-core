@@ -119,10 +119,7 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        guard let value = existingValue.boolValue else {
-            throw ForeignRecordError.typeMismatch("bool",
-                                                  String(describing: type(of: existingValue)))
-        }
+        let value = try existingValue.boolValue()
         return value
     }
     
@@ -130,10 +127,7 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        guard let value = existingValue.intValue else {
-            throw ForeignRecordError.typeMismatch("int",
-                                                  String(describing: type(of: existingValue)))
-        }
+        let value = try existingValue.intValue()
         return value
     }
     
@@ -141,10 +135,7 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        guard let value = existingValue.doubleValue else {
-            throw ForeignRecordError.typeMismatch("double",
-                                                  String(describing: type(of: existingValue)))
-        }
+        let value = try existingValue.doubleValue()
         return value
     }
     
@@ -152,10 +143,7 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        guard let value = existingValue.stringValue else {
-            throw ForeignRecordError.typeMismatch("string",
-                                                  String(describing: type(of: existingValue)))
-        }
+        let value = try existingValue.stringValue()
         return value
     }
     
@@ -163,11 +151,8 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        guard let value = existingValue.stringValue else {
-            throw ForeignRecordError.typeMismatch("ID",
-                                                  String(describing: type(of: existingValue)))
-        }
-        return UInt64(value)
+        let value = try existingValue.idValue()
+        return value
     }
 }
 

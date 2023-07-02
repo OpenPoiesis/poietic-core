@@ -65,6 +65,7 @@ extension Metamodel {
         return objectTypes.first { $0.name == name}
     }
     
+    /// Get a component type by name
     public static func componentType(name: String) -> Component.Type? {
         return components.first {
             $0.componentDescription.name == name

@@ -92,6 +92,13 @@ public class ObjectMemory {
 //        _stableFrames[firstFrame.id] = firstFrame
 //        self.currentHistoryIndex = versionHistory.startIndex
     }
+   
+    /// True if the memory does not contain any stable frames. Mutable frames
+    /// do not count.
+    /// 
+    public var isEmpty: Bool {
+        return self._stableFrames.isEmpty
+    }
     
     /// Create an ID if needed or use a proposed ID.
     ///

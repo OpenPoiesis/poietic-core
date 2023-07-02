@@ -76,8 +76,8 @@ public struct ExpressionComponent: Component,
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "name": self.name = value.stringValue!
-        case "expression": self.expressionString = value.stringValue!
+        case "name": self.name = try value.stringValue()
+        case "expression": self.expressionString = try value.stringValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))

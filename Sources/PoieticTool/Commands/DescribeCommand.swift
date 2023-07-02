@@ -50,8 +50,7 @@ extension PoieticTool {
                 items.append((desc.label, nil))
 
                 for attr in desc.attributes {
-                    let key = "\(desc.name).\(attr.name)"
-                    let rawValue = object.attribute(forKey: key)
+                    let rawValue = object.attribute(forKey: attr.name)
                     let displayValue: String
                     if let rawValue {
                         displayValue = String(describing: rawValue)

@@ -63,7 +63,7 @@ public struct FlowComponent: Component,
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "priority": self.priority = value.intValue!
+        case "priority": self.priority = try value.intValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))

@@ -64,8 +64,8 @@ public struct StockComponent: Component,
     public mutating func setAttribute(value: AttributeValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-        case "allows_negative": self.allowsNegative = value.boolValue!
-        case "delayed_inflow": self.delayedInflow = value.boolValue!
+        case "allows_negative": self.allowsNegative = try value.boolValue()
+        case "delayed_inflow": self.delayedInflow = try value.boolValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))
