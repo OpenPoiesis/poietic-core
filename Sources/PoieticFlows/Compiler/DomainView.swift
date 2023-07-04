@@ -30,7 +30,7 @@ public class DomainView {
     ///
     /// - Returns: A dictionary where keys are object names and values are
     ///   object IDs.
-    /// - Throws: ``DomainError`` with ``NodeIssue.duplicateName`` for each
+    /// - Throws: ``DomainError`` with ``NodeIssue/duplicateName(_:)`` for each
     ///   node and name that has a duplicate name.
     ///
     public func collectNames() throws -> [String:ObjectID] {
@@ -70,8 +70,8 @@ public class DomainView {
     /// Compiles all arithmetic expressions of all expression nodes.
     ///
     /// - Returns: A dictionary where the keys are expression node IDs and values
-    ///   are compiled ``BoundExpression``s.
-    /// - Throws: ``DomainError`` with ``NodeIssue.syntaxError`` for each node
+    ///   are compiled BoundExpressions.
+    /// - Throws: ``DomainError`` with ``NodeIssue/expressionSyntaxError(_:)`` for each node
     ///   which has a syntax error in the expression.
     ///
     public func compileExpressions(names: [String:ObjectID]) throws -> [ObjectID:BoundExpression] {
@@ -111,14 +111,14 @@ public class DomainView {
         }
     }
     
-    /// Validates inputs of an object with id ``nodeID``.
+    /// Validates inputs of an object with a given ID.
     ///
     /// The method checks whether the following two requirements are met:
     ///
-    /// - node using a parameter name in an expression (in the ``required`` list)
-    ///   must have a ``FlowsMetamodel.Parameter`` edge from the parameter node
+    /// - node using a parameter name in an expression (in the `required` list)
+    ///   must have a ``FlowsMetamodel/Parameter`` edge from the parameter node
     ///   with given name.
-    /// - node must _not_ have a ``FlowsMetamodel.Parameter``connection from
+    /// - node must _not_ have a ``FlowsMetamodel/Parameter``connection from
     ///   a node if the expression is not referring to that node.
     ///
     /// If any of the two requirements are not met, then a corresponding
@@ -127,12 +127,12 @@ public class DomainView {
     /// - Parameters:
     ///     - nodeID: ID of a node to be validated for inputs
     ///     - required: List of names (of nodes) that are required for the node
-    ///       with id ``nodeID``.
+    ///       with id `nodeID`.
     ///
-    /// - Returns: List of issues that the node with ID ``nodeID`` caused. The
-    ///   issues can be either ``NodeIssue.unknownParameter`` or
-    ///   ``NodeIssue.unusedInput``.
-    ///   
+    /// - Returns: List of issues that the node with ID `nodeID` caused. The
+    ///   issues can be either ``NodeIssue/unknownParameter(_:)`` or
+    ///   ``NodeIssue/unusedInput(_:)``.
+    ///
     public func validateInputs(nodeID: ObjectID, required: [String]) -> [NodeIssue] {
         // TODO: Rename to "parameterIssues"
 
@@ -166,7 +166,7 @@ public class DomainView {
     /// the nodes in the returned list can be safely computed in the order as
     /// returned.
     ///
-    /// - Throws: `GraphCycleError` when cycle was detected.
+    /// - Throws: ``GraphCycleError`` when cycle was detected.
     ///
     public func sortNodes(nodes: [ObjectID]) throws -> [Node] {
         // TODO: Rename to "sortedNodesByParameter"
@@ -181,6 +181,15 @@ public class DomainView {
         return result
     }
     
+    /// Sort given list of stocks by the order of their implicit flows.
+    ///
+    /// Imagine that we replace the flow nodes with a direct edge between
+    /// the stocks that the flow connects. The drained stock comes before the
+    /// filled stock.
+    ///
+    /// - SeeAlso: ``implicitFills(_:)``,
+    ///   ``implicitDrains(_:)``,
+    ///   ``Compiler/updateImplicitFlows()``
     public func sortedStocksByImplicitFlows(_ nodes: [ObjectID]) throws -> [Node] {
         // TODO: Rename to "sortedNodesByParameter"
         
@@ -194,6 +203,18 @@ public class DomainView {
         return result
     }
     
+    /// Get a node that the given flow fills.
+    ///
+    /// The flow fills a node, usually a stock, if there is an edge
+    /// from the flow node to the node being filled.
+    ///
+    /// - Returns: ID of the node being filled, or `nil` if there is no
+    ///   fill edge outgoing from the flow.
+    /// - Precondition: The object with the ID `flowID` must be a flow
+    /// (``FlowsMetamodel/Flow``)
+    ///
+    /// - SeeAlso: ``flowDrains(_:)``,
+    ///
     public func flowFills(_ flowID: ObjectID) -> ObjectID? {
         let flowNode = graph.node(flowID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -208,6 +229,18 @@ public class DomainView {
         }
     }
     
+    /// Get a node that the given flow drains.
+    ///
+    /// The flow drains a node, usually a stock, if there is an edge
+    /// from the drained node to the flow node.
+    ///
+    /// - Returns: ID of the node being drained, or `nil` if there is no
+    ///   drain edge incoming to the flow.
+    /// - Precondition: The object with the ID `flowID` must be a flow
+    /// (``FlowsMetamodel/Flow``)
+    ///
+    /// - SeeAlso: ``flowDrains(_:)``,
+    ///
     public func flowDrains(_ flowID: ObjectID) -> ObjectID? {
         let flowNode = graph.node(flowID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -222,6 +255,19 @@ public class DomainView {
         }
     }
     
+    /// Return a list of flows that fill a stock.
+    ///
+    /// Flow fills a stock if there is an edge of type ``FlowsMetamodel/Fills``
+    /// that originates in the flow and ends in the stock.
+    ///
+    /// - Parameters:
+    ///     - stockID: an ID of a node that must be a stock
+    ///
+    /// - Returns: List of object IDs of flow nodes that fill the
+    ///   stock.
+    ///
+    /// - Precondition: `stockID` must be an ID of a node that is a stock.
+    ///
     public func stockInflows(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -231,6 +277,20 @@ public class DomainView {
         return hood.nodes.map { $0.id }
     }
     
+    /// Return a list of flows that drain a stock.
+    ///
+    /// A stock outflows are all flow nodes where there is an edge of type
+    /// ``FlowsMetamodel/Drains`` that originates in the stock and ends in
+    /// the flow.
+    ///
+    /// - Parameters:
+    ///     - stockID: an ID of a node that must be a stock
+    ///
+    /// - Returns: List of object IDs of flow nodes that drain the
+    ///   stock.
+    ///
+    /// - Precondition: `stockID` must be an ID of a node that is a stock.
+    ///
     public func stockOutflows(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -240,6 +300,22 @@ public class DomainView {
         return hood.nodes.map { $0.id }
     }
 
+    /// Return a list of stock nodes that the given stock fills.
+    ///
+    /// Stock fills another stock if there exist a flow node in between
+    /// the two stocks and the flow drains stock `stockID`.
+    ///
+    /// In the following example, the returned list of stocks for the stock
+    /// `a` would be `[b]`.
+    ///
+    /// ```
+    ///              Drains           Fills
+    ///    Stock a ----------> Flow ---------> Stock b
+    ///
+    /// ```
+    ///
+    /// - Precondition: ``stockID`` must be an ID of a node that is a stock.
+    ///
     public func implicitFills(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -250,6 +326,22 @@ public class DomainView {
         return hood.nodes.map { $0.id }
     }
 
+    /// Return a list of stock nodes that the given stock drains.
+    ///
+    /// Stock drains another stock if there exist a flow node in between
+    /// the two stocks and the flow fills stock `stockID`
+    ///
+    /// In the following example, the returned list of stocks for the stock
+    /// `b` would be `[a]`.
+    ///
+    /// ```
+    ///              Drains           Fills
+    ///    Stock a ----------> Flow ---------> Stock b
+    ///
+    /// ```
+    ///
+    /// - Precondition: `stockID` must be an ID of a node that is a stock.
+    ///
     public func implicitDrains(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!
         // TODO: Do we need to check it here? We assume model is valid.
@@ -260,6 +352,7 @@ public class DomainView {
         return hood.nodes.map { $0.id }
     }
 }
+
 /// Bind an expression to a compiled model. Return a bound expression.
 ///
 /// Bound expression is an expression where the variable references are

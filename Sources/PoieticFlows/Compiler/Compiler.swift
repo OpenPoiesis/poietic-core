@@ -40,10 +40,15 @@ public class Compiler {
     ///
     /// The compilation process is as follows:
     ///
-    /// 1. Compile every expression node into a `CompiledExpressionNode`. See
-    ///    ``Compiler/compile(node:)``
-    /// 2. Check constraints using ``Compiler/checkConstraints()``
-    /// 3. Topologically sort the expression nodes.
+    /// 1. Gather all node names and check for potential duplicates
+    /// 2. Compile all formulas (expressions) and bind them with concrete
+    ///    objects.
+    /// 3. Sort the nodes in the order of computation.
+    /// 4. Pre-filter nodes for easier usage by the solver: stocks, flows
+    ///    and auxiliaries. All filtered collections stay ordered.
+    /// 5. Create implicit flows between stocks and sort stocks in order
+    ///    of their dependency.
+    /// 6. Finalise the compiled model.
     ///
     /// - Throws: A ``DomainError`` when there are issues with the model.
     /// - Returns: A ``CompiledModel`` that can be used directly by the
@@ -74,7 +79,7 @@ public class Compiler {
         let flows = sortedNodes.filter { $0.type === FlowsMetamodel.Flow }
         let auxiliaries = sortedNodes.filter { $0.type === FlowsMetamodel.Auxiliary }
         
-        // 4. Sort stocks in order of flow dependency
+        // 5. Sort stocks in order of flow dependency
         // -----------------------------------------------------------------
         //
         // This step is needed for proper computation of non-negative stocks
@@ -159,14 +164,19 @@ public class Compiler {
         )
     }
 
-    /// Update edges that denote implicit flows between stocks. The edges
-    /// are created in the simulator dimension (``Metamodel/SimulationDimensionTag``)
+    /// Update edges that denote implicit flows between stocks.
+    ///
+    /// The created edges are of type ``FlowsMetamodel/ImplicitFlow``.
     ///
     /// The process:
     ///
     /// - create an edge between two stocks that are also connected by
     ///   a flow
     /// - clean-up edges between stocks where is no flow
+    ///
+    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
+    ///   ``DomainView/implicitDrains(_:)``,
+    ///   ``DomainView/sortedStocksByImplicitFlows(_:)``
     ///
     public func updateImplicitFlows() {
         var unused: [Edge] = graph.selectEdges(FlowsMetamodel.implicitFlowEdge)

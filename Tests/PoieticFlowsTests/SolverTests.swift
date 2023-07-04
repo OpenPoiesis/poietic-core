@@ -111,7 +111,7 @@ final class TestSolver: XCTestCase {
         
         let solver = Solver(compiled)
         let initial = solver.initialize()
-        let diff = try solver.difference(at: 1.0, with: initial)
+        let diff = solver.difference(at: 1.0, with: initial)
 
         XCTAssertEqual(diff[stock]!, -10)
     }
@@ -133,7 +133,7 @@ final class TestSolver: XCTestCase {
         
         let solver = Solver(compiled)
         let initial = solver.initialize()
-        let diff = try solver.difference(at: 1.0, with: initial)
+        let diff = solver.difference(at: 1.0, with: initial)
 
         XCTAssertEqual(diff[stock]!, -5)
     }
@@ -188,7 +188,6 @@ final class TestSolver: XCTestCase {
         
         let initial: StateVector = solver.initialize()
 
-        print(">> BEGIN")
         // Compute test
         var state: StateVector = initial
 
@@ -218,7 +217,7 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(initial[sadFlow]!, 10)
 
 
-        let diff = try solver.difference(at: 1.0, with: initial)
+        let diff = solver.difference(at: 1.0, with: initial)
 
         XCTAssertEqual(diff[source]!, -5)
         XCTAssertEqual(diff[happy]!,  +5)

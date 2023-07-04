@@ -56,6 +56,27 @@ extension MutableGraph {
     }
 }
 
+
+/// Create a demo model in a memory.
+///
+/// This function creates a
+/// [Lotka-Volterra](https://en.wikipedia.org/wiki/Lotka–Volterra_equations)
+/// model with two stocks: sharks and fish, and four flows: births and deaths
+/// of both of the entities represented by the stocks.
+///
+/// Use:
+///
+/// ```swift
+/// let memory: ObjectMemory
+///
+/// CreatePredatorPreyDemo(in: memory)
+///
+/// ```
+///
+/// The created model is accepted into the memory and is available
+/// as the last frame in the memory frame history, also known as the
+/// "current frame".
+///
 public func CreatePredatorPreyDemo(in memory: ObjectMemory) throws {
     let frame = memory.deriveFrame()
     let graph = frame.mutableGraph

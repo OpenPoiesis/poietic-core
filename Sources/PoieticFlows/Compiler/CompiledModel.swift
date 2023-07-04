@@ -9,14 +9,15 @@ import PoieticCore
 
 /// Structure used by the simulator.
 ///
-/// Compiled model is a version of the model that is interpreted by the
-/// simulator. It is guaranteed to be consistent.
+/// Compiled model is an internal representation of the model design. The
+/// representation contains information that is necessary for computation
+/// and is guaranteed to be consistent.
 ///
-/// - Note: Any inconsistencies in the compiled model encountered by the
-///   simulator are considered a programming error. Simulation should not
-///   proceed if the compiled model is broken.
+/// If the model design violates constraints or contains user errors, the
+/// compiler refuses to create the compiled model.
 ///
-/// - Note: This is conceptual equivalent to "explain plan" – how the simulation
+/// - Note: The compiled model can also be used in a similar way as
+///  "explain plan" in SQL. It contains some information how the simulation
 ///   will be carried out.
 ///
 public struct CompiledModel {

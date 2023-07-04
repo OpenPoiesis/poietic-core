@@ -28,17 +28,61 @@ import PoieticCore
 /// An abstract class for equations solvers.
 ///
 /// Purpose of a solver is to initialise values of the nodes and then
-/// to compute each step of the simulation.
+/// to compute and integrate each step of the simulation.
 ///
-/// - Note: Solver requires a compiled model. The compiled model is expected to
-/// be correct, otherwise many methods of the solver will fail.
+/// Solver is using a ``CompiledModel``, which is guaranteed to be correct
+/// for computation.
+///
+/// The main method of the solver is ``compute(at:with:timeDelta:)``, which is
+/// provided by concrete subclasses of the solver.
+///
+/// To use the solver, it needs to be initialised first, then the
+/// ``compute(at:with:timeDelta:)`` is called for each step of the simulation.
+///
+/// ```swift
+///
+/// let compiled: CompiledModel
+///
+/// let solver = EulerSolver(compiled)
+///
+/// var state: StateVector = solver.initialize()
+/// var time: Double = 0.0
+/// var timeDelta: Double = 1.0
+///
+/// for step in (1...100) {
+///     time += timeDelta
+///     state = try solver.compute(at: time,
+///                                with: state,
+///                                timeDelta: timeDelta)
+///     print(state)
+/// }
+/// ```
+///
+/// To get a solver by name:
+///
+/// ```swift
+/// // Assume this is given, provided by the user or in a configuration.
+/// let solverTypeName: String
+/// guard let solverType = Solver.registeredSolvers[solverTypeName] else {
+///     fatalError("Unknown solver: \(solverTypeName)")
+/// }
+///
+/// let solver = solverType.init()
+///
+/// // ... now we can use the solver
+/// ```
 ///
 public class Solver {
     /// Compiled model that the solver is solving for.
     ///
+    /// The compiled model is created using the ``Compiler``.
+    ///
+    ///
+    /// - SeeAlso: ``Compiler``
+    ///
     public let compiledModel: CompiledModel
 
-    /// Arithmetic expression evaluator.
+    /// Arithmetic expression evaluator associated with the solver.
     ///
     let evaluator: NumericExpressionEvaluator
 
@@ -60,15 +104,34 @@ public class Solver {
         "rk4": RungeKutta4Solver.self,
     ]
     
+    /// Register a solver within the solver registry.
+    ///
+    /// Registered solvers can be retrieved through the ``registeredSolvers``
+    /// dictionary.
+    ///
+    /// - Note: Solvers do not have to be registered if there is other method
+    /// provided for the user to get a desired solver.
+    ///
     public static func registerSolver(name: String, solver: Solver.Type) {
         registeredSolvers[name] = solver
     }
     
     /// Create a solver.
     ///
-    /// This method is called by solver subclasses to initialize it.
+    /// The provided ``CompiledModel`` is typically created by the ``Compiler``.
+    /// It is guaranteed to be consistent and useable by the solver without
+    /// any issues. Design that contains errors that would prevent correct
+    /// computation are prevented from being compiled.
+    ///
+    /// - Note: Do not use this method on this abstract class. Use a concrete
+    ///   solver subclass, such as ``EulerSolver`` or ``RungeKutta4Solver``
     ///
     public required init(_ compiledModel: CompiledModel) {
+        // TODO: How to make this private? (see note below)
+        // If this method is made private, we can't create instances of solver
+        // if we get the solver type through registeredSolvers.
+        //
+        
         self.compiledModel = compiledModel
         self.evaluator = NumericExpressionEvaluator()
 
@@ -89,10 +152,6 @@ public class Solver {
     ///     - timeDelta: time difference between steps of the simulation
     ///
     /// - Returns: an evaluated value of the expression.
-    ///
-    /// - Precondition: The compiled model must be valid and must contain
-    ///   correctly sorted nodes by their computational dependency. All variables
-    ///   in the expression must be resolvable. Otherwise the function will fail.
     ///
     public func evaluate(_ expression: BoundExpression,
                          with state: StateVector,
@@ -117,7 +176,7 @@ public class Solver {
         return value!.doubleValue()!
     }
 
-    /// Initialize the state.
+    /// Initialise the computation state.
     ///
     /// - Parameters:
     ///     - `time`: Initial time. This parameter is usually not used, but
@@ -129,7 +188,7 @@ public class Solver {
     /// This function computes the initial state of the computation by
     /// evaluating all the nodes in the order of their dependency by parameter.
     ///
-    /// - Returns: `StateVector` with initialized values.
+    /// - Returns: `StateVector` with initialised values.
     ///
     /// - Precondition: The compiled model must be valid. If the model
     ///   is not valid and contains elements that can not be computed
@@ -170,7 +229,7 @@ public class Solver {
     ///     - state: Simulation state vector
     ///
     /// The flows in the state vector will be updated based on constraints.
-    /// For example, if the model constains non-negative stocks and a flow
+    /// For example, if the model contains non-negative stocks and a flow
     /// trains a stock with multiple outflows, then other outflows must be
     /// adjusted or set to zero.
     ///
@@ -261,7 +320,7 @@ public class Solver {
     ///
     func difference(at time: Double,
                     with current: StateVector,
-                    timeDelta: Double = 1.0) throws -> StateVector {
+                    timeDelta: Double = 1.0) -> StateVector {
         var estimate = StateVector()
         
         // 1. Evaluate auxiliaries
@@ -302,9 +361,21 @@ public class Solver {
         return deltaVector
     }
     
+    /// Compute the next state vector.
+    ///
+    /// - Parameters:
+    ///     - time: Time of the computation step.
+    ///     - state: Previous state of the computation.
+    ///     - timeDelta: Time delta of the computation step.
+    ///
+    /// - Returns: Computed state vector.
+    ///
+    /// - Important: Do not call this method directly. Subclasses are
+    ///   expected to implement this method.
+    ///
     public func compute(at time: Double,
                  with state: StateVector,
-                 timeDelta: Double = 1.0) throws -> StateVector {
+                 timeDelta: Double = 1.0) -> StateVector {
         fatalError("Subclasses of Solver are expected to override \(#function)")
     }
 }

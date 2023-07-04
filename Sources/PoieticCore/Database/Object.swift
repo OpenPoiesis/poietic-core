@@ -181,7 +181,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
                 fatalError("Object type \(type.name) has no component with attribute \(key).")
             }
             
-            guard var component = components[componentType] else {
+            guard let component = components[componentType] else {
                 fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
             }
             return component.attribute(forKey: key)

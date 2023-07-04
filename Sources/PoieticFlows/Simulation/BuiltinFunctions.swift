@@ -87,9 +87,9 @@ public let BuiltinFunctions: [FunctionProtocol] = [
 ]
 
 /// List of all built-in functions and operators.
-public let AllBuiltinFunctions: [FunctionProtocol] = BuiltinUnaryOperators + BuiltinBinaryOperators + BuiltinFunctions
+let AllBuiltinFunctions: [FunctionProtocol] = BuiltinUnaryOperators + BuiltinBinaryOperators + BuiltinFunctions
 
-public enum BuiltinFunction: String {
+enum BuiltinFunction: String {
     case abs
     case floor
     case ceiling

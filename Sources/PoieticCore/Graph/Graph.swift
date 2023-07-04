@@ -190,7 +190,7 @@ public protocol Graph {
     /// - Complexity: O(n). All edges are traversed.
     ///
     /// - Note: If you want to get both outgoing and incoming edges of a node
-    ///   then use ``neighbours(_:)-d13k``. Using ``outgoing(_:)`` + ``incoming(_:)-3rfqk`` might
+    ///   then use ``neighbours(_:)``. Using ``outgoing(_:)`` + ``incoming(_:)`` might
     ///   result in duplicates for edges that are loops to and from the same
     ///   node.
     ///
@@ -207,7 +207,7 @@ public protocol Graph {
     /// - Complexity: O(n). All edges are traversed.
     ///
     /// - Note: If you want to get both outgoing and incoming edges of a node
-    ///   then use ``neighbours``. Using ``outgoing`` + ``incoming`` might
+    ///   then use ``neighbours(_:)``. Using ``outgoing(_:)`` + ``incoming(_:)`` might
     ///   result in duplicates for edges that are loops to and from the same
     ///   node.
     ///

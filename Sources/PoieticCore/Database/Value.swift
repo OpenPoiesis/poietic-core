@@ -148,7 +148,7 @@ public enum Value: Equatable, Hashable, Codable {
     }
     
     /// Converts value to a value of another type, if possible. Caller is
-    /// advised to call ``ValueType.isConvertible()`` to prevent potential
+    /// advised to call ``ValueType/isConvertible(to:)`` to prevent potential
     /// convention errors.
     ///
     public func convert(to otherType:ValueType) -> Value? {

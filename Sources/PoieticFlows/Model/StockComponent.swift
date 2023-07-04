@@ -44,6 +44,12 @@ public struct StockComponent: Component,
     /// later to the stock.
     ///
     var delayedInflow: Bool = false
+    
+    /// Create a new stock component.
+    ///
+    /// The `allowsNegative` is set to `false` and `delayedInflow` is set to
+    /// `false` as well.
+    ///
     public init() {
         self.init(allowsNegative: false, delayedInflow: false)
     }

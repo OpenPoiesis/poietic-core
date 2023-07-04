@@ -7,7 +7,7 @@
 
 // TODO: Make this into a proper public AST representation that can be modified
 
-public protocol AST {
+protocol AST {
     var tokens: [Token] { get }
     var fullText: String { get }
 }

@@ -44,6 +44,8 @@ public struct FlowComponent: Component,
     ///
     public var priority: Int
 
+    /// Create a new flow component.
+    ///
     public init() {
         FlowComponent.defaultPriority += 1
         self.init(priority: FlowComponent.defaultPriority)

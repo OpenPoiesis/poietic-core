@@ -17,13 +17,46 @@ public enum ValueError: Error, CustomStringConvertible{
     }
 }
 
+/// ForeignScalar represents a value from an external environment.
+///
+/// Foreign scalar is typically created from values taken from outside of the
+/// application or outside of the core. For example from a persistent store,
+/// imported file or a pasteboard.
+///
+/// - SeeAlso: ``ForeignValue``
+///
 public enum ForeignScalar: Equatable, CustomStringConvertible {
+    // TODO: Rename to ForeignAtom (will include points and dates)
+    
+    /// Representation of an integer.
     case int(Int)
+
+    /// Representation of a double precision floating point value.
     case double(Double)
+
+    /// Representation of a text string.
     case string(String)
+
+    /// Representation of a boolean value.
     case bool(Bool)
+
+    /// Representation of an object ID.
+    ///
+    /// - Note: Currently the ID is a 64 bit integer, but it is very likely
+    ///   that the ID will change to UUID or something similar.
+    ///
+    /// - SeeAlso: ``ObjectID``
+    ///
     case id(ObjectID)
 
+    
+    /// Try to get an int value from the foreign value. Convert if necessary.
+    ///
+    /// Any type of foreign value is attempted for conversion.
+    ///
+    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the foreign value
+    ///   can not be converted to int.
+    ///
     public func intValue() throws -> Int {
         switch self {
         case let .int(value): return value
@@ -40,6 +73,13 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         }
     }
     
+    /// Try to get a double value from the foreign value. Convert if necessary.
+    ///
+    /// Boolean and ID values can not be converted to double.
+    ///
+    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the foreign value
+    ///   can not be converted to double.
+    ///
     public func doubleValue() throws -> Double  {
         switch self {
         case .int(let value): return Double(value)
@@ -56,6 +96,10 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         }
     }
     
+    /// Get a string value from the foreign value. Convert if necessary.
+    ///
+    /// All foreign values can be converted into a string.
+    ///
     public func stringValue() -> String {
         switch self {
         case let .int(value): return String(value)
@@ -66,6 +110,22 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         }
     }
 
+    /// Try to get a bool value from the foreign value. Convert if necessary.
+    ///
+    /// For integers the value is `true` if the integer is non-zero, if it is
+    /// zero, then the boolean value is `false`.
+    ///
+    /// String values `"true"` and `"false"` represent corresponding boolean
+    /// values `true` and `false` respectively. Any other string value
+    /// causes an error.
+    ///
+    /// Other foreign values can not be converted to boolean.
+    ///
+    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the foreign value
+    ///   can not be converted to bool or ``ValueError/invalidBooleanValue(_:)``
+    ///   if the string value contains a string that is not recognised as
+    ///   a valit boolean value.
+    ///
     public func boolValue() throws -> Bool {
         switch self {
         case .int(let value): return (value != 0)
@@ -80,6 +140,13 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         }
     }
     
+    /// Try to get an ID value from the foreign value. Convert if necessary.
+    ///
+    /// Only integer and string value can be converted to ID.
+    ///
+    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the foreign value
+    ///   can not be converted to ID.
+    ///
     public func idValue() throws -> ObjectID {
         switch self {
         case .int(let value): return ObjectID(value)
@@ -150,6 +217,15 @@ extension ForeignScalar: Codable {
 
 }
 
+/// ForeignValue represents a value from an external environment that can be
+/// either a scalar or a list of scalars – an array.
+///
+/// Foreign value is typically created from values taken from outside of the
+/// application or outside of the core. For example from a persistent store,
+/// imported file or a pasteboard.
+///
+/// - SeeAlso: ``ForeignScalar``
+///
 public enum ForeignValue: Equatable, CustomStringConvertible {
     case scalar(ForeignScalar)
     case array([ForeignScalar])
@@ -183,7 +259,7 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
     }
     public func stringValue() throws -> String {
         switch self {
-        case .scalar(let value): return try value.stringValue()
+        case .scalar(let value): return value.stringValue()
         case .array: throw ValueError.typeMismatch("Array", "string")
         }
     }

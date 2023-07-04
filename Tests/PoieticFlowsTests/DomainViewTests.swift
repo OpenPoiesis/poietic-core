@@ -70,6 +70,7 @@ final class TestDomainView: XCTestCase {
     
     func testCompileExpressions() throws {
         throw XCTSkip("Conflicts with input validation, this test requires attention.")
+#if false
         let names: [String:ObjectID] = [
             "a": 1,
             "b": 2,
@@ -87,6 +88,7 @@ final class TestDomainView: XCTestCase {
         XCTAssertTrue(varRefs.contains(.object(1)))
         XCTAssertTrue(varRefs.contains(.object(2)))
         XCTAssertEqual(varRefs.count, 2)
+#endif
     }
    
     func testCompileExpressionInvalidInput() throws {

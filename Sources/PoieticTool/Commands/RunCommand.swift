@@ -100,9 +100,9 @@ extension PoieticTool {
             // -------------------------------------------------------------
             for step in (1...steps) {
                 time += timeDelta
-                state = try solver.compute(at: time,
-                                           with: state,
-                                           timeDelta: timeDelta)
+                state = solver.compute(at: time,
+                                       with: state,
+                                       timeDelta: timeDelta)
                 printState(state, time: time, step: step, ids: namedIDs)
             }
         }

@@ -16,10 +16,10 @@ class TestPersistentRecord: XCTestCase {
     
     func testFromRecord() throws {
         let record = ForeignRecord([
-            "object_id": 10,
-            "snapshot_id": 20,
-            "structural_type": "node",
-            "type": "Stock",
+            "object_id": ForeignValue(10),
+            "snapshot_id": ForeignValue(20),
+            "structural_type": ForeignValue("node"),
+            "type": ForeignValue("Stock"),
         ])
         
         let obj: ObjectSnapshot = try ObjectSnapshot(fromRecord: record,
@@ -34,13 +34,13 @@ class TestPersistentRecord: XCTestCase {
         let component = IntegerComponent(value: 10)
         let result = component.foreignRecord()
 
-        let record = ForeignRecord(["value": 10])
+        let record = ForeignRecord(["value": ForeignValue(10)])
 
         XCTAssertEqual(result, record)
     }
 
     func testComponentFromRecord()throws  {
-        let record = ForeignRecord([ "value": 10 ])
+        let record = ForeignRecord([ "value": ForeignValue(10) ])
 
         let component = try IntegerComponent(record: record)
 
@@ -49,14 +49,14 @@ class TestPersistentRecord: XCTestCase {
     
     func testSnapshotWithComponent() throws {
         let record = ForeignRecord([
-            "object_id": 10,
-            "snapshot_id": 20,
-            "structural_type": "node",
-            "type": "Stock",
+            "object_id": ForeignValue(10),
+            "snapshot_id": ForeignValue(20),
+            "structural_type": ForeignValue("node"),
+            "type": ForeignValue("Stock"),
         ])
 
         let components: [String: ForeignRecord] = [
-            "Integer": ForeignRecord(["value": 10])
+            "Integer": ForeignRecord(["value": ForeignValue(10)])
         ]
         
         let obj: ObjectSnapshot = try ObjectSnapshot(fromRecord: record,

@@ -27,35 +27,76 @@ public class FlowsMetamodel: Metamodel {
     // MARK: Object Types
     // ---------------------------------------------------------------------
 
+
+    /// A stock node - one of the two core nodes.
+    ///
+    /// Stock node represents a pool, accumulator, a stored value.
+    ///
+    /// Stock can be connected to many flows that drain or fill the stock.
+    ///
+    /// - SeeAlso: ``FlowsMetamodel/Flow``, ``FlowsMetamodel/ImplicitFlow``
+    ///
     public static let Stock = ObjectType(
         name: "Stock",
         structuralType: .node,
         components: [
             FormulaComponent.self,
             StockComponent.self,
-            // PositionComponent.self,
+            PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
         ]
     )
     
+    /// A flow node - one of the two core nodes.
+    ///
+    /// Flow node represents a rate at which a stock is drained or a stock
+    /// is filed.
+    ///
+    /// Flow can be connected to only one stock that the flow fills and from
+    /// only one stock that the flow drains.
+    ///
+    /// ```
+    ///                    drains           fills
+    ///     Stock source ----------> Flow ---------> Stock drain
+    ///
+    /// ```
+    ///
+    /// - SeeAlso: ``FlowsMetamodel/Stock``, ``FlowsMetamodel/Fills-8qqu8``,
+    /// ``FlowsMetamodel/Drains-38oqw``.
+    ///
     public static let Flow = ObjectType(
         name: "Flow",
         structuralType: .node,
         components: [
             FormulaComponent.self,
             FlowComponent.self,
+            PositionComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
         ]
     )
     
+    /// An auxiliary node - containing a constant or a formula.
+    ///
     public static let Auxiliary = ObjectType(
         name: "Auxiliary",
         structuralType: .node,
         components: [
             FormulaComponent.self,
+            PositionComponent.self,
+            // PositionComponent.self,
+            // DescriptionComponent.self,
+            // ErrorComponent.self,
+        ]
+    )
+    
+    public static let DataInput = ObjectType(
+        name: "DataInput",
+        structuralType: .node,
+        components: [
+            PositionComponent.self,
             // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
@@ -63,6 +104,8 @@ public class FlowsMetamodel: Metamodel {
     )
     
     /// Edge from a stock to a flow. Denotes "what the flow drains".
+    ///
+    /// - SeeAlso: ``FlowsMetamodel/Flow``, ``FlowsMetamodel/Fills-8qqu8``
     ///
     public static let Drains = ObjectType(
         name: "Drains",
@@ -75,6 +118,8 @@ public class FlowsMetamodel: Metamodel {
 
     /// Edge from a flow to a stock. Denotes "what the flow fills".
     ///
+    /// - SeeAlso: ``FlowsMetamodel/Flow``, ``FlowsMetamodel/Drains-38oqw``
+    ///
     public static let Fills = ObjectType(
         name: "Fills",
         structuralType: .edge,
@@ -84,6 +129,12 @@ public class FlowsMetamodel: Metamodel {
         abstract: "Edge from a flow node to a stock node, representing what the flow fills."
         
     )
+    
+    /// An edge between a node that serves as a parameter in another node.
+    ///
+    /// For example, if a flow has a formula `rate * 10` then the node
+    /// with name `rate` is connected to the flow through the parameter edge.
+    ///
     public static let Parameter = ObjectType(
         name: "Parameter",
         structuralType: .edge,
@@ -91,6 +142,11 @@ public class FlowsMetamodel: Metamodel {
             // None for now
         ]
     )
+   
+    /// Edge between two stocks that are connected through a flow.
+    ///
+    /// - Note: This edge is created by the system, not by the user.
+    ///
     public static let ImplicitFlow = ObjectType(
         name: "ImplicitFlow",
         structuralType: .edge,
@@ -102,6 +158,8 @@ public class FlowsMetamodel: Metamodel {
     )
     
     // NOTE: If we were able to use Mirror on types, we would not need this
+    /// List of object types for the Stock and Flow metamodel.
+    ///
     public static let objectTypes: [ObjectType] = [
         Stock,
         Flow,
@@ -114,7 +172,14 @@ public class FlowsMetamodel: Metamodel {
     ]
     
     // MARK: Constraints
-    // ---------------------------------------------------------------------
+    // --------------------------------------------------------------------
+    /// List of constraints of the Stock and Flow metamodel.
+    ///
+    /// The constraints include:
+    ///
+    /// - Flow must drain (from) a stock, no other kind of node.
+    /// - Flow must fill (into) a stock, no other kind of node.
+    ///
     public static let constraints: [any Constraint] = [
         EdgeConstraint(
             name: "flow_fill_is_stock",
@@ -146,15 +211,33 @@ public class FlowsMetamodel: Metamodel {
     // MARK: Queries and Predicates
     // ---------------------------------------------------------------------
     
+    /// Predicate that matches all nodes that have an arithmetic expression
+    /// (formula).
+    ///
     public static let expressionNodes = HasComponentPredicate(FormulaComponent.self)
+
+    /// Predicate that matches all nodes that are flows.
+    ///
     public static let flowNodes = IsTypePredicate(Flow)
 
+    /// Predicate that matches all edges that represent parameter connections.
+    ///
     public static let parameterEdges = IsTypePredicate(Parameter)
+
+    /// A neighbourhood for incoming parameters of a node.
+    ///
+    /// Focus node is a node where we would like to see nodes that
+    /// are parameters for the node of focus.
+    ///
     public static let incomingParameters = NeighborhoodSelector(
         predicate: parameterEdges,
         direction: .incoming
     )
     
+    
+    /// Predicate for an edge that fills a stocks. It originates in a flow,
+    /// and terminates in a stock.
+    ///
     public static let fillsEdge = IsTypePredicate(Fills)
     // TODO: Rename to flowFills to prevent confusion
     /// Selector for an edge originating in a flow and ending in a stock denoting
@@ -173,6 +256,7 @@ public class FlowsMetamodel: Metamodel {
         predicate: fillsEdge,
         direction: .outgoing
     )
+    
     /// Selector for edges originating in a flow and ending in a stock denoting
     /// the inflow from multiple flows into a single stock.
     ///
@@ -187,7 +271,11 @@ public class FlowsMetamodel: Metamodel {
         direction: .incoming
     )
 
+    /// Predicate for an edge that drains from a stocks. It originates in a
+    /// stock and terminates in a flow.
+    ///
     public static let drainsEdge = IsTypePredicate(Drains)
+    
     // TODO: Rename to flowDrains to prevent confusion
     /// Selector for an edge originating in a stock and ending in a flow denoting
     /// which stock the flow drains. There must be only one of such edges
@@ -223,11 +311,32 @@ public class FlowsMetamodel: Metamodel {
         direction: .outgoing
     )
 
+    /// Predicate for an edge that denotes an implicit flow between
+    /// two stocks.
+    ///
+    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
+    /// ``DomainView/implicitDrains(_:)``,
+    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
+    ///
     public static let implicitFlowEdge = IsTypePredicate(ImplicitFlow)
+
+    /// Neighbourhood selector of stocks around a stock being filledby them.
+    ///
+    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
+    /// ``DomainView/implicitDrains(_:)``,
+    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
+    ///
     public static let implicitFills = NeighborhoodSelector(
         predicate: implicitFlowEdge,
         direction: .outgoing
     )
+
+    /// Neighbourhood selector of stocks around a stock being drained by them.
+    ///
+    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
+    /// ``DomainView/implicitDrains(_:)``,
+    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
+    ///
     public static let implicitDrains = NeighborhoodSelector(
         predicate: implicitFlowEdge,
         direction: .incoming
@@ -235,16 +344,22 @@ public class FlowsMetamodel: Metamodel {
     
     // MARK: Built-in variables
     // ---------------------------------------------------------------------
+    /// Built-in variable reference that represents the simulation time.
+    ///
     public static let TimeVariable = BuiltinVariable(
         name: "time",
         description: "Current simulation time"
     )
 
+    /// Built-in variable reference that represents the time delta.
+    ///
     public static let TimeDeltaVariable = BuiltinVariable(
         name: "time_delta",
         description: "Simulation time delta - time between discrete steps of the simulation."
     )
     
+    /// List of all built-in variables.
+    /// 
     public static let variables: [BuiltinVariable] = [
         TimeVariable,
         TimeDeltaVariable,
