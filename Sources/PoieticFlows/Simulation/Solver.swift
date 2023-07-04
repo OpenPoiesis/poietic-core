@@ -42,6 +42,19 @@ public class Solver {
     ///
     let evaluator: NumericExpressionEvaluator
 
+    /// Return list of registered solver names.
+    ///
+    /// The list is alphabetically sorted, as the typical usage of this method is
+    /// to display the list to the user.
+    ///
+    public static var registeredSolverNames: [String] {
+        return registeredSolvers.keys.sorted()
+    }
+    
+    /// A dictionary of registered solver types.
+    ///
+    /// The key is the solver name and the value is the solver class (type).
+    /// 
     public static private(set) var registeredSolvers: [String:Solver.Type] = [
         "euler": EulerSolver.self,
         "rk4": RungeKutta4Solver.self,
@@ -109,6 +122,9 @@ public class Solver {
     /// - Parameters:
     ///     - `time`: Initial time. This parameter is usually not used, but
     ///     some computations in the model might use it. Default value is 0.0
+    ///     - `override`: Dictionary of values to override during initialisation.
+    ///     The values of nodes that are present in the dictionary will not be
+    ///     evaluated, but the value from the dictionary will be used.
     ///
     /// This function computes the initial state of the computation by
     /// evaluating all the nodes in the order of their dependency by parameter.
@@ -120,13 +136,24 @@ public class Solver {
     ///   correctly, such as invalid variable references, this function
     ///   will fail.
     ///
-    public func initialize(time: Double = 0.0) -> StateVector {
+    /// - Note: Use only constants in the `override` dictionary. Even-though
+    ///   any node value can be provided, in the future only constants will
+    ///   be allowed.
+    ///
+    public func initialize(time: Double = 0.0,
+                           override: [ObjectID:Double] = [:]) -> StateVector {
         // TODO: We need access to constants and system variables here
         var vector = StateVector()
         
         for node in compiledModel.sortedExpressionNodes {
             let expression = compiledModel.expressions[node.id]!
-            vector[node.id] = evaluate(expression, with: vector, at: time)
+            if let value = override[node.id] {
+                // TODO: Make sure we override only constants.
+                vector[node.id] = value
+            }
+            else {
+                vector[node.id] = evaluate(expression, with: vector, at: time)
+            }
         }
 
         return vector

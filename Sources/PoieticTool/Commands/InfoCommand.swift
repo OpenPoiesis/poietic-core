@@ -20,10 +20,21 @@ extension PoieticTool {
             let frame = memory.currentFrame
             let graph = frame.graph
             
+            // At this point the URL is assumed to be well formed, otherwise
+            // we would get an error above.
+            //
+            let url = try! databaseURL(options: options)
+            
+            let solverList = Solver.registeredSolverNames.joined(separator: ", ")
+            
             let items: [(String?, String?)] = [
-                ("Current frame", "\(frame.id)"),
-                ("Frame objects", "\(frame.snapshots.count)"),
-                ("Total snapshots", "\(memory.snapshots.count)"),
+                ("Available solvers", solverList),
+                (nil, nil),
+                ("Design database", url.relativeString),
+                (nil, nil),
+                ("Current frame ID", "\(frame.id)"),
+                ("Frame object count", "\(frame.snapshots.count)"),
+                ("Total snapshot count", "\(memory.snapshots.count)"),
 
                 (nil, nil),
                 ("Graph", nil),

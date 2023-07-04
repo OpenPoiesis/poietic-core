@@ -81,6 +81,7 @@ public struct CompiledModel {
     let outflows: [ObjectID:[ObjectID]]
 
     
+    // FIXME: Consolidate all name queries. Not only here, in other places such as tool as well.
     public var namedNodes: [String: Node] {
         var result: [String: Node] = [:]
         
@@ -91,6 +92,10 @@ public struct CompiledModel {
         return result
     }
 
+    public func node(named name: String) -> Node? {
+        return namedNodes[name]
+    }
+    
     /// Get expression node with given name.
     public func expressionNode(name: String) -> Node? {
         for node in sortedExpressionNodes {

@@ -176,12 +176,10 @@ poietic add Flow name=expenses formula=50
             let object = frame.object(id)!
             
             for item in attributeAssignments {
-                let split = item.split(separator: "=", maxSplits: 2)
-                if split.count != 2 {
+                guard let split = parseValueAssignment(item) else {
                     throw ToolError.invalidAttributeAssignment(item)
                 }
-                let name = String(split[0])
-                let stringValue = String(split[1])
+                let (name, stringValue) = split
                 let value = ForeignValue(stringValue)
                 try object.setAttribute(value: value, forKey: name)
             }

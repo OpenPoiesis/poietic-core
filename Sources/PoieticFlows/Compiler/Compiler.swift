@@ -45,7 +45,7 @@ public class Compiler {
     /// 2. Check constraints using ``Compiler/checkConstraints()``
     /// 3. Topologically sort the expression nodes.
     ///
-    /// - Throws: A ``ModelCompilationError`` when there are issues with the model.
+    /// - Throws: A ``DomainError`` when there are issues with the model.
     /// - Returns: A ``CompiledModel`` that can be used directly by the
     ///   simulator.
     ///

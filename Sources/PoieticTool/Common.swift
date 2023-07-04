@@ -11,6 +11,8 @@ import PoieticCore
 import PoieticFlows
 import SystemPackage
 
+/// Error thrown by the command-line tool.
+///
 enum ToolError: Error, CustomStringConvertible {
     // I/O errors
     case malformedLocation(String)
@@ -36,6 +38,7 @@ enum ToolError: Error, CustomStringConvertible {
     case unknownObjectType(String)
     
     case invalidAttributeAssignment(String)
+    case typeMismatch(String, String, String)
 
     public var description: String {
         switch self {
@@ -71,8 +74,11 @@ enum ToolError: Error, CustomStringConvertible {
             
         case .invalidAttributeAssignment(let value):
             return "Invalid attribute assignment: \(value)"
+        case .typeMismatch(let subject, let value, let expected):
+            return "Type mismatch in \(subject) value '\(value)', expected type: \(expected)"
         }
     }
+    
     public var hint: String? {
         // NOTE: Keep this list without 'default' so we know which cases we
         //       covered.
@@ -106,8 +112,10 @@ enum ToolError: Error, CustomStringConvertible {
             return "See the metamodel for a list of known object types."
         case .nodeExpected(_):
             return nil
-        case .invalidAttributeAssignment(let value):
+        case .invalidAttributeAssignment(_):
             return "Attribute assignment should be in a form: `attribute_name=value`, everything after '=' is considered a value. Ex.: `name=account`, `formula=fish * 10`."
+        case .typeMismatch(_, _, _):
+            return nil
         }
     }
 
@@ -134,7 +142,7 @@ func databaseURL(options: Options) throws -> URL {
     
     if let url = URL(string: location) {
         if url.scheme == nil {
-            return URL(fileURLWithPath: location, isDirectory: true)
+            return URL(fileURLWithPath: location, isDirectory: false)
         }
         else {
             return url
@@ -162,7 +170,7 @@ func openMemory(options: Options) throws -> ObjectMemory {
     return memory
 }
 
-/// Finalize operations on graph and save the graph to its store.
+/// Finalise operations on the design memory and save the memory to its store.
 ///
 func closeMemory(memory: ObjectMemory, options: Options) throws {
     let dataURL = try databaseURL(options: options)
@@ -189,4 +197,24 @@ func acceptFrame(_ frame: MutableFrame, in memory: ObjectMemory) throws {
         }
         throw ToolError.constraintError
     }
+}
+
+/// Parse single-string value assignment into a (attributeName, value) tuple.
+///
+/// The expected string format is: `attribute_name=value` where the value is
+/// everything after the equals `=` character.
+///
+/// Returns `nil` if the string is malformed and can not be parsed.
+///
+/// - Note: In the future the format might change to include quotes on both sides
+///         of the `=` character. Make sure to use this function instead of
+///         splitting the assignment on your own.
+///
+func parseValueAssignment(_ assignment: String) -> (String, String)? {
+    let split = assignment.split(separator: "=", maxSplits: 2)
+    if split.count != 2 {
+        return nil
+    }
+    
+    return (String(split[0]), String(split[1]))
 }

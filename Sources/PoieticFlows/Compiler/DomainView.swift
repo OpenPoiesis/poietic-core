@@ -7,15 +7,15 @@
 
 import PoieticCore
 
-public struct DomainError: Error {
-    var issues: [ObjectID:[NodeIssue]]
-}
-
 /// Flows domain view on top of a graph.
 ///
 public class DomainView {
+    /// Graph that the view projects.
+    ///
     public let graph: Graph
     
+    /// Create a new view on top of a graph.
+    ///
     public init(_ graph: Graph) {
         self.graph = graph
     }
@@ -27,6 +27,11 @@ public class DomainView {
     }
     
     /// Collect names of objects.
+    ///
+    /// - Returns: A dictionary where keys are object names and values are
+    ///   object IDs.
+    /// - Throws: ``DomainError`` with ``NodeIssue.duplicateName`` for each
+    ///   node and name that has a duplicate name.
     ///
     public func collectNames() throws -> [String:ObjectID] {
         // TODO: Rename to "namedNodes"
@@ -62,6 +67,13 @@ public class DomainView {
         }
     }
     
+    /// Compiles all arithmetic expressions of all expression nodes.
+    ///
+    /// - Returns: A dictionary where the keys are expression node IDs and values
+    ///   are compiled ``BoundExpression``s.
+    /// - Throws: ``DomainError`` with ``NodeIssue.syntaxError`` for each node
+    ///   which has a syntax error in the expression.
+    ///
     public func compileExpressions(names: [String:ObjectID]) throws -> [ObjectID:BoundExpression] {
         // TODO: Rename to "boundExpressions"
 
@@ -70,15 +82,25 @@ public class DomainView {
         
         for node in expressionNodes {
             let component: FormulaComponent = node[FormulaComponent.self]!
+            let unboundExpression: UnboundExpression
             do {
                 let parser = ExpressionParser(string: component.expressionString)
-                let unboundExpr = try parser.parse()
-                let boundExpr = bind(unboundExpr, names: names)
-                result[node.id] = boundExpr
+                unboundExpression = try parser.parse()
             }
             catch let error as SyntaxError {
                 issues[node.id] = [.expressionSyntaxError(error)]
+                continue
             }
+            let required: [String] = unboundExpression.allVariables
+            let inputIssues = validateInputs(nodeID: node.id, required: required)
+
+            if !inputIssues.isEmpty {
+                issues[node.id] = inputIssues
+                continue
+            }
+
+            let boundExpr = bind(unboundExpression, names: names)
+            result[node.id] = boundExpr
         }
         
         if issues.isEmpty {
@@ -89,6 +111,28 @@ public class DomainView {
         }
     }
     
+    /// Validates inputs of an object with id ``nodeID``.
+    ///
+    /// The method checks whether the following two requirements are met:
+    ///
+    /// - node using a parameter name in an expression (in the ``required`` list)
+    ///   must have a ``FlowsMetamodel.Parameter`` edge from the parameter node
+    ///   with given name.
+    /// - node must _not_ have a ``FlowsMetamodel.Parameter``connection from
+    ///   a node if the expression is not referring to that node.
+    ///
+    /// If any of the two requirements are not met, then a corresponding
+    /// type of ``NodeIssue`` is added to the list of issues.
+    ///
+    /// - Parameters:
+    ///     - nodeID: ID of a node to be validated for inputs
+    ///     - required: List of names (of nodes) that are required for the node
+    ///       with id ``nodeID``.
+    ///
+    /// - Returns: List of issues that the node with ID ``nodeID`` caused. The
+    ///   issues can be either ``NodeIssue.unknownParameter`` or
+    ///   ``NodeIssue.unusedInput``.
+    ///   
     public func validateInputs(nodeID: ObjectID, required: [String]) -> [NodeIssue] {
         // TODO: Rename to "parameterIssues"
 
