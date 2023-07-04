@@ -54,7 +54,7 @@ public class Solver {
     /// A dictionary of registered solver types.
     ///
     /// The key is the solver name and the value is the solver class (type).
-    /// 
+    ///
     public static private(set) var registeredSolvers: [String:Solver.Type] = [
         "euler": EulerSolver.self,
         "rk4": RungeKutta4Solver.self,
@@ -237,6 +237,7 @@ public class Solver {
                 // FIXME: We are changing the current state, we should be changing some "estimated state"
                 state[outflow] = actualOutflow
 
+                // FIXME: [IMPORTANT] When totalInflow is negative then this check fails.
                 // Sanity check. This should always pass, unless we did
                 // something wrong above.
                 assert(state[outflow]! >= 0.0,

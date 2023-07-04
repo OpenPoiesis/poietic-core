@@ -46,9 +46,9 @@ public enum NodeIssue: Equatable, CustomStringConvertible, Error {
         case .expressionSyntaxError(let error):
             return "Syntax error: \(error)"
         case .unusedInput(let name):
-            return "Unused input: '\(name)'"
+            return "Parameter '\(name)' is connected but not used (use it or disconnect it)"
         case .unknownParameter(let name):
-            return "Unknown parameter: '\(name)'"
+            return "Parameter '\(name)' is unknown or not connected (remove it or connect it)"
         case .duplicateName(let name):
             return "Duplicate node name: '\(name)'"
         }
