@@ -88,6 +88,7 @@ The edit subcommands are:
 
 Use `--help` with the desired command to learn more.
 
+
 ### Pseudo-REPL
 
 Think of this tool as [ed](https://en.wikipedia.org/wiki/Ed_(text_editor)) but
@@ -103,6 +104,7 @@ Example session:
 export POIETIC_DATABASE="MyDesign.poietic"
 
 poietic new
+poietic info
 
 poietic edit add Stock name=water formula=100
 poietic edit add Flow name=outflow formula=10
