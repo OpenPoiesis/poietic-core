@@ -34,6 +34,8 @@ enum ToolError: Error, CustomStringConvertible {
     case structuralTypeMismatch(String, String)
     // Metamodel errors
     case unknownObjectType(String)
+    
+    case invalidAttributeAssignment(String)
 
     public var description: String {
         switch self {
@@ -66,6 +68,9 @@ enum ToolError: Error, CustomStringConvertible {
             return "Unknown object type '\(value)'"
         case .nodeExpected(let value):
             return "Object is not a node: '\(value)'"
+            
+        case .invalidAttributeAssignment(let value):
+            return "Invalid attribute assignment: \(value)"
         }
     }
     public var hint: String? {
@@ -101,6 +106,8 @@ enum ToolError: Error, CustomStringConvertible {
             return "See the metamodel for a list of known object types."
         case .nodeExpected(_):
             return nil
+        case .invalidAttributeAssignment(let value):
+            return "Attribute assignment should be in a form: `attribute_name=value`, everything after '=' is considered a value. Ex.: `name=account`, `formula=fish * 10`."
         }
     }
 

@@ -137,7 +137,13 @@ extension PoieticTool {
         static var configuration
             = CommandConfiguration(
                 commandName: "add",
-                abstract: "Create a new node"
+                abstract: "Create a new node",
+                usage: """
+Create a new node:
+
+poietic add Stock name=account formula=100
+poietic add Flow name=expenses formula=50
+"""
             )
 
         @OptionGroup var options: Options
@@ -145,6 +151,8 @@ extension PoieticTool {
         @Argument(help: "Type of the node to be created")
         var typeName: String
 
+        @Argument(help: "Attributes to be set in form 'attribute=value'")
+        var attributeAssignments: [String] = []
         
         mutating func run() throws {
             let memory = try openMemory(options: options)
@@ -165,6 +173,18 @@ extension PoieticTool {
             }
             
             let id = graph.createNode(type, components: [])
+            let object = frame.object(id)!
+            
+            for item in attributeAssignments {
+                let split = item.split(separator: "=", maxSplits: 2)
+                if split.count != 2 {
+                    throw ToolError.invalidAttributeAssignment(item)
+                }
+                let name = String(split[0])
+                let stringValue = String(split[1])
+                let value = ForeignValue(stringValue)
+                try object.setAttribute(value: value, forKey: name)
+            }
             
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
