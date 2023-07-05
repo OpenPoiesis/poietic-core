@@ -169,7 +169,7 @@ final class TestSolver: XCTestCase {
         // FIXME: There is a bug in the expression parser
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                      components: [FormulaComponent(name: "flow",
-                                                                      expression: "0 - 10")])
+                                                                      expression: "-10")])
 
         graph.createEdge(FlowsMetamodel.Drains, origin: stock, target: flow, components: [])
         

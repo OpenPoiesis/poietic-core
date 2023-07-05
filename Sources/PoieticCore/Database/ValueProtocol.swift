@@ -5,6 +5,9 @@
 //  Created by Stefan Urbanek on 2020/12/14.
 //
 
+// FIXME: Values are a mess, we have Value, ValueProtocol and ForeignValue - needs to be merged together
+
+
 // TODO: Use ValueProtocol and then Something.asValue
 // TODO: IMPORTANT: Read the following note.
 // IMPORTANT NOTE:
@@ -75,12 +78,13 @@ extension ValueProtocol {
 /// ValueType specifies a data type of a value that is used in interfaces.
 ///
 public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
-    case bool
-    case int
-    case double
-    case string
-    case point
-    // TODO: case date
+    case bool = "bool"
+    case int = "int"
+    case double = "double"
+    case string = "string"
+    case point = "point"
+    // case id
+    // case date
     
     /// Returns `true` if the value of this type is convertible to
     /// another type.
@@ -93,7 +97,7 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
         case (.bool,   .bool):   return true
         case (.bool,   .int):    return false
         case (.bool,   .double): return false
-        case (.bool, .point):    return false
+        case (.bool,   .point):    return false
 
         // Int to all except bool
         case (.int,    .string): return true
@@ -127,13 +131,7 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
     }
     
     public var description: String {
-        switch self {
-        case .bool: return "bool"
-        case .int: return "int"
-        case .double: return "double"
-        case .string: return "string"
-        case .point: return "point"
-        }
+        self.rawValue
     }
     /// True if the type is either `int` or `float`
     public var isNumeric: Bool {

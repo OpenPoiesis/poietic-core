@@ -79,7 +79,7 @@ struct ExpressionAST: AST {
             guard let intValue = Int(sanitizedString) else {
                 fatalError("Unable to convert supposedly integer token '\(text)' to actual Int")
             }
-            return .value(intValue)
+            return .value(ForeignValue(intValue))
 
         case let .double(text):
             var sanitizedString = text
@@ -87,7 +87,7 @@ struct ExpressionAST: AST {
             guard let doubleValue = Double(sanitizedString) else {
                 fatalError("Unable to convert supposedly double token '\(text)' to actual Double")
             }
-            return .value(doubleValue)
+            return .value(ForeignValue(doubleValue))
 
         case let .function(name, args):
             let argExpressions = args.map { $0.toExpression() }

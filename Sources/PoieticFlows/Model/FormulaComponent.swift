@@ -66,6 +66,10 @@ public struct FormulaComponent: Component,
     ///
     public var expressionString: String
     
+    // TODO: Add bound expression and related internal properties. Compile the expression on setting it.
+    // internal var boundExpression: BoundExpression?
+    // internal var syntaxErrors: [SyntaxError]
+    
     /// Creates a a default expression component.
     ///
     /// The name is set to `unnamed`, expression is set to 0.

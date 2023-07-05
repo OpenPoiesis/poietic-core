@@ -10,38 +10,37 @@ public protocol ExpressionConvertible {
 }
 
 // TODO: Design sketch
-public typealias UnboundExpression = ArithmeticExpression<String, String>
+public typealias UnboundExpression = ArithmeticExpression<ForeignValue, String, String>
 
 /// Arithmetic expression.
 ///
 /// Represents components of an arithmetic expression: values, variables,
 /// operators and functions.
 ///
-public indirect enum ArithmeticExpression<V,F> {
+public indirect enum ArithmeticExpression<L, V, F> {
     // TODO: Remove generic
+    public typealias LiteralValue = L
     public typealias VariableReference = V
     public typealias FunctionReference = F
     // Literals
-    /// `NULL` literal
-    case null
+    /// Literal value.
+    case value(LiteralValue)
 
-    /// Integer number literal
-    case value(any ValueProtocol)
-
-    /// Binary operator
-    case binary(FunctionReference, ArithmeticExpression<V,F>, ArithmeticExpression<V,F>)
+    /// Binary operator.
+    case binary(FunctionReference, Self, Self)
     
-    /// Unary operator
-    case unary(FunctionReference, ArithmeticExpression<V,F>)
+    /// Unary operator.
+    case unary(FunctionReference, Self)
 
     /// Function with multiple expressions as arguments
-    case function(FunctionReference, [ArithmeticExpression<V,F>])
+    case function(FunctionReference, [Self])
 
-    /// Variable reference
+    /// Variable reference.
     case variable(VariableReference)
 
     /// List of children from which the expression is composed. Does not go
     /// to underlying table expressions.
+    ///
     public var children: [ArithmeticExpression] {
         switch self {
         case let .binary(_, lhs, rhs): return [lhs, rhs]
@@ -54,7 +53,6 @@ public indirect enum ArithmeticExpression<V,F> {
     /// List of all variables that the expression and its children reference
     public var allVariables: [VariableReference] {
         switch self {
-        case .null: return []
         case .value(_): return []
         case let .variable(ref):
             return [ref]
@@ -66,68 +64,22 @@ public indirect enum ArithmeticExpression<V,F> {
             return arguments.flatMap { $0.allVariables }
         }
     }
-    
 }
 
-extension ArithmeticExpression: Equatable where F:Equatable, V:Equatable {
+
+extension ArithmeticExpression: Equatable where L:Equatable, F:Equatable, V:Equatable {
     public static func ==(left: ArithmeticExpression, right: ArithmeticExpression) -> Bool {
         switch (left, right) {
-        case (.null, .null): return true
-        case let(.value(lval), .value(rval)) where lval.isEqual(to: rval): return true
+        case let(.value(lval), .value(rval)) where lval == rval: true
         case let(.binary(lop, lv1, lv2), .binary(rop, rv1, rv2))
-                    where lop == rop && lv1 == rv1 && lv2 == rv2: return true
+                    where lop == rop && lv1 == rv1 && lv2 == rv2: true
         case let(.unary(lop, lv), .unary(rop, rv))
-                    where lop == rop && lv == rv: return true
-        case let(.variable(lval), .variable(rval)) where lval == rval: return true
+                    where lop == rop && lv == rv: true
+        case let(.variable(lval), .variable(rval)) where lval == rval: true
         case let(.function(lname, largs), .function(rname, rargs))
-                    where lname == rname && largs == rargs: return true
+                    where lname == rname && largs == rargs: true
         default:
-            return false
+            false
         }
-    }
-}
-
-extension ArithmeticExpression: ExpressibleByStringLiteral {
-    public init(stringLiteral value: String.StringLiteralType) {
-        self = .value(value)
-    }
-    public init(extendedGraphemeClusterLiteral value:
-            String.ExtendedGraphemeClusterLiteralType){
-        self = .value(value)
-    }
-    public init(unicodeScalarLiteral value: String.UnicodeScalarLiteralType) {
-        self = .value(value)
-    }
-}
-
-// FIXME: Do we still need these? Remove this pseudo-convenience!
-
-extension String: ExpressionConvertible {
-    public var toExpression: UnboundExpression { return .value(self) }
-}
-
-extension ArithmeticExpression: ExpressibleByIntegerLiteral {
-    public init(integerLiteral value: Int.IntegerLiteralType) {
-        self = .value(value)
-    }
-}
-
-extension Int: ExpressionConvertible {
-    public var toExpression: UnboundExpression { return .value(self) }
-}
-
-extension ArithmeticExpression: ExpressibleByBooleanLiteral {
-    public init(booleanLiteral value: Bool.BooleanLiteralType){
-        self = .value(value)
-    }
-}
-
-extension Bool: ExpressionConvertible {
-    public var toExpression: UnboundExpression { return .value(self) }
-}
-
-extension ArithmeticExpression: ExpressibleByNilLiteral {
-    public init(nilLiteral: ()) {
-        self = .null
     }
 }

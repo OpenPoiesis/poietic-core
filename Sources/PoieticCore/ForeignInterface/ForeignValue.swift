@@ -50,6 +50,34 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
     case id(ObjectID)
 
     
+    /// Flag whether the value is numeric - either an integer or a double
+    /// value.
+    ///
+    /// - Note: String is not considered a numeric value even if it contains
+    ///         a value representable as numeric.
+    ///
+    public var isNumeric: Bool {
+        switch self {
+        case .int: true
+        case .double: true
+        case .string: false
+        case .bool: false
+        case .id: false
+        }
+    }
+
+    public var valueType: ValueType {
+        switch self {
+        case .int: .int
+        case .double: .double
+        case .string: .string
+        case .bool: .bool
+        case .id:
+            // FIXME: IMPORTANT: We need to distinguish between internal and external value types
+            fatalError("ID is an internal value type")
+        }
+    }
+
     /// Try to get an int value from the foreign value. Convert if necessary.
     ///
     /// Any type of foreign value is attempted for conversion.
@@ -251,6 +279,21 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         self = .array(ids.map { ForeignScalar.id($0)} )
     }
 
+    public var isNumeric: Bool {
+        switch self {
+        case .scalar(let value): value.isNumeric
+        case .array: false
+        }
+    }
+
+    public var valueType: ValueType? {
+        switch self {
+        case .scalar(let value): value.valueType
+        case .array: nil
+        }
+    }
+
+    
     public func intValue() throws -> Int {
         switch self {
         case .scalar(let value): return try value.intValue()

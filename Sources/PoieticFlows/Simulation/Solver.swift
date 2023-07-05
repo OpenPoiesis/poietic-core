@@ -135,12 +135,11 @@ public class Solver {
         self.compiledModel = compiledModel
         self.evaluator = NumericExpressionEvaluator()
 
-        var functions: [String:FunctionProtocol] = [:]
+        var functions: [String:any FunctionProtocol] = [:]
         
         for function in AllBuiltinFunctions {
             functions[function.name] = function
         }
-        evaluator.functions = functions
     }
 
     /// Evaluate an expression within the context of a simulation state.
@@ -160,20 +159,20 @@ public class Solver {
         // Clean-up variables (just in case)
         evaluator.variables.removeAll()
         for (nodeID, value) in state.items {
-            evaluator.variables[.object(nodeID)] = value
+            evaluator.variables[.object(nodeID)] = ForeignValue(value)
         }
 
         // TODO: Built-in variables
         //        evaluator.variables[.builtin(FlowsMetamodel.TimeVariable)] = .double(time)
-        let value: (any ValueProtocol)?
+        let value: ForeignValue
         do {
             value = try evaluator.evaluate(expression)
         }
         catch {
-            // Evaluation should not fail
+            // Evaluation must not fail
             fatalError("Evaluation failed: \(error)")
         }
-        return value!.doubleValue()!
+        return try! value.doubleValue()
     }
 
     /// Initialise the computation state.

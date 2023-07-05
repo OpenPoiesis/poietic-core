@@ -66,7 +66,7 @@ public class DomainView {
             throw DomainError(issues: issues)
         }
     }
-    
+   
     /// Compiles all arithmetic expressions of all expression nodes.
     ///
     /// - Returns: A dictionary where the keys are expression node IDs and values
@@ -79,6 +79,21 @@ public class DomainView {
 
         var result: [ObjectID:BoundExpression] = [:]
         var issues: [ObjectID: [NodeIssue]] = [:]
+       
+        var references: [String:BoundVariableReference] = [:]
+        for (name, id) in names {
+            references[name] = .object(id)
+        }
+        // TODO: Add built-ins here
+        // references["time"] = FlowsMetamodel.TimeVariable
+        // references["time_delta"] = FlowsMetamodel.TimeDeltaVariable
+        
+        // FIXME: This is a remnant after expression binding refactoring.
+        var functions: [String: any FunctionProtocol] = [:]
+        
+        for function in AllBuiltinFunctions {
+            functions[function.name] = function
+        }
         
         for node in expressionNodes {
             let component: FormulaComponent = node[FormulaComponent.self]!
@@ -99,7 +114,10 @@ public class DomainView {
                 continue
             }
 
-            let boundExpr = bind(unboundExpression, names: names)
+            // TODO: Handle all expression errors here
+            let boundExpr = try bindExpression(unboundExpression,
+                                               variables: references,
+                                               functions: functions)
             result[node.id] = boundExpr
         }
         
@@ -351,25 +369,4 @@ public class DomainView {
         
         return hood.nodes.map { $0.id }
     }
-}
-
-/// Bind an expression to a compiled model. Return a bound expression.
-///
-/// Bound expression is an expression where the variable references are
-/// resolved to match their respective nodes.
-///
-public func bind(_ expression: UnboundExpression,
-                 names: [String:ObjectID]) -> BoundExpression {
-    var references: [String:BoundVariableReference] = [:]
-    for (name, id) in names {
-        references[name] = .object(id)
-    }
-    
-    // TODO: Add built-ins here
-    // references["time"] = FlowsMetamodel.TimeVariable
-    // references["time_delta"] = FlowsMetamodel.TimeDeltaVariable
-    
-    let boundExpr = expression.bind(variables: references)
-    
-    return boundExpr
 }

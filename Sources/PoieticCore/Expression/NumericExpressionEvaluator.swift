@@ -7,9 +7,9 @@
 
 // TODO: Needs attention, a bit older design.
 
-enum SimpleExpressionError: Error {
-    case unknownVariableReference(BoundVariableReference)
-    case unknownFunctionReference(BoundExpression.FunctionReference)
+enum ExpressionError: Error {
+    case unknownVariable(String)
+    case unknownFunction(String)
 }
 
 /// Object representing a built-in variable.
@@ -30,6 +30,9 @@ public class BuiltinVariable: Hashable {
     public let name: String
     public let initialValue: (any ValueProtocol)?
     public let description: String?
+
+    // TODO: Make customizable
+    public let valueType: ValueType = .double
     
     public init(name: String,
          value: (any ValueProtocol)? = nil,
@@ -60,38 +63,157 @@ public enum BoundVariableReference: Hashable {
         default: return false
         }
     }
+    
+    public var valueType: ValueType {
+        switch self {
+        case .object: ValueType.double
+        case .builtin(let variable): variable.valueType
+        }
+    }
 }
 
 
-public typealias BoundExpression = ArithmeticExpression<BoundVariableReference, String>
+// TODO: Rename to Bound Numeric Expression
+public typealias BoundExpression = ArithmeticExpression<ForeignValue,
+                                                        BoundVariableReference,
+                                                        any FunctionProtocol>
 
-extension ArithmeticExpression where V == String, F == String {
-    /// Bind an expression to a compiled model. Return a bound expression.
-    ///
-    /// Bound expression is an expression where the variable references are
-    /// resolved to match their respective nodes.
-    ///
-    public func bind(variables: [String:BoundVariableReference]) -> BoundExpression {
-        switch self {
-        case let .value(value): return .value(value)
-        case let .binary(op, lhs, rhs):
-            return .binary(op, lhs.bind(variables: variables),
-                           rhs.bind(variables: variables))
-        case let .unary(op, operand):
-            return .unary(op, operand.bind(variables: variables))
-        case let .function(name, arguments):
-            let boundArgs = arguments.map { $0.bind(variables: variables) }
-            return .function(name, boundArgs)
-        case let .variable(name):
-            if let ref = variables[name]{
-                return .variable(ref)
-            }
-            else {
-                // TODO: Raise an error here
-                fatalError("Unknown variable name: '\(name)'")
-            }
-        case .null: return .null
+extension BoundExpression {
+    public var valueType: ValueType {
+        let type = switch self {
+        case let .value(value): value.valueType
+        case let .variable(ref): ref.valueType
+        case let .binary(fun, _, _): fun.signature.returnType
+        case let .unary(fun, _): fun.signature.returnType
+        case let .function(fun, _): fun.signature.returnType
         }
+        
+        guard let type else {
+            fatalError("Bound expression \(self) has an unknown type. Hint: Something is broken in the binding process and/or built-in function definitions")
+        }
+        
+        return type
+    }
+}
+
+/// Bind an expression to concrete variable references.
+///
+/// - Parameters:
+///     - expression: Unbound arithmetic expression, where the function and
+///       variable references are strings.
+///     - variables: Dictionary of variables where the keys are variable names
+///       and the values are (bound) references to the variables.
+///     - functions: Dictionary of functions and operators where the keys are
+///       function names and the values are objects representing functions.
+///       See the list below of special function names that represent operators.
+///
+/// The operators are functions with special names. The following list contains
+/// the names of the operators:
+///
+/// - `__add__` – binary addition operator `+`
+/// - `__sub__` – binary subtraction operator `-`
+/// - `__mul__` – binary multiplication operator `*`
+/// - `__div__` – binary division operator `/`
+/// - `__mod__` – binary modulo operator `%`
+/// - `__neg__` – unary negation operator `-`
+///
+/// - Note: The operator names are similar to the operator method names in
+///   Python.
+///
+/// - Returns: ``BoundExpression`` where variables and functions are resolved.
+/// - Throws: ``ExpressionError`` when a variable or a function is not known.
+///
+public func bindExpression(_ expression: UnboundExpression,
+                           variables: [String:BoundVariableReference],
+                           functions: [String:any FunctionProtocol]) throws -> BoundExpression {
+    
+    switch expression {
+    case let .value(value):
+        return .value(value)
+
+    case let .unary(op, operand):
+        let funcName: String = switch op {
+        case "-": "__neg__"
+        default: fatalError("Unknown unary operator: '\(op)'. Hint: check the expression parser.")
+        }
+
+        guard let function = functions[funcName] else {
+            fatalError("No function '\(funcName)' for unary operator: '\(op)'. Hint: Make sure it is defined in the builtin function list.")
+        }
+
+        let boundOperand = try bindExpression(operand,
+                                              variables: variables,
+                                              functions: functions)
+        
+        let result = function.signature.validate([boundOperand.valueType])
+        switch result {
+        case .invalidNumberOfArguments:
+            throw FunctionError.invalidNumberOfArguments(1,
+                                                         function.signature.minimalArgumentCount)
+        case .typeMismatch(_):
+            throw FunctionError.typeMismatch(1, "int or double")
+        default:
+            return .unary(function, boundOperand)
+        }
+        
+        
+    case let .binary(op, lhs, rhs):
+        let funcName: String = switch op {
+        case "+": "__add__"
+        case "-": "__sub__"
+        case "*": "__mul__"
+        case "/": "__div__"
+        case "%": "__mod__"
+        default: fatalError("Unknown binary operator: '\(op)'. Hint: check the expression parser.")
+        }
+        
+        guard let function = functions[funcName] else {
+            fatalError("No function '\(funcName)' for binary operator: '\(op)'. Hint: Make sure it is defined in the builtin function list.")
+        }
+
+        let lBound = try bindExpression(lhs, variables: variables, functions: functions)
+        let rBound = try bindExpression(rhs, variables: variables, functions: functions)
+
+        let result = function.signature.validate([lBound.valueType, rBound.valueType])
+        switch result {
+        case .invalidNumberOfArguments:
+            throw FunctionError.invalidNumberOfArguments(2,
+                                                         function.signature.minimalArgumentCount)
+        case .typeMismatch(let index):
+            // TODO: We need all indices
+            throw FunctionError.typeMismatch(index.first! + 1, "int or double")
+        default: //
+            return .binary(function, lBound, rBound)
+        }
+
+    case let .function(name, arguments):
+        guard let function = functions[name] else {
+            throw ExpressionError.unknownFunction(name)
+        }
+        
+        let boundArgs = try arguments.map {
+            try bindExpression($0, variables: variables, functions: functions)
+        }
+
+        let types = boundArgs.map { $0.valueType }
+        let result = function.signature.validate(types)
+
+        switch result {
+        case .invalidNumberOfArguments:
+            throw FunctionError.invalidNumberOfArguments(arguments.count,
+                                                         function.signature.minimalArgumentCount)
+        case .typeMismatch(let index):
+            // TODO: We need all indices
+            throw FunctionError.typeMismatch(index.first! + 1, "int or double")
+        default: //
+            return .function(function, boundArgs)
+        }
+
+    case let .variable(name):
+        guard let ref = variables[name] else {
+            throw ExpressionError.unknownVariable(name)
+        }
+        return .variable(ref)
     }
 }
 
@@ -101,54 +223,37 @@ extension ArithmeticExpression where V == String, F == String {
 /// will be used during each expression evaluation.
 ///
 public class NumericExpressionEvaluator {
-    // TODO: This is rather "evaluation context"
-    public typealias FunctionReference = BoundExpression.FunctionReference
-
-    public var functions: [FunctionReference:FunctionProtocol] = [:]
-    public var variables: [BoundVariableReference:any ValueProtocol]
+    // TODO: Do we still need this as a class? It used to be more complex, now it can be changed into a function.
     
-    public init(variables: [BoundVariableReference:any ValueProtocol]=[:], functions: [String:FunctionProtocol]=[:]) {
+    public var variables: [BoundVariableReference:ForeignValue]
+    
+    public init(variables: [BoundVariableReference:ForeignValue]=[:]) {
         self.variables = variables
-        self.functions = functions
     }
     
     /// Evaluates an expression using object's functions and variables. Returns
     /// the evaluation result.
     ///
-    /// - Throws: The function throws an error when it encounters a variable
-    ///   or a function with unknown name
-    public func evaluate(_ expression: BoundExpression) throws -> (any ValueProtocol)? {
+    public func evaluate(_ expression: BoundExpression) throws -> ForeignValue {
         switch expression {
-        case let .value(value): return value
+        case let .value(value):
+            return value
+
         case let .binary(op, lhs, rhs):
-            return try apply(op, arguments: [try evaluate(lhs), try evaluate(rhs)])
+            return try op.apply([try evaluate(lhs), try evaluate(rhs)])
+
         case let .unary(op, operand):
-            return try apply(op, arguments: [try evaluate(operand)])
-        case let .function(name, arguments):
+            return try op.apply([try evaluate(operand)])
+
+        case let .function(functionRef, arguments):
             let evaluatedArgs = try arguments.map { try evaluate($0) }
-            return try apply(name, arguments: evaluatedArgs)
-        case let .variable(name):
-            if let value = variables[name] {
-                return value
+            return try functionRef.apply(evaluatedArgs)
+
+        case let .variable(ref):
+            guard let value = variables[ref] else {
+                fatalError("Unknown variable with reference: \(ref). This is internal error, not user error, potentially caused by the compiler.")
             }
-            else {
-                throw SimpleExpressionError.unknownVariableReference(name)
-            }
-        case .null: return nil
+            return value
         }
-    }
-    
-    /// Applies the function to the arguments and returns the result.
-    ///
-    /// - Throws: If the function with given name does not exist, it throws
-    ///   an error.
-    ///
-    public func apply(_ functionReference: FunctionReference, arguments: [(any ValueProtocol)?]) throws -> any ValueProtocol {
-        guard let function = functions[functionReference] else {
-            throw SimpleExpressionError.unknownFunctionReference(functionReference)
-        }
-        // FIXME: Handle optionals, the following is workaround
-        let args: [any ValueProtocol] = arguments.map { $0! }
-        return function.apply(args)
     }
 }
