@@ -7,17 +7,7 @@
 
 import XCTest
 @testable import PoieticCore
-
-
-final class BuiltinFunctionTests: XCTestCase {
-    func testAllBuiltinsHaveReturnType() throws {
-        for function in AllBuiltinFunctions {
-            if function.signature.returnType == nil {
-                XCTFail("Built-in function \(function.name) has no return type specified")
-            }
-        }
-    }
-}
+@testable import PoieticFlows
 
 
 final class FunctionTests: XCTestCase {

@@ -9,6 +9,18 @@ import XCTest
 @testable import PoieticFlows
 @testable import PoieticCore
 
+final class BuiltinFunctionTests: XCTestCase {
+    func testAllBuiltinsHaveReturnType() throws {
+        for function in AllBuiltinFunctions {
+            if function.signature.returnType == nil {
+                XCTFail("Built-in function \(function.name) has no return type specified")
+            }
+            if function.signature.returnType != .double {
+                XCTFail("Built-in function \(function.name) does not have a double return type")
+            }
+        }
+    }
+}
 
 final class TestCompiler: XCTestCase {
     var db: ObjectMemory!
