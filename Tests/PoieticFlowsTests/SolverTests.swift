@@ -137,6 +137,51 @@ final class TestSolver: XCTestCase {
 
         XCTAssertEqual(diff[stock]!, -5)
     }
+    // TODO: Also negative outflow
+    func testNonNegativeStockNegativeInflow() throws {
+        let stock = graph.createNode(FlowsMetamodel.Stock,
+                                     components: [FormulaComponent(name: "stock",
+                                                                      expression: "5")])
+        let obj = graph.node(stock)!
+        obj[StockComponent.self]!.allowsNegative = false
+        // FIXME: There is a bug in the expression parser
+        let flow = graph.createNode(FlowsMetamodel.Flow,
+                                     components: [FormulaComponent(name: "flow",
+                                                                      expression: "0 - 10")])
+
+        graph.createEdge(FlowsMetamodel.Fills, origin: flow, target: stock, components: [])
+        
+        let compiled = try compiler.compile()
+        
+        let solver = Solver(compiled)
+        let initial = solver.initialize()
+        let diff = solver.difference(at: 1.0, with: initial)
+
+        XCTAssertEqual(diff[stock]!, 0)
+    }
+
+    func testStockNegativeOutflow() throws {
+        let stock = graph.createNode(FlowsMetamodel.Stock,
+                                     components: [FormulaComponent(name: "stock",
+                                                                      expression: "5")])
+        let obj = graph.node(stock)!
+        obj[StockComponent.self]!.allowsNegative = false
+        // FIXME: There is a bug in the expression parser
+        let flow = graph.createNode(FlowsMetamodel.Flow,
+                                     components: [FormulaComponent(name: "flow",
+                                                                      expression: "0 - 10")])
+
+        graph.createEdge(FlowsMetamodel.Drains, origin: stock, target: flow, components: [])
+        
+        let compiled = try compiler.compile()
+        
+        let solver = Solver(compiled)
+        let initial = solver.initialize()
+        let diff = solver.difference(at: 1.0, with: initial)
+
+        XCTAssertEqual(diff[stock]!, 0)
+    }
+
     func testNonNegativeToTwo() throws {
         // TODO: Break this into multiple tests
         let source = graph.createNode(FlowsMetamodel.Stock,

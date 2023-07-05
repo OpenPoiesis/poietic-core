@@ -233,6 +233,10 @@ public class Solver {
     /// trains a stock with multiple outflows, then other outflows must be
     /// adjusted or set to zero.
     ///
+    /// - Note: Current implementation considers are flows to be one-directional
+    ///         flows. Flow with negative value, which is in fact an outflow,
+    ///         will be ignored.
+    ///
     /// - Precondition: The simulation state vector must have all variables
     ///   that are required to compute the stock difference.
     ///
@@ -249,7 +253,9 @@ public class Solver {
         // Compute inflow (regardless whether we allow negative)
         //
         for inflow in compiledModel.inflows[stockID]! {
-            totalInflow += state[inflow]!
+            // TODO: All flows are uni-flows for now. Ignore negative inflows.
+//            totalInflow += min(state[inflow]!, 0)
+            totalInflow += max(state[inflow]!, 0)
         }
         
         if stock.allowsNegative {
@@ -283,7 +289,7 @@ public class Solver {
                 // have in the stock. We either take it all or whatever is
                 // expected to be drained.
                 //
-                let actualOutflow = min(availableOutflow, state[outflow]!)
+                let actualOutflow = min(availableOutflow, max(state[outflow]!, 0))
                 
                 totalOutflow += actualOutflow
                 // We drain the stock

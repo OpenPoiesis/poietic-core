@@ -13,9 +13,13 @@ import PoieticCore
 /// is an inflow - stock from which the node drains, and another stock is an
 /// outflow - stock to which the node fills.
 ///
+/// - Note: Current implementation considers are flows to be one-directional
+///         flows. Flow with negative value, which is in fact an outflow,
+///         will be ignored.
+///
 public struct FlowComponent: Component,
                              CustomStringConvertible {
-    
+
     public static var componentDescription = ComponentDescription(
         name: "Flow",
         attributes: [
