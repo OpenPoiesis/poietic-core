@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import PoieticCore
-@testable import PoieticFlows
 
 
 final class FunctionTests: XCTestCase {

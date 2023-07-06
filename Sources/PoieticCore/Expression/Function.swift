@@ -14,7 +14,7 @@
 /// This structure is returned from validation of function arguments. See
 /// `FunctionProtocol.validate()` for more information.
 ///
-public enum FunctionError: Error {
+public enum FunctionError: Error, CustomStringConvertible {
     case invalidNumberOfArguments(Int, Int)
     case typeMismatch(Int, String)
     

@@ -28,15 +28,15 @@ enum ExpressionError: Error {
 ///
 public class BuiltinVariable: Hashable {
     public let name: String
-    public let initialValue: (any ValueProtocol)?
+    public let initialValue: ForeignValue?
     public let description: String?
 
     // TODO: Make customizable
     public let valueType: ValueType = .double
     
     public init(name: String,
-         value: (any ValueProtocol)? = nil,
-         description: String?) {
+                value: ForeignValue? = nil,
+                description: String?) {
         self.name = name
         self.initialValue = value
         self.description = description

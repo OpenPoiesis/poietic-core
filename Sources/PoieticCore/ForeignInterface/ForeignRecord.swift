@@ -76,35 +76,6 @@ public struct ForeignRecord {
         self.dict = dictionary
     }
     
-    
-    /// Create a foreign record from a dictionary.
-    ///
-    /// Values are any Swift types that conform to the ``ValueProtocol``.
-    ///
-    /// - Note: This method is depreciated.
-    ///
-    @available(*, deprecated, message: "Use init(dictionary:) with foreign values.")
-    public init(_ dictionary: [String:any ValueProtocol]) {
-        var dict: [String:ForeignValue] = [:]
-
-        for (key, value) in dictionary {
-            switch value.valueType {
-            case .int:
-                dict[key] = ForeignValue(value.intValue()!)
-            case .bool:
-                dict[key] = ForeignValue(value.boolValue()!)
-            case .double:
-                dict[key] = ForeignValue(value.doubleValue()!)
-            case .string:
-                dict[key] = ForeignValue(value.stringValue()!)
-            case .point:
-                // FIXME: Support point
-                fatalError("Point is not supported")
-            }
-        }
-        self.dict = dict
-    }
-    
     /// Get a value for a key, if is present in the record. Otherwise
     /// returns `nil`.
     ///

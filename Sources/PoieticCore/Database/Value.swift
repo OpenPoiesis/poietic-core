@@ -5,6 +5,75 @@
 //  Created by Stefan Urbanek on 26/06/2023.
 //
 
+public typealias Point = SIMD2<Double>
+
+/// ValueType specifies a data type of a value that is used in interfaces.
+///
+public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
+    case bool = "bool"
+    case int = "int"
+    case double = "double"
+    case string = "string"
+    case point = "point"
+    // case id
+    // case date
+    
+    /// Returns `true` if the value of this type is convertible to
+    /// another type.
+    /// Conversion might not be precise, just possible.
+    ///
+    public func isConvertible(to other: ValueType) -> Bool{
+        switch (self, other) {
+        // Bool to string, not to int or float
+        case (.bool,   .string): return true
+        case (.bool,   .bool):   return true
+        case (.bool,   .int):    return false
+        case (.bool,   .double): return false
+        case (.bool,   .point):    return false
+
+        // Int to all except bool
+        case (.int,    .string): return true
+        case (.int,    .bool):   return false
+        case (.int,    .int):    return true
+        case (.int,    .double): return true
+        case (.int, .point):     return false
+
+        // Float to all except bool
+        case (.double, .string): return true
+        case (.double, .bool):   return false
+        case (.double, .int):    return true
+        case (.double, .double): return true
+        case (.double, .point):  return false
+
+        // String to all
+        case (.string, .string): return true
+        case (.string, .bool):   return true
+        case (.string, .int):    return true
+        case (.string, .double): return true
+        case (.string, .point):  return false
+
+        // Point to point or a string
+        case (.point, .string): return false
+        case (.point, .bool):   return false
+        case (.point, .int):    return false
+        case (.point, .double): return false
+        case (.point, .point):  return true
+
+        }
+    }
+    
+    public var description: String {
+        self.rawValue
+    }
+    /// True if the type is either `int` or `float`
+    public var isNumeric: Bool {
+        switch self {
+        case .double: return true
+        case .int: return true
+        default: return false
+        }
+    }
+}
 
 /// Scalar value representation. The type can represent one of the
 /// following values:
@@ -157,7 +226,7 @@ public enum Value: Equatable, Hashable, Codable {
         case .string: return .string(self.stringValue())
         case .bool: return self.boolValue().map { .bool($0) } ?? nil
         case .double: return self.doubleValue().map { .double($0) } ?? nil
-            // FIXME: Suuport point
+            // FIXME: Support point
         case .point: fatalError("Point not supported")
         }
     }
