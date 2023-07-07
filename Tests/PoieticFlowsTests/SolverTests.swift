@@ -76,13 +76,13 @@ final class TestSolver: XCTestCase {
     func testEverythingInitialized() throws {
         let aux = graph.createNode(FlowsMetamodel.Auxiliary,
                                    components: [FormulaComponent(name: "a",
-                                                                    expression: "10")])
+                                                                 expression: "10")])
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      components: [FormulaComponent(name: "b",
-                                                                      expression: "20")])
+                                                                   expression: "20")])
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     components: [FormulaComponent(name:"c",
-                                                                     expression: "30")])
+                                                                  expression: "30")])
         
         let compiled = try compiler.compile()
         let solver = Solver(compiled)
@@ -94,6 +94,31 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(vector[flow], 30)
     }
    
+    func testStageWithTime() throws {
+        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   components: [FormulaComponent(name: "a",
+                                                                 expression: "time")])
+        let flow = graph.createNode(FlowsMetamodel.Flow,
+                                   components: [FormulaComponent(name: "f",
+                                                                 expression: "time * 10")])
+
+        let compiled = try compiler.compile()
+        let solver = EulerSolver(compiled)
+        
+        var state = solver.initialize(time: 1.0)
+        
+        XCTAssertEqual(state[aux], 1.0)
+        XCTAssertEqual(state[flow], 10.0)
+        
+        state = solver.compute(at: 2.0, with: state)
+        XCTAssertEqual(state[aux], 2.0)
+        XCTAssertEqual(state[flow], 20.0)
+
+        state = solver.compute(at: 10.0, with: state, timeDelta: 1.0)
+        XCTAssertEqual(state[aux], 10.0)
+        XCTAssertEqual(state[flow], 100.0)
+    }
+
     func testNegativeStock() throws {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      components: [FormulaComponent(name: "stock",

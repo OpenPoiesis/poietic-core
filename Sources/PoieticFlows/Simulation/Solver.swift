@@ -40,14 +40,14 @@ import PoieticCore
 /// ``compute(at:with:timeDelta:)`` is called for each step of the simulation.
 ///
 /// ```swift
-///
+/// // Assume we have a compiled model.
 /// let compiled: CompiledModel
 ///
 /// let solver = EulerSolver(compiled)
 ///
 /// var state: StateVector = solver.initialize()
 /// var time: Double = 0.0
-/// var timeDelta: Double = 1.0
+/// let timeDelta: Double = 1.0
 ///
 /// for step in (1...100) {
 ///     time += timeDelta
@@ -81,10 +81,6 @@ public class Solver {
     /// - SeeAlso: ``Compiler``
     ///
     public let compiledModel: CompiledModel
-
-    /// Arithmetic expression evaluator associated with the solver.
-    ///
-    let evaluator: NumericExpressionEvaluator
 
     /// Return list of registered solver names.
     ///
@@ -133,13 +129,6 @@ public class Solver {
         //
         
         self.compiledModel = compiledModel
-        self.evaluator = NumericExpressionEvaluator()
-
-        var functions: [String:any FunctionProtocol] = [:]
-        
-        for function in AllBuiltinFunctions {
-            functions[function.name] = function
-        }
     }
 
     /// Evaluate an expression within the context of a simulation state.
@@ -157,16 +146,17 @@ public class Solver {
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
         // Clean-up variables (just in case)
-        evaluator.variables.removeAll()
+        var variables: [BoundVariableReference:ForeignValue] = [:]
         for (nodeID, value) in state.items {
-            evaluator.variables[.object(nodeID)] = ForeignValue(value)
+            variables[.object(nodeID)] = ForeignValue(value)
         }
 
-        // TODO: Built-in variables
-        //        evaluator.variables[.builtin(FlowsMetamodel.TimeVariable)] = .double(time)
+        variables[.builtin(FlowsMetamodel.TimeVariable)] = ForeignValue(time)
+        variables[.builtin(FlowsMetamodel.TimeDeltaVariable)] = ForeignValue(timeDelta)
+
         let value: ForeignValue
         do {
-            value = try evaluator.evaluate(expression)
+            value = try expression.evaluate(variables)
         }
         catch {
             // Evaluation must not fail
@@ -317,6 +307,31 @@ public class Solver {
         return delta
     }
     
+    /// Compute auxiliaries and stocks for given stage of the computation step.
+    ///
+    /// If solvers use multiple stages, they must call this method if they do
+    /// not prepare the state by themselves.
+    ///
+    /// The ``EulerSolver`` uses only one stage, the ``RungeKutta4Solver`` uses
+    /// 4 stages.
+    ///
+    func prepareStage(at time: Double,
+                      with state: StateVector,
+                      timeDelta: Double = 1.0) -> StateVector {
+        var result: StateVector = state
+        
+        for id in compiledModel.auxiliaries {
+            let node = compiledModel.expressions[id]!
+            result[id] = evaluate(node, with: result, at: time)
+        }
+
+        for id in compiledModel.flows {
+            let node = compiledModel.expressions[id]!
+            result[id] = evaluate(node, with: result, at: time)
+        }
+        
+        return result
+    }
     
     /// Comptes differences of stocks.
     ///

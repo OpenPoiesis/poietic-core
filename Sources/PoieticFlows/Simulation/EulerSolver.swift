@@ -13,11 +13,12 @@ public class EulerSolver: Solver {
     public override func compute(at time: Double,
                           with current: StateVector,
                           timeDelta: Double = 1.0) -> StateVector {
+        let stage = prepareStage(at: time, with: current, timeDelta: timeDelta)
         let delta = difference(at: time,
-                               with: current,
+                               with: stage,
                                timeDelta: timeDelta)
         
-        let result = current + (delta * timeDelta)
+        let result = stage + (delta * timeDelta)
         return result
     }
 

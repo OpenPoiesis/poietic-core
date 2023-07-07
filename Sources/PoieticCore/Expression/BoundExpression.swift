@@ -51,7 +51,7 @@ public class BuiltinVariable: Hashable {
     }
 }
 
-public enum BoundVariableReference: Hashable {
+public enum BoundVariableReference: Hashable, CustomStringConvertible {
     
     case object(ObjectID)
     case builtin(BuiltinVariable)
@@ -59,7 +59,7 @@ public enum BoundVariableReference: Hashable {
     public static func ==(lhs: BoundVariableReference, rhs: BoundVariableReference) -> Bool {
         switch (lhs, rhs) {
         case let (.object(left), .object(right)): return left == right
-        case let (.builtin(left), .builtin(right)): return left == right
+        case let (.builtin(left), .builtin(right)): return left === right
         default: return false
         }
     }
@@ -68,6 +68,13 @@ public enum BoundVariableReference: Hashable {
         switch self {
         case .object: ValueType.double
         case .builtin(let variable): variable.valueType
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .object(let id): "object(\(id))"
+        case .builtin(let variable): "builtin(\(variable.name))"
         }
     }
 }
@@ -217,36 +224,44 @@ public func bindExpression(_ expression: UnboundExpression,
     }
 }
 
-/// Object that evaluates numeric expressions.
-///
-/// The object is associated with list of numeric functions and variables that
-/// will be used during each expression evaluation.
-///
-public class NumericExpressionEvaluator {
-    // TODO: Do we still need this as a class? It used to be more complex, now it can be changed into a function.
-    
-    public var variables: [BoundVariableReference:ForeignValue]
-    
-    public init(variables: [BoundVariableReference:ForeignValue]=[:]) {
-        self.variables = variables
-    }
-    
-    /// Evaluates an expression using object's functions and variables. Returns
-    /// the evaluation result.
+
+extension BoundExpression {
+    /// Evaluates an expression using given variables.
     ///
-    public func evaluate(_ expression: BoundExpression) throws -> ForeignValue {
-        switch expression {
+    /// - Parameters:
+    ///     - variables: A dictionary of variables to be used during evaluation.
+    ///       The keys are variable references and the values are variable
+    ///       values. See note below about the requirements.
+    ///
+    /// The variables dictionary must contain all references that are used in
+    /// the expression and its children. It is in the responsibility of the
+    /// caller to make sure that all the references are valid. Not having
+    /// a required reference in the dictionary results in a fatal error.
+    ///
+    /// The values in the dictionary are expected to be of the type required
+    /// by the evaluation.
+    ///
+    /// - Returns: result of the evaluation.
+    ///
+    /// - Throws: ``ValueError``.
+    ///
+    ///
+    public func evaluate(_ variables: [BoundVariableReference:ForeignValue]) throws -> ForeignValue {
+        switch self {
         case let .value(value):
             return value
 
         case let .binary(op, lhs, rhs):
-            return try op.apply([try evaluate(lhs), try evaluate(rhs)])
+            return try op.apply([try lhs.evaluate(variables),
+                                 try rhs.evaluate(variables)])
 
         case let .unary(op, operand):
-            return try op.apply([try evaluate(operand)])
+            return try op.apply([try operand.evaluate(variables)])
 
         case let .function(functionRef, arguments):
-            let evaluatedArgs = try arguments.map { try evaluate($0) }
+            let evaluatedArgs = try arguments.map {
+                try $0.evaluate(variables)
+            }
             return try functionRef.apply(evaluatedArgs)
 
         case let .variable(ref):

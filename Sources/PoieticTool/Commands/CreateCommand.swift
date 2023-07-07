@@ -31,14 +31,8 @@ extension PoieticTool {
                 try CreatePredatorPreyDemo(in: memory)
             }
             
-            let url = try databaseURL(options: options)
-            
-            do {
-                try memory.saveAll(to: url)
-            }
-            catch {
-                throw ToolError.unableToCreateFile(error)
-            }
+            try closeMemory(memory: memory, options: options)
+            print("Database created.")
         }
     }
 }

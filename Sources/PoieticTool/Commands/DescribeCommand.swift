@@ -28,6 +28,10 @@ extension PoieticTool {
         
         mutating func run() throws {
             let memory = try openMemory(options: options)
+            if memory.isEmpty {
+                throw CleanExit.message("The design memory is empty.")
+            }
+
             let frame = memory.currentFrame
             
             guard let object = frame.object(stringReference: reference) else {

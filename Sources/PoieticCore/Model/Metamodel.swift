@@ -72,6 +72,15 @@ extension Metamodel {
         }
     }
     
+    /// Get a list of built-in variable names.
+    ///
+    /// This list is created from the ``Metamodel/variables`` list for
+    /// convenience.
+    ///
+    public static var variableNames: [String] {
+        variables.map { $0.name }
+    }
+
 }
 
 /// A concrete metamodel without any specification.

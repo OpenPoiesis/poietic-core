@@ -85,8 +85,8 @@ public class DomainView {
             references[name] = .object(id)
         }
         // TODO: Add built-ins here
-        // references["time"] = FlowsMetamodel.TimeVariable
-        // references["time_delta"] = FlowsMetamodel.TimeDeltaVariable
+        references["time"] = .builtin(FlowsMetamodel.TimeVariable)
+        references["time_delta"] = .builtin(FlowsMetamodel.TimeDeltaVariable)
         
         // FIXME: This is a remnant after expression binding refactoring.
         var functions: [String: any FunctionProtocol] = [:]
@@ -106,7 +106,10 @@ public class DomainView {
                 issues[node.id] = [.expressionSyntaxError(error)]
                 continue
             }
-            let required: [String] = unboundExpression.allVariables
+            let required: [String] = unboundExpression.allVariables.filter {
+                // Filter out built-in variables.
+                !FlowsMetamodel.variableNames.contains($0)
+            }
             let inputIssues = validateInputs(nodeID: node.id, required: required)
 
             if !inputIssues.isEmpty {

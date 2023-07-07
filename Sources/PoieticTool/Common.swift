@@ -16,7 +16,7 @@ import SystemPackage
 enum ToolError: Error, CustomStringConvertible {
     // I/O errors
     case malformedLocation(String)
-    case unableToCreateFile(Error)
+    case unableToSaveDatabase(Error)
     
     // Simulation errors
     case unknownObjectName(String)
@@ -44,8 +44,8 @@ enum ToolError: Error, CustomStringConvertible {
         switch self {
         case .malformedLocation(let value):
             return "Malformed location: \(value)"
-        case .unableToCreateFile(let value):
-            return "Unable to create file. Reason: \(value)"
+        case .unableToSaveDatabase(let value):
+            return "Unable to save database. Reason: \(value)"
 
         case .unknownSolver(let value):
             return "Unknown solver '\(value)'"
@@ -86,8 +86,8 @@ enum ToolError: Error, CustomStringConvertible {
         switch self {
         case .malformedLocation(_):
             return nil
-        case .unableToCreateFile(_):
-            return nil
+        case .unableToSaveDatabase(_):
+            return "Check whether the location is correct and that you have permissions for writing."
         case .unknownSolver(_):
             return "Check the list of available solvers by running the 'info' command."
         case .unknownObjectName(_):
@@ -175,7 +175,12 @@ func openMemory(options: Options) throws -> ObjectMemory {
 func closeMemory(memory: ObjectMemory, options: Options) throws {
     let dataURL = try databaseURL(options: options)
 
-    try memory.saveAll(to: dataURL)
+    do {
+        try memory.saveAll(to: dataURL)
+    }
+    catch {
+        throw ToolError.unableToSaveDatabase(error)
+    }
 }
 
 /// Try to accept a frame in a memory.

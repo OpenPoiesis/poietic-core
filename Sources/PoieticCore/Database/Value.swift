@@ -5,6 +5,23 @@
 //  Created by Stefan Urbanek on 26/06/2023.
 //
 
+/*
+ 
+ Notes:
+ 
+ Type     Comp.  Insp.  Foreign
+ ---------------------------------------------
+ bool     yes    yes    yes
+ int      yes    yes    yes
+ double   yes    yes    yes
+ string   yes    yes    yes
+ point    yes    yes    yes
+ date     yes    yes    yes
+ array(*) ?      no     yes
+ ID       no     no     yes
+
+ */
+
 public typealias Point = SIMD2<Double>
 
 /// ValueType specifies a data type of a value that is used in interfaces.
@@ -22,14 +39,14 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
     /// another type.
     /// Conversion might not be precise, just possible.
     ///
-    public func isConvertible(to other: ValueType) -> Bool{
+    public func isConvertible(to other: ValueType) -> Bool {
         switch (self, other) {
         // Bool to string, not to int or float
         case (.bool,   .string): return true
         case (.bool,   .bool):   return true
         case (.bool,   .int):    return false
         case (.bool,   .double): return false
-        case (.bool,   .point):    return false
+        case (.bool,   .point):  return false
 
         // Int to all except bool
         case (.int,    .string): return true
@@ -96,10 +113,9 @@ public enum Value: Equatable, Hashable, Codable {
     /// A double precision floating point number value representation
     case double(Double)
     
-    // TODO: case point2d(Double, Double)
-    // TODO: case point3d(Double, Double, Double)
+    // TODO: case vector2(Double, Double)
+    // TODO: case vector3(Double, Double, Double)
     // TODO: case date(Date)
-
     
     /// Initialise value from any object and match type according to the
     /// argument type. If no type can be matched, then returns nil.
@@ -191,6 +207,7 @@ public enum Value: Equatable, Hashable, Codable {
         }
     }
 
+    // TODO: This was originally used for JSON export, reconsider this.
     /// Get a type erased value.
     ///
     public func anyValue() -> Any {
