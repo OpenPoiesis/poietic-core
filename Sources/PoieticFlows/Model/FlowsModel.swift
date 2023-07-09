@@ -87,23 +87,24 @@ public class FlowsMetamodel: Metamodel {
         structuralType: .node,
         components: [
             NameComponent.self,
-            GraphicalFunctionComponent.self,
             FormulaComponent.self,
             PositionComponent.self,
-            // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
         ]
     )
     
-    public static let DataInput = ObjectType(
-        name: "DataInput",
+    /// An auxiliary node - containing a constant or a formula.
+    ///
+    public static let GraphicalFunction = ObjectType(
+        name: "GraphicalFunction",
         structuralType: .node,
         components: [
+            NameComponent.self,
             PositionComponent.self,
-            // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
+            // TODO: IMPORTANT: Make sure we do not have formula component here or handle the type
         ]
     )
     
@@ -219,6 +220,12 @@ public class FlowsMetamodel: Metamodel {
     /// (formula).
     ///
     public static let expressionNodes = HasComponentPredicate(FormulaComponent.self)
+
+    /// Predicate that matches all nodes that have a name through
+    /// NamedComponent.
+    ///
+    public static let namedNodes = HasComponentPredicate(NameComponent.self)
+    public static let graphicalFunctionNodes = HasComponentPredicate(GraphicalFunctionComponent.self)
 
     /// Predicate that matches all nodes that are flows.
     ///

@@ -106,4 +106,26 @@ final class TestCompiler: XCTestCase {
         XCTAssertEqual(src_fills[0], sink)
         XCTAssertEqual(sink_fills.count, 0)
     }
+    
+    func testGraphicalFunction() throws {
+        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g",
+                                  components: [GraphicalFunctionComponent()])
+        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"a",
+                                   components: [FormulaComponent(expression: "g")])
+
+        graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
+        
+        let compiler = Compiler(frame: frame)
+       let compiled = try compiler.compile()
+
+        switch compiled.computations[gf] {
+        case .formula(_): XCTFail("Graphical function compiled as formula")
+        case .graphicalFunction(let fn):
+            XCTAssertEqual(fn.name, "__graphical_g")
+        case nil: XCTFail("Graphical function was not compiled")
+        }
+    }
+
 }

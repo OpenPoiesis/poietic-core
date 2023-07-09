@@ -20,11 +20,21 @@ public class DomainView {
         self.graph = graph
     }
     
+    // TODO: Use component filter directly here
     /// List of expression nodes in the graph.
     ///
     public var expressionNodes: [Node] {
         graph.selectNodes(FlowsMetamodel.expressionNodes)
     }
+    
+    public var graphicalFunctionNodes: [Node] {
+        graph.selectNodes(FlowsMetamodel.graphicalFunctionNodes)
+    }
+
+    public var namedNodes: [Node] {
+        graph.selectNodes(FlowsMetamodel.namedNodes)
+    }
+
     
     /// Collect names of objects.
     ///
@@ -33,13 +43,11 @@ public class DomainView {
     /// - Throws: ``DomainError`` with ``NodeIssue/duplicateName(_:)`` for each
     ///   node and name that has a duplicate name.
     ///
-    public func collectNames() throws -> [String:ObjectID] {
-        // TODO: Rename to "namedNodes"
-
+    public func nameToObject() throws -> [String:ObjectID] {
         var names: [String: [ObjectID]] = [:]
         var issues: [ObjectID: [NodeIssue]] = [:]
         
-        for node in expressionNodes {
+        for node in namedNodes {
             let name = node[NameComponent.self]!.name
             names[name, default: []].append(node.id)
         }
@@ -66,7 +74,25 @@ public class DomainView {
             throw DomainError(issues: issues)
         }
     }
-   
+
+    /// Collect names of objects.
+    ///
+    /// - Note: The mapping might contain duplicate names. This function
+    ///   does not check for duplicity, just collects all the names.
+    ///
+    /// - Returns: A dictionary where keys are object IDs and values are
+    ///   object names.
+    ///
+    public func objectToName() -> [ObjectID: String] {
+        var result: [ObjectID: String] = [:]
+        for node in namedNodes {
+            let name = node[NameComponent.self]!.name
+            result[node.id] = name
+        }
+        return result
+    }
+
+    
     /// Compiles all arithmetic expressions of all expression nodes.
     ///
     /// - Returns: A dictionary where the keys are expression node IDs and values
@@ -131,6 +157,20 @@ public class DomainView {
             throw DomainError(issues: issues)
         }
     }
+    
+    public func graphicalFunctions() throws -> [ObjectID:GraphicalFunction] {
+        var result: [ObjectID:GraphicalFunction] = [:]
+        
+        for node in graphicalFunctionNodes {
+            // FIXME: This is a late-night sketch implementation, GFComponent + GF should be merged
+            let component: GraphicalFunctionComponent = node[GraphicalFunctionComponent.self]!
+            let gf = GraphicalFunction(points: component.points)
+            result[node.id] = gf
+        }
+        
+        return result
+    }
+
     
     /// Validates inputs of an object with a given ID.
     ///

@@ -141,7 +141,28 @@ public class Solver {
     ///
     /// - Returns: an evaluated value of the expression.
     ///
-    public func evaluate(_ expression: BoundExpression,
+    public func evaluate(object: ObjectID,
+                         with state: StateVector,
+                         at time: Double,
+                         timeDelta: Double = 1.0) -> Double {
+        switch compiledModel.computations[object]! {
+        case .formula(let expression):
+            return _evaluate(expression: expression,
+                             with: state,
+                             at: time,
+                             timeDelta: timeDelta)
+        case .graphicalFunction(let fn):
+            do {
+                return try fn.apply([ForeignValue(time)]).doubleValue()
+            }
+            catch {
+                // Evaluation must not fail
+                fatalError("Evaluation of graphical function \(fn.name) failed: \(error)")
+            }
+        }
+    }
+
+    public func _evaluate(expression: BoundExpression,
                          with state: StateVector,
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
@@ -160,7 +181,7 @@ public class Solver {
         }
         catch {
             // Evaluation must not fail
-            fatalError("Evaluation failed: \(error)")
+            fatalError("Evaluation of bound expression failed: \(error)")
         }
         return try! value.doubleValue()
     }
@@ -194,13 +215,12 @@ public class Solver {
         var vector = StateVector()
         
         for node in compiledModel.sortedExpressionNodes {
-            let expression = compiledModel.expressions[node.id]!
             if let value = override[node.id] {
                 // TODO: Make sure we override only constants.
                 vector[node.id] = value
             }
             else {
-                vector[node.id] = evaluate(expression, with: vector, at: time)
+                vector[node.id] = evaluate(object: node.id, with: vector, at: time)
             }
         }
 
@@ -321,13 +341,11 @@ public class Solver {
         var result: StateVector = state
         
         for id in compiledModel.auxiliaries {
-            let node = compiledModel.expressions[id]!
-            result[id] = evaluate(node, with: result, at: time)
+            result[id] = evaluate(object: id, with: result, at: time)
         }
 
         for id in compiledModel.flows {
-            let node = compiledModel.expressions[id]!
-            result[id] = evaluate(node, with: result, at: time)
+            result[id] = evaluate(object: id, with: result, at: time)
         }
         
         return result
@@ -346,17 +364,13 @@ public class Solver {
         // 1. Evaluate auxiliaries
         //
         for aux in compiledModel.auxiliaries {
-            estimate[aux] = evaluate(compiledModel.expressions[aux]!,
-                                     with: current,
-                                     at: time)
+            estimate[aux] = evaluate(object: aux, with: current, at: time)
         }
 
         // 2. Estimate flows
         //
         for flow in compiledModel.flows {
-            estimate[flow] = evaluate(compiledModel.expressions[flow]!,
-                                      with: current,
-                                      at: time)
+            estimate[flow] = evaluate(object: flow, with: current, at: time)
         }
 
         // 3. Copy stock values that we are going to adjust for estimate

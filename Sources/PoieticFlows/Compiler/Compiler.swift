@@ -60,17 +60,37 @@ public class Compiler {
         // 1. Collect node names
         // -----------------------------------------------------------------
         //
-        let names = try view.collectNames()
+        let nameToObject = try view.nameToObject()
+        let objectToName = view.objectToName()
 
-        // 2. Compile expressions
+        // 2. Compile computational representations (computations)
         // -----------------------------------------------------------------
         //
-        let expressions = try view.compileExpressions(names: names)
+        var computations: [ObjectID:ComputationalRepresentation] = [:]
+
+        // 2.1 Compile expressions
+        //
+        let expressions = try view.compileExpressions(names: nameToObject)
         
+        for (id, expression) in expressions {
+            computations[id] = .formula(expression)
+        }
+
+        // 2.2 Compile graphical functions
+        //
+        for (id, function) in try view.graphicalFunctions() {
+            guard let nodeName = objectToName[id] else {
+                fatalError("Graphical function node \(id) has no name component. Internal hint: Model integrity is not assured.")
+            }
+            let funcName = "__graphical_\(nodeName)"
+            let numericFunc = function.createFunction(name: funcName)
+            computations[id] = .graphicalFunction(numericFunc)
+        }
+                
         // 3. Sort nodes in order of computation
         // -----------------------------------------------------------------
         //
-        let sortedNodes = try view.sortNodes(nodes: Array(expressions.keys))
+        let sortedNodes = try view.sortNodes(nodes: Array(computations.keys))
         
         // 4. Filter by node type
         // -----------------------------------------------------------------
@@ -152,7 +172,7 @@ public class Compiler {
         }
 
         return CompiledModel(
-            expressions: expressions,
+            computations: computations,
             sortedExpressionNodes: sortedNodes,
             stocks: stocks.map {$0.id},
             stockComponents: stockComponents,

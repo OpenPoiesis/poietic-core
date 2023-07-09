@@ -410,6 +410,18 @@ extension MutableGraph {
     public func createNode(_ type: ObjectType) -> ObjectID {
         return self.createNode(type, name: nil, components: [])
     }
+
+    @discardableResult
+    public func createEdge(_ type: ObjectType,
+                    origin: ObjectID,
+                    target: ObjectID) -> ObjectID{
+
+        return self.createEdge(type,
+                              origin: origin,
+                              target: target,
+                              components: [])
+    }
+
 }
 
 /// Graph contained within a mutable frame where the references to the nodes and

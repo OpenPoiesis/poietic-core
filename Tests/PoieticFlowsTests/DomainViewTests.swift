@@ -37,7 +37,7 @@ final class TestDomainView: XCTestCase {
         
         let view = DomainView(graph)
         
-        let names = try view.collectNames()
+        let names = try view.nameToObject()
         
         XCTAssertNotNil(names["a"])
         XCTAssertNotNil(names["b"])
@@ -63,12 +63,12 @@ final class TestDomainView: XCTestCase {
         
         let view = DomainView(graph)
         
-        XCTAssertThrowsError(try view.collectNames()) {
+        XCTAssertThrowsError(try view.nameToObject()) {
             guard let error = $0 as? DomainError else {
                 XCTFail("Expected DomainError")
                 return
             }
-
+            
             XCTAssertNotNil(error.issues[c1])
             XCTAssertNotNil(error.issues[c2])
             XCTAssertEqual(error.issues.count, 2)
@@ -85,9 +85,9 @@ final class TestDomainView: XCTestCase {
         
         let l = graph.createNode(FlowsMetamodel.Stock,
                                  components: [FormulaComponent(name: "l",
-                                                      expression: "sqrt(a*a + b*b)")])
+                                                               expression: "sqrt(a*a + b*b)")])
         let view = DomainView(graph)
-
+        
         let exprs = try view.compileExpressions(names: names)
         
         let varRefs = Set(exprs[l]!.allVariables)
@@ -97,7 +97,7 @@ final class TestDomainView: XCTestCase {
         XCTAssertEqual(varRefs.count, 2)
 #endif
     }
-   
+    
     func testCompileExpressionInvalidInput() throws {
         let names: [String:ObjectID] = [:]
         
@@ -111,7 +111,7 @@ final class TestDomainView: XCTestCase {
                 XCTFail("Expected DomainError")
                 return
             }
-
+            
             XCTAssertEqual(error.issues.count, 1)
             guard let issue = error.issues.first else {
                 XCTFail("Expected exactly one issue")
@@ -120,10 +120,10 @@ final class TestDomainView: XCTestCase {
             let (key, issues) = issue
             XCTAssertEqual(key, broken)
             XCTAssertEqual(issues,[.unknownParameter("price")])
-
+            
         }
     }
-
+    
     
     func testSortedNodes() throws {
         // a -> b -> c
@@ -238,4 +238,27 @@ final class TestDomainView: XCTestCase {
         XCTAssertEqual(view.flowFills(flow), sink)
         XCTAssertEqual(view.flowDrains(flow), source)
     }
+    
+    func testGraphicalFunction() throws {
+        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g",
+                                  components: [GraphicalFunctionComponent()])
+        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"a",
+                                   components: [FormulaComponent(expression: "g")])
+
+        graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
+        
+        let view = DomainView(graph)
+
+        let funcs = try view.graphicalFunctions()
+        XCTAssertNotNil(funcs[gf])
+        
+        let names = try view.nameToObject()
+        XCTAssertNotNil(names["g"])
+        
+        let issues = view.validateInputs(nodeID: aux, required: ["g"])
+        XCTAssertTrue(issues.isEmpty)
+    }
+
 }

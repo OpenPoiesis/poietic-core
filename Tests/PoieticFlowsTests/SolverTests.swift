@@ -293,25 +293,30 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(diff[happy]!,  +5)
         XCTAssertEqual(diff[sad]!,     0)
     }
-    
-//    func testGraphicalFunction() throws {
-//        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
-//                                     components: [GraphicalFunctionComponent(name: "stock",
-//                                                                      expression: "5")])
-//        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
-//                                     components: [FormulaComponent(name: "flow",
-//                                                                      expression: "-10")])
-//
-//        graph.createEdge(FlowsMetamodel.Drains, origin: stock, target: flow, components: [])
-//        
-//        let compiled = try compiler.compile()
-//        
-//        let solver = Solver(compiled)
-//        let initial = solver.initialize()
-//        let diff = solver.difference(at: 1.0, with: initial)
-//
-//        XCTAssertEqual(diff[stock]!, 0)
-//    }
+   
+    func testGraphicalFunction() throws {
+        let g1 = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g1",
+                                  components: [GraphicalFunctionComponent()])
+        let points = [Point(0.0, 10.0), Point(1.0, 10.0)]
+        let g2 = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g2",
+                                  components: [GraphicalFunctionComponent(points: points)])
+        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"a",
+                                   components: [FormulaComponent(expression: "g1 + g2")])
 
+        graph.createEdge(FlowsMetamodel.Parameter, origin: g1, target: aux)
+        graph.createEdge(FlowsMetamodel.Parameter, origin: g2, target: aux)
+
+        let compiled: CompiledModel = try compiler.compile()
+        let solver = EulerSolver(compiled)
+        let initial: StateVector = solver.initialize()
+        
+        XCTAssertEqual(initial[g1], 0.0)
+        XCTAssertEqual(initial[g2], 10.0)
+        XCTAssertEqual(initial[aux], 10.0)
+
+    }
 
 }

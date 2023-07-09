@@ -7,6 +7,21 @@
 
 import PoieticCore
 
+/// An item that is represented by a node that is to be evaluated.
+///
+public enum ComputationalRepresentation {
+    /// Arithmetic formula representation of a node.
+    ///
+    case formula(BoundExpression)
+    
+    /// Graphic function representation of a node.
+    ///
+    case graphicalFunction(NumericUnaryFunction)
+    
+    // TODO: Consider following cases (sketch)
+    // case dataInput(???)
+}
+
 /// Structure used by the simulator.
 ///
 /// Compiled model is an internal representation of the model design. The
@@ -26,7 +41,7 @@ public struct CompiledModel {
     
     /// Map of nodes and their corresponding compiled expressions.
     ///
-    let expressions: [ObjectID: BoundExpression]
+    let computations: [ObjectID: ComputationalRepresentation]
     
     /// Sorted expression nodes by parameter dependency.
     ///
