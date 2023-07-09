@@ -49,7 +49,7 @@ public protocol FunctionProtocol: Hashable {
 /// An object that represents a binary operator - a function of two
 /// numeric arguments.
 ///
-public class NumericBinaryOperator: FunctionProtocol {
+public class NumericBinaryFunction: FunctionProtocol {
     public typealias Implementation = (Double, Double) -> Double
     public let name: String
     public let implementation: Implementation
@@ -90,7 +90,7 @@ public class NumericBinaryOperator: FunctionProtocol {
         return ForeignValue(result)
     }
 
-    public static func == (lhs: NumericBinaryOperator, rhs: NumericBinaryOperator) -> Bool {
+    public static func == (lhs: NumericBinaryFunction, rhs: NumericBinaryFunction) -> Bool {
         return lhs === rhs
     }
 }
@@ -98,7 +98,7 @@ public class NumericBinaryOperator: FunctionProtocol {
 /// An object that represents a unary operator - a function of one numeric
 /// argument.
 ///
-public class NumericUnaryOperator: FunctionProtocol {
+public class NumericUnaryFunction: FunctionProtocol {
     public typealias Implementation = (Double) -> Double
     
     public let name: String
@@ -139,7 +139,7 @@ public class NumericUnaryOperator: FunctionProtocol {
         return ForeignValue(result)
     }
 
-    public static func == (lhs: NumericUnaryOperator, rhs: NumericUnaryOperator) -> Bool {
+    public static func == (lhs: NumericUnaryFunction, rhs: NumericUnaryFunction) -> Bool {
         return lhs === rhs
     }
 }

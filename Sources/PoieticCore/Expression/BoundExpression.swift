@@ -128,7 +128,7 @@ extension BoundExpression {
 ///   Python.
 ///
 /// - Returns: ``BoundExpression`` where variables and functions are resolved.
-/// - Throws: ``ExpressionError`` when a variable or a function is not known.
+/// - Throws: ``FunctionError`` when a variable or a function is not known.
 ///
 public func bindExpression(_ expression: UnboundExpression,
                            variables: [String:BoundVariableReference],
@@ -171,11 +171,11 @@ public func bindExpression(_ expression: UnboundExpression,
         case "*": "__mul__"
         case "/": "__div__"
         case "%": "__mod__"
-        default: fatalError("Unknown binary operator: '\(op)'. Hint: check the expression parser.")
+        default: fatalError("Unknown binary operator: '\(op)'. Internal hint: check the expression parser.")
         }
         
         guard let function = functions[funcName] else {
-            fatalError("No function '\(funcName)' for binary operator: '\(op)'. Hint: Make sure it is defined in the builtin function list.")
+            fatalError("No function '\(funcName)' for binary operator: '\(op)'. Internal hint: Make sure it is defined in the builtin function list.")
         }
 
         let lBound = try bindExpression(lhs, variables: variables, functions: functions)

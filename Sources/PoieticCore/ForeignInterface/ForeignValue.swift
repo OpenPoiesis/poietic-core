@@ -17,17 +17,22 @@ public enum ValueError: Error, CustomStringConvertible{
     }
 }
 
+// TODO: Distinguish different typed value retrieval (see note below)
+/*
+    - intValue: Int
+    - asInt() throws -> Int
+ 
+ */
+
 /// ForeignScalar represents a value from an external environment.
 ///
-/// Foreign scalar is typically created from values taken from outside of the
+/// Foreign atom is typically created from values taken from outside of the
 /// application or outside of the core. For example from a persistent store,
 /// imported file or a pasteboard.
 ///
 /// - SeeAlso: ``ForeignValue``
 ///
-public enum ForeignScalar: Equatable, CustomStringConvertible {
-    // TODO: Rename to ForeignAtom (will include points and dates)
-    
+public enum ForeignAtom: Equatable, CustomStringConvertible {
     /// Representation of an integer.
     case int(Int)
 
@@ -40,6 +45,9 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
     /// Representation of a boolean value.
     case bool(Bool)
 
+    /// Representation of a 2D point value.
+    case point(Point)
+    
     /// Representation of an object ID.
     ///
     /// - Note: Currently the ID is a 64 bit integer, but it is very likely
@@ -63,6 +71,7 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         case .string: false
         case .bool: false
         case .id: false
+        case .point: false
         }
     }
 
@@ -72,6 +81,7 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         case .double: .double
         case .string: .string
         case .bool: .bool
+        case .point: .point
         case .id:
             // FIXME: IMPORTANT: We need to distinguish between internal and external value types
             fatalError("ID is an internal value type")
@@ -98,6 +108,7 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
             }
         case let .bool(value): return value ? 1 : 0
         case let .id(value): return Int(value)
+        case let .point(value): throw ValueError.typeMismatch("\(value)", "int")
         }
     }
     
@@ -121,12 +132,19 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
             }
         case .bool(let value): throw ValueError.typeMismatch("\(value)", "double")
         case .id(let value): throw ValueError.typeMismatch("\(value)", "double")
+        case let .point(value): throw ValueError.typeMismatch("\(value)", "double")
         }
     }
     
     /// Get a string value from the foreign value. Convert if necessary.
     ///
     /// All foreign values can be converted into a string.
+    ///
+    /// - Note: Despite the point value is convertible to string, the operation
+    ///   is not symmetrical. The string value can not be converted back to
+    ///   the point value. Foreign value storage should their system specific
+    ///   method of storing a point value or an alternative, such as splitting
+    ///   the point into multiple values.
     ///
     public func stringValue() -> String {
         switch self {
@@ -135,6 +153,8 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
         case let .string(value): return String(value)
         case let .bool(value): return String(value)
         case let .id(value): return String(value)
+        case let .point(value): return "\(value)"
+//        case let .point(value): throw ValueError.typeMismatch("\(value)", "string")
         }
     }
 
@@ -165,6 +185,7 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
                                     }
         case .bool(let value): return value
         case .id(let value): throw ValueError.typeMismatch("\(value)", "bool")
+        case let .point(value): throw ValueError.typeMismatch("\(value)", "bool")
         }
     }
     
@@ -188,15 +209,36 @@ public enum ForeignScalar: Equatable, CustomStringConvertible {
             }
         case .bool(let value): throw ValueError.typeMismatch("\(value)", "ID")
         case .id(let value): return value
+        case let .point(value): throw ValueError.typeMismatch("\(value)", "id")
         }
     }
     
+    /// Try to get a 2D point value from the foreign value. Convert if necessary.
+    ///
+    /// No other value than the point itself can be converted to a point value.
+    ///
+    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the foreign value
+    ///   can not be converted to point.
+    ///
+    public func pointValue() throws -> Point  {
+        switch self {
+        case .int(let value): throw ValueError.typeMismatch("\(value)", "point")
+        case .double(let value): throw ValueError.typeMismatch("\(value)", "point")
+        case .string(let value):
+            // TODO: Make points string value convertible 10x20 or 10@20 or 10,20
+                throw ValueError.typeMismatch("\(value)", "point")
+        case .bool(let value): throw ValueError.typeMismatch("\(value)", "point")
+        case .id(let value): throw ValueError.typeMismatch("\(value)", "point")
+        case let .point(value): throw ValueError.typeMismatch("\(value)", "point")
+        }
+    }
+
     public var description: String {
         stringValue()
     }
 }
 
-extension ForeignScalar: Codable {
+extension ForeignAtom: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         
@@ -215,6 +257,7 @@ extension ForeignScalar: Codable {
             return
         }
         catch is DecodingError {
+            // We are fine, let us try another one.
         }
         
         do {
@@ -223,6 +266,16 @@ extension ForeignScalar: Codable {
             return
         }
         catch is DecodingError {
+            // We are fine, let us try another one.
+        }
+
+        do {
+            let value: Point = try container.decode(Point.self)
+            self = .point(value)
+            return
+        }
+        catch is DecodingError {
+            // We are fine, let us try another one.
         }
 
         // We are not catching error of the last one and let it go through.
@@ -240,13 +293,14 @@ extension ForeignScalar: Codable {
         case let .string(value): try container.encode(value)
         case let .bool(value): try container.encode(value)
         case let .id(value): try container.encode(String(value))
+        case let .point(value): try container.encode(value)
         }
     }
 
 }
 
 /// ForeignValue represents a value from an external environment that can be
-/// either a scalar or a list of scalars – an array.
+/// either an atom or a list of atoms – an array.
 ///
 /// Foreign value is typically created from values taken from outside of the
 /// application or outside of the core. For example from a persistent store,
@@ -255,79 +309,166 @@ extension ForeignScalar: Codable {
 /// - SeeAlso: ``ForeignScalar``
 ///
 public enum ForeignValue: Equatable, CustomStringConvertible {
-    case scalar(ForeignScalar)
-    case array([ForeignScalar])
+    case atom(ForeignAtom)
+    case array([ForeignAtom])
 
     public init(_ value: Int) {
-        self = .scalar(.int(value))
+        self = .atom(.int(value))
     }
     public init(_ value: Double) {
-        self = .scalar(.double(value))
+        self = .atom(.double(value))
     }
     public init(_ value: Bool) {
-        self = .scalar(.bool(value))
+        self = .atom(.bool(value))
     }
     public init(_ value: String) {
-        self = .scalar(.string(value))
+        self = .atom(.string(value))
     }
 
     public init(_ id: ObjectID) {
-        self = .scalar(.id(id))
+        self = .atom(.id(id))
     }
     
+    public init(_ values: [Point]) {
+        self = .array(values.map { ForeignAtom.point($0)} )
+    }
     public init(ids: [ObjectID]) {
-        self = .array(ids.map { ForeignScalar.id($0)} )
+        self = .array(ids.map { ForeignAtom.id($0)} )
     }
 
     public var isNumeric: Bool {
         switch self {
-        case .scalar(let value): value.isNumeric
+        case .atom(let value): value.isNumeric
         case .array: false
         }
     }
 
     public var valueType: ValueType? {
         switch self {
-        case .scalar(let value): value.valueType
+        case .atom(let value): value.valueType
         case .array: nil
         }
     }
 
-    
     public func intValue() throws -> Int {
         switch self {
-        case .scalar(let value): return try value.intValue()
+        case .atom(let value): return try value.intValue()
         case .array: throw ValueError.typeMismatch("Array", "int")
         }
     }
+
+    /// Get a string value from the foreign value. Convert if necessary.
+    ///
+    /// All foreign values can be converted into a string.
+    ///
+    /// - Note: Despite the point value is convertible to string, the operation
+    ///   is not symmetrical. The string value can not be converted back to
+    ///   the point value. Foreign value storage should their system specific
+    ///   method of storing a point value or an alternative, such as splitting
+    ///   the point into multiple values.
+    ///
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an array.
+    ///
     public func stringValue() throws -> String {
         switch self {
-        case .scalar(let value): return value.stringValue()
+        case .atom(let value): return value.stringValue()
         case .array: throw ValueError.typeMismatch("Array", "string")
         }
     }
+
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an array.
+    ///
     public func boolValue() throws -> Bool {
         switch self {
-        case .scalar(let value): return try value.boolValue()
+        case .atom(let value): return try value.boolValue()
         case .array: throw ValueError.typeMismatch("Array", "bool")
         }
     }
+
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an array.
+    ///
     public func doubleValue() throws -> Double {
         switch self {
-        case .scalar(let value): return try value.doubleValue()
+        case .atom(let value): return try value.doubleValue()
         case .array: throw ValueError.typeMismatch("Array", "double")
         }
     }
+    
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an array.
+    ///
     public func idValue() throws -> ObjectID {
         switch self {
-        case .scalar(let value): return try value.idValue()
+        case .atom(let value): return try value.idValue()
         case .array: throw ValueError.typeMismatch("Array", "ID")
         }
     }
     
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom.
+    ///
+    public func intArray() throws -> [Int] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType)", "Array")
+        case .array(let values):
+            return try values.map { try $0.intValue() }
+        }
+    }
+
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom.
+    ///
+    public func stringArray() throws -> [String] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType)", "Array")
+        case .array(let values):
+            return values.map { $0.stringValue() }
+        }
+    }
+
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom.
+    ///
+    public func boolArray() throws -> [Bool] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType)", "Array")
+        case .array(let values):
+            return try values.map { try $0.boolValue() }
+        }
+    }
+    
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom.
+    ///
+    public func doubleArray() throws -> [Double] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType)", "Array")
+        case .array(let values):
+            return try values.map { try $0.doubleValue() }
+        }
+    }
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom.
+    ///
+    public func pointArray() throws -> [Point] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType)", "Array")
+        case .array(let values):
+            return try values.map { try $0.pointValue() }
+        }
+    }
+
     public var description: String {
         switch self {
-        case .scalar(let value):
+        case .atom(let value):
             return value.description
         case .array(let array):
             let arrayStr = array.map { $0.description }
@@ -342,8 +483,8 @@ extension ForeignValue: Codable {
         let container = try decoder.singleValueContainer()
 
         do {
-            let value: ForeignScalar = try container.decode(ForeignScalar.self)
-            self = .scalar(value)
+            let value: ForeignAtom = try container.decode(ForeignAtom.self)
+            self = .atom(value)
             return
         }
         catch is DecodingError {
@@ -366,7 +507,7 @@ extension ForeignValue: Codable {
         var container = encoder.singleValueContainer()
 
         switch self {
-        case .scalar(let scalar): try container.encode(scalar)
+        case .atom(let atom): try container.encode(atom)
         case .array(let array): try container.encode(array)
         }
     }
@@ -374,7 +515,7 @@ extension ForeignValue: Codable {
 
 extension ForeignValue: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
-        self = .scalar(.int(value))
+        self = .atom(.int(value))
     }
     
     public typealias IntegerLiteralType = Int
@@ -383,6 +524,6 @@ extension ForeignValue: ExpressibleByIntegerLiteral {
 extension ForeignValue: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral value: String) {
-        self = .scalar(.string(value))
+        self = .atom(.string(value))
     }
 }

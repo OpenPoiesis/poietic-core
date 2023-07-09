@@ -24,7 +24,7 @@ import Darwin
 /// - SeeAlso: ``bindExpression(_:variables:functions:)``
 ///
 public let BuiltinUnaryOperators: [any FunctionProtocol] = [
-    NumericUnaryOperator(name: "__neg__") { -$0 }
+    NumericUnaryFunction(name: "__neg__") { -$0 }
 ]
 
 /// List of built-in numeric binary operators.
@@ -40,11 +40,11 @@ public let BuiltinUnaryOperators: [any FunctionProtocol] = [
 /// - SeeAlso: ``bindExpression(_:variables:functions:)``
 ///
 public let BuiltinBinaryOperators: [any FunctionProtocol] = [
-    NumericBinaryOperator(name: "__add__") { $0 + $1 },
-    NumericBinaryOperator(name: "__sub__") { $0 - $1 },
-    NumericBinaryOperator(name: "__mul__") { $0 * $1 },
-    NumericBinaryOperator(name: "__div__") { $0 / $1 },
-    NumericBinaryOperator(name: "__mod__") { $0.truncatingRemainder(dividingBy: $1) },
+    NumericBinaryFunction(name: "__add__") { $0 + $1 },
+    NumericBinaryFunction(name: "__sub__") { $0 - $1 },
+    NumericBinaryFunction(name: "__mul__") { $0 * $1 },
+    NumericBinaryFunction(name: "__div__") { $0 / $1 },
+    NumericBinaryFunction(name: "__mod__") { $0.truncatingRemainder(dividingBy: $1) },
 ]
 
 /// List of built-in numeric function.
