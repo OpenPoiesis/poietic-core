@@ -224,6 +224,23 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public var composedIDString: String {
         return "\(self.id).\(self.snapshotID)"
     }
+    
+    /// Get object name if it has a "name" attribute in any of the components.
+    ///
+    /// - Note: It is recommended that the name is stored in the
+    ///   ``NameComponent``, however it is not required.
+    ///
+    /// - Returns: A name if found, otherwise `nil` if no component has `name`
+    ///   attribute.
+    ///
+    /// - SeeAlso: ``NameComponent``
+    ///
+    public var name: String? {
+        guard let name = self.attribute(forKey: "name") else {
+            return nil
+        }
+        return try? name.stringValue()
+    }
 }
 
 

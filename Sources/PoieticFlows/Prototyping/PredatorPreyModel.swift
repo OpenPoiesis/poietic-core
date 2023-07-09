@@ -16,21 +16,21 @@ import PoieticCore
 extension MutableGraph {
     func createStock(name: String, expression: String) -> ObjectID {
         let node = createNode(FlowsMetamodel.Stock,
-                              components: [FormulaComponent(name: name,
-                                                               expression: expression)])
+                              name: name,
+                              components: [FormulaComponent(expression: expression)])
         return node
     }
     
     func createAux(name: String, expression: String) -> ObjectID {
         let node = createNode(FlowsMetamodel.Auxiliary,
-                              components: [FormulaComponent(name: name,
-                                                               expression: expression)])
+                              name: name,
+                              components: [FormulaComponent(expression: expression)])
         return node
     }
     func createFlow(name: String, expression: String) -> ObjectID {
         let node = createNode(FlowsMetamodel.Flow,
-                              components: [FormulaComponent(name: name,
-                                                               expression: expression)])
+                              name: name,
+                              components: [FormulaComponent(expression: expression)])
         return node
     }
     

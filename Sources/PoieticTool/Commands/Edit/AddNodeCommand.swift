@@ -49,7 +49,7 @@ poietic add Flow name=expenses formula=50
                 throw ToolError.creatingSystemOwnedType(type.name)
             }
             
-            let id = graph.createNode(type, components: [])
+            let id = graph.createNode(type)
             let object = frame.object(id)!
             
             for item in attributeAssignments {

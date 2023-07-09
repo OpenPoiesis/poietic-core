@@ -109,10 +109,13 @@ final class JSONFileStoreTests: XCTestCase {
         graph = frame.mutableGraph
         
         let flow = graph.createNode(TestMetamodel.Flow,
+                                    name: nil,
                                     components: [IntegerComponent(value: 10)])
         let source = graph.createNode(TestMetamodel.Stock,
+                                      name: nil,
                                     components: [IntegerComponent(value: 20)])
         let sink = graph.createNode(TestMetamodel.Stock,
+                                    name:nil,
                                     components: [IntegerComponent(value: 30)])
         
         graph.createEdge(TestMetamodel.Arrow,

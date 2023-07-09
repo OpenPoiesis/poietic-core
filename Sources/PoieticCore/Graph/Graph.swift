@@ -376,9 +376,18 @@ public protocol MutableGraph: Graph {
     func remove(edge edgeID: ObjectID)
     
     
+    /// Convenience method to create a node without a name and without any
+    /// components.
+    ///
+    /// - SeeAlso: ``createNode(_:name:components:)``
+    ///
+    @discardableResult
+    func createNode(_ type: ObjectType) -> ObjectID
+
     // Object creation
     @discardableResult
     func createNode(_ type: ObjectType,
+                    name: String?,
                     components: [Component]) -> ObjectID
 
     @discardableResult
@@ -396,6 +405,10 @@ extension MutableGraph {
         for node in nodeIDs {
             remove(node: node)
         }
+    }
+    
+    public func createNode(_ type: ObjectType) -> ObjectID {
+        return self.createNode(type, name: nil, components: [])
     }
 }
 
@@ -492,7 +505,22 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         let derived = mutableFrame.insertDerived(object)
         return derived
     }
+   
+    
+    /// Creates a new node.
+    ///
+    /// - Parameters:
+    ///     - type: Object type of the newly created node.
+    ///     - name: Optional object name. See note below.
+    ///     - components: List of components assigned with the node.
+    ///
+    /// If the object name is provided, then ``NameComponent`` added to the
+    /// component list. If your metamodel does not use the ``NameComponent``,
+    /// then you have to create the name using the name-bearing component
+    /// manually.
+    ///
     public func createNode(_ type: ObjectType,
+                           name: String? = nil,
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .node,
                      "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
@@ -500,10 +528,19 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         // TODO: This is not very clean: we create a template, then we derive the concrete object.
         // Frame is not aware of structural types, can only create plain objects.
         // See file Documentation/ObjectCreation.md for more discussion.
+        let actualComponents: [any Component]
+        
+        if let name {
+            actualComponents = [NameComponent(name: name)] + components
+        }
+        else {
+            actualComponents = components
+        }
+        
         let object = Node(id:0,
                           snapshotID:0,
                           type: type,
-                          components: components)
+                          components: actualComponents)
         for componentType in type.components {
             if !object.components.has(componentType) {
                 object.components.set(componentType.init())

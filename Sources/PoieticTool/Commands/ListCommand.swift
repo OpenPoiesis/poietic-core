@@ -70,7 +70,7 @@ extension PoieticTool {
         func listNames(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
             let names: [String] = frame.snapshots.compactMap {
-                    guard let component: FormulaComponent = $0[FormulaComponent.self] else {
+                    guard let component: NameComponent = $0[NameComponent.self] else {
                         return nil
                     }
                     return component.name
@@ -86,11 +86,14 @@ extension PoieticTool {
             let frame = memory.currentFrame
             
             let items: [(String, String)] = frame.snapshots.compactMap {
-                guard let component: FormulaComponent = $0[FormulaComponent.self] else {
-                        return nil
-                    }
-                    return (component.name, component.expressionString)
+                if let name = $0.name,
+                   let component: FormulaComponent = $0[FormulaComponent.self] {
+                    return (name, component.expressionString)
                 }
+                else {
+                    return nil
+                }
+            }
             .sorted { $0.0.lexicographicallyPrecedes($1.0)}
             
             for (name, formula) in items {

@@ -35,11 +35,14 @@ final class TestCompiler: XCTestCase {
     
     func testInflowOutflow() throws {
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                      components: [FormulaComponent(name:"source",expression:"0")])
+                                      name: "source",
+                                      components: [FormulaComponent(expression:"0")])
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [FormulaComponent(name:"f",expression:"1")])
+                                    name: "f",
+                                    components: [FormulaComponent(expression:"1")])
         let sink = graph.createNode(FlowsMetamodel.Stock,
-                                    components: [FormulaComponent(name:"sink",expression:"0")])
+                                    name: "sink",
+                                    components: [FormulaComponent(expression:"0")])
         
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source,
@@ -63,11 +66,14 @@ final class TestCompiler: XCTestCase {
     
     func testUpdateImplicitFlows() throws {
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [FormulaComponent(name:"f",expression:"1")])
+                                    name: "f",
+                                    components: [FormulaComponent(expression:"1")])
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                      components: [FormulaComponent(name:"source",expression:"0")])
+                                      name: "source",
+                                      components: [FormulaComponent(expression:"0")])
         let sink = graph.createNode(FlowsMetamodel.Stock,
-                                    components: [FormulaComponent(name:"sink",expression:"0")])
+                                    name: "sink",
+                                    components: [FormulaComponent(expression:"0")])
         
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source,

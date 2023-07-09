@@ -25,11 +25,14 @@ final class TestDomainView: XCTestCase {
     
     func testCollectNames() throws {
         graph.createNode(FlowsMetamodel.Stock,
-                         components: [FormulaComponent(name:"a",expression:"0")])
+                         name: "a",
+                         components: [FormulaComponent(expression:"0")])
         graph.createNode(FlowsMetamodel.Stock,
-                         components: [FormulaComponent(name:"b",expression:"0")])
+                         name: "b",
+                         components: [FormulaComponent(expression:"0")])
         graph.createNode(FlowsMetamodel.Stock,
-                         components: [FormulaComponent(name:"c",expression:"0")])
+                         name: "c",
+                         components: [FormulaComponent(expression:"0")])
         // TODO: Check using violation checker
         
         let view = DomainView(graph)
@@ -44,13 +47,17 @@ final class TestDomainView: XCTestCase {
     
     func testValidateDuplicateName() throws {
         let c1 = graph.createNode(FlowsMetamodel.Stock,
-                                  components:[FormulaComponent(name:"things",expression:"0")])
+                                  name: "things",
+                                  components:[FormulaComponent(expression:"0")])
         let c2 = graph.createNode(FlowsMetamodel.Stock,
-                                  components: [FormulaComponent(name:"things",expression:"0")])
+                                  name: "things",
+                                  components: [FormulaComponent(expression:"0")])
         graph.createNode(FlowsMetamodel.Stock,
-                         components: [FormulaComponent(name:"a",expression:"0")])
+                         name: "a",
+                         components: [FormulaComponent(expression:"0")])
         graph.createNode(FlowsMetamodel.Stock,
-                         components: [FormulaComponent(name:"b",expression:"0")])
+                         name: "b",
+                         components: [FormulaComponent(expression:"0")])
         
         // TODO: Check using violation checker
         
@@ -95,8 +102,8 @@ final class TestDomainView: XCTestCase {
         let names: [String:ObjectID] = [:]
         
         let broken = graph.createNode(FlowsMetamodel.Stock,
-                                 components: [FormulaComponent(name: "broken",
-                                                      expression: "price")])
+                                      name: "broken",
+                                      components: [FormulaComponent(expression: "price")])
         let view = DomainView(graph)
         
         XCTAssertThrowsError(try view.compileExpressions(names: names)) {
@@ -122,11 +129,14 @@ final class TestDomainView: XCTestCase {
         // a -> b -> c
         
         let c = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [FormulaComponent(name:"c",expression:"b")])
+                                 name: "c",
+                                 components: [FormulaComponent(expression:"b")])
         let b = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [FormulaComponent(name:"b",expression:"a")])
+                                 name: "b",
+                                 components: [FormulaComponent(expression:"a")])
         let a = graph.createNode(FlowsMetamodel.Auxiliary,
-                                 components: [FormulaComponent(name:"a",expression:"0")])
+                                 name: "a",
+                                 components: [FormulaComponent(expression:"0")])
         
         
         graph.createEdge(FlowsMetamodel.Parameter,
@@ -154,11 +164,14 @@ final class TestDomainView: XCTestCase {
     
     func testUnusedInputs() throws {
         let used = graph.createNode(FlowsMetamodel.Auxiliary,
-                                    components: [FormulaComponent(name:"used",expression:"0")])
+                                    name: "used",
+                                    components: [FormulaComponent(expression:"0")])
         let unused = graph.createNode(FlowsMetamodel.Auxiliary,
-                                      components: [FormulaComponent(name:"unused",expression:"0")])
+                                      name: "unused",
+                                      components: [FormulaComponent(expression:"0")])
         let tested = graph.createNode(FlowsMetamodel.Auxiliary,
-                                      components: [FormulaComponent(name:"tested",expression:"used")])
+                                      name: "tested",
+                                      components: [FormulaComponent(expression:"used")])
         
         graph.createEdge(FlowsMetamodel.Parameter,
                          origin: used,
@@ -181,9 +194,11 @@ final class TestDomainView: XCTestCase {
     
     func testUnknownParameters() throws {
         let known = graph.createNode(FlowsMetamodel.Auxiliary,
-                                     components: [FormulaComponent(name:"known",expression:"0")])
+                                     name: "known",
+                                     components: [FormulaComponent(expression:"0")])
         let tested = graph.createNode(FlowsMetamodel.Auxiliary,
-                                      components: [FormulaComponent(name:"tested",expression:"known + unknown")])
+                                      name: "tested",
+                                      components: [FormulaComponent(expression:"known + unknown")])
         
         graph.createEdge(FlowsMetamodel.Parameter,
                          origin: known,
@@ -200,11 +215,14 @@ final class TestDomainView: XCTestCase {
     
     func testFlowFillsAndDrains() throws {
         let flow = graph.createNode(FlowsMetamodel.Flow,
-                                    components: [FormulaComponent(name:"f",expression:"1")])
+                                    name: "f",
+                                    components: [FormulaComponent(expression:"1")])
         let source = graph.createNode(FlowsMetamodel.Stock,
-                                      components: [FormulaComponent(name:"source",expression:"0")])
+                                      name: "source",
+                                      components: [FormulaComponent(expression:"0")])
         let sink = graph.createNode(FlowsMetamodel.Stock,
-                                    components: [FormulaComponent(name:"sink",expression:"0")])
+                                    name: "sink",
+                                    components: [FormulaComponent(expression:"0")])
         
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source,

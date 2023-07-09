@@ -87,7 +87,7 @@ public struct CompiledModel {
         var result: [String: Node] = [:]
         
         for node in sortedExpressionNodes {
-            let expr: FormulaComponent = node[FormulaComponent.self]!
+            let expr: NameComponent = node[NameComponent.self]!
             result[expr.name] = node
         }
         return result
@@ -100,7 +100,7 @@ public struct CompiledModel {
     /// Get expression node with given name.
     public func expressionNode(name: String) -> Node? {
         for node in sortedExpressionNodes {
-            let expr: FormulaComponent = node[FormulaComponent.self]!
+            let expr: NameComponent = node[NameComponent.self]!
             if expr.name == name {
                 return node
             }

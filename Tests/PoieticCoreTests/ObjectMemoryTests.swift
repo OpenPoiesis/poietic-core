@@ -269,8 +269,8 @@ final class TestObjectMemory: XCTestCase {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
         let graph = frame.mutableGraph
-        let a = graph.createNode(TestObjectType, components: [])
-        let b = graph.createNode(TestObjectType, components: [])
+        let a = graph.createNode(TestObjectType)
+        let b = graph.createNode(TestObjectType)
         
         let constraint = NodeConstraint(name: "test",
                                         match: AnyPredicate(),

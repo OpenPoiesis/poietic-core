@@ -40,7 +40,7 @@ public class DomainView {
         var issues: [ObjectID: [NodeIssue]] = [:]
         
         for node in expressionNodes {
-            let name = node[FormulaComponent.self]!.name
+            let name = node[NameComponent.self]!.name
             names[name, default: []].append(node.id)
         }
         var dupes: [String] = []
@@ -162,8 +162,8 @@ public class DomainView {
         var incomingNames: Set<String> = Set()
         
         for paramNode in incomingParams.nodes {
-            let expr: FormulaComponent = paramNode[FormulaComponent.self]!
-            let name = expr.name
+            let comp: NameComponent = paramNode[NameComponent.self]!
+            let name = comp.name
             incomingNames.insert(name)
         }
         

@@ -17,6 +17,7 @@ public class FlowsMetamodel: Metamodel {
     // ---------------------------------------------------------------------
 
     public static let components: [Component.Type] = [
+        NameComponent.self,
         StockComponent.self,
         FlowComponent.self,
         FormulaComponent.self,
@@ -40,6 +41,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Stock",
         structuralType: .node,
         components: [
+            NameComponent.self,
             FormulaComponent.self,
             StockComponent.self,
             PositionComponent.self,
@@ -69,10 +71,10 @@ public class FlowsMetamodel: Metamodel {
         name: "Flow",
         structuralType: .node,
         components: [
+            NameComponent.self,
             FormulaComponent.self,
             FlowComponent.self,
             PositionComponent.self,
-            // PositionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
         ]
@@ -84,6 +86,8 @@ public class FlowsMetamodel: Metamodel {
         name: "Auxiliary",
         structuralType: .node,
         components: [
+            NameComponent.self,
+            GraphicalFunctionComponent.self,
             FormulaComponent.self,
             PositionComponent.self,
             // PositionComponent.self,
