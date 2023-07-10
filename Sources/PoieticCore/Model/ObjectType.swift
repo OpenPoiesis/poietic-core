@@ -127,4 +127,13 @@ public class ObjectType {
     public func componentType(forAttribute name: String) -> Component.Type? {
         return _attributeComponentMap[name]
     }
+    
+    public func attribute(_ name: String) -> AttributeDescription? {
+        guard let component = componentType(forAttribute: name) else {
+            return nil
+        }
+        return component.componentDescription.attributes.first {
+            $0.name == name
+        }
+    }
 }

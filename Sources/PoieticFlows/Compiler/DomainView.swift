@@ -375,7 +375,7 @@ public class DomainView {
     ///
     /// ```
     ///
-    /// - Precondition: ``stockID`` must be an ID of a node that is a stock.
+    /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func implicitFills(_ stockID: ObjectID) -> [ObjectID] {
         let stockNode = graph.node(stockID)!

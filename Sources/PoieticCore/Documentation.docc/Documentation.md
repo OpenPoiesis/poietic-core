@@ -80,7 +80,7 @@ For querying features of a graph there is ``Neighborhood`` and
 
 - ``ForeignValue``
 - ``ForeignRecord``
-- ``ForeignScalar``
+- ``ForeignAtom``
 - ``ForeignRecordError``
 
 ### Arithmetic Expression
@@ -94,14 +94,12 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``FunctionProtocol``
 - ``ExpressionParser``
 - ``NumericFunction``
-- ``NumericUnaryOperator``
-- ``NumericBinaryOperator``
-- ``NumericExpressionEvaluator``
+- ``NumericUnaryFunction``
+- ``NumericBinaryFunction``
 
 
 ### Persistence and Foreign Interfaces
 
-- ``ValueProtocol``
 - ``AttributeDictionary``
 - ``AttributeKey``
 - ``AttributeValue``

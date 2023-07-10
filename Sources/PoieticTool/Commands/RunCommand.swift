@@ -127,7 +127,7 @@ extension PoieticTool {
 /// The node names are included for nodes that have a name for user's
 /// convenience.
 ///
-/// - Throws: ``ToolError.compilationError`` if there are compilation errors.
+/// - Throws: ``ToolError/compilationError`` if there are compilation errors.
 ///
 func compile(frame: MutableFrame) throws -> CompiledModel {
     let compiler = Compiler(frame: frame)

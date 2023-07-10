@@ -19,7 +19,7 @@
 /// Typical component holds data provided by the user and everything provided by
 /// the user must be available back to the user in an useful and transparent
 /// form. The data provided by the user are available through ``Component/foreignRecord()-4l38f``
-/// or through the ``Component/attribute``
+/// or through the ``Component/attribute(forKey:)``
 ///
 ///
 ///
@@ -155,7 +155,7 @@ extension Component {
         Self.componentDescription.attributes.map { $0.name }
     }
     
-    /// Convenience forwarding for ``componentDescription.name``.
+    /// Convenience forwarding for ``ComponentDescription/name``.
     ///
     public var componentName: String {
         Self.componentDescription.name

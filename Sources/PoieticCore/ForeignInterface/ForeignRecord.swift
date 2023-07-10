@@ -23,7 +23,7 @@ public enum ForeignRecordError: Error {
     /// that the value can not be converted. For example, trying to get
     /// an integer value from a foreign string value `"moon"`.
     ///
-    /// - SeeAlso: ``ForeignValue``, ``ForeignScalar``.
+    /// - SeeAlso: ``ForeignValue``, ``ForeignAtom``.
     ///
     case typeMismatch(String, String)
 }
