@@ -227,8 +227,17 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     /// Get object name if it has a "name" attribute in any of the components.
     ///
+    /// The method searches all the component for the `name` attribute and
+    /// returns the first one it finds. If the object has multiple components
+    /// with the `name` attribute, which it should not (see note below),
+    /// which name is returned is unspecified.
+    ///
     /// - Note: It is recommended that the name is stored in the
     ///   ``NameComponent``, however it is not required.
+    ///
+    /// - Note: Component attribute names share the same name-space, there
+    ///   should not be multiple components with the same name. See
+    ///   ``Component`` f
     ///
     /// - Returns: A name if found, otherwise `nil` if no component has `name`
     ///   attribute.
@@ -236,10 +245,12 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// - SeeAlso: ``NameComponent``
     ///
     public var name: String? {
-        guard let name = self.attribute(forKey: "name") else {
-            return nil
+        for component in components {
+            if let name = component.attribute(forKey: "name") {
+                return try? name.stringValue()
+            }
         }
-        return try? name.stringValue()
+        return nil
     }
 }
 

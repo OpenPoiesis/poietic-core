@@ -9,7 +9,7 @@ import XCTest
 @testable import PoieticCore
 
 
-final class TestObjectMemory: XCTestCase {
+final class ObjectMemoryTests: XCTestCase {
     func testEmpty() throws {
         let db = ObjectMemory()
         

@@ -12,6 +12,25 @@
 /// attributes. An object can have multiple components but only one of each
 /// type.
 ///
+/// ## Attributes
+///
+/// User data contained in the component is provided to the user's world through
+/// public attributes that are advertised through ``componentDescription``.
+/// Everything that user enters to the application must be available as public
+/// named attributes.
+///
+/// Component attributes can be retrieved and set by their name, using ``Component/attribute(forKey:)``
+/// and ``Component/setAttribute(value:forKey:)`` respectively. This interface
+/// is for unified modification of the component attributes from a foreign
+/// source, such as foreign data or a script.
+///
+/// Component attribute names share the same name-space within an object.
+/// There must not be multiple components having an attribute with the same
+/// name in an object.
+///
+///
+/// ## Foreign Representation
+///
 /// Important part of the component is its convertibility to a foreign
 /// representation for the purpose of interchange between applications or
 /// for the purpose of persistence, a storage.
@@ -20,7 +39,6 @@
 /// the user must be available back to the user in an useful and transparent
 /// form. The data provided by the user are available through ``Component/foreignRecord()-4l38f``
 /// or through the ``Component/attribute(forKey:)``
-///
 ///
 ///
 /// - Note: The ``Component`` is loosely drawing concepts from the Entity
