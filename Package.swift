@@ -26,18 +26,25 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "PoieticCore",
-            dependencies: []),
+            dependencies: [
+                .product(name: "SystemPackage", package: "swift-system"),
+            ]),
         .target(
             name: "PoieticFlows",
             dependencies: ["PoieticCore"]),
-        
+        .target(
+            name: "PoieticCanvas",
+            dependencies: [
+                "PoieticCore",
+            ]),
+
         .executableTarget(
             name: "PoieticTool",
             dependencies: [
                 "PoieticCore",
                 "PoieticFlows",
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SystemPackage", package: "swift-system"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]),
         
         .testTarget(
@@ -46,5 +53,8 @@ let package = Package(
         .testTarget(
             name: "PoieticFlowsTests",
             dependencies: ["PoieticFlows"]),
+        .testTarget(
+            name: "PoieticCanvasTests",
+            dependencies: ["PoieticCanvas"]),
     ]
 )
