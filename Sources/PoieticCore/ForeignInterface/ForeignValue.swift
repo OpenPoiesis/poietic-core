@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 2020/12/14.
 //
 
+// TODO: It is getting a bit messy with Point values and arrays of points. Review it.
+
 public enum ValueError: Error, CustomStringConvertible{
     case typeMismatch(String, String)
     case invalidBooleanValue(String)
@@ -64,7 +66,6 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
     ///
     case id(ObjectID)
 
-    
     /// Flag whether the value is numeric - either an integer or a double
     /// value.
     ///
@@ -82,7 +83,7 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
         }
     }
 
-    public var valueType: ValueType {
+    public var valueType: AtomType {
         switch self {
         case .int: .int
         case .double: .double
@@ -95,6 +96,42 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
         }
     }
 
+    /// Create a foreign value wrapping an integer value.
+    ///
+    public init(_ value: Int) {
+        self = .int(value)
+    }
+
+    /// Create a foreign value wrapping a double value.
+    ///
+    public init(_ value: Double) {
+        self = .double(value)
+    }
+
+    /// Create a foreign value wrapping a boolean value.
+    ///
+    public init(_ value: Bool) {
+        self = .bool(value)
+    }
+
+    /// Create a foreign value wrapping a string value.
+    ///
+    public init(_ value: String) {
+        self = .string(value)
+    }
+
+    /// Create a foreign value wrapping a 2D point value.
+    ///
+    public init(_ value: Point) {
+        self = .point(value)
+    }
+
+    /// Create a foreign value wrapping an object ID.
+    ///
+    public init(_ id: ObjectID) {
+        self = .id(id)
+    }
+    
     /// Try to get an int value from the foreign value. Convert if necessary.
     ///
     /// Any type of foreign value is attempted for conversion.
@@ -222,6 +259,7 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
         }
     }
     
+    // FIXME: Remove the 10x20 string representation and replace with JSON-compatible
     /// Try to get a 2D point value from the foreign value. Convert if necessary.
     ///
     /// Only a point value and certain string values can be converted to a point.
@@ -387,6 +425,10 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         self = .atom(.id(id))
     }
     
+    public init(_ values: [Double]) {
+        self = .array(values.map { ForeignAtom.double($0)} )
+    }
+
     /// Create a foreign value wrapping a list of points
     ///
     public init(_ values: [Point]) {
@@ -398,7 +440,7 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
     public init(ids: [ObjectID]) {
         self = .array(ids.map { ForeignAtom.id($0)} )
     }
-
+    
     /// Flag that indicates whether the value is a numeric value. Numeric
     /// values are only integers and doubles.
     ///
@@ -411,15 +453,30 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         }
     }
 
+    public var isArray: Bool {
+        switch self {
+        case .atom: false
+        case .array: true
+        }
+    }
+
     /// Return an underlying atom value type or `nil` if the foreign value
     /// is an array.
     ///
-    public var valueType: ValueType? {
+    public var valueType: AtomType? {
         switch self {
         case .atom(let value): value.valueType
         case .array: nil
         }
     }
+    
+    public var arrayItemType: AtomType? {
+        switch self {
+        case .atom: nil
+        case .array(let items): items.first?.valueType
+        }
+    }
+
 
     /// Try to get an int value from the foreign value. Convert if necessary.
     ///
@@ -531,7 +588,13 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
     public func pointValue() throws -> Point {
         switch self {
         case .atom(let value): return try value.pointValue()
-        case .array: throw ValueError.typeMismatch("Array", "point")
+        case .array(let items):
+            if items.count == 2 {
+                let x = try items[0].doubleValue()
+                let y = try items[1].doubleValue()
+                return Point(x: x, y: y)
+            }
+            throw ValueError.typeMismatch("Array of \(items.count) items", "point")
         }
     }
 
@@ -662,6 +725,22 @@ extension ForeignValue: Codable {
         let container = try decoder.singleValueContainer()
 
         do {
+            let values: [Double] = try container.decode(Array<Double>.self)
+            self = .array(values.map { .double($0) })
+            return
+        }
+        catch is DecodingError {
+        }
+
+        do {
+            let values: [Point] = try container.decode(Array<Point>.self)
+            self = .array(values.map { .point($0) })
+            return
+        }
+        catch is DecodingError {
+        }
+
+        do {
             let value: ForeignAtom = try container.decode(ForeignAtom.self)
             self = .atom(value)
             return
@@ -669,19 +748,13 @@ extension ForeignValue: Codable {
         catch is DecodingError {
             // We are fine, let us try another one.
         }
-        do {
-            let values: [Int] = try container.decode(Array<Int>.self)
-            self = .array(values.map { .int($0) })
-            return
-        }
-        catch is DecodingError {
-        }
 
         // We are not catching error of the last one and let it go through.
         
         let values: [String] = try container.decode(Array<String>.self)
         self = .array(values.map { .string($0) })
     }
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 
