@@ -20,7 +20,6 @@ extension PoieticTool {
 
         @OptionGroup var options: Options
 
-        
         @Argument(help: "ID of an object to be modified")
         var reference: String
 
@@ -42,8 +41,18 @@ extension PoieticTool {
             let newFrame: MutableFrame = memory.deriveFrame(original: frame.id)
 
             let mutableObject = newFrame.mutableObject(object.id)
-            try mutableObject.setAttribute(value: ForeignValue(value),
-                                           forKey: attributeName)
+
+            if let type = mutableObject.type,
+               let attr = type.attribute(attributeName),
+               attr.type.isArray {
+                let arrayValue = try ForeignValue.fromJSON(value)
+                try mutableObject.setAttribute(value: arrayValue,
+                                               forKey: attributeName)
+            }
+            else {
+                try mutableObject.setAttribute(value: ForeignValue(value),
+                                               forKey: attributeName)
+            }
 
             try acceptFrame(newFrame, in: memory)
 

@@ -22,6 +22,7 @@ public class FlowsMetamodel: Metamodel {
         FlowComponent.self,
         FormulaComponent.self,
         PositionComponent.self,
+        GraphicalFunctionComponent.self,
     ]
     
     
@@ -102,6 +103,7 @@ public class FlowsMetamodel: Metamodel {
         components: [
             NameComponent.self,
             PositionComponent.self,
+            GraphicalFunctionComponent.self,
             // DescriptionComponent.self,
             // ErrorComponent.self,
             // TODO: IMPORTANT: Make sure we do not have formula component here or handle the type
@@ -169,6 +171,7 @@ public class FlowsMetamodel: Metamodel {
         Stock,
         Flow,
         Auxiliary,
+        GraphicalFunction,
         
         Drains,
         Fills,

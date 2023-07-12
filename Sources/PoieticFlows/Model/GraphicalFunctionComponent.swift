@@ -17,7 +17,7 @@ public struct GraphicalFunctionComponent: Component {
                 abstract: "Method of interpolation for values between the points."),
             AttributeDescription(
                 name: "points",
-                type: .point,
+                type: .points,
                 abstract: "Points of the graphical function."),
         ]
 
@@ -39,7 +39,7 @@ public struct GraphicalFunctionComponent: Component {
     
     public mutating func setAttribute(value: AttributeValue, forKey key: AttributeKey) throws {
         switch key {
-        case "method":
+        case "interpolation_method":
             let methodName = try value.stringValue()
             self.method = InterpolationMethod.init(rawValue: methodName) ?? .step
         case "points":
@@ -53,7 +53,7 @@ public struct GraphicalFunctionComponent: Component {
     
     public func attribute(forKey key: String) -> AttributeValue? {
         switch key {
-        case "method": return ForeignValue(method.rawValue)
+        case "interpolation_method": return ForeignValue(method.rawValue)
         case "points": return ForeignValue(points)
         default:
             return nil

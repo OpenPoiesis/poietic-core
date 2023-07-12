@@ -10,7 +10,7 @@ public enum AttributeError: Error {
     /// Raised when reading or setting an attribute of a type that is not
     /// convertible to the required value.
     ///
-    case typeMismatch(ForeignValue, ValueType)
+    case typeMismatch(ForeignValue, AtomType)
     
     /// Raised when a non-nil value was expected.
     case unexpectedNil

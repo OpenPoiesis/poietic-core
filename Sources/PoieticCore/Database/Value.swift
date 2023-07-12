@@ -9,24 +9,29 @@
  
  Notes:
  
- Type     Comp.  Insp.  Foreign
+ Type     Internal  Foreign    String
  ---------------------------------------------
- bool     yes    yes    yes
- int      yes    yes    yes
- double   yes    yes    yes
- string   yes    yes    yes
- point    yes    yes    yes
- date     yes    yes    yes
- array(*) ?      no     yes
- ID       no     no     yes
+ bool     yes       yes        true/false
+ int      yes       yes        999
+ double   yes       yes        999.99e-99
+ string   yes       yes        "text"
+ point    yes       yes        [0.0,0.0]   JSON encoded 2-element array
+ date     yes       yes        2023-01-01  string
+ array(*) yes       yes        [1,2,3,4,5] JSON encoded array
+ ID       no        yes        1234        string
 
+ Allowed arrays: bool, int, point
+ 
+ 
+ 
  */
 
 public typealias Point = SIMD2<Double>
 
+
 /// ValueType specifies a data type of a value that is used in interfaces.
 ///
-public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
+public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
     case bool = "bool"
     case int = "int"
     case double = "double"
@@ -39,7 +44,7 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
     /// another type.
     /// Conversion might not be precise, just possible.
     ///
-    public func isConvertible(to other: ValueType) -> Bool {
+    public func isConvertible(to other: AtomType) -> Bool {
         switch (self, other) {
         // Bool to string, not to int or float
         case (.bool,   .string): return true
@@ -53,7 +58,7 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
         case (.int,    .bool):   return false
         case (.int,    .int):    return true
         case (.int,    .double): return true
-        case (.int, .point):     return false
+        case (.int,    .point):  return false
 
         // Float to all except bool
         case (.double, .string): return true
@@ -92,6 +97,47 @@ public enum ValueType: String, Equatable, Codable, CustomStringConvertible {
     }
 }
 
+public enum ValueType: Equatable, Codable, CustomStringConvertible {
+    case atom(AtomType)
+    case array(AtomType)
+    
+    public static let bool    = atom(.bool)
+    public static let int     = atom(.int)
+    public static let double  = atom(.double)
+    public static let string  = atom(.string)
+    public static let point   = atom(.point)
+    
+    public static let bools   = array(.bool)
+    public static let ints    = array(.int)
+    public static let doubles = array(.double)
+    public static let strings = array(.string)
+    public static let points  = array(.point)
+
+    public var isAtom: Bool {
+        switch self {
+        case .atom: true
+        case .array: false
+        }
+    }
+
+    public var isArray: Bool {
+        switch self {
+        case .atom: false
+        case .array: true
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .atom(let value): "\(value)"
+        case .array(let value): "array<\(value)>"
+        }
+    }
+
+}
+
+
+#if false
 /// Scalar value representation. The type can represent one of the
 /// following values:
 ///
@@ -146,7 +192,7 @@ public enum Value: Equatable, Hashable, Codable {
     }
     
     
-    public var valueType: ValueType {
+    public var valueType: AtomType {
         switch self {
         case .string: return .string
         case .bool: return .bool
@@ -237,7 +283,7 @@ public enum Value: Equatable, Hashable, Codable {
     /// advised to call ``ValueType/isConvertible(to:)`` to prevent potential
     /// convention errors.
     ///
-    public func convert(to otherType:ValueType) -> Value? {
+    public func convert(to otherType:AtomType) -> Value? {
         switch (otherType) {
         case .int: return self.intValue().map { .int($0) } ?? nil
         case .string: return .string(self.stringValue())
@@ -299,4 +345,6 @@ extension Value: ExpressibleByFloatLiteral {
         self = .double(Double(floatLiteral))
     }
 }
+
+#endif
 

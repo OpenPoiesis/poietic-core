@@ -15,10 +15,10 @@ public enum ArgumentType: Equatable {
     case any
     
     /// Function argument must be of only one concrete type.
-    case concrete(ValueType)
+    case concrete(AtomType)
     
     /// Function argument can be of one of the specified types.
-    case union([ValueType])
+    case union([AtomType])
     
     static let Numeric = ArgumentType.union([.int, .double])
     
@@ -27,7 +27,7 @@ public enum ArgumentType: Equatable {
     ///
     /// - Returns: `true` if the type matches.
     ///
-    public func matches(_ type: ValueType) -> Bool {
+    public func matches(_ type: AtomType) -> Bool {
         switch self {
         case .any: true
         case .concrete(let concrete): type == concrete
@@ -113,7 +113,7 @@ public class Signature {
     ///
     public var isVariadic: Bool { variadic != nil }
    
-    public var returnType: ValueType? = nil
+    public var returnType: AtomType? = nil
     
     /// Represents a function without any arguments
     /// 
@@ -144,7 +144,7 @@ public class Signature {
 
     public init(_ positional: [FunctionArgument] = [],
                 variadic: FunctionArgument? = nil,
-                returns returnType: ValueType? = nil) {
+                returns returnType: AtomType? = nil) {
         // TODO: Check that no other argument is marked as variadic
         self.positional = positional
         self.variadic = variadic
@@ -175,7 +175,7 @@ public class Signature {
         case typeMismatch([Int])
     }
     /// Return list of indices of values that do not match required type.
-    public func validate(_ types: [ValueType] = []) -> ValidationResult {
+    public func validate(_ types: [AtomType] = []) -> ValidationResult {
         guard (isVariadic && (types.count >= positional.count + 1))
                 || (!isVariadic && types.count == positional.count) else {
             return .invalidNumberOfArguments

@@ -14,7 +14,7 @@ enum ForeignInterfaceError: Error {
     case malformedMainRecord
     
     
-    case typeMismatchError(ForeignValue, ValueType)
+    case typeMismatchError(ForeignValue, AtomType)
 }
 
 // FIXME: This is a temporary solution. See note below.

@@ -7,6 +7,42 @@
 import XCTest
 @testable import PoieticCore
 
+final class CSVFormatterTests: XCTestCase {
+    func testEmpty() throws {
+        let formatter = CSVFormatter()
+        
+        XCTAssertEqual(formatter.quote(""), "")
+    }
+
+    func testEscapeQuote() throws {
+        let formatter = CSVFormatter()
+        // Single quote yields four:
+        //
+        //   original----+
+        //               v
+        //             """"
+        //   opening --^^ ^
+        //              | |
+        //   escaping---+ +---- closing
+
+        XCTAssertEqual(formatter.quote("\""), "\"\"\"\"")
+    }
+
+    func testQuoteSeparators() throws {
+        let formatter = CSVFormatter()
+        
+        XCTAssertEqual(formatter.quote("one,two"), "\"one,two\"")
+        XCTAssertEqual(formatter.quote("new\nline"), "\"new\nline\"")
+    }
+
+    func testNoNeedToQuote() throws {
+        let formatter = CSVFormatter()
+        
+        XCTAssertEqual(formatter.quote(" "), " ")
+        XCTAssertEqual(formatter.quote("one two"), "one two")
+    }
+}
+
 final class CSVReaderTests: XCTestCase {
     func testEmptyReader() throws {
         var reader:CSVReader
@@ -55,7 +91,7 @@ final class CSVReaderTests: XCTestCase {
     }
     func testCustomDelimiters() throws {
         var reader = CSVReader("1@2|10@20",
-                               options: CSVReadingOptions(fieldDelimiter:"@",
+                               options: CSVOptions(fieldDelimiter:"@",
                                                           recordDelimiter:"|"))
 
         let row1 = reader.next()

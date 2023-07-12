@@ -32,7 +32,7 @@ public class BuiltinVariable: Hashable {
     public let description: String?
 
     // TODO: Make customizable
-    public let valueType: ValueType = .double
+    public let valueType: AtomType = .double
     
     public init(name: String,
                 value: ForeignValue? = nil,
@@ -64,9 +64,9 @@ public enum BoundVariableReference: Hashable, CustomStringConvertible {
         }
     }
     
-    public var valueType: ValueType {
+    public var valueType: AtomType {
         switch self {
-        case .object: ValueType.double
+        case .object: AtomType.double
         case .builtin(let variable): variable.valueType
         }
     }
@@ -86,7 +86,7 @@ public typealias BoundExpression = ArithmeticExpression<ForeignValue,
                                                         any FunctionProtocol>
 
 extension BoundExpression {
-    public var valueType: ValueType {
+    public var valueType: AtomType {
         let type = switch self {
         case let .value(value): value.valueType
         case let .variable(ref): ref.valueType
