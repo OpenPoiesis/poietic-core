@@ -223,3 +223,20 @@ func parseValueAssignment(_ assignment: String) -> (String, String)? {
     
     return (String(split[0]), String(split[1]))
 }
+
+func setAttributeFromString(object: ObjectSnapshot,
+                            attribute attributeName: String,
+                            string: String) throws {
+    if let type = object.type,
+       let attr = type.attribute(attributeName),
+       attr.type.isArray {
+        let arrayValue = try ForeignValue.fromJSON(string)
+        try object.setAttribute(value: arrayValue,
+                                forKey: attributeName)
+    }
+    else {
+        try object.setAttribute(value: ForeignValue(string),
+                                forKey: attributeName)
+    }
+
+}

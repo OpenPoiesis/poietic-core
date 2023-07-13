@@ -69,12 +69,7 @@ extension PoieticTool {
         
         func listNames(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
-            let names: [String] = frame.snapshots.compactMap {
-                    guard let component: NameComponent = $0[NameComponent.self] else {
-                        return nil
-                    }
-                    return component.name
-                }
+            let names: [String] = frame.snapshots.compactMap { $0.name }
                 .sorted { $0.lexicographicallyPrecedes($1)}
             
             for name in names {
@@ -84,20 +79,26 @@ extension PoieticTool {
         
         func listFormulas(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
+            var result: [String: String] = [:]
             
-            let items: [(String, String)] = frame.snapshots.compactMap {
-                if let name = $0.name,
-                   let component: FormulaComponent = $0[FormulaComponent.self] {
-                    return (name, component.expressionString)
+            for object in frame.snapshots {
+                guard let name = object.name else {
+                    continue
                 }
-                else {
-                    return nil
+                if let component: FormulaComponent = object[FormulaComponent.self] {
+                    result[name] = component.expressionString
+                }
+                else if let component: GraphicalFunctionComponent = object[GraphicalFunctionComponent.self] {
+                    result[name] = component.description
                 }
             }
-            .sorted { $0.0.lexicographicallyPrecedes($1.0)}
             
-            for (name, formula) in items {
-                print("\(name) = \(formula)")
+            let sorted = result.keys.sorted {
+                $0.lexicographicallyPrecedes($1)
+            }
+            
+            for name in sorted {
+                print("\(name) = \(result[name]!)")
             }
         }
     }

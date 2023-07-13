@@ -7,7 +7,7 @@
 
 import PoieticCore
 
-public struct GraphicalFunctionComponent: Component {
+public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
     public static var componentDescription = ComponentDescription(
         name: "GraphicalFunction",
         attributes: [
@@ -58,5 +58,11 @@ public struct GraphicalFunctionComponent: Component {
         default:
             return nil
         }
+    }
+    
+    public var description: String {
+        let value = ForeignValue(points)
+        let pointsString = try! value.toJSON()
+        return "graphical(\(pointsString))"
     }
 }

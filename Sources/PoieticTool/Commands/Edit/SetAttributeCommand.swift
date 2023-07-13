@@ -42,18 +42,10 @@ extension PoieticTool {
 
             let mutableObject = newFrame.mutableObject(object.id)
 
-            if let type = mutableObject.type,
-               let attr = type.attribute(attributeName),
-               attr.type.isArray {
-                let arrayValue = try ForeignValue.fromJSON(value)
-                try mutableObject.setAttribute(value: arrayValue,
-                                               forKey: attributeName)
-            }
-            else {
-                try mutableObject.setAttribute(value: ForeignValue(value),
-                                               forKey: attributeName)
-            }
-
+            try setAttributeFromString(object: mutableObject,
+                                       attribute: attributeName,
+                                       string: value)
+            
             try acceptFrame(newFrame, in: memory)
 
             try closeMemory(memory: memory, options: options)

@@ -57,8 +57,10 @@ poietic add Flow name=expenses formula=50
                     throw ToolError.invalidAttributeAssignment(item)
                 }
                 let (name, stringValue) = split
-                let value = ForeignValue(stringValue)
-                try object.setAttribute(value: value, forKey: name)
+                try setAttributeFromString(object: object,
+                                           attribute: name,
+                                           string: stringValue)
+
             }
             
             try acceptFrame(frame, in: memory)
