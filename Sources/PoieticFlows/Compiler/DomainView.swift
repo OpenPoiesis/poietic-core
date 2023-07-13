@@ -7,6 +7,14 @@
 
 import PoieticCore
 
+
+public enum ParameterStatus:Equatable {
+    case missing
+    case unused(node: ObjectID, edge: ObjectID)
+    case used(node: ObjectID, edge: ObjectID)
+}
+
+
 /// Flows domain view on top of a graph.
 ///
 public class DomainView {
@@ -43,7 +51,7 @@ public class DomainView {
     /// - Throws: ``DomainError`` with ``NodeIssue/duplicateName(_:)`` for each
     ///   node and name that has a duplicate name.
     ///
-    public func nameToObject() throws -> [String:ObjectID] {
+    public func namesToObjects() throws -> [String:ObjectID] {
         var names: [String: [ObjectID]] = [:]
         var issues: [ObjectID: [NodeIssue]] = [:]
         
@@ -83,7 +91,7 @@ public class DomainView {
     /// - Returns: A dictionary where keys are object IDs and values are
     ///   object names.
     ///
-    public func objectToName() -> [ObjectID: String] {
+    public func objectsToNames() -> [ObjectID: String] {
         var result: [ObjectID: String] = [:]
         for node in namedNodes {
             let name = node[NameComponent.self]!.name
@@ -93,14 +101,23 @@ public class DomainView {
     }
 
     
-    /// Compiles all arithmetic expressions of all expression nodes.
+    /// Return a dictionary of bound expressions.
+    ///
+    /// For each node with an arithmetic expression the expression is parsed
+    /// from a text into an internal representation. The variable and function
+    /// names are resolved to point to actual entities and a new bound
+    /// expression is formed.
+    ///
+    /// - Parameters:
+    ///     - names: mapping of variable names to their corresponding objects.
     ///
     /// - Returns: A dictionary where the keys are expression node IDs and values
     ///   are compiled BoundExpressions.
+    ///
     /// - Throws: ``DomainError`` with ``NodeIssue/expressionSyntaxError(_:)`` for each node
     ///   which has a syntax error in the expression.
     ///
-    public func compileExpressions(names: [String:ObjectID]) throws -> [ObjectID:BoundExpression] {
+    public func boundExpressions(names: [String:ObjectID]) throws -> [ObjectID:BoundExpression] {
         // TODO: Rename to "boundExpressions"
 
         var result: [ObjectID:BoundExpression] = [:]
@@ -110,9 +127,10 @@ public class DomainView {
         for (name, id) in names {
             references[name] = .object(id)
         }
-        // TODO: Add built-ins here
-        references["time"] = .builtin(FlowsMetamodel.TimeVariable)
-        references["time_delta"] = .builtin(FlowsMetamodel.TimeDeltaVariable)
+        
+        for variable in FlowsMetamodel.variables {
+            references[variable.name] = .builtin(variable)
+        }
         
         // FIXME: This is a remnant after expression binding refactoring.
         var functions: [String: any FunctionProtocol] = [:]
@@ -122,11 +140,9 @@ public class DomainView {
         }
         
         for node in expressionNodes {
-            let component: FormulaComponent = node[FormulaComponent.self]!
             let unboundExpression: UnboundExpression
             do {
-                let parser = ExpressionParser(string: component.expressionString)
-                unboundExpression = try parser.parse()
+                unboundExpression =  try node.parsedExpression()!
             }
             catch let error as SyntaxError {
                 issues[node.id] = [.expressionSyntaxError(error)]
@@ -136,7 +152,8 @@ public class DomainView {
                 // Filter out built-in variables.
                 !FlowsMetamodel.variableNames.contains($0)
             }
-            let inputIssues = validateInputs(nodeID: node.id, required: required)
+            // TODO: Move this outside of this method. This is not required for binding
+            let inputIssues = validateParameters(node.id, required: required)
 
             if !inputIssues.isEmpty {
                 issues[node.id] = inputIssues
@@ -172,7 +189,7 @@ public class DomainView {
     }
 
     
-    /// Validates inputs of an object with a given ID.
+    /// Validates parameter  of a node.
     ///
     /// The method checks whether the following two requirements are met:
     ///
@@ -194,32 +211,48 @@ public class DomainView {
     ///   issues can be either ``NodeIssue/unknownParameter(_:)`` or
     ///   ``NodeIssue/unusedInput(_:)``.
     ///
-    public func validateInputs(nodeID: ObjectID, required: [String]) -> [NodeIssue] {
-        // TODO: Rename to "parameterIssues"
-
-        let incomingParams = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
-        let vars: Set<String> = Set(required)
-        var incomingNames: Set<String> = Set()
+    public func validateParameters(_ nodeID: ObjectID, required: [String]) -> [NodeIssue] {
+        let parameters = self.parameters(nodeID, required: required)
+        var issues: [NodeIssue] = []
         
-        for paramNode in incomingParams.nodes {
-            let comp: NameComponent = paramNode[NameComponent.self]!
-            let name = comp.name
-            incomingNames.insert(name)
+        for (name, status) in parameters {
+            switch status {
+            case .used: continue
+            case .unused:
+                issues.append(.unusedInput(name))
+            case .missing:
+                issues.append(.unknownParameter(name))
+            }
         }
         
-        let unknown = vars.subtracting(incomingNames)
-        let unused = incomingNames.subtracting(vars)
-        
-        let unknownIssues = unknown.map {
-            NodeIssue.unknownParameter($0)
-        }
-        let unusedIssues = unused.map {
-            NodeIssue.unusedInput($0)
-        }
-        
-        return Array(unknownIssues) + Array(unusedIssues)
+        return issues
     }
-    
+
+    public func parameters(_ nodeID: ObjectID,
+                           required: [String]) -> [String:ParameterStatus] {
+        let incomingHood = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
+        var unseen: Set<String> = Set(required)
+        var result: [String: ParameterStatus] = [:]
+
+        for edge in incomingHood.edges {
+            let node = graph.node(edge.origin)!
+            let name = node.name!
+            if unseen.contains(name) {
+                result[name] = .used(node: node.id, edge: edge.id)
+                unseen.remove(name)
+            }
+            else {
+                result[name] = .unused(node: node.id, edge: edge.id)
+            }
+        }
+        
+        for name in unseen {
+            result[name] = .missing
+        }
+
+        return result
+    }
+
     /// Sort the nodes based on their parameter dependency.
     ///
     /// The function returns nodes that are sorted in the order of computation.

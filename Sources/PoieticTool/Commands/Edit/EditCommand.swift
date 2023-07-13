@@ -21,7 +21,7 @@ extension PoieticTool {
                 Add.self,
                 NewConnection.self,
                 Remove.self,
-//                FixParameters.self,
+                AutoParameters.self,
             ]
         )
         

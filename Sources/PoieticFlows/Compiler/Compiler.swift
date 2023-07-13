@@ -60,8 +60,8 @@ public class Compiler {
         // 1. Collect node names
         // -----------------------------------------------------------------
         //
-        let nameToObject = try view.nameToObject()
-        let objectToName = view.objectToName()
+        let nameToObject = try view.namesToObjects()
+        let objectToName = view.objectsToNames()
 
         // 2. Compile computational representations (computations)
         // -----------------------------------------------------------------
@@ -70,7 +70,7 @@ public class Compiler {
 
         // 2.1 Compile expressions
         //
-        let expressions = try view.compileExpressions(names: nameToObject)
+        let expressions = try view.boundExpressions(names: nameToObject)
         
         for (id, expression) in expressions {
             computations[id] = .formula(expression)

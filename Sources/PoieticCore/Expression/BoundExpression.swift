@@ -10,6 +10,7 @@
 enum ExpressionError: Error {
     case unknownVariable(String)
     case unknownFunction(String)
+    case functionError(FunctionError)
 }
 
 /// Object representing a built-in variable.
@@ -128,7 +129,8 @@ extension BoundExpression {
 ///   Python.
 ///
 /// - Returns: ``BoundExpression`` where variables and functions are resolved.
-/// - Throws: ``FunctionError`` when a variable or a function is not known.
+/// - Throws: ``ExpressionError`` when a variable or a function is not known
+///  or when the function arguments do not match the function's requirements.
 ///
 public func bindExpression(_ expression: UnboundExpression,
                            variables: [String:BoundVariableReference],
@@ -207,11 +209,12 @@ public func bindExpression(_ expression: UnboundExpression,
 
         switch result {
         case .invalidNumberOfArguments:
-            throw FunctionError.invalidNumberOfArguments(arguments.count,
-                                                         function.signature.minimalArgumentCount)
+            throw ExpressionError.functionError(
+                .invalidNumberOfArguments(arguments.count,
+                                          function.signature.minimalArgumentCount))
         case .typeMismatch(let index):
             // TODO: We need all indices
-            throw FunctionError.typeMismatch(index.first! + 1, "int or double")
+            throw ExpressionError.functionError(.typeMismatch(index.first! + 1, "int or double"))
         default: //
             return .function(function, boundArgs)
         }
