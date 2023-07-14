@@ -20,7 +20,7 @@ struct PoieticTool: ParsableCommand {
             CreateDB.self,
             Info.self,
             List.self,
-            Describe.self,
+            Show.self,
             Edit.self,
 //            Print.self,
 //            Import.self,

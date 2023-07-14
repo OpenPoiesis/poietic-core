@@ -18,10 +18,15 @@ enum MyError: Error {
 let AttributeColumnWidth = 20
 
 extension PoieticTool {
-    struct Describe: ParsableCommand {
+    struct Show: ParsableCommand {
         static var configuration
             = CommandConfiguration(abstract: "Describe an object")
         @OptionGroup var options: Options
+
+        @Flag(name: [.customLong("all"), .customShort("a")],
+                help: "Show all present components instead of just components predefined by the object's type.")
+        var showAll: Bool = false
+
 
         @Argument(help: "ID of an object to be described")
         var reference: String
@@ -45,9 +50,20 @@ extension PoieticTool {
                 ("Structure", "\(object.structuralTypeName)"),
             ]
             
+            let components: [any Component]
+            if showAll {
+                components = Array(object.components)
+            }
+            else {
+                if let types = object.type?.components {
+                    components = types.compactMap { object[$0] }
+                }
+                else {
+                    components = []
+                }
+            }
             
-            // TODO: Assure consistent order of components
-            for component in object.components {
+            for component in components {
                 let desc = type(of: component).componentDescription
 
                 items.append((nil, nil))
@@ -67,11 +83,16 @@ extension PoieticTool {
                 }
             }
             
-            let formattedItems = formatLabelledList(items,
-                                                    labelWidth: AttributeColumnWidth)
-            
-            for item in formattedItems {
-                print(item)
+            if items.isEmpty {
+                print("Object has no components.")
+            }
+            else {
+                let formattedItems = formatLabelledList(items,
+                                                        labelWidth: AttributeColumnWidth)
+                
+                for item in formattedItems {
+                    print(item)
+                }
             }
 
         }
