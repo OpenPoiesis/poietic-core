@@ -11,7 +11,7 @@ public enum TokenType: Equatable {
     // Expression tokens
     case identifier
     case int
-    case float
+    case double
     case `operator`
     case leftParen
     case rightParen
@@ -105,7 +105,7 @@ public struct Token: Equatable {
     /// - Returns: Double value if the text is a valid number, otherwise ``nil``.
     ///
     func doubleValue() -> Double? {
-        guard self.type == .float else {
+        guard self.type == .double else {
             return nil
         }
         

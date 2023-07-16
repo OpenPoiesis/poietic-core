@@ -84,19 +84,19 @@ final class LexerTests: XCTestCase {
     func testFloat() throws {
         let lexer = Lexer(string: "10.20 10e20 10.20e30 10.20e-30")
         var token = lexer.next()
-        XCTAssertEqual(token.type, TokenType.float)
+        XCTAssertEqual(token.type, TokenType.double)
         XCTAssertEqual(token.text, "10.20")
 
         token = lexer.next()
-        XCTAssertEqual(token.type, TokenType.float)
+        XCTAssertEqual(token.type, TokenType.double)
         XCTAssertEqual(token.text, "10e20")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, TokenType.float)
+        XCTAssertEqual(token.type, TokenType.double)
         XCTAssertEqual(token.text, "10.20e30")
 
         token = lexer.next()
-        XCTAssertEqual(token.type, TokenType.float)
+        XCTAssertEqual(token.type, TokenType.double)
         XCTAssertEqual(token.text, "10.20e-30")
     }
 

@@ -70,7 +70,7 @@ public class Lexer {
                 // Just accept it
             }
 
-            type = .float
+            type = .double
         }
         
         if accept("e") || accept("E") {
@@ -83,7 +83,7 @@ public class Lexer {
             while accept(\.isWholeNumber) || accept("_") {
                 // Just accept it
             }
-            type = .float
+            type = .double
         }
         
         if accept(\.isLetter) {

@@ -95,14 +95,12 @@ public class ExpressionParser {
 
     /// Parse an integer or a float.
     ///
-    func number() -> ExpressionAST? {
+    func number() -> (any ExpressionSyntax)? {
         if let token = accept(.int) {
-            return ExpressionAST(.int(token.text),
-                                 tokens: [token])
+            return LiteralSyntax(type: .int, literal: token)
         }
-        else if let token = accept(.float) {
-            return ExpressionAST(.double(token.text),
-                                 tokens: [token])
+        else if let token = accept(.double) {
+            return LiteralSyntax(type: .double, literal: token)
         }
         else {
             return nil
@@ -113,39 +111,45 @@ public class ExpressionParser {
     ///
     ///     variable_call -> IDENTIFIER ["(" ARGUMENTS ")"]
     ///
-    func variable_or_call() throws -> ExpressionAST? {
+    func variable_or_call() throws -> (any ExpressionSyntax)? {
         guard let ident = identifier() else {
             return nil
         }
-        var tokens: [Token] = []
-        tokens.append(ident)
-        
-        // FIXME: Preserve the paren tokens
-        if let lpar = accept(.leftParen) {
-            tokens.append(lpar)
 
-            var arguments: [ExpressionAST] = []
+        if let lparen = accept(.leftParen) {
+            var arguments: [FunctionArgumentSyntax] = []
             repeat {
-                if let arg = try expression() {
-                    arguments.append(arg)
-                    tokens += arg.tokens
-                }
-                guard let comma = accept(.comma) else {
+                guard let expr = try expression() else {
                     break
                 }
-                tokens.append(comma)
+                
+                if let comma = accept(.comma) {
+                    let arg = FunctionArgumentSyntax(argument: expr,
+                                                     trailingComma: comma)
+                    arguments.append(arg)
+                }
+                else {
+                    let arg = FunctionArgumentSyntax(argument: expr,
+                                                     trailingComma: nil)
+                    arguments.append(arg)
+                    break
+                }
             } while true
 
-            guard let rpar = accept(.rightParen) else {
+            let argList = FunctionArgumentListSyntax(arguments: arguments)
+            
+            guard let rparen = accept(.rightParen) else {
                 throw SyntaxError.missingRightParenthesis
             }
-            tokens.append(rpar)
-            
-            return ExpressionAST(.function(ident.text, arguments), tokens: tokens)
+
+            return FunctionCallSyntax(name: ident,
+                                      leftParen: lparen,
+                                      arguments: argList,
+                                      rightParen: rparen)
         }
         else {
             // We got a variable
-            return ExpressionAST(.variable(ident.text), tokens: tokens)
+            return VariableSyntax(variable: ident)
         }
     }
     
@@ -153,7 +157,7 @@ public class ExpressionParser {
     ///
     ///     primary -> NUMBER | STRING | VARIABLE_OR_CALL | "(" expression ")" ;
     ///
-    func primary() throws -> ExpressionAST? {
+    func primary() throws -> (any ExpressionSyntax)? {
         // TODO: true, false, nil
         if let node = number() {
             return node
@@ -163,17 +167,13 @@ public class ExpressionParser {
         }
 
         else if let lparen = accept(.leftParen) {
-            var tokens: [Token] = []
-            tokens.append(lparen)
             if let expr = try expression() {
-                tokens += expr.tokens
-                
                 guard let rparen = accept(.rightParen) else {
                     throw SyntaxError.missingRightParenthesis
                 }
-                tokens.append(rparen)
-                
-                return ExpressionAST(.parenthesis(expr), tokens: tokens)
+                return ParenthesisSyntax(leftParen: lparen,
+                                         expression: expr,
+                                         rightParen: rparen)
             }
         }
         return nil
@@ -183,14 +183,14 @@ public class ExpressionParser {
     ///
     ///     unary -> "-" unary | primary ;
     ///
-    func unary() throws -> ExpressionAST? {
+    func unary() throws -> (any ExpressionSyntax)? {
         // TODO: Add '!'
         if let op = `operator`("-") {
             guard let right = try unary() else {
                 throw SyntaxError.expressionExpected
             }
-            return ExpressionAST(.unary(op.text, right),
-                                 tokens: [op] + right.tokens)
+            return UnaryOperatorSyntax(op: op,
+                                       operand: right)
         }
         else {
             return try primary()
@@ -202,8 +202,8 @@ public class ExpressionParser {
     ///
     ///     factor -> unary ( ( "/" | "*" ) unary )* ;
     ///
-    func factor() throws -> ExpressionAST? {
-        guard var left = try unary() else {
+    func factor() throws -> (any ExpressionSyntax)? {
+        guard var left: any ExpressionSyntax = try unary() else {
             return nil
         }
         
@@ -211,8 +211,9 @@ public class ExpressionParser {
             guard let right = try unary() else {
                 throw SyntaxError.expressionExpected
             }
-            left = ExpressionAST(.binary(op.text, left, right),
-                                 tokens: left.tokens + [op] + right.tokens)
+            left = BinaryOperatorSyntax(leftOperand: left,
+                                         op: op,
+                                         rightOperand: right)
         }
         
         return left
@@ -222,8 +223,8 @@ public class ExpressionParser {
     ///
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
-    func term() throws -> ExpressionAST? {
-        guard var left = try factor() else {
+    func term() throws -> (any ExpressionSyntax)? {
+        guard var left: any ExpressionSyntax = try factor() else {
             return nil
         }
         
@@ -231,14 +232,15 @@ public class ExpressionParser {
             guard let right = try factor() else {
                 throw SyntaxError.expressionExpected
             }
-            left = ExpressionAST(.binary(op.text, left, right),
-                                 tokens: left.tokens + [op] + right.tokens)
+            left = BinaryOperatorSyntax(leftOperand: left,
+                                         op: op,
+                                         rightOperand: right)
         }
         
         return left
     }
     
-    func expression() throws -> ExpressionAST? {
+    func expression() throws -> ExpressionSyntax? {
         return try term()
     }
     
