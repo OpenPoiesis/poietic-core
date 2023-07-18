@@ -25,6 +25,9 @@ public class DotExporter {
     ///
     let labelAttribute: String?
     
+    /// Label used when an object has no label attribute
+    let missingLabel: String?
+    
     /// Style and formatting of the output.
     ///
     let style: DotStyle?
@@ -38,10 +41,15 @@ public class DotExporter {
     ///     as a label of nodes in the output. If not set then node ID will be
     ///     used.
     ///
-    public init(path: FilePath, name: String, labelAttribute: String? = nil, style: DotStyle? = nil) {
+    public init(path: FilePath,
+                name: String,
+                labelAttribute: String? = nil,
+                missingLabel: String? = nil,
+                style: DotStyle? = nil) {
         self.path = path
         self.name = name
         self.labelAttribute = labelAttribute
+        self.missingLabel = missingLabel
         self.style = style
     }
     
@@ -58,6 +66,9 @@ public class DotExporter {
             if let attribute = labelAttribute {
                 if let value = node.attribute(forKey: attribute) {
                     label = String(describing: value)
+                }
+                else if let missingLabel {
+                    label = missingLabel
                 }
                 else {
                     label = String(node.id)

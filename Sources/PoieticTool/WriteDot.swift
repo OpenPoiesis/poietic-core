@@ -38,21 +38,15 @@ let DefaultDOTStyle = DotStyle(
     edges: [
         DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Drains.self),
                      attributes: [
-                        "shape": "ellipse",
-                        "style": "bold",
-                        "color": "blue",
-                        "dir": "both",
-                        "arrowhead": "none",
-                        "arrowtail": "inv",
+                        "color": "blue:white:blue",
+                        "arrowhead": "empty",
+                        "arrowsize": "2",
                      ]),
         DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Fills.self),
                      attributes: [
-                        "shape": "ellipse",
-                        "style": "bold",
-                        "color": "blue",
-                        "dir": "both",
-                        "arrowhead": "normal",
-                        "arrowtail": "none",
+                        "color": "blue:white:blue",
+                        "arrowhead": "empty",
+                        "arrowsize": "2",
                      ]),
         DotEdgeStyle(predicate: IsTypePredicate(FlowsMetamodel.Parameter.self),
                      attributes: [
@@ -82,6 +76,10 @@ extension PoieticTool {
                 help: "Node attribute that will be used as node label")
         var labelAttribute = "id"
         
+        @Option(name: [.long, .customShort("m")],
+                help: "Label used if the node has no label attribute")
+        var missingLabel = "(none)"
+        
         mutating func run() throws {
             let memory = try openMemory(options: options)
            
@@ -100,6 +98,7 @@ extension PoieticTool {
             let exporter = DotExporter(path: FilePath(outputURL.path),
                                        name: name,
                                        labelAttribute: labelAttribute,
+                                       missingLabel: missingLabel,
                                        style: DefaultDOTStyle)
 
             // TODO: Allow export of a selection

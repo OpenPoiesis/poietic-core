@@ -178,7 +178,8 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
             
             guard let componentType = type.componentType(forAttribute: key) else {
                 // TODO: What to do here? Fail? Throw?
-                fatalError("Object type \(type.name) has no component with attribute \(key).")
+                return nil
+                //                fatalError("Object type \(type.name) has no component with attribute \(key).")
             }
             
             guard let component = components[componentType] else {
