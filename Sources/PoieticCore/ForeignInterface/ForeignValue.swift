@@ -773,6 +773,13 @@ extension ForeignValue: ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = Int
 }
 
+extension ForeignValue: ExpressibleByFloatLiteral {
+    public init(floatLiteral value: Double) {
+        self = .atom(.double(value))
+    }
+    
+    public typealias FloatLiteralType = Double
+}
 extension ForeignValue: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral value: String) {

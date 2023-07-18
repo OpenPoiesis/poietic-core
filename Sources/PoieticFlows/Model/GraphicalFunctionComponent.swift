@@ -19,15 +19,16 @@ public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
                 name: "points",
                 type: .points,
                 abstract: "Points of the graphical function."),
-        ]
-
+        ],
+        abstract: "Function represented by a set of points and an interpolation method."
     )
     
     var points: [Point]
+    
+    // TODO: Use this. Currently unused.
     var method: InterpolationMethod
 
     public init() {
-        // What the swift ... look at this function's modifiers
         self.init(points: [], method: .step)
     }
     
@@ -64,5 +65,12 @@ public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
         let value = ForeignValue(points)
         let pointsString = try! value.toJSON()
         return "graphical(\(pointsString))"
+    }
+    
+    /// Returns a graphical function object.
+    ///
+    public var function: GraphicalFunction {
+        // TODO: Consider the interpolation method (currently unused)
+        return GraphicalFunction(points: points)
     }
 }

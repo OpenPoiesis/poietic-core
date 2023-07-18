@@ -146,14 +146,17 @@ public class Solver {
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
         switch compiledModel.computations[object]! {
+
         case .formula(let expression):
             return _evaluate(expression: expression,
                              with: state,
                              at: time,
                              timeDelta: timeDelta)
-        case .graphicalFunction(let fn):
+            
+        case .graphicalFunction(let fn, let paramID):
             do {
-                return try fn.apply([ForeignValue(time)]).doubleValue()
+                let value = state[paramID]!
+                return try fn.apply([ForeignValue(value)]).doubleValue()
             }
             catch {
                 // Evaluation must not fail
@@ -213,7 +216,6 @@ public class Solver {
                            override: [ObjectID:Double] = [:]) -> StateVector {
         // TODO: We need access to constants and system variables here
         var vector = StateVector()
-        
         for node in compiledModel.sortedExpressionNodes {
             if let value = override[node.id] {
                 // TODO: Make sure we override only constants.
@@ -340,6 +342,7 @@ public class Solver {
                       timeDelta: Double = 1.0) -> StateVector {
         var result: StateVector = state
         
+        // FIXME: This is called twice - with difference(...). Resolve this.
         for id in compiledModel.auxiliaries {
             result[id] = evaluate(object: id, with: result, at: time)
         }
@@ -364,6 +367,7 @@ public class Solver {
         // 1. Evaluate auxiliaries
         //
         for aux in compiledModel.auxiliaries {
+            // FIXME: This is called twice - with prepareStage. Resolve this.
             estimate[aux] = evaluate(object: aux, with: current, at: time)
         }
 

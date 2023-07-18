@@ -228,6 +228,9 @@ final class TestDomainView: XCTestCase {
     }
     
     func testGraphicalFunction() throws {
+        let param = graph.createNode(FlowsMetamodel.Auxiliary,
+                                  name: "p",
+                                  components: [FormulaComponent(expression: "1")])
         let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
                                   name: "g",
                                   components: [GraphicalFunctionComponent()])
@@ -235,18 +238,35 @@ final class TestDomainView: XCTestCase {
                                    name:"a",
                                    components: [FormulaComponent(expression: "g")])
 
+        graph.createEdge(FlowsMetamodel.Parameter, origin: param, target: gf)
         graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
-        
+
         let view = DomainView(graph)
 
-        let funcs = try view.graphicalFunctions()
-        XCTAssertNotNil(funcs[gf])
-        
+        let funcs = try view.boundGraphicalFunctions()
+        XCTAssertEqual(funcs.count, 1)
+
+        let boundFn = funcs.first!
+        XCTAssertEqual(boundFn.functionNodeID, gf)
+        XCTAssertEqual(boundFn.parameterID, param)
+
         let names = try view.namesToObjects()
         XCTAssertNotNil(names["g"])
         
         let issues = view.validateParameters(aux, required: ["g"])
         XCTAssertTrue(issues.isEmpty)
+    }
+
+    func testDisconnectedGraphicalFunction() throws {
+        let _ = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g",
+                                  components: [GraphicalFunctionComponent()])
+
+        let view = DomainView(graph)
+
+        XCTAssertThrowsError(try view.boundGraphicalFunctions()) {
+            XCTAssertNotNil($0 as? DomainError)
+        }
     }
 
 }

@@ -214,6 +214,18 @@ public class FlowsMetamodel: Metamodel {
             ),
             requirement: RejectAll()
         ),
+        
+        NodeConstraint(
+            name: "one_parameter_for_graphical_function",
+            description: """
+                         Graphical function must not have more than one incoming parameters.
+                         """,
+            match: IsTypePredicate(GraphicalFunction),
+            requirement: UniqueNeighbourRequirement(
+                incomingParameters,
+                required: false
+            )
+        ),
     ]
 
     // MARK: Queries and Predicates

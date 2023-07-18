@@ -51,6 +51,12 @@
 ///   a computation or a simulation, then the component-related computation
 ///   or simulation code should _not_ be part of the component.
 ///
+/// - Note: The ``Component`` concept was introduced prior to macro system in
+///   swift to keep attributes native to the language while still being able
+///   to be flexible in modelling and to have richer reflection of the type.
+///   In might be replaced by macros in the future, however we are not doing it
+///   right now for transparency.
+///
 public protocol Component: MutableKeyedAttributes {
     static var componentDescription: ComponentDescription { get }
     

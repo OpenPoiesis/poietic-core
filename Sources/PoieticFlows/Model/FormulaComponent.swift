@@ -46,11 +46,30 @@ public struct FormulaComponent: Component,
     ///
     /// - SeeAlso: ``BuiltinFunctions``
     ///
-    public var expressionString: String
+    public var expressionString: String {
+        didSet {
+            let parser = ExpressionParser(string: expressionString)
+            do {
+                self.unboundExpression = try parser.parse()
+                self.syntaxError = nil
+            }
+            catch let error as SyntaxError {
+                self.unboundExpression = nil
+                self.syntaxError = error
+            }
+            catch {
+                fatalError("Unknown error occurred during expression parsing: \(error). Internal hint: parser seems to be broken.")
+            }
+        }
+    }
     
-    // TODO: Add bound expression and related internal properties. Compile the expression on setting it.
-    // internal var boundExpression: BoundExpression?
-    // internal var syntaxErrors: [SyntaxError]
+//    public enum Source {
+//        case syntax(any ExpressionSyntax)
+//        case string(String)
+//    }
+    // TODO: Allow to set the expressionSyntax, update expressionString
+     internal var unboundExpression: UnboundExpression?
+     internal var syntaxError: SyntaxError?
     
     /// Creates a a default formula component.
     ///

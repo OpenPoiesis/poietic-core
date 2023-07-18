@@ -7,6 +7,7 @@
 
 import PoieticCore
 
+
 public enum InterpolationMethod: String, CaseIterable {
     case step = "step"
 }
@@ -80,7 +81,6 @@ public class GraphicalFunction {
     /// Current implementation just wraps the ``stepFunction(time:)``.
     ///
     public func createFunction(name: String) -> NumericUnaryFunction {
-        
         let function = NumericUnaryFunction(
             name: name,
             argumentName: "x",

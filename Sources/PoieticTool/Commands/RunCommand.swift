@@ -47,8 +47,8 @@ extension PoieticTool {
             }
             
             let frame = memory.deriveFrame(original: memory.currentFrame.id)
-            let compiledModel = try compile(frame: frame)
-            
+            let compiledModel: CompiledModel
+            compiledModel = try compile(frame: frame)
             // Collect names of nodes to be observed
             // -------------------------------------------------------------
             let namedNodes = compiledModel.namedNodes
@@ -149,6 +149,9 @@ func compile(frame: MutableFrame) throws -> CompiledModel {
                 }
 
                 print("ERROR: node \(label): \(issue)")
+                if let hint = issue.hint {
+                    print("HINT: node \(label): \(hint)")
+                }
             }
         }
         throw ToolError.compilationError

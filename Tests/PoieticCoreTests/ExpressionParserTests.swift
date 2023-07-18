@@ -147,7 +147,8 @@ final class ExpressionParserTests: XCTestCase {
     }
     
     func testFullText() throws {
-        let text = "-( a  + b ) * f( c, d, 100_000\n)"
+        // All-in-one, but works. Split this when nodes start mis-behaving.
+        let text = " - ( a  + b ) * f( c, d, 100_000\n)"
         let parser = ExpressionParser(string: text)
         guard let result = try parser.expression() else {
             XCTFail("Expected valid expression to be parsed")

@@ -295,9 +295,16 @@ final class TestSolver: XCTestCase {
     }
    
     func testGraphicalFunction() throws {
+        let p1 = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"p1",
+                                   components: [FormulaComponent(expression: "0")])
         let g1 = graph.createNode(FlowsMetamodel.GraphicalFunction,
                                   name: "g1",
                                   components: [GraphicalFunctionComponent()])
+
+        let p2 = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"p2",
+                                   components: [FormulaComponent(expression: "0")])
         let points = [Point(0.0, 10.0), Point(1.0, 10.0)]
         let g2 = graph.createNode(FlowsMetamodel.GraphicalFunction,
                                   name: "g2",
@@ -308,6 +315,8 @@ final class TestSolver: XCTestCase {
 
         graph.createEdge(FlowsMetamodel.Parameter, origin: g1, target: aux)
         graph.createEdge(FlowsMetamodel.Parameter, origin: g2, target: aux)
+        graph.createEdge(FlowsMetamodel.Parameter, origin: p1, target: g1)
+        graph.createEdge(FlowsMetamodel.Parameter, origin: p2, target: g2)
 
         let compiled: CompiledModel = try compiler.compile()
         let solver = EulerSolver(compiled)

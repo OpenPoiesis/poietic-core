@@ -78,26 +78,31 @@ public class Compiler {
 
         // 2.2 Compile graphical functions
         //
-        for (id, function) in try view.graphicalFunctions() {
-            guard let nodeName = objectToName[id] else {
-                fatalError("Graphical function node \(id) has no name component. Internal hint: Model integrity is not assured.")
+        for boundFunction in try view.boundGraphicalFunctions() {
+            guard let nodeName = objectToName[boundFunction.functionNodeID] else {
+                fatalError("Graphical function node \(boundFunction.functionNodeID) has no name component. Internal hint: Model integrity is not assured.")
             }
+
             let funcName = "__graphical_\(nodeName)"
-            let numericFunc = function.createFunction(name: funcName)
-            computations[id] = .graphicalFunction(numericFunc)
+            let numericFunc = boundFunction.function.createFunction(name: funcName)
+
+            computations[boundFunction.functionNodeID] = .graphicalFunction(numericFunc, boundFunction.parameterID)
         }
                 
         // 3. Sort nodes in order of computation
         // -----------------------------------------------------------------
         //
         let sortedNodes = try view.sortNodes(nodes: Array(computations.keys))
-        
+
         // 4. Filter by node type
         // -----------------------------------------------------------------
         //
         let unsortedStocks = sortedNodes.filter { $0.type === FlowsMetamodel.Stock }
         let flows = sortedNodes.filter { $0.type === FlowsMetamodel.Flow }
-        let auxiliaries = sortedNodes.filter { $0.type === FlowsMetamodel.Auxiliary }
+        let auxiliaries = sortedNodes.filter {
+            $0.type === FlowsMetamodel.Auxiliary
+            || $0.type === FlowsMetamodel.GraphicalFunction
+        }
         
         // 5. Sort stocks in order of flow dependency
         // -----------------------------------------------------------------

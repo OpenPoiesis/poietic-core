@@ -17,11 +17,11 @@ public enum SyntaxError: Error, Equatable, CustomStringConvertible {
     
     public var description: String {
         switch self {
-        case .invalidCharacterInNumber: return "Invalid character in a number"
-        case .unexpectedCharacter: return "Unexpected character"
-        case .missingRightParenthesis: return "Right parenthesis ')' expected"
-        case .expressionExpected: return "Expected expression"
-        case .unexpectedToken: return "Unexpected token"
+        case .invalidCharacterInNumber: "Invalid character in a number"
+        case .unexpectedCharacter: "Unexpected character"
+        case .missingRightParenthesis: "Right parenthesis ')' expected"
+        case .expressionExpected: "Expected expression"
+        case .unexpectedToken: "Unexpected token"
         }
     }
 }

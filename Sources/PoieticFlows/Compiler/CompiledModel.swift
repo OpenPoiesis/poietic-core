@@ -16,7 +16,7 @@ public enum ComputationalRepresentation {
     
     /// Graphic function representation of a node.
     ///
-    case graphicalFunction(NumericUnaryFunction)
+    case graphicalFunction(NumericUnaryFunction, ObjectID)
     
     // TODO: Consider following cases (sketch)
     // case dataInput(???)
@@ -38,6 +38,7 @@ public enum ComputationalRepresentation {
 public struct CompiledModel {
     // TODO: Alternative names: ResolvedModel, ExecutableModel
     // TODO: Use some kind of ordered dictionaries where appropriate
+    // TODO: Later, if performance becomes a concern, replace dictionaries with arrays and have ID -> Index map.
     
     /// Map of nodes and their corresponding compiled expressions.
     ///

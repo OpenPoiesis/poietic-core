@@ -14,6 +14,45 @@ public enum ParameterStatus:Equatable {
     case used(node: ObjectID, edge: ObjectID)
 }
 
+/// A type representing a required para
+public struct ParameterOutlet: Equatable, CustomStringConvertible, Hashable {
+    // TODO: Add "required" (see below). For now it is just a name wrapper.
+    /// Name of the parameter.
+    ///
+    /// If the name is set, then one of the incoming parameters must have the
+    /// name specified. Named parameters are used in formulas.
+    ///
+    /// If the name is `nil` then the incoming parameter might be of any name.
+    /// Unnamed parameters are used for example in graphical functions.
+    ///
+    public let name: String?
+    
+    // Specify whether the parameter is required or not.
+    //
+    // public let required: Bool
+    
+    public var description: String {
+        if let name {
+            "\(name)"
+        }
+        else {
+            "(unnamed)"
+        }
+    }
+}
+
+
+/// A structure representing a concrete instance of a graphical function
+/// in the context of a graph.
+public struct BoundGraphicalFunction {
+    /// ID of a node where the function is defined
+    public let functionNodeID: ObjectID
+    /// The function object itself
+    public let function: GraphicalFunction
+    /// ID of a node that is a parameter for the function.
+    public let parameterID: ObjectID
+}
+
 
 /// Flows domain view on top of a graph.
 ///
@@ -174,18 +213,30 @@ public class DomainView {
             throw DomainError(issues: issues)
         }
     }
-    
-    public func graphicalFunctions() throws -> [ObjectID:GraphicalFunction] {
-        var result: [ObjectID:GraphicalFunction] = [:]
+   
+    public func boundGraphicalFunctions() throws -> [BoundGraphicalFunction] {
+        var results: [BoundGraphicalFunction] = []
+        var error = DomainError()
         
         for node in graphicalFunctionNodes {
-            // FIXME: This is a late-night sketch implementation, GFComponent + GF should be merged
+            let hood = graph.hood(node.id, selector: FlowsMetamodel.incomingParameters)
+            guard let parameterNode = hood.nodes.first else {
+                // FIXME: This must be an exception
+                error.append(NodeIssue.missingGraphicalFunctionParameter, for: node.id)
+                continue
+            }
             let component: GraphicalFunctionComponent = node[GraphicalFunctionComponent.self]!
-            let gf = GraphicalFunction(points: component.points)
-            result[node.id] = gf
+
+            results.append(BoundGraphicalFunction(functionNodeID: node.id,
+                                                  function: component.function,
+                                                  parameterID: parameterNode.id))
         }
-        
-        return result
+        if error.isEmpty {
+            return results
+        }
+        else {
+            throw error
+        }
     }
 
     
@@ -227,7 +278,55 @@ public class DomainView {
         
         return issues
     }
+    
+    // FIXME: This is expensive - parsing expression every single time.
+    public func parameterOutlets(_ nodeID: ObjectID) -> [ParameterOutlet] {
+        let node = graph.node(nodeID)!
+        var outlets: [ParameterOutlet] = []
+        if let expression = try? node.parsedExpression() {
+            let vars: Set<String> = Set(expression.allVariables)
+            outlets += vars.map { ParameterOutlet(name: $0) }
+        }
+        
+        if let gf = node[GraphicalFunctionComponent.self] {
+            outlets.append(ParameterOutlet(name: nil))
+        }
+        
+        return outlets
+    }
+    
+    public func __TODO_parameters(_ nodeID: ObjectID) -> [String:ParameterStatus] {
+        let incomingHood = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
+        let outlets = parameterOutlets(nodeID)
+        var unseen: Set<String> = Set(outlets.compactMap { $0.name })
+        var unnamed: Int = outlets.reduce(0) { (sum, outlet) in
+            if outlet.name == nil { 1 } else { 0 }
+        }
+        var result: [String: ParameterStatus] = [:]
 
+        for edge in incomingHood.edges {
+            let node = graph.node(edge.origin)!
+            let name = node.name!
+            if unseen.contains(name) {
+                result[name] = .used(node: node.id, edge: edge.id)
+                unseen.remove(name)
+            }
+            else {
+                result[name] = .unused(node: node.id, edge: edge.id)
+            }
+        }
+        
+        for name in unseen {
+            result[name] = .missing
+        }
+
+        return result
+    }
+
+
+    // TODO: Remove the `required` and compute here. Expensive, but useful for the caller.
+    // TODO: The `required` should belong to the node itself.
+    // TODO: Rename to formulaParameters as this makes sense for formulas only
     public func parameters(_ nodeID: ObjectID,
                            required: [String]) -> [String:ParameterStatus] {
         let incomingHood = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
