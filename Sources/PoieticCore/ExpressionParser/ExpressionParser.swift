@@ -15,12 +15,12 @@
 /// expression.
 ///
 public class ExpressionParser {
-    let lexer: Lexer
+    let lexer: ExpressionLexer
     var currentToken: Token?
     
     /// Creates a new parser using an expression lexer.
     ///
-    public init(lexer: Lexer) {
+    public init(lexer: ExpressionLexer) {
         self.lexer = lexer
         advance()
     }
@@ -28,7 +28,7 @@ public class ExpressionParser {
     /// Creates a new parser for an expression source string.
     ///
     public convenience init(string: String) {
-        self.init(lexer: Lexer(string: string))
+        self.init(lexer: ExpressionLexer(string: string))
     }
     
     /// True if the parser is at the end of the source.
@@ -139,7 +139,7 @@ public class ExpressionParser {
             let argList = FunctionArgumentListSyntax(arguments: arguments)
             
             guard let rparen = accept(.rightParen) else {
-                throw SyntaxError.missingRightParenthesis
+                throw ExpressionSyntaxError.missingRightParenthesis
             }
 
             return FunctionCallSyntax(name: ident,
@@ -169,7 +169,7 @@ public class ExpressionParser {
         else if let lparen = accept(.leftParen) {
             if let expr = try expression() {
                 guard let rparen = accept(.rightParen) else {
-                    throw SyntaxError.missingRightParenthesis
+                    throw ExpressionSyntaxError.missingRightParenthesis
                 }
                 return ParenthesisSyntax(leftParen: lparen,
                                          expression: expr,
@@ -187,7 +187,7 @@ public class ExpressionParser {
         // TODO: Add '!'
         if let op = `operator`("-") {
             guard let right = try unary() else {
-                throw SyntaxError.expressionExpected
+                throw ExpressionSyntaxError.expressionExpected
             }
             return UnaryOperatorSyntax(op: op,
                                        operand: right)
@@ -209,7 +209,7 @@ public class ExpressionParser {
         
         while let op = `operator`("*") ?? `operator`("/") ?? `operator`("%"){
             guard let right = try unary() else {
-                throw SyntaxError.expressionExpected
+                throw ExpressionSyntaxError.expressionExpected
             }
             left = BinaryOperatorSyntax(leftOperand: left,
                                          op: op,
@@ -230,7 +230,7 @@ public class ExpressionParser {
         
         while let op = `operator`("+") ?? `operator`("-") {
             guard let right = try factor() else {
-                throw SyntaxError.expressionExpected
+                throw ExpressionSyntaxError.expressionExpected
             }
             left = BinaryOperatorSyntax(leftOperand: left,
                                          op: op,
@@ -250,11 +250,11 @@ public class ExpressionParser {
     /// - Throws: `SyntaxError` when there is an issue with the expression.
     public func parse() throws -> UnboundExpression {
         guard let expr = try expression() else {
-            throw SyntaxError.expressionExpected
+            throw ExpressionSyntaxError.expressionExpected
         }
         
         if currentToken?.type != .empty {
-            throw SyntaxError.unexpectedToken
+            throw ExpressionSyntaxError.unexpectedToken
         }
         return expr.toExpression()
     }

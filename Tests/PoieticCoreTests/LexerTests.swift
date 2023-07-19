@@ -11,7 +11,7 @@ import XCTest
 final class LexerTests: XCTestCase {
     func testAcceptFunction() throws {
         // TODO: This is a scanner test. (originally it was in the lexer)
-        let lexer = Lexer(string: " ")
+        let lexer = ExpressionLexer(string: " ")
         XCTAssertNotNil(lexer.scanner.currentChar)
         XCTAssertTrue(lexer.scanner.accept(\.isWhitespace))
         XCTAssertNil(lexer.scanner.currentChar)
@@ -19,7 +19,7 @@ final class LexerTests: XCTestCase {
     }
     
     func testEmpty() throws {
-        let lexer = Lexer(string: "")
+        let lexer = ExpressionLexer(string: "")
         
         XCTAssertTrue(lexer.atEnd)
         XCTAssertEqual(lexer.next().type, TokenType.empty)
@@ -29,14 +29,14 @@ final class LexerTests: XCTestCase {
     }
 
     func testSpace() throws {
-        let lexer = Lexer(string: " ")
+        let lexer = ExpressionLexer(string: " ")
         
         XCTAssertFalse(lexer.atEnd)
         XCTAssertEqual(lexer.next().type, TokenType.empty)
         XCTAssertTrue(lexer.atEnd)
     }
     func testUnexpected() throws {
-        let lexer = Lexer(string: "$")
+        let lexer = ExpressionLexer(string: "$")
         let token = lexer.next()
 
         XCTAssertEqual(token.type, TokenType.error(.unexpectedCharacter))
@@ -46,21 +46,21 @@ final class LexerTests: XCTestCase {
     // MARK: Numbers
     
     func testInteger() throws {
-        let lexer = Lexer(string: "1234")
+        let lexer = ExpressionLexer(string: "1234")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.int)
         XCTAssertEqual(token.text, "1234")
     }
 
     func testThousandsSeparator() throws {
-        let lexer = Lexer(string: "123_456_789")
+        let lexer = ExpressionLexer(string: "123_456_789")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.int)
         XCTAssertEqual(token.text, "123_456_789")
     }
 
     func testMultipleInts() throws {
-        let lexer = Lexer(string: "1 22 333 ")
+        let lexer = ExpressionLexer(string: "1 22 333 ")
         var token = lexer.next()
         XCTAssertEqual(token.type, TokenType.int)
         XCTAssertEqual(token.text, "1")
@@ -75,14 +75,14 @@ final class LexerTests: XCTestCase {
     }
 
     func testInvalidInteger() throws {
-        let lexer = Lexer(string: "1234x")
+        let lexer = ExpressionLexer(string: "1234x")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.error(.invalidCharacterInNumber))
         XCTAssertEqual(token.text, "1234x")
     }
 
     func testFloat() throws {
-        let lexer = Lexer(string: "10.20 10e20 10.20e30 10.20e-30")
+        let lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30")
         var token = lexer.next()
         XCTAssertEqual(token.type, TokenType.double)
         XCTAssertEqual(token.text, "10.20")
@@ -102,7 +102,7 @@ final class LexerTests: XCTestCase {
 
 
     func testIdentifier() throws {
-        let lexer = Lexer(string: "an_identifier_1")
+        let lexer = ExpressionLexer(string: "an_identifier_1")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.identifier)
         XCTAssertEqual(token.text, "an_identifier_1")
@@ -111,7 +111,7 @@ final class LexerTests: XCTestCase {
     // MARK: Punctuation and operators
     
     func testPunctuation() throws {
-        let lexer = Lexer(string: "( , )")
+        let lexer = ExpressionLexer(string: "( , )")
 
         var token = lexer.next()
         XCTAssertEqual(token.type, TokenType.leftParen)
@@ -127,7 +127,7 @@ final class LexerTests: XCTestCase {
     }
     
     func testOperator() throws {
-        let lexer = Lexer(string: "+ - * / %")
+        let lexer = ExpressionLexer(string: "+ - * / %")
 
         var token = lexer.next()
         XCTAssertEqual(token.type, TokenType.operator)
@@ -151,7 +151,7 @@ final class LexerTests: XCTestCase {
     }
 
     func testMinusAsOperator() throws {
-        let lexer = Lexer(string: "1-2")
+        let lexer = ExpressionLexer(string: "1-2")
         var token = lexer.next()
         XCTAssertEqual(token.type, TokenType.int)
         XCTAssertEqual(token.text, "1")
@@ -168,7 +168,7 @@ final class LexerTests: XCTestCase {
     // MARK: Trivia
     
     func testEmptyTrivia() throws {
-        let lexer = Lexer(string: "   ")
+        let lexer = ExpressionLexer(string: "   ")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.empty)
         XCTAssertEqual(token.text, "")
@@ -176,7 +176,7 @@ final class LexerTests: XCTestCase {
     }
     
     func testTrailingTrivia() throws {
-        let lexer = Lexer(string: "thing   ")
+        let lexer = ExpressionLexer(string: "thing   ")
         let token = lexer.next()
         XCTAssertEqual(token.type, TokenType.identifier)
         XCTAssertEqual(token.text, "thing")

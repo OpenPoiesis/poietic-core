@@ -6,7 +6,7 @@
 //
 
 public enum TokenType: Equatable {
-    public typealias TokenError = SyntaxError
+    public typealias TokenError = ExpressionSyntaxError
     
     // Expression tokens
     case identifier
@@ -19,7 +19,7 @@ public enum TokenType: Equatable {
 
     // Special tokens
     case empty
-    case error(SyntaxError)
+    case error(ExpressionSyntaxError)
 }
 
 /// Token represents a lexical unit of the source.

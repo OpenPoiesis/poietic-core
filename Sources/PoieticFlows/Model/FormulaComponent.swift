@@ -53,7 +53,7 @@ public struct FormulaComponent: Component,
                 self.unboundExpression = try parser.parse()
                 self.syntaxError = nil
             }
-            catch let error as SyntaxError {
+            catch let error as ExpressionSyntaxError {
                 self.unboundExpression = nil
                 self.syntaxError = error
             }
@@ -69,7 +69,7 @@ public struct FormulaComponent: Component,
 //    }
     // TODO: Allow to set the expressionSyntax, update expressionString
      internal var unboundExpression: UnboundExpression?
-     internal var syntaxError: SyntaxError?
+     internal var syntaxError: ExpressionSyntaxError?
     
     /// Creates a a default formula component.
     ///

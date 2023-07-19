@@ -8,7 +8,7 @@
 
 /// Error thrown by the expression language parser.
 ///
-public enum SyntaxError: Error, Equatable, CustomStringConvertible {
+public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
     case invalidCharacterInNumber
     case unexpectedCharacter
     case missingRightParenthesis

@@ -14,7 +14,7 @@
 /// - SeeAlso:
 ///     - ``ExpressionToken``
 ///
-public class Lexer {
+public class ExpressionLexer {
     public let scanner: Scanner
     
     public init(scanner: Scanner) {

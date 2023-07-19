@@ -183,7 +183,7 @@ public class DomainView {
             do {
                 unboundExpression =  try node.parsedExpression()!
             }
-            catch let error as SyntaxError {
+            catch let error as ExpressionSyntaxError {
                 issues[node.id] = [.expressionSyntaxError(error)]
                 continue
             }

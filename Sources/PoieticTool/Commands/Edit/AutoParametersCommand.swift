@@ -36,6 +36,7 @@ extension PoieticTool {
                 let allNodeVars: Set<String> = Set(expression.allVariables)
                 let required = Array(allNodeVars.subtracting(builtinNames))
                 let params = view.parameters(target.id, required: required)
+                
                 for (name, status) in params {
                     switch status {
                     case .missing:

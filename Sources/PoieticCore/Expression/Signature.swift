@@ -20,8 +20,9 @@ public enum ArgumentType: Equatable {
     /// Function argument can be of one of the specified types.
     case union([AtomType])
     
-    static let Numeric = ArgumentType.union([.int, .double])
-    
+    static let numeric = ArgumentType.union([.int, .double])
+    static let objectReference = ArgumentType.union([.int, .string])
+
     /// Function that verifies whether the given type matches the type
     /// described by this object.
     ///

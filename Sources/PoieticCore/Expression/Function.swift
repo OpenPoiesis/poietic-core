@@ -60,8 +60,8 @@ public class NumericBinaryFunction: FunctionProtocol {
         self.implementation = implementation
         self.signature = Signature(
             [
-                FunctionArgument("lhs", type: .Numeric),
-                FunctionArgument("rhs", type: .Numeric),
+                FunctionArgument("lhs", type: .numeric),
+                FunctionArgument("rhs", type: .numeric),
             ],
             returns: .double
         )
@@ -111,7 +111,7 @@ public class NumericUnaryFunction: FunctionProtocol {
         self.name = name
         self.signature = Signature(
             [
-                FunctionArgument(argumentName, type: .Numeric)
+                FunctionArgument(argumentName, type: .numeric)
             ],
             returns: .double
         )

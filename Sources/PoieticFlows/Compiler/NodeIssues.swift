@@ -39,7 +39,7 @@ public struct DomainError: Error {
 ///
 public enum NodeIssue: Equatable, CustomStringConvertible, Error {
     /// An error caused by a syntax error in the formula (arithmetic expression).
-    case expressionSyntaxError(SyntaxError)
+    case expressionSyntaxError(ExpressionSyntaxError)
     
     /// Parameter connected to a node is not used in the formula.
     case unusedInput(String)
