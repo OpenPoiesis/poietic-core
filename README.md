@@ -60,6 +60,11 @@ Out-of-scope:
   with the design and its simulation. Also extensibility of a DSL might get
   too complex.
 
+## Documentation
+
+- [PoieticCore](https://openpoiesis.github.io/Poietic-swift/documentation/poieticcore/)
+- [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
+
 ## Command-line Tool
 
 At the moment, the only user-facing interface is a command-line tool called
