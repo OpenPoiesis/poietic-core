@@ -32,11 +32,6 @@ let package = Package(
         .target(
             name: "PoieticFlows",
             dependencies: ["PoieticCore"]),
-        .target(
-            name: "PoieticCanvas",
-            dependencies: [
-                "PoieticCore",
-            ]),
 
         .executableTarget(
             name: "PoieticTool",
@@ -53,8 +48,5 @@ let package = Package(
         .testTarget(
             name: "PoieticFlowsTests",
             dependencies: ["PoieticFlows"]),
-        .testTarget(
-            name: "PoieticCanvasTests",
-            dependencies: ["PoieticCanvas"]),
     ]
 )

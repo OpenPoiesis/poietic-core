@@ -19,18 +19,21 @@ import PoieticCore
 ///
 ///
 public class Compiler {
-    // NOTE: This class is intended to synchronise a state between a model and
-    //       its compiled counterpart. It is meant to operate incrementally.
-    
-    /// Reference to the model to be compiled.
-    let graph: MutableGraph
+    /// The frame containing the design to be compiled.
+    ///
     let frame: MutableFrame
+
+    /// Mutable view of the frame as a graph.
+    let graph: MutableGraph
+    
+    /// Flows domain view of the frame.
     let view: DomainView
 
     /// Creates a compiler that will compile within the context of the given
     /// model.
     ///
     public init(frame: MutableFrame) {
+        // FIXME: Compiler should get a stable frame, not a mutable frame!
         self.frame = frame
         self.graph = frame.mutableGraph
         self.view = DomainView(self.graph)

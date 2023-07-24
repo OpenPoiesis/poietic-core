@@ -1,9 +1,14 @@
 //
-//  File.swift
-//  
+//  Memory.swift
+//
 //
 //  Created by Stefan Urbanek on 02/06/2023.
 //
+
+// Unsolved problems:
+// - What to do when constraints or metamodel changes between memory archival?
+// - What to do whith the frames that were OK with previous constraints but
+//   are not OK with the new constraints?
 
 /// Error thrown when constraint violations were detected in the graph during
 /// `accept()`.
