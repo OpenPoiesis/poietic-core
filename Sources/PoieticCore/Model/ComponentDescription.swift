@@ -52,6 +52,9 @@ public class ComponentDescription {
     ///
     public let attributes: [AttributeDescription]
     
+    /// Get a list of attribute keys.
+    public lazy var attributeKeys: [String] = attributes.map { $0.name }
+    
     /// Human-readable short description of the component.
     ///
     /// Recommended content is one-sentence description of the component.

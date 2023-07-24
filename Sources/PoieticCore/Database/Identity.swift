@@ -36,6 +36,8 @@ public protocol IdentityGenerator {
 ///   numbers are just skipped and the next sequence would be the used +1.
 ///   
 public class SequentialIDGenerator: IdentityGenerator {
+    // TODO: Replace this class with UUID
+    
     /// ID as a sequence number.
     var current: ObjectID
     

@@ -31,16 +31,29 @@ For querying features of a graph there is ``Neighborhood`` and
 ### Object Memory
 
 - ``ObjectMemory``
+- ``ObjectSnapshot``
+
 - ``FrameBase``
 - ``StableFrame``
 - ``MutableFrame``
-- ``ObjectSnapshot``
+
 - ``VersionState``
 - ``ObjectID``
 - ``SnapshotID``
 - ``FrameID``
 - ``IdentityGenerator``
 - ``SequentialIDGenerator``
+
+### Metamodel
+
+- ``ObjectType``
+- ``Component``
+- ``ComponentSet``
+- ``Metamodel``
+- ``AttributeDescription``
+- ``ComponentDescription``
+- ``EmptyMetamodel``
+- ``NameComponent``
 
 ### Graph
 
@@ -58,23 +71,30 @@ For querying features of a graph there is ``Neighborhood`` and
 
 - ``GraphCycleError``
 
-### Predicates and Constraints
+### Predicates
 
 - ``Predicate``
 - ``NodePredicate``
 - ``EdgePredicate``
 - ``CompoundPredicate``
+- ``EdgeObjectPredicate``
+- ``AnyPredicate``
+- ``IsTypePredicate``
+- ``NegationPredicate``
+- ``HasComponentPredicate``
+
+### Constraints
+
 - ``Constraint``
 - ``EdgeConstraint``
 - ``NodeConstraint``
 - ``EdgeEndpointTypes``
-- ``EdgeObjectPredicate``
-- ``AnyPredicate``
 - ``RejectAll``
 - ``AcceptAll``
-- ``IsTypePredicate``
 - ``ConstraintViolation``
 - ``ConstraintViolationError``
+- ``UniqueNeighbourRequirement``
+- ``UniqueProperty``
 
 ### Foreign Interfaces
 
@@ -89,14 +109,28 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``UnboundExpression``
 - ``BoundExpression``
 - ``BoundVariableReference``
-
+- ``BuiltinVariable``
 
 - ``FunctionProtocol``
-- ``ExpressionParser``
 - ``NumericFunction``
 - ``NumericUnaryFunction``
 - ``NumericBinaryFunction``
 
+### Arithmetic Expression Parsing and Syntax
+
+- ``Scanner``
+- ``ExpressionParser``
+- ``ExpressionLexer``
+- ``FunctionCallSyntax``
+- ``FunctionArgumentSyntax``
+- ``FunctionArgumentListSyntax``
+- ``ParenthesisSyntax``
+- ``UnaryOperatorSyntax``
+- ``BinaryOperatorSyntax``
+- ``VariableSyntax``
+- ``LiteralSyntax``
+- ``TextLocation``
+- ``Token``
 
 ### Persistence and Foreign Interfaces
 
@@ -105,11 +139,3 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``AttributeValue``
 - ``ForeignRecordError``
 
-### Metamodel
-
-- ``ObjectType``
-- ``Component``
-- ``ComponentSet``
-- ``Metamodel``
-- ``AttributeDescription``
-- ``ComponentDescription``

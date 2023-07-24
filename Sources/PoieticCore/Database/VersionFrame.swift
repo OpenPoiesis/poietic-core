@@ -5,6 +5,11 @@
 //  Created by Stefan Urbanek on 13/02/2023.
 //
 
+/// Protocol for version frames.
+///
+/// Fame Base is a protocol for all version frame types: ``MutableFrame`` and
+/// ``StableFrame``
+///
 public protocol FrameBase {
     // TODO: Change this to Sequence<ObjectSnapshot>
     /// Get a list of all snapshots in the frame.
@@ -72,14 +77,21 @@ extension FrameBase{
     }
 }
 
-/// Configuration Plane combines different versions of objects.///
+/// Stable design frame that can not be mutated.
 ///
-/// - Note: In the original paper analogous concept is called `configuration plane`
-///   however the more common usage of the term _"configuration"_ nowadays has a
-///   different connotation. Despite _configuration_ being more correct for this
-///   concept, we go with _arrangement_.
+/// The stable frame is a collection of object versions that together represent
+/// a version snapshot of a design. The frame is immutable.
+///
+/// To create a derivative frame from a stable frame use
+/// ``ObjectMemory/deriveFrame(original:id:)``.
+///
+/// - SeeAlso:  ``MutableFrame``
 ///
 public class StableFrame: FrameBase {
+    /// ID of the frame.
+    ///
+    /// ID is unique within the object memory.
+    ///
     public let id: FrameID
     
     /// Versions of objects in the plane.
@@ -89,7 +101,15 @@ public class StableFrame: FrameBase {
     ///
     private(set) internal var _snapshots: [ObjectID:ObjectSnapshot]
     
+    
+    /// Create a new stable frame with given ID and with list of snapshots.
+    ///
+    /// - Precondition: Snapshot must not be mutable.
+    ///
     init(id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
+        precondition(snapshots?.allSatisfy({ !$0.state.isMutable }) ?? true,
+                     "Trying to create a stable frame with one or more mutable snapshots")
+        
         self.id = id
         self._snapshots = [:]
         
@@ -100,18 +120,27 @@ public class StableFrame: FrameBase {
         }
     }
     
+    /// Get a list of snapshots.
+    ///
     public var snapshots: [ObjectSnapshot] {
         return Array(_snapshots.values)
     }
     
+    /// Returns `true` if the frame contains an object with given object
+    /// identity.
+    ///
     public func contains(_ id: ObjectID) -> Bool {
         return _snapshots[id] != nil
     }
     
+    /// Return an object snapshots with given object ID.
+    ///
     public func object(_ id: ObjectID) -> ObjectSnapshot? {
         return _snapshots[id]
     }
     
+    /// Get an immutable graph view of the frame.
+    ///
     public var graph: Graph {
         return UnboundGraph(frame: self)
     }

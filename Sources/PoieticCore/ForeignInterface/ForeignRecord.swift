@@ -235,7 +235,7 @@ extension ForeignRecord: Equatable {
     }
 }
 
-// TODO: Deprecate. Adds complexity.
+// FIXME: Deprecate. Adds complexity.
 /// A foreign record that has a mapping of other foreign records associated
 /// with it.
 ///

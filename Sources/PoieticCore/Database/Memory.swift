@@ -27,11 +27,123 @@ public struct ConstraintViolationError: Error {
 }
 
 
+/// Object Memory is the main managed storage of the Poietic Design.
+///
+/// Object Memory contains and manages all objects and their versions as well as
+/// structural integrity of the design. The object is represented by its identity
+/// and might have multiple version snapshots as ``ObjectSnapshot``.
+///
+/// ## Identity
+///
+/// Each object has an identity, and in fact, it is just an identity
+/// ``ObjectSnapshot/id-swift.property``.
+/// Objects snapshots with the same identity represent different versions of
+/// the same object. Each snapshot has a snapshot identity
+/// ``ObjectSnapshot/snapshotID``. The snapshot identity is unique in the whole
+/// memory.
+///
+/// ## Frames
+///
+/// A frame can be thought as a snapshot of the design after a change. Different
+/// frames represent different versions of the same design, either in time or
+/// as alternatives.
+///
+/// Think of an object memory as a photo library. The version frame is a picture
+/// and the object snapshots are the scene in the picture. The frames might be
+/// put in an chronological order to represent the history of design evolution.
+/// Or they might be put side-by-side to represent alternate design versions.
+///
+/// The object memory distinguishes between two states of a version frame:
+/// ``StableFrame`` – immutable version snapshot of a frame, that is guaranteed
+/// to be valid and follow all required constraints. The ``MutableFrame``
+/// represents a transactional frame, which is "under construction" and does
+/// not have to maintain integrity.
+///
+/// ``StableFrames`` can not be mutated, neither any of the object snapshots
+/// associated with the frame.
+///
+/// ``MutableFrames`` are not stored in the archive. See _Archiving_ below.
+///
+/// The concept of frames allows us to have functionality like undo/redo,
+/// version branching, different timelines, sub-system specific annotations
+/// without disturbing the original frames, etc.
+///
+/// ## Editing (Mutating)
+///
+/// Objects of the design are always changed in a relationship with all
+/// other objects within the same frame. When a single change requires mutating
+/// multiple objects, all the object changes are grouped into a single change
+/// that results in a new frame.
+///
+/// To make a change and produce a new frame:
+///
+/// 1. Derive a new frame from an existing one using ``deriveFrame(original:id:)``
+///    or create a new empty frame using ``createFrame(id:)`` which produces
+///    a new ``MutableFrame``.
+/// 2. Add objects to the derived frame using ``MutableFrame/create(_:components:)``
+///    or ``MutableFrame/insertDerived(_:id:)``.
+/// 3. To mutate existing objects in the frame, first derive an new mutable
+///    snapshot of the object using ``MutableFrame/mutableObject(_:)`` and
+///    make changes using the returned new snapshot.
+/// 4. Conclude all the changes by accepting the frame ``accept(_:appendHistory:)``.
+///
+/// Frame can be accepted only if the constraints are satisfied. When the frame
+/// violates ant of the constraints the `accept()` method throws a
+/// ``ConstraintViolationError`` with more details about which objects violated
+/// which constraints.
+///
+/// If mutable frame for some reason is not going to be used further, for
+/// example if it contains domain errors, it can be discarded using
+/// ``discard(_:)``. Discarded frame and its derived object will be removed from
+/// the memory.
+///
+/// ## Archiving
+///
+/// - ToDo: Design of object memory archive is not yet finished.
+///
+/// Object memory can be archived (in the future incrementally synchronised)
+/// to a persistent store. All stable frames are stored. Mutable frames are not
+/// included in the archive and therefore not restored after unarchiving.
+///
+/// Archive contains only frames that maintain integrity as defined by the
+/// metamodel.
+///
+/// ## Garbage Collection
+///
+/// - ToDo: Garbage collection is not yet implemented. This is just a description
+///   how it is expected to work.
+///
+/// The memory keeps only those object snapshots which are contained in frames,
+/// be it a mutable frame or a stable frame. If a frame is removed, all objects
+/// that are referred to only by that frame and no other frame, are removed
+/// from the memory as well.
+///
+/// - Remark: The concepts of mutable frame, accept and discard are somewhat
+///   analogous to a transaction, commit and rollback respectively. However,
+///   accepted frames are not immediately put into a single historical
+///   timeline and they might organised into different arrangements. "Rollback"
+///   would not make sense, since there might be nothing to go back from, if
+///   we are not appending the frame to a history timeline. Moreover,
+///   the mutable frame can be used in an editing session (such as drag/drop
+///   session), which is something like a "live transaction".
+///
+///
 public class ObjectMemory {
     var identityGenerator: SequentialIDGenerator
    
+    /// Meta-model associated with the memory.
+    ///
+    /// The metamodel is used for validation of the model contained within the
+    /// memory and for creation of objects.
+    ///
     public let metamodel: Metamodel.Type
     
+    /// List of constraints of the object memory.
+    ///
+    /// When accepting the frame using ``accept(_:appendHistory:)`` the frame
+    /// is checked using the constraints provided. Only frames that satisfy
+    /// the constraints can be accepted.
+    ///
     public internal(set) var constraints: [Constraint]
     
     var _stableFrames: [FrameID: StableFrame]
@@ -39,6 +151,8 @@ public class ObjectMemory {
     
     // TODO: Decouple the version history from the object memory.
     
+    /// Chronological list of frame IDs.
+    ///
     public var versionHistory: [FrameID] {
         guard let currentFrameID else {
             return []
@@ -65,7 +179,15 @@ public class ObjectMemory {
         return _stableFrames[id]!
     }
 
+    /// List of IDs of frames that can undone.
+    ///
     public internal(set) var undoableFrames: [FrameID] = []
+
+    /// List of IDs of undone frames can be re-done.
+    ///
+    /// When a new frame is appended to the version history, the list
+    /// of re-doable frames is emptied.
+    ///
     public internal(set) var redoableFrames: [FrameID] = []
 
     /// Create a new object memory that conforms to the given metamodel.
@@ -112,10 +234,17 @@ public class ObjectMemory {
         }
     }
     
+    /// List of all stable frames in the memory.
+    ///
     public var frames: [StableFrame] {
         return Array(_stableFrames.values)
     }
     
+    /// Get a stable frame with given ID.
+    ///
+    /// - Returns: A frame ID if the memory contains a stable frame with given
+    ///   ID or `nil` when there is no such stable frame.
+    ///
     public func frame(_ id: FrameID) -> StableFrame? {
         return _stableFrames[id]
     }
@@ -143,11 +272,23 @@ public class ObjectMemory {
         return result
     }
     
-    
+    /// Test whether the memory contains a stable frame with given ID.
+    ///
     public func containsFrame(_ id: FrameID) -> Bool {
         return _stableFrames[id] != nil
     }
     
+    /// Create a new empty mutable frame.
+    ///
+    /// The frame will be associated with the memory.
+    ///
+    /// To make the frame stable use ``accept(_:appendHistory:)``.
+    ///
+    /// It is rare that you might want to use this method. See rather
+    /// ``deriveFrame(original:id:)``.
+    ///
+    /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
+    ///
     @discardableResult
     public func createFrame(id: FrameID? = nil) -> MutableFrame {
         let actualID = createID(id)
@@ -161,6 +302,25 @@ public class ObjectMemory {
         return frame
     }
     
+    /// Derive a new frame from an existing frame.
+    ///
+    /// - Parameters:
+    ///     - original: ID of the original frame to be derived. If not provided
+    ///       then the most recent frame in the history will be used.
+    ///     - id: Proposed ID of the new frame. Must be unique and must not
+    ///       already exist in the memory. If not provided, a new unique ID
+    ///       is generated.
+    ///
+    /// The newly derived frame will not own any of the objects from the
+    /// original frame.
+    /// See ``MutableFrame/init(memory:id:snapshots:)`` for more information
+    /// about how the objects from the original frame are going to be treated.
+    ///
+    /// - Precondition: The `original` frame must exist in the memory.
+    /// - Precondition: The memory must not contain a frame with `id`.
+    ///
+    /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
+    ///
     @discardableResult
     public func deriveFrame(original originalID: FrameID? = nil,
                             id: FrameID? = nil) -> MutableFrame {
@@ -197,7 +357,15 @@ public class ObjectMemory {
         return derived
     }
     
+    /// Remove a frame from the memory.
+    ///
+    /// - Parameters:
+    ///     - id: ID of a stable or a mutable frame owned by the memory.
+    ///
+    /// - Precondition: The frame with given ID must exist in the memory.
+    ///
     public func removeFrame(_ id: FrameID) {
+        // TODO: What about discard()?
         if _stableFrames[id] != nil {
             _stableFrames[id] = nil
         }
@@ -230,8 +398,6 @@ public class ObjectMemory {
     /// - If `appendHistory` is `true` then the frame is also added at the end
     ///   of the undo list. If there are any redo-able frames, they are all
     ///   removed.
-    ///
-    ///
     ///
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the memory.
@@ -334,7 +500,7 @@ public class ObjectMemory {
     
     /// Discards the mutable frame that is associated with the memory.
     ///
-    func discard(_ frame: MutableFrame) {
+    public func discard(_ frame: MutableFrame) {
         // TODO: Clean-up all the objects.
         
         precondition(frame.memory === self,

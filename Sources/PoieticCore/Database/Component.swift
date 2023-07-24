@@ -40,22 +40,32 @@
 /// form. The data provided by the user are available through ``Component/foreignRecord()-4l38f``
 /// or through the ``Component/attribute(forKey:)``
 ///
+/// The creation of the object should consider that the foreign representation
+/// might be of an older or a newer meta-model version, created by some
+/// other application version. The component should preserve understanding of
+/// historical representations, if possible.
 ///
-/// - Note: The ``Component`` is loosely drawing concepts from the Entity
+///
+/// - Note: The ``Component`` is loosely drawing inspiration from the Entity
 ///   Component System model. However in this case, the purpose of the
-///   component is firstly data modelling and to provide extensibility of the
-///   domain model. Performance is not the primary purpose of this concept in
-///   this library.
+///   component is rather data modelling and extensibility of the
+///   domain model. More appropriate name would be _Attribute Set_.
+///   Performance is not of a concern of this concept in this library.
 ///
-/// - Important: If the component is a part of a model that is being used for
-///   a computation or a simulation, then the component-related computation
-///   or simulation code should _not_ be part of the component.
+/// - Important: When designing a component and when the component is a part of
+///   a model that is being used for a computation or a simulation, then the
+///   component-related computation or simulation code should _not_ be part of
+///   the component.
 ///
-/// - Note: The ``Component`` concept was introduced prior to macro system in
+/// - Remark: _(For library developers)_ The ``Component`` concept was introduced prior to macro system in
 ///   swift to keep attributes native to the language while still being able
 ///   to be flexible in modelling and to have richer reflection of the type.
 ///   In might be replaced by macros in the future, however we are not doing it
 ///   right now for transparency.
+///
+/// - Remark: Before converting the component to a macro, consider the following:
+///   _How the data, that is "out in the wild", from previous or future
+///    meta-model versions are going to be read, transformed and preserved?_
 ///
 public protocol Component: MutableKeyedAttributes {
     static var componentDescription: ComponentDescription { get }
@@ -86,23 +96,20 @@ public protocol Component: MutableKeyedAttributes {
     /// uses the component description to get the relevant attributes from the
     /// foreign record.
     ///
+    /// ## Implementing Initialisation from Foreign Record
     ///
-    /// - Important: Remember that the data in the foreign record might have been
-    ///   created by a different version of the application or by a third party
-    ///   application. Few rules:
+    /// Remember that the data in the foreign record might have been
+    /// created by a different version of the application or by a third party
+    /// application. Few rules:
     ///
-    ///     - Missing attributes must be assigned sensible default values as
-    ///       in the empty initialiser ``init()``.
-    ///     - Component should try to read attributes of older version of
-    ///       the component type.
-    ///     - If semantics of an older attributes has changed, it should be
-    ///       converted to the new version if possible.
+    /// - Missing attributes must be assigned sensible default values as
+    ///   in the empty initialiser ``init()``.
+    /// - Component should try to read attributes of older version of
+    ///   the component type.
+    /// - If semantics of an older attributes has changed, it should be
+    ///   converted to the new version if possible.
     ///
     /// - See also: ``Component/attribute(forKey:)``
-    ///
-    /// - Note: The component should accept older attribute keys, if sensible
-    ///   and possible. There is no feedback mechanism yet, but it might be
-    ///   likely included in the future.
     ///
     /// - Throws: ``ValueError`` if one of the values provided is of a type that
     ///   can not be converted meaningfully to the corresponding attribute.
@@ -161,6 +168,15 @@ public protocol Component: MutableKeyedAttributes {
 }
 
 extension Component {
+    /// Default implementation of component initialisation from a foreign record.
+    ///
+    /// The default implementation gets all the keys from the foreign record and
+    /// call ``setAttribute(value:forKey:)`` for the respective values from
+    /// the record.
+    ///
+    /// If the foreign record contains keys that are not recognised by the
+    /// component, then an exception is thrown.
+    ///
     public init(record: ForeignRecord) throws {
         self.init()
         for key in record.allKeys {
@@ -169,14 +185,19 @@ extension Component {
         }
     }
     
+    /// Default implementation of getting foreign record from a component.
+    ///
+    /// The default implementation creates a foreign record based on attribute
+    /// keys provided by the component's ``componentDescription``.
+    ///
     public func foreignRecord() -> ForeignRecord {
-        let dict = self.dictionary(withKeys: self.attributeKeys)
+        let dict = self.dictionary(withKeys: Self.componentDescription.attributeKeys)
         return ForeignRecord(dict)
     }
 
     // TODO: Do we still need this?
     public var attributeKeys: [String] {
-        Self.componentDescription.attributes.map { $0.name }
+        Self.componentDescription.attributeKeys
     }
     
     /// Convenience forwarding for ``ComponentDescription/name``.
