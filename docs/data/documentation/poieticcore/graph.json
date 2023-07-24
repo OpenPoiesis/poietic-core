@@ -1,0 +1,1384 @@
+{
+  "abstract" : [
+    {
+      "text" : "Protocol for a graph structure.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore5GraphP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Graph"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Graph"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "Graph"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Graph"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
+      ],
+      "title" : "Graph"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edgeIDs-7ycza",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodeIDs-4afw4",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/prettyDebugDescription"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-2upzx",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-34pej",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-5agzq",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/hood(_:selector:)-3m41k",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1hlh7",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-5b4gj",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-4lyis",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-ua8p",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-1rzx9",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-7dpwr",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/topologicalSort(_:edges:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/graph"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Edge": {
+  "abstract" : [
+    {
+      "text" : "Edge represents a directed connection between two nodes in a graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Edge"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Edge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
+  "abstract" : [
+    {
+      "text" : "Designation of which direction of an edge from a node projection perspective",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is to be considered.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeDirection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgedirection"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph": {
+  "abstract" : [
+    {
+      "text" : "Protocol for a graph structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/contains(edge:)-2upzx": {
+  "abstract" : [
+    {
+      "text" : "Check whether the graph contains an edge and whether the node is valid.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-2upzx",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "contains(edge:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/contains(edge:)-2upzx"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/contains(node:)-34pej": {
+  "abstract" : [
+    {
+      "text" : "Check whether the graph contains a node and whether the node is valid.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-34pej",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "contains(node:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/contains(node:)-34pej"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/edge(_:)-5agzq": {
+  "abstract" : [
+    {
+      "text" : "Get an edge by ID.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-5agzq",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "edge(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/edge(_:)-5agzq"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/edgeIDs-7ycza": {
+  "abstract" : [
+    {
+      "text" : "List of indices of all edges",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edgeIDs-7ycza",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "edgeIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/edgeids-7ycza"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/edges": {
+  "abstract" : [
+    {
+      "text" : "All edges of the graph",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edges",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "edges",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/edges"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/hood(_:selector:)-3m41k": {
+  "abstract" : [
+    {
+      "text" : "Get a neighbourhood of a node where the edges match the neighbourhood",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "selector ",
+      "type" : "text"
+    },
+    {
+      "code" : "selector",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hood"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selector"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
+      "text" : "NeighborhoodSelector"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+      "text" : "Neighborhood"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/hood(_:selector:)-3m41k",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "hood(_:selector:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/hood(_:selector:)-3m41k"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/incoming(_:)-1hlh7": {
+  "abstract" : [
+    {
+      "text" : "Get a list of edges incoming to a node.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "incoming"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1hlh7",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "incoming(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/incoming(_:)-1hlh7"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/neighbours(_:)-5b4gj": {
+  "abstract" : [
+    {
+      "text" : "Get a list of edges that are related to the neighbours of the node. That",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is, list of edges where the node is either an origin or a target.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "neighbours"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-5b4gj",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "neighbours(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/neighbours(_:)-5b4gj"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/node(_:)-4lyis": {
+  "abstract" : [
+    {
+      "text" : "Get a node by ID.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-4lyis",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "node(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/node(_:)-4lyis"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/nodeIDs-4afw4": {
+  "abstract" : [
+    {
+      "text" : "List of indices of all nodes",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodeIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodeIDs-4afw4",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "nodeIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/nodeids-4afw4"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/nodes": {
+  "abstract" : [
+    {
+      "text" : "All nodes of the graph",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodes",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/nodes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/outgoing(_:)-ua8p": {
+  "abstract" : [
+    {
+      "text" : "Get a list of outgoing edges from a node.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "outgoing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-ua8p",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "outgoing(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/outgoing(_:)-ua8p"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/prettyDebugDescription": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyDebugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/prettyDebugDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyDebugDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/prettydebugdescription"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/selectEdges(_:)-1rzx9": {
+  "abstract" : [
+    {
+      "text" : "Get a list of edges that match the given predicate.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "selectEdges"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
+      "text" : "EdgePredicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-1rzx9",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "selectEdges(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/selectedges(_:)-1rzx9"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/selectNodes(_:)-7dpwr": {
+  "abstract" : [
+    {
+      "text" : "Get a list of nodes that match the given predicate.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "selectNodes"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
+      "text" : "NodePredicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-7dpwr",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "selectNodes(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/selectnodes(_:)-7dpwr"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/topologicalSort(_:edges:)": {
+  "abstract" : [
+    {
+      "text" : "Sort nodes topologically.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologicalSort"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/topologicalSort(_:edges:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "topologicalSort(_:edges:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/topologicalsort(_:edges:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphCycleError": {
+  "abstract" : [
+    {
+      "text" : "An error raised when a cycle is detected in the graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphCycleError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphCycleError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphCycleError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphcycleerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
+  "abstract" : [
+    {
+      "text" : "Protocol",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableGraph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutablegraph"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph": {
+  "abstract" : [
+    {
+      "text" : "Graph contained within a mutable frame where the references to the nodes and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edges are not directly bound and are resolved at the time of querying.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableUnboundGraph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableUnboundGraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableUnboundGraph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
+},
+"doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Neighborhood"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Neighborhood"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Neighborhood",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/neighborhood"
+},
+"doc://PoieticCore/documentation/PoieticCore/NeighborhoodSelector": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NeighborhoodSelector"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NeighborhoodSelector"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NeighborhoodSelector",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/neighborhoodselector"
+},
+"doc://PoieticCore/documentation/PoieticCore/Node": {
+  "abstract" : [
+    {
+      "text" : "Object representing a graph node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
+  "abstract" : [
+    {
+      "text" : "Graph contained within a mutable frame where the references to the nodes and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edges are not directly bound and are resolved at the time of querying.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnboundGraph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnboundGraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnboundGraph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unboundgraph"
+}
+}
+}

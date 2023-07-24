@@ -1,0 +1,1842 @@
+{
+  "abstract" : [
+    {
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore12ForeignValueO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ForeignValue"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ForeignValue"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "ForeignValue"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ForeignValue"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Foreign values can be: integers, double precision floating points, booleans,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "strings, 2D points or objectIDs. They can also be arrays of any of the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "atom values, where all the items of the array are the same.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Foreign value is typically created from values taken from outside of the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "application or outside of the core. For example from a persistent store,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "imported file or a pasteboard.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "ForeignValue is not a recursive value, it can either be an atom or a list",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "of atoms of the same type. It is highly unlikely that this value will be",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "recursive in the future.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/Se",
+        "doc:\/\/PoieticCore\/SE",
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+        "doc:\/\/PoieticCore\/s25ExpressibleByFloatLiteralP",
+        "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
+        "doc:\/\/PoieticCore\/s26ExpressibleByStringLiteralP",
+        "doc:\/\/PoieticCore\/s33ExpressibleByUnicodeScalarLiteralP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
+      ],
+      "title" : "Foreign Interfaces"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/array(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/atom(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-2173e",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-2q19a",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-45u2y",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-4tepc",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-7ln3y",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8l2id",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8l4o5",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8oklt",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(ids:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/arrayItemType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isArray",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isNumeric",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/valueType"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolArray()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleArray()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/idValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intArray()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointArray()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringArray()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/toJSON()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/fromJSON(_:)"
+      ],
+      "title" : "Type Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Decodable-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Encodable-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Equatable-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByFloatLiteral-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByIntegerLiteral-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByStringLiteral-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByUnicodeScalarLiteral-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/foreignvalue"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SE": {
+  "identifier" : "doc:\/\/PoieticCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/Se": {
+  "identifier" : "doc:\/\/PoieticCore\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignAtom": {
+  "abstract" : [
+    {
+      "text" : "ForeignAtom represents a scalar or a simple tuple-like value from an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "external environment.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignAtom"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignAtom"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignAtom",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignatom"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
+  "abstract" : [
+    {
+      "text" : "A collection of key-value pairs that store data used for exchange with",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "external environment such as database.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecord"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecord"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecord",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
+  "abstract" : [
+    {
+      "text" : "An error thrown when there is an issue with retrieving or converting",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a foreign value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecordError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
+  "abstract" : [
+    {
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/decodable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/encodable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/ExpressibleByExtendedGraphemeClusterLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByExtendedGraphemeClusterLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebyextendedgraphemeclusterliteral-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/ExpressibleByFloatLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByFloatLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByFloatLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebyfloatliteral-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/ExpressibleByIntegerLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByIntegerLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByIntegerLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebyintegerliteral-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/ExpressibleByStringLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByStringLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByStringLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebystringliteral-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/ExpressibleByUnicodeScalarLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/ExpressibleByUnicodeScalarLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebyunicodescalarliteral-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/array(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "array"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ForeignAtomO",
+      "text" : "ForeignAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/array(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignValue.array(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/array(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/arrayItemType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arrayItemType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
+      "text" : "AtomType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/arrayItemType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arrayItemType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/arrayitemtype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/atom(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atom"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ForeignAtomO",
+      "text" : "ForeignAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/atom(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignValue.atom(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/atom(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/boolArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of booleans.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "boolArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "boolArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/boolarray()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/boolValue()": {
+  "abstract" : [
+    {
+      "text" : "Try to get a bool value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "boolValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "boolValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/boolvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/doubleArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of doubles.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "doubleArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "doubleArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/doublearray()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/doubleValue()": {
+  "abstract" : [
+    {
+      "text" : "Try to get a double value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "doubleValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "doubleValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/doublevalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/fromJSON(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fromJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/fromJSON(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fromJSON(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/fromjson(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/idValue()": {
+  "abstract" : [
+    {
+      "text" : "Try to get an ID value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "idValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/idValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "idValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/idvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-2173e": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping an integer value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-2173e",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-2173e"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-2q19a": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a double value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-2q19a",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-2q19a"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-45u2y": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a 2D point value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5Pointa",
+      "text" : "Point"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-45u2y",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-45u2y"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-4tepc": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a list of points",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5Pointa",
+      "text" : "Point"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-4tepc",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-4tepc"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-7ln3y": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a string value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-7ln3y",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-7ln3y"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-8l2id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8l2id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-8l2id"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-8l4o5": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a boolean value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8l4o5",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-8l4o5"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(_:)-8oklt": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping an object ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8oklt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-8oklt"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(ids:)": {
+  "abstract" : [
+    {
+      "text" : "Create a foreign value wrapping a list of object IDs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ids"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(ids:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(ids:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(ids:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/intArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of integers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "intArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "intArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/intarray()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/intValue()": {
+  "abstract" : [
+    {
+      "text" : "Try to get an int value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "intValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "intValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/intvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/isArray": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isArray"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isArray",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isArray",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/isarray"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/isNumeric": {
+  "abstract" : [
+    {
+      "text" : "Flag that indicates whether the value is a numeric value. Numeric",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "values are only integers and doubles.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isNumeric"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isNumeric",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isNumeric",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/isnumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/pointArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of points.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pointArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5Pointa",
+      "text" : "Point"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pointArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/pointarray()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/pointValue()": {
+  "abstract" : [
+    {
+      "text" : "Try to get a 2D point value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pointValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5Pointa",
+      "text" : "Point"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pointValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/pointvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/stringArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of strings.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stringArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stringArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/stringarray()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/stringValue()": {
+  "abstract" : [
+    {
+      "text" : "Get a string value from the foreign value. Convert if necessary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stringValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stringValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/stringvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/toJSON()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/toJSON()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "toJSON()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/tojson()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/valueType": {
+  "abstract" : [
+    {
+      "text" : "Return an underlying atom value type or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the foreign value",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is an array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
+      "text" : "AtomType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/valueType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/valuetype"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s25ExpressibleByFloatLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s25ExpressibleByFloatLiteralP",
+  "title" : "Swift.ExpressibleByFloatLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s26ExpressibleByStringLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s26ExpressibleByStringLiteralP",
+  "title" : "Swift.ExpressibleByStringLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s27ExpressibleByIntegerLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
+  "title" : "Swift.ExpressibleByIntegerLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s33ExpressibleByUnicodeScalarLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s33ExpressibleByUnicodeScalarLiteralP",
+  "title" : "Swift.ExpressibleByUnicodeScalarLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
+  "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
+  "type" : "unresolvable"
+}
+}
+}

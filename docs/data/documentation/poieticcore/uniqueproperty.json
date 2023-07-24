@@ -1,0 +1,928 @@
+{
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore14UniquePropertyC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "UniqueProperty"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "UniqueProperty"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "UniqueProperty"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "UniqueProperty"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Value"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Value"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SH",
+              "text" : "Hashable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintRequirement"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement"
+      ],
+      "title" : "Constraints"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/init(_:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/extract"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/check(graph:objects:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/EdgeConstraintRequirement-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/NodeConstraintRequirement-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/uniqueproperty"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are required. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and accepts them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AcceptAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/acceptall"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects that define a graph constraint.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Constraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintViolation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when constraint violations were detected in the graph during",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "accept()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintViolationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolationerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeConstraint": {
+  "abstract" : [
+    {
+      "text" : "An object representing constraint that checks edges.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeConstraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeConstraint"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeConstraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeconstraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeconstraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/NodeConstraint": {
+  "abstract" : [
+    {
+      "text" : "An object representing constraint that checks nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeConstraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NodeConstraint"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NodeConstraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/nodeconstraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/NodeConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NodeConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NodeConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/nodeconstraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintRequirement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectconstraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are prohibited. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RejectAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rejectall"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueNeighbourRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueProperty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/EdgeConstraintRequirement-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/EdgeConstraintRequirement-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "EdgeConstraintRequirement Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/edgeconstraintrequirement-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/NodeConstraintRequirement-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/NodeConstraintRequirement-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "NodeConstraintRequirement Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/nodeconstraintrequirement-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/check(graph:objects:)": {
+  "abstract" : [
+    {
+      "text" : "Checks the objects for the requirement. The function extracts the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "value from each of the objects and returns a list of those objects",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that have duplicate values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "check"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "graph"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5GraphP",
+      "text" : "Graph"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "objects"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/check(graph:objects:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "check(graph:objects:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/check(graph:objects:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/extract": {
+  "abstract" : [
+    {
+      "text" : "A function that extracts the value to be checked for uniqueness from",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a graph object (edge or a node)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "extract"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Value"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/extract",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "extract",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/extract"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/init(_:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a unique property constraint requirement with a function",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that extracts a property from a graph object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Value"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/init(_:)"
+}
+}
+}
