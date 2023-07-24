@@ -9,6 +9,13 @@ import PoieticCore
 
 /// The metamodel for Stock-and-Flows domain model.
 ///
+/// The `FlowsMetamodel` describes concepts, components, constraints and
+/// queries that define the [Stock and Flow](https://en.wikipedia.org/wiki/Stock_and_flow)
+/// model domain.
+///
+/// The basic object types are: ``Stock``, ``Flow``, ``Auxiliary``. More advanced
+/// node type is ``GraphicalFunction``.
+///
 /// - SeeAlso: `Metamodel` protocol description for more information and reasons
 /// behind this approach of describing the metamodel.
 ///

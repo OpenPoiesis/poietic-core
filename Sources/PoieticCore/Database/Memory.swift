@@ -64,10 +64,10 @@ public struct ConstraintViolationError: Error {
 /// represents a transactional frame, which is "under construction" and does
 /// not have to maintain integrity.
 ///
-/// ``StableFrames`` can not be mutated, neither any of the object snapshots
+/// ``StableFrame``s can not be mutated, neither any of the object snapshots
 /// associated with the frame.
 ///
-/// ``MutableFrames`` are not stored in the archive. See _Archiving_ below.
+/// ``MutableFrame``s are not stored in the archive. See _Archiving_ below.
 ///
 /// The concept of frames allows us to have functionality like undo/redo,
 /// version branching, different timelines, sub-system specific annotations

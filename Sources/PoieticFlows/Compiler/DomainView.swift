@@ -54,7 +54,10 @@ public struct BoundGraphicalFunction {
 }
 
 
-/// Flows domain view on top of a graph.
+/// View of Stock-and-Flow domain-specific aspects of the design.
+///
+/// The domain view provides higher level view of the design through higher
+/// level concepts as defined in the ``FlowsMetamodel``.
 ///
 public class DomainView {
     /// Graph that the view projects.
@@ -288,42 +291,13 @@ public class DomainView {
             outlets += vars.map { ParameterOutlet(name: $0) }
         }
         
-        if let gf = node[GraphicalFunctionComponent.self] {
+        if node[GraphicalFunctionComponent.self] != nil {
             outlets.append(ParameterOutlet(name: nil))
         }
         
         return outlets
     }
     
-    public func __TODO_parameters(_ nodeID: ObjectID) -> [String:ParameterStatus] {
-        let incomingHood = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
-        let outlets = parameterOutlets(nodeID)
-        var unseen: Set<String> = Set(outlets.compactMap { $0.name })
-        var unnamed: Int = outlets.reduce(0) { (sum, outlet) in
-            if outlet.name == nil { 1 } else { 0 }
-        }
-        var result: [String: ParameterStatus] = [:]
-
-        for edge in incomingHood.edges {
-            let node = graph.node(edge.origin)!
-            let name = node.name!
-            if unseen.contains(name) {
-                result[name] = .used(node: node.id, edge: edge.id)
-                unseen.remove(name)
-            }
-            else {
-                result[name] = .unused(node: node.id, edge: edge.id)
-            }
-        }
-        
-        for name in unseen {
-            result[name] = .missing
-        }
-
-        return result
-    }
-
-
     // TODO: Remove the `required` and compute here. Expensive, but useful for the caller.
     // TODO: The `required` should belong to the node itself.
     // TODO: Rename to formulaParameters as this makes sense for formulas only

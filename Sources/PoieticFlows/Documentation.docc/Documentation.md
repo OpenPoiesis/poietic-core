@@ -1,25 +1,32 @@
 # ``PoieticFlows``
 
-Package for simulation of the _Stock and Flow_ model.
+Poietic library for modelling and simulation of the _Stock and Flow_ model.
 
 ## Overview
 
-The package is a concrete implementation of one kind of models - the
-[Stock and Flow](https://en.wikipedia.org/wiki/Stock_and_flow) model.
+The Poietic package provides functionality for modelling and simulation
+in the the model domain of [Stock and Flow](https://en.wikipedia.org/wiki/Stock_and_flow).
 
-The current implementation of the package provides very basic components
-to construct the Stock and Flow models: ``FlowsMetamodel/Stock``,
-``FlowsMetamodel/Flow``, ``FlowsMetamodel/Auxiliary``.
+The package provides basic concepts from the modelling domain:
 
-The main component of the nodes is the ``FormulaComponent`` containing 
-an arithmetic formula.
+- Core computational nodes: ``FlowsMetamodel/Stock``,
+``FlowsMetamodel/Flow`` and ``FlowsMetamodel/Auxiliary``
+- ``FlowsMetamodel/GraphicalFunction`` node for a function that is represented
+ by a graph – set of points in a 2D plane.
+- Component for arithmetic formulas ``FormulaComponent`` for all core 
+  computational nodes.
+- Built-in functions: `abs`, `floor`, `ceiling`, `round`, `power`, `sum`, `min`,
+  `max`
+- Included [Euler](https://en.wikipedia.org/wiki/Euler_method)
+  and [RK4](https://en.wikipedia.org/wiki/Runge–Kutta_methods) solvers: 
+  ``EulerSolver`` and ``RungeKutta4Solver`` respectively.
 
-More information about the model is stored in the ``FlowsMetamodel``.
+More information about the model is contained in the ``FlowsMetamodel``.
 
 
 ## Topics
 
-## Model and Components
+### Model and Components
 
 - ``FlowsMetamodel``
 - ``FormulaComponent``
