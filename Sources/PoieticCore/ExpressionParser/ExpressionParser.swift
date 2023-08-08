@@ -15,8 +15,8 @@
 /// expression.
 ///
 public class ExpressionParser {
-    let lexer: ExpressionLexer
-    var currentToken: Token?
+    var lexer: ExpressionLexer
+    var currentToken: ExpressionToken?
     
     /// Creates a new parser using an expression lexer.
     ///
@@ -52,7 +52,7 @@ public class ExpressionParser {
     /// - Returns: A token if the token matches the expected type, ``nil`` if
     ///     the token does not match the expected type.
     ///
-    func accept(_ type: TokenType) -> Token? {
+    func accept(_ type: ExpressionTokenType) -> ExpressionToken? {
         guard let token = currentToken else {
             return nil
         }
@@ -68,7 +68,7 @@ public class ExpressionParser {
     // ----------------------------------------------------------------
     
     /// Parse an operator.
-    func `operator`(_ op: String) -> Token? {
+    func `operator`(_ op: String) -> ExpressionToken? {
         guard let token = currentToken else {
             return nil
         }
@@ -84,7 +84,7 @@ public class ExpressionParser {
     
     /// Parse an identifier - a variable name or a function name.
     ///
-    func identifier() -> Token? {
+    func identifier() -> ExpressionToken? {
         if let token = accept(.identifier) {
             return token
         }

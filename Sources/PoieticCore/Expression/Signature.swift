@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 05/07/2023.
 //
 
-import Foundation
-
 
 /// Type of a function argument.
 ///

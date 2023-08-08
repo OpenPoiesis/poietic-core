@@ -77,29 +77,29 @@ public final class LiteralSyntax: ExpressionSyntax {
     }
     
     public let type: LiteralType
-    public let literal: Token
+    public let literal: ExpressionToken
 
     public var fullText: String { literal.fullText }
     
-    public init(type: LiteralType, literal: Token) {
+    public init(type: LiteralType, literal: ExpressionToken) {
         self.type = type
         self.literal = literal
     }
 }
 
 public final class VariableSyntax: ExpressionSyntax {
-    public let variable: Token
+    public let variable: ExpressionToken
 
     public var fullText: String { variable.fullText }
 
-    public init(variable: Token) {
+    public init(variable: ExpressionToken) {
         self.variable = variable
     }
 }
 
 public final class FunctionArgumentSyntax: ExpressionSyntax {
     public let argument: any ExpressionSyntax
-    public let trailingComma: Token?
+    public let trailingComma: ExpressionToken?
     
     public var fullText: String {
         if let comma = trailingComma {
@@ -110,7 +110,7 @@ public final class FunctionArgumentSyntax: ExpressionSyntax {
         }
     }
 
-    public init(argument: any ExpressionSyntax, trailingComma: Token?) {
+    public init(argument: any ExpressionSyntax, trailingComma: ExpressionToken?) {
         self.argument = argument
         self.trailingComma = trailingComma
     }
@@ -127,17 +127,17 @@ public final class FunctionArgumentListSyntax: ExpressionSyntax {
 }
 
 public final class FunctionCallSyntax: ExpressionSyntax {
-    public let name: Token
-    public let leftParen: Token
+    public let name: ExpressionToken
+    public let leftParen: ExpressionToken
     public let arguments: FunctionArgumentListSyntax
-    public let rightParen: Token
+    public let rightParen: ExpressionToken
     
     public var fullText: String {
         name.fullText + leftParen.fullText + arguments.fullText + rightParen.fullText
     }
 
     
-    public init(name: Token, leftParen: Token, arguments: FunctionArgumentListSyntax, rightParen: Token) {
+    public init(name: ExpressionToken, leftParen: ExpressionToken, arguments: FunctionArgumentListSyntax, rightParen: ExpressionToken) {
         self.name = name
         self.leftParen = leftParen
         self.arguments = arguments
@@ -146,14 +146,14 @@ public final class FunctionCallSyntax: ExpressionSyntax {
 }
 
 public final class UnaryOperatorSyntax: ExpressionSyntax {
-    public let op: Token
+    public let op: ExpressionToken
     public let operand: any ExpressionSyntax
 
     public var fullText: String {
         op.fullText + operand.fullText
     }
     
-    public init(op: Token, operand: any ExpressionSyntax) {
+    public init(op: ExpressionToken, operand: any ExpressionSyntax) {
         self.op = op
         self.operand = operand
     }
@@ -161,14 +161,14 @@ public final class UnaryOperatorSyntax: ExpressionSyntax {
 
 public final class BinaryOperatorSyntax: ExpressionSyntax {
     public let leftOperand: any ExpressionSyntax
-    public let op: Token
+    public let op: ExpressionToken
     public let rightOperand: any ExpressionSyntax
 
     public var fullText: String {
         leftOperand.fullText + op.fullText + rightOperand.fullText
     }
 
-    public init(leftOperand: any ExpressionSyntax, op: Token, rightOperand: any ExpressionSyntax) {
+    public init(leftOperand: any ExpressionSyntax, op: ExpressionToken, rightOperand: any ExpressionSyntax) {
         self.leftOperand = leftOperand
         self.op = op
         self.rightOperand = rightOperand
@@ -176,15 +176,15 @@ public final class BinaryOperatorSyntax: ExpressionSyntax {
 }
 
 public final class ParenthesisSyntax: ExpressionSyntax {
-    public let leftParen: Token
+    public let leftParen: ExpressionToken
     public let expression: any ExpressionSyntax
-    public let rightParen: Token
+    public let rightParen: ExpressionToken
 
     public var fullText: String {
         leftParen.fullText + expression.fullText + rightParen.fullText
     }
 
-    public init(leftParen: Token, expression: any ExpressionSyntax, rightParen: Token) {
+    public init(leftParen: ExpressionToken, expression: any ExpressionSyntax, rightParen: ExpressionToken) {
         self.leftParen = leftParen
         self.expression = expression
         self.rightParen = rightParen

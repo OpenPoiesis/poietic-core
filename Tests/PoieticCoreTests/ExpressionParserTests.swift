@@ -17,6 +17,13 @@ final class ExpressionParserTests: XCTestCase {
         }
     }
 
+    func testUnexpected() throws {
+        let parser = ExpressionParser(string: "$")
+        XCTAssertThrowsError(try parser.parse()) {
+            XCTAssertEqual($0 as! ExpressionSyntaxError, ExpressionSyntaxError.expressionExpected)
+        }
+    }
+
     func testBinary() {
         let expr = UnboundExpression.binary(
             "+",

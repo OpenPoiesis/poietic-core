@@ -5,32 +5,16 @@
 //  Created by Stefan Urbanek on 13/07/2022.
 //
 
-public enum TokenType: Equatable {
-    public typealias TokenError = ExpressionSyntaxError
-    
-    // Expression tokens
-    case identifier
-    case int
-    case double
-    case `operator`
-    case leftParen
-    case rightParen
-    case comma
-
-    // Special tokens
-    case empty
-    case error(ExpressionSyntaxError)
-}
-
 /// Token represents a lexical unit of the source.
 ///
 /// The token includes trivia - leading and trailing whitespace. This
 /// information is preserved for potential programmatic source code editing
 /// while preserving the user formatting.
 ///
-public struct Token: Equatable {
+public struct Token<T: Equatable>: Equatable {
+    public typealias TokenType = T
     /// Type of the token as resolved by the lexer
-    public let type: TokenType
+    public let type: T
 
     /// Range of the token within the source string
     public let range: Range<String.Index>
@@ -75,44 +59,6 @@ public struct Token: Equatable {
     ///
     public var fullText: String {
         return leadingTrivia + text + trailingTrivia
-    }
-
-    /// Return integer value of the token if the token represents an integer.
-    ///
-    /// The numeric string might contain optional digit separator underscore
-    /// `_`. For example: `'1_000'` for 1000 or `'1_00_00'` for 10000.
-    ///
-    /// - Returns: Integer value if the text is a valid number, otherwise ``nil``.
-    ///
-    func intValue() -> Int? {
-        guard self.type == .int else {
-            return nil
-        }
-        
-        var sanitizedString = text
-        sanitizedString.removeAll { $0 == "_" }
-        
-        return Int(sanitizedString)
-
-    }
-
-    /// Return double floating point value of the token if the token
-    /// represents a floating point number.
-    ///
-    /// The numberic string might contain optional digit separator underscore
-    /// `_`. For example: `'1_000.0'` for 1000 or `'1_00_00.1'` for 10000.1
-    ///
-    /// - Returns: Double value if the text is a valid number, otherwise ``nil``.
-    ///
-    func doubleValue() -> Double? {
-        guard self.type == .double else {
-            return nil
-        }
-        
-        var sanitizedString = text
-        sanitizedString.removeAll { $0 == "_" }
-        
-        return Double(sanitizedString)
     }
 }
 
