@@ -90,7 +90,7 @@ final class CSVReaderTests: XCTestCase {
         XCTAssertEqual(token, .empty)
     }
     func testCustomDelimiters() throws {
-        var reader = CSVReader("1@2|10@20",
+        let reader = CSVReader("1@2|10@20",
                                options: CSVOptions(fieldDelimiter:"@",
                                                           recordDelimiter:"|"))
 

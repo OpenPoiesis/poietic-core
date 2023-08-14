@@ -147,3 +147,53 @@ public class StableFrame: FrameBase {
     
 
 }
+
+extension FrameBase {
+    /// Get object by a name, if the object contains a named component.
+    ///
+    /// A method that searches the frame for a first object with
+    /// a name component and with the given name.
+    ///
+    /// If the frame contains multiple objects with the same name,
+    /// then one is returned arbitrarily. Subsequent calls of the method
+    /// with the same name does not guarantee that the same object will
+    /// be returned.
+    ///
+    /// - Returns: First object found with given name or `nil` if no object
+    ///   with the given name exists.
+    ///
+    ///
+    public func object(named name: String) -> ObjectSnapshot? {
+        for object in snapshots {
+            guard let component: NameComponent = object[NameComponent.self] else {
+                continue
+            }
+            if component.name == name {
+                return object
+            }
+        }
+        return nil
+    }
+    
+    /// Get an object by a string reference - the string might be an object name
+    /// or object ID.
+    ///
+    /// First the string is converted to object ID and an object with the given
+    /// ID is searched for. If not found, then all named objects are searched
+    /// and the first one with given name is returned. If multiple objects
+    /// have the same name, then one is returned arbitrarily. Subsequent
+    /// calls to the method with the same name do not guarantee that
+    /// the same object will be returned if multiple objects have the same name.
+    ///
+    public func object(stringReference: String) -> ObjectSnapshot? {
+        if let id = ObjectID(stringReference), contains(id) {
+            return object(id)!
+        }
+        else if let snapshot = object(named: stringReference) {
+            return snapshot
+        }
+        else {
+            return nil
+        }
+    }
+}

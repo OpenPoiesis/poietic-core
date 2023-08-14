@@ -12,18 +12,6 @@ import PoieticCore
 import PoieticFlows
 
 extension FrameBase {
-    public func object(named name: String) -> ObjectSnapshot? {
-        for object in snapshots {
-            guard let component: NameComponent = object[NameComponent.self] else {
-                continue
-            }
-            if component.name == name {
-                return object
-            }
-        }
-        return nil
-    }
-    
     /// Get an object by a string reference - the string might be an object name
     /// or object ID.
     ///
