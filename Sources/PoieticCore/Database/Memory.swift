@@ -134,7 +134,8 @@ public struct ConstraintViolationError: Error {
 ///
 ///
 public class ObjectMemory {
-    var identityGenerator: SequentialIDGenerator
+    // TODO: [OBSOLETE] Get rid of the identity generator. No longer needed for multiple ID sequences.
+    private var identityGenerator: SequentialIDGenerator
    
     /// Meta-model associated with the memory.
     ///
@@ -151,6 +152,7 @@ public class ObjectMemory {
     ///
     public internal(set) var constraints: [Constraint]
     
+    var _allSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
     var _mutableFrames: [FrameID: MutableFrame]
     
@@ -206,9 +208,11 @@ public class ObjectMemory {
     /// - The history will be initialised with the first empty frame.
     ///
     public init(metamodel: Metamodel.Type = EmptyMetamodel.self) {
+        // NOTE: Sync with removeAll()
         self.identityGenerator = SequentialIDGenerator()
         self._stableFrames = [:]
         self._mutableFrames = [:]
+        self._allSnapshots = [:]
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
@@ -226,11 +230,18 @@ public class ObjectMemory {
     public var isEmpty: Bool {
         return self._stableFrames.isEmpty
     }
-    
+   
     /// Create an ID if needed or use a proposed ID.
     ///
-    public func createID(_ proposedID: ID? = nil) -> ID {
-        if let id = proposedID {
+    public func allocateID(proposed: ID? = nil) -> ID {
+        if let id = proposed {
+            precondition(_allSnapshots[id] == nil,
+                         "Trying to allocate an ID \(id) that is already used as a snapshot ID")
+            precondition(_stableFrames[id] == nil,
+                         "Trying to allocate an ID \(id) that is already used as a stable frame ID")
+            precondition(_mutableFrames[id] == nil,
+                         "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
+            // TODO: Get rid of the identity generator, just keep a table here.
             self.identityGenerator.markUsed(id)
             return id
         }
@@ -296,7 +307,7 @@ public class ObjectMemory {
     ///
     @discardableResult
     public func createFrame(id: FrameID? = nil) -> MutableFrame {
-        let actualID = createID(id)
+        let actualID = allocateID(proposed: id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
             fatalError("Memory already contains a frame with ID \(actualID)")
@@ -329,7 +340,7 @@ public class ObjectMemory {
     @discardableResult
     public func deriveFrame(original originalID: FrameID? = nil,
                             id: FrameID? = nil) -> MutableFrame {
-        let actualID = createID(id)
+        let actualID = allocateID(proposed: id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
             fatalError("Can not derive frame: Frame with ID \(actualID) already exists")
@@ -555,4 +566,16 @@ public class ObjectMemory {
     func checkConstraints() {
         fatalError("Check constraints not implemented")
     }
+    
+    func removeAll() {
+        // TODO: [REVIEW] We needed this for archival. Is it still relevant?
+        // NOTE: Sync with init(...)
+        self.identityGenerator = SequentialIDGenerator()
+        self._allSnapshots.removeAll()
+        self._stableFrames.removeAll()
+        self._mutableFrames.removeAll()
+        self.undoableFrames.removeAll()
+        self.redoableFrames.removeAll()
+    }
+
 }

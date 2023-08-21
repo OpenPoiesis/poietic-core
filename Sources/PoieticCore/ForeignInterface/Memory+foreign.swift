@@ -77,18 +77,14 @@ extension ObjectMemory {
         let id: ObjectID = try record.main.IDValue(for: "object_id")
         let snapshotID: SnapshotID = try record.main.IDValue(for: "snapshot_id")
 
-        let type: ObjectType?
+        let type: ObjectType
         
-        if let typeName = try record.main.stringValueIfPresent(for: "type") {
-            if let objectType = metamodel.objectType(name: typeName) {
-                type = objectType
-            }
-            else {
-                fatalError("Unknown object type: \(typeName)")
-            }
+        let typeName = try record.main.stringValue(for: "type")
+        if let objectType = metamodel.objectType(name: typeName) {
+            type = objectType
         }
         else {
-            type = nil
+            fatalError("Unknown object type: \(typeName)")
         }
 
         var components: [any Component] = []
@@ -101,39 +97,25 @@ extension ObjectMemory {
             components.append(component)
         }
 
-        let snapshot: ObjectSnapshot
+        let references: [ObjectID]
         
-        let structuralTypeName = try record.main.stringValue(for: "structural_type")
-        switch structuralTypeName {
-        case "object":
-            snapshot = ObjectSnapshot(id: id,
-                                      snapshotID: snapshotID,
-                                      type: type,
-                                      components: components)
-        case "node":
-            snapshot = Node(id: id,
-                            snapshotID: snapshotID,
-                            type: type,
-                            components: components)
-        case "edge":
+        switch type.structuralType {
+        case .node, .object:
+            references = []
+        case .edge:
             let origin: ObjectID = try record.main.IDValue(for: "origin")
             let target: ObjectID = try record.main.IDValue(for: "target")
-            snapshot = Edge(id: id,
-                            snapshotID: snapshotID,
-                            type: type,
-                            origin: origin,
-                            target: target,
-                            components: components)
-        default:
-            throw ForeignInterfaceError.unknownStructuralType(structuralTypeName)
+            references = [origin, target]
         }
-        
-        identityGenerator.markUsed(snapshotID)
+        let snapshot = createSnapshot(type,
+                                      id: id,
+                                      snapshotID: snapshotID,
+                                      components: components,
+                                      structuralReferences: references)
         snapshot.freeze()
-
         return snapshot
     }
-    
+
     private func createArchive() -> MemoryArchive {
         // TODO: This is preliminary implementation, which is not fully normalized
         // Collections to be written
@@ -193,18 +175,6 @@ extension ObjectMemory {
     }
     
     
-    fileprivate func removeAll() {
-        self.identityGenerator = SequentialIDGenerator()
-        self._stableFrames.removeAll()
-        self._mutableFrames.removeAll()
-        self.undoableFrames.removeAll()
-        self.redoableFrames.removeAll()
-
-//        let firstFrame = StableFrame(id: identityGenerator.next())
-//        versionHistory.append(firstFrame.id)
-//        _stableFrames[firstFrame.id] = firstFrame
-//        self.currentHistoryIndex = versionHistory.startIndex
-    }
 
     /// Removes everything from the memory and loads the contents from the
     /// given URL.

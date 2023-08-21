@@ -82,10 +82,6 @@ struct IntegerComponent: Component, Equatable {
     }
 }
 
-let TestObjectType = ObjectType(name: "Test",
-                                structuralType: .node,
-                                components: [])
-
 class TestMetamodel: Metamodel {
     static var constraints: [PoieticCore.Constraint] = []
     

@@ -130,10 +130,21 @@ public class MutableFrame: FrameBase {
         }
     }
     
+    /// Low-level insert of an object snapshot to a frame.
+    ///
+    /// Caller must be sure that the snapshot is not owned by anyone.
+    ///
     func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
-        precondition(state.isMutable)
-        precondition(objects[snapshot.id] == nil)
-        precondition(!snapshotIDs.contains(snapshot.snapshotID))
+        precondition(state.isMutable,
+                     "Trying to modify a frame that is not mutable")
+        precondition(snapshot.state != .unstable,
+                     "Trying to insert an unstable object")
+        precondition(objects[snapshot.id] == nil,
+                     "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")
+        precondition(!snapshotIDs.contains(snapshot.snapshotID),
+                     "Trying to insert an object with snapshot ID \(snapshot.snapshotID) that already exists in frame \(id)")
+        // FIXME: Test whether the object is owned by the memory
+        
         // Make sure we do not own immutable objects.
         precondition((owned && snapshot.state.isMutable)
                     || (!owned && !snapshot.state.isMutable))
@@ -144,28 +155,8 @@ public class MutableFrame: FrameBase {
         objects[snapshot.id] = ref
         snapshotIDs.insert(snapshot.snapshotID)
     }
-
-    /// Derive a version snapshot of an object and insert it into the frame.
-    ///
-    /// - Parameters:
-    ///     - snapshot: Snapshot to be derived and inserted
-    ///     - id: Optional Object ID of the derived object.
-    ///
-    /// This method can be used to create new objects in the frame from
-    /// prototype snapshots.
-    ///
-    /// - Precondition: The frame is not frozen. See ``freeze()``.
-    ///
-    public func insertDerived(_ original: ObjectSnapshot,
-                       id: ObjectID? = nil) -> ObjectID {
-        // TODO: This should be used in the mutable unbound graph (see .py)
-        let actualObjectID = id ?? self.memory.identityGenerator.next()
-        let snapshotID = self.memory.identityGenerator.next()
-        let derived = original.derive(snapshotID: snapshotID, objectID: actualObjectID)
-        self.insert(derived, owned: true)
-        return actualObjectID
-    }
-
+    
+    
     /// Create a new object within the frame.
     ///
     /// The method creates a new objects, assigns provided components and
@@ -176,7 +167,7 @@ public class MutableFrame: FrameBase {
     /// generator.
     ///
     /// - Parameters:
-    ///     - objectType: Type of the object to be created.
+    ///     - type: Type of the object to be created.
     ///     - components: List of components to be associated with the newly
     ///       created object.
     ///
@@ -186,21 +177,16 @@ public class MutableFrame: FrameBase {
     ///
     /// - SeeAlso: ``ObjectSnapshot/init(id:snapshotID:type:components:)``
     ///
-    public func create(_ objectType: ObjectType? = nil,
+    public func create(_ type: ObjectType,
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         
-        let objectID = memory.identityGenerator.next()
-        let snapshotID = memory.identityGenerator.next()
-        let object = ObjectSnapshot(id: objectID,
-                                    snapshotID: snapshotID,
-                                    type: objectType,
-                                    components: components)
-        let ref = SnapshotReference(snapshot: object,
+        let snapshot = memory.createSnapshot(type, components: components)
+        let ref = SnapshotReference(snapshot: snapshot,
                                        owned: true)
-        objects[objectID] = ref
-        snapshotIDs.insert(snapshotID)
-        return objectID
+        objects[snapshot.id] = ref
+        snapshotIDs.insert(snapshot.snapshotID)
+        return snapshot.id
     }
     
     /// Remove an object from the frame and all its dependants.
@@ -279,18 +265,18 @@ public class MutableFrame: FrameBase {
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
         precondition(state.isMutable, "Trying to modify a frozen frame")
 
-        guard let ref = self.objects[id] else {
+        guard let originalRef = self.objects[id] else {
             fatalError("No object with ID \(id) in frame ID \(self.id)")
         }
-        if ref.owned {
-            return ref.snapshot
+        if originalRef.owned {
+            return originalRef.snapshot
         }
         else {
-            let newSnapshotID = self.memory.identityGenerator.next()
-            let derived = ref.snapshot.derive(snapshotID: newSnapshotID)
+            let newSnapshotID = memory.allocateID()
+            let derived = originalRef.snapshot.derive(snapshotID: newSnapshotID)
             let ref = SnapshotReference(snapshot: derived, owned: true)
             self.objects[id] = ref
-            self.snapshotIDs.remove(ref.snapshot.snapshotID)
+            self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
             self.snapshotIDs.insert(newSnapshotID)
             
             return derived

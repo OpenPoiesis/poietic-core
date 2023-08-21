@@ -8,6 +8,15 @@
 import XCTest
 @testable import PoieticCore
 
+let TestType = ObjectType(name: "TestPlain",
+                          structuralType: .node,
+                          components: [])
+let TestNodeType = ObjectType(name: "TestNode",
+                          structuralType: .node,
+                          components: [])
+let TestEdgeType = ObjectType(name: "TestEdge",
+                          structuralType: .edge,
+                          components: [])
 
 final class ObjectMemoryTests: XCTestCase {
     func testEmpty() throws {
@@ -27,8 +36,8 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         
         let frame = db.deriveFrame()
-        let a = frame.create()
-        let b = frame.create()
+        let a = frame.create(TestType)
+        let b = frame.create(TestType)
         
         XCTAssertTrue(frame.contains(a))
         XCTAssertTrue(frame.contains(b))
@@ -46,7 +55,7 @@ final class ObjectMemoryTests: XCTestCase {
     func testMakeObjectFrozenAfterAccept() throws {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
-        let a = frame.create()
+        let a = frame.create(TestType)
         try db.accept(frame)
         
         let obj = db.currentFrame.object(a)
@@ -56,7 +65,7 @@ final class ObjectMemoryTests: XCTestCase {
     func testDiscard() throws {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
-        let _ = frame.create()
+        let _ = frame.create(TestType)
         
         db.discard(frame)
         
@@ -68,7 +77,7 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         let originalFrame = db.deriveFrame()
         
-        let a = originalFrame.create()
+        let a = originalFrame.create(TestType)
         try db.accept(originalFrame)
         
         let originalVersion = db.currentFrameID
@@ -89,24 +98,29 @@ final class ObjectMemoryTests: XCTestCase {
     func testRemoveObjectCascading() throws {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
-        frame.insert(Node(id: 1, snapshotID: 10), owned: true)
-        frame.insert(Node(id: 2, snapshotID: 20), owned: true)
-        frame.insert(Edge(id: 3, snapshotID: 40,
-                          origin: 1,
-                          target: 2), owned: true)
-        let removed = frame.removeCascading(1)
-        XCTAssertEqual(removed.count, 1)
-        XCTAssertTrue(removed.contains(3))
 
-        XCTAssertFalse(frame.contains(1))
-        XCTAssertFalse(frame.contains(3))
-        XCTAssertTrue(frame.contains(2))
+        let node1 = db.createSnapshot(TestNodeType)
+        frame.insert(node1, owned: true)
+
+        let node2 = db.createSnapshot(TestNodeType)
+        frame.insert(node2, owned: true)
+
+        let edge = db.createSnapshot(TestEdgeType, structuralReferences: [1,2])
+        frame.insert(edge, owned: true)
+
+        let removed = frame.removeCascading(node1.id)
+        XCTAssertEqual(removed.count, 1)
+        XCTAssertTrue(removed.contains(edge.id))
+
+        XCTAssertFalse(frame.contains(node1.id))
+        XCTAssertFalse(frame.contains(edge.id))
+        XCTAssertTrue(frame.contains(node2.id))
     }
 
     func testFrameMutableObject() throws {
         let db = ObjectMemory()
         let original = db.deriveFrame()
-        let id = original.create()
+        let id = original.create(TestType)
         let originalSnap = original.object(id)!
         try db.accept(original)
         
@@ -120,11 +134,27 @@ final class ObjectMemoryTests: XCTestCase {
         XCTAssertIdentical(derivedSnap, derivedSnap2)
     }
     
+    func testFrameMutableObjectRemovesPreviousSnapshot() throws {
+        let db = ObjectMemory()
+        let original = db.deriveFrame()
+        let id = original.create(TestType)
+        let originalSnap = original.object(id)!
+        try db.accept(original)
+        
+        let derived = db.deriveFrame()
+        let derivedSnap = derived.mutableObject(id)
+        
+        XCTAssertFalse(derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
+        XCTAssertTrue(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
+        XCTAssertFalse(derived.snapshotIDs.contains(originalSnap.snapshotID))
+        XCTAssertTrue(derived.snapshotIDs.contains(derivedSnap.snapshotID))
+    }
+    
     func testModifyAttribute() throws {
         let db = ObjectMemory()
         let original = db.deriveFrame()
         
-        let a = original.create(components: [TestComponent(text: "before")])
+        let a = original.create(TestType, components: [TestComponent(text: "before")])
         try db.accept(original)
         
         let a2 = db.currentFrame.object(a)!
@@ -152,11 +182,11 @@ final class ObjectMemoryTests: XCTestCase {
         let v0 = db.currentFrameID!
         
         let frame1 = db.deriveFrame()
-        let a = frame1.create()
+        let a = frame1.create(TestType)
         try db.accept(frame1)
         
         let frame2 = db.deriveFrame()
-        let b = frame2.create()
+        let b = frame2.create(TestType)
         try db.accept(frame2)
         
         XCTAssertTrue(db.currentFrame.contains(a))
@@ -183,7 +213,7 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         
         let frame1 = db.deriveFrame()
-        let a = frame1.create(components: [TestComponent(text: "before")])
+        let a = frame1.create(TestType, components: [TestComponent(text: "before")])
         try db.accept(frame1)
         
         let frame2 = db.deriveFrame()
@@ -202,11 +232,11 @@ final class ObjectMemoryTests: XCTestCase {
         let v0 = db.currentFrameID!
 
         let frame1 = db.deriveFrame()
-        let a = frame1.create()
+        let a = frame1.create(TestType)
         try db.accept(frame1)
 
         let frame2 = db.deriveFrame()
-        let b = frame2.create()
+        let b = frame2.create(TestType)
         try db.accept(frame2)
         
         db.undo(to: frame1.id)
@@ -246,13 +276,13 @@ final class ObjectMemoryTests: XCTestCase {
         let v0 = db.currentFrameID!
 
         let frame1 = db.deriveFrame()
-        let a = frame1.create()
+        let a = frame1.create(TestType)
         try db.accept(frame1)
 
         db.undo(to: v0)
         
         let frame2 = db.deriveFrame()
-        let b = frame2.create()
+        let b = frame2.create(TestType)
         try db.accept(frame2)
         
         XCTAssertEqual(db.currentFrameID, frame2.id)
@@ -269,8 +299,8 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
         let graph = frame.mutableGraph
-        let a = graph.createNode(TestObjectType)
-        let b = graph.createNode(TestObjectType)
+        let a = graph.createNode(TestType)
+        let b = graph.createNode(TestType)
         
         let constraint = NodeConstraint(name: "test",
                                         match: AnyPredicate(),
