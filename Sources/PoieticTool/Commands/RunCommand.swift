@@ -139,7 +139,7 @@ func compile(frame: MutableFrame) throws -> CompiledModel {
     catch let error as DomainError {
         for (id, issues) in error.issues {
             for issue in issues {
-                let object = frame.object(id)!
+                let object = frame.object(id)
                 let label: String
                 if let name = object.name {
                     label = "\(id)(\(name))"

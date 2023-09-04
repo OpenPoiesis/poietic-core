@@ -65,7 +65,7 @@ public class Neighborhood {
             case .incoming: endpointID = edge.origin
             case .outgoing: endpointID = edge.target
             }
-            let node = graph.node(endpointID)!
+            let node = graph.node(endpointID)
             return node
         }
     }

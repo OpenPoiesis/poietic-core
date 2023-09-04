@@ -92,7 +92,7 @@ extension Lexer {
 
     /// Parse and return next token.
     ///
-    /// Returns a token of type ``TokenType/empty`` when the end of the
+    /// Returns a token of type ``TokenTypeProtocol/empty`` when the end of the
     /// string has been reached.
     ///
     public mutating func next() -> Token<TokenType> {

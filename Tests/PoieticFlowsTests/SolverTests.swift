@@ -123,7 +123,7 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let node = graph.node(stock)!
+        let node = graph.node(stock)
         node.snapshot[StockComponent.self]!.allowsNegative = true
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
@@ -145,7 +145,7 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let node = graph.node(stock)!
+        let node = graph.node(stock)
         node.snapshot[StockComponent.self]!.allowsNegative = false
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
@@ -167,7 +167,7 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let obj = graph.node(stock)!
+        let obj = graph.node(stock)
         obj.snapshot[StockComponent.self]!.allowsNegative = false
         // FIXME: There is a bug in the expression parser
         let flow = graph.createNode(FlowsMetamodel.Flow,
@@ -189,7 +189,7 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let obj = graph.node(stock)!
+        let obj = graph.node(stock)
         obj.snapshot[StockComponent.self]!.allowsNegative = false
         // FIXME: There is a bug in the expression parser
         let flow = graph.createNode(FlowsMetamodel.Flow,
@@ -212,7 +212,7 @@ final class TestSolver: XCTestCase {
         let source = graph.createNode(FlowsMetamodel.Stock,
                                       name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let sourceNode = graph.node(source)!
+        let sourceNode = graph.node(source)
         sourceNode.snapshot[StockComponent.self]!.allowsNegative = false
 
         let happy = graph.createNode(FlowsMetamodel.Stock,
@@ -224,7 +224,7 @@ final class TestSolver: XCTestCase {
         let happyFlow = graph.createNode(FlowsMetamodel.Flow,
                                          name: "happy_flow",
                                          components: [FormulaComponent(expression: "10")])
-        let happyFlowNode = graph.node(happyFlow)!
+        let happyFlowNode = graph.node(happyFlow)
         happyFlowNode.snapshot[FlowComponent.self]!.priority = 1
 
         graph.createEdge(FlowsMetamodel.Drains,
@@ -235,7 +235,7 @@ final class TestSolver: XCTestCase {
         let sadFlow = graph.createNode(FlowsMetamodel.Flow,
                                        name: "sad_flow",
                                        components: [FormulaComponent(expression: "10")])
-        let sadFlowNode = graph.node(sadFlow)!
+        let sadFlowNode = graph.node(sadFlow)
         sadFlowNode.snapshot[FlowComponent.self]!.priority = 2
 
         graph.createEdge(FlowsMetamodel.Drains,

@@ -159,7 +159,7 @@ public class Compiler {
         for stock in stocks {
             let sortedOutflows = outflows[stock.id]!.map {
                 // 1. Get the priority component
-                    let node = graph.node($0)!
+                    let node = graph.node($0)
                     let component: FlowComponent = node[FlowComponent.self]!
                     return (id: $0, priority: component.priority)
                 }

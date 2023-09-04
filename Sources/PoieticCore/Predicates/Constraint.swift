@@ -70,7 +70,7 @@ public class Constraint {
     /// Check the frame for the constraint and return a list of nodes that
     /// violate the constraint
     ///
-    public func check(_ frame: FrameBase) -> [ObjectID] {
+    public func check(_ frame: Frame) -> [ObjectID] {
         let matched = frame.snapshots.filter {
             match.match(frame: frame, object: $0)
         }
@@ -82,7 +82,7 @@ public class Constraint {
 /// Definition of a constraint satisfaction requirement.
 ///
 public protocol ConstraintRequirement {
-    func check(frame: FrameBase, objects: [ObjectSnapshot]) -> [ObjectID]
+    func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID]
 }
 
 
@@ -99,7 +99,7 @@ public class RejectAll: ConstraintRequirement {
     /// Returns all objects it is provided – meaning, that all of them are
     /// violating the constraint.
     ///
-    public func check(frame: FrameBase, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
         /// We reject whatever comes in
         return objects.map { $0.id }
     }
@@ -118,7 +118,7 @@ public class AcceptAll: ConstraintRequirement {
     /// Returns an empty list, meaning that none of the objects are violating
     /// the constraint.
     ///
-    public func check(frame: FrameBase, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
         // We accept everything, therefore we do not return any violations.
         return []
     }
@@ -150,7 +150,7 @@ public class UniqueProperty<Value>: ConstraintRequirement
     /// value from each of the objects and returns a list of those objects
     /// that have duplicate values.
     /// 
-    public func check(frame: FrameBase, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
         var seen: [Value:[ObjectID]] = [:]
         
         for object in objects {

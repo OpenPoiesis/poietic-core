@@ -49,7 +49,7 @@ final class ObjectMemoryTests: XCTestCase {
         try db.accept(frame)
         
         let obj = db.currentFrame.object(a)
-        XCTAssertEqual(obj?.state, VersionState.frozen)
+        XCTAssertEqual(obj.state, VersionState.frozen)
     }
     
     func testDiscard() throws {
@@ -111,7 +111,7 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         let original = db.deriveFrame()
         let id = original.create(TestType)
-        let originalSnap = original.object(id)!
+        let originalSnap = original.object(id)
         try db.accept(original)
         
         let derived = db.deriveFrame()
@@ -128,7 +128,7 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         let original = db.deriveFrame()
         let id = original.create(TestType)
-        let originalSnap = original.object(id)!
+        let originalSnap = original.object(id)
         try db.accept(original)
         
         let derived = db.deriveFrame()
@@ -147,22 +147,22 @@ final class ObjectMemoryTests: XCTestCase {
         let a = original.create(TestType, components: [TestComponent(text: "before")])
         try db.accept(original)
         
-        let a2 = db.currentFrame.object(a)!
+        let a2 = db.currentFrame.object(a)
         XCTAssertEqual(a2[TestComponent.self]!.text, "before")
         
         let altered = db.deriveFrame()
         altered.setComponent(a, component: TestComponent(text: "after"))
         
         XCTAssertTrue(altered.hasChanges)
-        let a3 = altered.object(a)!
+        let a3 = altered.object(a)
         XCTAssertEqual(a3[TestComponent.self]!.text, "after")
         
         try db.accept(altered)
         
-        let aCurrentAlt = db.currentFrame.object(a)!
+        let aCurrentAlt = db.currentFrame.object(a)
         XCTAssertEqual(aCurrentAlt[TestComponent.self]!.text, "after")
         
-        let aOriginal = db.frame(original.id)!.object(a)!
+        let aOriginal = db.frame(original.id)!.object(a)
         XCTAssertEqual(aOriginal[TestComponent.self]!.text, "before")
     }
     
@@ -212,7 +212,7 @@ final class ObjectMemoryTests: XCTestCase {
         try db.accept(frame2)
         
         db.undo(to: frame1.id)
-        let altered = db.currentFrame.object(a)!
+        let altered = db.currentFrame.object(a)
         XCTAssertEqual(altered[TestComponent.self]!.text, "before")
     }
     

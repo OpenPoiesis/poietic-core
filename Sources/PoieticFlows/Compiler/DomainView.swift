@@ -284,7 +284,7 @@ public class DomainView {
     
     // FIXME: This is expensive - parsing expression every single time.
     public func parameterOutlets(_ nodeID: ObjectID) -> [ParameterOutlet] {
-        let node = graph.node(nodeID)!
+        let node = graph.node(nodeID)
         var outlets: [ParameterOutlet] = []
         if let expression = try? node.parsedExpression() {
             let vars: Set<String> = Set(expression.allVariables)
@@ -308,7 +308,7 @@ public class DomainView {
         var result: [String: ParameterStatus] = [:]
 
         for edge in incomingHood.edges {
-            let node = graph.node(edge.origin)!
+            let node = graph.node(edge.origin)
             let name = node.name!
             if unseen.contains(name) {
                 result[name] = .used(node: node.id, edge: edge.id)
@@ -342,7 +342,7 @@ public class DomainView {
         let sorted = try graph.topologicalSort(nodes, edges: edges)
         
         let result: [Node] = sorted.map {
-            graph.node($0)!
+            graph.node($0)
         }
         
         return result
@@ -364,7 +364,7 @@ public class DomainView {
         let sorted = try graph.topologicalSort(nodes, edges: edges)
         
         let result: [Node] = sorted.map {
-            graph.node($0)!
+            graph.node($0)
         }
         
         return result
@@ -383,7 +383,7 @@ public class DomainView {
     /// - SeeAlso: ``flowDrains(_:)``,
     ///
     public func flowFills(_ flowID: ObjectID) -> ObjectID? {
-        let flowNode = graph.node(flowID)!
+        let flowNode = graph.node(flowID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
@@ -409,7 +409,7 @@ public class DomainView {
     /// - SeeAlso: ``flowDrains(_:)``,
     ///
     public func flowDrains(_ flowID: ObjectID) -> ObjectID? {
-        let flowNode = graph.node(flowID)!
+        let flowNode = graph.node(flowID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
@@ -436,7 +436,7 @@ public class DomainView {
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func stockInflows(_ stockID: ObjectID) -> [ObjectID] {
-        let stockNode = graph.node(stockID)!
+        let stockNode = graph.node(stockID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
@@ -459,7 +459,7 @@ public class DomainView {
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func stockOutflows(_ stockID: ObjectID) -> [ObjectID] {
-        let stockNode = graph.node(stockID)!
+        let stockNode = graph.node(stockID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
@@ -484,7 +484,7 @@ public class DomainView {
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func implicitFills(_ stockID: ObjectID) -> [ObjectID] {
-        let stockNode = graph.node(stockID)!
+        let stockNode = graph.node(stockID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
@@ -510,7 +510,7 @@ public class DomainView {
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func implicitDrains(_ stockID: ObjectID) -> [ObjectID] {
-        let stockNode = graph.node(stockID)!
+        let stockNode = graph.node(stockID)
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         

@@ -10,13 +10,15 @@
 /// Fame Base is a protocol for all version frame types: ``MutableFrame`` and
 /// ``StableFrame``
 ///
-public protocol FrameBase {
+public protocol Frame {
+    var id: FrameID { get }
+    
     // TODO: Change this to Sequence<ObjectSnapshot>
     /// Get a list of all snapshots in the frame.
     ///
-    var  snapshots: [ObjectSnapshot] { get }
+    var snapshots: [ObjectSnapshot] { get }
 
-    /// Get a graph view of the frame.
+    /// Get view of the frame as a graph.
     ///
     var graph: Graph { get }
 
@@ -29,9 +31,7 @@ public protocol FrameBase {
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    /// - TODO: This should rather return an non-optional and raise an error.
-    ///
-    func object(_ id: ObjectID) -> ObjectSnapshot?
+    func object(_ id: ObjectID) -> ObjectSnapshot
     
     /// Asserts that the frame satisfies the given constraint. Raises a
     /// `ConstraintViolation` error if the frame objects violate the constraints.
@@ -47,7 +47,7 @@ public protocol FrameBase {
     func filter(type: ObjectType) -> [ObjectSnapshot]
 }
 
-extension FrameBase{
+extension Frame{
     public func structuralDependants(id: ObjectID) -> [ObjectID] {
         let deps = snapshots.filter {
             $0.structuralDependencies.contains(id)
@@ -92,6 +92,12 @@ extension FrameBase{
             }
         }
     }
+    
+    public func filter(_ predicate: Predicate) -> [ObjectSnapshot] {
+        return snapshots.filter {
+            predicate.match(frame: self, object: $0)
+        }
+    }
 }
 
 /// Stable design frame that can not be mutated.
@@ -102,9 +108,9 @@ extension FrameBase{
 /// To create a derivative frame from a stable frame use
 /// ``ObjectMemory/deriveFrame(original:id:)``.
 ///
-/// - SeeAlso:  ``MutableFrame``
+/// - SeeAlso: ``MutableFrame``
 ///
-public class StableFrame: FrameBase {
+public class StableFrame: Frame {
     /// ID of the frame.
     ///
     /// ID is unique within the object memory.
@@ -152,8 +158,11 @@ public class StableFrame: FrameBase {
     
     /// Return an object snapshots with given object ID.
     ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot? {
-        return _snapshots[id]
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
+        guard let snapshot = _snapshots[id] else {
+            fatalError("Frame \(self.id) does not contain object \(id)")
+        }
+        return snapshot
     }
     
     /// Get an immutable graph view of the frame.
@@ -161,11 +170,9 @@ public class StableFrame: FrameBase {
     public var graph: Graph {
         return UnboundGraph(frame: self)
     }
-    
-
 }
 
-extension FrameBase {
+extension Frame {
     /// Get object by a name, if the object contains a named component.
     ///
     /// A method that searches the frame for a first object with
@@ -204,7 +211,7 @@ extension FrameBase {
     ///
     public func object(stringReference: String) -> ObjectSnapshot? {
         if let id = ObjectID(stringReference), contains(id) {
-            return object(id)!
+            return object(id)
         }
         else if let snapshot = object(named: stringReference) {
             return snapshot

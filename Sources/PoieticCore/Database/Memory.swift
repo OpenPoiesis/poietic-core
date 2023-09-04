@@ -86,7 +86,7 @@ public struct ConstraintViolationError: Error {
 ///    or create a new empty frame using ``createFrame(id:)`` which produces
 ///    a new ``MutableFrame``.
 /// 2. Add objects to the derived frame using ``MutableFrame/create(_:components:)``
-///    or ``MutableFrame/insertDerived(_:id:)``.
+///    or ``MutableFrame/insert(_:owned:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
 ///    snapshot of the object using ``MutableFrame/mutableObject(_:)`` and
 ///    make changes using the returned new snapshot.

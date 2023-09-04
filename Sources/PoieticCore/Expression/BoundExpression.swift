@@ -7,7 +7,7 @@
 
 // TODO: Needs attention, a bit older design.
 
-enum ExpressionError: Error {
+public enum ExpressionError: Error {
     case unknownVariable(String)
     case unknownFunction(String)
     case functionError(FunctionError)

@@ -41,7 +41,7 @@ public class EdgeEndpointTypes: ConstraintRequirement {
         self.edge = edge
     }
     
-    public func check(frame: FrameBase, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
         let graph = frame.graph
         var violations: [ObjectID] = []
         
@@ -51,14 +51,14 @@ public class EdgeEndpointTypes: ConstraintRequirement {
             }
 
             if let predicate = self.origin {
-                let node = graph.node(edge.origin)!
+                let node = graph.node(edge.origin)
                 if !predicate.match(frame: frame, object: node.snapshot) {
                     violations.append(edge.id)
                     continue
                 }
             }
             if let predicate = self.target {
-                let node = graph.node(edge.target)!
+                let node = graph.node(edge.target)
                 if !predicate.match(frame: frame, object: node.snapshot) {
                     violations.append(edge.id)
                     continue

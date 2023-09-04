@@ -11,7 +11,7 @@
 import PoieticCore
 import PoieticFlows
 
-extension FrameBase {
+extension Frame {
     /// Get an object by a string reference - the string might be an object name
     /// or object ID.
     ///
@@ -24,7 +24,7 @@ extension FrameBase {
     ///
     public func object(stringReference: String) -> ObjectSnapshot? {
         if let id = ObjectID(stringReference), contains(id) {
-            return object(id)!
+            return object(id)
         }
         else if let snapshot = object(named: stringReference) {
             return snapshot

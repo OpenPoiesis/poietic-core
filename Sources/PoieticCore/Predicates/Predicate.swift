@@ -13,7 +13,7 @@ public enum LogicalConnective {
 /// A predicate.
 ///
 public protocol Predicate {
-    func match(frame: FrameBase, object: ObjectSnapshot) -> Bool
+    func match(frame: Frame, object: ObjectSnapshot) -> Bool
     func and(_ predicate: Predicate) -> CompoundPredicate
     func or(_ predicate: Predicate) -> CompoundPredicate
     func not() -> Predicate
@@ -42,7 +42,7 @@ public class CompoundPredicate: Predicate {
         self.predicates = predicates
     }
     
-    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
         switch connective {
         case .and: return predicates.allSatisfy{ $0.match(frame: frame, object: object) }
         case .or: return predicates.contains{ $0.match(frame: frame, object: object) }
@@ -55,7 +55,7 @@ public class NegationPredicate: Predicate {
     public init(_ predicate: any Predicate) {
         self.predicate = predicate
     }
-    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
         return !predicate.match(frame: frame, object: object)
     }
 }
@@ -66,7 +66,7 @@ public class AnyPredicate: Predicate {
     
     /// Matches any node – always returns `true`.
     ///
-    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
         return true
     }
 }
@@ -78,7 +78,7 @@ public class HasComponentPredicate: Predicate {
         self.type = type
     }
 
-    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
         return object.components.has(self.type)
     }
     
@@ -93,7 +93,7 @@ public class IsTypePredicate: Predicate {
     public init(_ type: ObjectType) {
         self.types = [type]
     }
-    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
         return types.allSatisfy{
             object.type === $0
         }

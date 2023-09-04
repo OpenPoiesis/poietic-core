@@ -33,7 +33,7 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``ObjectMemory``
 - ``ObjectSnapshot``
 
-- ``FrameBase``
+- ``Frame``
 - ``StableFrame``
 - ``MutableFrame``
 
@@ -74,8 +74,6 @@ For querying features of a graph there is ``Neighborhood`` and
 ### Predicates
 
 - ``Predicate``
-- ``NodePredicate``
-- ``EdgePredicate``
 - ``CompoundPredicate``
 - ``EdgeObjectPredicate``
 - ``AnyPredicate``
@@ -86,8 +84,6 @@ For querying features of a graph there is ``Neighborhood`` and
 ### Constraints
 
 - ``Constraint``
-- ``EdgeConstraint``
-- ``NodeConstraint``
 - ``EdgeEndpointTypes``
 - ``RejectAll``
 - ``AcceptAll``

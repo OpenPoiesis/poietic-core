@@ -24,14 +24,14 @@ struct SnapshotReference {
 /// The basic changes that can be done with a mutable frame:
 ///
 /// - Add objects to the frame using ``MutableFrame/create(_:components:)``
-///    or ``MutableFrame/insertDerived(_:id:)``.
+///    or ``MutableFrame/insert(_:owned:)``.
 /// - Mutate existing objects in the frame using
 ///   ``MutableFrame/mutableObject(_:)``.
 ///
 /// Completed change set is expected to be accepted to the memory using
 /// ``ObjectMemory/accept(_:appendHistory:)``.
 ///
-public class MutableFrame: FrameBase {
+public class MutableFrame: Frame {
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
@@ -49,8 +49,11 @@ public class MutableFrame: FrameBase {
     
     /// Get an object version of object with identity `id`.
     ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot? {
-        return self.objects[id].map { $0.snapshot }
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
+        guard let ref = objects[id] else {
+            fatalError("Invalid object ID \(id) in frame \(self.id).")
+        }
+        return ref.snapshot
     }
     
     /// Object memory with which this frame is associated with.
@@ -134,7 +137,7 @@ public class MutableFrame: FrameBase {
     ///
     /// Caller must be sure that the snapshot is not owned by anyone.
     ///
-    func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
+    public func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
                      "Trying to modify a frame that is not mutable")
         precondition(snapshot.state != .uninitialized,

@@ -50,7 +50,7 @@ poietic add Flow name=expenses formula=50
             }
             
             let id = graph.createNode(type)
-            let object = frame.object(id)!
+            let object = frame.object(id)
             
             for item in attributeAssignments {
                 guard let split = parseValueAssignment(item) else {

@@ -6,37 +6,13 @@
 //
 
 
+
 /// Object representing a graph node.
 ///
 /// Graph nodes are objects that can be connected to other nodes with edges.
 ///
 /// - SeeAlso: `Edge`, `Graph`, `MutableGraph`
 ///
-#if false
-public class _Node: ObjectSnapshot {
-    public override func derive(snapshotID: SnapshotID,
-                                objectID: ObjectID? = nil) -> ObjectSnapshot {
-        return Node(id: objectID ?? self.id,
-                    snapshotID: snapshotID,
-                    type: self.type,
-                    components: components.components)
-    }
-    public override var structuralTypeName: String {
-        return "node"
-    }
-
-}
-#endif
-
-public protocol ObjectProtocol {
-    var id: ObjectID { get }
-    var type: ObjectType { get }
-    var name: String? { get }
-    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
-
-    func attribute(forKey key: String) -> ForeignValue?
-}
-
 public struct Node {
     public let snapshot: ObjectSnapshot
     
@@ -100,11 +76,16 @@ extension Edge: ObjectProtocol {
 // it means that we made a programming error. We are rarely curious about
 // the IDs presence in the graph.
 
-/// Protocol for a graph structure.
+/// Protocol for views of a frame as a graph.
+///
+/// You can access the graph-related contents of the frame through the
+/// graph view. The view gives access to objects of structural type ``StructuralType/node``
+/// and ``StructuralType/edge`` for nodes and edges respectively. Objects
+/// of other structural types are ignored.
 ///
 public protocol Graph {
     /// Frame that the graph is being bound to.
-    var frame: FrameBase { get }
+    var frame: Frame { get }
     
     /// List of indices of all nodes
     var nodeIDs: [ObjectID] { get }
@@ -120,11 +101,11 @@ public protocol Graph {
 
     /// Get a node by ID.
     ///
-    func node(_ index: ObjectID) -> Node?
+    func node(_ index: ObjectID) -> Node
 
     /// Get an edge by ID.
     ///
-    func edge(_ index: ObjectID) -> Edge?
+    func edge(_ index: ObjectID) -> Edge
 
     /// Check whether the graph contains a node and whether the node is valid.
     ///
@@ -224,16 +205,22 @@ extension Graph {
     ///
     /// If id is `nil` then returns nil.
     ///
-    public func node(_ oid: ObjectID) -> Node? {
-        return nodes.first { $0.id == oid }
+    public func node(_ oid: ObjectID) -> Node {
+        guard let first: Node = nodes.first(where: { $0.id == oid }) else {
+            fatalError("No node \(oid) in frame \(frame.id)")
+        }
+        return first
     }
 
     /// Get an edge by ID.
     ///
     /// If id is `nil` then returns nil.
     ///
-    public func edge(_ oid: ObjectID) -> Edge? {
-        return edges.first { $0.id == oid }
+    public func edge(_ oid: ObjectID) -> Edge {
+        guard let first:Edge = edges.first(where: { $0.id == oid }) else {
+            fatalError("No edge \(oid) in frame \(frame.id)")
+        }
+        return first
     }
 
     public func outgoing(_ origin: ObjectID) -> [Edge] {
@@ -323,28 +310,22 @@ extension Graph {
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
 public class UnboundGraph: Graph {
-    public let frame: FrameBase
+    public let frame: Frame
     
-    public init(frame: FrameBase) {
+    public init(frame: Frame) {
         self.frame = frame
     }
     
     /// Get a node by ID.
     ///
     public func node(_ index: ObjectID) -> Node? {
-        guard let snapshot = frame.object(index) else {
-            return nil
-        }
-        return Node(snapshot)
+        return Node(frame.object(index))
     }
 
     /// Get an edge by ID.
     ///
     public func edge(_ index: ObjectID) -> Edge? {
-        guard let snapshot = frame.object(index) else {
-            return nil
-        }
-        return Edge(snapshot)
+        return Edge(frame.object(index))
     }
 
     public func contains(node: ObjectID) -> Bool {
