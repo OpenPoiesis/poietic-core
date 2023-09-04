@@ -13,8 +13,9 @@ extension Node {
     /// - Returns: Unbound expression
     /// - Throws: ``SyntaxError`` when the expression can not be parsed.
     ///
+    @available(*, deprecated, message: "Use snapshot[FormulaComponent.self")
     public func parsedExpression() throws -> UnboundExpression? {
-        guard let component: FormulaComponent = components[FormulaComponent.self] else {
+        guard let component: FormulaComponent = snapshot[FormulaComponent.self] else {
             return nil
         }
         let parser = ExpressionParser(string: component.expressionString)

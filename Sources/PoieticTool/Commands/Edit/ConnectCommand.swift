@@ -51,7 +51,7 @@ extension PoieticTool {
                 throw ToolError.unknownObject( self.origin)
             }
             
-            guard let origin = originObject as? Node else {
+            guard let origin = Node(originObject) else {
                 throw ToolError.nodeExpected(self.origin)
 
             }
@@ -60,7 +60,7 @@ extension PoieticTool {
                 throw ToolError.unknownObject(self.target)
             }
 
-            guard let target = targetObject as? Node else {
+            guard let target = Node(targetObject) else {
                 throw ToolError.nodeExpected(target)
 
             }

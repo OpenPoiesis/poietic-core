@@ -87,11 +87,11 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
     }
     
     public func insert(_ node: Node) {
-        self.mutableFrame.insert(node)
+        self.mutableFrame.insert(node.snapshot)
     }
     
     public func insert(_ edge: Edge) {
-        self.mutableFrame.insert(edge)
+        self.mutableFrame.insert(edge.snapshot)
     }
     // Object creation
     public func createEdge(_ type: ObjectType,
@@ -108,7 +108,8 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
             components: components,
-            structuralReferences: [origin, target]
+            structuralReferences: [origin, target],
+            initialized: false
         )
 
         for componentType in type.components {
@@ -116,7 +117,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                 snapshot.components.set(componentType.init())
             }
         }
-        
+        snapshot.makeInitialized()
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id
     }
@@ -154,7 +155,8 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
-            components: actualComponents
+            components: actualComponents,
+            initialized: false
         )
 
         for componentType in type.components {
@@ -162,6 +164,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                 snapshot.components.set(componentType.init())
             }
         }
+        snapshot.makeInitialized()
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id
     }

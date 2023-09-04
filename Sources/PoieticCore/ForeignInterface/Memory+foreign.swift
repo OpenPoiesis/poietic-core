@@ -100,7 +100,7 @@ extension ObjectMemory {
         let references: [ObjectID]
         
         switch type.structuralType {
-        case .node, .object:
+        case .node, .unstructured:
             references = []
         case .edge:
             let origin: ObjectID = try record.main.IDValue(for: "origin")
@@ -233,6 +233,7 @@ extension ObjectMemory {
                 frame.insert(snapshot, owned: false)
             }
             // We accept the frame making sure that constraints are met.
+            // FIXME: We need to mark a frame as "OK" in our (non-corrupted) database, so we do not have to accept it.
             try accept(frame)
         }
 

@@ -108,7 +108,7 @@ public class DotExporter {
         var combined: [String:String] = [:]
         
         for style in style?.nodeStyles ?? [] {
-            if style.predicate.match(graph: graph, node: node) {
+            if style.predicate.match(frame: graph.frame, object: node.snapshot) {
                 combined.merge(style.attributes) { (_, new) in new}
             }
         }
@@ -120,7 +120,7 @@ public class DotExporter {
         var combined: [String:String] = [:]
         
         for style in style?.edgeStyles ?? [] {
-            if style.predicate.match(graph: graph, edge: edge) {
+            if style.predicate.match(frame: graph.frame, object: edge.snapshot) {
                 combined.merge(style.attributes) { (_, new) in new}
             }
         }

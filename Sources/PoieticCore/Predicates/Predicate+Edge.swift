@@ -9,18 +9,18 @@
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
 ///
-public class EdgeObjectPredicate: EdgePredicate {
+public class EdgeObjectPredicate: Predicate {
     // FIXME: Is this still required?
     // FIXME: I do not like this class
     // TODO: Use CompoundPredicate
     
-    let originPredicate: NodePredicate?
-    let targetPredicate: NodePredicate?
-    let edgePredicate: EdgePredicate?
+    let originPredicate: Predicate?
+    let targetPredicate: Predicate?
+    let edgePredicate: Predicate?
     
-    public init(origin: NodePredicate? = nil,
-                target: NodePredicate? = nil,
-                edge: EdgePredicate? = nil) {
+    public init(origin: Predicate? = nil,
+                target: Predicate? = nil,
+                edge: Predicate? = nil) {
         guard !(origin == nil && target == nil && edge == nil) else {
             preconditionFailure("At least one of the parameters must be set: origin, target or edge")
         }
@@ -30,21 +30,26 @@ public class EdgeObjectPredicate: EdgePredicate {
         self.edgePredicate = edge
     }
     
-    public func match(graph: Graph, edge: Edge) -> Bool {
+    public func match(frame: FrameBase, object: ObjectSnapshot) -> Bool {
+        let graph = frame.graph
+        
+        guard let edge = Edge(object) else {
+            return false
+        }
         if let predicate = originPredicate {
             let node = graph.node(edge.origin)!
-            if !predicate.match(graph: graph, node: node) {
+            if !predicate.match(frame: frame, object: node.snapshot) {
                 return false
             }
         }
         if let predicate = targetPredicate {
             let node = graph.node(edge.target)!
-            if !predicate.match(graph: graph, node: node) {
+            if !predicate.match(frame: frame, object: node.snapshot) {
                 return false
             }
         }
         if let predicate = edgePredicate {
-            if !predicate.match(graph: graph, edge: edge) {
+            if !predicate.match(frame: frame, object: edge.snapshot) {
                 return false
             }
         }

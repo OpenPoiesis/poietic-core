@@ -65,24 +65,27 @@ fileprivate struct NonStringNameComponent: Component, Equatable {
 final class ObjectTests: XCTestCase {
     /// Name should be nil if there is no component with a name.
     func testEmptyName() throws {
-        let object = ObjectSnapshot(id: 1, snapshotID: 1)
+        let object = ObjectSnapshot(id: 1, snapshotID: 1, type: TestType)
         XCTAssertNil(object.name)
     }
     func testNameComponentName() throws {
         let object = ObjectSnapshot(id: 1,
                                     snapshotID: 1,
+                                    type: TestType,
                                     components: [NameComponent(name: "test")])
         XCTAssertEqual(object.name, "test")
     }
     func testCustomNameComponentName() throws {
         let object = ObjectSnapshot(id: 1,
                                     snapshotID: 1,
+                                    type: TestType,
                                     components: [CustomNameComponent(name: "test")])
         XCTAssertEqual(object.name, "test")
     }
     func testNonStringNameComponent() throws {
         let object = ObjectSnapshot(id: 1,
                                     snapshotID: 1,
+                                    type: TestType,
                                     components: [NonStringNameComponent(name: 12345)])
         XCTAssertEqual(object.name, "12345")
     }

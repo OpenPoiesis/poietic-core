@@ -43,6 +43,8 @@ public protocol FrameBase {
     func structuralDependants(id: ObjectID) -> [ObjectID]
     func hasReferentialIntegrity() -> Bool
     func referentialIntegrityViolators() -> [ObjectID]
+    
+    func filter(type: ObjectType) -> [ObjectSnapshot]
 }
 
 extension FrameBase{
@@ -67,13 +69,28 @@ extension FrameBase{
     }
     
     public func assert(constraint: Constraint) throws {
-        let violators = constraint.check(self.graph)
+        let violators = constraint.check(self)
         if violators.isEmpty {
             return
         }
         let violation = ConstraintViolation(constraint: constraint,
                                             objects:violators)
         throw violation
+    }
+    
+    public func filter(type: ObjectType) -> [ObjectSnapshot] {
+        return snapshots.filter { $0.type === type }
+    }
+    
+    public func filter(component type: Component.Type) -> [(ObjectID, Component)] {
+        return snapshots.compactMap {
+            if let component = $0.components[type]{
+                ($0.id, component)
+            }
+            else {
+                nil
+            }
+        }
     }
 }
 

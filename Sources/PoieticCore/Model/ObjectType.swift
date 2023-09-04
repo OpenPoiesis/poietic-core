@@ -5,24 +5,6 @@
 //  Created by Stefan Urbanek on 31/05/2023.
 //
 
-/// Structural type of an object.
-///
-/// Structural type denotes how the object can relate to other objects in
-/// the design.
-///
-public enum StructuralType: String, Equatable {
-    /// Plain object without any relationships with other objects,
-    /// has no dependencies and no objects depend on it.
-    case object
-    
-    /// Graph component representing a node. Can be connected to other nodes
-    /// through an edge.
-    case node
-    
-    /// Graph component representing a connection between two nodes.
-    case edge
-}
-
 /// Object representing a type of a design object.
 ///
 /// ObjectType describes instances of an object – what are their components,

@@ -7,7 +7,7 @@
 
 /// An abstract class representing a version of an object in the database.
 ///
-public class ObjectSnapshot: Identifiable, CustomStringConvertible {
+public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public typealias ID = ObjectID
     
     /// Unique identifier of the version snapshot within the database.
@@ -17,15 +17,22 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public let id: ObjectID
     
+    /// List of components of the object.
     public var components: ComponentSet
     
-    public let type: ObjectType?
+    /// Object type within the problem domain.
+    ///
+    /// The object type is one of types from the design's ``Metamodel``.
+    ///
+    public let type: ObjectType
     
     public var state: VersionState
     
     public var structuralTypeName: String {
         return "object"
     }
+    
+    public let structure: StructuralComponent
     
     // TODO: Make this private. Use Holon.create() and Holon.connect()
     /// Create an empty object.
@@ -36,13 +43,15 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
-                type: ObjectType? = nil,
+                type: ObjectType,
+                structure: StructuralComponent = .unstructured,
                 components: [any Component] = []) {
         self.id = id
         self.snapshotID = snapshotID
         self.components = ComponentSet(components)
         self.type = type
-        self.state = .unstable
+        self.state = .uninitialized
+        self.structure = structure
     }
     
     public convenience init(fromRecord record: ForeignRecord,
@@ -52,7 +61,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         let id: ObjectID = try record.IDValue(for: "object_id")
         let snapshotID: SnapshotID = try record.IDValue(for: "snapshot_id")
         
-        let type: ObjectType?
+        let type: ObjectType
         
         if let typeName = try record.stringValueIfPresent(for: "type") {
             if let objectType = metamodel.objectType(name: typeName) {
@@ -63,7 +72,7 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
             }
         }
         else {
-            type = nil
+            fatalError("No object type provided in the record")
         }
         
         var componentInstances: [any Component] = []
@@ -74,37 +83,67 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
             componentInstances.append(component)
         }
 
+        let structuralType = try record.stringValueIfPresent(for: "structure") ?? "unstructured"
+        let structure: StructuralComponent
+        
+        switch structuralType {
+        case "unstructured":
+            structure = .unstructured
+        case "node":
+            structure = .node
+        case "edge":
+            let origin: ObjectID = try record.IDValue(for: "origin")
+            let target: ObjectID = try record.IDValue(for: "target")
+            structure = .edge(origin, target)
+        default:
+            fatalError("Unknown structural type: '\(structuralType)'")
+        }
+        
         self.init(id: id,
                   snapshotID: snapshotID,
                   type: type,
+                  structure: structure,
                   components: componentInstances)
     }
     
     /// Create a foreign record from the snapshot.
     ///
     public func foreignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
+        var dict: [String:ForeignValue] = [
             "object_id": ForeignValue(id),
             "snapshot_id": ForeignValue(snapshotID),
-            "structural_type": ForeignValue(structuralTypeName),
-            "type": ForeignValue(type?.name ?? "none"),
-        ])
-        return record
+            "structure": ForeignValue(structure.type.rawValue),
+            "type": ForeignValue(type.name),
+        ]
+        
+        switch structure {
+        case .edge(let origin, let target):
+            dict["origin"] = ForeignValue(origin)
+            dict["target"] = ForeignValue(target)
+        default:
+            // Do nothing
+            _ = 0
+        }
+        
+        return ForeignRecord(dict)
     }
     
-    open var description: String {
-        let typeName = self.type?.name ?? "(untyped)"
-        let selfName = String(describing: Swift.type(of: self))
-        return "\(selfName)(id: \(id), ssid: \(snapshotID), type:\(typeName))"
+    public var description: String {
+        let structuralName: String = self.structure.type.rawValue
+        return "\(structuralName)(id: \(id), ssid: \(snapshotID), type:\(type.name))"
     }
    
-    open var prettyDescription: String {
-        let typeName = self.type?.name ?? "(untyped)"
-        let selfName = String(describing: Swift.type(of: self))
+    public var prettyDescription: String {
+        let structuralName: String = self.structure.type.rawValue
 
-        return "\(id) \(selfName) \(typeName)"
+        return "\(id) \(structuralName) \(type.name)"
     }
     
+    func makeInitialized() {
+        precondition(self.state == .uninitialized)
+        self.state = .transient
+    }
+
     func freeze() {
         precondition(self.state != .frozen)
         self.state = .frozen
@@ -114,7 +153,10 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// the list is removed from the frame, this object must be removed as well.
     ///
     var structuralDependencies: [ObjectID] {
-        return []
+        switch structure {
+        case .unstructured, .node: []
+        case .edge(let origin, let target): [origin, target]
+        }
     }
     
     /// - Note: Subclasses are expected to override this method.
@@ -154,28 +196,9 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         case "id": return ForeignValue(id)
         case "snapshot_id": return ForeignValue(snapshotID)
         case "type":
-            if let type {
-                return ForeignValue(type.name)
-            }
-            else {
-                return ForeignValue("untyped")
-            }
-        case "structural_type": return ForeignValue(structuralTypeName)
+            return ForeignValue(type.name)
+        case "structure": return ForeignValue(structure.type.rawValue)
         default:
-            guard let type else {
-                // TODO: Is this a programming error or an user error?
-                // NOTE: I assume this should be a programming error, as the program
-                //       should check for an attribute existence prior trying
-                //       setting it.
-                //       On the other hand, the method is already throwing, so we
-                //       might just throw some unknownAttribute(name) error here.
-                //
-                //       I am undecided at this moment.
-                //
-                
-                fatalError("Trying to set an attribute of an object \(composedIDString) that has no type")
-            }
-            
             guard let componentType = type.componentType(forAttribute: key) else {
                 // TODO: What to do here? Fail? Throw?
                 return nil
@@ -194,20 +217,6 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")
 
-        guard let type else {
-            // TODO: Is this a programming error or an user error?
-            // NOTE: I assume this should be a programming error, as the program
-            //       should check for an attribute existence prior trying
-            //       setting it.
-            //       On the other hand, the method is already throwing, so we
-            //       might just throw some unknownAttribute(name) error here.
-            //
-            //       I am undecided at this moment.
-            //
-            
-            fatalError("Trying to set an attribute of an object \(composedIDString) that has no type")
-        }
-        
         guard let componentType = type.componentType(forAttribute: key) else {
             // TODO: What to do here? Fail? Throw?
             fatalError("Object type \(type.name) has no component with attribute \(key).")
@@ -223,6 +232,10 @@ public class ObjectSnapshot: Identifiable, CustomStringConvertible {
 
     
     public var composedIDString: String {
+        // FIXME: Still needed?
+        return "\(self.id).\(self.snapshotID)"
+    }
+    public var debugID: String {
         return "\(self.id).\(self.snapshotID)"
     }
     

@@ -227,9 +227,8 @@ func parseValueAssignment(_ assignment: String) -> (String, String)? {
 func setAttributeFromString(object: ObjectSnapshot,
                             attribute attributeName: String,
                             string: String) throws {
-    if let type = object.type,
-       let attr = type.attribute(attributeName),
-       attr.type.isArray {
+    let type = object.type
+    if let attr = type.attribute(attributeName), attr.type.isArray {
         let arrayValue = try ForeignValue.fromJSON(string)
         try object.setAttribute(value: arrayValue,
                                 forKey: attributeName)

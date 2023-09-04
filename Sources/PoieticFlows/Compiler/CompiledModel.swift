@@ -22,6 +22,11 @@ public enum ComputationalRepresentation {
     // case dataInput(???)
 }
 
+public struct ControlBinding {
+    let control: ObjectID
+    let target: ObjectID
+}
+
 /// Structure used by the simulator.
 ///
 /// Compiled model is an internal representation of the model design. The
@@ -97,6 +102,11 @@ public struct CompiledModel {
     ///
     let outflows: [ObjectID:[ObjectID]]
 
+    
+    // MARK: Bindings
+    
+    let controlBindings: [ControlBinding] = []
+    
     
     // FIXME: Consolidate all name queries. Not only here, in other places such as tool as well.
     public var namedNodes: [String: Node] {

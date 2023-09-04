@@ -8,16 +8,6 @@
 import XCTest
 @testable import PoieticCore
 
-let TestType = ObjectType(name: "TestPlain",
-                          structuralType: .node,
-                          components: [])
-let TestNodeType = ObjectType(name: "TestNode",
-                          structuralType: .node,
-                          components: [])
-let TestEdgeType = ObjectType(name: "TestEdge",
-                          structuralType: .edge,
-                          components: [])
-
 final class ObjectMemoryTests: XCTestCase {
     func testEmpty() throws {
         let db = ObjectMemory()
@@ -299,12 +289,12 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
         let graph = frame.mutableGraph
-        let a = graph.createNode(TestType)
-        let b = graph.createNode(TestType)
+        let a = graph.createNode(TestNodeType)
+        let b = graph.createNode(TestNodeType)
         
-        let constraint = NodeConstraint(name: "test",
-                                        match: AnyPredicate(),
-                                        requirement: RejectAll())
+        let constraint = Constraint(name: "test",
+                                    match: AnyPredicate(),
+                                    requirement: RejectAll())
 
         // TODO: Test this separately
         try db.addConstraint(constraint)

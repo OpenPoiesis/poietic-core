@@ -55,7 +55,7 @@ extension PoieticTool {
                 left.id < right.id
             }
             for node in nodes {
-                print("    \(node.prettyDescription)")
+                print("    \(node.snapshot.prettyDescription)")
             }
 
             print("EDGES:")
@@ -63,7 +63,7 @@ extension PoieticTool {
                 left.id < right.id
             }
             for edge in edges {
-                print("    \(edge.prettyDescription)")
+                print("    \(edge.snapshot.prettyDescription)")
             }
         }
         

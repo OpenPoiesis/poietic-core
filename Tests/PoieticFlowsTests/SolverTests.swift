@@ -123,8 +123,8 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let obj = graph.node(stock)!
-        obj[StockComponent.self]!.allowsNegative = true
+        let node = graph.node(stock)!
+        node.snapshot[StockComponent.self]!.allowsNegative = true
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     name: "flow",
@@ -145,8 +145,8 @@ final class TestSolver: XCTestCase {
         let stock = graph.createNode(FlowsMetamodel.Stock,
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
-        let obj = graph.node(stock)!
-        obj[StockComponent.self]!.allowsNegative = false
+        let node = graph.node(stock)!
+        node.snapshot[StockComponent.self]!.allowsNegative = false
         
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     name: "flow",
@@ -168,7 +168,7 @@ final class TestSolver: XCTestCase {
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
         let obj = graph.node(stock)!
-        obj[StockComponent.self]!.allowsNegative = false
+        obj.snapshot[StockComponent.self]!.allowsNegative = false
         // FIXME: There is a bug in the expression parser
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     name: "flow",
@@ -190,7 +190,7 @@ final class TestSolver: XCTestCase {
                                      name: "stock",
                                      components: [FormulaComponent(expression: "5")])
         let obj = graph.node(stock)!
-        obj[StockComponent.self]!.allowsNegative = false
+        obj.snapshot[StockComponent.self]!.allowsNegative = false
         // FIXME: There is a bug in the expression parser
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     name: "flow",
@@ -213,7 +213,7 @@ final class TestSolver: XCTestCase {
                                       name: "stock",
                                      components: [FormulaComponent(expression: "5")])
         let sourceNode = graph.node(source)!
-        sourceNode[StockComponent.self]!.allowsNegative = false
+        sourceNode.snapshot[StockComponent.self]!.allowsNegative = false
 
         let happy = graph.createNode(FlowsMetamodel.Stock,
                                      name: "happy",
@@ -225,7 +225,7 @@ final class TestSolver: XCTestCase {
                                          name: "happy_flow",
                                          components: [FormulaComponent(expression: "10")])
         let happyFlowNode = graph.node(happyFlow)!
-        happyFlowNode[FlowComponent.self]!.priority = 1
+        happyFlowNode.snapshot[FlowComponent.self]!.priority = 1
 
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source, target: happyFlow, components: [])
@@ -236,7 +236,7 @@ final class TestSolver: XCTestCase {
                                        name: "sad_flow",
                                        components: [FormulaComponent(expression: "10")])
         let sadFlowNode = graph.node(sadFlow)!
-        sadFlowNode[FlowComponent.self]!.priority = 2
+        sadFlowNode.snapshot[FlowComponent.self]!.priority = 2
 
         graph.createEdge(FlowsMetamodel.Drains,
                          origin: source, target: sadFlow, components: [])

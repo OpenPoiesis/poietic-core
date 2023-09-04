@@ -64,7 +64,7 @@ public class MutableFrame: FrameBase {
     public let id: FrameID
 
     // TODO: Remove state or change to FrameState: open, accepted, discarded
-    var state: VersionState = .unstable
+    var state: VersionState = .uninitialized
     
     var snapshotIDs: Set<SnapshotID>
     var objects: [ObjectID:SnapshotReference]
@@ -137,7 +137,7 @@ public class MutableFrame: FrameBase {
     func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
                      "Trying to modify a frame that is not mutable")
-        precondition(snapshot.state != .unstable,
+        precondition(snapshot.state != .uninitialized,
                      "Trying to insert an unstable object")
         precondition(objects[snapshot.id] == nil,
                      "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")

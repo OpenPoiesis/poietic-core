@@ -28,9 +28,9 @@ public enum EdgeDirection {
 
 public class NeighborhoodSelector {
     public let direction: EdgeDirection
-    public let predicate: EdgePredicate
+    public let predicate: Predicate
     
-    public init(predicate: EdgePredicate,
+    public init(predicate: Predicate,
          direction: EdgeDirection) {
         self.predicate = predicate
         self.direction = direction

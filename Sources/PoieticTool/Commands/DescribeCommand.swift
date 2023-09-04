@@ -44,7 +44,7 @@ extension PoieticTool {
             }
             
             var items: [(String?, String?)] = [
-                ("Type", "\(object.type?.name ?? "untyped")"),
+                ("Type", "\(object.type.name)"),
                 ("Object ID", "\(object.id)"),
                 ("Snapshot ID", "\(object.snapshotID)"),
                 ("Structure", "\(object.structuralTypeName)"),
@@ -55,12 +55,8 @@ extension PoieticTool {
                 components = Array(object.components)
             }
             else {
-                if let types = object.type?.components {
-                    components = types.compactMap { object[$0] }
-                }
-                else {
-                    components = []
-                }
+                let types = object.type.components
+                components = types.compactMap { object[$0] }
             }
             
             for component in components {

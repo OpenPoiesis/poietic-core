@@ -452,10 +452,9 @@ public class ObjectMemory {
         // TODO: What about non-graph constraints – Pure object constraints?
         
         // TODO: We need to get an immutable graph here.
-        let graph = frame.mutableGraph
         var violations: [ConstraintViolation] = []
         for constraint in constraints {
-            let violators = constraint.check(graph)
+            let violators = constraint.check(frame)
             if violators.isEmpty {
                 continue
             }

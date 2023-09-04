@@ -14,7 +14,8 @@ extension ObjectMemory {
     ///     - type: Object type.
     ///     - components: List of components to be set for the newly created object.
     ///     - structuralReferences: List of object references related to the structural object type.
-    ///     - uninitialized: Leave the object uninitialised. Caller must make the object
+    ///     - initialized: If set to `false` then the object is left uninitialised.
+    ///       The Caller must finish initialisation and mark the snapshot
     ///       initialised before inserting it to a frame.
     ///
     /// The `structuralReferences` list must contain:
@@ -28,46 +29,41 @@ extension ObjectMemory {
                                snapshotID: SnapshotID? = nil,
                                components: [any Component]=[],
                                structuralReferences: [ObjectID]=[],
-                               uninitialized: Bool = false) -> ObjectSnapshot {
+                               initialized: Bool = true) -> ObjectSnapshot {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
         let actualID = allocateID(proposed: id)
         let actualSnapshotID = allocateID(proposed: snapshotID)
 
-        let snapshot: ObjectSnapshot
+        let structure: StructuralComponent
         
         switch type.structuralType {
-        case .object:
+        case .unstructured:
             precondition(structuralReferences.isEmpty,
-                         "Structural references provided for a structural type 'object' without references.")
-            snapshot = ObjectSnapshot(id: actualID,
-                                      snapshotID: actualSnapshotID,
-                                      type: type,
-                                      components: components)
+                         "Structural references provided for a structural type 'unstructured' without references.")
+            structure = .unstructured
         case .node:
             precondition(structuralReferences.isEmpty,
                          "Structural references provided for a structural type 'node' without references.")
-            snapshot = Node(id: actualID,
-                            snapshotID: actualSnapshotID,
-                            type: type,
-                            components: components)
+            structure = .node
         case .edge:
             precondition(structuralReferences.count == 2,
                          "Wrong number (\(structuralReferences.count) of structural references provided for a structural type 'edge', expected exactly two.")
             let origin = structuralReferences[0]
             let target = structuralReferences[1]
 
-            snapshot = Edge(id: actualID,
-                            snapshotID: actualSnapshotID,
-                            type: type,
-                            origin: origin,
-                            target: target,
-                            components: components)
+            structure = .edge(origin, target)
         }
 
-        if !uninitialized {
-            snapshot.state = .transient
+        let snapshot = ObjectSnapshot(id: actualID,
+                                      snapshotID: actualSnapshotID,
+                                      type: type,
+                                      structure: structure,
+                                      components: components)
+
+        if initialized {
+            snapshot.makeInitialized()
         }
         return snapshot
     }

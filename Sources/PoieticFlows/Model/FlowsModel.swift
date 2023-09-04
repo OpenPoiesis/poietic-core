@@ -117,6 +117,20 @@ public class FlowsMetamodel: Metamodel {
         ]
     )
     
+    public static let ValueControl = ObjectType(
+        name: "ValueControl",
+        structuralType: .node,
+        components: [
+            ControlComponent.self,
+        ]
+    )
+    public static let Chart = ObjectType(
+        name: "Chart",
+        structuralType: .node,
+        components: [
+        ]
+    )
+
     /// Edge from a stock to a flow. Denotes "what the flow drains".
     ///
     /// - SeeAlso: ``FlowsMetamodel/Flow``, ``FlowsMetamodel/Fills-8qqu8``
@@ -170,7 +184,28 @@ public class FlowsMetamodel: Metamodel {
         ],
         abstract: "Edge between two stocks."
     )
-    
+
+    public static let ControlBinding = ObjectType(
+        name: "ControlBinding",
+        structuralType: .edge,
+        isSystemOwned: false,
+        components: [
+            // None for now
+        ],
+        abstract: "Edge between a control and its target."
+    )
+
+    public static let ChartSeries = ObjectType(
+        // TODO: Origin: Chart, target: Expression
+        name: "ControlBinding",
+        structuralType: .edge,
+        isSystemOwned: false,
+        components: [
+            // None for now
+        ],
+        abstract: "Edge between a control and its target."
+    )
+
     // NOTE: If we were able to use Mirror on types, we would not need this
     /// List of object types for the Stock and Flow metamodel.
     ///
@@ -184,6 +219,12 @@ public class FlowsMetamodel: Metamodel {
         Fills,
         Parameter,
         ImplicitFlow,
+
+        // UI
+        ValueControl,
+        Chart,
+        ControlBinding,
+        
     ]
     
     // MARK: Constraints
@@ -195,8 +236,8 @@ public class FlowsMetamodel: Metamodel {
     /// - Flow must drain (from) a stock, no other kind of node.
     /// - Flow must fill (into) a stock, no other kind of node.
     ///
-    public static let constraints: [any Constraint] = [
-        EdgeConstraint(
+    public static let constraints: [Constraint] = [
+        Constraint(
             name: "flow_fill_is_stock",
             description: """
                          Flow must drain (from) a stock, no other kind of node.
@@ -209,7 +250,7 @@ public class FlowsMetamodel: Metamodel {
             requirement: RejectAll()
         ),
             
-        EdgeConstraint(
+        Constraint(
             name: "flow_drain_is_stock",
             description: """
                          Flow must fill (into) a stock, no other kind of node.
@@ -222,7 +263,7 @@ public class FlowsMetamodel: Metamodel {
             requirement: RejectAll()
         ),
         
-        NodeConstraint(
+        Constraint(
             name: "one_parameter_for_graphical_function",
             description: """
                          Graphical function must not have more than one incoming parameters.
@@ -233,6 +274,21 @@ public class FlowsMetamodel: Metamodel {
                 required: false
             )
         ),
+        
+        // UI
+        Constraint(
+            name: "chart_series",
+            description: """
+                         Chart series edge must originate in Chart and end in Value node.
+                         """,
+            match: EdgeObjectPredicate(
+                origin: IsTypePredicate(Chart),
+                target: IsTypePredicate(Stock),
+                edge: IsTypePredicate(ChartSeries)
+            ),
+            requirement: RejectAll()
+        ),
+
     ]
 
     // MARK: Queries and Predicates

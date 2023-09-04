@@ -26,7 +26,7 @@ public class DotStyle {
 public struct DotEdgeStyle {
     /// Predicate that determines which edges match this style.
     ///
-    public let predicate: EdgePredicate
+    public let predicate: Predicate
 
     /// List of attributes to apply to the edge.
     ///
@@ -35,7 +35,7 @@ public struct DotEdgeStyle {
     /// Creates a Graphviz edge style for edges that match the predicate
     /// `predicate`. The style is defined by the `attributes`.
     ///
-    public init(predicate: EdgePredicate, attributes: [String:String]) {
+    public init(predicate: Predicate, attributes: [String:String]) {
         self.predicate = predicate
         self.attributes = attributes
     }
@@ -46,7 +46,7 @@ public struct DotEdgeStyle {
 public struct DotNodeStyle {
     /// Predicate that determines which nodes match this style.
     ///
-    public let predicate: NodePredicate
+    public let predicate: Predicate
 
     /// List of attributes to apply to the edge.
     ///
@@ -55,7 +55,7 @@ public struct DotNodeStyle {
     /// Creates a Graphviz node style for nodes that match the predicate
     /// `predicate`. The style is defined by the `attributes`.
     ///
-    public init(predicate: NodePredicate, attributes: [String:String]) {
+    public init(predicate: Predicate, attributes: [String:String]) {
         self.predicate = predicate
         self.attributes = attributes
     }

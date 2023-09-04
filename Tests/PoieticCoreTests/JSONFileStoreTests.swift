@@ -18,7 +18,7 @@ class TestPersistentRecord: XCTestCase {
         let record = ForeignRecord([
             "object_id": ForeignValue(10),
             "snapshot_id": ForeignValue(20),
-            "structural_type": ForeignValue("node"),
+            "structure": ForeignValue("node"),
             "type": ForeignValue("Stock"),
         ])
         
@@ -27,8 +27,29 @@ class TestPersistentRecord: XCTestCase {
         
         XCTAssertEqual(obj.id, 10)
         XCTAssertEqual(obj.snapshotID, 20)
+        XCTAssertEqual(obj.structure, .node)
         XCTAssertIdentical(obj.type, TestMetamodel.Stock)
     }
+
+    func testFromRecordEdge() throws {
+        let record = ForeignRecord([
+            "object_id": ForeignValue(10),
+            "snapshot_id": ForeignValue(20),
+            "structure": ForeignValue("edge"),
+            "origin": ForeignValue("30"),
+            "target": ForeignValue("40"),
+            "type": ForeignValue("Stock"),
+        ])
+        
+        let obj: ObjectSnapshot = try ObjectSnapshot(fromRecord: record,
+                                                     metamodel: TestMetamodel.self)
+        
+        XCTAssertEqual(obj.id, 10)
+        XCTAssertEqual(obj.snapshotID, 20)
+        XCTAssertEqual(obj.structure, .edge(30, 40))
+        XCTAssertIdentical(obj.type, TestMetamodel.Stock)
+    }
+
     
     func testComponentToRecord() throws {
         let component = IntegerComponent(value: 10)

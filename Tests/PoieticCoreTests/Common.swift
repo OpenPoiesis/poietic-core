@@ -8,6 +8,17 @@
 @testable import PoieticCore
 
 
+let TestType = ObjectType(name: "TestPlain",
+                          structuralType: .unstructured,
+                          components: [])
+let TestNodeType = ObjectType(name: "TestNode",
+                          structuralType: .node,
+                          components: [])
+let TestEdgeType = ObjectType(name: "TestEdge",
+                          structuralType: .edge,
+                          components: [])
+
+
 struct TestComponent: Component {
     static var componentDescription = ComponentDescription(
         name: "Test",

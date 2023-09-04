@@ -12,7 +12,8 @@
 ///
 /// - SeeAlso: `Edge`, `Graph`, `MutableGraph`
 ///
-public class Node: ObjectSnapshot {
+#if false
+public class _Node: ObjectSnapshot {
     public override func derive(snapshotID: SnapshotID,
                                 objectID: ObjectID? = nil) -> ObjectSnapshot {
         return Node(id: objectID ?? self.id,
@@ -25,111 +26,73 @@ public class Node: ObjectSnapshot {
     }
 
 }
+#endif
 
-/// Edge represents a directed connection between two nodes in a graph.
-///
-/// The edges in the graph have an origin node and a target node associated
-/// with it.
-///
-/// - SeeAlso: `Node`, `Graph`, `MutableGraph`
-public class Edge: ObjectSnapshot {
-    public override var structuralTypeName: String {
-        return "edge"
-    }
+public protocol ObjectProtocol {
+    var id: ObjectID { get }
+    var type: ObjectType { get }
+    var name: String? { get }
+    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 
-    /// Origin node of the edge - a node from which the edge points from.
-    ///
-    /// Origin is a structural dependency. If the origin node is removed from the
-    /// design, then all edges referencing the removed objects will be removed
-    /// as well.
-    ///
-    public var origin: ObjectID {
-        willSet {
-            precondition(self.state.isMutable)
-        }
-    }
-    /// Target node of the edge - a node to which the edge points to.
-    ///
-    /// Target is a structural dependency. If the target node is removed from the
-    /// design, then all edges referencing the removed objects will be removed
-    /// as well.
-    ///
-    public var target: ObjectID {
-        willSet {
-            precondition(self.state.isMutable)
-        }
-    }
+    func attribute(forKey key: String) -> ForeignValue?
+}
+
+public struct Node {
+    public let snapshot: ObjectSnapshot
     
-    /// Create a new edge.
-    ///
-    /// - Parameters:
-    ///     - id: ObjectID of the new edge
-    ///     - snapshotID: Snapshot ID (version) of the new edge
-    ///     - type: Object type of the edge.
-    ///     - origin: An origin node of the edge.
-    ///     - target: A target node of the edge.
-    ///     - components: List of components to be assigned to the edge.
-    ///
-    public init(id: ObjectID,
-                snapshotID: SnapshotID,
-                type: ObjectType? = nil,
-                origin: ObjectID,
-                target: ObjectID,
-                components: [any Component] = []) {
-        self.origin = origin
-        self.target = target
-        super.init(id: id,
-                   snapshotID: snapshotID,
-                   type: type,
-                   components: components)
+    public init?(_ snapshot: ObjectSnapshot) {
+        guard snapshot.structure.type == .node else {
+            return nil
+        }
+        self.snapshot = snapshot
     }
-
-    /// List of objects that this object depends on. If one of the objects from
-    /// the list is removed from the frame, this object must be removed as well.
-    ///
-    /// For an edge it is the origin node and the target node – if one of those
-    /// is removed, the edge is removed with them.
-    ///
-    override var structuralDependencies: [ObjectID] {
-        return [origin, target]
-    }
-
-    public override func derive(snapshotID: SnapshotID,
-                                objectID: ObjectID? = nil) -> ObjectSnapshot {
-        // FIXME: This breaks Edge
-        return Edge(id: objectID ?? self.id,
-                    snapshotID: snapshotID,
-                    type: type,
-                    origin: self.origin,
-                    target: self.target,
-                    components: components.components)
-    }
-    public override var description: String {
-        return "Edge(id: \(id), sshot:\(snapshotID), \(origin) -> \(target), type: \(type?.name ?? "(none)")"
-    }
-
-    public override var prettyDescription: String {
-        let superDesc = super.prettyDescription
-
-        return superDesc + " \(origin) -> \(target)"
-    }
-
-    /// Create a foreign record from the snapshot.
-    ///
-    public override func foreignRecord() -> ForeignRecord {
-        let record = ForeignRecord([
-            "object_id": ForeignValue(id),
-            "snapshot_id": ForeignValue(snapshotID),
-            "structural_type": ForeignValue(structuralTypeName),
-            "type": ForeignValue(type?.name ?? "none"),
-            "origin": ForeignValue(origin),
-            "target": ForeignValue(target),
-        ])
-        return record
-    }
-
     
 }
+
+extension Node: ObjectProtocol {
+    public var id: ObjectID { snapshot.id }
+    public var type: ObjectType { snapshot.type }
+    public var name: String? { snapshot.name }
+    
+    public subscript<T>(componentType: T.Type) -> T? where T : Component {
+        snapshot[componentType]
+    }
+
+    public func attribute(forKey key: String) -> ForeignValue? {
+        snapshot.attribute(forKey: key)
+    }
+
+}
+
+public struct Edge {
+    public let snapshot: ObjectSnapshot
+    public let origin: ObjectID
+    public let target: ObjectID
+    
+    public init?(_ snapshot: ObjectSnapshot) {
+        guard case let .edge(origin, target) = snapshot.structure else {
+            return nil
+        }
+
+        self.snapshot = snapshot
+        self.origin = origin
+        self.target = target
+    }
+}
+
+extension Edge: ObjectProtocol {
+    public var id: ObjectID { snapshot.id }
+    public var type: ObjectType { snapshot.type }
+    public var name: String? { snapshot.name }
+
+    public subscript<T>(componentType: T.Type) -> T? where T : Component {
+        snapshot[componentType]
+    }
+    public func attribute(forKey key: String) -> ForeignValue? {
+        snapshot.attribute(forKey: key)
+    }
+}
+
 
 // TODO: Change node() and edge() to return non-optional
 // REASON: ID is rather like an array index than a dictionary key, once we put
@@ -140,6 +103,9 @@ public class Edge: ObjectSnapshot {
 /// Protocol for a graph structure.
 ///
 public protocol Graph {
+    /// Frame that the graph is being bound to.
+    var frame: FrameBase { get }
+    
     /// List of indices of all nodes
     var nodeIDs: [ObjectID] { get }
 
@@ -225,11 +191,11 @@ public protocol Graph {
     
     /// Get a list of nodes that match the given predicate.
     ///
-    func selectNodes(_ predicate: NodePredicate) -> [Node]
+    func selectNodes(_ predicate: Predicate) -> [Node]
 
     /// Get a list of edges that match the given predicate.
     ///
-    func selectEdges(_ predicate: EdgePredicate) -> [Edge]
+    func selectEdges(_ predicate: Predicate) -> [Edge]
 
     /// Get a neighbourhood of a node where the edges match the neighbourhood
     /// selector `selector`.
@@ -300,11 +266,13 @@ extension Graph {
         return result
     }
     
-    public func selectNodes(_ predicate: NodePredicate) -> [Node] {
-        return nodes.filter { predicate.match(graph: self, node: $0) }
+    public func selectNodes(_ predicate: Predicate) -> [Node] {
+        // FIXME: There is a lot of Node wrapping/unwrapping going on here
+        return nodes.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
-    public func selectEdges(_ predicate: EdgePredicate) -> [Edge] {
-        return edges.filter { predicate.match(graph: self, edge: $0) }
+    public func selectEdges(_ predicate: Predicate) -> [Edge] {
+        // FIXME: There is a lot of EDGE wrapping/unwrapping going on here
+        return edges.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
     
     public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
@@ -314,7 +282,7 @@ extension Graph {
         case .outgoing: edges = outgoing(nodeID)
         }
         let filtered: [Edge] = edges.filter {
-            selector.predicate.match(graph: self, edge: $0)
+            selector.predicate.match(frame: frame, object: $0.snapshot)
         }
         
         return Neighborhood(graph: self,
@@ -328,12 +296,12 @@ extension Graph {
         
         result += "NODES:\n"
         for node in nodes {
-            result += "  \(node.id) \(node.type?.name ?? "(no type)")\n"
+            result += "  \(node.id) \(node.type.name)\n"
         }
         result += "EDGES:\n"
         for edge in edges {
             var str: String = ""
-            str += "  \(edge.id) \(edge.type?.name ?? "(no type)") "
+            str += "  \(edge.id) \(edge.type.name) "
             + "\(edge.origin) --> \(edge.target)\n"
             result += str
         }
@@ -355,7 +323,7 @@ extension Graph {
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
 public class UnboundGraph: Graph {
-    let frame: FrameBase
+    public let frame: FrameBase
     
     public init(frame: FrameBase) {
         self.frame = frame
@@ -364,13 +332,19 @@ public class UnboundGraph: Graph {
     /// Get a node by ID.
     ///
     public func node(_ index: ObjectID) -> Node? {
-        return self.frame.object(index) as? Node
+        guard let snapshot = frame.object(index) else {
+            return nil
+        }
+        return Node(snapshot)
     }
 
     /// Get an edge by ID.
     ///
     public func edge(_ index: ObjectID) -> Edge? {
-        return self.frame.object(index) as? Edge
+        guard let snapshot = frame.object(index) else {
+            return nil
+        }
+        return Edge(snapshot)
     }
 
     public func contains(node: ObjectID) -> Bool {
@@ -387,13 +361,13 @@ public class UnboundGraph: Graph {
     
     public var nodes: [Node] {
         return self.frame.snapshots.compactMap {
-            $0 as? Node
+            Node($0)
         }
     }
     
     public var edges: [Edge] {
         return self.frame.snapshots.compactMap {
-            $0 as? Edge
+            Edge($0)
         }
     }
 }

@@ -65,7 +65,7 @@ extension Graph {
                 let m: ObjectID = edge.target
 
                 // remove edge e from the graph
-                edges.removeAll { $0 === edge }
+                edges.removeAll { $0.snapshot === edge.snapshot }
                 
                 // if m has no other incoming edges then
                 if edges.allSatisfy({$0.target != m}) {
