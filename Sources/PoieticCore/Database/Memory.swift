@@ -432,16 +432,16 @@ public class ObjectMemory {
 
         // Check referential integrity
         // ------------------------------------------------------------
-        var missing: [ObjectID] = []
+        // NOTE: We no longer can have broken references – see MutableFrame.insert()
+        //       However, we check it here for now anyway, just in case.
+        //       This check can be removed later, once we are happy and all
+        //       is well tested.
+        //
+        // In other words: It should not longer be possible to have a frame with
+        // broken referential integrity.
+        //
+        let missing: [ObjectID] = frame.brokenReferences()
         
-        // TODO: Move this to frame
-        for obj in frame.derivedObjects {
-            for dep in obj.structuralDependencies {
-                if !frame.contains(dep) {
-                    missing.append(dep)
-                }
-            }
-        }
         // TODO: Should we make this into an exception? For now it is a programming error.
         guard missing.isEmpty else {
             fatalError("Violated referential integrity of frame ID \(frame.id)")

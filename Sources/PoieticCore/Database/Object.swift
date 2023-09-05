@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
-/// An abstract class representing a version of an object in the database.
+/// A class representing a version of an object in the database.
 ///
 public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public typealias ID = ObjectID
@@ -28,11 +28,19 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     public var state: VersionState
     
-    public var structuralTypeName: String {
-        return "object"
-    }
-    
     public let structure: StructuralComponent
+    
+    // Hierarchy
+    public var parent: ObjectID? = nil {
+        willSet {
+            precondition(state.isMutable)
+        }
+    }
+    public var children: ChildrenSet = ChildrenSet() {
+        willSet {
+            precondition(state.isMutable)
+        }
+    }
     
     // TODO: Make this private. Use Holon.create() and Holon.connect()
     /// Create an empty object.
@@ -82,7 +90,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             let component = try type.init(record: record)
             componentInstances.append(component)
         }
-
+        
         let structuralType = try record.stringValueIfPresent(for: "structure") ?? "unstructured"
         let structure: StructuralComponent
         
@@ -132,10 +140,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         let structuralName: String = self.structure.type.rawValue
         return "\(structuralName)(id: \(id), ssid: \(snapshotID), type:\(type.name))"
     }
-   
+    
     public var prettyDescription: String {
         let structuralName: String = self.structure.type.rawValue
-
+        
         return "\(id) \(structuralName) \(type.name)"
     }
     
@@ -143,7 +151,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         precondition(self.state == .uninitialized)
         self.state = .transient
     }
-
+    
     func freeze() {
         precondition(self.state != .frozen)
         self.state = .frozen
@@ -216,7 +224,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public func setAttribute(value: ForeignValue, forKey key: String) throws {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")
-
+        
         guard let componentType = type.componentType(forAttribute: key) else {
             // TODO: What to do here? Fail? Throw?
             fatalError("Object type \(type.name) has no component with attribute \(key).")
@@ -225,11 +233,11 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         guard var component = components[componentType] else {
             fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
         }
-
+        
         try component.setAttribute(value: value, forKey: key)
         components.set(component)
     }
-
+    
     
     public var composedIDString: String {
         // FIXME: Still needed?
@@ -267,7 +275,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         return nil
     }
 }
-
 
 /// A set of nodes and edges.
 ///

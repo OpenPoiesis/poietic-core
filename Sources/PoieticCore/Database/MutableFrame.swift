@@ -149,9 +149,23 @@ public class MutableFrame: Frame {
         // FIXME: Test whether the object is owned by the memory
         
         // Make sure we do not own immutable objects.
-        precondition((owned && snapshot.state.isMutable)
-                    || (!owned && !snapshot.state.isMutable))
+        // This can be put into one condition, however we split it for better error understanding
+        // TODO: This seems like historical remnant. No need for the "owned" flag any more? It relates to the mutability of the snapshot.
+        precondition(!owned || (owned && snapshot.state.isMutable),
+                     "Inserting mutable object must be owned by the frame")
+        precondition(owned || (!owned && !snapshot.state.isMutable),
+                     "Inserting immutable object must not be owned by the frame")
         
+        // Check for referential integrity
+        precondition(snapshot.structuralDependencies.allSatisfy({contains($0)}),
+                     "Trying to insert an object with structural dependencies not present in the frame")
+        precondition(snapshot.children.allSatisfy({contains($0)}),
+                     "Trying to insert an object with children not present in the frame \(id)")
+        if let parent = snapshot.parent {
+            precondition(contains(parent),
+                         "Trying to insert an object with parent \(parent) not present in the frame \(id)")
+        }
+
         let ref = SnapshotReference(snapshot: snapshot,
                                     owned: owned)
 
@@ -181,14 +195,14 @@ public class MutableFrame: Frame {
     /// - SeeAlso: ``ObjectSnapshot/init(id:snapshotID:type:components:)``
     ///
     public func create(_ type: ObjectType,
+                       structuralReferences refs: [ObjectID] = [],
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         
-        let snapshot = memory.createSnapshot(type, components: components)
-        let ref = SnapshotReference(snapshot: snapshot,
-                                       owned: true)
-        objects[snapshot.id] = ref
-        snapshotIDs.insert(snapshot.snapshotID)
+        let snapshot = memory.createSnapshot(type,
+                                             components: components,
+                                             structuralReferences: refs)
+        insert(snapshot, owned: true)
         return snapshot.id
     }
     
@@ -205,26 +219,78 @@ public class MutableFrame: Frame {
     ///
     @discardableResult
     public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
-        // TODO: func insertDerived(...)
         precondition(state.isMutable)
-        guard let snapshot = objects[id] else {
-            fatalError("Unknown object ID \(id) in frame \(self.id)")
-        }
+        precondition(contains(id),
+                     "Unknown object ID \(id) in frame \(self.id)")
         
         var removed: Set<ObjectID> = Set()
+
+        var toRemove: [ObjectSnapshot] = []
+        var toVisit: [ObjectID] = [id]
         
-        for ref in objects.values {
-            if ref.snapshot.structuralDependencies.contains(id) {
-                _remove(ref.snapshot)
-                removed.insert(ref.snapshot.id)
-            }
+        // NOTE: We assume there are no loops.
+        // TODO: [OPTIMAL] Remove from parent only when parent is not removed too.
+        while !toVisit.isEmpty {
+            let rubbishID = toVisit.removeFirst()
+            let rubbish = object(rubbishID)
+            toRemove.append(rubbish)
+            removeFromParent(rubbishID)
+            toVisit += rubbish.children
         }
 
-        _remove(snapshot.snapshot)
+        // TODO: [EXPENSIVE] Nested loop
+        for ref in objects.values {
+            for rubbish in toRemove {
+                // If another's existence depends on rubbish, remove it
+                if ref.snapshot.structuralDependencies.contains(rubbish.id) {
+                    _remove(ref.snapshot)
+                    removed.insert(ref.snapshot.id)
+                }
+            }
+        }
         
+        // Root was first, we do not include it in the "removed" result list
+        _remove(toRemove.removeFirst())
+        
+        for rubbish in toRemove {
+            _remove(rubbish)
+            removed.insert(rubbish.id)
+        }
         return removed
     }
     
+    func debugPrint() {
+        print("-- FRAME \(id)")
+        print("SNAPSHOTS:")
+        for snapshot in self.snapshots {
+            let isOwned: String
+            
+            if objects[snapshot.id]!.owned {
+                isOwned = "*"
+            }
+            else {
+                isOwned = ""
+            }
+
+            let children = snapshot.children.map { String($0) }
+                .joined(separator: ",")
+            let deps = snapshot.structuralDependencies.map { String($0) }
+                .joined(separator: ",")
+
+            print("\(snapshot.id).\(snapshot.snapshotID)\(isOwned): str[\(deps)] children[\(children)]")
+        }
+        if removedObjects.isEmpty {
+            print("NO REMOVED OBJECTS")
+        }
+        else {
+            let removedStr = removedObjects.map { String($0) }
+                .joined(separator: ",")
+
+            print("REMOVED: \(removedStr)")
+        }
+        print("-- END OF FRAME \(id)")
+    }
+
     internal func _remove(_ snapshot: ObjectSnapshot) {
         precondition(state.isMutable)
         objects[snapshot.id] = nil
@@ -315,4 +381,118 @@ public class MutableFrame: Frame {
     public var graph: Graph {
         UnboundGraph(frame: self)
     }
+    
+    /// Get a list of object IDs that are referenced within the frame
+    /// but do not exist in the frame.
+    ///
+    /// Frame with broken references can not be made stable and accepted
+    /// by the memory.
+    ///
+    /// - Note: This is internal function to validate correct workings
+    ///   of the system.
+    ///
+    func brokenReferences() -> [ObjectID] {
+        var deps: Set<ObjectID> = []
+        
+        for snapshot in snapshots {
+            deps.formUnion(snapshot.structuralDependencies)
+            deps.formUnion(snapshot.children)
+            if let parent = snapshot.parent {
+                deps.insert(parent)
+            }
+        }
+
+        return deps.filter { !contains($0) }
+    }
+
+    // MARK: - Hierarchy
+    //
+    
+    /// Assign a child to a parent object.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// both parent and a child.
+    ///
+    /// - Precondition: The child object must not have a parent.
+    /// - ToDo: Check for cycles.
+    ///
+    public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
+        let parent = self.mutableObject(parentID)
+        let child = self.mutableObject(childID)
+        
+        precondition(child.parent == nil)
+        
+        child.parent = parentID
+        parent.children.add(childID)
+    }
+    
+    /// Remove an object `childID` from parent `parentID`.
+    ///
+    /// The child is removed from the list of children of the parent. Child's
+    /// parent will be set to `nil`.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// both parent and a child.
+    ///
+    /// The object will remain in the frame, will not be deleted.
+    ///
+    /// - Precondition: Specified child object must be a child of the specified
+    ///   parent.
+    ///
+    public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
+        let parent = self.mutableObject(parentID)
+        let child = self.mutableObject(childID)
+
+        precondition(child.parent == parentID)
+        precondition(parent.children.contains(childID))
+
+        parent.children.remove(childID)
+        child.parent = nil
+    }
+    
+    /// Move a child to a different parent.
+    ///
+    /// If the child has a parent, then the child will be removed from the
+    /// parent's children list.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// a child. Mutable version of the old parent will be created, if
+    /// necessary.
+    ///
+    public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
+        let child = mutableObject(childID)
+        if let originalParentID = child.parent {
+            let originalParent = mutableObject(originalParentID)
+            originalParent.children.remove(childID)
+        }
+        child.parent = parentID
+        if let parentID {
+            let parent = mutableObject(parentID)
+            parent.children.add(childID)
+        }
+    }
+    
+    /// Removes a child from its parent.
+    ///
+    /// If the child has a parent, it will be removed from the parent's children
+    /// list.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// a child. Mutable version of the old parent will be created, if
+    /// necessary.
+    ///
+    /// The object will remain in the frame, will not be deleted.
+    ///
+    public func removeFromParent(_ childID: ObjectID) {
+        let child = self.mutableObject(childID)
+        if let parentID = child.parent {
+            let parent = mutableObject(parentID)
+            parent.children.remove(childID)
+        }
+        
+        child.parent = nil
+    }
+
 }
+
+

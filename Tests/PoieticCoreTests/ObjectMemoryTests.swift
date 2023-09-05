@@ -95,7 +95,8 @@ final class ObjectMemoryTests: XCTestCase {
         let node2 = db.createSnapshot(TestNodeType)
         frame.insert(node2, owned: true)
 
-        let edge = db.createSnapshot(TestEdgeType, structuralReferences: [1,2])
+        let edge = db.createSnapshot(TestEdgeType,
+                                     structuralReferences: [node1.id, node2.id])
         frame.insert(edge, owned: true)
 
         let removed = frame.removeCascading(node1.id)

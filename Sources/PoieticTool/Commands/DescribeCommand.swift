@@ -47,7 +47,7 @@ extension PoieticTool {
                 ("Type", "\(object.type.name)"),
                 ("Object ID", "\(object.id)"),
                 ("Snapshot ID", "\(object.snapshotID)"),
-                ("Structure", "\(object.structuralTypeName)"),
+                ("Structure", "\(object.structure.type)"),
             ]
             
             let components: [any Component]
