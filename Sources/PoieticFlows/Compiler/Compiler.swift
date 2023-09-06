@@ -60,6 +60,22 @@ public class Compiler {
     public func compile() throws -> CompiledModel {
         // FIXME: var nodeIssues: [NodeID:[NodeIssue]] = [:]
 
+        let violations = frame.memory.checkConstraints(frame)
+        
+        if !violations.isEmpty {
+            // TODO: How to handle this here?
+            // Note: the compiler should work with stable frame - with
+            //       constraints satisfied. Remove this once the previous
+            //       sentence statement is true.
+            let error = ConstraintViolationError(violations: violations)
+            for (obj, errors) in error.prettyDescriptionsByObject {
+                for error in errors {
+                    print("ERROR: \(obj): \(error)")
+                }
+            }
+            throw ConstraintViolationError(violations: violations)
+        }
+
         // 1. Collect node names
         // -----------------------------------------------------------------
         //
@@ -125,6 +141,19 @@ public class Compiler {
             fatalError("Unhandled graph cycle error")
         }
         
+        // 6. Value Bindings
+        //
+        var bindings: [ValueBinding] = []
+        for object in frame.filter(type: FlowsMetamodel.ValueBinding) {
+            guard let edge = Edge(object) else {
+                // This should not happen
+                fatalError("A value binding  \(object.id) is not an edge")
+            }
+            
+            let binding = ValueBinding(control: edge.origin, target: edge.target)
+            bindings.append(binding)
+        }
+        
         // Finalize
         // -----------------------------------------------------------------
         //
@@ -188,7 +217,8 @@ public class Compiler {
             flows: flows.map {$0.id},
             flowComponents: flowComponents,
             inflows: inflows,
-            outflows: outflows
+            outflows: outflows,
+            valueBindings: bindings
         )
     }
 

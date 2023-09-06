@@ -117,8 +117,8 @@ public class FlowsMetamodel: Metamodel {
         ]
     )
     
-    public static let ValueControl = ObjectType(
-        name: "ValueControl",
+    public static let Control = ObjectType(
+        name: "Control",
         structuralType: .node,
         components: [
             ControlComponent.self,
@@ -185,14 +185,14 @@ public class FlowsMetamodel: Metamodel {
         abstract: "Edge between two stocks."
     )
 
-    public static let ControlBinding = ObjectType(
-        name: "ControlBinding",
+    public static let ValueBinding = ObjectType(
+        name: "ValueBinding",
         structuralType: .edge,
         isSystemOwned: false,
         components: [
             // None for now
         ],
-        abstract: "Edge between a control and its target."
+        abstract: "Edge between a control and a value node. The control observes the value after each step."
     )
 
     public static let ChartSeries = ObjectType(
@@ -221,13 +221,13 @@ public class FlowsMetamodel: Metamodel {
         ImplicitFlow,
 
         // UI
-        ValueControl,
+        Control,
         Chart,
-        ControlBinding,
-        
+        ValueBinding,
     ]
     
     // MARK: Constraints
+    // TODO: Add tests for violation of each of the constraints
     // --------------------------------------------------------------------
     /// List of constraints of the Stock and Flow metamodel.
     ///
@@ -242,12 +242,13 @@ public class FlowsMetamodel: Metamodel {
             description: """
                          Flow must drain (from) a stock, no other kind of node.
                          """,
-            match: EdgeObjectPredicate(
-                origin: IsTypePredicate(Stock),
-                target: IsTypePredicate(Flow),
-                edge: IsTypePredicate(Fills)
-            ),
-            requirement: RejectAll()
+            match: EdgePredicate(IsTypePredicate(Fills)),
+            requirement: AllSatisfy(
+                EdgePredicate(
+                    origin: IsTypePredicate(Flow),
+                    target: IsTypePredicate(Stock)
+                )
+            )
         ),
             
         Constraint(
@@ -255,12 +256,13 @@ public class FlowsMetamodel: Metamodel {
             description: """
                          Flow must fill (into) a stock, no other kind of node.
                          """,
-            match: EdgeObjectPredicate(
-                origin: IsTypePredicate(Flow),
-                target: IsTypePredicate(Stock),
-                edge: IsTypePredicate(Drains)
-            ),
-            requirement: RejectAll()
+            match: EdgePredicate(IsTypePredicate(Drains)),
+            requirement: AllSatisfy(
+                EdgePredicate(
+                    origin: IsTypePredicate(Stock),
+                    target: IsTypePredicate(Flow)
+                )
+            )
         ),
         
         Constraint(
@@ -276,19 +278,33 @@ public class FlowsMetamodel: Metamodel {
         ),
         
         // UI
+        // TODO: Make the value binding target to be "Value" type (how?)
+        Constraint(
+            name: "control_value_binding",
+            description: """
+                         Control binding's origin must be a Control and target must be a formula node.
+                         """,
+            match: EdgePredicate(IsTypePredicate(ValueBinding)),
+            requirement: AllSatisfy(
+                EdgePredicate(
+                    origin: IsTypePredicate(Control),
+                    target: HasComponentPredicate(FormulaComponent.self)
+                )
+            )
+        ),
         Constraint(
             name: "chart_series",
             description: """
                          Chart series edge must originate in Chart and end in Value node.
                          """,
-            match: EdgeObjectPredicate(
-                origin: IsTypePredicate(Chart),
-                target: IsTypePredicate(Stock),
-                edge: IsTypePredicate(ChartSeries)
-            ),
-            requirement: RejectAll()
+            match: EdgePredicate(IsTypePredicate(ChartSeries)),
+            requirement: AllSatisfy(
+                EdgePredicate(
+                    origin: IsTypePredicate(Chart),
+                    target: IsTypePredicate(Stock)
+                )
+            )
         ),
-
     ]
 
     // MARK: Queries and Predicates

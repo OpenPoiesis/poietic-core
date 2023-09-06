@@ -22,10 +22,14 @@ public enum ComputationalRepresentation {
     // case dataInput(???)
 }
 
-public struct ControlBinding {
+public struct ValueBinding {
+    /// ID of a control node.
     let control: ObjectID
+    
+    /// ID of a value node.
     let target: ObjectID
 }
+
 
 /// Structure used by the simulator.
 ///
@@ -41,9 +45,11 @@ public struct ControlBinding {
 ///   will be carried out.
 ///
 public struct CompiledModel {
+    // TODO: Alternative names: InternalRepresentation
     // TODO: Alternative names: ResolvedModel, ExecutableModel
     // TODO: Use some kind of ordered dictionaries where appropriate
     // TODO: Later, if performance becomes a concern, replace dictionaries with arrays and have ID -> Index map.
+    // TODO: Potentially separate things to be concerns of a simulation system, such as bindings
     
     /// Map of nodes and their corresponding compiled expressions.
     ///
@@ -105,7 +111,7 @@ public struct CompiledModel {
     
     // MARK: Bindings
     
-    let controlBindings: [ControlBinding] = []
+    let valueBindings: [ValueBinding]
     
     
     // FIXME: Consolidate all name queries. Not only here, in other places such as tool as well.
