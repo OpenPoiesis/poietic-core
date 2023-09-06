@@ -9,18 +9,18 @@
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
 ///
-public class EdgeObjectPredicate: Predicate {
+public class EdgePredicate: Predicate {
     // FIXME: Is this still required?
     // FIXME: I do not like this class
     // TODO: Use CompoundPredicate
     
+    let edgePredicate: Predicate?
     let originPredicate: Predicate?
     let targetPredicate: Predicate?
-    let edgePredicate: Predicate?
     
-    public init(origin: Predicate? = nil,
-                target: Predicate? = nil,
-                edge: Predicate? = nil) {
+    public init(_ edge: Predicate? = nil,
+                origin: Predicate? = nil,
+                target: Predicate? = nil) {
         guard !(origin == nil && target == nil && edge == nil) else {
             preconditionFailure("At least one of the parameters must be set: origin, target or edge")
         }

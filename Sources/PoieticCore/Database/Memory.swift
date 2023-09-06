@@ -16,6 +16,10 @@
 public struct ConstraintViolationError: Error {
     public let violations: [ConstraintViolation]
     
+    public init(violations: [ConstraintViolation]) {
+        self.violations = violations
+    }
+    
     public var prettyDescriptionsByObject: [ObjectID: [String]] {
         var result: [ObjectID:[String]] = [:]
         
@@ -447,21 +451,17 @@ public class ObjectMemory {
             fatalError("Violated referential integrity of frame ID \(frame.id)")
         }
 
+        // Check types
+        // ------------------------------------------------------------
+
+        // TODO: Check whether the objects have the types allowed by the metamodel
+        
         // Check constraints
         // ------------------------------------------------------------
         // TODO: What about non-graph constraints – Pure object constraints?
         
         // TODO: We need to get an immutable graph here.
-        var violations: [ConstraintViolation] = []
-        for constraint in constraints {
-            let violators = constraint.check(frame)
-            if violators.isEmpty {
-                continue
-            }
-            let violation = ConstraintViolation(constraint: constraint,
-                                                objects:violators)
-            violations.append(violation)
-        }
+        let violations = checkConstraints(frame)
         
         if !violations.isEmpty {
             throw ConstraintViolationError(violations: violations)
@@ -562,8 +562,22 @@ public class ObjectMemory {
         currentFrameID = newCurrentFrameID
     }
     
-    func checkConstraints() {
-        fatalError("Check constraints not implemented")
+    /// Check constraints for the given frame.
+    ///
+    /// - Returns: List of constraint violations.
+    /// 
+    public func checkConstraints(_ frame: Frame) -> [ConstraintViolation] {
+        var violations: [ConstraintViolation] = []
+        for constraint in constraints {
+            let violators = constraint.check(frame)
+            if violators.isEmpty {
+                continue
+            }
+            let violation = ConstraintViolation(constraint: constraint,
+                                                objects:violators)
+            violations.append(violation)
+        }
+        return violations
     }
     
     func removeAll() {

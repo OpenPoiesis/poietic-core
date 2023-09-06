@@ -42,7 +42,7 @@ public class Constraint {
     ///
     public let match: Predicate
     
-    /// A requirement that needs to be satisfied for the matched edges.
+    /// A requirement that needs to be satisfied for the matched objects.
     ///
     public let requirement: ConstraintRequirement
     
@@ -82,7 +82,25 @@ public class Constraint {
 /// Definition of a constraint satisfaction requirement.
 ///
 public protocol ConstraintRequirement {
+    /// - Returns: List of IDs of objects that do not satisfy the requirement.
     func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID]
+}
+
+/// Requirement that all matched objects satisfy a given predicate.
+public class AllSatisfy: ConstraintRequirement {
+    /// Predicate to be satisfied by the requirement.
+    public let predicate: Predicate
+    
+    /// Create a new requirement for objects that must satisfy the given
+    /// predicate.
+    public init(_ predicate: Predicate) {
+        self.predicate = predicate
+    }
+
+    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
+        objects.filter { !predicate.match(frame: frame, object: $0) }
+            .map { $0.id }
+    }
 }
 
 
