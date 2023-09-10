@@ -97,6 +97,7 @@ class TestMetamodel: Metamodel {
     static var constraints: [PoieticCore.Constraint] = []
     
     static var objectTypes: [PoieticCore.ObjectType] = [
+        Unstructured,
         Stock,
         Flow,
         Parameter,
@@ -108,6 +109,14 @@ class TestMetamodel: Metamodel {
     static let components: [Component.Type] = [
         IntegerComponent.self,
     ]
+    
+    static let Unstructured = ObjectType(
+        name: "Unstructured",
+        structuralType: .unstructured,
+        components: [
+            IntegerComponent.self,
+        ]
+    )
     
     static let Stock = ObjectType(
         name: "Stock",

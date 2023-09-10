@@ -28,7 +28,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     
     public var state: VersionState
     
-    public let structure: StructuralComponent
+    public var structure: StructuralComponent
     
     // Hierarchy
     public var parent: ObjectID? = nil {
