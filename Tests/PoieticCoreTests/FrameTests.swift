@@ -110,11 +110,29 @@ final class MutableFrameTests: XCTestCase {
         frame.removeCascading(b)
         XCTAssertFalse(frame.contains(b))
         XCTAssertFalse(frame.contains(c))
+        XCTAssertFalse(frame.object(a).children.contains(b))
 
         frame.removeCascading(d)
         XCTAssertFalse(frame.contains(d))
         XCTAssertFalse(frame.contains(e))
         XCTAssertFalse(frame.contains(f))
+    }
+    
+    func testBrokenReferences() throws {
+        let frame = memory.createFrame()
+        let a = memory.allocateUnstructuredSnapshot(TestType, id: 1)
+        a.parent = 10
+        a.children = [20]
+        a.initialize(structure: .edge(30, 40))
+        frame.unsafeInsert(a, owned: true)
+
+        let refs = frame.brokenReferences()
+        
+        XCTAssertEqual(refs.count, 4)
+        XCTAssertTrue(refs.contains(10))
+        XCTAssertTrue(refs.contains(20))
+        XCTAssertTrue(refs.contains(30))
+        XCTAssertTrue(refs.contains(40))
     }
     
 }

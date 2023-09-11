@@ -42,12 +42,23 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
-    // TODO: Make this private. Use Holon.create() and Holon.connect()
     /// Create an empty object.
     ///
-    /// If the ID is not provided, one will be assigned. The assigned ID is
-    /// assumed to be unique for every object created without explicit ID,
-    /// however it is not assumed to be unique with explicitly provided IDs.
+    /// - Parameters:
+    ///     - id: Object identity - typical object reference, unique in a frame
+    ///     - snapshotID: ID of this object version snapshot – unique in memory
+    ///     - type: Type of the object. Will be used to initialise components, see below.
+    ///     - structure: Structural component of the object.
+    ///     - components: List of components to be added to the object.
+    ///
+    /// If the list of components does not contain all the components required
+    /// by the ``type``, then a component with default values will be created.
+    ///
+    /// The caller is responsible to finalise initialisation of the object using
+    /// one of the initialisation methods or with ``markInitialized()`` before
+    /// the snapshot can be inserted into a frame.
+    ///
+    /// - Returns: Snapshot that is marked as uninitialised.
     ///
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
@@ -56,12 +67,24 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
                 components: [any Component] = []) {
         self.id = id
         self.snapshotID = snapshotID
-        self.components = ComponentSet(components)
         self.type = type
         self.state = .uninitialized
         self.structure = structure
+
+        self.components = ComponentSet(components)
+
+        // Add required components as described by the object type.
+        //
+        for componentType in type.components {
+            guard !self.components.has(componentType) else {
+                continue
+            }
+            let component = componentType.init()
+            self.components.set(component)
+        }
     }
     
+    @available(*, deprecated, message: "Use alloc+initialize combo")
     public convenience init(fromRecord record: ForeignRecord,
                             metamodel: Metamodel.Type,
                             components: [String:ForeignRecord]=[:]) throws {
@@ -113,7 +136,35 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
                   structure: structure,
                   components: componentInstances)
     }
-    
+   
+    /// Initialise the object.
+    ///
+    @discardableResult
+    public func initialize(structure: StructuralComponent = .unstructured) -> ObjectSnapshot {
+        precondition(self.state == .uninitialized,
+                     "Trying to initialize already initialized object \(self.debugID)")
+
+        self.structure = structure
+        self.state = .transient
+        return self
+    }
+
+    /// Initialise the object using a foreign record.
+    ///
+    @discardableResult
+    public func initialize(structure: StructuralComponent = .unstructured,
+                           record: ForeignRecord) throws -> ObjectSnapshot {
+        precondition(self.state == .uninitialized,
+                     "Trying to initialize already initialized object \(self.debugID)")
+
+        for key in record.allKeys {
+            try self.setAttribute(value: record[key]!, forKey: key)
+        }
+        self.structure = structure
+        self.state = .transient
+        return self
+    }
+
     /// Create a foreign record from the snapshot.
     ///
     public func foreignRecord() -> ForeignRecord {
@@ -142,9 +193,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
     
     public var prettyDescription: String {
-        let structuralName: String = self.structure.type.rawValue
-        
-        return "\(id) \(structuralName) \(type.name)"
+        let name: String = self.name ?? "(unnamed)"
+        return "\(id) {\(type.name), \(structure.description), \(name)}"
     }
     
     func makeInitialized() {

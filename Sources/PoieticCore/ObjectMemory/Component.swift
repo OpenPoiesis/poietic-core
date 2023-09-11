@@ -174,12 +174,18 @@ extension Component {
     /// call ``setAttribute(value:forKey:)`` for the respective values from
     /// the record.
     ///
-    /// If the foreign record contains keys that are not recognised by the
-    /// component, then an exception is thrown.
+    /// The default implementation ignores all keys in the foreign record
+    /// that are not present in the component description.
+    ///
+    /// Provide your own implementation that can handle values for keys of
+    /// older (or future) versions of foreign representation of the component.
     ///
     public init(record: ForeignRecord) throws {
         self.init()
         for key in record.allKeys {
+            guard Self.componentDescription.attributeKeys.contains(key) else {
+                continue
+            }
             let value = record[key]!
             try self.setAttribute(value: value, forKey: key)
         }

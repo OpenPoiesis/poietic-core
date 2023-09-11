@@ -82,7 +82,12 @@ public struct ForeignRecord {
     public subscript(key: String) -> ForeignValue? {
         return dict[key]
     }
-    
+   
+    /// Returns `true` if the foreign record contains the given key.
+    /// 
+    public func contains(_ key: String) -> Bool {
+        return dict[key] != nil
+    }
     /// Return list of all keys of the record.
     ///
     public var allKeys: [String] {

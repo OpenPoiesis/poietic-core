@@ -133,11 +133,59 @@ public class MutableFrame: Frame {
         }
     }
     
-    /// Low-level insert of an object snapshot to a frame.
+    /// Insert an object snapshot to a frame while maintaining referential
+    /// integrity.
     ///
-    /// Caller must be sure that the snapshot is not owned by anyone.
+    /// - Parameters:
+    ///     - snapshot: Snapshot to be inserted.
+    ///     - owned: Flag whether the snapshot will be owned by the frame or
+    ///              not.
+    ///
+    /// Requirements for the snapshot:
+    ///
+    /// - snapshot state must not be ``VersionState/uninitialized``
+    /// - ID and snapshot ID must not be present in the frame
+    /// - mutable must be owned, immutable must not be owned
+    /// - structural dependencies must be satisfied
+    ///
+    /// If the requirements are not met, then it is considered a programming
+    /// error.
     ///
     public func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
+        // Check for referential integrity
+        precondition(snapshot.structuralDependencies.allSatisfy({contains($0)}),
+                     "Trying to insert an object with structural dependencies not present in the frame")
+        precondition(snapshot.children.allSatisfy({contains($0)}),
+                     "Trying to insert an object with children not present in the frame \(id)")
+        if let parent = snapshot.parent {
+            precondition(contains(parent),
+                         "Trying to insert an object with parent \(parent) not present in the frame \(id)")
+        }
+        unsafeInsert(snapshot, owned: owned)
+    }
+    
+    /// Unsafely insert a snapshot to the frame, not checking for structural
+    /// references.
+    ///
+    /// This method is intended to be used by batch-loading of objects
+    /// into the frame where the caller is responsible for assuring
+    /// the structural integrity of the frame.
+    ///
+    /// Requirements for the snapshot:
+    ///
+    /// - snapshot state must not be ``VersionState/uninitialized``
+    /// - ID and snapshot ID must not be present in the frame
+    /// - mutable must be owned, immutable must not be owned
+    ///
+    /// If the requirements are not met, then it is considered a programming
+    /// error.
+    ///
+    /// - Parameters:
+    ///     - snapshot: Snapshot to be inserted.
+    ///     - owned: Flag whether the snapshot will be owned by the frame or
+    ///              not.
+    ///
+    public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
                      "Trying to modify a frame that is not mutable")
         precondition(snapshot.state != .uninitialized,
@@ -155,16 +203,6 @@ public class MutableFrame: Frame {
                      "Inserting mutable object must be owned by the frame")
         precondition(owned || (!owned && !snapshot.state.isMutable),
                      "Inserting immutable object must not be owned by the frame")
-        
-        // Check for referential integrity
-        precondition(snapshot.structuralDependencies.allSatisfy({contains($0)}),
-                     "Trying to insert an object with structural dependencies not present in the frame")
-        precondition(snapshot.children.allSatisfy({contains($0)}),
-                     "Trying to insert an object with children not present in the frame \(id)")
-        if let parent = snapshot.parent {
-            precondition(contains(parent),
-                         "Trying to insert an object with parent \(parent) not present in the frame \(id)")
-        }
 
         let ref = SnapshotReference(snapshot: snapshot,
                                     owned: owned)
@@ -401,8 +439,9 @@ public class MutableFrame: Frame {
                 deps.insert(parent)
             }
         }
+        let broken: [ObjectID] = deps.filter { !contains($0) }
 
-        return deps.filter { !contains($0) }
+        return broken
     }
 
     // MARK: - Hierarchy

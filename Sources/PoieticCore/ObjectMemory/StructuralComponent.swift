@@ -25,7 +25,7 @@ public enum StructuralType: String, Equatable {
     case edge
 }
 
-public enum StructuralComponent: Equatable {
+public enum StructuralComponent: Equatable, CustomStringConvertible {
     case unstructured
     case node
     case edge(ObjectID, ObjectID)
@@ -35,6 +35,14 @@ public enum StructuralComponent: Equatable {
         case .unstructured: .unstructured
         case .node: .node
         case .edge: .edge
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .unstructured: "unstructured"
+        case .node: "node"
+        case .edge(let origin, let target): "edge(\(origin),\(target)"
         }
     }
 }

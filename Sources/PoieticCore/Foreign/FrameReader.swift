@@ -78,17 +78,33 @@ public struct ForeignFrameInfo: Codable {
 
 public class ForeignFrameBundle {
     public let url: URL
-
-    var infoURL: URL {
-        url.appending(component: "info.json", directoryHint: .notDirectory)
-    }
+    public let info: ForeignFrameInfo
+    public let collectionNames: [String]
     
-    public init(url: URL) {
+    public init(url: URL) throws {
         self.url = url
+        let infoURL = url.appending(component: "info.json", directoryHint: .notDirectory)
+
+        let data = try Data(contentsOf: infoURL)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+        do {
+            info = try decoder.decode(ForeignFrameInfo.self, from: data)
+        }
+        catch DecodingError.dataCorrupted {
+            throw FrameReaderError.dataCorrupted
+        }
+        catch DecodingError.keyNotFound(let key, _) {
+            throw FrameReaderError.keyNotFound(key.stringValue)
+        }
+            
+        // TODO: Read this from info dictionary, path or URL (github)
+        collectionNames = ["objects"]
     }
     
-    public convenience init(path: String) {
-        self.init(url: URL(fileURLWithPath: path, isDirectory: true))
+    public convenience init(path: String) throws {
+        try self.init(url: URL(fileURLWithPath: path, isDirectory: true))
     }
 
     public func urlForObjectCollection(_ name: String) -> URL {
@@ -96,10 +112,13 @@ public class ForeignFrameBundle {
     }
     
     public func objects(in collectionName: String) throws -> [ForeignObject] {
+        // NOTE: Sync this code with ForeignFrameReader read(data:,frame:)
         let collectionURL = urlForObjectCollection(collectionName)
-        let data = try Data(contentsOf: infoURL)
+        let data = try Data(contentsOf: collectionURL)
 
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
         let objects: [ForeignObject]
         
         do {
@@ -124,22 +143,6 @@ public class ForeignFrameBundle {
         
         return objects
     }
-
-    public func info() throws -> ForeignFrameInfo {
-        let data = try Data(contentsOf: infoURL)
-        let decoder = JSONDecoder()
-        let info: ForeignFrameInfo
-        do {
-            info = try decoder.decode(ForeignFrameInfo.self, from: data)
-        }
-        catch DecodingError.dataCorrupted {
-            throw FrameReaderError.dataCorrupted
-        }
-        catch DecodingError.keyNotFound(let key, _) {
-            throw FrameReaderError.keyNotFound(key.stringValue)
-        }
-        return info
-    }
 }
 
 /// Object that reads a frame from a frame package.
@@ -151,7 +154,7 @@ public class ForeignFrameReader {
     public let info: ForeignFrameInfo
     public let memory: ObjectMemory
     public var metamodel: Metamodel.Type { memory.metamodel }
-    
+
     /// References to objects that already exist in the frame. The key might
     /// be either an object name or a string representation of an object ID.
     ///
@@ -177,7 +180,7 @@ public class ForeignFrameReader {
         }
         self.init(info: info, memory: memory)
     }
-
+    
     /// Create a new frame reader with given reader info data.
     ///
     /// The data must contain a JSON dictionary structure.
@@ -192,21 +195,19 @@ public class ForeignFrameReader {
     ///
     /// Data is a JSON encoded array of foreign object descriptions.
     ///
-    /// The process for each object in the frame data is as follows:
-    /// 1. create a ``ForeignRecord`` for object's attributes
-    /// 2. get a concrete object type instance basead on the type included in
-    ///    the data
-    /// 3. create an object snapshot in the frame using the foreign record,
-    ///    object type and structural references.
+    /// See ``ForeignFrameReader/read(_:into:)`` for more information.
     ///
     /// - Note: This function is non-transactional. The frame is assumed to
     ///         represent a transaction. When the function fails, the whole
     ///         frame should be discarded.
     ///
     public func read(_ data: Data, into frame: MutableFrame) throws {
+        // TODO: Remove this code in favour of ForeignFrameBundle objects(in:)
         let decoder = JSONDecoder()
         let objects: [ForeignObject]
-        
+       
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
         do {
             objects = try decoder.decode(Array<ForeignObject>.self, from: data)
         }
@@ -226,8 +227,46 @@ public class ForeignFrameReader {
                 throw FrameReaderError.keyNotFound(key)
             }
         }
-        
-        var nameToID: [String:ObjectID] = [:]
+        try read(objects, into: frame)
+    }
+   
+    /// Incrementally read frame data into a mutable frame.
+    ///
+    /// For each object in the collection, in the order as provided:
+    ///
+    /// 1. get a concrete object type instance from the frame's memory metamodel
+    /// 2. create an object snapshot in the frame using the given object type
+    ///    and a foreign record representing the attributes. The structure
+    ///    is not yet set-up.
+    ///
+    /// When all the objects are instantiated and inserted in the frame, then
+    /// for each object:
+    ///
+    /// 1. Graph structure is created
+    /// 2. Hierarchical parent-child structure is created.
+    ///
+    /// Object references used can be either object names or object IDs.
+    ///
+    /// Requirements:
+    ///
+    /// - Object references must be valid from within the collection of objects
+    ///   provided or from within previous collections read.
+    ///   Otherwise ``FrameReaderError/invalidObjectReference(_:_:_:)``
+    ///   is thrown on the first invalid reference.
+    /// - Edges must have both origin and target specified, otherwise
+    ///   ``FrameReaderError/objectPropertyNotFound(_:_:)`` is thrown.
+    /// - Other structural types must not have neither origin neither target
+    ///   specified, if they do then ``FrameReaderError/invalidStructuralKeyPresent(_:_:_:)``
+    ///   is thrown.
+    ///
+    /// - Note: This function is non-transactional. The frame is assumed to
+    ///         represent a transaction. When the function fails, the whole
+    ///         frame should be discarded.
+    /// - Throws: ``FrameReaderError``
+    /// - SeeAlso: ``ObjectMemory/allocateSnapshot(_:id:snapshotID:foreignRecord:)``,
+    ///     ``MutableFrame/insert(_:,owned:)``
+    ///
+    public func read(_ objects: [ForeignObject], into frame: MutableFrame) throws {
         var snapshots: [ObjectSnapshot] = []
         // 1. Instantiate objects and gather IDs
         //
@@ -236,43 +275,40 @@ public class ForeignFrameReader {
                 throw FrameReaderError.unknownObjectType(object.type, index)
             }
             
-            let attributes = object.attributes ?? ForeignRecord([:])
+            let snapshot = memory.allocateUnstructuredSnapshot(type)
             
-            let snapshot = try memory.allocateSnapshot(type,
-                                                       foreignRecord: attributes)
             if let name = object.name {
                 snapshot[NameComponent.self] = NameComponent(name: name)
-                nameToID[name] = snapshot.id
+                references[name] = snapshot.id
             }
-            
             snapshots.append(snapshot)
-            snapshot.makeInitialized()
-            frame.insert(snapshot, owned: true)
         }
-        
-        // 2. Connect structure and make objects initialized (no hierarchy yet)
+
+        // 2. Prepare the snapshot's structure
         for (index, (snapshot, object)) in zip(snapshots, objects).enumerated() {
-            let type = snapshot.type.structuralType
-            switch type {
+            let structure: StructuralComponent
+            let type = snapshot.type
+            
+            switch type.structuralType {
             case .unstructured:
                 guard object.origin == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("from", type, index)
+                    throw FrameReaderError.invalidStructuralKeyPresent("from", type.structuralType, index)
                 }
                 guard object.target == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("to", type, index)
+                    throw FrameReaderError.invalidStructuralKeyPresent("to", type.structuralType, index)
                 }
 
-                snapshot.structure = .unstructured
+                structure = .unstructured
 
             case .node:
                 guard object.origin == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("from", type, index)
+                    throw FrameReaderError.invalidStructuralKeyPresent("from", type.structuralType, index)
                 }
                 guard object.target == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("to", type, index)
+                    throw FrameReaderError.invalidStructuralKeyPresent("to", type.structuralType, index)
                 }
 
-                snapshot.structure = .node
+                structure = .node
 
             case .edge:
                 // First check the properties - makes tests easier
@@ -283,28 +319,32 @@ public class ForeignFrameReader {
                     throw FrameReaderError.objectPropertyNotFound("to", index)
                 }
 
-                guard let originID = nameToID[originRef] else {
+                guard let originID = references[originRef] else {
                     throw FrameReaderError.invalidObjectReference(originRef, "origin", index)
                 }
-                guard let targetID = nameToID[targetRef] else {
+                guard let targetID = references[targetRef] else {
                     throw FrameReaderError.invalidObjectReference(targetRef, "target", index)
                 }
 
-                snapshot.structure = .edge(originID, targetID)
+                structure = .edge(originID, targetID)
             }
-            // Child-parent hierarchy
+            
+            let attributes = object.attributes ?? ForeignRecord([:])
+            try snapshot.initialize(structure: structure, record: attributes)
+            
+            frame.unsafeInsert(snapshot, owned: true)
         }
-
+        
         // 3. Make parent-child hierarchy
         //
         // All objects are initialised now.
-        
+        // TODO: Do not use addChild, do it in unsafe way, we are ok here.
         for (index, (snapshot, object)) in zip(snapshots, objects).enumerated() {
             guard let children = object.children else {
                 continue
             }
             for childRef in children {
-                guard let childID = nameToID[childRef] else {
+                guard let childID = references[childRef] else {
                     throw FrameReaderError.invalidObjectReference(childRef, "child", index)
                 }
                 frame.addChild(childID, to: snapshot.id)

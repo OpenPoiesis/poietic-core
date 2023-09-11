@@ -30,7 +30,6 @@ extension PoieticTool {
             let nameMap = try view.namesToObjects()
             var didSomething: Bool = false
             
-            
             for target in view.expressionNodes {
                 let expression = try target.parsedExpression()!
                 let allNodeVars: Set<String> = Set(expression.allVariables)
@@ -65,7 +64,7 @@ extension PoieticTool {
             }
             try closeMemory(memory: memory, options: options)
             
-            print("Current frame: \(memory.currentFrame.id)")
+            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 

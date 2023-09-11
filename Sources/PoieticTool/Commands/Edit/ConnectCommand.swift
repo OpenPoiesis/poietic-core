@@ -74,7 +74,7 @@ extension PoieticTool {
             try closeMemory(memory: memory, options: options)
 
             print("Created edge \(id)")
-            print("Current frame: \(memory.currentFrame.id)")
+            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 

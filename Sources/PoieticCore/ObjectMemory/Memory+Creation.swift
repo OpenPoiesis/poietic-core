@@ -75,25 +75,16 @@ extension ObjectMemory {
     /// The returned snapshot is unstable and must be made stable before
     /// assigned to a frame.
     ///
-    public func allocateSnapshot(_ objectType: ObjectType,
+    public func allocateUnstructuredSnapshot(_ objectType: ObjectType,
                                  id: ObjectID? = nil,
-                                 snapshotID: SnapshotID? = nil,
-                                 foreignRecord record: ForeignRecord) throws -> ObjectSnapshot {
+                                 snapshotID: SnapshotID? = nil) -> ObjectSnapshot {
         let actualID: ObjectID = id ?? allocateID()
         let actualSnapshotID: SnapshotID = id ?? allocateID()
 
-        var components: [any Component] = []
-       
-        for componentType in objectType.components {
-            let component = try componentType.init(record: record)
-            components.append(component)
-        }
-        
         let snapshot = ObjectSnapshot(id: actualID,
                                       snapshotID: actualSnapshotID,
                                       type: objectType,
-                                      structure: .unstructured,
-                                      components: components)
+                                      structure: .unstructured)
         return snapshot
     }
 
