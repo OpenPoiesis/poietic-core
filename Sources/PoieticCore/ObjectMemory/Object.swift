@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ObjectSnapshot.swift
 //
 //
 //  Created by Stefan Urbanek on 2021/10/10.
@@ -275,22 +275,3 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         return nil
     }
 }
-
-/// A set of nodes and edges.
-///
-//public struct GraphObjectSet: Collection {
-//    // TODO: This needs attention
-//    public typealias Index = Array<Object>.Index
-//    public typealias Element = Object
-//    public let objects: [Object]
-//    
-//    public init(nodes: [Node] = [], edges: [Edge] = []) {
-//        self.nodes = nodes
-//        self.edges = edges
-//    }
-//    
-//    public var startIndex: Index { return edges.startIndex }
-//    public var endIndex: Index { return edges.endIndex }
-//
-//    
-//}

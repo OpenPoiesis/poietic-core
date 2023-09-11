@@ -76,6 +76,72 @@ public struct ForeignFrameInfo: Codable {
     public let metadata: [String:ForeignValue]?
 }
 
+public class ForeignFrameBundle {
+    public let url: URL
+
+    var infoURL: URL {
+        url.appending(component: "info.json", directoryHint: .notDirectory)
+    }
+    
+    public init(url: URL) {
+        self.url = url
+    }
+    
+    public convenience init(path: String) {
+        self.init(url: URL(fileURLWithPath: path, isDirectory: true))
+    }
+
+    public func urlForObjectCollection(_ name: String) -> URL {
+        url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
+    }
+    
+    public func objects(in collectionName: String) throws -> [ForeignObject] {
+        let collectionURL = urlForObjectCollection(collectionName)
+        let data = try Data(contentsOf: infoURL)
+
+        let decoder = JSONDecoder()
+        let objects: [ForeignObject]
+        
+        do {
+            objects = try decoder.decode(Array<ForeignObject>.self, from: data)
+        }
+        catch DecodingError.typeMismatch(_, let context) {
+            let path = context.codingPath.map { $0.stringValue }
+            throw FrameReaderError.typeMismatch(path)
+        }
+        catch DecodingError.keyNotFound(let codingKey, let context) {
+            let key = codingKey.stringValue
+            if context.codingPath.count == 1 {
+                // We are always getting an int index, since this is an array and is not empty
+                let index = context.codingPath[0].intValue!
+                throw FrameReaderError.objectPropertyNotFound(key, index)
+            }
+            else {
+                // Just a generic key not found, a bit hopeless but better than nothing
+                throw FrameReaderError.keyNotFound(key)
+            }
+        }
+        
+        return objects
+    }
+
+    public func info() throws -> ForeignFrameInfo {
+        let data = try Data(contentsOf: infoURL)
+        let decoder = JSONDecoder()
+        let info: ForeignFrameInfo
+        do {
+            info = try decoder.decode(ForeignFrameInfo.self, from: data)
+        }
+        catch DecodingError.dataCorrupted {
+            throw FrameReaderError.dataCorrupted
+        }
+        catch DecodingError.keyNotFound(let key, _) {
+            throw FrameReaderError.keyNotFound(key.stringValue)
+        }
+        return info
+    }
+}
+
 /// Object that reads a frame from a frame package.
 ///
 /// Object that read an archive, typically a file, containing a single frame
@@ -91,10 +157,6 @@ public class ForeignFrameReader {
     ///
     public var references: [String: ObjectID] = [:]
     
-//    var infoURL: URL {
-//        url.appending(component: "info.json", directoryHint: .notDirectory)
-//    }
-//
     public convenience init(path: String, memory: ObjectMemory) throws {
         let url = URL(fileURLWithPath: path, isDirectory: true)
         let data = try Data(contentsOf: url)
@@ -125,11 +187,6 @@ public class ForeignFrameReader {
         self.memory = memory
     }
 
-    
-//    func urlForObjectContainer(_ name: String, type: String? = "json") -> URL {
-//
-//        url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
-//    }
     
     /// Incrementally read frame data into a mutable frame.
     ///
