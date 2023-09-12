@@ -7,7 +7,7 @@
 
 import PoieticCore
 
-struct ControlComponent: Component {
+public struct ControlComponent: Component {
     public static var componentDescription = ComponentDescription(
         name: "Control",
         attributes: [
@@ -20,18 +20,18 @@ struct ControlComponent: Component {
 
     public var value: Double
 
-    init() {
+    public init() {
         self.value = 0
     }
 
-    func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.AttributeValue? {
+    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.AttributeValue? {
         switch key {
         case "value": return ForeignValue(value)
         default: return nil
         }
     }
     
-    mutating func setAttribute(value: PoieticCore.AttributeValue, forKey key: PoieticCore.AttributeKey) throws {
+    public mutating func setAttribute(value: PoieticCore.AttributeValue, forKey key: PoieticCore.AttributeKey) throws {
         switch key {
         case "value": self.value = try value.doubleValue()
         default:
@@ -41,36 +41,39 @@ struct ControlComponent: Component {
     }
 }
 
-struct ChartComponent: Component {
-    public static var componentDescription = ComponentDescription(
-        name: "Chart",
-        attributes: [
-//            AttributeDescription(
-//                name: "chartType",
-//                type: .string,
-//                abstract: "Chart type"),
-        ]
-    )
-
-    public var value: Double
-
-    init() {
-        self.value = 0
-    }
-
-    func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.AttributeValue? {
-        switch key {
-        case "value": return ForeignValue(value)
-        default: return nil
-        }
-    }
+public struct Control {
+    public let snapshot: ObjectSnapshot
+    public let component: ControlComponent
     
-    mutating func setAttribute(value: PoieticCore.AttributeValue, forKey key: PoieticCore.AttributeKey) throws {
-        switch key {
-        case "value": self.value = try value.doubleValue()
-        default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
+    public init?(_ snapshot: ObjectSnapshot) {
+        guard let component: ControlComponent = snapshot[ControlComponent.self] else {
+            return nil
         }
+        self.snapshot = snapshot
+        self.component = component
     }
 }
+
+
+
+extension StockFlowView {
+//    public var controls: [Chart] {
+//        graph.selectNodes(HasComponentPredicate(ControlComponent.self))
+//            .compactMap { Control($0.snapshot) }
+//    }
+}
+public struct BoundComponent<T: Component> {
+    public typealias ComponentType = T
+    public let snapshot: ObjectSnapshot
+    public let component: ComponentType
+    
+    public init?(_ snapshot: ObjectSnapshot) {
+        guard let component: ComponentType = snapshot[ComponentType.self] else {
+            return nil
+        }
+        self.snapshot = snapshot
+        self.component = component
+    }
+    
+}
+
