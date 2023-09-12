@@ -72,6 +72,8 @@ public class ObjectType {
     /// - Note: The attributes in components share the same name-space within an
     ///         object type. In other words, there must not be two components with
     ///         the same attribute in an object type.
+    /// - Precondition: There must be no duplicate attribute names in the
+    ///   components.
     ///
     public init(name: String,
                 label: String? = nil,
@@ -86,11 +88,16 @@ public class ObjectType {
         self.components = components
         self.abstract = abstract
         
-        let pairs: [(String, Component.Type)] = components.flatMap { component in
-            let desc = component.componentDescription
-            return desc.attributes.map { ($0.name, component) }
+        var map: [String:Component.Type] = [:]
+        for component in components {
+            for attr in component.componentDescription.attributes {
+                guard map[attr.name] == nil else {
+                    fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in component: \(component)")
+                }
+                map[attr.name] = component
+            }
         }
-        self._attributeComponentMap = Dictionary(uniqueKeysWithValues: pairs)
+        self._attributeComponentMap = map
 
     }
     

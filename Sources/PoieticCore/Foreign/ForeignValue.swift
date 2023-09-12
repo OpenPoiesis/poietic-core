@@ -429,6 +429,12 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         self = .array(values.map { ForeignAtom.double($0)} )
     }
 
+    /// Create a foreign value wrapping a list of strings
+    ///
+    public init(_ values: [String]) {
+        self = .array(values.map { ForeignAtom.string($0)} )
+    }
+    
     /// Create a foreign value wrapping a list of points
     ///
     public init(_ values: [Point]) {

@@ -74,3 +74,163 @@ public struct NameComponent: Component, CustomStringConvertible {
     }
 }
 
+public enum AudienceLevel: Int, Codable {
+    case any = 0
+    case beginner = 1
+    case intermediate = 2
+    case advanced = 3
+    case expert = 4
+
+    public init(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .any
+        case 1: self = .beginner
+        case 2: self = .intermediate
+        case 3: self = .advanced
+        case 4: self = .expert
+        default:
+            if rawValue < 0 {
+                self = .any
+            }
+            else {
+                self = .expert
+            }
+        }
+    }
+    
+    /// Compare two audience levels.
+    ///
+    /// Level `any` is always greater than anything else.
+    ///
+    static func < (lhs: AudienceLevel, rhs: AudienceLevel) -> Bool {
+        if lhs == .any || rhs == .any {
+            return false
+        }
+        else {
+            return lhs.rawValue < rhs.rawValue
+        }
+    }
+
+}
+
+/// A component that can be associated with any object, including the design,
+/// to denote intended audience level of the object.
+///
+/// For example, the user interface can hide or disable editing of objects that
+/// are of a higher audience level.
+///
+struct AudienceLevelComponent: Component {
+    public static var componentDescription = ComponentDescription(
+        name: "AudienceLevel",
+        attributes: [
+            AttributeDescription(
+                name: "audienceLevel",
+                type: .int,
+                abstract: "Intended level of expertise of the audience interacting with the object"),
+        ]
+    )
+    var audienceLevel: AudienceLevel
+
+    init() {
+        self.audienceLevel = .any
+    }
+    
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "audienceLevel": return ForeignValue(audienceLevel.rawValue)
+        default: return nil
+        }
+    }
+
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "audienceLevel":
+            let level = try value.intValue()
+            audienceLevel = AudienceLevel(rawValue: level)
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
+    }
+}
+
+/// Documentation component
+///
+struct DocumentationComponent: Component {
+    public static var componentDescription = ComponentDescription(
+        name: "Documentation",
+        attributes: [
+            AttributeDescription(
+                name: "abstract",
+                type: .string,
+                abstract: "Short abstract about the object."),
+            AttributeDescription(
+                name: "documentation",
+                type: .string,
+                abstract: "Longer object documentation."),
+        ]
+    )
+    var abstract: String
+    var documentation: String
+
+    init() {
+        self.abstract = ""
+        self.documentation = ""
+    }
+    
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "abstract": return ForeignValue(abstract)
+        case "documentation": return ForeignValue(documentation)
+        default: return nil
+        }
+    }
+
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "abstract": self.abstract = try value.stringValue()
+        case "documentation": self.abstract = try value.stringValue()
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
+    }
+}
+
+/// Keywords component
+///
+public struct KeywordsComponent: Component {
+    public static var componentDescription = ComponentDescription(
+        name: "Keywords",
+        attributes: [
+            AttributeDescription(
+                name: "keywords",
+                type: .array(.string),
+                abstract: "List of keywords"),
+        ]
+    )
+    public var keywords: [String]
+
+    public init() {
+        self.keywords = []
+    }
+    
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "keywords": return ForeignValue(keywords)
+        default: return nil
+        }
+    }
+
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "keywords": self.keywords = try value.stringArray()
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
+    }
+}

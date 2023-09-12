@@ -25,7 +25,7 @@ public enum EdgeDirection {
     }
 }
 
-
+// TODO: Do we still need this? Can't we just have predicate + direction in the hood?
 public class NeighborhoodSelector {
     public let direction: EdgeDirection
     public let predicate: Predicate
@@ -37,7 +37,8 @@ public class NeighborhoodSelector {
     }
 }
 
-
+// TODO: [EXPERIMENTAL] The following is experimental
+// TODO: Rethink Neighbourhoods. They are useful, but not well implemented
 // TODO: Split this into Bound and Unbound
 // TODO: Document complexity O(n) - all edges are traversed
 
@@ -48,9 +49,9 @@ public class Neighborhood {
     public let edges: [Edge]
     
     public init(graph: Graph,
-         nodeID: ObjectID,
-         selector: NeighborhoodSelector,
-         edges: [Edge]) {
+                nodeID: ObjectID,
+                selector: NeighborhoodSelector,
+                edges: [Edge]) {
         
         self.graph = graph
         self.nodeID = nodeID
@@ -70,3 +71,89 @@ public class Neighborhood {
         }
     }
 }
+
+public class NeighborhoodView {
+    public let graph: Graph
+    public let nodeID: ObjectID
+    public let predicate: Predicate
+    public let direction: EdgeDirection
+
+    var node: Node {
+        graph.node(nodeID)
+    }
+    
+    var edges: [Edge] {
+        let edges: [Edge]
+        switch direction {
+        case .incoming: edges = graph.incoming(nodeID)
+        case .outgoing: edges = graph.outgoing(nodeID)
+        }
+        let filtered: [Edge] = edges.filter {
+            predicate.match(frame: graph.frame, object: $0.snapshot)
+        }
+
+        return filtered
+    }
+    
+    public init(graph: Graph,
+                nodeID: ObjectID,
+                predicate: Predicate,
+                direction: EdgeDirection = .outgoing) {
+        
+        self.graph = graph
+        self.nodeID = nodeID
+        self.predicate = predicate
+        self.direction = direction
+    }
+    
+    public var nodes: [Node] {
+        edges.map { edge in
+            switch direction {
+            case .incoming: graph.node(edge.origin)
+            case .outgoing: graph.node(edge.target)
+            }
+        }
+    }
+}
+
+
+public class BoundNeighborhood {
+    public let graph: Graph
+    public let node: Node
+    public let nodeID: ObjectID
+    public let predicate: Predicate
+    public let direction: EdgeDirection
+    public let edges: [Edge]
+    public let nodes: [Node]
+    
+    public init(graph: Graph,
+                nodeID: ObjectID,
+                predicate: Predicate,
+                direction: EdgeDirection = .outgoing) {
+        
+        self.graph = graph
+        self.nodeID = nodeID
+        self.node = graph.node(nodeID)
+        self.predicate = predicate
+        self.direction = direction
+
+        let edges: [Edge]
+        switch direction {
+        case .incoming: edges = graph.incoming(nodeID)
+        case .outgoing: edges = graph.outgoing(nodeID)
+        }
+        let filtered: [Edge] = edges.filter {
+            predicate.match(frame: graph.frame, object: $0.snapshot)
+        }
+
+        self.edges = filtered
+        self.nodes = edges.map { edge in
+            switch direction {
+            case .incoming: graph.node(edge.origin)
+            case .outgoing: graph.node(edge.target)
+            }
+        }
+
+    }
+}
+

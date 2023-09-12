@@ -97,3 +97,37 @@ public class EmptyMetamodel: Metamodel {
     
     public static var constraints: [Constraint] = []
 }
+
+/// Metamodel with some basic object types that are typical for multiple
+/// kinds of designs.
+///
+public class BasicMetamodel: Metamodel {
+    
+    public static let DesignInfo = ObjectType(
+        name:"Design",
+        structuralType: .unstructured,
+        isSystemOwned: true,
+        components: [
+            DesignInfoComponent.self,
+            DocumentationComponent.self,
+            AudienceLevelComponent.self,
+            KeywordsComponent.self,
+        ])
+
+    
+    public static var components: [Component.Type] = [
+        DesignInfoComponent.self,
+        DocumentationComponent.self,
+        AudienceLevelComponent.self,
+        KeywordsComponent.self,
+    ]
+    
+    public static var objectTypes: [ObjectType] = [
+        DesignInfo,
+    ]
+    
+    public static var variables: [BuiltinVariable] = []
+    
+    public static var constraints: [Constraint] = []
+
+}
