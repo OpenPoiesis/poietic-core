@@ -91,9 +91,7 @@ public struct ControlBindingSystem: SimulationSystem {
     }
 
     public func updateValues(_ context: SimulationContext) {
-        print("UPDATING BINDINGS (count: \(context.model.valueBindings.count))")
         for binding in context.model.valueBindings {
-            print("BINDING: \(binding)")
             let value = context.state[binding.target]!
             let control = context.frame.mutableObject(binding.control)
             control[ControlComponent.self]!.value = value

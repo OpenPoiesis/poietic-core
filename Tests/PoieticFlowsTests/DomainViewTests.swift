@@ -35,7 +35,7 @@ final class TestDomainView: XCTestCase {
                          components: [FormulaComponent(expression:"0")])
         // TODO: Check using violation checker
         
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         let names = try view.namesToObjects()
         
@@ -61,7 +61,7 @@ final class TestDomainView: XCTestCase {
         
         // TODO: Check using violation checker
         
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         XCTAssertThrowsError(try view.namesToObjects()) {
             guard let error = $0 as? DomainError else {
@@ -86,7 +86,7 @@ final class TestDomainView: XCTestCase {
         let l = graph.createNode(FlowsMetamodel.Stock,
                                  components: [FormulaComponent(name: "l",
                                                                expression: "sqrt(a*a + b*b)")])
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         let exprs = try view.boundExpressions(names: names)
         
@@ -121,8 +121,8 @@ final class TestDomainView: XCTestCase {
                          target: c,
                          components: [])
         
-        let view = DomainView(graph)
-        let sortedNodes = try view.sortNodes(nodes: [b, c, a])
+        let view = StockFlowView(graph)
+        let sortedNodes = try view.sortedNodesByParameter(nodes: [b, c, a])
         
         if sortedNodes.isEmpty {
             XCTFail("Sorted expression nodes must not be empty")
@@ -139,7 +139,7 @@ final class TestDomainView: XCTestCase {
         let broken = graph.createNode(FlowsMetamodel.Stock,
                                       name: "broken",
                                       components: [FormulaComponent(expression: "price")])
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         let parameters = view.parameters(broken, required:["price"])
         XCTAssertEqual(parameters.count, 1)
@@ -166,7 +166,7 @@ final class TestDomainView: XCTestCase {
                          target: tested,
                          components: [])
         
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         // TODO: Get the required list from the compiler
         let parameters = view.parameters(tested, required:["used"])
@@ -191,7 +191,7 @@ final class TestDomainView: XCTestCase {
                          target: tested,
                          components: [])
         
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         let parameters = view.parameters(tested, required:["known", "unknown"])
         XCTAssertEqual(parameters.count, 2)
@@ -221,7 +221,7 @@ final class TestDomainView: XCTestCase {
                          target: sink,
                          components: [])
         
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         XCTAssertEqual(view.flowFills(flow), sink)
         XCTAssertEqual(view.flowDrains(flow), source)
@@ -241,7 +241,7 @@ final class TestDomainView: XCTestCase {
         graph.createEdge(FlowsMetamodel.Parameter, origin: param, target: gf)
         graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
 
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
 
         let funcs = try view.boundGraphicalFunctions()
         XCTAssertEqual(funcs.count, 1)
@@ -262,7 +262,7 @@ final class TestDomainView: XCTestCase {
                                   name: "g",
                                   components: [GraphicalFunctionComponent()])
 
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
 
         XCTAssertThrowsError(try view.boundGraphicalFunctions()) {
             XCTAssertNotNil($0 as? DomainError)

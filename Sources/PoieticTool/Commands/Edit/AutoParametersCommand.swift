@@ -22,7 +22,7 @@ extension PoieticTool {
             let memory = try openMemory(options: options)
             let frame = memory.deriveFrame()
             let graph = frame.mutableGraph
-            let view = DomainView(graph)
+            let view = StockFlowView(graph)
             
             let builtinNames: Set<String> = Set(FlowsMetamodel.variables.map {
                 $0.name

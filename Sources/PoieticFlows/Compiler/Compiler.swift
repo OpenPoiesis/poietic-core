@@ -27,7 +27,7 @@ public class Compiler {
     let graph: MutableGraph
     
     /// Flows domain view of the frame.
-    let view: DomainView
+    let view: StockFlowView
 
     /// Creates a compiler that will compile within the context of the given
     /// model.
@@ -36,7 +36,7 @@ public class Compiler {
         // FIXME: Compiler should get a stable frame, not a mutable frame!
         self.frame = frame
         self.graph = frame.mutableGraph
-        self.view = DomainView(self.graph)
+        self.view = StockFlowView(self.graph)
     }
 
     /// Compiles the model and returns the compiled version of the model.
@@ -111,7 +111,7 @@ public class Compiler {
         // 3. Sort nodes in order of computation
         // -----------------------------------------------------------------
         //
-        let sortedNodes = try view.sortNodes(nodes: Array(computations.keys))
+        let sortedNodes = try view.sortedNodesByParameter(nodes: Array(computations.keys))
 
         // 4. Filter by node type
         // -----------------------------------------------------------------
@@ -177,7 +177,7 @@ public class Compiler {
             inflows[stock.id] = []
         }
         
-        for edge in graph.selectEdges(FlowsMetamodel.drainsEdge) {
+        for edge in view.drainsEdges {
             // Drains edge: stock ---> flow
             let stock = edge.origin
             let flow = edge.target
@@ -201,7 +201,7 @@ public class Compiler {
             outflows[stock.id] = sortedOutflows
         }
         
-        for edge in graph.selectEdges(FlowsMetamodel.fillsEdge) {
+        for edge in view.fillsEdges {
             // Fills edge: flow ---> stock
             let flow = edge.origin
             let stock = edge.target
@@ -237,9 +237,9 @@ public class Compiler {
     ///   ``DomainView/sortedStocksByImplicitFlows(_:)``
     ///
     public func updateImplicitFlows() {
-        var unused: [Edge] = graph.selectEdges(FlowsMetamodel.implicitFlowEdge)
+        var unused: [Edge] = view.implicitFlowEdges
         
-        for flow in graph.selectNodes(FlowsMetamodel.flowNodes) {
+        for flow in view.flowNodes {
             guard let fills = view.flowFills(flow.id) else {
                 continue
             }

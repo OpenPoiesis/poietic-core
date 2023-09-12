@@ -30,13 +30,15 @@ public class FlowsMetamodel: Metamodel {
         FormulaComponent.self,
         PositionComponent.self,
         GraphicalFunctionComponent.self,
-    ]
+    ] + BasicMetamodel.components
     
     
     // MARK: Object Types
     // ---------------------------------------------------------------------
 
 
+    public static let DesignInfo = BasicMetamodel.DesignInfo
+    
     /// A stock node - one of the two core nodes.
     ///
     /// Stock node represents a pool, accumulator, a stored value.
@@ -173,6 +175,18 @@ public class FlowsMetamodel: Metamodel {
    
     /// Edge between two stocks that are connected through a flow.
     ///
+    /// Implicit flow is an edge between two stocks connected by a flow
+    /// where one stocks fills the flow and another stock drains the flow.
+    ///
+    /// ```
+    ///              Drains           Fills
+    ///    Stock a ==========> Flow =========> Stock b
+    ///       |                                  ^
+    ///       +----------------------------------+
+    ///                   implicit flow
+    ///
+    /// ```
+
     /// - Note: This edge is created by the system, not by the user.
     ///
     public static let ImplicitFlow = ObjectType(
@@ -224,7 +238,7 @@ public class FlowsMetamodel: Metamodel {
         Control,
         Chart,
         ValueBinding,
-    ]
+    ] + BasicMetamodel.objectTypes
     
     // MARK: Constraints
     // TODO: Add tests for violation of each of the constraints
@@ -272,7 +286,10 @@ public class FlowsMetamodel: Metamodel {
                          """,
             match: IsTypePredicate(GraphicalFunction),
             requirement: UniqueNeighbourRequirement(
-                incomingParameters,
+                NeighborhoodSelector(
+                    predicate: IsTypePredicate(Parameter),
+                    direction: .incoming
+                ),
                 required: false
             )
         ),
@@ -306,146 +323,6 @@ public class FlowsMetamodel: Metamodel {
             )
         ),
     ]
-
-    // MARK: Queries and Predicates
-    // ---------------------------------------------------------------------
-    
-    /// Predicate that matches all nodes that have an arithmetic expression
-    /// (formula).
-    ///
-    public static let expressionNodes = HasComponentPredicate(FormulaComponent.self)
-
-    /// Predicate that matches all nodes that have a name through
-    /// NamedComponent.
-    ///
-    public static let namedNodes = HasComponentPredicate(NameComponent.self)
-    public static let graphicalFunctionNodes = HasComponentPredicate(GraphicalFunctionComponent.self)
-
-    /// Predicate that matches all nodes that are flows.
-    ///
-    public static let flowNodes = IsTypePredicate(Flow)
-
-    /// Predicate that matches all edges that represent parameter connections.
-    ///
-    public static let parameterEdges = IsTypePredicate(Parameter)
-
-    /// A neighbourhood for incoming parameters of a node.
-    ///
-    /// Focus node is a node where we would like to see nodes that
-    /// are parameters for the node of focus.
-    ///
-    public static let incomingParameters = NeighborhoodSelector(
-        predicate: parameterEdges,
-        direction: .incoming
-    )
-    
-    
-    /// Predicate for an edge that fills a stocks. It originates in a flow,
-    /// and terminates in a stock.
-    ///
-    public static let fillsEdge = IsTypePredicate(Fills)
-    // TODO: Rename to flowFills to prevent confusion
-    /// Selector for an edge originating in a flow and ending in a stock denoting
-    /// which stock the flow fills. There must be only one of such edges
-    /// originating in a flow.
-    ///
-    /// Neighbourhood of stocks around the flow.
-    ///
-    ///     Flow --(Fills)--> Stock
-    ///      ^                  ^
-    ///      |                  +--- Neighbourhood (only one)
-    ///      |
-    ///      Node of interest
-    ///
-    public static let fills = NeighborhoodSelector(
-        predicate: fillsEdge,
-        direction: .outgoing
-    )
-    
-    /// Selector for edges originating in a flow and ending in a stock denoting
-    /// the inflow from multiple flows into a single stock.
-    ///
-    ///     Flow --(Fills)--> Stock
-    ///      ^                  ^
-    ///      |                  +--- Node of interest
-    ///      |
-    ///      Neighbourhood (many)
-    ///
-    public static let inflows = NeighborhoodSelector(
-        predicate: fillsEdge,
-        direction: .incoming
-    )
-
-    /// Predicate for an edge that drains from a stocks. It originates in a
-    /// stock and terminates in a flow.
-    ///
-    public static let drainsEdge = IsTypePredicate(Drains)
-    
-    // TODO: Rename to flowDrains to prevent confusion
-    /// Selector for an edge originating in a stock and ending in a flow denoting
-    /// which stock the flow drains. There must be only one of such edges
-    /// ending in a flow.
-    ///
-    /// Neighbourhood of stocks around the flow.
-    ///
-    ///     Stock --(Drains)--> Flow
-    ///      ^                    ^
-    ///      |                    +--- Node of interest
-    ///      |
-    ///      Neighbourhood (only one)
-    ///
-    ///
-    public static let drains = NeighborhoodSelector(
-        predicate: drainsEdge,
-        direction: .incoming
-    )
-    
-    /// Selector for edges originating in a stock and ending in a flow denoting
-    /// the outflow from the stock to multiple flows.
-    ///
-    ///
-    ///     Stock --(Drains)--> Flow
-    ///      ^                    ^
-    ///      |                    +--- Neighbourhood (many)
-    ///      |
-    ///      Node of interest
-    ///
-    ///
-    public static let outflows = NeighborhoodSelector(
-        predicate: drainsEdge,
-        direction: .outgoing
-    )
-
-    /// Predicate for an edge that denotes an implicit flow between
-    /// two stocks.
-    ///
-    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
-    /// ``DomainView/implicitDrains(_:)``,
-    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
-    ///
-    public static let implicitFlowEdge = IsTypePredicate(ImplicitFlow)
-
-    /// Neighbourhood selector of stocks around a stock being filledby them.
-    ///
-    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
-    /// ``DomainView/implicitDrains(_:)``,
-    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
-    ///
-    public static let implicitFills = NeighborhoodSelector(
-        predicate: implicitFlowEdge,
-        direction: .outgoing
-    )
-
-    /// Neighbourhood selector of stocks around a stock being drained by them.
-    ///
-    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
-    /// ``DomainView/implicitDrains(_:)``,
-    /// ``DomainView/sortedStocksByImplicitFlows(_:)``
-    ///
-    public static let implicitDrains = NeighborhoodSelector(
-        predicate: implicitFlowEdge,
-        direction: .incoming
-    )
     
     // MARK: Built-in variables
     // ---------------------------------------------------------------------

@@ -8,37 +8,14 @@
 import PoieticCore
 
 
+/// Status of a parameter.
+///
+/// The status is provided by the function ``StockFlowView/parameters(_:required:)``.
+///
 public enum ParameterStatus:Equatable {
     case missing
     case unused(node: ObjectID, edge: ObjectID)
     case used(node: ObjectID, edge: ObjectID)
-}
-
-/// A type representing a required para
-public struct ParameterOutlet: Equatable, CustomStringConvertible, Hashable {
-    // TODO: Add "required" (see below). For now it is just a name wrapper.
-    /// Name of the parameter.
-    ///
-    /// If the name is set, then one of the incoming parameters must have the
-    /// name specified. Named parameters are used in formulas.
-    ///
-    /// If the name is `nil` then the incoming parameter might be of any name.
-    /// Unnamed parameters are used for example in graphical functions.
-    ///
-    public let name: String?
-    
-    // Specify whether the parameter is required or not.
-    //
-    // public let required: Bool
-    
-    public var description: String {
-        if let name {
-            "\(name)"
-        }
-        else {
-            "(unnamed)"
-        }
-    }
 }
 
 
@@ -59,33 +36,188 @@ public struct BoundGraphicalFunction {
 /// The domain view provides higher level view of the design through higher
 /// level concepts as defined in the ``FlowsMetamodel``.
 ///
-public class DomainView {
+public class StockFlowView {
+    // TODO: Consolidate queries in metamodel and this domain view - move them here(?)
     /// Graph that the view projects.
     ///
     public let graph: Graph
+    public let frame: Frame
     
     /// Create a new view on top of a graph.
     ///
     public init(_ graph: Graph) {
+        // FIXME: Use only frame, not a graph
         self.graph = graph
+        self.frame = graph.frame
     }
     
     // TODO: Use component filter directly here
     /// List of expression nodes in the graph.
     ///
     public var expressionNodes: [Node] {
-        graph.selectNodes(FlowsMetamodel.expressionNodes)
+        graph.selectNodes(HasComponentPredicate(FormulaComponent.self))
     }
     
     public var graphicalFunctionNodes: [Node] {
-        graph.selectNodes(FlowsMetamodel.graphicalFunctionNodes)
+        graph.selectNodes(HasComponentPredicate(GraphicalFunctionComponent.self))
     }
-
-    public var namedNodes: [Node] {
-        graph.selectNodes(FlowsMetamodel.namedNodes)
-    }
-
     
+    public var flowNodes: [Node] {
+        graph.selectNodes(IsTypePredicate(FlowsMetamodel.Flow))
+    }
+    
+    // Parameter queries
+    // ---------------------------------------------------------------------
+    //
+    /// Predicate that matches all edges that represent parameter connections.
+    ///
+    public var parameterEdges: [Edge] {
+        graph.selectEdges(IsTypePredicate(FlowsMetamodel.Parameter))
+    }
+    /// A neighbourhood for incoming parameters of a node.
+    ///
+    /// Focus node is a node where we would like to see nodes that
+    /// are parameters for the node of focus.
+    ///
+    public func incomingParameters(_ nodeID: ObjectID) -> Neighborhood {
+        graph.hood(nodeID,
+                   selector: NeighborhoodSelector(
+                    predicate: IsTypePredicate(FlowsMetamodel.Parameter),
+                    direction: .incoming
+                )
+        )
+    }
+
+    // Fills/drains queries
+    // ---------------------------------------------------------------------
+    //
+    /// Predicate for an edge that fills a stocks. It originates in a flow,
+    /// and terminates in a stock.
+    ///
+    public var fillsEdges: [Edge] {
+        graph.selectEdges(IsTypePredicate(FlowsMetamodel.Fills))
+    }
+
+    /// Selector for an edge originating in a flow and ending in a stock denoting
+    /// which stock the flow fills. There must be only one of such edges
+    /// originating in a flow.
+    ///
+    /// Neighbourhood of stocks around the flow.
+    ///
+    ///     Flow --(Fills)--> Stock
+    ///      ^                  ^
+    ///      |                  +--- Neighbourhood (only one)
+    ///      |
+    ///      *Node of interest*
+    ///
+    public func fills(_ nodeID: ObjectID) -> Neighborhood {
+        graph.hood(nodeID,
+                   selector: NeighborhoodSelector(
+                    predicate: IsTypePredicate(FlowsMetamodel.Fills),
+                    direction: .outgoing
+                )
+        )
+    }
+
+    /// Selector for edges originating in a flow and ending in a stock denoting
+    /// the inflow from multiple flows into a single stock.
+    ///
+    ///     Flow --(Fills)--> Stock
+    ///      ^                  ^
+    ///      |                  +--- *Node of interest*
+    ///      |
+    ///      Neighbourhood (many)
+    ///
+    public func inflows(_ nodeID: ObjectID) -> Neighborhood {
+        graph.hood(nodeID,
+                   selector: NeighborhoodSelector(
+                    predicate: IsTypePredicate(FlowsMetamodel.Fills),
+                    direction: .incoming
+                )
+        )
+    }
+    /// Selector for an edge originating in a stock and ending in a flow denoting
+    /// which stock the flow drains. There must be only one of such edges
+    /// ending in a flow.
+    ///
+    /// Neighbourhood of stocks around the flow.
+    ///
+    ///     Stock --(Drains)--> Flow
+    ///      ^                    ^
+    ///      |                    +--- Node of interest
+    ///      |
+    ///      Neighbourhood (only one)
+    ///
+    ///
+    public func drains(_ nodeID: ObjectID) -> Neighborhood {
+        graph.hood(nodeID,
+                   selector: NeighborhoodSelector(
+                    predicate: IsTypePredicate(FlowsMetamodel.Drains),
+                    direction: .incoming
+                )
+        )
+    }
+    /// Selector for edges originating in a stock and ending in a flow denoting
+    /// the outflow from the stock to multiple flows.
+    ///
+    ///
+    ///     Stock --(Drains)--> Flow
+    ///      ^                    ^
+    ///      |                    +--- Neighbourhood (many)
+    ///      |
+    ///      Node of interest
+    ///
+    ///
+    public func outflows(_ nodeID: ObjectID) -> Neighborhood {
+        graph.hood(nodeID,
+                   selector: NeighborhoodSelector(
+                    predicate: IsTypePredicate(FlowsMetamodel.Drains),
+                    direction: .incoming
+                )
+        )
+    }
+
+    /// Predicate for an edge that drains from a stocks. It originates in a
+    /// stock and terminates in a flow.
+    ///
+    public var drainsEdges: [Edge] {
+        graph.selectEdges(IsTypePredicate(FlowsMetamodel.Drains))
+    }
+    
+    /// List of all edges that denotes an implicit flow between
+    /// two stocks.
+    ///
+    /// Implicit flow is an edge between two stocks connected by a flow
+    /// where one stocks fills the flow and another stock drains the flow.
+    ///
+    /// ```
+    ///              Drains           Fills
+    ///    Stock a ==========> Flow =========> Stock b
+    ///       |                                  ^
+    ///       +----------------------------------+
+    ///                   implicit flow
+    ///
+    /// ```
+    ///
+    /// Implicit flows are created by the compiler, they are not supposed to be
+    /// created by the user.
+    ///
+    /// - SeeAlso: ``StockFlowView/implicitFills(_:)``,
+    /// ``StockFlowView/implicitDrains(_:)``,
+    /// ``StockFlowView/sortedStocksByImplicitFlows(_:)``
+    ///
+    public var implicitFlowEdges: [Edge] {
+        graph.selectEdges(IsTypePredicate(FlowsMetamodel.ImplicitFlow))
+    }
+
+
+    /// Predicate that matches all nodes that have a name through
+    /// NamedComponent.
+    ///
+    public var namedNodes: [Node] {
+        graph.selectNodes(HasComponentPredicate(NameComponent.self))
+    }
+
     /// Collect names of objects.
     ///
     /// - Returns: A dictionary where keys are object names and values are
@@ -217,12 +349,14 @@ public class DomainView {
         }
     }
    
+    /// Constructs and returns a list of bound graphical functions.
+    ///
     public func boundGraphicalFunctions() throws -> [BoundGraphicalFunction] {
         var results: [BoundGraphicalFunction] = []
         var error = DomainError()
         
         for node in graphicalFunctionNodes {
-            let hood = graph.hood(node.id, selector: FlowsMetamodel.incomingParameters)
+            let hood = incomingParameters(node.id)
             guard let parameterNode = hood.nodes.first else {
                 // FIXME: This must be an exception
                 error.append(NodeIssue.missingGraphicalFunctionParameter, for: node.id)
@@ -282,28 +416,14 @@ public class DomainView {
         return issues
     }
     
-    // FIXME: This is expensive - parsing expression every single time.
-    public func parameterOutlets(_ nodeID: ObjectID) -> [ParameterOutlet] {
-        let node = graph.node(nodeID)
-        var outlets: [ParameterOutlet] = []
-        if let expression = try? node.parsedExpression() {
-            let vars: Set<String> = Set(expression.allVariables)
-            outlets += vars.map { ParameterOutlet(name: $0) }
-        }
-        
-        if node[GraphicalFunctionComponent.self] != nil {
-            outlets.append(ParameterOutlet(name: nil))
-        }
-        
-        return outlets
-    }
-    
     // TODO: Remove the `required` and compute here. Expensive, but useful for the caller.
     // TODO: The `required` should belong to the node itself.
     // TODO: Rename to formulaParameters as this makes sense for formulas only
+    /// Function to get a map between parameter names and their status.
+    ///
     public func parameters(_ nodeID: ObjectID,
                            required: [String]) -> [String:ParameterStatus] {
-        let incomingHood = graph.hood(nodeID, selector: FlowsMetamodel.incomingParameters)
+        let incomingHood = incomingParameters(nodeID)
         var unseen: Set<String> = Set(required)
         var result: [String: ParameterStatus] = [:]
 
@@ -335,11 +455,8 @@ public class DomainView {
     ///
     /// - Throws: ``GraphCycleError`` when cycle was detected.
     ///
-    public func sortNodes(nodes: [ObjectID]) throws -> [Node] {
-        // TODO: Rename to "sortedNodesByParameter"
-        
-        let edges: [Edge] = graph.selectEdges(FlowsMetamodel.parameterEdges)
-        let sorted = try graph.topologicalSort(nodes, edges: edges)
+    public func sortedNodesByParameter(nodes: [ObjectID]) throws -> [Node] {
+        let sorted = try graph.topologicalSort(nodes, edges: parameterEdges)
         
         let result: [Node] = sorted.map {
             graph.node($0)
@@ -358,10 +475,7 @@ public class DomainView {
     ///   ``implicitDrains(_:)``,
     ///   ``Compiler/updateImplicitFlows()``
     public func sortedStocksByImplicitFlows(_ nodes: [ObjectID]) throws -> [Node] {
-        // TODO: Rename to "sortedNodesByParameter"
-        
-        let edges: [Edge] = graph.selectEdges(FlowsMetamodel.implicitFlowEdge)
-        let sorted = try graph.topologicalSort(nodes, edges: edges)
+        let sorted = try graph.topologicalSort(nodes, edges: implicitFlowEdges)
         
         let result: [Node] = sorted.map {
             graph.node($0)
@@ -387,8 +501,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
-        let hood = graph.hood(flowID, selector: FlowsMetamodel.fills)
-        if let node = hood.nodes.first {
+        if let node = fills(flowID).nodes.first {
             return node.id
         }
         else {
@@ -413,8 +526,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(flowNode.type === FlowsMetamodel.Flow)
         
-        let hood = graph.hood(flowID, selector: FlowsMetamodel.drains)
-        if let node = hood.nodes.first {
+        if let node = drains(flowID).nodes.first {
             return node.id
         }
         else {
@@ -440,8 +552,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.hood(stockID, selector: FlowsMetamodel.inflows)
-        return hood.nodes.map { $0.id }
+        return inflows(stockID).nodes.map { $0.id }
     }
     
     /// Return a list of flows that drain a stock.
@@ -463,8 +574,7 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.hood(stockID, selector: FlowsMetamodel.outflows)
-        return hood.nodes.map { $0.id }
+        return outflows(stockID).nodes.map { $0.id }
     }
 
     /// Return a list of stock nodes that the given stock fills.
@@ -481,6 +591,9 @@ public class DomainView {
     ///
     /// ```
     ///
+    /// - SeeAlso: ``StockFlowView/implicitDrains(_:)``,
+    /// ``StockFlowView/sortedStocksByImplicitFlows(_:)``
+    ///
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func implicitFills(_ stockID: ObjectID) -> [ObjectID] {
@@ -488,7 +601,10 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.hood(stockID, selector: FlowsMetamodel.implicitFills)
+        let hood = graph.hood(stockID,
+                              selector: NeighborhoodSelector(
+                                predicate: IsTypePredicate(FlowsMetamodel.ImplicitFlow),
+                                direction: .outgoing))
         
         return hood.nodes.map { $0.id }
     }
@@ -507,6 +623,9 @@ public class DomainView {
     ///
     /// ```
     ///
+    /// - SeeAlso: ``StockFlowView/implicitFills(_:)``,
+    /// ``StockFlowView/sortedStocksByImplicitFlows(_:)``
+    ///
     /// - Precondition: `stockID` must be an ID of a node that is a stock.
     ///
     public func implicitDrains(_ stockID: ObjectID) -> [ObjectID] {
@@ -514,8 +633,11 @@ public class DomainView {
         // TODO: Do we need to check it here? We assume model is valid.
         precondition(stockNode.type === FlowsMetamodel.Stock)
         
-        let hood = graph.hood(stockID, selector: FlowsMetamodel.implicitDrains)
-        
+        let hood = graph.hood(stockID,
+                              selector: NeighborhoodSelector(
+                                predicate: IsTypePredicate(FlowsMetamodel.ImplicitFlow),
+                                direction: .incoming))
+
         return hood.nodes.map { $0.id }
     }
 }

@@ -85,7 +85,7 @@ final class TestCompiler: XCTestCase {
                          components: [])
         
         let compiler = Compiler(frame: frame)
-        let view = DomainView(graph)
+        let view = StockFlowView(graph)
         
         XCTAssertEqual(view.implicitDrains(source).count, 0)
         XCTAssertEqual(view.implicitFills(sink).count, 0)
