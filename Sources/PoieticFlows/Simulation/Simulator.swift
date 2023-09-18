@@ -35,21 +35,25 @@ public class Simulator {
     /// Current simulation step
     public var currentStep: Int = 0
     public var currentTime: Double = 0
-    public var state: StateVector
+    public var currentState: SimulationState?
     public var frame: MutableFrame?
     public var compiledModel: CompiledModel?
     
-    // MARK: - Initialization
+    /// Collected data
+    public var output: [SimulationState]
+    
+    // MARK: - Initialisation
     
     public init(memory: ObjectMemory, solverType: Solver.Type = EulerSolver.self) {
         self.memory = memory
         self.solverType = solverType
-        self.state = StateVector()
+        self.currentState = nil
         
         // TODO: Make this not built-in
         systems = [
             ControlBindingSystem()
         ]
+        output = []
     }
 
     // MARK: - Compilation methods
@@ -86,17 +90,19 @@ public class Simulator {
         currentTime = initialTime
         
         solver = solverType.init(model)
-        state = solver!.initialize(time: currentTime)
+        currentState = solver!.initialize(time: currentTime)
 
+        output.removeAll()
+        output.append(currentState!)
+        
         let context = SimulationContext(
             time: currentTime,
             timeDelta: timeDelta,
             step: currentStep,
-            state: state,
+            state: currentState!,
             frame: frame,
             model: model)
 
-        print("INIT STATE: \(state)")
         for system in systems {
             system.prepareForRunning(context)
         }
@@ -119,21 +125,28 @@ public class Simulator {
         currentStep += 1
         currentTime += timeDelta
         
-        state = solver.compute(at: currentTime,
-                               with: state,
-                               timeDelta: timeDelta)
-        print("STATE: \(state)")
+        currentState = solver.compute(currentState!,
+                                      at: currentTime,
+                                      timeDelta: timeDelta)
         
         let context = SimulationContext(
             time: currentTime,
             timeDelta: timeDelta,
             step: currentStep,
-            state: state,
+            state: currentState!,
             frame: frame,
             model: model)
 
         for system in systems {
             system.didStep(context)
+        }
+    }
+    
+    /// Run the simulation for given number of steps.
+    public func run(_ steps: Int) {
+        for _ in (1...steps) {
+            step()
+            output.append(self.currentState!)
         }
     }
 }

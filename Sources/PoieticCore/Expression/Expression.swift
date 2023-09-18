@@ -17,8 +17,13 @@ public typealias UnboundExpression = ArithmeticExpression<ForeignValue, String, 
 /// Represents components of an arithmetic expression: values, variables,
 /// operators and functions.
 ///
+/// The type arguments:
+///     - ``LiteralValue`` (`L`): Type of a literal.
+///     - ``VariableReference`` (`V`): Type of a reference to a variable.
+///     - ``FunctionReference`` (`F`): Type of a reference to a function,
+///         including functions representing operators.
+///
 public indirect enum ArithmeticExpression<L, V, F> {
-    // TODO: Remove generic
     public typealias LiteralValue = L
     public typealias VariableReference = V
     public typealias FunctionReference = F

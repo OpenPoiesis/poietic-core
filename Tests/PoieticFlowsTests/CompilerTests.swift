@@ -26,12 +26,64 @@ final class TestCompiler: XCTestCase {
     var db: ObjectMemory!
     var frame: MutableFrame!
     var graph: MutableGraph!
-    
+
     override func setUp() {
         db = ObjectMemory()
         frame = db.deriveFrame()
         graph = frame.mutableGraph
     }
+
+    func testCollectNames() throws {
+        let compiler = Compiler(frame: frame)
+        graph.createNode(FlowsMetamodel.Stock,
+                         name: "a",
+                         components: [FormulaComponent(expression:"0")])
+        graph.createNode(FlowsMetamodel.Stock,
+                         name: "b",
+                         components: [FormulaComponent(expression:"0")])
+        graph.createNode(FlowsMetamodel.Stock,
+                         name: "c",
+                         components: [FormulaComponent(expression:"0")])
+        // TODO: Check using violation checker
+        
+        try compiler.prepareNodes()
+        let names = compiler.nameToObject
+        
+        XCTAssertNotNil(names["a"])
+        XCTAssertNotNil(names["b"])
+        XCTAssertNotNil(names["c"])
+        XCTAssertEqual(names.count, 3)
+    }
+    
+    func testValidateDuplicateName() throws {
+        let compiler = Compiler(frame: frame)
+        let c1 = graph.createNode(FlowsMetamodel.Stock,
+                                  name: "things",
+                                  components:[FormulaComponent(expression:"0")])
+        let c2 = graph.createNode(FlowsMetamodel.Stock,
+                                  name: "things",
+                                  components: [FormulaComponent(expression:"0")])
+        graph.createNode(FlowsMetamodel.Stock,
+                         name: "a",
+                         components: [FormulaComponent(expression:"0")])
+        graph.createNode(FlowsMetamodel.Stock,
+                         name: "b",
+                         components: [FormulaComponent(expression:"0")])
+        
+        // TODO: Check using violation checker
+        
+        XCTAssertThrowsError(try compiler.prepareNodes()) {
+            guard let error = $0 as? DomainError else {
+                XCTFail("Expected DomainError")
+                return
+            }
+            
+            XCTAssertNotNil(error.issues[c1])
+            XCTAssertNotNil(error.issues[c2])
+            XCTAssertEqual(error.issues.count, 2)
+        }
+    }
+
     
     func testInflowOutflow() throws {
         let source = graph.createNode(FlowsMetamodel.Stock,
@@ -56,12 +108,14 @@ final class TestCompiler: XCTestCase {
         let compiler = Compiler(frame: frame)
         let compiled = try compiler.compile()
         
-        XCTAssertEqual(compiled.inflows.count, 2)
-        XCTAssertEqual(compiled.inflows[sink], [flow])
-        XCTAssertEqual(compiled.inflows[source], [])
-        XCTAssertEqual(compiled.outflows.count, 2)
-        XCTAssertEqual(compiled.outflows[source], [flow])
-        XCTAssertEqual(compiled.outflows[sink], [])
+        XCTAssertEqual(compiled.stocks.count, 2)
+        XCTAssertEqual(compiled.stocks[0].id, source)
+        XCTAssertEqual(compiled.stocks[0].inflows, [])
+        XCTAssertEqual(compiled.stocks[0].outflows, [compiled.index(of: flow)])
+
+        XCTAssertEqual(compiled.stocks[1].id, sink)
+        XCTAssertEqual(compiled.stocks[1].inflows, [compiled.index(of: flow)])
+        XCTAssertEqual(compiled.stocks[1].outflows, [])
     }
     
     func testUpdateImplicitFlows() throws {
@@ -107,7 +161,60 @@ final class TestCompiler: XCTestCase {
         XCTAssertEqual(sink_fills.count, 0)
     }
     
-    func testGraphicalFunction() throws {
+    func testDisconnectedGraphicalFunction() throws {
+        let compiler = Compiler(frame: frame)
+        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g",
+                                  components: [GraphicalFunctionComponent()])
+
+        XCTAssertThrowsError(try compiler.compile()) {
+            guard let error = $0 as? DomainError else {
+                XCTFail("Expected DomainError, got: \($0)")
+                return
+            }
+            
+            XCTAssertEqual(error.issues.count, 1)
+            XCTAssertEqual(error.issues[gf], [.missingGraphicalFunctionParameter])
+            
+        }
+    }
+
+    func testGraphicalFunctionNameReferences() throws {
+        let compiler = Compiler(frame: frame)
+
+        let param = graph.createNode(FlowsMetamodel.Auxiliary,
+                                  name: "p",
+                                  components: [FormulaComponent(expression: "1")])
+        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
+                                  name: "g",
+                                  components: [GraphicalFunctionComponent()])
+        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
+                                   name:"a",
+                                   components: [FormulaComponent(expression: "g")])
+
+        graph.createEdge(FlowsMetamodel.Parameter, origin: param, target: gf)
+        graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
+
+        let compiled = try compiler.compile()
+
+        let funcs = compiled.graphicalFunctions
+        XCTAssertEqual(funcs.count, 1)
+
+        let boundFn = funcs.first!
+        XCTAssertEqual(boundFn.id, gf)
+        XCTAssertEqual(boundFn.parameterIndex, compiled.index(of:param))
+
+        try compiler.prepareNodes()
+        
+        let names = compiler.nameToObject
+        XCTAssertNotNil(names["g"])
+        
+        let issues = compiler.validateParameters(aux, required: ["g"])
+        XCTAssertTrue(issues.isEmpty)
+    }
+
+
+    func testGraphicalFunctionComputation() throws {
         let p = graph.createNode(FlowsMetamodel.Auxiliary,
                                    name:"p",
                                    components: [FormulaComponent(expression: "0")])
@@ -123,13 +230,16 @@ final class TestCompiler: XCTestCase {
         graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
 
         let compiler = Compiler(frame: frame)
-       let compiled = try compiler.compile()
+        let compiled = try compiler.compile()
+        guard let variable = compiled.variable(for: gf) else {
+            XCTFail("No compiled variable for the graphical function")
+            return
+        }
 
-        switch compiled.computations[gf] {
+        switch variable.computation {
         case .formula(_): XCTFail("Graphical function compiled as formula")
         case .graphicalFunction(let fn, _):
-            XCTAssertEqual(fn.name, "__graphical_g")
-        case nil: XCTFail("Graphical function was not compiled")
+            XCTAssertEqual(fn.name, "__graphical_\(gf)")
         }
     }
 

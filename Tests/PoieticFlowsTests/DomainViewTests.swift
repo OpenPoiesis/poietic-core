@@ -23,57 +23,6 @@ final class TestDomainView: XCTestCase {
         graph = frame.mutableGraph
     }
     
-    func testCollectNames() throws {
-        graph.createNode(FlowsMetamodel.Stock,
-                         name: "a",
-                         components: [FormulaComponent(expression:"0")])
-        graph.createNode(FlowsMetamodel.Stock,
-                         name: "b",
-                         components: [FormulaComponent(expression:"0")])
-        graph.createNode(FlowsMetamodel.Stock,
-                         name: "c",
-                         components: [FormulaComponent(expression:"0")])
-        // TODO: Check using violation checker
-        
-        let view = StockFlowView(graph)
-        
-        let names = try view.namesToObjects()
-        
-        XCTAssertNotNil(names["a"])
-        XCTAssertNotNil(names["b"])
-        XCTAssertNotNil(names["c"])
-        XCTAssertEqual(names.count, 3)
-    }
-    
-    func testValidateDuplicateName() throws {
-        let c1 = graph.createNode(FlowsMetamodel.Stock,
-                                  name: "things",
-                                  components:[FormulaComponent(expression:"0")])
-        let c2 = graph.createNode(FlowsMetamodel.Stock,
-                                  name: "things",
-                                  components: [FormulaComponent(expression:"0")])
-        graph.createNode(FlowsMetamodel.Stock,
-                         name: "a",
-                         components: [FormulaComponent(expression:"0")])
-        graph.createNode(FlowsMetamodel.Stock,
-                         name: "b",
-                         components: [FormulaComponent(expression:"0")])
-        
-        // TODO: Check using violation checker
-        
-        let view = StockFlowView(graph)
-        
-        XCTAssertThrowsError(try view.namesToObjects()) {
-            guard let error = $0 as? DomainError else {
-                XCTFail("Expected DomainError")
-                return
-            }
-            
-            XCTAssertNotNil(error.issues[c1])
-            XCTAssertNotNil(error.issues[c2])
-            XCTAssertEqual(error.issues.count, 2)
-        }
-    }
     
     func testCompileExpressions() throws {
         throw XCTSkip("Conflicts with input validation, this test requires attention.")
@@ -122,7 +71,7 @@ final class TestDomainView: XCTestCase {
                          components: [])
         
         let view = StockFlowView(graph)
-        let sortedNodes = try view.sortedNodesByParameter(nodes: [b, c, a])
+        let sortedNodes = try view.sortedNodesByParameter([b, c, a])
         
         if sortedNodes.isEmpty {
             XCTFail("Sorted expression nodes must not be empty")
@@ -226,47 +175,4 @@ final class TestDomainView: XCTestCase {
         XCTAssertEqual(view.flowFills(flow), sink)
         XCTAssertEqual(view.flowDrains(flow), source)
     }
-    
-    func testGraphicalFunction() throws {
-        let param = graph.createNode(FlowsMetamodel.Auxiliary,
-                                  name: "p",
-                                  components: [FormulaComponent(expression: "1")])
-        let gf = graph.createNode(FlowsMetamodel.GraphicalFunction,
-                                  name: "g",
-                                  components: [GraphicalFunctionComponent()])
-        let aux = graph.createNode(FlowsMetamodel.Auxiliary,
-                                   name:"a",
-                                   components: [FormulaComponent(expression: "g")])
-
-        graph.createEdge(FlowsMetamodel.Parameter, origin: param, target: gf)
-        graph.createEdge(FlowsMetamodel.Parameter, origin: gf, target: aux)
-
-        let view = StockFlowView(graph)
-
-        let funcs = try view.boundGraphicalFunctions()
-        XCTAssertEqual(funcs.count, 1)
-
-        let boundFn = funcs.first!
-        XCTAssertEqual(boundFn.functionNodeID, gf)
-        XCTAssertEqual(boundFn.parameterID, param)
-
-        let names = try view.namesToObjects()
-        XCTAssertNotNil(names["g"])
-        
-        let issues = view.validateParameters(aux, required: ["g"])
-        XCTAssertTrue(issues.isEmpty)
-    }
-
-    func testDisconnectedGraphicalFunction() throws {
-        let _ = graph.createNode(FlowsMetamodel.GraphicalFunction,
-                                  name: "g",
-                                  components: [GraphicalFunctionComponent()])
-
-        let view = StockFlowView(graph)
-
-        XCTAssertThrowsError(try view.boundGraphicalFunctions()) {
-            XCTAssertNotNil($0 as? DomainError)
-        }
-    }
-
 }

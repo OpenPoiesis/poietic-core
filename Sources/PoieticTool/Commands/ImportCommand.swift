@@ -24,8 +24,7 @@ extension PoieticTool {
             let frame = memory.deriveFrame()
             
             let bundle = try ForeignFrameBundle(path: fileName)
-            let reader = try ForeignFrameReader(info: bundle.info,
-                                                memory: memory)
+            let reader = ForeignFrameReader(info: bundle.info, memory: memory)
 
             for name in bundle.collectionNames {
                 let objects = try bundle.objects(in: name)

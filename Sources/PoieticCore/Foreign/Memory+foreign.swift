@@ -17,7 +17,7 @@ enum ForeignInterfaceError: Error {
     case typeMismatchError(ForeignValue, AtomType)
 }
 
-// FIXME: This is a temporary solution. See note below.
+// FIXME: [PROTOTYPE] This is a temporary solution. See note below.
 /*
     NOTE:
  

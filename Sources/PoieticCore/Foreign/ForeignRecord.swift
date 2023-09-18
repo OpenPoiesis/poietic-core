@@ -240,7 +240,7 @@ extension ForeignRecord: Equatable {
     }
 }
 
-// FIXME: Deprecate. Adds complexity.
+// FIXME: [HISTORICAL] Deprecate. Adds complexity.
 /// A foreign record that has a mapping of other foreign records associated
 /// with it.
 ///

@@ -31,6 +31,12 @@ public struct DomainError: Error {
     }
 }
 
+public struct NodeIssueList: Error {
+    public let issues: [NodeIssue]
+    public init(_ issues: [NodeIssue]) {
+        self.issues = issues
+    }
+}
 
 /// An issue detected by the ``DomainView`` or the ``Compiler``.
 ///

@@ -249,7 +249,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     // TODO: Add tests
     public func attribute(forKey key: String) -> ForeignValue? {
         // FIXME: This needs attention. It was written hastily without deeper thought.
-        // TODO: This is asymmetric with setAttribute, it should not be (that much)
+        // TODO: This is asymmetrical with setAttribute, it should not be (that much)
+        // TODO: Add structural component keys here
         switch key {
         case "id": return ForeignValue(id)
         case "snapshot_id": return ForeignValue(snapshotID)
@@ -264,7 +265,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             }
             
             guard let component = components[componentType] else {
-                fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
+                fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
             }
             return component.attribute(forKey: key)
         }
@@ -281,18 +282,13 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
         
         guard var component = components[componentType] else {
-            fatalError("Object \(composedIDString) is missing a required component: \(componentType.componentDescription.name)")
+            fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
         }
         
         try component.setAttribute(value: value, forKey: key)
         components.set(component)
     }
     
-    
-    public var composedIDString: String {
-        // FIXME: Still needed?
-        return "\(self.id).\(self.snapshotID)"
-    }
     public var debugID: String {
         return "\(self.id).\(self.snapshotID)"
     }

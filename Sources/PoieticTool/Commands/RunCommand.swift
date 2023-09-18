@@ -30,43 +30,100 @@ extension PoieticTool {
                 help: "Type of the solver to be used for computation")
         var solverName: String = "euler"
 
-        
+        enum OutputFormat: String, CaseIterable, ExpressibleByArgument{
+            case simple = "simple"
+            case dir = "dir"
+            case json = "json"
+            var defaultValueDescription: String { "simple" }
+            
+            static var allValueStrings: [String] {
+                OutputFormat.allCases.map { "\($0)" }
+            }
+        }
+        @Option(name: [.long, .customShort("f")], help: "Output format")
+        var outputFormat: OutputFormat = .simple
+
+        // TODO: Deprecate
         @Option(name: [.customLong("observe"), .customShort("o")],
                 help: "Values to observe in the output; can be object IDs or object names.")
         var outputNames: [String] = []
 
+        // TODO: Deprecate
         @Option(name: [.customLong("constant"), .customShort("c")],
                        help: "Set (override) a value of a constant node in a form 'attribute=value'")
         var overrideValues: [String] = []
+
+        /// Path to the output directory.
+        /// The generated files are:
+        /// out/
+        ///     simulation.csv
+        ///     chart-NAME.csv
+        ///     data-NAME.csv
+        ///
+        /// output format:
+        ///     - simple: full state only, as CSV
+        ///     - json: full state with all outputs as structured JSON
+        ///     - dir: directory with all outputs as CSVs (no stdout)
+        ///
+        @Argument(help: "Output path")
+        var output: String = "."
         
         mutating func run() throws {
+            fatalError("REFACTORING: CONTINUE HERE")
+            
             let memory = try openMemory(options: options)
-
             guard let solverType = Solver.registeredSolvers[solverName] else {
                 throw ToolError.unknownSolver(solverName)
             }
-            
+            let simulator = Simulator(memory: memory, solverType: solverType)
+
             let frame = memory.deriveFrame(original: memory.currentFrame.id)
-            let compiledModel: CompiledModel
-            compiledModel = try compile(frame: frame)
+            do {
+                try simulator.compile(frame)
+            }
+            catch let error as DomainError {
+                for (id, issues) in error.issues {
+                    for issue in issues {
+                        let object = frame.object(id)
+                        let label: String
+                        if let name = object.name {
+                            label = "\(id)(\(name))"
+                        }
+                        else {
+                            label = "\(id)"
+                        }
+
+                        print("ERROR: node \(label): \(issue)")
+                        if let hint = issue.hint {
+                            print("HINT: node \(label): \(hint)")
+                        }
+                    }
+                }
+                throw ToolError.compilationError
+            }
+
+            let compiledModel = simulator.compiledModel!
+            
             // Collect names of nodes to be observed
             // -------------------------------------------------------------
-            let namedNodes = compiledModel.namedNodes
+            let variables = compiledModel.simulationVariables
             if outputNames.isEmpty {
-                outputNames = Array(namedNodes.keys)
+                outputNames = Array(variables.map {$0.name})
             }
             else {
                 for name in outputNames {
-                    guard namedNodes[name] != nil else {
+                    guard compiledModel.variable(named: name) != nil else {
                         throw ToolError.unknownObjectName(name)
                     }
                 }
             }
-            var namedIDs: [String:ObjectID] = [:]
-            for (name, node) in namedNodes {
-                namedIDs[name] = node.id
+            // TODO: We do not need this any more
+            var variableIndices: [Int] = variables.map { $0.index }
+            for variable in variables {
+//                namedIDs[variable.name] = variable.id
             }
             
+            // FIXME: Remove this! Replace with JSON for controls
             // Collect constants to be overridden during initialization.
             // -------------------------------------------------------------
             var overrideConstants: [ObjectID: Double] = [:]
@@ -78,84 +135,50 @@ extension PoieticTool {
                 guard let doubleValue = Double(stringValue) else {
                     throw ToolError.typeMismatch("constant override '\(key)'", stringValue, "double")
                 }
-                guard let object = compiledModel.node(named: key) else {
+                guard let variable = compiledModel.variable(named: key) else {
                     throw ToolError.unknownObjectName(key)
                 }
-                overrideConstants[object.id] = doubleValue
+                overrideConstants[variable.id] = doubleValue
             }
             
             // Create and initialize the solver
             // -------------------------------------------------------------
-            let solver = solverType.init(compiledModel)
+            simulator.initializeSimulation()
             
-            var time: Double = 0.0
-            var state: StateVector = solver.initialize(override: overrideConstants)
-
-            let joinedNames = outputNames.joined(separator:",")
-            print("step,time,\(joinedNames)")
-
-            printState(state, time: time, step: 0, ids: namedIDs)
-
             // Run the simulation
             // -------------------------------------------------------------
-            for step in (1...steps) {
-                time += timeDelta
-                state = solver.compute(at: time,
-                                       with: state,
-                                       timeDelta: timeDelta)
-                printState(state, time: time, step: step, ids: namedIDs)
-            }
-        }
-        
-        func printState(_ state: StateVector, time: Double, step: Int, ids: [String:ObjectID]) {
-            var values: [Double] = []
+            simulator.run(steps)
             
-            for name in outputNames {
-                let value = state[ids[name]!]!
-                values.append(value)
-            }
-            
-            let joined = values.map { String($0) }.joined(separator:",")
-            print("\(step),\(time),\(joined)")
+//            try writeCSV(path: nil,
+//                         header: outputNames,
+//                         ids: namedIDs,
+//                         states: simulator.output)
         }
     }
 }
 
-/// Compile the frame and return compiled model, if the frame is valid.
-///
-/// If there are any compilation errors, they are formatted and printed out.
-/// The node names are included for nodes that have a name for user's
-/// convenience.
-///
-/// - Throws: ``ToolError/compilationError`` if there are compilation errors.
-///
-func compile(frame: MutableFrame) throws -> CompiledModel {
-    let compiler = Compiler(frame: frame)
-    let compiledModel: CompiledModel
-    
-    do {
-        compiledModel = try compiler.compile()
+func writeCSV(path: String?,
+              header: [String],
+              variables: [Int],
+              states: [SimulationState]) throws {
+    assert(header.count == variables.count)
+    // TODO: Step and time
+    let writer: CSVWriter
+    if let path {
+        writer = try CSVWriter(path: path)
     }
-    catch let error as DomainError {
-        for (id, issues) in error.issues {
-            for issue in issues {
-                let object = frame.object(id)
-                let label: String
-                if let name = object.name {
-                    label = "\(id)(\(name))"
-                }
-                else {
-                    label = "\(id)"
-                }
-
-                print("ERROR: node \(label): \(issue)")
-                if let hint = issue.hint {
-                    print("HINT: node \(label): \(hint)")
-                }
-            }
+    else {
+        writer = try CSVWriter(.standardOutput)
+    }
+    try writer.write(row: header)
+    for state in states {
+        var row: [String] = []
+        for index in variables {
+            let value = state[index]
+            row.append(String(value))
         }
-        throw ToolError.compilationError
+        try writer.write(row: row)
     }
+    try writer.close()
     
-    return compiledModel
 }

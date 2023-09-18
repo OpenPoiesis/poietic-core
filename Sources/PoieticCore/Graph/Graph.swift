@@ -254,11 +254,11 @@ extension Graph {
     }
     
     public func selectNodes(_ predicate: Predicate) -> [Node] {
-        // FIXME: There is a lot of Node wrapping/unwrapping going on here
+        // TODO: There is a lot of Node wrapping/unwrapping going on here
         return nodes.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
     public func selectEdges(_ predicate: Predicate) -> [Edge] {
-        // FIXME: There is a lot of EDGE wrapping/unwrapping going on here
+        // TODO: There is a lot of EDGE wrapping/unwrapping going on here
         return edges.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
     

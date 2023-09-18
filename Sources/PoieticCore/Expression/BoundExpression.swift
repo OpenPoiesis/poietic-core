@@ -13,80 +13,10 @@ public enum ExpressionError: Error {
     case functionError(FunctionError)
 }
 
-/// Object representing a built-in variable.
-///
-/// Each instance of this type represents a variable within a domain model. It
-/// provides information about the variable such as description or expected
-/// type.
-///
-/// Example built-in variables: `time`, `time_delta`, `previous_value`, …
-///
-/// The instance does not represent the value of the variable.
-///
-/// There should be only one instance of the variable per concept within the
-/// domain model. Therefore instances of built-in variables can be compared
-/// with identity comparison operator (`===`).
-///
-public class BuiltinVariable: Hashable {
-    public let name: String
-    public let initialValue: ForeignValue?
-    public let description: String?
 
-    // TODO: Make customizable
-    public let valueType: AtomType = .double
-    
-    public init(name: String,
-                value: ForeignValue? = nil,
-                description: String?) {
-        self.name = name
-        self.initialValue = value
-        self.description = description
-    }
-    
-    public static func ==(lhs: BuiltinVariable, rhs: BuiltinVariable) -> Bool {
-        return lhs.name == rhs.name
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-}
-
-public enum BoundVariableReference: Hashable, CustomStringConvertible {
-    
-    case object(ObjectID)
-    case builtin(BuiltinVariable)
-    
-    public static func ==(lhs: BoundVariableReference, rhs: BoundVariableReference) -> Bool {
-        switch (lhs, rhs) {
-        case let (.object(left), .object(right)): return left == right
-        case let (.builtin(left), .builtin(right)): return left === right
-        default: return false
-        }
-    }
-    
-    public var valueType: AtomType {
-        switch self {
-        case .object: AtomType.double
-        case .builtin(let variable): variable.valueType
-        }
-    }
-    
-    public var description: String {
-        switch self {
-        case .object(let id): "object(\(id))"
-        case .builtin(let variable): "builtin(\(variable.name))"
-        }
-    }
-}
-
-
-// TODO: Rename to Bound Numeric Expression
-public typealias BoundExpression = ArithmeticExpression<ForeignValue,
-                                                        BoundVariableReference,
-                                                        any FunctionProtocol>
-
-extension BoundExpression {
+// TODO: Make FunctionProtocol to conform to TypedValue
+extension ArithmeticExpression
+        where L: TypedValue, V: TypedValue, F == any FunctionProtocol {
     public var valueType: AtomType {
         let type = switch self {
         case let .value(value): value.valueType
@@ -97,10 +27,25 @@ extension BoundExpression {
         }
         
         guard let type else {
-            fatalError("Bound expression \(self) has an unknown type. Hint: Something is broken in the binding process and/or built-in function definitions")
+            fatalError("Expression \(self) has an unknown type. Hint: Something is broken in the binding process and/or built-in function definitions.")
         }
         
         return type
+    }
+}
+
+extension ArithmeticExpression
+where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringConvertible  {
+    public var description: String {
+        switch self {
+        case let .value(value): return value.description
+        case let .variable(ref): return ref.description
+        case let .binary(fun, lhs, rhs): return "\(lhs) \(fun) \(rhs)"
+        case let .unary(fun, op): return "\(op)\(fun)"
+        case let .function(fun, args):
+            let argstr = args.map { $0.description }.joined(separator: ", ")
+            return "\(fun)(\(argstr))"
+        }
     }
 }
 
@@ -128,13 +73,14 @@ extension BoundExpression {
 /// - Note: The operator names are similar to the operator method names in
 ///   Python.
 ///
-/// - Returns: ``BoundExpression`` where variables and functions are resolved.
+/// - Returns: ``ArithmeticExpression`` where variables and functions are resolved.
 /// - Throws: ``ExpressionError`` when a variable or a function is not known
 ///  or when the function arguments do not match the function's requirements.
 ///
-public func bindExpression(_ expression: UnboundExpression,
-                           variables: [String:BoundVariableReference],
-                           functions: [String:any FunctionProtocol]) throws -> BoundExpression {
+public func bindExpression<V: TypedValue>(
+    _ expression: UnboundExpression,
+    variables: [String:V],
+    functions: [String:any FunctionProtocol]) throws -> ArithmeticExpression<ForeignValue, V, any FunctionProtocol> {
     
     switch expression {
     case let .value(value):
@@ -227,8 +173,10 @@ public func bindExpression(_ expression: UnboundExpression,
     }
 }
 
+#if false
 
-extension BoundExpression {
+extension ArithmeticExpression
+    where L == ForeignValue, V: Hashable, F == any FunctionProtocol {
     /// Evaluates an expression using given variables.
     ///
     /// - Parameters:
@@ -249,24 +197,24 @@ extension BoundExpression {
     /// - Throws: ``ValueError``.
     ///
     ///
-    public func evaluate(_ variables: [BoundVariableReference:ForeignValue]) throws -> ForeignValue {
+    public func evaluate(_ variables: [V:ForeignValue]) throws -> ForeignValue {
         switch self {
         case let .value(value):
             return value
-
+            
         case let .binary(op, lhs, rhs):
             return try op.apply([try lhs.evaluate(variables),
                                  try rhs.evaluate(variables)])
-
+            
         case let .unary(op, operand):
             return try op.apply([try operand.evaluate(variables)])
-
+            
         case let .function(functionRef, arguments):
             let evaluatedArgs = try arguments.map {
                 try $0.evaluate(variables)
             }
             return try functionRef.apply(evaluatedArgs)
-
+            
         case let .variable(ref):
             guard let value = variables[ref] else {
                 fatalError("Unknown variable with reference: \(ref). This is internal error, not user error, potentially caused by the compiler.")
@@ -274,4 +222,6 @@ extension BoundExpression {
             return value
         }
     }
+
 }
+#endif

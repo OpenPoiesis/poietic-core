@@ -25,7 +25,9 @@ public class RungeKutta4Solver: Solver {
      yn+1 = yn + 1/6(k1 + 2k2 + 2k3 + k4)*h
      tn+1 = tn + h
     */
-    override public func compute(at time: Double, with current: StateVector, timeDelta: Double = 1.0) -> StateVector {
+    override public func compute(_ current: SimulationState,
+                                 at time: Double,
+                                 timeDelta: Double = 1.0) -> SimulationState {
         let stage1 = prepareStage(at: time, with: current, timeDelta: timeDelta)
         let k1 = difference(at: time,
                             with: stage1,

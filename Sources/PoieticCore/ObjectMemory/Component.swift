@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 11/08/2022.
 //
 
+// TODO: Add transient (or persistable) component
 
 /// Protocol for object components.
 ///

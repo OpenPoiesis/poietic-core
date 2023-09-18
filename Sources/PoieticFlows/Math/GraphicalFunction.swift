@@ -25,20 +25,24 @@ public enum InterpolationMethod: String, CaseIterable {
 //    case sShape
 //}
 
-// FIXME: This is a late-night sketch implementation, GFComponent + GF should be merged
+// TODO: This is a late-night sketch implementation, GFComponent + GF should be merged
+/// Object representing a function defined by a graph.
+///
+/// The graphical function is defined by a set of points. The function output
+/// value for given input value is computed using the function's interpolation
+/// method.
+///
 public class GraphicalFunction {
-    let method: InterpolationMethod = .step
-    var points: [Point]
-    
-    /// Points sorted by time – by x value.
-    ///
-    lazy var sortedByX: [Point] = {
-        points.sorted { (lhs, rhs) in
-            lhs.x > rhs.x
-        }
-    }()
 
-    // Presets:
+    /// Set of points defining the function.
+    ///
+    var points: [Point]
+
+    /// Interpolation method used to compute output.
+    ///
+    let method: InterpolationMethod = .step
+
+    // TODO: Presets (as follows here)
     // - exponential growth
     // - exponential decay
     // - logarithmic growth
@@ -48,6 +52,13 @@ public class GraphicalFunction {
     // - S-shaped growth
     // - S-shaped decline
     
+    /// Create a graphical function with points where the _x_ values are in the
+    /// provided list and the _y_ values are a sequence from 0 to the number of
+    /// values in the list.
+    ///
+    /// For example for the list `[10, 20, 30]` the points will be: `(10, 0)`,
+    /// `(20, 1)` and `(30, 2)`
+    ///
     convenience init(values: [Double],
          start startTime: Double = 0.0,
          timeDelta: Double = 1.0) {
@@ -61,6 +72,10 @@ public class GraphicalFunction {
         self.init(points: result)
     }
     
+    /// Create a new graphical function with given set of points.
+    ///
+    /// The default interpolation method is ``InterpolationMethod/step``.
+    ///
     public init(points: [Point]) {
         self.points = points
     }

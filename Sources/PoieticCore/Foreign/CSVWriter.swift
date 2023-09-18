@@ -72,8 +72,9 @@ public class CSVFormatter {
     /// The returned string is terminated by the record separator specified
     /// int ``options``.
     ///
-    public func format(row: [String]) -> String {
-        return ""
+    public func format(_ row: [String]) -> String {
+        return row.map { quote($0) }
+                .joined(separator: String(options.fieldDelimiter))
     }
 }
 
@@ -82,20 +83,37 @@ public class CSVFormatter {
 /// - Important: This class is just a sketch. The interface will very likely
 ///   be changed.
 public class CSVWriter {
-    let path: String
     let file: FileDescriptor
     let formatter: CSVFormatter
+    var fieldCount: Int?
     
-    public init(path: String) throws {
-        self.path = path
-        self.file = try FileDescriptor.open(path, .writeOnly,
+    public convenience init(path: String, formatter: CSVFormatter = CSVFormatter()) throws {
+        let file = try FileDescriptor.open(path, .writeOnly,
                                            options: [.truncate, .create],
                                            permissions: .ownerReadWrite)
-        self.formatter = CSVFormatter()
+        try self.init(file, formatter: formatter)
     }
-    
+
+    public init(_ descriptor: FileDescriptor, formatter: CSVFormatter = CSVFormatter()) throws {
+        self.file = descriptor
+        self.formatter = formatter
+        self.fieldCount = nil
+    }
+
+    /// Writes a row to the output file.
+    ///
+    /// - Precondition: The number of items in the row must be exactly the same
+    ///   as the number of rows in the very first row.
     public func write(row: [String]) throws {
-        let output = formatter.format(row: row)
+        let output = formatter.format(row)
+        if let fieldCount {
+            precondition(row.count == fieldCount,
+                         "The CSV record must have the same number of items as the very first record. It has \(row.count), expected \(fieldCount)")
+            try file.writeAll(formatter.options.recordDelimiter.utf8)
+        }
+        else {
+            self.fieldCount = row.count
+        }
         try file.writeAll(output.utf8)
     }
     public func close() throws {

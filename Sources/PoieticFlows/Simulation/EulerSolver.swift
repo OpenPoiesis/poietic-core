@@ -10,9 +10,9 @@
 /// - SeeAlso: [Euler method](https://en.wikipedia.org/wiki/Euler_method)
 ///
 public class EulerSolver: Solver {
-    public override func compute(at time: Double,
-                          with current: StateVector,
-                          timeDelta: Double = 1.0) -> StateVector {
+    public override func compute(_ current: SimulationState,
+                                 at time: Double,
+                                 timeDelta: Double = 1.0) -> SimulationState {
         let stage = prepareStage(at: time, with: current, timeDelta: timeDelta)
         let delta = difference(at: time,
                                with: stage,

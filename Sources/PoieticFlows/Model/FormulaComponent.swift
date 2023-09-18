@@ -7,7 +7,6 @@
 
 import PoieticCore
 
-// FIXME: Consider consolidating all node types into this class.
 /// Component of all nodes that can contain arithmetic formula or a constant.
 ///
 /// The FormulaComponent provides a textual representation of an arithmetic
@@ -110,6 +109,16 @@ public struct FormulaComponent: Component,
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))
         }
+    }
+    /// Get a parsed expression of a node that has a ``FormulaComponent``.
+    ///
+    /// - Returns: Unbound expression
+    /// - Throws: ``SyntaxError`` when the expression can not be parsed.
+    ///
+    public func parsedExpression() throws -> UnboundExpression? {
+        // TODO: Parsing should be moved into a parsing sub-system and put into a separate transient component
+        let parser = ExpressionParser(string: expressionString)
+        return try parser.parse()
     }
 }
 

@@ -80,8 +80,6 @@ extension MutableGraph {
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
 public class MutableUnboundGraph: UnboundGraph, MutableGraph {
-    // FIXME: IMPORTANT!: This is a quick hack due to some redesign.
-    
     var mutableFrame: MutableFrame {
         self.frame as! MutableFrame
     }

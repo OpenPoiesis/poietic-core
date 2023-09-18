@@ -85,7 +85,7 @@ public struct FunctionArgument {
 /// )
 /// ```
 ///
-public class Signature {
+public class Signature: CustomStringConvertible {
     /// List of positional arguments.
     ///
     /// Positional arguments are the arguments at the beginning of the argument
@@ -141,6 +141,20 @@ public class Signature {
         variadic: FunctionArgument("value", type: .union([.int, .double]))
     )
 
+    public var description: String {
+        var argString = positional.map { "\($0.name):\($0.type)" }
+            .joined(separator:",")
+        if let variadic = self.variadic {
+            argString += ",*\(variadic.name):\(variadic.type)..."
+        }
+        if let returnType = self.returnType {
+            return "(\(argString)) -> \(returnType)"
+        }
+        else {
+            return "(\(argString))"
+        }
+    }
+    
     public init(_ positional: [FunctionArgument] = [],
                 variadic: FunctionArgument? = nil,
                 returns returnType: AtomType? = nil) {
@@ -207,4 +221,5 @@ public class Signature {
         }
         
     }
+    
 }

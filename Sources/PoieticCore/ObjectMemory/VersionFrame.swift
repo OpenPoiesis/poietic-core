@@ -1,6 +1,6 @@
 //
 //  Frame.swift
-//  
+//
 //
 //  Created by Stefan Urbanek on 13/02/2023.
 //
@@ -82,10 +82,11 @@ extension Frame{
         return snapshots.filter { $0.type === type }
     }
     
-    public func filter(component type: Component.Type) -> [(ObjectID, Component)] {
+    public func filter<T>(component type: T.Type) -> [(ObjectSnapshot, T)]
+            where T : Component {
         return snapshots.compactMap {
-            if let component = $0.components[type]{
-                ($0.id, component)
+            if let component: T = $0.components[type]{
+                ($0, component)
             }
             else {
                 nil

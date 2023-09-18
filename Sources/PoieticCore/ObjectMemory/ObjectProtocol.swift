@@ -16,3 +16,7 @@ public protocol ObjectProtocol {
 
     func attribute(forKey key: String) -> ForeignValue?
 }
+
+extension ObjectSnapshot: ObjectProtocol {
+    
+}

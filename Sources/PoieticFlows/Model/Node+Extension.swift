@@ -18,8 +18,7 @@ extension Node {
         guard let component: FormulaComponent = snapshot[FormulaComponent.self] else {
             return nil
         }
-        let parser = ExpressionParser(string: component.expressionString)
-        return try parser.parse()
+        return try component.parsedExpression()
     }
 
 }

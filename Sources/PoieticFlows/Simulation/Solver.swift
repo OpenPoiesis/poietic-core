@@ -6,6 +6,13 @@
 //
 import PoieticCore
 
+// TODO: Rename to Bound Numeric Expression
+public typealias BoundExpression = ArithmeticExpression<ForeignValue,
+                                                        BoundVariableReference,
+                                                        any FunctionProtocol>
+
+
+
 /*
  
  INIT:
@@ -141,46 +148,55 @@ public class Solver {
     ///
     /// - Returns: an evaluated value of the expression.
     ///
-    public func evaluate(object: ObjectID,
-                         with state: StateVector,
+    public func evaluate(variable index: VariableIndex,
+                         with state: SimulationState,
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
-        switch compiledModel.computations[object]! {
+        let variable = compiledModel.simulationVariables[index]
+        
+        switch variable.computation {
 
-        case .formula(let expression):
-            return _evaluate(expression: expression,
+        case let .formula(expression):
+            return evaluate(expression: expression,
                              with: state,
                              at: time,
                              timeDelta: timeDelta)
             
-        case .graphicalFunction(let fn, let paramID):
+        case let .graphicalFunction(function, index):
             do {
-                let value = state[paramID]!
-                return try fn.apply([ForeignValue(value)]).doubleValue()
+                let value = state[index]
+                return try function.apply([ForeignValue(value)]).doubleValue()
             }
             catch {
                 // Evaluation must not fail
-                fatalError("Evaluation of graphical function \(fn.name) failed: \(error)")
+                fatalError("Evaluation of graphical function \(function.name) failed: \(error)")
             }
         }
     }
 
-    public func _evaluate(expression: BoundExpression,
-                         with state: StateVector,
+
+    public func evaluate(expression: BoundExpression,
+                         with state: SimulationState,
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
-        // Clean-up variables (just in case)
-        var variables: [BoundVariableReference:ForeignValue] = [:]
-        for (nodeID, value) in state.items {
-            variables[.object(nodeID)] = ForeignValue(value)
+        var state = state
+        
+        /// Set built-in variables in the state
+        for (index, builtin) in compiledModel.builtinVariables.enumerated() {
+            if builtin === FlowsMetamodel.TimeVariable {
+                state.builtins[index] = ForeignValue(time)
+            }
+            else if builtin === FlowsMetamodel.TimeDeltaVariable {
+                state.builtins[index] = ForeignValue(timeDelta)
+            }
+            else {
+                fatalError("Unknown builtin variable: \(builtin)")
+            }
         }
-
-        variables[.builtin(FlowsMetamodel.TimeVariable)] = ForeignValue(time)
-        variables[.builtin(FlowsMetamodel.TimeDeltaVariable)] = ForeignValue(timeDelta)
-
+        
         let value: ForeignValue
         do {
-            value = try expression.evaluate(variables)
+            value = try expression.evaluate(state)
         }
         catch {
             // Evaluation must not fail
@@ -213,22 +229,56 @@ public class Solver {
     ///   be allowed.
     ///
     public func initialize(time: Double = 0.0,
-                           override: [ObjectID:Double] = [:]) -> StateVector {
-        // TODO: We need access to constants and system variables here
-        var vector = StateVector()
-        for node in compiledModel.sortedExpressionNodes {
-            if let value = override[node.id] {
-                // TODO: Make sure we override only constants.
-                vector[node.id] = value
+                           override: [ObjectID:Double] = [:],
+                           timeDelta: Double = 1.0) -> SimulationState {
+        var state = zeroState(time: time, timeDelta: timeDelta)
+        for variable in compiledModel.simulationVariables {
+            if let value = override[variable.id] {
+                state[variable] = value
             }
             else {
-                vector[node.id] = evaluate(object: node.id, with: vector, at: time)
+                state[variable] = evaluate(variable: variable.index,
+                                           with: state,
+                                           at: time)
             }
         }
-
-        return vector
+        
+        return state
     }
 
+    /// Create a state vector with node variables set to zero while preserving
+    /// the built-in variables.
+    public func zeroState(time: Double = 0.0,
+                          timeDelta: Double = 1.0) -> SimulationState {
+        var vector = SimulationState(model: compiledModel)
+
+        // FIXME: [REFACTORING] deal with this in a similar way as with the later in this function
+        for (index, builtin) in compiledModel.builtinVariables.enumerated() {
+            if builtin === FlowsMetamodel.TimeVariable {
+                vector.builtins[index] = ForeignValue(time)
+            }
+            else if builtin === FlowsMetamodel.TimeDeltaVariable {
+                vector.builtins[index] = ForeignValue(timeDelta)
+            }
+            else {
+                fatalError("Unknown builtin variable: \(builtin)")
+            }
+        }
+        
+        return vector
+    }
+   
+    /// - Important: Do not use for anything but testing or debugging.
+    ///
+    func computeStock(_ id: ObjectID,
+                      at time: Double,
+                      with state: inout SimulationState) -> Double {
+        let stock = compiledModel.compiledStock(id)
+        return self.computeStock(stock,
+                                 at: time,
+                                 with: &state)
+    }
+    
     /// Compute a difference of a stock.
     ///
     /// This function computes amount which is expected to be drained from/
@@ -251,27 +301,22 @@ public class Solver {
     /// - Precondition: The simulation state vector must have all variables
     ///   that are required to compute the stock difference.
     ///
-    public func computeStock(stock stockID: ObjectID,
-                        at time: Double,
-                        with state: inout StateVector) -> Double {
-        guard let stock = compiledModel.stockComponents[stockID] else {
-            fatalError("Node \(stockID) has no Stock component")
-        }
-
+    public func computeStock(_ stock: CompiledStock,
+                             at time: Double,
+                             with state: inout SimulationState) -> Double {
         var totalInflow: Double = 0.0
         var totalOutflow: Double = 0.0
         
         // Compute inflow (regardless whether we allow negative)
         //
-        for inflow in compiledModel.inflows[stockID]! {
+        for inflow in stock.inflows {
             // TODO: All flows are uni-flows for now. Ignore negative inflows.
-//            totalInflow += min(state[inflow]!, 0)
-            totalInflow += max(state[inflow]!, 0)
+            totalInflow += max(state[inflow], 0)
         }
         
-        if stock.allowsNegative {
-            for outflow in compiledModel.outflows[stockID]! {
-                totalOutflow += state[outflow]!
+        if stock.component.allowsNegative {
+            for outflow in stock.outflows {
+                totalOutflow += state[outflow]
             }
         }
         else {
@@ -292,15 +337,16 @@ public class Solver {
             // Maximum outflow that we can drain from the stock. It is the
             // current value of the stock with aggregate of all inflows.
             //
-            var availableOutflow: Double = state[stockID]! + totalInflow
+            var availableOutflow: Double = state[stock] + totalInflow
             let initialAvailableOutflow: Double = availableOutflow
 
-            for outflow in compiledModel.outflows[stockID]! {
+            for outflow in stock.outflows {
                 // Assumed outflow value can not be greater than what we
                 // have in the stock. We either take it all or whatever is
                 // expected to be drained.
                 //
-                let actualOutflow = min(availableOutflow, max(state[outflow]!, 0))
+                let actualOutflow = min(availableOutflow,
+                                        max(state[outflow], 0))
                 
                 totalOutflow += actualOutflow
                 // We drain the stock
@@ -316,7 +362,7 @@ public class Solver {
                 // FIXME: [IMPORTANT] When totalInflow is negative then this check fails.
                 // Sanity check. This should always pass, unless we did
                 // something wrong above.
-                assert(state[outflow]! >= 0.0,
+                assert(state[outflow] >= 0.0,
                        "Resulting state must be non-negative")
             }
             // Another sanity check. This should always pass, unless we did
@@ -338,17 +384,21 @@ public class Solver {
     /// 4 stages.
     ///
     func prepareStage(at time: Double,
-                      with state: StateVector,
-                      timeDelta: Double = 1.0) -> StateVector {
-        var result: StateVector = state
+                      with state: SimulationState,
+                      timeDelta: Double = 1.0) -> SimulationState {
+        var result: SimulationState = state
         
         // FIXME: This is called twice - with difference(...). Resolve this.
-        for id in compiledModel.auxiliaries {
-            result[id] = evaluate(object: id, with: result, at: time)
+        for aux in compiledModel.auxiliaries {
+            result[aux] = evaluate(variable: aux.index,
+                                   with: result,
+                                   at: time)
         }
 
-        for id in compiledModel.flows {
-            result[id] = evaluate(object: id, with: result, at: time)
+        for flow in compiledModel.flows {
+            result[flow] = evaluate(variable: flow.index,
+                                    with: result,
+                                    at: time)
         }
         
         return result
@@ -360,21 +410,26 @@ public class Solver {
     /// stock.
     ///
     func difference(at time: Double,
-                    with current: StateVector,
-                    timeDelta: Double = 1.0) -> StateVector {
-        var estimate = StateVector()
+                    with current: SimulationState,
+                    timeDelta: Double = 1.0) -> SimulationState {
+        // TODO: Move vector to the beginning of the argument list
+        var estimate = zeroState(time: time, timeDelta: timeDelta)
         
         // 1. Evaluate auxiliaries
         //
         for aux in compiledModel.auxiliaries {
             // FIXME: This is called twice - with prepareStage. Resolve this.
-            estimate[aux] = evaluate(object: aux, with: current, at: time)
+            estimate[aux] = evaluate(variable: aux.index,
+                                     with: current,
+                                     at: time)
         }
 
         // 2. Estimate flows
         //
         for flow in compiledModel.flows {
-            estimate[flow] = evaluate(object: flow, with: current, at: time)
+            estimate[flow] = evaluate(variable: flow.index,
+                                      with: current,
+                                      at: time)
         }
 
         // 3. Copy stock values that we are going to adjust for estimate
@@ -385,14 +440,12 @@ public class Solver {
         
         // 4. Compute stock levels
         //
-        // TODO: Multiply by time delta
-        var deltaVector = StateVector()
+        // FIXME: Multiply by time delta
+        var deltaVector = zeroState(time: time, timeDelta: timeDelta)
 
-        // FIXME: IMPORTANT: This is failing when not sorted, why? (testNonNegativeTwo)
-//        for compiledStock in compiledModel.stocks.sorted( by: { $0.node.id < $1.node.id}) {
         for stock in compiledModel.stocks {
-            let delta = computeStock(stock: stock, at: time, with: &estimate)
-            estimate[stock] = estimate[stock]! + delta
+            let delta = computeStock(stock, at: time, with: &estimate)
+            estimate[stock] = estimate[stock] + delta
             deltaVector[stock] = delta
         }
 
@@ -411,11 +464,40 @@ public class Solver {
     /// - Important: Do not call this method directly. Subclasses are
     ///   expected to implement this method.
     ///
-    public func compute(at time: Double,
-                 with state: StateVector,
-                 timeDelta: Double = 1.0) -> StateVector {
+    public func compute(_ state: SimulationState,
+                        at time: Double,
+                        timeDelta: Double = 1.0) -> SimulationState {
         fatalError("Subclasses of Solver are expected to override \(#function)")
     }
 }
 
 
+extension BoundExpression {
+    public func evaluate(_ state: SimulationState) throws -> ForeignValue {
+        switch self {
+        case let .value(value):
+            return value
+
+        case let .binary(op, lhs, rhs):
+            return try op.apply([try lhs.evaluate(state),
+                                 try rhs.evaluate(state)])
+
+        case let .unary(op, operand):
+            return try op.apply([try operand.evaluate(state)])
+
+        case let .function(functionRef, arguments):
+            let evaluatedArgs = try arguments.map {
+                try $0.evaluate(state)
+            }
+            return try functionRef.apply(evaluatedArgs)
+
+        case let .variable(ref):
+            let value: ForeignValue
+            switch ref.variable {
+            case .builtin: value = state.builtins[ref.index]
+            case .object: value = ForeignValue(state[ref.index])
+            }
+            return value
+        }
+    }
+}

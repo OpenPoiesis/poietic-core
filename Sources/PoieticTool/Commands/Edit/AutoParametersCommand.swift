@@ -23,15 +23,20 @@ extension PoieticTool {
             let frame = memory.deriveFrame()
             let graph = frame.mutableGraph
             let view = StockFlowView(graph)
+            let compiler = Compiler(frame: frame)
             
             let builtinNames: Set<String> = Set(FlowsMetamodel.variables.map {
                 $0.name
             })
-            let nameMap = try view.namesToObjects()
+            
+            try compiler.prepareNodes()
+            let nameMap = compiler.nameToObject
             var didSomething: Bool = false
             
-            for target in view.expressionNodes {
-                let expression = try target.parsedExpression()!
+            for target in compiler.orderedSimulationNodes {
+                guard let expression = try target.parsedExpression() else {
+                    continue
+                }
                 let allNodeVars: Set<String> = Set(expression.allVariables)
                 let required = Array(allNodeVars.subtracting(builtinNames))
                 let params = view.parameters(target.id, required: required)

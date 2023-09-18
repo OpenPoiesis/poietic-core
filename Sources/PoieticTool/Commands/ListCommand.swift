@@ -101,6 +101,34 @@ extension PoieticTool {
                 print("\(name) = \(result[name]!)")
             }
         }
+        #if false
+        func listCharts(_ memory: ObjectMemory) {
+            let frame = memory.currentFrame
+            var result: [String: String] = [:]
+            
+            for object in frame.filter(component: ChartComponent.self) {
+                let chart = nil
+                guard let name = object.name else {
+                    continue
+                }
+                if let component: ChartComponent = object[FormulaComponent.self] {
+                    result[name] = component.expressionString
+                }
+                else if let component: GraphicalFunctionComponent = object[GraphicalFunctionComponent.self] {
+                    result[name] = component.description
+                }
+            }
+            
+            let sorted = result.keys.sorted {
+                $0.lexicographicallyPrecedes($1)
+            }
+            
+            for name in sorted {
+                print("\(name) = \(result[name]!)")
+            }
+        }
+        #endif
+
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  EdgePredicate.swift
 //  
 //
 //  Created by Stefan Urbanek on 17/06/2022.
@@ -9,11 +9,10 @@
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
 ///
+/// Only objects with structural type ``StructuralComponent/edge(_:_:)`` will
+/// be matched by this predicate.
+///
 public class EdgePredicate: Predicate {
-    // FIXME: Is this still required?
-    // FIXME: I do not like this class
-    // TODO: Use CompoundPredicate
-    
     let edgePredicate: Predicate?
     let originPredicate: Predicate?
     let targetPredicate: Predicate?

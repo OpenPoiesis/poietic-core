@@ -17,7 +17,7 @@ public struct SimulationContext {
     let time: Double
     let timeDelta: Double
     let step: Int
-    let state: StateVector
+    let state: SimulationState
     let frame: MutableFrame // TODO: Should be stable frame
     let model: CompiledModel
 }
@@ -92,7 +92,7 @@ public struct ControlBindingSystem: SimulationSystem {
 
     public func updateValues(_ context: SimulationContext) {
         for binding in context.model.valueBindings {
-            let value = context.state[binding.target]!
+            let value = context.state.values[binding.variableIndex]
             let control = context.frame.mutableObject(binding.control)
             control[ControlComponent.self]!.value = value
         }

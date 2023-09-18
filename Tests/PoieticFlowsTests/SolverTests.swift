@@ -9,6 +9,16 @@ import XCTest
 @testable import PoieticFlows
 @testable import PoieticCore
 
+extension SimulationState {
+    public subscript(id: ObjectID) -> Double {
+        get {
+            return values[model.index(of: id)!]
+        }
+        set(value) {
+            values[model.index(of: id)!] = value
+        }
+    }
+}
 
 final class TestSolver: XCTestCase {
     var db: ObjectMemory!
@@ -52,14 +62,18 @@ final class TestSolver: XCTestCase {
         
         let compiled = try compiler.compile()
         let solver = Solver(compiled)
+        for v in compiled.simulationVariables {
+            let vstr = "\(v.id):\(v.name)@\(v.index)"
+            let expr = graph.node(v.id).attribute(forKey: "formula")!
+        }
+
+        let state = solver.initialize()
         
-        let vector = solver.initialize()
-        
-        XCTAssertEqual(vector[a], 1)
-        XCTAssertEqual(vector[b], 2)
-        XCTAssertEqual(vector[c], 100)
-        XCTAssertEqual(vector[s_a], 1)
-        XCTAssertEqual(vector[s_b], 2)
+        XCTAssertEqual(state[a], 1)
+        XCTAssertEqual(state[b], 2)
+        XCTAssertEqual(state[c], 100)
+        XCTAssertEqual(state[s_a], 1)
+        XCTAssertEqual(state[s_b], 2)
     }
     func testOrphanedInitialize() throws {
         
@@ -110,11 +124,11 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(state[aux], 1.0)
         XCTAssertEqual(state[flow], 10.0)
         
-        state = solver.compute(at: 2.0, with: state)
+        state = solver.compute(state, at: 2.0)
         XCTAssertEqual(state[aux], 2.0)
         XCTAssertEqual(state[flow], 20.0)
 
-        state = solver.compute(at: 10.0, with: state, timeDelta: 1.0)
+        state = solver.compute(state, at: 10.0, timeDelta: 1.0)
         XCTAssertEqual(state[aux], 10.0)
         XCTAssertEqual(state[flow], 100.0)
     }
@@ -138,7 +152,7 @@ final class TestSolver: XCTestCase {
         let initial = solver.initialize()
         let diff = solver.difference(at: 1.0, with: initial)
 
-        XCTAssertEqual(diff[stock]!, -10)
+        XCTAssertEqual(diff[stock], -10)
     }
 
     func testNonNegativeStock() throws {
@@ -160,7 +174,7 @@ final class TestSolver: XCTestCase {
         let initial = solver.initialize()
         let diff = solver.difference(at: 1.0, with: initial)
 
-        XCTAssertEqual(diff[stock]!, -5)
+        XCTAssertEqual(diff[stock], -5)
     }
     // TODO: Also negative outflow
     func testNonNegativeStockNegativeInflow() throws {
@@ -182,7 +196,7 @@ final class TestSolver: XCTestCase {
         let initial = solver.initialize()
         let diff = solver.difference(at: 1.0, with: initial)
 
-        XCTAssertEqual(diff[stock]!, 0)
+        XCTAssertEqual(diff[stock], 0)
     }
 
     func testStockNegativeOutflow() throws {
@@ -204,7 +218,7 @@ final class TestSolver: XCTestCase {
         let initial = solver.initialize()
         let diff = solver.difference(at: 1.0, with: initial)
 
-        XCTAssertEqual(diff[stock]!, 0)
+        XCTAssertEqual(diff[stock], 0)
     }
 
     func testNonNegativeToTwo() throws {
@@ -256,42 +270,42 @@ final class TestSolver: XCTestCase {
         
         // Test compute()
         
-        let initial: StateVector = solver.initialize()
+        let initial: SimulationState = solver.initialize()
 
         // Compute test
-        var state: StateVector = initial
+        var state: SimulationState = initial
 
-        XCTAssertEqual(state[happyFlow]!, 10)
-        XCTAssertEqual(state[sadFlow]!, 10)
-
-        let sourceDiff = solver.computeStock(stock: source, at: 0, with: &state)
+        XCTAssertEqual(state[happyFlow], 10)
+        XCTAssertEqual(state[sadFlow], 10)
+        
+        let sourceDiff = solver.computeStock(source, at: 0, with: &state)
         // Adjusted flow to actual outflow
-        XCTAssertEqual(state[happyFlow]!,  5.0)
-        XCTAssertEqual(state[sadFlow]!,    0.0)
+        XCTAssertEqual(state[happyFlow],  5.0)
+        XCTAssertEqual(state[sadFlow],    0.0)
         XCTAssertEqual(sourceDiff,         -5.0)
 
-        let happyDiff = solver.computeStock(stock: happy, at: 0, with: &state)
+        let happyDiff = solver.computeStock(happy, at: 0, with: &state)
         // Remains the same as above
-        XCTAssertEqual(state[happyFlow]!,  5.0)
-        XCTAssertEqual(state[sadFlow]!,    0.0)
+        XCTAssertEqual(state[happyFlow],  5.0)
+        XCTAssertEqual(state[sadFlow],    0.0)
         XCTAssertEqual(happyDiff,          +5.0)
 
-        let sadDiff = solver.computeStock(stock: sad, at: 0, with: &state)
+        let sadDiff = solver.computeStock(sad, at: 0, with: &state)
         // Remains the same as above
-        XCTAssertEqual(state[happyFlow]!,  5.0)
-        XCTAssertEqual(state[sadFlow]!,    0.0)
+        XCTAssertEqual(state[happyFlow],  5.0)
+        XCTAssertEqual(state[sadFlow],    0.0)
         XCTAssertEqual(sadDiff,             0.0)
 
         // Sanity check
-        XCTAssertEqual(initial[happyFlow]!, 10)
-        XCTAssertEqual(initial[sadFlow]!, 10)
+        XCTAssertEqual(initial[happyFlow], 10)
+        XCTAssertEqual(initial[sadFlow], 10)
 
 
         let diff = solver.difference(at: 1.0, with: initial)
 
-        XCTAssertEqual(diff[source]!, -5)
-        XCTAssertEqual(diff[happy]!,  +5)
-        XCTAssertEqual(diff[sad]!,     0)
+        XCTAssertEqual(diff[source], -5)
+        XCTAssertEqual(diff[happy],  +5)
+        XCTAssertEqual(diff[sad],     0)
     }
    
     func testGraphicalFunction() throws {
@@ -320,7 +334,7 @@ final class TestSolver: XCTestCase {
 
         let compiled: CompiledModel = try compiler.compile()
         let solver = EulerSolver(compiled)
-        let initial: StateVector = solver.initialize()
+        let initial: SimulationState = solver.initialize()
         
         XCTAssertEqual(initial[g1], 0.0)
         XCTAssertEqual(initial[g2], 10.0)

@@ -30,7 +30,7 @@ public enum FunctionError: Error, CustomStringConvertible {
 
 /// Protocol describing a function.
 ///
-public protocol FunctionProtocol: Hashable {
+public protocol FunctionProtocol: Hashable, CustomStringConvertible {
     /// Name of the function
     var name: String { get }
     var signature: Signature { get }
@@ -45,6 +45,11 @@ public protocol FunctionProtocol: Hashable {
     func apply(_ arguments: [ForeignValue]) throws -> ForeignValue
 }
 
+extension FunctionProtocol  {
+    public var description: String {
+        "\(name)(\(signature))"
+    }
+}
 
 /// An object that represents a binary operator - a function of two
 /// numeric arguments.
