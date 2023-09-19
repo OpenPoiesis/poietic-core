@@ -62,7 +62,7 @@ final class TestSolver: XCTestCase {
         
         let compiled = try compiler.compile()
         let solver = Solver(compiled)
-        for v in compiled.simulationVariables {
+        for v in compiled.computedVariables {
             let vstr = "\(v.id):\(v.name)@\(v.index)"
             let expr = graph.node(v.id).attribute(forKey: "formula")!
         }
@@ -106,6 +106,18 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(vector[aux], 10)
         XCTAssertEqual(vector[stock], 20)
         XCTAssertEqual(vector[flow], 30)
+    }
+    func testTime() throws {
+        let compiled = try compiler.compile()
+        let solver = EulerSolver(compiled)
+        
+        var state = solver.initialize(time: 10.0)
+        XCTAssertEqual(state.builtins[0], 10.0)
+        state = solver.compute(state, at: 20.0 )
+        XCTAssertEqual(state.builtins[0], 20.0)
+        state = solver.compute(state, at: 30.0 )
+        XCTAssertEqual(state.builtins[0], 30.0)
+
     }
    
     func testStageWithTime() throws {

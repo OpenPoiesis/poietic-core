@@ -138,6 +138,38 @@ public class Solver {
         self.compiledModel = compiledModel
     }
 
+    /// Get builtins vector.
+    ///
+    public func makeBuiltins(time: Double,
+                         timeDelta: Double) -> [ForeignValue] {
+        var builtins: [ForeignValue] = Array(repeating: ForeignValue(0.0),
+                                             count: compiledModel.builtinVariables.count)
+        for (index, builtin) in compiledModel.builtinVariables.enumerated() {
+            let value: ForeignValue
+            if builtin === FlowsMetamodel.TimeVariable {
+                 value = ForeignValue(time)
+            }
+            else if builtin === FlowsMetamodel.TimeDeltaVariable {
+                 value = ForeignValue(timeDelta)
+            }
+            else {
+                fatalError("Unknown builtin variable: \(builtin)")
+            }
+            builtins[index] = value
+        }
+        return builtins
+    }
+    /// Create a state vector with node variables set to zero while preserving
+    /// the built-in variables.
+    public func zeroState(time: Double = 0.0,
+                          timeDelta: Double = 1.0) -> SimulationState {
+        var state = SimulationState(model: compiledModel)
+        state.builtins = makeBuiltins(time: time,
+                                      timeDelta: timeDelta)
+        return state
+    }
+   
+
     /// Evaluate an expression within the context of a simulation state.
     ///
     /// - Parameters:
@@ -152,7 +184,7 @@ public class Solver {
                          with state: SimulationState,
                          at time: Double,
                          timeDelta: Double = 1.0) -> Double {
-        let variable = compiledModel.simulationVariables[index]
+        let variable = compiledModel.computedVariables[index]
         
         switch variable.computation {
 
@@ -173,7 +205,6 @@ public class Solver {
             }
         }
     }
-
 
     public func evaluate(expression: BoundExpression,
                          with state: SimulationState,
@@ -232,7 +263,7 @@ public class Solver {
                            override: [ObjectID:Double] = [:],
                            timeDelta: Double = 1.0) -> SimulationState {
         var state = zeroState(time: time, timeDelta: timeDelta)
-        for variable in compiledModel.simulationVariables {
+        for variable in compiledModel.computedVariables {
             if let value = override[variable.id] {
                 state[variable] = value
             }
@@ -245,29 +276,6 @@ public class Solver {
         
         return state
     }
-
-    /// Create a state vector with node variables set to zero while preserving
-    /// the built-in variables.
-    public func zeroState(time: Double = 0.0,
-                          timeDelta: Double = 1.0) -> SimulationState {
-        var vector = SimulationState(model: compiledModel)
-
-        // FIXME: [REFACTORING] deal with this in a similar way as with the later in this function
-        for (index, builtin) in compiledModel.builtinVariables.enumerated() {
-            if builtin === FlowsMetamodel.TimeVariable {
-                vector.builtins[index] = ForeignValue(time)
-            }
-            else if builtin === FlowsMetamodel.TimeDeltaVariable {
-                vector.builtins[index] = ForeignValue(timeDelta)
-            }
-            else {
-                fatalError("Unknown builtin variable: \(builtin)")
-            }
-        }
-        
-        return vector
-    }
-   
     /// - Important: Do not use for anything but testing or debugging.
     ///
     func computeStock(_ id: ObjectID,
@@ -383,10 +391,15 @@ public class Solver {
     /// The ``EulerSolver`` uses only one stage, the ``RungeKutta4Solver`` uses
     /// 4 stages.
     ///
-    func prepareStage(at time: Double,
-                      with state: SimulationState,
+    func prepareStage(_ state: SimulationState,
+                      at time: Double,
                       timeDelta: Double = 1.0) -> SimulationState {
+        print("PREPARE AT \(time) \(timeDelta)")
+
         var result: SimulationState = state
+        let builtins = makeBuiltins(time: time,
+                                    timeDelta: timeDelta)
+        result.builtins = builtins
         
         // FIXME: This is called twice - with difference(...). Resolve this.
         for aux in compiledModel.auxiliaries {
@@ -470,7 +483,6 @@ public class Solver {
         fatalError("Subclasses of Solver are expected to override \(#function)")
     }
 }
-
 
 extension BoundExpression {
     public func evaluate(_ state: SimulationState) throws -> ForeignValue {

@@ -20,6 +20,7 @@ enum ToolError: Error, CustomStringConvertible {
     
     // Simulation errors
     case unknownObjectName(String)
+    case unknownVariables([String])
     case unknownSolver(String)
     case compilationError
     case constraintError
@@ -51,6 +52,9 @@ enum ToolError: Error, CustomStringConvertible {
             return "Unknown solver '\(value)'"
         case .unknownObjectName(let value):
             return "Unknown object with name '\(value)'"
+        case .unknownVariables(let names):
+            let varlist = names.joined(separator: ", ")
+            return "Unknown variables: \(varlist)"
         case .compilationError:
             return "Design compilation failed"
         case .constraintError:
@@ -92,6 +96,8 @@ enum ToolError: Error, CustomStringConvertible {
             return "Check the list of available solvers by running the 'info' command."
         case .unknownObjectName(_):
             return "See the list of available names by using the 'list' command."
+        case .unknownVariables(_):
+            return "See the list of available simulation variables using the 'list' command."
         case .compilationError:
             return nil
         case .constraintError:

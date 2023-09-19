@@ -44,7 +44,7 @@ extension PoieticTool {
         var outputFormat: OutputFormat = .simple
 
         // TODO: Deprecate
-        @Option(name: [.customLong("observe"), .customShort("o")],
+        @Option(name: [.customLong("variable"), .customShort("V")],
                 help: "Values to observe in the output; can be object IDs or object names.")
         var outputNames: [String] = []
 
@@ -65,12 +65,10 @@ extension PoieticTool {
         ///     - json: full state with all outputs as structured JSON
         ///     - dir: directory with all outputs as CSVs (no stdout)
         ///
-        @Argument(help: "Output path")
-        var output: String = "."
+        @Option(name: [.customLong("output"), .customShort("o")], help: "Output path. Default or '-' is standard output.")
+        var outputPath: String = "-"
         
         mutating func run() throws {
-            fatalError("REFACTORING: CONTINUE HERE")
-            
             let memory = try openMemory(options: options)
             guard let solverType = Solver.registeredSolvers[solverName] else {
                 throw ToolError.unknownSolver(solverName)
@@ -106,23 +104,26 @@ extension PoieticTool {
             
             // Collect names of nodes to be observed
             // -------------------------------------------------------------
-            let variables = compiledModel.simulationVariables
+            let variables = compiledModel.allVariables
             if outputNames.isEmpty {
                 outputNames = Array(variables.map {$0.name})
             }
             else {
-                for name in outputNames {
-                    guard compiledModel.variable(named: name) != nil else {
-                        throw ToolError.unknownObjectName(name)
-                    }
+                let allNames = compiledModel.allVariables.map { $0.name }
+                let unknownNames = outputNames.filter {
+                    !allNames.contains($0)
+                }
+                guard unknownNames.isEmpty else {
+                    throw ToolError.unknownVariables(unknownNames)
                 }
             }
             // TODO: We do not need this any more
-            var variableIndices: [Int] = variables.map { $0.index }
-            for variable in variables {
-//                namedIDs[variable.name] = variable.id
+            var outputVariables: [SimulationVariable] = []
+            for name in outputNames {
+                let variable = variables.first { $0.name == name }!
+                outputVariables.append(variable)
             }
-            
+
             // FIXME: Remove this! Replace with JSON for controls
             // Collect constants to be overridden during initialization.
             // -------------------------------------------------------------
@@ -149,33 +150,32 @@ extension PoieticTool {
             // -------------------------------------------------------------
             simulator.run(steps)
             
-//            try writeCSV(path: nil,
-//                         header: outputNames,
-//                         ids: namedIDs,
-//                         states: simulator.output)
+            try writeCSV(path: outputPath,
+                         variables: outputVariables,
+                         states: simulator.output)
         }
     }
 }
 
-func writeCSV(path: String?,
-              header: [String],
-              variables: [Int],
+func writeCSV(path: String,
+              variables: [SimulationVariable],
               states: [SimulationState]) throws {
-    assert(header.count == variables.count)
-    // TODO: Step and time
+    let header: [String] = variables.map { $0.name }
+
+    // TODO: Step
     let writer: CSVWriter
-    if let path {
-        writer = try CSVWriter(path: path)
+    if path == "-" {
+        writer = try CSVWriter(.standardOutput)
     }
     else {
-        writer = try CSVWriter(.standardOutput)
+        writer = try CSVWriter(path: path)
     }
     try writer.write(row: header)
     for state in states {
         var row: [String] = []
-        for index in variables {
-            let value = state[index]
-            row.append(String(value))
+        for variable in variables {
+            let value = state[variable]
+            row.append(try value.stringValue())
         }
         try writer.write(row: row)
     }

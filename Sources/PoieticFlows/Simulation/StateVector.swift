@@ -7,9 +7,6 @@
 
 import PoieticCore
 
-// TODO: [REFACTOR] This should be a proper vector, not a dictionary.
-
-
 /// A simple vector-like structure to hold an unordered collection of numeric
 /// values that can be accessed by key. Simple arithmetic operations can be done
 /// with the structure, such as addition, subtraction and multiplication
@@ -20,7 +17,7 @@ public struct SimulationState: CustomStringConvertible {
     public var model: CompiledModel
     /// Values of built-in variables.
     public var builtins: [ForeignValue] = []
-    /// Values of design objects.
+    /// Values of computed variables.
     public var values: [Double]
 
     /// Create a simulation state with all variables set to zero.
@@ -33,19 +30,19 @@ public struct SimulationState: CustomStringConvertible {
         self.builtins = Array(repeating: ForeignValue(0),
                               count: model.builtinVariables.count)
         self.values = Array(repeating: 0,
-                           count: model.simulationVariables.count)
+                           count: model.computedVariables.count)
         self.model = model
     }
     
     public init(_ items: [Double], builtins: [ForeignValue], model: CompiledModel) {
-        precondition(items.count == model.simulationVariables.count,
-                     "Count of items (\(items.count) does not match required items count \(model.simulationVariables.count)")
+        precondition(items.count == model.computedVariables.count,
+                     "Count of items (\(items.count) does not match required items count \(model.computedVariables.count)")
         self.builtins = builtins
         self.values = items
         self.model = model
     }
 
-    /// Get or set an object value at given index.
+    /// Get or set a computed variable at given index.
     ///
     @inlinable
     public subscript(rep: IndexRepresentable) -> Double {
@@ -57,7 +54,7 @@ public struct SimulationState: CustomStringConvertible {
         }
     }
     
-    /// Get or set an object value at given index.
+    /// Get or set a computed variable at given index.
     ///
     @inlinable
     public subscript(index: Int) -> Double {
@@ -69,6 +66,18 @@ public struct SimulationState: CustomStringConvertible {
         }
     }
     
+    /// Get or set a computed variable at given index.
+    ///
+    @inlinable
+    public subscript(variable: SimulationVariable) -> ForeignValue {
+        get {
+            switch variable {
+            case let .builtin(v): return builtins[v.index]
+            case let .computed(v): return ForeignValue(values[v.index])
+            }
+        }
+    }
+
     /// Create a new state with variable values multiplied by given value.
     ///
     /// The built-in values will remain the same.
@@ -89,7 +98,7 @@ public struct SimulationState: CustomStringConvertible {
     /// - Precondition: The states must be of the same length.
     ///
     public func adding(_ state: SimulationState) -> SimulationState {
-        precondition(model.simulationVariables.count == state.model.simulationVariables.count,
+        precondition(model.computedVariables.count == state.model.computedVariables.count,
                      "Simulation states must be of the same length.")
         let result = zip(values, state.values).map {
             (lvalue, rvalue) in lvalue + rvalue
@@ -108,7 +117,7 @@ public struct SimulationState: CustomStringConvertible {
     /// - Precondition: The states must be of the same length.
     ///
     public func subtracting(_ state: SimulationState) -> SimulationState {
-        precondition(model.simulationVariables.count == state.model.simulationVariables.count,
+        precondition(model.computedVariables.count == state.model.computedVariables.count,
                      "Simulation states must be of the same length.")
         let result = zip(values, state.values).map {
             (lvalue, rvalue) in lvalue - rvalue
@@ -149,7 +158,7 @@ public struct SimulationState: CustomStringConvertible {
             return "\(builtin.name): \(value)"
         }.joined(separator: ",")
         let stateStr = values.enumerated().map { (index, value) in
-            let variable = model.simulationVariables[index]
+            let variable = model.computedVariables[index]
             return "\(variable.id): \(value)"
         }.joined(separator: ", ")
         return "[builtins(\(builtinsStr)), values(\(stateStr))]"

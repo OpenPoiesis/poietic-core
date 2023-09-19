@@ -13,7 +13,7 @@ public class EulerSolver: Solver {
     public override func compute(_ current: SimulationState,
                                  at time: Double,
                                  timeDelta: Double = 1.0) -> SimulationState {
-        let stage = prepareStage(at: time, with: current, timeDelta: timeDelta)
+        let stage = prepareStage(current, at: time, timeDelta: timeDelta)
         let delta = difference(at: time,
                                with: stage,
                                timeDelta: timeDelta)

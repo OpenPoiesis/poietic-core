@@ -88,7 +88,7 @@ public class Compiler {
     /// to a variable in this list if the ``VariableReference`` represents an
     /// object.
     ///
-    public private(set) var simulationVariables: [SimulationVariable]
+    public private(set) var computedVariables: [ComputedVariable]
 
     /// List of built-in variables used in the simulation.
     ///
@@ -108,7 +108,7 @@ public class Compiler {
         
         // Components of the compiled model
         builtinVariables = []
-        simulationVariables = []
+        computedVariables = []
 
         // Intermediated variables and mappigns used for compilation
         nameToObject = [:]
@@ -201,13 +201,13 @@ public class Compiler {
         }
         
         for (index, node) in orderedSimulationNodes.enumerated() {
-            let variable = SimulationVariable(
+            let variable = ComputedVariable(
                 id: node.id,
                 index: index,
                 computation: computations[node.id]!,
                 name: objectToName[node.id]!
             )
-            simulationVariables.append(variable)
+            computedVariables.append(variable)
         }
 
         // 6. Filter by node type
@@ -215,7 +215,7 @@ public class Compiler {
         //
         var unsortedStocks: [Node] = []
         var flows: [CompiledFlow] = []
-        var auxiliaries: [CompiledVariable] = []
+        var auxiliaries: [CompiledObject] = []
         
         for (index, node) in orderedSimulationNodes.enumerated() {
             if node.type === FlowsMetamodel.Stock {
@@ -230,7 +230,7 @@ public class Compiler {
             }
             else if node.type === FlowsMetamodel.Auxiliary
                         || node.type === FlowsMetamodel.GraphicalFunction {
-                let compiled = CompiledVariable(id: node.id, index: index)
+                let compiled = CompiledObject(id: node.id, index: index)
                 auxiliaries.append(compiled)
             }
             else {
@@ -277,7 +277,7 @@ public class Compiler {
         //
         let result = CompiledModel(
             builtinVariables: builtinVariables,
-            simulationVariables: simulationVariables,
+            computedVariables: computedVariables,
             stocks: compiledStocks,
             flows: flows,
             auxiliaries: auxiliaries,

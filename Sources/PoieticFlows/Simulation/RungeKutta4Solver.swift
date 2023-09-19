@@ -28,28 +28,30 @@ public class RungeKutta4Solver: Solver {
     override public func compute(_ current: SimulationState,
                                  at time: Double,
                                  timeDelta: Double = 1.0) -> SimulationState {
-        let stage1 = prepareStage(at: time, with: current, timeDelta: timeDelta)
+        var current = current
+        // FIXME: [IMPORTANT] This is a consequence of inappropriate design.
+        current.builtins = self.makeBuiltins(time: time, timeDelta: timeDelta)
+        let stage1 = prepareStage(current, at: time, timeDelta: timeDelta)
         let k1 = difference(at: time,
                             with: stage1,
                             timeDelta: timeDelta)
         
-        let stage2 = prepareStage(at: time + timeDelta / 2, with: current, timeDelta: timeDelta)
+        let stage2 = prepareStage(current, at: time + timeDelta / 2, timeDelta: timeDelta)
         let k2 = difference(at: time + timeDelta / 2,
                             with: stage2 + (timeDelta / 2) * k1,
                             timeDelta: timeDelta / 2)
         
-        let stage3 = prepareStage(at: time + timeDelta / 2, with: current, timeDelta: timeDelta)
+        let stage3 = prepareStage(current, at: time + timeDelta / 2, timeDelta: timeDelta)
         let k3 = difference(at: time + timeDelta / 2,
                             with: stage3 + (timeDelta / 2) * k2,
                             timeDelta: timeDelta / 2)
         
-        let stage4 = prepareStage(at: time, with: current, timeDelta: timeDelta)
+        let stage4 = prepareStage(current, at: time, timeDelta: timeDelta)
         let k4 = difference(at: time,
                             with: stage4 + timeDelta * k3,
                             timeDelta: timeDelta)
         
         let result = current + (1.0/6.0) * timeDelta * (k1 + 2 * k2 + 2*k3 + k4)
-
         return result
     }
 }
