@@ -60,9 +60,13 @@ Out-of-scope:
   with the design and its simulation. Also extensibility of a DSL might get
   too complex.
 
+## Demos
+
+Example models can be found in the [Demos repository](https://github.com/OpenPoiesis/Demos).
+
 ## Documentation
 
-- [PoieticCore](https://openpoiesis.github.io/Poietic-swift/documentation/poieticcore/)
+- [PoieticCore](https://openpoiesis.github.io/PoieticCore/documentation/poieticcore/)
 - [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
 
 ## Command-line Tool
@@ -76,6 +80,7 @@ At the moment, the only user-facing interface is a command-line tool called
   list                    List all nodes and edges
   describe                Describe an object
   edit                    Edit an object or a selection of objects
+  import                  Import a frame bundle into the design
   run                     Run a model
   write-dot               Write a Graphviz DOT file.
   metamodel               Show the metamodel
@@ -124,23 +129,6 @@ poietic edit undo
 poietic list formulas
 
 poietic run
-```
-## Examples
-
-Examples are coming.
-
-One built-in example is a
-[Lotka-Volterra](https://en.wikipedia.org/wiki/Lotka–Volterra_equations)
-predator-prey model that can be created by the tool:
-
-```
-poietic new --include-demo
-```
-
-Inspect the model:
-
-```
-poietic list formulas
 ```
 
 
