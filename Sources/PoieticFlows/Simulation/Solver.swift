@@ -394,8 +394,6 @@ public class Solver {
     func prepareStage(_ state: SimulationState,
                       at time: Double,
                       timeDelta: Double = 1.0) -> SimulationState {
-        print("PREPARE AT \(time) \(timeDelta)")
-
         var result: SimulationState = state
         let builtins = makeBuiltins(time: time,
                                     timeDelta: timeDelta)

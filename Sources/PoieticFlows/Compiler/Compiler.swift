@@ -181,23 +181,26 @@ public class Compiler {
         // 5. Compile computational representations (computations)
         // -----------------------------------------------------------------
         //
-        var issues: [ObjectID: [NodeIssue]] = [:]
+        var issues = NodeIssuesError()
         var computations: [ObjectID:ComputationalRepresentation] = [:]
         
         for node in orderedSimulationNodes {
             do {
-                let rep = try compile(node)
+                let rep = try self.compile(node)
                 computations[node.id] = rep
             }
-            catch let error as NodeIssueList {
+            catch let error as NodeIssue {
+                issues.append(error, for:node.id)
+            }
+            catch let error as NodeIssuesError {
                 // Thrown in parsedExpression()
-                issues[node.id, default: []].append(contentsOf: error.issues)
+                issues.merge(error)
                 continue
             }
         }
         
         guard issues.isEmpty else {
-            throw DomainError(issues: issues)
+            throw issues
         }
         
         for (index, node) in orderedSimulationNodes.enumerated() {
@@ -370,7 +373,7 @@ public class Compiler {
         }
 
         guard issues.isEmpty else {
-            throw DomainError(issues: issues)
+            throw NodeIssuesError(issues: issues)
         }
         
         self.nameToObject = nameToObject
@@ -438,7 +441,7 @@ public class Compiler {
     ///
     /// - Returns: a computational representation of the simulation node.
     ///
-    /// - Throws: ``NodeIssueList`` with list of issues for the node.
+    /// - Throws: ``DomainError`` with list of issues for the node.
     /// - SeeAlso: ``compile(_:formula:)``, ``compile(_:graphicalFunction:)``.
     ///
     public func compile(_ node: Node) throws -> ComputationalRepresentation {
@@ -476,10 +479,10 @@ public class Compiler {
     /// - Returns: A dictionary where the keys are expression node IDs and values
     ///   are compiled BoundExpressions.
     ///
-    /// - Throws: ``DomainError`` with ``NodeIssue/expressionSyntaxError(_:)`` for each node
+    /// - Throws: ``NodeIssue`` with ``NodeIssue/expressionSyntaxError(_:)`` for each node
     ///   which has a syntax error in the expression.
     ///
-    /// - Throws: ``NodeIssueList`` with list of issues for the node.
+    /// - Throws: ``NodeIssuesError`` with list of issues for the node.
     ///
     public func compile(_ node: Node,
                         formula: FormulaComponent) throws -> ComputationalRepresentation{
@@ -489,7 +492,7 @@ public class Compiler {
             unboundExpression =  try formula.parsedExpression()!
         }
         catch let error as ExpressionSyntaxError {
-            throw NodeIssueList([NodeIssue.expressionSyntaxError(error)])
+            throw NodeIssue.expressionSyntaxError(error)
         }
         
         // List of required parameters: variables in the expression that
@@ -504,7 +507,7 @@ public class Compiler {
         //
         let inputIssues = validateParameters(node.id, required: required)
         guard inputIssues.isEmpty else {
-            throw NodeIssueList(inputIssues)
+            throw NodeIssuesError(issues: [node.id: inputIssues])
         }
         
         // Finally bind the expression.
@@ -516,13 +519,13 @@ public class Compiler {
     }
 
     /// - Requires: node
-    /// - Throws: ``NodeIssueList`` with list of issues for the node.
+    /// - Throws: ``NodeIssue`` if the function parameter is not connected.
     ///
     public func compile(_ node: Node,
                         graphicalFunction: GraphicalFunctionComponent) throws -> ComputationalRepresentation{
         let hood = view.incomingParameters(node.id)
         guard let parameterNode = hood.nodes.first else {
-            throw NodeIssueList([.missingGraphicalFunctionParameter])
+            throw NodeIssue.missingGraphicalFunctionParameter
         }
         
         let funcName = "__graphical_\(node.id)"
@@ -532,9 +535,15 @@ public class Compiler {
 
     }
 
-    /// - Throws: ``NodeIssueList`` with list of issues for the node.
+    /// Compile all stock nodes.
     ///
-    public func compile(stocks: [Node]) throws -> [CompiledStock] {
+    /// The function extracts component from the stock that is necessary
+    /// for simulation. Then the function collects all inflows and outflows
+    /// of the stock.
+    ///
+    /// - Returns: Extracted and derived stock node information.
+    ///
+    public func compile(stocks: [Node]) -> [CompiledStock] {
         var outflows: [ObjectID: [ObjectID]] = [:]
         var inflows: [ObjectID: [ObjectID]] = [:]
 

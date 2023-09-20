@@ -1,9 +1,10 @@
 //
-//  File.swift
-//  
+//  Metamodel.swift
+//
 //
 //  Created by Stefan Urbanek on 07/06/2023.
 //
+
 
 /// Protocol for meta–models – models describing problem domain models.
 ///

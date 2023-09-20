@@ -79,7 +79,7 @@ extension PoieticTool {
             do {
                 try simulator.compile(frame)
             }
-            catch let error as DomainError {
+            catch let error as NodeIssuesError {
                 for (id, issues) in error.issues {
                     for issue in issues {
                         let object = frame.object(id)
@@ -144,7 +144,7 @@ extension PoieticTool {
             
             // Create and initialize the solver
             // -------------------------------------------------------------
-            simulator.initializeSimulation()
+            simulator.initializeSimulation(override: overrideConstants)
             
             // Run the simulation
             // -------------------------------------------------------------

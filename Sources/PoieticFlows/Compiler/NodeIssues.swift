@@ -14,7 +14,7 @@ import PoieticCore
 /// possible to be presented to the user, instead of just failing at the first
 /// error found.
 ///
-public struct DomainError: Error {
+public struct NodeIssuesError: Error {
     /// Dictionary of node issues by node. The key is the node ID and the
     /// value is a list of issues.
     ///
@@ -29,12 +29,11 @@ public struct DomainError: Error {
     mutating func append(_ issue: NodeIssue, for objectID: ObjectID) {
         self.issues[objectID, default: []].append(issue)
     }
-}
-
-public struct NodeIssueList: Error {
-    public let issues: [NodeIssue]
-    public init(_ issues: [NodeIssue]) {
-        self.issues = issues
+    
+    mutating func merge(_ error: NodeIssuesError) {
+        self.issues.merge(error.issues) { (left, right) in
+            left + right
+        }
     }
 }
 

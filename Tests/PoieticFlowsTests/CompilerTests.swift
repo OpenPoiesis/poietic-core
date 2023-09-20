@@ -73,7 +73,7 @@ final class TestCompiler: XCTestCase {
         // TODO: Check using violation checker
         
         XCTAssertThrowsError(try compiler.prepareNodes()) {
-            guard let error = $0 as? DomainError else {
+            guard let error = $0 as? NodeIssuesError else {
                 XCTFail("Expected DomainError")
                 return
             }
@@ -168,7 +168,7 @@ final class TestCompiler: XCTestCase {
                                   components: [GraphicalFunctionComponent()])
 
         XCTAssertThrowsError(try compiler.compile()) {
-            guard let error = $0 as? DomainError else {
+            guard let error = $0 as? NodeIssuesError else {
                 XCTFail("Expected DomainError, got: \($0)")
                 return
             }

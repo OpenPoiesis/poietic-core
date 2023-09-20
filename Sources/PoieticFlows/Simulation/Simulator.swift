@@ -79,7 +79,7 @@ public class Simulator {
     
     // MARK: - Simulation methods
     
-    public func initializeSimulation() {
+    public func initializeSimulation(override: [ObjectID:Double] = [:]) {
         guard let frame = self.frame else {
             fatalError("Trying to initialize a simulation without a frame")
         }
@@ -90,7 +90,9 @@ public class Simulator {
         currentTime = initialTime
         
         solver = solverType.init(model)
-        currentState = solver!.initialize(time: currentTime)
+        currentState = solver!.initialize(time: currentTime,
+                                          override: override,
+                                          timeDelta: timeDelta)
 
         output.removeAll()
         output.append(currentState!)
