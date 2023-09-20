@@ -67,7 +67,7 @@ poietic add Flow name=expenses formula=50
             try closeMemory(memory: memory, options: options)
 
             print("Created node \(id)")
-            print("Current frame ID: \(memory.currentFrame.id)")
+//            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 

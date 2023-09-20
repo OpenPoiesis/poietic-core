@@ -21,6 +21,7 @@ extension PoieticTool {
             case all = "all"
             case names = "names"
             case formulas = "formulas"
+            case charts = "charts"
             var defaultValueDescription: String { "all" }
             
             static var allValueStrings: [String] {
@@ -45,6 +46,8 @@ extension PoieticTool {
                 listNames(memory)
             case .formulas:
                 listFormulas(memory)
+            case .charts:
+                listCharts(memory)
             }
         }
         func listAll(_ memory: ObjectMemory) {
@@ -101,34 +104,23 @@ extension PoieticTool {
                 print("\(name) = \(result[name]!)")
             }
         }
-        #if false
+        
         func listCharts(_ memory: ObjectMemory) {
             let frame = memory.currentFrame
-            var result: [String: String] = [:]
+            let view = StockFlowView(frame.graph)
             
-            for object in frame.filter(component: ChartComponent.self) {
-                let chart = nil
-                guard let name = object.name else {
-                    continue
-                }
-                if let component: ChartComponent = object[FormulaComponent.self] {
-                    result[name] = component.expressionString
-                }
-                else if let component: GraphicalFunctionComponent = object[GraphicalFunctionComponent.self] {
-                    result[name] = component.description
-                }
+            let charts = view.charts
+            
+            let sorted = charts.sorted {
+                ($0.node.name!).lexicographicallyPrecedes($1.node.name!)
             }
             
-            let sorted = result.keys.sorted {
-                $0.lexicographicallyPrecedes($1)
-            }
-            
-            for name in sorted {
-                print("\(name) = \(result[name]!)")
+            for chart in sorted {
+                let seriesStr = chart.series.map { $0.name! }
+                    .joined(separator: " ")
+                print("\(chart.node.name!): \(seriesStr)")
             }
         }
-        #endif
 
     }
 }
-

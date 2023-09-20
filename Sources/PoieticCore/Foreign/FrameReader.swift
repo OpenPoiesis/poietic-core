@@ -74,12 +74,15 @@ public struct ForeignFrameInfo: Codable {
     // TODO: Allow objects to be embedded
     public let frameFormatVersion: String
     public let metadata: [String:ForeignValue]?
+    public let collections: [String]?
 }
 
 public class ForeignFrameBundle {
     public let url: URL
     public let info: ForeignFrameInfo
-    public let collectionNames: [String]
+    public var collectionNames: [String] {
+        info.collections ?? ["objects"]
+    }
     
     public init(url: URL) throws {
         self.url = url
@@ -98,9 +101,7 @@ public class ForeignFrameBundle {
         catch DecodingError.keyNotFound(let key, _) {
             throw FrameReaderError.keyNotFound(key.stringValue)
         }
-            
         // TODO: Read this from info dictionary, path or URL (github)
-        collectionNames = ["objects"]
     }
     
     public convenience init(path: String) throws {

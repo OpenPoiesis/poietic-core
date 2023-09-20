@@ -7,6 +7,7 @@
 
 import ArgumentParser
 import SystemPackage
+import Foundation
 
 import PoieticCore
 import PoieticFlows
@@ -14,7 +15,7 @@ import PoieticFlows
 extension PoieticTool {
     struct Run: ParsableCommand {
         static var configuration
-            = CommandConfiguration(abstract: "Run a model")
+            = CommandConfiguration(abstract: "Run the simulation and generate output")
 
         @OptionGroup var options: Options
 
@@ -31,17 +32,17 @@ extension PoieticTool {
         var solverName: String = "euler"
 
         enum OutputFormat: String, CaseIterable, ExpressibleByArgument{
-            case simple = "simple"
-            case dir = "dir"
-            case json = "json"
-            var defaultValueDescription: String { "simple" }
+            case csv = "csv"
+//            case json = "json"
+            case gnuplot = "gnuplot"
+            var defaultValueDescription: String { "csv" }
             
             static var allValueStrings: [String] {
                 OutputFormat.allCases.map { "\($0)" }
             }
         }
         @Option(name: [.long, .customShort("f")], help: "Output format")
-        var outputFormat: OutputFormat = .simple
+        var outputFormat: OutputFormat = .csv
 
         // TODO: Deprecate
         @Option(name: [.customLong("variable"), .customShort("V")],
@@ -74,7 +75,6 @@ extension PoieticTool {
                 throw ToolError.unknownSolver(solverName)
             }
             let simulator = Simulator(memory: memory, solverType: solverType)
-
             let frame = memory.deriveFrame(original: memory.currentFrame.id)
             do {
                 try simulator.compile(frame)
@@ -149,10 +149,23 @@ extension PoieticTool {
             // Run the simulation
             // -------------------------------------------------------------
             simulator.run(steps)
+
+            switch outputFormat {
+            case .csv:
+                try writeCSV(path: outputPath,
+                             variables: outputVariables,
+                             states: simulator.output)
+            case .gnuplot:
+                try writeGnuplotBundle(path: outputPath,
+                                       frame: frame,
+                                       compiledModel: compiledModel,
+                                       output: simulator.output)
+//            case .json:
+//                try writeJSON(path: outputPath,
+//                              variables: outputVariables,
+//                              states: simulator.output)
+            }
             
-            try writeCSV(path: outputPath,
-                         variables: outputVariables,
-                         states: simulator.output)
         }
     }
 }
@@ -181,4 +194,63 @@ func writeCSV(path: String,
     }
     try writer.close()
     
+}
+
+// FIXME: This is quickly put together, just to see what we need. Requires proper design.
+/// Write a Gnuplot directory bundle.
+///
+/// The function will create a directory at `path` if it does not exist and then
+/// creates the following files:
+///
+/// - `output.csv` – all the simulation states
+/// - `chart_NAME.gnuplot` – one file for every chart where the NAME is the
+///    chart object name.
+///
+/// If the path is '-' then the current directory will be used.
+///
+func writeGnuplotBundle(path: String,
+                        frame: Frame,
+                        compiledModel: CompiledModel,
+                        output: [SimulationState]) throws {
+    let path = if path == "-" { "." } else { path }
+    let view = StockFlowView(frame.graph)
+    let variables = compiledModel.allVariables
+    let fm = FileManager()
+    try fm.createDirectory(atPath: path, withIntermediateDirectories: true)
+    let dataFileName = "output.csv"
+    // Write all the output
+    try writeCSV(path: path + "/" + dataFileName,
+                 variables: compiledModel.allVariables,
+                 states: output)
+    
+    let timeIndex = variables.firstIndex { $0.name == "time" }!
+
+    // Write chart output
+    for chart in view.charts {
+        let chartName = chart.node.name!
+        // TODO: Plot all the series
+        if chart.series.count > 1 {
+            print("NOTE: Printing only the first series, multiple series is not yet supported")
+        }
+        let series = chart.series.first!
+        let seriesIndex = variables.firstIndex { $0.name == series.name }!
+        let imageFile = path + "chart_\(chartName).png"
+        
+        let gnuplotCommand =
+        """
+        set datafile separator ',';
+        set key autotitle columnhead;
+        set terminal png;
+        set output '\(imageFile)';
+        plot '\(dataFileName)' using \(timeIndex + 1):\(seriesIndex + 1) with lines;
+        """
+
+        let gnuplotCommandPath = path + "/" + "chart_\(chartName).gnuplot"
+        let file = try FileDescriptor.open(gnuplotCommandPath,
+                                           .writeOnly,
+                                           options: [.truncate, .create],
+                                           permissions: .ownerReadWrite)
+        try file.writeAll(gnuplotCommand.utf8)
+        try file.close()
+    }
 }

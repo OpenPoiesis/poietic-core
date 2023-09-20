@@ -30,6 +30,7 @@ public class FlowsMetamodel: Metamodel {
         FormulaComponent.self,
         PositionComponent.self,
         GraphicalFunctionComponent.self,
+        ChartComponent.self,
     ] + BasicMetamodel.components
     
     
@@ -130,6 +131,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Chart",
         structuralType: .node,
         components: [
+            ChartComponent.self,
         ]
     )
 
@@ -211,7 +213,7 @@ public class FlowsMetamodel: Metamodel {
 
     public static let ChartSeries = ObjectType(
         // TODO: Origin: Chart, target: Expression
-        name: "ControlBinding",
+        name: "ChartSeries",
         structuralType: .edge,
         isSystemOwned: false,
         components: [
@@ -237,6 +239,7 @@ public class FlowsMetamodel: Metamodel {
         // UI
         Control,
         Chart,
+        ChartSeries,
         ValueBinding,
     ] + BasicMetamodel.objectTypes
     
@@ -318,7 +321,7 @@ public class FlowsMetamodel: Metamodel {
             requirement: AllSatisfy(
                 EdgePredicate(
                     origin: IsTypePredicate(Chart),
-                    target: IsTypePredicate(Stock)
+                    target: HasComponentPredicate(FormulaComponent.self)
                 )
             )
         ),

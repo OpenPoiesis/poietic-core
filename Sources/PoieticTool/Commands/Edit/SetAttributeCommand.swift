@@ -50,7 +50,7 @@ extension PoieticTool {
 
             try closeMemory(memory: memory, options: options)
             print("Property set in \(reference): \(attributeName) = \(value)")
-            print("Current frame ID: \(memory.currentFrame.id)")
+//            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 

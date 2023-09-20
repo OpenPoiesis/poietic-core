@@ -18,12 +18,19 @@ extension PoieticTool {
             )
 
         @OptionGroup var options: Options
+
+        @Flag(name: [.customLong("verbose"), .customShort("v")],
+                help: "Print created and removed edges")
+        var verbose: Bool = false
+
         mutating func run() throws {
             let memory = try openMemory(options: options)
             let frame = memory.deriveFrame()
             let graph = frame.mutableGraph
             let view = StockFlowView(graph)
             let compiler = Compiler(frame: frame)
+            var addedCount = 0
+            var removedCount = 0
             
             let builtinNames: Set<String> = Set(FlowsMetamodel.variables.map {
                 $0.name
@@ -31,7 +38,6 @@ extension PoieticTool {
             
             try compiler.prepareNodes()
             let nameMap = compiler.nameToObject
-            var didSomething: Bool = false
             
             for target in compiler.orderedSimulationNodes {
                 guard let expression = try target.parsedExpression() else {
@@ -49,19 +55,24 @@ extension PoieticTool {
                         let edge = graph.createEdge(FlowsMetamodel.Parameter,
                                                     origin: parameterID,
                                                   target: target.id)
-                        print("Connected parameter\(name) (\(parameterID)) to \(target.name!) (\(target.id)), edge: \(edge)")
-                        didSomething = true
+                        if verbose {
+                            print("Connected parameter\(name) (\(parameterID)) to \(target.name!) (\(target.id)), edge: \(edge)")
+                        }
+                        addedCount += 1
                     case let .unused(node, edge):
                         graph.remove(edge: edge)
-                        print("Disconnected parameter \(name) (\(node)) from \(target.name!) (\(target.id)), edge: \(edge)")
-                        didSomething = true
+                        if verbose {
+                            print("Disconnected parameter \(name) (\(node)) from \(target.name!) (\(target.id)), edge: \(edge)")
+                        }
+                        removedCount += 1
                     case .used:
                         continue
                     }
                 }
             }
 
-            if didSomething {
+            if addedCount + removedCount > 0 {
+                print("Added \(addedCount) edges and removed \(removedCount) edges.")
                 try acceptFrame(frame, in: memory)
             }
             else {
@@ -69,7 +80,7 @@ extension PoieticTool {
             }
             try closeMemory(memory: memory, options: options)
             
-            print("Current frame ID: \(memory.currentFrame.id)")
+//            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 

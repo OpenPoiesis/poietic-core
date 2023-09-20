@@ -39,7 +39,7 @@ extension PoieticTool {
                 let list = removed.map { String($0) }.joined(separator: ", ")
                 print("Removed cascading: \(list)")
             }
-            print("Current frame ID: \(memory.currentFrame.id)")
+//            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 }

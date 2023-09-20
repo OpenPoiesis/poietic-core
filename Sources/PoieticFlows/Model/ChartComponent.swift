@@ -63,6 +63,7 @@ public struct ChartSeries {
     public let node: ObjectSnapshot
     var name: String { node.name! }
 }
+
 extension StockFlowView {
     public var charts: [Chart] {
         let nodes = graph.selectNodes(HasComponentPredicate(ChartComponent.self))
@@ -82,3 +83,9 @@ extension StockFlowView {
         return charts
     }
 }
+
+//public struct CompiledChart {
+//    public let id: ObjectID
+//    public let index: ValueIndex
+//    public let series: [CompiledObject]
+//}

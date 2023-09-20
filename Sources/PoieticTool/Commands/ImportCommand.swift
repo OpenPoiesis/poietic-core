@@ -34,7 +34,7 @@ extension PoieticTool {
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
 
-            print("Current frame ID: \(memory.currentFrame.id)")
+//            print("Current frame ID: \(memory.currentFrame.id)")
         }
     }
 }
