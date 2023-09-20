@@ -250,8 +250,12 @@ public class MutableFrame: Frame {
     /// The method removes the object with given object ID. Then traverses
     /// and removes all the objects that depend on the removed object.
     ///
+    /// All object's children will be removed as well.
+    ///
     /// - Returns: A list of objects removed from the frame except the object
     ///   asked to be removed.
+    ///
+    /// - Complexity: O(n)
     ///
     /// - Precondition: The frame must contain object with given ID.
     /// - Precondition: The frame is not frozen. See ``freeze()``.

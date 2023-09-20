@@ -33,18 +33,34 @@ More information about the model is contained in the ``FlowsMetamodel``.
 - ``FlowComponent``
 - ``StockComponent``
 - ``PositionComponent``
+- ``GraphicalFunction``
+- ``ChartComponent``
+- ``GraphicalFunctionComponent``
+- ``ControlComponent``
 
-### Compiler
+### Compiled Model and Compiler
 
 - ``StockFlowView``
-- ``Compiler``
 - ``CompiledModel``
+- ``ComputedVariable``
+- ``Compiler``
 - ``NodeIssuesError``
 - ``NodeIssue``
 - ``BoundVariableReference``
+- ``IndexRepresentable``
 
-### Simulation and Solver
+- ``CompiledControlBinding``
+- ``CompiledFlow``
+- ``CompiledGraphicalFunction``
+- ``CompiledObject``
+- ``CompiledStock``
 
+- ``BoundBuiltinVariable``
+- ``BoundComponent``
+
+### Simulation
+
+- ``Simulator``
 - ``SimulationState``
 - ``Solver``
 - ``EulerSolver``

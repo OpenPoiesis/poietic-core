@@ -32,6 +32,8 @@ For querying features of a graph there is ``Neighborhood`` and
 
 - ``ObjectMemory``
 - ``ObjectSnapshot``
+- ``StructuralComponent``
+- ``StructuralType``
 
 - ``Frame``
 - ``StableFrame``
@@ -44,6 +46,8 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``IdentityGenerator``
 - ``SequentialIDGenerator``
 
+- ``ChildrenSet``
+
 ### Metamodel
 
 - ``ObjectType``
@@ -54,6 +58,11 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``ComponentDescription``
 - ``EmptyMetamodel``
 - ``NameComponent``
+
+- ``BasicMetamodel``
+
+- ``AudienceLevel``
+- 
 
 ### Graph
 
@@ -75,11 +84,14 @@ For querying features of a graph there is ``Neighborhood`` and
 
 - ``Predicate``
 - ``CompoundPredicate``
-- ``EdgeObjectPredicate``
+- ``EdgePredicate``
 - ``AnyPredicate``
 - ``IsTypePredicate``
 - ``NegationPredicate``
 - ``HasComponentPredicate``
+- ``AllSatisfy``
+- ``ConstraintRequirement``
+- ``LogicalConnective``
 
 ### Constraints
 
@@ -99,12 +111,27 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``ForeignAtom``
 - ``ForeignRecordError``
 
+- ``AttributeDictionary``
+- ``AttributeKey``
+- ``AttributeValue``
+- ``ForeignRecordError``
+
+- ``CSVForeignRecordReader``
+- ``CSVFormatter``
+- ``CSVOptions``
+- ``CSVWriter``
+- ``CSVError``
+
+- ``ForeignFrameBundle``
+- ``ForeignFrameReader``
+- ``ForeignObject``
+- ``ForeignFrameInfo``
+- ``FrameReaderError``
+
 ### Arithmetic Expression
 
 - ``ArithmeticExpression``
 - ``UnboundExpression``
-- ``BoundExpression``
-- ``BoundVariableReference``
 - ``BuiltinVariable``
 
 - ``FunctionProtocol``
@@ -127,11 +154,11 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``LiteralSyntax``
 - ``TextLocation``
 - ``Token``
-
-### Persistence and Foreign Interfaces
-
-- ``AttributeDictionary``
-- ``AttributeKey``
-- ``AttributeValue``
-- ``ForeignRecordError``
+- ``bindExpression(_:variables:functions:)``
+- ``ArgumentType``
+- ``Signature``
+- ``ExpressionError``
+- ``ExpressionSyntaxError``
+- ``ExpressionTokenType``
+- ``FunctionError``
 
