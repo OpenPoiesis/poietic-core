@@ -10,7 +10,7 @@ import PoieticCore
 
 /// An aggregate error of multiple issues grouped by a node.
 ///
-/// The ``DomainView`` and ``Compiler`` are trying to gather as many errors as
+/// The ``StockFlowView`` and ``Compiler`` are trying to gather as many errors as
 /// possible to be presented to the user, instead of just failing at the first
 /// error found.
 ///
@@ -37,9 +37,9 @@ public struct NodeIssuesError: Error {
     }
 }
 
-/// An issue detected by the ``DomainView`` or the ``Compiler``.
+/// An issue detected by the ``NodeIssuesError`` or the ``Compiler``.
 ///
-/// The issues are usually grouped in a ``DomainError``, so that as
+/// The issues are usually grouped in a ``NodeIssuesError``, so that as
 /// many issues are presented to the user as possible.
 ///
 public enum NodeIssue: Equatable, CustomStringConvertible, Error {

@@ -93,7 +93,7 @@ public class GraphicalFunction {
     /// Creates an unary function used in computation that wraps
     /// this graphical function.
     ///
-    /// Current implementation just wraps the ``stepFunction(time:)``.
+    /// Current implementation just wraps the ``stepFunction(x:)``.
     ///
     public func createFunction(name: String) -> NumericUnaryFunction {
         let function = NumericUnaryFunction(

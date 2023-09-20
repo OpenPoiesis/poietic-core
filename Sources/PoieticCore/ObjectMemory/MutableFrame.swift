@@ -23,7 +23,7 @@ struct SnapshotReference {
 ///
 /// The basic changes that can be done with a mutable frame:
 ///
-/// - Add objects to the frame using ``MutableFrame/create(_:components:)``
+/// - Add objects to the frame using ``MutableFrame/create(_:structuralReferences:components:)``
 ///    or ``MutableFrame/insert(_:owned:)``.
 /// - Mutate existing objects in the frame using
 ///   ``MutableFrame/mutableObject(_:)``.
@@ -230,7 +230,8 @@ public class MutableFrame: Frame {
     ///
     /// - Precondition: The frame is not frozen. See ``freeze()``.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/init(id:snapshotID:type:components:)``
+    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)``,
+    ///   ``ObjectSnapshot/init(id:snapshotID:type:structure:components:)
     ///
     public func create(_ type: ObjectType,
                        structuralReferences refs: [ObjectID] = [],
@@ -379,8 +380,13 @@ public class MutableFrame: Frame {
             return originalRef.snapshot
         }
         else {
+            let original = originalRef.snapshot
             let newSnapshotID = memory.allocateID()
-            let derived = originalRef.snapshot.derive(snapshotID: newSnapshotID)
+            let derived = ObjectSnapshot(id: id,
+                                  snapshotID: newSnapshotID,
+                                  type: original.type,
+                                  components: original.components.components)
+
             let ref = SnapshotReference(snapshot: derived, owned: true)
             self.objects[id] = ref
             self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
@@ -455,6 +461,10 @@ public class MutableFrame: Frame {
     /// - Precondition: The child object must not have a parent.
     /// - ToDo: Check for cycles.
     ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``MutableFrame/removeChild(_:from:)``,
+    /// ``MutableFrame/removeFromParent(_:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
     public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
         let parent = self.mutableObject(parentID)
         let child = self.mutableObject(childID)
@@ -478,6 +488,10 @@ public class MutableFrame: Frame {
     /// - Precondition: Specified child object must be a child of the specified
     ///   parent.
     ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``MutableFrame/addChild(_:to:)``,
+    /// ``MutableFrame/removeFromParent(_:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
     public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
         let parent = self.mutableObject(parentID)
         let child = self.mutableObject(childID)
@@ -498,6 +512,11 @@ public class MutableFrame: Frame {
     /// a child. Mutable version of the old parent will be created, if
     /// necessary.
     ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``MutableFrame/addChild(_:to:)``,
+    /// ``MutableFrame/removeChild(_:from:)``,
+    /// ``MutableFrame/removeFromParent(_:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
         let child = mutableObject(childID)
         if let originalParentID = child.parent {
@@ -522,6 +541,10 @@ public class MutableFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``MutableFrame/addChild(_:to:)``,
+    /// ``MutableFrame/removeChild(_:from:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
     public func removeFromParent(_ childID: ObjectID) {
         let child = self.mutableObject(childID)
         if let parentID = child.parent {

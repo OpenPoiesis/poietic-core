@@ -89,7 +89,7 @@ public struct ConstraintViolationError: Error {
 /// 1. Derive a new frame from an existing one using ``deriveFrame(original:id:)``
 ///    or create a new empty frame using ``createFrame(id:)`` which produces
 ///    a new ``MutableFrame``.
-/// 2. Add objects to the derived frame using ``MutableFrame/create(_:components:)``
+/// 2. Add objects to the derived frame using ``MutableFrame/create(_:structuralReferences:components:)``
 ///    or ``MutableFrame/insert(_:owned:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
 ///    snapshot of the object using ``MutableFrame/mutableObject(_:)`` and
@@ -526,14 +526,30 @@ public class ObjectMemory {
         _mutableFrames[frame.id] = nil
     }
     
+    /// Flag whether the object memory has any un-doable frames.
+    ///
+    /// - SeeAlso: ``undo(to:)``, ``redo(to:)``, ``canRedo``
+    ///
     public var canUndo: Bool {
         return !undoableFrames.isEmpty
     }
 
+    /// Flag whether the object memory has any re-doable frames.
+    ///
+    /// - SeeAlso: ``undo(to:)``, ``redo(to:)``, ``canUndo``
+    ///
     public var canRedo: Bool {
         return !redoableFrames.isEmpty
     }
 
+    /// Change the current frame to `frameID` which is one of the previous
+    /// frames in the undo history.
+    ///
+    /// It is up to the caller to verify whether the provided frame ID is part
+    /// of undoable history, otherwise it is a programming error.
+    ///
+    /// - SeeAlso: ``redo(to:)``, ``canUndo``, ``canRedo``
+    ///
     public func undo(to frameID: FrameID) {
         guard let index = undoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to undo to frame \(frameID), which does not exist in the history")
@@ -549,6 +565,17 @@ public class ObjectMemory {
         currentFrameID = newCurrentFrameID
     }
     
+    /// Change the current frame to `frameID` which is one of the previously
+    /// undone frames.
+    ///
+    /// The redo history is emptied when a new frame is derived from the current
+    /// frame.
+    ///
+    /// It is up to the caller to verify whether the provided frame ID is part
+    /// of redoable history, otherwise it is a programming error.
+    ///
+    /// - SeeAlso: ``undo(to:)``, ``canUndo``, ``canRedo``
+    ///
     public func redo(to frameID: FrameID) {
         guard let index = redoableFrames.firstIndex(of: frameID) else {
             fatalError("Trying to redo to frame \(frameID), which does not exist in the history")
@@ -580,6 +607,8 @@ public class ObjectMemory {
         return violations
     }
     
+    /// Remove everything from the memory.
+    ///
     func removeAll() {
         // TODO: [REVIEW] We needed this for archival. Is it still relevant?
         // NOTE: Sync with init(...)

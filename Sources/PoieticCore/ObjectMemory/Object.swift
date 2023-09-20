@@ -11,31 +11,122 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public typealias ID = ObjectID
     
     /// Unique identifier of the version snapshot within the database.
+    ///
+    /// The `snapshotID` is unique in the whole design.
+    ///
+    /// One typically does not use the snapshot ID as it refers to object's
+    /// particular version. Through the design the object's ``id`` is used as
+    /// a logical reference to an object where the concrete version is used
+    /// within the context of a frame.
+    ///
+    /// The snapshot ID is preserved during persistence. However, it is not
+    /// necessary to be provided when importing object from foreign interfaces
+    /// which are dealing with only single version frame.
+    ///
+    /// When mutating an object with ``MutableFrame/mutableObject(_:)`` a new
+    /// snapshot with new snapshot ID but the same object ID will be created.
+    ///
+    /// - SeeAlso: ``id``, ``MutableFrame/insert(_:owned:)``,
+    ///    ``ObjectMemory/allocateID(proposed:)``
+    ///
     public let snapshotID: SnapshotID
     
-    /// Object identifier that groups all object's versions.
+    /// Object identity.
+    ///
+    /// The object ID defines the main identity of an object. An object might
+    /// have multiple version snapshots which are identified by ``snapshotID``.
+    /// Snapshots sharing the same object ID are different versions of the same
+    /// object. Typically only snapshots from within the same frame are
+    /// considered.
+    ///
+    /// The object ID is preserved during persistence.
+    ///
+    /// When mutating an object with ``MutableFrame/mutableObject(_:)`` a new
+    /// snapshot with new snapshot ID but the same object ID will be created.
+    ///
+    /// - SeeAlso: ``snapshotID``,
+    ///   ``Frame/object(_:)``, ``Frame/contains(_:)``,
+    ///    ``MutableFrame/mutableObject(_:)``,
+    ///    ``ObjectMemory/allocateID(proposed:)``
     ///
     public let id: ObjectID
     
     /// List of components of the object.
+    ///
+    /// An object can have multiple components but only
+    /// one component of a given type.
+    ///
+    /// Objects can be also queried based on whether they contain a given
+    /// component type with ``Frame/filter(component:)``
+    /// or using ``Frame/filter(_:)`` with ``HasComponentPredicate``.
+    ///
+    /// - SeeAlso: ``Component``, ``ObjectType``.
+    ///
     public var components: ComponentSet
     
     /// Object type within the problem domain.
     ///
-    /// The object type is one of types from the design's ``Metamodel``.
+    /// The ``ObjectType`` describes the typical object structure within a
+    /// domain model. The domain model is described through ``Metamodel``.
+    ///
+    /// Object type is also used in querying of objects using ``Frame/filter(type:)-3zj9k``
+    /// or using ``Frame/filter(_:)`` with ``IsTypePredicate``.
+    ///
+    /// - SeeAlso: ``ObjectType``, ``Metamodel``
     ///
     public let type: ObjectType
     
     public var state: VersionState
     
+    /// Variable denoting the structural property or rather structural role
+    /// of the object within the memory.
+    ///
+    /// Objects can be either unstructured (``StructuralComponent/unstructured``)
+    /// or have a special role in different views of the design, such as nodes
+    /// and edges in a graph.
+    ///
+    /// Structural component also denotes which objects depend on the object.
+    /// For example, if objects is an edge and any of it's ``StructuralComponent/edge(_:_:)``
+    /// elements is removed from the memory, then the edge is removed as well.
+    ///
+    /// - SeeAlso: ``MutableFrame/removeCascading(_:)``, ``Graph``
+    ///
     public var structure: StructuralComponent
     
     // Hierarchy
+    /// Object's parent – denotes hierarchical organisation of objects.
+    ///
+    /// You typically never have to set the parent property. It is being set
+    /// by one of the mutable frame's methods (see below).
+    ///
+    /// - SeeAlso: ``children``,
+    /// ``MutableFrame/addChild(_:to:)``,
+    /// ``MutableFrame/removeChild(_:from:)``,
+    /// ``MutableFrame/removeFromParent(_:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
     public var parent: ObjectID? = nil {
         willSet {
             precondition(state.isMutable)
         }
     }
+
+    /// List of object's children.
+    ///
+    /// Children are part of the hierarchical structure of objects. When
+    /// an object is removed from a frame, all its children are removed
+    /// with it, together with all dependencies.
+    ///
+    /// You typically never have to set the children set through this
+    /// property. It is being set by one of the mutable frame's methods
+    /// (see below).
+    ///
+    /// - SeeAlso: ``parent``,
+    /// ``MutableFrame/addChild(_:to:)``,
+    /// ``MutableFrame/removeChild(_:from:)``,
+    /// ``MutableFrame/removeFromParent(_:)``,
+    /// ``MutableFrame/removeCascading(_:)``.
+    ///
+    ///
     public var children: ChildrenSet = ChildrenSet() {
         willSet {
             precondition(state.isMutable)
@@ -59,6 +150,9 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// the snapshot can be inserted into a frame.
     ///
     /// - Returns: Snapshot that is marked as uninitialised.
+    ///
+    /// - SeeAlso: ``initialize(structure:)``, ``initialize(structure:record:)``,
+    /// ``makeInitialized()``
     ///
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
@@ -139,6 +233,12 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
    
     /// Initialise the object.
     ///
+    /// The object will be initialised with given structure and marked as
+    /// _transient_ (``VersionState/transient``), that means the object
+    /// can be used in frames.
+    ///
+    /// - SeeAlso: ``VersionState``
+    ///
     @discardableResult
     public func initialize(structure: StructuralComponent = .unstructured) -> ObjectSnapshot {
         precondition(self.state == .uninitialized,
@@ -150,6 +250,14 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
 
     /// Initialise the object using a foreign record.
+    ///
+    /// The object will be initialised with given structure and attributes
+    /// will be populated with values provided by the foreign record.
+    /// Finally the object will be marked as
+    /// _transient_ (``VersionState/transient``), that means the object
+    /// can be used in frames.
+    ///
+    /// - SeeAlso: ``VersionState``
     ///
     @discardableResult
     public func initialize(structure: StructuralComponent = .unstructured,
@@ -166,6 +274,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
 
     /// Create a foreign record from the snapshot.
+    ///
+    /// Use this method to create a representation of the snapshot that can be
+    /// used in foreign interfaces - persisting, converting to other formats,
+    /// sending over a network, etc.
     ///
     public func foreignRecord() -> ForeignRecord {
         var dict: [String:ForeignValue] = [
@@ -187,21 +299,35 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         return ForeignRecord(dict)
     }
     
+    /// Textual description of the object.
+    ///
     public var description: String {
         let structuralName: String = self.structure.type.rawValue
         return "\(structuralName)(id: \(id), ssid: \(snapshotID), type:\(type.name))"
     }
     
+    /// Prettier description of the object.
+    ///
     public var prettyDescription: String {
         let name: String = self.name ?? "(unnamed)"
         return "\(id) {\(type.name), \(structure.description), \(name)}"
     }
     
-    func makeInitialized() {
+    /// Mark the object as initialized.
+    ///
+    /// Frames can contain only initialised objects.
+    ///
+    /// - SeeAlso: ``ObjectMemory/deriveFrame(original:id:)``
+    ///
+    public func makeInitialized() {
         precondition(self.state == .uninitialized)
         self.state = .transient
     }
     
+    /// Make the object immutable.
+    ///
+    /// Frozen objects can no longer be changed. They make up ``StableFrame``s.
+    ///
     func freeze() {
         precondition(self.state != .frozen)
         self.state = .frozen
@@ -210,6 +336,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// List of objects that this object depends on. If one of the objects from
     /// the list is removed from the frame, this object must be removed as well.
     ///
+    /// - SeeAlso: ``MutableFrame/removeCascading(_:)``.
+    ///
     var structuralDependencies: [ObjectID] {
         switch structure {
         case .unstructured, .node: []
@@ -217,14 +345,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
-    /// - Note: Subclasses are expected to override this method.
-    public func derive(snapshotID: SnapshotID,
-                       objectID: ObjectID? = nil) -> ObjectSnapshot {
-        return ObjectSnapshot(id: objectID ?? self.id,
-                              snapshotID: snapshotID,
-                              type: self.type,
-                              components: components.components)
-    }
     public subscript(componentType: Component.Type) -> (Component)? {
         get {
             return components[componentType]

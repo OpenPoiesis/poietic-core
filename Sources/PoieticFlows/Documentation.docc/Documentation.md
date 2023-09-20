@@ -36,21 +36,19 @@ More information about the model is contained in the ``FlowsMetamodel``.
 
 ### Compiler
 
-- ``DomainView``
+- ``StockFlowView``
 - ``Compiler``
 - ``CompiledModel``
-- ``DomainError``
+- ``NodeIssuesError``
 - ``NodeIssue``
+- ``BoundVariableReference``
 
 ### Simulation and Solver
 
-- ``StateVector``
+- ``SimulationState``
 - ``Solver``
 - ``EulerSolver``
 - ``RungeKutta4Solver``
-
-- ``StateVector``
-- ``KeyedNumericVector``
 
 ### Built-in Functions
 

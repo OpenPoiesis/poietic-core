@@ -196,7 +196,7 @@ public class ForeignFrameReader {
     ///
     /// Data is a JSON encoded array of foreign object descriptions.
     ///
-    /// See ``ForeignFrameReader/read(_:into:)`` for more information.
+    /// See ``ForeignFrameReader/read(_:into:)-65epr`` for more information.
     ///
     /// - Note: This function is non-transactional. The frame is assumed to
     ///         represent a transaction. When the function fails, the whole
@@ -264,8 +264,8 @@ public class ForeignFrameReader {
     ///         represent a transaction. When the function fails, the whole
     ///         frame should be discarded.
     /// - Throws: ``FrameReaderError``
-    /// - SeeAlso: ``ObjectMemory/allocateSnapshot(_:id:snapshotID:foreignRecord:)``,
-    ///     ``MutableFrame/insert(_:,owned:)``
+    /// - SeeAlso: ``ObjectMemory/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
+    ///     ``MutableFraminsert(_:owned:):)``
     ///
     public func read(_ objects: [ForeignObject], into frame: MutableFrame) throws {
         var snapshots: [ObjectSnapshot] = []

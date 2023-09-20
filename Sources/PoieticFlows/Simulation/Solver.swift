@@ -40,11 +40,11 @@ public typealias BoundExpression = ArithmeticExpression<ForeignValue,
 /// Solver is using a ``CompiledModel``, which is guaranteed to be correct
 /// for computation.
 ///
-/// The main method of the solver is ``compute(at:with:timeDelta:)``, which is
+/// The main method of the solver is ``compute(_:at:timeDelta:)``, which is
 /// provided by concrete subclasses of the solver.
 ///
 /// To use the solver, it needs to be initialised first, then the
-/// ``compute(at:with:timeDelta:)`` is called for each step of the simulation.
+/// ``compute(_:at:timeDelta:)`` is called for each step of the simulation.
 ///
 /// ```swift
 /// // Assume we have a compiled model.

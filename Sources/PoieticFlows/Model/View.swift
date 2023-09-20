@@ -82,7 +82,7 @@ public class StockFlowView {
     /// List of all nodes that hold a simulation state and are therefore part
     /// of the state vector.
     ///
-    /// - SeeAlso: ``StateVector``
+    /// - SeeAlso: ``SimulationState``
     ///
     public var stateNodes: [Node] {
         // For now we have only nodes with a formula component.

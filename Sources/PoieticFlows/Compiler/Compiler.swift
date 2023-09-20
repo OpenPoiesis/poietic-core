@@ -84,17 +84,9 @@ public class Compiler {
     /// variables that will be simulated in the order of their computational
     /// dependencies.
     ///
-    /// The ``BoundVariableReference.index`` in the ``BoundExpression`` refers
-    /// to a variable in this list if the ``VariableReference`` represents an
-    /// object.
-    ///
     public private(set) var computedVariables: [ComputedVariable]
 
     /// List of built-in variables used in the simulation.
-    ///
-    /// The ``BoundVariableReference.index`` in the ``BoundExpression`` refers
-    /// to a built-in variable in this list if the ``VariableReference`` is a
-    /// built-in.
     ///
     public private(set) var builtinVariables: [BuiltinVariable]
     /// Creates a compiler that will compile within the context of the given
@@ -136,7 +128,7 @@ public class Compiler {
     ///    of their dependency.
     /// 6. Finalise the compiled model.
     ///
-    /// - Throws: A ``DomainError`` when there are issues with the model.
+    /// - Throws: A ``NodeIssuesError`` when there are issues with the model.
     /// - Returns: A ``CompiledModel`` that can be used directly by the
     ///   simulator.
     ///
@@ -306,7 +298,7 @@ public class Compiler {
     /// - ``Compiler/orderedSimulationNodes``
     /// - ``Compiler/nameToObject``
     ///
-    /// - Throws: ``DomainError`` with ``NodeIssue/duplicateName(_:)`` for each
+    /// - Throws: ``NodeIssuesError`` with ``NodeIssue/duplicateName(_:)`` for each
     ///   object and name that has a duplicate name.
     ///
     public func prepareNodes() throws {
@@ -441,7 +433,7 @@ public class Compiler {
     ///
     /// - Returns: a computational representation of the simulation node.
     ///
-    /// - Throws: ``DomainError`` with list of issues for the node.
+    /// - Throws: ``NodeIssuesError`` with list of issues for the node.
     /// - SeeAlso: ``compile(_:formula:)``, ``compile(_:graphicalFunction:)``.
     ///
     public func compile(_ node: Node) throws -> ComputationalRepresentation {
@@ -648,9 +640,9 @@ public class Compiler {
     ///   a flow
     /// - clean-up edges between stocks where is no flow
     ///
-    /// - SeeAlso: ``DomainView/implicitFills(_:)``,
-    ///   ``DomainView/implicitDrains(_:)``,
-    ///   ``DomainView/sortedStocksByImplicitFlows(_:)``
+    /// - SeeAlso: ``StockFlowView/implicitFills(_:)``,
+    ///   ``StockFlowView/implicitDrains(_:)``,
+    ///   ``StockFlowView/sortedStocksByImplicitFlows(_:)``
     ///
     public func updateImplicitFlows() {
         var unused: [Edge] = view.implicitFlowEdges

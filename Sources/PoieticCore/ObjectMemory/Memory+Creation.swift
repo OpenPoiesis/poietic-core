@@ -20,7 +20,7 @@ extension ObjectMemory {
     ///
     /// The `structuralReferences` list must contain:
     ///
-    /// - no references for ``StructuralType/object`` and ``StructuralType/node``
+    /// - no references for ``StructuralType/unstructured`` and ``StructuralType/node``
     /// - two references for ``StructuralType/edge``: first for edge's origin,
     ///   second for edge's target.
     ///
