@@ -1,9 +1,24 @@
 {
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Lexer.acceptTrailingTrivia()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations"
       ]
     ]
   },
@@ -13,7 +28,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ExpressionLexerC20acceptTrailingTriviayyF",
+    "extendedModule" : "PoieticCore",
+    "externalID" : "s:11PoieticCore5LexerPAAE20acceptTrailingTriviayyF::SYNTHESIZED::s:11PoieticCore15ExpressionLexerC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -53,6 +69,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "mutating"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -144,6 +168,17 @@
   "title" : "ExpressionLexer",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionlexer"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/Lexer-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Lexer Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptTrailingTrivia()": {
   "abstract" : [

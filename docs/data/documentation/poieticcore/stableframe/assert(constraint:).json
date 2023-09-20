@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FrameBase.assert(constraint:)",
+      "code" : "Frame.assert(constraint:)",
       "type" : "codeVoice"
     },
     {
@@ -18,7 +18,7 @@
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/FrameBase-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Frame-Implementations"
       ]
     ]
   },
@@ -29,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore9FrameBasePAAE6assert10constraintyAA10Constraint_p_tKF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE6assert10constraintyAA10ConstraintC_tKF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,7 +57,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+        "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
         "text" : "Constraint"
       },
       {
@@ -117,7 +117,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+              "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
               "text" : "Constraint"
             },
             {
@@ -173,14 +173,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -238,16 +238,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/FrameBase-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/Frame-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/FrameBase-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Frame-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "FrameBase Implementations",
+  "title" : "Frame Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/framebase-implementations"
+  "url" : "\/documentation\/poieticcore\/stableframe\/frame-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/assert(constraint:)": {
   "abstract" : [
@@ -280,7 +280,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
       "text" : "Constraint"
     },
     {

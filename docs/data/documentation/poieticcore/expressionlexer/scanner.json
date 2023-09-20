@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Lexer.scanner",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -13,11 +27,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ExpressionLexerC7scannerAA7ScannerCvp",
+    "externalID" : "s:11PoieticCore15ExpressionLexerC7scannerAA7ScannerVvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "let"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -33,7 +47,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore7ScannerC",
+        "preciseIdentifier" : "s:11PoieticCore7ScannerV",
         "text" : "Scanner"
       }
     ],
@@ -60,7 +74,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "let"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -77,7 +91,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore7ScannerC",
+              "preciseIdentifier" : "s:11PoieticCore7ScannerV",
               "text" : "Scanner"
             }
           ]
@@ -163,7 +177,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -179,7 +193,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7ScannerC",
+      "preciseIdentifier" : "s:11PoieticCore7ScannerV",
       "text" : "Scanner"
     }
   ],
@@ -200,7 +214,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",

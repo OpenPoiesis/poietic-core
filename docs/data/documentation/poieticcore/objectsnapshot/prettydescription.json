@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Prettier description of the object.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -136,7 +142,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],
@@ -169,7 +175,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/prettyDescription": {
   "abstract" : [
-
+    {
+      "text" : "Prettier description of the object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

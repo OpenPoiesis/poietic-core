@@ -29,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5GraphPAAE11selectEdgesySayAA4EdgeCGAA0F9Predicate_pF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
+    "externalID" : "s:11PoieticCore5GraphPAAE11selectEdgesySayAA4EdgeVGAA9Predicate_pF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,8 +49,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-        "text" : "EdgePredicate"
+        "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+        "text" : "Predicate"
       },
       {
         "kind" : "text",
@@ -58,7 +58,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+        "preciseIdentifier" : "s:11PoieticCore4EdgeV",
         "text" : "Edge"
       },
       {
@@ -120,10 +120,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-              "text" : "EdgePredicate"
+              "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+              "text" : "Predicate"
             },
             {
               "kind" : "text",
@@ -132,7 +132,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+              "preciseIdentifier" : "s:11PoieticCore4EdgeV",
               "text" : "Edge"
             },
             {
@@ -183,15 +183,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -215,10 +212,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
+"doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "Protocol for a predicate that matches an edge.",
+      "text" : "A predicate.",
       "type" : "text"
     }
   ],
@@ -233,21 +230,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EdgePredicate"
+      "text" : "Predicate"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "EdgePredicate"
+      "text" : "Predicate"
     }
   ],
   "role" : "symbol",
-  "title" : "EdgePredicate",
+  "title" : "Predicate",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate"
+  "url" : "\/documentation\/poieticcore\/predicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
   "abstract" : [
@@ -325,8 +322,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-      "text" : "EdgePredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     },
     {
       "kind" : "text",
@@ -334,7 +331,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {

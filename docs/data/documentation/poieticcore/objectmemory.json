@@ -484,7 +484,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:components:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structuralReferences:components:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -497,7 +497,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insertDerived(_:id:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:owned:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -873,7 +873,9 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameBase",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
@@ -881,7 +883,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
       ],
       "title" : "Object Memory"
     }
@@ -913,9 +916,12 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/accept(_:appendHistory:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/checkConstraints(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/containsFrame(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createFrame(id:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createID(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/deriveFrame(original:id:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/discard(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/frame(_:)",
@@ -955,6 +961,37 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildrenSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ChildrenSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ChildrenSet",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/childrenset"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
   "abstract" : [
@@ -1002,7 +1039,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameBase": {
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
       "text" : "Protocol for version frames.",
@@ -1020,21 +1057,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameBase"
+      "text" : "Frame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameBase",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameBase"
+      "text" : "Frame"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameBase",
+  "title" : "Frame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framebase"
+  "url" : "\/documentation\/poieticcore\/frame"
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
@@ -1135,7 +1172,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/create(_:components:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/create(_:structuralReferences:components:)": {
   "abstract" : [
     {
       "text" : "Create a new object within the frame.",
@@ -1166,7 +1203,24 @@
     },
     {
       "kind" : "text",
-      "text" : "?, "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "structuralReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
     },
     {
       "kind" : "externalParam",
@@ -1191,17 +1245,25 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structuralReferences:components:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "create(_:components:)",
+  "title" : "create(_:structuralReferences:components:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/create(_:components:)"
+  "url" : "\/documentation\/poieticcore\/mutableframe\/create(_:structuralreferences:components:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insertDerived(_:id:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insert(_:owned:)": {
   "abstract" : [
     {
-      "text" : "Derive a version snapshot of an object and insert it into the frame.",
+      "text" : "Insert an object snapshot to a frame while maintaining referential",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "integrity.",
       "type" : "text"
     }
   ],
@@ -1216,7 +1278,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "insertDerived"
+      "text" : "insert"
     },
     {
       "kind" : "text",
@@ -1233,7 +1295,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "id"
+      "text" : "owned"
     },
     {
       "kind" : "text",
@@ -1241,25 +1303,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     },
     {
       "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insertDerived(_:id:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:owned:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "insertDerived(_:id:)",
+  "title" : "insert(_:owned:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/insertderived(_:id:)"
+  "url" : "\/documentation\/poieticcore\/mutableframe\/insert(_:owned:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [
@@ -1434,9 +1491,146 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/accept(_:appendhistory:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateID(proposed:)": {
+  "abstract" : [
+    {
+      "text" : "Create an ID if needed or use a proposed ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allocateID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "proposed"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allocateID(proposed:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateid(proposed:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateUnstructuredSnapshot(_:id:snapshotID:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new unstructured snapshot.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allocateUnstructuredSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
+      "text" : "SnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allocateUnstructuredSnapshot(_:id:snapshotID:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateunstructuredsnapshot(_:id:snapshotid:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/canRedo": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether the object memory has any re-doable frames.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1470,7 +1664,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/canUndo": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether the object memory has any un-doable frames.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1502,6 +1699,56 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/canundo"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/checkConstraints(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check constraints for the given frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "checkConstraints"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19ConstraintViolationV",
+      "text" : "ConstraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/checkConstraints(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "checkConstraints(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/checkconstraints(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/constraints": {
   "abstract" : [
     {
@@ -1528,7 +1775,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
       "text" : "Constraint"
     },
     {
@@ -1643,10 +1890,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/createframe(id:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createID(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)": {
   "abstract" : [
     {
-      "text" : "Create an ID if needed or use a proposed ID.",
+      "text" : "Designated function to create snapshots in the memory.",
       "type" : "text"
     }
   ],
@@ -1661,7 +1908,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "createID"
+      "text" : "createSnapshot"
     },
     {
       "kind" : "text",
@@ -1669,25 +1916,110 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
     },
     {
       "kind" : "text",
-      "text" : "?) -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
+      "text" : "SnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "structuralReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "initialized"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createID(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "createID(_:)",
+  "title" : "createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/createid(_:)"
+  "url" : "\/documentation\/poieticcore\/objectmemory\/createsnapshot(_:id:snapshotid:components:structuralreferences:initialized:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/currentFrame": {
   "abstract" : [
@@ -2099,7 +2431,26 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/redo(to:)": {
   "abstract" : [
-
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previously",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "undone frames.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2390,7 +2741,26 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/undo(to:)": {
   "abstract" : [
-
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previous",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "frames in the undo history.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2519,7 +2889,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],
@@ -2553,7 +2923,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id-swift.property": {
   "abstract" : [
     {
-      "text" : "Object identifier that groups all object’s versions.",
+      "text" : "Object identity.",
       "type" : "text"
     }
   ],
@@ -2722,6 +3092,71 @@
   "title" : "StableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralcomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
+  "abstract" : [
+    {
+      "text" : "Structural type of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype"
 },
 "doc://PoieticCore/documentation/PoieticCore/VersionState": {
   "abstract" : [

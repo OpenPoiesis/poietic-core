@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9MetamodelP11constraintsSayAA10Constraint_pGvpZ",
+    "externalID" : "s:11PoieticCore9MetamodelP11constraintsSayAA10ConstraintCGvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -47,7 +47,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+        "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
         "text" : "Constraint"
       },
       {
@@ -104,7 +104,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+              "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
               "text" : "Constraint"
             },
             {
@@ -200,14 +200,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -299,7 +299,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
       "text" : "Constraint"
     },
     {

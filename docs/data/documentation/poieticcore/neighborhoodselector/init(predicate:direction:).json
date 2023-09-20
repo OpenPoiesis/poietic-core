@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20NeighborhoodSelectorC9predicate9directionAcA13EdgePredicate_p_AA0G9DirectionOtcfc",
+    "externalID" : "s:11PoieticCore20NeighborhoodSelectorC9predicate9directionAcA9Predicate_p_AA13EdgeDirectionOtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -33,8 +33,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-        "text" : "EdgePredicate"
+        "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+        "text" : "Predicate"
       },
       {
         "kind" : "text",
@@ -96,10 +96,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-              "text" : "EdgePredicate"
+              "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+              "text" : "Predicate"
             },
             {
               "kind" : "text",
@@ -207,40 +207,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
-  "abstract" : [
-    {
-      "text" : "Protocol for a predicate that matches an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate"
-},
 "doc://PoieticCore/documentation/PoieticCore/NeighborhoodSelector": {
   "abstract" : [
 
@@ -295,8 +261,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-      "text" : "EdgePredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     },
     {
       "kind" : "text",
@@ -326,6 +292,40 @@
   "title" : "init(predicate:direction:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/neighborhoodselector\/init(predicate:direction:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate": {
+  "abstract" : [
+    {
+      "text" : "A predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Predicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Predicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Predicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate"
 }
 }
 }

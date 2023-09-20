@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Target node of the edge - a node to which the edge points to.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,11 +13,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore4EdgeC6targets6UInt64Vvp",
+    "externalID" : "s:11PoieticCore4EdgeV6targets6UInt64Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -66,7 +60,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -85,67 +79,11 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
               "text" : "ObjectID"
-            },
-            {
-              "kind" : "text",
-              "text" : " { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "set"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Target is a structural dependency. If the target node is removed from the",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "design, then all edges referencing the removed objects will be removed",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "as well.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -186,15 +124,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -220,15 +155,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/target": {
   "abstract" : [
-    {
-      "text" : "Target node of the edge - a node to which the edge points to.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",

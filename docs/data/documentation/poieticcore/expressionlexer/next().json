@@ -9,7 +9,8 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations"
       ]
     ]
   },
@@ -19,7 +20,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ExpressionLexerC4nextAA5TokenVyF",
+    "extendedModule" : "PoieticCore",
+    "externalID" : "s:11PoieticCore5LexerPAAE4nextAA5TokenVy0E4TypeQzGyF::SYNTHESIZED::s:11PoieticCore15ExpressionLexerC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,6 +43,26 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:11PoieticCore5TokenV",
         "text" : "Token"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "TokenType"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -66,6 +88,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "mutating"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "func"
             },
             {
@@ -85,6 +115,26 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore5TokenV",
               "text" : "Token"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "TokenType"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
             }
           ]
         }
@@ -106,7 +156,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenType\/empty",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol\/empty",
               "isActive" : true,
               "type" : "reference"
             },
@@ -199,6 +249,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionlexer"
 },
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/Lexer-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Lexer Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/next()": {
   "abstract" : [
     {
@@ -227,6 +288,26 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore5TokenV",
       "text" : "Token"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "TokenType"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/next()",
@@ -270,14 +351,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/token"
 },
-"doc://PoieticCore/documentation/PoieticCore/TokenType/empty": {
+"doc://PoieticCore/documentation/PoieticCore/TokenTypeProtocol/empty": {
   "abstract" : [
-
+    {
+      "text" : "An empty token.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -286,14 +378,23 @@
     {
       "kind" : "identifier",
       "text" : "empty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenType\/empty",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol\/empty",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
-  "title" : "TokenType.empty",
+  "title" : "empty",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/tokentype\/empty"
+  "url" : "\/documentation\/poieticcore\/tokentypeprotocol\/empty"
 }
 }
 }

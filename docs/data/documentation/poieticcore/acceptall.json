@@ -97,9 +97,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -119,8 +117,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
@@ -140,17 +136,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/check(graph:objects:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/check(frame:objects:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/EdgeConstraintRequirement-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/NodeConstraintRequirement-Implementations"
-      ],
-      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -231,29 +219,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/acceptall"
 },
-"doc://PoieticCore/documentation/PoieticCore/AcceptAll/EdgeConstraintRequirement-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/EdgeConstraintRequirement-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "EdgeConstraintRequirement Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/acceptall\/edgeconstraintrequirement-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/AcceptAll/NodeConstraintRequirement-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/NodeConstraintRequirement-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "NodeConstraintRequirement Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/acceptall\/nodeconstraintrequirement-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/AcceptAll/check(graph:objects:)": {
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll/check(frame:objects:)": {
   "abstract" : [
     {
       "text" : "Returns an empty list, meaning that none of the objects are violating",
@@ -287,7 +253,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graph"
+      "text" : "frame"
     },
     {
       "kind" : "text",
@@ -295,8 +261,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -329,12 +295,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/check(graph:objects:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll\/check(frame:objects:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(graph:objects:)",
+  "title" : "check(frame:objects:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/acceptall\/check(graph:objects:)"
+  "url" : "\/documentation\/poieticcore\/acceptall\/check(frame:objects:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/AcceptAll/init()": {
   "abstract" : [
@@ -363,14 +329,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -393,6 +359,40 @@
   "title" : "Constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
@@ -471,74 +471,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks edges.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeconstraint"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeConstraintRequirement": {
-  "abstract" : [
-    {
-      "text" : "Definition of a constraint satisfaction requirement.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeconstraintrequirement"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
@@ -580,105 +512,6 @@
   "title" : "EdgeEndpointTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraint"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraintRequirement": {
-  "abstract" : [
-    {
-      "text" : "Definition of a constraint satisfaction requirement.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraintrequirement"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintRequirement": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectconstraintrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [

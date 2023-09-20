@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Writes a row to the output file.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -115,6 +121,41 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The number of items in the row must be exactly the same",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "as the number of rows in the very first row.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -189,7 +230,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVWriter/write(row:)": {
   "abstract" : [
-
+    {
+      "text" : "Writes a row to the output file.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

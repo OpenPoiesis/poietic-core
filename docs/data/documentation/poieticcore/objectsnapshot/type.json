@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Object type within the problem domain.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -13,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC4typeAA0C4TypeCSgvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotC4typeAA0C4TypeCvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -35,10 +41,6 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
         "text" : "ObjectType"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
       }
     ],
     "modules" : [
@@ -83,15 +85,127 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
               "text" : "ObjectType"
-            },
-            {
-              "kind" : "text",
-              "text" : "?"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " describes the typical object structure within a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "domain model. The domain model is described through ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Object type is also used in querying of objects using ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-3zj9k",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "or using ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -130,10 +244,177 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Frame/filter(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/filter(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/filter(type:)-3zj9k": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-3zj9k",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(type:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/filter(type:)-3zj9k"
+},
+"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsTypePredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsTypePredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsTypePredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/istypepredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel": {
+  "abstract" : [
+    {
+      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Metamodel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Metamodel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],
@@ -166,7 +447,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/type": {
   "abstract" : [
-
+    {
+      "text" : "Object type within the problem domain.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -189,10 +473,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
       "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/type",

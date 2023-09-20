@@ -29,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5GraphPAAE11selectNodesySayAA4NodeCGAA0F9Predicate_pF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
+    "externalID" : "s:11PoieticCore5GraphPAAE11selectNodesySayAA4NodeVGAA9Predicate_pF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,8 +49,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
-        "text" : "NodePredicate"
+        "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+        "text" : "Predicate"
       },
       {
         "kind" : "text",
@@ -58,7 +58,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4NodeC",
+        "preciseIdentifier" : "s:11PoieticCore4NodeV",
         "text" : "Node"
       },
       {
@@ -120,10 +120,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
-              "text" : "NodePredicate"
+              "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+              "text" : "Predicate"
             },
             {
               "kind" : "text",
@@ -132,7 +132,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4NodeC",
+              "preciseIdentifier" : "s:11PoieticCore4NodeV",
               "text" : "Node"
             },
             {
@@ -191,7 +191,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -215,10 +215,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
 },
-"doc://PoieticCore/documentation/PoieticCore/NodePredicate": {
+"doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "Protocol for a predicate that matches a node.",
+      "text" : "A predicate.",
       "type" : "text"
     }
   ],
@@ -233,21 +233,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NodePredicate"
+      "text" : "Predicate"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "NodePredicate"
+      "text" : "Predicate"
     }
   ],
   "role" : "symbol",
-  "title" : "NodePredicate",
+  "title" : "Predicate",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodepredicate"
+  "url" : "\/documentation\/poieticcore\/predicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
   "abstract" : [
@@ -325,8 +325,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
-      "text" : "NodePredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     },
     {
       "kind" : "text",
@@ -334,7 +334,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {

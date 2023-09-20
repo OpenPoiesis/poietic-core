@@ -137,6 +137,98 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The type arguments:",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "- ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " (",
+              "type" : "text"
+            },
+            {
+              "code" : "L",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "): Type of a literal.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "- ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/VariableReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " (",
+              "type" : "text"
+            },
+            {
+              "code" : "V",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "): Type of a reference to a variable.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "- ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/FunctionReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " (",
+              "type" : "text"
+            },
+            {
+              "code" : "F",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "): Type of a reference to a function,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "including functions representing operators.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -165,8 +257,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericFunction",
@@ -191,15 +281,10 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/allVariables",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/children",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/valueType"
       ],
       "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/evaluate(_:)"
-      ],
-      "title" : "Instance Methods"
     },
     {
       "identifiers" : [
@@ -673,12 +758,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/children"
 },
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/evaluate(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/description": {
   "abstract" : [
-    {
-      "text" : "Evaluates an expression using given variables.",
-      "type" : "text"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -699,11 +781,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "ForeignValue",
+        "code" : "CustomStringConvertible",
         "type" : "codeVoice"
       },
       {
@@ -715,11 +797,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "BoundVariableReference",
+        "code" : "CustomStringConvertible",
         "type" : "codeVoice"
       },
       {
@@ -731,11 +813,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "FunctionProtocol",
+        "code" : "CustomStringConvertible",
         "type" : "codeVoice"
       },
       {
@@ -747,7 +829,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -755,50 +837,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "evaluate"
+      "text" : "description"
     },
     {
       "kind" : "text",
-      "text" : "(["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore22BoundVariableReferenceO",
-      "text" : "BoundVariableReference"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/evaluate(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "evaluate(_:)",
+  "title" : "description",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/evaluate(_:)"
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/description"
 },
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/function(_:_:)": {
   "abstract" : [
@@ -1108,11 +1164,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "ForeignValue",
+        "code" : "TypedValue",
         "type" : "codeVoice"
       },
       {
@@ -1124,11 +1180,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " is ",
+        "text" : " conforms to ",
         "type" : "text"
       },
       {
-        "code" : "BoundVariableReference",
+        "code" : "TypedValue",
         "type" : "codeVoice"
       },
       {
@@ -1255,68 +1311,6 @@
   "title" : "ArithmeticExpression.variable(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/variable(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/BoundExpression": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BoundExpression"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BoundExpression"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BoundExpression",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundexpression"
-},
-"doc://PoieticCore/documentation/PoieticCore/BoundVariableReference": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BoundVariableReference"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BoundVariableReference"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BoundVariableReference",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundvariablereference"
 },
 "doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
   "abstract" : [

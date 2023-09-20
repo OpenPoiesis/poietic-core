@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14VariableSyntaxC8variableAA5TokenVvp",
+    "externalID" : "s:11PoieticCore14VariableSyntaxC8variableAA5TokenVyAA010ExpressionF4TypeOGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,8 +33,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5TokenV",
-        "text" : "Token"
+        "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+        "text" : "ExpressionToken"
       }
     ],
     "modules" : [
@@ -75,10 +75,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5TokenV",
-              "text" : "Token"
+              "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+              "text" : "ExpressionToken"
             }
           ]
         }
@@ -122,17 +122,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Token": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
-    {
-      "text" : "Token represents a lexical unit of the source.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -140,21 +137,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Token"
+      "text" : "ExpressionToken"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Token"
+      "text" : "ExpressionToken"
     }
   ],
   "role" : "symbol",
-  "title" : "Token",
+  "title" : "ExpressionToken",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/token"
+  "url" : "\/documentation\/poieticcore\/expressiontoken"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariableSyntax": {
   "abstract" : [
@@ -210,8 +207,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TokenV",
-      "text" : "Token"
+      "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+      "text" : "ExpressionToken"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax\/variable",

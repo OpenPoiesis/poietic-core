@@ -75,7 +75,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -95,8 +95,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -123,8 +121,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(graph:node:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(graph:nodes:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(frame:objects:)"
       ],
       "title" : "Instance Methods"
     }
@@ -210,14 +207,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -240,6 +237,40 @@
   "title" : "Constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
@@ -318,40 +349,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks edges.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeconstraint"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
@@ -393,74 +390,6 @@
   "title" : "EdgeEndpointTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraint"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraintRequirement": {
-  "abstract" : [
-    {
-      "text" : "Definition of a constraint satisfaction requirement.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraintrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -543,7 +472,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
 },
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/check(graph:node:)": {
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/check(frame:objects:)": {
   "abstract" : [
 
   ],
@@ -566,7 +495,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graph"
+      "text" : "frame"
     },
     {
       "kind" : "text",
@@ -574,8 +503,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -583,75 +512,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "node"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
-      "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(graph:node:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "check(graph:node:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/check(graph:node:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/check(graph:nodes:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "check"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "graph"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "nodes"
+      "text" : "objects"
     },
     {
       "kind" : "text",
@@ -659,8 +520,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
-      "text" : "Node"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -676,12 +537,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(graph:nodes:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/check(frame:objects:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(graph:nodes:)",
+  "title" : "check(frame:objects:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/check(graph:nodes:)"
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/check(frame:objects:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/init(_:required:)": {
   "abstract" : [

@@ -135,8 +135,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/createEdge(_:origin:target:components:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/createNode(_:name:components:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-6af15",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-9fvar",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-6aj39",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-9g16r",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/remove(edge:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/remove(node:)"
       ],
@@ -180,15 +180,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -257,7 +254,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -583,7 +580,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableunboundgraph\/createnode(_:name:components:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph/insert(_:)-6af15": {
+"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph/insert(_:)-6aj39": {
   "abstract" : [
 
   ],
@@ -606,7 +603,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {
@@ -614,14 +611,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-6af15",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-6aj39",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "insert(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph\/insert(_:)-6af15"
+  "url" : "\/documentation\/poieticcore\/mutableunboundgraph\/insert(_:)-6aj39"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph/insert(_:)-9fvar": {
+"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph/insert(_:)-9g16r": {
   "abstract" : [
 
   ],
@@ -644,7 +641,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -652,12 +649,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-9fvar",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph\/insert(_:)-9g16r",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "insert(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph\/insert(_:)-9fvar"
+  "url" : "\/documentation\/poieticcore\/mutableunboundgraph\/insert(_:)-9g16r"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph/remove(edge:)": {
   "abstract" : [
@@ -823,7 +820,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",

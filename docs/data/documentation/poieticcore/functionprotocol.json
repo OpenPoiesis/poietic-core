@@ -78,6 +78,15 @@
             },
             {
               "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s23CustomStringConvertibleP",
+              "text" : "CustomStringConvertible"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SH",
               "text" : "Hashable"
             }
@@ -90,6 +99,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH"
       ],
@@ -122,8 +132,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericFunction",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericUnaryFunction",
@@ -145,6 +153,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol\/apply(_:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol\/CustomStringConvertible-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -219,68 +234,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression"
 },
-"doc://PoieticCore/documentation/PoieticCore/BoundExpression": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BoundExpression"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BoundExpression"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BoundExpression",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundexpression"
-},
-"doc://PoieticCore/documentation/PoieticCore/BoundVariableReference": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BoundVariableReference"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BoundVariableReference"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BoundVariableReference",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundvariablereference"
-},
 "doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
   "abstract" : [
     {
@@ -348,6 +301,17 @@
   "title" : "FunctionProtocol",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionProtocol/CustomStringConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol\/CustomStringConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CustomStringConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionprotocol\/customstringconvertible-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionProtocol/apply(_:)": {
   "abstract" : [
@@ -641,6 +605,11 @@
   "title" : "UnboundExpression",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundexpression"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 }
 }
 }

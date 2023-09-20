@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore5GraphP5edgesSayAA4EdgeCGvp",
+    "externalID" : "s:11PoieticCore5GraphP5edgesSayAA4EdgeVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,7 +39,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+        "preciseIdentifier" : "s:11PoieticCore4EdgeV",
         "text" : "Edge"
       },
       {
@@ -88,7 +88,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+              "preciseIdentifier" : "s:11PoieticCore4EdgeV",
               "text" : "Edge"
             },
             {
@@ -147,15 +147,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -182,7 +179,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -239,7 +236,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {

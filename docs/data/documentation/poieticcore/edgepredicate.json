@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for a predicate that matches an edge.",
+      "text" : "Predicate that tests the edge object itself together with its objects -",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "origin and target.",
       "type" : "text"
     }
   ],
@@ -18,11 +26,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13EdgePredicateP",
+    "externalID" : "s:11PoieticCore13EdgePredicateC",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "class"
       },
       {
         "kind" : "text",
@@ -45,8 +53,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
     "title" : "EdgePredicate"
   },
   "primaryContentSections" : [
@@ -62,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "class"
             },
             {
               "kind" : "text",
@@ -88,7 +96,16 @@
         {
           "inlineContent" : [
             {
-              "text" : "Objects conforming to this protocol are expected to implement the method",
+              "text" : "Only objects with structural type ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " will",
               "type" : "text"
             },
             {
@@ -96,11 +113,7 @@
               "type" : "text"
             },
             {
-              "code" : "match(from:, to:, labels:)",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : ".",
+              "text" : "be matched by this predicate.",
               "type" : "text"
             }
           ],
@@ -116,21 +129,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate"
       ],
       "kind" : "relationships",
-      "title" : "Inherited By",
-      "type" : "inheritedBy"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObjectPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
+      "title" : "Conforms To",
+      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -146,13 +146,14 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObjectPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
       ],
       "title" : "Predicates"
     }
@@ -160,9 +161,22 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(graph:edge:)-ek2w"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(frame:object:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/Predicate-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -192,6 +206,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
 },
 "doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
   "abstract" : [
@@ -258,7 +306,41 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/compoundpredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeObjectPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
   "abstract" : [
     {
       "text" : "Predicate that tests the edge object itself together with its objects -",
@@ -284,40 +366,6 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EdgeObjectPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObjectPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObjectPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeObjectPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeobjectpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
-  "abstract" : [
-    {
-      "text" : "Protocol for a predicate that matches an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
       "text" : "EdgePredicate"
     }
   ],
@@ -334,14 +382,85 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/match(graph:edge:)-ek2w": {
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/Predicate-Implementations": {
   "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/Predicate-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Predicate Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/predicate-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/init(_:origin:target:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
     {
-      "text" : "Tests an edge whether it matches the predicate.",
-      "type" : "text"
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "origin"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "target"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
     }
   ],
-  "defaultImplementations" : 1,
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:origin:target:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/init(_:origin:target:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/match(frame:object:)": {
+  "abstract" : [
+
+  ],
   "fragments" : [
     {
       "kind" : "keyword",
@@ -361,7 +480,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graph"
+      "text" : "frame"
     },
     {
       "kind" : "text",
@@ -369,8 +488,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -378,7 +497,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "edge"
+      "text" : "object"
     },
     {
       "kind" : "text",
@@ -386,8 +505,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
-      "text" : "Edge"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -399,13 +518,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(graph:edge:)-ek2w",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(frame:object:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
-  "title" : "match(graph:edge:)",
+  "title" : "match(frame:object:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate\/match(graph:edge:)-ek2w"
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/match(frame:object:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
@@ -469,6 +587,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/istypepredicate"
 },
+"doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LogicalConnective"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LogicalConnective"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LogicalConnective",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/logicalconnective"
+},
 "doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
   "abstract" : [
 
@@ -499,40 +648,6 @@
   "title" : "NegationPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/negationpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodePredicate": {
-  "abstract" : [
-    {
-      "text" : "Protocol for a predicate that matches a node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodepredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
@@ -567,6 +682,53 @@
   "title" : "Predicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralComponent.edge(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralcomponent\/edge(_:_:)"
 }
 }
 }

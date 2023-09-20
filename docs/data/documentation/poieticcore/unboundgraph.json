@@ -139,6 +139,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph\/frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph\/nodes"
       ],
       "title" : "Instance Properties"
@@ -191,15 +192,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -268,7 +266,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -481,7 +479,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -695,7 +693,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -733,7 +731,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -747,6 +745,40 @@
   "title" : "edges",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundgraph\/edges"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnboundGraph/frame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph\/frame",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "frame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unboundgraph\/frame"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph/init(frame:)": {
   "abstract" : [
@@ -771,8 +803,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9FrameBaseP",
-      "text" : "FrameBase"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -835,7 +867,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -885,7 +917,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {
@@ -923,7 +955,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {

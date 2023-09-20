@@ -71,74 +71,19 @@
             {
               "kind" : "identifier",
               "text" : "Predicate"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-              "text" : "EdgePredicate"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
-              "text" : "NodePredicate"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
-          "type" : "heading"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "This is waiting for Swift 5.7+ for some serious rewrite.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "To Do",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate"
@@ -160,14 +105,15 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObjectPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
       ],
       "title" : "Predicates"
     }
@@ -176,7 +122,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-61fti",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(graph:object:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(frame:object:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not()-473jv",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-36pow"
       ],
@@ -210,6 +156,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
 },
 "doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
   "abstract" : [
@@ -276,7 +256,41 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/compoundpredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeObjectPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
   "abstract" : [
     {
       "text" : "Predicate that tests the edge object itself together with its objects -",
@@ -295,40 +309,6 @@
     {
       "kind" : "keyword",
       "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObjectPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObjectPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObjectPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeObjectPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeobjectpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
-  "abstract" : [
-    {
-      "text" : "Protocol for a predicate that matches an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -414,6 +394,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/istypepredicate"
 },
+"doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LogicalConnective"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LogicalConnective"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LogicalConnective",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/logicalconnective"
+},
 "doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
   "abstract" : [
 
@@ -444,40 +455,6 @@
   "title" : "NegationPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/negationpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodePredicate": {
-  "abstract" : [
-    {
-      "text" : "Protocol for a predicate that matches a node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodepredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
@@ -558,7 +535,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate\/and(_:)-61fti"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicate/match(graph:object:)": {
+"doc://PoieticCore/documentation/PoieticCore/Predicate/match(frame:object:)": {
   "abstract" : [
 
   ],
@@ -581,7 +558,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graph"
+      "text" : "frame"
     },
     {
       "kind" : "text",
@@ -589,8 +566,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -619,13 +596,13 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(graph:object:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(frame:object:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "match(graph:object:)",
+  "title" : "match(frame:object:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate\/match(graph:object:)"
+  "url" : "\/documentation\/poieticcore\/predicate\/match(frame:object:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate/not()-473jv": {
   "abstract" : [

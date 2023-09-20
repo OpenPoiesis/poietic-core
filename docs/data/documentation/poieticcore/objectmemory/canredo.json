@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Flag whether the object memory has any re-doable frames.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -95,6 +101,56 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/undo(to:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/redo(to:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/canUndo",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -169,7 +225,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/canRedo": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether the object memory has any re-doable frames.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -200,6 +259,173 @@
   "title" : "canRedo",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/canredo"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/canUndo": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the object memory has any un-doable frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canUndo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/canUndo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canUndo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/canundo"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/redo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previously",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "undone frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "redo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/redo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "redo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/redo(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/undo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previous",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "frames in the undo history.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "undo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/undo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "undo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/undo(to:)"
 }
 }
 }

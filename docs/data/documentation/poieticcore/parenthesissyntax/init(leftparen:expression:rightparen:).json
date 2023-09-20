@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17ParenthesisSyntaxC9leftParen10expression05rightF0AcA5TokenV_AA010ExpressionD0_pAHtcfc",
+    "externalID" : "s:11PoieticCore17ParenthesisSyntaxC9leftParen10expression05rightF0AcA5TokenVyAA010ExpressionI4TypeOG_AA0jD0_pAKtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -33,8 +33,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5TokenV",
-        "text" : "Token"
+        "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+        "text" : "ExpressionToken"
       },
       {
         "kind" : "text",
@@ -67,8 +67,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5TokenV",
-        "text" : "Token"
+        "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+        "text" : "ExpressionToken"
       },
       {
         "kind" : "text",
@@ -113,10 +113,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5TokenV",
-              "text" : "Token"
+              "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+              "text" : "ExpressionToken"
             },
             {
               "kind" : "text",
@@ -149,10 +149,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5TokenV",
-              "text" : "Token"
+              "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+              "text" : "ExpressionToken"
             },
             {
               "kind" : "text",
@@ -234,6 +234,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntax"
 },
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionToken"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionToken"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionToken",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken"
+},
 "doc://PoieticCore/documentation/PoieticCore/ParenthesisSyntax": {
   "abstract" : [
 
@@ -288,8 +319,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TokenV",
-      "text" : "Token"
+      "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+      "text" : "ExpressionToken"
     },
     {
       "kind" : "text",
@@ -322,8 +353,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TokenV",
-      "text" : "Token"
+      "preciseIdentifier" : "s:11PoieticCore15ExpressionTokena",
+      "text" : "ExpressionToken"
     },
     {
       "kind" : "text",
@@ -336,40 +367,6 @@
   "title" : "init(leftParen:expression:rightParen:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/parenthesissyntax\/init(leftparen:expression:rightparen:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Token": {
-  "abstract" : [
-    {
-      "text" : "Token represents a lexical unit of the source.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Token",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/token"
 }
 }
 }

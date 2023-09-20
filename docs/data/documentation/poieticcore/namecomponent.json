@@ -103,7 +103,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel"
       ],
       "title" : "Metamodel"
     }
@@ -207,6 +209,79 @@
   "title" : "AttributeDescription",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributedescription"
+},
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AudienceLevel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/audiencelevel"
+},
+"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
+  "abstract" : [
+    {
+      "text" : "Metamodel with some basic object types that are typical for multiple",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "kinds of designs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BasicMetamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BasicMetamodel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BasicMetamodel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/basicmetamodel"
 },
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [

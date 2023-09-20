@@ -18,7 +18,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14bindExpression_9variables9functionsAA010ArithmeticD0OyAA12ForeignValueOAA22BoundVariableReferenceOAA16FunctionProtocol_pGAFyAHS2SG_SDySSAJGSDySSAaK_pGtKF",
+    "externalID" : "s:11PoieticCore14bindExpression_9variables9functionsAA010ArithmeticD0OyAA12ForeignValueOxAA16FunctionProtocol_pGAFyAHS2SG_SDySSxGSDySSAaI_pGtKAA05TypedI0RzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,15 @@
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "V"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
       },
       {
         "kind" : "typeIdentifier",
@@ -64,8 +72,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore22BoundVariableReferenceO",
-        "text" : "BoundVariableReference"
+        "text" : "V"
       },
       {
         "kind" : "text",
@@ -107,8 +114,38 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15BoundExpressiona",
-        "text" : "BoundExpression"
+        "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
+        "text" : "ArithmeticExpression"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+        "text" : "ForeignValue"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "V"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
+        "text" : "FunctionProtocol"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -146,7 +183,15 @@
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "V"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
@@ -192,10 +237,8 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore22BoundVariableReferenceO",
-              "text" : "BoundVariableReference"
+              "text" : "V"
             },
             {
               "kind" : "text",
@@ -237,10 +280,64 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15BoundExpressiona",
-              "text" : "BoundExpression"
+              "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
+              "text" : "ArithmeticExpression"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+              "text" : "ForeignValue"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "V"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
+              "text" : "FunctionProtocol"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "V"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypedValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore10TypedValueP",
+              "text" : "TypedValue"
             }
           ]
         }
@@ -341,7 +438,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
               "isActive" : true,
               "type" : "reference"
             },
@@ -544,8 +641,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "ExpressionError",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
                   "text" : " when a variable or a function is not known",
@@ -579,6 +677,33 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionCallSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentListSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperatorSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperatorSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LiteralSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError"
+      ],
+      "title" : "Arithmetic Expression Parsing and Syntax"
+    }
+  ],
   "variants" : [
     {
       "paths" : [
@@ -607,14 +732,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/BoundExpression": {
+"doc://PoieticCore/documentation/PoieticCore/ArgumentType": {
   "abstract" : [
-
+    {
+      "text" : "Type of a function argument.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -622,23 +750,88 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BoundExpression"
+      "text" : "ArgumentType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundExpression",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "BoundExpression"
+      "text" : "ArgumentType"
     }
   ],
   "role" : "symbol",
-  "title" : "BoundExpression",
+  "title" : "ArgumentType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundexpression"
+  "url" : "\/documentation\/poieticcore\/argumenttype"
 },
-"doc://PoieticCore/documentation/PoieticCore/BoundVariableReference": {
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
+  "abstract" : [
+    {
+      "text" : "Arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArithmeticExpression",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperatorSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperatorSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperatorSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperatorSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BinaryOperatorSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperatorsyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionError": {
   "abstract" : [
 
   ],
@@ -653,21 +846,323 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BoundVariableReference"
+      "text" : "ExpressionError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundVariableReference",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "BoundVariableReference"
+      "text" : "ExpressionError"
     }
   ],
   "role" : "symbol",
-  "title" : "BoundVariableReference",
+  "title" : "ExpressionError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundvariablereference"
+  "url" : "\/documentation\/poieticcore\/expressionerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
+  "abstract" : [
+    {
+      "text" : "An object for lexical analysis of an arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionLexer",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
+  "abstract" : [
+    {
+      "text" : "Parser for arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionParser"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionParser"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionParser",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionparser"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the expression language parser.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionTokenType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionTokenType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionTokenType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionTokenType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontokentype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
+  "abstract" : [
+    {
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionArgumentListSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionArgumentListSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentListSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionArgumentListSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionArgumentListSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionargumentlistsyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionArgumentSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionArgumentSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionArgumentSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionArgumentSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionargumentsyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionCallSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionCallSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionCallSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionCallSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionCallSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functioncallsyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error describing an issue with an argument passed to a function.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionProtocol": {
   "abstract" : [
@@ -703,6 +1198,266 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionprotocol"
 },
+"doc://PoieticCore/documentation/PoieticCore/LiteralSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LiteralSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LiteralSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LiteralSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LiteralSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/literalsyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/ParenthesisSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParenthesisSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParenthesisSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParenthesisSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/parenthesissyntax"
+},
+"doc://PoieticCore/documentation/PoieticCore/Scanner": {
+  "abstract" : [
+    {
+      "text" : "Base object for simple lexers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Scanner"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Scanner"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Scanner",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/scanner"
+},
+"doc://PoieticCore/documentation/PoieticCore/Signature": {
+  "abstract" : [
+    {
+      "text" : "Function signature.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Signature",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/signature"
+},
+"doc://PoieticCore/documentation/PoieticCore/TextLocation": {
+  "abstract" : [
+    {
+      "text" : "Human-oriented location within a text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TextLocation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TextLocation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TextLocation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/textlocation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Token": {
+  "abstract" : [
+    {
+      "text" : "Token represents a lexical unit of the source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Token"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Token"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Token",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/token"
+},
+"doc://PoieticCore/documentation/PoieticCore/TypedValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TypedValue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypedValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TypedValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TypedValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/typedvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnaryOperatorSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperatorSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperatorSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperatorSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnaryOperatorSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unaryoperatorsyntax"
+},
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [
 
@@ -734,6 +1489,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundexpression"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariableSyntax": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariableSyntax"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariableSyntax"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariableSyntax",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variablesyntax"
+},
 "doc://PoieticCore/documentation/PoieticCore/bindExpression(_:variables:functions:)": {
   "abstract" : [
     {
@@ -756,7 +1542,15 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
     },
     {
       "kind" : "typeIdentifier",
@@ -786,8 +1580,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore22BoundVariableReferenceO",
-      "text" : "BoundVariableReference"
+      "text" : "V"
     },
     {
       "kind" : "text",
@@ -829,8 +1622,38 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15BoundExpressiona",
-      "text" : "BoundExpression"
+      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
+      "text" : "ArithmeticExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
+      "text" : "FunctionProtocol"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/bindExpression(_:variables:functions:)",

@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A function that checks whether the graph satisfies the constraint.",
+      "text" : "Check the frame for the constraint and return a list of nodes that",
       "type" : "text"
     },
     {
@@ -9,7 +9,7 @@
       "type" : "text"
     },
     {
-      "text" : "Returns a list of objects (nodes or edges) that violate the constraint.",
+      "text" : "violate the constraint",
       "type" : "text"
     }
   ],
@@ -27,7 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10ConstraintP5checkySays6UInt64VGAA5Graph_pF",
+    "externalID" : "s:11PoieticCore10ConstraintC5checkySays6UInt64VGAA5Frame_pF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -47,8 +47,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5GraphP",
-        "text" : "Graph"
+        "preciseIdentifier" : "s:11PoieticCore5FrameP",
+        "text" : "Frame"
       },
       {
         "kind" : "text",
@@ -69,7 +69,6 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -112,17 +111,17 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "graph"
+              "text" : "frame"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5GraphP",
-              "text" : "Graph"
+              "preciseIdentifier" : "s:11PoieticCore5FrameP",
+              "text" : "Frame"
             },
             {
               "kind" : "text",
@@ -183,14 +182,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -217,7 +216,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint/check(_:)": {
   "abstract" : [
     {
-      "text" : "A function that checks whether the graph satisfies the constraint.",
+      "text" : "Check the frame for the constraint and return a list of nodes that",
       "type" : "text"
     },
     {
@@ -225,7 +224,7 @@
       "type" : "text"
     },
     {
-      "text" : "Returns a list of objects (nodes or edges) that violate the constraint.",
+      "text" : "violate the constraint",
       "type" : "text"
     }
   ],
@@ -248,8 +247,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -267,16 +266,15 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/check(_:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "check(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint\/check(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for version frames.",
       "type" : "text"
     }
   ],
@@ -291,21 +289,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "Frame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "Frame"
     }
   ],
   "role" : "symbol",
-  "title" : "Graph",
+  "title" : "Frame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
+  "url" : "\/documentation\/poieticcore\/frame"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [

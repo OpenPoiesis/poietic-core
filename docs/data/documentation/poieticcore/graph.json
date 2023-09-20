@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -76,6 +76,64 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can access the graph-related contents of the frame through the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "graph view. The view gives access to objects of structural type ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/node",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "and ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/edge",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for nodes and edges respectively. Objects",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "of other structural types are ignored.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -127,6 +185,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edgeIDs-7ycza",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodeIDs-4afw4",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/nodes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/prettyDebugDescription"
@@ -137,14 +196,14 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-2upzx",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-34pej",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-5agzq",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-31vec",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/hood(_:selector:)-3m41k",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1hlh7",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-5b4gj",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-4lyis",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-ua8p",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-1rzx9",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-7dpwr",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1tb9h",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-55pd7",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-82lgd",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-6wz8l",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-4ip8t",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-89ih1",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/topologicalSort(_:edges:)"
       ],
       "title" : "Instance Methods"
@@ -180,15 +239,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -257,7 +313,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -400,7 +456,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/contains(node:)-34pej"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/edge(_:)-5agzq": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/edge(_:)-31vec": {
   "abstract" : [
     {
       "text" : "Get an edge by ID.",
@@ -436,21 +492,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-5agzq",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-31vec",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "edge(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/edge(_:)-5agzq"
+  "url" : "\/documentation\/poieticcore\/graph\/edge(_:)-31vec"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/edgeIDs-7ycza": {
   "abstract" : [
@@ -521,7 +573,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -536,6 +588,44 @@
   "title" : "edges",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/edges"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/frame": {
+  "abstract" : [
+    {
+      "text" : "Frame that the graph is being bound to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/frame",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "frame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/frame"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/hood(_:selector:)-3m41k": {
   "abstract" : [
@@ -618,7 +708,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/hood(_:selector:)-3m41k"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/incoming(_:)-1hlh7": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/incoming(_:)-1tb9h": {
   "abstract" : [
     {
       "text" : "Get a list of edges incoming to a node.",
@@ -654,7 +744,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -662,15 +752,15 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1hlh7",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/incoming(_:)-1tb9h",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "incoming(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/incoming(_:)-1hlh7"
+  "url" : "\/documentation\/poieticcore\/graph\/incoming(_:)-1tb9h"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/neighbours(_:)-5b4gj": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/neighbours(_:)-55pd7": {
   "abstract" : [
     {
       "text" : "Get a list of edges that are related to the neighbours of the node. That",
@@ -714,7 +804,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -722,15 +812,15 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-5b4gj",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/neighbours(_:)-55pd7",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "neighbours(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/neighbours(_:)-5b4gj"
+  "url" : "\/documentation\/poieticcore\/graph\/neighbours(_:)-55pd7"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/node(_:)-4lyis": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/node(_:)-82lgd": {
   "abstract" : [
     {
       "text" : "Get a node by ID.",
@@ -766,21 +856,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-4lyis",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-82lgd",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "node(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/node(_:)-4lyis"
+  "url" : "\/documentation\/poieticcore\/graph\/node(_:)-82lgd"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/nodeIDs-4afw4": {
   "abstract" : [
@@ -851,7 +937,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {
@@ -867,7 +953,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/nodes"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/outgoing(_:)-ua8p": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/outgoing(_:)-6wz8l": {
   "abstract" : [
     {
       "text" : "Get a list of outgoing edges from a node.",
@@ -903,7 +989,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -911,13 +997,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-ua8p",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/outgoing(_:)-6wz8l",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "outgoing(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/outgoing(_:)-ua8p"
+  "url" : "\/documentation\/poieticcore\/graph\/outgoing(_:)-6wz8l"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/prettyDebugDescription": {
   "abstract" : [
@@ -953,7 +1039,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/prettydebugdescription"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/selectEdges(_:)-1rzx9": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/selectEdges(_:)-4ip8t": {
   "abstract" : [
     {
       "text" : "Get a list of edges that match the given predicate.",
@@ -980,8 +1066,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13EdgePredicateP",
-      "text" : "EdgePredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     },
     {
       "kind" : "text",
@@ -989,7 +1075,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -997,15 +1083,15 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-1rzx9",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectEdges(_:)-4ip8t",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "selectEdges(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/selectedges(_:)-1rzx9"
+  "url" : "\/documentation\/poieticcore\/graph\/selectedges(_:)-4ip8t"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph/selectNodes(_:)-7dpwr": {
+"doc://PoieticCore/documentation/PoieticCore/Graph/selectNodes(_:)-89ih1": {
   "abstract" : [
     {
       "text" : "Get a list of nodes that match the given predicate.",
@@ -1032,8 +1118,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13NodePredicateP",
-      "text" : "NodePredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     },
     {
       "kind" : "text",
@@ -1041,7 +1127,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeC",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
       "text" : "Node"
     },
     {
@@ -1049,13 +1135,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-7dpwr",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/selectNodes(_:)-89ih1",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "selectNodes(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph\/selectnodes(_:)-7dpwr"
+  "url" : "\/documentation\/poieticcore\/graph\/selectnodes(_:)-89ih1"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/topologicalSort(_:edges:)": {
   "abstract" : [
@@ -1100,7 +1186,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {
@@ -1314,7 +1400,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -1337,6 +1423,70 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralType/edge": {
+  "abstract" : [
+    {
+      "text" : "Graph component representing a connection between two nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/edge",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralType.edge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype\/edge"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralType/node": {
+  "abstract" : [
+    {
+      "text" : "Graph component representing a node. Can be connected to other nodes",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "through an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/node",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralType.node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
   "abstract" : [

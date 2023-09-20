@@ -96,8 +96,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -204,14 +202,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -300,7 +298,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ConstraintP",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
       "text" : "Constraint"
     },
     {
@@ -378,40 +376,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks edges.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeconstraint"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
@@ -453,40 +417,6 @@
   "title" : "EdgeEndpointTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraint"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [

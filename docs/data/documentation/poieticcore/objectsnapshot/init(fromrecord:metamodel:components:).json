@@ -1,4 +1,15 @@
 {
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "Use alloc+initialize combo",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -100,6 +111,9 @@
       {
         "name" : "PoieticCore"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Initializer",
@@ -329,7 +343,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],
@@ -364,6 +378,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

@@ -29,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5GraphPAAE8outgoingySayAA4EdgeCGs6UInt64VF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
+    "externalID" : "s:11PoieticCore5GraphPAAE8outgoingySayAA4EdgeVGs6UInt64VF::SYNTHESIZED::s:11PoieticCore12UnboundGraphC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -58,7 +58,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+        "preciseIdentifier" : "s:11PoieticCore4EdgeV",
         "text" : "Edge"
       },
       {
@@ -132,7 +132,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+              "preciseIdentifier" : "s:11PoieticCore4EdgeV",
               "text" : "Edge"
             },
             {
@@ -183,15 +183,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -331,7 +328,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeC",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
       "text" : "Edge"
     },
     {

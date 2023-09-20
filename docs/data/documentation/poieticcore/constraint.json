@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10ConstraintP",
+    "externalID" : "s:11PoieticCore10ConstraintC",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "class"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
     "title" : "Constraint"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "class"
             },
             {
               "kind" : "text",
@@ -71,64 +71,11 @@
             {
               "kind" : "identifier",
               "text" : "Constraint"
-            },
-            {
-              "kind" : "text",
-              "text" : " : AnyObject"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "For concrete constraints see: ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " and ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -143,8 +90,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -159,8 +104,16 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:description:match:requirement:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/description",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/name"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/match",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/name",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/requirement"
       ],
       "title" : "Instance Properties"
     },
@@ -252,14 +205,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -286,7 +239,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint/check(_:)": {
   "abstract" : [
     {
-      "text" : "A function that checks whether the graph satisfies the constraint.",
+      "text" : "Check the frame for the constraint and return a list of nodes that",
       "type" : "text"
     },
     {
@@ -294,7 +247,7 @@
       "type" : "text"
     },
     {
-      "text" : "Returns a list of objects (nodes or edges) that violate the constraint.",
+      "text" : "violate the constraint",
       "type" : "text"
     }
   ],
@@ -317,8 +270,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -336,7 +289,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/check(_:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "check(_:)",
   "type" : "topic",
@@ -360,7 +312,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -386,11 +338,139 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/description",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint/init(name:description:match:requirement:)": {
+  "abstract" : [
+    {
+      "text" : "Creates an edge constraint.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "match"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "requirement"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ConstraintRequirementP",
+      "text" : "ConstraintRequirement"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:description:match:requirement:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(name:description:match:requirement:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint\/init(name:description:match:requirement:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint/match": {
+  "abstract" : [
+    {
+      "text" : "A predicate that matches all edges to be considered for this constraint.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "match"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/match",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "match",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint\/match"
 },
 "doc://PoieticCore/documentation/PoieticCore/Constraint/name": {
   "abstract" : [
@@ -402,7 +482,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -424,11 +504,47 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/name",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint\/name"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint/requirement": {
+  "abstract" : [
+    {
+      "text" : "A requirement that needs to be satisfied for the matched objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requirement"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ConstraintRequirementP",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/requirement",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "requirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint\/requirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
@@ -507,40 +623,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks edges.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeconstraint"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
@@ -582,40 +664,6 @@
   "title" : "EdgeEndpointTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/NodeConstraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NodeConstraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NodeConstraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NodeConstraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/nodeconstraint"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [

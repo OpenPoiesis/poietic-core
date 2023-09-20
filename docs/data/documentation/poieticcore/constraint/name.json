@@ -19,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10ConstraintP4nameSSvp",
+    "externalID" : "s:11PoieticCore10ConstraintC4nameSSvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -48,7 +48,6 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -67,7 +66,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -85,18 +84,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SS",
               "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : " { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
             }
           ]
         }
@@ -178,14 +165,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that define a graph constraint.",
+      "text" : "An object representing constraint that checks edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -219,7 +206,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -241,7 +228,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/name",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",

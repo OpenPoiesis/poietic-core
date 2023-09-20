@@ -1,0 +1,498 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore17BoundNeighborhoodC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "BoundNeighborhood"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "BoundNeighborhood"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "BoundNeighborhood"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "BoundNeighborhood"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/init(graph:nodeID:predicate:direction:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/direction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/graph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/node",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/nodeID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/nodes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/predicate"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/boundneighborhood"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BoundNeighborhood"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BoundNeighborhood"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BoundNeighborhood",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/direction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "direction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/direction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "direction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/direction"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/edges": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/edges",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edges",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/edges"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/graph": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "graph"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5GraphP",
+      "text" : "Graph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/graph",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/graph"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/init(graph:nodeID:predicate:direction:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "graph"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5GraphP",
+      "text" : "Graph"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "nodeID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "direction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+      "text" : "EdgeDirection"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/init(graph:nodeID:predicate:direction:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(graph:nodeID:predicate:direction:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/init(graph:nodeid:predicate:direction:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/node": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/node",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/nodeID": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodeID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/nodeID",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodeID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/nodeid"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/nodes": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/nodes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/nodes"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood/predicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood\/predicate",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "predicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundneighborhood\/predicate"
+}
+}
+}

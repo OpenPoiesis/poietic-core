@@ -91,6 +91,23 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+      ],
+      "title" : "Predicates"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
@@ -144,6 +161,243 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
+},
+"doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
+  "abstract" : [
+    {
+      "text" : "Predicate that matches any object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AnyPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AnyPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AnyPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/anypredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompoundPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompoundPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompoundPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/compoundpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
+  "abstract" : [
+    {
+      "text" : "Predicate that tests the edge object itself together with its objects -",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "origin and target.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgePredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgePredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgePredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HasComponentPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HasComponentPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HasComponentPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsTypePredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsTypePredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsTypePredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/istypepredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
@@ -236,6 +490,71 @@
   "title" : "LogicalConnective.or",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/logicalconnective\/or"
+},
+"doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NegationPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NegationPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NegationPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/negationpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate": {
+  "abstract" : [
+    {
+      "text" : "A predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Predicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Predicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Predicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate"
 }
 }
 }

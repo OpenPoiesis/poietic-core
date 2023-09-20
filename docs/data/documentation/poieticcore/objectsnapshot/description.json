@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "CustomStringConvertible.description",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Textual description of the object.",
       "type" : "text"
     }
   ],
@@ -150,7 +142,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],
@@ -183,7 +175,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/description": {
   "abstract" : [
-
+    {
+      "text" : "Textual description of the object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

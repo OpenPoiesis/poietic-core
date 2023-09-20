@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore4NodeC",
+    "externalID" : "s:11PoieticCore4NodeV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "Node"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -137,16 +137,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-        "doc:\/\/PoieticCore\/s12IdentifiableP"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -181,15 +172,22 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/structuralTypeName"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/init(_:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/snapshot"
       ],
       "title" : "Instance Properties"
     },
     {
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/derive(snapshotID:objectID:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/ObjectProtocol-Implementations"
       ],
-      "title" : "Instance Methods"
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -222,15 +220,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -299,7 +294,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -512,7 +507,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -536,14 +531,55 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
 },
-"doc://PoieticCore/documentation/PoieticCore/Node/derive(snapshotID:objectID:)": {
+"doc://PoieticCore/documentation/PoieticCore/Node/ObjectProtocol-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/ObjectProtocol-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ObjectProtocol Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/node\/objectprotocol-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/Node/init(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/node\/init(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Node/snapshot": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -551,45 +587,11 @@
     },
     {
       "kind" : "identifier",
-      "text" : "derive"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
+      "text" : "snapshot"
     },
     {
       "kind" : "text",
       "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "objectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -597,21 +599,21 @@
       "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/derive(snapshotID:objectID:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/snapshot",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "derive(snapshotID:objectID:)",
+  "title" : "snapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node\/derive(snapshotid:objectid:)"
+  "url" : "\/documentation\/poieticcore\/node\/snapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/Node/structuralTypeName": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -619,58 +621,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "structuralTypeName"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "text" : "ObjectProtocol"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/structuralTypeName",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "structuralTypeName",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node\/structuraltypename"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "An abstract class representing a version of an object in the database.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "ObjectProtocol"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectSnapshot",
+  "title" : "ObjectProtocol",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/objectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
   "abstract" : [
@@ -713,16 +678,6 @@
   "title" : "UnboundGraph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundgraph"
-},
-"doc://PoieticCore/s12IdentifiableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s12IdentifiableP",
-  "title" : "Swift.Identifiable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/s23CustomStringConvertibleP": {
-  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-  "title" : "Swift.CustomStringConvertible",
-  "type" : "unresolvable"
 }
 }
 }

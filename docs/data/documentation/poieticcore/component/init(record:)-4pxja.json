@@ -154,7 +154,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "If the foreign record contains keys that are not recognised by the",
+              "text" : "The default implementation ignores all keys in the foreign record",
               "type" : "text"
             },
             {
@@ -162,7 +162,24 @@
               "type" : "text"
             },
             {
-              "text" : "component, then an exception is thrown.",
+              "text" : "that are not present in the component description.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Provide your own implementation that can handle values for keys of",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "older (or future) versions of foreign representation of the component.",
               "type" : "text"
             }
           ],

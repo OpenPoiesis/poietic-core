@@ -1,0 +1,265 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "Lexer Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/atEnd"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptLeadingTrivia()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptTrailingTrivia()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/next()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
+  "abstract" : [
+    {
+      "text" : "An object for lexical analysis of an arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionLexer",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptLeadingTrivia()": {
+  "abstract" : [
+    {
+      "text" : "Accepts leading trivia.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "acceptLeadingTrivia"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptLeadingTrivia()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "acceptLeadingTrivia()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/acceptleadingtrivia()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptTrailingTrivia()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "acceptTrailingTrivia"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptTrailingTrivia()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "acceptTrailingTrivia()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/accepttrailingtrivia()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/atEnd": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atEnd"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/atEnd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "atEnd",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/atend"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/next()": {
+  "abstract" : [
+    {
+      "text" : "Parse and return next token.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "next"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TokenV",
+      "text" : "Token"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "TokenType"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/next()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "next()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/next()"
+}
+}
+}

@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore5TokenV4type6source5range18leadingTriviaRange08trailinghI012textLocationAcA0C4TypeO_SSSnySS5IndexVGANSgAoA04TextL0Vtcfc",
+    "externalID" : "s:11PoieticCore5TokenV4type6source5range18leadingTriviaRange08trailinghI012textLocationACyxGx_SSSnySS5IndexVGAMSgAnA04TextL0Vtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -33,7 +33,23 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9TokenTypeO",
+        "preciseIdentifier" : "s:11PoieticCore5TokenV",
+        "text" : "Token"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
         "text" : "TokenType"
       },
       {
@@ -218,9 +234,25 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9TokenTypeO",
+              "preciseIdentifier" : "s:11PoieticCore5TokenV",
+              "text" : "Token"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "TokenType"
             },
             {
@@ -500,7 +532,23 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9TokenTypeO",
+      "preciseIdentifier" : "s:11PoieticCore5TokenV",
+      "text" : "Token"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
       "text" : "TokenType"
     },
     {
@@ -653,37 +701,6 @@
   "title" : "init(type:source:range:leadingTriviaRange:trailingTriviaRange:textLocation:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/token\/init(type:source:range:leadingtriviarange:trailingtriviarange:textlocation:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/TokenType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TokenType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TokenType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TokenType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/tokentype"
 }
 }
 }

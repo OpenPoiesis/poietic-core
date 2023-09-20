@@ -264,9 +264,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insertDerived(_:id:)",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "insertDerived(_:id:)",
+              "type" : "codeVoice"
             },
             {
               "text" : " or by deriving an object using",
@@ -485,69 +484,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/init(memory:id:snapshots:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insertDerived(_:id:)": {
-  "abstract" : [
-    {
-      "text" : "Derive a version snapshot of an object and insert it into the frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "insertDerived"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insertDerived(_:id:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "insertDerived(_:id:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/insertderived(_:id:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [
     {
@@ -631,7 +567,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "An abstract class representing a version of an object in the database.",
+      "text" : "A class representing a version of an object in the database.",
       "type" : "text"
     }
   ],

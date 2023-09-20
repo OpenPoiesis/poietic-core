@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -18,11 +12,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore4EdgeC",
+    "externalID" : "s:11PoieticCore4EdgeV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -45,8 +39,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "Edge"
   },
   "primaryContentSections" : [
@@ -62,7 +56,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -76,85 +70,12 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The edges in the graph have an origin node and a target node associated",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "with it.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "code" : "Node",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "Graph",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "MutableGraph",
-                  "type" : "codeVoice"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-        "doc:\/\/PoieticCore\/s12IdentifiableP"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -189,26 +110,24 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/init(id:snapshotID:type:origin:target:components:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/init(_:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/origin",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/prettyDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/structuralTypeName",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/snapshot",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/target"
       ],
       "title" : "Instance Properties"
     },
     {
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/derive(snapshotID:objectID:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/foreignRecord()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/ObjectProtocol-Implementations"
       ],
-      "title" : "Instance Methods"
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -241,15 +160,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-    {
-      "text" : "Edge represents a directed connection between two nodes in a graph.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -273,151 +189,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge/derive(snapshotID:objectID:)": {
+"doc://PoieticCore/documentation/PoieticCore/Edge/ObjectProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "derive"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "objectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/derive(snapshotID:objectID:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "derive(snapshotID:objectID:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/ObjectProtocol-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ObjectProtocol Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/derive(snapshotid:objectid:)"
+  "url" : "\/documentation\/poieticcore\/edge\/objectprotocol-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge/description": {
+"doc://PoieticCore/documentation/PoieticCore/Edge/init(_:)": {
   "abstract" : [
 
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "description"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/description",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "description",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/description"
-},
-"doc://PoieticCore/documentation/PoieticCore/Edge/foreignRecord()": {
-  "abstract" : [
-    {
-      "text" : "Create a foreign record from the snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "foreignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/foreignRecord()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "foreignRecord()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/foreignrecord()"
-},
-"doc://PoieticCore/documentation/PoieticCore/Edge/init(id:snapshotID:type:origin:target:components:)": {
-  "abstract" : [
-    {
-      "text" : "Create a new edge.",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
@@ -426,129 +211,33 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : "?("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "type"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "origin"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "target"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "components"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : "])"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/init(id:snapshotID:type:origin:target:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/init(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:snapshotID:type:origin:target:components:)",
+  "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/init(id:snapshotid:type:origin:target:components:)"
+  "url" : "\/documentation\/poieticcore\/edge\/init(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/origin": {
   "abstract" : [
-    {
-      "text" : "Origin node of the edge - a node from which the edge points from.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -575,14 +264,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/origin"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge/prettyDescription": {
+"doc://PoieticCore/documentation/PoieticCore/Edge/snapshot": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -590,7 +279,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "prettyDescription"
+      "text" : "snapshot"
     },
     {
       "kind" : "text",
@@ -598,62 +287,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/prettyDescription",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/snapshot",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "prettyDescription",
+  "title" : "snapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/prettydescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/Edge/structuralTypeName": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "structuralTypeName"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/structuralTypeName",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "structuralTypeName",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/structuraltypename"
+  "url" : "\/documentation\/poieticcore\/edge\/snapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/target": {
   "abstract" : [
-    {
-      "text" : "Target node of the edge - a node to which the edge points to.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -725,7 +377,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for a graph structure.",
+      "text" : "Protocol for views of a frame as a graph.",
       "type" : "text"
     }
   ],
@@ -938,7 +590,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -962,17 +614,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
-    {
-      "text" : "An abstract class representing a version of an object in the database.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -980,21 +629,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "ObjectProtocol"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "ObjectProtocol"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectSnapshot",
+  "title" : "ObjectProtocol",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/objectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
   "abstract" : [
@@ -1037,16 +686,6 @@
   "title" : "UnboundGraph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundgraph"
-},
-"doc://PoieticCore/s12IdentifiableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s12IdentifiableP",
-  "title" : "Swift.Identifiable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/s23CustomStringConvertibleP": {
-  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-  "title" : "Swift.CustomStringConvertible",
-  "type" : "unresolvable"
 }
 }
 }
