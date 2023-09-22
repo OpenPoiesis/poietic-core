@@ -134,6 +134,14 @@ public class FlowsMetamodel: Metamodel {
             ChartComponent.self,
         ]
     )
+    
+    public static let Note = ObjectType(
+        name: "Note",
+        structuralType: .node,
+        components: [
+            NoteComponent.self,
+        ]
+    )
 
     /// Edge from a stock to a flow. Denotes "what the flow drains".
     ///

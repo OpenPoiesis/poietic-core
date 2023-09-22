@@ -18,16 +18,16 @@ public struct NodeIssuesError: Error {
     /// Dictionary of node issues by node. The key is the node ID and the
     /// value is a list of issues.
     ///
-    public internal(set) var issues: [ObjectID:[NodeIssue]]
+    public internal(set) var issues: [ObjectID:[any Error]]
 
     var isEmpty: Bool { issues.isEmpty }
     
-    init(issues: [ObjectID:[NodeIssue]] = [:]) {
-        self.issues = issues
+    init(errors: [ObjectID:[Error]] = [:]) {
+        self.issues = errors
     }
     
-    mutating func append(_ issue: NodeIssue, for objectID: ObjectID) {
-        self.issues[objectID, default: []].append(issue)
+    mutating func append(_ error: Error, for objectID: ObjectID) {
+        self.issues[objectID, default: []].append(error)
     }
     
     mutating func merge(_ error: NodeIssuesError) {

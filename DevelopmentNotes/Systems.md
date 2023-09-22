@@ -47,9 +47,9 @@ Not allowed operations:
 - add/remove objects from a frame
 - add/remove persistent components in an object
 
-### Deriving System
+### Transformation System
 
-Deriving system is a system that derives an information from a frame before the
+Transformation system is a system that derives an information from a frame before the
 compilation, usually after editing changes. 
 
 Changes by the system are subject to constraints validation.

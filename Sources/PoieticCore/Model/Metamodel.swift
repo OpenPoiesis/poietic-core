@@ -67,10 +67,13 @@ extension Metamodel {
     }
     
     /// Get a component type by name
-    public static func componentType(name: String) -> Component.Type? {
-        return components.first {
+    public static func inspectableComponent(name: String) -> InspectableComponent.Type? {
+        let result = components.compactMap {
+            $0 as? InspectableComponent.Type
+        }.first {
             $0.componentDescription.name == name
         }
+        return result
     }
     
     /// Get a list of built-in variable names.

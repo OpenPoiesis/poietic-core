@@ -63,6 +63,11 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// - SeeAlso: ``Component``, ``ObjectType``.
     ///
     public var components: ComponentSet
+    public var inspectableComponents: [any InspectableComponent] {
+        components.compactMap {
+            $0 as? InspectableComponent
+        }
+    }
     
     /// Object type within the problem domain.
     ///
@@ -178,59 +183,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
-    @available(*, deprecated, message: "Use alloc+initialize combo")
-    public convenience init(fromRecord record: ForeignRecord,
-                            metamodel: Metamodel.Type,
-                            components: [String:ForeignRecord]=[:]) throws {
-        // TODO: Handle wrong IDs
-        let id: ObjectID = try record.IDValue(for: "object_id")
-        let snapshotID: SnapshotID = try record.IDValue(for: "snapshot_id")
-        
-        let type: ObjectType
-        
-        if let typeName = try record.stringValueIfPresent(for: "type") {
-            if let objectType = metamodel.objectType(name: typeName) {
-                type = objectType
-            }
-            else {
-                fatalError("Unknown object type: \(typeName)")
-            }
-        }
-        else {
-            fatalError("No object type provided in the record")
-        }
-        
-        var componentInstances: [any Component] = []
-        
-        for (name, record) in components {
-            let type: Component.Type = persistableComponent(name: name)!
-            let component = try type.init(record: record)
-            componentInstances.append(component)
-        }
-        
-        let structuralType = try record.stringValueIfPresent(for: "structure") ?? "unstructured"
-        let structure: StructuralComponent
-        
-        switch structuralType {
-        case "unstructured":
-            structure = .unstructured
-        case "node":
-            structure = .node
-        case "edge":
-            let origin: ObjectID = try record.IDValue(for: "origin")
-            let target: ObjectID = try record.IDValue(for: "target")
-            structure = .edge(origin, target)
-        default:
-            fatalError("Unknown structural type: '\(structuralType)'")
-        }
-        
-        self.init(id: id,
-                  snapshotID: snapshotID,
-                  type: type,
-                  structure: structure,
-                  components: componentInstances)
-    }
-   
     /// Initialise the object.
     ///
     /// The object will be initialised with given structure and marked as
@@ -387,7 +339,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             guard let component = components[componentType] else {
                 fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
             }
-            return component.attribute(forKey: key)
+            return (component as! InspectableComponent).attribute(forKey: key)
         }
     }
     
@@ -401,11 +353,11 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             fatalError("Object type \(type.name) has no component with attribute \(key).")
         }
         
-        guard var component = components[componentType] else {
+        guard let component = components[componentType] else {
             fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
         }
-        
-        try component.setAttribute(value: value, forKey: key)
+        var inspectable = (component as! InspectableComponent)
+        try inspectable.setAttribute(value: value, forKey: key)
         components.set(component)
     }
     
@@ -433,7 +385,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// - SeeAlso: ``NameComponent``
     ///
     public var name: String? {
-        for component in components {
+        for component in inspectableComponents {
             if let name = component.attribute(forKey: "name") {
                 return try? name.stringValue()
             }

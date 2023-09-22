@@ -23,11 +23,6 @@ extension PoieticTool {
             = CommandConfiguration(abstract: "Describe an object")
         @OptionGroup var options: Options
 
-        @Flag(name: [.customLong("all"), .customShort("a")],
-                help: "Show all present components instead of just components predefined by the object's type.")
-        var showAll: Bool = false
-
-
         @Argument(help: "ID of an object to be described")
         var reference: String
         
@@ -50,16 +45,7 @@ extension PoieticTool {
                 ("Structure", "\(object.structure.type)"),
             ]
             
-            let components: [any Component]
-            if showAll {
-                components = Array(object.components)
-            }
-            else {
-                let types = object.type.components
-                components = types.compactMap { object[$0] }
-            }
-            
-            for component in components {
+            for component in object.inspectableComponents {
                 let desc = type(of: component).componentDescription
 
                 items.append((nil, nil))

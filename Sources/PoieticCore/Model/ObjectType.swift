@@ -44,6 +44,10 @@ public class ObjectType {
     ///
     public let components: [Component.Type]
     
+    public var inspectableComponents: [InspectableComponent.Type] {
+        components.compactMap { $0 as? InspectableComponent.Type }
+    }
+    
     /// Short description and the purpose of the object type.
     ///
     /// It is recommended that metamodel creators provide this attribute.
@@ -56,7 +60,7 @@ public class ObjectType {
     ///
     /// - Note: The attributes in the components share the same name-space
     /// within the object type.
-    public let _attributeComponentMap: [String:Component.Type]
+    public let _attributeComponentMap: [String:InspectableComponent.Type]
     
     /// Create a new object type.
     ///
@@ -88,8 +92,11 @@ public class ObjectType {
         self.components = components
         self.abstract = abstract
         
-        var map: [String:Component.Type] = [:]
+        var map: [String:InspectableComponent.Type] = [:]
         for component in components {
+            guard let component = component as? InspectableComponent.Type else {
+                continue
+            }
             for attr in component.componentDescription.attributes {
                 guard map[attr.name] == nil else {
                     fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in component: \(component)")
@@ -104,7 +111,7 @@ public class ObjectType {
     /// List of attributes from all components.
     ///
     public var attributes: [AttributeDescription] {
-        return components.flatMap {
+        return inspectableComponents.flatMap {
             $0.componentDescription.attributes
         }
     }
@@ -113,7 +120,7 @@ public class ObjectType {
         return _attributeComponentMap[name] != nil
     }
     
-    public func componentType(forAttribute name: String) -> Component.Type? {
+    public func componentType(forAttribute name: String) -> InspectableComponent.Type? {
         return _attributeComponentMap[name]
     }
     

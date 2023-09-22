@@ -17,7 +17,7 @@ import PoieticCore
 ///         flows. Flow with negative value, which is in fact an outflow,
 ///         will be ignored.
 ///
-public struct FlowComponent: Component,
+public struct FlowComponent: InspectableComponent,
                              CustomStringConvertible {
 
     public static var componentDescription = ComponentDescription(

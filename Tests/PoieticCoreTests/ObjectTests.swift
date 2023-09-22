@@ -8,7 +8,7 @@
 import XCTest
 @testable import PoieticCore
 
-fileprivate struct CustomNameComponent: Component, Equatable {
+fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
     static var componentDescription = ComponentDescription(
         name: "CustomName",
         attributes: [
@@ -34,7 +34,7 @@ fileprivate struct CustomNameComponent: Component, Equatable {
     }
 }
 
-fileprivate struct NonStringNameComponent: Component, Equatable {
+fileprivate struct NonStringNameComponent: InspectableComponent, Equatable {
     static var componentDescription = ComponentDescription(
         name: "NonStringName",
         attributes: [

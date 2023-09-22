@@ -7,7 +7,7 @@
 
 import PoieticCore
 
-public struct ControlComponent: Component {
+public struct ControlComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "Control",
         attributes: [

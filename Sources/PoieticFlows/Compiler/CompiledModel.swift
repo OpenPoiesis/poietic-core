@@ -317,26 +317,3 @@ public struct CompiledModel {
     }
 }
 
-public class VariableIndexMap {
-    let referenceToIndex: [BoundVariableReference:Int]
-    let references: [BoundVariableReference]
-
-    public init(references: [BoundVariableReference]) {
-        self.references = references
-        let enumerated = references.enumerated().map { ($0.1, $0.0) }
-        self.referenceToIndex = Dictionary(uniqueKeysWithValues: enumerated)
-    }
-    
-    public var count: Int { references.count }
-    
-    public subscript(key: Int) -> BoundVariableReference {
-        return references[key]
-    }
-    
-    public subscript(key: BoundVariableReference) -> Int {
-        guard let index = referenceToIndex[key] else {
-            fatalError("Unknown variable reference: \(key)")
-        }
-        return index
-    }
-}

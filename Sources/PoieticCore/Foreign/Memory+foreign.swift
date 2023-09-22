@@ -87,11 +87,11 @@ extension ObjectMemory {
             fatalError("Unknown object type: \(typeName)")
         }
 
-        var components: [any Component] = []
+        var components: [any InspectableComponent] = []
         
         for (name, compRecord) in record.components {
-            guard let type: Component.Type = metamodel.componentType(name: name) else {
-                fatalError("No registered component with name: \(name)")
+            guard let type: InspectableComponent.Type = metamodel.inspectableComponent(name: name) else {
+                fatalError("No registered inspectable component with name: \(name)")
             }
             let component = try type.init(record: compRecord)
             components.append(component)
@@ -131,7 +131,7 @@ extension ObjectMemory {
             let main = snapshot.foreignRecord()
             var components: [String:ForeignRecord] = [:]
 
-            for component in snapshot.components {
+            for component in snapshot.inspectableComponents {
                 let componentRecord = component.foreignRecord()
                 components[component.componentName] = componentRecord
             }

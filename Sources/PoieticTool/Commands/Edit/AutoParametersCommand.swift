@@ -28,7 +28,6 @@ extension PoieticTool {
             let frame = memory.deriveFrame()
             let graph = frame.mutableGraph
             let view = StockFlowView(graph)
-            let compiler = Compiler(frame: frame)
             var addedCount = 0
             var removedCount = 0
             
@@ -36,10 +35,7 @@ extension PoieticTool {
                 $0.name
             })
             
-            try compiler.prepareNodes()
-            let nameMap = compiler.nameToObject
-            
-            for target in compiler.orderedSimulationNodes {
+            for target in view.simulationNodes {
                 guard let expression = try target.parsedExpression() else {
                     continue
                 }
@@ -51,7 +47,7 @@ extension PoieticTool {
                     switch status {
                     case .missing:
                         // Find missing parameter
-                        let parameterID = nameMap[name]!
+                        let parameterID = frame.object(named: name)!.id
                         let edge = graph.createEdge(FlowsMetamodel.Parameter,
                                                     origin: parameterID,
                                                   target: target.id)

@@ -375,6 +375,7 @@ public class MutableFrame: Frame {
     /// - Precondition: The frame is not frozen. See ``freeze()``.
     ///
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
+        // TODO: Replace this with just object() -> MutableObject as a reference
         precondition(state.isMutable, "Trying to modify a frozen frame")
 
         guard let originalRef = self.objects[id] else {

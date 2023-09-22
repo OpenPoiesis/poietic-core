@@ -22,7 +22,7 @@ import PoieticCore
 ///
 /// All components with arithmetic formula are also named components.
 ///
-public struct FormulaComponent: Component,
+public struct FormulaComponent: InspectableComponent,
                                    CustomStringConvertible {
     
     public static var componentDescription = ComponentDescription(

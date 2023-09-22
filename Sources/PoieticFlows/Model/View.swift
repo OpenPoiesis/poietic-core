@@ -309,7 +309,7 @@ public class StockFlowView {
     ///
     /// - SeeAlso: ``implicitFills(_:)``,
     ///   ``implicitDrains(_:)``,
-    ///   ``Compiler/updateImplicitFlows()``
+    ///   ``ImplicitFlowsSystem/update(_:)``
     public func sortedStocksByImplicitFlows(_ nodes: [ObjectID]) throws -> [Node] {
         let sorted = try graph.topologicalSort(nodes, edges: implicitFlowEdges)
         

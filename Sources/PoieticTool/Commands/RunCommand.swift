@@ -92,7 +92,7 @@ extension PoieticTool {
                         }
 
                         print("ERROR: node \(label): \(issue)")
-                        if let hint = issue.hint {
+                        if let issue = issue as? NodeIssue, let hint = issue.hint {
                             print("HINT: node \(label): \(hint)")
                         }
                     }

@@ -6,6 +6,11 @@
 //
 
 // TODO: Add transient (or persistable) component
+// TODO: Component hierarchy:
+//
+// Component
+//    +--+----- Inspectable Component
+//       +----- Persistable Component
 
 /// Protocol for object components.
 ///
@@ -13,7 +18,17 @@
 /// attributes. An object can have multiple components but only one of each
 /// type.
 ///
-/// ## Attributes
+public protocol Component {
+    // TODO: Remove this requirement. Ths is mostly used in convenience initialized through the code when a required component is not provided. This is lazy!
+    init()
+}
+
+public protocol TransientComponent: Component {
+    
+}
+
+/// Protocol for components where attributes can be inspected by their names.
+///
 ///
 /// User data contained in the component is provided to the user's world through
 /// public attributes that are advertised through ``componentDescription``.
@@ -68,7 +83,8 @@
 ///   _How the data, that is "out in the wild", from previous or future
 ///    meta-model versions are going to be read, transformed and preserved?_
 ///
-public protocol Component: MutableKeyedAttributes {
+public protocol InspectableComponent: Component, MutableKeyedAttributes {
+    // TODO: Split to ForeignRepresentable
     static var componentDescription: ComponentDescription { get }
     
     /// Create a new component with default component values.
@@ -168,7 +184,7 @@ public protocol Component: MutableKeyedAttributes {
     func foreignRecord() -> ForeignRecord
 }
 
-extension Component {
+extension InspectableComponent {
     /// Default implementation of component initialisation from a foreign record.
     ///
     /// The default implementation gets all the keys from the foreign record and

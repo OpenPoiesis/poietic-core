@@ -6,7 +6,7 @@
 //
 
 // Basic, reusable components.
-public struct NameComponent: Component, CustomStringConvertible {
+public struct NameComponent: InspectableComponent, CustomStringConvertible {
     
     public static var componentDescription = ComponentDescription(
         name: "Name",
@@ -119,7 +119,7 @@ public enum AudienceLevel: Int, Codable {
 /// For example, the user interface can hide or disable editing of objects that
 /// are of a higher audience level.
 ///
-struct AudienceLevelComponent: Component {
+struct AudienceLevelComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "AudienceLevel",
         attributes: [
@@ -157,7 +157,7 @@ struct AudienceLevelComponent: Component {
 
 /// Documentation component
 ///
-struct DocumentationComponent: Component {
+public struct DocumentationComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "Documentation",
         attributes: [
@@ -171,10 +171,10 @@ struct DocumentationComponent: Component {
                 abstract: "Longer object documentation."),
         ]
     )
-    var abstract: String
-    var documentation: String
+    public var abstract: String
+    public var documentation: String
 
-    init() {
+    public init() {
         self.abstract = ""
         self.documentation = ""
     }
@@ -201,7 +201,7 @@ struct DocumentationComponent: Component {
 
 /// Keywords component
 ///
-public struct KeywordsComponent: Component {
+public struct KeywordsComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "Keywords",
         attributes: [
@@ -228,6 +228,42 @@ public struct KeywordsComponent: Component {
                                       forKey key: AttributeKey) throws {
         switch key {
         case "keywords": self.keywords = try value.stringArray()
+        default:
+            throw AttributeError.unknownAttribute(name: key,
+                                                  type: String(describing: type(of: self)))
+        }
+    }
+}
+
+/// Note component
+///
+public struct NoteComponent: InspectableComponent {
+    public static var componentDescription = ComponentDescription(
+        name: "Note",
+        attributes: [
+            AttributeDescription(
+                name: "note",
+                type: .string,
+                abstract: "Note text"),
+        ]
+    )
+    public var note: String
+
+    public init() {
+        self.note = ""
+    }
+    
+    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+        switch key {
+        case "note": return ForeignValue(note)
+        default: return nil
+        }
+    }
+
+    public mutating func setAttribute(value: AttributeValue,
+                                      forKey key: AttributeKey) throws {
+        switch key {
+        case "note": self.note = try value.stringValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))

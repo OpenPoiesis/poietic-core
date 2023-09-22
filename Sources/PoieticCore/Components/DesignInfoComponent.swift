@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 11/09/2023.
 //
 
-struct DesignInfoComponent: Component {
+struct DesignInfoComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "DesignInfo",
         attributes: [

@@ -31,64 +31,48 @@ public class Compiler {
 
     // Compiler State
     // -----------------------------------------------------------------
-    /// All nodes that are participating in the simulation, sorted by their
-    /// computational dependency.
+    /// List of built-in variables used in the simulation.
     ///
-    /// Any computation can be safely carried out using the order in this list.
-    /// That is, when computing in order, the later nodes already have required
-    /// values computed.
-    ///
-    public private(set) var orderedSimulationNodes: [Node]
+    private let builtinVariables: [BuiltinVariable]
 
-    /// Mapping between an object ID and object's name.
-    ///
-    /// Only simulation nodes are included in the mapping.
-    ///
-    public private(set) var objectToName: [ObjectID: String]
-
-    /// Mapping between an object name and it's ID.
-    ///
-    /// When this mapping is populated, we are already guaranteed that there are
-    /// no duplicate names of simulation nodes.
-    ///
-    /// Only simulation nodes are included in the mapping.
-    ///
-    public private(set) var nameToObject: [String: ObjectID]
-    
     /// List of built-in variable names, fetched from the metamodel.
     ///
     /// Used in binding of arithmetic expressions.
-    var builtinVariableNames: [String]
+    private let builtinVariableNames: [String]
 
     /// List of built-in functions.
     ///
     /// Used in binding of arithmetic expressions.
-    var functions: [String: any FunctionProtocol]
+    private let functions: [String: any FunctionProtocol]
 
     /// Mapping between a variable name and a bound variable reference.
     ///
     /// Used in binding of arithmetic expressions.
-    var namedReferences: [String:BoundVariableReference]
-    
+    private var namedReferences: [String:BoundVariableReference]
+    // TODO: [REFACTORING] Status: check
+
     /// Mapping between object ID and index of its corresponding simulation
     /// variable.
     ///
     /// Used in compilation of simulation nodes.
     ///
-    public private(set) var objectToIndex: [ObjectID: Int]
-    
-    // Result of the compilation
-    /// List of simulation variables. Part of the simulation result.
-    ///
-    /// This list is the core list of the compiled simulation. It contains all
-    /// variables that will be simulated in the order of their computational
-    /// dependencies.
-    ///
-    public private(set) var computedVariables: [ComputedVariable]
+    private var objectToIndex: [ObjectID: Int]
 
-    /// List of built-in variables used in the simulation.
+    /// List of transformation systems run before the compilation.
     ///
-    public private(set) var builtinVariables: [BuiltinVariable]
+    /// Requirements:
+    /// - There must be no dependency between the systems.
+    /// - If any of the systems reports a node issue, the compilation must not
+    ///   proceed.
+    ///
+    /// - Note: This will be public once happy.
+    ///
+    private var _preCompilationSystems: [any TransformationSystem] = [
+        ExpressionParsingSystem(),
+        ImplicitFlowsSystem()
+    ]
+    // TODO: [REFACTORING] Status: OK, NEW
+
     /// Creates a compiler that will compile within the context of the given
     /// model.
     ///
@@ -98,22 +82,45 @@ public class Compiler {
         self.graph = frame.mutableGraph
         self.view = StockFlowView(self.graph)
         
-        // Components of the compiled model
-        builtinVariables = []
-        computedVariables = []
+        builtinVariables = FlowsMetamodel.variables
+        builtinVariableNames = builtinVariables.map { $0.name }
+    
+        let items = AllBuiltinFunctions.map { ($0.name, $0) }
+        functions = Dictionary(uniqueKeysWithValues: items)
 
         // Intermediated variables and mappigns used for compilation
-        nameToObject = [:]
-        objectToName = [:]
         objectToIndex = [:]
-        orderedSimulationNodes = []
 
         // Variables for arithmetic expression binding
-        builtinVariableNames = []
-        functions = [:]
         namedReferences = [:]
     }
 
+    struct __CompiledComputation {
+        
+        // REPLACES (partially): Computed Variable
+        let id: ObjectID
+        let name: String
+        let computation: ComputationalRepresentation
+    }
+    
+    func _DEBT_checkViolations() throws {
+        let violations = frame.memory.checkConstraints(frame)
+        
+        if !violations.isEmpty {
+            // TODO: How to handle this here?
+            // Note: the compiler should work with stable frame - with
+            //       constraints satisfied. Remove this once the previous
+            //       sentence statement is true.
+            let error = ConstraintViolationError(violations: violations)
+            for (obj, errors) in error.prettyDescriptionsByObject {
+                for error in errors {
+                    print("ERROR: \(obj): \(error)")
+                }
+            }
+            throw ConstraintViolationError(violations: violations)
+        }
+    }
+    
     /// Compiles the model and returns the compiled version of the model.
     ///
     /// The compilation process is as follows:
@@ -133,81 +140,133 @@ public class Compiler {
     ///   simulator.
     ///
     public func compile() throws -> CompiledModel {
-        let violations = frame.memory.checkConstraints(frame)
+        // NOTE: Please use explicit self for instance variables in this function
+        //       so we can visually see the shared compilation context.
+        //
+        // Context:
+        //  - unsorted simulation nodes
+        //      - (id, name, computationalRepresentation)
+        // FIXME: [REFACTORING] remove instance variable equivalent
+        var computedVariables: [ComputedVariable] = []
+
+        // FIXME: This goes away once compiler gets its own frame
+        try _DEBT_checkViolations()
         
-        if !violations.isEmpty {
-            // TODO: How to handle this here?
-            // Note: the compiler should work with stable frame - with
-            //       constraints satisfied. Remove this once the previous
-            //       sentence statement is true.
-            let error = ConstraintViolationError(violations: violations)
-            for (obj, errors) in error.prettyDescriptionsByObject {
-                for error in errors {
-                    print("ERROR: \(obj): \(error)")
-                }
+        // 1. Update pre-compilation systems
+        // =================================================================
+
+        var context = TransformationContext(frame: frame)
+
+        for index in _preCompilationSystems.indices {
+            _preCompilationSystems[index].update(&context)
+        }
+        
+        guard context.errors.isEmpty else {
+            throw NodeIssuesError(errors: context.errors)
+        }
+
+        // 2. Collect nodes that are to be part of the simulation
+        // =================================================================
+
+        var unsortedSimulationNodes: [ObjectID] = []
+        var homonyms: [String: [ObjectID]] = [:]
+
+        for node in view.simulationNodes {
+            unsortedSimulationNodes.append(node.id)
+            homonyms[node.name!, default: []].append(node.id)
+        }
+
+        // 2.1 Report the duplicates, if any
+        // -----------------------------------------------------------------
+
+        var dupes: [String] = []
+
+        for (name, ids) in homonyms where ids.count > 1 {
+            let issue = NodeIssue.duplicateName(name)
+            dupes.append(name)
+            for id in ids {
+                context.appendError(issue, for: id)
             }
-            throw ConstraintViolationError(violations: violations)
+        }
+
+        guard context.errors.isEmpty else {
+            throw NodeIssuesError(errors: context.errors)
+        }
+
+        // 3. Sort nodes in order of computation
+        // =================================================================
+        // All the nodes present in this list will form a simulation state.
+        // Indices in this vector will be the indices used through out the
+        // simulation.
+
+        let orderedSimulationNodes: [Node]
+        // TODO: orderedSimulationNodes should be (id, name, snapshot)
+
+        do {
+            orderedSimulationNodes = try view.sortedNodesByParameter(unsortedSimulationNodes)
+        }
+        catch let error as GraphCycleError {
+            // FIXME: Handle this.
+            fatalError("Unhandled graph cycle error: \(error). (Not implemented.)")
         }
         
-        // 0. Prepare from metamodel
+        // 4. Prepare named references to variables
+        // =================================================================
+        // This step is necessary for arithmetic expression compilation.
+
+        // Collect built-in variables.
         //
-        for function in AllBuiltinFunctions {
-            functions[function.name] = function
+        for (index, builtin) in builtinVariables.enumerated() {
+            let ref = BoundVariableReference(variable: .builtin(builtin),
+                                             index: index)
+            self.namedReferences[builtin.name] = ref
         }
-        builtinVariableNames = FlowsMetamodel.variables.map { $0.name }
 
-        // 1. Collect simulation nodes
-        // -----------------------------------------------------------------
+        // Collect simulation nodes and create ID to variable map
         //
-        
-        // 2. Validate names and create a name map.
-        // -----------------------------------------------------------------
-        //
-        try prepareNodes()
+        for (index, node) in orderedSimulationNodes.enumerated() {
+            let ref = BoundVariableReference(variable: .object(node.id),
+                                             index: index)
+            self.namedReferences[node.name!] = ref
+            self.objectToIndex[node.id] = index
+        }
 
-        // 4. Collect state and built-in variable references.
-        // -----------------------------------------------------------------
-        //
-        collectVariableReferences()
+        // 5. Compile computational representations
+        // =================================================================
         
-        // 5. Compile computational representations (computations)
-        // -----------------------------------------------------------------
-        //
         var issues = NodeIssuesError()
-        var computations: [ObjectID:ComputationalRepresentation] = [:]
         
-        for node in orderedSimulationNodes {
+        for (index, node) in orderedSimulationNodes.enumerated() {
+            let computation: ComputationalRepresentation
             do {
-                let rep = try self.compile(node)
-                computations[node.id] = rep
+                computation = try self.compile(node)
             }
             catch let error as NodeIssue {
                 issues.append(error, for:node.id)
+                continue
             }
             catch let error as NodeIssuesError {
-                // Thrown in parsedExpression()
+                // TODO: Remove necessity for this catch
                 issues.merge(error)
                 continue
             }
+            
+            let variable = ComputedVariable(
+                id: node.id,
+                index: index,
+                computation: computation,
+                name: node.name!
+            )
+            computedVariables.append(variable)
         }
         
         guard issues.isEmpty else {
             throw issues
         }
-        
-        for (index, node) in orderedSimulationNodes.enumerated() {
-            let variable = ComputedVariable(
-                id: node.id,
-                index: index,
-                computation: computations[node.id]!,
-                name: objectToName[node.id]!
-            )
-            computedVariables.append(variable)
-        }
 
         // 6. Filter by node type
-        // -----------------------------------------------------------------
-        //
+        // =================================================================
+
         var unsortedStocks: [Node] = []
         var flows: [CompiledFlow] = []
         var auxiliaries: [CompiledObject] = []
@@ -234,27 +293,27 @@ public class Compiler {
         }
         
         // 7. Sort stocks in order of flow dependency
-        // -----------------------------------------------------------------
-        //
+        // =================================================================
+
         // This step is needed for proper computation of non-negative stocks
 
-        updateImplicitFlows()
         let sortedStocks: [Node]
         do {
             let unsorted = unsortedStocks.map { $0.id }
             sortedStocks = try view.sortedStocksByImplicitFlows(unsorted)
             
         }
-        // catch let error as GraphCycleError {
         catch is GraphCycleError {
+            // catch let error as GraphCycleError {
             // FIXME: Handle the error
             fatalError("Unhandled graph cycle error")
         }
         
-        let compiledStocks = try compile(stocks: sortedStocks)
-        
-        // 6. Value Bindings
-        //
+        let compiledStocks = compile(stocks: sortedStocks)
+
+        // 8. Value Bindings
+        // =================================================================
+
         var bindings: [CompiledControlBinding] = []
         for object in frame.filter(type: FlowsMetamodel.ValueBinding) {
             guard let edge = Edge(object) else {
@@ -266,9 +325,9 @@ public class Compiler {
                                               variableIndex: variableIndex(edge.target))
             bindings.append(binding)
         }
-        
-        // Finalize
-        // -----------------------------------------------------------------
+
+        // Finalise
+        // =================================================================
         //
         let result = CompiledModel(
             builtinVariables: builtinVariables,
@@ -281,133 +340,7 @@ public class Compiler {
         
         return result
     }
-
-    /// Prepare simulation nodes by gathering them from the design creating
-    /// name maps.
-    ///
-    /// This function collects simulation nodes, sorts them by the order
-    /// of their computational dependency and creates a map between object names
-    /// and their identities.
-    ///
-    /// The nodes collected are all nodes that will be participating in the
-    /// simulation, such as stocks, flows or graph functions.
-    ///
-    /// Populated variables:
-    ///
-    /// - ``Compiler/objectToName``
-    /// - ``Compiler/orderedSimulationNodes``
-    /// - ``Compiler/nameToObject``
-    ///
-    /// - Throws: ``NodeIssuesError`` with ``NodeIssue/duplicateName(_:)`` for each
-    ///   object and name that has a duplicate name.
-    ///
-    public func prepareNodes() throws {
-        var issues: [ObjectID: [NodeIssue]] = [:]
-
-        // 1. Gather all simulation nodes and prepare an ID to name map
-        // -----------------------------------------------------------------
-        var unsortedNodes: [ObjectID] = []
-        for node in view.simulationNodes {
-            unsortedNodes.append(node.id)
-            self.objectToName[node.id] = node.name!
-        }
-
-        // 2. Sort nodes in order of computation
-        // -----------------------------------------------------------------
-        // All the nodes present in this list will form a simulation state.
-        // Indices in this vector will be the indices used through out the
-        // simulation.
-        //
-        do {
-            self.orderedSimulationNodes = try view.sortedNodesByParameter(unsortedNodes)
-        }
-        catch let error as GraphCycleError {
-            // FIXME: Handle this.
-            fatalError("Unhandled graph cycle error: \(error). (Not implemented.)")
-        }
-
-        var nameToObject: [String: ObjectID] = [:]
-
-        // 3. Validate names and create a name map.
-        // -----------------------------------------------------------------
-        // Collect all name duplicates so we can report them together and
-        // not to fail on the first one. More pleasant to the user.
-        var homonyms: [String: [ObjectID]] = [:]
-        
-        for (id, name) in objectToName {
-            if let existing = nameToObject[name] {
-                if homonyms[name] == nil {
-                    homonyms[name] = [existing, id]
-                }
-                else {
-                    homonyms[name]!.append(id)
-                }
-            }
-            else {
-                nameToObject[name] = id
-                objectToName[id] = name
-            }
-        }
-       
-        // 4 Report the duplicates, if any
-        // -----------------------------------------------------------------
-        //
-        var dupes: [String] = []
-
-        for (name, ids) in homonyms {
-            precondition(ids.count > 1, "Sanity check failed: Homonyms must have more than one item.")
-
-            let issue = NodeIssue.duplicateName(name)
-            dupes.append(name)
-            for id in ids {
-                issues[id, default: []].append(issue)
-            }
-        }
-
-        guard issues.isEmpty else {
-            throw NodeIssuesError(issues: issues)
-        }
-        
-        self.nameToObject = nameToObject
-    }
     
-    /// Collect all simulation variables and built-in variables.
-    ///
-    /// The function produces two outputs into the compiler:
-    ///
-    /// - list of built-in variables
-    /// - a mapping between a name and a variable
-    ///
-    public func collectVariableReferences() {
-        var builtinVariables: [BuiltinVariable] = []
-        var namedReferences: [String:BoundVariableReference] = [:]
-        var builtinVariableNames: [String] = []
-
-        // Collect simulation nodes
-        //
-        for (index, node) in orderedSimulationNodes.enumerated() {
-            let variable = VariableReference.object(node.id)
-            let ref = BoundVariableReference(variable: variable, index: index)
-            let name = objectToName[node.id]!
-            namedReferences[name] = ref
-            objectToIndex[node.id] = index
-        }
-        
-        // Collect builtin variables.
-        //
-        for (index, builtin) in FlowsMetamodel.variables.enumerated() {
-            builtinVariables.append(builtin)
-            let variable = VariableReference.builtin(builtin)
-            let ref = BoundVariableReference(variable: variable, index: index)
-            namedReferences[builtin.name] = ref
-            builtinVariableNames.append(builtin.name)
-        }
-
-        self.namedReferences = namedReferences
-        self.builtinVariables = builtinVariables
-        self.builtinVariableNames = builtinVariableNames
-    }
-   
     /// Get an index of a simulation variable that represents a node with given
     /// ID.
     ///
@@ -478,6 +411,7 @@ public class Compiler {
     ///
     public func compile(_ node: Node,
                         formula: FormulaComponent) throws -> ComputationalRepresentation{
+        // 
         // FIXME: [IMPORTANT] Parse expressions in a compiler sub-system, have it parsed here already
         let unboundExpression: UnboundExpression
         do {
@@ -499,7 +433,7 @@ public class Compiler {
         //
         let inputIssues = validateParameters(node.id, required: required)
         guard inputIssues.isEmpty else {
-            throw NodeIssuesError(issues: [node.id: inputIssues])
+            throw NodeIssuesError(errors: [node.id: inputIssues])
         }
         
         // Finally bind the expression.
@@ -628,50 +562,5 @@ public class Compiler {
         }
         
         return issues
-    }
-
-    /// Update edges that denote implicit flows between stocks.
-    ///
-    /// The created edges are of type ``FlowsMetamodel/ImplicitFlow``.
-    ///
-    /// The process:
-    ///
-    /// - create an edge between two stocks that are also connected by
-    ///   a flow
-    /// - clean-up edges between stocks where is no flow
-    ///
-    /// - SeeAlso: ``StockFlowView/implicitFills(_:)``,
-    ///   ``StockFlowView/implicitDrains(_:)``,
-    ///   ``StockFlowView/sortedStocksByImplicitFlows(_:)``
-    ///
-    public func updateImplicitFlows() {
-        var unused: [Edge] = view.implicitFlowEdges
-        
-        for flow in view.flowNodes {
-            guard let fills = view.flowFills(flow.id) else {
-                continue
-            }
-            guard let drains = view.flowDrains(flow.id) else {
-                continue
-            }
-            
-            let index = unused.firstIndex { edge in
-                edge.origin == drains && edge.target == fills
-            }
-            if let index {
-                // Keep the existing, and prevent from deletion later.
-                unused.remove(at: index)
-                continue
-            }
-            
-            graph.createEdge(FlowsMetamodel.ImplicitFlow,
-                             origin: drains,
-                             target: fills,
-                             components: [])
-        }
-        
-        for edge in unused {
-            graph.remove(edge: edge.id)
-        }
     }
 }

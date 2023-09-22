@@ -10,7 +10,7 @@ import PoieticCore
 
 /// A node representing a stock – accumulator, container, reservoir, a pool.
 ///
-public struct StockComponent: Component,
+public struct StockComponent: InspectableComponent,
                               CustomStringConvertible {
     
     public static var componentDescription = ComponentDescription(

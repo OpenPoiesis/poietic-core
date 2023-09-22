@@ -33,7 +33,7 @@ final class TestCompiler: XCTestCase {
         graph = frame.mutableGraph
     }
 
-    func testCollectNames() throws {
+    func testComputedVariables() throws {
         let compiler = Compiler(frame: frame)
         graph.createNode(FlowsMetamodel.Stock,
                          name: "a",
@@ -44,15 +44,16 @@ final class TestCompiler: XCTestCase {
         graph.createNode(FlowsMetamodel.Stock,
                          name: "c",
                          components: [FormulaComponent(expression:"0")])
+        graph.createNode(FlowsMetamodel.Note,
+                         name: "note",
+                         components: [])
         // TODO: Check using violation checker
         
-        try compiler.prepareNodes()
-        let names = compiler.nameToObject
+        let compiled = try compiler.compile()
+        let names = compiled.computedVariables.map { $0.name }
+            .sorted()
         
-        XCTAssertNotNil(names["a"])
-        XCTAssertNotNil(names["b"])
-        XCTAssertNotNil(names["c"])
-        XCTAssertEqual(names.count, 3)
+        XCTAssertEqual(names, ["a", "b", "c"])
     }
     
     func testValidateDuplicateName() throws {
@@ -72,7 +73,7 @@ final class TestCompiler: XCTestCase {
         
         // TODO: Check using violation checker
         
-        XCTAssertThrowsError(try compiler.prepareNodes()) {
+        XCTAssertThrowsError(try compiler.compile()) {
             guard let error = $0 as? NodeIssuesError else {
                 XCTFail("Expected DomainError")
                 return
@@ -119,6 +120,7 @@ final class TestCompiler: XCTestCase {
     }
     
     func testUpdateImplicitFlows() throws {
+        // TODO: No compiler needed, now it is using a transformation system
         let flow = graph.createNode(FlowsMetamodel.Flow,
                                     name: "f",
                                     components: [FormulaComponent(expression:"1")])
@@ -138,7 +140,6 @@ final class TestCompiler: XCTestCase {
                          target: sink,
                          components: [])
         
-        let compiler = Compiler(frame: frame)
         let view = StockFlowView(graph)
         
         XCTAssertEqual(view.implicitDrains(source).count, 0)
@@ -146,7 +147,9 @@ final class TestCompiler: XCTestCase {
         XCTAssertEqual(view.implicitDrains(source).count, 0)
         XCTAssertEqual(view.implicitFills(sink).count, 0)
         
-        compiler.updateImplicitFlows()
+        var system = ImplicitFlowsSystem()
+        var context = TransformationContext(frame: frame)
+        system.update(&context)
         
         let src_drains = view.implicitDrains(source)
         let sink_drains = view.implicitDrains(sink)
@@ -174,7 +177,13 @@ final class TestCompiler: XCTestCase {
             }
             
             XCTAssertEqual(error.issues.count, 1)
-            XCTAssertEqual(error.issues[gf], [.missingGraphicalFunctionParameter])
+            let first = error.issues[gf]!.first!
+
+            guard let issue = first as? NodeIssue else {
+                XCTFail("Did not get expected node issue error type")
+                return
+            }
+            XCTAssertEqual(issue, NodeIssue.missingGraphicalFunctionParameter)
             
         }
     }
@@ -204,10 +213,7 @@ final class TestCompiler: XCTestCase {
         XCTAssertEqual(boundFn.id, gf)
         XCTAssertEqual(boundFn.parameterIndex, compiled.index(of:param))
 
-        try compiler.prepareNodes()
-        
-        let names = compiler.nameToObject
-        XCTAssertNotNil(names["g"])
+        XCTAssertTrue(compiled.computedVariables.contains { $0.name == "g" })
         
         let issues = compiler.validateParameters(aux, required: ["g"])
         XCTAssertTrue(issues.isEmpty)
