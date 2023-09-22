@@ -140,7 +140,6 @@ extension ObjectMemory {
                                                  components: components)
             archive.snapshots.append(extended)
         }
-
         // 2. Write Stable Frames
         // ----------------------------------------------------------------
         // Unstable frames should not be persisted.

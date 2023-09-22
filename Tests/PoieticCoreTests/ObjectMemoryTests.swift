@@ -88,26 +88,26 @@ final class ObjectMemoryTests: XCTestCase {
     func testRemoveObjectCascading() throws {
         let db = ObjectMemory()
         let frame = db.deriveFrame()
-
+        
         let node1 = db.createSnapshot(TestNodeType)
         frame.insert(node1, owned: true)
-
+        
         let node2 = db.createSnapshot(TestNodeType)
         frame.insert(node2, owned: true)
-
+        
         let edge = db.createSnapshot(TestEdgeType,
                                      structuralReferences: [node1.id, node2.id])
         frame.insert(edge, owned: true)
-
+        
         let removed = frame.removeCascading(node1.id)
         XCTAssertEqual(removed.count, 1)
         XCTAssertTrue(removed.contains(edge.id))
-
+        
         XCTAssertFalse(frame.contains(node1.id))
         XCTAssertFalse(frame.contains(edge.id))
         XCTAssertTrue(frame.contains(node2.id))
     }
-
+    
     func testFrameMutableObject() throws {
         let db = ObjectMemory()
         let original = db.deriveFrame()
@@ -221,11 +221,11 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         try db.accept(db.createFrame())
         let v0 = db.currentFrameID!
-
+        
         let frame1 = db.deriveFrame()
         let a = frame1.create(TestType)
         try db.accept(frame1)
-
+        
         let frame2 = db.deriveFrame()
         let b = frame2.create(TestType)
         try db.accept(frame2)
@@ -235,28 +235,28 @@ final class ObjectMemoryTests: XCTestCase {
         
         XCTAssertTrue(db.currentFrame.contains(a))
         XCTAssertTrue(db.currentFrame.contains(b))
-
+        
         XCTAssertEqual(db.currentFrameID, frame2.id)
         XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
         XCTAssertEqual(db.redoableFrames, [])
         XCTAssertFalse(db.canRedo)
-
+        
         db.undo(to: v0)
         db.redo(to: frame2.id)
-
+        
         XCTAssertEqual(db.currentFrameID, frame2.id)
         XCTAssertEqual(db.undoableFrames, [v0, frame1.id])
         XCTAssertEqual(db.redoableFrames, [])
         XCTAssertFalse(db.canRedo)
-
+        
         db.undo(to: v0)
         db.redo(to: frame1.id)
-
+        
         XCTAssertEqual(db.currentFrameID, frame1.id)
         XCTAssertEqual(db.undoableFrames, [v0])
         XCTAssertEqual(db.redoableFrames, [frame2.id])
         XCTAssertTrue(db.canRedo)
-
+        
         XCTAssertTrue(db.currentFrame.contains(a))
         XCTAssertFalse(db.currentFrame.contains(b))
     }
@@ -265,11 +265,11 @@ final class ObjectMemoryTests: XCTestCase {
         let db = ObjectMemory()
         try db.accept(db.createFrame())
         let v0 = db.currentFrameID!
-
+        
         let frame1 = db.deriveFrame()
         let a = frame1.create(TestType)
         try db.accept(frame1)
-
+        
         db.undo(to: v0)
         
         let frame2 = db.deriveFrame()
@@ -280,7 +280,7 @@ final class ObjectMemoryTests: XCTestCase {
         XCTAssertEqual(db.versionHistory, [v0, frame2.id])
         XCTAssertEqual(db.undoableFrames, [v0])
         XCTAssertEqual(db.redoableFrames, [])
-
+        
         XCTAssertFalse(db.currentFrame.contains(a))
         XCTAssertTrue(db.currentFrame.contains(b))
     }
@@ -296,7 +296,7 @@ final class ObjectMemoryTests: XCTestCase {
         let constraint = Constraint(name: "test",
                                     match: AnyPredicate(),
                                     requirement: RejectAll())
-
+        
         // TODO: Test this separately
         try db.addConstraint(constraint)
         
@@ -313,5 +313,18 @@ final class ObjectMemoryTests: XCTestCase {
             XCTAssertTrue(violation.objects.contains(a))
             XCTAssertTrue(violation.objects.contains(b))
         }
+    }
+    
+    func testDeriveObjectWithStructure() throws {
+        let db = ObjectMemory()
+        let originalFrame = db.deriveFrame()
+        
+        let original = db.createSnapshot(TestNodeType)
+        originalFrame.insert(original, owned: true)
+        try db.accept(originalFrame)
+        
+        let derivedFrame = db.deriveFrame(original: originalFrame.id)
+        let derived = derivedFrame.mutableObject(original.id)
+        XCTAssertEqual(original.structure, derived.structure)
     }
 }

@@ -377,7 +377,7 @@ public class MutableFrame: Frame {
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
         // TODO: Replace this with just object() -> MutableObject as a reference
         precondition(state.isMutable, "Trying to modify a frozen frame")
-
+        
         guard let originalRef = self.objects[id] else {
             fatalError("No object with ID \(id) in frame ID \(self.id)")
         }
@@ -387,16 +387,19 @@ public class MutableFrame: Frame {
         else {
             let original = originalRef.snapshot
             let newSnapshotID = memory.allocateID()
-            let derived = ObjectSnapshot(id: id,
-                                  snapshotID: newSnapshotID,
-                                  type: original.type,
-                                  components: original.components.components)
+            let derived = ObjectSnapshot(
+                id: id,
+                snapshotID: newSnapshotID,
+                type: original.type,
+                structure: original.structure,
+                components: original.components.components
+            )
 
             let ref = SnapshotReference(snapshot: derived, owned: true)
             self.objects[id] = ref
             self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
             self.snapshotIDs.insert(newSnapshotID)
-            
+
             return derived
         }
     }
