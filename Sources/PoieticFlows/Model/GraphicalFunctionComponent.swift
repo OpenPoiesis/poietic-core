@@ -7,7 +7,7 @@
 
 import PoieticCore
 
-public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
+public struct GraphicalFunctionComponent: InspectableComponent, CustomStringConvertible {
     public static var componentDescription = ComponentDescription(
         name: "GraphicalFunction",
         attributes: [
