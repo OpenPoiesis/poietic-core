@@ -112,6 +112,9 @@ extension Frame{
 /// - SeeAlso: ``MutableFrame``
 ///
 public class StableFrame: Frame {
+    /// Memory to which the frame belongs.
+    public let memory: ObjectMemory
+    
     /// ID of the frame.
     ///
     /// ID is unique within the object memory.
@@ -130,10 +133,11 @@ public class StableFrame: Frame {
     ///
     /// - Precondition: Snapshot must not be mutable.
     ///
-    init(id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
+    init(memory: ObjectMemory, id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
         precondition(snapshots?.allSatisfy({ !$0.state.isMutable }) ?? true,
                      "Trying to create a stable frame with one or more mutable snapshots")
         
+        self.memory = memory
         self.id = id
         self._snapshots = [:]
         

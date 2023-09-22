@@ -401,28 +401,22 @@ public class ObjectMemory {
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.
     ///
-    /// The acceptance of the frame to the memory involves:
+    /// Before the frame is accepted it is validated using ``validate(_:)``.
+    /// If the frame does not violate any constraints and has referential
+    /// integrity, then it is frozen: all owned objects in the frame are
+    /// frozen.
     ///
-    /// - Check whether the structural referential integrity is assured – whether
-    ///   edges refer to nodes that are present in the frame.
-    /// - Check the constraints and collect all detected violations that can
-    ///   be identified.
-    /// - If there are any violations, raise `ConstraintViolationError` with a
-    ///   list of all detected violations.
-    /// - If the frame does not violate any constraints and has referential
-    ///   integrity, then it is frozen: all owned objects in the frame are
-    ///   frozen.
-    /// - New `StableFrame` is created with all objects from the original
-    ///   frame.
-    /// - The new frame is added to the list of stable frames.
-    /// - If `appendHistory` is `true` then the frame is also added at the end
-    ///   of the undo list. If there are any redo-able frames, they are all
-    ///   removed.
+    /// A new `StableFrame` is created with all objects from the original
+    /// frame. The new frame is added to the list of stable frames.
+    ///
+    /// If `appendHistory` is `true` then the frame is also added at the end
+    /// of the undo list. If there are any redo-able frames, they are all
+    /// removed.
     ///
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the memory.
     ///
-    /// - SeeAlso: `discard()`
+    /// - SeeAlso: ``discard()``, ``validate(_:)``
     ///
     public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
         precondition(frame.memory === self,
@@ -434,6 +428,45 @@ public class ObjectMemory {
         precondition(_mutableFrames[frame.id] != nil,
                      "Trying to accept am unknown frame with ID (\(frame.id))")
 
+        try validate(frame)
+        
+        frame.freeze()
+        
+        let stableFrame = StableFrame(memory: self,
+                                      id: frame.id,
+                                      snapshots: frame.snapshots)
+        _stableFrames[frame.id] = stableFrame
+        _mutableFrames[frame.id] = nil
+        
+        if appendHistory {
+            if let currentFrameID {
+                undoableFrames.append(currentFrameID)
+            }
+            redoableFrames.removeAll()
+        }
+        currentFrameID = frame.id
+        
+    }
+    
+    /// Validates a frame for constraints violations and referential integrity.
+    ///
+    /// This function first check whether the structural referential integrity
+    /// is assured – whether the structural details and parent-child hierarchy
+    /// have valid object references.
+    ///
+    /// Secondly the function check the constraints and collect all detected
+    /// violations that can be identified.
+    ///
+    /// If there are any constraint violations found, then the
+    /// ``ConstraintViolationError`` is thrown with a list of all detected
+    /// violations.
+    ///
+    /// - Throws: `ConstraintViolationError` when the frame contents violates
+    ///   constraints of the memory.
+    ///
+    /// - SeeAlso: ``accept(_:appendHistory:)``
+    ///
+    public func validate(_ frame: MutableFrame) throws {
         // Check referential integrity
         // ------------------------------------------------------------
         // NOTE: We no longer can have broken references – see MutableFrame.insert()
@@ -466,24 +499,8 @@ public class ObjectMemory {
         if !violations.isEmpty {
             throw ConstraintViolationError(violations: violations)
         }
-
-        frame.freeze()
-        
-        let stableFrame = StableFrame(id: frame.id,
-                                      snapshots: frame.snapshots)
-        _stableFrames[frame.id] = stableFrame
-        _mutableFrames[frame.id] = nil
-        
-        if appendHistory {
-            if let currentFrameID {
-                undoableFrames.append(currentFrameID)
-            }
-            redoableFrames.removeAll()
-        }
-        currentFrameID = frame.id
-        
     }
-    
+
     /// Add a constraint to the memory.
     ///
     /// Before adding the constraint to the memory, all stable frames are

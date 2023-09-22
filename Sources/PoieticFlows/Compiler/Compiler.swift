@@ -79,7 +79,7 @@ public class Compiler {
     public init(frame: MutableFrame) {
         // FIXME: [IMPORTANT] Compiler should get a stable frame, not a mutable frame!
         self.frame = frame
-        self.graph = frame.mutableGraph
+        self.graph = self.frame.mutableGraph
         self.view = StockFlowView(self.graph)
         
         builtinVariables = FlowsMetamodel.variables
@@ -102,25 +102,7 @@ public class Compiler {
         let name: String
         let computation: ComputationalRepresentation
     }
-    
-    func _DEBT_checkViolations() throws {
-        let violations = frame.memory.checkConstraints(frame)
         
-        if !violations.isEmpty {
-            // TODO: How to handle this here?
-            // Note: the compiler should work with stable frame - with
-            //       constraints satisfied. Remove this once the previous
-            //       sentence statement is true.
-            let error = ConstraintViolationError(violations: violations)
-            for (obj, errors) in error.prettyDescriptionsByObject {
-                for error in errors {
-                    print("ERROR: \(obj): \(error)")
-                }
-            }
-            throw ConstraintViolationError(violations: violations)
-        }
-    }
-    
     /// Compiles the model and returns the compiled version of the model.
     ///
     /// The compilation process is as follows:
@@ -135,7 +117,11 @@ public class Compiler {
     ///    of their dependency.
     /// 6. Finalise the compiled model.
     ///
-    /// - Throws: A ``NodeIssuesError`` when there are issues with the model.
+    /// - Throws: A ``NodeIssuesError`` when there are issues with the model
+    ///   that are caused by the user. Throws ``ConstraintViolationError`` if
+    ///   the frame constraints were violated. The later error is an
+    ///   application error and means that either the provided frame is
+    ///   mal-formed or one of the subsystems mis-behaved.
     /// - Returns: A ``CompiledModel`` that can be used directly by the
     ///   simulator.
     ///
@@ -149,8 +135,7 @@ public class Compiler {
         // FIXME: [REFACTORING] remove instance variable equivalent
         var computedVariables: [ComputedVariable] = []
 
-        // FIXME: This goes away once compiler gets its own frame
-        try _DEBT_checkViolations()
+        try frame.memory.validate(frame)
         
         // 1. Update pre-compilation systems
         // =================================================================
@@ -164,6 +149,9 @@ public class Compiler {
         guard context.errors.isEmpty else {
             throw NodeIssuesError(errors: context.errors)
         }
+
+        // TODO: Do we need second validation or we trust the systems?
+        try frame.memory.validate(frame)
 
         // 2. Collect nodes that are to be part of the simulation
         // =================================================================

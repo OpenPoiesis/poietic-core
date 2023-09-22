@@ -57,23 +57,23 @@ public class Simulator {
     }
 
     // MARK: - Compilation methods
-    
+        
     public func compile(_ frame: MutableFrame) throws {
         self.frame = frame
         
         let compiler = Compiler(frame: frame)
         
-        let context = CompilationContext(frame: frame)
-        for system in systems {
-            system.prepareForCompilation(context)
-        }
+//        let context = CompilationContext(frame: frame)
+//        for system in systems {
+//            system.prepareForCompilation(context)
+//        }
 
         let compiledModel = try compiler.compile()
 
-        for system in systems {
-            system.didCompile(context, model: compiledModel)
-        }
-        
+//        for system in systems {
+//            system.didCompile(context, model: compiledModel)
+//        }
+//        
         self.compiledModel = compiledModel
     }
     

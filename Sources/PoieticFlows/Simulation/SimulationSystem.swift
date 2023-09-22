@@ -18,7 +18,13 @@ public struct SimulationContext {
     let timeDelta: Double
     let step: Int
     let state: SimulationState
-    let frame: MutableFrame // TODO: Should be stable frame
+    
+    /// Frame used to capture derived outputs of the simulation.
+    ///
+    /// - Note: Changes in the frame have no effect on the simulaton itself,
+    ///   it should be considered as write-only frame.
+    ///
+    let frame: MutableFrame
     let model: CompiledModel
 }
 
@@ -43,9 +49,9 @@ public protocol SimulationSystem {
     /// - Model has been edited
     /// - Simulation was reset, when running interactive simulation
     ///
-    func prepareForCompilation(_ context: CompilationContext)
+//    func prepareForCompilation(_ context: CompilationContext)
     /// Compiled model has been created, use it
-    func didCompile(_ context: CompilationContext, model: CompiledModel)
+//    func didCompile(_ context: CompilationContext, model: CompiledModel)
 
     /// Called before the first step of the simulation is run.
     func prepareForRunning(_ context: SimulationContext)
@@ -58,13 +64,13 @@ public protocol SimulationSystem {
 }
 
 extension SimulationSystem {
-    public func prepareForCompilation(_ context: CompilationContext) {
-        // Do nothing
-    }
+//    public func prepareForCompilation(_ context: CompilationContext) {
+//        // Do nothing
+//    }
 
-    public func didCompile(_ context: CompilationContext, model: CompiledModel) {
-        // Do nothing
-    }
+//    public func didCompile(_ context: CompilationContext, model: CompiledModel) {
+//        // Do nothing
+//    }
 
     public func prepareForRunning(_ context: SimulationContext) {
         // Do nothing

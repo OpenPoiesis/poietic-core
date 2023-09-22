@@ -22,6 +22,8 @@
 /// | Derive new version             |     No          |   Yes    |   Yes    |
 ///
 public enum VersionState {
+    // TODO: Bring back the original case names: transient, stable, validated
+
     // Validated, transient, unstable
     /// Denotes that the version of an object is immutable and can not become
     /// mutable any more.
@@ -52,4 +54,3 @@ public enum VersionState {
     ///
     public var isMutable: Bool { return self == .transient || self == .uninitialized }
 }
-
