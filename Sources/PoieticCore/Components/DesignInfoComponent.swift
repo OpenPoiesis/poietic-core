@@ -43,7 +43,7 @@ struct DesignInfoComponent: InspectableComponent {
         self.author = ""
         self.license = ""
     }
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "title": return ForeignValue(title)
         case "author": return ForeignValue(author)
@@ -51,7 +51,7 @@ struct DesignInfoComponent: InspectableComponent {
         default: return nil
         }
     }
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "title": self.title = try value.stringValue()

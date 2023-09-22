@@ -22,12 +22,6 @@ public enum AttributeError: Error {
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
-/// Type for object attribute values.
-public typealias AttributeValue = ForeignValue
-
-/// Type for a dictionary of graph object attributes.
-public typealias AttributeDictionary = [AttributeKey:AttributeValue]
-
 /// A protocol for objects that provide their attributes by keys.
 ///
 public protocol KeyedAttributes {
@@ -37,20 +31,20 @@ public protocol KeyedAttributes {
     
     /// Returns a dictionary of attributes.
     ///
-    func dictionary(withKeys: [AttributeKey]) -> AttributeDictionary
+    func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:ForeignValue]
 
     /// Returns an attribute value for given key.
     ///
-    func attribute(forKey key: String) -> AttributeValue?
+    func attribute(forKey key: String) -> ForeignValue?
 }
 
 extension KeyedAttributes {
-    public func dictionary(withKeys: [AttributeKey]) -> AttributeDictionary {
+    public func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:ForeignValue] {
         let tuples = attributeKeys.compactMap { key in
             self.attribute(forKey: key).map { (key, $0) }
         }
         
-        return AttributeDictionary(uniqueKeysWithValues: tuples)
+        return [AttributeKey:ForeignValue](uniqueKeysWithValues: tuples)
     }
 }
 
@@ -60,12 +54,12 @@ extension KeyedAttributes {
 /// This protocol is provided for inspectors and import/export functionality.
 ///
 public protocol MutableKeyedAttributes: KeyedAttributes {
-    mutating func setAttribute(value: AttributeValue, forKey key: AttributeKey) throws
-    mutating func setAttributes(_ dict: AttributeDictionary) throws
+    mutating func setAttribute(value: ForeignValue, forKey key: AttributeKey) throws
+    mutating func setAttributes(_ dict: [AttributeKey:ForeignValue]) throws
 }
 
 extension MutableKeyedAttributes {
-    public mutating func setAttributes(_ dict: AttributeDictionary) throws {
+    public mutating func setAttributes(_ dict: [AttributeKey:ForeignValue]) throws {
         for (key, value) in dict {
             try self.setAttribute(value: value, forKey: key)
         }

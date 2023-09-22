@@ -24,15 +24,34 @@ public struct ParsedFormulaComponent: Component {
         self.parsedFormula = parsedFormula
     }
 
-    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.AttributeValue? {
+    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.ForeignValue? {
         fatalError("Not implemented")
     }
     
-    public mutating func setAttribute(value: PoieticCore.AttributeValue, forKey key: PoieticCore.AttributeKey) throws {
+    public mutating func setAttribute(value: PoieticCore.ForeignValue, forKey key: PoieticCore.AttributeKey) throws {
         fatalError("Not implemented")
     }
     
 }
+
+/// Input:
+///     - All objects
+/// Output:
+///     - Remove all errors from existing error components
+///     (do not remove the component).
+/// Generates errors
+///
+public struct IssueCleaningSystem: TransformationSystem {
+    public mutating func update(_ context: inout TransformationContext) {
+        let items = context.frame.filter(component: IssueListComponent.self)
+        
+        for (snapshot, _) in items {
+            let mutable = context.frame.mutableObject(snapshot.id)
+            mutable[IssueListComponent.self]?.removeAll()
+        }
+    }
+}
+
 
 /// Input:
 ///     - FormulaComponent

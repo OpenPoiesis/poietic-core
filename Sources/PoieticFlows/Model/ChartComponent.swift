@@ -24,14 +24,14 @@ public struct ChartComponent: InspectableComponent {
         self.value = 0
     }
 
-    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.AttributeValue? {
+    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.ForeignValue? {
         switch key {
         case "value": return ForeignValue(value)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: PoieticCore.AttributeValue, forKey key: PoieticCore.AttributeKey) throws {
+    public mutating func setAttribute(value: PoieticCore.ForeignValue, forKey key: PoieticCore.AttributeKey) throws {
         switch key {
         case "value": self.value = try value.doubleValue()
         default:

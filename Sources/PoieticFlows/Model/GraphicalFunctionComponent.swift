@@ -38,7 +38,7 @@ public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
     }
 
     
-    public mutating func setAttribute(value: AttributeValue, forKey key: AttributeKey) throws {
+    public mutating func setAttribute(value: ForeignValue, forKey key: AttributeKey) throws {
         switch key {
         case "interpolation_method":
             let methodName = try value.stringValue()
@@ -52,7 +52,7 @@ public struct GraphicalFunctionComponent: Component, CustomStringConvertible {
 
     }
     
-    public func attribute(forKey key: String) -> AttributeValue? {
+    public func attribute(forKey key: String) -> ForeignValue? {
         switch key {
         case "interpolation_method": return ForeignValue(method.rawValue)
         case "points": return ForeignValue(points)

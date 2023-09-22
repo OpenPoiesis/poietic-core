@@ -59,7 +59,7 @@ public struct StockComponent: InspectableComponent,
         self.delayedInflow = delayedInflow
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "allows_negative": return ForeignValue(allowsNegative)
         case "delayed_inflow": return ForeignValue(delayedInflow)
@@ -67,7 +67,7 @@ public struct StockComponent: InspectableComponent,
         }
     }
     
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "allows_negative": self.allowsNegative = try value.boolValue()

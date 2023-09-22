@@ -11,8 +11,15 @@ public struct TransformationContext {
     let frame: MutableFrame
     var errors: [ObjectID: [Error]] = [:]
     
+    /// Appends an error to the list of errors in the context and in the object.
+    ///
+    /// An error is appended to the list of errors in the ``IssueListComponent``
+    /// of the specified node. If the component is not present in the node
+    /// then a new one will be created.
+    /// 
     public mutating func appendError(_ error: Error, for id: ObjectID) {
         errors[id, default: []].append(error)
+        frame.object(id).appendIssue(error)
     }
 }
 

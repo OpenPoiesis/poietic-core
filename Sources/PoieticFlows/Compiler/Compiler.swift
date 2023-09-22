@@ -68,9 +68,13 @@ public class Compiler {
     /// - Note: This will be public once happy.
     ///
     private var _preCompilationSystems: [any TransformationSystem] = [
+        IssueCleaningSystem(),
         ExpressionParsingSystem(),
-        ImplicitFlowsSystem()
+        ImplicitFlowsSystem(),
     ]
+//    private var _postCompilationSystems: [any TransformationSystem] = [
+//    ]
+
     // TODO: [REFACTORING] Status: OK, NEW
 
     /// Creates a compiler that will compile within the context of the given
@@ -550,5 +554,9 @@ public class Compiler {
         }
         
         return issues
+    }
+    
+    public func appendIssue(_ error: Error, to object: ObjectID) {
+        
     }
 }

@@ -94,14 +94,14 @@ public struct FormulaComponent: InspectableComponent,
         return "Formula(\(expressionString))"
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "formula": return ForeignValue(expressionString)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "formula": self.expressionString = try value.stringValue()

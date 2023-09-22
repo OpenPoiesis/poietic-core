@@ -111,9 +111,7 @@ For querying features of a graph there is ``Neighborhood`` and
 - ``ForeignAtom``
 - ``ForeignRecordError``
 
-- ``AttributeDictionary``
 - ``AttributeKey``
-- ``AttributeValue``
 - ``ForeignRecordError``
 
 - ``CSVForeignRecordReader``

@@ -59,14 +59,14 @@ public struct FlowComponent: InspectableComponent,
         self.priority = priority
     }
 
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "priority": return ForeignValue(priority)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "priority": self.priority = try value.intValue()

@@ -19,7 +19,7 @@ let TestEdgeType = ObjectType(name: "TestEdge",
                           components: [])
 
 
-struct TestComponent: Component {
+struct TestComponent: InspectableComponent {
     static var componentDescription = ComponentDescription(
         name: "Test",
         attributes: [
@@ -39,14 +39,14 @@ struct TestComponent: Component {
     
     var text: String
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "text": return ForeignValue(text)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "text": self.text = try value.stringValue()
@@ -57,7 +57,7 @@ struct TestComponent: Component {
     }
 }
 
-struct IntegerComponent: Component, Equatable {
+struct IntegerComponent: InspectableComponent, Equatable {
     static var componentDescription = ComponentDescription(
         name: "Integer",
         attributes: [
@@ -75,14 +75,14 @@ struct IntegerComponent: Component, Equatable {
         self.value = value
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "value": return ForeignValue(value)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "value": self.value = try value.intValue()

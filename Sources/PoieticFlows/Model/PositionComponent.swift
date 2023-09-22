@@ -33,7 +33,7 @@ public struct PositionComponent: Component,
         self.position = Point(x: x, y: y)
     }
 
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
 //        case "position": return ForeignValue(position)
         case "x": return ForeignValue(position.x)
@@ -42,7 +42,7 @@ public struct PositionComponent: Component,
         }
     }
     
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
 //        case "position": self.position = try value.pointValue()

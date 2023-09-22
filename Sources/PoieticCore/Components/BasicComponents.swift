@@ -56,14 +56,14 @@ public struct NameComponent: InspectableComponent, CustomStringConvertible {
         return "\(name)"
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "name": return ForeignValue(name)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "name": self.name = try value.stringValue()
@@ -135,14 +135,14 @@ struct AudienceLevelComponent: InspectableComponent {
         self.audienceLevel = .any
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "audienceLevel": return ForeignValue(audienceLevel.rawValue)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "audienceLevel":
@@ -179,7 +179,7 @@ public struct DocumentationComponent: InspectableComponent {
         self.documentation = ""
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "abstract": return ForeignValue(abstract)
         case "documentation": return ForeignValue(documentation)
@@ -187,7 +187,7 @@ public struct DocumentationComponent: InspectableComponent {
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "abstract": self.abstract = try value.stringValue()
@@ -217,14 +217,14 @@ public struct KeywordsComponent: InspectableComponent {
         self.keywords = []
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "keywords": return ForeignValue(keywords)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "keywords": self.keywords = try value.stringArray()
@@ -253,14 +253,14 @@ public struct NoteComponent: InspectableComponent {
         self.note = ""
     }
     
-    public func attribute(forKey key: AttributeKey) -> AttributeValue? {
+    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
         case "note": return ForeignValue(note)
         default: return nil
         }
     }
 
-    public mutating func setAttribute(value: AttributeValue,
+    public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "note": self.note = try value.stringValue()

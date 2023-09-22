@@ -10,7 +10,7 @@
 //
 // Component
 //    +--+----- Inspectable Component
-//       +----- Persistable Component
+//       +----- Persistable Component (DesignComponent)
 
 /// Protocol for object components.
 ///
@@ -135,6 +135,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///
     ///
     init(record: ForeignRecord) throws
+    // TODO: Make the above for PersistableComponent only
     
     /// Get an attribute value by its name.
     ///
@@ -152,7 +153,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///
     /// - SeeAlso: ``setAttribute(value:forKey:)``, ``init(record:)``
     ///
-    func attribute(forKey key: AttributeKey) -> AttributeValue?
+    func attribute(forKey key: AttributeKey) -> ForeignValue?
 
     
     /// Set an attribute by its name.
@@ -170,7 +171,8 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///
     /// - SeeAlso: ``attribute(forKey:)``, ``init(record:)``
     ///
-    mutating func setAttribute(value: AttributeValue, forKey key: AttributeKey) throws
+    mutating func setAttribute(value: ForeignValue, forKey key: AttributeKey) throws
+    // TODO: Make the above for PersistableComponent only
 
     
     /// Create a foreign record from the component.
@@ -182,6 +184,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     /// - SeeAlso: ``attribute(forKey:)``
     ///
     func foreignRecord() -> ForeignRecord
+    // TODO: Make the above for PersistableComponent only
 }
 
 extension InspectableComponent {
@@ -229,25 +232,6 @@ extension InspectableComponent {
         Self.componentDescription.name
     }
     
-}
-
-// TODO: REMOVE the following
-var _PersistableComponentRegistry: [String:Component.Type] = [:]
-
-/// Register a persistable component by name.
-///
-/// - SeeAlso: `persistableComponent()`
-///
-public func registerPersistableComponent(name: String,
-                                         type: Component.Type) {
-    _PersistableComponentRegistry[name] = type
-}
-/// Get a class of persistable component by name.
-///
-/// - SeeAlso: `registerPersistableComponent()`
-///
-public func persistableComponent(name: String) -> Component.Type? {
-    return _PersistableComponentRegistry[name]
 }
 
 
