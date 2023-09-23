@@ -10,7 +10,7 @@
 
 let TestType = ObjectType(name: "TestPlain",
                           structuralType: .unstructured,
-                          components: [])
+                          components: [TestComponent.self])
 let TestNodeType = ObjectType(name: "TestNode",
                           structuralType: .node,
                           components: [])
@@ -32,7 +32,7 @@ struct TestComponent: InspectableComponent {
     }
     
     init() {
-        fatalError("Test component cannot be initialized as empty")
+        text = "__test__"
     }
     
     var componentName: String = "Test"

@@ -327,4 +327,18 @@ final class ObjectMemoryTests: XCTestCase {
         let derived = derivedFrame.mutableObject(original.id)
         XCTAssertEqual(original.structure, derived.structure)
     }
+    
+    func testSetAttribute() throws {
+        let db = ObjectMemory()
+        let frame = db.deriveFrame()
+        let id = frame.create(TestType, components: [TestComponent(text: "before")])
+        
+        let obj = frame.object(id)
+        
+        try obj.setAttribute(value: ForeignValue("after"), forKey: "text")
+        
+        let comp: TestComponent = obj[TestComponent.self]!
+        XCTAssertEqual(comp.text, "after")
+        XCTAssertEqual(obj.attribute(forKey: "text"), "after")
+    }
 }

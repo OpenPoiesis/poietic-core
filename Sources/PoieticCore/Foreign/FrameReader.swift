@@ -272,6 +272,7 @@ public class ForeignFrameReader {
         // 1. Instantiate objects and gather IDs
         //
         for (index, object) in objects.enumerated() {
+            
             guard let type = metamodel.objectType(name: object.type) else {
                 throw FrameReaderError.unknownObjectType(object.type, index)
             }

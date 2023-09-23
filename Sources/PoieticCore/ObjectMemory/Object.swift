@@ -219,6 +219,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
 
         for key in record.allKeys {
             try self.setAttribute(value: record[key]!, forKey: key)
+            let attr = attribute(forKey: key)
         }
         self.structure = structure
         self.state = .transient
@@ -255,14 +256,18 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public var description: String {
         let structuralName: String = self.structure.type.rawValue
-        return "\(structuralName)(id: \(id), ssid: \(snapshotID), type:\(type.name))"
+        let attrs = self.type.attributes.map {
+            ($0.name, attribute(forKey: $0.name) ?? "nil")
+        }.map { "\($0.0)=\($0.1)"}
+        .joined(separator: ",")
+        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
     }
     
     /// Prettier description of the object.
     ///
     public var prettyDescription: String {
         let name: String = self.name ?? "(unnamed)"
-        return "\(id) {\(type.name), \(structure.description), \(name)}"
+        return "\(id) {\(type.name), \(structure.description), \(name))}"
     }
     
     /// Mark the object as initialized.
@@ -356,9 +361,12 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         guard let component = components[componentType] else {
             fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
         }
+        
+        // TODO: The following does not work
+        //        components[componentType]?.setAttribute(value: value, forKey: key)
         var inspectable = (component as! InspectableComponent)
         try inspectable.setAttribute(value: value, forKey: key)
-        components.set(component)
+        components.set(inspectable)
     }
     
     public var debugID: String {
