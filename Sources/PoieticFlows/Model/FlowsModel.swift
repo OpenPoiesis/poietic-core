@@ -131,6 +131,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Chart",
         structuralType: .node,
         components: [
+            NameComponent.self,
             ChartComponent.self,
         ]
     )

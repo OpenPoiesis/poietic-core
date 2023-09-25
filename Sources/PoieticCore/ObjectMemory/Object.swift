@@ -63,6 +63,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// - SeeAlso: ``Component``, ``ObjectType``.
     ///
     public var components: ComponentSet
+    
+    /// List of components where their attributes can be retrieved
+    /// or set by their names.
+    ///
     public var inspectableComponents: [any InspectableComponent] {
         components.compactMap {
             $0 as? InspectableComponent
@@ -217,41 +221,70 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         precondition(self.state == .uninitialized,
                      "Trying to initialize already initialized object \(self.debugID)")
 
+        // TODO: Test whether setting an attribute from a component that does not  exist will create the component.
+
         for key in record.allKeys {
             try self.setAttribute(value: record[key]!, forKey: key)
-            let attr = attribute(forKey: key)
         }
         self.structure = structure
         self.state = .transient
         return self
     }
 
-    /// Create a foreign record from the snapshot.
+    /// Create a foreign object from the snapshot.
     ///
     /// Use this method to create a representation of the snapshot that can be
     /// used in foreign interfaces - persisting, converting to other formats,
     /// sending over a network, etc.
     ///
-    public func foreignRecord() -> ForeignRecord {
-        var dict: [String:ForeignValue] = [
-            "object_id": ForeignValue(id),
-            "snapshot_id": ForeignValue(snapshotID),
-            "structure": ForeignValue(structure.type.rawValue),
-            "type": ForeignValue(type.name),
-        ]
+    public func foreignObject() -> ForeignObject {
+        let children = self.children.map { String($0) }
+        let origin: String?
+        let target: String?
         
         switch structure {
-        case .edge(let origin, let target):
-            dict["origin"] = ForeignValue(origin)
-            dict["target"] = ForeignValue(target)
-        default:
-            // Do nothing
-            _ = 0
+        case .unstructured, .node:
+            origin = nil
+            target = nil
+        case let .edge(originID, targetID):
+            origin = String(originID)
+            target = String(targetID)
         }
-        
-        return ForeignRecord(dict)
+
+        let foreign = ForeignObject(type: type.name,
+                                    id: String(id),
+                                    snapshotID: String(snapshotID),
+                                    name: self.name,
+                                    attributes: attributesAsForeignRecord(),
+                                    origin: origin,
+                                    target: target,
+                                    children: children)
+
+        return foreign
     }
     
+    /// Create a foreign record for all snapshot's attributes.
+    ///
+    /// Attributes from all ``InspectableComponent`` components are included
+    /// regardles whether the objects type advertises them or not.
+    ///
+    /// - SeeAlso: ``InspectableComponent/attributeKeys``, ``InspectableComponent/attribute(forKey:)``
+    ///
+    public func attributesAsForeignRecord() -> ForeignRecord {
+        // Preserve all foreign attributes regardles whether they are advertised
+        // by the type or not. This includes attributes from additional
+        // components.
+        //
+        // TODO: Test this.
+        var dict: [String: ForeignValue] = [:]
+        for component in self.inspectableComponents {
+            for key in component.attributeKeys {
+                dict[key] = component.attribute(forKey: key)
+            }
+        }
+        let record = ForeignRecord(dict)
+        return record
+    }
     /// Textual description of the object.
     ///
     public var description: String {
@@ -323,11 +356,23 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     }
     
     
-    // TODO: Add tests
+    /// Get a value for an attribute.
+    ///
+    /// The function returns a foreign value for a given attribute from
+    /// the components or for a special snapshot attribute.
+    ///
+    /// The special snapshot attributes are:
+    /// - `"id"` – object ID of the snapshot
+    /// - `"snapshotID"` – ID of object version snapshot
+    /// - `"type"` – name of the object type, see ``ObjectType/name``
+    /// - `"structure"` – name of the structural type of the object
+    ///
+    /// Other keys are searched in the list of object's components. The
+    /// first value found in the list of the components is returned.
+    ///
     public func attribute(forKey key: String) -> ForeignValue? {
-        // FIXME: This needs attention. It was written hastily without deeper thought.
         // TODO: This is asymmetrical with setAttribute, it should not be (that much)
-        // TODO: Add structural component keys here
+        // TODO: Add tests
         switch key {
         case "id": return ForeignValue(id)
         case "snapshot_id": return ForeignValue(snapshotID)
@@ -335,16 +380,13 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             return ForeignValue(type.name)
         case "structure": return ForeignValue(structure.type.rawValue)
         default:
-            guard let componentType = type.componentType(forAttribute: key) else {
-                // TODO: What to do here? Fail? Throw?
-                return nil
-                //                fatalError("Object type \(type.name) has no component with attribute \(key).")
+            // Find first component that has the value.
+            for component in inspectableComponents {
+                if let value = component.attribute(forKey: key){
+                    return value
+                }
             }
-            
-            guard let component = components[componentType] else {
-                fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
-            }
-            return (component as! InspectableComponent).attribute(forKey: key)
+            return nil
         }
     }
     

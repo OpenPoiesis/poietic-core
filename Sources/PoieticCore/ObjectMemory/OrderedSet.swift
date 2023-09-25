@@ -16,6 +16,10 @@ public struct OrderedSet<T: Equatable>: Equatable {
         self.items = []
     }
 
+    public init(_ items: [Item]) {
+        self.items = items
+    }
+    
     public var isEmpty: Bool { items.isEmpty }
     
     public func contains(_ item: Item) -> Bool {

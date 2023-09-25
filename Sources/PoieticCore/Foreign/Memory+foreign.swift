@@ -47,7 +47,7 @@ private struct MemoryArchive: Codable {
     fileprivate var info: ArchiveInfo = ArchiveInfo()
     fileprivate var framesets: [String: [FrameID]] = [:]
     fileprivate var frames: [FrameID: [SnapshotID]] = [:]
-    fileprivate var snapshots: [ExtendedForeignRecord] = []
+    fileprivate var snapshots: [ForeignObject] = []
     
 //    enum CodingKeys: CodingKey, String {
 //        case info = "info"
@@ -70,48 +70,31 @@ private struct MemoryArchive: Codable {
 }
 
 extension ObjectMemory {
-    func createSnapshot(record: ExtendedForeignRecord) throws -> ObjectSnapshot {
-        // TODO: Check for existence and register with list of all snapshots.
-        // TODO: This should include the snapshot into the list of snapshots.
-        // TODO: Handle wrong IDs.
-        let id: ObjectID = try record.main.IDValue(for: "object_id")
-        let snapshotID: SnapshotID = try record.main.IDValue(for: "snapshot_id")
-
-        let type: ObjectType
+    func createSnapshot(_ object: ForeignObject) throws -> ObjectSnapshot {
+        // TODO: Make it respect model upgrades.
+        // TODO: Make storage component-wise, not attribute-wise (?)
         
-        let typeName = try record.main.stringValue(for: "type")
-        if let objectType = metamodel.objectType(name: typeName) {
-            type = objectType
-        }
-        else {
-            fatalError("Unknown object type: \(typeName)")
-        }
+        let id: ObjectID = ObjectID(object.id!)!
+        let snapshotID: SnapshotID = ObjectID(object.snapshotID!)!
 
-        var components: [any InspectableComponent] = []
-        
-        for (name, compRecord) in record.components {
-            guard let type: InspectableComponent.Type = metamodel.inspectableComponent(name: name) else {
-                fatalError("No registered inspectable component with name: \(name)")
-            }
-            let component = try type.init(record: compRecord)
-            components.append(component)
-        }
-
-        let references: [ObjectID]
-        
+        let type = metamodel.objectType(name: object.type)!
+        let structure: StructuralComponent
         switch type.structuralType {
-        case .node, .unstructured:
-            references = []
+        case .unstructured:
+            structure = .unstructured
+        case .node:
+            structure = .node
         case .edge:
-            let origin: ObjectID = try record.main.IDValue(for: "origin")
-            let target: ObjectID = try record.main.IDValue(for: "target")
-            references = [origin, target]
+            structure = .edge(ObjectID(object.origin!)!, ObjectID(object.target!)!)
         }
-        let snapshot = createSnapshot(type,
-                                      id: id,
-                                      snapshotID: snapshotID,
-                                      components: components,
-                                      structuralReferences: references)
+
+        let snapshot = ObjectSnapshot(id: id, snapshotID: snapshotID, type: type)
+
+        if let children = object.children {
+            snapshot.children = ChildrenSet(children.map { ObjectID($0)! })
+        }
+        try snapshot.initialize(structure: structure,
+                                record: object.attributes!)
         snapshot.freeze()
         return snapshot
     }
@@ -128,17 +111,8 @@ extension ObjectMemory {
         // ----------------------------------------------------------------
         
         for snapshot in snapshots {
-            let main = snapshot.foreignRecord()
-            var components: [String:ForeignRecord] = [:]
-
-            for component in snapshot.inspectableComponents {
-                let componentRecord = component.foreignRecord()
-                components[component.componentName] = componentRecord
-            }
-            
-            let extended = ExtendedForeignRecord(main: main,
-                                                 components: components)
-            archive.snapshots.append(extended)
+            let foreign = snapshot.foreignObject()
+            archive.snapshots.append(foreign)
         }
         // 2. Write Stable Frames
         // ----------------------------------------------------------------
@@ -213,7 +187,7 @@ extension ObjectMemory {
         var snapshots: [SnapshotID: ObjectSnapshot] = [:]
         
         for record in archive.snapshots {
-            let snapshot = try createSnapshot(record: record)
+            let snapshot = try createSnapshot(record)
             guard snapshots[snapshot.snapshotID] == nil else {
                 fatalError("Duplicate snapshot ID: \(snapshot.snapshotID)")
             }

@@ -46,29 +46,6 @@ public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
 }
 
 
-// TODO: Consolidate this with ExtendedForeignRecord
-public struct ForeignObject: Codable {
-    public enum CodingKeys: String, CodingKey {
-        case type
-        case id
-        case name
-        case attributes
-        // Structural
-        case origin = "from"
-        case target = "to"
-        case children
-    }
-    public let type: String
-    public let id: String?
-    public let name: String?
-    public let attributes: ForeignRecord?
-
-    // Structural properties
-    public let origin: String?
-    public let target: String?
-    public let children: [String]?
-}
-
 public struct ForeignFrameInfo: Codable {
     // FIXME: [IMPORTANT] This is not quite version change tolerant yet. It MUST be.
     // TODO: Allow objects to be embedded
