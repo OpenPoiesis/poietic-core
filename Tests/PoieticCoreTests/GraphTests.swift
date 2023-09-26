@@ -22,7 +22,7 @@ final class GraphTests: XCTestCase {
         let n1 = memory.createSnapshot(TestNodeType)
         let n2 = memory.createSnapshot(TestNodeType)
         let u1 = memory.createSnapshot(TestType)
-        let e1 = memory.createSnapshot(TestEdgeType, structuralReferences: [n1.id, n2.id])
+        let e1 = memory.createSnapshot(TestEdgeType, structure: .edge(n1.id, n2.id))
 
         frame.insert(n1, owned: true)
         frame.insert(n2, owned: true)

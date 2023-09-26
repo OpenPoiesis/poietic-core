@@ -116,8 +116,8 @@ public class MutableFrame: Frame {
     /// frame, not removed from the memory or any other frame.
     ///
     public init(memory: ObjectMemory,
-         id: FrameID,
-         snapshots: [ObjectSnapshot]? = nil) {
+                id: FrameID,
+                snapshots: [ObjectSnapshot]? = nil) {
         self.memory = memory
         self.id = id
         self.objects = [:]
@@ -151,15 +151,12 @@ public class MutableFrame: Frame {
     /// If the requirements are not met, then it is considered a programming
     /// error.
     ///
+    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``MutableFrame/unsafeInsert(_:owned:)``
+    ///
     public func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         // Check for referential integrity
-        precondition(snapshot.structuralDependencies.allSatisfy({contains($0)}),
-                     "Trying to insert an object with structural dependencies not present in the frame")
-        precondition(snapshot.children.allSatisfy({contains($0)}),
-                     "Trying to insert an object with children not present in the frame \(id)")
-        if let parent = snapshot.parent {
-            precondition(contains(parent),
-                         "Trying to insert an object with parent \(parent) not present in the frame \(id)")
+        guard brokenReferences(snapshot: snapshot).isEmpty else {
+            fatalError("Trying to insert an object that contains invalid references. Hint: Check structure, children or parent.")
         }
         unsafeInsert(snapshot, owned: owned)
     }
@@ -168,8 +165,13 @@ public class MutableFrame: Frame {
     /// references.
     ///
     /// This method is intended to be used by batch-loading of objects
-    /// into the frame where the caller is responsible for assuring
-    /// the structural integrity of the frame.
+    /// into the frame where the caller adds objects in an order when
+    /// referential integrity might not be assured unless the whole
+    /// batch is loaded. Frame with broken referential integrity can not
+    /// be accepted by the object memory (``ObjectMemory/accept(_:appendHistory:)``.
+    ///
+    /// It is rather rare to use this method. Typically one would
+    /// use the ``insert(_:owned:)`` method.
     ///
     /// Requirements for the snapshot:
     ///
@@ -184,6 +186,8 @@ public class MutableFrame: Frame {
     ///     - snapshot: Snapshot to be inserted.
     ///     - owned: Flag whether the snapshot will be owned by the frame or
     ///              not.
+    ///
+    /// - SeeAlso: ``MutableFrame/insert(_:owned:)``
     ///
     public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
@@ -230,17 +234,17 @@ public class MutableFrame: Frame {
     ///
     /// - Precondition: The frame is not frozen. See ``freeze()``.
     ///
-    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structuralReferences:initialized:)``,
+    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structure:initialized:)``,
     ///   ``ObjectSnapshot/init(id:snapshotID:type:structure:components:)
     ///
     public func create(_ type: ObjectType,
-                       structuralReferences refs: [ObjectID] = [],
+                       structure: StructuralComponent? = nil,
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         
         let snapshot = memory.createSnapshot(type,
                                              components: components,
-                                             structuralReferences: refs)
+                                             structure: structure)
         insert(snapshot, owned: true)
         return snapshot.id
     }
@@ -252,10 +256,13 @@ public class MutableFrame: Frame {
     ///
     /// All object's children will be removed as well.
     ///
+    /// All parents from which an object is removed will be mutated using
+    /// ``mutableObject(_:)``.
+    ///
     /// - Returns: A list of objects removed from the frame except the object
     ///   asked to be removed.
     ///
-    /// - Complexity: O(n)
+    /// - Complexity: Worst case O(n^2), typically O(n).
     ///
     /// - Precondition: The frame must contain object with given ID.
     /// - Precondition: The frame is not frozen. See ``freeze()``.
@@ -267,41 +274,36 @@ public class MutableFrame: Frame {
                      "Unknown object ID \(id) in frame \(self.id)")
         
         var removed: Set<ObjectID> = Set()
+        var scheduled: Set<ObjectID> = [id]
 
-        var toRemove: [ObjectSnapshot] = []
-        var toVisit: [ObjectID] = [id]
-        
-        // NOTE: We assume there are no loops.
-        // TODO: [OPTIMAL] Remove from parent only when parent is not removed too.
-        while !toVisit.isEmpty {
-            let rubbishID = toVisit.removeFirst()
-            let rubbish = object(rubbishID)
-            toRemove.append(rubbish)
-            removeFromParent(rubbishID)
-            toVisit += rubbish.children
-        }
-
-        // TODO: [EXPENSIVE] Nested loop
-        for ref in objects.values {
-            for rubbish in toRemove {
-                // If another's existence depends on rubbish, remove it
-                if ref.snapshot.structuralDependencies.contains(rubbish.id) {
-                    _remove(ref.snapshot)
-                    removed.insert(ref.snapshot.id)
+        while !scheduled.isEmpty {
+            let garbageID = scheduled.removeFirst()
+            let garbage = objects[garbageID]!.snapshot
+            _remove(garbage)
+            removed.insert(garbageID)
+            
+            if let parentID = garbage.parent, !removed.contains(parentID) {
+                let parent = mutableObject(parentID)
+                parent.children.remove(garbageID)
+            }
+            for child in garbage.children where !removed.contains(child) {
+                scheduled.insert(child)
+            }
+            
+            // Check for dependants (edges)
+            //
+            for dependant in snapshots where !removed.contains(dependant.id) {
+                if case let .edge(origin, target) = dependant.structure {
+                    if garbage.id == origin || garbage.id == target {
+                        scheduled.insert(dependant.id)
+                    }
                 }
             }
-        }
-        
-        // Root was first, we do not include it in the "removed" result list
-        _remove(toRemove.removeFirst())
-        
-        for rubbish in toRemove {
-            _remove(rubbish)
-            removed.insert(rubbish.id)
         }
         return removed
     }
     
+
     func debugPrint() {
         print("-- FRAME \(id)")
         print("SNAPSHOTS:")
@@ -317,9 +319,8 @@ public class MutableFrame: Frame {
 
             let children = snapshot.children.map { String($0) }
                 .joined(separator: ",")
-            let deps = snapshot.structuralDependencies.map { String($0) }
-                .joined(separator: ",")
-
+            let deps = snapshot.structure.description
+            
             print("\(snapshot.id).\(snapshot.snapshotID)\(isOwned): str[\(deps)] children[\(children)]")
         }
         if removedObjects.isEmpty {
@@ -434,30 +435,6 @@ public class MutableFrame: Frame {
         UnboundGraph(frame: self)
     }
     
-    /// Get a list of object IDs that are referenced within the frame
-    /// but do not exist in the frame.
-    ///
-    /// Frame with broken references can not be made stable and accepted
-    /// by the memory.
-    ///
-    /// - Note: This is internal function to validate correct workings
-    ///   of the system.
-    ///
-    func brokenReferences() -> [ObjectID] {
-        var deps: Set<ObjectID> = []
-        
-        for snapshot in snapshots {
-            deps.formUnion(snapshot.structuralDependencies)
-            deps.formUnion(snapshot.children)
-            if let parent = snapshot.parent {
-                deps.insert(parent)
-            }
-        }
-        let broken: [ObjectID] = deps.filter { !contains($0) }
-
-        return broken
-    }
-
     // MARK: - Hierarchy
     //
     
@@ -493,9 +470,6 @@ public class MutableFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - Precondition: Specified child object must be a child of the specified
-    ///   parent.
-    ///
     /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
     /// ``MutableFrame/addChild(_:to:)``,
     /// ``MutableFrame/removeFromParent(_:)``,
@@ -528,13 +502,11 @@ public class MutableFrame: Frame {
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
         let child = mutableObject(childID)
         if let originalParentID = child.parent {
-            let originalParent = mutableObject(originalParentID)
-            originalParent.children.remove(childID)
+            mutableObject(originalParentID).children.remove(childID)
         }
         child.parent = parentID
         if let parentID {
-            let parent = mutableObject(parentID)
-            parent.children.add(childID)
+            mutableObject(parentID).children.add(childID)
         }
     }
     
@@ -554,13 +526,17 @@ public class MutableFrame: Frame {
     /// ``MutableFrame/removeChild(_:from:)``,
     /// ``MutableFrame/removeCascading(_:)``.
     public func removeFromParent(_ childID: ObjectID) {
-        let child = self.mutableObject(childID)
-        if let parentID = child.parent {
-            let parent = mutableObject(parentID)
-            parent.children.remove(childID)
+        let child = object(childID)
+        guard let parentID = child.parent else {
+            return
+        }
+        let parent = object(parentID)
+        guard parent.children.contains(childID) else {
+            return
         }
         
-        child.parent = nil
+        mutableObject(parentID).children.remove(childID)
+        mutableObject(childID).parent = nil
     }
 
 }

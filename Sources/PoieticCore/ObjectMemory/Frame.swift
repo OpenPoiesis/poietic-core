@@ -39,33 +39,102 @@ public protocol Frame {
     /// - Throws: `ConstraintViolation` when the frame violates given constraint.
     ///
     func assert(constraint: Constraint) throws
+    func brokenReferences() -> [ObjectID]
 
-    func structuralDependants(id: ObjectID) -> [ObjectID]
     func hasReferentialIntegrity() -> Bool
-    func referentialIntegrityViolators() -> [ObjectID]
     
     func filter(type: ObjectType) -> [ObjectSnapshot]
 }
 
 extension Frame{
-    public func structuralDependants(id: ObjectID) -> [ObjectID] {
-        let deps = snapshots.filter {
-            $0.structuralDependencies.contains(id)
-        }.map {
-            $0.id
-        }
-        return deps
-    }
-    public func hasReferentialIntegrity() -> Bool {
-        return referentialIntegrityViolators().isEmpty
-    }
-    public func referentialIntegrityViolators() -> [ObjectID] {
-        let violators = snapshots.flatMap { snapshot in
-            snapshot.structuralDependencies.filter { id in
-                !self.contains(id)
+    /// Get a list of object IDs that are referenced within the frame
+    /// but do not exist in the frame.
+    ///
+    /// Frame with broken references can not be made stable and accepted
+    /// by the memory.
+    ///
+    /// The following references from the snapshot are being considered:
+    ///
+    /// - If the structure type is an edge (``StructuralComponent/edge(_:_:)``)
+    ///   then the origin and target is considered.
+    /// - All children – ``ObjectSnapshot/children``.
+    /// - The object's parent – ``ObjectSnapshot/parent``.
+    ///
+    /// - Note: This is semi-internal function to validate correct workings
+    ///   of the system. You should rarely use it. Typical scenario when you
+    ///   want to use this function is when you are constructing a frame
+    ///   in an unsafe way.
+    ///
+    /// - SeeAlso: ``Frame/hasReferentialIntegrity()``
+    ///
+    public func brokenReferences() -> [ObjectID] {
+        // NOTE: Sync with brokenReferences(snapshot:)
+        //
+        var broken: Set<ObjectID> = []
+        
+        for snapshot in snapshots {
+            if case let .edge(origin, target) = snapshot.structure {
+                if !contains(origin) {
+                    broken.insert(origin)
+                }
+                if !contains(target) {
+                    broken.insert(target)
+                }
+            }
+            broken.formUnion(snapshot.children.filter { !contains($0) })
+            if let parent = snapshot.parent, !contains(parent) {
+                broken.insert(parent)
             }
         }
-        return violators
+
+        return Array(broken)
+    }
+
+    /// Return a list of objects that the provided object refers to and
+    /// that do not exist within the frame.
+    ///
+    /// Frame with broken references can not be made stable and accepted
+    /// by the memory.
+    ///
+    /// The following references from the snapshot are being considered:
+    ///
+    /// - If the structure type is an edge (``StructuralComponent/edge(_:_:)``)
+    ///   then the origin and target is considered.
+    /// - All children – ``ObjectSnapshot/children``.
+    /// - The object's parent – ``ObjectSnapshot/parent``.
+    ///
+    /// - SeeAlso: ``Frame/brokenReferences()``,
+    ///     ``Frame/hasReferentialIntegrity()``
+    ///
+    public func brokenReferences(snapshot: ObjectSnapshot) -> [ObjectID] {
+        // NOTE: Sync with brokenReferences() for all snapshots within the frame
+        //
+        var broken: Set<ObjectID> = []
+        
+        if case let .edge(origin, target) = snapshot.structure {
+            if !contains(origin) {
+                broken.insert(origin)
+            }
+            if !contains(target) {
+                broken.insert(target)
+            }
+        }
+        broken.formUnion(snapshot.children.filter { !contains($0) })
+        if let parent = snapshot.parent, !contains(parent) {
+            broken.insert(parent)
+        }
+
+        return Array(broken)
+    }
+
+    
+    /// Function that determines whether the frame has a referential integrity.
+    ///
+    /// - SeeAlso: ``Frame/brokenReferences()``
+    ///
+
+    public func hasReferentialIntegrity() -> Bool {
+        return brokenReferences().isEmpty
     }
     
     public func assert(constraint: Constraint) throws {

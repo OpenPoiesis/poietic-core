@@ -13,7 +13,7 @@ extension ObjectMemory {
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
     ///     - type: Object type.
     ///     - components: List of components to be set for the newly created object.
-    ///     - structuralReferences: List of object references related to the structural object type.
+    ///     - structure: Structural component of the new object that must match the object type.
     ///     - initialized: If set to `false` then the object is left uninitialised.
     ///       The Caller must finish initialisation and mark the snapshot
     ///       initialised before inserting it to a frame.
@@ -28,7 +28,7 @@ extension ObjectMemory {
                                id: ObjectID? = nil,
                                snapshotID: SnapshotID? = nil,
                                components: [any Component]=[],
-                               structuralReferences: [ObjectID]=[],
+                               structure: StructuralComponent? = nil,
                                initialized: Bool = true) -> ObjectSnapshot {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
@@ -36,30 +36,32 @@ extension ObjectMemory {
         let actualID = allocateID(proposed: id)
         let actualSnapshotID = allocateID(proposed: snapshotID)
 
-        let structure: StructuralComponent
+        let actualStructure: StructuralComponent
         
         switch type.structuralType {
         case .unstructured:
-            precondition(structuralReferences.isEmpty,
-                         "Structural references provided for a structural type 'unstructured' without references.")
-            structure = .unstructured
+            precondition(structure == nil || structure == .unstructured,
+                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
+            actualStructure = .unstructured
         case .node:
-            precondition(structuralReferences.isEmpty,
-                         "Structural references provided for a structural type 'node' without references.")
-            structure = .node
+            precondition(structure == nil || structure == .node,
+                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
+            actualStructure = .node
         case .edge:
-            precondition(structuralReferences.count == 2,
-                         "Wrong number (\(structuralReferences.count) of structural references provided for a structural type 'edge', expected exactly two.")
-            let origin = structuralReferences[0]
-            let target = structuralReferences[1]
+            guard let structure else {
+                fatalError("Structural component of type `edge` is required to be provided for type \(type.name).")
+            }
+            
+            precondition(structure.type == .edge,
+                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
 
-            structure = .edge(origin, target)
+            actualStructure = structure
         }
 
         let snapshot = ObjectSnapshot(id: actualID,
                                       snapshotID: actualSnapshotID,
                                       type: type,
-                                      structure: structure,
+                                      structure: actualStructure,
                                       components: components)
 
         if initialized {

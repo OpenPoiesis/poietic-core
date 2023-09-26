@@ -106,15 +106,11 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
             components: components,
-            structuralReferences: [origin, target],
+            structure: .edge(origin, target),
             initialized: false
         )
 
-        for componentType in type.components {
-            if !snapshot.components.has(componentType) {
-                snapshot.components.set(componentType.init())
-            }
-        }
+        
         snapshot.makeInitialized()
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id
@@ -157,11 +153,6 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
             initialized: false
         )
 
-        for componentType in type.components {
-            if !snapshot.components.has(componentType) {
-                snapshot.components.set(componentType.init())
-            }
-        }
         snapshot.makeInitialized()
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id

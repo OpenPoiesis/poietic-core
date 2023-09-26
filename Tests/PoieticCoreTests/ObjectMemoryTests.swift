@@ -96,13 +96,14 @@ final class ObjectMemoryTests: XCTestCase {
         frame.insert(node2, owned: true)
         
         let edge = db.createSnapshot(TestEdgeType,
-                                     structuralReferences: [node1.id, node2.id])
+                                     structure: .edge(node1.id, node2.id))
         frame.insert(edge, owned: true)
         
         let removed = frame.removeCascading(node1.id)
-        XCTAssertEqual(removed.count, 1)
+        XCTAssertEqual(removed.count, 2)
         XCTAssertTrue(removed.contains(edge.id))
-        
+        XCTAssertTrue(removed.contains(node1.id))
+
         XCTAssertFalse(frame.contains(node1.id))
         XCTAssertFalse(frame.contains(edge.id))
         XCTAssertTrue(frame.contains(node2.id))
