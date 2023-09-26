@@ -84,6 +84,7 @@ public protocol TransientComponent: Component {
 ///    meta-model versions are going to be read, transformed and preserved?_
 ///
 public protocol InspectableComponent: Component, MutableKeyedAttributes {
+    // TODO: Alternative names: PublicComponent, InterfacingComponent
     // TODO: Split to ForeignRepresentable
     static var componentDescription: ComponentDescription { get }
     
@@ -221,7 +222,6 @@ extension InspectableComponent {
         return ForeignRecord(dict)
     }
 
-    // TODO: Do we still need this?
     public var attributeKeys: [String] {
         Self.componentDescription.attributeKeys
     }

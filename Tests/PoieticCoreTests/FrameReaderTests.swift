@@ -37,7 +37,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           FrameReaderError.keyNotFound("frameFormatVersion"))
+                           FrameReaderError.propertyNotFound("frameFormatVersion"))
         }
     }
     func testEmpty() throws {

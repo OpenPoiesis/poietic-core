@@ -78,7 +78,7 @@ public class NeighborhoodView {
     public let predicate: Predicate
     public let direction: EdgeDirection
 
-    var node: Node {
+    public var node: Node {
         graph.node(nodeID)
     }
     

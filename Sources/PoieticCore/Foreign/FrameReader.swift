@@ -5,14 +5,11 @@
 //  Created by Stefan Urbanek on 14/08/2023.
 //
 
-// TODO: Test reading of the following wrongs:
-// - present origin/target for a non-edge
-
 import Foundation
 
 public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
     case dataCorrupted
-    case keyNotFound(String) // TODO: Rename to "property not found"
+    case propertyNotFound(String) 
     case objectPropertyNotFound(String, Int)
     case typeMismatch([String])
     
@@ -23,7 +20,7 @@ public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
     public var description: String {
         switch self {
         case .dataCorrupted: return "Corrupted or invalid data"
-        case .keyNotFound(let key): return "Required key '\(key)' not found"
+        case .propertyNotFound(let key): return "Required property '\(key)' not found"
         case .objectPropertyNotFound(let key, let index):
             return "Required property '\(key)' not found in object at index \(index)"
         case .typeMismatch(let path):
@@ -76,7 +73,7 @@ public class ForeignFrameBundle {
             throw FrameReaderError.dataCorrupted
         }
         catch DecodingError.keyNotFound(let key, _) {
-            throw FrameReaderError.keyNotFound(key.stringValue)
+            throw FrameReaderError.propertyNotFound(key.stringValue)
         }
         // TODO: Read this from info dictionary, path or URL (github)
     }
@@ -115,7 +112,7 @@ public class ForeignFrameBundle {
             }
             else {
                 // Just a generic key not found, a bit hopeless but better than nothing
-                throw FrameReaderError.keyNotFound(key)
+                throw FrameReaderError.propertyNotFound(key)
             }
         }
         
@@ -154,7 +151,7 @@ public class ForeignFrameReader {
             throw FrameReaderError.dataCorrupted
         }
         catch DecodingError.keyNotFound(let key, _) {
-            throw FrameReaderError.keyNotFound(key.stringValue)
+            throw FrameReaderError.propertyNotFound(key.stringValue)
         }
         self.init(info: info, memory: memory)
     }
@@ -202,7 +199,7 @@ public class ForeignFrameReader {
             }
             else {
                 // Just a generic key not found, a bit hopeless but better than nothing
-                throw FrameReaderError.keyNotFound(key)
+                throw FrameReaderError.propertyNotFound(key)
             }
         }
         try read(objects, into: frame)

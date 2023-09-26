@@ -54,7 +54,7 @@ extension PoieticTool {
             print("\nCONSTRAINTS\n")
             
             for constr in metamodel.constraints {
-                print("\(constr.name): \(constr.description ?? "(no description)")")
+                print("\(constr.name): \(constr.abstract ?? "(no description)")")
             }
             
             print("")

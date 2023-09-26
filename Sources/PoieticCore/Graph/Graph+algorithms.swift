@@ -39,8 +39,6 @@ extension Graph {
     ///   it is not the case.
     ///
     public func topologicalSort(_ toSort: [ObjectID], edges: [Edge]) throws -> [ObjectID] {
-        // TODO: We assume that we own edges. Do we need to check it?
-        
         var sorted: [ObjectID] = []
         let nodes: [ObjectID] = toSort
         

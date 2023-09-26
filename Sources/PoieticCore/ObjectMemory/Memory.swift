@@ -24,7 +24,7 @@ public struct ConstraintViolationError: Error {
         var result: [ObjectID:[String]] = [:]
         
         for violation in violations {
-            let message = violation.constraint.description ?? "(no constraint description)"
+            let message = violation.constraint.abstract ?? "(no constraint description)"
             let desc = "[\(violation.constraint.name)] \(message)"
             for id in violation.objects {
                 result[id, default: []].append(desc)
@@ -511,7 +511,7 @@ public class ObjectMemory {
     /// - Throws: `ConstraintViolation` for the first frame that violates the new
     /// constraint.
     ///
-    func addConstraint(_ constraint: Constraint) throws {
+    public func addConstraint(_ constraint: Constraint) throws {
         // TODO: Check all frames and include violating frame ID.
         // TODO: Add tests.
         
@@ -524,7 +524,7 @@ public class ObjectMemory {
     ///
     /// This method just removes the constraint and takes no other action.
     ///
-    func removeConstraint(_ constraint: Constraint) {
+    public func removeConstraint(_ constraint: Constraint) {
         constraints.removeAll {
             $0 === constraint
         }

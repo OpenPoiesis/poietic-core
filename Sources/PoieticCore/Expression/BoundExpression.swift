@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 28/05/2022.
 //
 
-// TODO: Needs attention, a bit older design.
-
 public enum ExpressionError: Error {
     case unknownVariable(String)
     case unknownFunction(String)
@@ -173,55 +171,3 @@ public func bindExpression<V: TypedValue>(
     }
 }
 
-#if false
-
-extension ArithmeticExpression
-    where L == ForeignValue, V: Hashable, F == any FunctionProtocol {
-    /// Evaluates an expression using given variables.
-    ///
-    /// - Parameters:
-    ///     - variables: A dictionary of variables to be used during evaluation.
-    ///       The keys are variable references and the values are variable
-    ///       values. See note below about the requirements.
-    ///
-    /// The variables dictionary must contain all references that are used in
-    /// the expression and its children. It is in the responsibility of the
-    /// caller to make sure that all the references are valid. Not having
-    /// a required reference in the dictionary results in a fatal error.
-    ///
-    /// The values in the dictionary are expected to be of the type required
-    /// by the evaluation.
-    ///
-    /// - Returns: result of the evaluation.
-    ///
-    /// - Throws: ``ValueError``.
-    ///
-    ///
-    public func evaluate(_ variables: [V:ForeignValue]) throws -> ForeignValue {
-        switch self {
-        case let .value(value):
-            return value
-            
-        case let .binary(op, lhs, rhs):
-            return try op.apply([try lhs.evaluate(variables),
-                                 try rhs.evaluate(variables)])
-            
-        case let .unary(op, operand):
-            return try op.apply([try operand.evaluate(variables)])
-            
-        case let .function(functionRef, arguments):
-            let evaluatedArgs = try arguments.map {
-                try $0.evaluate(variables)
-            }
-            return try functionRef.apply(evaluatedArgs)
-            
-        case let .variable(ref):
-            guard let value = variables[ref] else {
-                fatalError("Unknown variable with reference: \(ref). This is internal error, not user error, potentially caused by the compiler.")
-            }
-            return value
-        }
-    }
-
-}
-#endif

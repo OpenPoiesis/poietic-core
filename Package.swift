@@ -9,11 +9,14 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "Poietic",
-            targets: ["PoieticCore", "PoieticFlows"]),
-        .executable(
-            name: "poietic",
-            targets: ["PoieticTool"]),
+            name: "PoieticCore",
+            targets: ["PoieticCore"]),
+//        .library(
+//            name: "PoieticFlows",
+//            targets: ["PoieticFlows"]),
+//        .executable(
+//            name: "poietic",
+//            targets: ["PoieticTool"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.

@@ -18,8 +18,8 @@ public enum ArgumentType: Equatable {
     /// Function argument can be of one of the specified types.
     case union([AtomType])
     
-    static let numeric = ArgumentType.union([.int, .double])
-    static let objectReference = ArgumentType.union([.int, .string])
+    public static let numeric = ArgumentType.union([.int, .double])
+    public static let objectReference = ArgumentType.union([.int, .string])
 
     /// Function that verifies whether the given type matches the type
     /// described by this object.
@@ -158,7 +158,6 @@ public class Signature: CustomStringConvertible {
     public init(_ positional: [FunctionArgument] = [],
                 variadic: FunctionArgument? = nil,
                 returns returnType: AtomType? = nil) {
-        // TODO: Check that no other argument is marked as variadic
         self.positional = positional
         self.variadic = variadic
         self.returnType = returnType

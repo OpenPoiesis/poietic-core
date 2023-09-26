@@ -27,7 +27,6 @@ public enum ComputationalRepresentation: CustomStringConvertible {
     ///
     case graphicalFunction(NumericUnaryFunction, VariableIndex)
     
-    // TODO: Consider following cases (sketch)
     // case dataInput(???)
 
     public var description: String {
@@ -186,10 +185,7 @@ public struct CompiledGraphicalFunction: IndexRepresentable {
 ///   will be carried out.
 ///
 public struct CompiledModel {
-    // TODO: Alternative names: InternalRepresentation, SimulableRepresentation, SRep
-    // TODO: Alternative names: ResolvedModel, ExecutableModel
-    // TODO: Potentially separate things to be concerns of a simulation system, such as bindings
-    // TODO: Resolve dichotomy between builtin and simulation variable, unite them (requires changes in the sim.state)
+    // TODO: Alternative names: InternalRepresentation, SimulableRepresentation, SRep, ResolvedModel, ExecutableModel
     
     /// List of builtin variables
     let builtinVariables: [BuiltinVariable]

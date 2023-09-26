@@ -265,9 +265,9 @@ public class FlowsMetamodel: Metamodel {
     public static let constraints: [Constraint] = [
         Constraint(
             name: "flow_fill_is_stock",
-            description: """
-                         Flow must drain (from) a stock, no other kind of node.
-                         """,
+            abstract: """
+                      Flow must drain (from) a stock, no other kind of node.
+                      """,
             match: EdgePredicate(IsTypePredicate(Fills)),
             requirement: AllSatisfy(
                 EdgePredicate(
@@ -279,9 +279,9 @@ public class FlowsMetamodel: Metamodel {
             
         Constraint(
             name: "flow_drain_is_stock",
-            description: """
-                         Flow must fill (into) a stock, no other kind of node.
-                         """,
+            abstract: """
+                      Flow must fill (into) a stock, no other kind of node.
+                      """,
             match: EdgePredicate(IsTypePredicate(Drains)),
             requirement: AllSatisfy(
                 EdgePredicate(
@@ -293,9 +293,9 @@ public class FlowsMetamodel: Metamodel {
         
         Constraint(
             name: "one_parameter_for_graphical_function",
-            description: """
-                         Graphical function must not have more than one incoming parameters.
-                         """,
+            abstract: """
+                      Graphical function must not have more than one incoming parameters.
+                      """,
             match: IsTypePredicate(GraphicalFunction),
             requirement: UniqueNeighbourRequirement(
                 NeighborhoodSelector(
@@ -310,9 +310,9 @@ public class FlowsMetamodel: Metamodel {
         // TODO: Make the value binding target to be "Value" type (how?)
         Constraint(
             name: "control_value_binding",
-            description: """
-                         Control binding's origin must be a Control and target must be a formula node.
-                         """,
+            abstract: """
+                      Control binding's origin must be a Control and target must be a formula node.
+                      """,
             match: EdgePredicate(IsTypePredicate(ValueBinding)),
             requirement: AllSatisfy(
                 EdgePredicate(
@@ -323,9 +323,9 @@ public class FlowsMetamodel: Metamodel {
         ),
         Constraint(
             name: "chart_series",
-            description: """
-                         Chart series edge must originate in Chart and end in Value node.
-                         """,
+            abstract: """
+                      Chart series edge must originate in Chart and end in Value node.
+                      """,
             match: EdgePredicate(IsTypePredicate(ChartSeries)),
             requirement: AllSatisfy(
                 EdgePredicate(
@@ -342,14 +342,14 @@ public class FlowsMetamodel: Metamodel {
     ///
     public static let TimeVariable = BuiltinVariable(
         name: "time",
-        description: "Current simulation time"
+        abstract: "Current simulation time"
     )
 
     /// Built-in variable reference that represents the time delta.
     ///
     public static let TimeDeltaVariable = BuiltinVariable(
         name: "time_delta",
-        description: "Simulation time delta - time between discrete steps of the simulation."
+        abstract: "Simulation time delta - time between discrete steps of the simulation."
     )
     
     /// List of all built-in variables.

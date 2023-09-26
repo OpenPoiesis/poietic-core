@@ -9,7 +9,6 @@ public protocol ExpressionConvertible {
     var toExpression: UnboundExpression { get }
 }
 
-// TODO: Design sketch
 public typealias UnboundExpression = ArithmeticExpression<ForeignValue, String, String>
 
 /// Arithmetic expression.

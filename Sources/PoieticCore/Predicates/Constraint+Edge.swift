@@ -9,8 +9,6 @@
 /// given labels.
 ///
 public class EdgeEndpointTypes: ConstraintRequirement {
-    // TODO: Use CompoundPredicate?
-    
     /// Labels to be matched on the edge's origin, if provided.
     public let origin: IsTypePredicate?
     

@@ -304,7 +304,7 @@ public class MutableFrame: Frame {
     }
     
 
-    func debugPrint() {
+    public func debugPrint() {
         print("-- FRAME \(id)")
         print("SNAPSHOTS:")
         for snapshot in self.snapshots {

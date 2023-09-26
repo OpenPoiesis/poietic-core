@@ -99,14 +99,6 @@ public class Compiler {
         namedReferences = [:]
     }
 
-    struct __CompiledComputation {
-        
-        // REPLACES (partially): Computed Variable
-        let id: ObjectID
-        let name: String
-        let computation: ComputationalRepresentation
-    }
-        
     /// Compiles the model and returns the compiled version of the model.
     ///
     /// The compilation process is as follows:
@@ -557,6 +549,6 @@ public class Compiler {
     }
     
     public func appendIssue(_ error: Error, to object: ObjectID) {
-        
+        fatalError("\(#function) not implemented")
     }
 }

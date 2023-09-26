@@ -70,12 +70,6 @@ extension Edge: ObjectProtocol {
 }
 
 
-// TODO: Change node() and edge() to return non-optional
-// REASON: ID is rather like an array index than a dictionary key, once we put
-// an object into the graph, we usually expect it to be here, if it is not there
-// it means that we made a programming error. We are rarely curious about
-// the IDs presence in the graph.
-
 /// Protocol for views of a frame as a graph.
 ///
 /// You can access the graph-related contents of the frame through the
@@ -254,11 +248,9 @@ extension Graph {
     }
     
     public func selectNodes(_ predicate: Predicate) -> [Node] {
-        // TODO: There is a lot of Node wrapping/unwrapping going on here
         return nodes.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
     public func selectEdges(_ predicate: Predicate) -> [Edge] {
-        // TODO: There is a lot of EDGE wrapping/unwrapping going on here
         return edges.filter { predicate.match(frame: frame, object: $0.snapshot) }
     }
     

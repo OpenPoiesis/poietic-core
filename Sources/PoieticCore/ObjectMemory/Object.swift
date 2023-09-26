@@ -323,18 +323,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         self.state = .frozen
     }
     
-    /// List of objects that this object depends on. If one of the objects from
-    /// the list is removed from the frame, this object must be removed as well.
-    ///
-    /// - SeeAlso: ``MutableFrame/removeCascading(_:)``.
-    ///
-    var structuralDependencies: [ObjectID] {
-        switch structure {
-        case .unstructured, .node: []
-        case .edge(let origin, let target): [origin, target]
-        }
-    }
-    
     public subscript(componentType: Component.Type) -> (Component)? {
         get {
             return components[componentType]

@@ -135,9 +135,6 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         precondition(type.structuralType == .node,
                      "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
 
-        // TODO: This is not very clean: we create a template, then we derive the concrete object.
-        // Frame is not aware of structural types, can only create plain objects.
-        // See file Documentation/ObjectCreation.md for more discussion.
         let actualComponents: [any Component]
         
         if let name {

@@ -20,18 +20,11 @@ class CSVReader: Sequence, IteratorProtocol {
         case recordSeparator
         case fieldSeparator
     }
-
-    enum State {
-        case newField
-        case inField
-        case inQuote
-    }
     
     var options: CSVOptions
     
     var iterator: String.Iterator
     var currentChar: Character?
-    var state: State = .newField
     public var tokenText: String = ""
     
     init(_ iterator: String.Iterator, options: CSVOptions=CSVOptions()) {

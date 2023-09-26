@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum ForeignInterfaceError: Error {
-    case unsupportedVersion(String)
-    case unknownStructuralType(String)
-    case malformedComponents
-    case malformedMainRecord
-    
-    
-    case typeMismatchError(ForeignValue, AtomType)
-}
-
 // FIXME: [PROTOTYPE] This is a temporary solution. See note below.
 /*
     NOTE:
@@ -37,36 +27,12 @@ struct ArchiveInfo: Codable {
 }
 
 
-//class Frameset: Codable {
-//    var frames: [FrameID]
-//}
-//
-
 // NOTE: Use MemoryArchive_*_*_* pattern, then use CurrentMemoryArchive alias
 private struct MemoryArchive: Codable {
     fileprivate var info: ArchiveInfo = ArchiveInfo()
     fileprivate var framesets: [String: [FrameID]] = [:]
     fileprivate var frames: [FrameID: [SnapshotID]] = [:]
     fileprivate var snapshots: [ForeignObject] = []
-    
-//    enum CodingKeys: CodingKey, String {
-//        case info = "info"
-//    }
-    
-    func _encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-
-        try container.encode(info, forKey: .info)
-        try container.encode(framesets, forKey: .framesets)
-        
-        var rekeyed: [String: [SnapshotID]] = [:]
-        for (key, value) in frames {
-            rekeyed[String(key)] = value
-        }
-        
-        try container.encode(rekeyed, forKey: .frames)
-        try container.encode(snapshots, forKey: .snapshots)
-    }
 }
 
 extension ObjectMemory {

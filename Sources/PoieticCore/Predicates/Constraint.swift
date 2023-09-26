@@ -34,7 +34,7 @@ public class Constraint {
     /// - What an edge or a node must have?
     /// - What an edge endpoint - origin or target - must point to?
     ///
-    public let description: String?
+    public let abstract: String?
 
     /// A predicate that matches all edges to be considered for this constraint.
     ///
@@ -58,11 +58,11 @@ public class Constraint {
     ///       matched edges.
     ///
     public init(name: String,
-                description: String? = nil,
+                abstract: String? = nil,
                 match: Predicate,
                 requirement: ConstraintRequirement) {
         self.name = name
-        self.description = description
+        self.abstract = abstract
         self.match = match
         self.requirement = requirement
     }
