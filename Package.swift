@@ -11,12 +11,12 @@ let package = Package(
         .library(
             name: "PoieticCore",
             targets: ["PoieticCore"]),
-//        .library(
-//            name: "PoieticFlows",
-//            targets: ["PoieticFlows"]),
-//        .executable(
-//            name: "poietic",
-//            targets: ["PoieticTool"]),
+        .library(
+            name: "PoieticFlows",
+            targets: ["PoieticFlows"]),
+        .executable(
+            name: "poietic",
+            targets: ["PoieticTool"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.

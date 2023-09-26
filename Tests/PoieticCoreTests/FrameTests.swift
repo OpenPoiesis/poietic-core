@@ -148,7 +148,7 @@ final class MutableFrameTests: XCTestCase {
     
     func testBrokenReferences() throws {
         let frame = memory.createFrame()
-        let a = memory.allocateUnstructuredSnapshot(TestType, id: 1)
+        let a = memory.allocateUnstructuredSnapshot(TestType, id: 5)
         a.parent = 10
         a.children = [20]
         a.initialize(structure: .edge(30, 40))

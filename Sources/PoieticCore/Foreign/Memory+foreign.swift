@@ -39,9 +39,12 @@ extension ObjectMemory {
     func createSnapshot(_ object: ForeignObject) throws -> ObjectSnapshot {
         // TODO: Make it respect model upgrades.
         // TODO: Make storage component-wise, not attribute-wise (?)
+
+        let proposedID = object.id.map { ObjectID($0) } ?? nil
+        let proposedSnapshotID = object.snapshotID.map { ObjectID($0) } ?? nil
         
-        let id: ObjectID = ObjectID(object.id!)!
-        let snapshotID: SnapshotID = ObjectID(object.snapshotID!)!
+        let id: ObjectID = allocateID(proposed: proposedID)
+        let snapshotID: SnapshotID = allocateID(proposed: proposedSnapshotID)
 
         let type = metamodel.objectType(name: object.type)!
         let structure: StructuralComponent

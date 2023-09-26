@@ -80,8 +80,8 @@ extension ObjectMemory {
     public func allocateUnstructuredSnapshot(_ objectType: ObjectType,
                                  id: ObjectID? = nil,
                                  snapshotID: SnapshotID? = nil) -> ObjectSnapshot {
-        let actualID: ObjectID = id ?? allocateID()
-        let actualSnapshotID: SnapshotID = id ?? allocateID()
+        let actualID: ObjectID = allocateID(proposed: id)
+        let actualSnapshotID: SnapshotID = allocateID(proposed: snapshotID)
 
         let snapshot = ObjectSnapshot(id: actualID,
                                       snapshotID: actualSnapshotID,
