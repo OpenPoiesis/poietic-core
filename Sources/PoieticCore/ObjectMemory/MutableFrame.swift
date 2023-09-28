@@ -387,19 +387,18 @@ public class MutableFrame: Frame {
         }
         else {
             let original = originalRef.snapshot
-            let newSnapshotID = memory.allocateID()
-            let derived = ObjectSnapshot(
-                id: id,
-                snapshotID: newSnapshotID,
-                type: original.type,
-                structure: original.structure,
-                components: original.components.components
+            let derived = memory.allocateUnstructuredSnapshot(
+                original.type,
+                id: id
             )
+            // TODO: Use initialize(..., components: ...)
+            derived.components = original.components
+            derived.initialize(structure: original.structure)
 
             let ref = SnapshotReference(snapshot: derived, owned: true)
             self.objects[id] = ref
             self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
-            self.snapshotIDs.insert(newSnapshotID)
+            self.snapshotIDs.insert(derived.snapshotID)
 
             return derived
         }

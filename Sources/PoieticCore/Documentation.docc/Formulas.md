@@ -1,9 +1,8 @@
-# Arithmetic Formulas
+# Formulas
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+Formulas - arithmetic expressions.
 
 ## Topics
-
 
 ### Arithmetic Expression
 

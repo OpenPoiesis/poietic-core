@@ -27,6 +27,7 @@ The object memory stores design objects and manages their versions.
 - ``StructuralComponent``
 - ``StructuralType``
 - ``ChildrenSet``
+- ``ObjectProtocol``
 
 ### Component
 

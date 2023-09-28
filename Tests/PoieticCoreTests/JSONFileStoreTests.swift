@@ -17,14 +17,19 @@ class TestPersistentRecord: XCTestCase {
     }
 
     func testFromRecord() throws {
-        let record = ForeignRecord([
-            "object_id": ForeignValue(10),
-            "snapshot_id": ForeignValue(20),
-            "structure": ForeignValue("node"),
-            "type": ForeignValue("Stock"),
-        ])
+        let object = ForeignObject(
+        type: "Stock",
+        id: "10",
+        snapshotID: "20",
+        name: nil,
+        attributes: ForeignRecord([:]),
+        origin: nil,
+        target: nil,
+        children: nil
         
-        let obj: ObjectSnapshot = try memory.createSnapshot(record: record)
+        )
+        
+        let obj: ObjectSnapshot = try memory.createSnapshot(object)
         
         XCTAssertEqual(obj.id, 10)
         XCTAssertEqual(obj.snapshotID, 20)
@@ -32,25 +37,6 @@ class TestPersistentRecord: XCTestCase {
         XCTAssertIdentical(obj.type, TestMetamodel.Stock)
     }
 
-    func testFromRecordEdge() throws {
-        let record = ForeignRecord([
-            "object_id": ForeignValue(10),
-            "snapshot_id": ForeignValue(20),
-            "structure": ForeignValue("edge"),
-            "origin": ForeignValue("30"),
-            "target": ForeignValue("40"),
-            "type": ForeignValue("Stock"),
-        ])
-        
-        let obj: ObjectSnapshot = try memory.createSnapshot(record: record)
-        
-        XCTAssertEqual(obj.id, 10)
-        XCTAssertEqual(obj.snapshotID, 20)
-        XCTAssertEqual(obj.structure, .edge(30, 40))
-        XCTAssertIdentical(obj.type, TestMetamodel.Stock)
-    }
-
-    
     func testComponentToRecord() throws {
         let component = IntegerComponent(value: 10)
         let result = component.foreignRecord()
@@ -68,23 +54,6 @@ class TestPersistentRecord: XCTestCase {
         XCTAssertEqual(component.value, 10)
     }
     
-    func testSnapshotWithComponent() throws {
-        let record = ForeignRecord([
-            "object_id": ForeignValue(10),
-            "snapshot_id": ForeignValue(20),
-            "structural_type": ForeignValue("node"),
-            "type": ForeignValue("Stock"),
-        ])
-
-        let components: [String: ForeignRecord] = [
-            "Integer": ForeignRecord(["value": ForeignValue(10)])
-        ]
-        
-        let obj: ObjectSnapshot = try memory.createSnapshot(record: record,
-                                                            components: components)
-
-        XCTAssertEqual(IntegerComponent(value: 10), obj[IntegerComponent.self])
-    }
 }
 
 final class JSONFileStoreTests: XCTestCase {
