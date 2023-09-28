@@ -145,18 +145,16 @@ the parts are refactored. However, the primary focus right now is on having
 some basic functionality of the whole system without seriously annoying the
 users.
 
-- Technical debt is marked with `TODO:` or with more serious `FIXME:`, production
-  critical have the word `IMPORTANT` added.
-- Implementation must be understandable, even for the cost of performance. Parts
-  that might need optimisation must be separated and an abstraction layer
-  must be provided while keeping the non-performant yet readable implementation
-  as an option.
-
 Principles:
 
 - User entered content is holy. Should be preserved as-is and provided to the
   user in an understandable and processable form when asked for.
 - User is allowed to make mistakes.
+
+Further reading:
+
+- [Technical Debt](DevelopmentNotes/TechnicalDebt.md) document in the
+  DevelopmentNotes folder.
 
 Error handling:
 
