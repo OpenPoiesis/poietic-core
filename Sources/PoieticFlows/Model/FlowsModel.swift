@@ -124,6 +124,7 @@ public class FlowsMetamodel: Metamodel {
         name: "Control",
         structuralType: .node,
         components: [
+            NameComponent.self,
             ControlComponent.self,
         ]
     )

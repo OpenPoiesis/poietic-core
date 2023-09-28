@@ -46,7 +46,7 @@ public protocol Frame {
     func filter(type: ObjectType) -> [ObjectSnapshot]
 }
 
-extension Frame{
+extension Frame {
     /// Get a list of object IDs that are referenced within the frame
     /// but do not exist in the frame.
     ///

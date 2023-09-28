@@ -25,11 +25,49 @@ public enum StructuralType: String, Equatable {
     case edge
 }
 
+/// Structural component defines object's relationship with other objects.
+///
+/// Structural component is another way of specifying object structure
+/// besides the parent-child hierarchy.
+///
+/// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``
+///
 public enum StructuralComponent: Equatable, CustomStringConvertible {
+    /// The object has no relationships with other objects,
+    /// has no structural dependencies and no objects depend on it.
+    ///
+    /// Unstructured objects can not be part of a graph, they can not
+    /// be referenced by edges.
+    ///
+    /// Object still might be part of a hierarchical parent-child structure.
+    ///
     case unstructured
+    
+    /// The object with this component is part of a graph and represents a node.
+    ///
+    /// Node objects can be referenced by objects of type edge.
+    ///
+    /// When a node is removed from a frame, all objects with structural
+    /// component ``edge(_:_:)`` that refer to the removed node are removed
+    /// as well. See ``MutableFrame/removeCascading(_:)`` for more information.
+    ///
+    /// - SeeAlso: ``edge(_:_:)``
+    ///
     case node
+
+    /// The object with this component is part of a graph and represents an
+    /// edge - a link between two nodes.
+    ///
+    /// When one of the objects referenced by the edge component is removed
+    /// from a frame, then the object with the edge component is removed
+    /// as well. See ``MutableFrame/removeCascading(_:)`` for more information.
+    ///
+    /// - SeeAlso: ``node``
+    ///
     case edge(ObjectID, ObjectID)
     
+    /// A structural type of the component.
+    ///
     public var type: StructuralType {
         switch self {
         case .unstructured: .unstructured
@@ -38,6 +76,7 @@ public enum StructuralComponent: Equatable, CustomStringConvertible {
         }
     }
     
+    /// Short description of the structural component.
     public var description: String {
         switch self {
         case .unstructured: "unstructured"

@@ -19,26 +19,26 @@
 ///
 /// Reasons for this approach:
 ///
-/// - one source of truth
-/// - abstraction from persistence, inspection (UI), scripting
-/// - transparency and audit-ability of the domain model
-/// - reflection
-/// - fair compromise between model DSL and native programming language, while
+/// - One source of truth.
+/// - Abstraction from persistence, inspection (UI), scripting.
+/// - Transparency and audit-ability of the domain model.
+/// - Reflection.
+/// - Fair compromise between model DSL and native programming language, while
 ///   providing some possibility of accessing some of the meta-model components
-///   through the native programming language identifiers
-/// - potentially, in the far future, the metamodel or its parts can be compiled
-///   for better performance (which is out of scope at this moment)
+///   through the native programming language identifiers.
+/// - Potentially, in the far future, the metamodel or its parts can be compiled
+///   for better performance (which is out of scope at this moment).
 ///
 /// The major use-cases of the reflection:
 ///
-/// - documentation
-/// - provide information through tooling to the user about what can be created,
-///   used, inspected
-/// - there are going to be multiple versions of the toolkit in the wild, users
-///   can investigate the capabilities of their installed version of the toolkit
+/// - Documentation.
+/// - Provide information through tooling to the user about what can be created,
+///   used, inspected.
+/// - There are going to be multiple versions of the toolkit in the wild, users
+///   can investigate the capabilities of their installed version of the toolkit.
 ///
 /// - Note: Each application is expected to provide their own domain specific metamodel.
-
+///
 public protocol Metamodel: AnyObject {
     /// List of components that are available within the domain described by
     /// this metamodel.
@@ -120,6 +120,7 @@ public class BasicMetamodel: Metamodel {
 
     
     public static var components: [Component.Type] = [
+        NameComponent.self,
         DesignInfoComponent.self,
         DocumentationComponent.self,
         AudienceLevelComponent.self,

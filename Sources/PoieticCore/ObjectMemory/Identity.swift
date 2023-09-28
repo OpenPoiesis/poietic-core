@@ -8,13 +8,38 @@
 
 public typealias ID = UInt64
 
+/// Identifier of a design objects.
+///
+/// The object ID is unique within the frame containing the object.
+/// There might be multiple object snapshots representing the same object
+/// and therefore have the same object ID.
+///
+/// - SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
+///     ``ObjectMemory/allocateID(proposed:)``
+///
 public typealias ObjectID = ID
+
+/// Identifier of a design object version.
+///
+/// The snapshot ID is unique within the object memory containing the snapshot.
+///
+/// SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
+///     ``ObjectMemory/allocateID(proposed:)``, ``MutableFrame/mutableObject(_:)``
+///
 public typealias SnapshotID = ID
+
+/// Identifier of a version frame.
+///
+/// Each frame in an object memory has an unique frame ID.
+///
+/// - SeeAlso: ``Frame``, ``ObjectMemory/createFrame(id:)``, ``ObjectMemory/deriveFrame(original:id:)``
+///
 public typealias FrameID = ID
 
 /// Protocol for generators of unique object IDs.
 ///
 public protocol IdentityGenerator {
+    // TODO: Deprecate
     
     /// Returns a next unique object ID.
     func next() -> ObjectID
@@ -37,7 +62,8 @@ public protocol IdentityGenerator {
 ///   
 public class SequentialIDGenerator: IdentityGenerator {
     // TODO: Replace this class with UUID
-    
+    // TODO: Deprecate, integrate with the memory
+
     /// ID as a sequence number.
     var current: ObjectID
     

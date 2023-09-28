@@ -80,6 +80,7 @@ extension ObjectMemory {
     public func allocateUnstructuredSnapshot(_ objectType: ObjectType,
                                  id: ObjectID? = nil,
                                  snapshotID: SnapshotID? = nil) -> ObjectSnapshot {
+        // TODO: Test for existence of given snapshotID
         let actualID: ObjectID = allocateID(proposed: id)
         let actualSnapshotID: SnapshotID = allocateID(proposed: snapshotID)
 
@@ -89,61 +90,4 @@ extension ObjectMemory {
                                       structure: .unstructured)
         return snapshot
     }
-
-    @available(*, deprecated, message: "Use alloc+initialize combo")
-    public func createSnapshot(record: ForeignRecord,
-                               components: [String:ForeignRecord]=[:]) throws -> ObjectSnapshot {
-        // TODO: This does not seem to be used.
-        // TODO: Handle wrong IDs
-        let id: ObjectID = try record.IDValue(for: "object_id")
-        let snapshotID: SnapshotID = try record.IDValue(for: "snapshot_id")
-        
-        let type: ObjectType
-        
-        if let typeName = try record.stringValueIfPresent(for: "type") {
-            if let objectType = metamodel.objectType(name: typeName) {
-                type = objectType
-            }
-            else {
-                fatalError("Unknown object type: \(typeName)")
-            }
-        }
-        else {
-            fatalError("No object type provided in the record")
-        }
-        
-        var componentInstances: [any Component] = []
-        
-        for (name, record) in components {
-            let type: InspectableComponent.Type = metamodel.inspectableComponent(name: name)!
-            let component = try type.init(record: record)
-            componentInstances.append(component)
-        }
-        
-        let structuralType = try record.stringValueIfPresent(for: "structure") ?? "unstructured"
-        let structure: StructuralComponent
-        
-        switch structuralType {
-        case "unstructured":
-            structure = .unstructured
-        case "node":
-            structure = .node
-        case "edge":
-            let origin: ObjectID = try record.IDValue(for: "origin")
-            let target: ObjectID = try record.IDValue(for: "target")
-            structure = .edge(origin, target)
-        default:
-            fatalError("Unknown structural type: '\(structuralType)'")
-        }
-        
-        let snapshot = ObjectSnapshot(id: id,
-                                      snapshotID: snapshotID,
-                                      type: type,
-                                      structure: structure,
-                                      components: componentInstances)
-        return snapshot
-    }
-   
-
-    
 }

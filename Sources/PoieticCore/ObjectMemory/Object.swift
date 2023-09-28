@@ -5,7 +5,36 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
-/// A class representing a version of an object in the database.
+/// Representation of a design object's version.
+///
+/// All design objects are represented by one or more object snapshots. The
+/// design object is defined by the object ``id`` and its version is defined by
+/// ``snapshotID``. Object snapshots with the same ``id`` represent different
+/// versions of the same design object.
+///
+/// Each design object belongs to one or multiple version frames (``Frame``).
+/// Each frame can contain only one snapshot of the same object.
+///
+///
+/// ## Creation
+///
+/// Objects are being created using the object memory
+/// ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structure:initialized:)``.
+/// If the ``id`` and ``snapshotID`` are not provided, then they are generated
+/// using object memory's identity generator.
+///
+/// ```swift
+/// // The memory and the frame is given
+/// let memory: ObjectMemory
+/// let frame: MutableFrame
+///
+/// // Create a new unstructured snapshot of type MyType (assuming the type exists)
+/// let snapshot = memory.createSnapshot(MyType)
+/// frame.insert(snapshot)
+///
+/// ```
+///
+/// - SeeAlso: ``Frame``, ``MutableFrame``
 ///
 public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     public typealias ID = ObjectID
@@ -60,6 +89,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// component type with ``Frame/filter(component:)``
     /// or using ``Frame/filter(_:)`` with ``HasComponentPredicate``.
     ///
+    ///
     /// - SeeAlso: ``Component``, ``ObjectType``.
     ///
     public var components: ComponentSet
@@ -85,6 +115,11 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public let type: ObjectType
     
+    /// State in which the object is in.
+    ///
+    /// Denotes whether the object can be mutated and how it can be used in
+    /// frames.
+    ///
     public var state: VersionState
     
     /// Variable denoting the structural property or rather structural role
@@ -108,11 +143,15 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// You typically never have to set the parent property. It is being set
     /// by one of the mutable frame's methods (see below).
     ///
+    /// Another way of specifying structural relationship of objects besides
+    /// hierarchy is with the ``structure``.
+    ///
     /// - SeeAlso: ``children``,
     /// ``MutableFrame/addChild(_:to:)``,
     /// ``MutableFrame/removeChild(_:from:)``,
     /// ``MutableFrame/removeFromParent(_:)``,
     /// ``MutableFrame/removeCascading(_:)``.
+    ///
     public var parent: ObjectID? = nil {
         willSet {
             precondition(state.isMutable)
@@ -128,6 +167,9 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// You typically never have to set the children set through this
     /// property. It is being set by one of the mutable frame's methods
     /// (see below).
+    ///
+    /// Another way of specifying structural relationship of objects besides
+    /// hierarchy is with the ``structure``.
     ///
     /// - SeeAlso: ``parent``,
     /// ``MutableFrame/addChild(_:to:)``,
@@ -168,6 +210,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
                 type: ObjectType,
                 structure: StructuralComponent = .unstructured,
                 components: [any Component] = []) {
+        // TODO: Make creation private - only through the memory.
         self.id = id
         self.snapshotID = snapshotID
         self.type = type
@@ -333,6 +376,14 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
+    
+    /// Get or set a component of given type, if present.
+    ///
+    /// Setting a component that already exists in the list of components will
+    /// replace the existing component.
+    ///
+    /// - SeeAlso: ``ComponentSet``
+    ///
     public subscript<T>(componentType: T.Type) -> T? where T : Component {
         get {
             return components[componentType]
@@ -358,6 +409,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// Other keys are searched in the list of object's components. The
     /// first value found in the list of the components is returned.
     ///
+    /// - SeeAlso: ``InspectableComponent/attribute(forKey:)``
+    ///
     public func attribute(forKey key: String) -> ForeignValue? {
         // TODO: This is asymmetrical with setAttribute, it should not be (that much)
         // TODO: Add tests
@@ -378,7 +431,18 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
-    // TODO: Add tests
+    /// Set an attribute value for given key.
+    ///
+    /// The function fins the first component that contains the given attribute
+    /// and tries to set the value. The provided foreign value must be
+    /// convertible to the type of the attribute of the component.
+    ///
+    /// - Throws: ``AttributeError`` when the object has no attribute with
+    ///   given key or when there is a mismatch of attribute type and the given
+    ///   value type.
+    ///
+    /// - SeeAlso: ``InspectableComponent/setAttribute(value:forKey:)``
+    ///
     public func setAttribute(value: ForeignValue, forKey key: String) throws {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")

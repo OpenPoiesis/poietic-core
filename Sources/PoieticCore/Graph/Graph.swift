@@ -7,15 +7,21 @@
 
 
 
-/// Object representing a graph node.
+/// View of an object as a graph node.
 ///
 /// Graph nodes are objects that can be connected to other nodes with edges.
 ///
 /// - SeeAlso: `Edge`, `Graph`, `MutableGraph`
 ///
 public struct Node {
+    /// Object snapshot that represents the node.
+    ///
     public let snapshot: ObjectSnapshot
     
+    
+    /// Create a new node view from a snapshot.
+    ///
+    ///
     public init?(_ snapshot: ObjectSnapshot) {
         guard snapshot.structure.type == .node else {
             return nil
@@ -40,6 +46,8 @@ extension Node: ObjectProtocol {
 
 }
 
+/// View of an object as an edge.
+///
 public struct Edge {
     public let snapshot: ObjectSnapshot
     public let origin: ObjectID
@@ -301,6 +309,7 @@ extension Graph {
 
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
+/// 
 public class UnboundGraph: Graph {
     public let frame: Frame
     

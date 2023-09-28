@@ -119,7 +119,7 @@ public enum AudienceLevel: Int, Codable {
 /// For example, the user interface can hide or disable editing of objects that
 /// are of a higher audience level.
 ///
-struct AudienceLevelComponent: InspectableComponent {
+public struct AudienceLevelComponent: InspectableComponent {
     public static var componentDescription = ComponentDescription(
         name: "AudienceLevel",
         attributes: [
@@ -129,9 +129,9 @@ struct AudienceLevelComponent: InspectableComponent {
                 abstract: "Intended level of expertise of the audience interacting with the object"),
         ]
     )
-    var audienceLevel: AudienceLevel
+    public var audienceLevel: AudienceLevel
 
-    init() {
+    public init() {
         self.audienceLevel = .any
     }
     
