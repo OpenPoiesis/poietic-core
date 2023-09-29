@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
       ]
     ]
   },
@@ -90,25 +91,12 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVFormatter",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError"
       ],
-      "title" : "Foreign Interfaces"
+      "title" : "CSV Reading and Writing"
     }
   ],
   "topicSections" : [
@@ -153,108 +141,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeDictionary": {
-  "abstract" : [
-    {
-      "text" : "Type for a dictionary of graph object attributes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDictionary"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDictionary"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeDictionary",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedictionary"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
-  "abstract" : [
-    {
-      "text" : "Type for object attribute key.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeValue": {
-  "abstract" : [
-    {
-      "text" : "Type for object attribute values.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributevalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVError": {
   "abstract" : [
@@ -584,331 +470,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignAtom": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
-      "text" : "ForeignAtom represents a scalar or a simple tuple-like value from an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment.",
+      "text" : "Structures and functionality for interfacing with other systems.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignAtom",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignatom"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameBundle",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframebundle"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameInfo": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeinfo"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader": {
-  "abstract" : [
-    {
-      "text" : "Object that reads a frame from a frame package.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
-  "abstract" : [
-    {
-      "text" : "A collection of key-value pairs that store data used for exchange with",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment such as database.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecord",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
-  "abstract" : [
-    {
-      "text" : "An error thrown when there is an issue with retrieving or converting",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a foreign value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecordError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
-  "abstract" : [
-    {
-      "text" : "ForeignValue represents a value from an external environment that can be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either an atom or a list of atoms – an array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameReaderError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror"
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 }
 }
 }

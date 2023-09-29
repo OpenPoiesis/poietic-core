@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "A structural type of the component.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent"
       ]
     ]
@@ -134,9 +141,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
   "abstract" : [
-
+    {
+      "text" : "Structural component defines object’s relationship with other objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -167,7 +191,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/type": {
   "abstract" : [
-
+    {
+      "text" : "A structural type of the component.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

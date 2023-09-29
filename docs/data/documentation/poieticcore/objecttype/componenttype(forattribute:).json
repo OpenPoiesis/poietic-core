@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType"
       ]
     ]
@@ -13,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10ObjectTypeC09componentD012forAttributeAA9Component_pXpSgSS_tF",
+    "externalID" : "s:11PoieticCore10ObjectTypeC09componentD012forAttributeAA20InspectableComponent_pXpSgSS_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,8 +51,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-        "text" : "Component"
+        "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
+        "text" : "InspectableComponent"
       },
       {
         "kind" : "text",
@@ -121,10 +122,10 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-              "text" : "Component"
+              "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
+              "text" : "InspectableComponent"
             },
             {
               "kind" : "text",
@@ -172,10 +173,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
+"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for components where attributes can be inspected by their names.",
       "type" : "text"
     }
   ],
@@ -190,21 +191,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "InspectableComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "InspectableComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "Component",
+  "title" : "InspectableComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
+  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
@@ -280,8 +295,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
+      "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
+      "text" : "InspectableComponent"
     },
     {
       "kind" : "text",

@@ -31,16 +31,25 @@
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "(["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore19AttributeDictionarya",
-        "text" : "AttributeDictionary"
+        "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+        "text" : "AttributeKey"
       },
       {
         "kind" : "text",
-        "text" : ") "
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+        "text" : "ForeignValue"
+      },
+      {
+        "kind" : "text",
+        "text" : "]) "
       },
       {
         "kind" : "keyword",
@@ -106,17 +115,27 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore19AttributeDictionarya",
-              "text" : "AttributeDictionary"
+              "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+              "text" : "AttributeKey"
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+              "text" : "ForeignValue"
+            },
+            {
+              "kind" : "text",
+              "text" : "]) "
             },
             {
               "kind" : "keyword",
@@ -164,10 +183,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDictionary": {
+"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
   "abstract" : [
     {
-      "text" : "Type for a dictionary of graph object attributes.",
+      "text" : "Type for object attribute key.",
       "type" : "text"
     }
   ],
@@ -182,21 +201,63 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeDictionary"
+      "text" : "AttributeKey"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeDictionary"
+      "text" : "AttributeKey"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeDictionary",
+  "title" : "AttributeKey",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedictionary"
+  "url" : "\/documentation\/poieticcore\/attributekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
+  "abstract" : [
+    {
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
   "abstract" : [
@@ -260,16 +321,25 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "(["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19AttributeDictionarya",
-      "text" : "AttributeDictionary"
+      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+      "text" : "AttributeKey"
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
     },
     {
       "kind" : "keyword",
@@ -303,16 +373,25 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "(["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19AttributeDictionarya",
-      "text" : "AttributeDictionary"
+      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+      "text" : "AttributeKey"
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
     },
     {
       "kind" : "keyword",

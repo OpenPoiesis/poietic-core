@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "State in which the object is in.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ]
     ]
@@ -84,6 +91,34 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Denotes whether the object can be mutated and how it can be used in",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "frames.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -122,10 +157,24 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -158,7 +207,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/state": {
   "abstract" : [
-
+    {
+      "text" : "State in which the object is in.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent"
       ]
     ]
@@ -181,12 +182,25 @@
     },
     {
       "kind" : "text",
-      "text" : "]) -> "
+      "text" : "]) -> ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19AttributeDictionarya",
-      "text" : "AttributeDictionary"
+      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+      "text" : "AttributeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent\/dictionary(withKeys:)",
@@ -195,6 +209,20 @@
   "title" : "dictionary(withKeys:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keywordscomponent\/dictionary(withkeys:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 }
 }
 }

@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Component.setAttribute(value:forKey:)",
+      "code" : "InspectableComponent.setAttribute(value:forKey:)",
       "type" : "codeVoice"
     },
     {
@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent"
       ]
     ]
@@ -55,8 +56,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-        "text" : "AttributeValue"
+        "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+        "text" : "ForeignValue"
       },
       {
         "kind" : "text",
@@ -138,10 +139,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-              "text" : "AttributeValue"
+              "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+              "text" : "ForeignValue"
             },
             {
               "kind" : "text",
@@ -253,17 +254,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeValue": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
   "abstract" : [
     {
-      "text" : "Type for object attribute values.",
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -271,21 +280,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeValue"
+      "text" : "ForeignValue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeValue"
+      "text" : "ForeignValue"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeValue",
+  "title" : "ForeignValue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributevalue"
+  "url" : "\/documentation\/poieticcore\/foreignvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/KeywordsComponent": {
   "abstract" : [
@@ -352,8 +361,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-      "text" : "AttributeValue"
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
     },
     {
       "kind" : "text",
@@ -387,6 +396,20 @@
   "title" : "setAttribute(value:forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keywordscomponent\/setattribute(value:forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 }
 }
 }

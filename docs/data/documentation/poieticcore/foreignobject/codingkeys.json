@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject"
       ]
     ]
@@ -105,6 +106,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/origin",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/snapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/target",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/type"
       ],
@@ -171,9 +173,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
-
+    {
+      "text" : "A structure that contains an object representation from a foreign interface.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -504,6 +523,31 @@
   "title" : "ForeignObject.CodingKeys.origin",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject\/codingkeys\/origin"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignObject/CodingKeys/snapshotID": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "snapshotID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/CodingKeys\/snapshotID",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignObject.CodingKeys.snapshotID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignobject\/codingkeys\/snapshotid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/CodingKeys/target": {
   "abstract" : [

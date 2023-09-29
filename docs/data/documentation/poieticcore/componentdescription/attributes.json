@@ -9,6 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription"
       ]
     ]
@@ -189,9 +190,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/attribute(forKey:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "Component\/attribute(forKey:)",
+                  "type" : "codeVoice"
                 },
                 {
                   "text" : ",",
@@ -202,9 +202,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/setAttribute(value:forKey:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "Component\/setAttribute(value:forKey:)",
+                  "type" : "codeVoice"
                 },
                 {
                   "text" : ",",
@@ -314,136 +313,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributedescription"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component/attribute(forKey:)": {
-  "abstract" : [
-    {
-      "text" : "Get an attribute value by its name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "attribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
-      "text" : "AttributeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-      "text" : "AttributeValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/attribute(forKey:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "attribute(forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component\/attribute(forkey:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Component/setAttribute(value:forKey:)": {
-  "abstract" : [
-    {
-      "text" : "Set an attribute by its name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "setAttribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "value"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-      "text" : "AttributeValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
-      "text" : "AttributeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/setAttribute(value:forKey:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "setAttribute(value:forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component\/setattribute(value:forkey:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
   "abstract" : [
     {
@@ -519,9 +388,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentdescription\/attributes"
 },
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/attribute(forKey:)": {
   "abstract" : [
-
+    {
+      "text" : "Get a value for an attribute.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -576,7 +462,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/setAttribute(value:forKey:)": {
   "abstract" : [
-
+    {
+      "text" : "Set an attribute value for given key.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

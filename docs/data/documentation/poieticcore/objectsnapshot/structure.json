@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ]
     ]
@@ -275,6 +276,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeCascading(_:)": {
   "abstract" : [
     {
@@ -337,7 +352,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -415,7 +430,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
   "abstract" : [
-
+    {
+      "text" : "Structural component defines object’s relationship with other objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -446,7 +464,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "The object with this component is part of a graph and represents an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge - a link between two nodes.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -493,7 +522,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/unstructured": {
   "abstract" : [
-
+    {
+      "text" : "The object has no relationships with other objects,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "has no structural dependencies and no objects depend on it.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

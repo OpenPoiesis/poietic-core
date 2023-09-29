@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Type name of the object.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject"
       ]
     ]
@@ -83,6 +90,52 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The type name refers to an ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " in the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "metamodel ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " .",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -121,9 +174,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
-
+    {
+      "text" : "A structure that contains an object representation from a foreign interface.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -154,7 +224,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/type": {
   "abstract" : [
-
+    {
+      "text" : "Type name of the object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -185,6 +258,90 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject\/type"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/objectTypes": {
+  "abstract" : [
+    {
+      "text" : "List of object types allowed in the model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "objectTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/objecttypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType": {
+  "abstract" : [
+    {
+      "text" : "Object representing a type of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype"
 }
 }
 }

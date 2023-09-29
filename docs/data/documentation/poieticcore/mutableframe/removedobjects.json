@@ -9,6 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
@@ -154,6 +155,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -240,7 +255,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

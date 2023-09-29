@@ -25,6 +25,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
@@ -238,30 +239,6 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Specified child object must be a child of the specified",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "parent.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Precondition",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
                   "text" : "",
                   "type" : "text"
                 },
@@ -369,6 +346,20 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -638,7 +629,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

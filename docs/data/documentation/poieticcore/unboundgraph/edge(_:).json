@@ -9,6 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph"
       ]
     ]
@@ -173,7 +174,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -202,9 +206,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

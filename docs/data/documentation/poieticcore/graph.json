@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs"
       ]
     ]
   },
@@ -173,11 +174,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
       ],
-      "title" : "Graph"
+      "title" : "Graph, Nodes and Edges"
     }
   ],
   "topicSections" : [
@@ -239,7 +238,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1252,6 +1254,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphcycleerror"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
   "abstract" : [
     {
@@ -1328,72 +1344,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
 },
-"doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Neighborhood"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Neighborhood"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Neighborhood",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/neighborhood"
-},
-"doc://PoieticCore/documentation/PoieticCore/NeighborhoodSelector": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NeighborhoodSelector"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NeighborhoodSelector"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NeighborhoodSelector",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/neighborhoodselector"
-},
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [
     {
-      "text" : "Object representing a graph node.",
+      "text" : "View of an object as a graph node.",
       "type" : "text"
     }
   ],

@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Name of the variable.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable"
       ]
     ]
@@ -83,6 +90,34 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The name of the variable is used in arithmetic expressions to refer",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to the variable.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -157,7 +192,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/BuiltinVariable/name": {
   "abstract" : [
-
+    {
+      "text" : "Name of the variable.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -188,6 +226,20 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinvariable\/name"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
 }
 }
 }

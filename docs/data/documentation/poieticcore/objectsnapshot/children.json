@@ -9,6 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ]
     ]
@@ -170,6 +171,32 @@
           "type" : "paragraph"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "Another way of specifying structural relationship of objects besides",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "hierarchy is with the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "content" : [
             {
               "inlineContent" : [
@@ -316,6 +343,20 @@
   "title" : "ChildrenSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/childrenset"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/addChild(_:to:)": {
   "abstract" : [
@@ -552,7 +593,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -660,6 +701,51 @@
   "title" : "parent",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/parent"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/structure": {
+  "abstract" : [
+    {
+      "text" : "Variable denoting the structural property or rather structural role",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "of the object within the memory.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "structure"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
+      "text" : "StructuralComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "structure",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/structure"
 }
 }
 }

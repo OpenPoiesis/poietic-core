@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Data type of the variable value.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable"
       ]
     ]
@@ -192,7 +199,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/BuiltinVariable/valueType": {
   "abstract" : [
-
+    {
+      "text" : "Data type of the variable value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -223,6 +233,20 @@
   "title" : "valueType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinvariable\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
 }
 }
 }

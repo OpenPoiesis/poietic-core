@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation"
       ]
     ]
@@ -287,7 +288,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -315,6 +319,28 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+  "abstract" : [
+    {
+      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "define requirements for a set of objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Predicates and Constraints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 }
 }
 }

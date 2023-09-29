@@ -9,8 +9,9 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent\/Component-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent\/InspectableComponent-Implementations"
       ]
     ]
   },
@@ -21,7 +22,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore9ComponentPAAE6recordxAA13ForeignRecordV_tKcfc::SYNTHESIZED::s:11PoieticCore17KeywordsComponentV",
+    "externalID" : "s:11PoieticCore20InspectableComponentPAAE6recordxAA13ForeignRecordV_tKcfc::SYNTHESIZED::s:11PoieticCore17KeywordsComponentV",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -301,16 +302,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keywordscomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent/Component-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent/InspectableComponent-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent\/Component-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent\/InspectableComponent-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Component Implementations",
+  "title" : "InspectableComponent Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keywordscomponent\/component-implementations"
+  "url" : "\/documentation\/poieticcore\/keywordscomponent\/inspectablecomponent-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/KeywordsComponent/init(record:)": {
   "abstract" : [
@@ -388,8 +389,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-      "text" : "AttributeValue"
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
     },
     {
       "kind" : "text",
@@ -423,6 +424,20 @@
   "title" : "setAttribute(value:forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keywordscomponent\/setattribute(value:forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 }
 }
 }

@@ -33,6 +33,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph"
       ]
     ]
@@ -398,6 +399,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/hood(_:selector:)-47x7u"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
 
@@ -462,7 +477,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

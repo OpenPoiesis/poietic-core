@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
       ]
     ]
   },
@@ -137,17 +138,9 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component"
       ],
-      "title" : "Metamodel"
+      "title" : "Component"
     }
   ],
   "topicSections" : [
@@ -228,113 +221,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of an attribute.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel"
-},
-"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
-  "abstract" : [
-    {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "kinds of designs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BasicMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/basicmetamodel"
-},
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
     {
@@ -368,40 +254,6 @@
   "title" : "Component",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of a component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
@@ -825,138 +677,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-7cqju"
 },
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
-      "text" : "A concrete metamodel without any specification.",
+      "text" : "Management and storage of design objects.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EmptyMetamodel",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/emptymetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/Metamodel": {
-  "abstract" : [
-    {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Metamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Metamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NameComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType": {
-  "abstract" : [
-    {
-      "text" : "Object representing a type of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype"
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/s25ExpressibleByArrayLiteralP": {
   "identifier" : "doc:\/\/PoieticCore\/s25ExpressibleByArrayLiteralP",

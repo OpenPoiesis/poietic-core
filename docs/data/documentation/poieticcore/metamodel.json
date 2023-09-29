@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ]
     ]
   },
@@ -182,7 +183,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "one source of truth",
+                      "text" : "One source of truth.",
                       "type" : "text"
                     }
                   ],
@@ -195,7 +196,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "abstraction from persistence, inspection (UI), scripting",
+                      "text" : "Abstraction from persistence, inspection (UI), scripting.",
                       "type" : "text"
                     }
                   ],
@@ -208,7 +209,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "transparency and audit-ability of the domain model",
+                      "text" : "Transparency and audit-ability of the domain model.",
                       "type" : "text"
                     }
                   ],
@@ -221,7 +222,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "reflection",
+                      "text" : "Reflection.",
                       "type" : "text"
                     }
                   ],
@@ -234,7 +235,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "fair compromise between model DSL and native programming language, while",
+                      "text" : "Fair compromise between model DSL and native programming language, while",
                       "type" : "text"
                     },
                     {
@@ -250,7 +251,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "through the native programming language identifiers",
+                      "text" : "through the native programming language identifiers.",
                       "type" : "text"
                     }
                   ],
@@ -263,7 +264,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "potentially, in the far future, the metamodel or its parts can be compiled",
+                      "text" : "Potentially, in the far future, the metamodel or its parts can be compiled",
                       "type" : "text"
                     },
                     {
@@ -271,7 +272,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "for better performance (which is out of scope at this moment)",
+                      "text" : "for better performance (which is out of scope at this moment).",
                       "type" : "text"
                     }
                   ],
@@ -298,7 +299,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "documentation",
+                      "text" : "Documentation.",
                       "type" : "text"
                     }
                   ],
@@ -311,7 +312,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "provide information through tooling to the user about what can be created,",
+                      "text" : "Provide information through tooling to the user about what can be created,",
                       "type" : "text"
                     },
                     {
@@ -319,7 +320,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "used, inspected",
+                      "text" : "used, inspected.",
                       "type" : "text"
                     }
                   ],
@@ -332,7 +333,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "there are going to be multiple versions of the toolkit in the wild, users",
+                      "text" : "There are going to be multiple versions of the toolkit in the wild, users",
                       "type" : "text"
                     },
                     {
@@ -340,7 +341,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "can investigate the capabilities of their installed version of the toolkit",
+                      "text" : "can investigate the capabilities of their installed version of the toolkit.",
                       "type" : "text"
                     }
                   ],
@@ -395,16 +396,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription"
       ],
-      "title" : "Metamodel"
+      "title" : "Metamodel and Object Types"
     }
   ],
   "topicSections" : [
@@ -420,7 +415,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/componentType(name:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/inspectableComponent(name:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectType(name:)"
       ],
       "title" : "Type Methods"
@@ -488,37 +483,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributedescription"
 },
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel"
-},
 "doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
   "abstract" : [
     {
@@ -561,40 +525,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/basicmetamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for object components.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
 "doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
   "abstract" : [
     {
@@ -628,40 +558,6 @@
   "title" : "ComponentDescription",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentdescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
-  "abstract" : [
-    {
-      "text" : "Collection of components of an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset"
 },
 "doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
   "abstract" : [
@@ -730,72 +626,6 @@
   "title" : "Metamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/componentType(name:)": {
-  "abstract" : [
-    {
-      "text" : "Get a component type by name",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "componentType"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/componentType(name:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "componentType(name:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/componenttype(name:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/components": {
   "abstract" : [
@@ -904,6 +734,72 @@
   "title" : "constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/constraints"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/inspectableComponent(name:)": {
+  "abstract" : [
+    {
+      "text" : "Get a component type by name",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "inspectableComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
+      "text" : "InspectableComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/inspectableComponent(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "inspectableComponent(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/inspectablecomponent(name:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/objectType(name:)": {
   "abstract" : [
@@ -1117,36 +1013,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/variables"
 },
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
-
-  ],
-  "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NameComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [

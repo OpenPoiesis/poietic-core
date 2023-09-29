@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints"
       ]
     ]
   },
@@ -104,13 +105,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:description:match:requirement:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:abstract:match:requirement:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/abstract",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/match",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/requirement"
@@ -236,6 +237,55 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
 },
+"doc://PoieticCore/documentation/PoieticCore/Constraint/abstract": {
+  "abstract" : [
+    {
+      "text" : "Human-readable description of the constraint. The recommended content",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "can be:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "abstract"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/abstract",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "abstract",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint\/abstract"
+},
 "doc://PoieticCore/documentation/PoieticCore/Constraint/check(_:)": {
   "abstract" : [
     {
@@ -294,56 +344,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint\/check(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Constraint/description": {
-  "abstract" : [
-    {
-      "text" : "Human-readable description of the constraint. The recommended content",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "can be:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "description"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/description",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "description",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraint\/description"
-},
-"doc://PoieticCore/documentation/PoieticCore/Constraint/init(name:description:match:requirement:)": {
+"doc://PoieticCore/documentation/PoieticCore/Constraint/init(name:abstract:match:requirement:)": {
   "abstract" : [
     {
       "text" : "Creates an edge constraint.",
@@ -378,7 +379,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "description"
+      "text" : "abstract"
     },
     {
       "kind" : "text",
@@ -428,12 +429,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:description:match:requirement:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/init(name:abstract:match:requirement:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:description:match:requirement:)",
+  "title" : "init(name:abstract:match:requirement:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraint\/init(name:description:match:requirement:)"
+  "url" : "\/documentation\/poieticcore\/constraint\/init(name:abstract:match:requirement:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Constraint/match": {
   "abstract" : [
@@ -664,6 +665,28 @@
   "title" : "EdgeEndpointTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+  "abstract" : [
+    {
+      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "define requirements for a set of objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Predicates and Constraints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [

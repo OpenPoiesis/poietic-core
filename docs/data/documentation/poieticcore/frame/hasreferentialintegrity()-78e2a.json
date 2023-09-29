@@ -11,6 +11,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame"
       ]
     ]
@@ -166,7 +167,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/hasReferentialIntegrity()-52e58": {
   "abstract" : [
-
+    {
+      "text" : "Function that determines whether the frame has a referential integrity.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -233,6 +237,20 @@
   "title" : "hasReferentialIntegrity()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-78e2a"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 }
 }
 }

@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
       ]
     ]
   },
@@ -102,6 +103,22 @@
   },
   "sections" : [
 
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperatorSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperatorSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LiteralSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionCallSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentSyntax",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentListSyntax"
+      ],
+      "title" : "Abstract Syntax Tree"
+    }
   ],
   "topicSections" : [
     {
@@ -300,6 +317,20 @@
   "title" : "toExpression()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntax\/toexpression()"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionArgumentListSyntax": {
   "abstract" : [

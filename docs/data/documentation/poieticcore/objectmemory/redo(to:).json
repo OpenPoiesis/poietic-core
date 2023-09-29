@@ -25,6 +25,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory"
       ]
     ]
@@ -262,7 +263,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a version frame.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -290,6 +294,20 @@
   "title" : "FrameID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
   "abstract" : [

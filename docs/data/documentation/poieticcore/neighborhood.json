@@ -2,7 +2,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs"
       ]
     ]
   },
@@ -84,17 +85,9 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector"
       ],
-      "title" : "Graph"
+      "title" : "Neighbourhoods"
     }
   ],
   "topicSections" : [
@@ -143,222 +136,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Edge",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
-      "text" : "Designation of which direction of an edge from a node projection perspective",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is to be considered.",
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeDirection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeDirection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeDirection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgedirection"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
-  "abstract" : [
-    {
-      "text" : "Protocol for views of a frame as a graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "role" : "symbol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
   "title" : "Graph",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphCycleError": {
-  "abstract" : [
-    {
-      "text" : "An error raised when a cycle is detected in the graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphCycleError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphcycleerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
-  "abstract" : [
-    {
-      "text" : "Protocol",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableUnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
+  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
@@ -688,82 +478,6 @@
   "title" : "NeighborhoodSelector",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/neighborhoodselector"
-},
-"doc://PoieticCore/documentation/PoieticCore/Node": {
-  "abstract" : [
-    {
-      "text" : "Object representing a graph node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Node",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundgraph"
 }
 }
 }

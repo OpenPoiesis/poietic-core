@@ -16,7 +16,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
       ]
     ]
   },
@@ -111,14 +112,14 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericFunction",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericUnaryFunction"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericUnaryFunction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature"
       ],
-      "title" : "Arithmetic Expression"
+      "title" : "Functions"
     }
   ],
   "topicSections" : [
@@ -202,10 +203,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
+"doc://PoieticCore/documentation/PoieticCore/ArgumentType": {
   "abstract" : [
     {
-      "text" : "Arithmetic expression.",
+      "text" : "Type of a function argument.",
       "type" : "text"
     }
   ],
@@ -220,33 +221,47 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ArithmeticExpression"
+      "text" : "ArgumentType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ArithmeticExpression"
+      "text" : "ArgumentType"
     }
   ],
   "role" : "symbol",
-  "title" : "ArithmeticExpression",
+  "title" : "ArgumentType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
+  "url" : "\/documentation\/poieticcore\/argumenttype"
 },
-"doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Object representing a built-in variable.",
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error describing an issue with an argument passed to a function.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -254,21 +269,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BuiltinVariable"
+      "text" : "FunctionError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "BuiltinVariable"
+      "text" : "FunctionError"
     }
   ],
   "role" : "symbol",
-  "title" : "BuiltinVariable",
+  "title" : "FunctionError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtinvariable"
+  "url" : "\/documentation\/poieticcore\/functionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionProtocol": {
   "abstract" : [
@@ -830,14 +845,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/numericunaryfunction"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
+"doc://PoieticCore/documentation/PoieticCore/Signature": {
   "abstract" : [
-
+    {
+      "text" : "Function signature.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -845,21 +863,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "UnboundExpression"
+      "text" : "Signature"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "UnboundExpression"
+      "text" : "Signature"
     }
   ],
   "role" : "symbol",
-  "title" : "UnboundExpression",
+  "title" : "Signature",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundexpression"
+  "url" : "\/documentation\/poieticcore\/signature"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/RawRepresentable-Implementations"
       ]
@@ -55,23 +56,7 @@
           "type" : "codeVoice"
         },
         {
-          "text" : ", ",
-          "type" : "text"
-        },
-        {
-          "code" : "Self",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "RawRepresentable",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ", and ",
+          "text" : " and ",
           "type" : "text"
         },
         {
@@ -301,23 +286,7 @@
         "type" : "codeVoice"
       },
       {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Self",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "RawRepresentable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
+        "text" : " and ",
         "type" : "text"
       },
       {
@@ -375,6 +344,20 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel\/init(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 }
 }
 }

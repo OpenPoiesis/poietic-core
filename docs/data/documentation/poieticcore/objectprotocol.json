@@ -2,7 +2,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
       ]
     ]
   },
@@ -92,6 +93,20 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+      ],
+      "title" : "Object"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
@@ -142,9 +157,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
+"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
   "abstract" : [
 
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildrenSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ChildrenSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ChildrenSet",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/childrenset"
+},
+"doc://PoieticCore/documentation/PoieticCore/Edge": {
+  "abstract" : [
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -173,10 +222,24 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [
     {
-      "text" : "Object representing a graph node.",
+      "text" : "View of an object as a graph node.",
       "type" : "text"
     }
   ],
@@ -206,6 +269,40 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
@@ -452,7 +549,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -482,6 +579,108 @@
   "title" : "ObjectSnapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design object version.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SnapshotID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/snapshotid"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
+  "abstract" : [
+    {
+      "text" : "Structural component defines object’s relationship with other objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralcomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
+  "abstract" : [
+    {
+      "text" : "Structural type of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype"
 }
 }
 }

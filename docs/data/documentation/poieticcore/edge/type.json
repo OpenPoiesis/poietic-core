@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/ObjectProtocol-Implementations"
       ]
@@ -152,7 +153,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -225,6 +229,20 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/type"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [

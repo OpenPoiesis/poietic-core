@@ -17,7 +17,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
       ]
     ]
   },
@@ -150,6 +151,21 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType"
+      ],
+      "title" : "Parsing"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
@@ -192,6 +208,74 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
+  "abstract" : [
+    {
+      "text" : "An object for lexical analysis of an arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionLexer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionLexer",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
+  "abstract" : [
+    {
+      "text" : "Parser for arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionParser"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionParser"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionParser",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionparser"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionTokenType": {
   "abstract" : [
 
@@ -222,6 +306,20 @@
   "title" : "ExpressionTokenType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontokentype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/Lexer": {
   "abstract" : [
@@ -256,6 +354,108 @@
   "title" : "Lexer",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/lexer"
+},
+"doc://PoieticCore/documentation/PoieticCore/Scanner": {
+  "abstract" : [
+    {
+      "text" : "Base object for simple lexers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Scanner"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Scanner"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Scanner",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/scanner"
+},
+"doc://PoieticCore/documentation/PoieticCore/TextLocation": {
+  "abstract" : [
+    {
+      "text" : "Human-oriented location within a text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TextLocation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TextLocation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TextLocation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/textlocation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Token": {
+  "abstract" : [
+    {
+      "text" : "Token represents a lexical unit of the source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Token"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Token"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Token",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/token"
 },
 "doc://PoieticCore/documentation/PoieticCore/TokenTypeProtocol": {
   "abstract" : [

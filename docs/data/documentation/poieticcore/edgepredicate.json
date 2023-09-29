@@ -16,7 +16,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints"
       ]
     ]
   },
@@ -683,9 +684,42 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
 },
+"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+  "abstract" : [
+    {
+      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "define requirements for a set of objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Predicates and Constraints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "The object with this component is part of a graph and represents an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge - a link between two nodes.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

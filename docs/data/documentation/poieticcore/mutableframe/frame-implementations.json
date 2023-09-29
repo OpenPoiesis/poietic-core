@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
@@ -34,14 +35,14 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/assert(constraint:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/brokenReferences()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/brokenReferences(snapshot:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/filter(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/filter(component:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/filter(type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/hasReferentialIntegrity()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/object(named:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/object(stringReference:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/referentialIntegrityViolators()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/structuralDependants(id:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/object(stringReference:)"
       ],
       "title" : "Instance Methods"
     }
@@ -73,6 +74,20 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -157,6 +172,121 @@
   "title" : "assert(constraint:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/assert(constraint:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/brokenReferences()": {
+  "abstract" : [
+    {
+      "text" : "Get a list of object IDs that are referenced within the frame",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "but do not exist in the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/brokenReferences()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "brokenReferences()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/brokenreferences()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/brokenReferences(snapshot:)": {
+  "abstract" : [
+    {
+      "text" : "Return a list of objects that the provided object refers to and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that do not exist within the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/brokenReferences(snapshot:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "brokenReferences(snapshot:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/brokenreferences(snapshot:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/filter(_:)": {
   "abstract" : [
@@ -332,7 +462,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/hasReferentialIntegrity()": {
   "abstract" : [
-
+    {
+      "text" : "Function that determines whether the frame has a referential integrity.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -487,99 +620,6 @@
   "title" : "object(stringReference:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/object(stringreference:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/referentialIntegrityViolators()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "referentialIntegrityViolators"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/referentialIntegrityViolators()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "referentialIntegrityViolators()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/referentialintegrityviolators()"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/structuralDependants(id:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "structuralDependants"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/structuralDependants(id:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "structuralDependants(id:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/structuraldependants(id:)"
 }
 }
 }

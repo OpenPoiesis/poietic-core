@@ -273,140 +273,14 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
       ],
-      "title" : "Object Memory"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel"
-      ],
-      "title" : "Metamodel"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
-      ],
-      "title" : "Graph"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
-      ],
-      "title" : "Predicates"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
-      ],
-      "title" : "Constraints"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVFormatter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError"
-      ],
-      "title" : "Foreign Interfaces"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericFunction",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericUnaryFunction",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericBinaryFunction"
-      ],
-      "title" : "Arithmetic Expression"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionCallSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentListSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperatorSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperatorSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LiteralSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/bindExpression(_:variables:functions:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError"
-      ],
-      "title" : "Arithmetic Expression Parsing and Syntax"
+      "title" : "Memory"
     },
     {
       "identifiers" : [
@@ -418,35 +292,28 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntax",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypedValue"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExtendedForeignRecord",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponentSequence",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectType"
-      ],
-      "title" : "Variables"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/persistableComponent(name:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/registerPersistableComponent(name:type:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/mutableQuery(component:)"
       ],
       "title" : "Functions"
     },
@@ -498,192 +365,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
-  "abstract" : [
-    {
-      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "that are required. If the constraint requirement is used, then it",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matches all objects defined by constraint predicate and accepts them all.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AcceptAll"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AcceptAll"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AcceptAll",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/acceptall"
-},
-"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
-  "abstract" : [
-    {
-      "text" : "Requirement that all matched objects satisfy a given predicate.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AllSatisfy"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AllSatisfy"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AllSatisfy",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/allsatisfy"
-},
-"doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that matches any object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AnyPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AnyPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AnyPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/anypredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/ArgumentType": {
-  "abstract" : [
-    {
-      "text" : "Type of a function argument.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ArgumentType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ArgumentType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ArgumentType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/argumenttype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
-  "abstract" : [
-    {
-      "text" : "Arithmetic expression.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ArithmeticExpression"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ArithmeticExpression"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ArithmeticExpression",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
-},
 "doc://PoieticCore/documentation/PoieticCore/AtomType": {
   "abstract" : [
     {
@@ -718,74 +399,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of an attribute.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeDictionary": {
-  "abstract" : [
-    {
-      "text" : "Type for a dictionary of graph object attributes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDictionary"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDictionary",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeDictionary"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeDictionary",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedictionary"
-},
 "doc://PoieticCore/documentation/PoieticCore/AttributeError": {
   "abstract" : [
 
@@ -817,82 +430,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributeerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
-  "abstract" : [
-    {
-      "text" : "Type for object attribute key.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeValue": {
-  "abstract" : [
-    {
-      "text" : "Type for object attribute values.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributevalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
+"doc://PoieticCore/documentation/PoieticCore/BoundComponent": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -900,72 +445,30 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AudienceLevel"
+      "text" : "BoundComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AudienceLevel"
+      "text" : "BoundComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "AudienceLevel",
+  "title" : "BoundComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel"
+  "url" : "\/documentation\/poieticcore\/boundcomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
-  "abstract" : [
-    {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "kinds of designs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BasicMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/basicmetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/BinaryOperatorSyntax": {
+"doc://PoieticCore/documentation/PoieticCore/BoundComponentSequence": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -973,21 +476,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BinaryOperatorSyntax"
+      "text" : "BoundComponentSequence"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperatorSyntax",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponentSequence",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "BinaryOperatorSyntax"
+      "text" : "BoundComponentSequence"
     }
   ],
   "role" : "symbol",
-  "title" : "BinaryOperatorSyntax",
+  "title" : "BoundComponentSequence",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/binaryoperatorsyntax"
+  "url" : "\/documentation\/poieticcore\/boundcomponentsequence"
 },
 "doc://PoieticCore/documentation/PoieticCore/BoundNeighborhood": {
   "abstract" : [
@@ -1020,569 +523,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/boundneighborhood"
 },
-"doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
-  "abstract" : [
-    {
-      "text" : "Object representing a built-in variable.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BuiltinVariable",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtinvariable"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csverror"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVForeignRecordReader": {
-  "abstract" : [
-    {
-      "text" : "Reads a CSV text and yields one ",
-      "type" : "text"
-    },
-    {
-      "code" : "ForeignRecord",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " per CSV record.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVForeignRecordReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVForeignRecordReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVForeignRecordReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvforeignrecordreader"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVFormatter": {
-  "abstract" : [
-    {
-      "text" : "Formats a list of string values into a string that represents a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "CSV record.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVFormatter"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVFormatter",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVFormatter"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVFormatter",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvformatter"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVOptions": {
-  "abstract" : [
-    {
-      "text" : "Set of options to read CSV files.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvoptions"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVWriter": {
-  "abstract" : [
-    {
-      "text" : "A sketch of a CSVWriter.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVWriter"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVWriter"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVWriter",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvwriter"
-},
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ChildrenSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for object components.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of a component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
-  "abstract" : [
-    {
-      "text" : "Collection of components of an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset"
-},
-"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CompoundPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/compoundpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/Constraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing constraint that checks edges.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Constraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Constraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Constraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraint"
-},
-"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
-  "abstract" : [
-    {
-      "text" : "Definition of a constraint satisfaction requirement.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintrequirement"
-},
-"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintViolation",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintviolation"
-},
-"doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintViolationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintviolationerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignObjectType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectType",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignObjectType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobjecttype"
-},
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
-
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1610,166 +556,6 @@
   "title" : "Edge",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
-  "abstract" : [
-    {
-      "text" : "Designation of which direction of an edge from a node projection perspective",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is to be considered.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeDirection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeDirection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeDirection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgedirection"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
-  "abstract" : [
-    {
-      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given labels.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointTypes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointTypes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeEndpointTypes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that tests the edge object itself together with its objects -",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "origin and target.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
-  "abstract" : [
-    {
-      "text" : "A concrete metamodel without any specification.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EmptyMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/emptymetamodel"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionConvertible": {
   "abstract" : [
@@ -1802,173 +588,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionconvertible"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
-  "abstract" : [
-    {
-      "text" : "An object for lexical analysis of an arithmetic expression.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionLexer"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionLexer"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionLexer",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
-  "abstract" : [
-    {
-      "text" : "Parser for arithmetic expressions.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionParser"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionParser"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionParser",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionparser"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntax": {
-  "abstract" : [
-    {
-      "text" : "Protocol for expression syntax nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the expression language parser.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntaxError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntaxError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionSyntaxError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
 
@@ -2000,469 +619,33 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionTokenType": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
-
-  ],
-  "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionTokenType"
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionTokenType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionTokenType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontokentype"
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExtendedForeignRecord": {
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "A foreign record that has a mapping of other foreign records associated",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with it.",
+      "text" : "Formulas - arithmetic expressions.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExtendedForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExtendedForeignRecord",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExtendedForeignRecord"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExtendedForeignRecord",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/extendedforeignrecord"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignAtom": {
-  "abstract" : [
-    {
-      "text" : "ForeignAtom represents a scalar or a simple tuple-like value from an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignAtom",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignatom"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameBundle",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframebundle"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameInfo": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeinfo"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader": {
-  "abstract" : [
-    {
-      "text" : "Object that reads a frame from a frame package.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
-  "abstract" : [
-    {
-      "text" : "A collection of key-value pairs that store data used for exchange with",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment such as database.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecord",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
-  "abstract" : [
-    {
-      "text" : "An error thrown when there is an issue with retrieving or converting",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a foreign value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecordError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
-  "abstract" : [
-    {
-      "text" : "ForeignValue represents a value from an external environment that can be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either an atom or a list of atoms – an array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
-  "abstract" : [
-    {
-      "text" : "Protocol for version frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Frame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameid"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameReaderError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror"
+  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionArgument": {
   "abstract" : [
@@ -2498,167 +681,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionargument"
 },
-"doc://PoieticCore/documentation/PoieticCore/FunctionArgumentListSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionArgumentListSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentListSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionArgumentListSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionArgumentListSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionargumentlistsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/FunctionArgumentSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionArgumentSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgumentSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionArgumentSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionArgumentSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionargumentsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/FunctionCallSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionCallSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionCallSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionCallSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionCallSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functioncallsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
-  "abstract" : [
-    {
-      "text" : "Error describing an issue with an argument passed to a function.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/FunctionProtocol": {
-  "abstract" : [
-    {
-      "text" : "Protocol describing a function.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionProtocol",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionProtocol"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionProtocol",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionprotocol"
-},
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
@@ -2693,70 +715,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphCycleError": {
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
-      "text" : "An error raised when a cycle is detected in the graph.",
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphCycleError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphcycleerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HasComponentPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HasComponentPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HasComponentPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
+  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/ID": {
   "abstract" : [
@@ -2789,10 +760,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/id"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
+"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
     {
-      "text" : "Protocol for generators of unique object IDs.",
+      "text" : "Protocol for components where attributes can be inspected by their names.",
       "type" : "text"
     }
   ],
@@ -2807,91 +778,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IdentityGenerator"
+      "text" : "InspectableComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "IdentityGenerator"
+      "text" : "InspectableComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "IdentityGenerator",
+  "title" : "InspectableComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator"
+  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IsTypePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
+"doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
   "abstract" : [
     {
-      "text" : "A protocol for objects that provide their attributes by keys.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeyedAttributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent": {
-  "abstract" : [
-    {
-      "text" : "Keywords component",
+      "text" : "Component that holds a list of errors related to a node.",
       "type" : "text"
     }
   ],
@@ -2906,219 +812,49 @@
     },
     {
       "kind" : "identifier",
-      "text" : "KeywordsComponent"
+      "text" : "IssueListComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "KeywordsComponent"
+      "text" : "IssueListComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "KeywordsComponent",
+  "title" : "IssueListComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keywordscomponent"
+  "url" : "\/documentation\/poieticcore\/issuelistcomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/Lexer": {
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
-      "text" : "Protocol for syntax lexers.",
+      "text" : "Management and storage of design objects.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Lexer"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Lexer"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Lexer",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/lexer"
+  "url" : "\/documentation\/poieticcore\/memory"
 },
-"doc://PoieticCore/documentation/PoieticCore/LiteralSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LiteralSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LiteralSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LiteralSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LiteralSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/literalsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LogicalConnective"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LogicalConnective"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LogicalConnective",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/logicalconnective"
-},
-"doc://PoieticCore/documentation/PoieticCore/Metamodel": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Metamodel describes the types of the design objects and their properties.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Metamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Metamodel",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
-  "abstract" : [
-    {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
-  "abstract" : [
-    {
-      "text" : "Protocol",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph"
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
   "abstract" : [
@@ -3162,49 +898,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableUnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
-},
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
+"doc://PoieticCore/documentation/PoieticCore/MutableObjectReference": {
   "abstract" : [
 
   ],
@@ -3219,52 +913,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NameComponent"
+      "text" : "MutableObjectReference"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectReference",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "NameComponent"
+      "text" : "MutableObjectReference"
     }
   ],
   "role" : "symbol",
-  "title" : "NameComponent",
+  "title" : "MutableObjectReference",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NegationPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/negationpredicate"
+  "url" : "\/documentation\/poieticcore\/mutableobjectreference"
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
@@ -3362,7 +1025,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [
     {
-      "text" : "Object representing a graph node.",
+      "text" : "View of an object as a graph node.",
       "type" : "text"
     }
   ],
@@ -3392,163 +1055,6 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/NumericBinaryFunction": {
-  "abstract" : [
-    {
-      "text" : "An object that represents a binary operator - a function of two",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "numeric arguments.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericBinaryFunction"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericBinaryFunction",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NumericBinaryFunction"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NumericBinaryFunction",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/numericbinaryfunction"
-},
-"doc://PoieticCore/documentation/PoieticCore/NumericFunction": {
-  "abstract" : [
-    {
-      "text" : "An object that represents a generic function of zero or multiple numeric",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "arguments and returning a numeric value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericFunction"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericFunction",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NumericFunction"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NumericFunction",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/numericfunction"
-},
-"doc://PoieticCore/documentation/PoieticCore/NumericUnaryFunction": {
-  "abstract" : [
-    {
-      "text" : "An object that represents a unary operator - a function of one numeric",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "argument.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericUnaryFunction"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericUnaryFunction",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NumericUnaryFunction"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NumericUnaryFunction",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/numericunaryfunction"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
   "abstract" : [
@@ -3584,7 +1090,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
   "abstract" : [
 
   ],
@@ -3599,26 +1105,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectProtocol"
+      "text" : "ObjectReference"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectProtocol"
+      "text" : "ObjectReference"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectProtocol",
+  "title" : "ObjectReference",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectprotocol"
+  "url" : "\/documentation\/poieticcore\/objectreference"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -3648,40 +1154,6 @@
   "title" : "ObjectSnapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType": {
-  "abstract" : [
-    {
-      "text" : "Object representing a type of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype"
 },
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet": {
   "abstract" : [
@@ -3717,37 +1189,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
 },
-"doc://PoieticCore/documentation/PoieticCore/ParenthesisSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ParenthesisSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ParenthesisSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ParenthesisSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/parenthesissyntax"
-},
 "doc://PoieticCore/documentation/PoieticCore/Point": {
   "abstract" : [
 
@@ -3779,44 +1220,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicate": {
+"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
   "abstract" : [
     {
-      "text" : "A predicate.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Predicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Predicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Predicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
-  "abstract" : [
-    {
-      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
       "type" : "text"
     },
     {
@@ -3824,78 +1231,16 @@
       "type" : "text"
     },
     {
-      "text" : "that are prohibited. If the constraint requirement is used, then it",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "text" : "define requirements for a set of objects.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RejectAll"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RejectAll"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RejectAll",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Predicates and Constraints",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rejectall"
-},
-"doc://PoieticCore/documentation/PoieticCore/Scanner": {
-  "abstract" : [
-    {
-      "text" : "Base object for simple lexers.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Scanner"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Scanner"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Scanner",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/scanner"
+  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 },
 "doc://PoieticCore/documentation/PoieticCore/ScannerError": {
   "abstract" : [
@@ -3928,287 +1273,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/scannererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
-  "abstract" : [
-    {
-      "text" : "Generator of IDs as a sequence of numbers starting from 1.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SequentialIDGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
-},
-"doc://PoieticCore/documentation/PoieticCore/Signature": {
-  "abstract" : [
-    {
-      "text" : "Function signature.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Signature"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Signature"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Signature",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/signature"
-},
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
+"doc://PoieticCore/documentation/PoieticCore/TransientComponent": {
   "abstract" : [
 
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SnapshotID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
-  "abstract" : [
-    {
-      "text" : "Stable design frame that can not be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
-  "abstract" : [
-    {
-      "text" : "Structural type of an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuraltype"
-},
-"doc://PoieticCore/documentation/PoieticCore/TextLocation": {
-  "abstract" : [
-    {
-      "text" : "Human-oriented location within a text.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TextLocation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TextLocation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TextLocation",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/textlocation"
-},
-"doc://PoieticCore/documentation/PoieticCore/Token": {
-  "abstract" : [
-    {
-      "text" : "Token represents a lexical unit of the source.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Token",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/token"
-},
-"doc://PoieticCore/documentation/PoieticCore/TokenTypeProtocol": {
-  "abstract" : [
-    {
-      "text" : "Protocol for token types used by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
@@ -4221,21 +1288,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TokenTypeProtocol"
+      "text" : "TransientComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TokenTypeProtocol"
+      "text" : "TransientComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "TokenTypeProtocol",
+  "title" : "TransientComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/tokentypeprotocol"
+  "url" : "\/documentation\/poieticcore\/transientcomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/TypedValue": {
   "abstract" : [
@@ -4267,183 +1334,6 @@
   "title" : "TypedValue",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/typedvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnaryOperatorSyntax": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnaryOperatorSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperatorSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnaryOperatorSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnaryOperatorSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unaryoperatorsyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnboundExpression"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnboundExpression"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnboundExpression",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundexpression"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundgraph"
-},
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UniqueNeighbourRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
-},
-"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
-  "abstract" : [
-    {
-      "text" : "A constraint requirement that a specified property of the objects must",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "be unique within the checked group of checked objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UniqueProperty"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UniqueProperty"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UniqueProperty",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueproperty"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -4541,77 +1431,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variablereference"
 },
-"doc://PoieticCore/documentation/PoieticCore/VariableSyntax": {
+"doc://PoieticCore/documentation/PoieticCore/mutableQuery(component:)": {
   "abstract" : [
 
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VariableSyntax"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableSyntax",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VariableSyntax"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VariableSyntax",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variablesyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/VersionState": {
-  "abstract" : [
-    {
-      "text" : "State of a versioned object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VersionState",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate"
-},
-"doc://PoieticCore/documentation/PoieticCore/bindExpression(_:variables:functions:)": {
-  "abstract" : [
-    {
-      "text" : "Bind an expression to concrete variable references.",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
@@ -4624,7 +1446,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "bindExpression"
+      "text" : "mutableQuery"
     },
     {
       "kind" : "text",
@@ -4632,84 +1454,32 @@
     },
     {
       "kind" : "genericParameter",
-      "text" : "V"
+      "text" : "T"
     },
     {
       "kind" : "text",
       "text" : ">("
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17UnboundExpressiona",
-      "text" : "UnboundExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
       "kind" : "externalParam",
-      "text" : "variables"
+      "text" : "component"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "text" : "T"
     },
     {
       "kind" : "text",
-      "text" : " : "
+      "text" : ".Type) -> ["
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "functions"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
-      "text" : "FunctionProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
+      "preciseIdentifier" : "s:11PoieticCore14BoundComponentV",
+      "text" : "BoundComponent"
     },
     {
       "kind" : "text",
@@ -4717,161 +1487,19 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "text" : "T"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
-      "text" : "FunctionProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
+      "text" : ">]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/bindExpression(_:variables:functions:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/mutableQuery(component:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bindExpression(_:variables:functions:)",
+  "title" : "mutableQuery(component:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/bindexpression(_:variables:functions:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/persistableComponent(name:)": {
-  "abstract" : [
-    {
-      "text" : "Get a class of persistable component by name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "persistableComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/persistableComponent(name:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "persistableComponent(name:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistablecomponent(name:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/registerPersistableComponent(name:type:)": {
-  "abstract" : [
-    {
-      "text" : "Register a persistable component by name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "registerPersistableComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "type"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type)"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/registerPersistableComponent(name:type:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "registerPersistableComponent(name:type:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/registerpersistablecomponent(name:type:)"
+  "url" : "\/documentation\/poieticcore\/mutablequery(component:)"
 }
 }
 }

@@ -18,8 +18,9 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent\/Component-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent\/InspectableComponent-Implementations"
       ]
     ]
   },
@@ -30,7 +31,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore9ComponentPAAE13componentNameSSvp::SYNTHESIZED::s:11PoieticCore13NameComponentV",
+    "externalID" : "s:11PoieticCore20InspectableComponentPAAE13componentNameSSvp::SYNTHESIZED::s:11PoieticCore13NameComponentV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -187,6 +188,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentdescription\/name"
 },
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
 "doc://PoieticCore/documentation/PoieticCore/NameComponent": {
   "abstract" : [
 
@@ -218,16 +233,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/namecomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/NameComponent/Component-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/NameComponent/InspectableComponent-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent\/Component-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent\/InspectableComponent-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Component Implementations",
+  "title" : "InspectableComponent Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent\/component-implementations"
+  "url" : "\/documentation\/poieticcore\/namecomponent\/inspectablecomponent-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/NameComponent/componentName": {
   "abstract" : [

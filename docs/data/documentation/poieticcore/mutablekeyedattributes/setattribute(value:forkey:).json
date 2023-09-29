@@ -41,8 +41,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-        "text" : "AttributeValue"
+        "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+        "text" : "ForeignValue"
       },
       {
         "kind" : "text",
@@ -125,10 +125,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-              "text" : "AttributeValue"
+              "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+              "text" : "ForeignValue"
             },
             {
               "kind" : "text",
@@ -240,17 +240,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeValue": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
   "abstract" : [
     {
-      "text" : "Type for object attribute values.",
+      "text" : "ForeignValue represents a value from an external environment that can be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either an atom or a list of atoms – an array.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -258,21 +266,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeValue"
+      "text" : "ForeignValue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeValue",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeValue"
+      "text" : "ForeignValue"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeValue",
+  "title" : "ForeignValue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributevalue"
+  "url" : "\/documentation\/poieticcore\/foreignvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
   "abstract" : [
@@ -347,8 +355,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14AttributeValuea",
-      "text" : "AttributeValue"
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
     },
     {
       "kind" : "text",

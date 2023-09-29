@@ -1,14 +1,9 @@
 {
-  "abstract" : [
-    {
-      "text" : "Create a new component with default component values.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component"
       ]
     ]
@@ -64,85 +59,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This is a required method.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Each component should provide sensible default values for its",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "attributes. It is highly recommended that the default values are",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "documented.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The default values are also used when the component is created",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "from a foreign record using ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/init(record:)-5twez",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " and when the attribute is",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "missing in the record.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -217,10 +133,7 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Component/init()": {
   "abstract" : [
-    {
-      "text" : "Create a new component with default component values.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -240,52 +153,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component\/init()"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component/init(record:)-5twez": {
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
-      "text" : "Create a component from a foreign record.",
+      "text" : "Management and storage of design objects.",
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "record"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/init(record:)-5twez",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(record:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component\/init(record:)-5twez"
+  "url" : "\/documentation\/poieticcore\/memory"
 }
 }
 }

@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Structural component defines object’s relationship with other objects.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
       ]
     ]
   },
@@ -70,6 +77,64 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Structural component is another way of specifying object structure",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "besides the parent-child hierarchy.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -95,21 +160,14 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol"
       ],
-      "title" : "Object Memory"
+      "title" : "Object"
     }
   ],
   "topicSections" : [
@@ -200,142 +258,26 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/childrenset"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
-      "text" : "Protocol for version frames.",
+      "text" : "Management and storage of design objects.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Frame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameid"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
-  "abstract" : [
-    {
-      "text" : "Protocol for generators of unique object IDs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
-  "abstract" : [
-    {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -364,17 +306,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -382,26 +321,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "ObjectProtocol"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "ObjectProtocol"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectMemory",
+  "title" : "ObjectProtocol",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
+  "url" : "\/documentation\/poieticcore\/objectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -432,17 +371,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
   "abstract" : [
     {
-      "text" : "Generator of IDs as a sequence of numbers starting from 1.",
+      "text" : "List of object’s children.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -450,25 +389,72 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
+      "text" : "ChildrenSet"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
   "kind" : "symbol",
-  "navigatorTitle" : [
+  "role" : "symbol",
+  "title" : "children",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/children"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/parent": {
+  "abstract" : [
+    {
+      "text" : "Object’s parent – denotes hierarchical organisation of objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "SequentialIDGenerator",
+  "title" : "parent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/parent"
 },
 "doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design object version.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -497,43 +483,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/snapshotid"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
-  "abstract" : [
-    {
-      "text" : "Stable design frame that can not be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
-},
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
   "abstract" : [
-
+    {
+      "text" : "Structural component defines object’s relationship with other objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -575,7 +530,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/description": {
   "abstract" : [
-
+    {
+      "text" : "Short description of the structural component.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -609,7 +567,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "The object with this component is part of a graph and represents an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge - a link between two nodes.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -656,7 +625,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/node": {
   "abstract" : [
-
+    {
+      "text" : "The object with this component is part of a graph and represents a node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -681,7 +653,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/type": {
   "abstract" : [
-
+    {
+      "text" : "A structural type of the component.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -715,7 +690,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralComponent/unstructured": {
   "abstract" : [
-
+    {
+      "text" : "The object has no relationships with other objects,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "has no structural dependencies and no objects depend on it.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -771,40 +757,6 @@
   "title" : "StructuralType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuraltype"
-},
-"doc://PoieticCore/documentation/PoieticCore/VersionState": {
-  "abstract" : [
-    {
-      "text" : "State of a versioned object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VersionState",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Identifier of a version frame.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
       ]
     ]
   },
@@ -80,6 +87,65 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each frame in an object memory has an unique frame ID.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createFrame(id:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/deriveFrame(original:id:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -95,20 +161,14 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState"
       ],
-      "title" : "Object Memory"
+      "title" : "Object Memory and Version Frames"
     }
   ],
   "variants" : [
@@ -138,37 +198,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ChildrenSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -206,7 +235,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a version frame.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -300,6 +332,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitygenerator"
 },
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -333,37 +379,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
   "abstract" : [
@@ -399,17 +414,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createFrame(id:)": {
   "abstract" : [
     {
-      "text" : "A class representing a version of an object in the database.",
+      "text" : "Create a new empty mutable frame.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -417,21 +432,112 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "createFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createFrame(id:)",
   "kind" : "symbol",
-  "navigatorTitle" : [
+  "role" : "symbol",
+  "title" : "createFrame(id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/createframe(id:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/deriveFrame(original:id:)": {
+  "abstract" : [
+    {
+      "text" : "Derive a new frame from an existing frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "deriveFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "original"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/deriveFrame(original:id:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ObjectSnapshot",
+  "title" : "deriveFrame(original:id:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/objectmemory\/deriveframe(original:id:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
   "abstract" : [
@@ -467,37 +573,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
 },
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SnapshotID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
-},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
     {
@@ -531,71 +606,6 @@
   "title" : "StableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
-  "abstract" : [
-    {
-      "text" : "Structural type of an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuraltype"
 },
 "doc://PoieticCore/documentation/PoieticCore/VersionState": {
   "abstract" : [
