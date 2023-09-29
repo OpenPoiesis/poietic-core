@@ -1,11 +1,11 @@
 # Poietic
 
-A modelling and simulation toy toolkit for systems dynamics.
+A modelling and simulation toy toolkit for systems thinking and systems dynamics.
 
 Function:
 
-- Creation and iterative design of systems dynamics models
-- Simulation of systems dynamics models
+- Creation and iterative design of systems dynamics models.
+- Simulation of systems dynamics models.
 
 Focus and approach:
 
@@ -24,19 +24,22 @@ Focus and approach:
 Current:
 
 - [Stock and Flow](https://en.wikipedia.org/wiki/Stock_and_flow) model
-    - Implemented nodes: Stock, Flow, Auxiliary
+    - Implemented nodes: Stock, Flow, Auxiliary, Graphical Function
     - Stocks can be either non-negative or can allow negative values
     - Included [Euler](https://en.wikipedia.org/wiki/Euler_method) and [RK4](https://en.wikipedia.org/wiki/Runge–Kutta_methods) solvers
 - Simple arithmetic expressions (formulas)
     - Built-in functions: abs, floor, ceiling, round, power, sum, min, max
-- Export to [Graphviz](https://graphviz.org) dot files.
 - Whole editing history is preserved.
 - Editing is non-destructive and can be reversed using undo and
   redo commands.
+- Exports:
+    - [Graphviz](https://graphviz.org) dot files.
+    - Export to CSV.
+    - Charts to [Gnuplot](http://gnuplot.info)
   
 Planned:
 
-- More useful built-in functions and variables.
+- More useful built-in functions and variables for the Stock and Flow model.
 - Sub-systems.
 - API for GUI applications.
 - Visual layout.
@@ -134,42 +137,17 @@ poietic run
 
 ## Development
 
-This is a hobby project. A toy.
+This is a sketch of a toy.
 
-It is still a prototype, a sketch if you like. Compare it to painter's canvas
-at the beginning - rough outlines with a pencil.
-
-Different parts reflect different stages and different understanding of the
-problem and its implementation. As the understanding of the problem improves,
-the parts are refactored. However, the primary focus right now is on having
-some basic functionality of the whole system without seriously annoying the
-users.
-
-Principles:
-
-- User entered content is holy. Should be preserved as-is and provided to the
-  user in an understandable and processable form when asked for.
-- User is allowed to make mistakes.
+More information about the development can be found in documents in the
+[DevelopmentNotes](DevelopmentNotes) directory.
 
 Further reading:
 
+- [Requirements](DevelopmentNotes/Requirements.md) document in the
+  DevelopmentNotes folder.
 - [Technical Debt](DevelopmentNotes/TechnicalDebt.md) document in the
   DevelopmentNotes folder.
-
-Error handling:
-
-- There should be a strict distinction between a programming error and user error:
-    - Programming errors must not happen at any cost, they are guarded by 
-      preconditions and asserts. Programming errors are errors that prevent
-      further continuation of the program in a meaningful and consistent way.
-      Example: Errors with user input are not programming errors.
-    - User errors must be handled and presented to the user.
-- Errors should be descriptive and it is recommended that they are accompanied
-  with a hint how to remove them.
-- If there is a potential for multiple user errors, then as many errors should be
-  gathered as possible and presented to the user.
-- Context of the error must be included if known, for example an object that
-  caused the error.
 
 ## Author
 
