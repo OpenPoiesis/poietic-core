@@ -8,7 +8,7 @@ import PoieticCore
 
 /// Component representing a position of a node in a canvas.
 ///
-public struct PositionComponent: Component,
+public struct PositionComponent: InspectableComponent,
                                  CustomStringConvertible {
     
     // TODO: Consider renaming this to CanvasComponent or GraphicsComponent
@@ -16,13 +16,13 @@ public struct PositionComponent: Component,
     public static var componentDescription = ComponentDescription(
         name: "Position",
         attributes: [
-//            AttributeDescription(name: "position", type: .point),
-            AttributeDescription(name: "x", type: .double),
-            AttributeDescription(name: "y", type: .double),
+            AttributeDescription(name: "position", type: .point),
+//            AttributeDescription(name: "x", type: .double),
+//            AttributeDescription(name: "y", type: .double),
         ]
     )
     /// Flag whether the value of the node can be negative.
-    var position: Point = Point()
+    public var position: Point = Point()
     
     public init() {
         self.init(x: 0.0, y: 0.0)
@@ -35,9 +35,9 @@ public struct PositionComponent: Component,
 
     public func attribute(forKey key: AttributeKey) -> ForeignValue? {
         switch key {
-//        case "position": return ForeignValue(position)
-        case "x": return ForeignValue(position.x)
-        case "y": return ForeignValue(position.y)
+        case "position": return ForeignValue(position)
+//        case "x": return ForeignValue(position.x)
+//        case "y": return ForeignValue(position.y)
         default: return nil
         }
     }
@@ -45,9 +45,9 @@ public struct PositionComponent: Component,
     public mutating func setAttribute(value: ForeignValue,
                                       forKey key: AttributeKey) throws {
         switch key {
-//        case "position": self.position = try value.pointValue()
-        case "x": self.position.x = try value.doubleValue()
-        case "y": self.position.y = try value.doubleValue()
+        case "position": self.position = try value.pointValue()
+//        case "x": self.position.x = try value.doubleValue()
+//        case "y": self.position.y = try value.doubleValue()
         default:
             throw AttributeError.unknownAttribute(name: key,
                                                   type: String(describing: type(of: self)))
