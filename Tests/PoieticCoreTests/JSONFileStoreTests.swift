@@ -17,19 +17,14 @@ class TestPersistentRecord: XCTestCase {
     }
 
     func testFromRecord() throws {
-        let object = ForeignObject(
-        type: "Stock",
-        id: "10",
-        snapshotID: "20",
-        name: nil,
-        attributes: ForeignRecord([:]),
-        origin: nil,
-        target: nil,
-        children: nil
-        
+        let record = ForeignRecord([
+        "type": ForeignValue("Stock"),
+        "id": ForeignValue(10),
+        "snapshot_id": ForeignValue(20),
+        ]
         )
         
-        let obj: ObjectSnapshot = try memory.createSnapshot(object)
+        let obj: ObjectSnapshot = try memory.createSnapshot(record)
         
         XCTAssertEqual(obj.id, 10)
         XCTAssertEqual(obj.snapshotID, 20)

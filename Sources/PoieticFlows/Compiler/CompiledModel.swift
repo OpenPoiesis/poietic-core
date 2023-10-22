@@ -204,10 +204,27 @@ public struct CompiledModel {
     /// - Note: It is guaranteed that the variables are ordered. If a cycle was
     ///         present in the model, the compiled model would not have been
     ///         created.
+    ///
     public let computedVariables: [ComputedVariable]
     
-    // TODO: Don't compute, materialize?
+    /// List of all simulation variables: built-in and computed.
+    ///
+    /// To fetch values from a simulation state:
+    ///
+    /// ```swift
+    /// // Let the following two be given
+    /// let model: CompiledModel
+    /// let state: SimulationState
+    ///
+    /// // Print values from the state
+    /// for variable in model.allVariables {
+    ///     let value = state[variable]
+    ///     print("\(variable.name): \(value)"
+    /// }
+    /// ```
+    ///
     public var allVariables: [SimulationVariable] {
+        // TODO: Don't compute, materialize?
         var result: [SimulationVariable] = []
         
         for (index, builtin) in builtinVariables.enumerated() {

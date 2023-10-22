@@ -263,7 +263,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
                            record: ForeignRecord) throws -> ObjectSnapshot {
         precondition(self.state == .uninitialized,
                      "Trying to initialize already initialized object \(self.debugID)")
-
+        // TODO: Rename `record:` to `attributes record:`
         // TODO: Test whether setting an attribute from a component that does not  exist will create the component.
 
         for key in record.allKeys {
@@ -362,7 +362,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// Frozen objects can no longer be changed. They make up ``StableFrame``s.
     ///
     func freeze() {
-        precondition(self.state != .frozen)
+        precondition(self.state != .frozen,
+                     "Trying to freeze already frozen snapshot.")
         self.state = .frozen
     }
     
@@ -389,7 +390,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
             return components[componentType]
         }
         set(component) {
-            precondition(state.isMutable)
+            precondition(state.isMutable,
+                         "Trying to set a component of an immutable object (id: \(self.id), sid: \(self.snapshotID))")
             components[componentType] = component
         }
     }

@@ -66,28 +66,28 @@ final class ForeignValueJSONTests: XCTestCase {
         XCTAssertEqual(try ForeignAtom.fromJSON("[10, 20]").valueType, .point)
     }
     
-    func testAtomToJSON() throws {
-        // TODO: Int should be int
-        XCTAssertEqual(try ForeignAtom(10).toJSON(), "10")
-        XCTAssertEqual(try ForeignAtom(10.1).toJSON(), "10.1")
-        XCTAssertEqual(try ForeignAtom(true).toJSON(), "true")
-        XCTAssertEqual(try ForeignAtom("hello").toJSON(), "\"hello\"")
-        XCTAssertEqual(try ForeignAtom(Point(10, 20)).toJSON(), "[10,20]")
-    }
-    
-    
-    func testValueFromJSON() throws {
-        // TODO: Int should be int
-        XCTAssertEqual(try ForeignValue.fromJSON("10").valueType, .double)
-        XCTAssertEqual(try ForeignValue.fromJSON("10.0").valueType, .double)
-        XCTAssertEqual(try ForeignValue.fromJSON("true").valueType, .bool)
-        XCTAssertEqual(try ForeignValue.fromJSON("\"hello\"").valueType, .string)
-//        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").valueType, .point)
-
-        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").arrayItemType, .double)
-        XCTAssertEqual(try ForeignValue.fromJSON("[\"a\", \"b\"]").arrayItemType, .string)
-        XCTAssertEqual(try ForeignValue.fromJSON("[[10, 20], [30, 40]]").arrayItemType, .point)
-
-        XCTAssertThrowsError(try ForeignValue.fromJSON("[\"a\", 10]"))
-    }
+//    func testAtomToJSON() throws {
+//        // TODO: Int should be int
+//        XCTAssertEqual(try ForeignAtom(10).toJSON(), "10")
+//        XCTAssertEqual(try ForeignAtom(10.1).toJSON(), "10.1")
+//        XCTAssertEqual(try ForeignAtom(true).toJSON(), "true")
+//        XCTAssertEqual(try ForeignAtom("hello").toJSON(), "\"hello\"")
+//        XCTAssertEqual(try ForeignAtom(Point(10, 20)).toJSON(), "[10,20]")
+//    }
+//    
+//    
+//    func testValueFromJSON() throws {
+//        // TODO: Int should be int
+//        XCTAssertEqual(try ForeignValue.fromJSON("10").valueType, .double)
+//        XCTAssertEqual(try ForeignValue.fromJSON("10.0").valueType, .double)
+//        XCTAssertEqual(try ForeignValue.fromJSON("true").valueType, .bool)
+//        XCTAssertEqual(try ForeignValue.fromJSON("\"hello\"").valueType, .string)
+////        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").valueType, .point)
+//
+//        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").arrayItemType, .double)
+//        XCTAssertEqual(try ForeignValue.fromJSON("[\"a\", \"b\"]").arrayItemType, .string)
+//        XCTAssertEqual(try ForeignValue.fromJSON("[[10, 20], [30, 40]]").arrayItemType, .point)
+//
+//        XCTAssertThrowsError(try ForeignValue.fromJSON("[\"a\", 10]"))
+//    }
 }

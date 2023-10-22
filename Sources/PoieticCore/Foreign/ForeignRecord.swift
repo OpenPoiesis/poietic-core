@@ -66,7 +66,7 @@ extension ForeignRecord: Codable {
 /// external environment such as database.
 ///
 public struct ForeignRecord {
-    let dict: [String:ForeignValue]
+    var dict: [String:ForeignValue]
     
     /// Create a foreign record from a dictionary.
     ///
@@ -80,7 +80,12 @@ public struct ForeignRecord {
     /// returns `nil`.
     ///
     public subscript(key: String) -> ForeignValue? {
-        return dict[key]
+        get {
+            dict[key]
+        }
+        set(value) {
+            dict[key] = value
+        }
     }
    
     /// Returns `true` if the foreign record contains the given key.

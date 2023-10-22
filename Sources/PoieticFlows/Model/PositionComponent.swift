@@ -28,6 +28,10 @@ public struct PositionComponent: InspectableComponent,
         self.init(x: 0.0, y: 0.0)
     }
     
+    public init(_ position: Point) {
+        self.position = position
+    }
+
     public init(x: Double,
                 y: Double) {
         self.position = Point(x: x, y: y)

@@ -22,14 +22,14 @@ public struct ForeignObject: Codable {
         case target = "to"
         case children
     }
-
+    
     /// Type name of the object.
     ///
     /// The type name refers to an ``ObjectType`` in the
     /// metamodel ``Metamodel/objectTypes`` .
     ///
     public let type: String
-
+    
     // TODO: Change to ForeignAtom?
     /// Reference to an object.
     ///
@@ -66,7 +66,7 @@ public struct ForeignObject: Codable {
     /// - SeeAlso: ``attributes``
     ///
     public let name: String?
-
+    
     /// Attributes and their values.
     ///
     /// All advertised attributes of components that are
@@ -81,7 +81,7 @@ public struct ForeignObject: Codable {
     /// - SeeAlso: ``InspectableComponent``, ``name``
     ///
     public let attributes: ForeignRecord?
-
+    
     // Structural properties
     // TODO: Change to ForeignAtom?
     /// Origin of an edge if the structural type of the object is an edge.
@@ -93,7 +93,7 @@ public struct ForeignObject: Codable {
     ///
     public let origin: String?
     // TODO: Change to ForeignAtom?
-
+    
     /// Target of an edge if the structural type of the object is an edge.
     ///
     /// The attribute must be present together with the ``origin`` attribute.
@@ -103,7 +103,7 @@ public struct ForeignObject: Codable {
     ///
     public let target: String?
     // TODO: Change to [ForeignAtom]
-
+    
     /// List of references to the object's children to form the object
     /// hierarchy.
     ///

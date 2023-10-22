@@ -42,6 +42,8 @@ public enum ValueError: Error, CustomStringConvertible{
 /// - SeeAlso: ``ForeignValue``
 ///
 public enum ForeignAtom: Equatable, CustomStringConvertible {
+    // TODO: Replace xxxValue() to cast() -> xxx
+    
     /// Representation of an integer.
     case int(Int)
 
@@ -66,6 +68,19 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
     ///
     case id(ObjectID)
 
+    public init?(any value: Any) {
+        switch value {
+        case let value as Int: self = .int(value)
+        case let value as Double: self = .double(value)
+        case let value as Bool: self = .bool(value)
+        case let value as String: self = .string(value)
+        case let value as Point: self = .point(value)
+        case let value as ObjectID: self = .id(value)
+        default: return nil
+        }
+    }
+
+    
     /// Flag whether the value is numeric - either an integer or a double
     /// value.
     ///
@@ -155,7 +170,7 @@ public enum ForeignAtom: Equatable, CustomStringConvertible {
         case let .point(value): throw ValueError.typeMismatch("\(value)", "int")
         }
     }
-    
+
     /// Try to get a double value from the foreign value. Convert if necessary.
     ///
     /// Boolean and ID values can not be converted to double.
@@ -365,6 +380,17 @@ extension ForeignAtom: Codable {
         case let .point(value): try container.encode(value)
         }
     }
+    
+    public func anyValue() -> Any {
+        switch self {
+        case let .int(value): return value
+        case let .double(value): return value
+        case let .string(value): return value
+        case let .bool(value): return value
+        case let .id(value): return value
+        case let .point(value): return value
+        }
+    }
 
 }
 
@@ -389,6 +415,23 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
     case atom(ForeignAtom)
     case array([ForeignAtom])
 
+    public init?(any value: Any) {
+        switch value {
+        case let value as Int: self = .atom(.int(value))
+        case let value as Double: self = .atom(.double(value))
+        case let value as Bool: self = .atom(.bool(value))
+        case let value as String: self = .atom(.string(value))
+        case let value as Point: self = .atom(.point(value))
+        case let value as ObjectID: self = .atom(.id(value))
+        case let values as [Int]: self = .array(values.map { ForeignAtom.int($0)})
+        case let values as [Double]: self = .array(values.map { ForeignAtom.double($0)})
+        case let values as [Bool]: self = .array(values.map { ForeignAtom.bool($0)})
+        case let values as [String]: self = .array(values.map { ForeignAtom.string($0)})
+        case let values as [Point]: self = .array(values.map { ForeignAtom.point($0)})
+        case let values as [ObjectID]: self = .array(values.map { ForeignAtom.id($0)})
+        default: return nil
+        }
+    }
     /// Create a foreign value wrapping an integer value.
     ///
     public init(_ value: Int) {
@@ -620,6 +663,25 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
     }
     
     
+    /// Converts the foreign value into a list of IDs.
+    ///
+    /// All elements of the list must be an ID.
+    ///
+    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the foreign value
+    ///   is an atom or when any of the values can not be converted to an
+    ///   ID.
+    ///
+    /// - SeeAlso: ``idValue()``, ``ForeignAtom/idValue()``
+    ///
+    public func idArray() throws -> [ObjectID] {
+        switch self {
+        case .atom(let value):
+            throw ValueError.typeMismatch("atom(\(value.valueType))", "Array")
+        case .array(let values):
+            return try values.map { try $0.idValue() }
+        }
+    }
+
     /// Converts the foreign value into a list of integers.
     ///
     /// All elements of the list must be an integer.
@@ -714,6 +776,15 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         }
     }
 
+    public func anyValue() -> Any {
+        switch self {
+        case .atom(let value): return value.anyValue
+        case .array(let values):
+            return Array(values.map { $0.anyValue })
+        }
+
+    }
+    
     public var description: String {
         switch self {
         case .atom(let value):

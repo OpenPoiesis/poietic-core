@@ -19,8 +19,18 @@
 /// type.
 ///
 public protocol Component {
-    // TODO: Remove this requirement. Ths is mostly used in convenience initialized through the code when a required component is not provided. This is lazy!
+    // TODO: Remove this requirement. This is mostly used in convenience initialised through the code when a required component is not provided. This is lazy!
     init()
+}
+
+/// Components that are persisted in the archive. Most of the components
+/// are persistable.
+///
+/// - Note: For now, the persistence is being done using the Swift ``Codable``
+///   protocol. This might change in the future.
+///
+public protocol PersistableComponent: Component, Codable {
+    
 }
 
 public protocol TransientComponent: Component {

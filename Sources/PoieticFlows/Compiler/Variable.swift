@@ -41,15 +41,56 @@ public struct BoundBuiltinVariable {
     public let builtin: BuiltinVariable
     public let index: VariableIndex
 }
+
+/// Type of the simulation variable.
+///
+/// - SeeAlso: ``SimulationVariable``
+///
 public enum SimulationVariableType {
+    /// The simulation variable represents a computation defined
+    /// by a node.
     case computed
+    /// The simulation variable represents a built-in variable.
+    ///
     case builtin
 }
 
+/// Representation of a variable in a simulation.
+///
+/// This structure provides information about a variable used in the simulation.
+/// Variable can be built-in or computed. The computed variable is representing
+/// a node in the model, typically a node with a formula.
+///
+/// The structure can be used directly to fetch a variable value from a state
+/// vector:
+///
+/// ```swift
+///  // Let the following two be given
+/// let state: SimulationState
+/// let variable: SimulationVariable
+///
+/// // Fetch the value
+/// let value: ForeignValue = state[variable]
+///
+/// // Use the value...
+/// ```
+///
 public enum SimulationVariable {
+    /// Represents a built-in variable – a variable which value is provided
+    /// by the simulation system.
+    ///
+    /// - SeeAlso: ``FlowsMetamodel/variables``
+    ///
     case builtin(BoundBuiltinVariable)
+    
+    /// A variable that corresponds to a node of the model. The variable
+    /// is computed during the simulation, for example from a node
+    /// containing a ``FormulaComponent``.
+    ///
     case computed(ComputedVariable)
     
+    /// Type of the simulation variable.
+    ///
     public var type: SimulationVariableType {
         switch self {
         case .builtin: .builtin
@@ -57,6 +98,13 @@ public enum SimulationVariable {
         }
     }
     
+    /// Index of the variable in the corresponding list of state vector
+    /// variables.
+    ///
+    /// The index refers to an index either in a built-in variable list or
+    /// to an index within computed variable list, depends on the
+    /// variable type.
+    ///
     public var index: VariableIndex {
         switch self {
         case let .builtin(builtin): builtin.index
@@ -64,10 +112,27 @@ public enum SimulationVariable {
         }
     }
     
+    /// Name of the variable.
+    ///
+    /// Convenience attribute that uses the name from the underlying variable
+    /// type.
+    ///
     public var name: String {
         switch self {
         case let .builtin(builtin): builtin.builtin.name
         case let .computed(computed): computed.name
+        }
+    }
+    
+    /// ID of a simulation node that the variable represents, if the variable
+    /// represents a node.
+    ///
+    /// ID is `nil` when the variable is a built-in variable.
+    ///
+    public var id: ObjectID? {
+        switch self {
+        case let .builtin(builtin): nil
+        case let .computed(computed): computed.id
         }
     }
 }

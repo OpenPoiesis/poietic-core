@@ -23,6 +23,8 @@ public class FlowsMetamodel: Metamodel {
     // MARK: Components
     // ---------------------------------------------------------------------
 
+    /// List of components that are used in the Stock and Flow models.
+    /// 
     public static let components: [Component.Type] = [
         NameComponent.self,
         StockComponent.self,
@@ -105,7 +107,9 @@ public class FlowsMetamodel: Metamodel {
         ]
     )
     
-    /// An auxiliary node - containing a constant or a formula.
+    /// An auxiliary node with a function that is described by a graph.
+    ///
+    /// Graphical function is specified by a collection of 2D points.
     ///
     public static let GraphicalFunction = ObjectType(
         name: "GraphicalFunction",
@@ -120,6 +124,12 @@ public class FlowsMetamodel: Metamodel {
         ]
     )
     
+    /// A user interface mode representing a control that modifies a value of
+    /// its target node.
+    ///
+    /// For control node to work, it should be connected to its target node with
+    /// ``FlowsMetamodel/ValueBinding`` edge.
+    ///
     public static let Control = ObjectType(
         name: "Control",
         structuralType: .node,
@@ -128,6 +138,13 @@ public class FlowsMetamodel: Metamodel {
             ControlComponent.self,
         ]
     )
+    
+    /// A user interface node representing a chart.
+    ///
+    /// Chart contains series that are connected with the chart using the
+    /// ``FlowsMetamodel/ChartSeries`` edge where the origin is the chart and
+    /// the target is a value node.
+    ///
     public static let Chart = ObjectType(
         name: "Chart",
         structuralType: .node,
@@ -137,6 +154,11 @@ public class FlowsMetamodel: Metamodel {
         ]
     )
     
+    /// A node that contains a note, a comment.
+    ///
+    /// The note is not used for simulation, it exists solely for the purpose
+    /// to provide user-facing information.
+    ///
     public static let Note = ObjectType(
         name: "Note",
         structuralType: .node,
@@ -211,6 +233,11 @@ public class FlowsMetamodel: Metamodel {
         abstract: "Edge between two stocks."
     )
 
+    /// An edge type to connect controls with their targets.
+    ///
+    /// The origin of the node is a control – ``FlowsMetamodel/Control``, the
+    /// target is a node representing a value.
+    ///
     public static let ValueBinding = ObjectType(
         name: "ValueBinding",
         structuralType: .edge,
@@ -221,6 +248,12 @@ public class FlowsMetamodel: Metamodel {
         abstract: "Edge between a control and a value node. The control observes the value after each step."
     )
 
+    /// An edge type to connect a chart with a series that are included in the
+    /// chart.
+    ///
+    /// The origin of the node is a chart – ``FlowsMetamodel/Chart`` and
+    /// the target of the node is a node representing a value.
+    ///
     public static let ChartSeries = ObjectType(
         // TODO: Origin: Chart, target: Expression
         name: "ChartSeries",
@@ -355,6 +388,11 @@ public class FlowsMetamodel: Metamodel {
     
     /// List of all built-in variables.
     /// 
+    /// The list contains:
+    /// 
+    /// - ``TimeVariable``
+    /// - ``TimeDeltaVariable``
+    ///
     public static let variables: [BuiltinVariable] = [
         TimeVariable,
         TimeDeltaVariable,

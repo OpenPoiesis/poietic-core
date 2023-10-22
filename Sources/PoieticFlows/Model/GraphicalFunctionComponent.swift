@@ -63,8 +63,7 @@ public struct GraphicalFunctionComponent: InspectableComponent, CustomStringConv
     
     public var description: String {
         let value = ForeignValue(points)
-        let pointsString = try! value.toJSON()
-        return "graphical(\(pointsString))"
+        return "graphical(\(value.description))"
     }
     
     /// Returns a graphical function object.

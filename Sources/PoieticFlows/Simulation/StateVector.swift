@@ -19,7 +19,14 @@ public struct SimulationState: CustomStringConvertible {
     public var builtins: [ForeignValue] = []
     /// Values of computed variables.
     public var values: [Double]
-
+    
+    /// All values of the state variables.
+    ///
+    /// The list is a concatenation of ``builtins`` and ``values``.
+    public var allValues: [ForeignValue] {
+        return builtins + values.map { ForeignValue($0) }
+    }
+    
     /// Create a simulation state with all variables set to zero.
     ///
     /// The list of builtins and simulation variables will be initialised
@@ -67,6 +74,17 @@ public struct SimulationState: CustomStringConvertible {
     }
     
     /// Get or set a computed variable at given index.
+    ///
+    /// ```swift
+    ///  // Let the following two be given
+    /// let state: SimulationState
+    /// let variable: SimulationVariable
+    ///
+    /// // Fetch the value
+    /// let value: ForeignValue = state[variable]
+    ///
+    /// // Use the value...
+    /// ```
     ///
     @inlinable
     public subscript(variable: SimulationVariable) -> ForeignValue {
@@ -162,6 +180,10 @@ public struct SimulationState: CustomStringConvertible {
             return "\(variable.id): \(value)"
         }.joined(separator: ", ")
         return "[builtins(\(builtinsStr)), values(\(stateStr))]"
+    }
+    
+    public func namedDictionary() -> [String:ForeignValue] {
+        fatalError()
     }
 }
 

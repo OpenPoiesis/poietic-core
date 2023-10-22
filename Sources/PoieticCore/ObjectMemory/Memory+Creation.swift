@@ -33,8 +33,8 @@ extension ObjectMemory {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
-        let actualID = allocateID(proposed: id)
-        let actualSnapshotID = allocateID(proposed: snapshotID)
+        let actualID = allocateID(required: id)
+        let actualSnapshotID = allocateID(required: snapshotID)
 
         let actualStructure: StructuralComponent
         
@@ -81,8 +81,8 @@ extension ObjectMemory {
                                  id: ObjectID? = nil,
                                  snapshotID: SnapshotID? = nil) -> ObjectSnapshot {
         // TODO: Test for existence of given snapshotID
-        let actualID: ObjectID = allocateID(proposed: id)
-        let actualSnapshotID: SnapshotID = allocateID(proposed: snapshotID)
+        let actualID: ObjectID = id ?? allocateID()
+        let actualSnapshotID: SnapshotID = allocateID(required: snapshotID)
 
         let snapshot = ObjectSnapshot(id: actualID,
                                       snapshotID: actualSnapshotID,

@@ -14,11 +14,17 @@ extension ForeignAtom {
         return try decoder.decode(ForeignAtom.self, from: data)
     }
     
-    public func toJSON() throws -> String {
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(self)
-        let string = String(data:data, encoding: .utf8)
-        return string!
+    /// Create a Foundation-compatible JSON object representation.
+    ///
+    public func asJSONObject() -> Any {
+        switch self {
+        case let .int(value):  value
+        case let .double(value): value
+        case let .string(value): value
+        case let .bool(value): value
+        case let .id(value): value
+        case let .point(value): [value.x, value.y]
+        }
     }
 }
 
@@ -29,10 +35,20 @@ extension ForeignValue {
         return try decoder.decode(ForeignValue.self, from: data)
     }
     
-    public func toJSON() throws -> String {
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(self)
-        let string = String(data:data, encoding: .utf8)
-        return string!
+    /// Create a Foundation-compatible JSON object representation.
+    ///
+    public func asJSONObject() -> Any {
+        switch self {
+        case .atom(let value): value.asJSONObject()
+        case .array(let items): items.map { $0.asJSONObject() }
+        }
+    }
+}
+
+extension ForeignRecord {
+    /// Create a Foundation-compatible JSON object representation.
+    ///
+    public func asJSONObject() -> Any {
+        dict.mapValues { $0.asJSONObject() }
     }
 }

@@ -235,10 +235,32 @@ public class ObjectMemory {
         return self._stableFrames.isEmpty
     }
    
-    /// Create an ID if needed or use a proposed ID.
+    // MARK: - Query
+    public func fetch<T>(component type: T.Type) -> [(ObjectSnapshot, T)]
+            where T : Component {
+        return snapshots.compactMap {
+            if let component: T = $0.components[type] {
+                ($0, component)
+            }
+            else {
+                nil
+            }
+        }
+    }
+
+    // MARK: - Identity
+    
+    /// Create an ID or use a specific ID.
     ///
-    public func allocateID(proposed: ID? = nil) -> ID {
-        if let id = proposed {
+    /// If an ID is provided, then it is marked as used and accepted. It must
+    /// not already exist in the memory, otherwise it is a programming error.
+    ///
+    /// If ID is not provided, then a new ID will be created.
+    ///
+    /// - Precondition: If ID is specified, it must not be used.
+    ///
+    public func allocateID(required: ID? = nil) -> ID {
+        if let id = required {
             precondition(_allSnapshots[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a snapshot ID")
             precondition(_stableFrames[id] == nil,
@@ -253,6 +275,8 @@ public class ObjectMemory {
             return self.identityGenerator.next()
         }
     }
+    
+    // MARK: Frames
     
     /// List of all stable frames in the memory.
     ///
@@ -311,7 +335,7 @@ public class ObjectMemory {
     ///
     @discardableResult
     public func createFrame(id: FrameID? = nil) -> MutableFrame {
-        let actualID = allocateID(proposed: id)
+        let actualID = allocateID(required: id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
             fatalError("Memory already contains a frame with ID \(actualID)")
@@ -344,7 +368,7 @@ public class ObjectMemory {
     @discardableResult
     public func deriveFrame(original originalID: FrameID? = nil,
                             id: FrameID? = nil) -> MutableFrame {
-        let actualID = allocateID(proposed: id)
+        let actualID = allocateID(required: id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
             fatalError("Can not derive frame: Frame with ID \(actualID) already exists")
@@ -636,5 +660,7 @@ public class ObjectMemory {
         self.undoableFrames.removeAll()
         self.redoableFrames.removeAll()
     }
+    
+    
 
 }
