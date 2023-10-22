@@ -9,9 +9,6 @@ import Foundation
 import ArgumentParser
 import PoieticCore
 import PoieticFlows
-enum MyError: Error {
-    case boo
-}
 
 /// Width of the attribute label column for right-aligned display.
 ///

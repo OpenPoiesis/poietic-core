@@ -122,7 +122,7 @@ extension ObjectMemory {
     public func createSnapshot(_ record: ForeignRecord) throws -> ObjectSnapshot {
         let typeName = try record.stringValue(for: "type")
         guard let type = metamodel.objectType(name: typeName) else {
-            fatalError("Unknown object type: \(typeName)")
+            throw MemoryStoreError.unknownObjectType(typeName)
         }
         
         let structure: StructuralComponent
@@ -155,23 +155,7 @@ extension ObjectMemory {
     ///         wrote the archive.
     ///
     public func restoreAll(store: MakeshiftMemoryStore) throws {
-        // TODO: Collect all issues
-        /*
-            TODO: Raise the following errors:
-            - file not found
-            - corrupted JSON
-            - snapshot creation error:
-                - unknown object type
-                - invalid structural type value type
-                - missing origin (edge)
-                - missing target (edge)
-                - unable to create a component
-            - duplicate snapshot ID
-            - frame references an unknown snapshot
-            - frame violates constraints
-            - frameset has unknown frame ID
-         
-         */
+        // TODO: Collect multiple issues
         try store.load()
         
         // 0. Remove everything
@@ -186,7 +170,8 @@ extension ObjectMemory {
         for record in try store.fetchAll(MakeshiftMemoryStore.SnapshotsCollectionName) {
             let snapshot = try createSnapshot(record)
             guard snapshots[snapshot.snapshotID] == nil else {
-                fatalError("Archive integrity error: Duplicate snapshot ID: \(snapshot.snapshotID)")
+                // TODO: Collect error and continue
+                throw MemoryStoreError.duplicateSnapshot(snapshot.snapshotID)
             }
             snapshots[snapshot.snapshotID] = snapshot
         }
@@ -196,18 +181,18 @@ extension ObjectMemory {
 
         for componentName in store.componentNames {
             guard let componentType = metamodel.inspectableComponent(name: componentName) else {
-                // TODO: Handle with an exception, this is not our fault - we should not crash.
-                fatalError("Archive error: Unknown component type: \(componentName)")
+                // TODO: Collect error and continue
+                throw MemoryStoreError.unknownComponentType(componentName)
             }
             let collectionName = componentName + MakeshiftMemoryStore.ComponentCollectionSuffix
             let records = try store.fetchAll(collectionName)
             for record in records {
                 guard let snapshotIDValue = record["snapshot_id"] else {
-                    fatalError("Archive integrity error: Missing snapshot ID in component of type \(componentName)")
+                    throw MemoryStoreError.brokenIntegrity("Missing snapshot_id in component \(componentName)")
                 }
                 let snapshotID = try snapshotIDValue.idValue()
                 guard let snapshot = snapshots[snapshotID] else {
-                    fatalError("Archive integrity error: Component \(componentName) is referencing a non-existent snapshot \(snapshotID)")
+                    throw MemoryStoreError.invalidReference(snapshotID, "snapshot", "component \(componentName)")
                 }
                 let component = try componentType.init(record: record)
                 snapshot.components.set(component)
@@ -225,19 +210,23 @@ extension ObjectMemory {
         
         for record in frameRecords {
             guard let idValue = record["id"] else {
-                fatalError("Archive integrity error: Frame is missing a frame ID")
+                throw MemoryStoreError.missingReference("frame", "frames collection")
             }
             let frameID = try idValue.idValue()
 
-            guard let idsValue = record["snapshots"] else {
-                fatalError("Archive integrity error: Frame is missing list of snapshots")
+            let ids: [ObjectID]
+            
+            if let idsValue = record["snapshots"] {
+                ids = try idsValue.idArray()
+            }
+            else {
+                ids = []
             }
 
-            let ids = try idsValue.idArray()
             let frame = createFrame(id: frameID)
             for id in ids {
                 guard let snapshot = snapshots[id] else {
-                    fatalError("Unknown snapshot \(id) in frame \(frameID) during unarchiving")
+                    throw MemoryStoreError.invalidReference(id, "snapshot", "frame \(frameID)")
                 }
                 // Do not check for referential integrity yet
                 frame.unsafeInsert(snapshot, owned: false)
@@ -254,20 +243,20 @@ extension ObjectMemory {
         
         guard let info = infoCollection.first else {
             // TODO: This should be a warning. We can recover
-            fatalError("Archive integrity error: Missing info collection")
+            throw MemoryStoreError.missingOrMalformedStateInfo
         }
 
         let undoFrames = try info["undo"]?.idArray() ?? []
         let redoFrames = try info["redo"]?.idArray() ?? []
 
         guard undoFrames.allSatisfy( { containsFrame($0) } ) else {
-            let offensive = undoFrames.filter { !containsFrame($0) }
-            fatalError("Undo frame-set contains invalid frame references: \(offensive)")
+            // let offensive = undoFrames.filter { !containsFrame($0) }
+            throw MemoryStoreError.invalidReferences("frame", "undo frame list")
         }
 
         guard redoFrames.allSatisfy( { containsFrame($0) } ) else {
-            let offensive = redoFrames.filter { !containsFrame($0) }
-            fatalError("Redo frame-set contains invalid frame references: \(offensive)")
+            // let offensive = redoFrames.filter { !containsFrame($0) }
+            throw MemoryStoreError.invalidReferences("frame", "redo frame list")
         }
 
         self.undoableFrames = undoFrames
@@ -275,7 +264,7 @@ extension ObjectMemory {
         
         if let currentID = try info["currentFrameID"]?.idValue() {
             guard containsFrame(currentID) else {
-                fatalError("Current frame not found. ID: \(currentID)")
+                throw MemoryStoreError.invalidReference(currentID, "frame", "current frame reference")
             }
             self.currentFrameID = currentID
         }
@@ -283,7 +272,7 @@ extension ObjectMemory {
         // Consistency check: currentFrameID must be set when there is history.
         if currentFrameID == nil
             && (!undoableFrames.isEmpty || !redoableFrames.isEmpty) {
-            fatalError("Archive integrity error: Current frame ID is not set while undo/redo history is not-empty")
+            throw MemoryStoreError.brokenIntegrity("Current frame ID is not set while undo/redo history is not-empty")
         }
     }
 }

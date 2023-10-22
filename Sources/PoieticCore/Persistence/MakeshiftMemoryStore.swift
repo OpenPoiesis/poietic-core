@@ -7,7 +7,71 @@
 
 import Foundation
 
-public enum MemoryArchiveError: Error {
+public enum MemoryStoreError: Error, CustomStringConvertible {
+    // Archive read/write
+    case cannotOpenStore(URL)
+    case malformedArchiveData(Error)
+    case cannotCreateArchiveData(Error)
+    case cannotWriteToStore(Error)
+    
+    // Metamodel errors
+    case unknownCollection(String)
+    case unknownComponentType(String)
+    case unknownObjectType(String)
+
+    /// Generic integrity error.
+    ///
+    /// This error should be rare and usually means that the store was
+    /// modified by a third-party.
+    ///
+    case brokenIntegrity(String)
+    case missingOrMalformedStateInfo
+
+
+    /// Referenced snapshot does not exist.
+    ///
+    /// This is an integrity error.
+    ///
+    case invalidReferences(String, String)
+    case invalidReference(ObjectID, String, String)
+    case missingReference(String, String)
+    case duplicateSnapshot(ObjectID)
+
+    public var description: String {
+        switch self {
+        case let .cannotOpenStore(url):
+            "Can not open archive '\(url)'"
+        case let .malformedArchiveData(error):
+            "Malformed archive data: \(error)"
+        case let .cannotCreateArchiveData(error):
+            "Can not create archive data: \(error)"
+        case let .cannotWriteToStore(error):
+            "Can not write archive: \(error)"
+
+        case .missingOrMalformedStateInfo:
+            "Missing or malformed memory state info"
+
+        // Model and metamodel errors
+        case let .unknownCollection(name):
+            "Unknown collection '\(name)'"
+        case let .unknownComponentType(name):
+            "Unknown component type '\(name)'"
+        case let .unknownObjectType(name):
+            "Unknown object type '\(name)'"
+
+        // Integrity errors
+        case let .duplicateSnapshot(id):
+            "Duplicate snapshot \(id)"
+        case let .brokenIntegrity(message):
+            "Broken store integrity: \(message)"
+        case let .invalidReferences(kind, context):
+            "Invalid \(kind) references in \(context)"
+        case let .invalidReference(id, kind, context):
+            "Unknown \(kind) ID \(id) in \(context)"
+        case let .missingReference(type, context):
+            "Missing \(type) ID in \(context)"
+        }
+    }
 }
 
 private struct MakeshiftMemoryArchive: Codable {
@@ -44,8 +108,21 @@ public class MakeshiftMemoryStore {
     
     public func load() throws {
         let decoder = JSONDecoder()
-        let data = try Data(contentsOf: url)
-        let archive = try decoder.decode(MakeshiftMemoryArchive.self, from: data)
+        let data: Data
+        do {
+            data = try Data(contentsOf: url)
+        }
+        catch {
+            throw MemoryStoreError.cannotOpenStore(url)
+        }
+        
+        let archive: MakeshiftMemoryArchive
+        do {
+            archive = try decoder.decode(MakeshiftMemoryArchive.self, from: data)
+        }
+        catch {
+            throw MemoryStoreError.malformedArchiveData(error)
+        }
         self.collections = archive.collections
     }
     
@@ -54,8 +131,19 @@ public class MakeshiftMemoryStore {
             collections: collections
         )
         let encoder = JSONEncoder()
-        let data = try encoder.encode(archive)
-        try data.write(to: url)
+        let data: Data
+        do {
+            data = try encoder.encode(archive)
+        }
+        catch {
+            throw MemoryStoreError.cannotCreateArchiveData(error)
+        }
+        do {
+            try data.write(to: url)
+        }
+        catch {
+            throw MemoryStoreError.cannotWriteToStore(error)
+        }
     }
 
     // MARK: Schema
@@ -63,9 +151,10 @@ public class MakeshiftMemoryStore {
         collections.keys.filter { $0.hasSuffix(MakeshiftMemoryStore.ComponentCollectionSuffix) }
             .map { String($0.dropLast(MakeshiftMemoryStore.ComponentCollectionSuffix.count)) }
     }
+    
     public func fetchAll(_ collectionName: String) throws -> [ForeignRecord] {
         guard let collection = collections[collectionName] else {
-            fatalError("Unknown collection in store: \(collectionName)")
+            throw MemoryStoreError.unknownCollection(collectionName)
         }
         return collection
     }
