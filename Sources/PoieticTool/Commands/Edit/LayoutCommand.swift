@@ -17,7 +17,7 @@ enum LayoutType: String, CaseIterable, ExpressibleByArgument{
     var defaultValueDescription: String { "circle" }
     
     static var allValueStrings: [String] {
-        Alignment.allCases.map { "\($0)" }
+        LayoutType.allCases.map { "\($0)" }
     }
 }
 

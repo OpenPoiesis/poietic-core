@@ -23,6 +23,7 @@ extension PoieticTool {
                 Remove.self,
                 AutoParameters.self,
                 Layout.self,
+                Align.self,
             ]
         )
         

@@ -8,25 +8,29 @@
 import ArgumentParser
 import PoieticCore
 import PoieticFlows
+import RealModule
 
-enum Alignment: String, CaseIterable, ExpressibleByArgument{
-    // Horizontal
-    case left = "left"
-    case right = "right"
-    case center = "center"
+enum AlignmentMode: String, CaseIterable, ExpressibleByArgument{
+    case alignLeft = "left"
+    case alignCenterHorizontal = "center-horizontal" // center-horizontal
+    case alignRight = "right"
 
-    // Vertical
-    case top = "top"
-    case bottom = "bottom"
-    case middle = "middle"
+    case alignTop = "top"
+    case alignCenterVertical = "center-vertical" // center-vertical
+    case alignBottom = "bottom"
 
-    var defaultValueDescription: String { "center" }
+    case offsetHorizontal = "offset-horizontal"
+    case offsetVertical = "offset-vertical"
+    
+    case spreadHorizontal = "spread-horizontal"
+    case spreadVertical = "spread-vertical"
+    
+    var defaultValueDescription: String { "align" }
     
     static var allValueStrings: [String] {
-        Alignment.allCases.map { "\($0)" }
+        AlignmentMode.allCases.map { "\($0)" }
     }
 }
-
 
 extension PoieticTool {
     struct Align: ParsableCommand {
@@ -37,13 +41,13 @@ extension PoieticTool {
 
         @OptionGroup var options: Options
 
-        @Option
-        var alignment: Alignment = .center
+        @Argument(help: "Alignment mode")
+        var mode: AlignmentMode
 
-//        @Option(help: "Spacing between objects")
-//        var spacing: Double?
+        @Option(help: "Spacing between objects")
+        var spacing: Double = 10
 
-        @Argument(help: "IDs of objects to be aligned")
+        @Argument(help: "Objects to be aligned")
         var references: [String]
         
         mutating func run() throws {
@@ -59,13 +63,99 @@ extension PoieticTool {
                 objects.append(object)
             }
 
-            let objs = objects.map {$0.id}
-            print("ALIGN: \(objs)")
+            align(objects: objects,
+                  mode: mode,
+                  spacing: spacing)
             
             try acceptFrame(frame, in: memory)
             try closeMemory(memory: memory, options: options)
+        }
+    }
+}
 
-//            print("Current frame ID: \(memory.currentFrame.id)")
+func align(objects: [ObjectSnapshot], mode: AlignmentMode, spacing: Double) {
+    let items: [(ObjectSnapshot, PositionComponent)] = objects.compactMap {
+        if let component: PositionComponent = $0[PositionComponent.self] {
+            ($0, component)
+        }
+        else {
+            nil
+        }
+    }
+    guard let referenceTuple = items.first else {
+        // Nothing to align
+        return
+    }
+    let reference = referenceTuple.1
+    
+    // FIXME: Implement top, bottom, left and right once we have bounding box
+    switch mode {
+    case .alignCenterHorizontal, .alignTop, .alignBottom:
+        for (object, current) in items {
+            let newPosition = Point(
+                x: current.position.x,
+                y: reference.position.y
+            )
+            object[PositionComponent.self]!.position = newPosition
+        }
+    case .alignCenterVertical, .alignLeft, .alignRight:
+        for (object, current) in items {
+            let newPosition = Point(
+                x: reference.position.x,
+                y: current.position.y
+            )
+            object[PositionComponent.self]!.position = newPosition
+        }
+    case .offsetHorizontal:
+        // FIXME: Spacing requires bounding box
+        var x = reference.position.x
+        
+        for (object, current) in items {
+            let newPosition = Point(
+                x: x,
+                y: current.position.y
+            )
+            object[PositionComponent.self]!.position = newPosition
+            x += spacing
+        }
+    case .offsetVertical:
+        // FIXME: Spacing requires bounding box
+        var y = reference.position.y
+        
+        for (object, current) in items {
+            let newPosition = Point(
+                x: current.position.x,
+                y: y
+            )
+            object[PositionComponent.self]!.position = newPosition
+            y += spacing
+        }
+    case .spreadHorizontal:
+        let last = items.last!
+        let spacing = last.1.position.x - reference.position.x
+        var x = reference.position.x
+        
+        for (object, current) in items {
+            let newPosition = Point(
+                x: x,
+                y: current.position.y
+            )
+            object[PositionComponent.self]!.position = newPosition
+            x += spacing
+        }
+
+    case .spreadVertical:
+        let last = items.last!
+        let spacing = last.1.position.y - reference.position.y
+        var y = reference.position.y
+        
+        for (object, current) in items {
+            let newPosition = Point(
+                x: current.position.x,
+                y: y
+            )
+            object[PositionComponent.self]!.position = newPosition
+            y += spacing
         }
     }
 }
