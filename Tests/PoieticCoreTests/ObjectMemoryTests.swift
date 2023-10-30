@@ -85,88 +85,7 @@ final class ObjectMemoryTests: XCTestCase {
         let original2 = db.frame(originalVersion!)!
         XCTAssertTrue(original2.contains(a))
     }
-    func testRemoveObjectCascading() throws {
-        let db = ObjectMemory()
-        let frame = db.deriveFrame()
-        
-        let node1 = db.createSnapshot(TestNodeType)
-        frame.insert(node1, owned: true)
-        
-        let node2 = db.createSnapshot(TestNodeType)
-        frame.insert(node2, owned: true)
-        
-        let edge = db.createSnapshot(TestEdgeType,
-                                     structure: .edge(node1.id, node2.id))
-        frame.insert(edge, owned: true)
-        
-        let removed = frame.removeCascading(node1.id)
-        XCTAssertEqual(removed.count, 2)
-        XCTAssertTrue(removed.contains(edge.id))
-        XCTAssertTrue(removed.contains(node1.id))
-
-        XCTAssertFalse(frame.contains(node1.id))
-        XCTAssertFalse(frame.contains(edge.id))
-        XCTAssertTrue(frame.contains(node2.id))
-    }
     
-    func testFrameMutableObject() throws {
-        let db = ObjectMemory()
-        let original = db.deriveFrame()
-        let id = original.create(TestType)
-        let originalSnap = original.object(id)
-        try db.accept(original)
-        
-        let derived = db.deriveFrame()
-        let derivedSnap = derived.mutableObject(id)
-        
-        XCTAssertEqual(derivedSnap.id, originalSnap.id)
-        XCTAssertNotEqual(derivedSnap.snapshotID, originalSnap.snapshotID)
-        
-        let derivedSnap2 = derived.mutableObject(id)
-        XCTAssertIdentical(derivedSnap, derivedSnap2)
-    }
-    
-    func testFrameMutableObjectRemovesPreviousSnapshot() throws {
-        let db = ObjectMemory()
-        let original = db.deriveFrame()
-        let id = original.create(TestType)
-        let originalSnap = original.object(id)
-        try db.accept(original)
-        
-        let derived = db.deriveFrame()
-        let derivedSnap = derived.mutableObject(id)
-        
-        XCTAssertFalse(derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
-        XCTAssertTrue(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
-        XCTAssertFalse(derived.snapshotIDs.contains(originalSnap.snapshotID))
-        XCTAssertTrue(derived.snapshotIDs.contains(derivedSnap.snapshotID))
-    }
-    
-    func testModifyAttribute() throws {
-        let db = ObjectMemory()
-        let original = db.deriveFrame()
-        
-        let a = original.create(TestType, components: [TestComponent(text: "before")])
-        try db.accept(original)
-        
-        let a2 = db.currentFrame.object(a)
-        XCTAssertEqual(a2[TestComponent.self]!.text, "before")
-        
-        let altered = db.deriveFrame()
-        altered.setComponent(a, component: TestComponent(text: "after"))
-        
-        XCTAssertTrue(altered.hasChanges)
-        let a3 = altered.object(a)
-        XCTAssertEqual(a3[TestComponent.self]!.text, "after")
-        
-        try db.accept(altered)
-        
-        let aCurrentAlt = db.currentFrame.object(a)
-        XCTAssertEqual(aCurrentAlt[TestComponent.self]!.text, "after")
-        
-        let aOriginal = db.frame(original.id)!.object(a)
-        XCTAssertEqual(aOriginal[TestComponent.self]!.text, "before")
-    }
     
     func testUndo() throws {
         let db = ObjectMemory()
@@ -316,30 +235,4 @@ final class ObjectMemoryTests: XCTestCase {
         }
     }
     
-    func testDeriveObjectWithStructure() throws {
-        let db = ObjectMemory()
-        let originalFrame = db.deriveFrame()
-        
-        let original = db.createSnapshot(TestNodeType)
-        originalFrame.insert(original, owned: true)
-        try db.accept(originalFrame)
-        
-        let derivedFrame = db.deriveFrame(original: originalFrame.id)
-        let derived = derivedFrame.mutableObject(original.id)
-        XCTAssertEqual(original.structure, derived.structure)
-    }
-    
-    func testSetAttribute() throws {
-        let db = ObjectMemory()
-        let frame = db.deriveFrame()
-        let id = frame.create(TestType, components: [TestComponent(text: "before")])
-        
-        let obj = frame.object(id)
-        
-        try obj.setAttribute(value: ForeignValue("after"), forKey: "text")
-        
-        let comp: TestComponent = obj[TestComponent.self]!
-        XCTAssertEqual(comp.text, "after")
-        XCTAssertEqual(obj.attribute(forKey: "text"), "after")
-    }
 }

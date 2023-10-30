@@ -130,6 +130,22 @@ final class FrameReaderTests: XCTestCase {
         let snapshot = frame.snapshots.first!
         XCTAssertEqual(snapshot.name, "test")
     }
+    
+    func testLoadWithDefaultComponent() throws {
+        let data = """
+                   [
+                    { "type": "Stock", "name": "test" }
+                   ]
+                   """.data(using:.utf8)!
+        try reader.read(data, into: frame)
+        XCTAssertEqual(frame.snapshots.count, 1)
+
+        let snapshot = frame.snapshots.first!
+        XCTAssertTrue(snapshot.components.has(IntegerComponent.self))
+        XCTAssertEqual(snapshot.attribute(forKey: "value"), ForeignValue(0))
+
+    }
+    
     func testLoadEdgeNoOriginTargetError() throws {
         let data_no_origin = """
                    [ { "type": "Parameter" } ]

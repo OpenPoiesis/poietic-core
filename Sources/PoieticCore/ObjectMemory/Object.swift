@@ -230,50 +230,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
-    /// Initialise the object.
-    ///
-    /// The object will be initialised with given structure and marked as
-    /// _transient_ (``VersionState/transient``), that means the object
-    /// can be used in frames.
-    ///
-    /// - SeeAlso: ``VersionState``
-    ///
-    @discardableResult
-    public func initialize(structure: StructuralComponent = .unstructured) -> ObjectSnapshot {
-        precondition(self.state == .uninitialized,
-                     "Trying to initialize already initialized object \(self.debugID)")
-
-        self.structure = structure
-        self.state = .transient
-        return self
-    }
-
-    /// Initialise the object using a foreign record.
-    ///
-    /// The object will be initialised with given structure and attributes
-    /// will be populated with values provided by the foreign record.
-    /// Finally the object will be marked as
-    /// _transient_ (``VersionState/transient``), that means the object
-    /// can be used in frames.
-    ///
-    /// - SeeAlso: ``VersionState``
-    ///
-    @discardableResult
-    public func initialize(structure: StructuralComponent = .unstructured,
-                           record: ForeignRecord) throws -> ObjectSnapshot {
-        precondition(self.state == .uninitialized,
-                     "Trying to initialize already initialized object \(self.debugID)")
-        // TODO: Rename `record:` to `attributes record:`
-        // TODO: Test whether setting an attribute from a component that does not  exist will create the component.
-
-        for key in record.allKeys {
-            try self.setAttribute(value: record[key]!, forKey: key)
-        }
-        self.structure = structure
-        self.state = .transient
-        return self
-    }
-
     /// Create a foreign object from the snapshot.
     ///
     /// Use this method to create a representation of the snapshot that can be

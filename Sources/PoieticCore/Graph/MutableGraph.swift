@@ -107,7 +107,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
             type,
             components: components,
             structure: .edge(origin, target),
-            initialized: false
+            state: .uninitialized
         )
 
         
@@ -147,7 +147,7 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
             components: actualComponents,
-            initialized: false
+            state: .uninitialized
         )
 
         snapshot.makeInitialized()

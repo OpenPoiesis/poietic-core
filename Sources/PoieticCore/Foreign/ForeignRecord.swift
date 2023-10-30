@@ -244,3 +244,10 @@ extension ForeignRecord: Equatable {
         return true
     }
 }
+
+extension ForeignRecord: Sequence {
+    public typealias Iterator = [String:ForeignValue].Iterator
+    public func makeIterator() -> Self.Iterator {
+        return self.dict.makeIterator()
+    }
+}

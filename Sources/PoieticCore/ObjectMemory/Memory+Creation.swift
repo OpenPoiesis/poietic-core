@@ -29,7 +29,7 @@ extension ObjectMemory {
                                snapshotID: SnapshotID? = nil,
                                components: [any Component]=[],
                                structure: StructuralComponent? = nil,
-                               initialized: Bool = true) -> ObjectSnapshot {
+                               state: VersionState = .transient) -> ObjectSnapshot {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
@@ -64,30 +64,30 @@ extension ObjectMemory {
                                       structure: actualStructure,
                                       components: components)
 
-        if initialized {
-            snapshot.makeInitialized()
-        }
+        snapshot.state = state
+        
+        self._allSnapshots[actualSnapshotID] = snapshot
+        
         return snapshot
     }
-    /// Create a new unstructured snapshot.
-    ///
-    /// Create a new object snapshot that will be unstructured but open.
-    /// The structure might be changed by the caller.
-    ///
-    /// The returned snapshot is unstable and must be made stable before
-    /// assigned to a frame.
-    ///
-    public func allocateUnstructuredSnapshot(_ objectType: ObjectType,
-                                 id: ObjectID? = nil,
-                                 snapshotID: SnapshotID? = nil) -> ObjectSnapshot {
-        // TODO: Test for existence of given snapshotID
-        let actualID: ObjectID = id ?? allocateID()
-        let actualSnapshotID: SnapshotID = allocateID(required: snapshotID)
+    
 
-        let snapshot = ObjectSnapshot(id: actualID,
-                                      snapshotID: actualSnapshotID,
-                                      type: objectType,
-                                      structure: .unstructured)
-        return snapshot
+    /// Create a new snapshot version
+    ///
+    public func deriveSnapshot(_ originalID: SnapshotID) -> ObjectSnapshot {
+        guard let original = _allSnapshots[originalID] else {
+            fatalError("Trying to derive a snapshot (\(originalID)) that does not belong to a memory")
+
+        }
+
+        let derivedSnapshotID: SnapshotID = allocateID()
+        let derived = ObjectSnapshot(id: original.id,
+                                     snapshotID: derivedSnapshotID,
+                                     type: original.type,
+                                     structure: original.structure)
+        derived.components = original.components
+        derived.children = original.children
+        derived.parent = original.parent
+        return derived
     }
 }

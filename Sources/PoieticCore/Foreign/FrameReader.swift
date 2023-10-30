@@ -243,27 +243,46 @@ public class ForeignFrameReader {
     ///
     public func read(_ objects: [ForeignObject], into frame: MutableFrame) throws {
         var snapshots: [ObjectSnapshot] = []
-        // 1. Instantiate objects and gather IDs
+        
+        var ids: [ObjectID] = []
+        var snapshotIDs: [ObjectID] = []
+        
+        // 1. Allocate identities and collect references
+        for object in objects {
+            let actualID: ObjectID
+            let actualSnapshotID: ObjectID
+            if let idString = object.id {
+                actualID = ObjectID(idString) ?? memory.allocateID()
+            }
+            else {
+                actualID = memory.allocateID()
+            }
+            ids.append(actualID)
+
+            if let idString = object.snapshotID {
+                actualSnapshotID = ObjectID(idString) ?? memory.allocateID()
+            }
+            else {
+                actualSnapshotID = memory.allocateID()
+            }
+            snapshotIDs.append(actualSnapshotID)
+
+            if let name = object.name {
+                references[name] = actualID
+            }
+        }
+        
+        // 2. Instantiate objects
         //
         for (index, object) in objects.enumerated() {
+            let id = ids[index]
+            let snapshotID = snapshotIDs[index]
+            
+            let structure: StructuralComponent
             
             guard let type = metamodel.objectType(name: object.type) else {
                 throw FrameReaderError.unknownObjectType(object.type, index)
             }
-            
-            let snapshot = memory.allocateUnstructuredSnapshot(type)
-            
-            if let name = object.name {
-                snapshot[NameComponent.self] = NameComponent(name: name)
-                references[name] = snapshot.id
-            }
-            snapshots.append(snapshot)
-        }
-
-        // 2. Prepare the snapshot's structure
-        for (index, (snapshot, object)) in zip(snapshots, objects).enumerated() {
-            let structure: StructuralComponent
-            let type = snapshot.type
             
             switch type.structuralType {
             case .unstructured:
@@ -304,13 +323,27 @@ public class ForeignFrameReader {
 
                 structure = .edge(originID, targetID)
             }
+            let snapshot = memory.createSnapshot(type,
+                                                 id: id,
+                                                 snapshotID: snapshotID,
+                                                 structure: structure,
+                                                 state: .uninitialized)
+            
+            if let name = object.name {
+                snapshot[NameComponent.self] = NameComponent(name: name)
+                references[name] = snapshot.id
+            }
             
             let attributes = object.attributes ?? ForeignRecord([:])
-            try snapshot.initialize(structure: structure, record: attributes)
-            
+            for (key, value) in attributes {
+                try snapshot.setAttribute(value: value, forKey: key)
+            }
+
+            snapshots.append(snapshot)
+            snapshot.makeInitialized()
             frame.unsafeInsert(snapshot, owned: true)
         }
-        
+
         // 3. Make parent-child hierarchy
         //
         // All objects are initialised now.
