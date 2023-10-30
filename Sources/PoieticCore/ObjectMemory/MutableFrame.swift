@@ -67,7 +67,7 @@ public class MutableFrame: Frame {
     public let id: FrameID
 
     // TODO: Remove state or change to FrameState: open, accepted, discarded
-    var state: VersionState = .uninitialized
+    var state: VersionState = .transient
     
     var snapshotIDs: Set<SnapshotID>
     var objects: [ObjectID:SnapshotReference]
@@ -192,7 +192,7 @@ public class MutableFrame: Frame {
     public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
                      "Trying to modify a frame that is not mutable")
-        precondition(snapshot.state != .uninitialized,
+        precondition(snapshot.state != .transient,
                      "Trying to insert an unstable object")
         precondition(objects[snapshot.id] == nil,
                      "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")
@@ -343,19 +343,21 @@ public class MutableFrame: Frame {
     }
     
 
-    /// Freeze the frame so it can no longer be mutated.
+    /// Promote the frame to a state that is higher than the current
+    /// state.
     ///
     /// This is called by the object memory when the frame is accepted.
     ///
-    public func freeze() {
-        precondition(state.isMutable)
+    public func promote(_ state: VersionState) {
+        precondition(self.state < state,
+                     "Can not promote from state \(self.state) to \(state)")
         for ref in objects.values {
             if ref.owned {
-                ref.snapshot.freeze()
+                ref.snapshot.promote(state)
             }
         }
         
-        self.state = .frozen
+        self.state = state
     }
        
     /// Return a snapshot that can be mutated.

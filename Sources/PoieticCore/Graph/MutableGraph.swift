@@ -107,11 +107,11 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
             type,
             components: components,
             structure: .edge(origin, target),
-            state: .uninitialized
+            state: .transient
         )
 
         
-        snapshot.makeInitialized()
+        snapshot.promote(.stable)
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id
     }
@@ -147,10 +147,10 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
             components: actualComponents,
-            state: .uninitialized
+            state: .transient
         )
 
-        snapshot.makeInitialized()
+        snapshot.promote(.stable)
         mutableFrame.insert(snapshot, owned: true)
         return snapshot.id
     }

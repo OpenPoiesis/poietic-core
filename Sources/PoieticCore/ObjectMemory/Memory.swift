@@ -454,7 +454,7 @@ public class ObjectMemory {
 
         try validate(frame)
         
-        frame.freeze()
+        frame.promote(.validated)
         
         let stableFrame = StableFrame(memory: self,
                                       id: frame.id,
@@ -563,7 +563,7 @@ public class ObjectMemory {
                      "Trying to discard a frame from a different memory")
         precondition(frame.state.isMutable,
                      "Trying to discard a frozen frame")
-        frame.freeze()
+        frame.promote(.validated)
         _mutableFrames[frame.id] = nil
     }
     

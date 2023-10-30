@@ -327,7 +327,7 @@ public class ForeignFrameReader {
                                                  id: id,
                                                  snapshotID: snapshotID,
                                                  structure: structure,
-                                                 state: .uninitialized)
+                                                 state: .transient)
             
             if let name = object.name {
                 snapshot[NameComponent.self] = NameComponent(name: name)
@@ -340,7 +340,7 @@ public class ForeignFrameReader {
             }
 
             snapshots.append(snapshot)
-            snapshot.makeInitialized()
+            snapshot.promote(.stable)
             frame.unsafeInsert(snapshot, owned: true)
         }
 

@@ -49,7 +49,7 @@ final class ObjectMemoryTests: XCTestCase {
         try db.accept(frame)
         
         let obj = db.currentFrame.object(a)
-        XCTAssertEqual(obj.state, VersionState.frozen)
+        XCTAssertEqual(obj.state, VersionState.validated)
     }
     
     func testDiscard() throws {
@@ -60,7 +60,7 @@ final class ObjectMemoryTests: XCTestCase {
         db.discard(frame)
         
         XCTAssertEqual(db.versionHistory.count, 0)
-        XCTAssertEqual(frame.state, VersionState.frozen)
+        XCTAssertEqual(frame.state, VersionState.validated)
     }
     
     func testRemoveObject() throws {

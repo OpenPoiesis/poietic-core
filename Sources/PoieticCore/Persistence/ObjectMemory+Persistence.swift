@@ -200,7 +200,7 @@ extension ObjectMemory {
         }
        
         for snapshot in snapshots.values {
-            snapshot.freeze()
+            snapshot.promote(.validated)
         }
         
         // 3. Read frames

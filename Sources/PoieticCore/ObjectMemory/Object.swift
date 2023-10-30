@@ -214,7 +214,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         self.id = id
         self.snapshotID = snapshotID
         self.type = type
-        self.state = .uninitialized
+        self.state = .transient
         self.structure = structure
 
         self.components = ComponentSet(components)
@@ -302,25 +302,19 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         return "\(id) {\(type.name), \(structure.description), \(name))}"
     }
     
-    /// Mark the object as initialized.
+
+    /// Promote the object's state.
     ///
-    /// Frames can contain only initialised objects.
+    /// The state must be a higher state than the current state of the object.
+    /// The state order, from lowest to highest is: transient, stable,
+    /// validated.
     ///
-    /// - SeeAlso: ``ObjectMemory/deriveFrame(original:id:)``
+    /// Validated objects can no longer be changed. They make up ``StableFrame``s.
     ///
-    public func makeInitialized() {
-        precondition(self.state == .uninitialized)
-        self.state = .transient
-    }
-    
-    /// Make the object immutable.
-    ///
-    /// Frozen objects can no longer be changed. They make up ``StableFrame``s.
-    ///
-    func freeze() {
-        precondition(self.state != .frozen,
-                     "Trying to freeze already frozen snapshot.")
-        self.state = .frozen
+    public func promote(_ state: VersionState) {
+        precondition(self.state < state,
+                     "Can not promote from state \(self.state) to \(state)")
+        self.state = state
     }
     
     public subscript(componentType: Component.Type) -> (Component)? {

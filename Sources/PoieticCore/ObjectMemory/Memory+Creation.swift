@@ -29,7 +29,7 @@ extension ObjectMemory {
                                snapshotID: SnapshotID? = nil,
                                components: [any Component]=[],
                                structure: StructuralComponent? = nil,
-                               state: VersionState = .transient) -> ObjectSnapshot {
+                               state: VersionState = .stable) -> ObjectSnapshot {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
