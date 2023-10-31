@@ -20,10 +20,10 @@ let TestEdgeType = ObjectType(name: "TestEdge",
 
 
 struct TestComponent: InspectableComponent {
-    static var componentDescription = ComponentDescription(
+    static var componentSchema = ComponentSchema(
         name: "Test",
         attributes: [
-            AttributeDescription(name: "text", type: .string)
+            Attribute(name: "text", type: .string)
         ]
     )
     
@@ -58,10 +58,10 @@ struct TestComponent: InspectableComponent {
 }
 
 struct IntegerComponent: InspectableComponent, Equatable {
-    static var componentDescription = ComponentDescription(
+    static var componentSchema = ComponentSchema(
         name: "Integer",
         attributes: [
-            AttributeDescription(name: "value", type: .int)
+            Attribute(name: "value", type: .int)
         ]
     )
 

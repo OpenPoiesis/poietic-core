@@ -6,18 +6,18 @@
 //
 
 public struct DesignInfoComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "DesignInfo",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "title",
                 type: .array(.string),
                 abstract: "Design title"),
-            AttributeDescription(
+            Attribute(
                 name: "author",
                 type: .array(.string),
                 abstract: "Author of the design"),
-            AttributeDescription(
+            Attribute(
                 name: "license",
                 type: .array(.string),
                 abstract: "License of the design"),

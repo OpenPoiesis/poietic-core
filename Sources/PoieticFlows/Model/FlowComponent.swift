@@ -20,10 +20,10 @@ import PoieticCore
 public struct FlowComponent: InspectableComponent,
                              CustomStringConvertible {
 
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Flow",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "priority",
                 type: .int,
                 abstract: "Priority during computation. The flows are considered in the ascending order of priority."),

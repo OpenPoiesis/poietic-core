@@ -8,7 +8,7 @@
 import PoieticCore
 
 public struct ChartComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Chart",
         attributes: [
 //            AttributeDescription(

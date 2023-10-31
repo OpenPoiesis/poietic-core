@@ -41,7 +41,7 @@ public protocol TransientComponent: Component {
 ///
 ///
 /// User data contained in the component is provided to the user's world through
-/// public attributes that are advertised through ``componentDescription``.
+/// public attributes that are advertised through ``componentSchema``.
 /// Everything that user enters to the application must be available as public
 /// named attributes.
 ///
@@ -96,7 +96,7 @@ public protocol TransientComponent: Component {
 public protocol InspectableComponent: Component, MutableKeyedAttributes {
     // TODO: Alternative names: PublicComponent, InterfacingComponent
     // TODO: Split to ForeignRepresentable
-    static var componentDescription: ComponentDescription { get }
+    static var componentSchema: ComponentSchema { get }
     
     /// Create a new component with default component values.
     ///
@@ -160,7 +160,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     /// inspection purposes.
     ///
     /// Component must provide attributes for all keys advertised through
-    /// component's ``componentDescription``.
+    /// component's ``componentSchema``.
     ///
     /// - SeeAlso: ``setAttribute(value:forKey:)``, ``init(record:)``
     ///
@@ -189,7 +189,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     /// Create a foreign record from the component.
     ///
     /// Default implementation is provided. The default implementation gets all
-    /// the keys from the ``componentDescription`` and retrieves the values
+    /// the keys from the ``componentSchema`` and retrieves the values
     /// using ``Component/attribute(forKey:)``.
     ///
     /// - SeeAlso: ``attribute(forKey:)``
@@ -214,7 +214,7 @@ extension InspectableComponent {
     public init(record: ForeignRecord) throws {
         self.init()
         for key in record.allKeys {
-            guard Self.componentDescription.attributeKeys.contains(key) else {
+            guard Self.componentSchema.attributeKeys.contains(key) else {
                 continue
             }
             let value = record[key]!
@@ -225,21 +225,21 @@ extension InspectableComponent {
     /// Default implementation of getting foreign record from a component.
     ///
     /// The default implementation creates a foreign record based on attribute
-    /// keys provided by the component's ``componentDescription``.
+    /// keys provided by the component's ``componentSchema``.
     ///
     public func foreignRecord() -> ForeignRecord {
-        let dict = self.dictionary(withKeys: Self.componentDescription.attributeKeys)
+        let dict = self.dictionary(withKeys: Self.componentSchema.attributeKeys)
         return ForeignRecord(dict)
     }
 
     public var attributeKeys: [String] {
-        Self.componentDescription.attributeKeys
+        Self.componentSchema.attributeKeys
     }
     
     /// Convenience forwarding for ``ComponentDescription/name``.
     ///
     public var componentName: String {
-        Self.componentDescription.name
+        Self.componentSchema.name
     }
     
 }

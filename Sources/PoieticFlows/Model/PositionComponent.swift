@@ -13,10 +13,10 @@ public struct PositionComponent: InspectableComponent,
     
     // TODO: Consider renaming this to CanvasComponent or GraphicsComponent
 
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Position",
         attributes: [
-            AttributeDescription(name: "position", type: .point),
+            Attribute(name: "position", type: .point),
 //            AttributeDescription(name: "x", type: .double),
 //            AttributeDescription(name: "y", type: .double),
         ]

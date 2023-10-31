@@ -8,10 +8,10 @@
 import PoieticCore
 
 public struct ControlComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Control",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "value",
                 type: .double,
                 abstract: "Value of the target node"),

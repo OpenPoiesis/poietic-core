@@ -405,7 +405,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
         
         guard let component = components[componentType] else {
-            fatalError("Object \(debugID) is missing a required component: \(componentType.componentDescription.name)")
+            fatalError("Object \(debugID) is missing a required component: \(componentType.componentSchema.name)")
         }
         
         // TODO: The following does not work

@@ -39,7 +39,7 @@ extension PoieticTool {
                 (nil, nil),
                 ("Current frame ID", "\(frame.id)"),
                 ("Frame object count", "\(frame.snapshots.count)"),
-                ("Total snapshot count", "\(memory.snapshots.count)"),
+                ("Total snapshot count", "\(memory.validatedSnapshots.count)"),
 
                 (nil, nil),
                 ("Graph", nil),

@@ -9,10 +9,10 @@ import XCTest
 @testable import PoieticCore
 
 fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
-    static var componentDescription = ComponentDescription(
+    static var componentSchema = ComponentSchema(
         name: "CustomName",
         attributes: [
-            AttributeDescription(name: "name", type: .string)
+            Attribute(name: "name", type: .string)
         ]
     )
 
@@ -35,10 +35,10 @@ fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
 }
 
 fileprivate struct NonStringNameComponent: InspectableComponent, Equatable {
-    static var componentDescription = ComponentDescription(
+    static var componentSchema = ComponentSchema(
         name: "NonStringName",
         attributes: [
-            AttributeDescription(name: "name", type: .int)
+            Attribute(name: "name", type: .int)
         ]
     )
 

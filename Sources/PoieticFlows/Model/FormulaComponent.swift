@@ -25,10 +25,10 @@ import PoieticCore
 public struct FormulaComponent: InspectableComponent,
                                    CustomStringConvertible {
     
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Formula",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "formula",
                 type: .string,
                 abstract: "Arithmetic formula or a constant value represented by the node."

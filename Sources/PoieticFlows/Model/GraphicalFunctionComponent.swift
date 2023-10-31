@@ -8,14 +8,14 @@
 import PoieticCore
 
 public struct GraphicalFunctionComponent: InspectableComponent, CustomStringConvertible {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "GraphicalFunction",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "interpolation_method",
                 type: .string,
                 abstract: "Method of interpolation for values between the points."),
-            AttributeDescription(
+            Attribute(
                 name: "points",
                 type: .points,
                 abstract: "Points of the graphical function."),

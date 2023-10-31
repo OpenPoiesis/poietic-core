@@ -13,15 +13,15 @@ import PoieticCore
 public struct StockComponent: InspectableComponent,
                               CustomStringConvertible {
     
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Stock",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "allows_negative",
                 type: .bool,
                 abstract: "Flag whether the stock can contain a negative value."
             ),
-            AttributeDescription(
+            Attribute(
                 name: "delayed_inflow",
                 type: .bool,
                 abstract: "Flag whether the inflow of the stock is delayed by one step, when the stock is part of a cycle."

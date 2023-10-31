@@ -13,7 +13,7 @@ public struct IssueListComponent: Component {
     public var errors: [Error] = []
     // public var warnings: [???] = []
     
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "IssueList"
     )
     

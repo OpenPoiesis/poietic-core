@@ -61,7 +61,7 @@ extension ObjectMemory {
         // 1. Collect snapshots and components
         // ----------------------------------------------------------------
         //
-        for snapshot in snapshots {
+        for snapshot in validatedSnapshots {
             let record = snapshot.foreignRecord()
             outSnapshots.append(record)
         }
@@ -71,7 +71,7 @@ extension ObjectMemory {
         // 2. Collect components
         // ----------------------------------------------------------------
         //
-        for snapshot in snapshots {
+        for snapshot in validatedSnapshots {
             for component in snapshot.inspectableComponents {
                 var record = component.foreignRecord()
                 let name = component.componentName
@@ -144,6 +144,8 @@ extension ObjectMemory {
         
         snapshot.structure = structure
         snapshot.parent = try record.IDValueIfPresent(for: "parent")
+        
+        self._allSnapshots[snapshotID] = snapshot
 
         return snapshot
     }

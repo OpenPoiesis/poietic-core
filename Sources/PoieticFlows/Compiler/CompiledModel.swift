@@ -64,9 +64,9 @@ public struct ObjectComponentList<T: Component> {
     ///
     /// - Precondition: All snapshots must contain the required component.
     ///
-    public init(_ snapshots: [ObjectSnapshot]) {
-        ids = snapshots.map { $0.id }
-        let items = snapshots.map {
+    public init(_ validatedSnapshots: [ObjectSnapshot]) {
+        ids = validatedSnapshots.map { $0.id }
+        let items = validatedSnapshots.map {
             let component: ComponentType = $0[ComponentType.self]!
             return ($0.id, component)
         }

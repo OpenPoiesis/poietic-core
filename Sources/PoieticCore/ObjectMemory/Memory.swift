@@ -235,19 +235,6 @@ public class ObjectMemory {
         return self._stableFrames.isEmpty
     }
    
-    // MARK: - Query
-    public func fetch<T>(component type: T.Type) -> [(ObjectSnapshot, T)]
-            where T : Component {
-        return snapshots.compactMap {
-            if let component: T = $0.components[type] {
-                ($0, component)
-            }
-            else {
-                nil
-            }
-        }
-    }
-
     // MARK: - Identity
     
     /// Create an ID or use a specific ID.
@@ -298,7 +285,7 @@ public class ObjectMemory {
     ///
     /// The order of the returned snapshots is arbitrary.
     ///
-    public var snapshots: [ObjectSnapshot] {
+    public var validatedSnapshots: [ObjectSnapshot] {
         // TODO: Change this to an iterator
         var seen: Set<SnapshotID> = Set()
         var result: [ObjectSnapshot] = []
@@ -314,6 +301,11 @@ public class ObjectMemory {
         }
         
         return result
+    }
+
+    /// Get a sequence of all snapshots
+    public var allSnapshots: any Sequence<ObjectSnapshot> {
+        return _allSnapshots.values
     }
     
     /// Test whether the memory contains a stable frame with given ID.

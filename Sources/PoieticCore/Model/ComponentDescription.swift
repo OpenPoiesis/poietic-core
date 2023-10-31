@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 26/06/2023.
 //
 
+
 /// Description of a component.
 ///
 /// The component description object represents detailed information about the
@@ -20,7 +21,7 @@
 ///
 /// - SeeAlso: ``Component``
 ///
-public class ComponentDescription {
+public class ComponentSchema {
     /// Name of the component.
     ///
     /// The component name is used in reflection and when a component is being
@@ -50,7 +51,7 @@ public class ComponentDescription {
     ///     ``ObjectSnapshot/attribute(forKey:)``,
     ///     ``ObjectSnapshot/setAttribute(value:forKey:)``
     ///
-    public let attributes: [AttributeDescription]
+    public let attributes: [Attribute]
     
     /// Get a list of attribute keys.
     public lazy var attributeKeys: [String] = attributes.map { $0.name }
@@ -65,6 +66,15 @@ public class ComponentDescription {
     ///
     public let abstract: String?
     
+    /// Type of privilege that specifies who can create and modify
+    /// components of this type.
+    ///
+    /// - Note: Attitude of privilege in this case is different from typical
+    ///   use. It is the system that is to be prevented or discouraged from
+    ///   editing user's data.
+    ///
+    public let privilegeType: PrivilegeType
+    
     /// Create a new component description.
     ///
     /// - Parameters:
@@ -78,12 +88,14 @@ public class ComponentDescription {
     ///
     public init(name: String,
                 label: String? = nil,
-                attributes: [AttributeDescription] = [],
-                abstract: String? = nil) {
+                attributes: [Attribute] = [],
+                abstract: String? = nil,
+                privilegeType: PrivilegeType = .user) {
         self.name = name
         self.label = label ?? name
         self.attributes = attributes
         self.abstract = abstract
+        self.privilegeType = privilegeType
     }
     
     public var description: String {
@@ -104,7 +116,7 @@ public class ComponentDescription {
 ///         object type. In other words, there must not be two components with
 ///         the same attribute in an object type.
 ///
-public class AttributeDescription: CustomStringConvertible {
+public class Attribute: CustomStringConvertible {
     /// Attribute name – an identifier.
     ///
     public let name: String

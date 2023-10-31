@@ -17,7 +17,7 @@ final class TestFlowsMetamodel: XCTestCase {
             var attributes: [String:[String]] = [:]
 
             for component in type.inspectableComponents {
-                let desc = component.componentDescription
+                let desc = component.componentSchema
                 for attribute in desc.attributes {
                     attributes[attribute.name, default: []].append(desc.name)
                 }

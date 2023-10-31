@@ -71,7 +71,7 @@ extension Metamodel {
         let result = components.compactMap {
             $0 as? InspectableComponent.Type
         }.first {
-            $0.componentDescription.name == name
+            $0.componentSchema.name == name
         }
         return result
     }

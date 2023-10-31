@@ -30,6 +30,9 @@ class TestPersistentRecord: XCTestCase {
         XCTAssertEqual(obj.snapshotID, 20)
         XCTAssertEqual(obj.structure, .node)
         XCTAssertIdentical(obj.type, TestMetamodel.Stock)
+        
+        print(memory.validatedSnapshots)
+        XCTAssertNotNil(memory.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
     }
 
     func testComponentToRecord() throws {

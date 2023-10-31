@@ -44,7 +44,7 @@ public class ObjectType {
     ///
     public let components: [Component.Type]
     
-    public var inspectableComponents: [InspectableComponent.Type] {
+    public var inspectableComponents: any Sequence<InspectableComponent.Type> {
         components.compactMap { $0 as? InspectableComponent.Type }
     }
     
@@ -54,6 +54,13 @@ public class ObjectType {
     ///
     public let abstract: String?
 
+    /// Type of privilege that specifies who can create objects of this type.
+    ///
+    /// - Note: Attitude of privilege in this case is different from typical
+    ///   use. It is the system that is to be prevented or discouraged from
+    ///   editing user's data.
+    ///
+    public let privilegeType: PrivilegeType
     
     /// Mapping between attribute name and a component type that contains the
     /// attribute.
@@ -84,20 +91,22 @@ public class ObjectType {
                 structuralType: StructuralType,
                 isSystemOwned: Bool = false,
                 components: [Component.Type],
-                abstract: String? = nil) {
+                abstract: String? = nil,
+                privilegeType: PrivilegeType = .user) {
         self.name = name
         self.label = label ?? name
         self.structuralType = structuralType
         self.isSystemOwned = isSystemOwned
         self.components = components
         self.abstract = abstract
+        self.privilegeType = privilegeType
         
         var map: [String:InspectableComponent.Type] = [:]
         for component in components {
             guard let component = component as? InspectableComponent.Type else {
                 continue
             }
-            for attr in component.componentDescription.attributes {
+            for attr in component.componentSchema.attributes {
                 guard map[attr.name] == nil else {
                     fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in component: \(component)")
                 }
@@ -110,25 +119,25 @@ public class ObjectType {
     
     /// List of attributes from all components.
     ///
-    public var attributes: [AttributeDescription] {
-        return inspectableComponents.flatMap {
-            $0.componentDescription.attributes
+    public var attributes: any Sequence<Attribute> {
+        inspectableComponents.flatMap {
+            $0.componentSchema.attributes
         }
     }
     
     public func hasAttribute(_ name: String) -> Bool {
-        return _attributeComponentMap[name] != nil
+        _attributeComponentMap[name] != nil
     }
     
     public func componentType(forAttribute name: String) -> InspectableComponent.Type? {
-        return _attributeComponentMap[name]
+        _attributeComponentMap[name]
     }
     
-    public func attribute(_ name: String) -> AttributeDescription? {
+    public func attribute(_ name: String) -> Attribute? {
         guard let component = componentType(forAttribute: name) else {
             return nil
         }
-        return component.componentDescription.attributes.first {
+        return component.componentSchema.attributes.first {
             $0.name == name
         }
     }

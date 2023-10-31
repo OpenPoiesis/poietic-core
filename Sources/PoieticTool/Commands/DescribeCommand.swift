@@ -43,7 +43,7 @@ extension PoieticTool {
             ]
             
             for component in object.inspectableComponents {
-                let desc = type(of: component).componentDescription
+                let desc = type(of: component).componentSchema
 
                 items.append((nil, nil))
                 items.append((desc.label, nil))

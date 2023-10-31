@@ -8,10 +8,10 @@
 // Basic, reusable components.
 public struct NameComponent: InspectableComponent, CustomStringConvertible {
     
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Name",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "name",
                 type: .string,
                 abstract: "Node name through which the node is known either in the whole design or a smaller context"),
@@ -120,10 +120,10 @@ public enum AudienceLevel: Int, Codable {
 /// are of a higher audience level.
 ///
 public struct AudienceLevelComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "AudienceLevel",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "audienceLevel",
                 type: .int,
                 abstract: "Intended level of expertise of the audience interacting with the object"),
@@ -158,14 +158,14 @@ public struct AudienceLevelComponent: InspectableComponent {
 /// Documentation component
 ///
 public struct DocumentationComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Documentation",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "abstract",
                 type: .string,
                 abstract: "Short abstract about the object."),
-            AttributeDescription(
+            Attribute(
                 name: "documentation",
                 type: .string,
                 abstract: "Longer object documentation."),
@@ -202,10 +202,10 @@ public struct DocumentationComponent: InspectableComponent {
 /// Keywords component
 ///
 public struct KeywordsComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Keywords",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "keywords",
                 type: .array(.string),
                 abstract: "List of keywords"),
@@ -238,10 +238,10 @@ public struct KeywordsComponent: InspectableComponent {
 /// Note component
 ///
 public struct NoteComponent: InspectableComponent {
-    public static var componentDescription = ComponentDescription(
+    public static var componentSchema = ComponentSchema(
         name: "Note",
         attributes: [
-            AttributeDescription(
+            Attribute(
                 name: "note",
                 type: .string,
                 abstract: "Note text"),
