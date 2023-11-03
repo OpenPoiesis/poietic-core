@@ -110,7 +110,7 @@ public class BasicMetamodel: Metamodel {
     public static let DesignInfo = ObjectType(
         name:"Design",
         structuralType: .unstructured,
-        isSystemOwned: true,
+        plane: .user,
         components: [
             DesignInfoComponent.self,
             DocumentationComponent.self,

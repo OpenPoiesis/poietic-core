@@ -67,15 +67,13 @@ public class Compiler {
     ///
     /// - Note: This will be public once happy.
     ///
-    private var _preCompilationSystems: [any TransformationSystem] = [
-        IssueCleaningSystem(),
-        ExpressionParsingSystem(),
-        ImplicitFlowsSystem(),
+    private var _preCompilationTransforms: [any FrameTransformer] = [
+        IssueCleaner(),
+        ExpressionTransformer(),
+        ImplicitFlowsTransformer(),
     ]
 //    private var _postCompilationSystems: [any TransformationSystem] = [
 //    ]
-
-    // TODO: [REFACTORING] Status: OK, NEW
 
     /// Creates a compiler that will compile within the context of the given
     /// model.
@@ -136,14 +134,14 @@ public class Compiler {
         // 1. Update pre-compilation systems
         // =================================================================
 
-        var context = TransformationContext(frame: frame)
+        let context = TransformationContext(frame: frame)
 
-        for index in _preCompilationSystems.indices {
-            _preCompilationSystems[index].update(&context)
+        for index in _preCompilationTransforms.indices {
+            _preCompilationTransforms[index].update(context)
         }
-        
-        guard context.errors.isEmpty else {
-            throw NodeIssuesError(errors: context.errors)
+
+        guard !context.hasIssues else {
+            throw NodeIssuesError(errors: context.issues)
         }
 
         // TODO: Do we need second validation or we trust the systems?
@@ -169,12 +167,12 @@ public class Compiler {
             let issue = NodeIssue.duplicateName(name)
             dupes.append(name)
             for id in ids {
-                context.appendError(issue, for: id)
+                context.appendIssue(issue, for: id)
             }
         }
 
-        guard context.errors.isEmpty else {
-            throw NodeIssuesError(errors: context.errors)
+        guard !context.hasIssues else {
+            throw NodeIssuesError(errors: context.issues)
         }
 
         // 3. Sort nodes in order of computation
@@ -219,6 +217,7 @@ public class Compiler {
         // =================================================================
         
         var issues = NodeIssuesError()
+        // FIXME: Use context, test whether the errors were appended to the node
         
         for (index, node) in orderedSimulationNodes.enumerated() {
             let computation: ComputationalRepresentation
@@ -234,6 +233,10 @@ public class Compiler {
                 issues.merge(error)
                 continue
             }
+            catch {
+                continue
+
+            }
             
             let variable = ComputedVariable(
                 id: node.id,
@@ -245,6 +248,7 @@ public class Compiler {
         }
         
         guard issues.isEmpty else {
+            print("HERE: THROWING!!")
             throw issues
         }
 
@@ -272,6 +276,7 @@ public class Compiler {
                 auxiliaries.append(compiled)
             }
             else {
+                // TODO: Turn this into a global model error? (we do not have such concept yet)
                 fatalError("Unknown simulation node type: \(node.type)")
             }
         }
@@ -302,7 +307,7 @@ public class Compiler {
         for object in frame.filter(type: FlowsMetamodel.ValueBinding) {
             guard let edge = Edge(object) else {
                 // This should not happen
-                fatalError("A value binding  \(object.id) is not an edge")
+                fatalError("A value binding \(object.id) is not an edge")
             }
             
             let binding = CompiledControlBinding(control: edge.origin,

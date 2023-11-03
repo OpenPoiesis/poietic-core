@@ -67,7 +67,7 @@ public struct DesignInfoComponent: InspectableComponent {
 public let DesignObjectType = ObjectType(
     name:"Design",
     structuralType: .unstructured,
-    isSystemOwned: true,
+    plane: .system,
     components: [
         DesignInfoComponent.self,
         DocumentationComponent.self,

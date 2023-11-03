@@ -45,8 +45,8 @@ poietic add Flow name=expenses formula=50
                                                        type.structuralType.rawValue)
             }
 
-            guard !type.isSystemOwned else {
-                throw ToolError.creatingSystemOwnedType(type.name)
+            guard type.plane == .user else {
+                throw ToolError.creatingSystemPlaneType(type.name)
             }
             
             let id = graph.createNode(type)

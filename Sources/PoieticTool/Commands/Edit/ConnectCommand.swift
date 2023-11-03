@@ -43,8 +43,8 @@ extension PoieticTool {
                                                        type.structuralType.rawValue)
             }
             
-            guard !type.isSystemOwned else {
-                throw ToolError.creatingSystemOwnedType(type.name)
+            guard type.plane == .user else {
+                throw ToolError.creatingSystemPlaneType(type.name)
             }
 
             guard let originObject = frame.object(stringReference: self.origin) else {

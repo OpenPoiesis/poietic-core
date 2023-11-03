@@ -73,7 +73,7 @@ public class ComponentSchema {
     ///   use. It is the system that is to be prevented or discouraged from
     ///   editing user's data.
     ///
-    public let privilegeType: PrivilegeType
+    public let plane: Plane
     
     /// Create a new component description.
     ///
@@ -90,12 +90,12 @@ public class ComponentSchema {
                 label: String? = nil,
                 attributes: [Attribute] = [],
                 abstract: String? = nil,
-                privilegeType: PrivilegeType = .user) {
+                plane: Plane = .user) {
         self.name = name
         self.label = label ?? name
         self.attributes = attributes
         self.abstract = abstract
-        self.privilegeType = privilegeType
+        self.plane = plane
     }
     
     public var description: String {

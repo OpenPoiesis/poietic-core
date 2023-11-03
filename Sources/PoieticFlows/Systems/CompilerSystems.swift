@@ -41,8 +41,9 @@ public struct ParsedFormulaComponent: Component {
 ///     (do not remove the component).
 /// Generates errors
 ///
-public struct IssueCleaningSystem: TransformationSystem {
-    public mutating func update(_ context: inout TransformationContext) {
+public struct IssueCleaner: FrameTransformer {
+    // TODO: Rename to CleanIssuesTransform: FrameTransformation
+    public mutating func update(_ context: TransformationContext) {
         let items = context.frame.filter(component: IssueListComponent.self)
         
         for (snapshot, _) in items {
@@ -59,8 +60,8 @@ public struct IssueCleaningSystem: TransformationSystem {
 ///     - ParsedFormulaComponent
 /// Generates errors
 ///
-public struct ExpressionParsingSystem: TransformationSystem {
-    public mutating func update(_ context: inout TransformationContext) {
+public struct ExpressionTransformer: FrameTransformer {
+    public mutating func update(_ context: TransformationContext) {
         let items = context.frame.filter(component: FormulaComponent.self)
         
         for (snapshot, component) in items {
@@ -70,7 +71,7 @@ public struct ExpressionParsingSystem: TransformationSystem {
                 expr = try parser.parse()
             }
             catch let error as ExpressionSyntaxError {
-                context.appendError(error, for: snapshot.id)
+                context.appendIssue(error, for: snapshot.id)
                 continue
             }
             catch {
@@ -90,7 +91,7 @@ public struct ExpressionParsingSystem: TransformationSystem {
 ///
 /// For more information see the ``update(_:)`` method of this system.
 ///
-public struct ImplicitFlowsSystem: TransformationSystem {
+public struct ImplicitFlowsTransformer: FrameTransformer {
     /// Update edges that denote implicit flows between stocks.
     ///
     /// The created edges are of type ``FlowsMetamodel/ImplicitFlow``.
@@ -105,7 +106,7 @@ public struct ImplicitFlowsSystem: TransformationSystem {
     ///   ``StockFlowView/implicitDrains(_:)``,
     ///   ``StockFlowView/sortedStocksByImplicitFlows(_:)``
     ///
-    public mutating func update(_ context: inout TransformationContext) {
+    public mutating func update(_ context: TransformationContext) {
         let graph = context.frame.mutableGraph
         let view = StockFlowView(context.frame.graph)
         var unused: [Edge] = view.implicitFlowEdges

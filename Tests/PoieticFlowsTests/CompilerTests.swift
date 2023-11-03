@@ -147,9 +147,9 @@ final class TestCompiler: XCTestCase {
         XCTAssertEqual(view.implicitDrains(source).count, 0)
         XCTAssertEqual(view.implicitFills(sink).count, 0)
         
-        var system = ImplicitFlowsSystem()
-        var context = TransformationContext(frame: frame)
-        system.update(&context)
+        var system = ImplicitFlowsTransformer()
+        let context = TransformationContext(frame: frame)
+        system.update(context)
         
         let src_drains = view.implicitDrains(source)
         let sink_drains = view.implicitDrains(sink)
@@ -176,8 +176,12 @@ final class TestCompiler: XCTestCase {
                 return
             }
             
+            guard let first = error.issues[gf]?.first else {
+                XCTFail("Expected an issue")
+                return
+            }
+            
             XCTAssertEqual(error.issues.count, 1)
-            let first = error.issues[gf]!.first!
 
             guard let issue = first as? NodeIssue else {
                 XCTFail("Did not get expected node issue error type")

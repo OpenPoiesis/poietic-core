@@ -28,18 +28,6 @@ public class ObjectType {
     ///
     public let structuralType: StructuralType
     
-    /// Flag whether the objects of this type are being created by the
-    /// system
-    ///
-    /// Objects of this type are usually derived from other user objects and
-    /// placed into the design, so a user interface or a tool can present the
-    /// derived information to the user.
-    ///
-    /// Users or any external tools must not be allowed to create objects of
-    /// this type.
-    ///
-    public let isSystemOwned: Bool
-    
     /// List of component requirements for objects of this type.
     ///
     public let components: [Component.Type]
@@ -54,13 +42,9 @@ public class ObjectType {
     ///
     public let abstract: String?
 
-    /// Type of privilege that specifies who can create objects of this type.
+    /// Plane in which the objects of this type reside.
     ///
-    /// - Note: Attitude of privilege in this case is different from typical
-    ///   use. It is the system that is to be prevented or discouraged from
-    ///   editing user's data.
-    ///
-    public let privilegeType: PrivilegeType
+    public let plane: Plane
     
     /// Mapping between attribute name and a component type that contains the
     /// attribute.
@@ -89,17 +73,15 @@ public class ObjectType {
     public init(name: String,
                 label: String? = nil,
                 structuralType: StructuralType,
-                isSystemOwned: Bool = false,
+                plane: Plane = .user,
                 components: [Component.Type],
-                abstract: String? = nil,
-                privilegeType: PrivilegeType = .user) {
+                abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.structuralType = structuralType
-        self.isSystemOwned = isSystemOwned
+        self.plane = plane
         self.components = components
         self.abstract = abstract
-        self.privilegeType = privilegeType
         
         var map: [String:InspectableComponent.Type] = [:]
         for component in components {

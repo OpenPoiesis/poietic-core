@@ -226,7 +226,7 @@ public class FlowsMetamodel: Metamodel {
     public static let ImplicitFlow = ObjectType(
         name: "ImplicitFlow",
         structuralType: .edge,
-        isSystemOwned: true,
+        plane: .system,
         components: [
             // None for now
         ],
@@ -241,7 +241,7 @@ public class FlowsMetamodel: Metamodel {
     public static let ValueBinding = ObjectType(
         name: "ValueBinding",
         structuralType: .edge,
-        isSystemOwned: false,
+        plane: .system,
         components: [
             // None for now
         ],
@@ -258,7 +258,7 @@ public class FlowsMetamodel: Metamodel {
         // TODO: Origin: Chart, target: Expression
         name: "ChartSeries",
         structuralType: .edge,
-        isSystemOwned: false,
+        plane: .system,
         components: [
             // None for now
         ],
