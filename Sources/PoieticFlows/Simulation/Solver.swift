@@ -459,7 +459,6 @@ public class Solver {
             estimate[stock] = estimate[stock] + delta
             deltaVector[stock] = delta
         }
-
         return deltaVector
     }
     

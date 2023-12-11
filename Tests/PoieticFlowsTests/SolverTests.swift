@@ -319,7 +319,34 @@ final class TestSolver: XCTestCase {
         XCTAssertEqual(diff[happy],  +5)
         XCTAssertEqual(diff[sad],     0)
     }
-  
+
+    func testDifference() throws {
+        let kettle = graph.createNode(FlowsMetamodel.Stock,
+                                      name: "kettle",
+                                      components: [FormulaComponent(expression: "1000")])
+        let flow = graph.createNode(FlowsMetamodel.Flow,
+                                    name: "pour",
+                                    components: [FormulaComponent(expression: "100")])
+        let cup = graph.createNode(FlowsMetamodel.Stock,
+                                      name: "cup",
+                                      components: [FormulaComponent(expression: "0")])
+
+        graph.createEdge(FlowsMetamodel.Drains,
+                         origin: kettle, target: flow, components: [])
+        graph.createEdge(FlowsMetamodel.Fills,
+                         origin: flow, target: cup, components: [])
+
+        let compiled = try compiler.compile()
+        let solver = Solver(compiled)
+        
+        var state = solver.initialize(time: 1.0)
+        
+        state = solver.difference(at: 1.0, with: state, timeDelta: 1.0)
+        XCTAssertEqual(state[kettle], 900.0 )
+        XCTAssertEqual(state[cup], 100.0)
+    }
+
+    
     func testCompute() throws {
         let kettle = graph.createNode(FlowsMetamodel.Stock,
                                       name: "kettle",

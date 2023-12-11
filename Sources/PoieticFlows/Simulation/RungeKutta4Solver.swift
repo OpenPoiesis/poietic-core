@@ -10,9 +10,9 @@
 /// Solver that integrates using the Runge Kutta 4 method.
 ///
 /// - SeeAlso: [Runge Kutta methods](https://en.wikipedia.org/wiki/Runge–Kutta_methods)
+/// - Important: Does not work well with non-negative stocks.
 ///
 public class RungeKutta4Solver: Solver {
-    // FIXME: [IMPORTANT] Seems to be broken.
     /*
         RK4:
      
@@ -26,33 +26,39 @@ public class RungeKutta4Solver: Solver {
      yn+1 = yn + 1/6(k1 + 2k2 + 2k3 + k4)*h
      tn+1 = tn + h
     */
+    // TODO: Does not work well with non-negative stocks.
+    // Is this the issue?
+    // https://arxiv.org/abs/2005.06268
+    // Paper: "Positivity-Preserving Adaptive Runge-Kutta Methods"
+    
     override public func compute(_ current: SimulationState,
                                  at time: Double,
                                  timeDelta: Double = 1.0) -> SimulationState {
         var current = current
-        // FIXME: [IMPORTANT] This is a consequence of inappropriate design.
+
         current.builtins = self.makeBuiltins(time: time, timeDelta: timeDelta)
         let stage1 = prepareStage(current, at: time, timeDelta: timeDelta)
         let k1 = difference(at: time,
                             with: stage1,
                             timeDelta: timeDelta)
-        
+
         let stage2 = prepareStage(current, at: time + timeDelta / 2, timeDelta: timeDelta)
         let k2 = difference(at: time + timeDelta / 2,
                             with: stage2 + (timeDelta / 2) * k1,
                             timeDelta: timeDelta / 2)
-        
+
         let stage3 = prepareStage(current, at: time + timeDelta / 2, timeDelta: timeDelta)
         let k3 = difference(at: time + timeDelta / 2,
                             with: stage3 + (timeDelta / 2) * k2,
                             timeDelta: timeDelta / 2)
-        
+
+
         let stage4 = prepareStage(current, at: time, timeDelta: timeDelta)
         let k4 = difference(at: time,
                             with: stage4 + timeDelta * k3,
                             timeDelta: timeDelta)
-        
-        let result = current + (1.0/6.0) * timeDelta * (k1 + 2 * k2 + 2*k3 + k4)
+
+        let result = current + (1.0/6.0) * timeDelta * (k1 + (2*k2) + (2*k3) + k4)
         return result
     }
 }
