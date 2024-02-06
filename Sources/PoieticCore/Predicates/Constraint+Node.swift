@@ -28,12 +28,11 @@ public class UniqueNeighbourRequirement: ConstraintRequirement {
 
     
     public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
-        let graph = frame.graph
         return objects.filter {
             guard let node = Node($0) else {
                 return false
             }
-            let hood = graph.hood(node.id, selector: self.selector)
+            let hood = frame.hood(node.id, selector: self.selector)
             let count = hood.edges.count
             
             return count > 1 || (count == 0 && isRequired)

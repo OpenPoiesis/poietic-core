@@ -413,8 +413,9 @@ public class MutableFrame: Frame {
     ///
     /// - SeeAlso: `MutableUnboundGraph`.
     ///
+    @available(*, deprecated, message: "Use mutable frame directly as a mutable graph")
     public var mutableGraph: MutableGraph {
-        MutableUnboundGraph(frame: self)
+        self
     }
     
     /// Get an immutable graph for the frame.
@@ -425,8 +426,9 @@ public class MutableFrame: Frame {
     ///
     /// - SeeAlso: `UnboundGraph`.
     ///
+    @available(*, deprecated, message: "Use mutable frame directly as a graph")
     public var graph: Graph {
-        UnboundGraph(frame: self)
+        self
     }
     
     // MARK: - Hierarchy

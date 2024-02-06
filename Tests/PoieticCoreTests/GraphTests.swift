@@ -29,14 +29,12 @@ final class GraphTests: XCTestCase {
         frame.insert(u1, owned: true)
         frame.insert(e1, owned: true)
 
-        let graph = frame.graph
+        XCTAssertEqual(frame.nodes.count, 2)
+        XCTAssertTrue(frame.nodes.contains(where: {$0.id == n1.id}))
+        XCTAssertTrue(frame.nodes.contains(where: {$0.id == n2.id}))
         
-        XCTAssertEqual(graph.nodes.count, 2)
-        XCTAssertTrue(graph.nodes.contains(where: {$0.id == n1.id}))
-        XCTAssertTrue(graph.nodes.contains(where: {$0.id == n2.id}))
-        
-        XCTAssertEqual(graph.edges.count, 1)
-        XCTAssertTrue(graph.edges.contains(where: {$0.id == e1.id}))
+        XCTAssertEqual(frame.edges.count, 1)
+        XCTAssertTrue(frame.edges.contains(where: {$0.id == e1.id}))
 
     }
 }

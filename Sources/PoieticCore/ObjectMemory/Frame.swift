@@ -10,7 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``MutableFrame`` and
 /// ``StableFrame``
 ///
-public protocol Frame {
+public protocol Frame: Graph {
     /// Memory to which the frame belongs.
     var memory: ObjectMemory { get }
     
@@ -20,10 +20,6 @@ public protocol Frame {
     /// Get a list of all snapshots in the frame.
     ///
     var snapshots: [ObjectSnapshot] { get }
-
-    /// Get view of the frame as a graph.
-    ///
-    var graph: Graph { get }
 
     /// Check whether the frame contains an object with given ID.
     ///
@@ -173,6 +169,76 @@ extension Frame {
     }
 }
 
+/// Graph contained within a mutable frame where the references to the nodes and
+/// edges are not directly bound and are resolved at the time of querying.
+///
+extension Frame /* Graph */ {
+    public var frame: Frame { self }
+
+    /// Get a node by ID.
+    ///
+    /// - Precondition: The object must exist and must be a node.
+    ///
+    public func node(_ index: ObjectID) -> Node {
+        if let node = Node(frame.object(index)) {
+            return node
+        }
+        else {
+            preconditionFailure("Frame object \(index) must be a node.")
+        }
+    }
+
+    /// Get an edge by ID.
+    ///
+    /// - Precondition: The object must exist and must be an edge.
+    ///
+    public func edge(_ index: ObjectID) -> Edge {
+        if let edge = Edge(frame.object(index)) {
+            return edge
+        }
+        else {
+            preconditionFailure("Frame object \(index) must be an edge.")
+        }
+    }
+
+    public func contains(node nodeID: ObjectID) -> Bool {
+        if contains(nodeID) {
+            let obj = object(nodeID)
+            return obj.structure.type == .node
+        }
+        else {
+            return false
+        }
+    }
+
+    public func contains(edge edgeID: ObjectID) -> Bool {
+        if contains(edgeID) {
+            let obj = object(edgeID)
+            return obj.structure.type == .edge
+        }
+        else {
+            return false
+        }
+    }
+
+    public func neighbours(_ node: ObjectID, selector: NeighborhoodSelector) -> [Edge] {
+        fatalError("Neighbours of mutable graph not implemented")
+    }
+    
+    public var nodes: [Node] {
+        return self.frame.snapshots.compactMap {
+            Node($0)
+        }
+    }
+    
+    public var edges: [Edge] {
+        return self.frame.snapshots.compactMap {
+            Edge($0)
+        }
+    }
+}
+
+
 /// Stable design frame that can not be mutated.
 ///
 /// The stable frame is a collection of object versions that together represent
@@ -245,7 +311,7 @@ public class StableFrame: Frame {
     /// Get an immutable graph view of the frame.
     ///
     public var graph: Graph {
-        return UnboundGraph(frame: self)
+        return self
     }
 }
 

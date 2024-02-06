@@ -79,10 +79,8 @@ extension MutableGraph {
 
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
-public class MutableUnboundGraph: UnboundGraph, MutableGraph {
-    var mutableFrame: MutableFrame {
-        self.frame as! MutableFrame
-    }
+extension MutableFrame: MutableGraph {
+    var mutableFrame: MutableFrame { self }
     
     public func insert(_ node: Node) {
         self.mutableFrame.insert(node.snapshot)
@@ -98,9 +96,9 @@ public class MutableUnboundGraph: UnboundGraph, MutableGraph {
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .edge,
                      "Trying to create an edge using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
-        precondition(frame.contains(origin),
+        precondition(contains(origin),
                      "Trying to create an edge with unknown origin ID \(origin) in the frame")
-        precondition(frame.contains(target),
+        precondition(contains(target),
                      "Trying to create an edge with unknown target ID \(target) in the frame")
 
         let snapshot = mutableFrame.memory.createSnapshot(

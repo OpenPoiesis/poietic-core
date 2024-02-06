@@ -30,19 +30,17 @@ public class EdgePredicate: Predicate {
     }
     
     public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
-        let graph = frame.graph
-        
         guard let edge = Edge(object) else {
             return false
         }
         if let predicate = originPredicate {
-            let node = graph.node(edge.origin)
+            let node = frame.node(edge.origin)
             if !predicate.match(frame: frame, object: node.snapshot) {
                 return false
             }
         }
         if let predicate = targetPredicate {
-            let node = graph.node(edge.target)
+            let node = frame.node(edge.target)
             if !predicate.match(frame: frame, object: node.snapshot) {
                 return false
             }

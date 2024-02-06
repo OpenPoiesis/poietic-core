@@ -209,9 +209,8 @@ final class ObjectMemoryTests: XCTestCase {
         // TODO: Change this to non-graph constraint check
         let db = ObjectMemory()
         let frame = db.deriveFrame()
-        let graph = frame.mutableGraph
-        let a = graph.createNode(TestNodeType)
-        let b = graph.createNode(TestNodeType)
+        let a = frame.createNode(TestNodeType)
+        let b = frame.createNode(TestNodeType)
         
         let constraint = Constraint(name: "test",
                                     match: AnyPredicate(),
