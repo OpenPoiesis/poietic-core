@@ -21,7 +21,7 @@
 ///
 /// - SeeAlso: ``Component``
 ///
-public class ComponentSchema {
+public class ComponentDescription {
     /// Name of the component.
     ///
     /// The component name is used in reflection and when a component is being

@@ -128,7 +128,7 @@ public class ForeignFrameBundle {
 public class ForeignFrameReader {
     public let info: ForeignFrameInfo
     public let memory: ObjectMemory
-    public var metamodel: Metamodel.Type { memory.metamodel }
+    public var metamodel: Metamodel { memory.metamodel }
 
     /// References to objects that already exist in the frame. The key might
     /// be either an object name or a string representation of an object ID.

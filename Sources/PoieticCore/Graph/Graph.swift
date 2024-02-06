@@ -311,6 +311,7 @@ extension Graph {
 /// edges are not directly bound and are resolved at the time of querying.
 /// 
 public class UnboundGraph: Graph {
+    // TODO: Remove this class and move the methods to Frame as an extension.
     public let frame: Frame
     
     public init(frame: Frame) {

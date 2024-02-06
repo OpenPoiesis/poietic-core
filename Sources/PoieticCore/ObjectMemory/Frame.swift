@@ -11,6 +11,9 @@
 /// ``StableFrame``
 ///
 public protocol Frame {
+    /// Memory to which the frame belongs.
+    var memory: ObjectMemory { get }
+    
     var id: FrameID { get }
     
     // TODO: Change this to Sequence<ObjectSnapshot>

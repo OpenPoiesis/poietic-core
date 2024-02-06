@@ -42,6 +42,7 @@ public class ObjectType {
     ///
     public let abstract: String?
 
+    // TODO: Remove Plane, replace with tags
     /// Plane in which the objects of this type reside.
     ///
     public let plane: Plane

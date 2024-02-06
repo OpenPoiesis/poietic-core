@@ -29,7 +29,7 @@ class TestPersistentRecord: XCTestCase {
         XCTAssertEqual(obj.id, 10)
         XCTAssertEqual(obj.snapshotID, 20)
         XCTAssertEqual(obj.structure, .node)
-        XCTAssertIdentical(obj.type, TestMetamodel.Stock)
+        XCTAssertIdentical(obj.type, Metamodel.Stock)
         
         XCTAssertNotNil(memory.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
     }
@@ -94,20 +94,20 @@ final class JSONFileStoreTests: XCTestCase {
         frame = db.createFrame()
         graph = frame.mutableGraph
         
-        let flow = graph.createNode(TestMetamodel.Flow,
+        let flow = graph.createNode(Metamodel.Flow,
                                     name: nil,
                                     components: [IntegerComponent(value: 10)])
-        let source = graph.createNode(TestMetamodel.Stock,
+        let source = graph.createNode(Metamodel.Stock,
                                       name: nil,
                                     components: [IntegerComponent(value: 20)])
-        let sink = graph.createNode(TestMetamodel.Stock,
+        let sink = graph.createNode(Metamodel.Stock,
                                     name:nil,
                                     components: [IntegerComponent(value: 30)])
         
-        graph.createEdge(TestMetamodel.Arrow,
+        graph.createEdge(Metamodel.Arrow,
                          origin: source,
                          target: flow, components: [])
-        graph.createEdge(TestMetamodel.Arrow,
+        graph.createEdge(Metamodel.Arrow,
                          origin: flow,
                          target: sink, components: [])
         do {

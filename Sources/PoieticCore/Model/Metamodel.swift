@@ -39,18 +39,19 @@
 ///
 /// - Note: Each application is expected to provide their own domain specific metamodel.
 ///
-public protocol Metamodel: AnyObject {
+public final class Metamodel {
     /// List of components that are available within the domain described by
     /// this metamodel.
-    static var components: [Component.Type] { get }
+    public let components: [Component.Type]
 
     /// List of object types allowed in the model.
     ///
-    static var objectTypes: [ObjectType] { get }
+    public let objectTypes: [ObjectType]
     
+    // FIXME: Remove, move to a "named object"
     /// List of built-in variables.
     ///
-    static var variables: [BuiltinVariable] { get }
+    public let variables: [BuiltinVariable]
     
     /// List of constraints.
     ///
@@ -58,16 +59,26 @@ public protocol Metamodel: AnyObject {
     /// Memory must not contain stable frames that violate any of the
     /// constraints.
     ///
-    static var constraints: [Constraint] { get }
-}
+    public let constraints: [Constraint]
 
-extension Metamodel {
-    public static func objectType(name: String) -> ObjectType? {
+    // TODO: Add named objects (objects that are required to exist)
+    
+    public init(components: [Component.Type] = [],
+                objectTypes: [ObjectType] = [],
+                variables: [BuiltinVariable] = [],
+                constraints: [Constraint] = []) {
+        self.components = components
+        self.objectTypes = objectTypes
+        self.variables = variables
+        self.constraints = constraints
+    }
+    
+    public func objectType(name: String) -> ObjectType? {
         return objectTypes.first { $0.name == name}
     }
     
     /// Get a component type by name
-    public static func inspectableComponent(name: String) -> InspectableComponent.Type? {
+    public func inspectableComponent(name: String) -> InspectableComponent.Type? {
         let result = components.compactMap {
             $0 as? InspectableComponent.Type
         }.first {
@@ -81,7 +92,7 @@ extension Metamodel {
     /// This list is created from the ``Metamodel/variables`` list for
     /// convenience.
     ///
-    public static var variableNames: [String] {
+    public var variableNames: [String] {
         variables.map { $0.name }
     }
 
@@ -92,47 +103,38 @@ extension Metamodel {
 /// Used for testing and playground purposes.
 ///
 /// Each application is expected to provide their own domain specific metamodel.
-public class EmptyMetamodel: Metamodel {
-    public static var components: [Component.Type] = []
-    
-    public static var objectTypes: [ObjectType] = []
-    
-    public static var variables: [BuiltinVariable] = []
-    
-    public static var constraints: [Constraint] = []
-}
+public let EmptyMetamodel = Metamodel(
+    components: [],
+    objectTypes: [],
+    variables: [],
+    constraints: []
+)
 
 /// Metamodel with some basic object types that are typical for multiple
 /// kinds of designs.
 ///
-public class BasicMetamodel: Metamodel {
-    
-    public static let DesignInfo = ObjectType(
-        name:"Design",
-        structuralType: .unstructured,
-        plane: .user,
-        components: [
-            DesignInfoComponent.self,
-            DocumentationComponent.self,
-            AudienceLevelComponent.self,
-            KeywordsComponent.self,
-        ])
+public let DesignInfo = ObjectType(
+    name: "Design",
+    structuralType: .unstructured,
+    plane: .user,
+    components: [
+        DesignInfoComponent.self,
+        DocumentationComponent.self,
+        AudienceLevelComponent.self,
+        KeywordsComponent.self,
+    ])
 
-    
-    public static var components: [Component.Type] = [
+public let BasicMetamodel = Metamodel(
+    components:[
         NameComponent.self,
         DesignInfoComponent.self,
         DocumentationComponent.self,
         AudienceLevelComponent.self,
         KeywordsComponent.self,
-    ]
-    
-    public static var objectTypes: [ObjectType] = [
+    ],
+    objectTypes: [
         DesignInfo,
-    ]
-    
-    public static var variables: [BuiltinVariable] = []
-    
-    public static var constraints: [Constraint] = []
-
-}
+    ],
+    variables: [],
+    constraints: []
+)

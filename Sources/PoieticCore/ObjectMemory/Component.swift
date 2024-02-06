@@ -96,7 +96,7 @@ public protocol TransientComponent: Component {
 public protocol InspectableComponent: Component, MutableKeyedAttributes {
     // TODO: Alternative names: PublicComponent, InterfacingComponent
     // TODO: Split to ForeignRepresentable
-    static var componentSchema: ComponentSchema { get }
+    static var componentSchema: ComponentDescription { get }
     
     /// Create a new component with default component values.
     ///

@@ -6,7 +6,7 @@
 //
 
 public struct DesignInfoComponent: InspectableComponent {
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "DesignInfo",
         attributes: [
             Attribute(

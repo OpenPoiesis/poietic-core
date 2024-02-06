@@ -146,7 +146,7 @@ public class ObjectMemory {
     /// The metamodel is used for validation of the model contained within the
     /// memory and for creation of objects.
     ///
-    public let metamodel: Metamodel.Type
+    public let metamodel: Metamodel
     
     /// List of constraints of the object memory.
     ///
@@ -211,7 +211,7 @@ public class ObjectMemory {
     /// - A new empty frame will be created and committed as first frame.
     /// - The history will be initialised with the first empty frame.
     ///
-    public init(metamodel: Metamodel.Type = EmptyMetamodel.self) {
+    public init(metamodel: Metamodel = EmptyMetamodel) {
         // NOTE: Sync with removeAll()
         self.identityGenerator = SequentialIDGenerator()
         self._stableFrames = [:]

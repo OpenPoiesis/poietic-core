@@ -7,7 +7,7 @@
 
 public class TransformationContext {
     // TODO: Alternative names: UpdateContext, MutationContext
-    // TODO: Move to the Core
+    public let metamodel: Metamodel
     /// Frame that is being transformed.
     public let frame: MutableFrame
     
@@ -23,6 +23,7 @@ public class TransformationContext {
 //    }
     
     public init(frame: MutableFrame) {
+        self.metamodel = frame.memory.metamodel
         self.frame = frame
         self.issues = [:]
     }

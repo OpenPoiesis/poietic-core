@@ -16,7 +16,7 @@ final class FrameReaderTests: XCTestCase {
     var reader: ForeignFrameReader!
     
     override func setUp() {
-        memory = ObjectMemory(metamodel: TestMetamodel.self)
+        memory = ObjectMemory(metamodel: TestMetamodel)
         frame = memory.deriveFrame()
         
         let infoSrc = """
@@ -116,7 +116,7 @@ final class FrameReaderTests: XCTestCase {
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
-        XCTAssertIdentical(snapshot.type, TestMetamodel.Unstructured)
+        XCTAssertIdentical(snapshot.type, Metamodel.Unstructured)
     }
     func testLoadSingleWithName() throws {
         let data = """

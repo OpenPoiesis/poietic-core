@@ -8,7 +8,7 @@
 // Basic, reusable components.
 public struct NameComponent: InspectableComponent, CustomStringConvertible {
     
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "Name",
         attributes: [
             Attribute(
@@ -120,7 +120,7 @@ public enum AudienceLevel: Int, Codable {
 /// are of a higher audience level.
 ///
 public struct AudienceLevelComponent: InspectableComponent {
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "AudienceLevel",
         attributes: [
             Attribute(
@@ -158,7 +158,7 @@ public struct AudienceLevelComponent: InspectableComponent {
 /// Documentation component
 ///
 public struct DocumentationComponent: InspectableComponent {
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "Documentation",
         attributes: [
             Attribute(
@@ -202,7 +202,7 @@ public struct DocumentationComponent: InspectableComponent {
 /// Keywords component
 ///
 public struct KeywordsComponent: InspectableComponent {
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "Keywords",
         attributes: [
             Attribute(
@@ -238,7 +238,7 @@ public struct KeywordsComponent: InspectableComponent {
 /// Note component
 ///
 public struct NoteComponent: InspectableComponent {
-    public static var componentSchema = ComponentSchema(
+    public static var componentSchema = ComponentDescription(
         name: "Note",
         attributes: [
             Attribute(

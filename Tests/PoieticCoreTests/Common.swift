@@ -20,7 +20,7 @@ let TestEdgeType = ObjectType(name: "TestEdge",
 
 
 struct TestComponent: InspectableComponent {
-    static var componentSchema = ComponentSchema(
+    static var componentSchema = ComponentDescription(
         name: "Test",
         attributes: [
             Attribute(name: "text", type: .string)
@@ -58,7 +58,7 @@ struct TestComponent: InspectableComponent {
 }
 
 struct IntegerComponent: InspectableComponent, Equatable {
-    static var componentSchema = ComponentSchema(
+    static var componentSchema = ComponentDescription(
         name: "Integer",
         attributes: [
             Attribute(name: "value", type: .int)
@@ -93,23 +93,7 @@ struct IntegerComponent: InspectableComponent, Equatable {
     }
 }
 
-class TestMetamodel: Metamodel {
-    static var constraints: [PoieticCore.Constraint] = []
-    
-    static var objectTypes: [PoieticCore.ObjectType] = [
-        Unstructured,
-        Stock,
-        Flow,
-        Parameter,
-        Arrow,
-    ]
-    
-    static var variables: [PoieticCore.BuiltinVariable] = []
-    
-    static let components: [Component.Type] = [
-        IntegerComponent.self,
-    ]
-    
+extension Metamodel {
     static let Unstructured = ObjectType(
         name: "Unstructured",
         structuralType: .unstructured,
@@ -148,5 +132,19 @@ class TestMetamodel: Metamodel {
             // None for now
         ]
     )
-
 }
+
+public let TestMetamodel = Metamodel(
+    components: [
+        IntegerComponent.self,
+    ],
+    objectTypes: [
+        Metamodel.Unstructured,
+        Metamodel.Stock,
+        Metamodel.Flow,
+        Metamodel.Parameter,
+        Metamodel.Arrow,
+    ],
+    variables: [],
+    constraints: []
+)
