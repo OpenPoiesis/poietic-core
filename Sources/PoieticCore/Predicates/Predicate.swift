@@ -99,3 +99,14 @@ public class IsTypePredicate: Predicate {
         }
     }
 }
+
+public class FunctionPredicate: Predicate {
+    let block: (ObjectSnapshot) -> Bool
+    
+    public init(_ block: @escaping (ObjectSnapshot) -> Bool) {
+        self.block = block
+    }
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+        block(object)
+    }
+}

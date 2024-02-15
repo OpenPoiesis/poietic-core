@@ -68,6 +68,7 @@ extension ForeignRecord: Codable {
 public struct ForeignRecord {
     var dict: [String:ForeignValue]
     
+    public var dictionary: [String:ForeignValue] { dict }
     /// Create a foreign record from a dictionary.
     ///
     /// Keys are attribute names and values are foreign values of the attribute.

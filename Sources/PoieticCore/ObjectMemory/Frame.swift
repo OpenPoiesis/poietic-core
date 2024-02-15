@@ -150,6 +150,33 @@ extension Frame {
         return snapshots.filter { $0.type === type }
     }
     
+    public func filter(_ block: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
+        return snapshots.filter(block)
+    }
+
+    // FIXME: Use Node as argument
+    public func filterNodes(_ block: (ObjectSnapshot) -> Bool) -> [Node] {
+        return snapshots.compactMap {
+            if let node = Node($0), block($0) {
+                return node
+            }
+            else {
+                return nil
+            }
+        }
+    }
+
+    public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
+        return snapshots.compactMap {
+            if let edge = Edge($0), block(edge) {
+                return edge
+            }
+            else {
+                return nil
+            }
+        }
+    }
+
     public func filter<T>(component type: T.Type) -> [(ObjectSnapshot, T)]
             where T : Component {
         return snapshots.compactMap {

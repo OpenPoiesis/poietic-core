@@ -274,7 +274,7 @@ extension Graph {
         
         return Neighborhood(graph: self,
                             nodeID: nodeID,
-                            selector: selector,
+                            direction: selector.direction,
                             edges: filtered)
     }
     

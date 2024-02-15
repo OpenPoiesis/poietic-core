@@ -45,24 +45,24 @@ public class NeighborhoodSelector {
 public class Neighborhood {
     public let graph: Graph
     public let nodeID: ObjectID
-    public let selector: NeighborhoodSelector
+    public let direction: EdgeDirection
     public let edges: [Edge]
     
     public init(graph: Graph,
                 nodeID: ObjectID,
-                selector: NeighborhoodSelector,
+                direction: EdgeDirection,
                 edges: [Edge]) {
         
         self.graph = graph
         self.nodeID = nodeID
-        self.selector = selector
+        self.direction = direction
         self.edges = edges
     }
     
     public var nodes: [Node] {
         edges.map { edge in
             let endpointID: ObjectID
-            switch self.selector.direction {
+            switch direction {
             case .incoming: endpointID = edge.origin
             case .outgoing: endpointID = edge.target
             }

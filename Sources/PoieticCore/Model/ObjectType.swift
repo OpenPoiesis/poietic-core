@@ -75,7 +75,7 @@ public class ObjectType {
                 label: String? = nil,
                 structuralType: StructuralType,
                 plane: Plane = .user,
-                components: [Component.Type],
+                components: [Component.Type] = [],
                 abstract: String? = nil) {
         self.name = name
         self.label = label ?? name

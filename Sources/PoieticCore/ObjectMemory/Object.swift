@@ -80,6 +80,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public let id: ObjectID
     
+    // FIXME: Replace component storage with a dictionary/attribute storage
     /// List of components of the object.
     ///
     /// An object can have multiple components but only
