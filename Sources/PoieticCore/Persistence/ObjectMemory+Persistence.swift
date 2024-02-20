@@ -12,7 +12,7 @@ extension ObjectSnapshot {
     /// The foreign record does not include
     ///
     public func foreignRecord() -> ForeignRecord {
-        var dict: [String:ForeignValue] = [:]
+        var dict: [String:ForeignValue] = self.attributes
         dict["id"] = ForeignValue(id)
         dict["snapshot_id"] = ForeignValue(snapshotID)
         dict["type"] = ForeignValue(type.name)
@@ -104,45 +104,6 @@ extension ObjectMemory {
         // Finally: save the store
         // ----------------------------------------------------------------
         try store.save()
-    }
-
-    public func createSnapshot(_ record: ForeignRecord) throws -> ObjectSnapshot {
-        let typeName = try record.stringValue(for: "type")
-        guard let type = metamodel.objectType(name: typeName) else {
-            throw MemoryStoreError.unknownObjectType(typeName)
-        }
-        
-        let structure: StructuralComponent
-        switch type.structuralType {
-        case .unstructured:
-            structure = .unstructured
-        case .node:
-            structure = .node
-        case .edge:
-            structure = .edge(try record.IDValue(for: "origin"),
-                              try record.IDValue(for: "target"))
-        }
-        
-        let id = allocateID(required: try record.IDValue(for: "id"))
-        let snapshotID = allocateID(required: try record.IDValue(for: "snapshot_id"))
-        
-        var attributes = record.dictionary
-
-        for name in ObjectSnapshot.ReservedAttributeNames {
-            attributes[name] = nil
-        }
-        
-        let snapshot = ObjectSnapshot(id: id,
-                                      snapshotID: snapshotID,
-                                      type: type,
-                                      attributes: attributes)
-        
-        snapshot.structure = structure
-        snapshot.parent = try record.IDValueIfPresent(for: "parent")
-        
-        self._allSnapshots[snapshotID] = snapshot
-
-        return snapshot
     }
 
     /// Removes everything from the memory and loads the contents from the

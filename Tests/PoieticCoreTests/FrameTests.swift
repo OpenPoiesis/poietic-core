@@ -138,7 +138,18 @@ final class MutableFrameTests: XCTestCase {
         let derivedSnap2 = derived.mutableObject(id)
         XCTAssertIdentical(derivedSnap, derivedSnap2)
     }
-    
+
+    func testMutableObjectCopyAttributes() throws {
+        let original = memory.deriveFrame()
+        let id = original.create(TestType, attributes: ["text": "hello"])
+        try memory.accept(original)
+        
+        let derived = memory.deriveFrame()
+        let derivedSnap = derived.mutableObject(id)
+        
+        XCTAssertEqual(derivedSnap["text"], "hello")
+    }
+
     func testRemoveObjectCascading() throws {
         let frame = memory.deriveFrame()
         

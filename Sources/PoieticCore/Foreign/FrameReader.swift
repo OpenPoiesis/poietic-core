@@ -92,7 +92,6 @@ public class ForeignFrameBundle {
         let data = try Data(contentsOf: collectionURL)
 
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         let objects: [ForeignObject]
         
@@ -338,7 +337,7 @@ public class ForeignFrameReader {
             for (key, value) in attributes {
                 try snapshot.setAttribute(value: value, forKey: key)
             }
-
+            
             snapshots.append(snapshot)
             snapshot.promote(.stable)
             frame.unsafeInsert(snapshot, owned: true)

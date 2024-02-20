@@ -45,6 +45,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         "target",
         "type",
         "parent",
+        
+        "structure",
     ]
     
     public typealias ID = ObjectID
@@ -243,50 +245,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         self.attributes = attributes
         self.components = ComponentSet(components)
 
-        // FIXME: [IMPORTANT] Add default attribute values for required traits.
-        // Add required components as described by the object type.
-        //
-        for attr in type.attributes {
-            if self.attributes[attr.name] == nil {
-                self.attributes[attr.name] = attr.defaultValue
-            }
-        }
     }
     
-    #if false
-    // FIXME: Remove permanently
-    /// Create a foreign object from the snapshot.
-    ///
-    /// Use this method to create a representation of the snapshot that can be
-    /// used in foreign interfaces - persisting, converting to other formats,
-    /// sending over a network, etc.
-    ///
-    public func foreignObject() -> ForeignObject {
-        let children = self.children.map { String($0) }
-        let origin: String?
-        let target: String?
-        
-        switch structure {
-        case .unstructured, .node:
-            origin = nil
-            target = nil
-        case let .edge(originID, targetID):
-            origin = String(originID)
-            target = String(targetID)
-        }
-
-        let foreign = ForeignObject(type: type.name,
-                                    id: String(id),
-                                    snapshotID: String(snapshotID),
-                                    name: self.name,
-                                    attributes: attributesAsForeignRecord(),
-                                    origin: origin,
-                                    target: target,
-                                    children: children)
-
-        return foreign
-    }
-    #endif
     
     /// Textual description of the object.
     ///

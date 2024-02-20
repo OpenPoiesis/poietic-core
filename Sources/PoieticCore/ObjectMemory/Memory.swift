@@ -683,9 +683,9 @@ public enum TypeError: Equatable, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .missingTraitAttribute(attribute, trait):
-            "Missing attribute \(attribute) required by trait \(trait)"
+            "Missing attribute '\(attribute)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, type):
-            "Attribute \(attribute) must be of type \(type)"
+            "Attribute '\(attribute)' must be of type '\(type)'"
         }
     }
 }

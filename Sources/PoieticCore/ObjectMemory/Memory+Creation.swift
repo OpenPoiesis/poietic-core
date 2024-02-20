@@ -34,11 +34,12 @@ extension ObjectMemory {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
+        // FIXME: Add default values
+        
         let actualID = allocateID(required: id)
         let actualSnapshotID = allocateID(required: snapshotID)
 
         let actualStructure: StructuralComponent
-        
         switch type.structuralType {
         case .unstructured:
             precondition(structure == nil || structure == .unstructured,
@@ -58,12 +59,21 @@ extension ObjectMemory {
 
             actualStructure = structure
         }
+        var actualAttributes = attributes
+        
+        // Add required components as described by the object type.
+        //
+        for attribute in type.attributes {
+            if actualAttributes[attribute.name] == nil {
+                actualAttributes[attribute.name] = attribute.defaultValue
+            }
+        }
 
         let snapshot = ObjectSnapshot(id: actualID,
                                       snapshotID: actualSnapshotID,
                                       type: type,
                                       structure: actualStructure,
-                                      attributes: attributes,
+                                      attributes: actualAttributes,
                                       components: components)
 
         snapshot.state = state
@@ -73,7 +83,48 @@ extension ObjectMemory {
         return snapshot
     }
     
+    @available(*, deprecated, message: "Use the designated initialiser createSnapshot")
+    public func createSnapshot(_ record: ForeignRecord) throws -> ObjectSnapshot {
+        let typeName = try record.stringValue(for: "type")
+        guard let type = metamodel.objectType(name: typeName) else {
+            throw MemoryStoreError.unknownObjectType(typeName)
+        }
+        
+        let structure: StructuralComponent
+        switch type.structuralType {
+        case .unstructured:
+            structure = .unstructured
+        case .node:
+            structure = .node
+        case .edge:
+            structure = .edge(try record.IDValue(for: "origin"),
+                              try record.IDValue(for: "target"))
+        }
+        
+        let id = allocateID(required: try record.IDValue(for: "id"))
+        let snapshotID = allocateID(required: try record.IDValue(for: "snapshot_id"))
+        
+        var attributes = record.dictionary
 
+        for name in ObjectSnapshot.ReservedAttributeNames {
+            attributes[name] = nil
+        }
+        
+        let snapshot = ObjectSnapshot(id: id,
+                                      snapshotID: snapshotID,
+                                      type: type,
+                                      attributes: attributes)
+        
+        snapshot.structure = structure
+        snapshot.parent = try record.IDValueIfPresent(for: "parent")
+        
+        self._allSnapshots[snapshotID] = snapshot
+
+        return snapshot
+    }
+
+
+    
     /// Create a new snapshot version
     ///
     public func deriveSnapshot(_ originalID: SnapshotID) -> ObjectSnapshot {
@@ -87,6 +138,7 @@ extension ObjectMemory {
                                      snapshotID: derivedSnapshotID,
                                      type: original.type,
                                      structure: original.structure)
+        derived.attributes = original.attributes
         derived.components = original.components
         derived.children = original.children
         derived.parent = original.parent
