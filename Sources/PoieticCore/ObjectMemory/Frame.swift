@@ -150,6 +150,13 @@ extension Frame {
         return snapshots.filter { $0.type === type }
     }
     
+    /// Filter objects with given trait
+    public func filter(trait: Trait) -> [ObjectSnapshot] {
+        return snapshots.filter {
+            $0.type.traits.contains { $0 === trait }
+        }
+    }
+
     public func filter(_ block: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
         return snapshots.filter(block)
     }
@@ -358,15 +365,7 @@ extension Frame {
     ///
     ///
     public func object(named name: String) -> ObjectSnapshot? {
-        for object in snapshots {
-            guard let component: NameComponent = object[NameComponent.self] else {
-                continue
-            }
-            if component.name == name {
-                return object
-            }
-        }
-        return nil
+        return snapshots.first { $0.name == name }
     }
     
     /// Get an object by a string reference - the string might be an object name

@@ -192,7 +192,7 @@ public enum Value: Equatable, Hashable, Codable {
     }
     
     
-    public var valueType: AtomType {
+    public var atomType: AtomType {
         switch self {
         case .string: return .string
         case .bool: return .bool

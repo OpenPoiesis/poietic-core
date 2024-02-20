@@ -10,22 +10,43 @@
 
 let TestType = ObjectType(name: "TestPlain",
                           structuralType: .unstructured,
-                          components: [TestComponent.self])
+                          traits: [])
 let TestNodeType = ObjectType(name: "TestNode",
                           structuralType: .node,
-                          components: [])
+                          traits: [])
 let TestEdgeType = ObjectType(name: "TestEdge",
                           structuralType: .edge,
-                          components: [])
+                          traits: [])
+
+let TestTypeNoDefault = ObjectType(name: "TestNoDefault",
+                          structuralType: .unstructured,
+                          traits: [TestTraitNoDefault])
+let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
+                          structuralType: .unstructured,
+                          traits: [TestTraitWithDefault])
+
+let TestTrait = Trait(
+    name: "Test",
+    attributes: [
+        Attribute("text", type: .string)
+    ]
+)
+let TestTraitNoDefault = Trait(
+    name: "Test",
+    attributes: [
+        Attribute("text", type: .string)
+    ]
+)
+let TestTraitWithDefault = Trait(
+    name: "Test",
+    attributes: [
+        Attribute("text", type: .string, default: "default")
+    ]
+)
 
 
 struct TestComponent: InspectableComponent {
-    static var componentSchema = ComponentDescription(
-        name: "Test",
-        attributes: [
-            Attribute(name: "text", type: .string)
-        ]
-    )
+    static let trait = TestTrait
     
     init(text: String) {
         self.text = text
@@ -57,13 +78,15 @@ struct TestComponent: InspectableComponent {
     }
 }
 
+let IntegerTrait = Trait(
+    name: "Integer",
+    attributes: [
+        Attribute("value", type: .int, default: 0)
+    ]
+)
+
 struct IntegerComponent: InspectableComponent, Equatable {
-    static var componentSchema = ComponentDescription(
-        name: "Integer",
-        attributes: [
-            Attribute(name: "value", type: .int)
-        ]
-    )
+    static var trait = IntegerTrait
 
     var value: Int
     
@@ -93,50 +116,51 @@ struct IntegerComponent: InspectableComponent, Equatable {
     }
 }
 
+// FIXME: Move to ObjectType
 extension Metamodel {
     static let Unstructured = ObjectType(
         name: "Unstructured",
         structuralType: .unstructured,
-        components: [
-            IntegerComponent.self,
+        traits: [
+            IntegerTrait,
         ]
     )
     
     static let Stock = ObjectType(
         name: "Stock",
         structuralType: .node,
-        components: [
-            IntegerComponent.self,
+        traits: [
+            IntegerTrait,
         ]
     )
     
     static let Flow = ObjectType(
         name: "Flow",
         structuralType: .node,
-        components: [
-            IntegerComponent.self,
+        traits: [
+            IntegerTrait,
         ]
     )
     
     static let Parameter = ObjectType(
         name: "Parameter",
         structuralType: .edge,
-        components: [
+        traits: [
             // None for now
         ]
     )
     static let Arrow = ObjectType(
         name: "Arrow",
         structuralType: .edge,
-        components: [
+        traits: [
             // None for now
         ]
     )
 }
 
 public let TestMetamodel = Metamodel(
-    components: [
-        IntegerComponent.self,
+    traits: [
+        IntegerTrait,
     ],
     objectTypes: [
         Metamodel.Unstructured,

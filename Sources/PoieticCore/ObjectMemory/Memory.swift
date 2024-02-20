@@ -13,11 +13,13 @@
 /// Error thrown when constraint violations were detected in the graph during
 /// `accept()`.
 ///
-public struct ConstraintViolationError: Error {
+public struct FrameValidationError: Error {
     public let violations: [ConstraintViolation]
+    public let typeErrors: [ObjectID: [TypeError]]
     
-    public init(violations: [ConstraintViolation]) {
+    public init(violations: [ConstraintViolation]=[], typeErrors: [ObjectID:[TypeError]]) {
         self.violations = violations
+        self.typeErrors = typeErrors
     }
     
     public var prettyDescriptionsByObject: [ObjectID: [String]] {
@@ -502,6 +504,21 @@ public class ObjectMemory {
 
         // Check types
         // ------------------------------------------------------------
+        var typeErrors: [ObjectID: [TypeError]] = [:]
+        
+        // TODO: Make these checks on mutating methods
+        for object in frame.snapshots {
+            for trait in object.type.traits {
+                for attr in trait.attributes {
+                    guard let value = object.attributes[attr.name] else {
+                        let error = TypeError.missingTraitAttribute(attr.name, trait.name)
+                        typeErrors[object.id, default: []].append(error)
+                        continue
+                    }
+                    // TODO: Check for value type
+                }
+            }
+        }
 
         // TODO: Check whether the objects have the types allowed by the metamodel
         
@@ -512,8 +529,9 @@ public class ObjectMemory {
         // TODO: We need to get an immutable graph here.
         let violations = checkConstraints(frame)
         
-        if !violations.isEmpty {
-            throw ConstraintViolationError(violations: violations)
+        if !violations.isEmpty || !typeErrors.isEmpty {
+            throw FrameValidationError(violations: violations,
+                                       typeErrors: typeErrors)
         }
     }
 
@@ -655,4 +673,19 @@ public class ObjectMemory {
     
     
 
+}
+
+
+public enum TypeError: Equatable, CustomStringConvertible {
+    case missingTraitAttribute(String, String)
+    case typeMismatch(String, String)
+    
+    public var description: String {
+        switch self {
+        case let .missingTraitAttribute(attribute, trait):
+            "Missing attribute \(attribute) required by trait \(trait)"
+        case let .typeMismatch(attribute, type):
+            "Attribute \(attribute) must be of type \(type)"
+        }
+    }
 }

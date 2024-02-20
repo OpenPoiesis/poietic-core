@@ -63,7 +63,7 @@ public class BuiltinVariable: Hashable {
 }
 
 public protocol TypedValue {
-    var valueType: AtomType? { get }
+    var atomType: AtomType? { get }
 }
 
 extension ForeignValue: TypedValue {

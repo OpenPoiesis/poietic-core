@@ -9,10 +9,10 @@ import XCTest
 @testable import PoieticCore
 
 fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
-    static var componentSchema = ComponentDescription(
+    static var trait = Trait(
         name: "CustomName",
         attributes: [
-            Attribute(name: "name", type: .string)
+            Attribute("name", type: .string)
         ]
     )
 
@@ -35,10 +35,10 @@ fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
 }
 
 fileprivate struct NonStringNameComponent: InspectableComponent, Equatable {
-    static var componentSchema = ComponentDescription(
+    static var trait = Trait(
         name: "NonStringName",
         attributes: [
-            Attribute(name: "name", type: .int)
+            Attribute("name", type: .int)
         ]
     )
 
@@ -72,21 +72,15 @@ final class ObjectTests: XCTestCase {
         let object = ObjectSnapshot(id: 1,
                                     snapshotID: 1,
                                     type: TestType,
-                                    components: [NameComponent(name: "test")])
+                                    attributes: ["name": "test"])
         XCTAssertEqual(object.name, "test")
     }
-    func testCustomNameComponentName() throws {
-        let object = ObjectSnapshot(id: 1,
-                                    snapshotID: 1,
-                                    type: TestType,
-                                    components: [CustomNameComponent(name: "test")])
-        XCTAssertEqual(object.name, "test")
-    }
+
     func testNonStringNameComponent() throws {
         let object = ObjectSnapshot(id: 1,
                                     snapshotID: 1,
                                     type: TestType,
-                                    components: [NonStringNameComponent(name: 12345)])
+                                    attributes: ["name": 12345])
         XCTAssertEqual(object.name, "12345")
     }
 

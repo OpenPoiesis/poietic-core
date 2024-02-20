@@ -19,8 +19,6 @@
 /// type.
 ///
 public protocol Component {
-    // TODO: Remove this requirement. This is mostly used in convenience initialised through the code when a required component is not provided. This is lazy!
-    init()
 }
 
 /// Components that are persisted in the archive. Most of the components
@@ -96,7 +94,7 @@ public protocol TransientComponent: Component {
 public protocol InspectableComponent: Component, MutableKeyedAttributes {
     // TODO: Alternative names: PublicComponent, InterfacingComponent
     // TODO: Split to ForeignRepresentable
-    static var componentSchema: ComponentDescription { get }
+    static var trait: Trait { get }
     
     /// Create a new component with default component values.
     ///
@@ -199,6 +197,17 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
 }
 
 extension InspectableComponent {
+    // FIXME: [REFACTORING] Use this instead of init(record:)
+    public init(from object: ObjectSnapshot) throws {
+        self.init()
+        for attr in Self.trait.attributes {
+            guard let value = object[attr.name] ?? attr.defaultValue else {
+                fatalError("No default attribute set for attribute \(attr.name) in \(Self.trait.name)")
+            }
+            try self.setAttribute(value: value, forKey: attr.name)
+        }
+    }
+
     /// Default implementation of component initialisation from a foreign record.
     ///
     /// The default implementation gets all the keys from the foreign record and
@@ -214,7 +223,7 @@ extension InspectableComponent {
     public init(record: ForeignRecord) throws {
         self.init()
         for key in record.allKeys {
-            guard Self.componentSchema.attributeKeys.contains(key) else {
+            guard Self.trait.attributeKeys.contains(key) else {
                 continue
             }
             let value = record[key]!
@@ -228,18 +237,18 @@ extension InspectableComponent {
     /// keys provided by the component's ``componentSchema``.
     ///
     public func foreignRecord() -> ForeignRecord {
-        let dict = self.dictionary(withKeys: Self.componentSchema.attributeKeys)
+        let dict = self.dictionary(withKeys: Self.trait.attributeKeys)
         return ForeignRecord(dict)
     }
 
     public var attributeKeys: [String] {
-        Self.componentSchema.attributeKeys
+        Self.trait.attributeKeys
     }
     
     /// Convenience forwarding for ``ComponentDescription/name``.
     ///
     public var componentName: String {
-        Self.componentSchema.name
+        Self.trait.name
     }
     
 }

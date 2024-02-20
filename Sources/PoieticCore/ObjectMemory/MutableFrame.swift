@@ -239,10 +239,12 @@ public class MutableFrame: Frame {
     ///
     public func create(_ type: ObjectType,
                        structure: StructuralComponent? = nil,
+                       attributes: [String:ForeignValue] = [:],
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         
         let snapshot = memory.createSnapshot(type,
+                                             attributes: attributes,
                                              components: components,
                                              structure: structure)
         insert(snapshot, owned: true)
@@ -400,6 +402,7 @@ public class MutableFrame: Frame {
     }
     /// Set a node component.
     ///
+    @available(*, deprecated, message: "Get a mutable object and set the component there")
     public func setComponent<T>(_ id: ObjectID, component: T) where T : Component {
         let object = self.mutableObject(id)
         object.components[T.self] = component

@@ -330,7 +330,7 @@ public class ForeignFrameReader {
                                                  state: .transient)
             
             if let name = object.name {
-                snapshot[NameComponent.self] = NameComponent(name: name)
+                try snapshot.setAttribute(value: ForeignValue(name), forKey: "name")
                 references[name] = snapshot.id
             }
             

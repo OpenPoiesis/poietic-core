@@ -5,73 +5,50 @@
 //  Created by Stefan Urbanek on 09/07/2023.
 //
 
-// Basic, reusable components.
-public struct NameComponent: InspectableComponent, CustomStringConvertible {
-    
-    public static var componentSchema = ComponentDescription(
+extension Trait {
+    public static let Name = Trait(
         name: "Name",
         attributes: [
-            Attribute(
-                name: "name",
-                type: .string,
-                abstract: "Node name through which the node is known either in the whole design or a smaller context"),
+            Attribute("name", type: .string,
+                      abstract: "Object name"),
         ]
     )
     
-    /// Name of an object.
-    ///
-    /// Name is a lose reference to an object. Object name is typically used in a
-    /// design by the user, for example in formulas.
-    ///
-    /// Requirements and rules around object names are model-specific. Some models
-    /// might require names to be unique, some might have other ways how to
-    /// deal with name duplicity.
-    ///
-    /// For example in the Stock and Flow model, the name must be unique,
-    /// otherwise the model will not compile and therefore can not be used.
-    ///
-    /// - Note: Regardless of the application, users must be allowed to have
-    ///         duplicate names in their models during the design phase.
-    ///         An error might be indicated to the user before the compilation,
-    ///         if a duplicate name is detected, however the design process
-    ///         must not be prevented.
-    ///
-    public var name: String
+    public static let AudienceLevel = Trait(
+        name: "AudienceLevel",
+        attributes: [
+            Attribute("audienceLevel", type: .int,
+                      abstract: "Intended level of expertise of the audience interacting with the object"),
+        ]
+    )
 
-    /// Creates a a default expression component.
-    ///
-    /// The name is set to `unnamed`.
-    ///
-    public init() {
-        self.name = "unnamed"
-    }
+    public static let Documentation = Trait(
+        name: "Documentation",
+        attributes: [
+            Attribute("abstract", type: .string,
+                      abstract: "Short abstract about the object."),
+            Attribute("documentation", type: .string,
+                      abstract: "Longer object documentation."),
+        ]
+    )
+ 
+    public static let Keywords = Trait(
+        name: "Keywords",
+        attributes: [
+            Attribute("keywords", type: .array(.string),
+                      abstract: "List of keywords"),
+        ]
+    )
     
-    /// Creates an expression node.
-    ///
-    public init(name: String) {
-        self.name = name
-    }
-    
-    public var description: String {
-        return "\(name)"
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
-        switch key {
-        case "name": return ForeignValue(name)
-        default: return nil
-        }
-    }
-
-    public mutating func setAttribute(value: ForeignValue,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "name": self.name = try value.stringValue()
-        default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
-        }
-    }
+    public static var Note = Trait(
+        name: "Note",
+        attributes: [
+            Attribute("note",
+                      type: .string,
+                      default: "",
+                      abstract: "Note text"),
+        ]
+    )
 }
 
 public enum AudienceLevel: Int, Codable {
@@ -113,64 +90,11 @@ public enum AudienceLevel: Int, Codable {
 
 }
 
-/// A component that can be associated with any object, including the design,
-/// to denote intended audience level of the object.
-///
-/// For example, the user interface can hide or disable editing of objects that
-/// are of a higher audience level.
-///
-public struct AudienceLevelComponent: InspectableComponent {
-    public static var componentSchema = ComponentDescription(
-        name: "AudienceLevel",
-        attributes: [
-            Attribute(
-                name: "audienceLevel",
-                type: .int,
-                abstract: "Intended level of expertise of the audience interacting with the object"),
-        ]
-    )
-    public var audienceLevel: AudienceLevel
-
-    public init() {
-        self.audienceLevel = .any
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
-        switch key {
-        case "audienceLevel": return ForeignValue(audienceLevel.rawValue)
-        default: return nil
-        }
-    }
-
-    public mutating func setAttribute(value: ForeignValue,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "audienceLevel":
-            let level = try value.intValue()
-            audienceLevel = AudienceLevel(rawValue: level)
-        default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
-        }
-    }
-}
-
 /// Documentation component
 ///
 public struct DocumentationComponent: InspectableComponent {
-    public static var componentSchema = ComponentDescription(
-        name: "Documentation",
-        attributes: [
-            Attribute(
-                name: "abstract",
-                type: .string,
-                abstract: "Short abstract about the object."),
-            Attribute(
-                name: "documentation",
-                type: .string,
-                abstract: "Longer object documentation."),
-        ]
-    )
+    public static let trait = Trait.Documentation
+
     public var abstract: String
     public var documentation: String
 
@@ -199,74 +123,3 @@ public struct DocumentationComponent: InspectableComponent {
     }
 }
 
-/// Keywords component
-///
-public struct KeywordsComponent: InspectableComponent {
-    public static var componentSchema = ComponentDescription(
-        name: "Keywords",
-        attributes: [
-            Attribute(
-                name: "keywords",
-                type: .array(.string),
-                abstract: "List of keywords"),
-        ]
-    )
-    public var keywords: [String]
-
-    public init() {
-        self.keywords = []
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
-        switch key {
-        case "keywords": return ForeignValue(keywords)
-        default: return nil
-        }
-    }
-
-    public mutating func setAttribute(value: ForeignValue,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "keywords": self.keywords = try value.stringArray()
-        default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
-        }
-    }
-}
-
-/// Note component
-///
-public struct NoteComponent: InspectableComponent {
-    public static var componentSchema = ComponentDescription(
-        name: "Note",
-        attributes: [
-            Attribute(
-                name: "note",
-                type: .string,
-                abstract: "Note text"),
-        ]
-    )
-    public var note: String
-
-    public init() {
-        self.note = ""
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
-        switch key {
-        case "note": return ForeignValue(note)
-        default: return nil
-        }
-    }
-
-    public mutating func setAttribute(value: ForeignValue,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "note": self.note = try value.stringValue()
-        default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
-        }
-    }
-}

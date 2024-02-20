@@ -17,8 +17,8 @@ extension ArithmeticExpression
         where L: TypedValue, V: TypedValue, F == any FunctionProtocol {
     public var valueType: AtomType {
         let type = switch self {
-        case let .value(value): value.valueType
-        case let .variable(ref): ref.valueType
+        case let .value(value): value.atomType
+        case let .variable(ref): ref.atomType
         case let .binary(fun, _, _): fun.signature.returnType
         case let .unary(fun, _): fun.signature.returnType
         case let .function(fun, _): fun.signature.returnType

@@ -37,6 +37,16 @@
 /// - SeeAlso: ``Frame``, ``MutableFrame``
 ///
 public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
+    
+    public static let ReservedAttributeNames = [
+        "id",
+        "snapshot_id",
+        "origin",
+        "target",
+        "type",
+        "parent",
+    ]
+    
     public typealias ID = ObjectID
     
     /// Unique identifier of the version snapshot within the database.
@@ -80,16 +90,21 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     public let id: ObjectID
     
-    // FIXME: Replace component storage with a dictionary/attribute storage
-    /// List of components of the object.
+    // TODO: Write documentation
+    /// Object attributes.
     ///
-    /// An object can have multiple components but only
+    public var attributes: [String:ForeignValue]
+    
+    /// List of run-time components of the object.
+    ///
+    /// An object can have multiple runtime components but only
     /// one component of a given type.
     ///
     /// Objects can be also queried based on whether they contain a given
     /// component type with ``Frame/filter(component:)``
     /// or using ``Frame/filter(_:)`` with ``HasComponentPredicate``.
     ///
+    /// - Note: The runtime components are not persisted.
     ///
     /// - SeeAlso: ``Component``, ``ObjectType``.
     ///
@@ -206,31 +221,40 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// - SeeAlso: ``initialize(structure:)``, ``initialize(structure:record:)``,
     /// ``makeInitialized()``
     ///
+    /// - Precondition: Attributes must not contain any reserved attribute.
+    ///
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
                 type: ObjectType,
                 structure: StructuralComponent = .unstructured,
+                attributes: [String:ForeignValue] = [:],
                 components: [any Component] = []) {
         // TODO: Make creation private - only through the memory.
+        
+        precondition(ObjectSnapshot.ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
+                     "The attributes must not contain any reserved attribute")
+        
         self.id = id
         self.snapshotID = snapshotID
         self.type = type
         self.state = .transient
         self.structure = structure
 
+        self.attributes = attributes
         self.components = ComponentSet(components)
 
+        // FIXME: [IMPORTANT] Add default attribute values for required traits.
         // Add required components as described by the object type.
         //
-        for componentType in type.components {
-            guard !self.components.has(componentType) else {
-                continue
+        for attr in type.attributes {
+            if self.attributes[attr.name] == nil {
+                self.attributes[attr.name] = attr.defaultValue
             }
-            let component = componentType.init()
-            self.components.set(component)
         }
     }
     
+    #if false
+    // FIXME: Remove permanently
     /// Create a foreign object from the snapshot.
     ///
     /// Use this method to create a representation of the snapshot that can be
@@ -262,29 +286,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
 
         return foreign
     }
+    #endif
     
-    /// Create a foreign record for all snapshot's attributes.
-    ///
-    /// Attributes from all ``InspectableComponent`` components are included
-    /// regardles whether the objects type advertises them or not.
-    ///
-    /// - SeeAlso: ``InspectableComponent/attributeKeys``, ``InspectableComponent/attribute(forKey:)``
-    ///
-    public func attributesAsForeignRecord() -> ForeignRecord {
-        // Preserve all foreign attributes regardles whether they are advertised
-        // by the type or not. This includes attributes from additional
-        // components.
-        //
-        // TODO: Test this.
-        var dict: [String: ForeignValue] = [:]
-        for component in self.inspectableComponents {
-            for key in component.attributeKeys {
-                dict[key] = component.attribute(forKey: key)
-            }
-        }
-        let record = ForeignRecord(dict)
-        return record
-    }
     /// Textual description of the object.
     ///
     public var description: String {
@@ -328,6 +331,24 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         }
     }
     
+    public subscript(attributeName: String) -> (ForeignValue)? {
+        get {
+            return attribute(forKey: attributeName)
+        }
+        set(value) {
+            if let value {
+                setAttribute(value: value, forKey: attributeName)
+            }
+            else {
+                removeAttribute(forKey: attributeName)
+            }
+        }
+    }
+    
+    public func removeAttribute(forKey key: String) {
+        precondition(state.isMutable)
+        attributes[key] = nil
+    }
     
     /// Get or set a component of given type, if present.
     ///
@@ -375,76 +396,46 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         case "structure": return ForeignValue(structure.type.rawValue)
         default:
             // Find first component that has the value.
-            for component in inspectableComponents {
-                if let value = component.attribute(forKey: key){
-                    return value
-                }
-            }
-            return nil
+            return attributes[key]
         }
     }
     
     /// Set an attribute value for given key.
     ///
-    /// The function fins the first component that contains the given attribute
-    /// and tries to set the value. The provided foreign value must be
-    /// convertible to the type of the attribute of the component.
+    /// - Precondition: The attribute must not be a reserved attribute (``ObjectSnapshot/ReservedAttributeNames``).
     ///
-    /// - Throws: ``AttributeError`` when the object has no attribute with
-    ///   given key or when there is a mismatch of attribute type and the given
-    ///   value type.
-    ///
-    /// - SeeAlso: ``InspectableComponent/setAttribute(value:forKey:)``
-    ///
-    public func setAttribute(value: ForeignValue, forKey key: String) throws {
+    public func setAttribute(value: ForeignValue, forKey key: String) {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")
-        
-        guard let componentType = type.componentType(forAttribute: key) else {
-            // TODO: What to do here? Fail? Throw?
-            fatalError("Object type \(type.name) has no component with attribute \(key).")
-        }
-        
-        guard let component = components[componentType] else {
-            fatalError("Object \(debugID) is missing a required component: \(componentType.componentSchema.name)")
-        }
-        
-        // TODO: The following does not work
-        //        components[componentType]?.setAttribute(value: value, forKey: key)
-        var inspectable = (component as! InspectableComponent)
-        try inspectable.setAttribute(value: value, forKey: key)
-        components.set(inspectable)
+        precondition(ObjectSnapshot.ReservedAttributeNames.firstIndex(of: "key") == nil,
+                     "Trying to set a reserved attribute '\(key)'")
+        attributes[key] = value
     }
     
     public var debugID: String {
         return "\(self.id).\(self.snapshotID)"
     }
     
-    /// Get object name if it has a "name" attribute in any of the components.
+    /// Get object name if the object has an attribute `name`.
     ///
-    /// The method searches all the component for the `name` attribute and
-    /// returns the first one it finds. If the object has multiple components
-    /// with the `name` attribute, which it should not (see note below),
-    /// which name is returned is unspecified.
+    /// This is provided for convenience.
     ///
-    /// - Note: It is recommended that the name is stored in the
-    ///   ``NameComponent``, however it is not required.
-    ///
-    /// - Note: Component attribute names share the same name-space, there
-    ///   should not be multiple components with the same name. See
-    ///   ``Component`` f
-    ///
-    /// - Returns: A name if found, otherwise `nil` if no component has `name`
-    ///   attribute.
-    ///
-    /// - SeeAlso: ``NameComponent``
+    /// - Note: The `name` attribute must be either a string or an integer,
+    ///   otherwise `nil` is returned.
     ///
     public var name: String? {
-        for component in inspectableComponents {
-            if let name = component.attribute(forKey: "name") {
-                return try? name.stringValue()
-            }
+        guard let value = attributes["name"] else {
+            return nil
         }
-        return nil
+        guard case .atom(let atom) = value else {
+            return nil
+        }
+
+        switch atom {
+        case .string(let name): return name
+        case .int(let name): return String(name)
+        case .id(let name): return String(name)
+        default: return nil
+        }
     }
 }

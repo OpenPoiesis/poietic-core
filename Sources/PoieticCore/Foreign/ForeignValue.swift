@@ -509,10 +509,23 @@ public enum ForeignValue: Equatable, CustomStringConvertible {
         }
     }
 
+    public var valueType: ValueType? {
+        switch self {
+        case .atom(let value): return .atom(value.valueType)
+        case .array(let items):
+            if let first = items.first {
+                return .array(first.valueType)
+            }
+            else {
+                return nil
+            }
+        }
+    }
+    
     /// Return an underlying atom value type or `nil` if the foreign value
     /// is an array.
     ///
-    public var valueType: AtomType? {
+    public var atomType: AtomType? {
         switch self {
         case .atom(let value): value.valueType
         case .array: nil

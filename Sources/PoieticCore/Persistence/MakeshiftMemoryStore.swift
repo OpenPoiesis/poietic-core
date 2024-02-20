@@ -87,7 +87,6 @@ private struct MakeshiftMemoryArchive: Codable {
 ///      - `undo_frames`
 ///      - `redo_frames`
 /// - `snapshots` - list of object snapshots
-/// - `NAME_components` - collection of components NAME, requires `SnapshotID`
 /// - `frames`
 ///     - `id` - frame ID
 ///     - `snapshots` - list of snapshot IDs
@@ -96,6 +95,7 @@ public class MakeshiftMemoryStore {
     static let FramesCollectionName = "frames"
     static let SnapshotsCollectionName = "snapshots"
     static let MemoryStateCollectionName = "memory"
+    // TODO: Use for persisted components (no longer used for attributes)
     static let ComponentCollectionSuffix = "_component"
     
     public let url :URL

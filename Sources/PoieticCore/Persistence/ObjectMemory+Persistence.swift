@@ -55,7 +55,6 @@ extension ObjectMemory {
     
     public func writeAll(store: MakeshiftMemoryStore) throws {
         var outSnapshots: [ForeignRecord] = []
-        var outComponents: [String:[ForeignRecord]] = [:]
         var outFrames: [ForeignRecord] = []
         
         // 1. Collect snapshots and components
@@ -71,19 +70,7 @@ extension ObjectMemory {
         // 2. Collect components
         // ----------------------------------------------------------------
         //
-        for snapshot in validatedSnapshots {
-            for component in snapshot.inspectableComponents {
-                var record = component.foreignRecord()
-                let name = component.componentName
-                
-                record["snapshot_id"] = ForeignValue(snapshot.snapshotID)
-                outComponents[name, default: []].append(record)
-            }
-        }
-        for (componentType, records) in outComponents {
-            let collectionName = componentType + MakeshiftMemoryStore.ComponentCollectionSuffix
-            try store.replaceAll(in: collectionName, records: records)
-        }
+        // Nothing to do any more (or ... nothing to do yet)
         
         // 3. Frames
         // ----------------------------------------------------------------
@@ -138,9 +125,17 @@ extension ObjectMemory {
         
         let id = allocateID(required: try record.IDValue(for: "id"))
         let snapshotID = allocateID(required: try record.IDValue(for: "snapshot_id"))
+        
+        var attributes = record.dictionary
+
+        for name in ObjectSnapshot.ReservedAttributeNames {
+            attributes[name] = nil
+        }
+        
         let snapshot = ObjectSnapshot(id: id,
                                       snapshotID: snapshotID,
-                                      type: type)
+                                      type: type,
+                                      attributes: attributes)
         
         snapshot.structure = structure
         snapshot.parent = try record.IDValueIfPresent(for: "parent")
@@ -178,28 +173,28 @@ extension ObjectMemory {
             snapshots[snapshot.snapshotID] = snapshot
         }
 
-        // 2. Read components
-        // ----------------------------------------------------------------
-
-        for componentName in store.componentNames {
-            guard let componentType = metamodel.inspectableComponent(name: componentName) else {
-                // TODO: Collect error and continue
-                throw MemoryStoreError.unknownComponentType(componentName)
-            }
-            let collectionName = componentName + MakeshiftMemoryStore.ComponentCollectionSuffix
-            let records = try store.fetchAll(collectionName)
-            for record in records {
-                guard let snapshotIDValue = record["snapshot_id"] else {
-                    throw MemoryStoreError.brokenIntegrity("Missing snapshot_id in component \(componentName)")
-                }
-                let snapshotID = try snapshotIDValue.idValue()
-                guard let snapshot = snapshots[snapshotID] else {
-                    throw MemoryStoreError.invalidReference(snapshotID, "snapshot", "component \(componentName)")
-                }
-                let component = try componentType.init(record: record)
-                snapshot.components.set(component)
-            }
-        }
+//        // 2. Read components
+//        // ----------------------------------------------------------------
+//
+//        for componentName in store.componentNames {
+//            guard let componentType = metamodel.inspectableComponent(name: componentName) else {
+//                // TODO: Collect error and continue
+//                throw MemoryStoreError.unknownComponentType(componentName)
+//            }
+//            let collectionName = componentName + MakeshiftMemoryStore.ComponentCollectionSuffix
+//            let records = try store.fetchAll(collectionName)
+//            for record in records {
+//                guard let snapshotIDValue = record["snapshot_id"] else {
+//                    throw MemoryStoreError.brokenIntegrity("Missing snapshot_id in component \(componentName)")
+//                }
+//                let snapshotID = try snapshotIDValue.idValue()
+//                guard let snapshot = snapshots[snapshotID] else {
+//                    throw MemoryStoreError.invalidReference(snapshotID, "snapshot", "component \(componentName)")
+//                }
+//                let component = try componentType.init(record: record)
+//                snapshot.components.set(component)
+//            }
+//        }
        
         for snapshot in snapshots.values {
             snapshot.promote(.validated)

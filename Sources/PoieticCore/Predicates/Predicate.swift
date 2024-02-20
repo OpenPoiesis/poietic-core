@@ -84,6 +84,20 @@ public class HasComponentPredicate: Predicate {
     
 }
 
+public class HasTraitPredicate: Predicate {
+    let trait: Trait
+    
+    public init(_ trait: Trait) {
+        self.trait = trait
+    }
+
+    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+        object.type.traits.contains { $0 === trait }
+    }
+    
+}
+
+
 public class IsTypePredicate: Predicate {
     let types: [ObjectType]
     

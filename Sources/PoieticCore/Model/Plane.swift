@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 31/10/2023.
 //
 
+// FIXME: [IMPORTANT] Remove this concept
+
 /// Plane in which an object or a component exists.
 ///
 /// Components can be created and accessed by an use via an editor or by

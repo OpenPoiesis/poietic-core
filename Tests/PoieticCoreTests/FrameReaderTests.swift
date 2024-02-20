@@ -141,8 +141,8 @@ final class FrameReaderTests: XCTestCase {
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
-        XCTAssertTrue(snapshot.components.has(IntegerComponent.self))
-        XCTAssertEqual(snapshot.attribute(forKey: "value"), ForeignValue(0))
+        XCTAssertNotNil(snapshot["value"])
+        XCTAssertEqual(snapshot["value"], ForeignValue(0))
 
     }
     

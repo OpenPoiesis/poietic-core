@@ -54,39 +54,72 @@ final class MutableFrameTests: XCTestCase {
     
     func testSetAttribute() throws {
         let frame = memory.deriveFrame()
-        let id = frame.create(TestType, components: [TestComponent(text: "before")])
+        let id = frame.create(TestType, 
+                              attributes: ["text": ForeignValue("before")])
         
         let obj = frame.object(id)
         
-        try obj.setAttribute(value: ForeignValue("after"), forKey: "text")
+        obj.setAttribute(value: ForeignValue("after"), forKey: "text")
         
-        let comp: TestComponent = obj[TestComponent.self]!
-        XCTAssertEqual(comp.text, "after")
+        let value = obj.attribute(forKey: "text")
+        XCTAssertEqual(try value?.stringValue(), "after")
         XCTAssertEqual(obj.attribute(forKey: "text"), "after")
     }
     func testModifyAttribute() throws {
         let original = memory.deriveFrame()
         
-        let a = original.create(TestType, components: [TestComponent(text: "before")])
+        let a = original.create(TestType,
+                                attributes: ["text": ForeignValue("before")],
+                                components: [])
         try memory.accept(original)
         
         let a2 = memory.currentFrame.object(a)
-        XCTAssertEqual(a2[TestComponent.self]!.text, "before")
+        XCTAssertEqual(a2["text"], "before")
         
         let altered = memory.deriveFrame()
-        altered.setComponent(a, component: TestComponent(text: "after"))
+        let alt_obj = altered.mutableObject(a)
+        alt_obj["text"] = "after"
         
         XCTAssertTrue(altered.hasChanges)
+
         let a3 = altered.object(a)
-        XCTAssertEqual(a3[TestComponent.self]!.text, "after")
+        XCTAssertEqual(a3["text"], "after")
         
         try memory.accept(altered)
         
         let aCurrentAlt = memory.currentFrame.object(a)
-        XCTAssertEqual(aCurrentAlt[TestComponent.self]!.text, "after")
+        XCTAssertEqual(aCurrentAlt["text"], "after")
         
         let aOriginal = memory.frame(original.id)!.object(a)
-        XCTAssertEqual(aOriginal[TestComponent.self]!.text, "before")
+        XCTAssertEqual(aOriginal["text"], "before")
+    }
+    
+
+    func testModifyComponent() throws {
+        let original = memory.deriveFrame()
+        
+        let a = original.create(TestType, 
+                                attributes: ["text": "before"])
+        try memory.accept(original)
+        
+        let a2 = memory.currentFrame.object(a)
+        XCTAssertEqual(a2["text"], "before")
+        
+        let altered = memory.deriveFrame()
+        let mutable_a = altered.mutableObject(a)
+        mutable_a["text"] = "after"
+        
+        XCTAssertTrue(altered.hasChanges)
+        let a3 = altered.object(a)
+        XCTAssertEqual(a3["text"], "after")
+        
+        try memory.accept(altered)
+        
+        let aCurrentAlt = memory.currentFrame.object(a)
+        XCTAssertEqual(aCurrentAlt["text"], "after")
+        
+        let aOriginal = memory.frame(original.id)!.object(a)
+        XCTAssertEqual(aOriginal["text"], "before")
     }
     
 

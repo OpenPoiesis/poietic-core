@@ -221,8 +221,8 @@ final class ObjectMemoryTests: XCTestCase {
         
         XCTAssertThrowsError(try db.accept(frame)) {
             
-            guard let error = $0 as? ConstraintViolationError else {
-                XCTFail("Expected ConstraintViolationError")
+            guard let error = $0 as? FrameValidationError else {
+                XCTFail("Expected FrameValidationError")
                 return
             }
             
@@ -234,4 +234,44 @@ final class ObjectMemoryTests: XCTestCase {
         }
     }
     
+    func testDefaultValueTrait() {
+        let db = ObjectMemory()
+        let frame = db.deriveFrame()
+        let a = frame.create(TestTypeNoDefault)
+        let obj_a = frame.object(a)
+        XCTAssertNil(obj_a["text"])
+
+        let b = frame.create(TestTypeWithDefault)
+        let obj_b = frame.object(b)
+        XCTAssertNotNil(obj_b["text"])
+        XCTAssertEqual(obj_b["text"], "default")
+    }
+    func testDefaultValueTraitError() {
+        let mem = ObjectMemory()
+        let frame = mem.deriveFrame()
+        let a = frame.create(TestTypeNoDefault)
+        let _ = frame.object(a)
+
+        let b = frame.create(TestTypeWithDefault)
+        let _ = frame.object(b)
+
+        XCTAssertThrowsError(try mem.accept(frame)) {
+            
+            guard let error = $0 as? FrameValidationError else {
+                XCTFail("Expected FrameValidationError")
+                return
+            }
+            
+            XCTAssertEqual(error.violations.count, 0)
+            XCTAssertEqual(error.typeErrors.count, 1)
+            if let a_errors = error.typeErrors[a] {
+                XCTAssertEqual(a_errors.first, .missingTraitAttribute("text", "Test"))
+            }
+            else {
+                XCTFail("Expected errors for object 'a'")
+            }
+            XCTAssertNil(error.typeErrors[b])
+        }
+    }
+
 }

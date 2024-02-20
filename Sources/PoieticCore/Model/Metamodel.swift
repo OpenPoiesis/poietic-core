@@ -42,7 +42,7 @@
 public final class Metamodel {
     /// List of components that are available within the domain described by
     /// this metamodel.
-    public let components: [Component.Type]
+    public let traits: [Trait]
 
     /// List of object types allowed in the model.
     ///
@@ -63,11 +63,11 @@ public final class Metamodel {
 
     // TODO: Add named objects (objects that are required to exist)
     
-    public init(components: [Component.Type] = [],
+    public init(traits: [Trait] = [],
                 objectTypes: [ObjectType] = [],
                 variables: [BuiltinVariable] = [],
                 constraints: [Constraint] = []) {
-        self.components = components
+        self.traits = traits
         self.objectTypes = objectTypes
         self.variables = variables
         self.constraints = constraints
@@ -75,16 +75,6 @@ public final class Metamodel {
     
     public func objectType(name: String) -> ObjectType? {
         return objectTypes.first { $0.name == name}
-    }
-    
-    /// Get a component type by name
-    public func inspectableComponent(name: String) -> InspectableComponent.Type? {
-        let result = components.compactMap {
-            $0 as? InspectableComponent.Type
-        }.first {
-            $0.componentSchema.name == name
-        }
-        return result
     }
     
     /// Get a list of built-in variable names.
@@ -104,7 +94,7 @@ public final class Metamodel {
 ///
 /// Each application is expected to provide their own domain specific metamodel.
 public let EmptyMetamodel = Metamodel(
-    components: [],
+    traits: [],
     objectTypes: [],
     variables: [],
     constraints: []
@@ -117,20 +107,20 @@ public let DesignInfo = ObjectType(
     name: "Design",
     structuralType: .unstructured,
     plane: .user,
-    components: [
-        DesignInfoComponent.self,
-        DocumentationComponent.self,
-        AudienceLevelComponent.self,
-        KeywordsComponent.self,
+    traits: [
+        Trait.DesignInfo,
+        Trait.Documentation,
+        Trait.AudienceLevel,
+        Trait.Keywords,
     ])
 
 public let BasicMetamodel = Metamodel(
-    components:[
-        NameComponent.self,
-        DesignInfoComponent.self,
-        DocumentationComponent.self,
-        AudienceLevelComponent.self,
-        KeywordsComponent.self,
+    traits: [
+        Trait.Name,
+        Trait.DesignInfo,
+        Trait.Documentation,
+        Trait.AudienceLevel,
+        Trait.Keywords,
     ],
     objectTypes: [
         DesignInfo,

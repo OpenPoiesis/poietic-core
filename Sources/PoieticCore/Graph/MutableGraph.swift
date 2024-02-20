@@ -40,12 +40,14 @@ public protocol MutableGraph: Graph {
     @discardableResult
     func createNode(_ type: ObjectType,
                     name: String?,
+                    attributes: [String:ForeignValue],
                     components: [Component]) -> ObjectID
 
     @discardableResult
     func createEdge(_ type: ObjectType,
                     origin: ObjectID,
                     target: ObjectID,
+                    attributes: [String:ForeignValue],
                     components: [Component]) -> ObjectID
 }
 
@@ -60,7 +62,7 @@ extension MutableGraph {
     }
     
     public func createNode(_ type: ObjectType) -> ObjectID {
-        return self.createNode(type, name: nil, components: [])
+        return self.createNode(type, name: nil, attributes: [:], components: [])
     }
 
     @discardableResult
@@ -69,9 +71,10 @@ extension MutableGraph {
                     target: ObjectID) -> ObjectID{
 
         return self.createEdge(type,
-                              origin: origin,
-                              target: target,
-                              components: [])
+                               origin: origin,
+                               target: target,
+                               attributes: [:],
+                               components: [])
     }
 
 }
@@ -90,9 +93,11 @@ extension MutableFrame: MutableGraph {
         self.mutableFrame.insert(edge.snapshot)
     }
     // Object creation
+    @discardableResult
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
                            target: ObjectID,
+                           attributes: [String:ForeignValue] = [:],
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .edge,
                      "Trying to create an edge using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
@@ -103,6 +108,7 @@ extension MutableFrame: MutableGraph {
 
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
+            attributes: attributes,
             components: components,
             structure: .edge(origin, target),
             state: .transient
@@ -127,24 +133,24 @@ extension MutableFrame: MutableGraph {
     /// then you have to create the name using the name-bearing component
     /// manually.
     ///
+    @discardableResult
     public func createNode(_ type: ObjectType,
                            name: String? = nil,
+                           attributes: [String:ForeignValue] = [:],
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .node,
                      "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
 
-        let actualComponents: [any Component]
+        var actualAttributes = attributes
         
         if let name {
-            actualComponents = [NameComponent(name: name)] + components
-        }
-        else {
-            actualComponents = components
+            actualAttributes["name"] = ForeignValue(name)
         }
         
         let snapshot = mutableFrame.memory.createSnapshot(
             type,
-            components: actualComponents,
+            attributes: actualAttributes,
+            components: components,
             state: .transient
         )
 

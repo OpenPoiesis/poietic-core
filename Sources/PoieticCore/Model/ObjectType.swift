@@ -30,11 +30,7 @@ public class ObjectType {
     
     /// List of component requirements for objects of this type.
     ///
-    public let components: [Component.Type]
-    
-    public var inspectableComponents: any Sequence<InspectableComponent.Type> {
-        components.compactMap { $0 as? InspectableComponent.Type }
-    }
+    public let traits: [Trait]
     
     /// Short description and the purpose of the object type.
     ///
@@ -52,8 +48,13 @@ public class ObjectType {
     ///
     /// - Note: The attributes in the components share the same name-space
     /// within the object type.
-    public let _attributeComponentMap: [String:InspectableComponent.Type]
-    
+    let attributeTraits: [String:Trait]
+    let attributeByName: [String:Attribute]
+
+    /// Ordered list of all attributes.
+    ///
+    public let attributes: [Attribute]
+
     /// Create a new object type.
     ///
     /// - Parameters:
@@ -75,53 +76,47 @@ public class ObjectType {
                 label: String? = nil,
                 structuralType: StructuralType,
                 plane: Plane = .user,
-                components: [Component.Type] = [],
+                traits: [Trait] = [],
                 abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.structuralType = structuralType
         self.plane = plane
-        self.components = components
+        self.traits = traits
         self.abstract = abstract
         
-        var map: [String:InspectableComponent.Type] = [:]
-        for component in components {
-            guard let component = component as? InspectableComponent.Type else {
-                continue
-            }
-            for attr in component.componentSchema.attributes {
-                guard map[attr.name] == nil else {
-                    fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in component: \(component)")
+        var attributeTraits: [String:Trait] = [:]
+        var attributeMap: [String:Attribute] = [:]
+        var attributes: [Attribute] = []
+        for trait in traits {
+            for attr in trait.attributes {
+                guard attributeTraits[attr.name] == nil else {
+                    fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in trait: \(trait)")
                 }
-                map[attr.name] = component
+                attributeTraits[attr.name] = trait
+                attributeMap[attr.name] = attr
+                attributes.append(attr)
             }
         }
-        self._attributeComponentMap = map
+        self.attributeTraits = attributeTraits
+        self.attributes = attributes
+        self.attributeByName = attributeMap
 
     }
-    
-    /// List of attributes from all components.
-    ///
-    public var attributes: any Sequence<Attribute> {
-        inspectableComponents.flatMap {
-            $0.componentSchema.attributes
-        }
+   
+    public func hasTrait(_ trait: Trait) -> Bool {
+        traits.contains { $0 === trait }
     }
     
     public func hasAttribute(_ name: String) -> Bool {
-        _attributeComponentMap[name] != nil
+        attributeByName[name] != nil
     }
     
-    public func componentType(forAttribute name: String) -> InspectableComponent.Type? {
-        _attributeComponentMap[name]
+    public func trait(forAttribute name: String) -> Trait? {
+        attributeTraits[name]
     }
     
     public func attribute(_ name: String) -> Attribute? {
-        guard let component = componentType(forAttribute: name) else {
-            return nil
-        }
-        return component.componentSchema.attributes.first {
-            $0.name == name
-        }
+        return attributeByName[name]
     }
 }

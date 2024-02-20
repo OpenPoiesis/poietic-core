@@ -5,6 +5,16 @@
 //  Created by Stefan Urbanek on 06/06/2023.
 //
 
+extension Trait {
+    public static let Position = Trait(
+        name: "Position",
+        attributes: [
+            Attribute("position", type: .point, default: ForeignValue(Point(0,0))),
+            Attribute("z_index", type: .int, default: ForeignValue(0)),
+        ]
+    )
+}
+
 /// Component representing a position of a node in a canvas.
 ///
 public struct PositionComponent: InspectableComponent,
@@ -12,13 +22,8 @@ public struct PositionComponent: InspectableComponent,
     
     // TODO: Consider renaming this to DiagramComponent, CanvasComponent or GraphicsComponent
 
-    public static var componentSchema = ComponentDescription(
-        name: "Position",
-        attributes: [
-            Attribute(name: "position", type: .point),
-            Attribute(name: "z_index", type: .int),
-        ]
-    )
+    public static let trait = Trait.Position
+
     /// Position of object's centre.
     ///
     public var position: Point = Point()

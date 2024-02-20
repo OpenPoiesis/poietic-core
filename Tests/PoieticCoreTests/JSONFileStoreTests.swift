@@ -92,24 +92,30 @@ final class JSONFileStoreTests: XCTestCase {
     override func setUp() {
         db = ObjectMemory()
         frame = db.createFrame()
-        graph = frame.mutableGraph
-        
-        let flow = graph.createNode(Metamodel.Flow,
+
+        let flow = frame.createNode(Metamodel.Flow,
                                     name: nil,
+                                    attributes: [:],
                                     components: [IntegerComponent(value: 10)])
-        let source = graph.createNode(Metamodel.Stock,
+        let source = frame.createNode(Metamodel.Stock,
                                       name: nil,
-                                    components: [IntegerComponent(value: 20)])
-        let sink = graph.createNode(Metamodel.Stock,
+                                      attributes: [:],
+                                      components: [IntegerComponent(value: 20)])
+        let sink = frame.createNode(Metamodel.Stock,
                                     name:nil,
+                                    attributes: [:],
                                     components: [IntegerComponent(value: 30)])
         
-        graph.createEdge(Metamodel.Arrow,
+        frame.createEdge(Metamodel.Arrow,
                          origin: source,
-                         target: flow, components: [])
-        graph.createEdge(Metamodel.Arrow,
+                         target: flow,
+                         attributes: [:],
+                         components: [])
+        frame.createEdge(Metamodel.Arrow,
                          origin: flow,
-                         target: sink, components: [])
+                         target: sink,
+                         attributes: [:],
+                         components: [])
         do {
             try db.accept(frame)
         }
