@@ -12,11 +12,16 @@
 //    +--+----- Inspectable Component
 //       +----- Persistable Component (DesignComponent)
 
-/// Protocol for object components.
+/// Protocol for runtime components of objects.
 ///
-/// Component represents data, a model and is composed of a collection of
-/// attributes. An object can have multiple components but only one of each
-/// type.
+/// Components hold data that are used during runtime. They are typically
+/// derived from object attributes.
+///
+/// Runtime components are usually not persisted.
+///
+/// - Note: When designing a component, design it in a way that all its
+///   contents can be reconstructed from other information present in the
+///   design.
 ///
 public protocol Component {
 }
@@ -28,10 +33,6 @@ public protocol Component {
 ///   protocol. This might change in the future.
 ///
 public protocol PersistableComponent: Component, Codable {
-    
-}
-
-public protocol TransientComponent: Component {
     
 }
 
@@ -92,8 +93,8 @@ public protocol TransientComponent: Component {
 ///    meta-model versions are going to be read, transformed and preserved?_
 ///
 public protocol InspectableComponent: Component, MutableKeyedAttributes {
-    // TODO: Alternative names: PublicComponent, InterfacingComponent
-    // TODO: Split to ForeignRepresentable
+    /// Trait that the component represents.
+    ///
     static var trait: Trait { get }
     
     /// Create a new component with default component values.

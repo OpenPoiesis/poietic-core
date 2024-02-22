@@ -103,17 +103,6 @@ public let EmptyMetamodel = Metamodel(
 /// Metamodel with some basic object types that are typical for multiple
 /// kinds of designs.
 ///
-public let DesignInfo = ObjectType(
-    name: "Design",
-    structuralType: .unstructured,
-    plane: .user,
-    traits: [
-        Trait.DesignInfo,
-        Trait.Documentation,
-        Trait.AudienceLevel,
-        Trait.Keywords,
-    ])
-
 public let BasicMetamodel = Metamodel(
     traits: [
         Trait.Name,
@@ -123,7 +112,7 @@ public let BasicMetamodel = Metamodel(
         Trait.Keywords,
     ],
     objectTypes: [
-        DesignInfo,
+        ObjectType.DesignInfo,
     ],
     variables: [],
     constraints: []

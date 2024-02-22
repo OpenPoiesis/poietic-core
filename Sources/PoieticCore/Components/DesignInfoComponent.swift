@@ -9,25 +9,28 @@ extension Trait {
     public static var DesignInfo = Trait(
         name: "DesignInfo",
         attributes: [
-            Attribute("title", type: .array(.string),
+            Attribute("title", type: .array(.string), required: false,
                       abstract: "Design title"),
-            Attribute("author", type: .array(.string),
+            Attribute("author", type: .array(.string), required: false,
                       abstract: "Author of the design"),
-            Attribute("license", type: .array(.string),
+            Attribute("license", type: .array(.string), required: false,
                       abstract: "License of the design"),
         ]
     )
 }
 
-public let DesignObjectType = ObjectType(
-    name:"Design",
-    structuralType: .unstructured,
-    plane: .system,
-    traits: [
-        Trait.DesignInfo,
-        Trait.Documentation,
-        Trait.AudienceLevel,
-    ])
+extension ObjectType {
+    public static let DesignInfo = ObjectType(
+        name: "DesignInfo",
+        structuralType: .unstructured,
+        plane: .user,
+        traits: [
+            Trait.DesignInfo,
+            Trait.Documentation,
+            Trait.AudienceLevel,
+            Trait.Keywords,
+        ])
+}
 
 //struct DesignOriginComponent {
 //    let originalAuthor: String?

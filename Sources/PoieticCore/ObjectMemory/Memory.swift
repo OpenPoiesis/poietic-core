@@ -510,6 +510,10 @@ public class ObjectMemory {
         for object in frame.snapshots {
             for trait in object.type.traits {
                 for attr in trait.attributes {
+                    if !attr.required {
+                        continue
+                        // TODO: Still check for type
+                    }
                     guard let value = object.attributes[attr.name] else {
                         let error = TypeError.missingTraitAttribute(attr.name, trait.name)
                         typeErrors[object.id, default: []].append(error)
