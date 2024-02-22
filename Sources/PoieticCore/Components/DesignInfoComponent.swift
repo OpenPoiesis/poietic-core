@@ -9,11 +9,11 @@ extension Trait {
     public static var DesignInfo = Trait(
         name: "DesignInfo",
         attributes: [
-            Attribute("title", type: .array(.string), required: false,
+            Attribute("title", type: .array(.string), optional: true,
                       abstract: "Design title"),
-            Attribute("author", type: .array(.string), required: false,
+            Attribute("author", type: .array(.string), optional: true,
                       abstract: "Author of the design"),
-            Attribute("license", type: .array(.string), required: false,
+            Attribute("license", type: .array(.string), optional: true,
                       abstract: "License of the design"),
         ]
     )

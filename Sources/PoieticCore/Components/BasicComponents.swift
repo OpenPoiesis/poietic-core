@@ -17,7 +17,7 @@ extension Trait {
     public static let AudienceLevel = Trait(
         name: "AudienceLevel",
         attributes: [
-            Attribute("audienceLevel", type: .int, required: false,
+            Attribute("audienceLevel", type: .int, optional: true,
                       abstract: "Intended level of expertise of the audience interacting with the object"),
         ]
     )
@@ -25,9 +25,9 @@ extension Trait {
     public static let Documentation = Trait(
         name: "Documentation",
         attributes: [
-            Attribute("abstract", type: .string, default: "", required: false,
+            Attribute("abstract", type: .string, default: "", optional: true,
                       abstract: "Short abstract about the object."),
-            Attribute("documentation", type: .string, default: "", required: false,
+            Attribute("documentation", type: .string, default: "", optional: true,
                       abstract: "Longer object documentation."),
         ]
     )

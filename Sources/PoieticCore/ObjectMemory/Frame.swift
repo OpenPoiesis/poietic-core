@@ -146,17 +146,40 @@ extension Frame {
         throw violation
     }
     
+    /// Get first object of given type.
+    ///
+    /// This method is used to find singleton objects, for example
+    /// design info object.
+    ///
+    public func first(type: ObjectType) -> ObjectSnapshot? {
+        return snapshots.first { $0.type === type }
+    }
+
+    /// Filter snapshots by object type.
+    ///
+    /// - Note: The type is compared for identity, that means that the snapshots
+    /// must have exactly the provided object type instance associated.
+    ///
     public func filter(type: ObjectType) -> [ObjectSnapshot] {
         return snapshots.filter { $0.type === type }
     }
     
-    /// Filter objects with given trait
+    /// Filter objects with given trait.
+    ///
+    /// Returns objects that have the specified trait.
+    ///
+    /// - Note: The trait is compared using identity, therefore the snapshot
+    ///   matching the filter must have exactly the provided trait associated
+    ///   with the object's type.
+    ///
     public func filter(trait: Trait) -> [ObjectSnapshot] {
         return snapshots.filter {
             $0.type.traits.contains { $0 === trait }
         }
     }
 
+    /// Filter objects by a closure.
+    /// 
     public func filter(_ block: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
         return snapshots.filter(block)
     }

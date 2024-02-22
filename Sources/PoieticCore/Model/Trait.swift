@@ -127,7 +127,7 @@ public class Attribute: CustomStringConvertible {
     
     public let defaultValue: ForeignValue?
     
-    public let required: Bool
+    public let optional: Bool
     
     /// User-oriented label.
     ///
@@ -153,12 +153,12 @@ public class Attribute: CustomStringConvertible {
     public init(_ name: String,
                 type: ValueType,
                 default defaultValue: ForeignValue? = nil,
-                required: Bool = true,
+                optional: Bool = false,
                 label: String?=nil,
                 abstract: String? = nil) {
         self.name = name
         self.type = type
-        self.required = required
+        self.optional = optional
         self.defaultValue = defaultValue
         self.label = label ?? name
         self.abstract = abstract

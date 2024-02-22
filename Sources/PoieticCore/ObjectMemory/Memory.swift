@@ -510,7 +510,7 @@ public class ObjectMemory {
         for object in frame.snapshots {
             for trait in object.type.traits {
                 for attr in trait.attributes {
-                    if !attr.required {
+                    if attr.optional {
                         continue
                         // TODO: Still check for type
                     }
