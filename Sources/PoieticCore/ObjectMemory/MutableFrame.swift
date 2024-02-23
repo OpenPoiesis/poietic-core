@@ -400,39 +400,6 @@ public class MutableFrame: Frame {
             return derived
         }
     }
-    /// Set a node component.
-    ///
-    @available(*, deprecated, message: "Get a mutable object and set the component there")
-    public func setComponent<T>(_ id: ObjectID, component: T) where T : Component {
-        let object = self.mutableObject(id)
-        object.components[T.self] = component
-    }
-    
-    /// Get a mutable graph for the frame.
-    ///
-    /// The returned graph is an unbound graph - a view on top of the mutable
-    /// frame. Any query of the graph is translated into a query of the frame
-    /// at the same time.
-    ///
-    /// - SeeAlso: `MutableUnboundGraph`.
-    ///
-    @available(*, deprecated, message: "Use mutable frame directly as a mutable graph")
-    public var mutableGraph: MutableGraph {
-        self
-    }
-    
-    /// Get an immutable graph for the frame.
-    ///
-    /// The returned graph is an unbound graph - a view on top of the mutable
-    /// frame. Any query of the graph is translated into a query of the frame
-    /// at the same time.
-    ///
-    /// - SeeAlso: `UnboundGraph`.
-    ///
-    @available(*, deprecated, message: "Use mutable frame directly as a graph")
-    public var graph: Graph {
-        self
-    }
     
     // MARK: - Hierarchy
     //

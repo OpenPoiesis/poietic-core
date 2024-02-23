@@ -514,7 +514,7 @@ public class ObjectMemory {
                         continue
                         // TODO: Still check for type
                     }
-                    guard let value = object.attributes[attr.name] else {
+                    guard let _ = object.attributes[attr.name] else {
                         let error = TypeError.missingTraitAttribute(attr.name, trait.name)
                         typeErrors[object.id, default: []].append(error)
                         continue

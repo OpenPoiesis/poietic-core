@@ -329,13 +329,13 @@ public class ForeignFrameReader {
                                                  state: .transient)
             
             if let name = object.name {
-                try snapshot.setAttribute(value: ForeignValue(name), forKey: "name")
+                snapshot.setAttribute(value: ForeignValue(name), forKey: "name")
                 references[name] = snapshot.id
             }
             
             let attributes = object.attributes ?? ForeignRecord([:])
             for (key, value) in attributes {
-                try snapshot.setAttribute(value: value, forKey: key)
+                snapshot.setAttribute(value: value, forKey: key)
             }
             
             snapshots.append(snapshot)

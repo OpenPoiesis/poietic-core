@@ -120,7 +120,7 @@ final class ObjectMemoryTests: XCTestCase {
         XCTAssertFalse(db.currentFrame.contains(b))
     }
     
-    func testUndoProperty() throws {
+    func testUndoComponent() throws {
         let db = ObjectMemory()
         
         let frame1 = db.deriveFrame()
@@ -128,7 +128,8 @@ final class ObjectMemoryTests: XCTestCase {
         try db.accept(frame1)
         
         let frame2 = db.deriveFrame()
-        frame2.setComponent(a, component: TestComponent(text: "after"))
+        let obj = frame2.mutableObject(a)
+        obj[TestComponent.self] = TestComponent(text: "after")
         
         try db.accept(frame2)
         
@@ -136,7 +137,24 @@ final class ObjectMemoryTests: XCTestCase {
         let altered = db.currentFrame.object(a)
         XCTAssertEqual(altered[TestComponent.self]!.text, "before")
     }
-    
+    func testUndoProperty() throws {
+        let db = ObjectMemory()
+        
+        let frame1 = db.deriveFrame()
+        let a = frame1.create(TestType, attributes: ["text": "before"])
+        try db.accept(frame1)
+        
+        let frame2 = db.deriveFrame()
+        let obj = frame2.mutableObject(a)
+        obj["text"] = "after"
+        
+        try db.accept(frame2)
+        
+        db.undo(to: frame1.id)
+        let altered = db.currentFrame.object(a)
+        XCTAssertEqual(altered["text"], "before")
+    }
+
     func testRedo() throws {
         let db = ObjectMemory()
         try db.accept(db.createFrame())
