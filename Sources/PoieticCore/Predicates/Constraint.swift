@@ -6,8 +6,8 @@
 //
 
 public struct ConstraintViolation: Error {
-    let constraint: Constraint
-    let objects: [ObjectID]
+    public let constraint: Constraint
+    public let objects: [ObjectID]
     
     public init(constraint: Constraint,
                 objects: [ObjectID] = []) {
