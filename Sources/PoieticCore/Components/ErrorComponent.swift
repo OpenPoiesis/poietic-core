@@ -1,13 +1,13 @@
 //
-//  File.swift
-//  
+//  ErrorComponent.swift
+//
 //
 //  Created by Stefan Urbanek on 20/09/2023.
 //
 
 /// Component that holds a list of errors related to a node.
 ///
-/// This is a transient component, its content will not be persisted.
+/// This is a run-time component, its content will not be persisted.
 ///
 public struct IssueListComponent: Component {
     public var errors: [Error] = []
@@ -29,14 +29,6 @@ public struct IssueListComponent: Component {
     
     mutating public func removeAll() {
         self.errors.removeAll()
-    }
-    
-    public func attribute(forKey key: PoieticCore.AttributeKey) -> PoieticCore.ForeignValue? {
-        fatalError("Not implemented")
-    }
-    
-    public mutating func setAttribute(value: PoieticCore.ForeignValue, forKey key: PoieticCore.AttributeKey) throws {
-        fatalError("Not implemented")
     }
 }
 

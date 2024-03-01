@@ -110,6 +110,7 @@ public let BasicMetamodel = Metamodel(
         Trait.Documentation,
         Trait.AudienceLevel,
         Trait.Keywords,
+        Trait.BibliographicalReference,
     ],
     objectTypes: [
         ObjectType.DesignInfo,
