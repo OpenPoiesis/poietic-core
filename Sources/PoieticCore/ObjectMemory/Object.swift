@@ -19,7 +19,7 @@
 /// ## Creation
 ///
 /// Objects are being created using the object memory
-/// ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structure:initialized:)``.
+/// ``ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``.
 /// If the ``id`` and ``snapshotID`` are not provided, then they are generated
 /// using object memory's identity generator.
 ///
@@ -36,8 +36,7 @@
 ///
 /// - SeeAlso: ``Frame``, ``MutableFrame``
 ///
-public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
-    
+public final class ObjectSnapshot: Identifiable, CustomStringConvertible, MutableKeyedAttributes {
     public static let ReservedAttributeNames = [
         "id",
         "snapshot_id",
@@ -68,7 +67,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// snapshot with new snapshot ID but the same object ID will be created.
     ///
     /// - SeeAlso: ``id``, ``MutableFrame/insert(_:owned:)``,
-    ///    ``ObjectMemory/allocateID(proposed:)``
+    ///    ``ObjectMemory/allocateID(required:)``
     ///
     public let snapshotID: SnapshotID
     
@@ -127,7 +126,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     /// domain model. The domain model is described through ``Metamodel``.
     ///
     /// Object type is also used in querying of objects using ``Frame/filter(type:)-3zj9k``
-    /// or using ``Frame/filter(_:)`` with ``IsTypePredicate``.
+    /// or using ``Frame/filter(_:)-50lwx`` with ``IsTypePredicate``.
     ///
     /// - SeeAlso: ``ObjectType``, ``Metamodel``
     ///
@@ -213,15 +212,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
     ///
     /// If the list of components does not contain all the components required
     /// by the ``type``, then a component with default values will be created.
-    ///
-    /// The caller is responsible to finalise initialisation of the object using
-    /// one of the initialisation methods or with ``markInitialized()`` before
-    /// the snapshot can be inserted into a frame.
-    ///
-    /// - Returns: Snapshot that is marked as uninitialised.
-    ///
-    /// - SeeAlso: ``initialize(structure:)``, ``initialize(structure:record:)``,
-    /// ``makeInitialized()``
     ///
     /// - Precondition: Attributes must not contain any reserved attribute.
     ///
@@ -372,6 +362,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible {
         attributes[key] = value
     }
     
+    public var attributeKeys: [AttributeKey] {
+        return type.attributeKeys
+    }
+
     public var debugID: String {
         return "\(self.id).\(self.snapshotID)"
     }

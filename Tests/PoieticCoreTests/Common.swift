@@ -56,8 +56,6 @@ struct TestComponent: InspectableComponent {
         text = "__test__"
     }
     
-    var componentName: String = "Test"
-    
     var text: String
     
     public func attribute(forKey key: AttributeKey) -> ForeignValue? {

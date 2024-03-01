@@ -17,10 +17,11 @@ public typealias UnboundExpression = ArithmeticExpression<ForeignValue, String, 
 /// operators and functions.
 ///
 /// The type arguments:
-///     - ``LiteralValue`` (`L`): Type of a literal.
-///     - ``VariableReference`` (`V`): Type of a reference to a variable.
-///     - ``FunctionReference`` (`F`): Type of a reference to a function,
-///         including functions representing operators.
+///
+/// - ``LiteralValue`` (`L`): Type of a literal.
+/// - ``VariableReference`` (`V`): Type of a reference to a variable.
+/// - ``FunctionReference`` (`F`): Type of a reference to a function,
+///   including functions representing operators.
 ///
 public indirect enum ArithmeticExpression<L, V, F> {
     public typealias LiteralValue = L
@@ -56,6 +57,7 @@ public indirect enum ArithmeticExpression<L, V, F> {
 
     /// List of all variables that the expression and its children reference
     public var allVariables: [VariableReference] {
+        // TODO: Remove duplicities.
         switch self {
         case .value(_): return []
         case let .variable(ref):

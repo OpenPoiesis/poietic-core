@@ -46,9 +46,7 @@ public class Trait {
     ///   model validation in place, then which `name` will be used is
     ///   undeterminable.
     ///
-    /// - SeeAlso: ``Component/attribute(forKey:)``,
-    ///     ``Component/setAttribute(value:forKey:)``,
-    ///     ``ObjectSnapshot/attribute(forKey:)``,
+    /// - SeeAlso: ``ObjectSnapshot/attribute(forKey:)``,
     ///     ``ObjectSnapshot/setAttribute(value:forKey:)``
     ///
     public let attributes: [Attribute]

@@ -15,7 +15,7 @@ public typealias ID = UInt64
 /// and therefore have the same object ID.
 ///
 /// - SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
-///     ``ObjectMemory/allocateID(proposed:)``
+///     ``ObjectMemory/allocateID(required:)``
 ///
 public typealias ObjectID = ID
 
@@ -24,7 +24,7 @@ public typealias ObjectID = ID
 /// The snapshot ID is unique within the object memory containing the snapshot.
 ///
 /// SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
-///     ``ObjectMemory/allocateID(proposed:)``, ``MutableFrame/mutableObject(_:)``
+///     ``ObjectMemory/allocateID(required:)``, ``MutableFrame/mutableObject(_:)``
 ///
 public typealias SnapshotID = ID
 

@@ -10,21 +10,21 @@ Metamodel describes the types of the design objects and their properties.
 
 ### Metamodel and Object Types
 
-- ``PoieticCore/Metamodel-protocol``
+- ``PoieticCore/Metamodel``
 - ``ObjectType``
-- ``AttributeDescription``
-- ``ComponentDescription``
+- ``Trait``
+- ``Attribute``
 
 ### Common Components and Types
 
-- ``NameComponent``
-- ``DocumentationComponent``
-- ``KeywordsComponent``
-- ``NoteComponent``
-- ``DesignInfoComponent``
-- ``DesignObjectType``
-- ``AudienceLevelComponent``
-- ``AudienceLevel``
+- ``Trait/Name``
+- ``Trait/Documentation``
+- ``Trait/Keywords``
+- ``Trait/Note``
+- ``Trait/DesignInfo``
+- ``Trait/DesignInfo``
+- ``ObjectType/DesignInfo``
+- ``Trait/AudienceLevel``
 
 - ``EmptyMetamodel``
 - ``BasicMetamodel``

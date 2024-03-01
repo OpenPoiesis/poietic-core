@@ -91,7 +91,7 @@ public struct FrameValidationError: Error {
 /// 1. Derive a new frame from an existing one using ``deriveFrame(original:id:)``
 ///    or create a new empty frame using ``createFrame(id:)`` which produces
 ///    a new ``MutableFrame``.
-/// 2. Add objects to the derived frame using ``MutableFrame/create(_:structuralReferences:components:)``
+/// 2. Add objects to the derived frame using ``MutableFrame/create(_:structure:attributes:components:)``
 ///    or ``MutableFrame/insert(_:owned:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
 ///    snapshot of the object using ``MutableFrame/mutableObject(_:)`` and
@@ -100,7 +100,7 @@ public struct FrameValidationError: Error {
 ///
 /// Frame can be accepted only if the constraints are satisfied. When the frame
 /// violates ant of the constraints the `accept()` method throws a
-/// ``ConstraintViolationError`` with more details about which objects violated
+/// ``ConstraintViolation`` with more details about which objects violated
 /// which constraints.
 ///
 /// If mutable frame for some reason is not going to be used further, for

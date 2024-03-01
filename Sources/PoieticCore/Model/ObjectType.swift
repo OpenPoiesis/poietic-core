@@ -54,6 +54,8 @@ public class ObjectType {
     /// Ordered list of all attributes.
     ///
     public let attributes: [Attribute]
+    
+    public lazy var attributeKeys: [AttributeKey]  = { attributes.map { $0.name } }()
 
     /// Create a new object type.
     ///

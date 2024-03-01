@@ -33,24 +33,6 @@ class TestPersistentRecord: XCTestCase {
         
         XCTAssertNotNil(memory.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
     }
-
-    func testComponentToRecord() throws {
-        let component = IntegerComponent(value: 10)
-        let result = component.foreignRecord()
-
-        let record = ForeignRecord(["value": ForeignValue(10)])
-
-        XCTAssertEqual(result, record)
-    }
-
-    func testComponentFromRecord()throws  {
-        let record = ForeignRecord([ "value": ForeignValue(10) ])
-
-        let component = try IntegerComponent(record: record)
-
-        XCTAssertEqual(component.value, 10)
-    }
-    
 }
 
 final class JSONFileStoreTests: XCTestCase {

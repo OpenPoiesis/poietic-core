@@ -23,7 +23,7 @@ struct SnapshotReference {
 ///
 /// The basic changes that can be done with a mutable frame:
 ///
-/// - Add objects to the frame using ``MutableFrame/create(_:structuralReferences:components:)``
+/// - Add objects to the frame using ``MutableFrame/create(_:structure:attributes:components:)``
 ///    or ``MutableFrame/insert(_:owned:)``.
 /// - Mutate existing objects in the frame using
 ///   ``MutableFrame/mutableObject(_:)``.
@@ -109,7 +109,7 @@ public class MutableFrame: Frame {
     ///
     /// The frame will contain all the provided snapshots, but will not own
     /// them. The frame will own only snapshots inserted directly to the frame
-    /// using ``insertDerived(_:id:)`` or by deriving an object using
+    /// using ``insert(_:owned:)`` or by deriving an object using
     /// ``mutableObject(_:)``.
     ///
     /// Snapshots removed from the mutable frame are only disassociated with the
@@ -143,7 +143,7 @@ public class MutableFrame: Frame {
     ///
     /// Requirements for the snapshot:
     ///
-    /// - snapshot state must not be ``VersionState/uninitialized``
+    /// - snapshot state must not be ``VersionState/transient``
     /// - ID and snapshot ID must not be present in the frame
     /// - mutable must be owned, immutable must not be owned
     /// - structural dependencies must be satisfied
@@ -175,7 +175,7 @@ public class MutableFrame: Frame {
     ///
     /// Requirements for the snapshot:
     ///
-    /// - snapshot state must not be ``VersionState/uninitialized``
+    /// - snapshot state must not be ``VersionState/transient``
     /// - ID and snapshot ID must not be present in the frame
     /// - mutable must be owned, immutable must not be owned
     ///
@@ -232,9 +232,9 @@ public class MutableFrame: Frame {
     ///
     /// - Returns: Object ID of the newly created object.
     ///
-    /// - Precondition: The frame is not frozen. See ``freeze()``.
+    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
-    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:components:structure:initialized:)``,
+    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``,
     ///   ``ObjectSnapshot/init(id:snapshotID:type:structure:components:)
     ///
     public func create(_ type: ObjectType,
@@ -267,7 +267,7 @@ public class MutableFrame: Frame {
     /// - Complexity: Worst case O(n^2), typically O(n).
     ///
     /// - Precondition: The frame must contain object with given ID.
-    /// - Precondition: The frame is not frozen. See ``freeze()``.
+    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
     @discardableResult
     public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
@@ -377,7 +377,7 @@ public class MutableFrame: Frame {
     /// - Returns: Newly derived object snapshot.
     /// 
     /// - Precondition: The frame must contain an object with given ID.
-    /// - Precondition: The frame is not frozen. See ``freeze()``.
+    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
         // TODO: Replace this with just object() -> MutableObject as a reference
