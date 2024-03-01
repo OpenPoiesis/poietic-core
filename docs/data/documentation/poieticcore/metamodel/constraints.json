@@ -20,19 +20,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9MetamodelP11constraintsSayAA10ConstraintCGvpZ",
+    "externalID" : "s:11PoieticCore9MetamodelC11constraintsSayAA10ConstraintCGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "static"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -61,9 +53,8 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Type Property",
+    "roleHeading" : "Instance Property",
     "symbolKind" : "property",
     "title" : "constraints"
   },
@@ -80,15 +71,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "static"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -110,15 +93,7 @@
             },
             {
               "kind" : "text",
-              "text" : "] { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "]"
             }
           ]
         }
@@ -242,7 +217,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -276,15 +251,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -310,7 +277,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "constraints",
   "type" : "topic",

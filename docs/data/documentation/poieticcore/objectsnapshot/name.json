@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Get object name if it has a “name” attribute in any of the components.",
+      "text" : "Get object name if the object has an attribute ",
+      "type" : "text"
+    },
+    {
+      "code" : "name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -110,46 +118,6 @@
     {
       "content" : [
         {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A name if found, otherwise ",
-              "type" : "text"
-            },
-            {
-              "code" : "nil",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " if no component has ",
-              "type" : "text"
-            },
-            {
-              "code" : "name",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "attribute.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "content" : [
-        {
           "anchor" : "discussion",
           "level" : 2,
           "text" : "Discussion",
@@ -158,47 +126,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The method searches all the component for the ",
-              "type" : "text"
-            },
-            {
-              "code" : "name",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " attribute and",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "returns the first one it finds. If the object has multiple components",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "with the ",
-              "type" : "text"
-            },
-            {
-              "code" : "name",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " attribute, which it should not (see note below),",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "which name is returned is unspecified.",
+              "text" : "This is provided for convenience.",
               "type" : "text"
             }
           ],
@@ -209,7 +137,15 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "It is recommended that the name is stored in the",
+                  "text" : "The ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "name",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " attribute must be either a string or an integer,",
                   "type" : "text"
                 },
                 {
@@ -217,12 +153,15 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "text" : "otherwise ",
+                  "type" : "text"
                 },
                 {
-                  "text" : ", however it is not required.",
+                  "code" : "nil",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " is returned.",
                   "type" : "text"
                 }
               ],
@@ -230,64 +169,6 @@
             }
           ],
           "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Component attribute names share the same name-space, there",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "should not be multiple components with the same name. See",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : " f",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
           "style" : "note",
           "type" : "aside"
         }
@@ -331,40 +212,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for object components.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
@@ -378,37 +225,6 @@
   "title" : "Object Memory",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memory"
-},
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NameComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
@@ -447,7 +263,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/name": {
   "abstract" : [
     {
-      "text" : "Get object name if it has a “name” attribute in any of the components.",
+      "text" : "Get object name if the object has an attribute ",
+      "type" : "text"
+    },
+    {
+      "code" : "name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],

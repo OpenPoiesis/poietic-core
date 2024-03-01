@@ -20,6 +20,7 @@
       }
     ],
     "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
     "title" : "Sequence Implementations"
   },
   "schemaVersion" : {
@@ -61,6 +62,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/flatMap(_:)-8remy",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/forEach(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/formatted(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/joined()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/joined(separator:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/lexicographicallyPrecedes(_:by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/makeIterator()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/map(_:)",
@@ -187,6 +190,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -270,6 +274,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -355,6 +360,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation14SortComparatorP8ComparedQa",
       "text" : "Compared"
     },
     {
@@ -371,6 +377,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation14SortComparatorP8ComparedQa",
       "text" : "Compared"
     },
     {
@@ -453,6 +460,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -511,6 +519,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -594,6 +603,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -745,6 +755,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -896,6 +907,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -912,6 +924,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1033,6 +1046,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1074,6 +1088,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1128,6 +1143,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1152,6 +1168,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1205,6 +1222,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1246,6 +1264,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1299,6 +1318,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1339,6 +1359,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1393,6 +1414,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1470,6 +1492,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1552,6 +1575,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11FormatStyleP0B6OutputQa",
       "text" : "FormatOutput"
     }
   ],
@@ -1561,6 +1585,122 @@
   "title" : "formatted(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvforeignrecordreader\/formatted(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/CSVForeignRecordReader/joined()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "joined"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s15FlattenSequenceV",
+      "text" : "FlattenSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/joined()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "joined()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/csvforeignrecordreader\/joined()"
+},
+"doc://PoieticCore/documentation/PoieticCore/CSVForeignRecordReader/joined(separator:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "joined"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Separator"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "separator"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Separator"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s14JoinedSequenceV",
+      "text" : "JoinedSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader\/joined(separator:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "joined(separator:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/csvforeignrecordreader\/joined(separator:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVForeignRecordReader/lazy": {
   "abstract" : [
@@ -1663,6 +1803,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1679,6 +1820,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1827,6 +1969,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1912,6 +2055,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1928,6 +2072,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -1969,6 +2114,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2022,6 +2168,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2038,6 +2185,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2079,6 +2227,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2187,6 +2336,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2228,6 +2378,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2361,6 +2512,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2474,6 +2626,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2539,6 +2692,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2584,6 +2738,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2661,6 +2816,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2714,6 +2870,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2730,6 +2887,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2771,6 +2929,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2840,6 +2999,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -2917,6 +3077,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3004,6 +3165,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3054,6 +3216,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3139,6 +3302,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3198,6 +3362,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3365,6 +3530,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3381,6 +3547,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3465,6 +3632,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {
@@ -3561,6 +3729,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
       "text" : "Element"
     },
     {

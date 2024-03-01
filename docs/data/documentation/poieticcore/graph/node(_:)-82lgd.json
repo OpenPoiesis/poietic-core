@@ -8,6 +8,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-10660",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-6huic"
       ],
       "title" : "Graph Implementations"
@@ -207,6 +208,52 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graph/node(_:)-10660": {
+  "abstract" : [
+    {
+      "text" : "Get a node by ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/node(_:)-10660",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "node(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/node(_:)-10660"
+},
 "doc://PoieticCore/documentation/PoieticCore/Graph/node(_:)-6huic": {
   "abstract" : [
     {
@@ -260,7 +307,7 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
+  "defaultImplementations" : 2,
   "fragments" : [
     {
       "kind" : "keyword",

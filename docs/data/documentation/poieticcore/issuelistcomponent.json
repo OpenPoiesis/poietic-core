@@ -141,7 +141,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/componentDescription"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/trait"
       ],
       "title" : "Type Properties"
     }
@@ -177,7 +177,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for runtime components of objects.",
       "type" : "text"
     }
   ],
@@ -261,7 +261,7 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "(any "
     },
     {
       "kind" : "typeIdentifier",
@@ -335,48 +335,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent\/attribute(forkey:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IssueListComponent/componentDescription": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "componentDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ComponentDescriptionC",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/componentDescription",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "componentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issuelistcomponent\/componentdescription"
-},
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent/errors": {
   "abstract" : [
 
@@ -396,7 +354,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [any "
     },
     {
       "kind" : "typeIdentifier",
@@ -455,7 +413,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [any "
     },
     {
       "kind" : "typeIdentifier",
@@ -569,6 +527,48 @@
   "title" : "setAttribute(value:forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent\/setattribute(value:forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/IssueListComponent/trait": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/trait",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issuelistcomponent\/trait"
 }
 }
 }

@@ -76,7 +76,16 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectProtocol"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ],
@@ -235,6 +244,68 @@
   "title" : "Object Memory",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memory"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObjectProtocol": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableObjectProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableObjectProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableObjectProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobjectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [

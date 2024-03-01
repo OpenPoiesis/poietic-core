@@ -260,6 +260,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8l4o5",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-8oklt",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(_:)-fatr",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(any:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(ids:)"
       ],
       "title" : "Initializers"
@@ -267,6 +268,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/arrayItemType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/atomType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isArray",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/isNumeric",
@@ -276,18 +278,20 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/anyValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/asJSONObject()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/boolValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/doubleValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/idArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/idValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/intValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/pointValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringArray()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/toJSON()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/stringValue()"
       ],
       "title" : "Instance Methods"
     },
@@ -659,6 +663,39 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/expressiblebyunicodescalarliteral-implementations"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/anyValue()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "anyValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/anyValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "anyValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/anyvalue()"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/array(_:)": {
   "abstract" : [
 
@@ -735,6 +772,42 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/arrayitemtype"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/asJSONObject()": {
+  "abstract" : [
+    {
+      "text" : "Create a Foundation-compatible JSON object representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asJSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/asJSONObject()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asJSONObject()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/asjsonobject()"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/atom(_:)": {
   "abstract" : [
 
@@ -772,6 +845,63 @@
   "title" : "ForeignValue.atom(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/atom(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/atomType": {
+  "abstract" : [
+    {
+      "text" : "Return an underlying atom value type or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the foreign value",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is an array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atomType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
+      "text" : "AtomType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/atomType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "atomType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/atomtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/boolArray()": {
   "abstract" : [
@@ -1053,6 +1183,55 @@
   "title" : "fromJSON(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/fromjson(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/idArray()": {
+  "abstract" : [
+    {
+      "text" : "Converts the foreign value into a list of IDs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "idArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/idArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "idArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/idarray()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/idValue()": {
   "abstract" : [
@@ -1392,6 +1571,43 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/init(_:)-fatr"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(any:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "any"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/init(any:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(any:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalue\/init(any:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/init(ids:)": {
   "abstract" : [
@@ -1795,70 +2011,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/stringvalue()"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue/toJSON()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "toJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue\/toJSON()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "toJSON()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue\/tojson()"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/valueType": {
   "abstract" : [
-    {
-      "text" : "Return an underlying atom value type or ",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " if the foreign value",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is an array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1879,8 +2034,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-      "text" : "AtomType"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     },
     {
       "kind" : "text",

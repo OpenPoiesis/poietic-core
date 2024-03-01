@@ -8,7 +8,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-80fw4"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-80fw4",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-4zshy"
       ],
       "title" : "Graph Implementations"
     }
@@ -284,7 +285,7 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
+  "defaultImplementations" : 2,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -332,6 +333,57 @@
   "title" : "contains(node:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/contains(node:)-34pej"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/contains(node:)-4zshy": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(node:)-4zshy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(node:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/contains(node:)-80fw4": {
   "abstract" : [

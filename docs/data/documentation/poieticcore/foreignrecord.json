@@ -92,7 +92,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
-        "doc:\/\/PoieticCore\/SQ"
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/ST"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -129,7 +130,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/allKeys"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/allKeys",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/dictionary"
       ],
       "title" : "Instance Properties"
     },
@@ -137,6 +139,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValueIfPresent(for:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSONObject()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValueIfPresent(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/contains(_:)",
@@ -160,7 +163,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Decodable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Encodable-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Equatable-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Equatable-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Sequence-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -187,6 +191,11 @@
 "doc://PoieticCore/SQ": {
   "identifier" : "doc:\/\/PoieticCore\/SQ",
   "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/ST": {
+  "identifier" : "doc:\/\/PoieticCore\/ST",
+  "title" : "Swift.Sequence",
   "type" : "unresolvable"
 },
 "doc://PoieticCore/Se": {
@@ -517,6 +526,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/idvalueifpresent(for:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/Sequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/sequence-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/allKeys": {
   "abstract" : [
     {
@@ -557,6 +577,42 @@
   "title" : "allKeys",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/allkeys"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/asJSONObject()": {
+  "abstract" : [
+    {
+      "text" : "Create a Foundation-compatible JSON object representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asJSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSONObject()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asJSONObject()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/asjsonobject()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/boolValue(for:)": {
   "abstract" : [
@@ -755,6 +811,53 @@
   "title" : "contains(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/contains(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/dictionary": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/dictionary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "dictionary",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/dictionary"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/doubleValue(for:)": {
   "abstract" : [

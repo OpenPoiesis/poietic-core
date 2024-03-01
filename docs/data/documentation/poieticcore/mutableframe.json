@@ -123,8 +123,9 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "MutableFrame\/create(_:structuralReferences:components:)",
-                      "type" : "codeVoice"
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:attributes:components:)",
+                      "isActive" : true,
+                      "type" : "reference"
                     },
                     {
                       "text" : " ",
@@ -206,7 +207,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -245,11 +248,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/graph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/hasChanges",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/memory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableGraph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removedObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/snapshots"
       ],
@@ -259,16 +260,15 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/addChild(_:to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/contains(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:components:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:attributes:components:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/debugPrint()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/freeze()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:owned:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/object(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeCascading(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeChild(_:from:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeFromParent(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/setComponent(_:component:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/setParent(_:to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/unsafeInsert(_:owned:)"
       ],
@@ -277,7 +277,9 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Frame-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Frame-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Graph-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/MutableGraph-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -378,6 +380,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graph": {
+  "abstract" : [
+    {
+      "text" : "Protocol for views of a frame as a graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph"
+},
 "doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
   "abstract" : [
     {
@@ -470,6 +506,28 @@
   "title" : "Frame Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/frame-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/Graph-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Graph-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/graph-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/MutableGraph-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/MutableGraph-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MutableGraph Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/mutablegraph-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/addChild(_:to:)": {
   "abstract" : [
@@ -591,7 +649,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/contains(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/create(_:structure:components:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/create(_:structure:attributes:components:)": {
   "abstract" : [
     {
       "text" : "Create a new object within the frame.",
@@ -643,11 +701,37 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "components"
+      "text" : "attributes"
     },
     {
       "kind" : "text",
       "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
     },
     {
       "kind" : "typeIdentifier",
@@ -664,12 +748,12 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:attributes:components:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "create(_:structure:components:)",
+  "title" : "create(_:structure:attributes:components:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/create(_:structure:components:)"
+  "url" : "\/documentation\/poieticcore\/mutableframe\/create(_:structure:attributes:components:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/debugPrint()": {
   "abstract" : [
@@ -699,75 +783,6 @@
   "title" : "debugPrint()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/debugprint()"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/freeze()": {
-  "abstract" : [
-    {
-      "text" : "Freeze the frame so it can no longer be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "freeze"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/freeze()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "freeze()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/freeze()"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/graph": {
-  "abstract" : [
-    {
-      "text" : "Get an immutable graph for the frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "graph"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/graph",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/graph"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/hasChanges": {
   "abstract" : [
@@ -1021,43 +1036,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/memory"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableGraph": {
-  "abstract" : [
-    {
-      "text" : "Get a mutable graph for the frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "mutableGraph"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableGraphP",
-      "text" : "MutableGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableGraph",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "mutableGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/mutablegraph"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [
     {
@@ -1157,6 +1135,55 @@
   "title" : "object(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/object(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/promote(_:)": {
+  "abstract" : [
+    {
+      "text" : "Promote the frame to a state that is higher than the current",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "state.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "promote"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
+      "text" : "VersionState"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "promote(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/promote(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeCascading(_:)": {
   "abstract" : [
@@ -1382,71 +1409,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/removedobjects"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/setComponent(_:component:)": {
-  "abstract" : [
-    {
-      "text" : "Set a node component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "setComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "component"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/setComponent(_:component:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "setComponent(_:component:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/setcomponent(_:component:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/setParent(_:to:)": {
   "abstract" : [
     {
@@ -1611,6 +1573,40 @@
   "title" : "unsafeInsert(_:owned:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/unsafeinsert(_:owned:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
+  "abstract" : [
+    {
+      "text" : "Protocol",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableGraph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutablegraph"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
   "abstract" : [

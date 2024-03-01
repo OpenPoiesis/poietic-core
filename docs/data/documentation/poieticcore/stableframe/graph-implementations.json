@@ -1,0 +1,832 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
+    "title" : "Graph Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edgeIDs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/nodeIDs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/nodes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/prettyDebugDescription"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(edge:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(node:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/hood(_:selector:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/incoming(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/neighbours(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/outgoing(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/selectEdges(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/selectNodes(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/topologicalSort(_:edges:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/stableframe\/graph-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
+  "abstract" : [
+    {
+      "text" : "Stable design frame that can not be mutated.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StableFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StableFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/contains(edge:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(edge:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(edge:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/contains(edge:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/contains(node:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(node:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(node:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/contains(node:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/edgeIDs": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edgeIDs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edgeIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/edgeids"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/edges": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edges",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edges",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/edges"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/frame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/frame",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "frame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/frame"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/hood(_:selector:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hood"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selector"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
+      "text" : "NeighborhoodSelector"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+      "text" : "Neighborhood"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/hood(_:selector:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hood(_:selector:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/hood(_:selector:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/incoming(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "incoming"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/incoming(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "incoming(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/incoming(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/neighbours(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "neighbours"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/neighbours(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "neighbours(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/neighbours(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/nodeIDs": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodeIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/nodeIDs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodeIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/nodeids"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/nodes": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/nodes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/nodes"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/outgoing(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "outgoing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/outgoing(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "outgoing(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/outgoing(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/prettyDebugDescription": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyDebugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/prettyDebugDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyDebugDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/prettydebugdescription"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/selectEdges(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "selectEdges"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/selectEdges(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "selectEdges(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/selectedges(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/selectNodes(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "selectNodes"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/selectNodes(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "selectNodes(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/selectnodes(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/topologicalSort(_:edges:)": {
+  "abstract" : [
+    {
+      "text" : "Sort nodes topologically.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologicalSort"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/topologicalSort(_:edges:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "topologicalSort(_:edges:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/topologicalsort(_:edges:)"
+}
+}
+}

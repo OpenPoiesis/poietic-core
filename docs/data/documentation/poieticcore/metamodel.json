@@ -19,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9MetamodelP",
+    "externalID" : "s:11PoieticCore9MetamodelC",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "class"
       },
       {
         "kind" : "text",
@@ -46,8 +46,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
     "title" : "Metamodel"
   },
   "primaryContentSections" : [
@@ -63,7 +63,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "class"
             },
             {
               "kind" : "text",
@@ -72,10 +80,6 @@
             {
               "kind" : "identifier",
               "text" : "Metamodel"
-            },
-            {
-              "kind" : "text",
-              "text" : " : AnyObject"
             }
           ]
         }
@@ -372,17 +376,6 @@
       "kind" : "content"
     }
   ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -396,8 +389,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute"
       ],
       "title" : "Metamodel and Object Types"
     }
@@ -405,20 +398,25 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/components",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variableNames",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variables"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(traits:objectTypes:variables:constraints:)"
       ],
-      "title" : "Type Properties"
+      "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/inspectableComponent(name:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/traits",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variableNames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variables"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectType(name:)"
       ],
-      "title" : "Type Methods"
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -449,7 +447,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDescription": {
+"doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
       "text" : "Description of an attribute.",
@@ -467,131 +465,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeDescription",
+  "title" : "Attribute",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
-  "abstract" : [
-    {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "kinds of designs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BasicMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/basicmetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of a component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
-  "abstract" : [
-    {
-      "text" : "A concrete metamodel without any specification.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EmptyMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/emptymetamodel"
+  "url" : "\/documentation\/poieticcore\/attribute"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
@@ -603,7 +491,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -627,64 +515,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/components": {
-  "abstract" : [
-    {
-      "text" : "List of components that are available within the domain described by",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "this metamodel.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "components"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/components",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "components",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/components"
-},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/constraints": {
   "abstract" : [
     {
@@ -695,15 +525,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -729,39 +551,19 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/constraints"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/inspectableComponent(name:)": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(traits:objectTypes:variables:constraints:)": {
   "abstract" : [
-    {
-      "text" : "Get a component type by name",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "identifier",
-      "text" : "inspectableComponent"
+      "text" : "init"
     },
     {
       "kind" : "text",
@@ -769,51 +571,85 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "name"
+      "text" : "traits"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "objectTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
-      "text" : "InspectableComponent"
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
     },
     {
       "kind" : "text",
-      "text" : ".Type?"
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15BuiltinVariableC",
+      "text" : "BuiltinVariable"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "constraints"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
+      "text" : "Constraint"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/inspectableComponent(name:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(traits:objectTypes:variables:constraints:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "inspectableComponent(name:)",
+  "title" : "init(traits:objectTypes:variables:constraints:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/inspectablecomponent(name:)"
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(traits:objecttypes:variables:constraints:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/objectType(name:)": {
   "abstract" : [
 
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -874,15 +710,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -908,11 +736,59 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "objectTypes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/objecttypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/traits": {
+  "abstract" : [
+    {
+      "text" : "List of components that are available within the domain described by",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "this metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "traits"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/traits",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "traits",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/traits"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/variableNames": {
   "abstract" : [
@@ -922,14 +798,6 @@
     }
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "keyword",
       "text" : "var"
@@ -973,15 +841,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1007,7 +867,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variables",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "variables",
   "type" : "topic",
@@ -1060,6 +919,40 @@
   "title" : "ObjectType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Description of a component.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
 }
 }
 }

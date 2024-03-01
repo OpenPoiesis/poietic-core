@@ -236,7 +236,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(_:)-5o0r8",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(_:)-6p40z",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(_:)-9e33v",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(_:)-hj81"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(_:)-hj81",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(any:)"
       ],
       "title" : "Initializers"
     },
@@ -250,13 +251,14 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/anyValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/asJSONObject()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/boolValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/doubleValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/idValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/intValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/pointValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/stringValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/toJSON()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/stringValue()"
       ],
       "title" : "Instance Methods"
     },
@@ -427,6 +429,75 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignatom\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignAtom/anyValue()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "anyValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/anyValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "anyValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignatom\/anyvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignAtom/asJSONObject()": {
+  "abstract" : [
+    {
+      "text" : "Create a Foundation-compatible JSON object representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asJSONObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/asJSONObject()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asJSONObject()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignatom\/asjsonobject()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignAtom/bool(_:)": {
   "abstract" : [
@@ -977,6 +1048,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignatom\/init(_:)-hj81"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignAtom/init(any:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "any"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/init(any:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(any:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignatom\/init(any:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignAtom/int(_:)": {
   "abstract" : [
     {
@@ -1271,48 +1379,6 @@
   "title" : "stringValue()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignatom\/stringvalue()"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignAtom/toJSON()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "toJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom\/toJSON()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "toJSON()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignatom\/tojson()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignAtom/valueType": {
   "abstract" : [

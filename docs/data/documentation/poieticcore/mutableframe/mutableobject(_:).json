@@ -241,7 +241,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/freeze()",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -345,38 +345,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/freeze()": {
-  "abstract" : [
-    {
-      "text" : "Freeze the frame so it can no longer be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "freeze"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/freeze()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "freeze()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/freeze()"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [
     {
@@ -422,6 +390,55 @@
   "title" : "mutableObject(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/mutableobject(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/promote(_:)": {
+  "abstract" : [
+    {
+      "text" : "Promote the frame to a state that is higher than the current",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "state.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "promote"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
+      "text" : "VersionState"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "promote(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/promote(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [

@@ -265,8 +265,9 @@
               "type" : "text"
             },
             {
-              "code" : "insertDerived(_:id:)",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:owned:)",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : " or by deriving an object using",
@@ -501,6 +502,72 @@
   "title" : "init(memory:id:snapshots:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/init(memory:id:snapshots:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insert(_:owned:)": {
+  "abstract" : [
+    {
+      "text" : "Insert an object snapshot to a frame while maintaining referential",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "integrity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "insert"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owned"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:owned:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "insert(_:owned:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/insert(_:owned:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [

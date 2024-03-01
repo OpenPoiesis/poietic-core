@@ -20,6 +20,7 @@
       }
     ],
     "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
     "title" : "Frame Implementations"
   },
   "schemaVersion" : {
@@ -37,10 +38,18 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/assert(constraint:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/brokenReferences()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/brokenReferences(snapshot:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edge(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)-3i21s",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)-8i9o3",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(component:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(trait:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(type:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterEdges(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterNodes(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/hasReferentialIntegrity()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/neighbours(_:selector:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/node(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(named:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(stringReference:)"
       ],
@@ -288,7 +297,112 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/brokenreferences(snapshot:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/edge(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get an edge by ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/edge(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edge(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/edge(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(_:)-3i21s": {
+  "abstract" : [
+    {
+      "text" : "Filter objects by a closure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)-3i21s",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/filter(_:)-3i21s"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(_:)-8i9o3": {
   "abstract" : [
 
   ],
@@ -307,7 +421,7 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "(any "
     },
     {
       "kind" : "typeIdentifier",
@@ -328,12 +442,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(_:)-8i9o3",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/filter(_:)"
+  "url" : "\/documentation\/poieticcore\/stableframe\/filter(_:)-8i9o3"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(component:)": {
   "abstract" : [
@@ -405,9 +519,70 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/filter(component:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(trait:)": {
+  "abstract" : [
+    {
+      "text" : "Filter objects with given trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(trait:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(trait:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/filter(trait:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(type:)": {
   "abstract" : [
-
+    {
+      "text" : "Filter snapshots by object type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -460,6 +635,176 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/filter(type:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/filterEdges(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filterEdges"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterEdges(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filterEdges(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/filteredges(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/filterNodes(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filterNodes"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterNodes(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filterNodes(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/filternodes(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/first(type:)": {
+  "abstract" : [
+    {
+      "text" : "Get first object of given type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(type:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first(type:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/first(type:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/hasReferentialIntegrity()": {
   "abstract" : [
     {
@@ -496,6 +841,116 @@
   "title" : "hasReferentialIntegrity()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/hasreferentialintegrity()"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/neighbours(_:selector:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "neighbours"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selector"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
+      "text" : "NeighborhoodSelector"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/neighbours(_:selector:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "neighbours(_:selector:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/neighbours(_:selector:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/node(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get a node by ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/node(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "node(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/node(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/object(named:)": {
   "abstract" : [

@@ -8,6 +8,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-74sgs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-1a5ez"
       ],
       "title" : "Graph Implementations"
@@ -294,7 +295,7 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
+  "defaultImplementations" : 2,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -334,6 +335,52 @@
   "title" : "edge(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/edge(_:)-31vec"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/edge(_:)-74sgs": {
+  "abstract" : [
+    {
+      "text" : "Get an edge by ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/edge(_:)-74sgs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edge(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

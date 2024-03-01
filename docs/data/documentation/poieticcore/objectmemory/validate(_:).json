@@ -185,9 +185,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "ConstraintViolationError",
+              "type" : "codeVoice"
             },
             {
               "text" : " is thrown with a list of all detected",
@@ -296,52 +295,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintViolationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintviolationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [

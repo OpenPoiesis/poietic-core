@@ -1,26 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Return an underlying atom value type or ",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " if the foreign value",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is an array.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -36,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore12ForeignValueO9valueTypeAA04AtomF0OSgvp",
+    "externalID" : "s:11PoieticCore12ForeignValueO9valueTypeAA0dF0OSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -56,8 +34,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-        "text" : "AtomType"
+        "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+        "text" : "ValueType"
       },
       {
         "kind" : "text",
@@ -102,10 +80,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-              "text" : "AtomType"
+              "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+              "text" : "ValueType"
             },
             {
               "kind" : "text",
@@ -160,40 +138,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/AtomType": {
-  "abstract" : [
-    {
-      "text" : "ValueType specifies a data type of a value that is used in interfaces.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AtomType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/atomtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
@@ -253,26 +197,7 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue/valueType": {
   "abstract" : [
-    {
-      "text" : "Return an underlying atom value type or ",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " if the foreign value",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is an array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -293,8 +218,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-      "text" : "AtomType"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     },
     {
       "kind" : "text",
@@ -307,6 +232,37 @@
   "title" : "valueType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype"
 }
 }
 }

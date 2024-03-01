@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of components of the object.",
+      "text" : "List of run-time components of the object.",
       "type" : "text"
     }
   ],
@@ -103,7 +103,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "An object can have multiple components but only",
+              "text" : "An object can have multiple runtime components but only",
               "type" : "text"
             },
             {
@@ -145,9 +145,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "Frame\/filter(_:)",
+              "type" : "codeVoice"
             },
             {
               "text" : " with ",
@@ -164,6 +163,22 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The runtime components are not persisted.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
         },
         {
           "content" : [
@@ -242,7 +257,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for runtime components of objects.",
       "type" : "text"
     }
   ],
@@ -306,53 +321,6 @@
   "title" : "ComponentSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Frame/filter(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "filter"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
-      "text" : "Predicate"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "filter(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/filter(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/filter(component:)": {
   "abstract" : [
@@ -506,7 +474,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/components": {
   "abstract" : [
     {
-      "text" : "List of components of the object.",
+      "text" : "List of run-time components of the object.",
       "type" : "text"
     }
   ],

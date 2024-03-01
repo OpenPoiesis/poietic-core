@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for runtime components of objects.",
       "type" : "text"
     }
   ],
@@ -89,7 +89,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Component represents data, a model and is composed of a collection of",
+              "text" : "Components hold data that are used during runtime. They are typically",
               "type" : "text"
             },
             {
@@ -97,19 +97,52 @@
               "type" : "text"
             },
             {
-              "text" : "attributes. An object can have multiple components but only one of each",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "type.",
+              "text" : "derived from object attributes.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Runtime components are usually not persisted.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "When designing a component, design it in a way that all its",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "contents can be reconstructed from other information present in the",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "design.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -119,7 +152,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistableComponent"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -127,13 +160,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -155,14 +184,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet"
       ],
       "title" : "Component"
-    }
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/init()"
-      ],
-      "title" : "Initializers"
     }
   ],
   "variants" : [
@@ -193,52 +214,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevelComponent": {
-  "abstract" : [
-    {
-      "text" : "A component that can be associated with any object, including the design,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "to denote intended audience level of the object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevelComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevelcomponent"
-},
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for runtime components of objects.",
       "type" : "text"
     }
   ],
@@ -268,28 +247,6 @@
   "title" : "Component",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/Component/init()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/init()",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component\/init()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
@@ -324,37 +281,6 @@
   "title" : "ComponentSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignInfoComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignInfoComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designinfocomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
   "abstract" : [
@@ -458,40 +384,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent": {
-  "abstract" : [
-    {
-      "text" : "Keywords component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeywordsComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keywordscomponent"
-},
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
@@ -506,14 +398,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memory"
 },
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
+"doc://PoieticCore/documentation/PoieticCore/PersistableComponent": {
   "abstract" : [
-
+    {
+      "text" : "Components that are persisted in the archive. Most of the components",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "are persistable.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -521,26 +424,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NameComponent"
+      "text" : "PersistableComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistableComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "NameComponent"
+      "text" : "PersistableComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "NameComponent",
+  "title" : "PersistableComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
+  "url" : "\/documentation\/poieticcore\/persistablecomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/NoteComponent": {
+"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
   "abstract" : [
     {
-      "text" : "Note component",
+      "text" : "Component representing a position of a node in a canvas.",
       "type" : "text"
     }
   ],
@@ -555,52 +458,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NoteComponent"
+      "text" : "PositionComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "NoteComponent"
+      "text" : "PositionComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "NoteComponent",
+  "title" : "PositionComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/notecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TransientComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientcomponent"
+  "url" : "\/documentation\/poieticcore\/positioncomponent"
 }
 }
 }

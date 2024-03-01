@@ -134,7 +134,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(required:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -394,10 +394,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateID(proposed:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateID(required:)": {
   "abstract" : [
     {
-      "text" : "Create an ID if needed or use a proposed ID.",
+      "text" : "Create an ID or use a specific ID.",
       "type" : "text"
     }
   ],
@@ -420,7 +420,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "proposed"
+      "text" : "required"
     },
     {
       "kind" : "text",
@@ -441,12 +441,12 @@
       "text" : "ID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(required:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "allocateID(proposed:)",
+  "title" : "allocateID(required:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateid(proposed:)"
+  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateid(required:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [

@@ -120,9 +120,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/componentDescription",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "componentSchema",
+              "type" : "codeVoice"
             },
             {
               "text" : ".",
@@ -569,12 +568,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -593,6 +588,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(from:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(record:)-2wqah"
       ],
       "title" : "Initializers"
@@ -613,7 +609,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/componentDescription"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/trait"
       ],
       "title" : "Type Properties"
     },
@@ -653,52 +649,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevelComponent": {
-  "abstract" : [
-    {
-      "text" : "A component that can be associated with any object, including the design,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "to denote intended audience level of the object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevelComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevelcomponent"
-},
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
     {
-      "text" : "Protocol for object components.",
+      "text" : "Protocol for runtime components of objects.",
       "type" : "text"
     }
   ],
@@ -728,74 +682,6 @@
   "title" : "Component",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription/name": {
-  "abstract" : [
-    {
-      "text" : "Name of the component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription\/name",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "name",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription\/name"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignInfoComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignInfoComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designinfocomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
   "abstract" : [
@@ -935,49 +821,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/attribute(forkey:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/componentDescription": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "componentDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ComponentDescriptionC",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/componentDescription",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "componentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/componentdescription"
-},
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent/componentName": {
   "abstract" : [
     {
@@ -985,9 +828,8 @@
       "type" : "text"
     },
     {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription\/name",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "ComponentDescription\/name",
+      "type" : "codeVoice"
     },
     {
       "text" : ".",
@@ -1087,6 +929,48 @@
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init()"
+},
+"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init(from:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init(record:)-2wqah": {
   "abstract" : [
@@ -1206,6 +1090,52 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/setattribute(value:forkey:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/trait": {
+  "abstract" : [
+    {
+      "text" : "Trait that the component represents.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/trait",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/trait"
+},
 "doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
   "abstract" : [
     {
@@ -1239,40 +1169,6 @@
   "title" : "KeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent": {
-  "abstract" : [
-    {
-      "text" : "Keywords component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeywordsComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keywordscomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
   "abstract" : [
@@ -1316,41 +1212,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NameComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/NoteComponent": {
+"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
   "abstract" : [
     {
-      "text" : "Note component",
+      "text" : "Component representing a position of a node in a canvas.",
       "type" : "text"
     }
   ],
@@ -1365,21 +1230,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NoteComponent"
+      "text" : "PositionComponent"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "NoteComponent"
+      "text" : "PositionComponent"
     }
   ],
   "role" : "symbol",
-  "title" : "NoteComponent",
+  "title" : "PositionComponent",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/notecomponent"
+  "url" : "\/documentation\/poieticcore\/positioncomponent"
 }
 }
 }

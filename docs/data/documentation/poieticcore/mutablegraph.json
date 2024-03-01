@@ -100,7 +100,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -120,8 +120,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
@@ -134,9 +132,9 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:components:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:attributes:components:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:)-jkr4",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:name:components:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:name:attributes:components:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-4enkr",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-9huce",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/remove(edge:)",
@@ -332,6 +330,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
 },
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+  "abstract" : [
+    {
+      "text" : "Mutable frame is a version frame that can be changed - mutated.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
   "abstract" : [
     {
@@ -443,7 +475,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph\/createedge(_:origin:target:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createEdge(_:origin:target:components:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createEdge(_:origin:target:attributes:components:)": {
   "abstract" : [
 
   ],
@@ -509,11 +541,37 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "components"
+      "text" : "attributes"
     },
     {
       "kind" : "text",
       "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
     },
     {
       "kind" : "typeIdentifier",
@@ -530,13 +588,13 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:attributes:components:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "createEdge(_:origin:target:components:)",
+  "title" : "createEdge(_:origin:target:attributes:components:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph\/createedge(_:origin:target:components:)"
+  "url" : "\/documentation\/poieticcore\/mutablegraph\/createedge(_:origin:target:attributes:components:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:)-jkr4": {
   "abstract" : [
@@ -594,7 +652,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:)-jkr4"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:name:components:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:name:attributes:components:)": {
   "abstract" : [
 
   ],
@@ -643,11 +701,37 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "components"
+      "text" : "attributes"
     },
     {
       "kind" : "text",
       "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
+      "text" : "ForeignValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
     },
     {
       "kind" : "typeIdentifier",
@@ -664,13 +748,13 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:name:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:name:attributes:components:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "createNode(_:name:components:)",
+  "title" : "createNode(_:name:attributes:components:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:name:components:)"
+  "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:name:attributes:components:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph/insert(_:)-4enkr": {
   "abstract" : [
@@ -898,48 +982,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph\/removeall()-98jcu"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableUnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
-},
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [
     {
@@ -973,48 +1015,6 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundgraph"
 }
 }
 }

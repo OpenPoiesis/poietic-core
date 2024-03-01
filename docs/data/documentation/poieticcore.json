@@ -285,17 +285,25 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundNeighborhood",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodView"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueCatcher",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodView",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransformationContext"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameTransformer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypedValue"
       ],
       "title" : "Protocols"
@@ -304,11 +312,17 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundComponentSequence",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundingBox",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemContext"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/WorkingObject"
       ],
       "title" : "Structures"
     },
@@ -330,7 +344,11 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableReference"
@@ -431,6 +449,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributeerror"
 },
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AudienceLevel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/audiencelevel"
+},
 "doc://PoieticCore/documentation/PoieticCore/BoundComponent": {
   "abstract" : [
 
@@ -523,6 +572,71 @@
   "title" : "BoundNeighborhood",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/boundneighborhood"
+},
+"doc://PoieticCore/documentation/PoieticCore/BoundingBox": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BoundingBox"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundingBox",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BoundingBox"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BoundingBox",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/boundingbox"
+},
+"doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
+  "abstract" : [
+    {
+      "text" : "Documentation component",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DocumentationComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DocumentationComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DocumentationComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/documentationcomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
@@ -648,6 +762,86 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/formulas"
 },
+"doc://PoieticCore/documentation/PoieticCore/FrameTransformer": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects that makes changes to a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameTransformer"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameTransformer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameTransformer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameTransformer",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frametransformer"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when constraint violations were detected in the graph during",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "accept()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
+},
 "doc://PoieticCore/documentation/PoieticCore/FunctionArgument": {
   "abstract" : [
     {
@@ -681,6 +875,37 @@
   "title" : "FunctionArgument",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionargument"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
@@ -729,6 +954,37 @@
   "title" : "Graph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HasTraitPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/hastraitpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/ID": {
   "abstract" : [
@@ -795,6 +1051,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent"
 },
+"doc://PoieticCore/documentation/PoieticCore/IssueCatcher": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IssueCatcher"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueCatcher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IssueCatcher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IssueCatcher",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issuecatcher"
+},
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
   "abstract" : [
     {
@@ -829,6 +1116,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent"
 },
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore": {
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for object memory.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftMemoryStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftMemoryStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftMemoryStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore"
+},
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
@@ -842,6 +1163,37 @@
   "title" : "Object Memory",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memory"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MemoryStoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MemoryStoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MemoryStoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
@@ -898,6 +1250,68 @@
   "title" : "MutableKeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObjectProtocol": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableObjectProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObjectProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableObjectProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableObjectProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobjectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableObjectReference": {
   "abstract" : [
@@ -1190,6 +1604,82 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
 },
+"doc://PoieticCore/documentation/PoieticCore/PersistableComponent": {
+  "abstract" : [
+    {
+      "text" : "Components that are persisted in the archive. Most of the components",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "are persistable.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PersistableComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistableComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PersistableComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PersistableComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistablecomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/Plane": {
+  "abstract" : [
+    {
+      "text" : "Plane in which an object or a component exists.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Plane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/plane"
+},
 "doc://PoieticCore/documentation/PoieticCore/Point": {
   "abstract" : [
 
@@ -1220,6 +1710,40 @@
   "title" : "Point",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
+},
+"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
+  "abstract" : [
+    {
+      "text" : "Component representing a position of a node in a canvas.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PositionComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PositionComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PositionComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/positioncomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
   "abstract" : [
@@ -1274,7 +1798,38 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/scannererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/SystemContext": {
+"doc://PoieticCore/documentation/PoieticCore/TransformationContext": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransformationContext"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransformationContext",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransformationContext"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransformationContext",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transformationcontext"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
   "abstract" : [
 
   ],
@@ -1289,30 +1844,30 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SystemContext"
+      "text" : "TransientObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemContext",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SystemContext"
+      "text" : "TransientObject"
     }
   ],
   "role" : "symbol",
-  "title" : "SystemContext",
+  "title" : "TransientObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/systemcontext"
+  "url" : "\/documentation\/poieticcore\/transientobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientComponent": {
+"doc://PoieticCore/documentation/PoieticCore/TypeError": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -1320,21 +1875,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TransientComponent"
+      "text" : "TypeError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypeError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TransientComponent"
+      "text" : "TypeError"
     }
   ],
   "role" : "symbol",
-  "title" : "TransientComponent",
+  "title" : "TypeError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientcomponent"
+  "url" : "\/documentation\/poieticcore\/typeerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/TypedValue": {
   "abstract" : [
@@ -1366,6 +1921,64 @@
   "title" : "TypedValue",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/typedvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValidatedObject": {
+  "abstract" : [
+    {
+      "text" : "stableFrame.object -> ValidatedObject (immutable)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "mutableFrame.object -> StableObject (derive on mutation)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "mutableFrame.mutableObject -> TransientObject (mutable)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "object",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidatedObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/validatedobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -1462,6 +2075,37 @@
   "title" : "VariableReference",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variablereference"
+},
+"doc://PoieticCore/documentation/PoieticCore/WorkingObject": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WorkingObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/WorkingObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WorkingObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WorkingObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/workingobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/mutableQuery(component:)": {
   "abstract" : [

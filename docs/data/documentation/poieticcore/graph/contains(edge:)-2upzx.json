@@ -8,7 +8,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-97l6i"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-97l6i",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-9v9o"
       ],
       "title" : "Graph Implementations"
     }
@@ -268,7 +269,7 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
+  "defaultImplementations" : 2,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -367,6 +368,57 @@
   "title" : "contains(edge:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph/contains(edge:)-9v9o": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/contains(edge:)-9v9o",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(edge:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

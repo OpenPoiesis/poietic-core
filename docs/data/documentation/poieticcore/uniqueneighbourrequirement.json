@@ -100,7 +100,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
       ],
       "title" : "Constraints"
@@ -304,52 +303,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
-"doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintViolationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintviolationerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
@@ -522,7 +475,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": any "
     },
     {
       "kind" : "typeIdentifier",

@@ -100,7 +100,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
       ],
@@ -113,6 +112,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/init(constraint:objects:)"
       ],
       "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/objects"
+      ],
+      "title" : "Instance Properties"
     },
     {
       "generated" : true,
@@ -276,6 +282,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation\/error-implementations"
 },
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/constraint": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "constraint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ConstraintC",
+      "text" : "Constraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/constraint",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "constraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolation\/constraint"
+},
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/init(constraint:objects:)": {
   "abstract" : [
 
@@ -331,29 +371,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation\/init(constraint:objects:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ConstraintViolationError": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/objects": {
   "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -361,21 +386,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ConstraintViolationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "objects"
+    },
     {
-      "kind" : "identifier",
-      "text" : "ConstraintViolationError"
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/objects",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ConstraintViolationError",
+  "title" : "objects",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintviolationerror"
+  "url" : "\/documentation\/poieticcore\/constraintviolation\/objects"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [

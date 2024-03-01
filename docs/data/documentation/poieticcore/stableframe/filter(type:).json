@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "Frame.filter(type:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Filter snapshots by object type.",
       "type" : "text"
     }
   ],
@@ -144,6 +136,41 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The type is compared for identity, that means that the snapshots",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "must have exactly the provided object type instance associated.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -311,7 +338,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/filter(type:)": {
   "abstract" : [
-
+    {
+      "text" : "Filter snapshots by object type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

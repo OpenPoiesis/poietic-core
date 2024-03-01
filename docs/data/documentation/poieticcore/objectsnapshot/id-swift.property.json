@@ -242,9 +242,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "ObjectMemory\/allocateID(proposed:)",
+                  "type" : "codeVoice"
                 }
               ],
               "type" : "paragraph"
@@ -497,60 +496,6 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateID(proposed:)": {
-  "abstract" : [
-    {
-      "text" : "Create an ID if needed or use a proposed ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "allocateID"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "proposed"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateID(proposed:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "allocateID(proposed:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateid(proposed:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [

@@ -20,19 +20,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9MetamodelP11objectTypesSayAA10ObjectTypeCGvpZ",
+    "externalID" : "s:11PoieticCore9MetamodelC11objectTypesSayAA10ObjectTypeCGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "static"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -61,9 +53,8 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Type Property",
+    "roleHeading" : "Instance Property",
     "symbolKind" : "property",
     "title" : "objectTypes"
   },
@@ -80,15 +71,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "static"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -110,15 +93,7 @@
             },
             {
               "kind" : "text",
-              "text" : "] { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "]"
             }
           ]
         }
@@ -172,7 +147,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -206,15 +181,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -240,7 +207,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "objectTypes",
   "type" : "topic",

@@ -24,6 +24,7 @@
       }
     ],
     "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
     "title" : "Metamodel and Types"
   },
   "primaryContentSections" : [
@@ -65,21 +66,21 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute"
       ],
       "title" : "Metamodel and Object Types"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Keywords",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel"
       ],
@@ -114,7 +115,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDescription": {
+"doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
       "text" : "Description of an attribute.",
@@ -132,94 +133,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeDescription",
+  "title" : "Attribute",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevel"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel"
-},
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevelComponent": {
-  "abstract" : [
-    {
-      "text" : "A component that can be associated with any object, including the design,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "to denote intended audience level of the object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevelComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AudienceLevelComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AudienceLevelComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevelcomponent"
+  "url" : "\/documentation\/poieticcore\/attribute"
 },
 "doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
   "abstract" : [
@@ -239,7 +167,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -248,89 +176,30 @@
     {
       "kind" : "identifier",
       "text" : "BasicMetamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    }
-  ],
   "role" : "symbol",
   "title" : "BasicMetamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/basicmetamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
+"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "A concrete metamodel without any specification.",
       "type" : "text"
     }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignInfoComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignInfoComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignInfoComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignInfoComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designinfocomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignObjectType": {
-  "abstract" : [
-
   ],
   "fragments" : [
     {
@@ -343,7 +212,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignObjectType"
+      "text" : "EmptyMetamodel"
     },
     {
       "kind" : "text",
@@ -351,80 +220,12 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectType",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignObjectType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobjecttype"
-},
-"doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
-  "abstract" : [
-    {
-      "text" : "Documentation component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DocumentationComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/documentationcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
-  "abstract" : [
-    {
-      "text" : "A concrete metamodel without any specification.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    }
-  ],
   "role" : "symbol",
   "title" : "EmptyMetamodel",
   "type" : "topic",
@@ -472,40 +273,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeywordsComponent": {
-  "abstract" : [
-    {
-      "text" : "Keywords component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeywordsComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeywordsComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeywordsComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keywordscomponent"
-},
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
@@ -530,7 +297,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -553,71 +320,6 @@
   "title" : "Metamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/NameComponent": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NameComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NameComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/namecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/NoteComponent": {
-  "abstract" : [
-    {
-      "text" : "Note component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NoteComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NoteComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NoteComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NoteComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/notecomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
@@ -653,6 +355,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/DesignInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/designinfo"
+},
 "doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
   "abstract" : [
     {
@@ -674,6 +418,292 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Description of a component.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AudienceLevel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/audiencelevel"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/designinfo"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Documentation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Documentation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/documentation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Keywords"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Keywords",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Keywords",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/keywords"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/name-swift.type.property"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Note"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Note",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/note"
 }
 }
 }

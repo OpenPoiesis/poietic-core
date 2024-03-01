@@ -466,9 +466,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
+                  "type" : "codeVoice"
                 },
                 {
                   "text" : ",",
@@ -897,86 +896,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/allocateUnstructuredSnapshot(_:id:snapshotID:)": {
-  "abstract" : [
-    {
-      "text" : "Create a new unstructured snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "allocateUnstructuredSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "allocateUnstructuredSnapshot(_:id:snapshotID:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/allocateunstructuredsnapshot(_:id:snapshotid:)"
 }
 }
 }

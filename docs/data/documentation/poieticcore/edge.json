@@ -102,9 +102,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
@@ -498,48 +496,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableUnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableUnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableUnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableUnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableunboundgraph"
-},
 "doc://PoieticCore/documentation/PoieticCore/Node": {
   "abstract" : [
     {
@@ -604,48 +560,6 @@
   "title" : "ObjectProtocol",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectprotocol"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnboundGraph": {
-  "abstract" : [
-    {
-      "text" : "Graph contained within a mutable frame where the references to the nodes and",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edges are not directly bound and are resolved at the time of querying.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundGraph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnboundGraph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnboundGraph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/unboundgraph"
 }
 }
 }

@@ -144,92 +144,100 @@
             {
               "text" : "The type arguments:",
               "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "- ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " (",
-              "type" : "text"
-            },
-            {
-              "code" : "L",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : "): Type of a literal.",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "- ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/VariableReference",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " (",
-              "type" : "text"
-            },
-            {
-              "code" : "V",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : "): Type of a reference to a variable.",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "- ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/FunctionReference",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " (",
-              "type" : "text"
-            },
-            {
-              "code" : "F",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : "): Type of a reference to a function,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "including functions representing operators.",
-              "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " (",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "L",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : "): Type of a literal.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/VariableReference",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " (",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "V",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : "): Type of a reference to a variable.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/FunctionReference",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " (",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "F",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : "): Type of a reference to a function,",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "including functions representing operators.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
         }
       ],
       "kind" : "content"
@@ -1200,7 +1208,7 @@
         "type" : "text"
       },
       {
-        "code" : "FunctionProtocol",
+        "code" : "any FunctionProtocol",
         "type" : "codeVoice"
       },
       {
@@ -1537,7 +1545,7 @@
     },
     {
       "kind" : "text",
-      "text" : " : "
+      "text" : " : any "
     },
     {
       "kind" : "typeIdentifier",
@@ -1580,7 +1588,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ", any "
     },
     {
       "kind" : "typeIdentifier",

@@ -120,8 +120,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute"
       ],
       "title" : "Metamodel and Object Types"
     }
@@ -129,7 +129,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:isSystemOwned:components:abstract:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:plane:traits:abstract:)"
       ],
       "title" : "Initializers"
     },
@@ -137,20 +137,20 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/abstract",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/components",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/inspectableComponents",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/isSystemOwned",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/label",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/name",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/plane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/traits"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attribute(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/componentType(forAttribute:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasAttribute(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasAttribute(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/trait(forAttribute:)"
       ],
       "title" : "Instance Methods"
     }
@@ -183,7 +183,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeDescription": {
+"doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
       "text" : "Description of an attribute.",
@@ -201,55 +201,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeDescription",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AttributeDescription"
+      "text" : "Attribute"
     }
   ],
   "role" : "symbol",
-  "title" : "AttributeDescription",
+  "title" : "Attribute",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributedescription"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentDescription": {
-  "abstract" : [
-    {
-      "text" : "Description of a component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentDescription",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ComponentDescription"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ComponentDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentdescription"
+  "url" : "\/documentation\/poieticcore\/attribute"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
@@ -261,7 +227,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -406,8 +372,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20AttributeDescriptionC",
-      "text" : "AttributeDescription"
+      "preciseIdentifier" : "s:11PoieticCore9AttributeC",
+      "text" : "Attribute"
     },
     {
       "kind" : "text",
@@ -424,14 +390,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/attributes": {
   "abstract" : [
     {
-      "text" : "List of attributes from all components.",
+      "text" : "Ordered list of all attributes.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -447,8 +413,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20AttributeDescriptionC",
-      "text" : "AttributeDescription"
+      "preciseIdentifier" : "s:11PoieticCore9AttributeC",
+      "text" : "Attribute"
     },
     {
       "kind" : "text",
@@ -461,102 +427,6 @@
   "title" : "attributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/attributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/componentType(forAttribute:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "componentType"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forAttribute"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
-      "text" : "InspectableComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/componentType(forAttribute:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "componentType(forAttribute:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/componenttype(forattribute:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/components": {
-  "abstract" : [
-    {
-      "text" : "List of component requirements for objects of this type.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "components"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/components",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "components",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/components"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/hasAttribute(_:)": {
   "abstract" : [
@@ -601,7 +471,50 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/hasattribute(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:isSystemOwned:components:abstract:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasTrait"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasTrait(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:plane:traits:abstract:)": {
   "abstract" : [
     {
       "text" : "Create a new object type.",
@@ -670,7 +583,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "isSystemOwned"
+      "text" : "plane"
     },
     {
       "kind" : "text",
@@ -678,8 +591,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneO",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -687,7 +600,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "components"
+      "text" : "traits"
     },
     {
       "kind" : "text",
@@ -695,12 +608,12 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
     },
     {
       "kind" : "text",
-      "text" : ".Type], "
+      "text" : "], "
     },
     {
       "kind" : "externalParam",
@@ -720,95 +633,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:isSystemOwned:components:abstract:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:plane:traits:abstract:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:label:structuralType:isSystemOwned:components:abstract:)",
+  "title" : "init(name:label:structuralType:plane:traits:abstract:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:issystemowned:components:abstract:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/inspectableComponents": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "inspectableComponents"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20InspectableComponentP",
-      "text" : "InspectableComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/inspectableComponents",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "inspectableComponents",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/inspectablecomponents"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/isSystemOwned": {
-  "abstract" : [
-    {
-      "text" : "Flag whether the objects of this type are being created by the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "system",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isSystemOwned"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/isSystemOwned",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isSystemOwned",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/issystemowned"
+  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:plane:traits:abstract:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/label": {
   "abstract" : [
@@ -892,6 +722,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/name"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/plane": {
+  "abstract" : [
+    {
+      "text" : "Plane in which the objects of this type reside.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneO",
+      "text" : "Plane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/plane",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "plane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/plane"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/structuralType": {
   "abstract" : [
     {
@@ -936,6 +803,136 @@
   "title" : "structuralType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/structuraltype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/trait(forAttribute:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forAttribute"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/trait(forAttribute:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trait(forAttribute:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/trait(forattribute:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/traits": {
+  "abstract" : [
+    {
+      "text" : "List of component requirements for objects of this type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "traits"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/traits",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "traits",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/traits"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Description of a component.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
 }
 }
 }

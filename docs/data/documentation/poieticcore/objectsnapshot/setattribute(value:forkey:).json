@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC12setAttribute5value6forKeyyAA12ForeignValueO_SStKF",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotC12setAttribute5value6forKeyyAA12ForeignValueO_SStF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -70,11 +70,7 @@
       },
       {
         "kind" : "text",
-        "text" : ") "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -155,11 +151,7 @@
             },
             {
               "kind" : "text",
-              "text" : ") "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "text" : ")"
             }
           ]
         }
@@ -175,89 +167,27 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
-            {
-              "text" : "The function fins the first component that contains the given attribute",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "and tries to set the value. The provided foreign value must be",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "convertible to the type of the attribute of the component.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "",
+                  "text" : "The attribute must not be a reserved attribute (",
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeError",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/ReservedAttributeNames",
                   "isActive" : true,
                   "type" : "reference"
                 },
                 {
-                  "text" : " when the object has no attribute with",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "given key or when there is a mismatch of attribute type and the given",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "value type.",
+                  "text" : ").",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "Throws",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/setAttribute(value:forKey:)",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
+          "name" : "Precondition",
           "style" : "note",
           "type" : "aside"
         }
@@ -301,37 +231,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AttributeError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributeerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
   "abstract" : [
     {
@@ -373,77 +272,6 @@
   "title" : "ForeignValue",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/setAttribute(value:forKey:)": {
-  "abstract" : [
-    {
-      "text" : "Set an attribute by its name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "setAttribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "value"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
-      "text" : "AttributeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/setAttribute(value:forKey:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "setAttribute(value:forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/setattribute(value:forkey:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
@@ -492,6 +320,52 @@
   "title" : "ObjectSnapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/ReservedAttributeNames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReservedAttributeNames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/ReservedAttributeNames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ReservedAttributeNames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/reservedattributenames"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/setAttribute(value:forKey:)": {
   "abstract" : [
@@ -549,11 +423,7 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/setAttribute(value:forKey:)",

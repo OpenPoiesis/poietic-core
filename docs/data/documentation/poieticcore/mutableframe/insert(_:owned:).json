@@ -227,7 +227,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState\/uninitialized",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState\/transient",
                       "isActive" : true,
                       "type" : "reference"
                     }
@@ -645,10 +645,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/VersionState/uninitialized": {
+"doc://PoieticCore/documentation/PoieticCore/VersionState/transient": {
   "abstract" : [
     {
-      "text" : "Denotes that the version of an object is mutable however it is still",
+      "text" : "Denotes that the version of an object is in the process undergoing",
       "type" : "text"
     },
     {
@@ -656,15 +656,7 @@
       "type" : "text"
     },
     {
-      "text" : "being initialised. No derivative versions can be created from an object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "in this state,",
+      "text" : "editing.",
       "type" : "text"
     }
   ],
@@ -679,15 +671,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "uninitialized"
+      "text" : "transient"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState\/uninitialized",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState\/transient",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "VersionState.uninitialized",
+  "title" : "VersionState.transient",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate\/uninitialized"
+  "url" : "\/documentation\/poieticcore\/versionstate\/transient"
 }
 }
 }
