@@ -12,17 +12,17 @@ extension ObjectSnapshot {
     /// The foreign record does not include
     ///
     public func foreignRecord() -> ForeignRecord {
-        var dict: [String:ForeignValue] = self.attributes
-        dict["id"] = ForeignValue(id)
-        dict["snapshot_id"] = ForeignValue(snapshotID)
-        dict["type"] = ForeignValue(type.name)
-        dict["structure"] = ForeignValue(structure.type.rawValue)
+        var dict: [String:Variant] = self.attributes
+        dict["id"] = Variant(Int(id))
+        dict["snapshot_id"] = Variant(Int(snapshotID))
+        dict["type"] = Variant(type.name)
+        dict["structure"] = Variant(structure.type.rawValue)
         if case let .edge(origin, target) = structure {
-            dict["origin"] = ForeignValue(origin)
-            dict["target"] = ForeignValue(target)
+            dict["origin"] = Variant(Int(origin))
+            dict["target"] = Variant(Int(target))
         }
         if let parent {
-            dict["parent"] = ForeignValue(parent)
+            dict["parent"] = Variant(Int(parent))
         }
         return ForeignRecord(dict)
     }
@@ -76,11 +76,13 @@ extension ObjectMemory {
         // ----------------------------------------------------------------
         //
         for frame in self._stableFrames.values {
-            let snapshotIDs: [ObjectID] = frame.snapshots.map { $0.snapshotID }
+            let snapshotIDs: [VariantAtom] = frame.snapshots.map {
+                VariantAtom(Int($0.snapshotID))
+            }
             let record = ForeignRecord(
                 [
-                    "id": ForeignValue(frame.id),
-                    "snapshots": ForeignValue(ids: snapshotIDs),
+                    "id": Variant(Int(frame.id)),
+                    "snapshots": .array(snapshotIDs),
                 ]
             )
             outFrames.append(record)
@@ -91,12 +93,15 @@ extension ObjectMemory {
         // 4. Memory state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
+        let undoables = undoableFrames.map { VariantAtom(Int($0)) }
+        let redoables = redoableFrames.map { VariantAtom(Int($0)) }
+
         var state: ForeignRecord = ForeignRecord([
-            "undo": ForeignValue(ids: undoableFrames),
-            "redo": ForeignValue(ids: redoableFrames),
+            "undo": .array(undoables),
+            "redo": .array(redoables),
         ])
         if let id = currentFrameID {
-            state["currentFrameID"] = ForeignValue(id)
+            state["currentFrameID"] = .atom(.int(Int(id)))
 
         }
         try store.replaceAll(in: MakeshiftMemoryStore.MemoryStateCollectionName,
@@ -170,12 +175,12 @@ extension ObjectMemory {
             guard let idValue = record["id"] else {
                 throw MemoryStoreError.missingReference("frame", "frames collection")
             }
-            let frameID = try idValue.idValue()
+            let frameID = try idValue.IDValue()
 
             let ids: [ObjectID]
             
             if let idsValue = record["snapshots"] {
-                ids = try idsValue.idArray()
+                ids = try idsValue.IDArray()
             }
             else {
                 ids = []
@@ -204,23 +209,25 @@ extension ObjectMemory {
             throw MemoryStoreError.missingOrMalformedStateInfo
         }
 
-        let undoFrames = try info["undo"]?.idArray() ?? []
-        let redoFrames = try info["redo"]?.idArray() ?? []
+        if let items = try info["undo"]?.IDArray() {
+            guard items.allSatisfy( { containsFrame($0) } ) else {
+                // let offensive = undoFrames.filter { !containsFrame($0) }
+                throw MemoryStoreError.invalidReferences("frame", "undo frame list")
+            }
+            self.undoableFrames = items
 
-        guard undoFrames.allSatisfy( { containsFrame($0) } ) else {
-            // let offensive = undoFrames.filter { !containsFrame($0) }
-            throw MemoryStoreError.invalidReferences("frame", "undo frame list")
         }
 
-        guard redoFrames.allSatisfy( { containsFrame($0) } ) else {
-            // let offensive = redoFrames.filter { !containsFrame($0) }
-            throw MemoryStoreError.invalidReferences("frame", "redo frame list")
+        if let items = try info["redo"]?.IDArray() {
+            guard items.allSatisfy( { containsFrame($0) } ) else {
+                // let offensive = undoFrames.filter { !containsFrame($0) }
+                throw MemoryStoreError.invalidReferences("frame", "redo frame list")
+            }
+            self.redoableFrames = items
+
         }
 
-        self.undoableFrames = undoFrames
-        self.redoableFrames = redoFrames
-        
-        if let currentID = try info["currentFrameID"]?.idValue() {
+        if let currentID = try info["currentFrameID"]?.IDValue() {
             guard containsFrame(currentID) else {
                 throw MemoryStoreError.invalidReference(currentID, "frame", "current frame reference")
             }

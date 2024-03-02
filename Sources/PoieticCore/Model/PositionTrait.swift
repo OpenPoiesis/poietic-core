@@ -9,8 +9,8 @@ extension Trait {
     public static let Position = Trait(
         name: "Position",
         attributes: [
-            Attribute("position", type: .point, default: ForeignValue(Point(0,0))),
-            Attribute("z_index", type: .int, default: ForeignValue(0)),
+            Attribute("position", type: .point, default: Variant(Point(0,0))),
+            Attribute("z_index", type: .int, default: Variant(0)),
         ]
     )
 }

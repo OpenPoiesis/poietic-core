@@ -123,7 +123,7 @@ public class Attribute: CustomStringConvertible {
     ///
     public let type: ValueType
     
-    public let defaultValue: ForeignValue?
+    public let defaultValue: Variant?
     
     public let optional: Bool
     
@@ -150,7 +150,7 @@ public class Attribute: CustomStringConvertible {
     ///
     public init(_ name: String,
                 type: ValueType,
-                default defaultValue: ForeignValue? = nil,
+                default defaultValue: Variant? = nil,
                 optional: Bool = false,
                 label: String?=nil,
                 abstract: String? = nil) {

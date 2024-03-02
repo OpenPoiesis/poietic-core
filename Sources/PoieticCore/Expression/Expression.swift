@@ -9,7 +9,7 @@ public protocol ExpressionConvertible {
     var toExpression: UnboundExpression { get }
 }
 
-public typealias UnboundExpression = ArithmeticExpression<ForeignValue, String, String>
+public typealias UnboundExpression = ArithmeticExpression<Variant, String, String>
 
 /// Arithmetic expression.
 ///

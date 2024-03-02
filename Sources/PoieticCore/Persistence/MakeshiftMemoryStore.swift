@@ -162,7 +162,7 @@ public class MakeshiftMemoryStore {
     public func fetch(_ collectionName: String, snapshotID: ObjectID) throws -> ForeignRecord? {
         let collection = collections[collectionName]!
         return try collection.first {
-            try $0["snapshotID"]?.idValue() == snapshotID
+            try $0["snapshotID"]?.stringValue() == String(snapshotID)
         }
     }
     

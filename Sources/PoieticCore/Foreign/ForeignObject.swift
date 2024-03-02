@@ -30,7 +30,6 @@ public struct ForeignObject: Codable {
     ///
     public let type: String
     
-    // TODO: Change to ForeignAtom?
     /// Reference to an object.
     ///
     ///
@@ -83,7 +82,6 @@ public struct ForeignObject: Codable {
     public let attributes: ForeignRecord?
     
     // Structural properties
-    // TODO: Change to ForeignAtom?
     /// Origin of an edge if the structural type of the object is an edge.
     ///
     /// The attribute must be present together with the ``target`` attribute.
@@ -92,7 +90,6 @@ public struct ForeignObject: Codable {
     /// - SeeAlso: ``id``, ``StructuralComponent``
     ///
     public let origin: String?
-    // TODO: Change to ForeignAtom?
     
     /// Target of an edge if the structural type of the object is an edge.
     ///
@@ -102,7 +99,6 @@ public struct ForeignObject: Codable {
     /// - SeeAlso: ``id``, ``StructuralComponent``
     ///
     public let target: String?
-    // TODO: Change to [ForeignAtom]
     
     /// List of references to the object's children to form the object
     /// hierarchy.

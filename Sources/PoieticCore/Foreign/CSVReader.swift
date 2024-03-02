@@ -202,10 +202,10 @@ public class CSVForeignRecordReader: Sequence, IteratorProtocol {
             return nil
         }
         
-        var dict: [String:ForeignValue] = [:]
+        var dict: [String:Variant] = [:]
         
         for (key, value) in zip(fields, values) {
-            dict[key] = ForeignValue(value)
+            dict[key] = Variant(value)
         }
         return ForeignRecord(dict)
     }

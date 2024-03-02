@@ -55,11 +55,11 @@ final class MutableFrameTests: XCTestCase {
     func testSetAttribute() throws {
         let frame = memory.deriveFrame()
         let id = frame.create(TestType, 
-                              attributes: ["text": ForeignValue("before")])
+                              attributes: ["text": Variant("before")])
         
         let obj = frame.object(id)
         
-        obj.setAttribute(value: ForeignValue("after"), forKey: "text")
+        obj.setAttribute(value: Variant("after"), forKey: "text")
         
         let value = obj.attribute(forKey: "text")
         XCTAssertEqual(try value?.stringValue(), "after")
@@ -69,7 +69,7 @@ final class MutableFrameTests: XCTestCase {
         let original = memory.deriveFrame()
         
         let a = original.create(TestType,
-                                attributes: ["text": ForeignValue("before")],
+                                attributes: ["text": Variant("before")],
                                 components: [])
         try memory.accept(original)
         

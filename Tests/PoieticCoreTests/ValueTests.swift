@@ -10,47 +10,47 @@ import XCTest
 
 final class ForeignValueTests: XCTestCase {
     func testIntFromString() throws {
-        XCTAssertEqual(try ForeignValue("10").intValue(), 10)
+        XCTAssertEqual(try Variant("10").intValue(), 10)
         // TODO: Accept underscore in numeric values
-//        XCTAssertEqual(try ForeignValue("1_0_0").intValue(), 100)
+//        XCTAssertEqual(try Variant("1_0_0").intValue(), 100)
 
-        XCTAssertThrowsError(try ForeignValue("10x").intValue())
-        XCTAssertThrowsError(try ForeignValue("").intValue())
+        XCTAssertThrowsError(try Variant("10x").intValue())
+        XCTAssertThrowsError(try Variant("").intValue())
     }
     func testDoubleFromString() throws {
-        let value1 = try ForeignValue("3.14e2").doubleValue()
+        let value1 = try Variant("3.14e2").doubleValue()
         XCTAssertEqual(value1, 3.14e2)
 
-        XCTAssertThrowsError(try ForeignValue("10x").doubleValue())
-        XCTAssertThrowsError(try ForeignValue("").doubleValue())
+        XCTAssertThrowsError(try Variant("10x").doubleValue())
+        XCTAssertThrowsError(try Variant("").doubleValue())
     }
     func testBoolFromString() throws {
-        let value1 = try ForeignValue("true").boolValue()
+        let value1 = try Variant("true").boolValue()
         XCTAssertEqual(value1, true)
 
-        let value2 = try ForeignValue("false").boolValue()
+        let value2 = try Variant("false").boolValue()
         XCTAssertEqual(value2, false)
         
-        XCTAssertThrowsError(try ForeignValue("something").boolValue())
-        XCTAssertThrowsError(try ForeignValue("").boolValue())
+        XCTAssertThrowsError(try Variant("something").boolValue())
+        XCTAssertThrowsError(try Variant("").boolValue())
     }
     func testPointFromString() throws {
-        XCTAssertEqual(try ForeignValue("1.2x3.4").pointValue(), Point(x:1.2, y:3.4))
+        XCTAssertEqual(try Variant("1.2x3.4").pointValue(), Point(x:1.2, y:3.4))
         // TODO: Accept underscore in numeric values
-//        XCTAssertEqual(try ForeignValue("1_0_0").intValue(), 100)
+//        XCTAssertEqual(try Variant("1_0_0").intValue(), 100)
 
-        XCTAssertThrowsError(try ForeignValue("10 x 20").pointValue())
-        XCTAssertThrowsError(try ForeignValue("10x").pointValue())
-        XCTAssertThrowsError(try ForeignValue("x10").pointValue())
-        XCTAssertThrowsError(try ForeignValue("x").pointValue())
-        XCTAssertThrowsError(try ForeignValue("").intValue())
+        XCTAssertThrowsError(try Variant("10 x 20").pointValue())
+        XCTAssertThrowsError(try Variant("10x").pointValue())
+        XCTAssertThrowsError(try Variant("x10").pointValue())
+        XCTAssertThrowsError(try Variant("x").pointValue())
+        XCTAssertThrowsError(try Variant("").intValue())
     }
     func testStringToPoint() throws {
-        XCTAssertEqual(try ForeignValue(Point(x:1.0, y:2.0)).stringValue(), "1.0x2.0")
+        XCTAssertEqual(try Variant(Point(x:1.0, y:2.0)).stringValue(), "1.0x2.0")
     }
     
     func testTwoItemArrayIsAPointConvertible() throws {
-        XCTAssertEqual(try ForeignValue([1, 2]).pointValue(), Point(1.0, 2.0))
+        XCTAssertEqual(try Variant([1, 2]).pointValue(), Point(1.0, 2.0))
 
     }
 
@@ -59,11 +59,12 @@ final class ForeignValueTests: XCTestCase {
 final class ForeignValueJSONTests: XCTestCase {
     func testAtomFromJSON() throws {
         // TODO: Int should be int
-        XCTAssertEqual(try ForeignAtom.fromJSON("10").valueType, .double)
-        XCTAssertEqual(try ForeignAtom.fromJSON("10.0").valueType, .double)
-        XCTAssertEqual(try ForeignAtom.fromJSON("true").valueType, .bool)
-        XCTAssertEqual(try ForeignAtom.fromJSON("\"hello\"").valueType, .string)
-        XCTAssertEqual(try ForeignAtom.fromJSON("[10, 20]").valueType, .point)
+        XCTAssertEqual(try VariantAtom.fromJSON("10").valueType, .int)
+        XCTAssertEqual(try VariantAtom.fromJSON("10.0").valueType, .int)
+        XCTAssertEqual(try VariantAtom.fromJSON("12.3").valueType, .double)
+        XCTAssertEqual(try VariantAtom.fromJSON("true").valueType, .bool)
+        XCTAssertEqual(try VariantAtom.fromJSON("\"hello\"").valueType, .string)
+        XCTAssertEqual(try VariantAtom.fromJSON("[10, 20]").valueType, .point)
     }
     
 //    func testAtomToJSON() throws {
@@ -78,7 +79,7 @@ final class ForeignValueJSONTests: XCTestCase {
 //    
 //    func testValueFromJSON() throws {
 //        // TODO: Int should be int
-//        XCTAssertEqual(try ForeignValue.fromJSON("10").valueType, .double)
+//        XCTAssertEqual(try Variant.fromJSON("10").valueType, .double)
 //        XCTAssertEqual(try ForeignValue.fromJSON("10.0").valueType, .double)
 //        XCTAssertEqual(try ForeignValue.fromJSON("true").valueType, .bool)
 //        XCTAssertEqual(try ForeignValue.fromJSON("\"hello\"").valueType, .string)

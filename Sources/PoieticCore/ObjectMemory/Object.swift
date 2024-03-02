@@ -94,7 +94,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     // TODO: Write documentation
     /// Object attributes.
     ///
-    public var attributes: [String:ForeignValue]
+    public var attributes: [String:Variant]
     
     /// List of run-time components of the object.
     ///
@@ -219,7 +219,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
                 snapshotID: SnapshotID,
                 type: ObjectType,
                 structure: StructuralComponent = .unstructured,
-                attributes: [String:ForeignValue] = [:],
+                attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
         // TODO: Make creation private - only through the memory.
         
@@ -281,7 +281,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         }
     }
     
-    public subscript(attributeName: String) -> (ForeignValue)? {
+    public subscript(attributeName: String) -> (Variant)? {
         get {
             return attribute(forKey: attributeName)
         }
@@ -335,15 +335,15 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// - SeeAlso: ``InspectableComponent/attribute(forKey:)``
     ///
-    public func attribute(forKey key: String) -> ForeignValue? {
+    public func attribute(forKey key: String) -> Variant? {
         // TODO: This is asymmetrical with setAttribute, it should not be (that much)
         // TODO: Add tests
         switch key {
-        case "id": return ForeignValue(id)
-        case "snapshot_id": return ForeignValue(snapshotID)
+        case "id": return Variant(String(id))
+        case "snapshot_id": return Variant(String(snapshotID))
         case "type":
-            return ForeignValue(type.name)
-        case "structure": return ForeignValue(structure.type.rawValue)
+            return Variant(type.name)
+        case "structure": return Variant(structure.type.rawValue)
         default:
             // Find first component that has the value.
             return attributes[key]
@@ -354,7 +354,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// - Precondition: The attribute must not be a reserved attribute (``ObjectSnapshot/ReservedAttributeNames``).
     ///
-    public func setAttribute(value: ForeignValue, forKey key: String) {
+    public func setAttribute(value: Variant, forKey key: String) {
         precondition(state.isMutable,
                      "Trying to set attribute on an immutable snapshot \(snapshotID)")
         precondition(ObjectSnapshot.ReservedAttributeNames.firstIndex(of: "key") == nil,
@@ -388,7 +388,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         switch atom {
         case .string(let name): return name
         case .int(let name): return String(name)
-        case .id(let name): return String(name)
         default: return nil
         }
     }

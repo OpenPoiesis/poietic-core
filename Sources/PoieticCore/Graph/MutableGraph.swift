@@ -40,14 +40,14 @@ public protocol MutableGraph: Graph {
     @discardableResult
     func createNode(_ type: ObjectType,
                     name: String?,
-                    attributes: [String:ForeignValue],
+                    attributes: [String:Variant],
                     components: [Component]) -> ObjectID
 
     @discardableResult
     func createEdge(_ type: ObjectType,
                     origin: ObjectID,
                     target: ObjectID,
-                    attributes: [String:ForeignValue],
+                    attributes: [String:Variant],
                     components: [Component]) -> ObjectID
 }
 
@@ -97,7 +97,7 @@ extension MutableFrame: MutableGraph {
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
                            target: ObjectID,
-                           attributes: [String:ForeignValue] = [:],
+                           attributes: [String:Variant] = [:],
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .edge,
                      "Trying to create an edge using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
@@ -136,7 +136,7 @@ extension MutableFrame: MutableGraph {
     @discardableResult
     public func createNode(_ type: ObjectType,
                            name: String? = nil,
-                           attributes: [String:ForeignValue] = [:],
+                           attributes: [String:Variant] = [:],
                            components: [any Component] = []) -> ObjectID {
         precondition(type.structuralType == .node,
                      "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
@@ -144,7 +144,7 @@ extension MutableFrame: MutableGraph {
         var actualAttributes = attributes
         
         if let name {
-            actualAttributes["name"] = ForeignValue(name)
+            actualAttributes["name"] = Variant(name)
         }
         
         let snapshot = mutableFrame.memory.createSnapshot(

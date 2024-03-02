@@ -58,14 +58,14 @@ struct TestComponent: InspectableComponent {
     
     var text: String
     
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
+    public func attribute(forKey key: AttributeKey) -> Variant? {
         switch key {
-        case "text": return ForeignValue(text)
+        case "text": return Variant(text)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: ForeignValue,
+    public mutating func setAttribute(value: Variant,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "text": self.text = try value.stringValue()
@@ -96,14 +96,14 @@ struct IntegerComponent: InspectableComponent, Equatable {
         self.value = value
     }
     
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
+    public func attribute(forKey key: AttributeKey) -> Variant? {
         switch key {
-        case "value": return ForeignValue(value)
+        case "value": return Variant(value)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: ForeignValue,
+    public mutating func setAttribute(value: Variant,
                                       forKey key: AttributeKey) throws {
         switch key {
         case "value": self.value = try value.intValue()

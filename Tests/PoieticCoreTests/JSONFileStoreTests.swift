@@ -18,9 +18,9 @@ class TestPersistentRecord: XCTestCase {
 
     func testFromRecord() throws {
         let record = ForeignRecord([
-        "type": ForeignValue("Stock"),
-        "id": ForeignValue(10),
-        "snapshot_id": ForeignValue(20),
+        "type": Variant("Stock"),
+        "id": Variant(10),
+        "snapshot_id": Variant(20),
         ]
         )
         

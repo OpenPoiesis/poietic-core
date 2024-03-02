@@ -29,7 +29,7 @@ public class BuiltinVariable: Hashable {
     
     /// Default value of the built-in variable.
     ///
-    public let initialValue: ForeignValue?
+    public let initialValue: Variant?
     
     /// Human-readable description of the variable.
     public let abstract: String?
@@ -46,7 +46,7 @@ public class BuiltinVariable: Hashable {
     ///     - abstract: short human description of the variable.
     ///
     public init(name: String,
-                value: ForeignValue? = nil,
+                value: Variant? = nil,
                 abstract: String?) {
         self.name = name
         self.initialValue = value
@@ -66,7 +66,7 @@ public protocol TypedValue {
     var atomType: AtomType? { get }
 }
 
-extension ForeignValue: TypedValue {
+extension Variant: TypedValue {
 }
 /// Reference to a variable.
 ///

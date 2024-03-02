@@ -143,7 +143,7 @@ public class AcceptAll: ConstraintRequirement {
 }
 
 // FIXME: Do we still need this?
-// FIXME: This is not archivable! We need to use ForeignValue for it to be archivable
+// FIXME: This is not archivable! We need to use Variant for it to be archivable
 // NOTE: For example in Stock-flows We can't check for unique name as a constraint,
 // because we want to let the user to make mistakes. Uniqueness is a concern of a compiler.
 //

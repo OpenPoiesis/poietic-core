@@ -42,7 +42,7 @@ public protocol FunctionProtocol: Hashable, CustomStringConvertible {
     ///
     /// - Throws: ``ValueError`` when the argument is not convertible to double.
     ///
-    func apply(_ arguments: [ForeignValue]) throws -> ForeignValue
+    func apply(_ arguments: [Variant]) throws -> Variant
 }
 
 extension FunctionProtocol  {
@@ -82,7 +82,7 @@ public class NumericBinaryFunction: FunctionProtocol {
     ///
     /// - Throws: ``ValueError`` when the argument is not convertible to double.
     ///
-    public func apply(_ arguments: [ForeignValue]) throws -> ForeignValue {
+    public func apply(_ arguments: [Variant]) throws -> Variant {
         guard arguments.count == 2 else {
             fatalError("Invalid number of arguments (\(arguments.count)) to a binary operator '\(name)'.")
         }
@@ -92,7 +92,7 @@ public class NumericBinaryFunction: FunctionProtocol {
 
         let result = implementation(lhs, rhs)
         
-        return ForeignValue(result)
+        return Variant(result)
     }
 
     public static func == (lhs: NumericBinaryFunction, rhs: NumericBinaryFunction) -> Bool {
@@ -132,7 +132,7 @@ public class NumericUnaryFunction: FunctionProtocol {
     ///
     /// - Throws: ``ValueError`` when an argument is not convertible to double.
     ///
-    public func apply(_ arguments: [ForeignValue]) throws -> ForeignValue {
+    public func apply(_ arguments: [Variant]) throws -> Variant {
         guard arguments.count == 1 else {
             fatalError("Invalid number of arguments (\(arguments.count) to a unary operator.")
         }
@@ -141,7 +141,7 @@ public class NumericUnaryFunction: FunctionProtocol {
 
         let result = implementation(operand)
         
-        return ForeignValue(result)
+        return Variant(result)
     }
 
     public static func == (lhs: NumericUnaryFunction, rhs: NumericUnaryFunction) -> Bool {
@@ -178,12 +178,12 @@ public class NumericFunction: FunctionProtocol {
     ///
     /// - Throws: ``ValueError`` when any of the arguments is not convertible to double.
     ///
-    public func apply(_ arguments: [ForeignValue]) throws -> ForeignValue {
+    public func apply(_ arguments: [Variant]) throws -> Variant {
         let floatArguments = try arguments.map { try $0.doubleValue() }
 
         let result = implementation(floatArguments)
         
-        return ForeignValue(result)
+        return Variant(result)
     }
 
     public static func == (lhs: NumericFunction, rhs: NumericFunction) -> Bool {

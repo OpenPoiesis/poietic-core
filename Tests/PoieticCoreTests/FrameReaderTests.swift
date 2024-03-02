@@ -21,7 +21,7 @@ final class FrameReaderTests: XCTestCase {
         
         let infoSrc = """
                       {
-                        "frameFormatVersion": "0"
+                        "frame_format_version": "0"
                       }
                       """.data(using:.utf8)!
         
@@ -37,13 +37,13 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           FrameReaderError.propertyNotFound("frameFormatVersion"))
+                           FrameReaderError.propertyNotFound("frame_format_version"))
         }
     }
     func testEmpty() throws {
         let infoSrc = """
                       {
-                        "frameFormatVersion": "0"
+                        "frame_format_version": "0"
                       }
                       """.data(using:.utf8)!
         
@@ -142,7 +142,7 @@ final class FrameReaderTests: XCTestCase {
 
         let snapshot = frame.snapshots.first!
         XCTAssertNotNil(snapshot["value"])
-        XCTAssertEqual(snapshot["value"], ForeignValue(0))
+        XCTAssertEqual(snapshot["value"], Variant(0))
 
     }
     

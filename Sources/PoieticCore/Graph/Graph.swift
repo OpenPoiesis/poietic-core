@@ -40,7 +40,7 @@ extension Node: ObjectProtocol {
         snapshot[componentType]
     }
 
-    public func attribute(forKey key: String) -> ForeignValue? {
+    public func attribute(forKey key: String) -> Variant? {
         snapshot.attribute(forKey: key)
     }
 
@@ -72,7 +72,7 @@ extension Edge: ObjectProtocol {
     public subscript<T>(componentType: T.Type) -> T? where T : Component {
         snapshot[componentType]
     }
-    public func attribute(forKey key: String) -> ForeignValue? {
+    public func attribute(forKey key: String) -> Variant? {
         snapshot.attribute(forKey: key)
     }
 }

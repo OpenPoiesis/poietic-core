@@ -45,9 +45,9 @@ struct ForeignCodingKey: CodingKey, CustomStringConvertible {
 extension ForeignRecord: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ForeignCodingKey.self)
-        var dict: [String:ForeignValue] = [:]
+        var dict: [String:Variant] = [:]
         for key in container.allKeys {
-            let value = try container.decode(ForeignValue.self, forKey: key)
+            let value = try container.decode(Variant.self, forKey: key)
             dict[key.stringValue] = value
         }
         self.dict = dict
@@ -66,21 +66,21 @@ extension ForeignRecord: Codable {
 /// external environment such as database.
 ///
 public struct ForeignRecord {
-    var dict: [String:ForeignValue]
+    var dict: [String:Variant]
     
-    public var dictionary: [String:ForeignValue] { dict }
+    public var dictionary: [String:Variant] { dict }
     /// Create a foreign record from a dictionary.
     ///
     /// Keys are attribute names and values are foreign values of the attribute.
     ///
-    public init(_ dictionary: [String:ForeignValue]) {
+    public init(_ dictionary: [String:Variant]) {
         self.dict = dictionary
     }
     
     /// Get a value for a key, if is present in the record. Otherwise
     /// returns `nil`.
     ///
-    public subscript(key: String) -> ForeignValue? {
+    public subscript(key: String) -> Variant? {
         get {
             dict[key]
         }
@@ -222,8 +222,13 @@ public struct ForeignRecord {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let value = try existingValue.idValue()
-        return value
+        let stringValue = try existingValue.stringValue()
+        if let value = ObjectID(stringValue) {
+            return value
+        }
+        else {
+            throw ValueError.typeMismatch("\(stringValue)", "Object ID")
+        }
     }
 }
 
@@ -247,7 +252,7 @@ extension ForeignRecord: Equatable {
 }
 
 extension ForeignRecord: Sequence {
-    public typealias Iterator = [String:ForeignValue].Iterator
+    public typealias Iterator = [String:Variant].Iterator
     public func makeIterator() -> Self.Iterator {
         return self.dict.makeIterator()
     }

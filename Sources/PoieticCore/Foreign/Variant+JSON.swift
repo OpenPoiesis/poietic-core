@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension ForeignAtom {
-    public static func fromJSON(_ string: String) throws -> ForeignAtom {
+extension VariantAtom {
+    public static func fromJSON(_ string: String) throws -> VariantAtom {
         let data = Data(string.utf8)
         let decoder = JSONDecoder()
-        return try decoder.decode(ForeignAtom.self, from: data)
+        return try decoder.decode(VariantAtom.self, from: data)
     }
     
     /// Create a Foundation-compatible JSON object representation.
@@ -22,17 +22,16 @@ extension ForeignAtom {
         case let .double(value): value
         case let .string(value): value
         case let .bool(value): value
-        case let .id(value): value
         case let .point(value): [value.x, value.y]
         }
     }
 }
 
-extension ForeignValue {
-    public static func fromJSON(_ string: String) throws -> ForeignValue {
+extension Variant {
+    public static func fromJSON(_ string: String) throws -> Variant {
         let data = Data(string.utf8)
         let decoder = JSONDecoder()
-        return try decoder.decode(ForeignValue.self, from: data)
+        return try decoder.decode(Variant.self, from: data)
     }
     
     /// Create a Foundation-compatible JSON object representation.

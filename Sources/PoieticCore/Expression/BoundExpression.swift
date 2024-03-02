@@ -78,7 +78,7 @@ where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringCon
 public func bindExpression<V: TypedValue>(
     _ expression: UnboundExpression,
     variables: [String:V],
-    functions: [String:any FunctionProtocol]) throws -> ArithmeticExpression<ForeignValue, V, any FunctionProtocol> {
+    functions: [String:any FunctionProtocol]) throws -> ArithmeticExpression<Variant, V, any FunctionProtocol> {
     
     switch expression {
     case let .value(value):

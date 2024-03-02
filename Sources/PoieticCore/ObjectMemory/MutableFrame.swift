@@ -239,7 +239,7 @@ public class MutableFrame: Frame {
     ///
     public func create(_ type: ObjectType,
                        structure: StructuralComponent? = nil,
-                       attributes: [String:ForeignValue] = [:],
+                       attributes: [String:Variant] = [:],
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         

@@ -27,7 +27,7 @@ extension ObjectMemory {
     public func createSnapshot(_ type: ObjectType,
                                id: ObjectID? = nil,
                                snapshotID: SnapshotID? = nil,
-                               attributes: [String:ForeignValue]=[:],
+                               attributes: [String:Variant]=[:],
                                components: [any Component]=[],
                                structure: StructuralComponent? = nil,
                                state: VersionState = .stable) -> ObjectSnapshot {

@@ -14,7 +14,7 @@ public protocol ObjectProtocol {
     var name: String? { get }
     subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 
-    func attribute(forKey key: String) -> ForeignValue?
+    func attribute(forKey key: String) -> Variant?
 }
 
 extension ObjectSnapshot: ObjectProtocol {
@@ -29,7 +29,7 @@ public protocol ObjectReference {
 //    var name: String? { get }
 //    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 //
-//    func attribute(forKey key: String) -> ForeignValue?
+//    func attribute(forKey key: String) -> Variant?
 }
 
 public struct MutableObjectReference {

@@ -10,7 +10,7 @@ public enum AttributeError: Error {
     /// Raised when reading or setting an attribute of a type that is not
     /// convertible to the required value.
     ///
-    case typeMismatch(ForeignValue, AtomType)
+    case typeMismatch(Variant, AtomType)
     
     /// Raised when a non-nil value was expected.
     case unexpectedNil
@@ -31,20 +31,20 @@ public protocol KeyedAttributes {
     
     /// Returns a dictionary of attributes.
     ///
-    func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:ForeignValue]
+    func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:Variant]
 
     /// Returns an attribute value for given key.
     ///
-    func attribute(forKey key: String) -> ForeignValue?
+    func attribute(forKey key: String) -> Variant?
 }
 
 extension KeyedAttributes {
-    public func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:ForeignValue] {
+    public func dictionary(withKeys: [AttributeKey]) -> [AttributeKey:Variant] {
         let tuples = attributeKeys.compactMap { key in
             self.attribute(forKey: key).map { (key, $0) }
         }
         
-        return [AttributeKey:ForeignValue](uniqueKeysWithValues: tuples)
+        return [AttributeKey:Variant](uniqueKeysWithValues: tuples)
     }
 }
 
@@ -54,12 +54,12 @@ extension KeyedAttributes {
 /// This protocol is provided for inspectors and import/export functionality.
 ///
 public protocol MutableKeyedAttributes: KeyedAttributes {
-    mutating func setAttribute(value: ForeignValue, forKey key: AttributeKey) throws
-    mutating func setAttributes(_ dict: [AttributeKey:ForeignValue]) throws
+    mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
+    mutating func setAttributes(_ dict: [AttributeKey:Variant]) throws
 }
 
 extension MutableKeyedAttributes {
-    public mutating func setAttributes(_ dict: [AttributeKey:ForeignValue]) throws {
+    public mutating func setAttributes(_ dict: [AttributeKey:Variant]) throws {
         for (key, value) in dict {
             try self.setAttribute(value: value, forKey: key)
         }

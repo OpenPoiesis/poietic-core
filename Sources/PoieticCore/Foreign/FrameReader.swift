@@ -8,6 +8,7 @@
 import Foundation
 
 public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
+    case invalidStructure(String)
     case dataCorrupted
     case propertyNotFound(String) 
     case objectPropertyNotFound(String, Int)
@@ -19,6 +20,7 @@ public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
     
     public var description: String {
         switch self {
+        case .invalidStructure(let message): return "Invalid JSON structure: \(message)"
         case .dataCorrupted: return "Corrupted or invalid data"
         case .propertyNotFound(let key): return "Required property '\(key)' not found"
         case .objectPropertyNotFound(let key, let index):
@@ -42,13 +44,20 @@ public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
     }
 }
 
-
-public struct ForeignFrameInfo: Codable {
+public struct ForeignFrameInfo: Decodable {
     // FIXME: [IMPORTANT] This is not quite version change tolerant yet. It MUST be.
     // TODO: Allow objects to be embedded
     public let frameFormatVersion: String
-    public let metadata: [String:ForeignValue]?
+    public let metamodelName: String?
+    public let metamodelVersion: String?
     public let collections: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case frameFormatVersion = "frame_format_version"
+        case metamodelName = "metamodel"
+        case metamodelVersion = "metamodel_version"
+        case collections
+    }
 }
 
 public class ForeignFrameBundle {
@@ -64,7 +73,6 @@ public class ForeignFrameBundle {
 
         let data = try Data(contentsOf: infoURL)
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         do {
             info = try decoder.decode(ForeignFrameInfo.self, from: data)
@@ -141,6 +149,7 @@ public class ForeignFrameReader {
     }
     
     public convenience init(data: Data, memory: ObjectMemory) throws {
+        // TODO: Handle corrupted data
         let decoder = JSONDecoder()
         let info: ForeignFrameInfo
         do {
@@ -329,7 +338,7 @@ public class ForeignFrameReader {
                                                  state: .transient)
             
             if let name = object.name {
-                snapshot.setAttribute(value: ForeignValue(name), forKey: "name")
+                snapshot.setAttribute(value: Variant(name), forKey: "name")
                 references[name] = snapshot.id
             }
             

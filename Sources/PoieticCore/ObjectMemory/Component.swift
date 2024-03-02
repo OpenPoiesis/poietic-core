@@ -57,7 +57,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///
     /// - SeeAlso: ``setAttribute(value:forKey:)``, ``init(record:)``
     ///
-    func attribute(forKey key: AttributeKey) -> ForeignValue?
+    func attribute(forKey key: AttributeKey) -> Variant?
 
     
     /// Set an attribute by its name.
@@ -75,7 +75,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///
     /// - SeeAlso: ``attribute(forKey:)``, ``init(record:)``
     ///
-    mutating func setAttribute(value: ForeignValue, forKey key: AttributeKey) throws
+    mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
     // TODO: Make the above for PersistableComponent only
 }
 

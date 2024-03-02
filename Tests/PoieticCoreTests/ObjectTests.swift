@@ -21,14 +21,14 @@ fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
     init() { self.name = "unnamed" }
     init(name: String) { self.name = name }
     
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
+    public func attribute(forKey key: AttributeKey) -> Variant? {
         switch key {
-        case "name": return ForeignValue(name)
+        case "name": return Variant(name)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: ForeignValue,
+    public mutating func setAttribute(value: Variant,
                                       forKey key: AttributeKey) throws {
         fatalError("\(#function) is not supposed to be called")
     }
@@ -47,14 +47,14 @@ fileprivate struct NonStringNameComponent: InspectableComponent, Equatable {
     init() { self.name = 0 }
     init(name: Int) { self.name = name }
     
-    public func attribute(forKey key: AttributeKey) -> ForeignValue? {
+    public func attribute(forKey key: AttributeKey) -> Variant? {
         switch key {
-        case "name": return ForeignValue(name)
+        case "name": return Variant(name)
         default: return nil
         }
     }
     
-    public mutating func setAttribute(value: ForeignValue,
+    public mutating func setAttribute(value: Variant,
                                       forKey key: AttributeKey) throws {
         fatalError("\(#function) is not supposed to be called")
     }
