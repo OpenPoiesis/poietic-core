@@ -127,6 +127,9 @@ extension Trait {
                       abstract: "Author of the referenced publication or resource"),
             Attribute("title", type: .string, optional: true,
                       abstract: "Title of the publication or referenced resource"),
+            // NOTE: We are reserving "pages" here for the future
+            Attribute("book_pages", type: .string, optional: true,
+                      abstract: "A string referring to one or multiple pages within the source, if the source is a larger, typically printed medium"),
             Attribute("year", type: .string, optional: true,
                       abstract: "Year of publication"),
             Attribute("publisher", type: .string, optional: true,

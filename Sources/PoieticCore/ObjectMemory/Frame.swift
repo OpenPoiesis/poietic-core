@@ -180,8 +180,28 @@ extension Frame {
 
     /// Filter objects by a closure.
     /// 
-    public func filter(_ block: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
-        return snapshots.filter(block)
+    public func filter(_ test: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
+        return snapshots.filter(test)
+    }
+
+    /// Get the first object satisfying the condition.
+    ///
+    /// If multiple objects satisfy the condition, then which one is
+    /// returned is undefined.
+    ///
+    public func first(where predicate: (ObjectSnapshot) -> Bool) -> ObjectSnapshot? {
+        return snapshots.first(where: predicate)
+    }
+
+    /// Get the first object with given trait.
+    ///
+    /// If multiple objects have the trait, then which one is
+    /// returned is undefined.
+    ///
+    /// Use this only for traits of singletons.
+    ///
+    public func first(trait: Trait) -> ObjectSnapshot? {
+        return snapshots.first { $0.type.hasTrait(trait) }
     }
 
     // FIXME: Use Node as argument

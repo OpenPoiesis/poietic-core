@@ -75,29 +75,6 @@ Possible directions:
   `ObjectSnapshot.initialize()` which will invalidate the unstable reference
   and return the final direct snapshot reference.
 
-### Metamodel
-
-**Problem:** The metamodel is a type.
-
-**Requirement:** The metamodel should be an instance that can be composed.
-
-Reason for a type is so that during prototyping the metamodel elements
-can be accessed as symbols in the host programming language (Swift)
-
-Locations:
-
-- `Metamodel` in `PoieticCore` library
-- `FlowsMetamodel` in `PoieticFlows` library
-- usage of `Metamodel` in `Compiler`, `StockFlowView`
-- usage of `Metamodel` in `PoieticTool` executable
-
-Possible directions:
-
-- Convert Metamodel to be an instance
-- Where it is necessary or convenient to use direct metamodel symbols, use
-  a metamodel view or some context/wrapper with dynamic lookup of the
-  metamodel components. (This is actually the correct dynamic way)
-
 
 ### Object Mutation
 
