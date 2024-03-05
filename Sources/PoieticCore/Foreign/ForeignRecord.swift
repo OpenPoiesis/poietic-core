@@ -62,6 +62,7 @@ extension ForeignRecord: Codable {
         }
     }
 }
+
 /// A collection of key-value pairs that store data used for exchange with
 /// external environment such as database.
 ///
@@ -69,6 +70,10 @@ public struct ForeignRecord {
     var dict: [String:Variant]
     
     public var dictionary: [String:Variant] { dict }
+
+    public init() {
+        self.dict = [:]
+    }
     /// Create a foreign record from a dictionary.
     ///
     /// Keys are attribute names and values are foreign values of the attribute.

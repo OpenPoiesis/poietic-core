@@ -17,12 +17,13 @@ class TestPersistentRecord: XCTestCase {
     }
 
     func testFromRecord() throws {
-        let record = ForeignRecord([
-        "type": Variant("Stock"),
-        "id": Variant(10),
-        "snapshot_id": Variant(20),
-        ]
-        )
+        let info = ForeignRecord([
+            "type": Variant("Stock"),
+            "id": Variant(10),
+            "snapshot_id": Variant(20),
+        ])
+
+        let record = ObjectRecord(info: info, attributes: ForeignRecord())
         
         let obj: ObjectSnapshot = try memory.createSnapshot(record)
         

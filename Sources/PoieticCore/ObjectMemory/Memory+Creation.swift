@@ -83,9 +83,13 @@ extension ObjectMemory {
         return snapshot
     }
     
-    @available(*, deprecated, message: "Use the designated initialiser createSnapshot")
-    public func createSnapshot(_ record: ForeignRecord) throws -> ObjectSnapshot {
-        let typeName = try record.stringValue(for: "type")
+    @available(*, deprecated, message: "Use the designated initialiser createSnapshot or merge with foreign object")
+    public func createSnapshot(_ record: ObjectRecord) throws -> ObjectSnapshot {
+        // Readability alias
+        let info = record.info
+        let attributes = record.attributes.dictionary
+        
+        let typeName = try info.stringValue(for: "type")
         guard let type = metamodel.objectType(name: typeName) else {
             throw MemoryStoreError.unknownObjectType(typeName)
         }
@@ -97,18 +101,12 @@ extension ObjectMemory {
         case .node:
             structure = .node
         case .edge:
-            structure = .edge(try record.IDValue(for: "origin"),
-                              try record.IDValue(for: "target"))
+            structure = .edge(try info.IDValue(for: "origin"),
+                              try info.IDValue(for: "target"))
         }
         
-        let id = allocateID(required: try record.IDValue(for: "id"))
-        let snapshotID = allocateID(required: try record.IDValue(for: "snapshot_id"))
-        
-        var attributes = record.dictionary
-
-        for name in ObjectSnapshot.ReservedAttributeNames {
-            attributes[name] = nil
-        }
+        let id = allocateID(required: try info.IDValue(for: "id"))
+        let snapshotID = allocateID(required: try info.IDValue(for: "snapshot_id"))
         
         let snapshot = ObjectSnapshot(id: id,
                                       snapshotID: snapshotID,
@@ -116,7 +114,7 @@ extension ObjectMemory {
                                       attributes: attributes)
         
         snapshot.structure = structure
-        snapshot.parent = try record.IDValueIfPresent(for: "parent")
+        snapshot.parent = try info.IDValueIfPresent(for: "parent")
         
         self._allSnapshots[snapshotID] = snapshot
 

@@ -342,7 +342,7 @@ public class ForeignFrameReader {
                 references[name] = snapshot.id
             }
             
-            let attributes = object.attributes ?? ForeignRecord([:])
+            let attributes = object.attributes ?? ForeignRecord()
             for (key, value) in attributes {
                 snapshot.setAttribute(value: value, forKey: key)
             }

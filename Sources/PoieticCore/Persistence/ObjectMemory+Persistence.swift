@@ -7,11 +7,39 @@
 
 import Foundation
 extension ObjectSnapshot {
+    /// Get a foreign record with all object's attributes
+    @available(*, deprecated,
+                renamed: "asForeignObject",
+                message: "ALL GOOD, just a refactoring reminder: Use this later instead of the original method")
+    public func asObjectRecord() -> ObjectRecord {
+        return ObjectRecord(
+            info: infoAsForeignRecord(),
+            attributes: ForeignRecord(attributes)
+        )
+    }
+    public func infoAsForeignRecord() -> ForeignRecord {
+        // FIXME: [REFACTORING] change to ForeignObject
+        var dict: [String:Variant] = [:]
+        dict["id"] = Variant(Int(id))
+        dict["snapshot_id"] = Variant(Int(snapshotID))
+        dict["type"] = Variant(type.name)
+        dict["structure"] = Variant(structure.type.rawValue)
+        if case let .edge(origin, target) = structure {
+            dict["origin"] = Variant(Int(origin))
+            dict["target"] = Variant(Int(target))
+        }
+        if let parent {
+            dict["parent"] = Variant(Int(parent))
+        }
+        return ForeignRecord(dict)
+    }
     /// Create a foreign record from the object snapshot.
     ///
     /// The foreign record does not include
     ///
+    @available(*, deprecated, message: "Use info + attributes separately")
     public func foreignRecord() -> ForeignRecord {
+        // FIXME: [REFACTORING] change to ForeignObject
         var dict: [String:Variant] = self.attributes
         dict["id"] = Variant(Int(id))
         dict["snapshot_id"] = Variant(Int(snapshotID))
@@ -54,18 +82,22 @@ extension ObjectMemory {
     }
     
     public func writeAll(store: MakeshiftMemoryStore) throws {
-        var outSnapshots: [ForeignRecord] = []
+        // Store content:
+        // - all snapshots (object info, attributes)
+        // - frames (frame ID, list of snapshots)
+        //
+        var outSnapshots: [ObjectRecord] = []
         var outFrames: [ForeignRecord] = []
         
         // 1. Collect snapshots and components
         // ----------------------------------------------------------------
         //
         for snapshot in validatedSnapshots {
-            let record = snapshot.foreignRecord()
+            // TODO: [REFACTORING] [ATTENTION]
+            let record = snapshot.asObjectRecord()
             outSnapshots.append(record)
         }
-        try store.replaceAll(in: MakeshiftMemoryStore.SnapshotsCollectionName,
-                             records: outSnapshots)
+        try store.replaceAllObjects(outSnapshots)
         
         // 2. Collect components
         // ----------------------------------------------------------------
@@ -76,13 +108,12 @@ extension ObjectMemory {
         // ----------------------------------------------------------------
         //
         for frame in self._stableFrames.values {
-            let snapshotIDs: [VariantAtom] = frame.snapshots.map {
-                VariantAtom(Int($0.snapshotID))
-            }
+            let snapshotIDs: [Int] = frame.snapshots.map { Int($0.snapshotID) }
+            
             let record = ForeignRecord(
                 [
                     "id": Variant(Int(frame.id)),
-                    "snapshots": .array(snapshotIDs),
+                    "snapshots": Variant(snapshotIDs),
                 ]
             )
             outFrames.append(record)
@@ -93,15 +124,15 @@ extension ObjectMemory {
         // 4. Memory state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
-        let undoables = undoableFrames.map { VariantAtom(Int($0)) }
-        let redoables = redoableFrames.map { VariantAtom(Int($0)) }
+        let undoables = undoableFrames.map { Int($0) }
+        let redoables = redoableFrames.map { Int($0) }
 
         var state: ForeignRecord = ForeignRecord([
-            "undo": .array(undoables),
-            "redo": .array(redoables),
+            "undo": Variant(undoables),
+            "redo": Variant(redoables)
         ])
         if let id = currentFrameID {
-            state["currentFrameID"] = .atom(.int(Int(id)))
+            state["currentFrameID"] = Variant(Int(id))
 
         }
         try store.replaceAll(in: MakeshiftMemoryStore.MemoryStateCollectionName,
@@ -120,7 +151,7 @@ extension ObjectMemory {
     public func restoreAll(store: MakeshiftMemoryStore) throws {
         // TODO: Collect multiple issues
         try store.load()
-        
+
         // 0. Remove everything
         // ----------------------------------------------------------------
 
@@ -130,7 +161,7 @@ extension ObjectMemory {
         // ----------------------------------------------------------------
         var snapshots: [SnapshotID: ObjectSnapshot] = [:]
         
-        for record in try store.fetchAll(MakeshiftMemoryStore.SnapshotsCollectionName) {
+        for record in try store.fetchAllObjects() {
             let snapshot = try createSnapshot(record)
             guard snapshots[snapshot.snapshotID] == nil else {
                 // TODO: Collect error and continue
@@ -139,29 +170,6 @@ extension ObjectMemory {
             snapshots[snapshot.snapshotID] = snapshot
         }
 
-//        // 2. Read components
-//        // ----------------------------------------------------------------
-//
-//        for componentName in store.componentNames {
-//            guard let componentType = metamodel.inspectableComponent(name: componentName) else {
-//                // TODO: Collect error and continue
-//                throw MemoryStoreError.unknownComponentType(componentName)
-//            }
-//            let collectionName = componentName + MakeshiftMemoryStore.ComponentCollectionSuffix
-//            let records = try store.fetchAll(collectionName)
-//            for record in records {
-//                guard let snapshotIDValue = record["snapshot_id"] else {
-//                    throw MemoryStoreError.brokenIntegrity("Missing snapshot_id in component \(componentName)")
-//                }
-//                let snapshotID = try snapshotIDValue.idValue()
-//                guard let snapshot = snapshots[snapshotID] else {
-//                    throw MemoryStoreError.invalidReference(snapshotID, "snapshot", "component \(componentName)")
-//                }
-//                let component = try componentType.init(record: record)
-//                snapshot.components.set(component)
-//            }
-//        }
-       
         for snapshot in snapshots.values {
             snapshot.promote(.validated)
         }

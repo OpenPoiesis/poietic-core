@@ -57,24 +57,68 @@ final class ForeignValueTests: XCTestCase {
 }
 
 final class ForeignValueJSONTests: XCTestCase {
-    func testAtomFromJSON() throws {
-        // TODO: Int should be int
-        XCTAssertEqual(try VariantAtom.fromJSON("10").valueType, .int)
-        XCTAssertEqual(try VariantAtom.fromJSON("10.0").valueType, .int)
-        XCTAssertEqual(try VariantAtom.fromJSON("12.3").valueType, .double)
-        XCTAssertEqual(try VariantAtom.fromJSON("true").valueType, .bool)
-        XCTAssertEqual(try VariantAtom.fromJSON("\"hello\"").valueType, .string)
-        XCTAssertEqual(try VariantAtom.fromJSON("[10, 20]").valueType, .point)
+    func testJSONValueDecoding() throws {
+        let decoder = JSONDecoder()
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("10".utf8)),
+                       .int(10))
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("true".utf8)),
+                       .bool(true))
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("10.2".utf8)),
+                       .double(10.2))
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("\"text\"".utf8)),
+                       .string("text"))
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("null".utf8)),
+                       .null)
+
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("[10, true]".utf8)),
+                       .array([.int(10), .bool(true)]))
+        
+        XCTAssertEqual(try decoder.decode(JSONValue.self,
+                                          from: Data("{\"a\": 10, \"b\": true}".utf8)),
+                       .object(["a": .int(10), "b": .bool(true)]))
+    }
+    func testJSONValueEncoding() throws {
+        XCTAssertEqual(try JSONValue.int(10).asJSONString(), "10")
+        XCTAssertEqual(try JSONValue.double(10.2).asJSONString(), "10.2")
+        XCTAssertEqual(try JSONValue.bool(true).asJSONString(), "true")
+        XCTAssertEqual(try JSONValue.string("text").asJSONString(), "\"text\"")
+        XCTAssertEqual(try JSONValue.null.asJSONString(), "null")
+        XCTAssertEqual(try JSONValue.array([.int(10), .bool(true)]).asJSONString(),
+                       "[10,true]")
+        XCTAssertEqual(try JSONValue.object(["a": .int(10)]).asJSONString(),
+                       "{\"a\":10}")
+    }
+
+    func toJSON(_ string: String) -> JSONValue {
+        return try! JSONValue(string: string)
     }
     
-//    func testAtomToJSON() throws {
-//        // TODO: Int should be int
-//        XCTAssertEqual(try ForeignAtom(10).toJSON(), "10")
-//        XCTAssertEqual(try ForeignAtom(10.1).toJSON(), "10.1")
-//        XCTAssertEqual(try ForeignAtom(true).toJSON(), "true")
-//        XCTAssertEqual(try ForeignAtom("hello").toJSON(), "\"hello\"")
-//        XCTAssertEqual(try ForeignAtom(Point(10, 20)).toJSON(), "[10,20]")
-//    }
+    func testVariantFromJSON() throws {
+        // TODO: Int should be int
+        XCTAssertEqual(try Variant.fromJSON(toJSON("0")).valueType, .int)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("1")).valueType, .int)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("10")).valueType, .int)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("10.0")).valueType, .int)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("12.3")).valueType, .double)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("true")).valueType, .bool)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("\"hello\"")).valueType, .string)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("[10, 20]")).valueType, .ints)
+        XCTAssertEqual(try Variant.fromJSON(toJSON("[[10, 20]]")).valueType, .points)
+    }
+    
+    func testAtomToJSON() throws {
+        XCTAssertEqual(try VariantAtom(10).asJSON().asJSONString(), "10")
+        XCTAssertEqual(try VariantAtom(10.1).asJSON().asJSONString(), "10.1")
+        XCTAssertEqual(try VariantAtom(true).asJSON().asJSONString(), "true")
+        XCTAssertEqual(try VariantAtom("hello").asJSON().asJSONString(), "\"hello\"")
+        XCTAssertEqual(try VariantAtom(Point(10, 20)).asJSON().asJSONString(), "[10,20]")
+    }
 //    
 //    
 //    func testValueFromJSON() throws {
