@@ -112,6 +112,7 @@ public class Signature: CustomStringConvertible {
     ///
     public var isVariadic: Bool { variadic != nil }
    
+    // TODO: Change to ValueType
     public var returnType: AtomType? = nil
     
     /// Represents a function without any arguments

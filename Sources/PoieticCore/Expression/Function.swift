@@ -9,185 +9,138 @@
 // TODO: This is an old design, might be a bit more complex than necessary, might need some simplification.
 // NOTE: There were reasons for this design back then. Not sure if they still apply.
 
-/// Error describing an issue with an argument passed to a function.
+/// Class representing a function used in arithmetic expression evaluation.
 ///
-/// This structure is returned from validation of function arguments. See
-/// `FunctionProtocol.validate()` for more information.
-///
-public enum FunctionError: Error, CustomStringConvertible {
-    case invalidNumberOfArguments(Int, Int)
-    case typeMismatch(Int, String)
+public class Function: CustomStringConvertible {
+    /// Type of the function callable body closure.
+    ///
+    /// The body takes a list of variants and returns a variant.
+    ///
+    public typealias Body = ([Variant]) throws -> Variant
+    /// Name of the function.
+    ///
+    /// The name in a function call used in ``ArithmeticExpression`` refers to
+    /// a function with corresponding name.
+    ///
+    public let name: String
     
-    public var description: String {
-        switch self {
-        case .invalidNumberOfArguments(let actual, let expected):
-            "Invalid number of arguments: \(actual), expected: \(expected)"
-        case .typeMismatch(let number, let expected):
-            "Invalid type of argument number \(number). Expected: \(expected)"
-        }
+    /// Signature of the function - list of arguments, their types and a type
+    /// of the return value.
+    ///
+    public let signature: Signature
+    
+    /// Closure representing the function body.
+    ///
+    /// Use the closure:
+    ///
+    /// ```swift
+    /// let function: Function   // Assume we have this
+    /// let arguments: [Variant]
+    ///
+    /// result = function.apply(arguments)
+    /// ```
+    ///
+    public let apply: Body
+
+    public init(name: String, signature: Signature, body: @escaping Body) {
+        self.name = name
+        self.signature = signature
+        self.apply = body
     }
-}
-
-/// Protocol describing a function.
-///
-public protocol FunctionProtocol: Hashable, CustomStringConvertible {
-    /// Name of the function
-    var name: String { get }
-    var signature: Signature { get }
     
-    /// Applies the function to the arguments and returns the result. This
-    /// function is guaranteed not to fail.
+    /// Create a function that takes variable number of numeric values and
+    /// returns a numeric value.
     ///
-    /// - Note: Invalid arguments result in fatal error.
-    ///
-    /// - Throws: ``ValueError`` when the argument is not convertible to double.
-    ///
-    func apply(_ arguments: [Variant]) throws -> Variant
-}
+    public static func numericVariadic(_ name: String,
+                                       body: @escaping ([Double]) -> Double) -> Function {
+        Function(
+            name: name,
+            signature: Signature(numericVariadic: "value"),
+            body: { arguments in
+                let floatArguments = try arguments.map { try $0.doubleValue() }
+                let result = body(floatArguments)
+                return Variant(result)
+            }
+        )
+    }
 
-extension FunctionProtocol  {
+    public static func numericBinary(_ name: String,
+                                     leftArgument: String = "lhs",
+                                     rightArgument: String = "rhs",
+                              body: @escaping (Double, Double) -> Double) -> Function {
+        Function(
+            name: name,
+            signature: Signature(
+                [
+                    FunctionArgument(leftArgument, type: .numeric),
+                    FunctionArgument(rightArgument, type: .numeric),
+                ],
+                returns: .double
+            ),
+            body: { arguments in
+                guard arguments.count == 2 else {
+                    fatalError("Invalid number of arguments (\(arguments.count)) to a binary numeric function '\(name)'.")
+                }
+
+                let lhs = try arguments[0].doubleValue()
+                let rhs = try arguments[1].doubleValue()
+
+                let result = body(lhs, rhs)
+                
+                return Variant(result)
+            }
+        )
+    }
+    
+    public static func numericUnary(_ name: String,
+                                    argumentName: String = "value",
+                                    body: @escaping (Double) -> Double) -> Function {
+        Function(
+            name: name,
+            signature: Signature(
+                [
+                    FunctionArgument(argumentName, type: .numeric),
+                ],
+                returns: .double
+            ),
+            body: { arguments in
+                guard arguments.count == 1 else {
+                    fatalError("Invalid number of arguments (\(arguments.count)) to unary numeric function '\(name)'.")
+                }
+
+                let argument = try arguments[0].doubleValue()
+                let result = body(argument)
+                
+                return Variant(result)
+            }
+        )
+    }
+
+    public static func comparison(_ name: String,
+                          body: @escaping (Variant, Variant) throws -> Bool) -> Function {
+        // TODO: Remove `throws` from body
+        Function(
+            name: name,
+            signature: Signature(
+                [
+                    FunctionArgument("lhs", type: .any),
+                    FunctionArgument("rhs", type: .any),
+                ],
+                returns: .bool
+            ),
+            body: { arguments in
+                guard arguments.count == 2 else {
+                    fatalError("Invalid number of arguments (\(arguments.count)) to comparison operator '\(name)'.")
+                }
+
+                let result = try body(arguments[0], arguments[1])
+                
+                return Variant(result)
+            }
+        )
+    }
+
     public var description: String {
         "\(name)(\(signature))"
     }
 }
-
-/// An object that represents a binary operator - a function of two
-/// numeric arguments.
-///
-public class NumericBinaryFunction: FunctionProtocol {
-    public typealias Implementation = (Double, Double) -> Double
-    public let name: String
-    public let implementation: Implementation
-    public let signature: Signature
-    
-    public init(name: String, implementation: @escaping Implementation) {
-        self.name = name
-        self.implementation = implementation
-        self.signature = Signature(
-            [
-                FunctionArgument("lhs", type: .numeric),
-                FunctionArgument("rhs", type: .numeric),
-            ],
-            returns: .double
-        )
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-    
-    /// Applies the function to the arguments and returns result.
-    ///
-    /// - Precondition: Arguments must be float convertible.
-    ///
-    /// - Throws: ``ValueError`` when the argument is not convertible to double.
-    ///
-    public func apply(_ arguments: [Variant]) throws -> Variant {
-        guard arguments.count == 2 else {
-            fatalError("Invalid number of arguments (\(arguments.count)) to a binary operator '\(name)'.")
-        }
-
-        let lhs = try arguments[0].doubleValue()
-        let rhs = try arguments[1].doubleValue()
-
-        let result = implementation(lhs, rhs)
-        
-        return Variant(result)
-    }
-
-    public static func == (lhs: NumericBinaryFunction, rhs: NumericBinaryFunction) -> Bool {
-        return lhs === rhs
-    }
-}
-
-/// An object that represents a unary operator - a function of one numeric
-/// argument.
-///
-public class NumericUnaryFunction: FunctionProtocol {
-    public typealias Implementation = (Double) -> Double
-    
-    public let name: String
-    public let implementation: Implementation
-    public let signature: Signature
-    
-    public init(name: String,
-                argumentName: String = "value",
-                implementation: @escaping Implementation) {
-        self.name = name
-        self.signature = Signature(
-            [
-                FunctionArgument(argumentName, type: .numeric)
-            ],
-            returns: .double
-        )
-        self.implementation = implementation
-    }
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-
-    /// Applies the function to the arguments and returns result.
-    ///
-    /// - Precondition: Arguments must be float convertible.
-    ///
-    /// - Throws: ``ValueError`` when an argument is not convertible to double.
-    ///
-    public func apply(_ arguments: [Variant]) throws -> Variant {
-        guard arguments.count == 1 else {
-            fatalError("Invalid number of arguments (\(arguments.count) to a unary operator.")
-        }
-
-        let operand = try arguments[0].doubleValue()
-
-        let result = implementation(operand)
-        
-        return Variant(result)
-    }
-
-    public static func == (lhs: NumericUnaryFunction, rhs: NumericUnaryFunction) -> Bool {
-        return lhs === rhs
-    }
-}
-
-/// An object that represents a generic function of zero or multiple numeric
-/// arguments and returning a numeric value.
-///
-public class NumericFunction: FunctionProtocol {
-    public typealias Implementation = ([Double]) -> Double
-    
-    public let name: String
-    public let implementation: Implementation
-    public let signature: Signature
-    
-    public init(name: String,
-                signature: Signature,
-                implementation: @escaping Implementation) {
-        self.name = name
-        self.signature = signature
-        self.implementation = implementation
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-
-
-    /// Applies the function to the arguments and returns result.
-    ///
-    /// - Precondition: Arguments must be float convertible.
-    ///
-    /// - Throws: ``ValueError`` when any of the arguments is not convertible to double.
-    ///
-    public func apply(_ arguments: [Variant]) throws -> Variant {
-        let floatArguments = try arguments.map { try $0.doubleValue() }
-
-        let result = implementation(floatArguments)
-        
-        return Variant(result)
-    }
-
-    public static func == (lhs: NumericFunction, rhs: NumericFunction) -> Bool {
-        return lhs === rhs
-    }
-}
-

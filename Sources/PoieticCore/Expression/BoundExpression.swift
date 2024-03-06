@@ -5,16 +5,39 @@
 //  Created by Stefan Urbanek on 28/05/2022.
 //
 
-public enum ExpressionError: Error {
+public enum ExpressionError: Error, CustomStringConvertible {
     case unknownVariable(String)
     case unknownFunction(String)
-    case functionError(FunctionError)
+    case tooManyArguments
+    case missingArguments
+    // TODO: Remove
+    case invalidNumberOfArguments(Int, Int)
+    
+    // TODO: Add argument name
+    case argumentTypeMismatch(Int, String)
+    
+    public var description: String {
+        switch self {
+        case let .unknownVariable(name):
+            "Unknown variable '\(name)'"
+        case let .unknownFunction(name):
+            "Unknown function '\(name)'"
+        case .tooManyArguments:
+            "Too many arguments"
+        case .missingArguments:
+            "Missing arguments"
+        case .invalidNumberOfArguments:
+            "Invalid number of arguments"
+        case let .argumentTypeMismatch(number, expected):
+            "Invalid type of argument number \(number). Expected: \(expected)"
+        }
+    }
 }
 
 
 // TODO: Make FunctionProtocol to conform to TypedValue
 extension ArithmeticExpression
-        where L: TypedValue, V: TypedValue, F == any FunctionProtocol {
+        where L: TypedValue, V: TypedValue, F == Function {
     public var valueType: AtomType {
         let type = switch self {
         case let .value(value): value.atomType
@@ -78,7 +101,7 @@ where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringCon
 public func bindExpression<V: TypedValue>(
     _ expression: UnboundExpression,
     variables: [String:V],
-    functions: [String:any FunctionProtocol]) throws -> ArithmeticExpression<Variant, V, any FunctionProtocol> {
+    functions: [String:Function]) throws -> ArithmeticExpression<Variant, V, Function> {
     
     switch expression {
     case let .value(value):
@@ -101,10 +124,10 @@ public func bindExpression<V: TypedValue>(
         let result = function.signature.validate([boundOperand.valueType])
         switch result {
         case .invalidNumberOfArguments:
-            throw FunctionError.invalidNumberOfArguments(1,
+            throw ExpressionError.invalidNumberOfArguments(1,
                                                          function.signature.minimalArgumentCount)
         case .typeMismatch(_):
-            throw FunctionError.typeMismatch(1, "int or double")
+            throw ExpressionError.argumentTypeMismatch(1, "int or double")
         default:
             return .unary(function, boundOperand)
         }
@@ -130,11 +153,11 @@ public func bindExpression<V: TypedValue>(
         let result = function.signature.validate([lBound.valueType, rBound.valueType])
         switch result {
         case .invalidNumberOfArguments:
-            throw FunctionError.invalidNumberOfArguments(2,
+            throw ExpressionError.invalidNumberOfArguments(2,
                                                          function.signature.minimalArgumentCount)
         case .typeMismatch(let index):
             // TODO: We need all indices
-            throw FunctionError.typeMismatch(index.first! + 1, "int or double")
+            throw ExpressionError.argumentTypeMismatch(index.first! + 1, "int or double")
         default: //
             return .binary(function, lBound, rBound)
         }
@@ -153,12 +176,11 @@ public func bindExpression<V: TypedValue>(
 
         switch result {
         case .invalidNumberOfArguments:
-            throw ExpressionError.functionError(
-                .invalidNumberOfArguments(arguments.count,
-                                          function.signature.minimalArgumentCount))
+            throw ExpressionError.invalidNumberOfArguments(arguments.count,
+                                          function.signature.minimalArgumentCount)
         case .typeMismatch(let index):
             // TODO: We need all indices
-            throw ExpressionError.functionError(.typeMismatch(index.first! + 1, "int or double"))
+            throw ExpressionError.argumentTypeMismatch(index.first! + 1, "int or double")
         default: //
             return .function(function, boundArgs)
         }

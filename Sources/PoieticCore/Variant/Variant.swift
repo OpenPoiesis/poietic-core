@@ -48,21 +48,22 @@ public enum ValueType: Equatable, Codable, CustomStringConvertible {
 
 /// Error thrown when trying to convert a variant to a particular type.
 ///
-public enum ValueError: Error, CustomStringConvertible{
-    /// A tuple of (given, expected) for an error thrown when the given value
-    /// is not convertible to the expected type.
-    case typeMismatch(String, String)
+public struct TypeError: Error, CustomStringConvertible{
+    /// Type that was expected.
+    public let required: String
+    /// Type that was provided.
+    public let provided: String
     
-    /// Error thrown when a value is not convertible to a boolean.
-    ///
-    case invalidBooleanValue(String)
+    public init(required: String, provided: String) {
+        self.required = required
+        self.provided = provided
+    }
     
     public var description: String {
-        switch self {
-        case .typeMismatch(let given, let expected): "\(given) is not convertible to \(expected) type."
-        case .invalidBooleanValue(let value): "Value '\(value)' is not a valid boolean value."
-        }
+        "Type error: required '\(required)', provided '\(provided)'"
     }
+    
+    
 }
 
 
@@ -211,7 +212,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func intValue() throws -> Int {
         switch self {
         case .atom(let value): return try value.intValue()
-        case .array: throw ValueError.typeMismatch("Array", "int")
+        case .array: throw TypeError(required: "int", provided: "bool")
         }
     }
 
@@ -236,7 +237,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func stringValue() throws -> String {
         switch self {
         case .atom(let value): return value.stringValue()
-        case .array: throw ValueError.typeMismatch("Array", "string")
+        case .array: throw TypeError(required: "string", provided: "bool")
         }
     }
 
@@ -262,7 +263,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func boolValue() throws -> Bool {
         switch self {
         case .atom(let value): return try value.boolValue()
-        case .array: throw ValueError.typeMismatch("Array", "bool")
+        case .array: throw TypeError(required: "bool", provided: "bool")
         }
     }
 
@@ -278,7 +279,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func doubleValue() throws -> Double {
         switch self {
         case .atom(let value): return try value.doubleValue()
-        case .array: throw ValueError.typeMismatch("Array", "double")
+        case .array: throw TypeError(required: "double", provided: "array")
         }
     }
     
@@ -298,7 +299,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     /// - The first value is the `x` component of the point and the second value
     ///   is the `y` component of the point.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``TypeError`` when the variant
     ///   is an array or the atom is not a point or convertible to a point.
     ///
     /// - SeeAlso: ``VariantAtom/pointValue()``
@@ -313,16 +314,16 @@ public enum Variant: Equatable, CustomStringConvertible {
             switch array {
             case .double(let items):
                 guard items.count == 2 else {
-                    throw ValueError.typeMismatch("Array of \(items.count) items", "point")
+                    throw TypeError(required: "point or array of two numbers", provided: "array of \(items.count) ints")
                 }
                 return Point(x: items[0], y: items[1])
             case .int(let items):
                 guard items.count == 2 else {
-                    throw ValueError.typeMismatch("Array of \(items.count) items", "point")
+                    throw TypeError(required: "point or array of two numbers", provided: "array of \(items.count) doubles")
                 }
                 return Point(x: Double(items[0]), y: Double(items[1]))
             default:
-                throw ValueError.typeMismatch("Array", "point")
+                throw TypeError(required: "point or array of two numbers", provided: "array of \(array.count) non-numeric items")
             }
         }
     }
@@ -330,8 +331,8 @@ public enum Variant: Equatable, CustomStringConvertible {
     func IDValue() throws -> ObjectID {
         switch self {
         case .atom(let value): return try value.IDValue()
-        case .array(let items):
-            throw ValueError.typeMismatch("Array of \(items.count) items", "ID")
+        case .array(_):
+            throw TypeError(required: "Object ID", provided: "array")
         }
 
     }
@@ -340,7 +341,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     func IDArray() throws -> [ObjectID] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of IDs")
+            throw TypeError(required: "array of Object IDs", provided: "\(value.valueType)")
         case .array(let array):
             return try array.items.map { try $0.IDValue() }
         }
@@ -361,13 +362,13 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func intArray() throws -> [Int] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of ints")
+            throw TypeError(required: "array of ints", provided: "\(value.valueType)")
         case .array(let array):
             switch array {
             case .int(let values): return values
             case .double(let values): return values.map { Int($0) }
             default:
-                throw ValueError.typeMismatch("array(\(array.itemType))", "array of ints")
+                throw TypeError(required: "array of ints", provided: "array of \(array.itemType)")
             }
         }
     }
@@ -385,7 +386,7 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func stringArray() throws -> [String] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of strings")
+            throw TypeError(required: "array of strings", provided: "\(value.valueType)")
         case .array(let array):
             return array.stringItems
         }
@@ -404,12 +405,12 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func boolArray() throws -> [Bool] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of bools")
+            throw TypeError(required: "array of bools", provided: "\(value.valueType)")
         case .array(let array):
             switch array {
             case .bool(let values): return values
             default:
-                throw ValueError.typeMismatch("array(\(array.itemType))", "array of ints")
+                throw TypeError(required: "array of bools", provided: "array of \(array.itemType)")
             }
         }
     }
@@ -427,12 +428,12 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func doubleArray() throws -> [Double] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of doubles")
+            throw TypeError(required: "array of doubles", provided: "\(value.valueType)")
         case .array(let array):
             switch array {
             case .double(let values): return values
             default:
-                throw ValueError.typeMismatch("array(\(array.itemType))", "array of ints")
+                throw TypeError(required: "array of doubles", provided: "array of \(array.itemType)")
             }
         }
     }
@@ -449,12 +450,12 @@ public enum Variant: Equatable, CustomStringConvertible {
     public func pointArray() throws -> [Point] {
         switch self {
         case .atom(let value):
-            throw ValueError.typeMismatch("atom(\(value.valueType))", "array of points")
+            throw TypeError(required: "array of points", provided: "\(value.valueType)")
         case .array(let array):
             switch array {
             case .point(let values): return values
             default:
-                throw ValueError.typeMismatch("array(\(array.itemType))", "array of ints")
+                throw TypeError(required: "array of points", provided: "array of \(array.itemType)")
             }
         }
     }
@@ -520,5 +521,18 @@ extension Variant: ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     public init(stringLiteral value: String) {
         self = .atom(.string(value))
+    }
+}
+
+extension Variant {
+    public func precedes(_ other: Variant) throws -> Bool {
+        switch (self, other) {
+        case let (.atom(lhs), .atom(rhs)): try lhs.precedes(rhs)
+        case let (.array(lhs), .array(rhs)): try lhs.precedes(rhs)
+        case (.array, .atom):
+            throw EvaluationError.notComparableTypes("array", "atom")
+        case (.atom, .array):
+            throw EvaluationError.notComparableTypes("atom", "array")
+        }
     }
 }

@@ -17,7 +17,7 @@ public enum JSONType: Equatable {
     case null
 }
 
-public enum JSONValue: Equatable, Decodable, Encodable {
+public enum JSONValue: Equatable, Codable {
     case int(Int)
     case double(Double)
     case string(String)
@@ -45,61 +45,48 @@ public enum JSONValue: Equatable, Decodable, Encodable {
     }
     
     public init(from decoder: Decoder) throws {
-        // TODO: Use option for single value
         let container = try decoder.singleValueContainer()
+
         if let value = try? container.decode(Bool.self) {
             self = .bool(value)
-            return
         }
         else if let value = try? container.decode(Int.self) {
             self = .int(value)
-            return
         }
         else if let value = try? container.decode(Double.self) {
             self = .double(value)
-            return
         }
         else if let value = try? container.decode(String.self) {
             self = .string(value)
-            return
         }
         else if let value = try? container.decode([JSONValue].self) {
             self = .array(value)
-            return
         }
         else if let items = try? container.decode([String:JSONValue].self) {
             self = .object(items)
-            return
         }
         else {
             let _: Int? = try container.decode((Int?).self)
             // This must be null, since we tried Int above
             self = .null
-            return
         }
     }
     public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
         switch self {
         case let .int(value):
-            var container = encoder.singleValueContainer()
             try container.encode(value)
         case let .bool(value):
-            var container = encoder.singleValueContainer()
             try container.encode(value)
         case let .double(value):
-            var container = encoder.singleValueContainer()
             try container.encode(value)
         case let .string(value):
-            var container = encoder.singleValueContainer()
             try container.encode(value)
         case let .array(array):
-            var container = encoder.singleValueContainer()
             try container.encode(array)
         case let .object(dict):
-            var container = encoder.singleValueContainer()
             try container.encode(dict)
         case .null:
-            var container = encoder.singleValueContainer()
             try container.encode(Int?(nil))
         }
     }

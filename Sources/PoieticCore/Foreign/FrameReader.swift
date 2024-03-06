@@ -7,6 +7,10 @@
 
 import Foundation
 
+// TODO: Refactor. See note below
+// NOTE: Change the foreign frame reader to read using JSONValue
+
+// TODO: Rename to ForeignFrameError
 public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
     case invalidStructure(String)
     case dataCorrupted

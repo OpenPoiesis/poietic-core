@@ -15,9 +15,9 @@
 ///
 public struct FrameValidationError: Error {
     public let violations: [ConstraintViolation]
-    public let typeErrors: [ObjectID: [TypeError]]
+    public let typeErrors: [ObjectID: [ObjectTypeError]]
     
-    public init(violations: [ConstraintViolation]=[], typeErrors: [ObjectID:[TypeError]]) {
+    public init(violations: [ConstraintViolation]=[], typeErrors: [ObjectID:[ObjectTypeError]]) {
         self.violations = violations
         self.typeErrors = typeErrors
     }
@@ -504,7 +504,7 @@ public class ObjectMemory {
 
         // Check types
         // ------------------------------------------------------------
-        var typeErrors: [ObjectID: [TypeError]] = [:]
+        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
         
         // TODO: Make these checks on mutating methods
         for object in frame.snapshots {
@@ -515,7 +515,7 @@ public class ObjectMemory {
                         // TODO: Still check for type
                     }
                     guard let _ = object.attributes[attr.name] else {
-                        let error = TypeError.missingTraitAttribute(attr.name, trait.name)
+                        let error = ObjectTypeError.missingTraitAttribute(attr.name, trait.name)
                         typeErrors[object.id, default: []].append(error)
                         continue
                     }
@@ -680,7 +680,7 @@ public class ObjectMemory {
 }
 
 
-public enum TypeError: Equatable, CustomStringConvertible {
+public enum ObjectTypeError: Equatable, CustomStringConvertible {
     case missingTraitAttribute(String, String)
     case typeMismatch(String, String)
     
