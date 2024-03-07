@@ -9,7 +9,7 @@ public protocol ExpressionConvertible {
     var toExpression: UnboundExpression { get }
 }
 
-public typealias UnboundExpression = ArithmeticExpression<Variant, String, String>
+public typealias UnboundExpression = ArithmeticExpression<String, String>
 
 /// Arithmetic expression.
 ///
@@ -18,13 +18,12 @@ public typealias UnboundExpression = ArithmeticExpression<Variant, String, Strin
 ///
 /// The type arguments:
 ///
-/// - ``LiteralValue`` (`L`): Type of a literal.
 /// - ``VariableReference`` (`V`): Type of a reference to a variable.
 /// - ``FunctionReference`` (`F`): Type of a reference to a function,
 ///   including functions representing operators.
 ///
-public indirect enum ArithmeticExpression<L, V, F> {
-    public typealias LiteralValue = L
+public indirect enum ArithmeticExpression<V, F> {
+    public typealias LiteralValue = Variant
     public typealias VariableReference = V
     public typealias FunctionReference = F
     // Literals
@@ -73,7 +72,7 @@ public indirect enum ArithmeticExpression<L, V, F> {
 }
 
 
-extension ArithmeticExpression: Equatable where L:Equatable, F:Equatable, V:Equatable {
+extension ArithmeticExpression: Equatable where F:Equatable, V:Equatable {
     public static func ==(left: ArithmeticExpression, right: ArithmeticExpression) -> Bool {
         switch (left, right) {
         case let(.value(lval), .value(rval)) where lval == rval: true

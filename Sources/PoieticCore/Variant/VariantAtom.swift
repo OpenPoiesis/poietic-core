@@ -23,35 +23,35 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
     public func isConvertible(to other: AtomType) -> Bool {
         // FIXME: [IMPORTANT] Do not allow automatic string conversions
         switch (self, other) {
-        // Bool to string, not to int or float
+        // Bool to string or itself only
         case (.bool,   .string): return true
         case (.bool,   .bool):   return true
         case (.bool,   .int):    return false
         case (.bool,   .double): return false
         case (.bool,   .point):  return false
 
-        // Int to all except bool
+        // Int to all except bool and point
         case (.int,    .string): return true
         case (.int,    .bool):   return false
         case (.int,    .int):    return true
         case (.int,    .double): return true
         case (.int,    .point):  return false
 
-        // Float to all except bool
+        // Double to string or to itself
         case (.double, .string): return true
         case (.double, .bool):   return false
-        case (.double, .int):    return true
+        case (.double, .int):    return false
         case (.double, .double): return true
         case (.double, .point):  return false
 
-        // String to all
+        // String to all except point
         case (.string, .string): return true
         case (.string, .bool):   return true
         case (.string, .int):    return true
         case (.string, .double): return true
         case (.string, .point):  return false
 
-        // Point to point or a string
+        // Point to itself only
         case (.point, .string): return false
         case (.point, .bool):   return false
         case (.point, .int):    return false

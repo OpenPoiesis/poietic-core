@@ -36,6 +36,29 @@ public enum ValueType: Equatable, Codable, CustomStringConvertible {
         }
     }
     
+    public func isConvertible(to other: ValueType) -> Bool {
+        switch (self, other) {
+        case (.atom(let lhs), .atom(let rhs)):
+            lhs.isConvertible(to: rhs)
+        case (.atom(_), .array(_)):
+            // TODO: Point?
+            false
+        case (.array(_), .atom(_)):
+            // TODO: Point?
+            false
+        case (.array(let lhs), .array(let rhs)):
+            lhs.isConvertible(to: rhs)
+        }
+    }
+    
+    public func isConvertible(to other: UnionType) -> Bool {
+        switch other {
+        case .any: true
+        case .concrete(let otherType): isConvertible(to: otherType)
+        case .union(let types): types.contains { isConvertible(to: $0) }
+        }
+    }
+
     public var description: String {
         switch self {
         case .atom(let value): "\(value)"
@@ -166,7 +189,7 @@ public enum Variant: Equatable, CustomStringConvertible {
         }
     }
 
-    public var valueType: ValueType? {
+    public var valueType: ValueType {
         switch self {
         case .atom(let value): return .atom(value.valueType)
         case .array(let values): return .array(values.itemType)

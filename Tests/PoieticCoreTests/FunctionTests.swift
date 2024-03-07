@@ -11,7 +11,7 @@ import XCTest
 
 final class FunctionTests: XCTestCase {
     func testSignatureEmpty() throws {
-        let signature = Signature()
+        let signature = Signature(returns: .bool)
         
         XCTAssertFalse(signature.isVariadic)
         XCTAssertEqual(signature.validate(), .ok)
@@ -22,7 +22,7 @@ final class FunctionTests: XCTestCase {
             FunctionArgument("a", type: .concrete(.int)),
             FunctionArgument("b", type: .concrete(.int)),
             FunctionArgument("c", type: .concrete(.int)),
-        ])
+        ],returns: .int)
         
         XCTAssertEqual(signature.validate([.int, .int, .int]), .ok)
         XCTAssertEqual(signature.validate([.int, .int, .double]),
@@ -36,7 +36,8 @@ final class FunctionTests: XCTestCase {
     
     func testVariadic() throws {
         let signature = Signature(
-            variadic: FunctionArgument("things", type: .concrete(.int))
+            variadic: FunctionArgument("things", type: .concrete(.int)),
+            returns: .int
         )
         XCTAssertTrue(signature.isVariadic)
         
@@ -56,7 +57,8 @@ final class FunctionTests: XCTestCase {
                 FunctionArgument("b", type: .concrete(.int)),
                 FunctionArgument("c", type: .concrete(.int)),
             ],
-            variadic: FunctionArgument("things", type: .concrete(.int))
+            variadic: FunctionArgument("things", type: .concrete(.int)),
+            returns: .int
         )
         XCTAssertTrue(signature.isVariadic)
 

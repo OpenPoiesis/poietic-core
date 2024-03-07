@@ -51,20 +51,20 @@ public class Function: CustomStringConvertible {
     /// Create a function that takes variable number of numeric values and
     /// returns a numeric value.
     ///
-    public static func numericVariadic(_ name: String,
+    public static func NumericVariadic(_ name: String,
                                        body: @escaping ([Double]) -> Double) -> Function {
         Function(
             name: name,
             signature: Signature(numericVariadic: "value"),
             body: { arguments in
-                let floatArguments = try arguments.map { try $0.doubleValue() }
+                let floatArguments = try! arguments.map { try $0.doubleValue() }
                 let result = body(floatArguments)
                 return Variant(result)
             }
         )
     }
 
-    public static func numericBinary(_ name: String,
+    public static func NumericBinary(_ name: String,
                                      leftArgument: String = "lhs",
                                      rightArgument: String = "rhs",
                               body: @escaping (Double, Double) -> Double) -> Function {
@@ -82,8 +82,8 @@ public class Function: CustomStringConvertible {
                     fatalError("Invalid number of arguments (\(arguments.count)) to a binary numeric function '\(name)'.")
                 }
 
-                let lhs = try arguments[0].doubleValue()
-                let rhs = try arguments[1].doubleValue()
+                let lhs = try! arguments[0].doubleValue()
+                let rhs = try! arguments[1].doubleValue()
 
                 let result = body(lhs, rhs)
                 
@@ -92,7 +92,7 @@ public class Function: CustomStringConvertible {
         )
     }
     
-    public static func numericUnary(_ name: String,
+    public static func NumericUnary(_ name: String,
                                     argumentName: String = "value",
                                     body: @escaping (Double) -> Double) -> Function {
         Function(
@@ -108,7 +108,7 @@ public class Function: CustomStringConvertible {
                     fatalError("Invalid number of arguments (\(arguments.count)) to unary numeric function '\(name)'.")
                 }
 
-                let argument = try arguments[0].doubleValue()
+                let argument = try! arguments[0].doubleValue()
                 let result = body(argument)
                 
                 return Variant(result)
@@ -116,7 +116,7 @@ public class Function: CustomStringConvertible {
         )
     }
 
-    public static func comparison(_ name: String,
+    public static func Comparison(_ name: String,
                           body: @escaping (Variant, Variant) throws -> Bool) -> Function {
         // TODO: Remove `throws` from body
         Function(
@@ -133,13 +133,19 @@ public class Function: CustomStringConvertible {
                     fatalError("Invalid number of arguments (\(arguments.count)) to comparison operator '\(name)'.")
                 }
 
-                let result = try body(arguments[0], arguments[1])
+                let result = try! body(arguments[0], arguments[1])
                 
                 return Variant(result)
             }
         )
     }
 
+    public func concreteReturnType(_ arguments: [ValueType]) throws -> ValueType {
+        // FIMXE: [REFACTORING] implement this
+        fatalError("NOT IMPLEMENTED!")
+        // self.signature.returnType
+    }
+    
     public var description: String {
         "\(name)(\(signature))"
     }

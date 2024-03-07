@@ -8,31 +8,62 @@
 
 /// Type of a function argument.
 ///
-public enum ArgumentType: Equatable {
+public enum UnionType: Equatable {
     /// Function argument can be of any type.
     case any
     
     /// Function argument must be of only one concrete type.
-    case concrete(AtomType)
+    case concrete(ValueType)
     
     /// Function argument can be of one of the specified types.
-    case union([AtomType])
+    case union([ValueType])
     
-    public static let numeric = ArgumentType.union([.int, .double])
-    public static let objectReference = ArgumentType.union([.int, .string])
-
+    public static let int = UnionType.concrete(.int)
+    public static let double = UnionType.concrete(.double)
+    public static let bool = UnionType.concrete(.bool)
+    public static let numeric = UnionType.union([.int, .double])
+    public static let objectReference = UnionType.union([.int, .string])
+    
     /// Function that verifies whether the given type matches the type
     /// described by this object.
     ///
     /// - Returns: `true` if the type matches.
     ///
-    public func matches(_ type: AtomType) -> Bool {
+    public func matches(_ type: ValueType) -> Bool {
         switch self {
         case .any: true
         case .concrete(let concrete): type == concrete
         case .union(let types): types.contains(type)
         }
     }
+    // TODO: [REFACTORING] Add tests
+    public func isConvertible(to other: UnionType) -> Bool {
+        switch (self, other) {
+        case (.any, .any):
+            true
+        case (.any, .concrete(_)):
+            false // need to cast
+        case (.any, .union(_)):
+            false // need to cast
+        case (.concrete(_), .any):
+            true
+        case (.concrete(let lhs), .concrete(let rhs)):
+            lhs.isConvertible(to: rhs)
+        case (.concrete(let lhs), .union(let rhs)):
+            rhs.contains {lhs.isConvertible(to: $0) }
+        case (.union(_), .any):
+            true
+        case (.union(let lhs), .concrete(let rhs)):
+            lhs.contains {$0.isConvertible(to: rhs) }
+        case (.union(let lhs), .union(let rhs)):
+            lhs.contains { ltype in
+                rhs.contains { rtype in
+                    ltype.isConvertible(to: rtype)
+                }
+            }
+        }
+    }
+
 }
 
 /// Object representing a function argument description.
@@ -44,7 +75,7 @@ public struct FunctionArgument {
     
     /// Type of the function argument.
     ///
-    public let type: ArgumentType
+    public let type: UnionType
     
     /// Create a new function argument.
     ///
@@ -52,7 +83,7 @@ public struct FunctionArgument {
     ///     - name: Name of the argument.
     ///     - type: Argument type. Default is ``ArgumentType/any``.
     ///
-    public init(_ name: String, type: ArgumentType = .any) {
+    public init(_ name: String, type: UnionType = .any) {
         self.name = name
         self.type = type
     }
@@ -112,16 +143,8 @@ public class Signature: CustomStringConvertible {
     ///
     public var isVariadic: Bool { variadic != nil }
    
-    // TODO: Change to ValueType
-    public var returnType: AtomType? = nil
+    public var returnType: ValueType
     
-    /// Represents a function without any arguments
-    /// 
-    /// - Note: It is still recommended to create application-specific
-    ///   signatures. This signature is provided for convenience.
-    ///
-    public static let Void = Signature()
-
     /// Convenience signature representing a numeric function with one argument.
     ///
     /// - Note: It is still recommended to create application-specific
@@ -130,7 +153,8 @@ public class Signature: CustomStringConvertible {
     public static let NumericUnary = Signature(
         [
             FunctionArgument("value", type: .union([.int, .double]))
-        ]
+        ],
+        returns: .double
     )
     /// Convenience signature representing a numeric function with many
     /// numeric arguments.
@@ -139,7 +163,8 @@ public class Signature: CustomStringConvertible {
     ///   signatures. This signature is provided for convenience.
     ///
     public static let NumericVariadic = Signature(
-        variadic: FunctionArgument("value", type: .union([.int, .double]))
+        variadic: FunctionArgument("value", type: .union([.int, .double])),
+        returns: .double
     )
 
     public var description: String {
@@ -148,17 +173,12 @@ public class Signature: CustomStringConvertible {
         if let variadic = self.variadic {
             argString += ",*\(variadic.name):\(variadic.type)..."
         }
-        if let returnType = self.returnType {
-            return "(\(argString)) -> \(returnType)"
-        }
-        else {
-            return "(\(argString))"
-        }
+        return "(\(argString)) -> \(returnType)"
     }
     
     public init(_ positional: [FunctionArgument] = [],
                 variadic: FunctionArgument? = nil,
-                returns returnType: AtomType? = nil) {
+                returns returnType: ValueType) {
         self.positional = positional
         self.variadic = variadic
         self.returnType = returnType
@@ -188,7 +208,7 @@ public class Signature: CustomStringConvertible {
         case typeMismatch([Int])
     }
     /// Return list of indices of values that do not match required type.
-    public func validate(_ types: [AtomType] = []) -> ValidationResult {
+    public func validate(_ types: [ValueType] = []) -> ValidationResult {
         guard (isVariadic && (types.count >= positional.count + 1))
                 || (!isVariadic && types.count == positional.count) else {
             return .invalidNumberOfArguments
@@ -200,14 +220,14 @@ public class Signature: CustomStringConvertible {
         
         for (index, item) in zip(self.positional, givenPositional).enumerated() {
             let (expected, given) = item
-            if !expected.type.matches(given) {
+            if !given.isConvertible(to: expected.type) {
                 mismatch.append(index)
             }
         }
         
         if let variadic {
             for (index, given) in givenVariadic.enumerated() {
-                if !variadic.type.matches(given) {
+                if !given.isConvertible(to: variadic.type) {
                     mismatch.append(index + givenPositional.count)
                 }
             }

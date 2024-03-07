@@ -35,28 +35,8 @@ public enum ExpressionError: Error, CustomStringConvertible {
 }
 
 
-// TODO: Make FunctionProtocol to conform to TypedValue
 extension ArithmeticExpression
-        where L: TypedValue, V: TypedValue, F == Function {
-    public var valueType: AtomType {
-        let type = switch self {
-        case let .value(value): value.atomType
-        case let .variable(ref): ref.atomType
-        case let .binary(fun, _, _): fun.signature.returnType
-        case let .unary(fun, _): fun.signature.returnType
-        case let .function(fun, _): fun.signature.returnType
-        }
-        
-        guard let type else {
-            fatalError("Expression \(self) has an unknown type. Hint: Something is broken in the binding process and/or built-in function definitions.")
-        }
-        
-        return type
-    }
-}
-
-extension ArithmeticExpression
-where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringConvertible  {
+where V: CustomStringConvertible, F: CustomStringConvertible  {
     public var description: String {
         switch self {
         case let .value(value): return value.description
@@ -68,6 +48,20 @@ where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringCon
             return "\(fun)(\(argstr))"
         }
     }
+}
+
+extension ArithmeticExpression
+where V: TypedValue, F: Function {
+    public var valueType: ValueType {
+        switch self {
+        case let .value(value): value.valueType
+        case let .binary(op, _, _): op.signature.returnType
+        case let .unary(op, _): op.signature.returnType
+        case let .function(fun, _): fun.signature.returnType
+        case let .variable(variable): variable.valueType
+        }
+    }
+
 }
 
 /// Bind an expression to concrete variable references.
@@ -101,7 +95,7 @@ where L: CustomStringConvertible, V: CustomStringConvertible, F: CustomStringCon
 public func bindExpression<V: TypedValue>(
     _ expression: UnboundExpression,
     variables: [String:V],
-    functions: [String:Function]) throws -> ArithmeticExpression<Variant, V, Function> {
+    functions: [String:Function]) throws -> ArithmeticExpression<V, Function> {
     
     switch expression {
     case let .value(value):

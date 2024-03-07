@@ -36,7 +36,7 @@ public class BuiltinVariable: Hashable {
     
     /// Data type of the variable value.
     ///
-    public let valueType: AtomType = .double
+    public let valueType: ValueType = .double
     
     /// Create a new built-in variable.
     ///
@@ -62,11 +62,19 @@ public class BuiltinVariable: Hashable {
     }
 }
 
+
+// FIXME: [REFACTORING] Reconsider existence of this protocol
+/// Protocol for types that can represent one or multiple variant types.
+///
 public protocol TypedValue {
-    var atomType: AtomType? { get }
+    var valueType: ValueType { get }
 }
 
 extension Variant: TypedValue {
+    public var unionType: UnionType {
+        return .concrete(valueType)
+    }
+    
 }
 /// Reference to a variable.
 ///
@@ -76,6 +84,7 @@ extension Variant: TypedValue {
 /// One object can represent only one variable.
 ///
 public enum VariableReference: Hashable, CustomStringConvertible {
+    // FIXME: [REFACTORING] Assign object type in the compiler
     /// The variable is represented by an object with given object ID.
     ///
     case object(ObjectID)
@@ -91,14 +100,7 @@ public enum VariableReference: Hashable, CustomStringConvertible {
         default: return false
         }
     }
-    
-    public var valueType: AtomType {
-        switch self {
-        case .object: AtomType.double
-        case .builtin(let variable): variable.valueType
-        }
-    }
-    
+
     public var description: String {
         switch self {
         case .object(let id): "object(\(id))"
