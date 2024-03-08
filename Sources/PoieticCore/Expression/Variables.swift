@@ -84,7 +84,6 @@ extension Variant: TypedValue {
 /// One object can represent only one variable.
 ///
 public enum VariableReference: Hashable, CustomStringConvertible {
-    // FIXME: [REFACTORING] Assign object type in the compiler
     /// The variable is represented by an object with given object ID.
     ///
     case object(ObjectID)

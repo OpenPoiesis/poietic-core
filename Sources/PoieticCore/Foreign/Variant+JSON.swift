@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 11/07/2023.
 //
 
-// TODO: [REFACTORING] consolidate this error with some other error
+// TODO: [REFACTORING] Consolidate this error with other errors
 public enum ForeignValueError: Error {
     // TODO: Is this used?
     case unknownForeignType

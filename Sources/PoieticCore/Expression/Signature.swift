@@ -36,7 +36,7 @@ public enum UnionType: Equatable {
         case .union(let types): types.contains(type)
         }
     }
-    // TODO: [REFACTORING] Add tests
+    
     public func isConvertible(to other: UnionType) -> Bool {
         switch (self, other) {
         case (.any, .any):

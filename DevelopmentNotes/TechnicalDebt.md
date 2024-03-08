@@ -46,6 +46,7 @@ Additional annotation:
 - `[REVIEW]` – code needs proper review and potentially testing.
 - `[REFACTORING]` – temporary marker of a code during a refactoring. These
   should go away once the refactoring is done.
+- `[RELEASE]` – resolve before release
   
 ## Known Debt
 

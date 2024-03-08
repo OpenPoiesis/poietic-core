@@ -156,12 +156,6 @@ public class Function: CustomStringConvertible {
         )
     }
 
-    public func concreteReturnType(_ arguments: [ValueType]) throws -> ValueType {
-        // FIMXE: [REFACTORING] implement this
-        fatalError("NOT IMPLEMENTED!")
-        // self.signature.returnType
-    }
-    
     public var description: String {
         "\(name)(\(signature))"
     }

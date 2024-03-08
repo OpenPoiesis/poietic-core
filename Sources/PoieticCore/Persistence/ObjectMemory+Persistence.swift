@@ -18,7 +18,7 @@ extension ObjectSnapshot {
         )
     }
     public func infoAsForeignRecord() -> ForeignRecord {
-        // FIXME: [REFACTORING] change to ForeignObject
+        // FIXME: [RELEASE] change to ForeignObject
         var dict: [String:Variant] = [:]
         dict["id"] = Variant(Int(id))
         dict["snapshot_id"] = Variant(Int(snapshotID))
@@ -39,7 +39,7 @@ extension ObjectSnapshot {
     ///
     @available(*, deprecated, message: "Use info + attributes separately")
     public func foreignRecord() -> ForeignRecord {
-        // FIXME: [REFACTORING] change to ForeignObject
+        // FIXME: [RELEASE] change to ForeignObject
         var dict: [String:Variant] = self.attributes
         dict["id"] = Variant(Int(id))
         dict["snapshot_id"] = Variant(Int(snapshotID))

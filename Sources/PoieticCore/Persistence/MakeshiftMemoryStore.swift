@@ -97,7 +97,7 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
         }
     }
 }
-// FIXME: [REFACTORING] [IMPORTANT] Rename to ForeignObject, replace ForeignObject
+// FIXME: [RELEASE] [IMPORTANT] Rename to ForeignObject, replace ForeignObject
 public struct ObjectRecord {
     public let info: ForeignRecord
     public let attributes: ForeignRecord

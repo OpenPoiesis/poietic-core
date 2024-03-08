@@ -7,39 +7,12 @@
 
 import Foundation
 
-//public class IFFunction {
-//    
-//    public let name: String = "if"
-//    public let signature: Signature = Signature(
-//        [
-//            FunctionArgument("condition", type: .concrete(.bool)),
-//            FunctionArgument("if_true", type: .any),
-//            FunctionArgument("if_false", type: .any)
-//        ]
-//    )
-//    public func apply(_ arguments: [Variant]) throws -> Variant {
-//        fatalError("Nope")
-//    }
-//    
-//    public func resultType(_ argumentTypes: [ValueType]) throws -> ValueType? {
-//        guard argumentTypes.count == 2 || argumentTypes.count == 3 else {
-//            if argumentTypes.count < 2 {
-//                throw ExpressionError.missingArguments
-//            }
-//            else {
-//                throw ExpressionError.tooManyArguments
-//            }
-//        }
-//        fatalError("Nope")
-//    }
-//}
-
 /// List of built-in binary comparison operators.
 ///
 /// The operators:
 ///
 /// - `__eq__` is `==`
-/// - `__neq__` is `!=`
+/// - `__ne__` is `!=`
 /// - `__gt__` is `>`
 /// - `__ge__` is `>=`
 /// - `__lt__` is `<`
