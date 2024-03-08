@@ -68,7 +68,7 @@ public let BuiltinComparisonOperators: [Function] = [
     },
 ]
 
-public let BuiltinFunctions: [Function] = [
+public let BuiltinFunctions: [Function] = BuiltinComparisonOperators + [
     Function(name: "if",
              signature: Signature(
                 [
@@ -80,6 +80,19 @@ public let BuiltinFunctions: [Function] = [
              ),
              body: builtinIfFunctionBody
             ),
+    Function(
+        name: "not",
+        signature: Signature([FunctionArgument("value", type: .bool)],
+                             returns: .double),
+        body: builtinNotFunctionBody
+    ),
+    Function.BooleanVariadic("or") { args in
+        args.reduce(false, { x, y in x || y })
+    },
+    Function.BooleanVariadic("and") { args in
+        args.reduce(true, { x, y in x && y })
+    },
+
 ]
 
 func builtinIfFunctionBody(_ arguments: [Variant]) throws -> Variant {
@@ -96,4 +109,11 @@ func builtinIfFunctionBody(_ arguments: [Variant]) throws -> Variant {
     else {
         return ifFalse
     }
+}
+
+func builtinNotFunctionBody(_ arguments: [Variant]) throws -> Variant {
+    guard arguments.count != 1 else {
+        fatalError("Invalid number of arguments (\(arguments.count)) for `not` function, expected only 1. Hint: Expression binding seems to be broken.")
+    }
+    return Variant(!(try arguments[0].boolValue()))
 }

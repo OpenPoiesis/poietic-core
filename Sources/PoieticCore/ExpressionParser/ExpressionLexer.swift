@@ -36,6 +36,9 @@ public typealias ExpressionToken = Token<ExpressionTokenType>
 ///
 public class ExpressionLexer: Lexer {
     public typealias TokenType = ExpressionTokenType
+    public static let OperatorCharacters = "!%*+-/<=>"
+    
+    
     public var scanner: Scanner
     
     public init(scanner: Scanner) {
@@ -90,6 +93,29 @@ public class ExpressionLexer: Lexer {
                 || scanner.scan("*")
                 || scanner.scan("/")
                 || scanner.scan("%") {
+            return .operator
+        }
+        else if scanner.scan("<") {  // < or <=
+            scanner.scan("=")
+            // TODO Make sure we do not have other operator characters here
+            return .operator
+        }
+        else if scanner.scan(">") { // > or >=
+            scanner.scan("=")
+            // TODO Make sure we do not have other operator characters here
+            return .operator
+        }
+        else if scanner.scan("=") {
+            if scanner.scan("=") {  // binary ==
+                return .operator
+            }
+            else {
+                return .error(.unexpectedCharacter)
+            }
+        }
+        else if scanner.scan("!") {   // unary !  or binary !=
+            scanner.scan("=")
+            // TODO Make sure we do not have other operator characters here
             return .operator
         }
         else {

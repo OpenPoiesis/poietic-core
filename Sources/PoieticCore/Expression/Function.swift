@@ -64,6 +64,22 @@ public class Function: CustomStringConvertible {
         )
     }
 
+    public static func BooleanVariadic(_ name: String,
+                                       body: @escaping ([Bool]) -> Bool) -> Function {
+        Function(
+            name: name,
+            signature: Signature(
+                variadic: FunctionArgument("value", type: .bool),
+                returns: .bool
+            ),
+            body: { arguments in
+                let floatArguments = try! arguments.map { try $0.boolValue() }
+                let result = body(floatArguments)
+                return Variant(result)
+            }
+        )
+    }
+    
     public static func NumericBinary(_ name: String,
                                      leftArgument: String = "lhs",
                                      rightArgument: String = "rhs",

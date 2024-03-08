@@ -33,7 +33,17 @@ final class ExpressionParserTests: XCTestCase {
         XCTAssertEqual(try ExpressionParser(string: "a + 1").parse(), expr)
         XCTAssertEqual(try ExpressionParser(string: "a+1").parse(), expr)
     }
-    
+
+    func testBinaryComparison() {
+        let expr = UnboundExpression.binary(
+            "<=",
+            .value(1),
+            .value(2)
+        )
+        XCTAssertEqual(try ExpressionParser(string: "1 <= 2").parse(), expr)
+        XCTAssertEqual(try ExpressionParser(string: "1<=2").parse(), expr)
+    }
+
     func testFactorAndTermRepetition() {
         let expr = UnboundExpression.binary(
             "*",

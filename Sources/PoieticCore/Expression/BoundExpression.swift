@@ -5,12 +5,13 @@
 //  Created by Stefan Urbanek on 28/05/2022.
 //
 
-public enum ExpressionError: Error, CustomStringConvertible {
+public enum ExpressionError: Error, CustomStringConvertible, Equatable {
     case unknownVariable(String)
     case unknownFunction(String)
-    case tooManyArguments
-    case missingArguments
     // TODO: Remove
+    case tooManyArguments
+    // TODO: Remove
+    case missingArguments
     case invalidNumberOfArguments(Int, Int)
     
     // TODO: Add argument name
@@ -134,6 +135,13 @@ public func bindExpression<V: TypedValue>(
         case "*": "__mul__"
         case "/": "__div__"
         case "%": "__mod__"
+        // Comparison
+        case "==": "__eq__"
+        case "!=": "__ne__"
+        case "<" : "__lt__"
+        case "<=": "__le__"
+        case ">" : "__gt__"
+        case ">=": "__ge__"
         default: fatalError("Unknown binary operator: '\(op)'. Internal hint: check the expression parser.")
         }
         
@@ -151,7 +159,7 @@ public func bindExpression<V: TypedValue>(
                                                          function.signature.minimalArgumentCount)
         case .typeMismatch(let index):
             // TODO: We need all indices
-            throw ExpressionError.argumentTypeMismatch(index.first! + 1, "int or double")
+            throw ExpressionError.argumentTypeMismatch(index.first! + 1, String(describing: function.signature.returnType))
         default: //
             return .binary(function, lBound, rBound)
         }

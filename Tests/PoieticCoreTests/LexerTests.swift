@@ -164,7 +164,38 @@ final class LexerTests: XCTestCase {
         XCTAssertEqual(token.type, ExpressionTokenType.operator)
         XCTAssertEqual(token.text, "%")
     }
-    
+    func testComparisonOperator() throws {
+        var lexer = ExpressionLexer(string: "> >= < <= == != !")
+        
+        var token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, ">")
+        
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, ">=")
+        
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, "<")
+        
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, "<=")
+        
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, "==")
+
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, "!=")
+
+        token = lexer.next()
+        XCTAssertEqual(token.type, ExpressionTokenType.operator)
+        XCTAssertEqual(token.text, "!")
+    }
+
     func testMinusAsOperator() throws {
         var lexer = ExpressionLexer(string: "1-2")
         var token = lexer.next()

@@ -240,8 +240,53 @@ public class ExpressionParser {
         return left
     }
     
+    /// Rule:
+    ///
+    ///     term -> factor ( ( "-" | "+" ) factor )* ;
+    ///
+    func comparison_expression() throws -> (any ExpressionSyntax)? {
+        guard var left: any ExpressionSyntax = try term() else {
+            return nil
+        }
+        
+        while let op = `operator`("<")
+                ?? `operator`("<=")
+                ?? `operator`(">")
+                ?? `operator`(">="){
+            guard let right = try term() else {
+                throw ExpressionSyntaxError.expressionExpected
+            }
+            left = BinaryOperatorSyntax(leftOperand: left,
+                                         op: op,
+                                         rightOperand: right)
+        }
+        
+        return left
+    }
+
+    /// Rule:
+    ///
+    ///     term -> factor ( ( "-" | "+" ) factor )* ;
+    ///
+    func equality_expression() throws -> (any ExpressionSyntax)? {
+        guard var left: any ExpressionSyntax = try comparison_expression() else {
+            return nil
+        }
+        
+        while let op = `operator`("==") ?? `operator`("!=") {
+            guard let right = try comparison_expression() else {
+                throw ExpressionSyntaxError.expressionExpected
+            }
+            left = BinaryOperatorSyntax(leftOperand: left,
+                                         op: op,
+                                         rightOperand: right)
+        }
+        
+        return left
+    }
+
     func expression() throws -> ExpressionSyntax? {
-        return try term()
+        return try equality_expression()
     }
     
     
