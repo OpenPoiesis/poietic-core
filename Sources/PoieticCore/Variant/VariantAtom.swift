@@ -80,7 +80,7 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
 ///
 /// - SeeAlso: ``Variant``
 ///
-public enum VariantAtom: Equatable, CustomStringConvertible {
+public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     /// Representation of an integer.
     case int(Int)
 

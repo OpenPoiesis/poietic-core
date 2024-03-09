@@ -98,7 +98,7 @@ public struct TypeError: Error, CustomStringConvertible{
 ///
 /// - SeeAlso: ``ValueAtom``
 ///
-public enum Variant: Equatable, CustomStringConvertible {
+public enum Variant: Equatable, CustomStringConvertible, Hashable {
     case atom(VariantAtom)
     case array(VariantArray)
 

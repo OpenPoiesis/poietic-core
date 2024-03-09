@@ -34,7 +34,6 @@ extension ObjectMemory {
         // TODO: Check for existence and register with list of all snapshots.
         // TODO: This should include the snapshot into the list of snapshots.
         // TODO: Handle wrong IDs.
-        // FIXME: Add default values
         
         let actualID = allocateID(required: id)
         let actualSnapshotID = allocateID(required: snapshotID)

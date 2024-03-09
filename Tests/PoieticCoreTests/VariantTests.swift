@@ -8,7 +8,7 @@
 import XCTest
 @testable import PoieticCore
 
-final class ForeignValueTests: XCTestCase {
+final class VariantTests: XCTestCase {
     func testIntFromString() throws {
         XCTAssertEqual(try Variant("10").intValue(), 10)
         // TODO: Accept underscore in numeric values

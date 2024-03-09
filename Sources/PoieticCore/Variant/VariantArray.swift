@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 04/03/2024.
 //
 
-public enum VariantArray: Equatable, CustomStringConvertible {
+public enum VariantArray: Equatable, CustomStringConvertible, Hashable {
 
     /// Representation of an integer.
     case int([Int])

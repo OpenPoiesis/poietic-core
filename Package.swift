@@ -22,8 +22,9 @@ let package = Package(
             name: "PoieticCore",
             dependencies: [
                 .product(name: "SystemPackage", package: "swift-system"),
-            ]),
-        
+            ],
+            swiftSettings: [.enableUpcomingFeature("FullTypedThrows")]
+        ),
         .testTarget(
             name: "PoieticCoreTests",
             dependencies: ["PoieticCore"]),

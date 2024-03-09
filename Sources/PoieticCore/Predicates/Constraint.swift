@@ -142,26 +142,19 @@ public class AcceptAll: ConstraintRequirement {
     }
 }
 
-// FIXME: Do we still need this?
-// FIXME: This is not archivable! We need to use Variant for it to be archivable
-// NOTE: For example in Stock-flows We can't check for unique name as a constraint,
-// because we want to let the user to make mistakes. Uniqueness is a concern of a compiler.
-//
 /// A constraint requirement that a specified property of the objects must
 /// be unique within the checked group of checked objects.
 ///
-public class UniqueProperty<Value>: ConstraintRequirement
-        where Value: Hashable {
+public class UniqueProperty: ConstraintRequirement {
     
-    /// A function that extracts the value to be checked for uniqueness from
-    /// a graph object (edge or a node)
-    public var extract: (ObjectSnapshot) -> Value?
+    /// Property name to be checked for uniqueness.
+    public var name: String
     
     /// Creates a unique property constraint requirement with a function
     /// that extracts a property from a graph object.
     ///
-    public init(_ extract: @escaping (ObjectSnapshot) -> Value?) {
-        self.extract = extract
+    public init(_ name: String) {
+        self.name = name
     }
     
     /// Checks the objects for the requirement. The function extracts the
@@ -169,10 +162,10 @@ public class UniqueProperty<Value>: ConstraintRequirement
     /// that have duplicate values.
     /// 
     public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
-        var seen: [Value:[ObjectID]] = [:]
+        var seen: [Variant:[ObjectID]] = [:]
         
         for object in objects {
-            guard let value = extract(object) else {
+            guard let value = object[name] else {
                 continue
             }
             seen[value, default: []].append(object.id)
