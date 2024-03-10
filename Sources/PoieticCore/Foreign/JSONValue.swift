@@ -109,7 +109,29 @@ public enum JSONValue: Equatable, Codable {
         let string = String(data: data, encoding: .utf8)!
         return string
     }
-    
+
+    /// Return a Foundation compatible JSON object structure.
+    ///
+    public func asAnyValue() -> Any? {
+        switch self {
+        case let .int(value):
+            return value
+        case let .bool(value):
+            return value
+        case let .double(value):
+            return value
+        case let .string(value):
+            return value
+        case let .array(array):
+            return array.map { $0.asAnyValue() }
+        case let .object(dict):
+            let itemsAsAny = dict.map { ($0.key, $0.value.asAnyValue()) }
+            return Dictionary(uniqueKeysWithValues: itemsAsAny)
+        case .null:
+            return nil
+        }
+    }
+
     public func asDictionary() throws -> JSONDictionary {
         switch self {
         case let.object(dict):
