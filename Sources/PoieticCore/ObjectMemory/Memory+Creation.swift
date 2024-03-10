@@ -83,7 +83,7 @@ extension ObjectMemory {
     }
     
     @available(*, deprecated, message: "Use the designated initialiser createSnapshot or merge with foreign object")
-    public func createSnapshot(_ record: ObjectRecord) throws -> ObjectSnapshot {
+    public func createSnapshot(_ record: ForeignObject) throws -> ObjectSnapshot {
         // Readability alias
         let info = record.info
         let attributes = record.attributes.dictionary

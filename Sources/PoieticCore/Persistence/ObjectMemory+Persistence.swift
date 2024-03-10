@@ -8,11 +8,8 @@
 import Foundation
 extension ObjectSnapshot {
     /// Get a foreign record with all object's attributes
-    @available(*, deprecated,
-                renamed: "asForeignObject",
-                message: "ALL GOOD, just a refactoring reminder: Use this later instead of the original method")
-    public func asObjectRecord() -> ObjectRecord {
-        return ObjectRecord(
+    public func asForeignObject() -> ForeignObject {
+        return ForeignObject(
             info: infoAsForeignRecord(),
             attributes: ForeignRecord(attributes)
         )
@@ -37,23 +34,6 @@ extension ObjectSnapshot {
     ///
     /// The foreign record does not include
     ///
-    @available(*, deprecated, message: "Use info + attributes separately")
-    public func foreignRecord() -> ForeignRecord {
-        // FIXME: [RELEASE] change to ForeignObject
-        var dict: [String:Variant] = self.attributes
-        dict["id"] = Variant(Int(id))
-        dict["snapshot_id"] = Variant(Int(snapshotID))
-        dict["type"] = Variant(type.name)
-        dict["structure"] = Variant(structure.type.rawValue)
-        if case let .edge(origin, target) = structure {
-            dict["origin"] = Variant(Int(origin))
-            dict["target"] = Variant(Int(target))
-        }
-        if let parent {
-            dict["parent"] = Variant(Int(parent))
-        }
-        return ForeignRecord(dict)
-    }
 }
 
 extension ObjectMemory {
@@ -68,8 +48,6 @@ extension ObjectMemory {
         try self.writeAll(store: store)
     }
     
-    
-
     /// Removes everything from the memory and loads the contents from the
     /// given URL.
     ///
@@ -86,15 +64,14 @@ extension ObjectMemory {
         // - all snapshots (object info, attributes)
         // - frames (frame ID, list of snapshots)
         //
-        var outSnapshots: [ObjectRecord] = []
+        var outSnapshots: [ForeignObject] = []
         var outFrames: [ForeignRecord] = []
         
         // 1. Collect snapshots and components
         // ----------------------------------------------------------------
         //
         for snapshot in validatedSnapshots {
-            // TODO: [REFACTORING] [ATTENTION]
-            let record = snapshot.asObjectRecord()
+            let record = snapshot.asForeignObject()
             outSnapshots.append(record)
         }
         try store.replaceAllObjects(outSnapshots)

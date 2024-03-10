@@ -40,10 +40,22 @@ public enum JSONValue: Equatable, Codable {
    
     public init(string: String) throws {
         let data = Data(string.utf8)
-        let decoder = JSONDecoder()
-        self = try decoder.decode(JSONValue.self, from: data)
+        try self.init(data: data)
     }
     
+    public init(data: Data) throws {
+        let decoder = JSONDecoder()
+        do {
+            self = try decoder.decode(JSONValue.self, from: data)
+        }
+        catch DecodingError.dataCorrupted {
+            throw JSONError.dataCorrupted
+        }
+        catch {
+            fatalError("Unhandled JSON decoding error: \(error). Hint: Broken JSONValue decoding")
+        }
+    }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
@@ -97,5 +109,202 @@ public enum JSONValue: Equatable, Codable {
         let string = String(data: data, encoding: .utf8)!
         return string
     }
+    
+    public func asDictionary() throws -> JSONDictionary {
+        switch self {
+        case let.object(dict):
+            return JSONDictionary(dict)
+        default: throw JSONError.typeMismatch(.object, self.type)
+        }
+    }
+    
+    public func asArray() throws -> [JSONValue] {
+        switch self {
+        case let.array(items):
+            return items
+        default: throw JSONError.typeMismatch(.array, self.type)
+        }
+    }
+
+    @inlinable
+    public func asString() throws -> String {
+        if case let .string(value) = self {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.string, self.type)
+        }
+    }
+    
+    @inlinable
+    public func asInt() throws -> Int {
+        if case let .int(value) = self {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.string, self.type)
+        }
+    }
+
+    @inlinable
+    public func asBool() throws -> Bool {
+        if case let .bool(value) = self {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.string, self.type)
+        }
+    }
+
+    @inlinable
+    public func asDouble() throws -> Double {
+        if case let .double(value) = self {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.string, self.type)
+        }
+    }
+
 }
 
+public struct JSONDictionary {
+    public let dict: [String:JSONValue]
+    
+    init(_ dict: [String:JSONValue]) {
+        self.dict = dict
+    }
+    
+    @inlinable
+    public func valueIfPresent(forKey key: String ) throws -> JSONValue? {
+        dict[key]
+    }
+    
+    @inlinable
+    public func value(forKey key: String ) throws -> JSONValue {
+        if let value = dict[key] {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+
+    public func stringIfPresent(forKey key: String ) throws -> String? {
+        guard let jsonValue = dict[key] else {
+            return nil
+        }
+        if case let .string(value) = jsonValue {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.string, jsonValue.type)
+        }
+    }
+    
+    public func string(forKey key: String ) throws -> String {
+        if let value = try stringIfPresent(forKey: key) {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+
+    public func boolIfPresent(forKey key: String) throws -> Bool? {
+        guard let jsonValue = dict[key] else {
+            return nil
+        }
+        if case let .bool(value) = jsonValue {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.bool, jsonValue.type)
+        }
+    }
+    public func bool(forKey key: String ) throws -> Bool {
+        if let value = try boolIfPresent(forKey: key) {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+
+    public func intIfPresent(forKey key: String) throws -> Int? {
+        guard let jsonValue = dict[key] else {
+            return nil
+        }
+        if case let .int(value) = jsonValue {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.int, jsonValue.type)
+        }
+    }
+    public func int(forKey key: String ) throws -> Int {
+        if let value = try intIfPresent(forKey: key) {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+    public func doubleIfPresent(forKey key: String) throws -> Double? {
+        guard let jsonValue = dict[key] else {
+            return nil
+        }
+        if case let .double(value) = jsonValue {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.double, jsonValue.type)
+        }
+    }
+    public func double(forKey key: String ) throws -> Double {
+        if let value = try doubleIfPresent(forKey: key) {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+    
+    public func arrayIfPresent(forKey key: String) throws -> [JSONValue]? {
+        guard let jsonValue = dict[key] else {
+            return nil
+        }
+        if case let .array(value) = jsonValue {
+            return value
+        }
+        else {
+            throw JSONError.typeMismatch(.array, jsonValue.type)
+        }
+    }
+    public func array(forKey key: String ) throws -> [JSONValue] {
+        if let value = try arrayIfPresent(forKey: key) {
+            value
+        }
+        else {
+            throw JSONError.propertyNotFound(key)
+        }
+    }
+}
+
+public enum JSONError: Error, Equatable, CustomStringConvertible {
+    case dataCorrupted
+    case propertyNotFound(String)
+    // FIXME: (JSONType, String?) key context
+    case typeMismatch(JSONType, JSONType)
+
+    public var description: String {
+        switch self {
+        case .dataCorrupted:
+            "Data corrupted or format malformed."
+        case .propertyNotFound(let name):
+            "Missing property '\(name)'"
+        case .typeMismatch(let expected, let provided):
+            "Type mismatch. Expected: \(expected), provided: \(provided)."
+        }
+    }
+}

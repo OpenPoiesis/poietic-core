@@ -23,7 +23,7 @@ class TestPersistentRecord: XCTestCase {
             "snapshot_id": Variant(20),
         ])
 
-        let record = ObjectRecord(info: info, attributes: ForeignRecord())
+        let record = ForeignObject(info: info, attributes: ForeignRecord())
         
         let obj: ObjectSnapshot = try memory.createSnapshot(record)
         

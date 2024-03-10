@@ -26,7 +26,6 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
     
     // Metamodel errors
     case unknownCollection(String)
-    case unknownComponentType(String)
     case unknownObjectType(String)
 
     /// Generic integrity error.
@@ -36,7 +35,6 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
     ///
     case brokenIntegrity(String)
     case missingOrMalformedStateInfo
-
 
     /// Referenced snapshot does not exist.
     ///
@@ -66,8 +64,6 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
         // Model and metamodel errors
         case let .unknownCollection(name):
             "Unknown collection '\(name)'"
-        case let .unknownComponentType(name):
-            "Unknown component type '\(name)'"
         case let .unknownObjectType(name):
             "Unknown object type '\(name)'"
 
@@ -97,48 +93,7 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
         }
     }
 }
-// FIXME: [RELEASE] [IMPORTANT] Rename to ForeignObject, replace ForeignObject
-public struct ObjectRecord {
-    public let info: ForeignRecord
-    public let attributes: ForeignRecord
-    
-    public init(info: ForeignRecord, attributes: ForeignRecord) {
-        self.info = info
-        self.attributes = attributes
-    }
-    
-    public init(json: JSONValue) throws {
-        guard case var .object(object) = json else {
-            throw ForeignValueError.expectedDictionary
-        }
-        
-        let attributes: [String:JSONValue]
-        
-        if let jsonAttributes = object["attributes"] {
-            guard case let .object(dict) = jsonAttributes else {
-                throw ForeignValueError.invalidAttributesStructure
-            }
-            attributes = dict
-            object["attributes"] = nil
-        }
-        else {
-            attributes = [:]
-        }
-        self.info = try ForeignRecord(object)
-        self.attributes = try ForeignRecord(attributes)
-    }
-    
-    /// Return a JSON representation of the object where the attributes
-    /// are embedded in the top-level structure under the key `attributes`.
-    ///
-    public func asJSON() -> JSONValue {
-        guard case var .object(record) = info.asJSON() else {
-            fatalError("ForeignRecord was not converted to JSON object")
-        }
-        record["attributes"] = attributes.asJSON()
-        return .object(record)
-    }
-}
+
 
 /// A persistent store with relational-like traits for object memory.
 ///
@@ -163,14 +118,18 @@ public class MakeshiftMemoryStore {
     public var collections: [String:[ForeignRecord]]
     // Stored as "snapshots" collection where the attributes is embedded
     // dictionary.
-    public var objects: [ObjectRecord]
+    public var objects: [ForeignObject]
 
+    /// Create a new makeshift memory store from a file stored at given URL.
+    ///
     public init(url: URL) throws {
         self.url = url
         self.collections = [:]
         self.objects = []
     }
     
+    /// Load all collections from the store.
+    ///
     public func load() throws {
         let decoder = JSONDecoder()
         let data: Data
@@ -236,7 +195,7 @@ public class MakeshiftMemoryStore {
     }
 
     func loadObjects(records jsonRecords: [JSONValue]) throws {
-        var records: [ObjectRecord] = []
+        var records: [ForeignObject] = []
         for (index, json) in jsonRecords.enumerated() {
             guard case var .object(object) = json else {
                 throw MemoryStoreError.malformedCollectionRecord("snapshots", index)
@@ -254,7 +213,7 @@ public class MakeshiftMemoryStore {
             else {
                 attributes = [:]
             }
-            let record = ObjectRecord(info: try ForeignRecord(object),
+            let record = ForeignObject(info: try ForeignRecord(object),
                                       attributes: try ForeignRecord(attributes))
             records.append(record)
         }
@@ -303,11 +262,11 @@ public class MakeshiftMemoryStore {
     }
 
     // MARK: Schema
-    public func fetchAllObjects() throws -> [ObjectRecord] {
+    public func fetchAllObjects() throws -> [ForeignObject] {
         return objects
     }
     
-    public func replaceAllObjects(_ objects: [ObjectRecord]) throws {
+    public func replaceAllObjects(_ objects: [ForeignObject]) throws {
         self.objects = objects
     }
 

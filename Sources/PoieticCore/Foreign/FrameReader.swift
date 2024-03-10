@@ -7,85 +7,174 @@
 
 import Foundation
 
-// TODO: Refactor. See note below
-// NOTE: Change the foreign frame reader to read using JSONValue
-
-// TODO: Rename to ForeignFrameError
-public enum FrameReaderError: Error, CustomStringConvertible, Equatable {
-    case invalidStructure(String)
+/// Error thrown when reading or processing a foreign frame.
+///
+/// - SeeAlso: ``ForeignFrameReader``, ``ForeignObjectError``
+///
+public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case dataCorrupted
-    case propertyNotFound(String) 
-    case objectPropertyNotFound(String, Int)
-    case typeMismatch([String])
-    
+    case JSONError(JSONError)
+    case foreignObjectError(ForeignObjectError, Int)
     case unknownObjectType(String, Int)
-    case invalidObjectReference(String, String, Int)
-    case invalidStructuralKeyPresent(String, StructuralType, Int)
+    case missingFrameFormatVersion
+    case invalidReference(String, String, Int)
     
     public var description: String {
         switch self {
-        case .invalidStructure(let message): return "Invalid JSON structure: \(message)"
-        case .dataCorrupted: return "Corrupted or invalid data"
-        case .propertyNotFound(let key): return "Required property '\(key)' not found"
-        case .objectPropertyNotFound(let key, let index):
-            return "Required property '\(key)' not found in object at index \(index)"
-        case .typeMismatch(let path):
-            let pathStr: String
-            if path.isEmpty {
-                pathStr = "the top level"
-            }
-            else {
-                pathStr = "'" + path.joined(separator: ".") + "'"
-            }
-            return "Type mismatch at \(pathStr)"
+        case .dataCorrupted:
+            "Corrupted data"
+        case .JSONError(let error):
+            "JSON error: \(error)"
+        case .foreignObjectError(let error, let index):
+            "Error in object at \(index): \(error)"
         case .unknownObjectType(let type, let index):
-            return "Unknown object type '\(type)' for object at index \(index)"
-        case let .invalidObjectReference(ref, kind, index):
-            return "Invalid \(kind) object reference '\(ref)' in object at index \(index)"
-        case let .invalidStructuralKeyPresent(key, type, index):
-            return "Invalid key '\(key)' present for object of structural type \(type) in object at index \(index)"
+            "Unknown object type '\(type)' for object at index \(index)"
+        case .missingFrameFormatVersion:
+            "Missing frame format version"
+        case let .invalidReference(ref, kind, index):
+            "Invalid \(kind) object reference '\(ref)' in object at index \(index)"
         }
     }
 }
 
-public struct ForeignFrameInfo: Decodable {
-    // FIXME: [IMPORTANT] This is not quite version change tolerant yet. It MUST be.
+/// Structure holding information about a foreign frame.
+///
+public struct ForeignFrameInfo {
     // TODO: Allow objects to be embedded
+    /// Version of the data structure in the foreign frame.
+    ///
     public let frameFormatVersion: String
-    public let metamodelName: String?
-    public let metamodelVersion: String?
-    public let collections: [String]?
 
-    enum CodingKeys: String, CodingKey {
-        case frameFormatVersion = "frame_format_version"
-        case metamodelName = "metamodel"
-        case metamodelVersion = "metamodel_version"
-        case collections
+    /// Name of the metamodel the frame is using.
+    ///
+    /// - Note: It is up to the reader to decide compatibility of the foreign
+    ///   frame with the metamodel of the memory that the frame is being
+    ///   imported to.
+    ///
+    /// - SeeAlso: ``metamodelVersion``
+    ///
+    public let metamodelName: String?
+
+
+    /// Version of the metamodel the frame is using.
+    ///
+    /// - Note: It is up to the reader to decide compatibility of the foreign
+    ///   frame with the metamodel of the memory that the frame is being
+    ///   imported to.
+    ///
+    /// - SeeAlso: ``metamodelName``
+    ///
+    public let metamodelVersion: String?
+    
+    /// List of names of collections to be imported.
+    ///
+    /// If the foreign frame is a bundle, this is a list of names of collections
+    /// stored in the `objects` sub-directory of the frame bundle.
+    ///
+    /// - Note: See ``init(fromJSON:)`` for more information about collections
+    ///   initialized from a JSON value.
+    ///
+    public let collectionNames: [String]?
+
+    /// Create a foreign frame info from a JSON value.
+    ///
+    /// The JSON value must be a dictionary and must contain at least `frame_format_version`
+    /// key.
+    ///
+    /// Other keys:
+    ///
+    /// - `metamodel_name`
+    /// - `metamodel_version`
+    /// - `collections`
+    ///
+    /// If the `collections` key is not provided, then the list of collections
+    /// will contain one name `objects`.
+    ///
+    /// - Throws: ``JSONError`` if there is an issue with types or properties
+    ///   in the provided JSON value.
+    ///
+    public init(fromJSON json: JSONValue) throws {
+        let dict = try json.asDictionary()
+        
+        self.frameFormatVersion = try dict.string(forKey: "frame_format_version")
+        self.metamodelName = try dict.stringIfPresent(forKey: "metamodel_name")
+        self.metamodelVersion = try dict.stringIfPresent(forKey: "metamodel_version")
+
+        if let items = try dict.arrayIfPresent(forKey: "collections"){
+            var collections: [String] = []
+            for item in items {
+                let value = try item.asString()
+                collections.append(value)
+            }
+            self.collectionNames = collections
+        }
+        else {
+            self.collectionNames = ["objects"]
+        }
     }
 }
 
+/// Object representing URL based foreign frame, such as a directory on a file
+/// system.
+///
 public class ForeignFrameBundle {
+
+    /// URL of the foreign frame bundle.
+    ///
     public let url: URL
+
+
     public let info: ForeignFrameInfo
     public var collectionNames: [String] {
-        info.collections ?? ["objects"]
+        info.collectionNames ?? ["objects"]
     }
-    
+
+    /// Create a new foreign frame bundle object at given URL.
+    ///
+    /// The expected objects and sub-paths are:
+    /// - `info.json` – information about the bundle. See ``ForeignFrameInfo``
+    ///   for more information.
+    /// - `objects` sub-path with `*.json` files each representing a collection
+    ///   of objects.
+    ///
+    /// Example foreign frame bundle structure:
+    ///
+    /// ```
+    /// Capital.poieticframe
+    ///  ├── info.json
+    ///  └── objects
+    ///      ├── design.json
+    ///      ├── objects.json
+    ///      └── report.json
+    /// ```
+    ///
+    /// Example of corresponding `info.json`:
+    ///
+    /// ```json
+    /// {
+    ///     "frame_format_version": "2023.9",
+    ///     "metamodel": "Flows",
+    ///
+    ///     "collections": [ "design", "objects", "report" ],
+    /// }
+    /// ```
+    ///
+    /// - Throws: ``ForeignFrameError``
+    ///
     public init(url: URL) throws {
         self.url = url
         let infoURL = url.appending(component: "info.json", directoryHint: .notDirectory)
 
         let data = try Data(contentsOf: infoURL)
-        let decoder = JSONDecoder()
 
         do {
-            info = try decoder.decode(ForeignFrameInfo.self, from: data)
+            info = try ForeignFrameInfo(fromJSON: JSONValue(data: data))
         }
-        catch DecodingError.dataCorrupted {
-            throw FrameReaderError.dataCorrupted
+        catch JSONError.dataCorrupted {
+            throw ForeignFrameError.dataCorrupted
         }
-        catch DecodingError.keyNotFound(let key, _) {
-            throw FrameReaderError.propertyNotFound(key.stringValue)
+        catch {
+            fatalError("Unhandled error: \(error)")
         }
         // TODO: Read this from info dictionary, path or URL (github)
     }
@@ -103,28 +192,14 @@ public class ForeignFrameBundle {
         let collectionURL = urlForObjectCollection(collectionName)
         let data = try Data(contentsOf: collectionURL)
 
-        let decoder = JSONDecoder()
-
-        let objects: [ForeignObject]
+        let json = try JSONValue(data: data)
         
-        do {
-            objects = try decoder.decode(Array<ForeignObject>.self, from: data)
-        }
-        catch DecodingError.typeMismatch(_, let context) {
-            let path = context.codingPath.map { $0.stringValue }
-            throw FrameReaderError.typeMismatch(path)
-        }
-        catch DecodingError.keyNotFound(let codingKey, let context) {
-            let key = codingKey.stringValue
-            if context.codingPath.count == 1 {
-                // We are always getting an int index, since this is an array and is not empty
-                let index = context.codingPath[0].intValue!
-                throw FrameReaderError.objectPropertyNotFound(key, index)
-            }
-            else {
-                // Just a generic key not found, a bit hopeless but better than nothing
-                throw FrameReaderError.propertyNotFound(key)
-            }
+        let jsonArray = try json.asArray()
+
+        var objects: [ForeignObject] = []
+        for jsonItem in jsonArray {
+            let object = try ForeignObject(json: jsonItem)
+            objects.append(object)
         }
         
         return objects
@@ -153,17 +228,26 @@ public class ForeignFrameReader {
     }
     
     public convenience init(data: Data, memory: ObjectMemory) throws {
-        // TODO: Handle corrupted data
-        let decoder = JSONDecoder()
         let info: ForeignFrameInfo
         do {
-            info = try decoder.decode(ForeignFrameInfo.self, from: data)
+            info = try ForeignFrameInfo(fromJSON: JSONValue(data: data))
         }
-        catch DecodingError.dataCorrupted {
-            throw FrameReaderError.dataCorrupted
+        catch let error as JSONError {
+            switch error {
+            case .propertyNotFound(let name):
+                if name == "frame_format_version" {
+                    throw ForeignFrameError.missingFrameFormatVersion
+                }
+                else {
+                    // This should not happen, just in case
+                    throw ForeignFrameError.JSONError(error)
+                }
+            default:
+                throw ForeignFrameError.JSONError(error)
+            }
         }
-        catch DecodingError.keyNotFound(let key, _) {
-            throw FrameReaderError.propertyNotFound(key.stringValue)
+        catch {
+            fatalError("Unhandled error: \(error)")
         }
         self.init(info: info, memory: memory)
     }
@@ -189,32 +273,23 @@ public class ForeignFrameReader {
     ///         frame should be discarded.
     ///
     public func read(_ data: Data, into frame: MutableFrame) throws {
-        // TODO: Remove this code in favour of ForeignFrameBundle objects(in:)
-        let decoder = JSONDecoder()
-        let objects: [ForeignObject]
-       
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-
+        let jsonObjects: [JSONValue]
         do {
-            objects = try decoder.decode(Array<ForeignObject>.self, from: data)
+            jsonObjects = try JSONValue(data: data).asArray()
         }
-        catch DecodingError.typeMismatch(_, let context) {
-            let path = context.codingPath.map { $0.stringValue }
-            throw FrameReaderError.typeMismatch(path)
+        catch let error as JSONError {
+            throw ForeignFrameError.JSONError(error)
+
         }
-        catch DecodingError.keyNotFound(let codingKey, let context) {
-            let key = codingKey.stringValue
-            if context.codingPath.count == 1 {
-                // We are always getting an int index, since this is an array and is not empty
-                let index = context.codingPath[0].intValue!
-                throw FrameReaderError.objectPropertyNotFound(key, index)
-            }
-            else {
-                // Just a generic key not found, a bit hopeless but better than nothing
-                throw FrameReaderError.propertyNotFound(key)
-            }
+
+        var foreignObjects: [ForeignObject] = []
+        
+        for jsonObject in jsonObjects {
+            let foreignObject = try ForeignObject(json: jsonObject)
+            foreignObjects.append(foreignObject)
         }
-        try read(objects, into: frame)
+        
+        try read(foreignObjects, into: frame)
     }
    
     /// Incrementally read frame data into a mutable frame.
@@ -253,84 +328,90 @@ public class ForeignFrameReader {
     /// - SeeAlso: ``ObjectMemory/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
     ///     ``MutableFraminsert(_:owned:):)``
     ///
-    public func read(_ objects: [ForeignObject], into frame: MutableFrame) throws {
+    public func read(_ foreignObjects: [ForeignObject], into frame: MutableFrame) throws {
         var snapshots: [ObjectSnapshot] = []
         
         var ids: [ObjectID] = []
         var snapshotIDs: [ObjectID] = []
         
         // 1. Allocate identities and collect references
-        for object in objects {
+        // TODO: Rename to foreignObject in foreignObjects
+        for foreignObject in foreignObjects {
+            // TODO: [REFACTORING] Catch foreign object error and wrap it with more info
             let actualID: ObjectID
-            let actualSnapshotID: ObjectID
-            if let idString = object.id {
-                actualID = ObjectID(idString) ?? memory.allocateID()
+            if let stringID = try foreignObject.id {
+                actualID = memory.allocateID(required: ObjectID(stringID))
             }
             else {
                 actualID = memory.allocateID()
             }
+
             ids.append(actualID)
 
-            if let idString = object.snapshotID {
-                actualSnapshotID = ObjectID(idString) ?? memory.allocateID()
+            let actualSnapshotID: ObjectID
+            if let stringID = try foreignObject.id {
+                actualSnapshotID = memory.allocateID(required: ObjectID(stringID))
             }
             else {
                 actualSnapshotID = memory.allocateID()
             }
             snapshotIDs.append(actualSnapshotID)
 
-            if let name = object.name {
+            if let name = try foreignObject.name {
                 references[name] = actualID
             }
         }
         
         // 2. Instantiate objects
         //
-        for (index, object) in objects.enumerated() {
+        for (index, foreignObject) in foreignObjects.enumerated() {
             let id = ids[index]
             let snapshotID = snapshotIDs[index]
             
             let structure: StructuralComponent
             
-            guard let type = metamodel.objectType(name: object.type) else {
-                throw FrameReaderError.unknownObjectType(object.type, index)
+            guard let typeName = try foreignObject.type else {
+                throw ForeignFrameError.foreignObjectError(.missingObjectType, index)
+            }
+            
+            guard let type = metamodel.objectType(name: typeName) else {
+                throw ForeignFrameError.unknownObjectType(typeName, index)
             }
             
             switch type.structuralType {
             case .unstructured:
-                guard object.origin == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("from", type.structuralType, index)
+                guard try foreignObject.origin == nil else {
+                    throw ForeignFrameError.foreignObjectError(.extraPropertyFound("from"), index)
                 }
-                guard object.target == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("to", type.structuralType, index)
+                guard try foreignObject.target == nil else {
+                    throw ForeignFrameError.foreignObjectError(.extraPropertyFound("to"), index)
                 }
 
                 structure = .unstructured
 
             case .node:
-                guard object.origin == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("from", type.structuralType, index)
+                guard try foreignObject.origin == nil else {
+                    throw ForeignFrameError.foreignObjectError(.extraPropertyFound("from"), index)
                 }
-                guard object.target == nil else {
-                    throw FrameReaderError.invalidStructuralKeyPresent("to", type.structuralType, index)
+                guard try foreignObject.target == nil else {
+                    throw ForeignFrameError.foreignObjectError(.extraPropertyFound("to"), index)
                 }
-
                 structure = .node
 
             case .edge:
                 // First check the properties - makes tests easier
-                guard let originRef = object.origin else {
-                    throw FrameReaderError.objectPropertyNotFound("from", index)
+                guard let originRef = try foreignObject.origin else {
+                    throw ForeignFrameError.foreignObjectError(.propertyNotFound("from"), index)
                 }
-                guard let targetRef = object.target else {
-                    throw FrameReaderError.objectPropertyNotFound("to", index)
+                guard let targetRef = try foreignObject.target else {
+                    throw ForeignFrameError.foreignObjectError(.propertyNotFound("to"), index)
                 }
 
                 guard let originID = references[originRef] else {
-                    throw FrameReaderError.invalidObjectReference(originRef, "origin", index)
+                    throw ForeignFrameError.invalidReference(originRef, "origin", index)
                 }
                 guard let targetID = references[targetRef] else {
-                    throw FrameReaderError.invalidObjectReference(targetRef, "target", index)
+                    throw ForeignFrameError.invalidReference(targetRef, "target", index)
                 }
 
                 structure = .edge(originID, targetID)
@@ -341,13 +422,12 @@ public class ForeignFrameReader {
                                                  structure: structure,
                                                  state: .transient)
             
-            if let name = object.name {
+            if let name = try foreignObject.name {
                 snapshot.setAttribute(value: Variant(name), forKey: "name")
                 references[name] = snapshot.id
             }
             
-            let attributes = object.attributes ?? ForeignRecord()
-            for (key, value) in attributes {
+            for (key, value) in foreignObject.attributes {
                 snapshot.setAttribute(value: value, forKey: key)
             }
             
@@ -360,13 +440,13 @@ public class ForeignFrameReader {
         //
         // All objects are initialised now.
         // TODO: Do not use addChild, do it in unsafe way, we are ok here.
-        for (index, (snapshot, object)) in zip(snapshots, objects).enumerated() {
-            guard let children = object.children else {
+        for (index, (snapshot, object)) in zip(snapshots, foreignObjects).enumerated() {
+            guard let children = try object.children else {
                 continue
             }
             for childRef in children {
                 guard let childID = references[childRef] else {
-                    throw FrameReaderError.invalidObjectReference(childRef, "child", index)
+                    throw ForeignFrameError.invalidReference(childRef, "child", index)
                 }
                 frame.addChild(childID, to: snapshot.id)
             }
