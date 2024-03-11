@@ -9,7 +9,7 @@ import XCTest
 @testable import PoieticCore
 
 
-final class FunctionTests: XCTestCase {
+final class SignatureTests: XCTestCase {
     func testSignatureEmpty() throws {
         let signature = Signature(returns: .bool)
         
@@ -25,9 +25,9 @@ final class FunctionTests: XCTestCase {
         ],returns: .int)
         
         XCTAssertEqual(signature.validate([.int, .int, .int]), .ok)
-        XCTAssertEqual(signature.validate([.int, .int, .double]),
+        XCTAssertEqual(signature.validate([.int, .int, .ints]),
                        .typeMismatch([2]))
-        XCTAssertEqual(signature.validate([.double, .double, .double]),
+        XCTAssertEqual(signature.validate([.point, .bools, .strings]),
                        .typeMismatch([0, 1, 2]))
         
         XCTAssertEqual(signature.validate([]), .invalidNumberOfArguments)
@@ -44,12 +44,40 @@ final class FunctionTests: XCTestCase {
         XCTAssertEqual(signature.validate([.int]), .ok)
         XCTAssertEqual(signature.validate([.int, .int, .int]), .ok)
         XCTAssertEqual(signature.validate([]), .invalidNumberOfArguments)
-        XCTAssertEqual(signature.validate([.int, .int, .double]),
+        XCTAssertEqual(signature.validate([.int, .int, .point]),
                        .typeMismatch([2]))
-        XCTAssertEqual(signature.validate([.double, .double, .double]),
+        XCTAssertEqual(signature.validate([.point, .point, .point]),
                        .typeMismatch([0, 1, 2]))
     }
     
+    func testVariadicAtLeastOne() throws {
+        let signature = Signature(
+            variadic: FunctionArgument("values", type: .concrete(.int)),
+            returns: .int
+        )
+        XCTAssertTrue(signature.isVariadic)
+        
+        XCTAssertEqual(signature.validate([.int]), .ok)
+        XCTAssertEqual(signature.validate([.int, .int, .int]), .ok)
+        XCTAssertEqual(signature.validate([]), .invalidNumberOfArguments)
+    }
+    
+    func testVariadicAtLeastOneAndPositional() throws {
+        let signature = Signature(
+            [
+                FunctionArgument("a", type: .concrete(.int)),
+            ],
+            variadic: FunctionArgument("values", type: .concrete(.int)),
+            returns: .int
+        )
+        XCTAssertTrue(signature.isVariadic)
+        
+        XCTAssertEqual(signature.validate([.int]), .invalidNumberOfArguments)
+        XCTAssertEqual(signature.validate([.int, .int]), .ok)
+        XCTAssertEqual(signature.validate([.int, .int, .int]), .ok)
+        XCTAssertEqual(signature.validate([]), .invalidNumberOfArguments)
+    }
+
     func testVariadicAndPositional() throws {
         let signature = Signature(
             [

@@ -21,18 +21,17 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
     /// Conversion might not be precise, just possible.
     ///
     public func isConvertible(to other: AtomType) -> Bool {
-        // FIXME: [IMPORTANT] Do not allow automatic string conversions
         switch (self, other) {
-        // Bool to string or itself only
+        // Bool to string, int or itself only
         case (.bool,   .string): return true
         case (.bool,   .bool):   return true
-        case (.bool,   .int):    return false
+        case (.bool,   .int):    return true
         case (.bool,   .double): return false
         case (.bool,   .point):  return false
 
-        // Int to all except bool and point
+        // Int to all except point
         case (.int,    .string): return true
-        case (.int,    .bool):   return false
+        case (.int,    .bool):   return true
         case (.int,    .int):    return true
         case (.int,    .double): return true
         case (.int,    .point):  return false
@@ -40,7 +39,7 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
         // Double to string or to itself
         case (.double, .string): return true
         case (.double, .bool):   return false
-        case (.double, .int):    return false
+        case (.double, .int):    return true // not always
         case (.double, .double): return true
         case (.double, .point):  return false
 
@@ -51,8 +50,8 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
         case (.string, .double): return true
         case (.string, .point):  return false
 
-        // Point to itself only
-        case (.point, .string): return false
+        // Point to string or itself
+        case (.point, .string): return true
         case (.point, .bool):   return false
         case (.point, .int):    return false
         case (.point, .double): return false
@@ -186,10 +185,10 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
                 return value
             }
             else {
-                throw TypeError(required: "int", provided: "string not representing an int")
+                throw ValueError.conversionFailed(.string, .int)
             }
         case let .bool(value): return value ? 1 : 0
-        case .point(_): throw TypeError(required: "int", provided: "point")
+        case .point(_): throw ValueError.notConvertible(.point, .int)
         }
     }
 
@@ -209,10 +208,10 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
                 return value
             }
             else {
-                throw TypeError(required: "double", provided: "string not representing a double")
+                throw ValueError.conversionFailed(.string, .double)
             }
-        case .bool(_): throw TypeError(required: "double", provided: "bool")
-        case .point(_): throw TypeError(required: "double", provided: "point")
+        case .bool(_): throw ValueError.notConvertible(.bool, .double)
+        case .point(_): throw ValueError.notConvertible(.point, .double)
         }
     }
     
@@ -234,8 +233,8 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
         case let .double(value): return String(value)
         case let .string(value): return String(value)
         case let .bool(value): return String(value)
+        // FIXME: Remove this conversion, replace with JSON
         case let .point(value): return "\(value.x)x\(value.y)"
-//        case let .point(value): throw ValueError.typeMismatch("\(value)", "string")
         }
     }
 
@@ -258,14 +257,14 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     public func boolValue() throws -> Bool {
         switch self {
         case .int(let value): return (value != 0)
-        case .double(_): throw TypeError(required: "bool", provided: "double")
+        case .double(_): throw ValueError.notConvertible(.double, .bool)
         case .string(let value): switch value {
                                     case "true": return true
                                     case "false": return false
-                                    default: throw TypeError(required: "bool", provided: "string with invalid boolean value")
+                                    default: throw ValueError.conversionFailed(.string, .bool)
                                     }
         case .bool(let value): return value
-        case .point(_): throw TypeError(required: "bool", provided: "point")
+        case .point(_): throw ValueError.notConvertible(.double, .bool)
         }
     }
     
@@ -294,25 +293,24 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     ///
     public func pointValue() throws -> Point  {
         switch self {
-        case .int(_): throw TypeError(required: "point", provided: "int")
-        case .double(_): throw TypeError(required: "point", provided: "double")
+        case .int(_): throw ValueError.notConvertible(.int, .point)
+        case .double(_): throw ValueError.notConvertible(.double, .point)
         case .string(let value):
             let split = value.split(separator: "x", maxSplits: 2)
             guard split.count == 2 else {
-                throw TypeError(required: "point", provided: "string non-convertible to point")
+                throw ValueError.conversionFailed(.string, .point)
             }
             guard let x = Double(split[0]),
                   let y = Double(split[1]) else {
-                throw TypeError(required: "point", provided: "string non-convertible to point")
+                throw ValueError.conversionFailed(.string, .point)
             }
             return Point(x: x, y: y)
-        case .bool(_): throw TypeError(required: "point", provided: "bool")
+        case .bool(_): throw ValueError.notConvertible(.bool, .point)
         case .point(let value): return value
         }
     }
 
     func IDValue() throws -> ObjectID {
-        // FIXME: Do not allow conversion from Double (see note below)
         // NOTE: We are allowing conversion from double only because the Decoder
         // does not allow us to get a type of a value and decode accordingly.
         // Therefore the single value decoding tries double first before Int
@@ -320,16 +318,17 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
         switch self {
         case let .int(value): return ObjectID(value)
 //        case let .double(value): return ObjectID(value)
-        case .double(_): throw TypeError(required: "Object ID", provided: "double")
+        case .double(_): throw ValueError.conversionToIDFailed(.double)
         case let .string(value):
             if let value = ObjectID(value){
                 return value
             }
             else {
-                throw TypeError(required: "Object ID", provided: "string non-convertible to Object ID")
+                // TODO: We are convertible, we just failed conversion.
+                throw ValueError.conversionToIDFailed(.string)
             }
-        case .bool(_): throw TypeError(required: "Object ID", provided: "bool")
-        case .point(_): throw TypeError(required: "Object ID", provided: "point")
+        case .bool(_): throw ValueError.conversionToIDFailed(.bool)
+        case .point(_): throw ValueError.conversionToIDFailed(.point)
         }
     }
     
@@ -382,31 +381,4 @@ extension VariantAtom: Codable {
         }
     }
 
-}
-
-// FIXME: [IMPORTANT] This is a prototype.
-public enum EvaluationError: Error, CustomStringConvertible {
-    case notComparableTypes(String, String)
-    // TODO: Remove
-
-    public var description: String {
-        switch self {
-        case let .notComparableTypes(lhs, rhs):
-            "Type '\(lhs)' is not comparable with type '\(rhs)'"
-        }
-    }
-}
-
-extension VariantAtom {
-    public func precedes(_ other: VariantAtom) throws -> Bool {
-        switch (self, other) {
-        case let (.int(lvalue), .int(rvalue)): return lvalue < rvalue
-        case let (.int(lvalue), .double(rvalue)): return Double(lvalue) < rvalue
-        case let (.double(lvalue), .int(rvalue)): return lvalue < Double(rvalue)
-        case let (.double(lvalue), .double(rvalue)): return lvalue < rvalue
-        case let (.string(lvalue), .string(rvalue)): return lvalue.lexicographicallyPrecedes(rvalue)
-        default:
-            throw EvaluationError.notComparableTypes("\(self.valueType)", "\(other.valueType)")
-        }
-    }
 }

@@ -38,7 +38,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.object, .array)))
+                           ForeignFrameError.JSONError(.typeMismatch(.object, nil)))
 
         }
     }
@@ -68,7 +68,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.string, .int)))
+                           ForeignFrameError.JSONError(.typeMismatch(.string, "frame_format_version")))
         }
     }
     func testCollectionsNotAnArray() throws {
@@ -85,7 +85,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.array, .string)))
+                           ForeignFrameError.JSONError(.typeMismatch(.array, "collections")))
         }
     }
     func testCollectionItemNotAString() throws {
@@ -102,7 +102,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.string, .int)))
+                           ForeignFrameError.JSONError(.typeMismatch(.string, nil)))
         }
     }
     
@@ -130,7 +130,7 @@ final class FrameReaderTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.array, .object)))
+                           ForeignFrameError.JSONError(.typeMismatch(.array, nil)))
         }
     }
     // TODO: Test malformed children (or all known foreign object values in fact)

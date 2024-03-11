@@ -136,7 +136,7 @@ public enum JSONValue: Equatable, Codable {
         switch self {
         case let.object(dict):
             return JSONDictionary(dict)
-        default: throw JSONError.typeMismatch(.object, self.type)
+        default: throw JSONError.typeMismatch(.object, nil)
         }
     }
     
@@ -144,7 +144,7 @@ public enum JSONValue: Equatable, Codable {
         switch self {
         case let.array(items):
             return items
-        default: throw JSONError.typeMismatch(.array, self.type)
+        default: throw JSONError.typeMismatch(.array, nil)
         }
     }
 
@@ -154,7 +154,7 @@ public enum JSONValue: Equatable, Codable {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.string, self.type)
+            throw JSONError.typeMismatch(.string, nil)
         }
     }
     
@@ -164,7 +164,7 @@ public enum JSONValue: Equatable, Codable {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.string, self.type)
+            throw JSONError.typeMismatch(.string, nil)
         }
     }
 
@@ -174,7 +174,7 @@ public enum JSONValue: Equatable, Codable {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.string, self.type)
+            throw JSONError.typeMismatch(.string, nil)
         }
     }
 
@@ -184,7 +184,7 @@ public enum JSONValue: Equatable, Codable {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.string, self.type)
+            throw JSONError.typeMismatch(.string, nil)
         }
     }
 
@@ -220,7 +220,7 @@ public struct JSONDictionary {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.string, jsonValue.type)
+            throw JSONError.typeMismatch(.string, key)
         }
     }
     
@@ -241,7 +241,7 @@ public struct JSONDictionary {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.bool, jsonValue.type)
+            throw JSONError.typeMismatch(.bool, key)
         }
     }
     public func bool(forKey key: String ) throws -> Bool {
@@ -261,7 +261,7 @@ public struct JSONDictionary {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.int, jsonValue.type)
+            throw JSONError.typeMismatch(.int, key)
         }
     }
     public func int(forKey key: String ) throws -> Int {
@@ -280,7 +280,7 @@ public struct JSONDictionary {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.double, jsonValue.type)
+            throw JSONError.typeMismatch(.double, key)
         }
     }
     public func double(forKey key: String ) throws -> Double {
@@ -300,7 +300,7 @@ public struct JSONDictionary {
             return value
         }
         else {
-            throw JSONError.typeMismatch(.array, jsonValue.type)
+            throw JSONError.typeMismatch(.array, key)
         }
     }
     public func array(forKey key: String ) throws -> [JSONValue] {
@@ -316,17 +316,23 @@ public struct JSONDictionary {
 public enum JSONError: Error, Equatable, CustomStringConvertible {
     case dataCorrupted
     case propertyNotFound(String)
-    // FIXME: (JSONType, String?) key context
-    case typeMismatch(JSONType, JSONType)
+    case typeMismatch(JSONType, String?)
 
     public var description: String {
         switch self {
         case .dataCorrupted:
-            "Data corrupted or format malformed."
+            return "Data corrupted or format malformed."
         case .propertyNotFound(let name):
-            "Missing property '\(name)'"
-        case .typeMismatch(let expected, let provided):
-            "Type mismatch. Expected: \(expected), provided: \(provided)."
+            return "Missing property '\(name)'"
+        case .typeMismatch(let expected, let key):
+            let context: String
+            if let key {
+                context = " for key '\(key)'"
+            }
+            else {
+                context = ""
+            }
+            return "Type mismatch\(context). Expected: \(expected).."
         }
     }
 }

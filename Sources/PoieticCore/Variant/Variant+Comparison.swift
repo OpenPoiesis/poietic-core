@@ -16,7 +16,7 @@ extension VariantAtom {
         case let (.double(lvalue), .double(rvalue)): return lvalue < rvalue
         case let (.string(lvalue), .string(rvalue)): return lvalue.lexicographicallyPrecedes(rvalue)
         default:
-            throw EvaluationError.notComparableTypes("\(lhs.valueType)", "\(rhs.valueType)")
+            throw ValueError.notComparableTypes(.atom(lhs.valueType), .atom(rhs.valueType))
         }
     }
     public static func <=(lhs: VariantAtom, rhs: VariantAtom) throws -> Bool {
@@ -28,7 +28,7 @@ extension VariantAtom {
         case let (.string(lvalue), .string(rvalue)):
             return lvalue == rvalue || lvalue.lexicographicallyPrecedes(rvalue)
         default:
-            throw EvaluationError.notComparableTypes("\(lhs.valueType)", "\(rhs.valueType)")
+            throw ValueError.notComparableTypes(.atom(lhs.valueType), .atom(rhs.valueType))
         }
     }
 
@@ -40,7 +40,7 @@ extension VariantAtom {
         case let (.double(lvalue), .double(rvalue)): return lvalue > rvalue
         case let (.string(lvalue), .string(rvalue)): return rvalue.lexicographicallyPrecedes(lvalue)
         default:
-            throw EvaluationError.notComparableTypes("\(lhs.valueType)", "\(rhs.valueType)")
+            throw ValueError.notComparableTypes(.atom(lhs.valueType), .atom(rhs.valueType))
         }
     }
     public static func >=(lhs: VariantAtom, rhs: VariantAtom) throws -> Bool {
@@ -52,7 +52,7 @@ extension VariantAtom {
         case let (.string(lvalue), .string(rvalue)):
             return lvalue == rvalue || rvalue.lexicographicallyPrecedes(lvalue)
         default:
-            throw EvaluationError.notComparableTypes("\(lhs.valueType)", "\(rhs.valueType)")
+            throw ValueError.notComparableTypes(.atom(lhs.valueType), .atom(rhs.valueType))
         }
     }
     public static func ==(lhs: VariantAtom, rhs: VariantAtom) -> Bool {
@@ -85,17 +85,17 @@ extension VariantAtom {
 }
 extension VariantArray {
     public static func <(lhs: VariantArray, rhs: VariantArray) throws -> Bool {
-        throw EvaluationError.notComparableTypes("array", "array")
+        throw ValueError.notComparableTypes(.array(lhs.itemType), .array(rhs.itemType))
     }
     public static func <=(lhs: VariantArray, rhs: VariantArray) throws -> Bool {
-        throw EvaluationError.notComparableTypes("array", "array")
+    throw ValueError.notComparableTypes(.array(lhs.itemType), .array(rhs.itemType))
     }
 
     public static func >(lhs: VariantArray, rhs: VariantArray) throws -> Bool {
-        throw EvaluationError.notComparableTypes("array", "array")
+        throw ValueError.notComparableTypes(.array(lhs.itemType), .array(rhs.itemType))
     }
     public static func >=(lhs: VariantArray, rhs: VariantArray) throws -> Bool {
-        throw EvaluationError.notComparableTypes("array", "array")
+        throw ValueError.notComparableTypes(.array(lhs.itemType), .array(rhs.itemType))
     }
     public static func ==(lhs: VariantArray, rhs: VariantArray) -> Bool {
         switch (lhs, rhs) {
@@ -129,51 +129,35 @@ extension VariantArray {
 extension Variant {
     public static func <(lhs: Variant, rhs: Variant) throws -> Bool {
         switch (lhs, rhs) {
-        case (.array(_), .array(_)):
-            throw EvaluationError.notComparableTypes("array", "array")
-        case (.array(_), .atom(_)):
-            throw EvaluationError.notComparableTypes("array", "atom")
-        case (.atom(_), .array(_)):
-            throw EvaluationError.notComparableTypes("atom", "array")
         case let (.atom(lvalue), .atom(rvalue)):
             return try lvalue < rvalue
+        default:
+            throw ValueError.notComparableTypes(lhs.valueType, rhs.valueType)
         }
     }
     public static func <=(lhs: Variant, rhs: Variant) throws -> Bool {
         switch (lhs, rhs) {
-        case (.array(_), .array(_)):
-            throw EvaluationError.notComparableTypes("array", "array")
-        case (.array(_), .atom(_)):
-            throw EvaluationError.notComparableTypes("array", "atom")
-        case (.atom(_), .array(_)):
-            throw EvaluationError.notComparableTypes("atom", "array")
         case let (.atom(lvalue), .atom(rvalue)):
             return try lvalue <= rvalue
+        default:
+            throw ValueError.notComparableTypes(lhs.valueType, rhs.valueType)
         }
     }
 
     public static func >(lhs: Variant, rhs: Variant) throws -> Bool {
         switch (lhs, rhs) {
-        case (.array(_), .array(_)):
-            throw EvaluationError.notComparableTypes("array", "array")
-        case (.array(_), .atom(_)):
-            throw EvaluationError.notComparableTypes("array", "atom")
-        case (.atom(_), .array(_)):
-            throw EvaluationError.notComparableTypes("atom", "array")
         case let (.atom(lvalue), .atom(rvalue)):
             return try lvalue > rvalue
+        default:
+            throw ValueError.notComparableTypes(lhs.valueType, rhs.valueType)
         }
     }
     public static func >=(lhs: Variant, rhs: Variant) throws -> Bool {
         switch (lhs, rhs) {
-        case (.array(_), .array(_)):
-            throw EvaluationError.notComparableTypes("array", "array")
-        case (.array(_), .atom(_)):
-            throw EvaluationError.notComparableTypes("array", "atom")
-        case (.atom(_), .array(_)):
-            throw EvaluationError.notComparableTypes("atom", "array")
         case let (.atom(lvalue), .atom(rvalue)):
             return try lvalue >= rvalue
+        default:
+            throw ValueError.notComparableTypes(lhs.valueType, rhs.valueType)
         }
     }
     public static func ==(lhs: Variant, rhs: Variant) -> Bool {
@@ -202,16 +186,3 @@ extension Variant {
         }
     }
 }
-//
-//extension Variant {
-//    public static func <(lhs: Variant, rhs: Variant) throws -> Bool {
-//        switch (lhs, rhs) {
-//        case let (.atom(lvalue), .atom(rvalue)): try lvalue.precedes(rvalue)
-//        case let (.array(lvalue), .array(rvalue)): try lvalue.precedes(rvalue)
-//        case (.array, .atom):
-//            throw EvaluationError.notComparableTypes("array", "atom")
-//        case (.atom, .array):
-//            throw EvaluationError.notComparableTypes("atom", "array")
-//        }
-//    }
-//}

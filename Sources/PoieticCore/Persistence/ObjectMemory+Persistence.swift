@@ -15,7 +15,6 @@ extension ObjectSnapshot {
         )
     }
     public func infoAsForeignRecord() -> ForeignRecord {
-        // FIXME: [RELEASE] change to ForeignObject
         var dict: [String:Variant] = [:]
         dict["id"] = Variant(Int(id))
         dict["snapshot_id"] = Variant(Int(snapshotID))

@@ -19,7 +19,6 @@ public struct Token<T: Equatable>: Equatable {
     /// Range of the token within the source string
     public let range: Range<String.Index>
     
-    // FIXME: Bind the token to the text.
     /// The token text.
     public let text: String
 

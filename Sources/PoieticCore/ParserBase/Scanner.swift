@@ -9,7 +9,7 @@ public enum ScannerError: Error {
     case unexpectedEnd
 }
 
-// FIXME: Combine this with Lexer (?)
+// TODO: Combine this with Lexer (?)
 /// Human-oriented location within a text.
 ///
 /// `TextLocation` refers to a line number and a column within that line.

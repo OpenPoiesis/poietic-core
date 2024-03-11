@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 31/10/2023.
 //
 
-// FIXME: [IMPORTANT] Remove this concept
+// TODO: Remove this concept or replace with tags.
 
 /// Plane in which an object or a component exists.
 ///

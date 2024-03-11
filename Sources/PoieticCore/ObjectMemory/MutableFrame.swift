@@ -198,7 +198,6 @@ public class MutableFrame: Frame {
                      "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
                      "Trying to insert an object with snapshot ID \(snapshot.snapshotID) that already exists in frame \(id)")
-        // FIXME: Test whether the object is owned by the memory
         
         // Make sure we do not own immutable objects.
         // This can be put into one condition, however we split it for better error understanding

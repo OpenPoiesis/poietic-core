@@ -204,7 +204,7 @@ extension Frame {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
 
-    // FIXME: Use Node as argument
+    // TODO: Use Node as argument
     public func filterNodes(_ block: (ObjectSnapshot) -> Bool) -> [Node] {
         return snapshots.compactMap {
             if let node = Node($0), block($0) {

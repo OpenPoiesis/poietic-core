@@ -151,9 +151,3 @@ extension VariantArray: Codable {
         }
     }
 }
-
-extension VariantArray {
-    public func precedes(_ other: VariantArray) throws -> Bool {
-        throw EvaluationError.notComparableTypes("array", "array")
-    }
-}

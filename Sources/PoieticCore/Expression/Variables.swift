@@ -63,7 +63,7 @@ public class BuiltinVariable: Hashable {
 }
 
 
-// FIXME: [REFACTORING] Reconsider existence of this protocol
+// TODO: Reconsider necessity of this protocol. Used only in bindExpression (and related code in Flows)
 /// Protocol for types that can represent one or multiple variant types.
 ///
 public protocol TypedValue {

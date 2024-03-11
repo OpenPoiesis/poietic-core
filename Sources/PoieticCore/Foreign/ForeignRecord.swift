@@ -232,7 +232,7 @@ public struct ForeignRecord {
             return value
         }
         else {
-            throw TypeError(required: "Object ID", provided: "string not convertible to ObjectID")
+            throw ValueError.conversionToIDFailed(.string)
         }
     }
 }

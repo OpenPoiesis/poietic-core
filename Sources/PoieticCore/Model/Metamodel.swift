@@ -48,7 +48,6 @@ public final class Metamodel {
     ///
     public let objectTypes: [ObjectType]
     
-    // FIXME: Remove, move to a "named object"
     /// List of built-in variables.
     ///
     public let variables: [BuiltinVariable]
