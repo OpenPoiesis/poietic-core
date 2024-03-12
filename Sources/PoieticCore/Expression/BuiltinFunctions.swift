@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 06/03/2024.
 //
 
-import Foundation
-
 /// List of built-in binary comparison operators.
 ///
 /// The operators:
