@@ -170,11 +170,9 @@ public class MakeshiftMemoryStore {
                 throw MemoryStoreError.malformedCollection(name)
             }
             if name == Self.SnapshotsCollectionName {
-                print("--- load objects")
                 try loadObjects(records: records)
             }
             else {
-                print("--- load snapshots: \(name)")
                 try loadCollection(name: name, records: records)
             }
         }

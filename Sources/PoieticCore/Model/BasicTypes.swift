@@ -12,6 +12,8 @@ extension ObjectType {
         plane: .user,
         traits: [
             Trait.DesignInfo,
+            // TODO: Add name, but make it optional.
+            // Trait.Name,
             Trait.Documentation,
             Trait.AudienceLevel,
             Trait.Keywords,
