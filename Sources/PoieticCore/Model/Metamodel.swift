@@ -50,7 +50,7 @@ public final class Metamodel {
     
     /// List of built-in variables.
     ///
-    public let variables: [BuiltinVariable]
+    public let variables: [Variable]
     
     /// List of constraints.
     ///
@@ -64,7 +64,7 @@ public final class Metamodel {
     
     public init(traits: [Trait] = [],
                 objectTypes: [ObjectType] = [],
-                variables: [BuiltinVariable] = [],
+                variables: [Variable] = [],
                 constraints: [Constraint] = []) {
         self.traits = traits
         self.objectTypes = objectTypes

@@ -19,7 +19,7 @@
 /// domain model. Therefore instances of built-in variables can be compared
 /// with identity comparison operator (`===`).
 ///
-public class BuiltinVariable: Hashable {
+public class Variable: Hashable {
     /// Name of the variable.
     ///
     /// The name of the variable is used in arithmetic expressions to refer
@@ -53,7 +53,7 @@ public class BuiltinVariable: Hashable {
         self.abstract = abstract
     }
     
-    public static func ==(lhs: BuiltinVariable, rhs: BuiltinVariable) -> Bool {
+    public static func ==(lhs: Variable, rhs: Variable) -> Bool {
         return lhs.name == rhs.name
     }
     
@@ -75,35 +75,4 @@ extension Variant: TypedValue {
         return .concrete(valueType)
     }
     
-}
-/// Reference to a variable.
-///
-/// The variable reference is used in arithmetic expressions and might represent
-/// a built-in variable provided by the application or a value of an object.
-///
-/// One object can represent only one variable.
-///
-public enum VariableReference: Hashable, CustomStringConvertible {
-    /// The variable is represented by an object with given object ID.
-    ///
-    case object(ObjectID)
-    
-    /// The variable is a built-in variable.
-    ///
-    case builtin(BuiltinVariable)
-    
-    public static func ==(lhs: VariableReference, rhs: VariableReference) -> Bool {
-        switch (lhs, rhs) {
-        case let (.object(left), .object(right)): return left == right
-        case let (.builtin(left), .builtin(right)): return left === right
-        default: return false
-        }
-    }
-
-    public var description: String {
-        switch self {
-        case .object(let id): "object(\(id))"
-        case .builtin(let variable): "builtin(\(variable.name))"
-        }
-    }
 }
