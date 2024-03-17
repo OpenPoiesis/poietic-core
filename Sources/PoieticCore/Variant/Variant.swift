@@ -216,11 +216,19 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
 
     /// Get all items as ``ValueAtom``s if the variant type is an array.
     ///
-    @available(*, deprecated, message: "REFACTORING: Check whether we can use raw array (not deprecated, really)")
     public var items: [VariantAtom]? {
         switch self {
         case .atom: nil
         case .array(let array): array.items
+        }
+    }
+
+    /// Get atom value, if the variant is an atom, otherwise `nil`.
+    ///
+    public var atomValue: VariantAtom? {
+        switch self {
+        case .atom(let value): value
+        case .array(_): nil
         }
     }
 
