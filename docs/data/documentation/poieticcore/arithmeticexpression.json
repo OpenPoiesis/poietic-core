@@ -87,14 +87,6 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "L"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "genericParameter",
               "text" : "V"
             },
             {
@@ -150,32 +142,6 @@
         },
         {
           "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "L",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : "): Type of a literal.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
             {
               "content" : [
                 {
@@ -266,10 +232,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/bindExpression(_:variables:functions:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible"
       ],
       "title" : "Arithmetic Expression"
     }
@@ -289,8 +252,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/allVariables",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/children",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/valueType"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description"
       ],
       "title" : "Instance Properties"
     },
@@ -516,14 +478,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -589,14 +543,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -630,14 +576,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -660,14 +598,6 @@
     {
       "kind" : "text",
       "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
@@ -736,14 +666,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -785,22 +707,6 @@
     ],
     "constraints" : [
       {
-        "code" : "L",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "CustomStringConvertible",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
         "code" : "V",
         "type" : "codeVoice"
       },
@@ -813,7 +719,7 @@
         "type" : "codeVoice"
       },
       {
-        "text" : ", and ",
+        "text" : " and ",
         "type" : "text"
       },
       {
@@ -899,14 +805,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -937,14 +835,6 @@
     {
       "kind" : "text",
       "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
@@ -1005,14 +895,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -1043,14 +925,6 @@
     {
       "kind" : "text",
       "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
@@ -1111,14 +985,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -1135,6 +1001,7 @@
     },
     {
       "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO12LiteralValuea",
       "text" : "LiteralValue"
     },
     {
@@ -1148,104 +1015,6 @@
   "title" : "ArithmeticExpression.value(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/value(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/valueType": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "L",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "TypedValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "V",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "TypedValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "F",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "any FunctionProtocol",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "valueType"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-      "text" : "AtomType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/valueType",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "valueType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/valuetype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/variable(_:)": {
   "abstract" : [
@@ -1282,14 +1051,6 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "L"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
       "text" : "V"
     },
     {
@@ -1320,48 +1081,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/variable(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
-  "abstract" : [
-    {
-      "text" : "Object representing a built-in variable.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BuiltinVariable",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtinvariable"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionError": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionConvertible": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -1369,55 +1096,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ExpressionError"
+      "text" : "ExpressionConvertible"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ExpressionError"
+      "text" : "ExpressionConvertible"
     }
   ],
   "role" : "symbol",
-  "title" : "ExpressionError",
+  "title" : "ExpressionConvertible",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the expression language parser.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntaxError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionSyntaxError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionSyntaxError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
+  "url" : "\/documentation\/poieticcore\/expressionconvertible"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
@@ -1463,149 +1156,6 @@
   "title" : "UnboundExpression",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundexpression"
-},
-"doc://PoieticCore/documentation/PoieticCore/bindExpression(_:variables:functions:)": {
-  "abstract" : [
-    {
-      "text" : "Bind an expression to concrete variable references.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bindExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17UnboundExpressiona",
-      "text" : "UnboundExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "variables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "functions"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
-      "text" : "FunctionProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16FunctionProtocolP",
-      "text" : "FunctionProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/bindExpression(_:variables:functions:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "bindExpression(_:variables:functions:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/bindexpression(_:variables:functions:)"
 }
 }
 }

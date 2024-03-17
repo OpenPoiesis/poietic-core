@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError"
       ]
     ]
@@ -197,6 +198,20 @@
   "title" : "MemoryStoreError.cannotOpenStore(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memorystoreerror\/cannotopenstore(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 }
 }
 }

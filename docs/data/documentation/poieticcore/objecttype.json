@@ -136,6 +136,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/abstract",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributeKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/label",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/name",
@@ -153,6 +154,12 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/trait(forAttribute:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -299,6 +306,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/BibliographicalReference": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BibliographicalReference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BibliographicalReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/abstract": {
   "abstract" : [
     {
@@ -386,6 +435,44 @@
   "title" : "attribute(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/attribute(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/attributeKeys": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "attributeKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+      "text" : "AttributeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributeKeys",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "attributeKeys",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/attributekeys"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/attributes": {
   "abstract" : [

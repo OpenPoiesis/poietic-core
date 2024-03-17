@@ -190,9 +190,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/typeMismatch(_:_:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "ValueError\/typeMismatch(_:_:)",
+                  "type" : "codeVoice"
                 },
                 {
                   "text" : " if the value",
@@ -391,53 +390,6 @@
   "title" : "intValueIfPresent(for:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/intvalueifpresent(for:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ValueError/typeMismatch(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "typeMismatch"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/typeMismatch(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "ValueError.typeMismatch(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valueerror\/typemismatch(_:_:)"
 }
 }
 }

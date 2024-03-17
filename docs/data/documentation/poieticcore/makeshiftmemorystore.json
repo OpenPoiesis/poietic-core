@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
       ]
     ]
   },
@@ -241,6 +242,19 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)"
+      ],
+      "title" : "Store"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
@@ -251,16 +265,18 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/collections",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/objects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/url"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/fetch(_:snapshotID:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/fetchAll(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/fetchAllObjects()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/load()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/replaceAll(in:records:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/replaceAllObjects(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/save()"
       ],
       "title" : "Instance Methods"
@@ -375,78 +391,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/collections"
 },
-"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/fetch(_:snapshotID:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "fetch"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/fetch(_:snapshotID:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "fetch(_:snapshotID:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/fetch(_:snapshotid:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/fetchAll(_:)": {
   "abstract" : [
 
@@ -502,9 +446,58 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/fetchall(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/init(url:)": {
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/fetchAllObjects()": {
   "abstract" : [
 
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAllObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/fetchAllObjects()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAllObjects()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/fetchallobjects()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/init(url:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new makeshift memory store from a file stored at given URL.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -546,7 +539,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/load()": {
   "abstract" : [
-
+    {
+      "text" : "Load all collections from the store.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -576,6 +572,44 @@
   "title" : "load()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/load()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/objects": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objects"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/objects",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objects",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/objects"
 },
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/replaceAll(in:records:)": {
   "abstract" : [
@@ -644,6 +678,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/replaceall(in:records:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/replaceAllObjects(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "replaceAllObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore\/replaceAllObjects(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "replaceAllObjects(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/replaceallobjects(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/save()": {
   "abstract" : [
 
@@ -710,6 +786,276 @@
   "title" : "url",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/url"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MemoryStoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MemoryStoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MemoryStoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the memory and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(store:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the memory and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given memory store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
+      "text" : "MakeshiftMemoryStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/saveAll(to:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of the memory to given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "saveAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "saveAll(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/writeAll(store:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
+      "text" : "MakeshiftMemoryStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 }
 }
 }

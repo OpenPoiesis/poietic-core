@@ -91,8 +91,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -111,8 +110,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
@@ -130,7 +127,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes\/attribute(forKey:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes\/dictionary(withKeys:)-511xu"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes\/dictionary(withKeys:)-710sv"
       ],
       "title" : "Instance Methods"
     }
@@ -196,82 +193,6 @@
   "title" : "AttributeKey",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
-  "abstract" : [
-    {
-      "text" : "Documentation component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DocumentationComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/documentationcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignAtom": {
-  "abstract" : [
-    {
-      "text" : "ForeignAtom represents a scalar or a simple tuple-like value from an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignAtom",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignatom"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
@@ -370,48 +291,6 @@
   "title" : "ForeignRecordError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecorderror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
-  "abstract" : [
-    {
-      "text" : "ForeignValue represents a value from an external environment that can be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either an atom or a list of atoms – an array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
@@ -524,8 +403,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -582,7 +461,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes\/attributekeys"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes/dictionary(withKeys:)-511xu": {
+"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes/dictionary(withKeys:)-710sv": {
   "abstract" : [
     {
       "text" : "Returns a dictionary of attributes.",
@@ -635,21 +514,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes\/dictionary(withKeys:)-511xu",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes\/dictionary(withKeys:)-710sv",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "dictionary(withKeys:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keyedattributes\/dictionary(withkeys:)-511xu"
+  "url" : "\/documentation\/poieticcore\/keyedattributes\/dictionary(withkeys:)-710sv"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
   "abstract" : [
@@ -693,17 +572,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Component representing a position of a node in a canvas.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -711,21 +590,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "PositionComponent"
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "PositionComponent"
+      "text" : "ObjectSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "PositionComponent",
+  "title" : "ObjectSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/positioncomponent"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 }
 }
 }

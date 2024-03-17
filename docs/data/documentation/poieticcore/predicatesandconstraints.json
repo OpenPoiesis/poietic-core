@@ -115,9 +115,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
-      ],
-      "title" : "Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
+      ]
     }
   ],
   "topicSections" : [
@@ -128,11 +128,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate"
       ],
       "title" : "Predicates"
     },
@@ -537,6 +539,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/formulas"
 },
+"doc://PoieticCore/documentation/PoieticCore/FunctionPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionpredicate"
+},
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
@@ -581,6 +614,37 @@
   "title" : "HasComponentPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HasTraitPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/hastraitpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
@@ -702,6 +766,20 @@
   "title" : "NegationPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/negationpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [

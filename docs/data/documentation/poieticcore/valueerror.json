@@ -2,7 +2,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
       ]
     ]
   },
@@ -76,6 +77,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
@@ -92,11 +94,28 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point"
+      ],
+      "title" : "Value and Variant"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/invalidBooleanValue(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/typeMismatch(_:_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionFailed(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionToIDFailed(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notComparableTypes(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)"
       ],
       "title" : "Enumeration Cases"
     },
@@ -109,6 +128,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/Equatable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/Error-Implementations"
       ],
       "title" : "Default Implementations"
@@ -128,6 +148,11 @@
   ]
 , 
 "references": {
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
@@ -141,6 +166,119 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AtomType": {
+  "abstract" : [
+    {
+      "text" : "ValueType specifies a data type of a value that is used in interfaces.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AtomType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AtomType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AtomType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/atomtype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ID": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/id"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
+},
+"doc://PoieticCore/documentation/PoieticCore/Point": {
+  "abstract" : [
+    {
+      "text" : "Type representing two-dimensional points.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Point"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Point"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Point",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/point"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -173,6 +311,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror"
 },
+"doc://PoieticCore/documentation/PoieticCore/ValueError/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/equatable-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/ValueError/Error-Implementations": {
   "abstract" : [
 
@@ -183,6 +332,91 @@
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/conversionFailed(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "conversionFailed"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionFailed(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.conversionFailed(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/conversionfailed(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/conversionToIDFailed(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "conversionToIDFailed"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionToIDFailed(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.conversionToIDFailed(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/conversiontoidfailed(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError/description": {
   "abstract" : [
@@ -218,7 +452,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror\/description"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValueError/invalidBooleanValue(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ValueError/notComparableTypes(_:_:)": {
   "abstract" : [
 
   ],
@@ -233,7 +467,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "invalidBooleanValue"
+      "text" : "notComparableTypes"
     },
     {
       "kind" : "text",
@@ -241,46 +475,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/invalidBooleanValue(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "ValueError.invalidBooleanValue(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valueerror\/invalidbooleanvalue(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ValueError/typeMismatch(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "typeMismatch"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     },
     {
       "kind" : "text",
@@ -288,20 +484,197 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/typeMismatch(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notComparableTypes(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ValueError.typeMismatch(_:_:)",
+  "title" : "ValueError.notComparableTypes(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valueerror\/typemismatch(_:_:)"
+  "url" : "\/documentation\/poieticcore\/valueerror\/notcomparabletypes(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/notConvertible(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "notConvertible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.notConvertible(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/notconvertible(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantArray"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantArray"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantArray",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom": {
+  "abstract" : [
+    {
+      "text" : "VariantAtom represents a scalar or a simple tuple-like value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantAtom"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantAtom"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantAtom",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

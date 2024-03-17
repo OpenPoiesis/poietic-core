@@ -120,11 +120,12 @@
               "type" : "text"
             },
             {
-              "code" : "componentSchema",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/trait",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
-              "text" : ".",
+              "text" : " that the component",
               "type" : "text"
             },
             {
@@ -132,15 +133,7 @@
               "type" : "text"
             },
             {
-              "text" : "Everything that user enters to the application must be available as public",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "named attributes.",
+              "text" : "adopts.",
               "type" : "text"
             }
           ],
@@ -215,341 +208,6 @@
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "anchor" : "Foreign-Representation",
-          "level" : 2,
-          "text" : "Foreign Representation",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Important part of the component is its convertibility to a foreign",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "representation for the purpose of interchange between applications or",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "for the purpose of persistence, a storage.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Typical component holds data provided by the user and everything provided by",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "the user must be available back to the user in an useful and transparent",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "form. The data provided by the user are available through ",
-              "type" : "text"
-            },
-            {
-              "code" : "Component\/foreignRecord()-4l38f",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "or through the ",
-              "type" : "text"
-            },
-            {
-              "code" : "Component\/attribute(forKey:)",
-              "type" : "codeVoice"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The creation of the object should consider that the foreign representation",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "might be of an older or a newer meta-model version, created by some",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "other application version. The component should preserve understanding of",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "historical representations, if possible.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : " is loosely drawing inspiration from the Entity",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "Component System model. However in this case, the purpose of the",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "component is rather data modelling and extensibility of the",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "domain model. More appropriate name would be ",
-                  "type" : "text"
-                },
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Attribute Set",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "emphasis"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "Performance is not of a concern of this concept in this library.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "When designing a component and when the component is a part of",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "a model that is being used for a computation or a simulation, then the",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "component-related computation or simulation code should ",
-                  "type" : "text"
-                },
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "not",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "emphasis"
-                },
-                {
-                  "text" : " be part of",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "the component.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Important",
-          "style" : "important",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "(For library developers)",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "emphasis"
-                },
-                {
-                  "text" : " The ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : " concept was introduced prior to macro system in",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "swift to keep attributes native to the language while still being able",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "to be flexible in modelling and to have richer reflection of the type.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "In might be replaced by macros in the future, however we are not doing it",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "right now for transparency.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Remark",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Before converting the component to a macro, consider the following:",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "How the data, that is “out in the wild”, from previous or future",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "meta-model versions are going to be read, transformed and preserved?",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "emphasis"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Remark",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -565,15 +223,6 @@
       "kind" : "relationships",
       "title" : "Inherits From",
       "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -587,22 +236,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(record:)-2wqah"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/componentName"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/attribute(forKey:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/foreignRecord()-5qlen",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/setAttribute(value:forKey:)"
       ],
       "title" : "Instance Methods"
@@ -682,40 +316,6 @@
   "title" : "Component",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
-  "abstract" : [
-    {
-      "text" : "Documentation component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DocumentationComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/documentationcomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
@@ -805,8 +405,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -820,204 +420,6 @@
   "title" : "attribute(forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/attribute(forkey:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/componentName": {
-  "abstract" : [
-    {
-      "text" : "Convenience forwarding for ",
-      "type" : "text"
-    },
-    {
-      "code" : "ComponentDescription\/name",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "componentName"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/componentName",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "componentName",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/componentname"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/foreignRecord()-5qlen": {
-  "abstract" : [
-    {
-      "text" : "Create a foreign record from the component.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "foreignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/foreignRecord()-5qlen",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "foreignRecord()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/foreignrecord()-5qlen"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init()": {
-  "abstract" : [
-    {
-      "text" : "Create a new component with default component values.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init()",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init()"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init(from:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(from:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(from:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init(from:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init(record:)-2wqah": {
-  "abstract" : [
-    {
-      "text" : "Create a component from a foreign record.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "record"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(record:)-2wqah",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(record:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init(record:)-2wqah"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent/setAttribute(value:forKey:)": {
   "abstract" : [
@@ -1053,8 +455,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1211,40 +613,6 @@
   "title" : "MutableKeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
-  "abstract" : [
-    {
-      "text" : "Component representing a position of a node in a canvas.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "PositionComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "PositionComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "PositionComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/positioncomponent"
 }
 }
 }

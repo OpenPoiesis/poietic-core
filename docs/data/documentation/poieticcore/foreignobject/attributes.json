@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignObjectV10attributesAA0C6RecordVSgvp",
+    "externalID" : "s:11PoieticCore13ForeignObjectV10attributesAA0C6RecordVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,10 +42,6 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
         "text" : "ForeignRecord"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
       }
     ],
     "modules" : [
@@ -90,10 +86,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
               "text" : "ForeignRecord"
-            },
-            {
-              "kind" : "text",
-              "text" : "?"
             }
           ]
         }
@@ -107,36 +99,6 @@
           "level" : 2,
           "text" : "Discussion",
           "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "All advertised attributes of components that are",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " are automatically included in the foreign",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "record.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
         },
         {
           "inlineContent" : [
@@ -197,7 +159,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attributes",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -334,10 +296,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
       "text" : "ForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/attributes",
@@ -357,7 +315,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -430,17 +388,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord"
 },
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/attributes": {
   "abstract" : [
     {
-      "text" : "Protocol for components where attributes can be inspected by their names.",
+      "text" : "Object attributes.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -448,21 +406,37 @@
     },
     {
       "kind" : "identifier",
-      "text" : "InspectableComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "attributes"
+    },
     {
-      "kind" : "identifier",
-      "text" : "InspectableComponent"
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attributes",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InspectableComponent",
+  "title" : "attributes",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/attributes"
 }
 }
 }

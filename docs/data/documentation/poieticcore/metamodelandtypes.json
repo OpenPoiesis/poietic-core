@@ -56,9 +56,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
-      ],
-      "title" : "Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
+      ]
     }
   ],
   "topicSections" : [
@@ -85,6 +85,12 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel"
       ],
       "title" : "Common Components and Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable"
+      ],
+      "title" : "Other"
     }
   ],
   "variants" : [
@@ -397,6 +403,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/designinfo"
 },
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
+},
 "doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
   "abstract" : [
     {
@@ -455,7 +475,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
   "abstract" : [
-
+    {
+      "text" : "Trait denoting level of expertise of the user.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -497,7 +520,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
   "abstract" : [
-
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -539,7 +565,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -581,7 +610,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a list of keywords.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -623,7 +655,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -665,7 +700,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a note or a comment.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -704,6 +742,40 @@
   "title" : "Note",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/note"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variable": {
+  "abstract" : [
+    {
+      "text" : "Object representing a built-in variable.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variable"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variable",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variable"
 }
 }
 }

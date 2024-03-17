@@ -2,7 +2,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
       ]
     ]
   },
@@ -92,9 +93,23 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)"
+      ],
+      "title" : "Store"
+    }
+  ],
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/attributesNotADictionary(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/brokenIntegrity(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/cannotCreateArchiveData(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/cannotOpenStore(_:)",
@@ -103,11 +118,16 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/invalidReference(_:_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/invalidReferences(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedArchiveData(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedArchiveStructure(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollection(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollectionRecord(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollections",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/missingFormatVersion",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/missingOrMalformedStateInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/missingReference(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unknownCollection(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unknownComponentType(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unknownObjectType(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unknownObjectType(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unsupportedFormatVersion(_:)"
       ],
       "title" : "Enumeration Cases"
     },
@@ -153,6 +173,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore": {
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for object memory.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftMemoryStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftMemoryStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftMemoryStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore"
+},
 "doc://PoieticCore/documentation/PoieticCore/MemoryStoreError": {
   "abstract" : [
 
@@ -194,6 +248,53 @@
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memorystoreerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/attributesNotADictionary(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "attributesNotADictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/attributesNotADictionary(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.attributesNotADictionary(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/attributesnotadictionary(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/brokenIntegrity(_:)": {
   "abstract" : [
@@ -566,6 +667,179 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memorystoreerror\/malformedarchivedata(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/malformedArchiveStructure(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedArchiveStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedArchiveStructure(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.malformedArchiveStructure(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/malformedarchivestructure(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/malformedCollection(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollection(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.malformedCollection(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollection(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/malformedCollectionRecord(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollectionRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollectionRecord(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.malformedCollectionRecord(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollectionrecord(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/malformedCollections": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollections"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/malformedCollections",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.malformedCollections",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollections"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/missingFormatVersion": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingFormatVersion"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/missingFormatVersion",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.missingFormatVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/missingformatversion"
+},
 "doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/missingOrMalformedStateInfo": {
   "abstract" : [
 
@@ -676,44 +950,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memorystoreerror\/unknowncollection(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/unknownComponentType(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "unknownComponentType"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unknownComponentType(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "MemoryStoreError.unknownComponentType(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memorystoreerror\/unknowncomponenttype(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/unknownObjectType(_:)": {
   "abstract" : [
 
@@ -751,6 +987,283 @@
   "title" : "MemoryStoreError.unknownObjectType(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memorystoreerror\/unknownobjecttype(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError/unsupportedFormatVersion(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unsupportedFormatVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError\/unsupportedFormatVersion(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MemoryStoreError.unsupportedFormatVersion(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memorystoreerror\/unsupportedformatversion(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the memory and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(store:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the memory and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given memory store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
+      "text" : "MakeshiftMemoryStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/saveAll(to:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of the memory to given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "saveAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "saveAll(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/writeAll(store:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
+      "text" : "MakeshiftMemoryStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

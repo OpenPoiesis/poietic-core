@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20InspectableComponentP9attribute6forKeyAA12ForeignValueOSgSS_tF",
+    "externalID" : "s:11PoieticCore20InspectableComponentP9attribute6forKeyAA7VariantOSgSS_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -56,8 +56,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-        "text" : "ForeignValue"
+        "preciseIdentifier" : "s:11PoieticCore7VariantO",
+        "text" : "Variant"
       },
       {
         "kind" : "text",
@@ -137,10 +137,10 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-              "text" : "ForeignValue"
+              "preciseIdentifier" : "s:11PoieticCore7VariantO",
+              "text" : "Variant"
             },
             {
               "kind" : "text",
@@ -260,9 +260,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(record:)-2wqah",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "init(record:)",
+                  "type" : "codeVoice"
                 }
               ],
               "type" : "paragraph"
@@ -346,48 +345,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
-  "abstract" : [
-    {
-      "text" : "ForeignValue represents a value from an external environment that can be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either an atom or a list of atoms – an array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue"
-},
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
     {
@@ -465,8 +422,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -480,53 +437,6 @@
   "title" : "attribute(forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/attribute(forkey:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/init(record:)-2wqah": {
-  "abstract" : [
-    {
-      "text" : "Create a component from a foreign record.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "record"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/init(record:)-2wqah",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(record:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/init(record:)-2wqah"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent/setAttribute(value:forKey:)": {
   "abstract" : [
@@ -562,8 +472,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -598,6 +508,40 @@
   "title" : "setAttribute(value:forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent\/setattribute(value:forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
 }
 }
 }

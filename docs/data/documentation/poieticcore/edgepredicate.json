@@ -150,11 +150,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate"
       ],
       "title" : "Predicates"
     }
@@ -526,6 +528,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate\/match(frame:object:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/FunctionPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionpredicate"
+},
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
 
@@ -556,6 +589,37 @@
   "title" : "HasComponentPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HasTraitPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HasTraitPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/hastraitpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [

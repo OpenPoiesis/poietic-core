@@ -289,6 +289,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s12IdentifiableP"
@@ -329,6 +331,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attributeKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/components",
@@ -353,7 +356,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/appendIssue(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attribute(forKey:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/foreignRecord()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/promote(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/removeAllIssues()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/removeAttribute(forKey:)",
@@ -363,8 +365,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-1ik6v",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-3b9l1",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-3wrl3",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-4wdrq"
       ],
       "title" : "Subscripts"
@@ -380,6 +382,14 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/ReservedAttributeNames"
       ],
       "title" : "Type Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/KeyedAttributes-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/MutableKeyedAttributes-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -509,6 +519,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent"
 },
+"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
+  "abstract" : [
+    {
+      "text" : "A protocol for objects that provide their attributes by keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "KeyedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/keyedattributes"
+},
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
     {
@@ -556,6 +600,48 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects where attributes can be modified by using the attribute",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "names.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableKeyedAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableKeyedAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableKeyedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -677,8 +763,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -844,6 +930,28 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/id-swift.typealias"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/KeyedAttributes-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/KeyedAttributes-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "KeyedAttributes Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/keyedattributes-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/MutableKeyedAttributes-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/MutableKeyedAttributes-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MutableKeyedAttributes Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/mutablekeyedattributes-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/ReservedAttributeNames": {
   "abstract" : [
 
@@ -995,8 +1103,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1009,6 +1117,44 @@
   "title" : "attribute(forKey:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/attribute(forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/attributeKeys": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "attributeKeys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
+      "text" : "AttributeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attributeKeys",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "attributeKeys",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/attributekeys"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/attributes": {
   "abstract" : [
@@ -1045,8 +1191,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1204,43 +1350,6 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/description"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/foreignRecord()": {
-  "abstract" : [
-    {
-      "text" : "Create a foreign record from the object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "foreignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/foreignRecord()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "foreignRecord()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/foreignrecord()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/hasIssues": {
   "abstract" : [
@@ -1419,8 +1528,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1633,7 +1742,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/position": {
   "abstract" : [
-
+    {
+      "text" : "Get position of the object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1859,8 +1971,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -2010,45 +2122,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/structure"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-1ik6v": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-1ik6v",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-1ik6v"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-3b9l1": {
   "abstract" : [
     {
@@ -2096,6 +2169,45 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-3b9l1"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-3wrl3": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-3wrl3",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-3wrl3"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-4wdrq": {
   "abstract" : [

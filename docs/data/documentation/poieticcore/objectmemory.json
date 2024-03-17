@@ -879,7 +879,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
       "title" : "Object Memory and Version Frames"
     }
@@ -926,12 +927,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/redo(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/removeConstraint(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/removeFrame(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/undo(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/validate(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/validate(_:)"
       ],
       "title" : "Instance Methods"
     }
@@ -1062,6 +1059,52 @@
   "title" : "FrameID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when constraint violations were detected in the graph during",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "accept()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
   "abstract" : [
@@ -1214,8 +1257,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1897,8 +1940,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
     },
     {
       "kind" : "text",
@@ -2011,8 +2054,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -2720,181 +2763,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/removeframe(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(from:)": {
-  "abstract" : [
-    {
-      "text" : "Removes everything from the memory and loads the contents from the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given URL.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "restoreAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "restoreAll(from:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(store:)": {
-  "abstract" : [
-    {
-      "text" : "Removes everything from the memory and loads the contents from the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given memory store.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "restoreAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "store"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
-      "text" : "MakeshiftMemoryStore"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "restoreAll(store:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/saveAll(to:)": {
-  "abstract" : [
-    {
-      "text" : "Saves the contents of the memory to given URL.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "saveAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "saveAll(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/undo(to:)": {
   "abstract" : [
     {
@@ -3135,56 +3003,6 @@
   "title" : "versionHistory",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/versionhistory"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/writeAll(store:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "writeAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "store"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
-      "text" : "MakeshiftMemoryStore"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "writeAll(store:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [

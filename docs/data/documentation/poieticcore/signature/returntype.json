@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9SignatureC10returnTypeAA04AtomE0OSgvp",
+    "externalID" : "s:11PoieticCore9SignatureC10returnTypeAA05ValueE0Ovp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,12 +34,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-        "text" : "AtomType"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
+        "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+        "text" : "ValueType"
       }
     ],
     "modules" : [
@@ -80,14 +76,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-              "text" : "AtomType"
-            },
-            {
-              "kind" : "text",
-              "text" : "?"
+              "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+              "text" : "ValueType"
             }
           ]
         }
@@ -130,40 +122,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/AtomType": {
-  "abstract" : [
-    {
-      "text" : "ValueType specifies a data type of a value that is used in interfaces.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AtomType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/atomtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
@@ -236,12 +194,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-      "text" : "AtomType"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/returnType",
@@ -250,6 +204,37 @@
   "title" : "returnType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/signature\/returntype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype"
 }
 }
 }

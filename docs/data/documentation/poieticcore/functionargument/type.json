@@ -9,6 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument"
       ]
     ]
@@ -19,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore16FunctionArgumentV4typeAA0D4TypeOvp",
+    "externalID" : "s:11PoieticCore16FunctionArgumentV4typeAA9UnionTypeOvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12ArgumentTypeO",
-        "text" : "ArgumentType"
+        "preciseIdentifier" : "s:11PoieticCore9UnionTypeO",
+        "text" : "UnionType"
       }
     ],
     "modules" : [
@@ -81,10 +82,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12ArgumentTypeO",
-              "text" : "ArgumentType"
+              "preciseIdentifier" : "s:11PoieticCore9UnionTypeO",
+              "text" : "UnionType"
             }
           ]
         }
@@ -128,39 +129,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ArgumentType": {
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Type of a function argument.",
+      "text" : "Formulas - arithmetic expressions.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ArgumentType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ArgumentType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ArgumentType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/argumenttype"
+  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionArgument": {
   "abstract" : [
@@ -222,8 +203,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ArgumentTypeO",
-      "text" : "ArgumentType"
+      "preciseIdentifier" : "s:11PoieticCore9UnionTypeO",
+      "text" : "UnionType"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/type",
@@ -232,6 +213,40 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionargument\/type"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnionType": {
+  "abstract" : [
+    {
+      "text" : "Type of a function argument.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnionType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnionType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnionType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniontype"
 }
 }
 }

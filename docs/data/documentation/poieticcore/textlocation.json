@@ -132,7 +132,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
       ],
       "title" : "Parsing"
     }
@@ -259,6 +260,40 @@
   "title" : "ExpressionParser",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparser"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the expression language parser.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionTokenType": {
   "abstract" : [

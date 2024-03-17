@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new makeshift memory store from a file stored at given URL.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore"
       ]
     ]
@@ -173,7 +180,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore/init(url:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new makeshift memory store from a file stored at given URL.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -212,6 +222,20 @@
   "title" : "init(url:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore\/init(url:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 }
 }
 }

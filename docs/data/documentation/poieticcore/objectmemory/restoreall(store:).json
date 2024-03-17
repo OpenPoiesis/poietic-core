@@ -17,8 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
       ]
     ]
   },
@@ -177,6 +176,19 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)"
+      ],
+      "title" : "Store"
+    }
+  ],
   "variants" : [
     {
       "paths" : [
@@ -239,31 +251,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftmemorystore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
+"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError": {
   "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -271,21 +266,82 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "MemoryStoreError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "MemoryStoreError"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectMemory",
+  "title" : "MemoryStoreError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
+  "url" : "\/documentation\/poieticcore\/memorystoreerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the memory and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(store:)": {
   "abstract" : [
@@ -347,6 +403,123 @@
   "title" : "restoreAll(store:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/saveAll(to:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of the memory to given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "saveAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "saveAll(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/writeAll(store:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
+      "text" : "MakeshiftMemoryStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 }
 }
 }

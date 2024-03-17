@@ -135,8 +135,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -155,7 +154,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes\/setAttribute(value:forKey:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes\/setAttributes(_:)-40hq7"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes\/setAttributes(_:)-6dg7w"
       ],
       "title" : "Instance Methods"
     }
@@ -187,40 +186,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/DocumentationComponent": {
-  "abstract" : [
-    {
-      "text" : "Documentation component",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DocumentationComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DocumentationComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DocumentationComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/documentationcomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
@@ -363,8 +328,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -400,7 +365,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes\/setattribute(value:forkey:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes/setAttributes(_:)-40hq7": {
+"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes/setAttributes(_:)-6dg7w": {
   "abstract" : [
 
   ],
@@ -433,8 +398,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -445,25 +410,25 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes\/setAttributes(_:)-40hq7",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes\/setAttributes(_:)-6dg7w",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "setAttributes(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes\/setattributes(_:)-40hq7"
+  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes\/setattributes(_:)-6dg7w"
 },
-"doc://PoieticCore/documentation/PoieticCore/PositionComponent": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Component representing a position of a node in a canvas.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -471,21 +436,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "PositionComponent"
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PositionComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "PositionComponent"
+      "text" : "ObjectSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "PositionComponent",
+  "title" : "ObjectSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/positioncomponent"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 }
 }
 }

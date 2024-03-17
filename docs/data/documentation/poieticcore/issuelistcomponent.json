@@ -88,7 +88,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "This is a transient component, its content will not be persisted.",
+              "text" : "This is a run-time component, its content will not be persisted.",
               "type" : "text"
             }
           ],
@@ -133,9 +133,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/append(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/attribute(forKey:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/removeAll()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/setAttribute(value:forKey:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/removeAll()"
       ],
       "title" : "Instance Methods"
     },
@@ -280,61 +278,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent\/append(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IssueListComponent/attribute(forKey:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "attribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
-      "text" : "AttributeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/attribute(forKey:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "attribute(forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issuelistcomponent\/attribute(forkey:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent/errors": {
   "abstract" : [
 
@@ -460,73 +403,6 @@
   "title" : "removeAll()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent\/removeall()"
-},
-"doc://PoieticCore/documentation/PoieticCore/IssueListComponent/setAttribute(value:forKey:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "setAttribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "value"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12AttributeKeya",
-      "text" : "AttributeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent\/setAttribute(value:forKey:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "setAttribute(value:forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issuelistcomponent\/setattribute(value:forkey:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent/trait": {
   "abstract" : [

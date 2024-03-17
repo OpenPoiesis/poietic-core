@@ -46,7 +46,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filter(type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterEdges(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/filterNodes(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(trait:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(type:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(where:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/hasReferentialIntegrity()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/neighbours(_:selector:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/node(_:)",
@@ -747,6 +749,64 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/filternodes(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/first(trait:)": {
+  "abstract" : [
+    {
+      "text" : "Get the first object with given trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(trait:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first(trait:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/first(trait:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/first(type:)": {
   "abstract" : [
     {
@@ -804,6 +864,73 @@
   "title" : "first(type:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/first(type:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/first(where:)": {
+  "abstract" : [
+    {
+      "text" : "Get the first object satisfying the condition.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "where"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/first(where:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first(where:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/first(where:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/hasReferentialIntegrity()": {
   "abstract" : [

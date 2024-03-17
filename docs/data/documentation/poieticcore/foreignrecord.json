@@ -112,8 +112,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
@@ -124,7 +122,9 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-3f8ez",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-9hwo7"
       ],
       "title" : "Initializers"
     },
@@ -139,7 +139,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValueIfPresent(for:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSONObject()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSON()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValueIfPresent(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/contains(_:)",
@@ -250,48 +250,6 @@
   "title" : "AttributeKey",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignAtom": {
-  "abstract" : [
-    {
-      "text" : "ForeignAtom represents a scalar or a simple tuple-like value from an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignAtom",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignAtom"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignAtom",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignatom"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
@@ -578,7 +536,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/allkeys"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/asJSONObject()": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/asJSON()": {
   "abstract" : [
     {
       "text" : "Create a Foundation-compatible JSON object representation.",
@@ -596,23 +554,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "asJSONObject"
+      "text" : "asJSON"
     },
     {
       "kind" : "text",
       "text" : "() -> "
     },
     {
-      "kind" : "keyword",
-      "text" : "Any"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSONObject()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSON()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "asJSONObject()",
+  "title" : "asJSON()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord\/asjsonobject()"
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/asjson()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/boolValue(for:)": {
   "abstract" : [
@@ -844,8 +803,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1003,7 +962,28 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/doublevalueifpresent(for:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/init()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)-3f8ez": {
   "abstract" : [
     {
       "text" : "Create a foreign record from a dictionary.",
@@ -1030,20 +1010,63 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-3f8ez",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)"
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)-3f8ez"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)-9hwo7": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-9hwo7",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)-9hwo7"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/intValue(for:)": {
   "abstract" : [
@@ -1376,8 +1399,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignValueO",
-      "text" : "ForeignValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -1432,48 +1455,6 @@
   "title" : "ForeignRecordError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecorderror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignValue": {
-  "abstract" : [
-    {
-      "text" : "ForeignValue represents a value from an external environment that can be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either an atom or a list of atoms – an array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
   "abstract" : [

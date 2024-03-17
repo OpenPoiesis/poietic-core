@@ -80,39 +80,6 @@
             {
               "kind" : "identifier",
               "text" : "UniqueProperty"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "genericParameter",
-              "text" : "Value"
-            },
-            {
-              "kind" : "text",
-              "text" : "> "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "where"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Value"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SH",
-              "text" : "Hashable"
             }
           ]
         }
@@ -161,7 +128,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/extract"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/name"
       ],
       "title" : "Instance Properties"
     },
@@ -627,63 +594,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty\/check(frame:objects:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/extract": {
-  "abstract" : [
-    {
-      "text" : "A function that extracts the value to be checked for uniqueness from",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a graph object (edge or a node)",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "extract"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Value"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/extract",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "extract",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueproperty\/extract"
-},
 "doc://PoieticCore/documentation/PoieticCore/UniqueProperty/init(_:)": {
   "abstract" : [
     {
@@ -706,24 +616,16 @@
     },
     {
       "kind" : "text",
-      "text" : "(("
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Value"
-    },
-    {
-      "kind" : "text",
-      "text" : "?)"
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/init(_:)",
@@ -732,6 +634,43 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty\/init(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty/name": {
+  "abstract" : [
+    {
+      "text" : "Property name to be checked for uniqueness.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty\/name"
 }
 }
 }

@@ -3,6 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ]
     ]
@@ -13,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20FrameValidationErrorV10typeErrorsSDys6UInt64VSayAA04TypeE0OGGvp",
+    "externalID" : "s:11PoieticCore20FrameValidationErrorV10typeErrorsSDys6UInt64VSayAA010ObjectTypeE0OGGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,8 +43,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9TypeErrorO",
-        "text" : "TypeError"
+        "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+        "text" : "ObjectTypeError"
       },
       {
         "kind" : "text",
@@ -98,10 +99,10 @@
               "text" : " : ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypeError",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9TypeErrorO",
-              "text" : "TypeError"
+              "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+              "text" : "ObjectTypeError"
             },
             {
               "kind" : "text",
@@ -227,8 +228,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9TypeErrorO",
-      "text" : "TypeError"
+      "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+      "text" : "ObjectTypeError"
     },
     {
       "kind" : "text",
@@ -241,6 +242,20 @@
   "title" : "typeErrors",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/framevalidationerror\/typeerrors"
+},
+"doc://PoieticCore/documentation/PoieticCore/Memory": {
+  "abstract" : [
+    {
+      "text" : "Management and storage of design objects.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Object Memory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -276,7 +291,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/TypeError": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
 
   ],
@@ -291,21 +306,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TypeError"
+      "text" : "ObjectTypeError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TypeError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TypeError"
+      "text" : "ObjectTypeError"
     }
   ],
   "role" : "symbol",
-  "title" : "TypeError",
+  "title" : "ObjectTypeError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/typeerror"
+  "url" : "\/documentation\/poieticcore\/objecttypeerror"
 }
 }
 }

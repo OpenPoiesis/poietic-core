@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -101,6 +107,140 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This trait is used on an object, typically a singleton",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "(one instance per design), to provide basic user-oriented information",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "about the design.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Applications are expected to create their own ",
+              "type" : "text"
+            },
+            {
+              "code" : "DesignInfo",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " object type",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that might include this trait in addition to the application",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "specific traits.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Attributes:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "title",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " – design title",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "author",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " – name of the design author",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "license",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " – license by which the design can be used",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -329,7 +469,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
   "abstract" : [
-
+    {
+      "text" : "Trait denoting level of expertise of the user.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -371,7 +514,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
   "abstract" : [
-
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -413,7 +559,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -455,7 +604,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a list of keywords.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -497,7 +649,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -539,7 +694,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a note or a comment.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

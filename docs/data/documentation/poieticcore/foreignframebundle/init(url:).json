@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new foreign frame bundle object at given URL.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -100,6 +106,165 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The expected objects and sub-paths are:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "info.json",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " – information about the bundle. See ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "for more information.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "objects",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " sub-path with ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "*.json",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " files each representing a collection",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "of objects.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example foreign frame bundle structure:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "Capital.poieticframe",
+            " ├── info.json",
+            " └── objects",
+            "     ├── design.json",
+            "     ├── objects.json",
+            "     └── report.json"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example of corresponding ",
+              "type" : "text"
+            },
+            {
+              "code" : "info.json",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ":",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "{",
+            "    \"frame_format_version\": \"2023.9\",",
+            "    \"metamodel\": \"Flows\",",
+            "",
+            "    \"collections\": [ \"design\", \"objects\", \"report\" ],",
+            "}"
+          ],
+          "syntax" : "json",
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Throws",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -140,7 +305,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
   "abstract" : [
-
+    {
+      "text" : "Object representing URL based foreign frame, such as a directory on a file",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "system.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -171,7 +347,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle/init(url:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new foreign frame bundle object at given URL.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -210,6 +389,74 @@
   "title" : "init(url:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframebundle\/init(url:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when reading or processing a foreign frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrameError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameInfo": {
+  "abstract" : [
+    {
+      "text" : "Structure holding information about a foreign frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameInfo"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrameInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeinfo"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [

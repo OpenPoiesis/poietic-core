@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -101,6 +107,73 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Attributes:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "abstract",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (string) – short abstract about the object. Typically one",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "sentence.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "documentation",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (string) – longer description of the object.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -330,7 +403,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
   "abstract" : [
-
+    {
+      "text" : "Trait denoting level of expertise of the user.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -372,7 +448,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
   "abstract" : [
-
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -414,7 +493,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -456,7 +538,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a list of keywords.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -498,7 +583,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -540,7 +628,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a note or a comment.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

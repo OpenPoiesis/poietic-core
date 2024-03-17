@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9MetamodelC9variablesSayAA15BuiltinVariableCGvp",
+    "externalID" : "s:11PoieticCore9MetamodelC9variablesSayAA8VariableCGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,8 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15BuiltinVariableC",
-        "text" : "BuiltinVariable"
+        "preciseIdentifier" : "s:11PoieticCore8VariableC",
+        "text" : "Variable"
       },
       {
         "kind" : "text",
@@ -86,10 +86,10 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15BuiltinVariableC",
-              "text" : "BuiltinVariable"
+              "preciseIdentifier" : "s:11PoieticCore8VariableC",
+              "text" : "Variable"
             },
             {
               "kind" : "text",
@@ -136,40 +136,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/BuiltinVariable": {
-  "abstract" : [
-    {
-      "text" : "Object representing a built-in variable.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinVariable",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinVariable"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BuiltinVariable",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtinvariable"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
@@ -231,8 +197,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15BuiltinVariableC",
-      "text" : "BuiltinVariable"
+      "preciseIdentifier" : "s:11PoieticCore8VariableC",
+      "text" : "Variable"
     },
     {
       "kind" : "text",
@@ -259,6 +225,40 @@
   "title" : "Metamodel and Types",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variable": {
+  "abstract" : [
+    {
+      "text" : "Object representing a built-in variable.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variable"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variable",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variable"
 }
 }
 }

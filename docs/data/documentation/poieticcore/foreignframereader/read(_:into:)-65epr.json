@@ -116,7 +116,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "objects"
+              "text" : "foreignObjects"
             },
             {
               "kind" : "text",
@@ -324,9 +324,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/invalidObjectReference(_:_:_:)",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "FrameReaderError\/invalidObjectReference(_:_:_:)",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : " ",
@@ -354,9 +353,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/objectPropertyNotFound(_:_:)",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "FrameReaderError\/objectPropertyNotFound(_:_:)",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : " is thrown.",
@@ -384,9 +382,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/invalidStructuralKeyPresent(_:_:_:)",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "FrameReaderError\/invalidStructuralKeyPresent(_:_:_:)",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : " ",
@@ -445,9 +442,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "FrameReaderError",
+                  "type" : "codeVoice"
                 }
               ],
               "type" : "paragraph"
@@ -672,196 +668,6 @@
   "title" : "ForeignObject",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameReaderError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameReaderError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError/invalidObjectReference(_:_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "invalidObjectReference"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/invalidObjectReference(_:_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "FrameReaderError.invalidObjectReference(_:_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror\/invalidobjectreference(_:_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError/invalidStructuralKeyPresent(_:_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "invalidStructuralKeyPresent"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14StructuralTypeO",
-      "text" : "StructuralType"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/invalidStructuralKeyPresent(_:_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "FrameReaderError.invalidStructuralKeyPresent(_:_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror\/invalidstructuralkeypresent(_:_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameReaderError/objectPropertyNotFound(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "objectPropertyNotFound"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameReaderError\/objectPropertyNotFound(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "FrameReaderError.objectPropertyNotFound(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framereadererror\/objectpropertynotfound(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [

@@ -3,7 +3,7 @@
     {
       "inlineContent" : [
         {
-          "text" : "Use the designated initialiser createSnapshot",
+          "text" : "Use the designated initialiser createSnapshot or merge with foreign object",
           "type" : "text"
         }
       ],
@@ -26,7 +26,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore12ObjectMemoryC14createSnapshotyAA0cF0CAA13ForeignRecordVKF",
+    "externalID" : "s:11PoieticCore12ObjectMemoryC14createSnapshotyAA0cF0CAA07ForeignC0VKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -46,8 +46,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-        "text" : "ForeignRecord"
+        "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+        "text" : "ForeignObject"
       },
       {
         "kind" : "text",
@@ -124,10 +124,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-              "text" : "ForeignRecord"
+              "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+              "text" : "ForeignObject"
             },
             {
               "kind" : "text",
@@ -189,18 +189,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
     {
-      "text" : "A collection of key-value pairs that store data used for exchange with",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment such as database.",
+      "text" : "A structure that contains an object representation from a foreign interface.",
       "type" : "text"
     }
   ],
@@ -215,21 +207,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignRecord"
+      "text" : "ForeignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignRecord"
+      "text" : "ForeignObject"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignRecord",
+  "title" : "ForeignObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord"
+  "url" : "\/documentation\/poieticcore\/foreignobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/Memory": {
   "abstract" : [
@@ -303,8 +295,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
     },
     {
       "kind" : "text",

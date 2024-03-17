@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -101,6 +107,82 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Attributes:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "name",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (string) – name of the object",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Name is typically an identifier through with the object can be",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "referenced.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For some types of models, the name might be unique within the whole",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "model.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -330,7 +412,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
   "abstract" : [
-
+    {
+      "text" : "Trait denoting level of expertise of the user.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -372,7 +457,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
   "abstract" : [
-
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -414,7 +502,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -456,7 +547,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a list of keywords.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -498,7 +592,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
   "abstract" : [
-
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -540,7 +637,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
   "abstract" : [
-
+    {
+      "text" : "Trait for a note or a comment.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

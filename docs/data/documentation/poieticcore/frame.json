@@ -164,7 +164,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
       "title" : "Object Memory and Version Frames"
     }
@@ -191,7 +192,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-2khoe",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filterEdges(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filterNodes(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(trait:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(type:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(where:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/hasReferentialIntegrity()-78e2a",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/neighbours(_:selector:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(_:)",
@@ -886,6 +889,64 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/filternodes(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/Frame/first(trait:)": {
+  "abstract" : [
+    {
+      "text" : "Get the first object with given trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(trait:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first(trait:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/first(trait:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Frame/first(type:)": {
   "abstract" : [
     {
@@ -943,6 +1004,73 @@
   "title" : "first(type:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/first(type:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/first(where:)": {
+  "abstract" : [
+    {
+      "text" : "Get the first object satisfying the condition.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "where"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(where:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first(where:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/first(where:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/hasReferentialIntegrity()-78e2a": {
   "abstract" : [
@@ -1379,6 +1507,52 @@
   "title" : "FrameID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when constraint violations were detected in the graph during",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "accept()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [

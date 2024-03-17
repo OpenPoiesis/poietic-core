@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "URL of the foreign frame bundle.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -124,7 +130,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
   "abstract" : [
-
+    {
+      "text" : "Object representing URL based foreign frame, such as a directory on a file",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "system.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -155,7 +172,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle/url": {
   "abstract" : [
-
+    {
+      "text" : "URL of the foreign frame bundle.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
