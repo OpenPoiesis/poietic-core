@@ -12,7 +12,7 @@
 /// Class representing a function used in arithmetic expression evaluation.
 ///
 public class Function: CustomStringConvertible {
-    /// Type of the function callable body closure.
+    /// Type of the funotion callable body closure.
     ///
     /// The body takes a list of variants and returns a variant.
     ///

@@ -28,3 +28,8 @@ Metamodel describes the types of the design objects and their properties.
 
 - ``EmptyMetamodel``
 - ``BasicMetamodel``
+
+### Other
+
+- ``Variable``
+

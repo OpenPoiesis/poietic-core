@@ -6,10 +6,7 @@ Structures and functionality for interfacing with other systems.
 
 ### Foreign Value
 
-- ``ForeignValue``
-- ``ForeignAtom``
 - ``ForeignRecord``
-
 - ``AttributeKey``
 - ``KeyedAttributes``
 - ``ForeignRecordError``
@@ -20,7 +17,13 @@ Structures and functionality for interfacing with other systems.
 - ``ForeignFrameBundle``
 - ``ForeignFrameInfo``
 - ``ForeignObject``
-- ``FrameReaderError``
+- ``ForeignObjectError``
+- ``ForeignValueError``
+- ``ForeignFrameError``
+- ``ObjectSnapshot/asForeignObject()``
+- ``ObjectSnapshot/infoAsForeignRecord()``
+
+See also: <doc:Persistence>
 
 ### CSV Reading and Writing
 
@@ -30,3 +33,9 @@ Structures and functionality for interfacing with other systems.
 - ``CSVWriter``
 - ``CSVError``
 
+### JSON
+
+- ``JSONValue``
+- ``JSONType``
+- ``JSONError``
+- ``JSONDictionary``

@@ -72,7 +72,7 @@ public class Neighborhood {
     }
 }
 
-public class NeighborhoodView {
+class NeighborhoodView {
     public let graph: Graph
     public let nodeID: ObjectID
     public let predicate: Predicate
@@ -117,7 +117,7 @@ public class NeighborhoodView {
 }
 
 
-public class BoundNeighborhood {
+class BoundNeighborhood {
     public let graph: Graph
     public let node: Node
     public let nodeID: ObjectID

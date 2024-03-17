@@ -6,7 +6,8 @@
 //
 //  Ported from Tarot.
 
-public enum AttributeError: Error {
+// FIXME: Remove this.
+enum AttributeError: Error {
     /// Raised when reading or setting an attribute of a type that is not
     /// convertible to the required value.
     ///

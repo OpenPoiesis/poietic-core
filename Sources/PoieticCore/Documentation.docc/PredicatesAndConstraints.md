@@ -19,11 +19,13 @@ particular component with ``HasComponentPredicate``.
 - ``EdgePredicate``
 - ``AnyPredicate``
 - ``IsTypePredicate``
+- ``HasTraitPredicate``
 - ``NegationPredicate``
 - ``HasComponentPredicate``
 - ``AllSatisfy``
 - ``ConstraintRequirement``
 - ``LogicalConnective``
+- ``FunctionPredicate``
 
 ### Constraints
 
@@ -32,6 +34,5 @@ particular component with ``HasComponentPredicate``.
 - ``RejectAll``
 - ``AcceptAll``
 - ``ConstraintViolation``
-- ``ConstraintViolationError``
 - ``UniqueNeighbourRequirement``
 - ``UniqueProperty``

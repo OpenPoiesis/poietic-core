@@ -8,20 +8,16 @@ Formulas - arithmetic expressions.
 
 - ``ArithmeticExpression``
 - ``UnboundExpression``
-- ``BuiltinVariable``
-- ``bindExpression(_:variables:functions:)``
-- ``ExpressionError``
-- ``ExpressionSyntaxError``
+- ``ExpressionConvertible``
 
 ### Functions
 
-- ``FunctionProtocol``
-- ``NumericFunction``
-- ``NumericUnaryFunction``
-- ``NumericBinaryFunction``
-- ``FunctionError``
-- ``ArgumentType``
+- ``Function``
 - ``Signature``
+- ``FunctionArgument``
+- ``UnionType``
+- ``BuiltinComparisonOperators``
+- ``BuiltinFunctions``
 
 ### Parsing
 
@@ -33,6 +29,7 @@ Formulas - arithmetic expressions.
 - ``Token``
 - ``ExpressionTokenType``
 - ``TokenTypeProtocol``
+- ``ExpressionSyntaxError``
 
 ### Abstract Syntax Tree
 

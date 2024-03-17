@@ -18,6 +18,7 @@ The object memory stores design objects and manages their versions.
 - ``IdentityGenerator``
 - ``SequentialIDGenerator``
 - ``VersionState``
+- ``FrameValidationError``
 
 ### Object
 
@@ -29,7 +30,19 @@ The object memory stores design objects and manages their versions.
 - ``ChildrenSet``
 - ``ObjectProtocol``
 
+### Value and Variant
+
+- ``Variant``
+- ``VariantAtom``
+- ``VariantArray``
+- ``ValueType``
+- ``ValueError``
+- ``AtomType``
+- ``ID``
+- ``Point``
+
 ### Component
 
 - ``Component``
 - ``ComponentSet``
+

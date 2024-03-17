@@ -61,18 +61,3 @@ public class Variable: Hashable {
         hasher.combine(name)
     }
 }
-
-
-// TODO: Reconsider necessity of this protocol. Used only in bindExpression (and related code in Flows)
-/// Protocol for types that can represent one or multiple variant types.
-///
-public protocol TypedValue {
-    var valueType: ValueType { get }
-}
-
-extension Variant: TypedValue {
-    public var unionType: UnionType {
-        return .concrete(valueType)
-    }
-    
-}

@@ -28,13 +28,12 @@ For querying features of a graph there is ``Neighborhood`` and
 
 ## Topics
 
-### Memory
-
 - <doc:Memory>
 - <doc:MetamodelAndTypes>
 - <doc:PredicatesAndConstraints>
 - <doc:Graphs>
 - <doc:ForeignInterfaces>
 - <doc:Formulas>
+- <doc:Persistence>
 
 

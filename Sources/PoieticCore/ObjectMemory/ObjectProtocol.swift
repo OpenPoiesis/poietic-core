@@ -51,17 +51,3 @@ public struct MutableObjectReference {
     }
 }
 
-public struct BoundComponentSequence<T>: Sequence, IteratorProtocol where T: Component {
-    public var frame: MutableFrame
-
-    public mutating func next() -> T? {
-        nil
-    }
-}
-
-public struct BoundComponent<T> where T: Component {
-}
-
-public func mutableQuery<T>(component: T.Type) -> [BoundComponent<T>] where T : Component {
-    return []
-}
