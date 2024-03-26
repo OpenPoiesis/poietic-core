@@ -6,9 +6,6 @@
 //
 
 
-// TODO: This is an old design, might be a bit more complex than necessary, might need some simplification.
-// NOTE: There were reasons for this design back then. Not sure if they still apply.
-
 /// Class representing a function used in arithmetic expression evaluation.
 ///
 public class Function: CustomStringConvertible {

@@ -79,7 +79,7 @@ public enum StructuralComponent: Equatable, CustomStringConvertible {
         switch self {
         case .unstructured: "unstructured"
         case .node: "node"
-        case .edge(let origin, let target): "edge(\(origin),\(target)"
+        case .edge(let origin, let target): "edge(\(origin),\(target))"
         }
     }
 }

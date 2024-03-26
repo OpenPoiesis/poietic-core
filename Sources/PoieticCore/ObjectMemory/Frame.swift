@@ -328,7 +328,7 @@ extension Frame /* Graph */ {
 ///
 public class StableFrame: Frame {
     /// Memory to which the frame belongs.
-    public let memory: ObjectMemory
+    public unowned let memory: ObjectMemory
     
     /// ID of the frame.
     ///

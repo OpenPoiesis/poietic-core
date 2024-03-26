@@ -335,9 +335,8 @@ public class ForeignFrameReader {
         var snapshotIDs: [ObjectID] = []
         
         // 1. Allocate identities and collect references
-        // TODO: Rename to foreignObject in foreignObjects
         for foreignObject in foreignObjects {
-            // TODO: [REFACTORING] Catch foreign object error and wrap it with more info
+            // TODO: Catch foreign object error and wrap it with more info
             let actualID: ObjectID
             if let stringID = try foreignObject.id {
                 actualID = memory.allocateID(required: ObjectID(stringID))
