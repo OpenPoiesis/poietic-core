@@ -1,11 +1,11 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "PoieticCore",
-    platforms: [.macOS("13.3"), .custom("linux", versionString: "1")],
+    platforms: [.macOS("14"), .custom("linux", versionString: "1")],
     products: [
         .library(
             name: "PoieticCore",
@@ -22,8 +22,7 @@ let package = Package(
             name: "PoieticCore",
             dependencies: [
                 .product(name: "SystemPackage", package: "swift-system"),
-            ],
-            swiftSettings: [.enableUpcomingFeature("FullTypedThrows")]
+            ]
         ),
         .testTarget(
             name: "PoieticCoreTests",
