@@ -257,3 +257,25 @@ public struct ForeignObject {
         return .object(record)
     }
 }
+
+// TODO: Where this should belong? This is here only for the server, as it requires Encodable, for now.
+
+extension ForeignObject: Encodable {
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: ObjectSnapshot.ForeignObjectCodingKeys.self)
+        try container.encode(info.stringValue(for: "id"), forKey: .id)
+        try container.encode(info.stringValue(for: "snapshot_id"), forKey: .snapshotID)
+        try container.encode(info.stringValue(for: "type"), forKey: .type)
+        try container.encode(info.stringValue(for: "structure"), forKey: .structure)
+        if let origin = try info.stringValueIfPresent(for: "origin") {
+            try container.encode(origin, forKey: .origin)
+        }
+        if let target = try info.stringValueIfPresent(for: "target") {
+            try container.encode(target, forKey: .target)
+        }
+        if let parent = try info.stringValueIfPresent(for: "parent") {
+            try container.encode(parent, forKey: .parent)
+        }
+        try container.encode(attributes, forKey: .attributes)
+    }
+}

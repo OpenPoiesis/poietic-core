@@ -29,6 +29,23 @@ extension ObjectSnapshot {
         }
         return ForeignRecord(dict)
     }
+    
+    // This is not to conform to "encodable" but to satisfy encoding of
+    // ForeignObject. We can not assure symmetrical encoding/decoding of object
+    // snapshots because of custom runtime components.
+    //
+    enum ForeignObjectCodingKeys: String, CodingKey {
+        case id
+        case snapshotID
+        case type
+        case structure
+        case origin
+        case target
+        case parent
+        case attributes
+    }
+
+    
     /// Create a foreign record from the object snapshot.
     ///
     /// The foreign record does not include
