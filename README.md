@@ -1,11 +1,12 @@
-# Poietic
+# Poietic Core
 
-A modelling and simulation toy toolkit for systems thinking and systems dynamics.
+A modelling and simulation toolkit, primarily for systems thinking.
 
 Function:
 
-- Creation and iterative design of systems dynamics models.
-- Simulation of systems dynamics models.
+- Creation of models representable by graphs, such as systems dynamics models.
+- Validation of models based on domain-specific constraints and types.
+- History of editing changes with undo and redo functionality.
 
 Focus and approach:
 
@@ -23,34 +24,26 @@ Focus and approach:
 
 Current:
 
-- [Stock and Flow](https://en.wikipedia.org/wiki/Stock_and_flow) model
-    - Implemented nodes: Stock, Flow, Auxiliary, Graphical Function
-    - Stocks can be either non-negative or can allow negative values
-    - Included [Euler](https://en.wikipedia.org/wiki/Euler_method) and [RK4](https://en.wikipedia.org/wiki/Runge–Kutta_methods) solvers
-- Simple arithmetic expressions (formulas)
-    - Built-in functions: abs, floor, ceiling, round, power, sum, min, max
-- Whole editing history is preserved.
-- Editing is non-destructive and can be reversed using undo and
-  redo commands.
-- Exports:
-    - [Graphviz](https://graphviz.org) dot files.
-    - Export to CSV.
-    - Charts to [Gnuplot](http://gnuplot.info)
-  
+- Object graph with history of editing changes.
+- Metamodel with object types, traits and constraints with the purpose of:
+    - validation of model correctness according to a methodology of choice
+    - containing of different kinds of systems thinking methodologies
+    - development and evolution of the methodologies
+- Non-destructive editing with undo and redo command.
+- Simple arithmetic expressions (formulas).
+
+See also [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
+– Stock and Flow modelling package.
+
 Planned:
 
-- More useful built-in functions and variables for the Stock and Flow model.
-- Sub-systems.
 - API for GUI applications.
 - Visual layout.
-- Model composition.
-- Tabular (relational) representation of the model.
+- Model (package) composition and comparison.
 - Localisation/internationalisation.
 - Ability to contain/integrate other meta-models:
     - Causal maps
     - SGBN and SBOL (design, composition, graph analysis, no simulation)
-- Ability to invent and integrate other meta-models or to extend current
-  meta-model(s).
 
 Out-of-scope:
 
@@ -63,81 +56,21 @@ Out-of-scope:
   with the design and its simulation. Also extensibility of a DSL might get
   too complex.
 
-## Demos
+## Examples
 
-Example models can be found in the [Demos repository](https://github.com/OpenPoiesis/Demos).
+Example models of of one of the methodologies can be found in the [Examples repository](https://github.com/OpenPoiesis/PoieticExamples).
+Follow instructions how to run them in the documentation contained within the
+repository.
 
 ## Documentation
 
 - [PoieticCore](https://openpoiesis.github.io/PoieticCore/documentation/poieticcore/)
 - [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
 
-## Command-line Tool
-
-At the moment, the only user-facing interface is a command-line tool called
-``poietic``. The available commands are:
-
-```
-  new                     Create an empty design.
-  info                    Get information about the design
-  list                    List all nodes and edges
-  describe                Describe an object
-  edit                    Edit an object or a selection of objects
-  import                  Import a frame bundle into the design
-  run                     Run a model
-  write-dot               Write a Graphviz DOT file.
-  metamodel               Show the metamodel
-```
-
-The edit subcommands are:
-
-```
-  set                     Set an attribute value
-  undo                    Undo last change
-  redo                    Redo undone change
-  add                     Create a new node
-  connect                 Create a new connection (edge) between two nodes
-```
-
-Use `--help` with the desired command to learn more.
-
-
-### Pseudo-REPL
-
-Think of this tool as [ed](https://en.wikipedia.org/wiki/Ed_(text_editor)) but
-for data represented as a graph. At least for now.
-
-The tool is designed in a way that it is by itself interactive for a single-user. 
-For interactivity in a shell, set the `POIETIC_DATABASE` environment variable to
-point to a file where the design is stored.
-
-Example session:
-
-```
-export POIETIC_DATABASE="MyDesign.poietic"
-
-poietic new
-poietic info
-
-poietic edit add Stock name=water formula=100
-poietic edit add Flow name=outflow formula=10
-poietic edit connect Drains water outflow
-
-poietic list formulas
-
-poietic edit add Stock name=unwanted
-poietic list formulas
-poietic edit undo
-
-poietic list formulas
-
-poietic run
-```
-
 
 ## Development
 
-This is a sketch of a toy.
+This is a playful exploration.
 
 More information about the development can be found in documents in the
 [DevelopmentNotes](DevelopmentNotes) directory.
