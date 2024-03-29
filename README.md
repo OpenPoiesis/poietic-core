@@ -32,7 +32,7 @@ Current:
 - Non-destructive editing with undo and redo command.
 - Simple arithmetic expressions (formulas).
 
-See also [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
+See also [PoieticFlows](https://github.com/OpenPoiesis/PoieticFlows)
 – Stock and Flow modelling package.
 
 Planned:
