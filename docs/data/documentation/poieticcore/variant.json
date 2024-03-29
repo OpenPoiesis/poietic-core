@@ -215,6 +215,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/arrayItemType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isArray",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isNumeric",
@@ -1199,6 +1200,55 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/atomtype"
 },
+"doc://PoieticCore/documentation/PoieticCore/Variant/atomValue": {
+  "abstract" : [
+    {
+      "text" : "Get atom value, if the variant is an atom, otherwise ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atomValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "atomValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/atomvalue"
+},
 "doc://PoieticCore/documentation/PoieticCore/Variant/boolArray()": {
   "abstract" : [
     {
@@ -2043,7 +2093,6 @@
       "type" : "text"
     }
   ],
-  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

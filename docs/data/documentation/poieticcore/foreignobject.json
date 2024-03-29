@@ -115,6 +115,16 @@
       "kind" : "content"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SE"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -166,6 +176,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/asJSON()"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/Encodable-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -182,6 +199,11 @@
   ]
 , 
 "references": {
+"doc://PoieticCore/SE": {
+  "identifier" : "doc:\/\/PoieticCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
@@ -387,6 +409,17 @@
   "title" : "ForeignObject",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignObject/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignobject\/encodable-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/asJSON()": {
   "abstract" : [

@@ -1749,6 +1749,11 @@
                     "type" : "property"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/variant\/atomvalue",
+                    "title" : "var atomValue: VariantAtom?",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/variant\/description",
                     "title" : "var description: String",
                     "type" : "property"
@@ -4683,12 +4688,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -4706,12 +4711,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -4729,12 +4734,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           }
@@ -6019,6 +6024,26 @@
                     "path" : "\/documentation\/poieticcore\/foreignobject\/asjson()",
                     "title" : "func asJSON() -> JSONValue",
                     "type" : "method"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/foreignobject\/encode(to:)",
+                        "title" : "func encode(to: any Encoder) throws",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/foreignobject\/encodable-implementations",
+                    "title" : "Encodable Implementations",
+                    "type" : "symbol"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/foreignobject",
@@ -9134,6 +9159,81 @@
             ],
             "path" : "\/documentation\/poieticcore\/boundingbox",
             "title" : "BoundingBox",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryinfo\/init(from:)",
+                "title" : "init(from: any Decoder) throws",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryinfo\/init(items:)",
+                "title" : "init(items: [DesignLibraryItem])",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryinfo\/formatversion",
+                "title" : "let formatVersion: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryinfo\/items",
+                "title" : "let items: [DesignLibraryItem]",
+                "type" : "property"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/designlibraryinfo",
+            "title" : "DesignLibraryInfo",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryitem\/init(from:)",
+                "title" : "init(from: any Decoder) throws",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryitem\/init(url:name:title:)",
+                "title" : "init(url: URL, name: String, title: String)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryitem\/name",
+                "title" : "let name: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryitem\/title",
+                "title" : "let title: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/designlibraryitem\/url",
+                "title" : "let url: URL",
+                "type" : "property"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/designlibraryitem",
+            "title" : "DesignLibraryItem",
             "type" : "struct"
           },
           {

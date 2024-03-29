@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Memory to which the frame belongs.",
+      "text" : "Get atom value, if the variant is an atom, otherwise ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -10,21 +18,21 @@
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/memory"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomValue"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore11StableFrameC6memoryAA12ObjectMemoryCvp",
+    "externalID" : "s:11PoieticCore7VariantO9atomValueAA0C4AtomOSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "let"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -32,7 +40,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "memory"
+        "text" : "atomValue"
       },
       {
         "kind" : "text",
@@ -40,8 +48,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-        "text" : "ObjectMemory"
+        "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+        "text" : "VariantAtom"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -52,7 +64,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "memory"
+    "title" : "atomValue"
   },
   "primaryContentSections" : [
     {
@@ -67,15 +79,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "unowned"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "let"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -83,17 +87,29 @@
             },
             {
               "kind" : "identifier",
-              "text" : "memory"
+              "text" : "atomValue"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-              "text" : "ObjectMemory"
+              "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+              "text" : "VariantAtom"
+            },
+            {
+              "kind" : "text",
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -112,7 +128,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/stableframe\/memory"
+        "\/documentation\/poieticcore\/variant\/atomvalue"
       ],
       "traits" : [
         {
@@ -151,17 +167,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memory"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [
     {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
+      "text" : "Variant holds a value of different core data types.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -169,33 +185,41 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "Variant"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectMemory"
+      "text" : "Variant"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectMemory",
+  "title" : "Variant",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
+  "url" : "\/documentation\/poieticcore\/variant"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/atomValue": {
   "abstract" : [
     {
-      "text" : "Stable design frame that can not be mutated.",
+      "text" : "Get atom value, if the variant is an atom, otherwise ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -203,41 +227,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/memory": {
-  "abstract" : [
-    {
-      "text" : "Memory to which the frame belongs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "memory"
+      "text" : "atomValue"
     },
     {
       "kind" : "text",
@@ -245,16 +235,54 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/memory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "memory",
+  "title" : "atomValue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/memory"
+  "url" : "\/documentation\/poieticcore\/variant\/atomvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom": {
+  "abstract" : [
+    {
+      "text" : "VariantAtom represents a scalar or a simple tuple-like value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantAtom"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantAtom"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantAtom",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom"
 }
 }
 }

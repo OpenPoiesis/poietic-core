@@ -1,38 +1,23 @@
 {
-  "abstract" : [
-    {
-      "text" : "Get all items as ",
-      "type" : "text"
-    },
-    {
-      "code" : "ValueAtom",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "s if the variant type is an array.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/items"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo\/items"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore7VariantO5itemsSayAA0C4AtomOGSgvp",
+    "externalID" : "s:11PoieticCore17DesignLibraryInfoV5itemsSayAA0cD4ItemVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -48,12 +33,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
-        "text" : "VariantAtom"
+        "preciseIdentifier" : "s:11PoieticCore17DesignLibraryItemV",
+        "text" : "DesignLibraryItem"
       },
       {
         "kind" : "text",
-        "text" : "]?"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -79,7 +64,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -94,22 +79,14 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
-              "text" : "VariantAtom"
+              "preciseIdentifier" : "s:11PoieticCore17DesignLibraryItemV",
+              "text" : "DesignLibraryItem"
             },
             {
               "kind" : "text",
-              "text" : "]? { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "]"
             }
           ]
         }
@@ -128,7 +105,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/variant\/items"
+        "\/documentation\/poieticcore\/designlibraryinfo\/items"
       ],
       "traits" : [
         {
@@ -153,31 +130,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLibraryInfo": {
   "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant": {
-  "abstract" : [
-    {
-      "text" : "Variant holds a value of different core data types.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -185,41 +145,30 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Variant"
+      "text" : "DesignLibraryInfo"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Variant"
+      "text" : "DesignLibraryInfo"
     }
   ],
   "role" : "symbol",
-  "title" : "Variant",
+  "title" : "DesignLibraryInfo",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant"
+  "url" : "\/documentation\/poieticcore\/designlibraryinfo"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/items": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLibraryInfo/items": {
   "abstract" : [
-    {
-      "text" : "Get all items as ",
-      "type" : "text"
-    },
-    {
-      "code" : "ValueAtom",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "s if the variant type is an array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -235,32 +184,29 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
-      "text" : "VariantAtom"
+      "preciseIdentifier" : "s:11PoieticCore17DesignLibraryItemV",
+      "text" : "DesignLibraryItem"
     },
     {
       "kind" : "text",
-      "text" : "]?"
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/items",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo\/items",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "items",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/items"
+  "url" : "\/documentation\/poieticcore\/designlibraryinfo\/items"
 },
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLibraryItem": {
   "abstract" : [
-    {
-      "text" : "VariantAtom represents a scalar or a simple tuple-like value.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -268,21 +214,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "VariantAtom"
+      "text" : "DesignLibraryItem"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "VariantAtom"
+      "text" : "DesignLibraryItem"
     }
   ],
   "role" : "symbol",
-  "title" : "VariantAtom",
+  "title" : "DesignLibraryItem",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom"
+  "url" : "\/documentation\/poieticcore\/designlibraryitem"
 }
 }
 }
