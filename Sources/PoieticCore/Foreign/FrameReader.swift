@@ -163,7 +163,8 @@ public class ForeignFrameBundle {
     ///
     public init(url: URL) throws {
         self.url = url
-        let infoURL = url.appending(component: "info.json", directoryHint: .notDirectory)
+        var infoURL = url
+        infoURL.appendPathComponent("info.json", isDirectory: false)
 
         let data = try Data(contentsOf: infoURL)
 
@@ -184,7 +185,12 @@ public class ForeignFrameBundle {
     }
 
     public func urlForObjectCollection(_ name: String) -> URL {
-        url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
+        var url = self.url
+        url.appendPathComponent("objects", isDirectory: true)
+        url.appendPathComponent("\(name).json", isDirectory: false)
+        return url
+        // FIXME: Use this once available on Linux
+//        url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
     }
     
     public func objects(in collectionName: String) throws -> [ForeignObject] {
