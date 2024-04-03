@@ -28,8 +28,8 @@ struct SnapshotReference {
 /// - Mutate existing objects in the frame using
 ///   ``MutableFrame/mutableObject(_:)``.
 ///
-/// Completed change set is expected to be accepted to the memory using
-/// ``ObjectMemory/accept(_:appendHistory:)``.
+/// Completed change set is expected to be accepted to the design using
+/// ``Design/accept(_:appendHistory:)``.
 ///
 public class MutableFrame: Frame {
     /// List of snapshots in the frame.
@@ -56,13 +56,13 @@ public class MutableFrame: Frame {
         return ref.snapshot
     }
     
-    /// Object memory with which this frame is associated with.
+    /// Design with which this frame is associated with.
     ///
-    public unowned let memory: ObjectMemory
+    public unowned let design: Design
     
     /// ID of the frame.
     ///
-    /// The ID is unique within the memory.
+    /// The ID is unique within the design.
     ///
     public let id: FrameID
 
@@ -100,11 +100,11 @@ public class MutableFrame: Frame {
     
     /// Create a new mutable frame.
     ///
-    /// Creates a new mutable frame that will be associated with the `memory`.
+    /// Creates a new mutable frame that will be associated with the `design`.
     ///
     /// - Parameters:
-    ///     - memory: The memory the frame will be associated with.
-    ///     - id: ID of the frame. Must be unique within the memory.
+    ///     - design: The design the frame will be associated with.
+    ///     - id: ID of the frame. Must be unique within the design.
     ///     - snapshots: List of snapshots to be associated with the frame.
     ///
     /// The frame will contain all the provided snapshots, but will not own
@@ -113,12 +113,12 @@ public class MutableFrame: Frame {
     /// ``mutableObject(_:)``.
     ///
     /// Snapshots removed from the mutable frame are only disassociated with the
-    /// frame, not removed from the memory or any other frame.
+    /// frame, not removed from the design or any other frame.
     ///
-    public init(memory: ObjectMemory,
+    public init(design: Design,
                 id: FrameID,
                 snapshots: [ObjectSnapshot]? = nil) {
-        self.memory = memory
+        self.design = design
         self.id = id
         self.objects = [:]
         self.snapshotIDs = Set()
@@ -168,7 +168,7 @@ public class MutableFrame: Frame {
     /// into the frame where the caller adds objects in an order when
     /// referential integrity might not be assured unless the whole
     /// batch is loaded. Frame with broken referential integrity can not
-    /// be accepted by the object memory (``ObjectMemory/accept(_:appendHistory:)``.
+    /// be accepted by the object design (``Design/accept(_:appendHistory:)``.
     ///
     /// It is rather rare to use this method. Typically one would
     /// use the ``insert(_:owned:)`` method.
@@ -221,8 +221,7 @@ public class MutableFrame: Frame {
     /// creates all necessary components as defined by the object type, if
     /// not explicitly provided.
     ///
-    /// The new object ID is generated from the shared object memory identity
-    /// generator.
+    /// The new object ID is generated from the identity generator.
     ///
     /// - Parameters:
     ///     - type: Type of the object to be created.
@@ -233,7 +232,7 @@ public class MutableFrame: Frame {
     ///
     /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
-    /// - SeeAlso: ``ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``,
+    /// - SeeAlso: ``Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``,
     ///   ``ObjectSnapshot/init(id:snapshotID:type:structure:components:)
     ///
     public func create(_ type: ObjectType,
@@ -242,7 +241,7 @@ public class MutableFrame: Frame {
                        components: [any Component] = []) -> ObjectID {
         precondition(state.isMutable)
         
-        let snapshot = memory.createSnapshot(type,
+        let snapshot = design.createSnapshot(type,
                                              attributes: attributes,
                                              components: components,
                                              structure: structure)
@@ -347,7 +346,7 @@ public class MutableFrame: Frame {
     /// Promote the frame to a state that is higher than the current
     /// state.
     ///
-    /// This is called by the object memory when the frame is accepted.
+    /// This is called by the design when the frame is accepted.
     ///
     public func promote(_ state: VersionState) {
         precondition(self.state < state,
@@ -371,7 +370,7 @@ public class MutableFrame: Frame {
     ///     - id: Object ID of the object to be derived.
     ///
     /// The new snapshot will be assigned a new snapshot ID from the shared
-    /// identity generator of the associated object memory.
+    /// identity generator of the associated design.
     ///
     /// - Returns: Newly derived object snapshot.
     /// 
@@ -389,7 +388,7 @@ public class MutableFrame: Frame {
             return originalRef.snapshot
         }
         else {
-            let derived = memory.deriveSnapshot(originalRef.snapshot.snapshotID)
+            let derived = design.deriveSnapshot(originalRef.snapshot.snapshotID)
 
             let ref = SnapshotReference(snapshot: derived, owned: true)
             self.objects[id] = ref

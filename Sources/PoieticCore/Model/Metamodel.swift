@@ -15,7 +15,7 @@
 /// - Object types – list of types of objects that are allowed for the domain
 /// - Components - list of components that can be assigned to the objects
 /// - Queries - list of predicates and queries to provide domain specific view
-///   of the object memory and of the graph
+///   of a design and of the design graph.
 ///
 /// Reasons for this approach:
 ///
@@ -54,8 +54,8 @@ public final class Metamodel {
     
     /// List of constraints.
     ///
-    /// Constraints are validated before a frame is accepted to the memory.
-    /// Memory must not contain stable frames that violate any of the
+    /// Constraints are validated before a frame is accepted to the design.
+    /// Design must not contain stable frames that violate any of the
     /// constraints.
     ///
     public let constraints: [Constraint]

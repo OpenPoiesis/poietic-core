@@ -14,10 +14,10 @@ Particular focus features of the library are:
 - Treat user's input as holy.
 - Assure sustainability, evolvability and repairability of the design data.
 
-The core class of the model is the ``ObjectMemory`` which stores and manages
-all the design objects – ``ObjectSnapshot`` – and their changes. The ``ObjectMemory`` also manages
-history of changes in form of frames which might be gathered in frame
-collections. One of the frame collections is the memory's history that
+The core class of the model is the ``Design`` which contains and manages
+all the design objects – ``ObjectSnapshot`` – and their changes. The ``Design``
+also manages history of changes in form of frames which might be gathered in
+frame collections. One of the frame collections is the design history that
 features undo and redo functionality.
 
 The library focuses on category of models that are representable as graphs.
@@ -28,7 +28,7 @@ For querying features of a graph there is ``Neighborhood`` and
 
 ## Topics
 
-- <doc:Memory>
+- <doc:Design>
 - <doc:MetamodelAndTypes>
 - <doc:PredicatesAndConstraints>
 - <doc:Graphs>

@@ -10,10 +10,10 @@ import XCTest
 
 class TestPersistentRecord: XCTestCase {
     // TODO: This seems to be testing some obsolete functionality or a functionality that has been moved
-    var memory: ObjectMemory!
+    var design: Design!
 
     override func setUp() {
-        self.memory = ObjectMemory(metamodel: TestMetamodel.self)
+        self.design = Design(metamodel: TestMetamodel.self)
     }
 
     func testFromRecord() throws {
@@ -25,14 +25,14 @@ class TestPersistentRecord: XCTestCase {
 
         let record = ForeignObject(info: info, attributes: ForeignRecord())
         
-        let obj: ObjectSnapshot = try memory.createSnapshot(record)
+        let obj: ObjectSnapshot = try design.createSnapshot(record)
         
         XCTAssertEqual(obj.id, 10)
         XCTAssertEqual(obj.snapshotID, 20)
         XCTAssertEqual(obj.structure, .node)
         XCTAssertIdentical(obj.type, Metamodel.Stock)
         
-        XCTAssertNotNil(memory.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
+        XCTAssertNotNil(design.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
     }
 }
 
@@ -68,12 +68,12 @@ final class JSONFileStoreTests: XCTestCase {
         // Return the temporary file URL for use in a test method.
         return fileURL
     }
-    var db: ObjectMemory!
+    var db: Design!
     var frame: MutableFrame!
     var graph: MutableGraph!
     
     override func setUp() {
-        db = ObjectMemory()
+        db = Design()
         frame = db.createFrame()
 
         let flow = frame.createNode(Metamodel.Flow,
@@ -118,7 +118,7 @@ final class JSONFileStoreTests: XCTestCase {
 //        db.write(writer)
 
 //        let reader = JSONFilePackageReader(tmpURL)
-//        let restored = ObjectMemory(metamodel=Metamodel,
+//        let restored = Design(metamodel=Metamodel,
 //                                store=load_store)
 //        self.assertEqual(len(list(self.db.snapshots)),
 //                         len(list(restored.snapshots)))

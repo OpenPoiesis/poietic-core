@@ -14,25 +14,25 @@ public typealias ID = UInt64
 /// There might be multiple object snapshots representing the same object
 /// and therefore have the same object ID.
 ///
-/// - SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
-///     ``ObjectMemory/allocateID(required:)``
+/// - SeeAlso: ``ObjectSnapshot``, ``Design``,
+///     ``Design/allocateID(required:)``
 ///
 public typealias ObjectID = ID
 
 /// Identifier of a design object version.
 ///
-/// The snapshot ID is unique within the object memory containing the snapshot.
+/// The snapshot ID is unique within a design containing the snapshot.
 ///
-/// SeeAlso: ``ObjectSnapshot``, ``ObjectMemory``,
-///     ``ObjectMemory/allocateID(required:)``, ``MutableFrame/mutableObject(_:)``
+/// SeeAlso: ``ObjectSnapshot``, ``Design``,
+///     ``Design/allocateID(required:)``, ``MutableFrame/mutableObject(_:)``
 ///
 public typealias SnapshotID = ID
 
 /// Identifier of a version frame.
 ///
-/// Each frame in an object memory has an unique frame ID.
+/// Each frame in a design has an unique frame ID.
 ///
-/// - SeeAlso: ``Frame``, ``ObjectMemory/createFrame(id:)``, ``ObjectMemory/deriveFrame(original:id:)``
+/// - SeeAlso: ``Frame``, ``Design/createFrame(id:)``, ``Design/deriveFrame(original:id:)``
 ///
 public typealias FrameID = ID
 
@@ -62,7 +62,7 @@ public protocol IdentityGenerator {
 ///   
 public class SequentialIDGenerator: IdentityGenerator {
     // TODO: Replace this class with UUID
-    // TODO: Deprecate, integrate with the memory
+    // TODO: Deprecate, integrate with the design
 
     /// ID as a sequence number.
     var current: ObjectID

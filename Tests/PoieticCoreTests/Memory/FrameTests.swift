@@ -10,35 +10,35 @@ import XCTest
 @testable import PoieticCore
 
 final class MutableFrameTests: XCTestCase {
-    var memory: ObjectMemory!
+    var design: Design!
     
     override func setUp() {
-        memory = ObjectMemory()
+        design = Design()
     }
     
     func testDeriveObjectWithStructure() throws {
-        let originalFrame = memory.deriveFrame()
+        let originalFrame = design.deriveFrame()
         
-        let original = memory.createSnapshot(TestNodeType)
+        let original = design.createSnapshot(TestNodeType)
         originalFrame.insert(original, owned: true)
-        try memory.accept(originalFrame)
+        try design.accept(originalFrame)
         
-        let derivedFrame = memory.deriveFrame(original: originalFrame.id)
+        let derivedFrame = design.deriveFrame(original: originalFrame.id)
         let derived = derivedFrame.mutableObject(original.id)
         XCTAssertEqual(original.structure, derived.structure)
     }
     
     func testDeriveObjectWithChildrenParent() throws {
-        let frame = memory.deriveFrame()
+        let frame = design.deriveFrame()
         
         let obj = frame.create(TestNodeType)
         let parent = frame.create(TestNodeType)
         let child = frame.create(TestNodeType)
         frame.setParent(obj, to: parent)
         frame.setParent(child, to: obj)
-        try memory.accept(frame)
+        try design.accept(frame)
         
-        let derivedFrame = memory.deriveFrame(original: frame.id)
+        let derivedFrame = design.deriveFrame(original: frame.id)
         let derivedObj = derivedFrame.mutableObject(obj)
         XCTAssertEqual(derivedObj.parent, parent)
         XCTAssertEqual(derivedObj.children, [child])
@@ -53,7 +53,7 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testSetAttribute() throws {
-        let frame = memory.deriveFrame()
+        let frame = design.deriveFrame()
         let id = frame.create(TestType, 
                               attributes: ["text": Variant("before")])
         
@@ -66,17 +66,17 @@ final class MutableFrameTests: XCTestCase {
         XCTAssertEqual(obj.attribute(forKey: "text"), "after")
     }
     func testModifyAttribute() throws {
-        let original = memory.deriveFrame()
+        let original = design.deriveFrame()
         
         let a = original.create(TestType,
                                 attributes: ["text": Variant("before")],
                                 components: [])
-        try memory.accept(original)
+        try design.accept(original)
         
-        let a2 = memory.currentFrame.object(a)
+        let a2 = design.currentFrame.object(a)
         XCTAssertEqual(a2["text"], "before")
         
-        let altered = memory.deriveFrame()
+        let altered = design.deriveFrame()
         let alt_obj = altered.mutableObject(a)
         alt_obj["text"] = "after"
         
@@ -85,27 +85,27 @@ final class MutableFrameTests: XCTestCase {
         let a3 = altered.object(a)
         XCTAssertEqual(a3["text"], "after")
         
-        try memory.accept(altered)
+        try design.accept(altered)
         
-        let aCurrentAlt = memory.currentFrame.object(a)
+        let aCurrentAlt = design.currentFrame.object(a)
         XCTAssertEqual(aCurrentAlt["text"], "after")
         
-        let aOriginal = memory.frame(original.id)!.object(a)
+        let aOriginal = design.frame(original.id)!.object(a)
         XCTAssertEqual(aOriginal["text"], "before")
     }
     
 
     func testModifyComponent() throws {
-        let original = memory.deriveFrame()
+        let original = design.deriveFrame()
         
         let a = original.create(TestType, 
                                 attributes: ["text": "before"])
-        try memory.accept(original)
+        try design.accept(original)
         
-        let a2 = memory.currentFrame.object(a)
+        let a2 = design.currentFrame.object(a)
         XCTAssertEqual(a2["text"], "before")
         
-        let altered = memory.deriveFrame()
+        let altered = design.deriveFrame()
         let mutable_a = altered.mutableObject(a)
         mutable_a["text"] = "after"
         
@@ -113,23 +113,23 @@ final class MutableFrameTests: XCTestCase {
         let a3 = altered.object(a)
         XCTAssertEqual(a3["text"], "after")
         
-        try memory.accept(altered)
+        try design.accept(altered)
         
-        let aCurrentAlt = memory.currentFrame.object(a)
+        let aCurrentAlt = design.currentFrame.object(a)
         XCTAssertEqual(aCurrentAlt["text"], "after")
         
-        let aOriginal = memory.frame(original.id)!.object(a)
+        let aOriginal = design.frame(original.id)!.object(a)
         XCTAssertEqual(aOriginal["text"], "before")
     }
     
 
     func testMutableObject() throws {
-        let original = memory.deriveFrame()
+        let original = design.deriveFrame()
         let id = original.create(TestType)
         let originalSnap = original.object(id)
-        try memory.accept(original)
+        try design.accept(original)
         
-        let derived = memory.deriveFrame()
+        let derived = design.deriveFrame()
         let derivedSnap = derived.mutableObject(id)
         
         XCTAssertEqual(derivedSnap.id, originalSnap.id)
@@ -140,26 +140,26 @@ final class MutableFrameTests: XCTestCase {
     }
 
     func testMutableObjectCopyAttributes() throws {
-        let original = memory.deriveFrame()
+        let original = design.deriveFrame()
         let id = original.create(TestType, attributes: ["text": "hello"])
-        try memory.accept(original)
+        try design.accept(original)
         
-        let derived = memory.deriveFrame()
+        let derived = design.deriveFrame()
         let derivedSnap = derived.mutableObject(id)
         
         XCTAssertEqual(derivedSnap["text"], "hello")
     }
 
     func testRemoveObjectCascading() throws {
-        let frame = memory.deriveFrame()
+        let frame = design.deriveFrame()
         
-        let node1 = memory.createSnapshot(TestNodeType)
+        let node1 = design.createSnapshot(TestNodeType)
         frame.insert(node1, owned: true)
         
-        let node2 = memory.createSnapshot(TestNodeType)
+        let node2 = design.createSnapshot(TestNodeType)
         frame.insert(node2, owned: true)
         
-        let edge = memory.createSnapshot(TestEdgeType,
+        let edge = design.createSnapshot(TestEdgeType,
                                      structure: .edge(node1.id, node2.id))
         frame.insert(edge, owned: true)
         
@@ -174,12 +174,12 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testFrameMutableObjectRemovesPreviousSnapshot() throws {
-        let original = memory.deriveFrame()
+        let original = design.deriveFrame()
         let id = original.create(TestType)
         let originalSnap = original.object(id)
-        try memory.accept(original)
+        try design.accept(original)
         
-        let derived = memory.deriveFrame()
+        let derived = design.deriveFrame()
         let derivedSnap = derived.mutableObject(id)
         
         XCTAssertFalse(derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
@@ -189,7 +189,7 @@ final class MutableFrameTests: XCTestCase {
     }
 
     func testAddChild() throws {
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -204,7 +204,7 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testRemoveChild() throws {
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -222,7 +222,7 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testSetParent() throws {
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -244,7 +244,7 @@ final class MutableFrameTests: XCTestCase {
     }
     func testRemoveFromParent() throws {
         // FIXME: Test remove from non-owned parent
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -264,7 +264,7 @@ final class MutableFrameTests: XCTestCase {
 
     func testRemoveFromUnownedParentMutates() throws {
         // FIXME: Test remove from non-owned parent
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let p = frame.create(TestType)
         let c1 = frame.create(TestType)
@@ -272,9 +272,9 @@ final class MutableFrameTests: XCTestCase {
         
         frame.addChild(c1, to: p)
         frame.addChild(c2, to: p)
-        try memory.accept(frame)
+        try design.accept(frame)
         
-        let derived = memory.deriveFrame(original: frame.id)
+        let derived = design.deriveFrame(original: frame.id)
         // A sanity check
         XCTAssertEqual(derived.object(p).snapshotID, frame.object(p).snapshotID)
 
@@ -293,7 +293,7 @@ final class MutableFrameTests: XCTestCase {
         // a - b - c
         // d - e - f
         //
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -319,8 +319,8 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testBrokenReferences() throws {
-        let frame = memory.createFrame()
-        let a = memory.createSnapshot(TestEdgeType, 
+        let frame = design.createFrame()
+        let a = design.createSnapshot(TestEdgeType, 
                                       id: 5,
                                       structure: .edge(30, 40))
         a.parent = 10
@@ -337,7 +337,7 @@ final class MutableFrameTests: XCTestCase {
     }
     
     func testSomethingIDK() throws {
-        let frame = memory.createFrame()
+        let frame = design.createFrame()
         // Edge with children
         let a = frame.create(TestNodeType)
         let b = frame.create(TestNodeType)

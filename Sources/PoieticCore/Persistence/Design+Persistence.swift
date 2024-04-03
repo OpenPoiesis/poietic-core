@@ -52,30 +52,30 @@ extension ObjectSnapshot {
     ///
 }
 
-extension ObjectMemory {
-    /// Saves the contents of the memory to given URL.
+extension Design {
+    /// Saves the contents of the design to given URL.
     ///
     /// - Note: Only the same tool can read the archive created using
     ///         this method.
     /// - Note: The archive format will very likely change.
     ///
     public func saveAll(to url: URL) throws {
-        let store = try MakeshiftMemoryStore(url: url)
+        let store = try MakeshiftDesignStore(url: url)
         try self.writeAll(store: store)
     }
     
-    /// Removes everything from the memory and loads the contents from the
+    /// Removes everything from the design and loads the contents from the
     /// given URL.
     ///
     /// - Note: Can read only archives written by the same tool that
     ///         wrote the archive.
     ///
     public func restoreAll(from url: URL) throws {
-        let store = try MakeshiftMemoryStore(url: url)
+        let store = try MakeshiftDesignStore(url: url)
         try self.restoreAll(store: store)
     }
     
-    public func writeAll(store: MakeshiftMemoryStore) throws {
+    public func writeAll(store: MakeshiftDesignStore) throws {
         // Store content:
         // - all snapshots (object info, attributes)
         // - frames (frame ID, list of snapshots)
@@ -111,10 +111,10 @@ extension ObjectMemory {
             )
             outFrames.append(record)
         }
-        try store.replaceAll(in: MakeshiftMemoryStore.FramesCollectionName,
+        try store.replaceAll(in: MakeshiftDesignStore.FramesCollectionName,
                              records: outFrames)
 
-        // 4. Memory state (undo, redo, current frame)
+        // 4. Design state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
         let undoables = undoableFrames.map { Int($0) }
@@ -128,20 +128,20 @@ extension ObjectMemory {
             state["currentFrameID"] = Variant(Int(id))
 
         }
-        try store.replaceAll(in: MakeshiftMemoryStore.MemoryStateCollectionName,
+        try store.replaceAll(in: MakeshiftDesignStore.StateCollectionName,
                              records: [state])
         // Finally: save the store
         // ----------------------------------------------------------------
         try store.save()
     }
 
-    /// Removes everything from the memory and loads the contents from the
-    /// given memory store.
+    /// Removes everything from the design and loads the contents from the
+    /// given design store.
     ///
     /// - Note: Can read only archives written by the same tool that
     ///         wrote the archive.
     ///
-    public func restoreAll(store: MakeshiftMemoryStore) throws {
+    public func restoreAll(store: MakeshiftDesignStore) throws {
         // TODO: Collect multiple issues
         try store.load()
 
@@ -158,7 +158,7 @@ extension ObjectMemory {
             let snapshot = try createSnapshot(record)
             guard snapshots[snapshot.snapshotID] == nil else {
                 // TODO: Collect error and continue
-                throw MemoryStoreError.duplicateSnapshot(snapshot.snapshotID)
+                throw StoreError.duplicateSnapshot(snapshot.snapshotID)
             }
             snapshots[snapshot.snapshotID] = snapshot
         }
@@ -170,11 +170,11 @@ extension ObjectMemory {
         // 3. Read frames
         // ----------------------------------------------------------------
 
-        let frameRecords = try store.fetchAll(MakeshiftMemoryStore.FramesCollectionName)
+        let frameRecords = try store.fetchAll(MakeshiftDesignStore.FramesCollectionName)
         
         for record in frameRecords {
             guard let idValue = record["id"] else {
-                throw MemoryStoreError.missingReference("frame", "frames collection")
+                throw StoreError.missingReference("frame", "frames collection")
             }
             let frameID = try idValue.IDValue()
 
@@ -190,7 +190,7 @@ extension ObjectMemory {
             let frame = createFrame(id: frameID)
             for id in ids {
                 guard let snapshot = snapshots[id] else {
-                    throw MemoryStoreError.invalidReference(id, "snapshot", "frame \(frameID)")
+                    throw StoreError.invalidReference(id, "snapshot", "frame \(frameID)")
                 }
                 // Do not check for referential integrity yet
                 frame.unsafeInsert(snapshot, owned: false)
@@ -200,20 +200,20 @@ extension ObjectMemory {
             try accept(frame)
         }
 
-        // 4. Memory state (undo, redo, current frame)
+        // 4. Design state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
-        let infoCollection = try store.fetchAll(MakeshiftMemoryStore.MemoryStateCollectionName)
+        let infoCollection = try store.fetchAll(MakeshiftDesignStore.StateCollectionName)
         
         guard let info = infoCollection.first else {
             // TODO: This should be a warning. We can recover
-            throw MemoryStoreError.missingOrMalformedStateInfo
+            throw StoreError.missingOrMalformedStateInfo
         }
 
         if let items = try info["undo"]?.IDArray() {
             guard items.allSatisfy( { containsFrame($0) } ) else {
                 // let offensive = undoFrames.filter { !containsFrame($0) }
-                throw MemoryStoreError.invalidReferences("frame", "undo frame list")
+                throw StoreError.invalidReferences("frame", "undo frame list")
             }
             self.undoableFrames = items
 
@@ -222,7 +222,7 @@ extension ObjectMemory {
         if let items = try info["redo"]?.IDArray() {
             guard items.allSatisfy( { containsFrame($0) } ) else {
                 // let offensive = undoFrames.filter { !containsFrame($0) }
-                throw MemoryStoreError.invalidReferences("frame", "redo frame list")
+                throw StoreError.invalidReferences("frame", "redo frame list")
             }
             self.redoableFrames = items
 
@@ -230,7 +230,7 @@ extension ObjectMemory {
 
         if let currentID = try info["currentFrameID"]?.IDValue() {
             guard containsFrame(currentID) else {
-                throw MemoryStoreError.invalidReference(currentID, "frame", "current frame reference")
+                throw StoreError.invalidReference(currentID, "frame", "current frame reference")
             }
             self.currentFrameID = currentID
         }
@@ -238,7 +238,7 @@ extension ObjectMemory {
         // Consistency check: currentFrameID must be set when there is history.
         if currentFrameID == nil
             && (!undoableFrames.isEmpty || !redoableFrames.isEmpty) {
-            throw MemoryStoreError.brokenIntegrity("Current frame ID is not set while undo/redo history is not-empty")
+            throw StoreError.brokenIntegrity("Current frame ID is not set while undo/redo history is not-empty")
         }
     }
 }

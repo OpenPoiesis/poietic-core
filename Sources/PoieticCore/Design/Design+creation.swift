@@ -1,12 +1,12 @@
 //
-//  Memory+Creation.swift
-//  
+//  Design+Creation.swift
+//
 //
 //  Created by Stefan Urbanek on 21/08/2023.
 //
 
-extension ObjectMemory {
-    /// Designated function to create snapshots in the memory.
+extension Design {
+    /// Designated function to create snapshots in the design.
     ///
     /// - Parameters:
     ///     - id: Proposed object ID. If not provided, one will be generated.
@@ -90,7 +90,7 @@ extension ObjectMemory {
         
         let typeName = try info.stringValue(for: "type")
         guard let type = metamodel.objectType(name: typeName) else {
-            throw MemoryStoreError.unknownObjectType(typeName)
+            throw StoreError.unknownObjectType(typeName)
         }
         
         let structure: StructuralComponent
@@ -126,7 +126,7 @@ extension ObjectMemory {
     ///
     public func deriveSnapshot(_ originalID: SnapshotID) -> ObjectSnapshot {
         guard let original = _allSnapshots[originalID] else {
-            fatalError("Trying to derive a snapshot (\(originalID)) that does not belong to a memory")
+            fatalError("Trying to derive a snapshot (\(originalID)) that does not belong to a design")
 
         }
 

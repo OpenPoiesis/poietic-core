@@ -11,8 +11,8 @@
 /// ``StableFrame``
 ///
 public protocol Frame: Graph {
-    /// Memory to which the frame belongs.
-    var memory: ObjectMemory { get }
+    /// Design to which the frame belongs.
+    var design: Design { get }
     
     var id: FrameID { get }
     
@@ -50,7 +50,7 @@ extension Frame {
     /// but do not exist in the frame.
     ///
     /// Frame with broken references can not be made stable and accepted
-    /// by the memory.
+    /// by the design.
     ///
     /// The following references from the snapshot are being considered:
     ///
@@ -93,7 +93,7 @@ extension Frame {
     /// that do not exist within the frame.
     ///
     /// Frame with broken references can not be made stable and accepted
-    /// by the memory.
+    /// by the design.
     ///
     /// The following references from the snapshot are being considered:
     ///
@@ -322,24 +322,24 @@ extension Frame /* Graph */ {
 /// a version snapshot of a design. The frame is immutable.
 ///
 /// To create a derivative frame from a stable frame use
-/// ``ObjectMemory/deriveFrame(original:id:)``.
+/// ``Design/deriveFrame(original:id:)``.
 ///
 /// - SeeAlso: ``MutableFrame``
 ///
 public class StableFrame: Frame {
-    /// Memory to which the frame belongs.
-    public unowned let memory: ObjectMemory
+    /// Design to which the frame belongs.
+    public unowned let design: Design
     
     /// ID of the frame.
     ///
-    /// ID is unique within the object memory.
+    /// ID is unique within the design.
     ///
     public let id: FrameID
     
     /// Versions of objects in the plane.
     ///
     /// Objects not in the map do not exist in the version plane, but might
-    /// exist in the object memory.
+    /// exist in the design.
     ///
     private(set) internal var _snapshots: [ObjectID:ObjectSnapshot]
     
@@ -348,11 +348,11 @@ public class StableFrame: Frame {
     ///
     /// - Precondition: Snapshot must not be mutable.
     ///
-    init(memory: ObjectMemory, id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
+    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
         precondition(snapshots?.allSatisfy({ !$0.state.isMutable }) ?? true,
                      "Trying to create a stable frame with one or more mutable snapshots")
         
-        self.memory = memory
+        self.design = design
         self.id = id
         self._snapshots = [:]
         

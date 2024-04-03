@@ -23,7 +23,7 @@ public class TransformationContext {
 //    }
     
     public init(frame: MutableFrame) {
-        self.metamodel = frame.memory.metamodel
+        self.metamodel = frame.design.metamodel
         self.frame = frame
         self.issues = [:]
     }

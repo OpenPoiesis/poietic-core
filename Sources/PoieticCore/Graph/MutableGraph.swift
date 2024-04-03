@@ -106,7 +106,7 @@ extension MutableFrame: MutableGraph {
         precondition(contains(target),
                      "Trying to create an edge with unknown target ID \(target) in the frame")
 
-        let snapshot = mutableFrame.memory.createSnapshot(
+        let snapshot = mutableFrame.design.createSnapshot(
             type,
             attributes: attributes,
             components: components,
@@ -147,7 +147,7 @@ extension MutableFrame: MutableGraph {
             actualAttributes["name"] = Variant(name)
         }
         
-        let snapshot = mutableFrame.memory.createSnapshot(
+        let snapshot = mutableFrame.design.createSnapshot(
             type,
             attributes: actualAttributes,
             components: components,

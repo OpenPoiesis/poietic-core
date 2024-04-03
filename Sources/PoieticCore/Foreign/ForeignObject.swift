@@ -52,7 +52,7 @@ public enum ForeignObjectError: Error, Equatable {
 /// A structure that contains an object representation from a foreign interface.
 ///
 /// The `ForeignObject` structure is used to import and export objects from
-/// the object memory.
+/// the object design.
 ///
 public struct ForeignObject {
     /// Information about the object.

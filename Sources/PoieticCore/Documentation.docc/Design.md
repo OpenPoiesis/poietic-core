@@ -1,16 +1,22 @@
-# Object Memory
+# Deign
 
-Management and storage of design objects.
+Containment and management of design objects and their history.
 
 ## Overview
 
-The object memory stores design objects and manages their versions.
+Design is a container representing a model, idea or a document with their
+history of changes.
+
+Design comprises of objects, heir attributes and their relationships which
+which comprise an idea from a problem domain described by a Metamodel.
+The _Metamodel_ defines types of objects, constraints and other properties
+of the design, which are used to validate design's integrity.
 
 ## Topics
 
-### Object Memory and Version Frames
+### Design and Version Frames
 
-- ``ObjectMemory``
+- ``Design``
 - ``Frame``
 - ``StableFrame``
 - ``MutableFrame``

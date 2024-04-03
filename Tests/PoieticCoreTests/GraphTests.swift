@@ -10,19 +10,19 @@ import XCTest
 @testable import PoieticCore
 
 final class GraphTests: XCTestCase {
-    var memory: ObjectMemory!
+    var design: Design!
     var frame: MutableFrame!
     
     override func setUp() {
-        memory = ObjectMemory()
-        frame = memory.deriveFrame()
+        design = Design()
+        frame = design.deriveFrame()
     }
     
     func testBasic() throws {
-        let n1 = memory.createSnapshot(TestNodeType)
-        let n2 = memory.createSnapshot(TestNodeType)
-        let u1 = memory.createSnapshot(TestType)
-        let e1 = memory.createSnapshot(TestEdgeType, structure: .edge(n1.id, n2.id))
+        let n1 = design.createSnapshot(TestNodeType)
+        let n2 = design.createSnapshot(TestNodeType)
+        let u1 = design.createSnapshot(TestType)
+        let e1 = design.createSnapshot(TestEdgeType, structure: .edge(n1.id, n2.id))
 
         frame.insert(n1, owned: true)
         frame.insert(n2, owned: true)

@@ -8,7 +8,7 @@
 import Foundation
 
 
-public enum MemoryStoreError: Error, CustomStringConvertible {
+public enum StoreError: Error, CustomStringConvertible {
     // Archive read/write
     case cannotOpenStore(URL)
     case malformedArchiveData(Error)
@@ -59,7 +59,7 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
             "Can not write archive: \(error)"
 
         case .missingOrMalformedStateInfo:
-            "Missing or malformed memory state info"
+            "Missing or malformed design state info"
 
         // Model and metamodel errors
         case let .unknownCollection(name):
@@ -95,10 +95,10 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
 }
 
 
-/// A persistent store with relational-like traits for object memory.
+/// A persistent store with relational-like traits for design.
 ///
 /// Collections:
-/// - `memory` – one-record collection
+/// - `state` – one-record "collection" containing the design state
 ///      - `current_frame`
 ///      - `undo_frames`
 ///      - `redo_frames`
@@ -107,12 +107,12 @@ public enum MemoryStoreError: Error, CustomStringConvertible {
 ///     - `id` - frame ID
 ///     - `snapshots` - list of snapshot IDs
 ///
-public class MakeshiftMemoryStore {
-    static let FormatVersion = "0.0.3"
+public class MakeshiftDesignStore {
+    static let FormatVersion = "0.0.4"
     
     static let FramesCollectionName = "frames"
     static let SnapshotsCollectionName = "snapshots"
-    static let MemoryStateCollectionName = "memory"
+    static let StateCollectionName = "state"
     
     public let url :URL
     public var collections: [String:[ForeignRecord]]
@@ -120,7 +120,7 @@ public class MakeshiftMemoryStore {
     // dictionary.
     public var objects: [ForeignObject]
 
-    /// Create a new makeshift memory store from a file stored at given URL.
+    /// Create a new makeshift store from a file stored at given URL.
     ///
     public init(url: URL) throws {
         self.url = url
@@ -137,7 +137,7 @@ public class MakeshiftMemoryStore {
             data = try Data(contentsOf: url)
         }
         catch {
-            throw MemoryStoreError.cannotOpenStore(url)
+            throw StoreError.cannotOpenStore(url)
         }
        
         let json: JSONValue
@@ -145,29 +145,29 @@ public class MakeshiftMemoryStore {
             json = try decoder.decode(JSONValue.self, from: data)
         }
         catch {
-            throw MemoryStoreError.malformedArchiveData(error)
+            throw StoreError.malformedArchiveData(error)
         }
 
         guard case let .object(root) = json else {
-            throw MemoryStoreError.malformedArchiveStructure("not a dictionary")
+            throw StoreError.malformedArchiveStructure("not a dictionary")
         }
         
         guard case let .string(version) = root["store_format_version"] else {
-            throw MemoryStoreError.missingFormatVersion
+            throw StoreError.missingFormatVersion
         }
         
         // TODO: Handle different versions here
-        if version != MakeshiftMemoryStore.FormatVersion {
-            throw MemoryStoreError.unsupportedFormatVersion(version)
+        if version != MakeshiftDesignStore.FormatVersion {
+            throw StoreError.unsupportedFormatVersion(version)
         }
         
         guard case let .object(collections) = root["collections"] else {
-            throw MemoryStoreError.malformedCollections
+            throw StoreError.malformedCollections
         }
 
         for (name, json) in collections {
             guard case let .array(records) = json else {
-                throw MemoryStoreError.malformedCollection(name)
+                throw StoreError.malformedCollection(name)
             }
             if name == Self.SnapshotsCollectionName {
                 try loadObjects(records: records)
@@ -183,7 +183,7 @@ public class MakeshiftMemoryStore {
         var records: [ForeignRecord] = []
         for (index, json) in jsonRecords.enumerated() {
             guard case let .object(object) = json else {
-                throw MemoryStoreError.malformedCollectionRecord(name, index)
+                throw StoreError.malformedCollectionRecord(name, index)
             }
             
             let record = try ForeignRecord(object)
@@ -196,14 +196,14 @@ public class MakeshiftMemoryStore {
         var records: [ForeignObject] = []
         for (index, json) in jsonRecords.enumerated() {
             guard case var .object(object) = json else {
-                throw MemoryStoreError.malformedCollectionRecord("snapshots", index)
+                throw StoreError.malformedCollectionRecord("snapshots", index)
             }
             
             let attributes: [String:JSONValue]
             
             if let jsonAttributes = object["attributes"] {
                 guard case let .object(dict) = jsonAttributes else {
-                    throw MemoryStoreError.attributesNotADictionary("snapshots", index)
+                    throw StoreError.attributesNotADictionary("snapshots", index)
                 }
                 attributes = dict
                 object["attributes"] = nil
@@ -221,7 +221,7 @@ public class MakeshiftMemoryStore {
     public func save() throws {
         var root: [String:JSONValue] = [:]
         
-        root["store_format_version"] = .string(MakeshiftMemoryStore.FormatVersion)
+        root["store_format_version"] = .string(MakeshiftDesignStore.FormatVersion)
 
         var jsonCollections: [String:JSONValue] = [:]
         
@@ -249,13 +249,13 @@ public class MakeshiftMemoryStore {
             data = try encoder.encode(jsonRoot)
         }
         catch {
-            throw MemoryStoreError.cannotCreateArchiveData(error)
+            throw StoreError.cannotCreateArchiveData(error)
         }
         do {
             try data.write(to: url)
         }
         catch {
-            throw MemoryStoreError.cannotWriteToStore(error)
+            throw StoreError.cannotWriteToStore(error)
         }
     }
 
@@ -270,7 +270,7 @@ public class MakeshiftMemoryStore {
 
     public func fetchAll(_ collectionName: String) throws -> [ForeignRecord] {
         guard let collection = collections[collectionName] else {
-            throw MemoryStoreError.unknownCollection(collectionName)
+            throw StoreError.unknownCollection(collectionName)
         }
         return collection
     }

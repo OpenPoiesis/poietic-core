@@ -1,12 +1,12 @@
 //
-//  Memory.swift
+//  Design.swift
 //
 //
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
 // Unsolved problems:
-// - What to do when constraints or metamodel changes between memory archival?
+// - What to do when constraints or metamodel changes between design archival?
 // - What to do whith the frames that were OK with previous constraints but
 //   are not OK with the new constraints?
 
@@ -38,46 +38,41 @@ public struct FrameValidationError: Error {
 }
 
 
-/// Object Memory is the main managed storage of the Poietic Design.
+/// Design is a container representing a model, idea or a document with their
+/// history of changes.
 ///
-/// Object Memory contains and manages all objects and their versions as well as
-/// structural integrity of the design. The object is represented by its identity
-/// and might have multiple version snapshots as ``ObjectSnapshot``.
+/// Design comprises of objects, heir attributes and their relationships which
+/// which comprise an idea from a problem domain described by a ``Metamodel``.
+/// The _Metamodel_ defines types of objects, constraints and other properties
+/// of the design, which are used to validate design's integrity.
 ///
-/// ## Identity
+/// Different versions of design objects is organised in _frames_. Each frame
+/// represents a change or coupled group of changes either as a change in time
+/// or as an alternative. When organised as time-related changes, one can think
+/// of a frame of it as a "movie frame".
 ///
-/// Each object has an identity, and in fact, it is just an identity
-/// ``ObjectSnapshot/id-swift.property``.
-/// Objects snapshots with the same identity represent different versions of
-/// the same object. Each snapshot has a snapshot identity
-/// ``ObjectSnapshot/snapshotID``. The snapshot identity is unique in the whole
-/// memory.
+/// Each design object has a unique identity within the whole design referred to as
+/// ``ObjectSnapshot/id-swift.property``. The _id_ refers to an object including
+/// all its versions – snapshots. Within a frame, the object ID is unique.
 ///
-/// ## Frames
-///
-/// A frame can be thought as a snapshot of the design after a change. Different
-/// frames represent different versions of the same design, either in time or
-/// as alternatives.
-///
-/// Think of an object memory as a photo library. The version frame is a picture
-/// and the object snapshots are the scene in the picture. The frames might be
-/// put in an chronological order to represent the history of design evolution.
-/// Or they might be put side-by-side to represent alternate design versions.
-///
-/// The object memory distinguishes between two states of a version frame:
+/// The design distinguishes between two states of a version frame:
 /// ``StableFrame`` – immutable version snapshot of a frame, that is guaranteed
 /// to be valid and follow all required constraints. The ``MutableFrame``
 /// represents a transactional frame, which is "under construction" and does
-/// not have to maintain integrity.
+/// not have yet to maintain integrity. The integrity is enforced once the
+/// frame is accepted using ``Design/accept(_:appendHistory:)``.
 ///
 /// ``StableFrame``s can not be mutated, neither any of the object snapshots
-/// associated with the frame.
+/// associated with the frame. They are guaranteed to follow requirements of
+/// the metamodel. They are persisted.
 ///
-/// ``MutableFrame``s are not stored in the archive. See _Archiving_ below.
+/// ``MutableFrame``s can be changed, they do not have to follow requirements
+/// of the metamodel. They are _not_ persisted. See _Archiving_ below.
 ///
 /// The concept of frames allows us to have functionality like undo/redo,
 /// version branching, different timelines, sub-system specific annotations
 /// without disturbing the original frames, etc.
+///
 ///
 /// ## Editing (Mutating)
 ///
@@ -106,17 +101,14 @@ public struct FrameValidationError: Error {
 /// If mutable frame for some reason is not going to be used further, for
 /// example if it contains domain errors, it can be discarded using
 /// ``discard(_:)``. Discarded frame and its derived object will be removed from
-/// the memory.
+/// the design.
 ///
 /// ## Archiving
 ///
-/// - ToDo: Design of object memory archive is not yet finished.
-///
-/// Object memory can be archived (in the future incrementally synchronised)
+/// The design can be archived (in the future incrementally synchronised)
 /// to a persistent store. All stable frames are stored. Mutable frames are not
 /// included in the archive and therefore not restored after unarchiving.
-///
-/// Archive contains only frames that maintain integrity as defined by the
+/// Therefore one can rely on the archive containing only frames that maintain integrity as defined by the
 /// metamodel.
 ///
 /// ## Garbage Collection
@@ -124,10 +116,10 @@ public struct FrameValidationError: Error {
 /// - ToDo: Garbage collection is not yet implemented. This is just a description
 ///   how it is expected to work.
 ///
-/// The memory keeps only those object snapshots which are contained in frames,
+/// The design keeps only those object snapshots which are contained in frames,
 /// be it a mutable frame or a stable frame. If a frame is removed, all objects
 /// that are referred to only by that frame and no other frame, are removed
-/// from the memory as well.
+/// from the design as well.
 ///
 /// - Remark: The concepts of mutable frame, accept and discard are somewhat
 ///   analogous to a transaction, commit and rollback respectively. However,
@@ -139,18 +131,18 @@ public struct FrameValidationError: Error {
 ///   session), which is something like a "live transaction".
 ///
 ///
-public class ObjectMemory {
+public class Design {
     // TODO: [OBSOLETE] Get rid of the identity generator. No longer needed for multiple ID sequences.
     private var identityGenerator: SequentialIDGenerator
    
-    /// Meta-model associated with the memory.
+    /// Meta-model associated with the design.
     ///
     /// The metamodel is used for validation of the model contained within the
-    /// memory and for creation of objects.
+    /// design and for creation of objects.
     ///
     public let metamodel: Metamodel
     
-    /// List of constraints of the object memory.
+    /// List of constraints of the design content.
     ///
     /// When accepting the frame using ``accept(_:appendHistory:)`` the frame
     /// is checked using the constraints provided. Only frames that satisfy
@@ -161,8 +153,6 @@ public class ObjectMemory {
     var _allSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
     var _mutableFrames: [FrameID: MutableFrame]
-    
-    // TODO: Decouple the version history from the object memory.
     
     /// Chronological list of frame IDs.
     ///
@@ -203,13 +193,13 @@ public class ObjectMemory {
     ///
     public internal(set) var redoableFrames: [FrameID] = []
 
-    /// Create a new object memory that conforms to the given metamodel.
+    /// Create a new design that conforms to the given metamodel.
     ///
-    /// Newly created memory will be set-up as follows:
+    /// Newly created design will be set-up as follows:
     ///
-    /// - The memory will create a copy of the list of metamodel constraints
-    ///   during the initialisation. However, the constraints can be changed
-    ///   later.
+    /// - The design will create a copy of the list of metamodel constraints
+    ///   during the initialisation. The constraints of the design can be
+    ///   changed independently from the metamodel.
     /// - A new empty frame will be created and committed as first frame.
     /// - The history will be initialised with the first empty frame.
     ///
@@ -230,7 +220,7 @@ public class ObjectMemory {
 //        self.currentHistoryIndex = versionHistory.startIndex
     }
    
-    /// True if the memory does not contain any stable frames. Mutable frames
+    /// True if the design does not contain any stable frames. Mutable frames
     /// do not count.
     /// 
     public var isEmpty: Bool {
@@ -242,7 +232,7 @@ public class ObjectMemory {
     /// Create an ID or use a specific ID.
     ///
     /// If an ID is provided, then it is marked as used and accepted. It must
-    /// not already exist in the memory, otherwise it is a programming error.
+    /// not already exist in the design, otherwise it is a programming error.
     ///
     /// If ID is not provided, then a new ID will be created.
     ///
@@ -267,7 +257,7 @@ public class ObjectMemory {
     
     // MARK: Frames
     
-    /// List of all stable frames in the memory.
+    /// List of all stable frames in the design.
     ///
     public var frames: [StableFrame] {
         return Array(_stableFrames.values)
@@ -275,14 +265,14 @@ public class ObjectMemory {
     
     /// Get a stable frame with given ID.
     ///
-    /// - Returns: A frame ID if the memory contains a stable frame with given
+    /// - Returns: A frame ID if the design contains a stable frame with given
     ///   ID or `nil` when there is no such stable frame.
     ///
     public func frame(_ id: FrameID) -> StableFrame? {
         return _stableFrames[id]
     }
     
-    /// Get a sequence of all snapshots in the object memory from stable frames,
+    /// Get a sequence of all snapshots in the design from stable frames,
     /// regardless of their frame presence.
     ///
     /// The order of the returned snapshots is arbitrary.
@@ -310,7 +300,7 @@ public class ObjectMemory {
         return _allSnapshots.values
     }
     
-    /// Test whether the memory contains a stable frame with given ID.
+    /// Test whether the design contains a stable frame with given ID.
     ///
     public func containsFrame(_ id: FrameID) -> Bool {
         return _stableFrames[id] != nil
@@ -318,7 +308,7 @@ public class ObjectMemory {
     
     /// Create a new empty mutable frame.
     ///
-    /// The frame will be associated with the memory.
+    /// The frame will be associated with the design.
     ///
     /// To make the frame stable use ``accept(_:appendHistory:)``.
     ///
@@ -332,10 +322,10 @@ public class ObjectMemory {
         let actualID = allocateID(required: id)
         guard _stableFrames[actualID] == nil
                 && _mutableFrames[actualID] == nil else {
-            fatalError("Memory already contains a frame with ID \(actualID)")
+            fatalError("Design already contains a frame with ID \(actualID)")
         }
         
-        let frame = MutableFrame(memory: self, id: actualID)
+        let frame = MutableFrame(design: self, id: actualID)
         _mutableFrames[actualID] = frame
         return frame
     }
@@ -346,16 +336,16 @@ public class ObjectMemory {
     ///     - original: ID of the original frame to be derived. If not provided
     ///       then the most recent frame in the history will be used.
     ///     - id: Proposed ID of the new frame. Must be unique and must not
-    ///       already exist in the memory. If not provided, a new unique ID
+    ///       already exist in the design. If not provided, a new unique ID
     ///       is generated.
     ///
     /// The newly derived frame will not own any of the objects from the
     /// original frame.
-    /// See ``MutableFrame/init(memory:id:snapshots:)`` for more information
+    /// See ``MutableFrame/init(design:id:snapshots:)`` for more information
     /// about how the objects from the original frame are going to be treated.
     ///
-    /// - Precondition: The `original` frame must exist in the memory.
-    /// - Precondition: The memory must not contain a frame with `id`.
+    /// - Precondition: The `original` frame must exist in the design.
+    /// - Precondition: The design must not contain a frame with `id`.
     ///
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
@@ -387,7 +377,7 @@ public class ObjectMemory {
             }
         }
 
-        derived = MutableFrame(memory: self,
+        derived = MutableFrame(design: self,
                                id: actualID,
                                snapshots: snapshots)
 
@@ -395,12 +385,12 @@ public class ObjectMemory {
         return derived
     }
     
-    /// Remove a frame from the memory.
+    /// Remove a frame from the design.
     ///
     /// - Parameters:
-    ///     - id: ID of a stable or a mutable frame owned by the memory.
+    ///     - id: ID of a stable or a mutable frame owned by the design.
     ///
-    /// - Precondition: The frame with given ID must exist in the memory.
+    /// - Precondition: The frame with given ID must exist in the design.
     ///
     public func removeFrame(_ id: FrameID) {
         // TODO: What about discard()?
@@ -432,13 +422,13 @@ public class ObjectMemory {
     /// removed.
     ///
     /// - Throws: `ConstraintViolationError` when the frame contents violates
-    ///   constraints of the memory.
+    ///   constraints of the design.
     ///
     /// - SeeAlso: ``discard()``, ``validate(_:)``
     ///
     public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
-        precondition(frame.memory === self,
-                     "Trying to accept a frame from a different memory")
+        precondition(frame.design === self,
+                     "Trying to accept a frame from a different design")
         precondition(frame.state.isMutable,
                      "Trying to accept a frozen frame")
         precondition(_stableFrames[frame.id] == nil,
@@ -450,7 +440,7 @@ public class ObjectMemory {
         
         frame.promote(.validated)
         
-        let stableFrame = StableFrame(memory: self,
+        let stableFrame = StableFrame(design: self,
                                       id: frame.id,
                                       snapshots: frame.snapshots)
         _stableFrames[frame.id] = stableFrame
@@ -480,7 +470,7 @@ public class ObjectMemory {
     /// violations.
     ///
     /// - Throws: `ConstraintViolationError` when the frame contents violates
-    ///   constraints of the memory.
+    ///   constraints of the design.
     ///
     /// - SeeAlso: ``accept(_:appendHistory:)``
     ///
@@ -539,9 +529,9 @@ public class ObjectMemory {
         }
     }
 
-    /// Add a constraint to the memory.
+    /// Add a constraint to the design.
     ///
-    /// Before adding the constraint to the memory, all stable frames are
+    /// Before adding the constraint to the design, all stable frames are
     /// checked whether they violate the new constraint or not. If none
     /// of the frames violates the constraint, then it is added to the
     /// list of constraints.
@@ -558,7 +548,7 @@ public class ObjectMemory {
         }
         constraints.append(constraint)
     }
-    /// Remove a constraint from the memory.
+    /// Remove a constraint from the design.
     ///
     /// This method just removes the constraint and takes no other action.
     ///
@@ -568,20 +558,20 @@ public class ObjectMemory {
         }
     }
     
-    /// Discards the mutable frame that is associated with the memory.
+    /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: MutableFrame) {
         // TODO: Clean-up all the objects.
         
-        precondition(frame.memory === self,
-                     "Trying to discard a frame from a different memory")
+        precondition(frame.design === self,
+                     "Trying to discard a frame from a different design")
         precondition(frame.state.isMutable,
                      "Trying to discard a frozen frame")
         frame.promote(.validated)
         _mutableFrames[frame.id] = nil
     }
     
-    /// Flag whether the object memory has any un-doable frames.
+    /// Flag whether the design has any un-doable frames.
     ///
     /// - SeeAlso: ``undo(to:)``, ``redo(to:)``, ``canRedo``
     ///
@@ -589,7 +579,7 @@ public class ObjectMemory {
         return !undoableFrames.isEmpty
     }
 
-    /// Flag whether the object memory has any re-doable frames.
+    /// Flag whether the design has any re-doable frames.
     ///
     /// - SeeAlso: ``undo(to:)``, ``redo(to:)``, ``canUndo``
     ///
@@ -662,7 +652,7 @@ public class ObjectMemory {
         return violations
     }
     
-    /// Remove everything from the memory.
+    /// Remove everything from the design.
     ///
     func removeAll() {
         // TODO: [REVIEW] We needed this for archival. Is it still relevant?

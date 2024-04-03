@@ -11,12 +11,12 @@ import XCTest
 
 final class FrameReaderTests: XCTestCase {
     
-    var memory: ObjectMemory!
+    var design: Design!
     var frame: MutableFrame!
     
     override func setUp() {
-        memory = ObjectMemory(metamodel: TestMetamodel)
-        frame = memory.deriveFrame()
+        design = Design(metamodel: TestMetamodel)
+        frame = design.deriveFrame()
     }
    
     func defaultReader() throws -> ForeignFrameReader {
@@ -26,13 +26,13 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        return try ForeignFrameReader(data: data, memory: memory)
+        return try ForeignFrameReader(data: data, design: design)
     }
     
     func testNotADict() throws {
         let data = "[]".data(using:.utf8)!
         
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, memory: memory)){
+        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
@@ -45,7 +45,7 @@ final class FrameReaderTests: XCTestCase {
     func testMissingFormatVersion() throws {
         let data = "{}".data(using:.utf8)!
         
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, memory: memory)){
+        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
@@ -62,7 +62,7 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, memory: memory)){
+        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
@@ -79,7 +79,7 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, memory: memory)){
+        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
@@ -96,7 +96,7 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, memory: memory)){
+        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
@@ -113,7 +113,7 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        let reader = try ForeignFrameReader(data: data, memory: memory)
+        let reader = try ForeignFrameReader(data: data, design: design)
         XCTAssertEqual(reader.info.frameFormatVersion, "0")
         XCTAssertEqual(reader.info.collectionNames, ["objects"])
     }

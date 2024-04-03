@@ -48,7 +48,7 @@ public struct ForeignFrameInfo {
     /// Name of the metamodel the frame is using.
     ///
     /// - Note: It is up to the reader to decide compatibility of the foreign
-    ///   frame with the metamodel of the memory that the frame is being
+    ///   frame with the metamodel of a design that the frame is being
     ///   imported to.
     ///
     /// - SeeAlso: ``metamodelVersion``
@@ -59,7 +59,7 @@ public struct ForeignFrameInfo {
     /// Version of the metamodel the frame is using.
     ///
     /// - Note: It is up to the reader to decide compatibility of the foreign
-    ///   frame with the metamodel of the memory that the frame is being
+    ///   frame with the metamodel of a design that the frame is being
     ///   imported to.
     ///
     /// - SeeAlso: ``metamodelName``
@@ -215,25 +215,25 @@ public class ForeignFrameBundle {
 /// Object that reads a frame from a frame package.
 ///
 /// Object that read an archive, typically a file, containing a single frame
-/// and inserts the objects found in the archive into the memory.
+/// and inserts the objects found in the archive into the design.
 ///
 public class ForeignFrameReader {
     public let info: ForeignFrameInfo
-    public let memory: ObjectMemory
-    public var metamodel: Metamodel { memory.metamodel }
+    public let design: Design
+    public var metamodel: Metamodel { design.metamodel }
 
     /// References to objects that already exist in the frame. The key might
     /// be either an object name or a string representation of an object ID.
     ///
     public var references: [String: ObjectID] = [:]
     
-    public convenience init(path: String, memory: ObjectMemory) throws {
+    public convenience init(path: String, design: Design) throws {
         let url = URL(fileURLWithPath: path, isDirectory: true)
         let data = try Data(contentsOf: url)
-        try self.init(data: data, memory: memory)
+        try self.init(data: data, design: design)
     }
     
-    public convenience init(data: Data, memory: ObjectMemory) throws {
+    public convenience init(data: Data, design: Design) throws {
         let info: ForeignFrameInfo
         do {
             info = try ForeignFrameInfo(fromJSON: JSONValue(data: data))
@@ -255,16 +255,16 @@ public class ForeignFrameReader {
         catch {
             fatalError("Unhandled error: \(error)")
         }
-        self.init(info: info, memory: memory)
+        self.init(info: info, design: design)
     }
     
     /// Create a new frame reader with given reader info data.
     ///
     /// The data must contain a JSON dictionary structure.
     ///
-    public init(info: ForeignFrameInfo , memory: ObjectMemory) {
+    public init(info: ForeignFrameInfo , design: Design) {
         self.info = info
-        self.memory = memory
+        self.design = design
     }
 
     
@@ -302,7 +302,7 @@ public class ForeignFrameReader {
     ///
     /// For each object in the collection, in the order as provided:
     ///
-    /// 1. get a concrete object type instance from the frame's memory metamodel
+    /// 1. get a concrete object type instance from the frame's design metamodel
     /// 2. create an object snapshot in the frame using the given object type
     ///    and a foreign record representing the attributes. The structure
     ///    is not yet set-up.
@@ -331,7 +331,7 @@ public class ForeignFrameReader {
     ///         represent a transaction. When the function fails, the whole
     ///         frame should be discarded.
     /// - Throws: ``FrameReaderError``
-    /// - SeeAlso: ``ObjectMemory/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
+    /// - SeeAlso: ``Design/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
     ///     ``MutableFraminsert(_:owned:):)``
     ///
     public func read(_ foreignObjects: [ForeignObject], into frame: MutableFrame) throws {
@@ -345,20 +345,20 @@ public class ForeignFrameReader {
             // TODO: Catch foreign object error and wrap it with more info
             let actualID: ObjectID
             if let stringID = try foreignObject.id {
-                actualID = memory.allocateID(required: ObjectID(stringID))
+                actualID = design.allocateID(required: ObjectID(stringID))
             }
             else {
-                actualID = memory.allocateID()
+                actualID = design.allocateID()
             }
 
             ids.append(actualID)
 
             let actualSnapshotID: ObjectID
             if let stringID = try foreignObject.id {
-                actualSnapshotID = memory.allocateID(required: ObjectID(stringID))
+                actualSnapshotID = design.allocateID(required: ObjectID(stringID))
             }
             else {
-                actualSnapshotID = memory.allocateID()
+                actualSnapshotID = design.allocateID()
             }
             snapshotIDs.append(actualSnapshotID)
 
@@ -421,7 +421,7 @@ public class ForeignFrameReader {
 
                 structure = .edge(originID, targetID)
             }
-            let snapshot = memory.createSnapshot(type,
+            let snapshot = design.createSnapshot(type,
                                                  id: id,
                                                  snapshotID: snapshotID,
                                                  structure: structure,

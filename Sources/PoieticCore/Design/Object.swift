@@ -18,18 +18,18 @@
 ///
 /// ## Creation
 ///
-/// Objects are being created using the object memory
-/// ``ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``.
+/// Objects are typically being created using a dedicated _Design_ method
+/// ``Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``.
 /// If the ``id`` and ``snapshotID`` are not provided, then they are generated
-/// using object memory's identity generator.
+/// by the design ID generation.
 ///
 /// ```swift
-/// // The memory and the frame is given
-/// let memory: ObjectMemory
+/// // The design and the frame is given
+/// let design: Design
 /// let frame: MutableFrame
 ///
 /// // Create a new unstructured snapshot of type MyType (assuming the type exists)
-/// let snapshot = memory.createSnapshot(MyType)
+/// let snapshot = design.createSnapshot(MyType)
 /// frame.insert(snapshot)
 ///
 /// ```
@@ -67,7 +67,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// snapshot with new snapshot ID but the same object ID will be created.
     ///
     /// - SeeAlso: ``id``, ``MutableFrame/insert(_:owned:)``,
-    ///    ``ObjectMemory/allocateID(required:)``
+    ///    ``Design/allocateID(required:)``
     ///
     public let snapshotID: SnapshotID
     
@@ -87,7 +87,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// - SeeAlso: ``snapshotID``,
     ///   ``Frame/object(_:)``, ``Frame/contains(_:)``,
     ///    ``MutableFrame/mutableObject(_:)``,
-    ///    ``ObjectMemory/allocateID(proposed:)``
+    ///    ``Design/allocateID(proposed:)``
     ///
     public let id: ObjectID
     
@@ -140,7 +140,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     public var state: VersionState
     
     /// Variable denoting the structural property or rather structural role
-    /// of the object within the memory.
+    /// of the object within a design.
     ///
     /// Objects can be either unstructured (``StructuralComponent/unstructured``)
     /// or have a special role in different views of the design, such as nodes
@@ -148,7 +148,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// Structural component also denotes which objects depend on the object.
     /// For example, if objects is an edge and any of it's ``StructuralComponent/edge(_:_:)``
-    /// elements is removed from the memory, then the edge is removed as well.
+    /// elements is removed from a design, then the edge is removed as well.
     ///
     /// - SeeAlso: ``MutableFrame/removeCascading(_:)``, ``Graph``
     ///
@@ -205,7 +205,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// - Parameters:
     ///     - id: Object identity - typical object reference, unique in a frame
-    ///     - snapshotID: ID of this object version snapshot – unique in memory
+    ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
     ///     - structure: Structural component of the object.
     ///     - components: List of components to be added to the object.
@@ -221,7 +221,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
                 structure: StructuralComponent = .unstructured,
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
-        // TODO: Make creation private - only through the memory.
+        // TODO: Make creation private - only through the design.
         
         precondition(ObjectSnapshot.ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
