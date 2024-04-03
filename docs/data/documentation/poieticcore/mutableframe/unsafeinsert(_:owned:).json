@@ -17,7 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
@@ -242,11 +242,11 @@
               "type" : "text"
             },
             {
-              "text" : "be accepted by the object memory (",
+              "text" : "be accepted by the object design (",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/accept(_:appendHistory:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -419,19 +419,81 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Management and storage of design objects.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Object Memory",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
+  "abstract" : [
+    {
+      "text" : "Accepts a frame and make it a stable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -598,68 +660,6 @@
   "title" : "unsafeInsert(_:owned:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/unsafeinsert(_:owned:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/accept(_:appendHistory:)": {
-  "abstract" : [
-    {
-      "text" : "Accepts a frame and make it a stable frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "accept"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "appendHistory"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/accept(_:appendHistory:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "accept(_:appendHistory:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [

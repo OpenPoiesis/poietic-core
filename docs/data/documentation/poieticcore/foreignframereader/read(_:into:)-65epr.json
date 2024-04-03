@@ -191,7 +191,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "get a concrete object type instance from the frame’s memory metamodel",
+                      "text" : "get a concrete object type instance from the frame’s design metamodel",
                       "type" : "text"
                     }
                   ],
@@ -324,8 +324,9 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "FrameReaderError\/invalidObjectReference(_:_:_:)",
-                      "type" : "codeVoice"
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError\/invalidReference(_:_:_:)",
+                      "isActive" : true,
+                      "type" : "reference"
                     },
                     {
                       "text" : " ",
@@ -353,8 +354,9 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "FrameReaderError\/objectPropertyNotFound(_:_:)",
-                      "type" : "codeVoice"
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError\/foreignObjectError(_:_:)",
+                      "isActive" : true,
+                      "type" : "reference"
                     },
                     {
                       "text" : " is thrown.",
@@ -462,8 +464,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "ObjectMemory\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
                   "text" : ",",
@@ -524,6 +527,123 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameError/foreignObjectError(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "foreignObjectError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignObjectErrorO",
+      "text" : "ForeignObjectError"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError\/foreignObjectError(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignFrameError.foreignObjectError(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeerror\/foreignobjecterror(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameError/invalidReference(_:_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidReference"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError\/invalidReference(_:_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignFrameError.invalidReference(_:_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeerror\/invalidreference(_:_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader": {
   "abstract" : [

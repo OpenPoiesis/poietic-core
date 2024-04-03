@@ -1,0 +1,1061 @@
+{
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for design.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore20MakeshiftDesignStoreC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "MakeshiftDesignStore"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "MakeshiftDesignStore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "MakeshiftDesignStore"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "MakeshiftDesignStore"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Collections:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "state",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " – one-record “collection” containing the design state",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                },
+                {
+                  "items" : [
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "current_frame",
+                              "type" : "codeVoice"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "undo_frames",
+                              "type" : "codeVoice"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "redo_frames",
+                              "type" : "codeVoice"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type" : "unorderedList"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "snapshots",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " - list of object snapshots",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "frames",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                },
+                {
+                  "items" : [
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "id",
+                              "type" : "codeVoice"
+                            },
+                            {
+                              "text" : " - frame ID",
+                              "type" : "text"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "snapshots",
+                              "type" : "codeVoice"
+                            },
+                            {
+                              "text" : " - list of snapshot IDs",
+                              "type" : "text"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type" : "unorderedList"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)"
+      ],
+      "title" : "Store"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/init(url:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/collections",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/objects",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/url"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/fetchAll(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/fetchAllObjects()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/load()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/replaceAll(in:records:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/replaceAllObjects(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/save()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/makeshiftdesignstore"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the design and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(store:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the design and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given design store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/saveAll(to:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of the design to given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "saveAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "saveAll(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/saveall(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/writeAll(store:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftDesignStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/collections": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "collections"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
+      "text" : "ForeignRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "]]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/collections",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "collections",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/collections"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/fetchAll(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
+      "text" : "ForeignRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/fetchAll(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAll(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/fetchall(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/fetchAllObjects()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAllObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/fetchAllObjects()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAllObjects()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/fetchallobjects()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/init(url:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new makeshift store from a file stored at given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/init(url:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(url:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/init(url:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/load()": {
+  "abstract" : [
+    {
+      "text" : "Load all collections from the store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "load"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/load()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "load()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/load()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/objects": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objects"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/objects",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objects",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/objects"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/replaceAll(in:records:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "replaceAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "in"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "records"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
+      "text" : "ForeignRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/replaceAll(in:records:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "replaceAll(in:records:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/replaceall(in:records:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/replaceAllObjects(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "replaceAllObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
+      "text" : "ForeignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/replaceAllObjects(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "replaceAllObjects(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/replaceallobjects(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/save()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "save"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/save()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "save()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/save()"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/url": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/url",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "url",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/url"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror"
+}
+}
+}

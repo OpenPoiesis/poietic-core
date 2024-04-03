@@ -17,7 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/assert(constraint:)-79bse"
       ]
@@ -205,6 +205,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
 },
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
@@ -355,20 +369,6 @@
   "title" : "assert(constraint:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/assert(constraint:)-79bse"
-},
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
 }
 }
 }

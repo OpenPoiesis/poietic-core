@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
@@ -347,15 +347,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The new object ID is generated from the shared object memory identity",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "generator.",
+              "text" : "The new object ID is generated from the identity generator.",
               "type" : "text"
             }
           ],
@@ -395,7 +387,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -493,19 +485,176 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Management and storage of design objects.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Object Memory",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)": {
+  "abstract" : [
+    {
+      "text" : "Designated function to create snapshots in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
+      "text" : "SnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "attributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "structure"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
+      "text" : "StructuralComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "state"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
+      "text" : "VersionState"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -729,163 +878,6 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)": {
-  "abstract" : [
-    {
-      "text" : "Designated function to create snapshots in the memory.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "createSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "attributes"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "components"
-    },
-    {
-      "kind" : "text",
-      "text" : ": [any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "structure"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
-      "text" : "StructuralComponent"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "state"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
-      "text" : "VersionState"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [

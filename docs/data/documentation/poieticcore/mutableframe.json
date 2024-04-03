@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
       ]
     ]
   },
@@ -181,7 +181,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Completed change set is expected to be accepted to the memory using",
+              "text" : "Completed change set is expected to be accepted to the design using",
               "type" : "text"
             },
             {
@@ -189,7 +189,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/accept(_:appendHistory:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -228,7 +228,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
@@ -237,21 +236,21 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
-      "title" : "Object Memory and Version Frames"
+      "title" : "Design and Version Frames"
     }
   ],
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/init(memory:id:snapshots:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/init(design:id:snapshots:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/hasChanges",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/id",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removedObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/snapshots"
       ],
@@ -312,6 +311,82 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
+  "abstract" : [
+    {
+      "text" : "Accepts a frame and make it a stable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -494,20 +569,6 @@
   "title" : "IdentityGenerator",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitygenerator"
-},
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -831,6 +892,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/debugprint()"
 },
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/design": {
+  "abstract" : [
+    {
+      "text" : "Design with which this frame is associated with.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "design"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/design",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/design"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/hasChanges": {
   "abstract" : [
     {
@@ -905,7 +1003,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/id"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/init(memory:id:snapshots:)": {
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/init(design:id:snapshots:)": {
   "abstract" : [
     {
       "text" : "Create a new mutable frame.",
@@ -923,7 +1021,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "memory"
+      "text" : "design"
     },
     {
       "kind" : "text",
@@ -931,8 +1029,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
     },
     {
       "kind" : "text",
@@ -973,12 +1071,12 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/init(memory:id:snapshots:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/init(design:id:snapshots:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(memory:id:snapshots:)",
+  "title" : "init(design:id:snapshots:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/init(memory:id:snapshots:)"
+  "url" : "\/documentation\/poieticcore\/mutableframe\/init(design:id:snapshots:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/insert(_:owned:)": {
   "abstract" : [
@@ -1045,43 +1143,6 @@
   "title" : "insert(_:owned:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe\/insert(_:owned:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/memory": {
-  "abstract" : [
-    {
-      "text" : "Object memory with which this frame is associated with.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "memory"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/memory",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/memory"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
   "abstract" : [
@@ -1654,102 +1715,6 @@
   "title" : "MutableGraph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectMemory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/accept(_:appendHistory:)": {
-  "abstract" : [
-    {
-      "text" : "Accepts a frame and make it a stable frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "accept"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "appendHistory"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/accept(_:appendHistory:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "accept(_:appendHistory:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
   "abstract" : [

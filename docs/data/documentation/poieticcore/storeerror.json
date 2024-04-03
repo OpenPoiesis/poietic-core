@@ -1,0 +1,1284 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore10StoreErrorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "StoreError"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "StoreError"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "StoreError"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "StoreError"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/s5ErrorP",
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)"
+      ],
+      "title" : "Store"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/attributesNotADictionary(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/brokenIntegrity(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotCreateArchiveData(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotOpenStore(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotWriteToStore(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/duplicateSnapshot(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/invalidReference(_:_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/invalidReferences(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedArchiveData(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedArchiveStructure(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollection(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollectionRecord(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollections",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingFormatVersion",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingOrMalformedStateInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingReference(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unknownCollection(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unknownObjectType(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unsupportedFormatVersion(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/description"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/Error-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/storeerror"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(from:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the design and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(store:)": {
+  "abstract" : [
+    {
+      "text" : "Removes everything from the design and loads the contents from the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given design store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "restoreAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "restoreAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/saveAll(to:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of the design to given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "saveAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "saveAll(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/saveall(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/writeAll(store:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeAll"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeAll(store:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftDesignStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/attributesNotADictionary(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "attributesNotADictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/attributesNotADictionary(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.attributesNotADictionary(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/attributesnotadictionary(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/brokenIntegrity(_:)": {
+  "abstract" : [
+    {
+      "text" : "Generic integrity error.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenIntegrity"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/brokenIntegrity(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.brokenIntegrity(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/brokenintegrity(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/cannotCreateArchiveData(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotCreateArchiveData"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotCreateArchiveData(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.cannotCreateArchiveData(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/cannotcreatearchivedata(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/cannotOpenStore(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotOpenStore"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotOpenStore(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.cannotOpenStore(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/cannotopenstore(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/cannotWriteToStore(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotWriteToStore"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/cannotWriteToStore(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.cannotWriteToStore(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/cannotwritetostore(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/duplicateSnapshot(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "duplicateSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/duplicateSnapshot(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.duplicateSnapshot(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/duplicatesnapshot(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/invalidReference(_:_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidReference"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/invalidReference(_:_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.invalidReference(_:_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/invalidreference(_:_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/invalidReferences(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Referenced snapshot does not exist.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/invalidReferences(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.invalidReferences(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/invalidreferences(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/malformedArchiveData(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedArchiveData"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedArchiveData(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.malformedArchiveData(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/malformedarchivedata(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/malformedArchiveStructure(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedArchiveStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedArchiveStructure(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.malformedArchiveStructure(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/malformedarchivestructure(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/malformedCollection(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollection(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.malformedCollection(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/malformedcollection(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/malformedCollectionRecord(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollectionRecord"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollectionRecord(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.malformedCollectionRecord(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/malformedcollectionrecord(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/malformedCollections": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "malformedCollections"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/malformedCollections",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.malformedCollections",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/malformedcollections"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/missingFormatVersion": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingFormatVersion"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingFormatVersion",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.missingFormatVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/missingformatversion"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/missingOrMalformedStateInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingOrMalformedStateInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingOrMalformedStateInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.missingOrMalformedStateInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/missingormalformedstateinfo"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/missingReference(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingReference"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/missingReference(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.missingReference(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/missingreference(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/unknownCollection(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unknownCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unknownCollection(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.unknownCollection(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/unknowncollection(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/unknownObjectType(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unknownObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unknownObjectType(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.unknownObjectType(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/unknownobjecttype(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError/unsupportedFormatVersion(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unsupportedFormatVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError\/unsupportedFormatVersion(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StoreError.unsupportedFormatVersion(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror\/unsupportedformatversion(_:)"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s5ErrorP": {
+  "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

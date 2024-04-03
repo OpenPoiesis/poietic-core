@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/MutableGraph-Implementations"
       ]
@@ -295,6 +295,20 @@
             {
               "inlineContent" : [
                 {
+                  "text" : "Dictionary of attributes to set.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "attributes"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
                   "text" : "List of components assigned with the node.",
                   "type" : "text"
                 }
@@ -317,15 +331,15 @@
         {
           "inlineContent" : [
             {
-              "text" : "If the object name is provided, then ",
+              "text" : "If the object name is provided, then attribute ",
               "type" : "text"
             },
             {
-              "code" : "NameComponent",
+              "code" : "name",
               "type" : "codeVoice"
             },
             {
-              "text" : " added to the",
+              "text" : " of the",
               "type" : "text"
             },
             {
@@ -333,31 +347,23 @@
               "type" : "text"
             },
             {
-              "text" : "component list. If your metamodel does not use the ",
+              "text" : "object is set. Replaces ",
               "type" : "text"
             },
             {
-              "code" : "NameComponent",
+              "code" : "name",
               "type" : "codeVoice"
             },
             {
-              "text" : ",",
+              "text" : " attribute in the ",
               "type" : "text"
             },
             {
-              "text" : " ",
-              "type" : "text"
+              "code" : "attributes",
+              "type" : "codeVoice"
             },
             {
-              "text" : "then you have to create the name using the name-bearing component",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "manually.",
+              "text" : " dictionary.",
               "type" : "text"
             }
           ],
@@ -437,19 +443,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Management and storage of design objects.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Object Memory",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [

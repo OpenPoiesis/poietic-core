@@ -97,7 +97,7 @@
               "type" : "text"
             },
             {
-              "text" : "and inserts the objects found in the archive into the memory.",
+              "text" : "and inserts the objects found in the archive into the design.",
               "type" : "text"
             }
           ],
@@ -134,16 +134,16 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(data:memory:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(info:memory:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(path:memory:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(data:design:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(info:design:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(path:design:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/info",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/metamodel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/references"
       ],
@@ -329,6 +329,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframereader"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/design": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "design"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/design",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframereader\/design"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/info": {
   "abstract" : [
 
@@ -363,7 +397,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframereader\/info"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(data:memory:)": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(data:design:)": {
   "abstract" : [
 
   ],
@@ -403,7 +437,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "memory"
+      "text" : "design"
     },
     {
       "kind" : "text",
@@ -411,8 +445,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
     },
     {
       "kind" : "text",
@@ -423,14 +457,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(data:memory:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(data:design:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(data:memory:)",
+  "title" : "init(data:design:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(data:memory:)"
+  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(data:design:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(info:memory:)": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(info:design:)": {
   "abstract" : [
     {
       "text" : "Create a new frame reader with given reader info data.",
@@ -465,7 +499,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "memory"
+      "text" : "design"
     },
     {
       "kind" : "text",
@@ -473,22 +507,22 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(info:memory:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(info:design:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(info:memory:)",
+  "title" : "init(info:design:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(info:memory:)"
+  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(info:design:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(path:memory:)": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/init(path:design:)": {
   "abstract" : [
 
   ],
@@ -528,7 +562,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "memory"
+      "text" : "design"
     },
     {
       "kind" : "text",
@@ -536,8 +570,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
     },
     {
       "kind" : "text",
@@ -548,46 +582,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(path:memory:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/init(path:design:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(path:memory:)",
+  "title" : "init(path:design:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(path:memory:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/memory": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "memory"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader\/memory",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader\/memory"
+  "url" : "\/documentation\/poieticcore\/foreignframereader\/init(path:design:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader/metamodel": {
   "abstract" : [

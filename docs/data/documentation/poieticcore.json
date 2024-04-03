@@ -123,12 +123,12 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " which stores and manages",
+              "text" : " which contains and manages",
               "type" : "text"
             },
             {
@@ -149,12 +149,16 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " also manages",
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "also manages history of changes in form of frames which might be gathered in",
               "type" : "text"
             },
             {
@@ -162,15 +166,7 @@
               "type" : "text"
             },
             {
-              "text" : "history of changes in form of frames which might be gathered in frame",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "collections. One of the frame collections is the memory’s history that",
+              "text" : "frame collections. One of the frame collections is the design history that",
               "type" : "text"
             },
             {
@@ -273,7 +269,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
@@ -299,7 +295,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundingBox",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
@@ -383,36 +378,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel"
 },
-"doc://PoieticCore/documentation/PoieticCore/BoundingBox": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
-
-  ],
-  "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BoundingBox"
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BoundingBox",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BoundingBox"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BoundingBox",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/boundingbox"
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLibraryInfo": {
   "abstract" : [
@@ -719,20 +697,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issuelistcomponent"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -916,40 +880,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectMemory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
   "abstract" : [
 
@@ -1083,7 +1013,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
-      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
       "type" : "text"
     }
   ],

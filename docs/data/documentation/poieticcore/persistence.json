@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
       "type" : "text"
     }
   ],
@@ -39,7 +39,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The object memory can be and is expected to be persisted on a file system.",
+              "text" : "A design can be and is expected to be persisted on a file system.",
               "type" : "text"
             },
             {
@@ -47,7 +47,7 @@
               "type" : "text"
             },
             {
-              "text" : "Current implementation stores the content of the memory as a single JSON",
+              "text" : "Current implementation stores the content of the design as a single JSON",
               "type" : "text"
             },
             {
@@ -77,7 +77,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
@@ -89,12 +89,12 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)"
       ],
       "title" : "Store"
     }
@@ -127,145 +127,24 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Structures and functionality for interfacing with other systems.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+  "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(from:)": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
-},
-"doc://PoieticCore/documentation/PoieticCore/MakeshiftMemoryStore": {
-  "abstract" : [
-    {
-      "text" : "A persistent store with relational-like traits for object memory.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MakeshiftMemoryStore"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftMemoryStore",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MakeshiftMemoryStore"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MakeshiftMemoryStore",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/makeshiftmemorystore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
-"doc://PoieticCore/documentation/PoieticCore/MemoryStoreError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MemoryStoreError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemoryStoreError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MemoryStoreError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MemoryStoreError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memorystoreerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(from:)": {
-  "abstract" : [
-    {
-      "text" : "Removes everything from the memory and loads the contents from the",
+      "text" : "Removes everything from the design and loads the contents from the",
       "type" : "text"
     },
     {
@@ -316,17 +195,17 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(from:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "restoreAll(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)"
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(from:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/restoreAll(store:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(store:)": {
   "abstract" : [
     {
-      "text" : "Removes everything from the memory and loads the contents from the",
+      "text" : "Removes everything from the design and loads the contents from the",
       "type" : "text"
     },
     {
@@ -334,7 +213,7 @@
       "type" : "text"
     },
     {
-      "text" : "given memory store.",
+      "text" : "given design store.",
       "type" : "text"
     }
   ],
@@ -365,8 +244,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
-      "text" : "MakeshiftMemoryStore"
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
     },
     {
       "kind" : "text",
@@ -377,17 +256,17 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/restoreAll(store:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "restoreAll(store:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)"
+  "url" : "\/documentation\/poieticcore\/design\/restoreall(store:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/saveAll(to:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/saveAll(to:)": {
   "abstract" : [
     {
-      "text" : "Saves the contents of the memory to given URL.",
+      "text" : "Saves the contents of the design to given URL.",
       "type" : "text"
     }
   ],
@@ -430,14 +309,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/saveAll(to:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "saveAll(to:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)"
+  "url" : "\/documentation\/poieticcore\/design\/saveall(to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/writeAll(store:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/writeAll(store:)": {
   "abstract" : [
 
   ],
@@ -468,8 +347,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftMemoryStoreC",
-      "text" : "MakeshiftMemoryStore"
+      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
+      "text" : "MakeshiftDesignStore"
     },
     {
       "kind" : "text",
@@ -480,12 +359,102 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/writeAll(store:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "writeAll(store:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)"
+  "url" : "\/documentation\/poieticcore\/design\/writeall(store:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
+  "abstract" : [
+    {
+      "text" : "A persistent store with relational-like traits for design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftDesignStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
   "abstract" : [
@@ -508,6 +477,37 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+},
+"doc://PoieticCore/documentation/PoieticCore/StoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/storeerror"
 }
 }
 }

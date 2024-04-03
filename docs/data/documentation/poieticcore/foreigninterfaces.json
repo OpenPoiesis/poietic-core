@@ -39,7 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
@@ -336,6 +336,20 @@
   "title" : "CSVWriter",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
   "abstract" : [
@@ -858,20 +872,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -960,7 +960,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
-      "text" : "Persistence of the object memory - storing and restoring the object memory from a file system.",
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
       "type" : "text"
     }
   ],

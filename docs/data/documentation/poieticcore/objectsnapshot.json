@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
       ]
     ]
   },
@@ -185,7 +185,20 @@
         {
           "inlineContent" : [
             {
-              "text" : "Objects are being created using the object memory",
+              "text" : "Objects are typically being created using a dedicated ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Design",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " method",
               "type" : "text"
             },
             {
@@ -193,7 +206,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -232,7 +245,7 @@
               "type" : "text"
             },
             {
-              "text" : "using object memory’s identity generator.",
+              "text" : "by the design ID generation.",
               "type" : "text"
             }
           ],
@@ -240,12 +253,12 @@
         },
         {
           "code" : [
-            "\/\/ The memory and the frame is given",
-            "let memory: ObjectMemory",
+            "\/\/ The design and the frame is given",
+            "let design: Design",
             "let frame: MutableFrame",
             "",
             "\/\/ Create a new unstructured snapshot of type MyType (assuming the type exists)",
-            "let snapshot = memory.createSnapshot(MyType)",
+            "let snapshot = design.createSnapshot(MyType)",
             "frame.insert(snapshot)",
             ""
           ],
@@ -451,236 +464,24 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/childrenset"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Protocol for version frames.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Frame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
-},
-"doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
-  "abstract" : [
-    {
-      "text" : "Component that holds a list of errors related to a node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IssueListComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IssueListComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IssueListComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issuelistcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
-  "abstract" : [
-    {
-      "text" : "A protocol for objects that provide their attributes by keys.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeyedAttributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Object Memory",
+  "title" : "Deign",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
+  "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+"doc://PoieticCore/documentation/PoieticCore/Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)": {
   "abstract" : [
     {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
-  "abstract" : [
-    {
-      "text" : "Protocol for objects where attributes can be modified by using the attribute",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "names.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableKeyedAttributes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableKeyedAttributes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableKeyedAttributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
-  "abstract" : [
-    {
-      "text" : "Identifier of a design objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)": {
-  "abstract" : [
-    {
-      "text" : "Designated function to create snapshots in the memory.",
+      "text" : "Designated function to create snapshots in the design.",
       "type" : "text"
     }
   ],
@@ -827,12 +628,224 @@
       "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "createSnapshot(_:id:snapshotID:attributes:components:structure:state:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)"
+  "url" : "\/documentation\/poieticcore\/design\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
+  "abstract" : [
+    {
+      "text" : "Protocol for version frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Frame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Frame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Frame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame"
+},
+"doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
+  "abstract" : [
+    {
+      "text" : "Component that holds a list of errors related to a node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IssueListComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IssueListComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IssueListComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issuelistcomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
+  "abstract" : [
+    {
+      "text" : "A protocol for objects that provide their attributes by keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "KeyedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/keyedattributes"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+  "abstract" : [
+    {
+      "text" : "Mutable frame is a version frame that can be changed - mutated.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects where attributes can be modified by using the attribute",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "names.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableKeyedAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableKeyedAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableKeyedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
@@ -2088,7 +2101,7 @@
       "type" : "text"
     },
     {
-      "text" : "of the object within the memory.",
+      "text" : "of the object within a design.",
       "type" : "text"
     }
   ],

@@ -6,197 +6,23 @@
           {
             "children" : [
               {
-                "title" : "Object Memory and Version Frames",
+                "title" : "Design and Version Frames",
                 "type" : "groupMarker"
               },
               {
                 "children" : [
                   {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/init(metamodel:)",
-                    "title" : "init(metamodel: Metamodel)",
-                    "type" : "init"
-                  },
-                  {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/allsnapshots",
-                    "title" : "var allSnapshots: any Sequence<ObjectSnapshot>",
+                    "path" : "\/documentation\/poieticcore\/frame\/design",
+                    "title" : "var design: Design",
                     "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/canredo",
-                    "title" : "var canRedo: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/canundo",
-                    "title" : "var canUndo: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/constraints",
-                    "title" : "var constraints: [Constraint]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/currentframe",
-                    "title" : "var currentFrame: StableFrame",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/currentframeid",
-                    "title" : "var currentFrameID: FrameID?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/frames",
-                    "title" : "var frames: [StableFrame]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/isempty",
-                    "title" : "var isEmpty: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/metamodel",
-                    "title" : "let metamodel: Metamodel",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/redoableframes",
-                    "title" : "var redoableFrames: [FrameID]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/undoableframes",
-                    "title" : "var undoableFrames: [FrameID]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/validatedsnapshots",
-                    "title" : "var validatedSnapshots: [ObjectSnapshot]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/versionhistory",
-                    "title" : "var versionHistory: [FrameID]",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/accept(_:appendhistory:)",
-                    "title" : "func accept(MutableFrame, appendHistory: Bool) throws",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/addconstraint(_:)",
-                    "title" : "func addConstraint(Constraint) throws",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/allocateid(required:)",
-                    "title" : "func allocateID(required: ID?) -> ID",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/checkconstraints(_:)",
-                    "title" : "func checkConstraints(any Frame) -> [ConstraintViolation]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/containsframe(_:)",
-                    "title" : "func containsFrame(FrameID) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/createframe(id:)",
-                    "title" : "func createFrame(id: FrameID?) -> MutableFrame",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/createsnapshot(_:)",
-                    "title" : "func createSnapshot(ForeignObject) throws -> ObjectSnapshot",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)",
-                    "title" : "func createSnapshot(ObjectType, id: ObjectID?, snapshotID: SnapshotID?, attributes: [String : Variant], components: [any Component], structure: StructuralComponent?, state: VersionState) -> ObjectSnapshot",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/deriveframe(original:id:)",
-                    "title" : "func deriveFrame(original: FrameID?, id: FrameID?) -> MutableFrame",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/derivesnapshot(_:)",
-                    "title" : "func deriveSnapshot(SnapshotID) -> ObjectSnapshot",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/discard(_:)",
-                    "title" : "func discard(MutableFrame)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/frame(_:)",
-                    "title" : "func frame(FrameID) -> StableFrame?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/redo(to:)",
-                    "title" : "func redo(to: FrameID)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/removeconstraint(_:)",
-                    "title" : "func removeConstraint(Constraint)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/removeframe(_:)",
-                    "title" : "func removeFrame(FrameID)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/undo(to:)",
-                    "title" : "func undo(to: FrameID)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectmemory\/validate(_:)",
-                    "title" : "func validate(MutableFrame) throws",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/objectmemory",
-                "title" : "ObjectMemory",
-                "type" : "class"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/frame\/id",
                     "title" : "var id: FrameID",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/frame\/memory",
-                    "title" : "var memory: ObjectMemory",
                     "type" : "property"
                   },
                   {
@@ -367,6 +193,11 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/stableframe\/design",
+                    "title" : "let design: Design",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/stableframe\/graph",
                     "title" : "var graph: any Graph",
                     "type" : "property"
@@ -374,11 +205,6 @@
                   {
                     "path" : "\/documentation\/poieticcore\/stableframe\/id",
                     "title" : "let id: FrameID",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/stableframe\/memory",
-                    "title" : "let memory: ObjectMemory",
                     "type" : "property"
                   },
                   {
@@ -612,13 +438,18 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/mutableframe\/init(memory:id:snapshots:)",
-                    "title" : "init(memory: ObjectMemory, id: FrameID, snapshots: [ObjectSnapshot]?)",
+                    "path" : "\/documentation\/poieticcore\/mutableframe\/init(design:id:snapshots:)",
+                    "title" : "init(design: Design, id: FrameID, snapshots: [ObjectSnapshot]?)",
                     "type" : "init"
                   },
                   {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/mutableframe\/design",
+                    "title" : "let design: Design",
+                    "type" : "property"
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/mutableframe\/haschanges",
@@ -628,11 +459,6 @@
                   {
                     "path" : "\/documentation\/poieticcore\/mutableframe\/id",
                     "title" : "let id: FrameID",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/mutableframe\/memory",
-                    "title" : "let memory: ObjectMemory",
                     "type" : "property"
                   },
                   {
@@ -3240,8 +3066,8 @@
                 "type" : "struct"
               }
             ],
-            "path" : "\/documentation\/poieticcore\/memory",
-            "title" : "Object Memory",
+            "path" : "\/documentation\/poieticcore\/design",
+            "title" : "Deign",
             "type" : "symbol"
           },
           {
@@ -4688,12 +4514,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -4711,12 +4537,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -4734,12 +4560,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           }
@@ -5800,18 +5626,18 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(data:memory:)",
-                    "title" : "convenience init(data: Data, memory: ObjectMemory) throws",
+                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(data:design:)",
+                    "title" : "convenience init(data: Data, design: Design) throws",
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(info:memory:)",
-                    "title" : "init(info: ForeignFrameInfo, memory: ObjectMemory)",
+                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(info:design:)",
+                    "title" : "init(info: ForeignFrameInfo, design: Design)",
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(path:memory:)",
-                    "title" : "convenience init(path: String, memory: ObjectMemory) throws",
+                    "path" : "\/documentation\/poieticcore\/foreignframereader\/init(path:design:)",
+                    "title" : "convenience init(path: String, design: Design) throws",
                     "type" : "init"
                   },
                   {
@@ -5819,13 +5645,13 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframereader\/info",
-                    "title" : "let info: ForeignFrameInfo",
+                    "path" : "\/documentation\/poieticcore\/foreignframereader\/design",
+                    "title" : "let design: Design",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframereader\/memory",
-                    "title" : "let memory: ObjectMemory",
+                    "path" : "\/documentation\/poieticcore\/foreignframereader\/info",
+                    "title" : "let info: ForeignFrameInfo",
                     "type" : "property"
                   },
                   {
@@ -8717,7 +8543,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/init(url:)",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/init(url:)",
                     "title" : "init(url: URL) throws",
                     "type" : "init"
                   },
@@ -8726,17 +8552,17 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/collections",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/collections",
                     "title" : "var collections: [String : [ForeignRecord]]",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/objects",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/objects",
                     "title" : "var objects: [ForeignObject]",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/url",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/url",
                     "title" : "let url: URL",
                     "type" : "property"
                   },
@@ -8745,38 +8571,38 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/fetchall(_:)",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/fetchall(_:)",
                     "title" : "func fetchAll(String) throws -> [ForeignRecord]",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/fetchallobjects()",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/fetchallobjects()",
                     "title" : "func fetchAllObjects() throws -> [ForeignObject]",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/load()",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/load()",
                     "title" : "func load() throws",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/replaceall(in:records:)",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/replaceall(in:records:)",
                     "title" : "func replaceAll(in: String, records: [ForeignRecord]) throws",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/replaceallobjects(_:)",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/replaceallobjects(_:)",
                     "title" : "func replaceAllObjects([ForeignObject]) throws",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/makeshiftmemorystore\/save()",
+                    "path" : "\/documentation\/poieticcore\/makeshiftdesignstore\/save()",
                     "title" : "func save() throws",
                     "type" : "method"
                   }
                 ],
-                "path" : "\/documentation\/poieticcore\/makeshiftmemorystore",
-                "title" : "MakeshiftMemoryStore",
+                "path" : "\/documentation\/poieticcore\/makeshiftdesignstore",
+                "title" : "MakeshiftDesignStore",
                 "type" : "class"
               },
               {
@@ -8786,97 +8612,97 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/attributesnotadictionary(_:_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/attributesnotadictionary(_:_:)",
                     "title" : "case attributesNotADictionary(String, Int)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/brokenintegrity(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/brokenintegrity(_:)",
                     "title" : "case brokenIntegrity(String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/cannotcreatearchivedata(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/cannotcreatearchivedata(_:)",
                     "title" : "case cannotCreateArchiveData(any Error)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/cannotopenstore(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/cannotopenstore(_:)",
                     "title" : "case cannotOpenStore(URL)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/cannotwritetostore(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/cannotwritetostore(_:)",
                     "title" : "case cannotWriteToStore(any Error)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/duplicatesnapshot(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/duplicatesnapshot(_:)",
                     "title" : "case duplicateSnapshot(ObjectID)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/invalidreference(_:_:_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/invalidreference(_:_:_:)",
                     "title" : "case invalidReference(ObjectID, String, String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/invalidreferences(_:_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/invalidreferences(_:_:)",
                     "title" : "case invalidReferences(String, String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/malformedarchivedata(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/malformedarchivedata(_:)",
                     "title" : "case malformedArchiveData(any Error)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/malformedarchivestructure(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/malformedarchivestructure(_:)",
                     "title" : "case malformedArchiveStructure(String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollection(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/malformedcollection(_:)",
                     "title" : "case malformedCollection(String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollectionrecord(_:_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/malformedcollectionrecord(_:_:)",
                     "title" : "case malformedCollectionRecord(String, Int)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/malformedcollections",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/malformedcollections",
                     "title" : "case malformedCollections",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/missingformatversion",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/missingformatversion",
                     "title" : "case missingFormatVersion",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/missingormalformedstateinfo",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/missingormalformedstateinfo",
                     "title" : "case missingOrMalformedStateInfo",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/missingreference(_:_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/missingreference(_:_:)",
                     "title" : "case missingReference(String, String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/unknowncollection(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/unknowncollection(_:)",
                     "title" : "case unknownCollection(String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/unknownobjecttype(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/unknownobjecttype(_:)",
                     "title" : "case unknownObjectType(String)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/unsupportedformatversion(_:)",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/unsupportedformatversion(_:)",
                     "title" : "case unsupportedFormatVersion(String)",
                     "type" : "case"
                   },
@@ -8885,7 +8711,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/description",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/description",
                     "title" : "var description: String",
                     "type" : "property"
                   },
@@ -8900,38 +8726,38 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/poieticcore\/memorystoreerror\/localizeddescription",
+                        "path" : "\/documentation\/poieticcore\/storeerror\/localizeddescription",
                         "title" : "var localizedDescription: String",
                         "type" : "property"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/memorystoreerror\/error-implementations",
+                    "path" : "\/documentation\/poieticcore\/storeerror\/error-implementations",
                     "title" : "Error Implementations",
                     "type" : "symbol"
                   }
                 ],
-                "path" : "\/documentation\/poieticcore\/memorystoreerror",
-                "title" : "MemoryStoreError",
+                "path" : "\/documentation\/poieticcore\/storeerror",
+                "title" : "StoreError",
                 "type" : "enum"
               },
               {
-                "path" : "\/documentation\/poieticcore\/objectmemory\/restoreall(from:)",
+                "path" : "\/documentation\/poieticcore\/design\/restoreall(from:)",
                 "title" : "func restoreAll(from: URL) throws",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/objectmemory\/restoreall(store:)",
-                "title" : "func restoreAll(store: MakeshiftMemoryStore) throws",
+                "path" : "\/documentation\/poieticcore\/design\/restoreall(store:)",
+                "title" : "func restoreAll(store: MakeshiftDesignStore) throws",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/objectmemory\/saveall(to:)",
+                "path" : "\/documentation\/poieticcore\/design\/saveall(to:)",
                 "title" : "func saveAll(to: URL) throws",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/objectmemory\/writeall(store:)",
-                "title" : "func writeAll(store: MakeshiftMemoryStore) throws",
+                "path" : "\/documentation\/poieticcore\/design\/writeall(store:)",
+                "title" : "func writeAll(store: MakeshiftDesignStore) throws",
                 "type" : "method"
               }
             ],
@@ -9120,46 +8946,6 @@
           {
             "title" : "Structures",
             "type" : "groupMarker"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/boundingbox\/init()",
-                "title" : "init()",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/boundingbox\/init(square:)",
-                "title" : "init(square: Double)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/boundingbox\/center",
-                "title" : "var center: Point",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/boundingbox\/max",
-                "title" : "var max: Point",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/boundingbox\/min",
-                "title" : "var min: Point",
-                "type" : "property"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/boundingbox",
-            "title" : "BoundingBox",
-            "type" : "struct"
           },
           {
             "children" : [
@@ -10109,6 +9895,161 @@
         "path" : "\/documentation\/poieticcore",
         "title" : "PoieticCore",
         "type" : "module"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)",
+        "title" : "func accept(MutableFrame, appendHistory: Bool) throws",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/addconstraint(_:)",
+        "title" : "func addConstraint(Constraint) throws",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/allocateid(required:)",
+        "title" : "func allocateID(required: ID?) -> ID",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/checkconstraints(_:)",
+        "title" : "func checkConstraints(any Frame) -> [ConstraintViolation]",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/containsframe(_:)",
+        "title" : "func containsFrame(FrameID) -> Bool",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/createframe(id:)",
+        "title" : "func createFrame(id: FrameID?) -> MutableFrame",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/createsnapshot(_:)",
+        "title" : "func createSnapshot(ForeignObject) throws -> ObjectSnapshot",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/createsnapshot(_:id:snapshotid:attributes:components:structure:state:)",
+        "title" : "func createSnapshot(ObjectType, id: ObjectID?, snapshotID: SnapshotID?, attributes: [String : Variant], components: [any Component], structure: StructuralComponent?, state: VersionState) -> ObjectSnapshot",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/deriveframe(original:id:)",
+        "title" : "func deriveFrame(original: FrameID?, id: FrameID?) -> MutableFrame",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/derivesnapshot(_:)",
+        "title" : "func deriveSnapshot(SnapshotID) -> ObjectSnapshot",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/discard(_:)",
+        "title" : "func discard(MutableFrame)",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/frame(_:)",
+        "title" : "func frame(FrameID) -> StableFrame?",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/redo(to:)",
+        "title" : "func redo(to: FrameID)",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/removeconstraint(_:)",
+        "title" : "func removeConstraint(Constraint)",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/removeframe(_:)",
+        "title" : "func removeFrame(FrameID)",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/undo(to:)",
+        "title" : "func undo(to: FrameID)",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/validate(_:)",
+        "title" : "func validate(MutableFrame) throws",
+        "type" : "method"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/init(metamodel:)",
+        "title" : "init(metamodel: Metamodel)",
+        "type" : "init"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/metamodel",
+        "title" : "let metamodel: Metamodel",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/allsnapshots",
+        "title" : "var allSnapshots: any Sequence<ObjectSnapshot>",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/canredo",
+        "title" : "var canRedo: Bool",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/canundo",
+        "title" : "var canUndo: Bool",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/constraints",
+        "title" : "var constraints: [Constraint]",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/currentframe",
+        "title" : "var currentFrame: StableFrame",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/currentframeid",
+        "title" : "var currentFrameID: FrameID?",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/frames",
+        "title" : "var frames: [StableFrame]",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/isempty",
+        "title" : "var isEmpty: Bool",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/redoableframes",
+        "title" : "var redoableFrames: [FrameID]",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/undoableframes",
+        "title" : "var undoableFrames: [FrameID]",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/validatedsnapshots",
+        "title" : "var validatedSnapshots: [ObjectSnapshot]",
+        "type" : "property"
+      },
+      {
+        "path" : "\/documentation\/poieticcore\/design\/versionhistory",
+        "title" : "var versionHistory: [FrameID]",
+        "type" : "property"
       }
     ]
   },

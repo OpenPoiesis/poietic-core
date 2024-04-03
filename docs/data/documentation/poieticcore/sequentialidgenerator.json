@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
       ]
     ]
   },
@@ -153,7 +153,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
@@ -162,7 +161,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
-      "title" : "Object Memory and Version Frames"
+      "title" : "Design and Version Frames"
     }
   ],
   "topicSections" : [
@@ -207,6 +206,20 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -356,20 +369,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitygenerator"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -403,40 +402,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectMemory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
 },
 "doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
   "abstract" : [

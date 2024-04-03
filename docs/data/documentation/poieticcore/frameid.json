@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
       ]
     ]
   },
@@ -99,7 +99,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Each frame in an object memory has an unique frame ID.",
+              "text" : "Each frame in a design has an unique frame ID.",
               "type" : "text"
             }
           ],
@@ -123,7 +123,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createFrame(id:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(id:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -132,7 +132,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/deriveFrame(original:id:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -160,7 +160,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
@@ -169,7 +168,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
-      "title" : "Object Memory and Version Frames"
+      "title" : "Design and Version Frames"
     }
   ],
   "variants" : [
@@ -199,6 +198,145 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/createFrame(id:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new empty mutable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createFrame(id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/createframe(id:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/deriveFrame(original:id:)": {
+  "abstract" : [
+    {
+      "text" : "Derive a new frame from an existing frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "deriveFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "original"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "deriveFrame(original:id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/deriveframe(original:id:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -379,20 +517,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitygenerator"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -426,165 +550,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectMemory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/createFrame(id:)": {
-  "abstract" : [
-    {
-      "text" : "Create a new empty mutable frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "createFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/createFrame(id:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "createFrame(id:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/createframe(id:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory/deriveFrame(original:id:)": {
-  "abstract" : [
-    {
-      "text" : "Derive a new frame from an existing frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "deriveFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "original"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory\/deriveFrame(original:id:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "deriveFrame(original:id:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory\/deriveframe(original:id:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
   "abstract" : [

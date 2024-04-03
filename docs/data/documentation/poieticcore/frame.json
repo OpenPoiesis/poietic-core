@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
       ]
     ]
   },
@@ -158,7 +158,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
@@ -167,14 +166,14 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
-      "title" : "Object Memory and Version Frames"
+      "title" : "Design and Version Frames"
     }
   ],
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/id",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/memory",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/snapshots"
       ],
       "title" : "Instance Properties"
@@ -231,6 +230,20 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Deign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -485,6 +498,44 @@
   "title" : "contains(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/contains(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/design": {
+  "abstract" : [
+    {
+      "text" : "Design to which the frame belongs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "design"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/design",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/filter(_:)-44p52": {
   "abstract" : [
@@ -1143,44 +1194,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/id"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/memory": {
-  "abstract" : [
-    {
-      "text" : "Memory to which the frame belongs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "memory"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ObjectMemoryC",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/memory",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/Frame/neighbours(_:selector:)": {
   "abstract" : [
 
@@ -1622,20 +1635,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitygenerator"
 },
-"doc://PoieticCore/documentation/PoieticCore/Memory": {
-  "abstract" : [
-    {
-      "text" : "Management and storage of design objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Memory",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Object Memory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/memory"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -1669,40 +1668,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectMemory": {
-  "abstract" : [
-    {
-      "text" : "Object Memory is the main managed storage of the Poietic Design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectMemory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectMemory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectMemory",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectmemory"
 },
 "doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
   "abstract" : [
