@@ -31,7 +31,7 @@ public protocol MutableGraph: Graph {
     /// Convenience method to create a node without a name and without any
     /// components.
     ///
-    /// - SeeAlso: ``createNode(_:name:components:)``
+    /// - SeeAlso: ``createNode(_:name:attributes:components:)``
     ///
     @discardableResult
     func createNode(_ type: ObjectType) -> ObjectID
@@ -126,12 +126,11 @@ extension MutableFrame: MutableGraph {
     /// - Parameters:
     ///     - type: Object type of the newly created node.
     ///     - name: Optional object name. See note below.
+    ///     - attributes: Dictionary of attributes to set.
     ///     - components: List of components assigned with the node.
     ///
-    /// If the object name is provided, then ``NameComponent`` added to the
-    /// component list. If your metamodel does not use the ``NameComponent``,
-    /// then you have to create the name using the name-bearing component
-    /// manually.
+    /// If the object name is provided, then attribute `name` of the
+    /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
     @discardableResult
     public func createNode(_ type: ObjectType,

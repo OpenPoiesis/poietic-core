@@ -173,7 +173,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     ///
     /// Any type of value is attempted for conversion.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws ``ValueError`` if the value
     ///   can not be converted to int.
     ///
     public func intValue() throws -> Int {
@@ -196,7 +196,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     ///
     /// Boolean and ID values can not be converted to double.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws ``ValueError`` if the value
     ///   can not be converted to double.
     ///
     public func doubleValue() throws -> Double  {
@@ -249,7 +249,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     ///
     /// Other values can not be converted to boolean.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws ``ValueError`` if the value
     ///   can not be converted to bool or ``ValueError/invalidBooleanValue(_:)``
     ///   if the string value contains a string that is not recognised as
     ///   a valid boolean value.
@@ -285,7 +285,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
     /// - The first value is the `x` component of the point and the second value
     ///   is the `y` component of the point.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws ``ValueError`` if the value
     ///   can not be converted to point.
     ///
     /// - Note: In the future the point format might change or support different

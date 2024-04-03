@@ -97,7 +97,7 @@ public enum ValueType: Equatable, Codable, CustomStringConvertible {
 /// strings or 2D points. They can also be arrays of any of the
 /// atom values, where all the items of the array are the same.
 ///
-/// - SeeAlso: ``ValueAtom``
+/// - SeeAlso: ``VariantAtom``
 ///
 public enum Variant: Equatable, CustomStringConvertible, Hashable {
     case atom(VariantAtom)
@@ -174,7 +174,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     /// Flag that indicates whether the value is a numeric value. Numeric
     /// values are only integers and doubles.
     ///
-    /// - SeeAlso: ``ValueAtom/isNumeric``.
+    /// - SeeAlso: ``VariantAtom/isNumeric``.
     ///
     public var isNumeric: Bool {
         switch self {
@@ -214,7 +214,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
         }
     }
 
-    /// Get all items as ``ValueAtom``s if the variant type is an array.
+    /// Get all items as ``VariantAtom``s if the variant type is an array.
     ///
     public var items: [VariantAtom]? {
         switch self {
@@ -236,7 +236,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     ///
     /// Any type of variant is attempted for conversion.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the variant
+    /// - Throws ``ValueError`` if the variant
     ///   can not be converted to int.
     ///
     /// - SeeAlso: ``VariantAtom/intValue()``
@@ -261,7 +261,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     /// is represented as string as `"10.0x20.0"` (note that the point components
     /// are doubles)
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an array.
     ///
     /// - SeeAlso: ``VariantAtom/stringValue()``
@@ -284,10 +284,10 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     ///
     /// Other variants can not be converted to boolean.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the variant
+    /// - Throws ``ValueError`` if the variant
     ///   can not be converted to bool or ``ValueError/invalidBooleanValue(_:)``
     ///   if the string value contains a string that is not recognised as
-    ///   a valid boolean value. ``ValueError/typeMismatch(_:_:)`` when the
+    ///   a valid boolean value. ``ValueError`` when the
     ///   variant is an array.
     ///
     /// - SeeAlso: ``VariantAtom/boolValue()``
@@ -385,7 +385,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     ///
     /// All elements of the list must be an integer.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an atom or when any of the values can not be converted to an
     ///   integer.
     ///
@@ -410,7 +410,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     /// The elements might be of any type, since any type is convertible
     /// to a string.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an atom.
     ///
     /// - SeeAlso: ``stringValue()``, ``VariantAtom/stringValue()``
@@ -451,7 +451,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     ///
     /// All elements of the list must be a double.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an atom or when any of the values can not be converted to a
     ///   double.
     ///
@@ -473,7 +473,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
     ///
     /// All elements of the list must be a point.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an atom or when any of the values can not be converted to a
     ///   point.
     ///

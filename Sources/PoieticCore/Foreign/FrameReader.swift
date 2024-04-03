@@ -298,6 +298,7 @@ public class ForeignFrameReader {
         try read(foreignObjects, into: frame)
     }
    
+    // FIXME: Validate errors thrown here.
     /// Incrementally read frame data into a mutable frame.
     ///
     /// For each object in the collection, in the order as provided:
@@ -319,10 +320,10 @@ public class ForeignFrameReader {
     ///
     /// - Object references must be valid from within the collection of objects
     ///   provided or from within previous collections read.
-    ///   Otherwise ``FrameReaderError/invalidObjectReference(_:_:_:)``
+    ///   Otherwise ``ForeignFrameError/invalidReference(_:_:_:)``
     ///   is thrown on the first invalid reference.
     /// - Edges must have both origin and target specified, otherwise
-    ///   ``FrameReaderError/objectPropertyNotFound(_:_:)`` is thrown.
+    ///   ``ForeignFrameError/foreignObjectError(_:_:)`` is thrown.
     /// - Other structural types must not have neither origin neither target
     ///   specified, if they do then ``FrameReaderError/invalidStructuralKeyPresent(_:_:_:)``
     ///   is thrown.
