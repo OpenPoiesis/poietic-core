@@ -27,7 +27,7 @@ extension ObjectSnapshot {
     ///
     public var position: Point? {
         get {
-            if let value = attribute(forKey: "position") {
+            if let value = self["position"] {
                 return try? value.pointValue()
             }
             else {
@@ -36,10 +36,10 @@ extension ObjectSnapshot {
         }
         set(point) {
             if let point {
-                setAttribute(value: .atom(.point(point)), forKey: "position")
+                self["position"] = .atom(.point(point))
             }
             else {
-                removeAttribute(forKey: "position")
+                self["position"] = nil
             }
         }
         

@@ -61,9 +61,9 @@ final class MutableFrameTests: XCTestCase {
         
         obj.setAttribute(value: Variant("after"), forKey: "text")
         
-        let value = obj.attribute(forKey: "text")
+        let value = obj["text"]
         XCTAssertEqual(try value?.stringValue(), "after")
-        XCTAssertEqual(obj.attribute(forKey: "text"), "after")
+        XCTAssertEqual(obj["text"], "after")
     }
     func testModifyAttribute() throws {
         let original = design.deriveFrame()

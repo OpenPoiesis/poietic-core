@@ -243,7 +243,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     public var description: String {
         let structuralName: String = self.structure.type.rawValue
         let attrs = self.type.attributes.map {
-            ($0.name, attribute(forKey: $0.name) ?? "nil")
+            ($0.name, self[$0.name] ?? "nil")
         }.map { "\($0.0)=\($0.1)"}
         .joined(separator: ",")
         return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
