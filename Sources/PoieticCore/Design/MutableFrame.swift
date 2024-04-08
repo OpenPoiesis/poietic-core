@@ -55,6 +55,12 @@ public class MutableFrame: Frame {
         }
         return ref.snapshot
     }
+   
+    public subscript(id: ObjectID) -> ObjectSnapshot {
+        get {
+            return object(id)
+        }
+    }
     
     /// Design with which this frame is associated with.
     ///
@@ -490,11 +496,11 @@ public class MutableFrame: Frame {
     /// ``MutableFrame/removeChild(_:from:)``,
     /// ``MutableFrame/removeCascading(_:)``.
     public func removeFromParent(_ childID: ObjectID) {
-        let child = object(childID)
+        let child = self[childID]
         guard let parentID = child.parent else {
             return
         }
-        let parent = object(parentID)
+        let parent = self[parentID]
         guard parent.children.contains(childID) else {
             return
         }

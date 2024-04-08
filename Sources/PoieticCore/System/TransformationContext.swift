@@ -40,7 +40,7 @@ public class TransformationContext {
     /// 
     public func appendIssue(_ error: Error, for id: ObjectID) {
         issues[id, default: []].append(error)
-        frame.object(id).appendIssue(error)
+        frame[id].appendIssue(error)
     }
 }
 

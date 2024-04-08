@@ -57,7 +57,7 @@ final class MutableFrameTests: XCTestCase {
         let id = frame.create(TestType, 
                               attributes: ["text": Variant("before")])
         
-        let obj = frame.object(id)
+        let obj = frame[id]
         
         obj.setAttribute(value: Variant("after"), forKey: "text")
         
@@ -82,7 +82,7 @@ final class MutableFrameTests: XCTestCase {
         
         XCTAssertTrue(altered.hasChanges)
 
-        let a3 = altered.object(a)
+        let a3 = altered[a]
         XCTAssertEqual(a3["text"], "after")
         
         try design.accept(altered)
@@ -102,7 +102,7 @@ final class MutableFrameTests: XCTestCase {
                                 attributes: ["text": "before"])
         try design.accept(original)
         
-        let a2 = design.currentFrame.object(a)
+        let a2 = design.currentFrame[a]
         XCTAssertEqual(a2["text"], "before")
         
         let altered = design.deriveFrame()
@@ -110,7 +110,7 @@ final class MutableFrameTests: XCTestCase {
         mutable_a["text"] = "after"
         
         XCTAssertTrue(altered.hasChanges)
-        let a3 = altered.object(a)
+        let a3 = altered[a]
         XCTAssertEqual(a3["text"], "after")
         
         try design.accept(altered)
@@ -126,7 +126,7 @@ final class MutableFrameTests: XCTestCase {
     func testMutableObject() throws {
         let original = design.deriveFrame()
         let id = original.create(TestType)
-        let originalSnap = original.object(id)
+        let originalSnap = original[id]
         try design.accept(original)
         
         let derived = design.deriveFrame()
@@ -176,7 +176,7 @@ final class MutableFrameTests: XCTestCase {
     func testFrameMutableObjectRemovesPreviousSnapshot() throws {
         let original = design.deriveFrame()
         let id = original.create(TestType)
-        let originalSnap = original.object(id)
+        let originalSnap = original[id]
         try design.accept(original)
         
         let derived = design.deriveFrame()
@@ -198,9 +198,9 @@ final class MutableFrameTests: XCTestCase {
         frame.addChild(b, to: a)
         frame.addChild(c, to: a)
         
-        XCTAssertEqual(frame.object(a).children, [b, c])
-        XCTAssertEqual(frame.object(b).parent, a)
-        XCTAssertEqual(frame.object(c).parent, a)
+        XCTAssertEqual(frame[a].children, [b, c])
+        XCTAssertEqual(frame[b].parent, a)
+        XCTAssertEqual(frame[c].parent, a)
     }
     
     func testRemoveChild() throws {
@@ -215,10 +215,10 @@ final class MutableFrameTests: XCTestCase {
         
         frame.removeChild(c, from: a)
         
-        XCTAssertEqual(frame.object(a).children, [b])
-        XCTAssertNil(frame.object(c).parent)
-        XCTAssertEqual(frame.object(b).parent, a)
-        XCTAssertEqual(frame.object(c).parent, nil)
+        XCTAssertEqual(frame[a].children, [b])
+        XCTAssertNil(frame[c].parent)
+        XCTAssertEqual(frame[b].parent, a)
+        XCTAssertEqual(frame[c].parent, nil)
     }
     
     func testSetParent() throws {
@@ -231,16 +231,16 @@ final class MutableFrameTests: XCTestCase {
         frame.addChild(b, to: a)
         frame.setParent(c, to: a)
         
-        XCTAssertEqual(frame.object(a).children, [b, c])
-        XCTAssertEqual(frame.object(b).parent, a)
-        XCTAssertEqual(frame.object(c).parent, a)
+        XCTAssertEqual(frame[a].children, [b, c])
+        XCTAssertEqual(frame[b].parent, a)
+        XCTAssertEqual(frame[c].parent, a)
         
         frame.setParent(c, to: b)
         
-        XCTAssertEqual(frame.object(a).children, [b])
-        XCTAssertEqual(frame.object(b).children, [c])
-        XCTAssertEqual(frame.object(b).parent, a)
-        XCTAssertEqual(frame.object(c).parent, b)
+        XCTAssertEqual(frame[a].children, [b])
+        XCTAssertEqual(frame[b].children, [c])
+        XCTAssertEqual(frame[b].parent, a)
+        XCTAssertEqual(frame[c].parent, b)
     }
     func testRemoveFromParent() throws {
         // FIXME: Test remove from non-owned parent
@@ -254,12 +254,12 @@ final class MutableFrameTests: XCTestCase {
         frame.addChild(c, to: a)
 
         frame.removeFromParent(b)
-        XCTAssertNil(frame.object(b).parent)
-        XCTAssertEqual(frame.object(a).children, [c])
+        XCTAssertNil(frame[b].parent)
+        XCTAssertEqual(frame[a].children, [c])
 
         frame.removeFromParent(c)
-        XCTAssertNil(frame.object(c).parent)
-        XCTAssertEqual(frame.object(a).children, [])
+        XCTAssertNil(frame[c].parent)
+        XCTAssertEqual(frame[a].children, [])
     }
 
     func testRemoveFromUnownedParentMutates() throws {
@@ -276,16 +276,16 @@ final class MutableFrameTests: XCTestCase {
         
         let derived = design.deriveFrame(original: frame.id)
         // A sanity check
-        XCTAssertEqual(derived.object(p).snapshotID, frame.object(p).snapshotID)
+        XCTAssertEqual(derived[p].snapshotID, frame[p].snapshotID)
 
         // A the real check
         derived.removeFromParent(c1)
-        let derivedP = derived.object(p)
-        XCTAssertNotEqual(derivedP.snapshotID, frame.object(p).snapshotID)
+        let derivedP = derived[p]
+        XCTAssertNotEqual(derivedP.snapshotID, frame[p].snapshotID)
 
         // A sanity check
         derived.removeFromParent(c2)
-        XCTAssertEqual(derivedP.snapshotID, derived.object(p).snapshotID)
+        XCTAssertEqual(derivedP.snapshotID, derived[p].snapshotID)
     }
 
     
@@ -310,7 +310,7 @@ final class MutableFrameTests: XCTestCase {
         frame.removeCascading(b)
         XCTAssertFalse(frame.contains(b))
         XCTAssertFalse(frame.contains(c))
-        XCTAssertFalse(frame.object(a).children.contains(b))
+        XCTAssertFalse(frame[a].children.contains(b))
 
         frame.removeCascading(d)
         XCTAssertFalse(frame.contains(d))

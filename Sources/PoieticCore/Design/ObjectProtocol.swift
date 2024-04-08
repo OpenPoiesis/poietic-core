@@ -43,10 +43,10 @@ public struct MutableObjectReference {
     
     public subscript<T>(componentType: T.Type) -> T? where T : Component {
         get {
-            return frame.object(id).components[componentType]
+            return frame[id].components[componentType]
         }
         set(component) {
-            frame.object(id).components[componentType] = component
+            frame[id].components[componentType] = component
         }
     }
 }

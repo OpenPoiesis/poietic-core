@@ -32,6 +32,11 @@ public protocol Frame: Graph {
     ///
     func object(_ id: ObjectID) -> ObjectSnapshot
     
+    /// Get an object by an ID.
+    ///
+    subscript(id: ObjectID) -> ObjectSnapshot { get }
+
+    
     /// Asserts that the frame satisfies the given constraint. Raises a
     /// `ConstraintViolation` error if the frame objects violate the constraints.
     ///
@@ -46,6 +51,12 @@ public protocol Frame: Graph {
 }
 
 extension Frame {
+    public subscript(id: ObjectID) -> ObjectSnapshot {
+        get {
+            self.object(id)
+        }
+    }
+
     /// Get a list of object IDs that are referenced within the frame
     /// but do not exist in the frame.
     ///
@@ -256,12 +267,12 @@ extension Frame /* Graph */ {
     ///
     /// - Precondition: The object must exist and must be a node.
     ///
-    public func node(_ index: ObjectID) -> Node {
-        if let node = Node(frame.object(index)) {
+    public func node(_ id: ObjectID) -> Node {
+        if let node = Node(frame[id]) {
             return node
         }
         else {
-            preconditionFailure("Frame object \(index) must be a node.")
+            preconditionFailure("Frame object \(id) must be a node.")
         }
     }
 
@@ -269,18 +280,18 @@ extension Frame /* Graph */ {
     ///
     /// - Precondition: The object must exist and must be an edge.
     ///
-    public func edge(_ index: ObjectID) -> Edge {
-        if let edge = Edge(frame.object(index)) {
+    public func edge(_ id: ObjectID) -> Edge {
+        if let edge = Edge(frame[id]) {
             return edge
         }
         else {
-            preconditionFailure("Frame object \(index) must be an edge.")
+            preconditionFailure("Frame object \(id) must be an edge.")
         }
     }
 
     public func contains(node nodeID: ObjectID) -> Bool {
         if contains(nodeID) {
-            let obj = object(nodeID)
+            let obj = self[nodeID]
             return obj.structure.type == .node
         }
         else {
@@ -290,7 +301,7 @@ extension Frame /* Graph */ {
 
     public func contains(edge edgeID: ObjectID) -> Bool {
         if contains(edgeID) {
-            let obj = object(edgeID)
+            let obj = self[edgeID]
             return obj.structure.type == .edge
         }
         else {
@@ -423,7 +434,7 @@ extension Frame {
     ///
     public func object(stringReference: String) -> ObjectSnapshot? {
         if let id = ObjectID(stringReference), contains(id) {
-            return object(id)
+            return self[id]
         }
         else if let snapshot = object(named: stringReference) {
             return snapshot

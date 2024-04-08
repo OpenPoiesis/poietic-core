@@ -255,11 +255,11 @@ final class DesignTests: XCTestCase {
         let design = Design()
         let frame = design.deriveFrame()
         let a = frame.create(TestTypeNoDefault)
-        let obj_a = frame.object(a)
+        let obj_a = frame[a]
         XCTAssertNil(obj_a["text"])
 
         let b = frame.create(TestTypeWithDefault)
-        let obj_b = frame.object(b)
+        let obj_b = frame[b]
         XCTAssertNotNil(obj_b["text"])
         XCTAssertEqual(obj_b["text"], "default")
     }
@@ -267,10 +267,10 @@ final class DesignTests: XCTestCase {
         let mem = Design()
         let frame = mem.deriveFrame()
         let a = frame.create(TestTypeNoDefault)
-        let _ = frame.object(a)
+        let _ = frame[a]
 
         let b = frame.create(TestTypeWithDefault)
-        let _ = frame.object(b)
+        let _ = frame[b]
 
         XCTAssertThrowsError(try mem.accept(frame)) {
             
