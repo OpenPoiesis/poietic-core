@@ -31,7 +31,7 @@ public struct Node {
     
 }
 
-extension Node: ObjectProtocol {
+extension Node {
     public var id: ObjectID { snapshot.id }
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
@@ -64,7 +64,7 @@ public struct Edge {
     }
 }
 
-extension Edge: ObjectProtocol {
+extension Edge {
     public var id: ObjectID { snapshot.id }
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
