@@ -225,18 +225,17 @@ final class DesignTests: XCTestCase {
     
     func testConstraintViolationAccept() throws {
         // TODO: Change this to non-graph constraint check
-        let design = Design()
+        let constraint = Constraint(name: "test",
+                                    match: AnyPredicate(),
+                                    requirement: RejectAll())
+       
+        let metamodel = Metamodel(constraints: [constraint])
+        let design = Design(metamodel: metamodel)
         let frame = design.deriveFrame()
         let a = frame.createNode(TestNodeType)
         let b = frame.createNode(TestNodeType)
         
-        let constraint = Constraint(name: "test",
-                                    match: AnyPredicate(),
-                                    requirement: RejectAll())
-        
         // TODO: Test this separately
-        try design.addConstraint(constraint)
-        
         XCTAssertThrowsError(try design.accept(frame)) {
             
             guard let error = $0 as? FrameValidationError else {

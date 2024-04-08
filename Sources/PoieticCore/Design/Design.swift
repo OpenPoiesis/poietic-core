@@ -6,9 +6,8 @@
 //
 
 // Unsolved problems:
-// - What to do when constraints or metamodel changes between design archival?
-// - What to do whith the frames that were OK with previous constraints but
-//   are not OK with the new constraints?
+// TODO: What to do when metamodel changes between design archival?
+// TODO: What to do on metamodel/constraint change?
 
 /// Error thrown when constraint violations were detected in the graph during
 /// `accept()`.
@@ -132,23 +131,46 @@ public struct FrameValidationError: Error {
 ///
 ///
 public class Design {
+    /// Generator of IDs as a sequence of numbers starting from 1.
+    ///
+    /// Subsequent sequential order continuity is not guaranteed.
+    ///
+    /// - Note: This is very primitive and naive sequence number generator. If an ID
+    ///   is marked as used and the number is higher than current sequence, all
+    ///   numbers are just skipped and the next sequence would be the used +1.
+    ///
+    class IdentityGenerator {
+        // TODO: Replace this class with UUID
+
+        /// ID as a sequence number.
+        var current: ObjectID
+        
+        /// Creates a sequential ID generator and initializes the sequence to 1.
+        public init(_ initialValue: UInt64 = 1) {
+            current = initialValue
+        }
+        
+        /// Gets a next sequence id.
+        public func next() -> ObjectID {
+            let id = current
+            current += 1
+            return id
+        }
+
+        public func markUsed(_ id: ObjectID) {
+            self.current = max(self.current, id + 1)
+        }
+    }
+
     // TODO: [OBSOLETE] Get rid of the identity generator. No longer needed for multiple ID sequences.
-    private var identityGenerator: SequentialIDGenerator
-   
-    /// Meta-model associated with the design.
+     private var identityGenerator: IdentityGenerator
+    
+    /// Meta-model that the design conforms to.
     ///
     /// The metamodel is used for validation of the model contained within the
     /// design and for creation of objects.
     ///
     public let metamodel: Metamodel
-    
-    /// List of constraints of the design content.
-    ///
-    /// When accepting the frame using ``accept(_:appendHistory:)`` the frame
-    /// is checked using the constraints provided. Only frames that satisfy
-    /// the constraints can be accepted.
-    ///
-    public internal(set) var constraints: [Constraint]
     
     var _allSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
@@ -205,19 +227,13 @@ public class Design {
     ///
     public init(metamodel: Metamodel = EmptyMetamodel) {
         // NOTE: Sync with removeAll()
-        self.identityGenerator = SequentialIDGenerator()
+        self.identityGenerator = IdentityGenerator()
         self._stableFrames = [:]
         self._mutableFrames = [:]
         self._allSnapshots = [:]
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
-        self.constraints = metamodel.constraints
-        
-//        let firstFrame = StableFrame(id: identityGenerator.next())
-//        versionHistory.append(firstFrame.id)
-//        _stableFrames[firstFrame.id] = firstFrame
-//        self.currentHistoryIndex = versionHistory.startIndex
     }
    
     /// True if the design does not contain any stable frames. Mutable frames
@@ -529,35 +545,6 @@ public class Design {
         }
     }
 
-    /// Add a constraint to the design.
-    ///
-    /// Before adding the constraint to the design, all stable frames are
-    /// checked whether they violate the new constraint or not. If none
-    /// of the frames violates the constraint, then it is added to the
-    /// list of constraints.
-    ///
-    /// - Throws: `ConstraintViolation` for the first frame that violates the new
-    /// constraint.
-    ///
-    public func addConstraint(_ constraint: Constraint) throws {
-        // TODO: Check all frames and include violating frame ID.
-        // TODO: Add tests.
-        
-        for (_, frame) in self._stableFrames {
-            try frame.assert(constraint: constraint)
-        }
-        constraints.append(constraint)
-    }
-    /// Remove a constraint from the design.
-    ///
-    /// This method just removes the constraint and takes no other action.
-    ///
-    public func removeConstraint(_ constraint: Constraint) {
-        constraints.removeAll {
-            $0 === constraint
-        }
-    }
-    
     /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: MutableFrame) {
@@ -640,7 +627,7 @@ public class Design {
     /// 
     public func checkConstraints(_ frame: Frame) -> [ConstraintViolation] {
         var violations: [ConstraintViolation] = []
-        for constraint in constraints {
+        for constraint in metamodel.constraints {
             let violators = constraint.check(frame)
             if violators.isEmpty {
                 continue
@@ -657,16 +644,13 @@ public class Design {
     func removeAll() {
         // TODO: [REVIEW] We needed this for archival. Is it still relevant?
         // NOTE: Sync with init(...)
-        self.identityGenerator = SequentialIDGenerator()
+        self.identityGenerator = IdentityGenerator()
         self._allSnapshots.removeAll()
         self._stableFrames.removeAll()
         self._mutableFrames.removeAll()
         self.undoableFrames.removeAll()
         self.redoableFrames.removeAll()
     }
-    
-    
-
 }
 
 
