@@ -131,8 +131,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
@@ -145,8 +143,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
       ],
       "title" : "Object"
     },
@@ -519,40 +516,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/id"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
-  "abstract" : [
-    {
-      "text" : "Protocol for generators of unique object IDs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator"
-},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -634,37 +597,6 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectProtocol"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectProtocol",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
@@ -769,40 +701,6 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
-},
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
-  "abstract" : [
-    {
-      "text" : "Generator of IDs as a sequence of numbers starting from 1.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SequentialIDGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
 },
 "doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
   "abstract" : [

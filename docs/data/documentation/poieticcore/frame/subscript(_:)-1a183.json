@@ -1,24 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "Marks an ID to be already used. Prevents the generator from generating",
+      "text" : "Get an object by an ID.",
       "type" : "text"
-    },
+    }
+  ],
+  "defaultImplementationsSections" : [
     {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "it. This is useful, for example, if the generator is providing IDs from",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a known pool of unique IDs, such as sequence of numbers.",
-      "type" : "text"
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-4l1r1"
+      ],
+      "title" : "Frame Implementations"
     }
   ],
   "hierarchy" : {
@@ -26,29 +18,21 @@
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator\/markUsed(_:)"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17IdentityGeneratorP8markUsedyys6UInt64VF",
+    "externalID" : "s:11PoieticCore5FramePyAA14ObjectSnapshotCs6UInt64Vcip",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "markUsed"
+        "text" : "subscript"
       },
       {
         "kind" : "text",
@@ -61,7 +45,12 @@
       },
       {
         "kind" : "text",
-        "text" : ")"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "text" : "ObjectSnapshot"
       }
     ],
     "modules" : [
@@ -71,9 +60,9 @@
     ],
     "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "markUsed(_:)"
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -88,27 +77,11 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "markUsed"
+              "text" : "subscript"
             },
             {
               "kind" : "text",
               "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "_"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
             },
             {
               "kind" : "internalParam",
@@ -126,7 +99,25 @@
             },
             {
               "kind" : "text",
-              "text" : ")"
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "text" : "ObjectSnapshot"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -145,7 +136,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/identitygenerator\/markused(_:)"
+        "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183"
       ],
       "traits" : [
         {
@@ -184,10 +175,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
-      "text" : "Protocol for generators of unique object IDs.",
+      "text" : "Protocol for version frames.",
       "type" : "text"
     }
   ],
@@ -202,57 +193,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IdentityGenerator"
+      "text" : "Frame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "IdentityGenerator"
+      "text" : "Frame"
     }
   ],
   "role" : "symbol",
-  "title" : "IdentityGenerator",
+  "title" : "Frame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator"
+  "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator/markUsed(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-1a183": {
   "abstract" : [
     {
-      "text" : "Marks an ID to be already used. Prevents the generator from generating",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "it. This is useful, for example, if the generator is providing IDs from",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a known pool of unique IDs, such as sequence of numbers.",
+      "text" : "Get an object by an ID.",
       "type" : "text"
     }
   ],
+  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "markUsed"
+      "text" : "subscript"
     },
     {
       "kind" : "text",
@@ -265,16 +233,56 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator\/markUsed(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "markUsed(_:)",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator\/markused(_:)"
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-4l1r1": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-4l1r1",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-4l1r1"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -309,6 +317,40 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Representation of a design object’s version.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 }
 }
 }

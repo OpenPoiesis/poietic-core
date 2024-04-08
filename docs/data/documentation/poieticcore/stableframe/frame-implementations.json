@@ -56,6 +56,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(stringReference:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -1202,6 +1209,41 @@
   "title" : "object(stringReference:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/object(stringreference:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/subscript(_:)"
 }
 }
 }

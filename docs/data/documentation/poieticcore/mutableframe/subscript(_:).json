@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "IdentityGenerator.markUsed(_:)",
+      "code" : "Frame.subscript(_:)",
       "type" : "codeVoice"
     },
     {
@@ -18,29 +18,21 @@
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator\/markUsed(_:)"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/subscript(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore21SequentialIDGeneratorC8markUsedyys6UInt64VF",
+    "externalID" : "s:11PoieticCore12MutableFrameCyAA14ObjectSnapshotCs6UInt64Vcip",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "markUsed"
+        "text" : "subscript"
       },
       {
         "kind" : "text",
@@ -53,7 +45,12 @@
       },
       {
         "kind" : "text",
-        "text" : ")"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "text" : "ObjectSnapshot"
       }
     ],
     "modules" : [
@@ -62,9 +59,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "markUsed(_:)"
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -79,27 +76,11 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "markUsed"
+              "text" : "subscript"
             },
             {
               "kind" : "text",
               "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "_"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
             },
             {
               "kind" : "internalParam",
@@ -117,7 +98,25 @@
             },
             {
               "kind" : "text",
-              "text" : ")"
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "text" : "ObjectSnapshot"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -136,7 +135,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/sequentialidgenerator\/markused(_:)"
+        "\/documentation\/poieticcore\/mutableframe\/subscript(_:)"
       ],
       "traits" : [
         {
@@ -175,6 +174,75 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+  "abstract" : [
+    {
+      "text" : "Mutable frame is a version frame that can be changed - mutated.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/subscript(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
@@ -209,10 +277,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Generator of IDs as a sequence of numbers starting from 1.",
+      "text" : "Representation of a design object’s version.",
       "type" : "text"
     }
   ],
@@ -227,59 +295,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
+      "text" : "ObjectSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "SequentialIDGenerator",
+  "title" : "ObjectSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
-},
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator/markUsed(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "markUsed"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator\/markUsed(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "markUsed(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator\/markused(_:)"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 }
 }
 }

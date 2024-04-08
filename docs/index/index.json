@@ -180,6 +180,28 @@
                     "path" : "\/documentation\/poieticcore\/frame\/object(stringreference:)",
                     "title" : "func object(stringReference: String) -> ObjectSnapshot?",
                     "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "children" : [
+                          {
+                            "path" : "\/documentation\/poieticcore\/frame\/subscript(_:)-4l1r1",
+                            "title" : "subscript(ObjectID) -> ObjectSnapshot",
+                            "type" : "subscript"
+                          }
+                        ],
+                        "title" : "Frame Implementations",
+                        "type" : "groupMarker"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183",
+                    "title" : "subscript(ObjectID) -> ObjectSnapshot",
+                    "type" : "subscript"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/frame",
@@ -330,6 +352,15 @@
                         "path" : "\/documentation\/poieticcore\/stableframe\/object(stringreference:)",
                         "title" : "func object(stringReference: String) -> ObjectSnapshot?",
                         "type" : "method"
+                      },
+                      {
+                        "title" : "Subscripts",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/stableframe\/subscript(_:)",
+                        "title" : "subscript(ObjectID) -> ObjectSnapshot",
+                        "type" : "subscript"
                       }
                     ],
                     "path" : "\/documentation\/poieticcore\/stableframe\/frame-implementations",
@@ -539,6 +570,15 @@
                     "path" : "\/documentation\/poieticcore\/mutableframe\/unsafeinsert(_:owned:)",
                     "title" : "func unsafeInsert(ObjectSnapshot, owned: Bool)",
                     "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/mutableframe\/subscript(_:)",
+                    "title" : "subscript(ObjectID) -> ObjectSnapshot",
+                    "type" : "subscript"
                   },
                   {
                     "title" : "Default Implementations",
@@ -805,57 +845,6 @@
                 "path" : "\/documentation\/poieticcore\/frameid",
                 "title" : "FrameID",
                 "type" : "typealias"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/identitygenerator\/markused(_:)",
-                    "title" : "func markUsed(ObjectID)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/identitygenerator\/next()",
-                    "title" : "func next() -> ObjectID",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/identitygenerator",
-                "title" : "IdentityGenerator",
-                "type" : "protocol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/sequentialidgenerator\/init(_:)",
-                    "title" : "init(UInt64)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/sequentialidgenerator\/markused(_:)",
-                    "title" : "func markUsed(ObjectID)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/sequentialidgenerator\/next()",
-                    "title" : "func next() -> ObjectID",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/sequentialidgenerator",
-                "title" : "SequentialIDGenerator",
-                "type" : "class"
               },
               {
                 "children" : [
@@ -1407,50 +1396,6 @@
                 "path" : "\/documentation\/poieticcore\/childrenset",
                 "title" : "ChildrenSet",
                 "type" : "typealias"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectprotocol\/id",
-                    "title" : "var id: ObjectID",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectprotocol\/name",
-                    "title" : "var name: String?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectprotocol\/type",
-                    "title" : "var type: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectprotocol\/attribute(forkey:)",
-                    "title" : "func attribute(forKey: String) -> Variant?",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Subscripts",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectprotocol\/subscript(_:)",
-                    "title" : "subscript<T>(T.Type) -> T?",
-                    "type" : "subscript"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/objectprotocol",
-                "title" : "ObjectProtocol",
-                "type" : "protocol"
               },
               {
                 "title" : "Value and Variant",
@@ -4514,12 +4459,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -4560,12 +4505,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-1a5ez",
+                            "path" : "\/documentation\/poieticcore\/graph\/edge(_:)-74sgs",
                             "title" : "func edge(ObjectID) -> Edge",
                             "type" : "method"
                           }
@@ -4637,12 +4582,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-6huic",
+                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-10660",
                             "title" : "func node(ObjectID) -> Node",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-10660",
+                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-6huic",
                             "title" : "func node(ObjectID) -> Node",
                             "type" : "method"
                           }
@@ -4817,57 +4762,42 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/node\/id",
+                    "title" : "var id: ObjectID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/node\/name",
+                    "title" : "var name: String?",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/node\/snapshot",
                     "title" : "let snapshot: ObjectSnapshot",
                     "type" : "property"
                   },
                   {
-                    "title" : "Default Implementations",
+                    "path" : "\/documentation\/poieticcore\/node\/type",
+                    "title" : "var type: ObjectType",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/node\/id",
-                        "title" : "var id: ObjectID",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/node\/name",
-                        "title" : "var name: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/node\/type",
-                        "title" : "var type: ObjectType",
-                        "type" : "property"
-                      },
-                      {
-                        "title" : "Instance Methods",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/node\/attribute(forkey:)",
-                        "title" : "func attribute(forKey: String) -> Variant?",
-                        "type" : "method"
-                      },
-                      {
-                        "title" : "Subscripts",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/node\/subscript(_:)",
-                        "title" : "subscript<T>(T.Type) -> T?",
-                        "type" : "subscript"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/node\/objectprotocol-implementations",
-                    "title" : "ObjectProtocol Implementations",
-                    "type" : "symbol"
+                    "path" : "\/documentation\/poieticcore\/node\/attribute(forkey:)",
+                    "title" : "func attribute(forKey: String) -> Variant?",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/node\/subscript(_:)",
+                    "title" : "subscript<T>(T.Type) -> T?",
+                    "type" : "subscript"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/node",
@@ -4890,6 +4820,16 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/edge\/id",
+                    "title" : "var id: ObjectID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/edge\/name",
+                    "title" : "var name: String?",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/edge\/origin",
                     "title" : "let origin: ObjectID",
                     "type" : "property"
@@ -4905,52 +4845,27 @@
                     "type" : "property"
                   },
                   {
-                    "title" : "Default Implementations",
+                    "path" : "\/documentation\/poieticcore\/edge\/type",
+                    "title" : "var type: ObjectType",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/edge\/id",
-                        "title" : "var id: ObjectID",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/edge\/name",
-                        "title" : "var name: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/edge\/type",
-                        "title" : "var type: ObjectType",
-                        "type" : "property"
-                      },
-                      {
-                        "title" : "Instance Methods",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/edge\/attribute(forkey:)",
-                        "title" : "func attribute(forKey: String) -> Variant?",
-                        "type" : "method"
-                      },
-                      {
-                        "title" : "Subscripts",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/edge\/subscript(_:)",
-                        "title" : "subscript<T>(T.Type) -> T?",
-                        "type" : "subscript"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/edge\/objectprotocol-implementations",
-                    "title" : "ObjectProtocol Implementations",
-                    "type" : "symbol"
+                    "path" : "\/documentation\/poieticcore\/edge\/attribute(forkey:)",
+                    "title" : "func attribute(forKey: String) -> Variant?",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/edge\/subscript(_:)",
+                    "title" : "subscript<T>(T.Type) -> T?",
+                    "type" : "subscript"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/edge",
@@ -8923,27 +8838,6 @@
             "type" : "protocol"
           },
           {
-            "children" : [
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/objectreference\/frame",
-                "title" : "var frame: any Frame",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/objectreference\/id",
-                "title" : "var id: ObjectID",
-                "type" : "property"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/objectreference",
-            "title" : "ObjectReference",
-            "type" : "protocol"
-          },
-          {
             "title" : "Structures",
             "type" : "groupMarker"
           },
@@ -9073,45 +8967,6 @@
             ],
             "path" : "\/documentation\/poieticcore\/issuelistcomponent",
             "title" : "IssueListComponent",
-            "type" : "struct"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/mutableobjectreference\/init(frame:id:)",
-                "title" : "init(frame: MutableFrame, id: ObjectID)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/mutableobjectreference\/frame",
-                "title" : "let frame: any Frame",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/mutableobjectreference\/id",
-                "title" : "let id: ObjectID",
-                "type" : "property"
-              },
-              {
-                "title" : "Subscripts",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/mutableobjectreference\/subscript(_:)",
-                "title" : "subscript<T>(T.Type) -> T?",
-                "type" : "subscript"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/mutableobjectreference",
-            "title" : "MutableObjectReference",
             "type" : "struct"
           },
           {
@@ -9902,11 +9757,6 @@
         "type" : "method"
       },
       {
-        "path" : "\/documentation\/poieticcore\/design\/addconstraint(_:)",
-        "title" : "func addConstraint(Constraint) throws",
-        "type" : "method"
-      },
-      {
         "path" : "\/documentation\/poieticcore\/design\/allocateid(required:)",
         "title" : "func allocateID(required: ID?) -> ID",
         "type" : "method"
@@ -9962,11 +9812,6 @@
         "type" : "method"
       },
       {
-        "path" : "\/documentation\/poieticcore\/design\/removeconstraint(_:)",
-        "title" : "func removeConstraint(Constraint)",
-        "type" : "method"
-      },
-      {
         "path" : "\/documentation\/poieticcore\/design\/removeframe(_:)",
         "title" : "func removeFrame(FrameID)",
         "type" : "method"
@@ -10004,11 +9849,6 @@
       {
         "path" : "\/documentation\/poieticcore\/design\/canundo",
         "title" : "var canUndo: Bool",
-        "type" : "property"
-      },
-      {
-        "path" : "\/documentation\/poieticcore\/design\/constraints",
-        "title" : "var constraints: [Constraint]",
         "type" : "property"
       },
       {

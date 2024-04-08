@@ -79,16 +79,6 @@
       "kind" : "declarations"
     }
   ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -119,18 +109,26 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/id",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/origin",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/snapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/target"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/target",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/type"
       ],
       "title" : "Instance Properties"
     },
     {
-      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/ObjectProtocol-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/attribute(forKey:)"
       ],
-      "title" : "Default Implementations"
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -195,16 +193,94 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge/ObjectProtocol-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/Edge/attribute(forKey:)": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/ObjectProtocol-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ObjectProtocol Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "attribute"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/attribute(forKey:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "attribute(forKey:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/objectprotocol-implementations"
+  "url" : "\/documentation\/poieticcore\/edge\/attribute(forkey:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Edge/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge\/id"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/init(_:)": {
   "abstract" : [
@@ -235,6 +311,44 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/init(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Edge/name": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge\/name"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/origin": {
   "abstract" : [
@@ -304,6 +418,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/snapshot"
 },
+"doc://PoieticCore/documentation/PoieticCore/Edge/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge\/subscript(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Edge/target": {
   "abstract" : [
 
@@ -337,6 +496,40 @@
   "title" : "target",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/target"
+},
+"doc://PoieticCore/documentation/PoieticCore/Edge/type": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/type",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "type",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge\/type"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
   "abstract" : [
@@ -529,37 +722,6 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectProtocol"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectProtocol",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectprotocol"
 }
 }
 }

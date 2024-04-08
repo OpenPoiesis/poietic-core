@@ -161,8 +161,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
       ],
@@ -201,6 +199,12 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(stringReference:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183"
+      ],
+      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -1487,6 +1491,46 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/snapshots"
 },
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-1a183": {
+  "abstract" : [
+    {
+      "text" : "Get an object by an ID.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183"
+},
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
     {
@@ -1601,40 +1645,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityGenerator": {
-  "abstract" : [
-    {
-      "text" : "Protocol for generators of unique object IDs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitygenerator"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
     {
@@ -1668,40 +1678,6 @@
   "title" : "MutableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/SequentialIDGenerator": {
-  "abstract" : [
-    {
-      "text" : "Generator of IDs as a sequence of numbers starting from 1.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SequentialIDGenerator",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SequentialIDGenerator"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SequentialIDGenerator",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/sequentialidgenerator"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Get a node by ID.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Frame.subscript(_:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -10,31 +18,23 @@
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Frame-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/node(_:)"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-4l1r1"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE4nodeyAA4NodeVs6UInt64VF::SYNTHESIZED::s:11PoieticCore12MutableFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAEyAA14ObjectSnapshotCs6UInt64Vcip",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "node"
+        "text" : "subscript"
       },
       {
         "kind" : "text",
@@ -51,8 +51,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4NodeV",
-        "text" : "Node"
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "text" : "ObjectSnapshot"
       }
     ],
     "modules" : [
@@ -61,9 +61,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "node(_:)"
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -78,27 +78,11 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "node"
+              "text" : "subscript"
             },
             {
               "kind" : "text",
               "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "_"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
             },
             {
               "kind" : "internalParam",
@@ -119,42 +103,27 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4NodeV",
-              "text" : "Node"
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "text" : "ObjectSnapshot"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The object must exist and must be a node.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Precondition",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -168,7 +137,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/mutableframe\/node(_:)"
+        "\/documentation\/poieticcore\/frame\/subscript(_:)-4l1r1"
       ],
       "traits" : [
         {
@@ -207,17 +176,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
+      "text" : "Protocol for version frames.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -225,52 +194,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MutableFrame"
+      "text" : "Frame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MutableFrame"
+      "text" : "Frame"
     }
   ],
   "role" : "symbol",
-  "title" : "MutableFrame",
+  "title" : "Frame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
+  "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/Frame-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/Frame-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Frame Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/frame-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/node(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-1a183": {
   "abstract" : [
     {
-      "text" : "Get a node by ID.",
+      "text" : "Get an object by an ID.",
       "type" : "text"
     }
   ],
+  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "node"
+      "text" : "subscript"
     },
     {
       "kind" : "text",
@@ -287,50 +238,52 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeV",
-      "text" : "Node"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/node(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-1a183",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
-  "title" : "node(_:)",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/node(_:)"
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183"
 },
-"doc://PoieticCore/documentation/PoieticCore/Node": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-4l1r1": {
   "abstract" : [
-    {
-      "text" : "View of an object as a graph node.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "subscript"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : "("
     },
     {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
     {
-      "kind" : "identifier",
-      "text" : "Node"
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-4l1r1",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "Node",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node"
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-4l1r1"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -365,6 +318,40 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Representation of a design object’s version.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 }
 }
 }
