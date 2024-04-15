@@ -228,7 +228,7 @@ extension Design {
 
         }
 
-        if let currentID = try info["currentFrameID"]?.IDValue() {
+        if let currentID = try info["current_frame_id"]?.IDValue() {
             guard containsFrame(currentID) else {
                 throw StoreError.invalidReference(currentID, "frame", "current frame reference")
             }
