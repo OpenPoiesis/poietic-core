@@ -24,10 +24,10 @@ final class GraphTests: XCTestCase {
         let u1 = design.createSnapshot(TestType)
         let e1 = design.createSnapshot(TestEdgeType, structure: .edge(n1.id, n2.id))
 
-        frame.insert(n1, owned: true)
-        frame.insert(n2, owned: true)
-        frame.insert(u1, owned: true)
-        frame.insert(e1, owned: true)
+        frame.insert(n1)
+        frame.insert(n2)
+        frame.insert(u1)
+        frame.insert(e1)
 
         XCTAssertEqual(frame.nodes.count, 2)
         XCTAssertTrue(frame.nodes.contains(where: {$0.id == n1.id}))

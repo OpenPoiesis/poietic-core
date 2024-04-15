@@ -20,7 +20,7 @@ final class MutableFrameTests: XCTestCase {
         let originalFrame = design.deriveFrame()
         
         let original = design.createSnapshot(TestNodeType)
-        originalFrame.insert(original, owned: true)
+        originalFrame.insert(original)
         try design.accept(originalFrame)
         
         let derivedFrame = design.deriveFrame(original: originalFrame.id)
@@ -154,14 +154,14 @@ final class MutableFrameTests: XCTestCase {
         let frame = design.deriveFrame()
         
         let node1 = design.createSnapshot(TestNodeType)
-        frame.insert(node1, owned: true)
+        frame.insert(node1)
         
         let node2 = design.createSnapshot(TestNodeType)
-        frame.insert(node2, owned: true)
+        frame.insert(node2)
         
         let edge = design.createSnapshot(TestEdgeType,
                                      structure: .edge(node1.id, node2.id))
-        frame.insert(edge, owned: true)
+        frame.insert(edge)
         
         let removed = frame.removeCascading(node1.id)
         XCTAssertEqual(removed.count, 2)

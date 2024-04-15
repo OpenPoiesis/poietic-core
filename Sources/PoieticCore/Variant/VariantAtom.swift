@@ -310,6 +310,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
         }
     }
 
+    // Note: Do not make public. We do not want users to store IDs in unmanaged way.
     func IDValue() throws -> ObjectID {
         // NOTE: We are allowing conversion from double only because the Decoder
         // does not allow us to get a type of a value and decode accordingly.

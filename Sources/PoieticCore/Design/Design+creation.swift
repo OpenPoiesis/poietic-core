@@ -82,11 +82,9 @@ extension Design {
         return snapshot
     }
     
-    @available(*, deprecated, message: "Use the designated initialiser createSnapshot or merge with foreign object")
-    public func createSnapshot(_ record: ForeignObject) throws -> ObjectSnapshot {
+    public func createSnapshot(_ foreign: ForeignObject) throws -> ObjectSnapshot {
         // Readability alias
-        let info = record.info
-        let attributes = record.attributes.dictionary
+        let info = foreign.info
         
         let typeName = try info.stringValue(for: "type")
         guard let type = metamodel.objectType(name: typeName) else {
@@ -104,23 +102,21 @@ extension Design {
                               try info.IDValue(for: "target"))
         }
         
-        let id = allocateID(required: try info.IDValue(for: "id"))
-        let snapshotID = allocateID(required: try info.IDValue(for: "snapshot_id"))
+        let id = try info.IDValueIfPresent(for: "id")
+        let snapshotID = try info.IDValueIfPresent(for: "snapshot_id")
         
-        let snapshot = ObjectSnapshot(id: id,
+        let snapshot = createSnapshot(type,
+                                      id: id,
                                       snapshotID: snapshotID,
-                                      type: type,
-                                      attributes: attributes)
+                                      attributes: foreign.attributes.dictionary,
+                                      structure: structure)
         
-        snapshot.structure = structure
         snapshot.parent = try info.IDValueIfPresent(for: "parent")
         
-        self._allSnapshots[snapshotID] = snapshot
+        self._allSnapshots[snapshot.snapshotID] = snapshot
 
         return snapshot
     }
-
-
     
     /// Create a new snapshot version
     ///

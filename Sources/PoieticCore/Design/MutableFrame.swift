@@ -75,9 +75,13 @@ public class MutableFrame: Frame {
     // TODO: Remove state or change to FrameState: open, accepted, discarded
     var state: VersionState = .transient
     
-    var snapshotIDs: Set<SnapshotID>
+    /// Frame objects.
+    ///
     var objects: [ObjectID:SnapshotReference]
-    
+
+    /// Cache of snapshot IDs used to verify unique ownership
+    ///
+    var snapshotIDs: Set<SnapshotID>
     
     // TODO: Include only objects that were NOT present in the original frame.
     /// A set of objects that were removed from the frame.
@@ -159,12 +163,12 @@ public class MutableFrame: Frame {
     ///
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``MutableFrame/unsafeInsert(_:owned:)``
     ///
-    public func insert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
+    public func insert(_ snapshot: ObjectSnapshot) {
         // Check for referential integrity
         guard brokenReferences(snapshot: snapshot).isEmpty else {
             fatalError("Trying to insert an object that contains invalid references. Hint: Check structure, children or parent.")
         }
-        unsafeInsert(snapshot, owned: owned)
+        unsafeInsert(snapshot, owned: true)
     }
     
     /// Unsafely insert a snapshot to the frame, not checking for structural
@@ -177,7 +181,7 @@ public class MutableFrame: Frame {
     /// be accepted by the object design (``Design/accept(_:appendHistory:)``.
     ///
     /// It is rather rare to use this method. Typically one would
-    /// use the ``insert(_:owned:)`` method.
+    /// use the ``insert(_:)`` method.
     ///
     /// Requirements for the snapshot:
     ///
@@ -251,7 +255,7 @@ public class MutableFrame: Frame {
                                              attributes: attributes,
                                              components: components,
                                              structure: structure)
-        insert(snapshot, owned: true)
+        insert(snapshot)
         return snapshot.id
     }
     

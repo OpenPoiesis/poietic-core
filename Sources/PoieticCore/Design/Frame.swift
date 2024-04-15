@@ -332,6 +332,9 @@ extension Frame /* Graph */ {
 /// The stable frame is a collection of object versions that together represent
 /// a version snapshot of a design. The frame is immutable.
 ///
+/// Stable frames can not be created directly. They can be created only from
+/// mutable frames through validation using ``Design/accept(_:appendHistory:)``.
+///
 /// To create a derivative frame from a stable frame use
 /// ``Design/deriveFrame(original:id:)``.
 ///

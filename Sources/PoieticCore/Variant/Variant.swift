@@ -360,6 +360,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
         }
     }
 
+    // Note: Do not make public. We do not want users to store IDs in unmanaged way.
     func IDValue() throws -> ObjectID {
         switch self {
         case .atom(let value): return try value.IDValue()
@@ -368,8 +369,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
         }
 
     }
-    // FIXME: [REFACTORING] REMOVE
-    @available(*, deprecated, message: "REFACTORING: We need to get rid of this")
+    // Note: Do not make public. We do not want users to store IDs in unmanaged way.
     func IDArray() throws -> [ObjectID] {
         switch self {
         case .atom(_):

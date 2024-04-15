@@ -7,16 +7,30 @@
 
 /// Protocol
 public protocol MutableGraph: Graph {
+    /// Convenience method to create a node without a name and without any
+    /// components.
+    ///
+    /// - SeeAlso: ``createNode(_:name:attributes:components:)``
+    ///
+    @discardableResult
+    func createNode(_ type: ObjectType) -> ObjectID
+    
+    // Object creation
+    @discardableResult
+    func createNode(_ type: ObjectType,
+                    name: String?,
+                    attributes: [String:Variant],
+                    components: [Component]) -> ObjectID
+    
+    @discardableResult
+    func createEdge(_ type: ObjectType,
+                    origin: ObjectID,
+                    target: ObjectID,
+                    attributes: [String:Variant],
+                    components: [Component]) -> ObjectID
+
     /// Remove all nodes and edges from the graph.
     func removeAll()
-    
-    /// Add a node to the graph.
-    ///
-    func insert(_ node: Node)
-    
-    /// Add an edge to the graph.
-    ///
-    func insert(_ edge: Edge)
     
     /// Remove a node from the graph and return a list of edges that were
     /// removed together with the node.
@@ -26,29 +40,6 @@ public protocol MutableGraph: Graph {
     /// Remove an edge from the graph.
     ///
     func remove(edge edgeID: ObjectID)
-    
-    
-    /// Convenience method to create a node without a name and without any
-    /// components.
-    ///
-    /// - SeeAlso: ``createNode(_:name:attributes:components:)``
-    ///
-    @discardableResult
-    func createNode(_ type: ObjectType) -> ObjectID
-
-    // Object creation
-    @discardableResult
-    func createNode(_ type: ObjectType,
-                    name: String?,
-                    attributes: [String:Variant],
-                    components: [Component]) -> ObjectID
-
-    @discardableResult
-    func createEdge(_ type: ObjectType,
-                    origin: ObjectID,
-                    target: ObjectID,
-                    attributes: [String:Variant],
-                    components: [Component]) -> ObjectID
 }
 
 extension MutableGraph {
@@ -85,13 +76,6 @@ extension MutableGraph {
 extension MutableFrame: MutableGraph {
     var mutableFrame: MutableFrame { self }
     
-    public func insert(_ node: Node) {
-        self.mutableFrame.insert(node.snapshot)
-    }
-    
-    public func insert(_ edge: Edge) {
-        self.mutableFrame.insert(edge.snapshot)
-    }
     // Object creation
     @discardableResult
     public func createEdge(_ type: ObjectType,
@@ -116,7 +100,7 @@ extension MutableFrame: MutableGraph {
 
         
         snapshot.promote(.stable)
-        mutableFrame.insert(snapshot, owned: true)
+        mutableFrame.insert(snapshot)
         return snapshot.id
     }
    
@@ -154,7 +138,7 @@ extension MutableFrame: MutableGraph {
         )
 
         snapshot.promote(.stable)
-        mutableFrame.insert(snapshot, owned: true)
+        mutableFrame.insert(snapshot)
         return snapshot.id
     }
 
