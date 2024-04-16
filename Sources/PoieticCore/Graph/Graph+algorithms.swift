@@ -79,3 +79,49 @@ extension Graph {
         return sorted
     }
 }
+
+public protocol EdgeType: Identifiable where ID == ObjectID {
+    var origin: ObjectID { get }
+    var target: ObjectID { get }
+}
+
+public func topologicalSort<T: EdgeType>(_ toSort: [ObjectID], edges: [T]) throws -> [ObjectID] {
+    var sorted: [ObjectID] = []
+    let nodes: [ObjectID] = toSort
+    
+    // Create a copy
+    var edges = edges
+    
+    let targets = Set(edges.map {$0.target})
+    // S ← Set of all nodes with no incoming edge
+    var sources: [ObjectID] = nodes.filter { !targets.contains($0) }
+
+    // while S is not empty do
+    while !sources.isEmpty {
+        // remove a node n from S
+        let node: ObjectID = sources.removeFirst()
+        // add n to L
+        sorted.append(node)
+        
+        let outgoing: [T] = edges.filter { $0.origin == node }
+        
+        for edge in outgoing {
+            // for each node m with an edge e from n to m do
+            let m: ObjectID = edge.target
+
+            // remove edge e from the graph
+            edges.removeAll { $0.id == edge.id }
+            
+            // if m has no other incoming edges then
+            if edges.allSatisfy({$0.target != m}) {
+                //  insert m into S
+                sources.append(m)
+            }
+        }
+    }
+    if !edges.isEmpty {
+        throw GraphCycleError(edges: edges.map {$0.id} )
+    }
+
+    return sorted
+}

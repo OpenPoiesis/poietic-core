@@ -243,7 +243,7 @@ final class MutableFrameTests: XCTestCase {
         XCTAssertEqual(frame[c].parent, b)
     }
     func testRemoveFromParent() throws {
-        // FIXME: Test remove from non-owned parent
+        // TODO: Test remove from non-owned parent
         let frame = design.createFrame()
         
         let a = frame.create(TestType)
@@ -263,7 +263,7 @@ final class MutableFrameTests: XCTestCase {
     }
 
     func testRemoveFromUnownedParentMutates() throws {
-        // FIXME: Test remove from non-owned parent
+        // TODO: Test remove from non-owned parent
         let frame = design.createFrame()
         
         let p = frame.create(TestType)
