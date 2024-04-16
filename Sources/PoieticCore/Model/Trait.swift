@@ -64,15 +64,6 @@ public class Trait {
     ///
     public let abstract: String?
     
-    /// Type of privilege that specifies who can create and modify
-    /// components of this type.
-    ///
-    /// - Note: Attitude of privilege in this case is different from typical
-    ///   use. It is the system that is to be prevented or discouraged from
-    ///   editing user's data.
-    ///
-    public let plane: Plane
-    
     /// Create a new component description.
     ///
     /// - Parameters:
@@ -87,13 +78,11 @@ public class Trait {
     public init(name: String,
                 label: String? = nil,
                 attributes: [Attribute] = [],
-                abstract: String? = nil,
-                plane: Plane = .user) {
+                abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.attributes = attributes
         self.abstract = abstract
-        self.plane = plane
     }
     
     public var description: String {

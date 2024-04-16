@@ -38,11 +38,6 @@ public class ObjectType {
     ///
     public let abstract: String?
 
-    // TODO: Remove Plane, replace with tags
-    /// Plane in which the objects of this type reside.
-    ///
-    public let plane: Plane
-    
     /// Mapping between attribute name and a component type that contains the
     /// attribute.
     ///
@@ -77,13 +72,11 @@ public class ObjectType {
     public init(name: String,
                 label: String? = nil,
                 structuralType: StructuralType,
-                plane: Plane = .user,
                 traits: [Trait] = [],
                 abstract: String? = nil) {
         self.name = name
         self.label = label ?? name
         self.structuralType = structuralType
-        self.plane = plane
         self.traits = traits
         self.abstract = abstract
         

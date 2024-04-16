@@ -9,7 +9,6 @@ extension ObjectType {
     public static let DesignInfo = ObjectType(
         name: "DesignInfo",
         structuralType: .unstructured,
-        plane: .user,
         traits: [
             Trait.DesignInfo,
             // TODO: Add name, but make it optional.
@@ -22,7 +21,6 @@ extension ObjectType {
     public static let BibliographicalReference = ObjectType(
         name: "BibliographicalReference",
         structuralType: .unstructured,
-        plane: .user,
         traits: [
             Trait.BibliographicalReference,
         ])
