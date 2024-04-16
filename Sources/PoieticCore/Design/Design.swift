@@ -437,12 +437,14 @@ public class Design {
     /// of the undo list. If there are any redo-able frames, they are all
     /// removed.
     ///
+    /// - Returns: The newly created stable frame.
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the design.
     ///
     /// - SeeAlso: ``discard()``, ``validate(_:)``
     ///
-    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws {
+    @discardableResult
+    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws -> StableFrame {
         precondition(frame.design === self,
                      "Trying to accept a frame from a different design")
         precondition(frame.state.isMutable,
@@ -469,7 +471,8 @@ public class Design {
             redoableFrames.removeAll()
         }
         currentFrameID = frame.id
-        
+
+        return stableFrame
     }
     
     /// Validates a frame for constraints violations and referential integrity.

@@ -13,17 +13,24 @@ public class RuntimeContext {
     
     // FIXME: Use just Frame or StableFrame
     /// Frame that is being transformed.
-    public let frame: MutableFrame
+    public let frame: Frame
     
     // TODO: Private
     public var issues: [ObjectID: [Error]]
 
-    // TODO: Move components here
-    // public var objectComponents: [ObjectID: [ComponentSet]]
+    public var objectComponents: [ObjectID: ComponentSet]
     // Components for the whole context
     // public var globalComponents: [ComponentSet]
 
-//    public var objectsWithIssues: [ObjectID] {
+    public func setComponent<T:Component>(_ component: T, for id: ObjectID) {
+        objectComponents[id, default: ComponentSet()].set(component)
+    }
+    
+    public func component<T:Component>(for id: ObjectID) -> T? {
+        objectComponents[id]?[T.self]
+    }
+    
+    //    public var objectsWithIssues: [ObjectID] {
 //        return Array(issues.keys)
 //    }
 //
@@ -31,10 +38,11 @@ public class RuntimeContext {
 //        issues[id] ?? []
 //    }
     
-    public init(frame: MutableFrame) {
+    public init(frame: Frame) {
         self.metamodel = frame.design.metamodel
         self.frame = frame
         self.issues = [:]
+        self.objectComponents = [:]
     }
     
     /// Flag indicating whether there were any issues added to to the context.
