@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 04/06/2023.
 //
 
-
-
 /// View of an object as a graph node.
 ///
 /// Graph nodes are objects that can be connected to other nodes with edges.
@@ -36,10 +34,6 @@ extension Node {
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
     
-    public subscript<T>(componentType: T.Type) -> T? where T : Component {
-        snapshot[componentType]
-    }
-
     public func attribute(forKey key: String) -> Variant? {
         snapshot.attribute(forKey: key)
     }
@@ -69,9 +63,6 @@ extension Edge {
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
 
-    public subscript<T>(componentType: T.Type) -> T? where T : Component {
-        snapshot[componentType]
-    }
     public func attribute(forKey key: String) -> Variant? {
         snapshot.attribute(forKey: key)
     }

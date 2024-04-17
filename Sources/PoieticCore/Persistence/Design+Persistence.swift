@@ -196,7 +196,7 @@ extension Design {
                 frame.unsafeInsert(snapshot, owned: false)
             }
             // We accept the frame making sure that constraints are met.
-            // FIXME: We need to mark a frame as "OK" in our (non-corrupted) database, so we do not have to accept it.
+            // TODO: If we mark a frame as "OK" in our (non-corrupted) store, we do not have to validate it (trusting the store)
             try accept(frame)
         }
 

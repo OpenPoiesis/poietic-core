@@ -114,7 +114,7 @@ struct IntegerComponent: InspectableComponent, Equatable {
     }
 }
 
-// FIXME: Move to ObjectType
+// TODO: Move to ObjectType
 extension Metamodel {
     static let Unstructured = ObjectType(
         name: "Unstructured",

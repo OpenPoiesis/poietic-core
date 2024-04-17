@@ -11,7 +11,6 @@ public class RuntimeContext {
     // TODO: We have this in frame
     public let metamodel: Metamodel
     
-    // FIXME: Use just Frame or StableFrame
     /// Frame that is being transformed.
     public let frame: Frame
     
