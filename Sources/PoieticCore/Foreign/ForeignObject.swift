@@ -141,7 +141,6 @@ public struct ForeignObject {
     /// - SeeAlso: ``name``, ``ObjectSnapshot/id``
     ///
     public var id: String? {
-        // TODO: [REFACTORING] Validate correct ID instead of String
         get throws {
             do {
                 return try info.stringValueIfPresent(for: "id")
@@ -155,7 +154,6 @@ public struct ForeignObject {
     /// Convenience for fetching correctly typed snapshot ID stored in the info record.
     ///
     public var snapshotID: String? {
-        // TODO: [REFACTORING] Validate correct ID instead of String
         get throws {
             do {
                 return try info.stringValueIfPresent(for: "snapshot_id")

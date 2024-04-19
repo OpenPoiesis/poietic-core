@@ -152,6 +152,17 @@ public class Attribute: CustomStringConvertible {
     }
     
     public var description: String {
-        "(\(name) \(type))"
+        "(\(name):\(type))"
+    }
+}
+
+extension Attribute: Equatable {
+    public static func == (lhs: Attribute, rhs: Attribute) -> Bool {
+        return lhs.name == rhs.name
+        && lhs.type == rhs.type
+        && lhs.defaultValue == rhs.defaultValue
+        && lhs.optional == rhs.optional
+        && lhs.label == rhs.label
+        && lhs.abstract == rhs.abstract
     }
 }

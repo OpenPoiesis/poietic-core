@@ -5,10 +5,6 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
-// Unsolved problems:
-// TODO: What to do when metamodel changes between design archival?
-// TODO: What to do on metamodel/constraint change?
-
 /// Error thrown when constraint violations were detected in the graph during
 /// `accept()`.
 ///
@@ -140,8 +136,6 @@ public class Design {
     ///   numbers are just skipped and the next sequence would be the used +1.
     ///
     class IdentityGenerator {
-        // TODO: Replace this class with UUID
-
         /// ID as a sequence number.
         var current: ObjectID
         
@@ -162,8 +156,7 @@ public class Design {
         }
     }
 
-    // TODO: [OBSOLETE] Get rid of the identity generator. No longer needed for multiple ID sequences.
-     private var identityGenerator: IdentityGenerator
+    private var identityGenerator: IdentityGenerator
     
     /// Meta-model that the design conforms to.
     ///
@@ -262,7 +255,6 @@ public class Design {
                          "Trying to allocate an ID \(id) that is already used as a stable frame ID")
             precondition(_mutableFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
-            // TODO: Get rid of the identity generator, just keep a table here.
             self.identityGenerator.markUsed(id)
             return id
         }
@@ -294,7 +286,6 @@ public class Design {
     /// The order of the returned snapshots is arbitrary.
     ///
     public var validatedSnapshots: [ObjectSnapshot] {
-        // TODO: Change this to an iterator
         var seen: Set<SnapshotID> = Set()
         var result: [ObjectSnapshot] = []
         
@@ -409,7 +400,6 @@ public class Design {
     /// - Precondition: The frame with given ID must exist in the design.
     ///
     public func removeFrame(_ id: FrameID) {
-        // TODO: What about discard()?
         if _stableFrames[id] != nil {
             _stableFrames[id] = nil
         }
@@ -506,8 +496,8 @@ public class Design {
         //
         let missing: [ObjectID] = frame.brokenReferences()
         
-        // TODO: Should we make this into an exception? For now it is a programming error.
         guard missing.isEmpty else {
+            // This is our error, not an user error.
             fatalError("Violated referential integrity of frame ID \(frame.id)")
         }
 
@@ -515,31 +505,19 @@ public class Design {
         // ------------------------------------------------------------
         var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
         
-        // TODO: Make these checks on mutating methods
         for object in frame.snapshots {
             for trait in object.type.traits {
-                for attr in trait.attributes {
-                    if attr.optional {
-                        continue
-                        // TODO: Still check for type
-                    }
-                    guard let _ = object.attributes[attr.name] else {
-                        let error = ObjectTypeError.missingTraitAttribute(attr.name, trait.name)
-                        typeErrors[object.id, default: []].append(error)
-                        continue
-                    }
-                    // TODO: Check for value type
+                do {
+                    try object.validateConformance(to: trait)
+                }
+                catch let error as ErrorCollection<ObjectTypeError> {
+                    typeErrors[object.id, default: []] += error.errors
                 }
             }
         }
 
-        // TODO: Check whether the objects have the types allowed by the metamodel
-        
         // Check constraints
         // ------------------------------------------------------------
-        // TODO: What about non-graph constraints – Pure object constraints?
-        
-        // TODO: We need to get an immutable graph here.
         let violations = checkConstraints(frame)
         
         if !violations.isEmpty || !typeErrors.isEmpty {
@@ -551,7 +529,7 @@ public class Design {
     /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: MutableFrame) {
-        // TODO: Clean-up all the objects.
+        // TODO: Garbage collection
         
         precondition(frame.design === self,
                      "Trying to discard a frame from a different design")
@@ -657,16 +635,16 @@ public class Design {
 }
 
 
-public enum ObjectTypeError: Equatable, CustomStringConvertible {
-    case missingTraitAttribute(String, String)
-    case typeMismatch(String, String)
+public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
+    case missingTraitAttribute(Attribute, String)
+    case typeMismatch(Attribute, ValueType)
     
     public var description: String {
         switch self {
         case let .missingTraitAttribute(attribute, trait):
-            "Missing attribute '\(attribute)' required by trait '\(trait)'"
-        case let .typeMismatch(attribute, type):
-            "Attribute '\(attribute)' must be of type '\(type)'"
+            "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
+        case let .typeMismatch(attribute, actualType):
+            "Type mismatch of Attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
         }
     }
 }

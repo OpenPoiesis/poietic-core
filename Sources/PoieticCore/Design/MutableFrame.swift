@@ -211,7 +211,6 @@ public class MutableFrame: Frame {
         
         // Make sure we do not own immutable objects.
         // This can be put into one condition, however we split it for better error understanding
-        // TODO: This seems like historical remnant. No need for the "owned" flag any more? It relates to the mutability of the snapshot.
         precondition(!owned || (owned && snapshot.state.isMutable),
                      "Inserting mutable object must be owned by the frame")
         precondition(owned || (!owned && !snapshot.state.isMutable),
@@ -388,7 +387,6 @@ public class MutableFrame: Frame {
     /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
-        // TODO: Replace this with just object() -> MutableObject as a reference
         precondition(state.isMutable, "Trying to modify a frozen frame")
         
         guard let originalRef = self.objects[id] else {

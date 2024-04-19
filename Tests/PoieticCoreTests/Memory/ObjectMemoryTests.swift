@@ -282,7 +282,7 @@ final class DesignTests: XCTestCase {
             XCTAssertEqual(error.violations.count, 0)
             XCTAssertEqual(error.typeErrors.count, 1)
             if let a_errors = error.typeErrors[a] {
-                XCTAssertEqual(a_errors.first, .missingTraitAttribute("text", "Test"))
+                XCTAssertEqual(a_errors.first, .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
             }
             else {
                 XCTFail("Expected errors for object 'a'")

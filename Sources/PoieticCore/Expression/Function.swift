@@ -131,7 +131,6 @@ public class Function: CustomStringConvertible {
 
     public static func Comparison(_ name: String,
                           body: @escaping (Variant, Variant) throws -> Bool) -> Function {
-        // TODO: Remove `throws` from body
         Function(
             name: name,
             signature: Signature(

@@ -16,7 +16,6 @@ public protocol Frame: Graph {
     
     var id: FrameID { get }
     
-    // TODO: Change this to Sequence<ObjectSnapshot>
     /// Get a list of all snapshots in the frame.
     ///
     var snapshots: [ObjectSnapshot] { get }
@@ -215,7 +214,6 @@ extension Frame {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
 
-    // TODO: Use Node as argument
     public func filterNodes(_ block: (ObjectSnapshot) -> Bool) -> [Node] {
         return snapshots.compactMap {
             if let node = Node($0), block($0) {

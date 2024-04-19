@@ -31,12 +31,11 @@ extension Design {
                                components: [any Component]=[],
                                structure: StructuralComponent? = nil,
                                state: VersionState = .stable) -> ObjectSnapshot {
-        // TODO: Check for existence and register with list of all snapshots.
-        // TODO: This should include the snapshot into the list of snapshots.
-        // TODO: Handle wrong IDs.
-        
         let actualID = allocateID(required: id)
         let actualSnapshotID = allocateID(required: snapshotID)
+
+        precondition(_allSnapshots[actualSnapshotID] == nil,
+                     "Snapshot with snapshot ID \(actualSnapshotID) already exists.")
 
         let actualStructure: StructuralComponent
         switch type.structuralType {

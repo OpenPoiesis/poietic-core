@@ -132,7 +132,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
         case .point: .point
         }
     }
-
+    
     /// Create a variant representing an integer value.
     ///
     public init(_ value: Int) {

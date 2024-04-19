@@ -20,7 +20,6 @@ public protocol Component {
 }
 
 
-// TODO: Review documentation of InspectableComponent
 /// Protocol for components where attributes can be inspected by their names.
 ///
 /// User data contained in the component is provided to the user's world through
@@ -76,7 +75,6 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     /// - SeeAlso: ``attribute(forKey:)``, ``init(record:)``
     ///
     mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
-    // TODO: Make the above for PersistableComponent only
 }
 
 extension InspectableComponent {
