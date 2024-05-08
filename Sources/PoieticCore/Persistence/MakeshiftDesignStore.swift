@@ -7,276 +7,246 @@
 
 import Foundation
 
-
-public enum StoreError: Error, CustomStringConvertible {
-    // Archive read/write
-    case cannotOpenStore(URL)
-    case malformedArchiveData(Error)
-    case malformedArchiveStructure(String)
-    case missingFormatVersion
-    case unsupportedFormatVersion(String)
-    case malformedCollections
-    case malformedCollection(String)
-    case malformedCollectionRecord(String, Int)
-
-    case attributesNotADictionary(String, Int)
-    
-    case cannotCreateArchiveData(Error)
-    case cannotWriteToStore(Error)
-    
-    // Metamodel errors
-    case unknownCollection(String)
-    case unknownObjectType(String)
-
-    /// Generic integrity error.
-    ///
-    /// This error should be rare and usually means that the store was
-    /// modified by a third-party.
-    ///
-    case brokenIntegrity(String)
-    case missingOrMalformedStateInfo
-
-    /// Referenced snapshot does not exist.
-    ///
-    /// This is an integrity error.
-    ///
-    case invalidReferences(String, String)
-    case invalidReference(ObjectID, String, String)
-    case missingReference(String, String)
-    case duplicateSnapshot(ObjectID)
-
-    public var description: String {
-        switch self {
-        case let .cannotOpenStore(url):
-            "Can not open archive '\(url)'"
-        case let .malformedArchiveData(error):
-            "Malformed archive data: \(error)"
-        case let .malformedArchiveStructure(message):
-            "Malformed archive structure: \(message)"
-        case let .cannotCreateArchiveData(error):
-            "Can not create archive data: \(error)"
-        case let .cannotWriteToStore(error):
-            "Can not write archive: \(error)"
-
-        case .missingOrMalformedStateInfo:
-            "Missing or malformed design state info"
-
-        // Model and metamodel errors
-        case let .unknownCollection(name):
-            "Unknown collection '\(name)'"
-        case let .unknownObjectType(name):
-            "Unknown object type '\(name)'"
-
-        // Integrity errors
-        case let .duplicateSnapshot(id):
-            "Duplicate snapshot \(id)"
-        case let .brokenIntegrity(message):
-            "Broken store integrity: \(message)"
-        case let .invalidReferences(kind, context):
-            "Invalid \(kind) references in \(context)"
-        case let .invalidReference(id, kind, context):
-            "Unknown \(kind) ID \(id) in \(context)"
-        case let .missingReference(type, context):
-            "Missing \(type) ID in \(context)"
-        case .missingFormatVersion:
-            "Missing store format version 'store_format_version'"
-        case .unsupportedFormatVersion(let value):
-            "Unsupported store format version '\(value)'"
-        case .malformedCollections:
-            "Malformed collections – not a dictionary."
-        case .malformedCollection(let name):
-            "Malformed collection '\(name)' – not an array"
-        case .malformedCollectionRecord(let name, let index):
-            "Malformed record \(index) in collection '\(name)'"
-        case .attributesNotADictionary(let name, let index):
-            "Attributes property of record \(index) in collection '\(name)' is not a dictionary"
-        }
-    }
-}
-
-
-/// A persistent store with relational-like traits for design.
+/// A makeshift persistent store.
 ///
-/// Collections:
-/// - `state` – one-record "collection" containing the design state
-///      - `current_frame`
-///      - `undo_frames`
-///      - `redo_frames`
-/// - `snapshots` - list of object snapshots
-/// - `frames`
-///     - `id` - frame ID
-///     - `snapshots` - list of snapshot IDs
+/// Makeshift persistent design store stores the design as a JSON generated
+/// by the Swift _Codable_ protocol.
+///
+/// - Note: This is a solution before we get a proper store design.
 ///
 public class MakeshiftDesignStore {
     static let FormatVersion = "0.0.4"
     
-    static let FramesCollectionName = "frames"
-    static let SnapshotsCollectionName = "snapshots"
-    static let StateCollectionName = "state"
-    
-    public let url :URL
-    public var collections: [String:[ForeignRecord]]
-    // Stored as "snapshots" collection where the attributes is embedded
-    // dictionary.
-    public var objects: [ForeignObject]
+    public let data: Data?
+    public let url: URL?
 
-    /// Create a new makeshift store from a file stored at given URL.
+    /// Create a new makeshift store from data containing a JSON structure.
     ///
-    public init(url: URL) throws {
+    public init(data: Data?=nil, url: URL?=nil) {
         self.url = url
-        self.collections = [:]
-        self.objects = []
+        self.data = data
     }
-    
-    /// Load all collections from the store.
+
+    /// Load and restore a design from the store.
     ///
-    public func load() throws {
-        let decoder = JSONDecoder()
+    /// - Returns: Restored ``Design`` object.
+    /// - Throws: ``PersistentStoreError``.
+    ///
+    public func load(metamodel: Metamodel = EmptyMetamodel) throws -> Design {
         let data: Data
-        do {
-            data = try Data(contentsOf: url)
+        if let providedData = self.data {
+            data = providedData
         }
-        catch {
-            throw StoreError.cannotOpenStore(url)
-        }
-       
-        let json: JSONValue
-        do {
-            json = try decoder.decode(JSONValue.self, from: data)
-        }
-        catch {
-            throw StoreError.malformedArchiveData(error)
+        else {
+            guard let url = self.url else {
+                throw PersistentStoreError.storeMissing
+            }
+            do {
+                data = try Data(contentsOf: url)
+            }
+            catch {
+                throw PersistentStoreError.cannotOpenStore(url)
+            }
         }
 
-        guard case let .object(root) = json else {
-            throw StoreError.malformedArchiveStructure("not a dictionary")
-        }
+        let decoder = JSONDecoder()
+        // decoder.userInfo[Self.FormatVersionKey] = Self.FormatVersion
         
-        guard case let .string(version) = root["store_format_version"] else {
-            throw StoreError.missingFormatVersion
+        let perDesign: _PersistentDesign
+        do {
+            perDesign = try decoder.decode(_PersistentDesign.self, from: data)
         }
-        
-        // TODO: Handle different versions here
-        if version != MakeshiftDesignStore.FormatVersion {
-            throw StoreError.unsupportedFormatVersion(version)
+        catch DecodingError.dataCorrupted(_){
+            throw PersistentStoreError.dataCorrupted
         }
-        
-        guard case let .object(collections) = root["collections"] else {
-            throw StoreError.malformedCollections
+        catch let DecodingError.keyNotFound(key, context) {
+            let path = context.codingPath.map { $0.stringValue }
+            throw PersistentStoreError.missingProperty(key.stringValue, path)
+        }
+        catch let DecodingError.typeMismatch(_, context) {
+            let path = context.codingPath.map { $0.stringValue }
+            throw PersistentStoreError.typeMismatch(path)
         }
 
-        for (name, json) in collections {
-            guard case let .array(records) = json else {
-                throw StoreError.malformedCollection(name)
-            }
-            if name == Self.SnapshotsCollectionName {
-                try loadObjects(records: records)
-            }
-            else {
-                try loadCollection(name: name, records: records)
-            }
-        }
-        
+        return try restore(perDesign, metamodel: metamodel)
     }
     
-    func loadCollection(name: String, records jsonRecords: [JSONValue]) throws {
-        var records: [ForeignRecord] = []
-        for (index, json) in jsonRecords.enumerated() {
-            guard case let .object(object) = json else {
-                throw StoreError.malformedCollectionRecord(name, index)
-            }
-            
-            let record = try ForeignRecord(object)
-            records.append(record)
-        }
-        collections[name] = records
-    }
+    /// Restore a design from the store.
+    ///
+    /// - Returns: Restored ``Design`` object.
+    /// - Throws: ``PersistentStoreError``.
+    ///
+    func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel = EmptyMetamodel) throws -> Design {
+        let design = Design(metamodel: metamodel)
 
-    func loadObjects(records jsonRecords: [JSONValue]) throws {
-        var records: [ForeignObject] = []
-        for (index, json) in jsonRecords.enumerated() {
-            guard case var .object(object) = json else {
-                throw StoreError.malformedCollectionRecord("snapshots", index)
+        // TODO: Handle different versions here
+        if perDesign.storeFormatVersion != MakeshiftDesignStore.FormatVersion {
+            throw PersistentStoreError.unsupportedFormatVersion(perDesign.storeFormatVersion)
+        }
+
+        // 1. Read Snapshots
+        // ----------------------------------------------------------------
+        var snapshots: [SnapshotID: ObjectSnapshot] = [:]
+        
+        for perSnapshot in perDesign.snapshots {
+            guard let type = metamodel.objectType(name: perSnapshot.type) else {
+                throw PersistentStoreError.unknownObjectType(perSnapshot.type)
+            }
+
+            guard let structuralType = StructuralType(rawValue: perSnapshot.structuralType) else {
+                throw PersistentStoreError.invalidStructuralType(perSnapshot.structuralType)
+            }
+            guard type.structuralType == structuralType else {
+                throw PersistentStoreError.structuralTypeMismatch(type.structuralType,
+                                                                  structuralType)
+            }
+
+            guard snapshots[perSnapshot.snapshotID] == nil else {
+                throw PersistentStoreError.duplicateSnapshot(perSnapshot.snapshotID)
             }
             
-            let attributes: [String:JSONValue]
-            
-            if let jsonAttributes = object["attributes"] {
-                guard case let .object(dict) = jsonAttributes else {
-                    throw StoreError.attributesNotADictionary("snapshots", index)
+            let structure: StructuralComponent
+            switch type.structuralType {
+            case .unstructured:
+                guard perSnapshot.origin == nil else {
+                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "origin")
                 }
-                attributes = dict
-                object["attributes"] = nil
+                guard perSnapshot.target == nil else {
+                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "target")
+                }
+                structure = .unstructured
+            case .node:
+                guard perSnapshot.origin == nil else {
+                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "origin")
+                }
+                guard perSnapshot.target == nil else {
+                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "target")
+                }
+                structure = .node
+            case .edge:
+                guard let origin = perSnapshot.origin else {
+                    throw PersistentStoreError.missingStructuralProperty(type.structuralType, "from")
+                }
+                guard let target = perSnapshot.target else {
+                    throw PersistentStoreError.missingStructuralProperty(type.structuralType, "to")
+                }
+                structure = .edge(ObjectID(origin), ObjectID(target))
             }
-            else {
-                attributes = [:]
-            }
-            let record = ForeignObject(info: try ForeignRecord(object),
-                                      attributes: try ForeignRecord(attributes))
-            records.append(record)
+
+            let snapshot = design.createSnapshot(type,
+                                                 id: perSnapshot.id,
+                                                 snapshotID: perSnapshot.snapshotID,
+                                                 structure: structure,
+                                                 parent: perSnapshot.parent,
+                                                 attributes: perSnapshot.attributes,
+                                                 components: [],
+                                                 state: .validated)
+
+
+            snapshots[snapshot.snapshotID] = snapshot
+//            snapshot.promote(.validated)
         }
-        objects = records
+
+        // 3. Read frames
+        // ----------------------------------------------------------------
+
+        for perFrame in perDesign.frames {
+            if design.containsFrame(perFrame.id) {
+                throw PersistentStoreError.duplicateFrame(perFrame.id)
+            }
+            
+            let frame = design.createFrame(id: perFrame.id)
+            
+            for id in perFrame.snapshots {
+                guard let snapshot = snapshots[id] else {
+                    throw PersistentStoreError.invalidSnapshotReference(frame.id, id)
+                }
+                // Do not check for referential integrity yet
+                frame.unsafeInsert(snapshot, owned: false)
+            }
+            // We accept the frame making sure that constraints are met.
+            try design.accept(frame)
+        }
+
+        // 4. Design state (undo, redo, current frame)
+        // ----------------------------------------------------------------
+        
+        for item in perDesign.state.undoableFrames {
+            if !design.containsFrame(item) {
+                throw PersistentStoreError.invalidFrameReference("undoable_frames", item)
+            }
+        }
+        design.undoableFrames = perDesign.state.undoableFrames
+
+        for item in perDesign.state.redoableFrames {
+            if !design.containsFrame(item) {
+                throw PersistentStoreError.invalidFrameReference("redoable_frames", item)
+            }
+        }
+        design.redoableFrames = perDesign.state.redoableFrames
+
+        // Consistency check: currentFrameID must be set when there is history.
+        if perDesign.state.currentFrame == nil
+            && (!design.undoableFrames.isEmpty || !design.redoableFrames.isEmpty) {
+            throw PersistentStoreError.currentFrameIDNotSet
+        }
+        design.currentFrameID = perDesign.state.currentFrame
+
+        return design
     }
-
-    public func save() throws {
-        var root: [String:JSONValue] = [:]
+    
+    public func save(design: Design) throws {
+        guard let url = self.url else {
+            fatalError("No store URL set to save design to.")
+        }
+        var snapshots: [_PersistentSnapshot] = []
+        var frames: [_PersistentFrame] = []
         
-        root["store_format_version"] = .string(MakeshiftDesignStore.FormatVersion)
-
-        var jsonCollections: [String:JSONValue] = [:]
-        
-        for (name, records) in collections {
-            let jsonRecords: [JSONValue] = records.map {
-                $0.asJSON()
+        for snapshot in design.validatedSnapshots {
+            let origin: ObjectID?
+            let target: ObjectID?
+            switch snapshot.structure {
+            case .edge(let sOrigin, let sTarget):
+                (origin, target) = (sOrigin, sTarget)
+            default:
+                (origin, target) = (nil, nil)
             }
-            jsonCollections[name] = .array(jsonRecords)
+            
+            let perSnapshot = _PersistentSnapshot(
+                id: snapshot.id,
+                snapshotID: snapshot.snapshotID,
+                type: snapshot.type.name,
+                structuralType: snapshot.structure.type.rawValue,
+                origin: origin,
+                target: target,
+                parent: snapshot.parent,
+                attributes: snapshot.attributes
+            )
+            snapshots.append(perSnapshot)
         }
         
-        var jsonObjects: [JSONValue] = []
-
-        for object in objects {
-            jsonObjects.append(object.asJSON())
+        for frame in design.frames {
+            let ids = frame.snapshots.map { $0.snapshotID }
+            let perFrame = _PersistentFrame(id: frame.id,
+                                            snapshots: ids)
+            frames.append(perFrame)
         }
         
-        jsonCollections[Self.SnapshotsCollectionName] = .array(jsonObjects)
-        root["collections"] = .object(jsonCollections)
-        
-        let jsonRoot:JSONValue = .object(root)
+        let state = _PersistentDesignState(currentFrame: design.currentFrameID,
+                                           undoableFrames: design.undoableFrames,
+                                           redoableFrames: design.redoableFrames)
+        let perDesign = _PersistentDesign(
+            storeFormatVersion: Self.FormatVersion,
+            metamodel: "DEFAULT",
+            snapshots: snapshots,
+            frames: frames,
+            state: state
+        )
         
         let encoder = JSONEncoder()
-        let data: Data
-        do {
-            data = try encoder.encode(jsonRoot)
-        }
-        catch {
-            throw StoreError.cannotCreateArchiveData(error)
-        }
-        do {
-            try data.write(to: url)
-        }
-        catch {
-            throw StoreError.cannotWriteToStore(error)
-        }
-    }
-
-    // MARK: Schema
-    public func fetchAllObjects() throws -> [ForeignObject] {
-        return objects
-    }
-    
-    public func replaceAllObjects(_ objects: [ForeignObject]) throws {
-        self.objects = objects
-    }
-
-    public func fetchAll(_ collectionName: String) throws -> [ForeignRecord] {
-        guard let collection = collections[collectionName] else {
-            throw StoreError.unknownCollection(collectionName)
-        }
-        return collection
-    }
-
-    public func replaceAll(in collectionName: String, records: [ForeignRecord]) throws {
-        collections[collectionName] = records
+        
+        let data = try encoder.encode(perDesign)
+        try data.write(to: url)
     }
 }
 

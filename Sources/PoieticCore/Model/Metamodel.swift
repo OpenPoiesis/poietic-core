@@ -39,6 +39,8 @@
 ///
 /// - Note: Each application is expected to provide their own domain specific metamodel.
 ///
+///  - SeeAlso: ``Design/validate(_:)``, ``Design/accept(_:appendHistory:)``
+///
 public final class Metamodel {
     /// List of components that are available within the domain described by
     /// this metamodel.
@@ -60,8 +62,16 @@ public final class Metamodel {
     ///
     public let constraints: [Constraint]
 
-    // TODO: Add named objects (objects that are required to exist)
-    
+    /// Create a new metamodel.
+    ///
+    /// - Parameters:
+    ///   - traits: List of traits used or possible in the metamodel.
+    ///   - objectTypes: List of object types validated by the metamodel.
+    ///   - constraints: List of constraints that are used for design
+    ///     validation.
+    ///
+    ///  - SeeAlso: ``Design/validate(_:)``
+    ///
     public init(traits: [Trait] = [],
                 objectTypes: [ObjectType] = [],
                 variables: [Variable] = [],

@@ -10,7 +10,7 @@
 /// Structural type denotes how the object can relate to other objects in
 /// the design.
 ///
-public enum StructuralType: String, Equatable {
+public enum StructuralType: String, Equatable, Codable {
     /// Plain object without any relationships with other objects,
     /// has no dependencies and no objects depend on it.
     case unstructured

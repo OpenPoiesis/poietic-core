@@ -251,9 +251,9 @@ public class MutableFrame: Frame {
         precondition(state.isMutable)
         
         let snapshot = design.createSnapshot(type,
+                                             structure: structure,
                                              attributes: attributes,
-                                             components: components,
-                                             structure: structure)
+                                             components: components)
         insert(snapshot)
         return snapshot.id
     }

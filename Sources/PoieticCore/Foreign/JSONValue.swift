@@ -132,19 +132,21 @@ public enum JSONValue: Equatable, Codable {
         }
     }
 
-    public func asDictionary() throws -> JSONDictionary {
+    public func asDictionary() -> [String:JSONValue]? {
         switch self {
         case let.object(dict):
-            return JSONDictionary(dict)
-        default: throw JSONError.typeMismatch(.object, nil)
+            return dict
+        default:
+            return nil
         }
     }
     
-    public func asArray() throws -> [JSONValue] {
+    public func asArray() -> Array<JSONValue>? {
         switch self {
         case let.array(items):
             return items
-        default: throw JSONError.typeMismatch(.array, nil)
+        default:
+            return nil
         }
     }
 
@@ -190,21 +192,17 @@ public enum JSONValue: Equatable, Codable {
 
 }
 
-public struct JSONDictionary {
-    public let dict: [String:JSONValue]
-    
-    init(_ dict: [String:JSONValue]) {
-        self.dict = dict
-    }
-    
+public typealias JSONDictionary = [String:JSONValue]
+
+extension JSONDictionary {
     @inlinable
     public func valueIfPresent(forKey key: String ) throws -> JSONValue? {
-        dict[key]
+        self[key]
     }
     
     @inlinable
     public func value(forKey key: String ) throws -> JSONValue {
-        if let value = dict[key] {
+        if let value = self[key] {
             value
         }
         else {
@@ -213,7 +211,7 @@ public struct JSONDictionary {
     }
 
     public func stringIfPresent(forKey key: String ) throws -> String? {
-        guard let jsonValue = dict[key] else {
+        guard let jsonValue = self[key] else {
             return nil
         }
         if case let .string(value) = jsonValue {
@@ -234,7 +232,7 @@ public struct JSONDictionary {
     }
 
     public func boolIfPresent(forKey key: String) throws -> Bool? {
-        guard let jsonValue = dict[key] else {
+        guard let jsonValue = self[key] else {
             return nil
         }
         if case let .bool(value) = jsonValue {
@@ -254,7 +252,7 @@ public struct JSONDictionary {
     }
 
     public func intIfPresent(forKey key: String) throws -> Int? {
-        guard let jsonValue = dict[key] else {
+        guard let jsonValue = self[key] else {
             return nil
         }
         if case let .int(value) = jsonValue {
@@ -273,7 +271,7 @@ public struct JSONDictionary {
         }
     }
     public func doubleIfPresent(forKey key: String) throws -> Double? {
-        guard let jsonValue = dict[key] else {
+        guard let jsonValue = self[key] else {
             return nil
         }
         if case let .double(value) = jsonValue {
@@ -293,7 +291,7 @@ public struct JSONDictionary {
     }
     
     public func arrayIfPresent(forKey key: String) throws -> [JSONValue]? {
-        guard let jsonValue = dict[key] else {
+        guard let jsonValue = self[key] else {
             return nil
         }
         if case let .array(value) = jsonValue {

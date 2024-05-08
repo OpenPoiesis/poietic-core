@@ -492,15 +492,6 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
         }
     }
 
-    public func anyValue() -> Any {
-        switch self {
-        case .atom(let value): return value.anyValue
-        case .array(let array):
-            return Array(array.items.map { $0.anyValue })
-        }
-
-    }
-    
     public var description: String {
         switch self {
         case .atom(let value):
@@ -512,26 +503,9 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
 }
 
 extension Variant: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        if let array: VariantArray = try? container.decode(VariantArray.self) {
-            self = .array(array)
-        }
-        else {
-            let atom: VariantAtom = try container.decode(VariantAtom.self)
-            self = .atom(atom)
-        }
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-
-        switch self {
-        case .atom(let atom): try container.encode(atom)
-        case .array(let array): try container.encode(array)
-        }
-    }
+    // Use default implementation.
+    // NOTE: Do not use Codable for anything public (import/export).
+    // NOTE: For JSON that is to be exported/imported use custom JSON methods.
 }
 
 extension Variant: ExpressibleByIntegerLiteral {

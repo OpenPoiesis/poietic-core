@@ -11,8 +11,6 @@
 /// what are their structural types.
 ///
 public class ObjectType {
-    // TODO: Rename to "ObjectClass" (referred to as 'Class' within the system, yet not to conflict with Class in the host language)
-    
     /// Name of the object type.
     public let name: String
     

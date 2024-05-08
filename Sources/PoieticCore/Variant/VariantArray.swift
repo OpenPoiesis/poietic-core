@@ -130,24 +130,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable {
 }
 
 extension VariantArray: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        if let values: [Int] = try? container.decode([Int].self) {
-            self = .int(values)
-        }
-        else if let values: [Double] = try? container.decode([Double].self) {
-            self = .double(values)
-        }
-        else if let values: [Point] = try? container.decode([Point].self) {
-            self = .point(values)
-        }
-        else if let values: [Bool] = try? container.decode([Bool].self) {
-            self = .bool(values)
-        }
-        else {
-            let values: [String] = try container.decode([String].self)
-            self = .string(values)
-        }
-    }
+    // Use default implementation.
+    // NOTE: Do not use Codable for anything public (import/export).
+    // NOTE: For JSON that is to be exported/imported use custom JSON methods.
 }

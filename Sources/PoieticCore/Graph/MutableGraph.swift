@@ -92,9 +92,9 @@ extension MutableFrame: MutableGraph {
 
         let snapshot = mutableFrame.design.createSnapshot(
             type,
+            structure: .edge(origin, target),
             attributes: attributes,
             components: components,
-            structure: .edge(origin, target),
             state: .transient
         )
 

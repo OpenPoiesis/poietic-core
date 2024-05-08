@@ -94,7 +94,9 @@ public struct ForeignFrameInfo {
     ///   in the provided JSON value.
     ///
     public init(fromJSON json: JSONValue) throws {
-        let dict = try json.asDictionary()
+        guard let dict = json.asDictionary() else {
+            throw ForeignFrameError.JSONError(.typeMismatch(.object, nil))
+        }
         
         self.frameFormatVersion = try dict.string(forKey: "frame_format_version")
         self.metamodelName = try dict.stringIfPresent(forKey: "metamodel_name")
@@ -200,7 +202,9 @@ public class ForeignFrameBundle {
 
         let json = try JSONValue(data: data)
         
-        let jsonArray = try json.asArray()
+        guard let jsonArray = json.asArray() else {
+            throw ForeignFrameError.JSONError(.typeMismatch(.array, "collection \(collectionName)"))
+        }
 
         var objects: [ForeignObject] = []
         for jsonItem in jsonArray {
@@ -252,9 +256,6 @@ public class ForeignFrameReader {
                 throw ForeignFrameError.JSONError(error)
             }
         }
-        catch {
-            fatalError("Unhandled error: \(error)")
-        }
         self.init(info: info, design: design)
     }
     
@@ -279,13 +280,16 @@ public class ForeignFrameReader {
     ///         frame should be discarded.
     ///
     public func read(_ data: Data, into frame: MutableFrame) throws {
-        let jsonObjects: [JSONValue]
+        let json: JSONValue
         do {
-            jsonObjects = try JSONValue(data: data).asArray()
+            json = try JSONValue(data: data)
         }
         catch let error as JSONError {
             throw ForeignFrameError.JSONError(error)
 
+        }
+        guard let jsonObjects = json.asArray() else {
+            throw ForeignFrameError.JSONError(.typeMismatch(.array, nil))
         }
 
         var foreignObjects: [ForeignObject] = []

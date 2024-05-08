@@ -339,47 +339,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
 }
 
 extension VariantAtom: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        if let value: Int = try? container.decode(Int.self) {
-            self = .int(value)
-        }
-        else if let value: Double = try? container.decode(Double.self) {
-            self = .double(value)
-        }
-        else if let value: Bool = try? container.decode(Bool.self) {
-            self = .bool(value)
-        }
-        else if let value: Point = try? container.decode(Point.self) {
-            self = .point(value)
-        }
-        else {
-            let value: String = try container.decode(String.self)
-            self = .string(value)
-        }
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        
-        switch self {
-        case let .int(value): try container.encode(value)
-        case let .double(value): try container.encode(value)
-        case let .string(value): try container.encode(value)
-        case let .bool(value): try container.encode(value)
-        case let .point(value): try container.encode(value)
-        }
-    }
-    
-    public func anyValue() -> Any {
-        switch self {
-        case let .int(value): return value
-        case let .double(value): return value
-        case let .string(value): return value
-        case let .bool(value): return value
-        case let .point(value): return value
-        }
-    }
-
+    // Use default implementation.
+    // NOTE: Do not use Codable for anything public (import/export).
+    // NOTE: For JSON that is to be exported/imported use custom JSON methods.
 }

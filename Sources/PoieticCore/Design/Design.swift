@@ -263,6 +263,10 @@ public class Design {
         }
     }
     
+    public func snapshot(_ snapshotID: ObjectID) -> ObjectSnapshot? {
+        return self._allSnapshots[snapshotID]
+    }
+
     // MARK: Frames
     
     /// List of all stable frames in the design.

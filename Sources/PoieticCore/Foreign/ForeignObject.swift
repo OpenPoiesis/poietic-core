@@ -55,6 +55,20 @@ public enum ForeignObjectError: Error, Equatable {
 /// the object design.
 ///
 public struct ForeignObject {
+    
+    static let Attributes: [Attribute] = [
+        Attribute("type", type: .string, optional: false,
+                  abstract: "Object type name"),
+        Attribute("id", type: .string, optional: true,
+                  abstract: "Object ID"),
+        Attribute("snapshot_id", type: .string, optional: true,
+                  abstract: "Object ID"),
+        Attribute("from", type: .string, optional: true,
+                  abstract: "Edge origin"),
+        Attribute("to", type: .string, optional: true,
+                  abstract: "Edge target"),
+    ]
+    
     /// Information about the object.
     ///
     /// The info record may include one or more of the following, depending
@@ -256,8 +270,6 @@ public struct ForeignObject {
     }
 }
 
-// TODO: Where this should belong? This is here only for the server, as it requires Encodable, for now.
-
 extension ForeignObject: Encodable {
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: ObjectSnapshot.ForeignObjectCodingKeys.self)
@@ -275,5 +287,45 @@ extension ForeignObject: Encodable {
             try container.encode(parent, forKey: .parent)
         }
         try container.encode(attributes, forKey: .attributes)
+    }
+}
+
+extension ObjectSnapshot {
+    /// Get a foreign record with all object's attributes
+    public func asForeignObject() -> ForeignObject {
+        return ForeignObject(
+            info: infoAsForeignRecord(),
+            attributes: ForeignRecord(attributes)
+        )
+    }
+    public func infoAsForeignRecord() -> ForeignRecord {
+        var dict: [String:Variant] = [:]
+        dict["id"] = Variant(Int(id))
+        dict["snapshot_id"] = Variant(Int(snapshotID))
+        dict["type"] = Variant(type.name)
+        dict["structure"] = Variant(structure.type.rawValue)
+        if case let .edge(origin, target) = structure {
+            dict["origin"] = Variant(Int(origin))
+            dict["target"] = Variant(Int(target))
+        }
+        if let parent {
+            dict["parent"] = Variant(Int(parent))
+        }
+        return ForeignRecord(dict)
+    }
+    
+    // This is not to conform to "encodable" but to satisfy encoding of
+    // ForeignObject. We can not assure symmetrical encoding/decoding of object
+    // snapshots because of custom runtime components.
+    //
+    enum ForeignObjectCodingKeys: String, CodingKey {
+        case id
+        case snapshotID
+        case type
+        case structure
+        case origin
+        case target
+        case parent
+        case attributes
     }
 }

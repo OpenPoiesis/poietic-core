@@ -218,6 +218,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
                 snapshotID: SnapshotID,
                 type: ObjectType,
                 structure: StructuralComponent = .unstructured,
+                parent: ObjectID? = nil,
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
         precondition(ObjectSnapshot.ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
@@ -228,6 +229,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         self.type = type
         self.state = .transient
         self.structure = structure
+        self.parent = parent
 
         self.attributes = attributes
         self.components = ComponentSet(components)
@@ -426,3 +428,4 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         }
     }
 }
+

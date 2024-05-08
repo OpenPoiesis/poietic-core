@@ -27,10 +27,12 @@ extension Design {
     public func createSnapshot(_ type: ObjectType,
                                id: ObjectID? = nil,
                                snapshotID: SnapshotID? = nil,
+                               structure: StructuralComponent? = nil,
+                               parent: ObjectID? = nil,
                                attributes: [String:Variant]=[:],
                                components: [any Component]=[],
-                               structure: StructuralComponent? = nil,
                                state: VersionState = .stable) -> ObjectSnapshot {
+        // FIXME: Add parent, use same order as object snapshot.
         let actualID = allocateID(required: id)
         let actualSnapshotID = allocateID(required: snapshotID)
 
@@ -71,11 +73,11 @@ extension Design {
                                       snapshotID: actualSnapshotID,
                                       type: type,
                                       structure: actualStructure,
+                                      parent: parent,
                                       attributes: actualAttributes,
                                       components: components)
 
         snapshot.state = state
-        
         self._allSnapshots[actualSnapshotID] = snapshot
         
         return snapshot
@@ -87,7 +89,7 @@ extension Design {
         
         let typeName = try info.stringValue(for: "type")
         guard let type = metamodel.objectType(name: typeName) else {
-            throw StoreError.unknownObjectType(typeName)
+            throw PersistentStoreError.unknownObjectType(typeName)
         }
         
         let structure: StructuralComponent
@@ -107,8 +109,8 @@ extension Design {
         let snapshot = createSnapshot(type,
                                       id: id,
                                       snapshotID: snapshotID,
-                                      attributes: foreign.attributes.dictionary,
-                                      structure: structure)
+                                      structure: structure,
+                                      attributes: foreign.attributes.dictionary)
         
         snapshot.parent = try info.IDValueIfPresent(for: "parent")
         

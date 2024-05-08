@@ -42,6 +42,7 @@ struct ForeignCodingKey: CodingKey, CustomStringConvertible {
     public var description: String { stringValue }
 }
 
+// Currently used only for server.
 extension ForeignRecord: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ForeignCodingKey.self)

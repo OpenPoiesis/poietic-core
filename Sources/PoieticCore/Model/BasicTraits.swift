@@ -140,7 +140,7 @@ extension Trait {
     )
 }
 
-public enum AudienceLevel: Int, Codable {
+public enum AudienceLevel: Int  {
     case any = 0
     case beginner = 1
     case intermediate = 2
