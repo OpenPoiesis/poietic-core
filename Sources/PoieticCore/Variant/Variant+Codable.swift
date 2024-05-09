@@ -112,34 +112,89 @@ extension Variant: Codable {
             self = .array(.point(points))
         }
     }
+    public static let CoalescedCodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CoalescedCodingTypeKey")!
+
+    /// Encode the Variant into the encoder.
+    ///
+    /// There are two ways how the variant is encoded. One way stores the type
+    /// explicitly in addition to the data, the other tries to convert the
+    /// variant to one of the decoder's coding type.
+    ///
+    /// Default is encoding it as an array where the first element is the type
+    /// and the second element is the variant content.
+    ///
+    /// The data type is encoded as one of the ``ValueType/typeCode`` values.
+    ///
+    /// Example: An integer value `10` would be encoded in JSON as `["i", 10]`
+    /// by default. If coalesced encoding is requested then it will be encoded
+    /// just as a number `10`.
+    ///
+    /// To enable coalescing, set the ``Variant/CoalescingCodingTypeKey`` to `true`:
+    ///
+    /// ```swift
+    ///     let encoder = JSONEncoder()
+    ///     encoder.userInfo[Variant.CoalescedCodingTypeKey] = true
+    /// ```
+    ///
     public func encode(to encoder: any Encoder) throws {
-        var container = encoder.unkeyedContainer()
-        try container.encode(self.valueType.typeCode)
-        switch self {
-        case let .atom(.bool(value)):
-            try container.encode(value)
-        case let .atom(.int(value)):
-            try container.encode(value)
-        case let .atom(.double(value)):
-            try container.encode(value)
-        case let .atom(.string(value)):
-            try container.encode(value)
-        case let .atom(.point(value)):
-            try container.encode([value.x, value.y])
-        case let .array(.bool(value)):
-            try container.encode(value)
-        case let .array(.int(value)):
-            try container.encode(value)
-        case let .array(.double(value)):
-            try container.encode(value)
-        case let .array(.string(value)):
-            try container.encode(value)
-        case let .array(.point(values)):
-            let points = values.map {
-                [$0.x, $0.y]
+        if encoder.userInfo[Self.CoalescedCodingTypeKey] as? Bool == true {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case let .atom(.bool(value)):
+                try container.encode(value)
+            case let .atom(.int(value)):
+                try container.encode(value)
+            case let .atom(.double(value)):
+                try container.encode(value)
+            case let .atom(.string(value)):
+                try container.encode(value)
+            case let .atom(.point(value)):
+                try container.encode([value.x, value.y])
+            case let .array(.bool(value)):
+                try container.encode(value)
+            case let .array(.int(value)):
+                try container.encode(value)
+            case let .array(.double(value)):
+                try container.encode(value)
+            case let .array(.string(value)):
+                try container.encode(value)
+            case let .array(.point(values)):
+                let points = values.map {
+                    [$0.x, $0.y]
+                }
+                
+                try container.encode(points)
             }
-            
-            try container.encode(points)
+        }
+        else {
+            var container = encoder.unkeyedContainer()
+            try container.encode(self.valueType.typeCode)
+            switch self {
+            case let .atom(.bool(value)):
+                try container.encode(value)
+            case let .atom(.int(value)):
+                try container.encode(value)
+            case let .atom(.double(value)):
+                try container.encode(value)
+            case let .atom(.string(value)):
+                try container.encode(value)
+            case let .atom(.point(value)):
+                try container.encode([value.x, value.y])
+            case let .array(.bool(value)):
+                try container.encode(value)
+            case let .array(.int(value)):
+                try container.encode(value)
+            case let .array(.double(value)):
+                try container.encode(value)
+            case let .array(.string(value)):
+                try container.encode(value)
+            case let .array(.point(values)):
+                let points = values.map {
+                    [$0.x, $0.y]
+                }
+                
+                try container.encode(points)
+            }
         }
     }
 }
