@@ -29,7 +29,7 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-public enum ValueType: Equatable, Codable, CustomStringConvertible {
+public enum ValueType: Equatable, CustomStringConvertible {
     case atom(AtomType)
     case array(AtomType)
     
@@ -500,12 +500,6 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable {
             return array.description
         }
     }
-}
-
-extension Variant: Codable {
-    // Use default implementation.
-    // NOTE: Do not use Codable for anything public (import/export).
-    // NOTE: For JSON that is to be exported/imported use custom JSON methods.
 }
 
 extension Variant: ExpressibleByIntegerLiteral {
