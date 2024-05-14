@@ -42,6 +42,16 @@
 ///  - SeeAlso: ``Design/validate(_:)``, ``Design/accept(_:appendHistory:)``
 ///
 public final class Metamodel {
+    static var _NamedMetamodels: [String:Metamodel] = [:]
+    
+    /// Name of the metamodel.
+    ///
+    /// The metamodel name is used for persistence.
+    ///
+    /// - SeeAlso: ``registerMetamodel(_:)``
+    ///
+    public let name: String
+    
     /// List of components that are available within the domain described by
     /// this metamodel.
     public let traits: [Trait]
@@ -72,14 +82,49 @@ public final class Metamodel {
     ///
     ///  - SeeAlso: ``Design/validate(_:)``
     ///
-    public init(traits: [Trait] = [],
+    public init(name: String,
+                traits: [Trait] = [],
                 objectTypes: [ObjectType] = [],
                 variables: [Variable] = [],
                 constraints: [Constraint] = []) {
+        self.name = name
         self.traits = traits
         self.objectTypes = objectTypes
         self.variables = variables
         self.constraints = constraints
+    }
+    
+    /// Register a metamodel with a given name.
+    ///
+    /// Named metamodels are used when restoring a model from a persistent
+    /// store.
+    ///
+    /// - SeeAlso: ``Metamodel/namedMetamodel(_:)``, ``Metamodel/registeredNames()``
+    ///
+    public static func registerMetamodel(_ metamodel: Metamodel) {
+        Metamodel._NamedMetamodels[metamodel.name] = metamodel
+    }
+
+    /// Get a metamodel by name.
+    ///
+    /// Named metamodels are used when restoring a model from a persistent
+    /// store.
+    ///
+    /// - SeeAlso: ``Metamodel/registerMetamodel(_:)``, ``Metamodel/registeredNames()``
+    ///
+    public static func namedMetamodel(_ name: String) -> Metamodel? {
+        return Metamodel._NamedMetamodels[name]
+    }
+
+    /// Get list of names of registered metamodels.
+    ///
+    /// Named metamodels are used when restoring a model from a persistent
+    /// store.
+    ///
+    /// - SeeAlso: ``Metamodel/registerMetamodel(_:)``, ``Metamodel/namedMetamodel(_:)``
+    ///
+    public static func registeredNames() -> [String] {
+        return Array(Metamodel._NamedMetamodels.keys)
     }
     
     public func objectType(name: String) -> ObjectType? {
@@ -103,6 +148,7 @@ public final class Metamodel {
 ///
 /// Each application is expected to provide their own domain specific metamodel.
 public let EmptyMetamodel = Metamodel(
+    name: "Empty",
     traits: [],
     objectTypes: [],
     variables: [],
@@ -113,6 +159,7 @@ public let EmptyMetamodel = Metamodel(
 /// kinds of designs.
 ///
 public let BasicMetamodel = Metamodel(
+    name: "Basic",
     traits: [
         Trait.Name,
         Trait.DesignInfo,

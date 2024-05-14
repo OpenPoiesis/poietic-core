@@ -157,6 +157,7 @@ extension Metamodel {
 }
 
 public let TestMetamodel = Metamodel(
+    name: "Test",
     traits: [
         IntegerTrait,
     ],

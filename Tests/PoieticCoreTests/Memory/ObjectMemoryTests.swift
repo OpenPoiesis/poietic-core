@@ -229,7 +229,7 @@ final class DesignTests: XCTestCase {
                                     match: AnyPredicate(),
                                     requirement: RejectAll())
        
-        let metamodel = Metamodel(constraints: [constraint])
+        let metamodel = Metamodel(name: "test", constraints: [constraint])
         let design = Design(metamodel: metamodel)
         let frame = design.deriveFrame()
         let a = frame.createNode(TestNodeType)
