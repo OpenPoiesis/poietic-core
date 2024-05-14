@@ -68,7 +68,7 @@ extension Trait {
     public static let Keywords = Trait(
         name: "Keywords",
         attributes: [
-            Attribute("keywords", type: .array(.string), default: Variant(Array<String>()),
+            Attribute("keywords", type: .strings, default: Variant(Array<String>()),
                       abstract: "List of keywords"),
         ]
     )

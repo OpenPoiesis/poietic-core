@@ -110,8 +110,8 @@ public class Attribute: CustomStringConvertible {
 
     /// Data type of the attribute.
     ///
-    public let type: ValueType
-    
+    public let type: VariableType
+
     public let defaultValue: Variant?
     
     public let optional: Bool
@@ -138,7 +138,7 @@ public class Attribute: CustomStringConvertible {
     ///         a tool-tip.
     ///
     public init(_ name: String,
-                type: ValueType,
+                type: VariableType,
                 default defaultValue: Variant? = nil,
                 optional: Bool = false,
                 label: String?=nil,

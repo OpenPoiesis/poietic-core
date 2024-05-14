@@ -6,66 +6,6 @@
 //
 
 
-/// Type of a function argument.
-///
-public enum UnionType: Equatable {
-    /// Function argument can be of any type.
-    case any
-    
-    /// Function argument must be of only one concrete type.
-    case concrete(ValueType)
-    
-    /// Function argument can be of one of the specified types.
-    case union([ValueType])
-    
-    public static let int = UnionType.concrete(.int)
-    public static let double = UnionType.concrete(.double)
-    public static let bool = UnionType.concrete(.bool)
-    public static let numeric = UnionType.union([.int, .double])
-    public static let objectReference = UnionType.union([.int, .string])
-    
-    /// Function that verifies whether the given type matches the type
-    /// described by this object.
-    ///
-    /// - Returns: `true` if the type matches.
-    ///
-    public func matches(_ type: ValueType) -> Bool {
-        switch self {
-        case .any: true
-        case .concrete(let concrete): type == concrete
-        case .union(let types): types.contains(type)
-        }
-    }
-    
-    public func isConvertible(to other: UnionType) -> Bool {
-        switch (self, other) {
-        case (.any, .any):
-            true
-        case (.any, .concrete(_)):
-            false // need to cast
-        case (.any, .union(_)):
-            false // need to cast
-        case (.concrete(_), .any):
-            true
-        case (.concrete(let lhs), .concrete(let rhs)):
-            lhs.isConvertible(to: rhs)
-        case (.concrete(let lhs), .union(let rhs)):
-            rhs.contains {lhs.isConvertible(to: $0) }
-        case (.union(_), .any):
-            true
-        case (.union(let lhs), .concrete(let rhs)):
-            lhs.contains {$0.isConvertible(to: rhs) }
-        case (.union(let lhs), .union(let rhs)):
-            lhs.contains { ltype in
-                rhs.contains { rtype in
-                    ltype.isConvertible(to: rtype)
-                }
-            }
-        }
-    }
-
-}
-
 /// Object representing a function argument description.
 ///
 public struct FunctionArgument {
@@ -75,7 +15,11 @@ public struct FunctionArgument {
     
     /// Type of the function argument.
     ///
-    public let type: UnionType
+    public let type: VariableType
+    
+    /// Flag whether the argument is a constant.
+    /// 
+    public let isConstant: Bool
     
     /// Create a new function argument.
     ///
@@ -83,9 +27,10 @@ public struct FunctionArgument {
     ///     - name: Name of the argument.
     ///     - type: Argument type. Default is ``ArgumentType/any``.
     ///
-    public init(_ name: String, type: UnionType = .any) {
+    public init(_ name: String, type: VariableType = .any, isConstant: Bool = false) {
         self.name = name
         self.type = type
+        self.isConstant = isConstant
     }
 }
 

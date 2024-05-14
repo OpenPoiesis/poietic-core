@@ -29,67 +29,6 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-public enum ValueType: Equatable, CustomStringConvertible {
-    case atom(AtomType)
-    case array(AtomType)
-    
-    public static let bool    = atom(.bool)
-    public static let int     = atom(.int)
-    public static let double  = atom(.double)
-    public static let string  = atom(.string)
-    public static let point   = atom(.point)
-    
-    public static let bools   = array(.bool)
-    public static let ints    = array(.int)
-    public static let doubles = array(.double)
-    public static let strings = array(.string)
-    public static let points  = array(.point)
-
-    public var isAtom: Bool {
-        switch self {
-        case .atom: true
-        case .array: false
-        }
-    }
-
-    public var isArray: Bool {
-        switch self {
-        case .atom: false
-        case .array: true
-        }
-    }
-    
-    public func isConvertible(to other: ValueType) -> Bool {
-        switch (self, other) {
-        case (.atom(let lhs), .atom(let rhs)):
-            lhs.isConvertible(to: rhs)
-        case (.atom(_), .array(_)):
-            // TODO: Point?
-            false
-        case (.array(_), .atom(_)):
-            // TODO: Point?
-            false
-        case (.array(let lhs), .array(let rhs)):
-            lhs.isConvertible(to: rhs)
-        }
-    }
-    
-    public func isConvertible(to other: UnionType) -> Bool {
-        switch other {
-        case .any: true
-        case .concrete(let otherType): isConvertible(to: otherType)
-        case .union(let types): types.contains { isConvertible(to: $0) }
-        }
-    }
-
-    public var description: String {
-        switch self {
-        case .atom(let value): "\(value)"
-        case .array(let value): "array<\(value)>"
-        }
-    }
-}
-
 
 /// Variant holds a value of different core data types.
 ///
