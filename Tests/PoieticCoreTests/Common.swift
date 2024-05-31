@@ -157,17 +157,15 @@ extension Metamodel {
 }
 
 public let TestMetamodel = Metamodel(
-    name: "Test",
     traits: [
         IntegerTrait,
     ],
-    objectTypes: [
+    types: [
         Metamodel.Unstructured,
         Metamodel.Stock,
         Metamodel.Flow,
         Metamodel.Parameter,
         Metamodel.Arrow,
     ],
-    variables: [],
     constraints: []
 )

@@ -32,7 +32,7 @@ public class MakeshiftDesignStore {
     /// - Returns: Restored ``Design`` object.
     /// - Throws: ``PersistentStoreError``.
     ///
-    public func load(metamodel: Metamodel = EmptyMetamodel) throws -> Design {
+    public func load(metamodel: Metamodel = Metamodel()) throws -> Design {
         let data: Data
         if let providedData = self.data {
             data = providedData
@@ -76,7 +76,7 @@ public class MakeshiftDesignStore {
     /// - Returns: Restored ``Design`` object.
     /// - Throws: ``PersistentStoreError``.
     ///
-    func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel = EmptyMetamodel) throws -> Design {
+    func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws -> Design {
         let design = Design(metamodel: metamodel)
 
         // TODO: Handle different versions here

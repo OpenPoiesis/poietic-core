@@ -218,7 +218,7 @@ public class Design {
     /// - A new empty frame will be created and committed as first frame.
     /// - The history will be initialised with the first empty frame.
     ///
-    public init(metamodel: Metamodel = EmptyMetamodel) {
+    public init(metamodel: Metamodel = Metamodel()) {
         // NOTE: Sync with removeAll()
         self.identityGenerator = IdentityGenerator()
         self._stableFrames = [:]

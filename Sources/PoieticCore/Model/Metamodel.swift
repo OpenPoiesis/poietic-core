@@ -5,8 +5,73 @@
 //  Created by Stefan Urbanek on 07/06/2023.
 //
 
+public struct Metamodel {
+    private var _traits: [String:Trait]
+    private var _types: [String:ObjectType]
+    public private(set) var constraints: [Constraint]
 
-/// Protocol for meta–models – models describing problem domain models.
+    public var traits: [Trait] { Array(_traits.values) }
+    public var types: [ObjectType] { Array(_types.values) }
+
+    
+    public init(traits: [Trait] = [],
+                types: [ObjectType] = [],
+                constraints: [Constraint] = []) {
+        _traits = [:]
+        for trait in traits {
+            _traits[trait.name] = trait
+        }
+        
+        _types = [:]
+        for type in types {
+            _types[type.name] = type
+        }
+        
+        self.constraints = constraints
+        
+    }
+    
+    public init(domains: [Domain]) {
+        self.init()
+        for domain in domains {
+            include(domain)
+        }
+    }
+    
+    public func trait(name: String) -> Trait? {
+        return _traits[name]
+    }
+    
+    public func objectType(name: String) -> ObjectType? {
+        return _types[name]
+    }
+    
+    private mutating func add(trait: Trait) throws {
+        self._traits[trait.name] = trait
+    }
+    private mutating func add(type: ObjectType) throws {
+        self._types[type.name] = type
+    }
+    
+    /// Include a domain in the metamodel.
+    ///
+    /// If the new domain contains traits or types with names that
+    /// already exist in the metamodel, the newly included will replace
+    /// the existing ones.
+    ///
+    public mutating func include(_ domain: Domain) {
+        for trait in domain.traits {
+            self._traits[trait.name] = trait
+        }
+        for type in domain.objectTypes {
+            self._types[type.name] = type
+        }
+        
+    }
+
+}
+
+/// Object describing a design model.
 ///
 /// The metamodel is the ultimate source of truth for the model domain and
 /// should contain all named concepts that can be described declaratively. The
@@ -41,10 +106,8 @@
 ///
 ///  - SeeAlso: ``Design/validate(_:)``, ``Design/accept(_:appendHistory:)``
 ///
-public final class Metamodel {
-    static var _NamedMetamodels: [String:Metamodel] = [:]
-    
-    /// Name of the metamodel.
+public final class Domain {
+    /// Name of the domain.
     ///
     /// The metamodel name is used for persistence.
     ///
@@ -59,10 +122,6 @@ public final class Metamodel {
     /// List of object types allowed in the model.
     ///
     public let objectTypes: [ObjectType]
-    
-    /// List of built-in variables.
-    ///
-    public let variables: [Variable]
     
     /// List of constraints.
     ///
@@ -85,92 +144,48 @@ public final class Metamodel {
     public init(name: String,
                 traits: [Trait] = [],
                 objectTypes: [ObjectType] = [],
-                variables: [Variable] = [],
                 constraints: [Constraint] = []) {
         self.name = name
         self.traits = traits
         self.objectTypes = objectTypes
-        self.variables = variables
         self.constraints = constraints
     }
     
-    /// Register a metamodel with a given name.
-    ///
-    /// Named metamodels are used when restoring a model from a persistent
-    /// store.
-    ///
-    /// - SeeAlso: ``Metamodel/namedMetamodel(_:)``, ``Metamodel/registeredNames()``
-    ///
-    public static func registerMetamodel(_ metamodel: Metamodel) {
-        Metamodel._NamedMetamodels[metamodel.name] = metamodel
-    }
-
-    /// Get a metamodel by name.
-    ///
-    /// Named metamodels are used when restoring a model from a persistent
-    /// store.
-    ///
-    /// - SeeAlso: ``Metamodel/registerMetamodel(_:)``, ``Metamodel/registeredNames()``
-    ///
-    public static func namedMetamodel(_ name: String) -> Metamodel? {
-        return Metamodel._NamedMetamodels[name]
-    }
-
-    /// Get list of names of registered metamodels.
-    ///
-    /// Named metamodels are used when restoring a model from a persistent
-    /// store.
-    ///
-    /// - SeeAlso: ``Metamodel/registerMetamodel(_:)``, ``Metamodel/namedMetamodel(_:)``
-    ///
-    public static func registeredNames() -> [String] {
-        return Array(Metamodel._NamedMetamodels.keys)
-    }
     
     public func objectType(name: String) -> ObjectType? {
         return objectTypes.first { $0.name == name}
     }
-    
-    /// Get a list of built-in variable names.
-    ///
-    /// This list is created from the ``Metamodel/variables`` list for
-    /// convenience.
-    ///
-    public var variableNames: [String] {
-        variables.map { $0.name }
-    }
-
 }
 
-/// A concrete metamodel without any specification.
-///
-/// Used for testing and playground purposes.
-///
-/// Each application is expected to provide their own domain specific metamodel.
-public let EmptyMetamodel = Metamodel(
-    name: "Empty",
-    traits: [],
-    objectTypes: [],
-    variables: [],
-    constraints: []
-)
+extension Domain {
+    /// A concrete metamodel without any specification.
+    ///
+    /// Used for testing and playground purposes.
+    ///
+    /// Each application is expected to provide their own domain specific metamodel.
+    public static let Empty = Domain(
+        name: "Empty",
+        traits: [],
+        objectTypes: [],
+        constraints: []
+    )
 
-/// Metamodel with some basic object types that are typical for multiple
-/// kinds of designs.
-///
-public let BasicMetamodel = Metamodel(
-    name: "Basic",
-    traits: [
-        Trait.Name,
-        Trait.DesignInfo,
-        Trait.Documentation,
-        Trait.AudienceLevel,
-        Trait.Keywords,
-        Trait.BibliographicalReference,
-    ],
-    objectTypes: [
-        ObjectType.DesignInfo,
-    ],
-    variables: [],
-    constraints: []
-)
+    /// Metamodel with some basic object types that are typical for multiple
+    /// kinds of designs.
+    ///
+    public static let Basic = Domain(
+        name: "Basic",
+        traits: [
+            Trait.Name,
+            Trait.DesignInfo,
+            Trait.Documentation,
+            Trait.AudienceLevel,
+            Trait.Keywords,
+            Trait.BibliographicalReference,
+        ],
+        objectTypes: [
+            ObjectType.DesignInfo,
+        ],
+        constraints: []
+    )
+}
