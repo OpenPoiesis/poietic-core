@@ -5,6 +5,101 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
+// FIXME: [WORK] -v- BEGIN -v-
+//public enum NewFrameValidationError {
+//    case constraintViolation(ConstraintViolation)
+//    case typeError()
+//}
+
+
+extension Metamodel {
+    public func validate(object: ObjectSnapshot, trait: Trait) throws {
+        var errors = ErrorCollection<ObjectTypeError>()
+        
+        for attr in trait.attributes {
+            if let value = object[attr.name] {
+
+                // TODO: Enable type checking
+                // For type validation to work correctly we must make sure that
+                // the types are persisted and restored.
+                //
+                if !value.valueType.isConvertible(to: attr.type) {
+                    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
+                    errors.append(error)
+                }
+            }
+            else if attr.optional {
+                continue
+            }
+            else {
+                let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
+                errors.append(error)
+            }
+        }
+        
+        if !errors.isEmpty {
+            throw errors
+        }
+    }
+    public func checkConstraints(_ frame: Frame) throws {
+        var violations: [ConstraintViolation] = []
+        for constraint in constraints {
+            let violators = constraint.check(frame)
+            if violators.isEmpty {
+                continue
+            }
+            let violation = ConstraintViolation(constraint: constraint,
+                                                objects:violators)
+            violations.append(violation)
+        }
+        guard violations.isEmpty else {
+            throw ErrorCollection(violations)
+        }
+    }
+    public func validate(frame: Frame) throws {
+        // Check types
+        // ------------------------------------------------------------
+        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
+        
+        for object in frame.snapshots {
+            guard let type = objectType(name: object.type.name) else {
+                let error = ObjectTypeError.unknownType(object.type.name)
+                typeErrors[object.id, default: []].append(error)
+                continue
+            }
+            
+            for trait in type.traits {
+                do {
+                    try validate(object: object, trait: trait)
+                }
+                catch let error as ErrorCollection<ObjectTypeError> {
+                    typeErrors[object.id, default: []] += error.errors
+                }
+            }
+        }
+
+        // Check constraints
+        // ------------------------------------------------------------
+        let violations: [ConstraintViolation]
+        
+        do {
+            try checkConstraints(frame)
+            violations = []
+        }
+        catch let error as ErrorCollection<ConstraintViolation> {
+            violations = error.errors
+        }
+        
+        guard violations.isEmpty && typeErrors.isEmpty else {
+            throw FrameValidationError(violations: violations,
+                                       typeErrors: typeErrors)
+        }
+    }
+}
+
+
+// FIXME: [WORK] -^- END -^-
+
 /// Error thrown when constraint violations were detected in the graph during
 /// `accept()`.
 ///
@@ -529,6 +624,51 @@ public class Design {
                                        typeErrors: typeErrors)
         }
     }
+    
+    public func validate(object: ObjectSnapshot, trait: Trait) {
+        
+    }
+    
+    // FIXME: [WORK] -v- BEGIN -v-
+    public func validate(frame: Frame, using metamodel: Metamodel? = nil) throws {
+        let metamodel = metamodel ?? self.metamodel
+
+        // Check types
+        // ------------------------------------------------------------
+        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
+        
+        for object in frame.snapshots {
+            guard let type = metamodel.objectType(name: object.type.name) else {
+                let error = ObjectTypeError.unknownType(object.type.name)
+                typeErrors[object.id, default: []].append(error)
+                continue
+            }
+            
+            for trait in type.traits {
+                do {
+                    try object.validateConformance(to: trait)
+                }
+                catch let error as ErrorCollection<ObjectTypeError> {
+                    typeErrors[object.id, default: []] += error.errors
+                }
+                catch {
+                    fatalError("Unexpected error: \(error)")
+                }
+            }
+        }
+
+        // Check constraints
+        // ------------------------------------------------------------
+        let violations = checkConstraints(frame)
+        
+        if !violations.isEmpty || !typeErrors.isEmpty {
+            throw FrameValidationError(violations: violations,
+                                       typeErrors: typeErrors)
+        }
+
+    }
+    
+    // FIXME: [WORK] -^- END -^-
 
     /// Discards the mutable frame that is associated with the design.
     ///
@@ -640,11 +780,14 @@ public class Design {
 
 
 public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
+    case unknownType(String)
     case missingTraitAttribute(Attribute, String)
     case typeMismatch(Attribute, ValueType)
     
     public var description: String {
         switch self {
+        case let .unknownType(name):
+            "Unknown object type: \(name)"
         case let .missingTraitAttribute(attribute, trait):
             "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, actualType):

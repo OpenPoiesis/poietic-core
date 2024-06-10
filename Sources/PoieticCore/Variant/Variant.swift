@@ -38,7 +38,7 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
 ///
 /// - SeeAlso: ``VariantAtom``
 ///
-public enum Variant: Equatable, CustomStringConvertible, Hashable {
+public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     case atom(VariantAtom)
     case array(VariantArray)
 

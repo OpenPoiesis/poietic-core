@@ -9,6 +9,10 @@ public struct ErrorCollection<T: Error>: Error, Collection {
     public typealias Element = T
     public var errors: [T]
 
+    public init(_ errors: [T]) {
+        self.errors = errors
+    }
+    
     public func index(after i: Int) -> Int {
         return errors.index(after: i)
     }

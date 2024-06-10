@@ -103,7 +103,7 @@ public class Trait {
 ///         object type. In other words, there must not be two components with
 ///         the same attribute in an object type.
 ///
-public class Attribute: CustomStringConvertible {
+public class Attribute: CustomStringConvertible, Sendable {
     /// Attribute name – an identifier.
     ///
     public let name: String

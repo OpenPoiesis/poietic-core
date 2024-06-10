@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 14/05/2024.
 //
 
-public enum ValueType: Equatable, CustomStringConvertible {
+public enum ValueType: Equatable, CustomStringConvertible, Sendable {
     case atom(AtomType)
     case array(AtomType)
     
@@ -70,7 +70,7 @@ public enum ValueType: Equatable, CustomStringConvertible {
 
 /// Type of a function argument.
 ///
-public enum VariableType: Equatable {
+public enum VariableType: Equatable, Sendable {
     /// Function argument can be of any type.
     case any
     

@@ -7,7 +7,7 @@
 
 /// ValueType specifies a data type of a value that is used in interfaces.
 ///
-public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
+public enum AtomType: String, Equatable, Codable, CustomStringConvertible, Sendable {
     case bool = "bool"
     case int = "int"
     case double = "double"
@@ -79,7 +79,7 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible {
 ///
 /// - SeeAlso: ``Variant``
 ///
-public enum VariantAtom: Equatable, CustomStringConvertible, Hashable {
+public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// Representation of an integer.
     case int(Int)
 
