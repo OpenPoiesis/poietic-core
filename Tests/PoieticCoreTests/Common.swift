@@ -45,9 +45,7 @@ let TestTraitWithDefault = Trait(
 )
 
 
-struct TestComponent: InspectableComponent {
-    static let trait = TestTrait
-    
+struct TestComponent:Component {
     init(text: String) {
         self.text = text
     }
@@ -83,9 +81,7 @@ let IntegerTrait = Trait(
     ]
 )
 
-struct IntegerComponent: InspectableComponent, Equatable {
-    static var trait = IntegerTrait
-
+struct IntegerComponent: Component, Equatable {
     var value: Int
     
     init() {

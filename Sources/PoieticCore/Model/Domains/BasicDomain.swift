@@ -78,7 +78,7 @@ extension Trait {
     /// Attributes:
     /// - `note` (string) – note text
     ///
-    public static var Note = Trait(
+    public static let Note = Trait(
         name: "Note",
         attributes: [
             Attribute("note",
@@ -106,7 +106,7 @@ extension Trait {
     ///
     ///
     ///
-    public static var DesignInfo = Trait(
+    public static let DesignInfo = Trait(
         name: "DesignInfo",
         attributes: [
             Attribute("title", type: .string, optional: true,
@@ -118,7 +118,7 @@ extension Trait {
         ]
     )
     
-    public static var BibliographicalReference = Trait(
+    public static let BibliographicalReference = Trait(
         name: "BibliographicalReference",
         attributes: [
             Attribute("bibliography_type", type: .string, optional: true,

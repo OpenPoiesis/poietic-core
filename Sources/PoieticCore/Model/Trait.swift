@@ -21,7 +21,7 @@
 ///
 /// - SeeAlso: ``Component``
 ///
-public class Trait {
+public final class Trait: Sendable {
     /// Name of the component.
     ///
     /// The component name is used in reflection and when a component is being
@@ -50,9 +50,6 @@ public class Trait {
     ///     ``ObjectSnapshot/setAttribute(value:forKey:)``
     ///
     public let attributes: [Attribute]
-    
-    /// Get a list of attribute keys.
-    public lazy var attributeKeys: [String] = attributes.map { $0.name }
     
     /// Human-readable short description of the component.
     ///
@@ -103,7 +100,7 @@ public class Trait {
 ///         object type. In other words, there must not be two components with
 ///         the same attribute in an object type.
 ///
-public class Attribute: CustomStringConvertible, Sendable {
+public final class Attribute: CustomStringConvertible, Sendable {
     /// Attribute name – an identifier.
     ///
     public let name: String

@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 16/06/2022.
 //
 
-public class UniqueNeighbourRequirement: ConstraintRequirement {
+public final class UniqueNeighbourRequirement: ConstraintRequirement {
     public let selector: NeighborhoodSelector
     public let isRequired: Bool
     

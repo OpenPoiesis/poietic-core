@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``bindExpression(_:variables:functions:)``
 ///
-public let BuiltinComparisonOperators: [Function] = [
+nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
     .Comparison("__eq__") { (lhs, rhs) in
         return lhs == rhs
     },
@@ -50,7 +50,7 @@ public let BuiltinComparisonOperators: [Function] = [
 /// - ``or(...)`` as logical OR
 /// - ``and(...)`` as logical AND
 /// 
-public let BuiltinFunctions: [Function] = BuiltinComparisonOperators + [
+nonisolated(unsafe)  public let BuiltinFunctions: [Function] = BuiltinComparisonOperators + [
     Function(name: "if",
              signature: Signature(
                 [

@@ -77,12 +77,6 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
 }
 
-extension InspectableComponent {
-    public var attributeKeys: [String] {
-        Self.trait.attributeKeys
-    }
-}
-
 /// Collection of components of an object.
 ///
 /// - Note: This is a naive implementation. Purpose is rather semantic,

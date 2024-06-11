@@ -12,7 +12,7 @@
 ///
 ///  - SeeAlso: ``Design/validate(_:)``, ``Design/accept(_:appendHistory:)``
 ///
-public final class Domain {
+public final class Domain: Sendable {
     /// Name of the domain.
     ///
     /// The metamodel name is used for persistence.

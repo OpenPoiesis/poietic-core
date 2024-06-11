@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 30/06/2022.
 //
 
-public enum ExpressionTokenType: Equatable, TokenTypeProtocol {
+public enum ExpressionTokenType: Equatable, TokenTypeProtocol, Sendable {
     public typealias TokenError = ExpressionSyntaxError
     
     // Expression tokens
@@ -21,7 +21,7 @@ public enum ExpressionTokenType: Equatable, TokenTypeProtocol {
     case empty
     case error(ExpressionSyntaxError)
     
-    public static var unexpectedCharacterError = ExpressionTokenType.error(.unexpectedCharacter)
+    public static let unexpectedCharacterError = ExpressionTokenType.error(.unexpectedCharacter)
 }
 
 public typealias ExpressionToken = Token<ExpressionTokenType>

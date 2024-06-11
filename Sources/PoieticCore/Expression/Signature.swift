@@ -8,7 +8,7 @@
 
 /// Object representing a function argument description.
 ///
-public struct FunctionArgument {
+public struct FunctionArgument: Sendable {
     /// Name of the function argument.
     ///
     public let name: String
@@ -61,7 +61,7 @@ public struct FunctionArgument {
 /// )
 /// ```
 ///
-public class Signature: CustomStringConvertible {
+public final class Signature: CustomStringConvertible, Sendable {
     /// List of positional arguments.
     ///
     /// Positional arguments are the arguments at the beginning of the argument
@@ -88,7 +88,7 @@ public class Signature: CustomStringConvertible {
     ///
     public var isVariadic: Bool { variadic != nil }
    
-    public var returnType: ValueType
+    public let returnType: ValueType
     
     /// Convenience signature representing a numeric function with one argument.
     ///

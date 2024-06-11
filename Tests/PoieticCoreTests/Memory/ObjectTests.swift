@@ -8,14 +8,7 @@
 import XCTest
 @testable import PoieticCore
 
-fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
-    static var trait = Trait(
-        name: "CustomName",
-        attributes: [
-            Attribute("name", type: .string)
-        ]
-    )
-
+fileprivate struct CustomNameComponent: Equatable {
     var name: String
     
     init() { self.name = "unnamed" }
@@ -34,14 +27,7 @@ fileprivate struct CustomNameComponent: InspectableComponent, Equatable {
     }
 }
 
-fileprivate struct NonStringNameComponent: InspectableComponent, Equatable {
-    static var trait = Trait(
-        name: "NonStringName",
-        attributes: [
-            Attribute("name", type: .int)
-        ]
-    )
-
+fileprivate struct NonStringNameComponent: Equatable {
     var name: Int
     
     init() { self.name = 0 }

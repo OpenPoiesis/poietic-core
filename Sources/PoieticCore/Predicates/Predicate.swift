@@ -5,14 +5,14 @@
 //  Created by Stefan Urbanek on 13/06/2022.
 //
 
-public enum LogicalConnective {
+public enum LogicalConnective: Sendable {
     case and
     case or
 }
 
 /// A predicate.
 ///
-public protocol Predicate {
+public protocol Predicate: Sendable {
     func match(frame: Frame, object: ObjectSnapshot) -> Bool
     func and(_ predicate: Predicate) -> CompoundPredicate
     func or(_ predicate: Predicate) -> CompoundPredicate
@@ -33,7 +33,7 @@ extension Predicate {
 
 // TODO: Add &&, || and ! operators
 
-public class CompoundPredicate: Predicate {
+public final class CompoundPredicate: Predicate {
     public let connective: LogicalConnective
     public let predicates: [Predicate]
     
@@ -50,7 +50,7 @@ public class CompoundPredicate: Predicate {
     }
 }
 
-public class NegationPredicate: Predicate {
+public final class NegationPredicate: Predicate {
     public let predicate: Predicate
     public init(_ predicate: any Predicate) {
         self.predicate = predicate
@@ -61,7 +61,7 @@ public class NegationPredicate: Predicate {
 }
 /// Predicate that matches any object.
 ///
-public class AnyPredicate: Predicate {
+public final class AnyPredicate: Predicate {
     public init() {}
     
     /// Matches any node – always returns `true`.
@@ -71,7 +71,7 @@ public class AnyPredicate: Predicate {
     }
 }
 
-public class HasComponentPredicate: Predicate {
+public final class HasComponentPredicate: Predicate {
     let type: Component.Type
     
     public init(_ type: Component.Type) {
@@ -84,7 +84,7 @@ public class HasComponentPredicate: Predicate {
     
 }
 
-public class HasTraitPredicate: Predicate {
+public final class HasTraitPredicate: Predicate {
     let trait: Trait
     
     public init(_ trait: Trait) {
@@ -98,7 +98,7 @@ public class HasTraitPredicate: Predicate {
 }
 
 
-public class IsTypePredicate: Predicate {
+public final class IsTypePredicate: Predicate {
     let types: [ObjectType]
     
     public init(_ types: [ObjectType]) {
@@ -114,13 +114,3 @@ public class IsTypePredicate: Predicate {
     }
 }
 
-public class FunctionPredicate: Predicate {
-    let block: (ObjectSnapshot) -> Bool
-    
-    public init(_ block: @escaping (ObjectSnapshot) -> Bool) {
-        self.block = block
-    }
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
-        block(object)
-    }
-}

@@ -8,7 +8,7 @@
 /// Designation of which direction of an edge from a node projection perspective
 /// is to be considered.
 ///
-public enum EdgeDirection {
+public enum EdgeDirection: Sendable {
     /// Direction that considers edges where the node projection is the target.
     case incoming
     /// Direction that considers edges where the node projection is the origin.
@@ -26,7 +26,7 @@ public enum EdgeDirection {
 }
 
 // TODO: Do we still need this? Can't we just have predicate + direction in the hood?
-public class NeighborhoodSelector {
+public final class NeighborhoodSelector: Sendable {
     public let direction: EdgeDirection
     public let predicate: Predicate
     

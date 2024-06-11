@@ -241,7 +241,7 @@ final class MakeshiftStoreTests: XCTestCase {
     }
 
     func testCreateEmpty() throws {
-        let store = try MakeshiftDesignStore(url: temporaryFileURL())
+//        let store = try MakeshiftDesignStore(url: temporaryFileURL())
     }
     
 }

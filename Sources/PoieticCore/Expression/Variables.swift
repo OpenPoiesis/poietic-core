@@ -19,7 +19,7 @@
 /// domain model. Therefore instances of built-in variables can be compared
 /// with identity comparison operator (`===`).
 ///
-public class Variable: Hashable {
+public final class Variable: Hashable, Sendable {
     /// Name of the variable.
     ///
     /// The name of the variable is used in arithmetic expressions to refer

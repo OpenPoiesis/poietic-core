@@ -7,14 +7,6 @@
 
 /// Protocol
 public protocol MutableGraph: Graph {
-    /// Convenience method to create a node without a name and without any
-    /// components.
-    ///
-    /// - SeeAlso: ``createNode(_:name:attributes:components:)``
-    ///
-    @discardableResult
-    func createNode(_ type: ObjectType) -> ObjectID
-    
     // Object creation
     @discardableResult
     func createNode(_ type: ObjectType,

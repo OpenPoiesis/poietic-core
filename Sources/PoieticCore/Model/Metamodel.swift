@@ -12,11 +12,15 @@
 /// metamodel. The design must comply with all constraints in the
 /// metamodel.
 ///
-public class Metamodel {
+public final class Metamodel: Sendable {
+    @MainActor
     private static var _registeredDomainsByName: [String:Domain] = [:]
     // Derived from the above
+    @MainActor
     private static var _registeredTraitsByName: [String:Trait] = [:]
+    @MainActor
     private static var _registeredTypesByName: [String:ObjectType] = [:]
+    @MainActor
     private static var _registeredConstraints: [String:Constraint] = [:]
     
     /// Registers a domain.
@@ -31,6 +35,7 @@ public class Metamodel {
     /// If you call ``registerDomain(_:)`` multiple times for the same domain,
     /// the additional calls after the first will be ignored.
     ///
+    @MainActor
     public static func registerDomain(_ domain: Domain) {
         guard Self._registeredDomainsByName[domain.name] == nil else {
             return
@@ -59,25 +64,28 @@ public class Metamodel {
     
     /// Get a registered domain by its name.
     ///
+    @MainActor
     public static func registeredDomain(_ name: String) -> Domain? {
         return Self._registeredDomainsByName[name]
     }
 
     /// Get a registered trait by its name.
     ///
+    @MainActor
     public static func registeredTrait(_ name: String) -> Trait? {
         return Self._registeredTraitsByName[name]
     }
 
     /// Get a registered object type by its name.
     ///
+    @MainActor
     public static func registeredType(_ name: String) -> ObjectType? {
         return Self._registeredTypesByName[name]
     }
 
-    private var _traits: [String:Trait]
-    private var _types: [String:ObjectType]
-    public private(set) var constraints: [Constraint]
+    private let _traits: [String:Trait]
+    private let _types: [String:ObjectType]
+    public let constraints: [Constraint]
 
     public var traits: [Trait] { Array(_traits.values) }
     public var types: [ObjectType] { Array(_types.values) }
@@ -85,35 +93,44 @@ public class Metamodel {
     public init(traits: [Trait] = [],
                  types: [ObjectType] = [],
                  constraints: [Constraint] = []) {
-        _traits = [:]
+        var _traits: [String:Trait] = [:]
+        var _types: [String:ObjectType] = [:]
+
         for trait in traits {
             _traits[trait.name] = trait
         }
+        self._traits = _traits
         
-        _types = [:]
         for type in types {
             _types[type.name] = type
         }
+        self._types = _types
         
         self.constraints = constraints
         
     }
     
     public init(domains: [Domain] = []) {
-        _traits = [:]
-        _types = [:]
-        constraints = []
+        var traits: [String:Trait] = [:]
+        var types: [String:ObjectType] = [:]
+        var constraints: [Constraint] = []
+        
         for domain in domains {
             for trait in domain.traits {
-                self._traits[trait.name] = trait
+                traits[trait.name] = trait
             }
+
             for type in domain.objectTypes {
-                self._types[type.name] = type
+                types[type.name] = type
             }
+            
             for constraint in domain.constraints {
-                self.constraints.append(constraint)
+                constraints.append(constraint)
             }
         }
+        self._traits = traits
+        self._types = types
+        self.constraints = constraints
     }
     
     public func trait(name: String) -> Trait? {

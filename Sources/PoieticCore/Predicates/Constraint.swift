@@ -18,7 +18,7 @@ public struct ConstraintViolation: Error {
 
 /// An object representing constraint that checks edges.
 ///
-public class Constraint {
+public final class Constraint: Sendable {
     /// Identifier of the constraint.
     ///
     /// - Important: It is highly recommended that the constraint names are
@@ -81,13 +81,13 @@ public class Constraint {
 
 /// Definition of a constraint satisfaction requirement.
 ///
-public protocol ConstraintRequirement {
+public protocol ConstraintRequirement: Sendable {
     /// - Returns: List of IDs of objects that do not satisfy the requirement.
     func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID]
 }
 
 /// Requirement that all matched objects satisfy a given predicate.
-public class AllSatisfy: ConstraintRequirement {
+public final class AllSatisfy: ConstraintRequirement {
     /// Predicate to be satisfied by the requirement.
     public let predicate: Predicate
     
@@ -108,7 +108,7 @@ public class AllSatisfy: ConstraintRequirement {
 /// that are prohibited. If the constraint requirement is used, then it
 /// matches all objects defined by constraint predicate and rejects them all.
 ///
-public class RejectAll: ConstraintRequirement {
+public final class RejectAll: ConstraintRequirement {
     /// Creates an object constraint requirement that rejects all objects.
     ///
     public init() {
@@ -127,7 +127,7 @@ public class RejectAll: ConstraintRequirement {
 /// that are required. If the constraint requirement is used, then it
 /// matches all objects defined by constraint predicate and accepts them all.
 ///
-public class AcceptAll: ConstraintRequirement {
+public final class AcceptAll: ConstraintRequirement {
     /// Creates an object constraint requirement that accepts all objects.
     ///
     public init() {
@@ -145,10 +145,10 @@ public class AcceptAll: ConstraintRequirement {
 /// A constraint requirement that a specified property of the objects must
 /// be unique within the checked group of checked objects.
 ///
-public class UniqueProperty: ConstraintRequirement {
+public final class UniqueProperty: ConstraintRequirement {
     
     /// Property name to be checked for uniqueness.
-    public var name: String
+    public let name: String
     
     /// Creates a unique property constraint requirement with a function
     /// that extracts a property from a graph object.

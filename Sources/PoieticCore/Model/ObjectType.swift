@@ -10,7 +10,7 @@
 /// ObjectType describes instances of an object – what are their components,
 /// what are their structural types.
 ///
-public class ObjectType {
+public final class ObjectType: Sendable {
     /// Name of the object type.
     public let name: String
     
@@ -48,7 +48,7 @@ public class ObjectType {
     ///
     public let attributes: [Attribute]
     
-    public lazy var attributeKeys: [AttributeKey]  = { attributes.map { $0.name } }()
+    public var attributeKeys: [AttributeKey] { attributes.map { $0.name } }
 
     /// Create a new object type.
     ///

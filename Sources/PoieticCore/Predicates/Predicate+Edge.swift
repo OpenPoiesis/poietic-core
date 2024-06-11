@@ -12,7 +12,7 @@
 /// Only objects with structural type ``StructuralComponent/edge(_:_:)`` will
 /// be matched by this predicate.
 ///
-public class EdgePredicate: Predicate {
+public final class EdgePredicate: Predicate {
     let edgePredicate: Predicate?
     let originPredicate: Predicate?
     let targetPredicate: Predicate?
