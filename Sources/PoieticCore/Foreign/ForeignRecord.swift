@@ -18,14 +18,13 @@ public enum ForeignRecordError: Error {
     ///
     case unknownKey(String)
     
-    // TODO: Use ValueError instead
     /// Error caused when trying to convert a foreign value to a type
     /// that the value can not be converted. For example, trying to get
     /// an integer value from a foreign string value `"moon"`.
     ///
     /// - SeeAlso: ``ForeignValue``, ``ForeignAtom``.
     ///
-    case typeMismatch(String, String)
+    case valueError(String, ValueError)
 }
 
 struct ForeignCodingKey: CodingKey, CustomStringConvertible {
@@ -110,9 +109,9 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func boolValue(for key: String) throws -> Bool {
+    public func boolValue(for key: String) throws (ForeignRecordError) -> Bool {
         guard let value = try boolValueIfPresent(for: key) else {
-            throw ForeignRecordError.unknownKey(key)
+            throw .unknownKey(key)
         }
         return value
     }
@@ -121,9 +120,9 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func intValue(for key: String) throws -> Int {
+    public func intValue(for key: String) throws (ForeignRecordError) -> Int {
         guard let value = try intValueIfPresent(for: key) else {
-            throw ForeignRecordError.unknownKey(key)
+            throw .unknownKey(key)
         }
         return value
     }
@@ -132,9 +131,9 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func doubleValue(for key: String) throws -> Double {
+    public func doubleValue(for key: String) throws (ForeignRecordError) -> Double {
         guard let value = try doubleValueIfPresent(for: key) else {
-            throw ForeignRecordError.unknownKey(key)
+            throw .unknownKey(key)
         }
         return value
     }
@@ -143,9 +142,9 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func stringValue(for key: String) throws -> String {
+    public func stringValue(for key: String) throws (ForeignRecordError) -> String {
         guard let value = try stringValueIfPresent(for: key) else {
-            throw ForeignRecordError.unknownKey(key)
+            throw .unknownKey(key)
         }
         return value
     }
@@ -154,9 +153,9 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func IDValue(for key: String) throws -> UInt64 {
+    public func IDValue(for key: String) throws (ForeignRecordError) -> UInt64 {
         guard let value = try IDValueIfPresent(for: key) else {
-            throw ForeignRecordError.unknownKey(key)
+            throw .unknownKey(key)
         }
         return value
     }
@@ -167,12 +166,16 @@ public struct ForeignRecord {
     /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
     ///   can not be converted to bool.
     ///
-    public func boolValueIfPresent(for key: String) throws -> Bool? {
+    public func boolValueIfPresent(for key: String) throws (ForeignRecordError) -> Bool? {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let value = try existingValue.boolValue()
-        return value
+        do {
+            return try existingValue.boolValue()
+        }
+        catch {
+            throw .valueError(key, error)
+        }
     }
     
 
@@ -182,12 +185,16 @@ public struct ForeignRecord {
     /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
     ///   can not be converted to integer.
     ///
-    public func intValueIfPresent(for key: String) throws -> Int? {
+    public func intValueIfPresent(for key: String) throws (ForeignRecordError) -> Int? {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let value = try existingValue.intValue()
-        return value
+        do {
+            return try existingValue.intValue()
+        }
+        catch {
+            throw .valueError(key, error)
+        }
     }
     
     /// Try to get a double value from the foreign value, if the record
@@ -196,12 +203,16 @@ public struct ForeignRecord {
     /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
     ///   can not be converted to double.
     ///
-    public func doubleValueIfPresent(for key: String) throws -> Double? {
+    public func doubleValueIfPresent(for key: String) throws (ForeignRecordError) -> Double? {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let value = try existingValue.doubleValue()
-        return value
+        do {
+            return try existingValue.doubleValue()
+        }
+        catch {
+            throw .valueError(key, error)
+        }
     }
     
     /// Try to get a string value from the foreign value, if the record
@@ -210,12 +221,16 @@ public struct ForeignRecord {
     /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
     ///   can not be converted to string (like an array).
     ///
-    public func stringValueIfPresent(for key: String) throws -> String? {
+    public func stringValueIfPresent(for key: String) throws (ForeignRecordError) -> String? {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let value = try existingValue.stringValue()
-        return value
+        do {
+            return try existingValue.stringValue()
+        }
+        catch {
+            throw .valueError(key, error)
+        }
     }
     
     /// Try to get an object ID value from the foreign value, if the record
@@ -224,16 +239,23 @@ public struct ForeignRecord {
     /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
     ///   can not be converted to ID.
     ///
-    public func IDValueIfPresent(for key: String) throws -> UInt64? {
+    public func IDValueIfPresent(for key: String) throws (ForeignRecordError) -> UInt64? {
         guard let existingValue = dict[key] else {
             return nil
         }
-        let stringValue = try existingValue.stringValue()
+        let stringValue: String
+        do {
+            stringValue = try existingValue.stringValue()
+        }
+        catch {
+            throw .valueError(key, error)
+        }
+
         if let value = ObjectID(stringValue) {
             return value
         }
         else {
-            throw ValueError.conversionToIDFailed(.string)
+            throw .valueError(key, .conversionToIDFailed(.string))
         }
     }
 }
@@ -263,3 +285,4 @@ extension ForeignRecord: Sequence {
         return self.dict.makeIterator()
     }
 }
+

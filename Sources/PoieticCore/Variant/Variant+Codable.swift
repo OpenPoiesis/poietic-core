@@ -10,6 +10,7 @@ import Foundation
 public enum VariantCodingError: Error {
     case invalidValueTypeCode(String)
     case invalidPointValue
+    case invalidVariantValue
 }
 
 extension ValueType: Codable {
@@ -61,58 +62,103 @@ extension ValueType: Codable {
 
 
 extension Variant: Codable {
+    public static let CoalescedCodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CoalescedCodingTypeKey")!
+
     // Use default implementation.
     // NOTE: Do not use Codable for anything public (import/export).
     // NOTE: For JSON that is to be exported/imported use custom JSON methods.
     public init(from decoder: any Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        let type = try container.decode(ValueType.self)
-        switch type {
-        // Atoms
-        case .atom(.bool):
-            let value = try container.decode(Bool.self)
-            self = .atom(.bool(value))
-        case .atom(.int):
-            let value = try container.decode(Int.self)
-            self = .atom(.int(value))
-        case .atom(.string):
-            let value = try container.decode(String.self)
-            self = .atom(.string(value))
-        case .atom(.double):
-            let value = try container.decode(Double.self)
-            self = .atom(.double(value))
-        case .atom(.point):
-            let value = try container.decode([Double].self)
-            guard value.count == 2 else {
-                throw VariantCodingError.invalidPointValue
+        if decoder.userInfo[Self.CoalescedCodingTypeKey] as? Bool == true {
+            let container = try decoder.singleValueContainer()
+            
+            if let value = try? container.decode(Int.self) {
+                self = .atom(.int(value))
             }
-            let point = Point(value[0], value[1])
-            self = .atom(.point(point))
-        // Arrays
-        case .array(.bool):
-            let value = try container.decode([Bool].self)
-            self = .array(.bool(value))
-        case .array(.int):
-            let value = try container.decode([Int].self)
-            self = .array(.int(value))
-        case .array(.string):
-            let value = try container.decode([String].self)
-            self = .array(.string(value))
-        case .array(.double):
-            let value = try container.decode([Double].self)
-            self = .array(.double(value))
-        case .array(.point):
-            let value = try container.decode([[Double]].self)
-            let points = try value.map { item in
-                guard item.count == 2 else {
+            else if let value = try? container.decode(Double.self) {
+                self = .atom(.double(value))
+            }
+            else if let value = try? container.decode(String.self) {
+                self = .atom(.string(value))
+            }
+            else if let value = try? container.decode(Bool.self) {
+                self = .atom(.bool(value))
+            }
+            else if let value = try? container.decode([Int].self) {
+                self = .array(.int(value))
+            }
+            else if let value = try? container.decode([Double].self) {
+                self = .array(.double(value))
+            }
+            else if let value = try? container.decode([String].self) {
+                self = .array(.string(value))
+            }
+            else if let value = try? container.decode([Bool].self) {
+                self = .array(.bool(value))
+            }
+            else if let items = try? container.decode([[Double]].self) {
+                var points: [Point] = []
+                for item in items {
+                    guard item.count == 2 else {
+                        throw VariantCodingError.invalidPointValue
+                    }
+                    let point = Point(x: item[0], y: item[1])
+                    points.append(point)
+                }
+                self = .array(.point(points))
+            }
+            else {
+                throw VariantCodingError.invalidVariantValue
+            }
+        }
+        else {
+            var container = try decoder.unkeyedContainer()
+            let type = try container.decode(ValueType.self)
+            switch type {
+                // Atoms
+            case .atom(.bool):
+                let value = try container.decode(Bool.self)
+                self = .atom(.bool(value))
+            case .atom(.int):
+                let value = try container.decode(Int.self)
+                self = .atom(.int(value))
+            case .atom(.string):
+                let value = try container.decode(String.self)
+                self = .atom(.string(value))
+            case .atom(.double):
+                let value = try container.decode(Double.self)
+                self = .atom(.double(value))
+            case .atom(.point):
+                let value = try container.decode([Double].self)
+                guard value.count == 2 else {
                     throw VariantCodingError.invalidPointValue
                 }
-                return Point(item[0], item[1])
+                let point = Point(value[0], value[1])
+                self = .atom(.point(point))
+                // Arrays
+            case .array(.bool):
+                let value = try container.decode([Bool].self)
+                self = .array(.bool(value))
+            case .array(.int):
+                let value = try container.decode([Int].self)
+                self = .array(.int(value))
+            case .array(.string):
+                let value = try container.decode([String].self)
+                self = .array(.string(value))
+            case .array(.double):
+                let value = try container.decode([Double].self)
+                self = .array(.double(value))
+            case .array(.point):
+                let value = try container.decode([[Double]].self)
+                let points = try value.map { item in
+                    guard item.count == 2 else {
+                        throw VariantCodingError.invalidPointValue
+                    }
+                    return Point(item[0], item[1])
+                }
+                self = .array(.point(points))
             }
-            self = .array(.point(points))
         }
     }
-    public static let CoalescedCodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CoalescedCodingTypeKey")!
 
     /// Encode the Variant into the encoder.
     ///

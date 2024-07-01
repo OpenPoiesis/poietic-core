@@ -38,12 +38,12 @@ public enum JSONValue: Equatable, Codable {
         }
     }
    
-    public init(string: String) throws {
+    public init(string: String) throws (JSONError) {
         let data = Data(string.utf8)
         try self.init(data: data)
     }
     
-    public init(data: Data) throws {
+    public init(data: Data) throws (JSONError) {
         let decoder = JSONDecoder()
         do {
             self = try decoder.decode(JSONValue.self, from: data)
@@ -132,6 +132,7 @@ public enum JSONValue: Equatable, Codable {
         }
     }
 
+    @available(*, deprecated, message: "TODO: This should throw")
     public func asDictionary() -> [String:JSONValue]? {
         switch self {
         case let.object(dict):
@@ -140,7 +141,15 @@ public enum JSONValue: Equatable, Codable {
             return nil
         }
     }
-    
+    public func _asDictionary(context: String? = nil) throws (JSONError) -> [String:JSONValue] {
+        switch self {
+        case let.object(dict):
+            return dict
+        default:
+            throw JSONError.typeMismatch(.object, context)
+        }
+    }
+    @available(*, deprecated, message: "TODO: This should throw")
     public func asArray() -> Array<JSONValue>? {
         switch self {
         case let.array(items):
@@ -149,9 +158,17 @@ public enum JSONValue: Equatable, Codable {
             return nil
         }
     }
+    public func _asArray(context: String?=nil) throws (JSONError) -> Array<JSONValue> {
+        switch self {
+        case let.array(items):
+            return items
+        default:
+            throw JSONError.typeMismatch(.array, context)
+        }
+    }
 
     @inlinable
-    public func asString() throws -> String {
+    public func asString() throws (JSONError) -> String {
         if case let .string(value) = self {
             return value
         }
@@ -161,7 +178,7 @@ public enum JSONValue: Equatable, Codable {
     }
     
     @inlinable
-    public func asInt() throws -> Int {
+    public func asInt() throws (JSONError) -> Int {
         if case let .int(value) = self {
             return value
         }
@@ -171,7 +188,7 @@ public enum JSONValue: Equatable, Codable {
     }
 
     @inlinable
-    public func asBool() throws -> Bool {
+    public func asBool() throws (JSONError) -> Bool {
         if case let .bool(value) = self {
             return value
         }
@@ -181,7 +198,7 @@ public enum JSONValue: Equatable, Codable {
     }
 
     @inlinable
-    public func asDouble() throws -> Double {
+    public func asDouble() throws (JSONError) -> Double {
         if case let .double(value) = self {
             return value
         }
@@ -196,12 +213,12 @@ public typealias JSONDictionary = [String:JSONValue]
 
 extension JSONDictionary {
     @inlinable
-    public func valueIfPresent(forKey key: String ) throws -> JSONValue? {
+    public func valueIfPresent(forKey key: String ) throws (JSONError) -> JSONValue? {
         self[key]
     }
     
     @inlinable
-    public func value(forKey key: String ) throws -> JSONValue {
+    public func value(forKey key: String ) throws (JSONError) -> JSONValue {
         if let value = self[key] {
             value
         }
@@ -210,7 +227,7 @@ extension JSONDictionary {
         }
     }
 
-    public func stringIfPresent(forKey key: String ) throws -> String? {
+    public func stringIfPresent(forKey key: String ) throws (JSONError) -> String? {
         guard let jsonValue = self[key] else {
             return nil
         }
@@ -222,7 +239,7 @@ extension JSONDictionary {
         }
     }
     
-    public func string(forKey key: String ) throws -> String {
+    public func string(forKey key: String ) throws (JSONError) -> String {
         if let value = try stringIfPresent(forKey: key) {
             value
         }
@@ -231,7 +248,7 @@ extension JSONDictionary {
         }
     }
 
-    public func boolIfPresent(forKey key: String) throws -> Bool? {
+    public func boolIfPresent(forKey key: String) throws (JSONError) -> Bool? {
         guard let jsonValue = self[key] else {
             return nil
         }
@@ -242,7 +259,7 @@ extension JSONDictionary {
             throw JSONError.typeMismatch(.bool, key)
         }
     }
-    public func bool(forKey key: String ) throws -> Bool {
+    public func bool(forKey key: String ) throws (JSONError) -> Bool {
         if let value = try boolIfPresent(forKey: key) {
             value
         }
@@ -251,7 +268,7 @@ extension JSONDictionary {
         }
     }
 
-    public func intIfPresent(forKey key: String) throws -> Int? {
+    public func intIfPresent(forKey key: String) throws (JSONError) -> Int? {
         guard let jsonValue = self[key] else {
             return nil
         }
@@ -262,7 +279,7 @@ extension JSONDictionary {
             throw JSONError.typeMismatch(.int, key)
         }
     }
-    public func int(forKey key: String ) throws -> Int {
+    public func int(forKey key: String ) throws (JSONError) -> Int {
         if let value = try intIfPresent(forKey: key) {
             value
         }
@@ -270,7 +287,7 @@ extension JSONDictionary {
             throw JSONError.propertyNotFound(key)
         }
     }
-    public func doubleIfPresent(forKey key: String) throws -> Double? {
+    public func doubleIfPresent(forKey key: String) throws (JSONError) -> Double? {
         guard let jsonValue = self[key] else {
             return nil
         }
@@ -281,7 +298,7 @@ extension JSONDictionary {
             throw JSONError.typeMismatch(.double, key)
         }
     }
-    public func double(forKey key: String ) throws -> Double {
+    public func double(forKey key: String ) throws (JSONError) -> Double {
         if let value = try doubleIfPresent(forKey: key) {
             value
         }
@@ -290,7 +307,7 @@ extension JSONDictionary {
         }
     }
     
-    public func arrayIfPresent(forKey key: String) throws -> [JSONValue]? {
+    public func arrayIfPresent(forKey key: String) throws (JSONError) -> [JSONValue]? {
         guard let jsonValue = self[key] else {
             return nil
         }
@@ -301,7 +318,7 @@ extension JSONDictionary {
             throw JSONError.typeMismatch(.array, key)
         }
     }
-    public func array(forKey key: String ) throws -> [JSONValue] {
+    public func array(forKey key: String ) throws (JSONError) -> [JSONValue] {
         if let value = try arrayIfPresent(forKey: key) {
             value
         }
@@ -334,3 +351,4 @@ public enum JSONError: Error, Equatable, CustomStringConvertible {
         }
     }
 }
+

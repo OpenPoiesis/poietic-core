@@ -8,34 +8,6 @@
 import XCTest
 @testable import PoieticCore
 
-class TestPersistentRecord: XCTestCase {
-    // TODO: This seems to be testing some obsolete functionality or a functionality that has been moved
-    var design: Design!
-
-    override func setUp() {
-        self.design = Design(metamodel: TestMetamodel.self)
-    }
-
-    func testFromRecord() throws {
-        let info = ForeignRecord([
-            "type": Variant("Stock"),
-            "id": Variant(10),
-            "snapshot_id": Variant(20),
-        ])
-
-        let record = ForeignObject(info: info, attributes: ForeignRecord())
-        
-        let obj: ObjectSnapshot = try design.createSnapshot(record)
-        
-        XCTAssertEqual(obj.id, 10)
-        XCTAssertEqual(obj.snapshotID, 20)
-        XCTAssertEqual(obj.structure, .node)
-        XCTAssertIdentical(obj.type, Metamodel.Stock)
-        
-        XCTAssertNotNil(design.allSnapshots.first(where: {$0.snapshotID == obj.snapshotID}))
-    }
-}
-
 final class JSONFileStoreTests: XCTestCase {
     /**
     Creates a URL for a temporary file on disk. Registers a teardown block to

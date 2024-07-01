@@ -180,7 +180,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``VariantAtom/intValue()``
     ///
-    public func intValue() throws -> Int {
+    public func intValue() throws (ValueError) -> Int {
         switch self {
         case .atom(let value): return try value.intValue()
         case .array: throw ValueError.notConvertible(self.valueType, .int)
@@ -205,7 +205,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``VariantAtom/stringValue()``
     ///
-    public func stringValue() throws -> String {
+    public func stringValue() throws (ValueError) -> String {
         switch self {
         case .atom(let value): return value.stringValue()
         case .array: throw ValueError.notConvertible(self.valueType, .string)
@@ -231,7 +231,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``VariantAtom/boolValue()``
     ///
-    public func boolValue() throws -> Bool {
+    public func boolValue() throws (ValueError) -> Bool {
         switch self {
         case .atom(let value): return try value.boolValue()
         case .array: throw ValueError.notConvertible(self.valueType, .bool)
@@ -247,7 +247,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``VariantAtom/doubleValue()``
     ///
-    public func doubleValue() throws -> Double {
+    public func doubleValue() throws (ValueError) -> Double {
         switch self {
         case .atom(let value): return try value.doubleValue()
         case .array: throw ValueError.notConvertible(self.valueType, .double)
@@ -278,7 +278,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// - Note: In the future the point format might change or support different
     ///   formats.
     ///
-    public func pointValue() throws -> Point {
+    public func pointValue() throws (ValueError) -> Point {
         switch self {
         case .atom(let value): return try value.pointValue()
         case .array(let array):
@@ -300,7 +300,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     }
 
     // Note: Do not make public. We do not want users to store IDs in unmanaged way.
-    func IDValue() throws -> ObjectID {
+    func IDValue() throws (ValueError) -> ObjectID {
         switch self {
         case .atom(let value): return try value.IDValue()
         case .array(_):
@@ -309,14 +309,17 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
 
     }
     // Note: Do not make public. We do not want users to store IDs in unmanaged way.
-    func IDArray() throws -> [ObjectID] {
+    func IDArray() throws (ValueError) -> [ObjectID] {
         switch self {
         case .atom(_):
             throw ValueError.conversionToIDFailed(self.valueType)
         case .array(let array):
-            return try array.items.map { try $0.IDValue() }
+            var items: [ObjectID] = []
+            for item in array.items {
+                items.append(try item.IDValue())
+            }
+            return items
         }
-
     }
 
     
@@ -330,7 +333,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``intValue()``, ``VariantAtom/intValue()``
     ///
-    public func intArray() throws -> [Int] {
+    public func intArray() throws (ValueError) -> [Int] {
         switch self {
         case .atom(_):
             throw ValueError.notConvertible(self.valueType, .ints)
@@ -354,7 +357,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``stringValue()``, ``VariantAtom/stringValue()``
     ///
-    public func stringArray() throws -> [String] {
+    public func stringArray() throws (ValueError) -> [String] {
         switch self {
         case .atom(_):
             throw ValueError.notConvertible(self.valueType, .strings)
@@ -373,7 +376,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``boolValue()``, ``VariantAtom/boolValue()``
     ///
-    public func boolArray() throws -> [Bool] {
+    public func boolArray() throws (ValueError) -> [Bool] {
         switch self {
         case .atom(_):
             throw ValueError.notConvertible(self.valueType, .bools)
@@ -396,7 +399,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``doubleValue()``, ``VariantAtom/doubleValue()``
     ///
-    public func doubleArray() throws -> [Double] {
+    public func doubleArray() throws (ValueError) -> [Double] {
         switch self {
         case .atom(_):
             throw ValueError.notConvertible(self.valueType, .doubles)
@@ -418,7 +421,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// - SeeAlso: ``pointValue()``, ``VariantAtom/pointValue()``
     ///
-    public func pointArray() throws -> [Point] {
+    public func pointArray() throws (ValueError) -> [Point] {
         switch self {
         case .atom(_):
             throw ValueError.notConvertible(self.valueType, .points)

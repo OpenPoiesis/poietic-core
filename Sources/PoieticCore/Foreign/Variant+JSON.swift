@@ -7,20 +7,14 @@
 
 // TODO: [REFACTORING] Consolidate this error with other errors
 public enum ForeignValueError: Error {
-    // TODO: Is this used?
-    case unknownForeignType
-    case invalidType
+    case notConvertible
     case invalidPointValue
-    case arrayMustHaveSameItemType
-    case invalidArrayItem
-    case expectedDictionary
-    /// When attributes in foreign record are not a dictionary or other expected structure
-    case invalidAttributesStructure
+    case sameItemTypeExpected
 }
 
 extension Variant {
     // TODO: Make it into init()
-    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws -> Variant {
+    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws (ForeignValueError) -> Variant {
         switch json {
         case let .int(value):
             return Variant(value)
@@ -33,7 +27,7 @@ extension Variant {
         case let .array(items):
             return try .array(VariantArray.fromJSONItems(items))
         default:
-            throw ForeignValueError.invalidType
+            throw ForeignValueError.notConvertible
         }
     }
     
@@ -50,7 +44,7 @@ extension Variant {
 
 extension VariantAtom {
     // TODO: Make it into init()
-    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws -> VariantAtom {
+    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws (ForeignValueError) -> VariantAtom {
         switch json {
         case let .int(value):
             return .int(value)
@@ -62,7 +56,7 @@ extension VariantAtom {
             return .double(value)
         case let .array(items):
             guard items.count == 2 else {
-                throw ForeignValueError.invalidType
+                throw ForeignValueError.notConvertible
             }
             switch (items[0], items[1]) {
             case let (.int(x), .int(y)): return .point(Point(Double(x), Double(y)))
@@ -73,7 +67,7 @@ extension VariantAtom {
                 throw ForeignValueError.invalidPointValue
             }
         default:
-            throw ForeignValueError.invalidType
+            throw ForeignValueError.notConvertible
 
         }
     }
@@ -91,7 +85,7 @@ extension VariantAtom {
 
 extension VariantArray {
     // TODO: Make it into init()
-    public static func fromJSONItems(_ items: [JSONValue], path: [String] = []) throws -> VariantArray {
+    public static func fromJSONItems(_ items: [JSONValue], path: [String] = []) throws (ForeignValueError) -> VariantArray {
         if items.count == 0 {
             // TODO: Have empty array variant?
             // We default to a string array, as it is the most to-value convertible
@@ -105,7 +99,7 @@ extension VariantArray {
             var array: [Bool] = []
             for item in items {
                 guard case let .bool(value) = item else {
-                    throw ForeignValueError.arrayMustHaveSameItemType
+                    throw ForeignValueError.sameItemTypeExpected
                 }
                 array.append(value)
             }
@@ -114,7 +108,7 @@ extension VariantArray {
             var array: [Int] = []
             for item in items {
                 guard case let .int(value) = item else {
-                    throw ForeignValueError.arrayMustHaveSameItemType
+                    throw ForeignValueError.sameItemTypeExpected
                 }
                 array.append(value)
             }
@@ -123,7 +117,7 @@ extension VariantArray {
             var array: [Double] = []
             for item in items {
                 guard case let .double(value) = item else {
-                    throw ForeignValueError.arrayMustHaveSameItemType
+                    throw ForeignValueError.sameItemTypeExpected
                 }
                 array.append(value)
             }
@@ -132,7 +126,7 @@ extension VariantArray {
             var array: [String] = []
             for item in items {
                 guard case let .string(value) = item else {
-                    throw ForeignValueError.arrayMustHaveSameItemType
+                    throw ForeignValueError.sameItemTypeExpected
                 }
                 array.append(value)
             }
@@ -141,7 +135,7 @@ extension VariantArray {
             var array: [Point] = []
             for item in items {
                 guard case let .array(pointValues) = item else {
-                    throw ForeignValueError.arrayMustHaveSameItemType
+                    throw ForeignValueError.sameItemTypeExpected
                 }
                 guard pointValues.count == 2 else {
                     throw ForeignValueError.invalidPointValue
@@ -160,7 +154,7 @@ extension VariantArray {
             }
             return .point(array)
         default:
-            throw ForeignValueError.invalidArrayItem
+            throw ForeignValueError.notConvertible
         }
     }
     public func asJSON() -> JSONValue {
@@ -178,18 +172,3 @@ extension VariantArray {
 }
 
 
-extension ForeignRecord {
-    public init(_ dictionary: [String:JSONValue]) throws {
-        self.dict = [:]
-        for (key, jsonValue) in dictionary {
-            dict[key] = try Variant.fromJSON(jsonValue)
-        }
-    }
-
-    /// Create a Foundation-compatible JSON object representation.
-    ///
-    public func asJSON() -> JSONValue {
-        let object = dict.mapValues { $0.asJSON() }
-        return .object(object)
-    }
-}

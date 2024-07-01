@@ -9,49 +9,43 @@ import Foundation
 import XCTest
 @testable import PoieticCore
 
-final class FrameReaderTests: XCTestCase {
+final class JSONFrameReaderTests: XCTestCase {
     
     var design: Design!
     var frame: MutableFrame!
+    var loader: ForeignFrameLoader!
+    var reader: JSONFrameReader!
     
     override func setUp() {
         design = Design(metamodel: TestMetamodel)
         frame = design.deriveFrame()
+        reader = JSONFrameReader()
+        loader = ForeignFrameLoader()
     }
    
-    func defaultReader() throws -> ForeignFrameReader {
-        let data = """
-                   {
-                   "frame_format_version": "0",
-                   }
-                   """.data(using:.utf8)!
-
-        return try ForeignFrameReader(data: data, design: design)
-    }
-    
     func testNotADict() throws {
         let data = "[]".data(using:.utf8)!
         
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.object, nil)))
+                           ForeignFrameError.typeMismatch("dictionary", []))
 
         }
     }
     func testMissingFormatVersion() throws {
         let data = "{}".data(using:.utf8)!
         
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.missingFrameFormatVersion)
+                           ForeignFrameError.propertyNotFound("frame_format_version", []))
 
         }
     }
@@ -62,13 +56,13 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.string, "frame_format_version")))
+                           ForeignFrameError.typeMismatch("String", ["frame_format_version"]))
         }
     }
     func testCollectionsNotAnArray() throws {
@@ -79,13 +73,13 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.array, "collections")))
+                           ForeignFrameError.typeMismatch("array", ["collections"]))
         }
     }
     func testCollectionItemNotAString() throws {
@@ -96,94 +90,95 @@ final class FrameReaderTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
 
-        XCTAssertThrowsError(try ForeignFrameReader(data: data, design: design)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.string, nil)))
+                           ForeignFrameError.typeMismatch("String", ["collections", "Index 0"]))
         }
-    }
-    
-    func testEmptyInfoDefaultName() throws {
-        let data = """
-                   {
-                   "frame_format_version": "0",
-                   }
-                   """.data(using:.utf8)!
-
-        let reader = try ForeignFrameReader(data: data, design: design)
-        XCTAssertEqual(reader.info.frameFormatVersion, "0")
-        XCTAssertEqual(reader.info.collectionNames, ["objects"])
     }
     
     // MARK: - Loading -
     func testLoadErrorNotAnArray() throws {
         let data = """
                    {
+                   "frame_format_version": "1",
+                   "objects": {}
                    }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data, into: frame)){
+        XCTAssertThrowsError(try reader.read(data: data)){
             guard let error = $0 as? ForeignFrameError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.JSONError(.typeMismatch(.array, nil)))
+                           ForeignFrameError.typeMismatch("array", ["objects"]))
         }
     }
+    
     // TODO: Test malformed children (or all known foreign object values in fact)
     func testLoadEmpty() throws {
         let data = """
-                   [
-                   ]
+                   {
+                   "frame_format_version": "1",
+                   "objects": []
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
         XCTAssertEqual(frame.snapshots.count, 0)
         XCTAssertEqual(frame.removedObjects.count, 0)
     }
     
     func testLoadNoTypeError() throws {
         let data = """
-                   [
-                    {}
-                   ]
+                   {
+                   "frame_format_version": "1",
+                   "objects": [{}]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe = try! reader.read(data: data)
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.foreignObjectError(.missingObjectType, 0))
+                           NEWFrameLoaderError.foreignObjectError(.missingObjectType, nil))
         }
     }
 
     func testLoadSingleUnknownObjectTypeError() throws {
         let data = """
-                   [
-                    {
-                        "type": "Invalid"
-                    }
-                   ]
+                   {
+                   "frame_format_version": "1",
+                   "objects": [{"type": "Invalid"}]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe = try! reader.read(data: data)
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.unknownObjectType("Invalid", 0))
+                           NEWFrameLoaderError.unknownObjectType("Invalid", nil))
         }
     }
     func testLoadSingleNoID() throws {
         let data = """
-                   [
-                    { "type": "Unstructured" }
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        {"type": "Unstructured"}
                    ]
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
@@ -191,11 +186,16 @@ final class FrameReaderTests: XCTestCase {
     }
     func testLoadSingleWithName() throws {
         let data = """
-                   [
-                    { "type": "Unstructured", "name": "test" }
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        {"type": "Unstructured", "name":"test"}
                    ]
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
@@ -204,11 +204,17 @@ final class FrameReaderTests: XCTestCase {
 
     func testLoadWithDefaultValue() throws {
         let data = """
-                   [
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
                     { "type": "Stock", "name": "test" }
                    ]
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
@@ -216,101 +222,168 @@ final class FrameReaderTests: XCTestCase {
         XCTAssertEqual(snapshot["value"], Variant(0))
 
     }
+    func testLoadWithAttributes() throws {
+        let data = """
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        {
+                            "type": "Stock",
+                            "attributes": {"name": "Felix"}
+                        }
+                   ]
+                   }
+                   """.data(using:.utf8)!
+
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
+        XCTAssertEqual(frame.snapshots.count, 1)
+
+        let snapshot = frame.snapshots.first!
+        XCTAssertNotNil(snapshot["name"])
+        XCTAssertEqual(snapshot["name"], Variant("Felix"))
+
+    }
 
     func testLoadEdgeNoOriginTargetError() throws {
         let data_no_origin = """
-                   [ { "type": "Parameter" } ]
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                    { "type": "Parameter" }
+                   ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_no_origin, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+
+        let fframe = try! reader.read(data: data_no_origin)
+
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.foreignObjectError(.propertyNotFound("from"), 0))
+                           NEWFrameLoaderError.foreignObjectError(.propertyNotFound("from"), nil))
         }
 
         let data_no_target = """
-                   [ { "type": "Parameter", "from": "doesnotmatter" } ]
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                    { "type": "Parameter", "from": "doesnotmatter" }
+                   ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_no_target, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+
+        let fframe2 = try! reader.read(data: data_no_target)
+
+        XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.foreignObjectError(.propertyNotFound("to"), 0))
+                           NEWFrameLoaderError.foreignObjectError(.propertyNotFound("to"), nil))
         }
     }
+
     func testLoadEdgeInvalidOriginTargetIDs() throws {
         let data_no_origin = """
-                   [
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
                     { "type": "Parameter", "from": "unknown", "to": "doesnotmatter" },
                    ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_no_origin, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe = try! reader.read(data: data_no_origin)
+
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.invalidReference("unknown", "origin", 0))
+                           NEWFrameLoaderError.invalidReference("unknown", "origin", nil))
         }
 
         let data_no_target = """
-                   [
-                    { "type": "Parameter", "from": "x", "to": "unknown" },
-                    {"type": "Stock", "name": "x"},
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Parameter", "from": "x", "to": "unknown" },
+                        { "type": "Stock", "name": "x"},
                    ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_no_target, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+
+        let fframe2 = try! reader.read(data: data_no_target)
+
+        XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.invalidReference("unknown", "target", 0))
+                           NEWFrameLoaderError.invalidReference("unknown", "target", nil))
         }
     }
+    
     func testShouldNotHaveOriginOrTarget() throws {
         let data_extra_origin = """
-                   [
-                    { "type": "Unstructured", "from": "invalid"}
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Unstructured", "from": "invalid"}
                    ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_extra_origin, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe = try! reader.read(data: data_extra_origin)
+
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.foreignObjectError(.extraPropertyFound("from"), 0))
+                           NEWFrameLoaderError.foreignObjectError(.extraPropertyFound("from"), nil))
         }
 
         let data_extra_target = """
-                   [
-                    { "type": "Stock", "to": "invalid"}
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Stock", "to": "invalid"}
                    ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data_extra_target, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe2 = try! reader.read(data: data_extra_target)
+
+        XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.foreignObjectError(.extraPropertyFound("to"), 0))
+                           NEWFrameLoaderError.foreignObjectError(.extraPropertyFound("to"), nil))
         }
     }
 
     func testConnectEdge() throws {
         let data = """
-                   [
-                    { "type": "Parameter", "name": "param", "from":"src", "to":"drain" },
-                    { "type": "Stock", "name": "src" },
-                    { "type": "Stock", "name": "drain" }
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Parameter", "name": "param", "from":"src", "to":"drain" },
+                        { "type": "Stock", "name": "src" },
+                        { "type": "Stock", "name": "drain" }
                    ]
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
         XCTAssertEqual(frame.snapshots.count, 3)
         
         guard let param = frame.object(named: "param") else {
@@ -332,14 +405,20 @@ final class FrameReaderTests: XCTestCase {
 
     func testConnectChildren() throws {
         let data = """
-                   [
-                    { "type": "Unstructured", "name": "parent", "children": ["a", "b"] },
-                    { "type": "Unstructured", "name": "a" },
-                    { "type": "Unstructured", "name": "b" },
-                    { "type": "Unstructured", "name": "c" }
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Unstructured", "name": "parent", "children": ["a", "b"] },
+                        { "type": "Unstructured", "name": "a" },
+                        { "type": "Unstructured", "name": "b" },
+                        { "type": "Unstructured", "name": "c" }
                    ]
+                   }
                    """.data(using:.utf8)!
-        try defaultReader().read(data, into: frame)
+
+        let fframe = try! reader.read(data: data)
+        try loader.load(fframe, into: frame)
+
         XCTAssertEqual(frame.snapshots.count, 4)
         
         let parent = frame.object(named: "parent")!
@@ -356,17 +435,22 @@ final class FrameReaderTests: XCTestCase {
 
     func testUnknownChildReference() throws {
         let data = """
-                   [
-                    { "type": "Unstructured", "children": ["unknown"] },
+                   {
+                   "frame_format_version": "1",
+                   "objects": [
+                        { "type": "Unstructured", "children": ["unknown"] },
                    ]
+                   }
                    """.data(using:.utf8)!
-        XCTAssertThrowsError(try defaultReader().read(data, into: frame)){
-            guard let error = $0 as? ForeignFrameError else {
+        let fframe = try! reader.read(data: data)
+
+        XCTAssertThrowsError(try loader.load(fframe, into: frame)){
+            guard let error = $0 as? NEWFrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           ForeignFrameError.invalidReference("unknown", "child", 0))
+                           NEWFrameLoaderError.invalidReference("unknown", "child", nil))
         }
     }
 }

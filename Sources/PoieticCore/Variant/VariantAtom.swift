@@ -176,7 +176,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// - Throws ``ValueError`` if the value
     ///   can not be converted to int.
     ///
-    public func intValue() throws -> Int {
+    public func intValue() throws (ValueError) -> Int {
         switch self {
         case let .int(value): return value
         case let .double(value): return Int(value)
@@ -199,7 +199,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// - Throws ``ValueError`` if the value
     ///   can not be converted to double.
     ///
-    public func doubleValue() throws -> Double  {
+    public func doubleValue() throws (ValueError) -> Double  {
         switch self {
         case .int(let value): return Double(value)
         case .double(let value): return value
@@ -254,7 +254,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     ///   if the string value contains a string that is not recognised as
     ///   a valid boolean value.
     ///
-    public func boolValue() throws -> Bool {
+    public func boolValue() throws (ValueError) -> Bool {
         switch self {
         case .int(let value): return (value != 0)
         case .double(_): throw ValueError.notConvertible(.double, .bool)
@@ -291,7 +291,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// - Note: In the future the point format might change or support different
     ///   formats.
     ///
-    public func pointValue() throws -> Point  {
+    public func pointValue() throws (ValueError) -> Point  {
         switch self {
         case .int(_): throw ValueError.notConvertible(.int, .point)
         case .double(_): throw ValueError.notConvertible(.double, .point)
@@ -311,7 +311,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     }
 
     // Note: Do not make public. We do not want users to store IDs in unmanaged way.
-    func IDValue() throws -> ObjectID {
+    func IDValue() throws (ValueError) -> ObjectID {
         // NOTE: We are allowing conversion from double only because the Decoder
         // does not allow us to get a type of a value and decode accordingly.
         // Therefore the single value decoding tries double first before Int
