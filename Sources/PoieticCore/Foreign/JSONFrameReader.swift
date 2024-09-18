@@ -7,6 +7,11 @@
 
 import Foundation
 
+/// Helper structure to convert objects to and from JSON using coding.
+///
+/// This structure is just a helper to have better control over JSON using
+/// the built-in ``Codable`` protocol.
+///
 private struct _JSONForeignObject: Codable, ForeignObject {
     var id: String?
     var snapshotID: String?
@@ -98,6 +103,11 @@ private struct _JSONForeignObject: Codable, ForeignObject {
     }
 }
 
+/// Helper structure to convert frames to and from JSON using coding.
+///
+/// This structure is just a helper to have better control over JSON using
+/// the built-in ``Codable`` protocol.
+///
 private struct _JSONForeignFrameContainer: Codable {
     let metamodel: String?
     let collectionNames: [String]
@@ -159,19 +169,90 @@ private struct _JSONForeignFrame: ForeignFrame {
     }
 }
 
+/// Object for reading foreign frames represented as JSON.
+///
+/// ## Foreign Objects
+///
+/// The JSON representation of foreign object is a dictionary with the following
+/// keys:
+///
+/// - `id` (optional): Object ID, if not provided, one will be generated during
+///   loading.
+/// - `snapshot_id` (optional): snapshot ID, if not provided, one will be
+///   generated during loading
+/// - `name` (optional): used as both, object name and an object reference.
+///   See note below about references. If provided, it will be used as
+///   an attribute `name` of the object.
+/// - `type` (required): name of the object type. During the loading process
+///   the type must be known to the loader.
+/// - `from` (contextual): if the object is an edge, the property references its origin
+/// - `to` (contextual): if the object is an edge, the property references its target
+/// - `parent` (optional): reference to object's parent
+/// - `children` (optional): list of object's children – convenience mechanism
+///    for parent-child relationships, only recommended for hand-written frames
+/// - `attributes`: a dictionary where keys are attribute names and values are
+///    attribute values.
+///
+/// ## References
+///
+/// Typically the unique identifier of an object within a frame is its ID.
+/// For convenience of hand-writing small foreign frames, objects can be
+/// referenced by their names as well. One can refer to an object by its
+/// name in an edge origin or a target, for example.
+///
+/// When multiple objects have the same name, then which object will be
+/// referred to is undefined.
+///
+/// - Note: Hand-writing foreign frames is discouraged, as they might become
+///   complex very quickly. It is not the purpose of this toolkit to
+///   process and maintain raw human-written textual representation of models.
+///
 public final class JSONFrameReader {
     public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONForeignFrameVersion")!
 
     // NOTE: For now, the class exists only for code organisation purposes/name-spacing
    
+    /// Create a frame reader.
+    ///
     public init() {
         // Nothing here for now
     }
+
+    /// Read a frame bundle at a file system path.
+    ///
+    /// - SeeAlso: ``JSONFrameReader/read(bundleAtURL:)``
+    ///
     public func read(path: String) throws (ForeignFrameError) -> ForeignFrame {
         let url = URL(fileURLWithPath: path, isDirectory: true)
         return try read(bundleAtURL: url)
     }
     
+    /// Read a frame bundle at a given URL.
+    ///
+    /// The bundle is a directory with the following content:
+    ///
+    /// - `info.json` – information about the frame. A dictionary containing the
+    ///   following keys:
+    ///     - `frame_format_version`: Version of the frame format (required)
+    ///     - `objects`: An array of objects (see the class information about
+    ///        details)
+    ///     - `collections`: List of collection names, where each collection is
+    ///       a separate file.
+    /// - `objects/` directory with JSON files where each file represents an
+    ///   object collection. The names in this directory should correspond
+    ///   to the names in the `collections` array.
+    ///
+    /// Example:
+    ///
+    /// ```
+    /// MyModel.poieticframe/
+    ///     info.json
+    ///     objects/
+    ///         design.json
+    ///         core.json
+    ///         charts.json
+    /// ```
+    ///
     public func read(bundleAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
         let container: _JSONForeignFrameContainer
         let decoder = JSONDecoder()
@@ -206,6 +287,14 @@ public final class JSONFrameReader {
         return _JSONForeignFrame(container: container, collections: collections)
     }
     
+    /// Read a frame file at a given URL.
+    ///
+    /// The frame file is a JSON file with the following content:
+    ///
+    /// - `frame_format_version`: Version of the frame format (required)
+    /// - `objects`: An array of objects (see the class information about
+    ///    details)
+    ///
     public func read(fileAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
         do {
             let data = try Data(contentsOf: url)

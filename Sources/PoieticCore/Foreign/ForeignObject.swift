@@ -5,6 +5,95 @@
 //  Created by Stefan Urbanek on 25/09/2023.
 //
 
+
+/// Protocol for foreign representation of an object
+///
+/// Types conforming to this type typically come from a foreign interface
+/// and are meant to be loaded using the ``ForeignFrameLoader``.
+///
+public protocol ForeignObject {
+    
+    /// Name of the object type.
+    ///
+    var type: String? { get }
+    
+    /// Structural type of the object.
+    ///
+    /// Some foreign interfaces might provide this information, however the
+    /// source of truth is the object type specified in the ``type``.
+    ///
+    var structuralType: StructuralType? { get }
+
+    // FIXME: Depreate name here, use "id"
+    /// Name of the foreign object.
+    ///
+    /// The name is also used in the ``ForeignFrameLoader/load(_:into:)`` as
+    /// an object reference.
+    ///
+    var name: String? { get }
+    
+    /// Object ID.
+    ///
+    /// The ID can be either real object ID or a custom string.
+    ///
+    var id: String? { get }
+
+    /// Object snapshot ID.
+    ///
+    /// The ID can be either real object ID or a custom string.
+    ///
+    var snapshotID: String? { get }
+
+    /// Reference to an object that is an origin of an edge.
+    var origin: String? { get }
+
+    /// Reference to an object that is a target of an edge.
+    var target: String? { get }
+    
+    /// Reference to a parent object.
+    var parent: String? { get }
+    
+    /// List of references for object's children.
+    var children: [String] { get }
+    
+    /// Dictionary of object attributes.
+    var attributes: [String:Variant] { get }
+}
+
+extension ForeignObject {
+    public func validateStructure(_ structuralType: StructuralType) throws (ForeignObjectError) {
+        switch structuralType {
+        case .unstructured:
+            guard origin == nil else {
+                throw .extraPropertyFound("from")
+            }
+            guard target == nil else {
+                throw .extraPropertyFound("to")
+            }
+        case .node:
+            guard origin == nil else {
+                throw .extraPropertyFound("from")
+            }
+            guard target == nil else {
+                throw .extraPropertyFound("to")
+            }
+        case .edge:
+            guard origin != nil else {
+                throw .propertyNotFound("from")
+            }
+            guard target != nil else {
+                throw .propertyNotFound("to")
+            }
+        }
+
+    }
+}
+
+public protocol ForeignFrame {
+    var objects: [ForeignObject] { get }
+}
+
+
 /// Error thrown when there is an issue with a foreign object, typically
 /// in a foreign frame.
 ///

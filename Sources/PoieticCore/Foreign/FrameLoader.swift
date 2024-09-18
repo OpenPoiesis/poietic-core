@@ -7,60 +7,41 @@
 
 import Foundation
 
-public enum NEWFrameLoaderError: Error, Equatable {
+/// Error thrown by a foreign frame loader.
+///
+/// - SeeAlso: ``ForeignFrameLoader/load(_:into:)``
+///
+public enum FrameLoaderError: Error, Equatable, CustomStringConvertible {
     case foreignObjectError(ForeignObjectError, String?)
     case unknownObjectType(String, String?)
     case invalidReference(String, String, String?)
 
-}
-
-public protocol ForeignObject {
-    var type: String? { get }
-    var structuralType: StructuralType? { get }
-
-    // FIXME: Depreate name here, use "id"
-    var name: String? { get }
-    var id: String? { get }
-    var snapshotID: String? { get }
-
-    var origin: String? { get }
-    var target: String? { get }
-    var parent: String? { get }
-    var children: [String] { get }
-    var attributes: [String:Variant] { get }
-}
-
-extension ForeignObject {
-    public func validateStructure(_ structuralType: StructuralType) throws (ForeignObjectError) {
-        switch structuralType {
-        case .unstructured:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
+    public var description: String {
+        switch self {
+        case let .foreignObjectError(error, ref):
+            if let ref {
+                return "Foreign object error: '\(error)' in object '\(ref)'"
             }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
+            else {
+                return "Foreign object error '\(error)'"
             }
-        case .node:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
+        case let .unknownObjectType(type, ref):
+            if let ref {
+                return "Unknown object type '\(type)' in object '\(ref)'"
             }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
+            else {
+                return "Unknown object type '\(type)'"
             }
-        case .edge:
-            guard origin != nil else {
-                throw .propertyNotFound("from")
+        case let .invalidReference(ref, property, owner):
+            if let owner {
+                return "Invalid reference '\(ref)' for '\(property)' in object '\(owner)'"
             }
-            guard target != nil else {
-                throw .propertyNotFound("to")
+            else {
+                return "Invalid reference '\(ref)' for '\(property)'"
             }
         }
-
     }
-}
-
-public protocol ForeignFrame {
-    var objects: [ForeignObject] { get }
+    
 }
 
 /// Object that loads foreign frames into a mutable frame and resolves object
@@ -112,7 +93,7 @@ public final class ForeignFrameLoader {
     /// - SeeAlso: ``Design/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
     ///     ``MutableFraminsert(_:owned:):)``
     ///
-    public func load(_ foreignFrame: ForeignFrame, into frame: MutableFrame) throws (NEWFrameLoaderError) {
+    public func load(_ foreignFrame: ForeignFrame, into frame: MutableFrame) throws (FrameLoaderError) {
         let foreignObjects = foreignFrame.objects
         let design = frame.design
         let metamodel = design.metamodel

@@ -141,12 +141,12 @@ final class JSONFrameReaderTests: XCTestCase {
                    """.data(using:.utf8)!
         let fframe = try! reader.read(data: data)
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.foreignObjectError(.missingObjectType, nil))
+                           FrameLoaderError.foreignObjectError(.missingObjectType, nil))
         }
     }
 
@@ -159,12 +159,12 @@ final class JSONFrameReaderTests: XCTestCase {
                    """.data(using:.utf8)!
         let fframe = try! reader.read(data: data)
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.unknownObjectType("Invalid", nil))
+                           FrameLoaderError.unknownObjectType("Invalid", nil))
         }
     }
     func testLoadSingleNoID() throws {
@@ -259,12 +259,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe = try! reader.read(data: data_no_origin)
 
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.foreignObjectError(.propertyNotFound("from"), nil))
+                           FrameLoaderError.foreignObjectError(.propertyNotFound("from"), nil))
         }
 
         let data_no_target = """
@@ -279,12 +279,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe2 = try! reader.read(data: data_no_target)
 
         XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.foreignObjectError(.propertyNotFound("to"), nil))
+                           FrameLoaderError.foreignObjectError(.propertyNotFound("to"), nil))
         }
     }
 
@@ -300,12 +300,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe = try! reader.read(data: data_no_origin)
 
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.invalidReference("unknown", "origin", nil))
+                           FrameLoaderError.invalidReference("unknown", "origin", nil))
         }
 
         let data_no_target = """
@@ -321,12 +321,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe2 = try! reader.read(data: data_no_target)
 
         XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.invalidReference("unknown", "target", nil))
+                           FrameLoaderError.invalidReference("unknown", "target", nil))
         }
     }
     
@@ -342,12 +342,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe = try! reader.read(data: data_extra_origin)
 
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.foreignObjectError(.extraPropertyFound("from"), nil))
+                           FrameLoaderError.foreignObjectError(.extraPropertyFound("from"), nil))
         }
 
         let data_extra_target = """
@@ -361,12 +361,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe2 = try! reader.read(data: data_extra_target)
 
         XCTAssertThrowsError(try loader.load(fframe2, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.foreignObjectError(.extraPropertyFound("to"), nil))
+                           FrameLoaderError.foreignObjectError(.extraPropertyFound("to"), nil))
         }
     }
 
@@ -445,12 +445,12 @@ final class JSONFrameReaderTests: XCTestCase {
         let fframe = try! reader.read(data: data)
 
         XCTAssertThrowsError(try loader.load(fframe, into: frame)){
-            guard let error = $0 as? NEWFrameLoaderError else {
+            guard let error = $0 as? FrameLoaderError else {
                 XCTFail("Got unexpected error: \($0)")
                 return
             }
             XCTAssertEqual(error,
-                           NEWFrameLoaderError.invalidReference("unknown", "child", nil))
+                           FrameLoaderError.invalidReference("unknown", "child", nil))
         }
     }
 }

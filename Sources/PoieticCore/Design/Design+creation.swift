@@ -83,42 +83,6 @@ extension Design {
         return snapshot
     }
     
-    public func createSnapshot(_ foreign: ForeignObject) throws -> ObjectSnapshot {
-        // Readability alias
-        let info = foreign.info
-        
-        let typeName = try info.stringValue(for: "type")
-        guard let type = metamodel.objectType(name: typeName) else {
-            throw PersistentStoreError.unknownObjectType(typeName)
-        }
-        
-        let structure: StructuralComponent
-        switch type.structuralType {
-        case .unstructured:
-            structure = .unstructured
-        case .node:
-            structure = .node
-        case .edge:
-            structure = .edge(try info.IDValue(for: "origin"),
-                              try info.IDValue(for: "target"))
-        }
-        
-        let id = try info.IDValueIfPresent(for: "id")
-        let snapshotID = try info.IDValueIfPresent(for: "snapshot_id")
-        
-        let snapshot = createSnapshot(type,
-                                      id: id,
-                                      snapshotID: snapshotID,
-                                      structure: structure,
-                                      attributes: foreign.attributes.dictionary)
-        
-        snapshot.parent = try info.IDValueIfPresent(for: "parent")
-        
-        self._allSnapshots[snapshot.snapshotID] = snapshot
-
-        return snapshot
-    }
-    
     /// Create a new snapshot version
     ///
     public func deriveSnapshot(_ originalID: SnapshotID) -> ObjectSnapshot {
