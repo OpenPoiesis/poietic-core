@@ -99,45 +99,22 @@
 ///
 ///
 public class Design {
-    /// Generator of IDs as a sequence of numbers starting from 1.
-    ///
-    /// Subsequent sequential order continuity is not guaranteed.
-    ///
-    /// - Note: This is very primitive and naive sequence number generator. If an ID
-    ///   is marked as used and the number is higher than current sequence, all
-    ///   numbers are just skipped and the next sequence would be the used +1.
-    ///
-    class IdentityGenerator {
-        // FIXME: [OVERENGINEERING] Dissolve
-        
-        /// ID as a sequence number.
-        var current: ObjectID
-        
-        /// Creates a sequential ID generator and initializes the sequence to 1.
-        public init(_ initialValue: UInt64 = 1) {
-            current = initialValue
-        }
-        
-        /// Gets a next sequence id.
-        public func next() -> ObjectID {
-            let id = current
-            current += 1
-            return id
-        }
-
-        public func markUsed(_ id: ObjectID) {
-            self.current = max(self.current, id + 1)
-        }
-    }
-
-    private var identityGenerator: IdentityGenerator
-    
     /// Meta-model that the design conforms to.
     ///
     /// The metamodel is used for validation of the model contained within the
     /// design and for creation of objects.
     ///
     public let metamodel: Metamodel
+    
+    /// Value used to generate next object ID.
+    ///
+    /// - Note: This is very primitive and naive sequence number generator. If an ID
+    ///   is marked as used and the number is higher than current sequence, all
+    ///   numbers are just skipped and the next sequence would be the used +1.
+    ///
+    /// - SeeAlso: ``allocateID(required:)``
+    ///
+    private var objectIDSequence: ObjectID
     
     var _allSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
@@ -194,7 +171,7 @@ public class Design {
     ///
     public init(metamodel: Metamodel = Metamodel()) {
         // NOTE: Sync with removeAll()
-        self.identityGenerator = IdentityGenerator()
+        self.objectIDSequence = 1
         self._stableFrames = [:]
         self._mutableFrames = [:]
         self._allSnapshots = [:]
@@ -229,11 +206,15 @@ public class Design {
                          "Trying to allocate an ID \(id) that is already used as a stable frame ID")
             precondition(_mutableFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
-            self.identityGenerator.markUsed(id)
+            
+            // Mark the ID as used
+            objectIDSequence = max(self.objectIDSequence, id + 1)
             return id
         }
         else {
-            return self.identityGenerator.next()
+            let id = objectIDSequence
+            objectIDSequence += 1
+            return id
         }
     }
     
@@ -445,48 +426,6 @@ public class Design {
         return stableFrame
     }
     
-    
-    // FIXME: [WORK] -v- BEGIN -v-
-    public func validate(frame: Frame, using metamodel: Metamodel? = nil) throws {
-        let metamodel = metamodel ?? self.metamodel
-
-        // Check types
-        // ------------------------------------------------------------
-        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
-        
-        for object in frame.snapshots {
-            guard let type = metamodel.objectType(name: object.type.name) else {
-                let error = ObjectTypeError.unknownType(object.type.name)
-                typeErrors[object.id, default: []].append(error)
-                continue
-            }
-            
-            for trait in type.traits {
-                do {
-                    try object.validateConformance(to: trait)
-                }
-                catch let error as ErrorCollection<ObjectTypeError> {
-                    typeErrors[object.id, default: []] += error.errors
-                }
-                catch {
-                    fatalError("Unexpected error: \(error)")
-                }
-            }
-        }
-
-        // Check constraints
-        // ------------------------------------------------------------
-        let violations = checkConstraints(frame)
-        
-        if !violations.isEmpty || !typeErrors.isEmpty {
-            throw FrameValidationError(violations: violations,
-                                       typeErrors: typeErrors)
-        }
-
-    }
-    
-    // FIXME: [WORK] -^- END -^-
-
     /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: MutableFrame) {
@@ -586,7 +525,7 @@ public class Design {
     func removeAll() {
         // TODO: [REVIEW] We needed this for archival. Is it still relevant?
         // NOTE: Sync with init(...)
-        self.identityGenerator = IdentityGenerator()
+        self.objectIDSequence = 1
         self._allSnapshots.removeAll()
         self._stableFrames.removeAll()
         self._mutableFrames.removeAll()
