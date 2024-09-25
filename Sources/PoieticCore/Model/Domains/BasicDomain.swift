@@ -161,11 +161,11 @@ extension ObjectType {
         ])
 }
 
-extension Domain {
+extension Metamodel {
     /// Metamodel with some basic object types that are typical for multiple
     /// kinds of designs.
     ///
-    public static let Basic = Domain(
+    public static let Basic = Metamodel(
         name: "Basic",
         traits: [
             Trait.Name,
@@ -175,7 +175,7 @@ extension Domain {
             Trait.Keywords,
             Trait.BibliographicalReference,
         ],
-        objectTypes: [
+        types: [
             ObjectType.DesignInfo,
         ],
         constraints: []

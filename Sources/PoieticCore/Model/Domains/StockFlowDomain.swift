@@ -417,7 +417,7 @@ extension ObjectType {
 
 
 
-extension Domain {
+extension Metamodel {
     /// The metamodel for Stock-and-Flows domain model.
     ///
     /// The `FlowsMetamodel` describes concepts, components, constraints and
@@ -430,7 +430,7 @@ extension Domain {
     /// - SeeAlso: `Metamodel` protocol description for more information and reasons
     /// behind this approach of describing the metamodel.
     ///
-    public static let StockFlow = Domain(
+    public static let StockFlow = Metamodel(
         name: "StockFlow",
         /// List of components that are used in the Stock and Flow models.
         ///
@@ -449,13 +449,14 @@ extension Domain {
         // NOTE: If we were able to use Mirror on types, we would not need this
         /// List of object types for the Stock and Flow metamodel.
         ///
-        objectTypes: [
+        types: [
             // Nodes
             ObjectType.Stock,
             ObjectType.Flow,
             ObjectType.Auxiliary,
             ObjectType.GraphicalFunction,
-            
+            ObjectType.Delay,
+
             // Edges
             ObjectType.Drains,
             ObjectType.Fills,
@@ -470,6 +471,7 @@ extension Domain {
             // Other
             ObjectType.Simulation,
             ObjectType.BibliographicalReference,
+            ObjectType.Note,
         ],
         
         // MARK: Constraints

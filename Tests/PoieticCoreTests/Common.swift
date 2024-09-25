@@ -111,7 +111,7 @@ struct IntegerComponent: Component, Equatable {
 }
 
 // TODO: Move to ObjectType
-extension Metamodel {
+extension ObjectType {
     static let Unstructured = ObjectType(
         name: "Unstructured",
         structuralType: .unstructured,
@@ -157,11 +157,17 @@ public let TestMetamodel = Metamodel(
         IntegerTrait,
     ],
     types: [
-        Metamodel.Unstructured,
-        Metamodel.Stock,
-        Metamodel.Flow,
-        Metamodel.Parameter,
-        Metamodel.Arrow,
+        TestType,
+        TestNodeType,
+        TestEdgeType,
+        TestTypeNoDefault,
+        TestTypeWithDefault,
+
+        ObjectType.Unstructured,
+        ObjectType.Stock,
+        ObjectType.Flow,
+        ObjectType.Parameter,
+        ObjectType.Arrow,
     ],
     constraints: []
 )

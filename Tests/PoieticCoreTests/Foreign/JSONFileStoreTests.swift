@@ -45,28 +45,28 @@ final class JSONFileStoreTests: XCTestCase {
     var graph: MutableGraph!
     
     override func setUp() {
-        db = Design()
+        db = Design(metamodel: TestMetamodel)
         frame = db.createFrame()
 
-        let flow = frame.createNode(Metamodel.Flow,
+        let flow = frame.createNode(TestMetamodel["Flow"]!,
                                     name: nil,
                                     attributes: [:],
                                     components: [IntegerComponent(value: 10)])
-        let source = frame.createNode(Metamodel.Stock,
+        let source = frame.createNode(TestMetamodel["Stock"]!,
                                       name: nil,
                                       attributes: [:],
                                       components: [IntegerComponent(value: 20)])
-        let sink = frame.createNode(Metamodel.Stock,
+        let sink = frame.createNode(TestMetamodel["Stock"]!,
                                     name:nil,
                                     attributes: [:],
                                     components: [IntegerComponent(value: 30)])
         
-        frame.createEdge(Metamodel.Arrow,
+        frame.createEdge(TestMetamodel["Arrow"]!,
                          origin: source,
                          target: flow,
                          attributes: [:],
                          components: [])
-        frame.createEdge(Metamodel.Arrow,
+        frame.createEdge(TestMetamodel["Arrow"]!,
                          origin: flow,
                          target: sink,
                          attributes: [:],

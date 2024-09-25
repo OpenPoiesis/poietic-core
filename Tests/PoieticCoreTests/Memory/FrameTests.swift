@@ -13,7 +13,7 @@ final class MutableFrameTests: XCTestCase {
     var design: Design!
     
     override func setUp() {
-        design = Design()
+        design = Design(metamodel: TestMetamodel)
     }
     
     func testDeriveObjectWithStructure() throws {

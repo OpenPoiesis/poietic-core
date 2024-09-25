@@ -5,129 +5,6 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
-// FIXME: [WORK] -v- BEGIN -v-
-//public enum NewFrameValidationError {
-//    case constraintViolation(ConstraintViolation)
-//    case typeError()
-//}
-
-
-extension Metamodel {
-    public func validate(object: ObjectSnapshot, trait: Trait) throws {
-        var errors = ErrorCollection<ObjectTypeError>()
-        
-        for attr in trait.attributes {
-            if let value = object[attr.name] {
-
-                // TODO: Enable type checking
-                // For type validation to work correctly we must make sure that
-                // the types are persisted and restored.
-                //
-                if !value.valueType.isConvertible(to: attr.type) {
-                    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
-                    errors.append(error)
-                }
-            }
-            else if attr.optional {
-                continue
-            }
-            else {
-                let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
-                errors.append(error)
-            }
-        }
-        
-        if !errors.isEmpty {
-            throw errors
-        }
-    }
-    public func checkConstraints(_ frame: Frame) throws {
-        var violations: [ConstraintViolation] = []
-        for constraint in constraints {
-            let violators = constraint.check(frame)
-            if violators.isEmpty {
-                continue
-            }
-            let violation = ConstraintViolation(constraint: constraint,
-                                                objects:violators)
-            violations.append(violation)
-        }
-        guard violations.isEmpty else {
-            throw ErrorCollection(violations)
-        }
-    }
-    public func validate(frame: Frame) throws {
-        // Check types
-        // ------------------------------------------------------------
-        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
-        
-        for object in frame.snapshots {
-            guard let type = objectType(name: object.type.name) else {
-                let error = ObjectTypeError.unknownType(object.type.name)
-                typeErrors[object.id, default: []].append(error)
-                continue
-            }
-            
-            for trait in type.traits {
-                do {
-                    try validate(object: object, trait: trait)
-                }
-                catch let error as ErrorCollection<ObjectTypeError> {
-                    typeErrors[object.id, default: []] += error.errors
-                }
-            }
-        }
-
-        // Check constraints
-        // ------------------------------------------------------------
-        let violations: [ConstraintViolation]
-        
-        do {
-            try checkConstraints(frame)
-            violations = []
-        }
-        catch let error as ErrorCollection<ConstraintViolation> {
-            violations = error.errors
-        }
-        
-        guard violations.isEmpty && typeErrors.isEmpty else {
-            throw FrameValidationError(violations: violations,
-                                       typeErrors: typeErrors)
-        }
-    }
-}
-
-
-// FIXME: [WORK] -^- END -^-
-
-/// Error thrown when constraint violations were detected in the graph during
-/// `accept()`.
-///
-public struct FrameValidationError: Error {
-    public let violations: [ConstraintViolation]
-    public let typeErrors: [ObjectID: [ObjectTypeError]]
-    
-    public init(violations: [ConstraintViolation]=[], typeErrors: [ObjectID:[ObjectTypeError]]) {
-        self.violations = violations
-        self.typeErrors = typeErrors
-    }
-    
-    public var prettyDescriptionsByObject: [ObjectID: [String]] {
-        var result: [ObjectID:[String]] = [:]
-        
-        for violation in violations {
-            let message = violation.constraint.abstract ?? "(no constraint description)"
-            let desc = "[\(violation.constraint.name)] \(message)"
-            for id in violation.objects {
-                result[id, default: []].append(desc)
-            }
-        }
-        
-        return result
-    }
-}
-
-
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
@@ -231,6 +108,8 @@ public class Design {
     ///   numbers are just skipped and the next sequence would be the used +1.
     ///
     class IdentityGenerator {
+        // FIXME: [OVERENGINEERING] Dissolve
+        
         /// ID as a sequence number.
         var current: ObjectID
         
@@ -542,9 +421,11 @@ public class Design {
                      "Trying to accept a frame with ID (\(frame.id)) that has already been accepted")
         precondition(_mutableFrames[frame.id] != nil,
                      "Trying to accept am unknown frame with ID (\(frame.id))")
-
-        try validate(frame)
         
+        let checker = ConstraintChecker(metamodel)
+        
+        try checker.validate(frame: frame)
+
         frame.promote(.validated)
         
         let stableFrame = StableFrame(design: self,
@@ -564,70 +445,6 @@ public class Design {
         return stableFrame
     }
     
-    /// Validates a frame for constraints violations and referential integrity.
-    ///
-    /// This function first check whether the structural referential integrity
-    /// is assured – whether the structural details and parent-child hierarchy
-    /// have valid object references.
-    ///
-    /// Secondly the function check the constraints and collect all detected
-    /// violations that can be identified.
-    ///
-    /// If there are any constraint violations found, then the
-    /// ``ConstraintViolationError`` is thrown with a list of all detected
-    /// violations.
-    ///
-    /// - Throws: `ConstraintViolationError` when the frame contents violates
-    ///   constraints of the design.
-    ///
-    /// - SeeAlso: ``accept(_:appendHistory:)``
-    ///
-    public func validate(_ frame: MutableFrame) throws {
-        // Check referential integrity
-        // ------------------------------------------------------------
-        // NOTE: We no longer can have broken references – see MutableFrame.insert()
-        //       However, we check it here for now anyway, just in case.
-        //       This check can be removed later, once we are happy and all
-        //       is well tested.
-        //
-        // In other words: It should not longer be possible to have a frame with
-        // broken referential integrity.
-        //
-        let missing: [ObjectID] = frame.brokenReferences()
-        
-        guard missing.isEmpty else {
-            // This is our error, not an user error.
-            fatalError("Violated referential integrity of frame ID \(frame.id)")
-        }
-
-        // Check types
-        // ------------------------------------------------------------
-        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
-        
-        for object in frame.snapshots {
-            for trait in object.type.traits {
-                do {
-                    try object.validateConformance(to: trait)
-                }
-                catch let error as ErrorCollection<ObjectTypeError> {
-                    typeErrors[object.id, default: []] += error.errors
-                }
-            }
-        }
-
-        // Check constraints
-        // ------------------------------------------------------------
-        let violations = checkConstraints(frame)
-        
-        if !violations.isEmpty || !typeErrors.isEmpty {
-            throw FrameValidationError(violations: violations,
-                                       typeErrors: typeErrors)
-        }
-    }
-    
-    public func validate(object: ObjectSnapshot, trait: Trait) {
-        
-    }
     
     // FIXME: [WORK] -v- BEGIN -v-
     public func validate(frame: Frame, using metamodel: Metamodel? = nil) throws {

@@ -182,7 +182,7 @@ final class JSONFrameReaderTests: XCTestCase {
         XCTAssertEqual(frame.snapshots.count, 1)
 
         let snapshot = frame.snapshots.first!
-        XCTAssertIdentical(snapshot.type, Metamodel.Unstructured)
+        XCTAssertIdentical(snapshot.type, TestMetamodel["Unstructured"])
     }
     func testLoadSingleWithName() throws {
         let data = """

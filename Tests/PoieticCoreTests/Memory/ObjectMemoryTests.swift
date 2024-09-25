@@ -9,8 +9,12 @@ import XCTest
 @testable import PoieticCore
 
 final class DesignTests: XCTestCase {
+    var metamodel: Metamodel!
+    override func setUp() {
+        self.metamodel = TestMetamodel
+    }
     func testEmpty() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         
         XCTAssertNil(design.currentFrameID)
         
@@ -23,8 +27,8 @@ final class DesignTests: XCTestCase {
     }
     
     func testSimpleAccept() throws {
-        let design = Design()
-        
+        let design = Design(metamodel: self.metamodel)
+
         let frame = design.deriveFrame()
         let a = frame.create(TestType)
         let b = frame.create(TestType)
@@ -43,7 +47,7 @@ final class DesignTests: XCTestCase {
     }
     
     func testMakeObjectFrozenAfterAccept() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         let frame = design.deriveFrame()
         let a = frame.create(TestType)
         try design.accept(frame)
@@ -64,7 +68,7 @@ final class DesignTests: XCTestCase {
     }
     
     func testRemoveObject() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         let originalFrame = design.deriveFrame()
         
         let a = originalFrame.create(TestType)
@@ -88,7 +92,7 @@ final class DesignTests: XCTestCase {
     
     
     func testUndo() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
@@ -121,8 +125,8 @@ final class DesignTests: XCTestCase {
     }
     
     func testUndoComponent() throws {
-        let design = Design()
-        
+        let design = Design(metamodel: self.metamodel)
+
         let frame1 = design.deriveFrame()
         let a = frame1.create(TestType, components: [TestComponent(text: "before")])
         try design.accept(frame1)
@@ -138,8 +142,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(altered[TestComponent.self]!.text, "before")
     }
     func testUndoProperty() throws {
-        let design = Design()
-        
+        let design = Design(metamodel: self.metamodel)
+
         let frame1 = design.deriveFrame()
         let a = frame1.create(TestType, attributes: ["text": "before"])
         try design.accept(frame1)
@@ -156,7 +160,7 @@ final class DesignTests: XCTestCase {
     }
 
     func testRedo() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
@@ -200,7 +204,7 @@ final class DesignTests: XCTestCase {
     }
     
     func testRedoReset() throws {
-        let design = Design()
+        let design = Design(metamodel: self.metamodel)
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
@@ -264,15 +268,15 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(obj_b["text"], "default")
     }
     func testDefaultValueTraitError() {
-        let mem = Design()
-        let frame = mem.deriveFrame()
+        let design = Design(metamodel: self.metamodel)
+        let frame = design.deriveFrame()
         let a = frame.create(TestTypeNoDefault)
         let _ = frame[a]
 
         let b = frame.create(TestTypeWithDefault)
         let _ = frame[b]
 
-        XCTAssertThrowsError(try mem.accept(frame)) {
+        XCTAssertThrowsError(try design.accept(frame)) {
             
             guard let error = $0 as? FrameValidationError else {
                 XCTFail("Expected FrameValidationError")
