@@ -393,7 +393,7 @@ public class Design {
     /// - SeeAlso: ``discard()``, ``validate(_:)``
     ///
     @discardableResult
-    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws -> StableFrame {
+    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws (FrameValidationError) -> StableFrame {
         precondition(frame.design === self,
                      "Trying to accept a frame from a different design")
         precondition(frame.state.isMutable,
