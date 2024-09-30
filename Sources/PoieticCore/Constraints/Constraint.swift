@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 13/06/2022.
 //
 
-public struct ConstraintViolation: Error {
+public struct ConstraintViolation: Error, CustomDebugStringConvertible {
     public let constraint: Constraint
     public let objects: [ObjectID]
     
@@ -13,6 +13,11 @@ public struct ConstraintViolation: Error {
                 objects: [ObjectID] = []) {
         self.constraint = constraint
         self.objects = objects
+    }
+    
+    public var debugDescription: String {
+        let list = objects.map { "\($0)" }.joined(separator: ",")
+        return "ConstraintViolation(\(constraint.name), [\(list)])"
     }
 }
 

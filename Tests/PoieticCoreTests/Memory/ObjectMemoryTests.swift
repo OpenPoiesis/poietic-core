@@ -242,14 +242,14 @@ final class DesignTests: XCTestCase {
         // TODO: Test this separately
         XCTAssertThrowsError(try design.accept(frame)) {
             
-            guard let error = $0 as? FrameValidationError else {
+            guard let error = $0 as? FrameConstraintError else {
                 XCTFail("Expected FrameValidationError")
                 return
             }
             
             XCTAssertEqual(error.violations.count, 1)
             let violation = error.violations[0]
-            XCTAssertIdentical(violation.constraint, constraint)
+            XCTAssertEqual(violation.objects.count, 2)
             XCTAssertTrue(violation.objects.contains(a))
             XCTAssertTrue(violation.objects.contains(b))
         }
@@ -278,20 +278,20 @@ final class DesignTests: XCTestCase {
 
         XCTAssertThrowsError(try design.accept(frame)) {
             
-            guard let error = $0 as? FrameValidationError else {
+            guard let error = $0 as? FrameConstraintError else {
                 XCTFail("Expected FrameValidationError")
                 return
             }
             
             XCTAssertEqual(error.violations.count, 0)
-            XCTAssertEqual(error.typeErrors.count, 1)
-            if let a_errors = error.typeErrors[a] {
+            XCTAssertEqual(error.objectErrors.count, 1)
+            if let a_errors = error.objectErrors[a] {
                 XCTAssertEqual(a_errors.first, .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
             }
             else {
                 XCTFail("Expected errors for object 'a'")
             }
-            XCTAssertNil(error.typeErrors[b])
+            XCTAssertNil(error.objectErrors[b])
         }
     }
 

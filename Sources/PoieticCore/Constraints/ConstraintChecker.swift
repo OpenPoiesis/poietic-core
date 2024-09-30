@@ -7,18 +7,32 @@
 
 // FIXME: [REFACTORING] Rename methods
 
-public class ConstraintChecker {
-    let metamodel: Metamodel
+extension Array<ObjectTypeError>: @retroactive Error {
     
-    public init(_ metamodel: Metamodel) {
-        self.metamodel = metamodel
-    }
+}
+
+extension ObjectSnapshot {
     
-    public func validate(object: ObjectSnapshot, trait: Trait) throws (ErrorCollection<ObjectTypeError>) {
-        var errors = ErrorCollection<ObjectTypeError>()
+    /// Checks object's conformance to a trait.
+    ///
+    /// The object conforms to a trait if the following is true:
+    ///
+    /// - Object has values for all traits required attributes
+    /// - All attributes from the trait that are present in the object
+    ///   must be convertible to the type of the corresponding trait attribute.
+    ///
+    /// For each non-met requirement an error is included in the result.
+    ///
+    /// - Parameters:
+    ///     - `trait`: Trait to be used for checking
+    ///
+    /// - Returns: List of conformance errors as ``ObjectError``.
+    ///
+    public func check(conformsTo trait: Trait) throws (ObjectConstraintError) {
+        var errors:[ObjectTypeError] = []
         
         for attr in trait.attributes {
-            if let value = object[attr.name] {
+            if let value = self[attr.name] {
 
                 // TODO: Enable type checking
                 // For type validation to work correctly we must make sure that
@@ -38,115 +52,86 @@ public class ConstraintChecker {
             }
         }
         
-        if !errors.isEmpty {
-            throw errors
+        guard errors.isEmpty else {
+            throw ObjectConstraintError(underlyingErrors: errors)
         }
     }
-    public func checkConstraints(_ frame: Frame) throws (ErrorCollection<ConstraintViolation>) {
-        var violations: [ConstraintViolation] = []
-        for constraint in metamodel.constraints {
-            let violators = constraint.check(frame)
-            if violators.isEmpty {
-                continue
-            }
-            let violation = ConstraintViolation(constraint: constraint,
-                                                objects:violators)
-            violations.append(violation)
-        }
-        guard violations.isEmpty else {
-            throw ErrorCollection(violations)
-        }
+}
+
+/// An object that checks constraints, including object types, of a frame.
+///
+public struct ConstraintChecker {
+    /// Metamodel associated with the constraint checker. Frames and objects
+    /// will be validated using the constraints and object types defined
+    /// in the metamodel.
+    ///
+    public let metamodel: Metamodel
+    
+    /// Create a new constraint checker and associate it with a metamodel.
+    ///
+    /// The objects and frames will be validated against constraints and
+    /// object types in the metamodel.
+    ///
+    public init(_ metamodel: Metamodel) {
+        self.metamodel = metamodel
     }
-    /// Validates a frame for constraints violations and referential integrity.
+    
+    /// Check a frame for constraints violations and object type conformance.
     ///
-    /// This function first check whether the structural referential integrity
-    /// is assured – whether the structural details and parent-child hierarchy
-    /// have valid object references.
+    /// The function first checks that:
     ///
-    /// Secondly the function check the constraints and collect all detected
-    /// violations that can be identified.
+    /// - All objects have a type from the metamodel.
+    /// - Object conforms to traits of the object's type.
+    ///   See ``ObjectSnapshot/checkConformance(to:)``) for more information.
+    /// - Objects must conform to all the constraints specified in the
+    ///   metamodel.
     ///
-    /// If there are any constraint violations found, then the
-    /// ``ConstraintViolationError`` is thrown with a list of all detected
-    /// violations.
+    /// - Returns: ``ConstraintCheckResutl`` if a constraint violation or a
+    ///   type error is found, otherwise returns nil.
     ///
-    /// - Throws: `ConstraintViolationError` when the frame contents violates
-    ///   constraints of the design.
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/checkConformance(to:)``
     ///
-    /// - SeeAlso: ``accept(_:appendHistory:)``
-    ///
-    public func validate(frame: Frame) throws (FrameValidationError) {
+    public func check(_ frame: Frame) throws (FrameConstraintError) {
+        var errors: [ObjectID: [ObjectTypeError]] = [:]
+
         // Check types
         // ------------------------------------------------------------
-        var typeErrors: [ObjectID: [ObjectTypeError]] = [:]
-        
         for object in frame.snapshots {
             guard let type = metamodel.objectType(name: object.type.name) else {
                 let error = ObjectTypeError.unknownType(object.type.name)
-                typeErrors[object.id, default: []].append(error)
+                errors[object.id, default: []].append(error)
                 continue
             }
             
             for trait in type.traits {
                 do {
-                    try validate(object: object, trait: trait)
+                    try object.check(conformsTo: trait)
                 }
-                catch let error as ErrorCollection<ObjectTypeError> {
-                    typeErrors[object.id, default: []] += error.errors
+                catch {
+                    errors[object.id, default: []].append(contentsOf: error.underlyingErrors)
                 }
             }
         }
 
         // Check constraints
         // ------------------------------------------------------------
-        let violations: [ConstraintViolation]
-        
-        do {
-            try checkConstraints(frame)
-            violations = []
-        }
-        catch let error as ErrorCollection<ConstraintViolation> {
-            violations = error.errors
-        }
-        catch {
-            // FIXME: [IMPORTANT] COMPILER SEGFAULTS if this catch is not here
-            fatalError("Something very confusing just happened")
-        }
-        
-        guard violations.isEmpty && typeErrors.isEmpty else {
-            throw FrameValidationError(violations: violations,
-                                       typeErrors: typeErrors)
-        }
-    }
-
-
-}
-
-/// Error thrown when constraint violations were detected in the graph during
-/// `accept()`.
-///
-public struct FrameValidationError: Error {
-    public let violations: [ConstraintViolation]
-    public let typeErrors: [ObjectID: [ObjectTypeError]]
-    
-    public init(violations: [ConstraintViolation]=[], typeErrors: [ObjectID:[ObjectTypeError]]) {
-        self.violations = violations
-        self.typeErrors = typeErrors
-    }
-    
-    public var prettyDescriptionsByObject: [ObjectID: [String]] {
-        var result: [ObjectID:[String]] = [:]
-        
-        for violation in violations {
-            let message = violation.constraint.abstract ?? "(no constraint description)"
-            let desc = "[\(violation.constraint.name)] \(message)"
-            for id in violation.objects {
-                result[id, default: []].append(desc)
+        var violations: [ConstraintViolation] = []
+        for constraint in metamodel.constraints {
+            let violators = constraint.check(frame)
+            if !violators.isEmpty {
+                violations.append(ConstraintViolation(constraint: constraint,
+                                                      objects: violators))
             }
         }
-        
-        return result
-    }
 
+        // Throw an error if there are any violations or errors
+        
+        guard violations.isEmpty
+                && (errors.isEmpty
+                    || errors.values.allSatisfy({$0.isEmpty})) else{
+            throw FrameConstraintError(violations: violations,
+                                       objectErrors: errors)
+        }
+    }
 }
 

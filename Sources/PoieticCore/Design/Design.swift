@@ -393,7 +393,7 @@ public class Design {
     /// - SeeAlso: ``discard()``, ``validate(_:)``
     ///
     @discardableResult
-    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws (FrameValidationError) -> StableFrame {
+    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> StableFrame {
         precondition(frame.design === self,
                      "Trying to accept a frame from a different design")
         precondition(frame.state.isMutable,
@@ -405,7 +405,7 @@ public class Design {
         
         let checker = ConstraintChecker(metamodel)
         
-        try checker.validate(frame: frame)
+        try checker.check(frame)
 
         frame.promote(.validated)
         
@@ -531,23 +531,5 @@ public class Design {
         self._mutableFrames.removeAll()
         self.undoableFrames.removeAll()
         self.redoableFrames.removeAll()
-    }
-}
-
-
-public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
-    case unknownType(String)
-    case missingTraitAttribute(Attribute, String)
-    case typeMismatch(Attribute, ValueType)
-    
-    public var description: String {
-        switch self {
-        case let .unknownType(name):
-            "Unknown object type: \(name)"
-        case let .missingTraitAttribute(attribute, trait):
-            "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
-        case let .typeMismatch(attribute, actualType):
-            "Type mismatch of Attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
-        }
     }
 }

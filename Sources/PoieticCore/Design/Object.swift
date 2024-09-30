@@ -236,44 +236,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
 
     }
    
-    /// Checks whether the object conforms to a trait.
-    ///
-    /// The method checks whether the type has required attributes and whether
-    /// the attributes have values of conforming data types.
-    ///
-    /// - Throws: `ErrorCollection` with `ObjectTypeError`
-    ///
-    public func validateConformance(to trait: Trait) throws {
-        var errors = ErrorCollection<ObjectTypeError>()
-        
-        for attr in trait.attributes {
-            if let _ = attributes[attr.name] {
-                // TODO: Enable type checking
-                // For type validation to work correctly we must make sure that
-                // the types are persisted and restored.
-                //
-                // if !value.valueType.isConvertible(to: attr.type) {
-                //    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
-                //    errors.append(error)
-                // }
-            }
-            else {
-                if attr.optional {
-                    continue
-                }
-                else {
-                    let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
-                    errors.append(error)
-                }
-            }
-        }
-        
-        if !errors.isEmpty {
-            throw errors
-        }
-    }
-    
-    
     /// Textual description of the object.
     ///
     public var description: String {
