@@ -217,15 +217,6 @@ public final class JSONFrameReader {
     public init() {
         // Nothing here for now
     }
-
-    /// Read a frame bundle at a file system path.
-    ///
-    /// - SeeAlso: ``JSONFrameReader/read(bundleAtURL:)``
-    ///
-    public func read(path: String) throws (ForeignFrameError) -> ForeignFrame {
-        let url = URL(fileURLWithPath: path, isDirectory: true)
-        return try read(bundleAtURL: url)
-    }
     
     /// Read a frame bundle at a given URL.
     ///
@@ -264,9 +255,13 @@ public final class JSONFrameReader {
             let data = try Data(contentsOf: infoURL)
             container = try decoder.decode(_JSONForeignFrameContainer.self, from: data)
         }
-        catch {
-            throw .dataCorrupted(nil)
+        catch let error as NSError {
+            throw .dataCorrupted(error.localizedDescription)
         }
+        catch {
+            throw .dataCorrupted(String(describing: error))
+        }
+        
         var collections: [String:_JSONForeignObjectCollection] = [:]
         for name in container.collectionNames {
             let collectionURL = url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
@@ -279,8 +274,7 @@ public final class JSONFrameReader {
                 throw ForeignFrameError(error)
             }
             catch {
-                // FIXME: [REFACTORING]
-                throw .dataCorrupted("FIXME UNKNOWN ERROR")
+                throw .dataCorrupted(String(describing: error))
             }
         }
 
@@ -296,17 +290,19 @@ public final class JSONFrameReader {
     ///    details)
     ///
     public func read(fileAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
+        let data: Data
         do {
-            let data = try Data(contentsOf: url)
-            return try self.read(data: data)
+            data = try Data(contentsOf: url)
         }
-        catch let error as DecodingError {
-            throw ForeignFrameError(error)
+        catch let error as NSError {
+            // FIXME: We are not getting DecodingError on invalid JSON
+            throw .dataCorrupted(error.localizedDescription)
         }
         catch {
-            // FIXME: [REFACTORING]
-            throw .dataCorrupted("FIXME UNKNOWN ERROR")
+            throw .dataCorrupted(String(describing: error))
         }
+
+        return try self.read(data: data)
     }
 
     public func read(data: Data) throws (ForeignFrameError) -> ForeignFrame {

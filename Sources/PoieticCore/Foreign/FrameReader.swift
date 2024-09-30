@@ -50,9 +50,9 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             let key = key.stringValue
             self = .propertyNotFound(key, path)
         case let .dataCorrupted(context):
-            self = .dataCorrupted("FIXME: DATA CORRUPTED")
+            self = .dataCorrupted("\(context)")
         @unknown default:
-            self = .dataCorrupted("FIXME: UNKNOWN FUTURE")
+            self = .dataCorrupted("Unknown future error")
         }
     }
     
@@ -62,7 +62,12 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
         case .unableToReadData:
             "Unable to read frame data"
         case .dataCorrupted(let detail):
-            "Data corrupted: \(detail)"
+            if let detail {
+                "Data corrupted: \(detail)"
+            }
+            else {
+                "Data corrupted (no detail provided)"
+            }
         case .typeMismatch(let expected, let path):
             if path.isEmpty {
                 "Type mismatch. Expected the top level to be \(expected)."
