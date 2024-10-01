@@ -19,6 +19,9 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
     /// Value for an attribute is not convertible to a required type as
     /// specified in the trait owning the attribute.
     /// 
+    /// - SeeAlso: ``ObjectSnapshot/check(conformsTo:)``,
+    ///     ``Variant/isConvertible(to:)``, ``Variant/isRepresentable(as:)``
+    ///     
     case typeMismatch(Attribute, ValueType)
     
     public var description: String {
@@ -28,7 +31,7 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
         case let .missingTraitAttribute(attribute, trait):
             "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, actualType):
-            "Type mismatch of Attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
+            "Type mismatch of attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
         }
     }
 }

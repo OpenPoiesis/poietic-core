@@ -168,7 +168,61 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     init(_ id: ObjectID) {
         self = .string(String(id))
     }
-    
+
+    /// Check whether the atom value is convertible to a given value type.
+    ///
+    /// See ``Variant/isConvertible(to:)`` for more information.
+    ///
+    public func isConvertible(to type: ValueType) -> Bool {
+        switch (self, type) {
+        // Bool to string, int or itself only
+        case (.bool,   .atom(.string)): true
+        case (.bool,   .atom(.bool)):   true
+        case (.bool,   .atom(.int)):    true
+        case (.bool,   .atom(.double)): false
+        case (.bool,   .atom(.point)):  false
+        case (.bool,   .array(_)):      false
+            
+        // Int to all except point
+        case (.int,    .atom(.string)): true
+        case (.int,    .atom(.bool)):   true
+        case (.int,    .atom(.int)):    true
+        case (.int,    .atom(.double)): true
+        case (.int,    .atom(.point)):  false
+        case (.int,    .array(_)):      false
+            
+        // Double to string or to itself
+        case (.double, .atom(.string)): true
+        case (.double, .atom(.bool)):   false
+        // not loselessly
+        case (.double, .atom(.int)):    true
+        case (.double, .atom(.double)): true
+        case (.double, .atom(.point)):  false
+        case (.double, .array(_)):      false
+            
+        // String to all except point
+        case (.string, .atom(.string)): true
+        case (.string, .atom(.bool)):   true
+        case (.string, .atom(.int)):    true
+        case (.string, .atom(.double)): true
+        case (.string, .atom(.point)):  false
+        case (.string, .array(_)):      false
+            
+        // Point to string or itself
+        case (.point, .atom(.string)): true
+        case (.point, .atom(.bool)):   false
+        case (.point, .atom(.int)):    false
+        case (.point, .atom(.double)): false
+        case (.point, .atom(.point)):  true
+            
+        case (.point, .array(.string)): true
+        case (.point, .array(.bool)):   false
+        case (.point, .array(.int)):    true
+        case (.point, .array(.double)): true
+        case (.point, .array(.point)):  false
+        }
+    }
+        
     /// Try to get an int value from the atom value. Convert if necessary.
     ///
     /// Any type of value is attempted for conversion.

@@ -9,17 +9,47 @@ public enum ValueType: Equatable, CustomStringConvertible, Sendable {
     case atom(AtomType)
     case array(AtomType)
     
+    // Aliases
+    // ----------------------------------------------------------
+    /// Alias for bool atom: `.atom(.bool)`.
+    ///
     public static let bool    = atom(.bool)
+
+    /// Alias for int atom: `.atom(.int)`.
+    ///
     public static let int     = atom(.int)
+
+    /// Alias for double atom: `.atom(.double)`.
+    ///
     public static let double  = atom(.double)
+
+    /// Alias for string atom: `.atom(.string)`.
+    ///
     public static let string  = atom(.string)
+
+    /// Alias for point atom: `.atom(.point)`.
+    ///
     public static let point   = atom(.point)
     
     // TODO: Rename to `arrayOfXXX`
+    /// Alias for array of bools: `.array(.bool)`.
+    ///
     public static let bools   = array(.bool)
+
+    /// Alias for array of ints: `.array(.int)`.
+    ///
     public static let ints    = array(.int)
+
+    /// Alias for array of doubles: `.array(.double)`.
+    ///
     public static let doubles = array(.double)
+
+    /// Alias for array of strings: `.array(.string)`.
+    ///
     public static let strings = array(.string)
+
+    /// Alias for array of points: `.array(.points)`.
+    ///
     public static let points  = array(.point)
 
     public var isAtom: Bool {
@@ -36,6 +66,7 @@ public enum ValueType: Equatable, CustomStringConvertible, Sendable {
         }
     }
     
+    // FIXME: [REMOVE] This is unreliable (see Array <-> Point)
     public func isConvertible(to other: ValueType) -> Bool {
         switch (self, other) {
         case (.atom(let lhs), .atom(let rhs)):

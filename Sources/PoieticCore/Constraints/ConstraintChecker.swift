@@ -38,7 +38,7 @@ extension ObjectSnapshot {
                 // For type validation to work correctly we must make sure that
                 // the types are persisted and restored.
                 //
-                if !value.valueType.isConvertible(to: attr.type) {
+                if !value.isRepresentable(as: attr.type) {
                     let error = ObjectTypeError.typeMismatch(attr, value.valueType)
                     errors.append(error)
                 }

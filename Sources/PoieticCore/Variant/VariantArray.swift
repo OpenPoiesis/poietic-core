@@ -49,7 +49,62 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         default: return nil
         }
     }
-    
+
+    /// Check whether the array value is convertible to a given value type.
+    ///
+    /// See ``Variant/isConvertible(to:)`` for more information.
+    ///
+    public func isConvertible(to type: ValueType) -> Bool {
+        switch (self, type) {
+        // Bool to string, int or itself only
+        case (.bool,   .array(.string)): true
+        case (.bool,   .array(.bool)):   true
+        case (.bool,   .array(.int)):    true
+        case (.bool,   .array(.double)): false
+        case (.bool,   .array(.point)):  false
+        case (.bool,   .atom(_)):      false
+            
+        // Int to all except point
+        case (.int,    .array(.string)): true
+        case (.int,    .array(.bool)):   true
+        case (.int,    .array(.int)):    true
+        case (.int,    .array(.double)): true
+        case (.int,    .array(.point)):  false
+        case (.int,    .atom(.point)):    items.count == 2
+        case (.int,    .atom(_)):        false
+            
+        // Double to string or to itself
+        case (.double, .array(.string)): true
+        case (.double, .array(.bool)):   false
+        case (.double, .array(.int)):    true
+        case (.double, .array(.double)): true
+        case (.double, .array(.point)):  false
+        case (.double, .atom(.point)):    items.count == 2
+        case (.double, .atom(_)):        false
+            
+        // String to all except point
+        case (.string, .array(.string)): true
+        case (.string, .array(.bool)):   true
+        case (.string, .array(.int)):    true
+        case (.string, .array(.double)): true
+        case (.string, .array(.point)):  false
+        case (.string, .atom(_)):        false
+            
+        // Point
+        case (.point, .array(.string)): true
+        case (.point, .array(.bool)):   false
+        case (.point, .array(.int)):    false
+        case (.point, .array(.double)): false
+        case (.point, .array(.point)):  true
+            
+        case (.point, .atom(.string)): false
+        case (.point, .atom(.bool)):   false
+        case (.point, .atom(.int)):    true
+        case (.point, .atom(.double)): true
+        case (.point, .atom(.point)):  false
+        }
+    }
+
     /// Type of array's items.
     ///
     public var itemType: AtomType {

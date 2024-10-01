@@ -135,7 +135,76 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
         case .array(let values): return .array(values.itemType)
         }
     }
-    
+   
+    /// Checks whether the variant is representable as another type.
+    ///
+    /// ## Conversion Table
+    ///
+    /// From atom (listed in rows) to atom (listed in columns):
+    ///
+    /// | From atom  | bool | int | double | string | point |
+    /// | -----------|------|-----|--------|--------|-------|
+    /// | bool       | yes  | yes | no     | yes    | no    |
+    /// | int        | yes  | yes | yes    | yes    | no    |
+    /// | double     | no   | yes | yes    | yes    | no    |
+    /// | string     | yes  | yes | yes    | yes    | no    |
+    /// | point      | no   | no  | no     | yes    | yes   |
+    ///
+    /// Only point can be converted from atom to an array:
+    ///
+    /// | From array    | bool | int | double | string | point |
+    /// | --------------|------|-----|--------|--------|-------|
+    /// | point         | no   | yes | yes    | no     | no    |
+    /// | _others_      | no   | no  | no     | no     | no    |
+    ///
+    /// Only point can be converted from array to an atom and only if
+    /// the array is of appropriate type and has exactly two elements.
+    ///
+    /// | From array | bool | int     | double   | string | point |
+    /// | -----------|------|---------|----------|--------|-------|
+    /// | point      | no   | 2 items | 2 items  | no     | no    |
+    /// | _others_   | no   | no      | no       | no     | no    |
+    ///
+    /// From array to array (same as from atom to atom):
+    ///
+    /// | From array | bool | int | double | string | point |
+    /// | -----------|------|-----|--------|--------|-------|
+    /// | bool       | yes  | yes | no     | yes    | no    |
+    /// | int        | yes  | yes | yes    | yes    | no    |
+    /// | double     | no   | yes | yes    | yes    | no    |
+    /// | string     | yes  | yes | yes    | yes    | no    |
+    /// | point      | no   | no  | no     | yes    | yes   |
+    ///
+    public func isConvertible(to type: ValueType) -> Bool {
+        switch self {
+        case let .atom(atom): atom.isConvertible(to: type)
+        case let .array(array): array.isConvertible(to: type)
+        }
+    }
+
+    /// Checks whether the variant is representable as a variable
+    /// of given type.
+    ///
+    /// - Variant is always representable as ``VariableType/any``.
+    /// - Variant is representable as ``VariableType/concrete(_:)`` if
+    ///   the variant value is convertible to the concrete type.
+    /// - Variant is representable as ``VariableType/union(_:)`` if
+    ///   the variant value is convertible to at least one of the listed
+    ///   types.
+    ///
+    /// - SeeAlso: ``isConvertible(to:)``.
+    ///
+    public func isRepresentable(as type: VariableType) -> Bool {
+        switch type {
+        case .any:
+            true
+        case .concrete(let concrete):
+            isConvertible(to: concrete)
+        case .union(let types):
+            types.contains { isConvertible(to: $0) }
+        }
+    }
+
     /// Return an underlying atom value type or `nil` if the variant
     /// is an array.
     ///
