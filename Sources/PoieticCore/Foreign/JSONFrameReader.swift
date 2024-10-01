@@ -256,10 +256,10 @@ public final class JSONFrameReader {
             container = try decoder.decode(_JSONForeignFrameContainer.self, from: data)
         }
         catch let error as NSError {
-            throw .dataCorrupted(error.localizedDescription)
+            throw .dataCorrupted(error.localizedDescription, [])
         }
         catch {
-            throw .dataCorrupted(String(describing: error))
+            throw .dataCorrupted(String(describing: error), [])
         }
         
         var collections: [String:_JSONForeignObjectCollection] = [:]
@@ -274,7 +274,7 @@ public final class JSONFrameReader {
                 throw ForeignFrameError(error)
             }
             catch {
-                throw .dataCorrupted(String(describing: error))
+                throw .dataCorrupted(String(describing: error), [])
             }
         }
 
@@ -296,12 +296,11 @@ public final class JSONFrameReader {
         }
         catch let error as NSError {
             // FIXME: We are not getting DecodingError on invalid JSON
-            throw .dataCorrupted(error.localizedDescription)
+            throw .dataCorrupted(error.localizedDescription, [])
         }
         catch {
-            throw .dataCorrupted(String(describing: error))
+            throw .dataCorrupted(String(describing: error), [])
         }
-
         return try self.read(data: data)
     }
 
@@ -318,8 +317,8 @@ public final class JSONFrameReader {
             throw ForeignFrameError(error)
         }
         catch {
-            // FIXME: [REFACTORING]
-            throw .dataCorrupted("FIXME UNKNOWN ERROR")
+            // FIXME: [FIXME] Handle correctly
+            throw .dataCorrupted("Unhandlederror \(type(of:error)): \(error)", [])
         }
         guard container.collectionNames.isEmpty else {
             fatalError("Foreign frame from data (inline frame) must not refer to other collections, only bundle foreign frame can.")

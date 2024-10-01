@@ -15,9 +15,10 @@ import Foundation
 ///
 public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case unableToReadData
-    case dataCorrupted(String?)
+    case dataCorrupted(String, [String])
     case typeMismatch(String, [String])
     case propertyNotFound(String, [String])
+    case valueNotFound(String, [String])
     // FIXME: [REFACTORING] REMOVE THIS
     case missingFrameFormatVersion
 
@@ -27,6 +28,7 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case unsupportedVersion(String)
     case invalidReference(String, String, Int)
     
+    case unknownDecodingError(String)
     
     // FIXME: This is JSON specific
     init(_ error: DecodingError) {
@@ -43,16 +45,22 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             else {
                 self = .typeMismatch("\(type)", path)
             }
+
         case let .valueNotFound(key, context):
-            self = .dataCorrupted("FIXME: VALUE NOT FOUND")
+            let path = context.codingPath.map { $0.stringValue }
+            self = .valueNotFound(String(describing: key), path)
+            
         case let .keyNotFound(key, context):
             let path = context.codingPath.map { $0.stringValue }
             let key = key.stringValue
             self = .propertyNotFound(key, path)
+
         case let .dataCorrupted(context):
-            self = .dataCorrupted("\(context)")
+            let path = context.codingPath.map { $0.stringValue }
+            self = .dataCorrupted(context.debugDescription, path)
+
         @unknown default:
-            self = .dataCorrupted("Unknown future error")
+            self = .unknownDecodingError(String(describing: error))
         }
     }
     
@@ -61,12 +69,12 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
         switch self {
         case .unableToReadData:
             "Unable to read frame data"
-        case .dataCorrupted(let detail):
-            if let detail {
-                "Data corrupted: \(detail)"
+        case .dataCorrupted(let detail, let path):
+            if path.isEmpty {
+                "Data corrupted: \(detail)."
             }
             else {
-                "Data corrupted (no detail provided)"
+                "Data corrupted: \(detail) at \(path)."
             }
         case .typeMismatch(let expected, let path):
             if path.isEmpty {
@@ -94,6 +102,15 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             "Unsupported version: \(version)"
         case let .invalidReference(ref, kind, index):
             "Invalid \(kind) object reference '\(ref)' in object at index \(index)"
+        case .unknownDecodingError(let error):
+            "Unknown decoding error: \(error)"
+        case .valueNotFound(let value, let path):
+            if path.isEmpty {
+                "Value not found for \(value)."
+            }
+            else {
+                "Value not found for \(value) at \(path)."
+            }
         }
     }
 }

@@ -107,7 +107,9 @@ extension Variant: Codable {
                 self = .array(.point(points))
             }
             else {
-                throw VariantCodingError.invalidVariantValue
+                throw DecodingError.dataCorruptedError(in: container,
+                                                       debugDescription: "Invalid variant value")
+//                throw VariantCodingError.invalidVariantValue
             }
         }
         else {
