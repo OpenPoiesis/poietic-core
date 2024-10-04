@@ -12,11 +12,17 @@ extension Design {
     ///     - id: Proposed object ID. If not provided, one will be generated.
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
     ///     - type: Object type.
+    ///     - attributes: Attribute dictionary to be used for object
+    ///       initialization.
+    ///     - parent: Optional parent object in the hierarchy of objects.
     ///     - components: List of components to be set for the newly created object.
-    ///     - structure: Structural component of the new object that must match the object type.
-    ///     - initialized: If set to `false` then the object is left uninitialised.
-    ///       The Caller must finish initialisation and mark the snapshot
-    ///       initialised before inserting it to a frame.
+    ///     - structure: Structural component of the new object that must match
+    ///       the object type.
+    ///     - state: Initial state of the object snapshot.
+    ///
+    /// - Note: Attributes are not checked according to the object type during
+    ///   object creation. The object is not yet required to satisfy any
+    ///   constraints.
     ///
     /// The `structuralReferences` list must contain:
     ///

@@ -97,7 +97,8 @@ public protocol ForeignFrame {
 /// Error thrown when there is an issue with a foreign object, typically
 /// in a foreign frame.
 ///
-/// - SeeAlso: ``ForeignFrameError``, ``ForeignFrameReader``, ``ForeignObject``
+/// - SeeAlso: ``ForeignFrameError``, ``JSONFrameReader``, ``ForeignObject``
+/// 
 public enum ForeignObjectError: Error, Equatable {
     /// The external representation of foreign object is malformed.
     ///

@@ -129,6 +129,9 @@ public final class Attribute: CustomStringConvertible, Sendable {
     ///     - name: Name of the attribute. See ``Component`` description
     ///       for more attribute names and their namespaces.
     ///     - type: Data type of the attribute.
+    ///     - defaultValue: Default value of the attribute if not provided
+    ///       otherwise during initialisation.
+    ///     - optional: Flag whether the attribute is optional.
     ///     - label: User-oriented label of the attribute. If none provided,
     ///         then the attribute name will be used.
     ///     - abstract: Short description of the attribute, usually displayed as

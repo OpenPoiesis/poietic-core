@@ -26,7 +26,8 @@ extension ObjectSnapshot {
     /// - Parameters:
     ///     - `trait`: Trait to be used for checking
     ///
-    /// - Returns: List of conformance errors as ``ObjectError``.
+    /// - Throws: ``ObjectConstraintError`` when the object does not conform
+    ///   to the trait.
     ///
     public func check(conformsTo trait: Trait) throws (ObjectConstraintError) {
         var errors:[ObjectTypeError] = []
@@ -82,14 +83,14 @@ public struct ConstraintChecker {
     ///
     /// - All objects have a type from the metamodel.
     /// - Object conforms to traits of the object's type.
-    ///   See ``ObjectSnapshot/checkConformance(to:)``) for more information.
+    ///   See ``ObjectSnapshot/check(conformsTo:)``) for more information.
     /// - Objects must conform to all the constraints specified in the
     ///   metamodel.
     ///
-    /// - Returns: ``ConstraintCheckResutl`` if a constraint violation or a
+    /// - Throws: ``FrameConstraintError`` if a constraint violation or a
     ///   type error is found, otherwise returns nil.
     ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/checkConformance(to:)``
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/check(conformsTo:)``
     ///
     public func check(_ frame: Frame) throws (FrameConstraintError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]

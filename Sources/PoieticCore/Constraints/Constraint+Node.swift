@@ -17,8 +17,8 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
     /// one neighbour or when there is none.
     ///
     /// - Parameters:
-    ///     - nodeLabels: labels that match the nodes for the constraint
-    ///     - edgeSelector: edge selector that has to be unique for the matching node
+    ///     - selector: neigborhood selector that has to be unique for the
+    ///       matching node
     ///     - required: Wether the unique neighbour is required.
     ///
     public init(_ selector: NeighborhoodSelector, required: Bool=false) {

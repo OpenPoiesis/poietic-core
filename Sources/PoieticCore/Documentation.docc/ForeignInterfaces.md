@@ -2,7 +2,19 @@
 
 Structures and functionality for interfacing with other systems.
 
+See also: <doc:Persistence>
+
 ## Topics
+
+### Object Import and Export
+
+- ``ForeignFrameLoader``
+- ``JSONFrameReader``
+- ``JSONFrameWriter``
+- ``ForeignObject``
+- ``ForeignObjectError``
+- ``ForeignValueError``
+- ``ForeignFrameError``
 
 ### Foreign Value
 
@@ -10,20 +22,6 @@ Structures and functionality for interfacing with other systems.
 - ``AttributeKey``
 - ``KeyedAttributes``
 - ``ForeignRecordError``
-
-### Object Import and Export
-
-- ``ForeignFrameReader``
-- ``ForeignFrameBundle``
-- ``ForeignFrameInfo``
-- ``ForeignObject``
-- ``ForeignObjectError``
-- ``ForeignValueError``
-- ``ForeignFrameError``
-- ``ObjectSnapshot/asForeignObject()``
-- ``ObjectSnapshot/infoAsForeignRecord()``
-
-See also: <doc:Persistence>
 
 ### CSV Reading and Writing
 

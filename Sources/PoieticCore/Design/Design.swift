@@ -299,7 +299,7 @@ public class Design {
     /// Derive a new frame from an existing frame.
     ///
     /// - Parameters:
-    ///     - original: ID of the original frame to be derived. If not provided
+    ///     - originalID: ID of the original frame to be derived. If not provided
     ///       then the most recent frame in the history will be used.
     ///     - id: Proposed ID of the new frame. Must be unique and must not
     ///       already exist in the design. If not provided, a new unique ID
@@ -374,7 +374,8 @@ public class Design {
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.
     ///
-    /// Before the frame is accepted it is validated using ``validate(_:)``.
+    /// Before the frame is accepted it is validated using
+    /// ``ConstraintChecker/check(_:)``.
     /// If the frame does not violate any constraints and has referential
     /// integrity, then it is frozen: all owned objects in the frame are
     /// frozen.
@@ -390,7 +391,7 @@ public class Design {
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the design.
     ///
-    /// - SeeAlso: ``discard()``, ``validate(_:)``
+    /// - SeeAlso: ``ConstraintChecker/check(_:)``, ``MutableFrame/promote(_:)``
     ///
     @discardableResult
     public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> StableFrame {

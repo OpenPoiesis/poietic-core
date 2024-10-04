@@ -26,10 +26,11 @@ public protocol Component {
 /// public attributes that are advertised through ``trait`` that the component
 /// adopts.
 ///
-/// Component attributes can be retrieved and set by their name, using ``Component/attribute(forKey:)``
-/// and ``Component/setAttribute(value:forKey:)`` respectively. This interface
-/// is for unified modification of the component attributes from a foreign
-/// source, such as foreign data or a script.
+/// Component attributes can be retrieved and set by their name, using
+/// ``InspectableComponent/attribute(forKey:)``
+/// and ``InspectableComponent/setAttribute(value:forKey:)`` respectively.
+/// This interface is for unified modification of the component attributes from
+/// a foreign source, such as foreign data or a script.
 ///
 /// Component attribute names share the same name-space within an object.
 /// There must not be multiple components having an attribute with the same
@@ -51,10 +52,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     /// however they might be provided for convenience, debugging or other
     /// inspection purposes.
     ///
-    /// Component must provide attributes for all keys advertised through
-    /// component's ``componentSchema``.
-    ///
-    /// - SeeAlso: ``setAttribute(value:forKey:)``, ``init(record:)``
+    /// - SeeAlso: ``setAttribute(value:forKey:)``
     ///
     func attribute(forKey key: AttributeKey) -> Variant?
 
@@ -72,7 +70,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///   be converted meaningfully to the attribute. ``AttributeError`` when
     ///   trying to set an attribute that the component does not recognise.
     ///
-    /// - SeeAlso: ``attribute(forKey:)``, ``init(record:)``
+    /// - SeeAlso: ``attribute(forKey:)``
     ///
     mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
 }

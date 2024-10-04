@@ -304,7 +304,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// Other values can not be converted to boolean.
     ///
     /// - Throws ``ValueError`` if the value
-    ///   can not be converted to bool or ``ValueError/invalidBooleanValue(_:)``
+    ///   can not be converted to bool or ``ValueError/notConvertible(_:_:)``
     ///   if the string value contains a string that is not recognised as
     ///   a valid boolean value.
     ///

@@ -6,6 +6,8 @@
 //
 
 extension Trait {
+
+    // TODO: Consider replacing this trait with a direct object attribute `name`
     /// Trait for objects that have a name.
     ///
     /// Attributes:
@@ -17,6 +19,8 @@ extension Trait {
     ///
     /// For some types of models, the name might be unique within the whole
     /// model.
+    ///
+    /// - SeeAlso: ``Frame/object(named:)``, ``ObjectSnapshot/name``
     ///
     public static let Name = Trait(
         name: "Name",

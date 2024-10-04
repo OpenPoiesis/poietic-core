@@ -177,7 +177,7 @@ extension Variant: Codable {
     /// by default. If coalesced encoding is requested then it will be encoded
     /// just as a number `10`.
     ///
-    /// To enable coalescing, set the ``Variant/CoalescingCodingTypeKey`` to `true`:
+    /// To enable coalescing, set the ``Variant/CoalescedCodingTypeKey`` to `true`:
     ///
     /// ```swift
     ///     let encoder = JSONEncoder()

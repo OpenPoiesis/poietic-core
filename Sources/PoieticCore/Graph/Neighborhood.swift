@@ -25,6 +25,7 @@ public enum EdgeDirection: Sendable {
     }
 }
 
+// FIXME: [CLEANUP] Remove this and follow the TODO below.
 // TODO: Do we still need this? Can't we just have predicate + direction in the hood?
 public final class NeighborhoodSelector: Sendable {
     public let direction: EdgeDirection
@@ -42,10 +43,29 @@ public final class NeighborhoodSelector: Sendable {
 // TODO: Split this into Bound and Unbound
 // TODO: Document complexity O(n) - all edges are traversed
 
+// NOTE: There used to be more evolved neighbourhood-like collection of
+//       objects in the past. This is what remained.
+
+/// Neighbourhood is a subgraph centred on a node with edges adjacent to
+/// that node.
+///
+/// Neighbourhoods are created using ``Graph/hood(_:selector:)-47x7u``.
+///
 public class Neighborhood {
+    /// Graph the neighbourhood is contained within.
+    ///
     public let graph: Graph
+    
+    /// ID of a node the neighbourhood adjacent to.
+    ///
     public let nodeID: ObjectID
+    
+    /// Direction of the edges to be followed from the main node.
+    ///
     public let direction: EdgeDirection
+    
+    /// List of adjacent edges.
+    ///
     public let edges: [Edge]
     
     public init(graph: Graph,
@@ -71,89 +91,3 @@ public class Neighborhood {
         }
     }
 }
-
-class NeighborhoodView {
-    public let graph: Graph
-    public let nodeID: ObjectID
-    public let predicate: Predicate
-    public let direction: EdgeDirection
-
-    public var node: Node {
-        graph.node(nodeID)
-    }
-    
-    var edges: [Edge] {
-        let edges: [Edge]
-        switch direction {
-        case .incoming: edges = graph.incoming(nodeID)
-        case .outgoing: edges = graph.outgoing(nodeID)
-        }
-        let filtered: [Edge] = edges.filter {
-            predicate.match(frame: graph.frame, object: $0.snapshot)
-        }
-
-        return filtered
-    }
-    
-    public init(graph: Graph,
-                nodeID: ObjectID,
-                predicate: Predicate,
-                direction: EdgeDirection = .outgoing) {
-        
-        self.graph = graph
-        self.nodeID = nodeID
-        self.predicate = predicate
-        self.direction = direction
-    }
-    
-    public var nodes: [Node] {
-        edges.map { edge in
-            switch direction {
-            case .incoming: graph.node(edge.origin)
-            case .outgoing: graph.node(edge.target)
-            }
-        }
-    }
-}
-
-
-class BoundNeighborhood {
-    public let graph: Graph
-    public let node: Node
-    public let nodeID: ObjectID
-    public let predicate: Predicate
-    public let direction: EdgeDirection
-    public let edges: [Edge]
-    public let nodes: [Node]
-    
-    public init(graph: Graph,
-                nodeID: ObjectID,
-                predicate: Predicate,
-                direction: EdgeDirection = .outgoing) {
-        
-        self.graph = graph
-        self.nodeID = nodeID
-        self.node = graph.node(nodeID)
-        self.predicate = predicate
-        self.direction = direction
-
-        let edges: [Edge]
-        switch direction {
-        case .incoming: edges = graph.incoming(nodeID)
-        case .outgoing: edges = graph.outgoing(nodeID)
-        }
-        let filtered: [Edge] = edges.filter {
-            predicate.match(frame: graph.frame, object: $0.snapshot)
-        }
-
-        self.edges = filtered
-        self.nodes = edges.map { edge in
-            switch direction {
-            case .incoming: graph.node(edge.origin)
-            case .outgoing: graph.node(edge.target)
-            }
-        }
-
-    }
-}
-

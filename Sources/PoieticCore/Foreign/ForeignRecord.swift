@@ -22,8 +22,6 @@ public enum ForeignRecordError: Error {
     /// that the value can not be converted. For example, trying to get
     /// an integer value from a foreign string value `"moon"`.
     ///
-    /// - SeeAlso: ``ForeignValue``, ``ForeignAtom``.
-    ///
     case valueError(String, ValueError)
 }
 
@@ -163,7 +161,7 @@ public struct ForeignRecord {
     /// Try to get a bool value from the foreign value, if the record
     /// has the key. If not then `nil` is returned.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to bool.
     ///
     public func boolValueIfPresent(for key: String) throws (ForeignRecordError) -> Bool? {
@@ -182,7 +180,7 @@ public struct ForeignRecord {
     /// Try to get an integer value from the foreign value, if the record
     /// has the key. If not then `nil` is returned.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to integer.
     ///
     public func intValueIfPresent(for key: String) throws (ForeignRecordError) -> Int? {
@@ -200,7 +198,7 @@ public struct ForeignRecord {
     /// Try to get a double value from the foreign value, if the record
     /// has the key. If not then `nil` is returned.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to double.
     ///
     public func doubleValueIfPresent(for key: String) throws (ForeignRecordError) -> Double? {
@@ -218,7 +216,7 @@ public struct ForeignRecord {
     /// Try to get a string value from the foreign value, if the record
     /// has the key. If not then `nil` is returned.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to string (like an array).
     ///
     public func stringValueIfPresent(for key: String) throws (ForeignRecordError) -> String? {
@@ -236,7 +234,7 @@ public struct ForeignRecord {
     /// Try to get an object ID value from the foreign value, if the record
     /// has the key. If not then `nil` is returned.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` if the value
+    /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to ID.
     ///
     public func IDValueIfPresent(for key: String) throws (ForeignRecordError) -> UInt64? {

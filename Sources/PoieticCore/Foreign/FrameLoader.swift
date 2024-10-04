@@ -83,15 +83,14 @@ public final class ForeignFrameLoader {
     /// - Edges must have both origin and target specified, otherwise
     ///   ``ForeignFrameError/foreignObjectError(_:_:)`` is thrown.
     /// - Other structural types must not have neither origin neither target
-    ///   specified, if they do then ``FrameReaderError/invalidStructuralKeyPresent(_:_:_:)``
-    ///   is thrown.
+    ///   specified.
     ///
     /// - Note: This function is non-transactional. The frame is assumed to
     ///         represent a transaction. When the function fails, the whole
     ///         frame should be discarded.
-    /// - Throws: ``FrameReaderError``
+    /// - Throws: ``FrameLoaderError``
     /// - SeeAlso: ``Design/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
-    ///     ``MutableFraminsert(_:owned:):)``
+    ///     ``MutableFrame/insert(_:)``
     ///
     public func load(_ foreignFrame: ForeignFrame, into frame: MutableFrame) throws (FrameLoaderError) {
         let foreignObjects = foreignFrame.objects

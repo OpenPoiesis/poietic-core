@@ -28,12 +28,26 @@ For querying features of a graph there is ``Neighborhood`` and
 
 ## Topics
 
-- <doc:Design>
+### Essentials
+
+- <doc:UnderstandingDesign>
+- ``Design``
+- ``Frame``
+- ``ObjectSnapshot``
+
+### Problem Domain
+
 - <doc:MetamodelAndTypes>
-- <doc:PredicatesAndConstraints>
-- <doc:Graphs>
+- <doc:Predicates>
+
+### Persistence, Import and Export
+
 - <doc:ForeignInterfaces>
-- <doc:Formulas>
 - <doc:Persistence>
+
+### Others
+
+- <doc:Graphs>
+- <doc:Formulas>
 
 

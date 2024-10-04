@@ -16,8 +16,6 @@
 /// - `__lt__` is `<`
 /// - `__le__` is `<=`
 ///
-/// - SeeAlso: ``bindExpression(_:variables:functions:)``
-///
 nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
     .Comparison("__eq__") { (lhs, rhs) in
         return lhs == rhs
@@ -45,10 +43,10 @@ nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
 /// The list includes all functions from ``BuiltinComparisonOperators`` with
 /// addition of:
 ///
-/// - ``if(condition, if_true, if_false)``
-/// - ``not(value)`` as logical negation
-/// - ``or(...)`` as logical OR
-/// - ``and(...)`` as logical AND
+/// - `if(condition, if_true, if_false)`
+/// - `not(value)` as logical negation
+/// - `or(...)` as logical OR
+/// - `and(...)` as logical AND
 /// 
 nonisolated(unsafe)  public let BuiltinFunctions: [Function] = BuiltinComparisonOperators + [
     Function(name: "if",

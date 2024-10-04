@@ -14,10 +14,28 @@
 /// The parses takes a string as an input and creates an unbound arithmetic
 /// expression.
 ///
+/// The elements of an arithmetic expression can be:
+///
+/// - numeric literals: integers (for example `0`, `10`, `128`)
+///   or floating point numbers (`1.5e10`)
+/// - variable or function identifiers
+/// - arithmetic operators `+`, `-`, `*`, `/`, `%` (as modulo)
+/// - comparison operators `==`, `!=`, `<`, `>`, `<=`, `>=`
+/// - parethesis `(`, `)` for grouping sub-expressions
+/// - function calls (`min(a, b)`)
+///
+/// Parser produces ``UnboundExpression``.
+///
+/// ## Object Types with Expressions
+///
+/// Objects that contain arithmetic expressions typically have a trait
+/// ``Trait/Formula``.
+///
 public class ExpressionParser {
     var lexer: ExpressionLexer
     var currentToken: ExpressionToken?
     
+    // TODO: Add: public static parsing(string:) throws -> UnboundExpression
     /// Creates a new parser using an expression lexer.
     ///
     public init(lexer: ExpressionLexer) {
@@ -32,7 +50,7 @@ public class ExpressionParser {
     }
     
     /// True if the parser is at the end of the source.
-    public var atEnd: Bool {
+    var atEnd: Bool {
         if let token = currentToken {
             return token.type == .empty
         }

@@ -15,6 +15,12 @@ extension Trait {
     /// referring to other nodes as parameters must have an edge from the
     /// parameter nodes to the nodes using the parameter.
     ///
+    /// Attributes:
+    ///
+    /// - `formula` (`string`):  Arithmetic formula.
+    ///
+    /// - SeeAlso: ``ArithmeticExpression``
+    ///
     public static let Formula = Trait(
         name: "Formula",
         attributes: [
@@ -191,7 +197,7 @@ extension ObjectType {
     ///
     /// Stock can be connected to many flows that drain or fill the stock.
     ///
-    /// - SeeAlso: ``ObjectType/Flow``, ``ObjectType/ImplicitFlow``
+    /// - SeeAlso: ``ObjectType/Flow``.
     ///
     public static let Stock = ObjectType(
         name: "Stock",

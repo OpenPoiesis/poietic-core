@@ -293,7 +293,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// Other variants can not be converted to boolean.
     ///
     /// - Throws ``ValueError`` if the variant
-    ///   can not be converted to bool or ``ValueError/invalidBooleanValue(_:)``
+    ///   can not be converted to bool or ``ValueError/notConvertible(_:_:)``
     ///   if the string value contains a string that is not recognised as
     ///   a valid boolean value. ``ValueError`` when the
     ///   variant is an array.
@@ -311,7 +311,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// Boolean and ID values can not be converted to double.
     ///
-    /// - Throws ``ValueError/typeMismatch(_:_:)`` if the variant
+    /// - Throws ``ValueError/notConvertible(_:_:)`` if the variant
     ///   can not be converted to double or is an array.
     ///
     /// - SeeAlso: ``VariantAtom/doubleValue()``
@@ -339,7 +339,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// - The first value is the `x` component of the point and the second value
     ///   is the `y` component of the point.
     ///
-    /// - Throws: ``TypeError`` when the variant
+    /// - Throws: ``ValueError`` when the variant
     ///   is an array or the atom is not a point or convertible to a point.
     ///
     /// - SeeAlso: ``VariantAtom/pointValue()``
@@ -439,7 +439,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     ///
     /// All elements of the list must be a boolean.
     ///
-    /// - Throws: ``ValueError/typeMismatch(_:_:)`` when the variant
+    /// - Throws: ``ValueError/notConvertible(_:_:)`` when the variant
     ///   is an atom or when any of the values can not be converted to a
     ///   boolean.
     ///

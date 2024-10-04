@@ -25,7 +25,8 @@ public struct FunctionArgument: Sendable {
     ///
     /// - Parameters:
     ///     - name: Name of the argument.
-    ///     - type: Argument type. Default is ``ArgumentType/any``.
+    ///     - type: Argument type. Default is ``VariableType/any``.
+    ///     - isConstant: Flag whether the function argument is a constant.
     ///
     public init(_ name: String, type: VariableType = .any, isConstant: Bool = false) {
         self.name = name

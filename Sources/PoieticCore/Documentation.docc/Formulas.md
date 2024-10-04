@@ -15,7 +15,6 @@ Formulas - arithmetic expressions.
 - ``Function``
 - ``Signature``
 - ``FunctionArgument``
-- ``UnionType``
 - ``BuiltinComparisonOperators``
 - ``BuiltinFunctions``
 

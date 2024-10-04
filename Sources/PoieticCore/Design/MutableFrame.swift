@@ -24,7 +24,7 @@ struct SnapshotReference {
 /// The basic changes that can be done with a mutable frame:
 ///
 /// - Add objects to the frame using ``MutableFrame/create(_:structure:attributes:components:)``
-///    or ``MutableFrame/insert(_:owned:)``.
+///    or ``MutableFrame/insert(_:)``.
 /// - Mutate existing objects in the frame using
 ///   ``MutableFrame/mutableObject(_:)``.
 ///
@@ -119,7 +119,7 @@ public class MutableFrame: Frame {
     ///
     /// The frame will contain all the provided snapshots, but will not own
     /// them. The frame will own only snapshots inserted directly to the frame
-    /// using ``insert(_:owned:)`` or by deriving an object using
+    /// using ``insert(_:)`` or by deriving an object using
     /// ``mutableObject(_:)``.
     ///
     /// Snapshots removed from the mutable frame are only disassociated with the
@@ -148,8 +148,6 @@ public class MutableFrame: Frame {
     ///
     /// - Parameters:
     ///     - snapshot: Snapshot to be inserted.
-    ///     - owned: Flag whether the snapshot will be owned by the frame or
-    ///              not.
     ///
     /// Requirements for the snapshot:
     ///
@@ -197,7 +195,7 @@ public class MutableFrame: Frame {
     ///     - owned: Flag whether the snapshot will be owned by the frame or
     ///              not.
     ///
-    /// - SeeAlso: ``MutableFrame/insert(_:owned:)``
+    /// - SeeAlso: ``MutableFrame/insert(_:)``
     ///
     public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
         precondition(state.isMutable,
@@ -234,8 +232,16 @@ public class MutableFrame: Frame {
     ///
     /// - Parameters:
     ///     - type: Type of the object to be created.
-    ///     - components: List of components to be associated with the newly
+    ///     - attributes: Attribute dictionary to be used for object
+    ///       initialization.
+    ///     - structure: Structural component of the new object that must match
+    ///       the object type.
+    ///    - components: List of components to be associated with the newly
     ///       created object.
+    ///
+    /// - Note: Attributes are not checked according to the object type during
+    ///   object creation. The object is not yet required to satisfy any
+    ///   constraints.
     ///
     /// - Returns: Object ID of the newly created object.
     ///

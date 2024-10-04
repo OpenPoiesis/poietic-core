@@ -11,7 +11,7 @@ import Foundation
 // FIXME: [REFACTORING] Review necessity of this
 /// Error thrown when reading or processing a foreign frame.
 ///
-/// - SeeAlso: ``ForeignFrameReader``, ``ForeignObjectError``
+/// - SeeAlso: ``ForeignFrameLoader``, ``ForeignObjectError``
 ///
 public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case unableToReadData

@@ -6,6 +6,16 @@
 //
 
 extension Trait {
+    /// Trait for objects that can be presented diagrammatically:
+    ///
+    /// Attributes:
+    /// - `position` (``Point``): position of the object on a canvas, typically
+    ///   a centre of the object's shape. Please refer to the particular
+    ///   domain metamodel for more details.
+    /// - `z_index` (`Int`): Order of layering of objects on top of each other.
+    ///   Higher number means top – might obscure others,
+    ///   lower means bottom - might be obscured.
+    ///
     public static let Position = Trait(
         name: "Position",
         attributes: [

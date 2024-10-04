@@ -58,8 +58,8 @@ public final class ObjectType: Sendable {
     ///       name is used.
     ///     - structuralType: Specification how the object can be related to
     ///       other objects in the design.
-    ///     - components: Specification of components that are required to be
-    ///       present for an object of this type.
+    ///     - traits: List of traits associated with the object type.
+    ///     - abstract: User oriented object type details.
     ///
     /// - Note: The attributes in components share the same name-space within an
     ///         object type. In other words, there must not be two components with

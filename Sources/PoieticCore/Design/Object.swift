@@ -66,7 +66,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// When mutating an object with ``MutableFrame/mutableObject(_:)`` a new
     /// snapshot with new snapshot ID but the same object ID will be created.
     ///
-    /// - SeeAlso: ``id``, ``MutableFrame/insert(_:owned:)``,
+    /// - SeeAlso: ``id``, ``MutableFrame/insert(_:)``,
     ///    ``Design/allocateID(required:)``
     ///
     public let snapshotID: SnapshotID
@@ -99,10 +99,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// An object can have multiple runtime components but only
     /// one component of a given type.
-    ///
-    /// Objects can be also queried based on whether they contain a given
-    /// component type with ``Frame/filter(component:)``
-    /// or using ``Frame/filter(_:)`` with ``HasComponentPredicate``.
     ///
     /// - Note: The runtime components are not persisted.
     ///
@@ -207,6 +203,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
     ///     - structure: Structural component of the object.
+    ///     - attributes: Initial attributes of the newly created object.
+    ///     - parent: ID of parent object in the object hierarchy.
     ///     - components: List of components to be added to the object.
     ///
     /// If the list of components does not contain all the components required
