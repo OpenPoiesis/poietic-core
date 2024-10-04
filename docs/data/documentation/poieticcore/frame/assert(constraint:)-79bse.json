@@ -19,6 +19,7 @@
   ],
   "defaultImplementationsSections" : [
     {
+      "anchor" : "Frame-Implementations",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/assert(constraint:)-3ln1f"
       ],
@@ -29,7 +30,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame"
       ]
     ]
@@ -220,7 +220,15 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing constraint that checks edges.",
+      "text" : "An object representing a constraint rule for checking whether a design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is valid within a given problem domain.",
       "type" : "text"
     }
   ],
@@ -250,20 +258,6 @@
   "title" : "Constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [

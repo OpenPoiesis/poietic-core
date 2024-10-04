@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
       ]
     ]
   },
@@ -158,13 +158,13 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Design-and-Version-Frames",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError"
       ],
       "title" : "Design and Version Frames"
     }
@@ -196,20 +196,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/createFrame(id:)": {
   "abstract" : [
@@ -370,6 +356,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
+"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError": {
+  "abstract" : [
+    {
+      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameConstraintError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameConstraintError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameConstraintError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameconstrainterror"
+},
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
     {
@@ -403,52 +423,6 @@
   "title" : "FrameID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameValidationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ID": {
   "abstract" : [
@@ -548,6 +522,20 @@
   "title" : "StableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/VersionState": {
   "abstract" : [

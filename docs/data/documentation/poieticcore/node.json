@@ -145,6 +145,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Graph-Nodes-and-Edges",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
@@ -158,12 +159,16 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/init(_:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/name",
@@ -173,16 +178,12 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/attribute(forKey:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/subscript(_:)"
-      ],
-      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -635,51 +636,6 @@
   "title" : "snapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node\/snapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/Node/subscript(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node\/subscript(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node\/subscript(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Node/type": {
   "abstract" : [

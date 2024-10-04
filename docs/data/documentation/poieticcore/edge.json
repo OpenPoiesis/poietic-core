@@ -89,6 +89,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Graph-Nodes-and-Edges",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
@@ -102,12 +103,16 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/init(_:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/name",
@@ -119,16 +124,12 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/attribute(forKey:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/subscript(_:)"
-      ],
-      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -417,51 +418,6 @@
   "title" : "snapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge\/snapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/Edge/subscript(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge\/subscript(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge\/subscript(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge/target": {
   "abstract" : [

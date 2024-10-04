@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9JSONValueO4dataAC10Foundation4DataV_tKcfc",
+    "externalID" : "s:11PoieticCore9JSONValueO4dataAC10Foundation4DataV_tAA9JSONErrorOYKcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -44,6 +44,19 @@
       {
         "kind" : "keyword",
         "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+        "text" : "JSONError"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -95,6 +108,20 @@
             {
               "kind" : "keyword",
               "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+              "text" : "JSONError"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
@@ -151,6 +178,37 @@
   "title" : "Foreign Interfaces",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
@@ -216,6 +274,19 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+      "text" : "JSONError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(data:)",

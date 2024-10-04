@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -35,6 +43,279 @@
           "level" : 2,
           "text" : "Overview",
           "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Metamodel represents a problem domain. The metamodel defines which types of",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "objects the domain considers and what are the constraints or structural rules.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "The design objects must conform to the defined types and satisfy the constraints",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "for the design to be valid within the problem domain.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example: A domain for modelling systems dynamics using stock and flows might",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "consider node types ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Stock",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Flow",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " and and ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Drains",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Fills",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " edge types.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "First we define traits – groups of attributes:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "extension Trait {",
+            "    static let Stock = Trait(",
+            "        name: \"Stock\",",
+            "        attributes: [",
+            "            Attribute(\"allows_negative\", type: .bool),",
+            "            Attribute(\"delayed_inflow\", type: .bool),",
+            "        ]",
+            "    )",
+            "    static let Flow = Trait(",
+            "        name: \"Flow\",",
+            "        attributes: [",
+            "            Attribute(\"priority\", type: .int)",
+            "        ]",
+            "    )",
+            "}"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Secondly we define object types which also specify structural type – whether",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "it is an edge or a node type. Some common traits are provided, such as",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for objects that are named, ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for objects",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that hold an arithmetic formula and ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for objects",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that can be represented diagramatically.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "extension ObjectType {",
+            "    \/\/ Node types",
+            "    static let Stock = ObjectType(",
+            "        name: \"Stock\",",
+            "        structuralType: .node,",
+            "        traits: [.Name, .Formula, .Stock, .Position],",
+            "    )",
+            "    static let Flow = ObjectType(",
+            "        name: \"Flow\",",
+            "        structuralType: .node,",
+            "        traits: [.Name, .Formula, .Flow, .Position]",
+            "    )",
+            "    \/\/ Edge types",
+            "    static let Drains = ObjectType(",
+            "        name: \"Drains\",",
+            "        structuralType: .edge",
+            "    )",
+            "    static let Fills = ObjectType(",
+            "        name: \"Fills\",",
+            "        structuralType: .edge,",
+            "    )",
+            "}"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Once we have object types defined, we can assemble the metamodel:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "public static let StockFlow = Metamodel(",
+            "    name: \"StockFlow\",",
+            "    traits: [ .Stock, .Flow ],",
+            "    types: [",
+            "        .Stock, .Flow,       \/\/ Nodes",
+            "        .Drains, .Fills,     \/\/ Edges",
+            "    ]",
+            ")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Metamodels typically contain constraints. For more information and some",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "examples see ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -50,19 +331,17 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Problem-Domain",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates"
+      ],
+      "title" : "Problem Domain"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Metamodel-and-Object-Types",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
@@ -72,6 +351,21 @@
       "title" : "Metamodel and Object Types"
     },
     {
+      "anchor" : "Constraints",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+      ],
+      "title" : "Constraints"
+    },
+    {
+      "anchor" : "Common-Components-and-Types",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
@@ -80,13 +374,12 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel"
       ],
       "title" : "Common Components and Types"
     },
     {
+      "anchor" : "Other",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable"
       ],
@@ -120,6 +413,56 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are required. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and accepts them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AcceptAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/acceptall"
 },
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
@@ -155,10 +498,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
-"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
+"doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
+      "text" : "An object representing a constraint rule for checking whether a design",
       "type" : "text"
     },
     {
@@ -166,14 +509,14 @@
       "type" : "text"
     },
     {
-      "text" : "kinds of designs.",
+      "text" : "is valid within a given problem domain.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -181,50 +524,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
+      "text" : "Constraint"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
   "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "BasicMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/basicmetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
+  "navigatorTitle" : [
     {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
+      "kind" : "identifier",
+      "text" : "Constraint"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
+  "role" : "symbol",
+  "title" : "Constraint",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
+  "url" : "\/documentation\/poieticcore\/constraint"
 },
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [
     {
-      "text" : "A concrete metamodel without any specification.",
+      "text" : "Definition of a constraint satisfaction requirement.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -232,71 +558,99 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EmptyMetamodel"
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : " "
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
   "role" : "symbol",
-  "title" : "EmptyMetamodel",
+  "title" : "ConstraintViolation",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/emptymetamodel"
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
   "abstract" : [
     {
-      "text" : "Structures and functionality for interfacing with other systems.",
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
-},
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
-  "abstract" : [
+  "fragments" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
-      "type" : "text"
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
     {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
+  "role" : "symbol",
+  "title" : "EdgeEndpointTypes",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
+  "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
@@ -403,21 +757,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/designinfo"
 },
-"doc://PoieticCore/documentation/PoieticCore/Persistence": {
-  "abstract" : [
-    {
-      "text" : "Persistence of a design - storing from and restoring to a file system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Persistence",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+"doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [
     {
       "text" : "Predicates specify conditions for filtering specific objects. Constraints",
@@ -432,12 +772,62 @@
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Predicates and Constraints",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+  "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are prohibited. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RejectAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rejectall"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
@@ -536,7 +926,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -607,6 +997,51 @@
   "title" : "Documentation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/documentation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Formula": {
+  "abstract" : [
+    {
+      "text" : "Trait of simulation nodes that are computed using an arithmetic formula.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Formula"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Formula",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/formula"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
@@ -716,7 +1151,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -742,6 +1177,124 @@
   "title" : "Note",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/note"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Position": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be presented diagrammatically:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Position"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Position",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/position"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueNeighbourRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueProperty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variable": {
   "abstract" : [

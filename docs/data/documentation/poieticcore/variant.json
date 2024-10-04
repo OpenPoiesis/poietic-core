@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
       ]
     ]
   },
@@ -139,6 +139,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
@@ -148,7 +149,8 @@
         "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
         "doc:\/\/PoieticCore\/s26ExpressibleByStringLiteralP",
         "doc:\/\/PoieticCore\/s33ExpressibleByUnicodeScalarLiteralP",
-        "doc:\/\/PoieticCore\/SH"
+        "doc:\/\/PoieticCore\/SH",
+        "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -165,6 +167,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Value-and-Variant",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
@@ -180,6 +183,8 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Operators",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/!=(_:_:)-3aev2",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/_(_:_:)-2edgh",
@@ -190,6 +195,8 @@
       "title" : "Operators"
     },
     {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/array(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atom(_:)"
@@ -197,6 +204,8 @@
       "title" : "Enumeration Cases"
     },
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(_:)-14oy2",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(_:)-2qqms",
@@ -213,6 +222,8 @@
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/arrayItemType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomType",
@@ -226,8 +237,9 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/anyValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/asJSON()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/boolArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/boolValue()",
@@ -235,6 +247,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/doubleValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/intArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/intValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isConvertible(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isRepresentable(as:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/pointArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/pointValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/stringArray()",
@@ -243,12 +257,23 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Type-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "anchor" : "Type-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/fromJSON(_:path:)"
       ],
       "title" : "Type Methods"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Decodable-Implementations",
@@ -345,20 +370,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
-},
 "doc://PoieticCore/documentation/PoieticCore/ID": {
   "abstract" : [
 
@@ -423,6 +434,20 @@
   "title" : "Point",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -583,6 +608,48 @@
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/!=(_:_:)-3aev2"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CoalescedCodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "CoalescedCodingTypeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
   "abstract" : [
@@ -960,39 +1027,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/_=(_:_:)-55gw4"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/anyValue()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "anyValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "Any"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/anyValue()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "anyValue()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/anyvalue()"
-},
 "doc://PoieticCore/documentation/PoieticCore/Variant/array(_:)": {
   "abstract" : [
 
@@ -1280,7 +1314,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1329,7 +1372,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1408,7 +1460,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1457,7 +1518,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1533,7 +1603,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
+      "text" : "ForeignValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1936,7 +2015,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1985,7 +2073,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -2034,6 +2131,60 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/isarray"
 },
+"doc://PoieticCore/documentation/PoieticCore/Variant/isConvertible(to:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether the variant is representable as another type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isConvertible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isConvertible(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isConvertible(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isconvertible(to:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Variant/isNumeric": {
   "abstract" : [
     {
@@ -2078,6 +2229,68 @@
   "title" : "isNumeric",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/isnumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/isRepresentable(as:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether the variant is representable as a variable",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "of given type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isRepresentable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isRepresentable(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isRepresentable(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isrepresentable(as:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/items": {
   "abstract" : [
@@ -2159,7 +2372,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -2208,7 +2430,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -2253,7 +2484,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -2302,7 +2542,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -2444,6 +2693,16 @@
 "doc://PoieticCore/s43ExpressibleByExtendedGraphemeClusterLiteralP": {
   "identifier" : "doc:\/\/PoieticCore\/s43ExpressibleByExtendedGraphemeClusterLiteralP",
   "title" : "Swift.ExpressibleByExtendedGraphemeClusterLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8CopyableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
+  "title" : "Swift.Copyable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

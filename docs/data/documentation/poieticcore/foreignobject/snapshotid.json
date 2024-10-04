@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convenience for fetching correctly typed snapshot ID stored in the info record.",
+      "text" : "Object snapshot ID.",
       "type" : "text"
     }
   ],
@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignObjectV10snapshotIDSSSgvp",
+    "externalID" : "s:11PoieticCore13ForeignObjectP10snapshotIDSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -53,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -100,20 +101,32 @@
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
               "text" : " }"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ID can be either real object ID or a custom string.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -169,14 +182,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
     {
-      "text" : "A structure that contains an object representation from a foreign interface.",
+      "text" : "Protocol for foreign representation of an object",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -203,7 +216,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/snapshotID": {
   "abstract" : [
     {
-      "text" : "Convenience for fetching correctly typed snapshot ID stored in the info record.",
+      "text" : "Object snapshot ID.",
       "type" : "text"
     }
   ],
@@ -236,6 +249,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/snapshotID",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "snapshotID",
   "type" : "topic",

@@ -37,19 +37,17 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Others",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
+      ],
+      "title" : "Others"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Graph-Nodes-and-Edges",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
@@ -61,6 +59,7 @@
       "title" : "Graph, Nodes and Edges"
     },
     {
+      "anchor" : "Neighbourhoods",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector"
@@ -95,20 +94,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Edge": {
   "abstract" : [
@@ -185,20 +170,6 @@
   "title" : "EdgeDirection",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
@@ -282,20 +253,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphcycleerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
   "abstract" : [
     {
@@ -332,7 +289,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
-
+    {
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -425,42 +393,6 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/Persistence": {
-  "abstract" : [
-    {
-      "text" : "Persistence of a design - storing from and restoring to a file system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Persistence",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 }
 }
 }

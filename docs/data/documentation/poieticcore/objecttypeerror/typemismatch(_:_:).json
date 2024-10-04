@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Value for an attribute is not convertible to a required type as",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "specified in the trait owning the attribute.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -13,7 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ObjectTypeErrorO12typeMismatchyACSS_SStcACmF",
+    "externalID" : "s:11PoieticCore15ObjectTypeErrorO12typeMismatchyAcA9AttributeC_AA05ValueD0OtcACmF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,8 +47,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:11PoieticCore9AttributeC",
+        "text" : "Attribute"
       },
       {
         "kind" : "text",
@@ -42,8 +56,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+        "text" : "ValueType"
       },
       {
         "kind" : "text",
@@ -88,18 +102,20 @@
               "text" : "("
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:11PoieticCore9AttributeC",
+              "text" : "Attribute"
             },
             {
               "kind" : "text",
               "text" : ", "
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+              "text" : "ValueType"
             },
             {
               "kind" : "text",
@@ -109,6 +125,60 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ",",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isConvertible(to:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isRepresentable(as:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -147,9 +217,112 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Attribute": {
+  "abstract" : [
+    {
+      "text" : "Description of an attribute.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Attribute"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Attribute"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Attribute",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/attribute"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/check(conformsTo:)": {
+  "abstract" : [
+    {
+      "text" : "Checks object’s conformance to a trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "check"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "conformsTo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ObjectConstraintErrorV",
+      "text" : "ObjectConstraintError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "check(conformsTo:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/check(conformsto:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
-
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -180,7 +353,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/typeMismatch(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Value for an attribute is not convertible to a required type as",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "specified in the trait owning the attribute.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -201,8 +385,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore9AttributeC",
+      "text" : "Attribute"
     },
     {
       "kind" : "text",
@@ -210,8 +394,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
     },
     {
       "kind" : "text",
@@ -224,6 +408,153 @@
   "title" : "ObjectTypeError.typeMismatch(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror\/typemismatch(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/isConvertible(to:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether the variant is representable as another type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isConvertible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isConvertible(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isConvertible(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isconvertible(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/isRepresentable(as:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether the variant is representable as a variable",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "of given type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isRepresentable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isRepresentable(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isRepresentable(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isrepresentable(as:)"
 }
 }
 }

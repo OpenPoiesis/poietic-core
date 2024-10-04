@@ -268,32 +268,65 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Essentials",
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+      ],
+      "title" : "Essentials"
     },
     {
+      "anchor" : "Problem-Domain",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransformationContext"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates"
+      ],
+      "title" : "Problem Domain"
+    },
+    {
+      "anchor" : "Persistence-Import-and-Export",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
+      ],
+      "title" : "Persistence, Import and Export"
+    },
+    {
+      "anchor" : "Others",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
+      ],
+      "title" : "Others"
+    },
+    {
+      "anchor" : "Classes",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext"
       ],
       "title" : "Classes"
     },
     {
+      "anchor" : "Protocols",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameTransformer",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem"
       ],
       "title" : "Protocols"
     },
     {
+      "anchor" : "Structures",
+      "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
@@ -302,19 +335,42 @@
       "title" : "Structures"
     },
     {
+      "anchor" : "Functions",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)"
+      ],
+      "title" : "Functions"
+    },
+    {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken"
       ],
       "title" : "Type Aliases"
     },
     {
+      "anchor" : "Enumerations",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ],
       "title" : "Enumerations"
+    },
+    {
+      "anchor" : "Extended-Modules",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift"
+      ],
+      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -376,17 +432,113 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
     {
-      "text" : "Containment and management of design objects and their history.",
+      "text" : "Collection of components of an object.",
       "type" : "text"
     }
   ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ComponentSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ComponentSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ComponentSet",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/componentset"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
+  "abstract" : [
+    {
+      "text" : "An object that checks constraints, including object types, of a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintChecker",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
@@ -486,6 +638,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edge"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgetype"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
 
@@ -517,6 +700,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframe"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
@@ -545,10 +759,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/formulas"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameTransformer": {
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that makes changes to a frame.",
+      "text" : "Protocol for version frames.",
       "type" : "text"
     }
   ],
@@ -563,21 +777,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameTransformer"
+      "text" : "Frame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameTransformer",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameTransformer"
+      "text" : "Frame"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameTransformer",
+  "title" : "Frame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frametransformer"
+  "url" : "\/documentation\/poieticcore\/frame"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameLoaderError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by a foreign frame loader.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameLoaderError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameLoaderError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameLoaderError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameloadererror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
@@ -698,7 +946,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -753,7 +1009,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
-
+    {
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -883,7 +1150,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
-
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -960,12 +1230,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
 },
-"doc://PoieticCore/documentation/PoieticCore/Plane": {
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
   "abstract" : [
-    {
-      "text" : "Plane in which an object or a component exists.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -978,23 +1245,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Plane"
+      "text" : "PersistentStoreError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Plane"
+      "text" : "PersistentStoreError"
     }
   ],
   "role" : "symbol",
-  "title" : "Plane",
+  "title" : "PersistentStoreError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/plane"
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+"doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [
     {
       "text" : "Predicates specify conditions for filtering specific objects. Constraints",
@@ -1009,12 +1276,80 @@
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Predicates and Constraints",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+  "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
+  "abstract" : [
+    {
+      "text" : "Context containing runtime information about the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeContext"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeContext"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RuntimeContext",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimecontext"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeSystem": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects that manage runtime data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeSystem"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeSystem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RuntimeSystem",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimesystem"
 },
 "doc://PoieticCore/documentation/PoieticCore/ScannerError": {
   "abstract" : [
@@ -1047,14 +1382,42 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/scannererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransformationContext": {
+"doc://PoieticCore/documentation/PoieticCore/Swift": {
   "abstract" : [
 
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Swift",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/swift"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariableType": {
+  "abstract" : [
+    {
+      "text" : "Type of a function argument.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -1062,21 +1425,131 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TransformationContext"
+      "text" : "VariableType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransformationContext",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TransformationContext"
+      "text" : "VariableType"
     }
   ],
   "role" : "symbol",
-  "title" : "TransformationContext",
+  "title" : "VariableType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transformationcontext"
+  "url" : "\/documentation\/poieticcore\/variabletype"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantCodingError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantcodingerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/topologicalSort(_:edges:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologicalSort"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "topologicalSort(_:edges:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologicalsort(_:edges:)"
 }
 }
 }

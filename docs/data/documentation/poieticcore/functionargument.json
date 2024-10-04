@@ -79,6 +79,16 @@
       "kind" : "declarations"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -89,11 +99,11 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Functions",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinComparisonOperators",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunctions"
       ],
@@ -102,13 +112,18 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/init(_:type:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/init(_:type:isConstant:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/isConstant",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/type"
       ],
@@ -307,7 +322,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionargument"
 },
-"doc://PoieticCore/documentation/PoieticCore/FunctionArgument/init(_:type:)": {
+"doc://PoieticCore/documentation/PoieticCore/FunctionArgument/init(_:type:isConstant:)": {
   "abstract" : [
     {
       "text" : "Create a new function argument.",
@@ -342,20 +357,74 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9UnionTypeO",
-      "text" : "UnionType"
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "isConstant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/init(_:type:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/init(_:type:isConstant:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(_:type:)",
+  "title" : "init(_:type:isConstant:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionargument\/init(_:type:)"
+  "url" : "\/documentation\/poieticcore\/functionargument\/init(_:type:isconstant:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionArgument/isConstant": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the argument is a constant.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isConstant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/isConstant",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isConstant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionargument\/isconstant"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionArgument/name": {
   "abstract" : [
@@ -420,8 +489,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9UnionTypeO",
-      "text" : "UnionType"
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument\/type",
@@ -465,39 +534,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/signature"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnionType": {
-  "abstract" : [
-    {
-      "text" : "Type of a function argument.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnionType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniontype"
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

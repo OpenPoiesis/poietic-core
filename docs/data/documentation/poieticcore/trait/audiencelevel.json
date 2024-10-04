@@ -251,6 +251,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Common-Components-and-Types",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
@@ -259,9 +260,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo"
       ],
       "title" : "Common Components and Types"
     }
@@ -294,10 +293,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/BasicMetamodel": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
       "type" : "text"
     },
     {
@@ -305,81 +304,7 @@
       "type" : "text"
     },
     {
-      "text" : "kinds of designs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BasicMetamodel"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicMetamodel",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "BasicMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/basicmetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/EmptyMetamodel": {
-  "abstract" : [
-    {
-      "text" : "A concrete metamodel without any specification.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyMetamodel"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EmptyMetamodel",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "EmptyMetamodel",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/emptymetamodel"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -529,7 +454,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -709,7 +634,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",

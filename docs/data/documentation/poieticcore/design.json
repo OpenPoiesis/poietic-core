@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Containment and management of design objects and their history.",
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
       "type" : "text"
     }
   ],
@@ -16,42 +24,74 @@
     "interfaceLanguage" : "swift",
     "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
   },
-  "kind" : "article",
+  "kind" : "symbol",
   "metadata" : {
+    "externalID" : "s:11PoieticCore6DesignC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Design"
+      }
+    ],
     "modules" : [
       {
         "name" : "PoieticCore"
       }
     ],
-    "role" : "collectionGroup",
-    "roleHeading" : "API Collection",
-    "title" : "Deign"
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Design"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "Design"
   },
   "primaryContentSections" : [
     {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Design"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
       "content" : [
         {
-          "anchor" : "Overview",
+          "anchor" : "overview",
           "level" : 2,
           "text" : "Overview",
           "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Design is a container representing a model, idea or a document with their",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "history of changes.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
         },
         {
           "inlineContent" : [
@@ -64,7 +104,16 @@
               "type" : "text"
             },
             {
-              "text" : "which comprise an idea from a problem domain described by a Metamodel.",
+              "text" : "which comprise an idea from a problem domain described by a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
               "type" : "text"
             },
             {
@@ -98,6 +147,731 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Different versions of design objects is organised in ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "frames",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ". Each frame",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "represents a change or coupled group of changes either as a change in time",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "or as an alternative. When organised as time-related changes, one can think",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "of a frame of it as a “movie frame”.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each design object has a unique identity within the whole design referred to as",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id-swift.property",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". The ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "id",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " refers to an object including",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "all its versions – snapshots. Within a frame, the object ID is unique.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The design distinguishes between two states of a version frame:",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " – immutable version snapshot of a frame, that is guaranteed",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to be valid and follow all required constraints. The ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "represents a transactional frame, which is “under construction” and does",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "not have yet to maintain integrity. The integrity is enforced once the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "frame is accepted using ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : "s can not be mutated, neither any of the object snapshots",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "associated with the frame. They are guaranteed to follow requirements of",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the metamodel. They are persisted.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : "s can be changed, they do not have to follow requirements",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "of the metamodel. They are ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "not",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " persisted. See ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Archiving",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " below.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The concept of frames allows us to have functionality like undo\/redo,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "version branching, different timelines, sub-system specific annotations",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "without disturbing the original frames, etc.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Editing-Mutating",
+          "level" : 2,
+          "text" : "Editing (Mutating)",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Objects of the design are always changed in a relationship with all",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "other objects within the same frame. When a single change requires mutating",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "multiple objects, all the object changes are grouped into a single change",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that results in a new frame.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To make a change and produce a new frame:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Derive a new frame from an existing one using ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "or create a new empty frame using ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(id:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " which produces",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "a new ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ".",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Add objects to the derived frame using ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:attributes:components:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "or ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "MutableFrame\/insert(_:owned:)",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : ".",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "To mutate existing objects in the frame, first derive an new mutable",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "snapshot of the object using ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " and",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "make changes using the returned new snapshot.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Conclude all the changes by accepting the frame ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ".",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "orderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Frame can be accepted only if the constraints are satisfied. When the frame",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "violates ant of the constraints the ",
+              "type" : "text"
+            },
+            {
+              "code" : "accept()",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " method throws a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " with more details about which objects violated",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "which constraints.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "If mutable frame for some reason is not going to be used further, for",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "example if it contains domain errors, it can be discarded using",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/discard(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". Discarded frame and its derived object will be removed from",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the design.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Archiving",
+          "level" : 2,
+          "text" : "Archiving",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The design can be archived (in the future incrementally synchronised)",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to a persistent store. All stable frames are stored. Mutable frames are not",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "included in the archive and therefore not restored after unarchiving.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Therefore one can rely on the archive containing only frames that maintain integrity as defined by the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "metamodel.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Garbage-Collection",
+          "level" : 2,
+          "text" : "Garbage Collection",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Garbage collection is not yet implemented. This is just a description",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "how it is expected to work.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "To Do",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The design keeps only those object snapshots which are contained in frames,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "be it a mutable frame or a stable frame. If a frame is removed, all objects",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that are referred to only by that frame and no other frame, are removed",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "from the design as well.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The concepts of mutable frame, accept and discard are somewhat",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "analogous to a transaction, commit and rollback respectively. However,",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "accepted frames are not immediately put into a single historical",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "timeline and they might organised into different arrangements. “Rollback”",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "would not make sense, since there might be nothing to go back from, if",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "we are not appending the frame to a history timeline. Moreover,",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "the mutable frame can be used in an editing session (such as drag\/drop",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "session), which is something like a “live transaction”.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Remark",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -113,59 +887,64 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Essentials",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+      ],
+      "title" : "Essentials"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/init(metamodel:)"
       ],
-      "title" : "Design and Version Frames"
+      "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allSnapshots",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canRedo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canUndo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/isEmpty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/metamodel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoableFrames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoableFrames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/validatedSnapshots",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/versionHistory"
       ],
-      "title" : "Object"
+      "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/checkConstraints(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsFrame(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(id:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:structure:parent:attributes:components:state:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveSnapshot(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/discard(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removeFrame(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshot(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)"
       ],
-      "title" : "Value and Variant"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet"
-      ],
-      "title" : "Component"
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -196,111 +975,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AtomType": {
-  "abstract" : [
-    {
-      "text" : "ValueType specifies a data type of a value that is used in interfaces.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AtomType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AtomType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/atomtype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
 
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ChildrenSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for runtime components of objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
-  "abstract" : [
-    {
-      "text" : "Collection of components of an object.",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
@@ -313,49 +990,1485 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ComponentSet"
+      "text" : "ConstraintViolation"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ComponentSet"
+      "text" : "ConstraintViolation"
     }
   ],
   "role" : "symbol",
-  "title" : "ComponentSet",
+  "title" : "ConstraintViolation",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset"
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Structures and functionality for interfacing with other systems.",
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+  "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Accepts a frame and make it a stable frame.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
+      "text" : "FrameConstraintError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/allSnapshots": {
+  "abstract" : [
+    {
+      "text" : "Get a sequence of all snapshots",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allSnapshots"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST",
+      "text" : "Sequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allSnapshots",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allSnapshots",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/allsnapshots"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/allocateID(required:)": {
+  "abstract" : [
+    {
+      "text" : "Create an ID or use a specific ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allocateID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "required"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allocateID(required:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/canRedo": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the design has any re-doable frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canRedo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canRedo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canRedo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/canredo"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/canUndo": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the design has any un-doable frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canUndo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canUndo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canUndo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/canundo"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/checkConstraints(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check constraints for the given frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "checkConstraints"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19ConstraintViolationV",
+      "text" : "ConstraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/checkConstraints(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "checkConstraints(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/checkconstraints(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/containsFrame(_:)": {
+  "abstract" : [
+    {
+      "text" : "Test whether the design contains a stable frame with given ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "containsFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsFrame(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "containsFrame(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/containsframe(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/createFrame(id:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new empty mutable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createFrame(id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/createframe(id:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/createSnapshot(_:id:snapshotID:structure:parent:attributes:components:state:)": {
+  "abstract" : [
+    {
+      "text" : "Designated function to create snapshots in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
+      "text" : "SnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "structure"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
+      "text" : "StructuralComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "attributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "state"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
+      "text" : "VersionState"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createSnapshot(_:id:snapshotID:structure:parent:attributes:components:state:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createSnapshot(_:id:snapshotID:structure:parent:attributes:components:state:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/createsnapshot(_:id:snapshotid:structure:parent:attributes:components:state:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/currentFrame": {
+  "abstract" : [
+    {
+      "text" : "Get the current stable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "currentFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrame",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "currentFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/currentframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/currentFrameID": {
+  "abstract" : [
+    {
+      "text" : "ID of the current frame from the history perspective.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "currentFrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "currentFrameID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/currentframeid"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/deriveFrame(original:id:)": {
+  "abstract" : [
+    {
+      "text" : "Derive a new frame from an existing frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "deriveFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "original"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "deriveFrame(original:id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/deriveframe(original:id:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/deriveSnapshot(_:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new snapshot version",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "deriveSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
+      "text" : "SnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveSnapshot(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "deriveSnapshot(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/derivesnapshot(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/discard(_:)": {
+  "abstract" : [
+    {
+      "text" : "Discards the mutable frame that is associated with the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "discard"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/discard(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "discard(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/discard(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/frame(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get a stable frame with given ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "frame(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/frame(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/frames": {
+  "abstract" : [
+    {
+      "text" : "List of all stable frames in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/frames"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/init(metamodel:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new design that conforms to the given metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/init(metamodel:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(metamodel:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/init(metamodel:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/isEmpty": {
+  "abstract" : [
+    {
+      "text" : "True if the design does not contain any stable frames. Mutable frames",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "do not count.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/isEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/isempty"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/metamodel": {
+  "abstract" : [
+    {
+      "text" : "Meta-model that the design conforms to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/metamodel",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "metamodel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/metamodel"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/redo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previously",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "undone frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "redo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "redo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/redo(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/redoableFrames": {
+  "abstract" : [
+    {
+      "text" : "List of IDs of undone frames can be re-done.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "redoableFrames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoableFrames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "redoableFrames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/redoableframes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/removeFrame(_:)": {
+  "abstract" : [
+    {
+      "text" : "Remove a frame from the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removeFrame(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeFrame(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/removeframe(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/snapshot(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "snapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshot(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "snapshot(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/snapshot(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/undo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current frame to ",
+      "type" : "text"
+    },
+    {
+      "code" : "frameID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previous",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "frames in the undo history.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "undo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "undo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/undo(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/undoableFrames": {
+  "abstract" : [
+    {
+      "text" : "List of IDs of frames that can undone.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "undoableFrames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoableFrames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "undoableFrames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/undoableframes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/validatedSnapshots": {
+  "abstract" : [
+    {
+      "text" : "Get a sequence of all snapshots in the design from stable frames,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "regardless of their frame presence.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validatedSnapshots"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/validatedSnapshots",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validatedSnapshots",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/validatedsnapshots"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/versionHistory": {
+  "abstract" : [
+    {
+      "text" : "Chronological list of frame IDs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "versionHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
+      "text" : "FrameID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/versionHistory",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "versionHistory",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/versionhistory"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -391,17 +2504,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameID": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Identifier of a version frame.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -409,126 +2522,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameID"
+      "text" : "Metamodel"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameID"
+      "text" : "Metamodel"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameID",
+  "title" : "Metamodel",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameid"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when constraint violations were detected in the graph during",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "accept()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameValidationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framevalidationerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
-},
-"doc://PoieticCore/documentation/PoieticCore/ID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+  "url" : "\/documentation\/poieticcore\/metamodel"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
   "abstract" : [
@@ -564,17 +2572,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/create(_:structure:attributes:components:)": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Create a new object within the frame.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -582,21 +2590,139 @@
     },
     {
       "kind" : "identifier",
+      "text" : "create"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "structure"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
+      "text" : "StructuralComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "attributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "components"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/create(_:structure:attributes:components:)",
   "kind" : "symbol",
-  "navigatorTitle" : [
+  "role" : "symbol",
+  "title" : "create(_:structure:attributes:components:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableframe\/create(_:structure:attributes:components:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
+  "abstract" : [
+    {
+      "text" : "Return a snapshot that can be mutated.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "identifier",
+      "text" : "mutableObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ObjectID",
+  "title" : "mutableObject(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
+  "url" : "\/documentation\/poieticcore\/mutableframe\/mutableobject(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
@@ -632,31 +2758,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id-swift.property": {
   "abstract" : [
     {
-      "text" : "Persistence of a design - storing from and restoring to a file system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Persistence",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/Point": {
-  "abstract" : [
-    {
-      "text" : "Type representing two-dimensional points.",
+      "text" : "Object identity.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -664,77 +2776,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Point"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Point"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Point",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/point"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
-},
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
-  "abstract" : [
-    {
-      "text" : "Identifier of a design object version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "id"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : ": "
     },
     {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id-swift.property",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
   "role" : "symbol",
-  "title" : "SnapshotID",
+  "title" : "id",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/id-swift.property"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -770,268 +2829,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
     {
-      "text" : "Structural component defines object’s relationship with other objects.",
+      "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
-  "abstract" : [
-    {
-      "text" : "Structural type of an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuraltype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ValueError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ValueError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ValueError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ValueError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valueerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ValueType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ValueType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ValueType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ValueType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valuetype"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant": {
-  "abstract" : [
-    {
-      "text" : "Variant holds a value of different core data types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Variant"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Variant"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Variant",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantArray": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VariantArray"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VariantArray"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VariantArray",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom": {
-  "abstract" : [
-    {
-      "text" : "VariantAtom represents a scalar or a simple tuple-like value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VariantAtom"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VariantAtom"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VariantAtom",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom"
-},
-"doc://PoieticCore/documentation/PoieticCore/VersionState": {
-  "abstract" : [
-    {
-      "text" : "State of a versioned object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VersionState",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate"
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

@@ -204,7 +204,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "short human description of the variable.",
+                  "text" : "Short human description of the variable.",
                   "type" : "text"
                 }
               ],
@@ -255,7 +255,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],

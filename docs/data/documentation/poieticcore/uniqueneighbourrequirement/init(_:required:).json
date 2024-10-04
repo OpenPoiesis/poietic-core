@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement"
       ]
     ]
@@ -142,28 +142,22 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "labels that match the nodes for the constraint",
+                  "text" : "Neigborhood selector that has to be unique for the",
                   "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "nodeLabels"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
+                },
                 {
-                  "text" : "edge selector that has to be unique for the matching node",
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "matching node",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "edgeSelector"
+          "name" : "selector"
         },
         {
           "content" : [
@@ -262,6 +256,28 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
 "doc://PoieticCore/documentation/PoieticCore/NeighborhoodSelector": {
   "abstract" : [
 
@@ -292,28 +308,6 @@
   "title" : "NeighborhoodSelector",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/neighborhoodselector"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [

@@ -75,26 +75,30 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Persistence-Import-and-Export",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
+      ],
+      "title" : "Persistence, Import and Export"
     }
   ],
   "topicSections" : [
     {
+      "abstract" : [
+        {
+          "text" : "See also: ",
+          "type" : "text"
+        },
+        {
+          "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+          "isActive" : true,
+          "type" : "reference"
+        }
+      ],
+      "anchor" : "Store",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore"
       ],
       "title" : "Store"
     }
@@ -127,245 +131,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(from:)": {
-  "abstract" : [
-    {
-      "text" : "Removes everything from the design and loads the contents from the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given URL.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "restoreAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(from:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "restoreAll(from:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/restoreall(from:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/restoreAll(store:)": {
-  "abstract" : [
-    {
-      "text" : "Removes everything from the design and loads the contents from the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given design store.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "restoreAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "store"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
-      "text" : "MakeshiftDesignStore"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/restoreAll(store:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "restoreAll(store:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/restoreall(store:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/saveAll(to:)": {
-  "abstract" : [
-    {
-      "text" : "Saves the contents of the design to given URL.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "saveAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/saveAll(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "saveAll(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/saveall(to:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/writeAll(store:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "writeAll"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "store"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20MakeshiftDesignStoreC",
-      "text" : "MakeshiftDesignStore"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/writeAll(store:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "writeAll(store:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/writeall(store:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
@@ -380,38 +145,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
-  "abstract" : [
-    {
-      "text" : "Formulas - arithmetic expressions.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
-},
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
   "abstract" : [
     {
-      "text" : "A persistent store with relational-like traits for design.",
+      "text" : "A makeshift persistent store.",
       "type" : "text"
     }
   ],
@@ -441,73 +178,6 @@
   "title" : "MakeshiftDesignStore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
-},
-"doc://PoieticCore/documentation/PoieticCore/StoreError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StoreError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StoreError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StoreError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StoreError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/storeerror"
 }
 }
 }

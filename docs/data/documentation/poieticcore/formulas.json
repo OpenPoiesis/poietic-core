@@ -37,19 +37,17 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Others",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs"
+      ],
+      "title" : "Others"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Arithmetic-Expression",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
@@ -58,17 +56,18 @@
       "title" : "Arithmetic Expression"
     },
     {
+      "anchor" : "Functions",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinComparisonOperators",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunctions"
       ],
       "title" : "Functions"
     },
     {
+      "anchor" : "Parsing",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
@@ -83,6 +82,7 @@
       "title" : "Parsing"
     },
     {
+      "anchor" : "Abstract-Syntax-Tree",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntax",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParenthesisSyntax",
@@ -271,20 +271,6 @@
   "title" : "BuiltinFunctions",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinfunctions"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionConvertible": {
   "abstract" : [
@@ -483,20 +469,6 @@
   "title" : "ExpressionTokenType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontokentype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
 "doc://PoieticCore/documentation/PoieticCore/Function": {
   "abstract" : [
@@ -738,20 +710,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/literalsyntax"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
 "doc://PoieticCore/documentation/PoieticCore/ParenthesisSyntax": {
   "abstract" : [
 
@@ -782,42 +740,6 @@
   "title" : "ParenthesisSyntax",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/parenthesissyntax"
-},
-"doc://PoieticCore/documentation/PoieticCore/Persistence": {
-  "abstract" : [
-    {
-      "text" : "Persistence of a design - storing from and restoring to a file system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Persistence",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 },
 "doc://PoieticCore/documentation/PoieticCore/Scanner": {
   "abstract" : [
@@ -1059,40 +981,6 @@
   "title" : "UnboundExpression",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/unboundexpression"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnionType": {
-  "abstract" : [
-    {
-      "text" : "Type of a function argument.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnionType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniontype"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariableSyntax": {
   "abstract" : [

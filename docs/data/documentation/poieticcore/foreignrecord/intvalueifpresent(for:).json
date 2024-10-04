@@ -36,7 +36,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignRecordV17intValueIfPresent3forSiSgSS_tKF",
+    "externalID" : "s:11PoieticCore13ForeignRecordV17intValueIfPresent3forSiSgSS_tAA0cD5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,7 +77,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+        "text" : "ForeignRecordError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -157,7 +166,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+              "text" : "ForeignRecordError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -190,8 +209,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "ValueError\/typeMismatch(_:_:)",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/valueError(_:_:)",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
                   "text" : " if the value",
@@ -372,7 +392,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -390,6 +419,122 @@
   "title" : "intValueIfPresent(for:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/intvalueifpresent(for:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
+  "abstract" : [
+    {
+      "text" : "An error thrown when there is an issue with retrieving or converting",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a foreign value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecordError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError/valueError(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Error caused when trying to convert a foreign value to a type",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that the value can not be converted. For example, trying to get",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an integer value from a foreign string value ",
+      "type" : "text"
+    },
+    {
+      "code" : "\"moon\"",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/valueError(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignRecordError.valueError(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror\/valueerror(_:_:)"
 }
 }
 }

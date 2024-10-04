@@ -3,7 +3,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet"
       ]
     ]
@@ -33,6 +32,7 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/lazy",
@@ -41,12 +41,14 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/allSatisfy(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/compactMap(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/compare(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/contains(where:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/count(where:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/elementsEqual(_:by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/enumerated()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/filter(_:)-44vw0",
@@ -57,7 +59,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/forEach(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/formatted(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/lexicographicallyPrecedes(_:by:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/map(_:)-4rjo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/map(_:)-286dx",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/max(by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/min(by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/reduce(_:_:)",
@@ -457,6 +459,114 @@
   "title" : "contains(where:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/contains(where:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ComponentSet/count(where:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "where"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/count(where:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count(where:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/componentset\/count(where:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet/elementsEqual(_:by:)": {
   "abstract" : [
@@ -1355,7 +1465,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/lexicographicallyprecedes(_:by:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet/map(_:)-4rjo": {
+"doc://PoieticCore/documentation/PoieticCore/ComponentSet/map(_:)-286dx": {
   "abstract" : [
 
   ],
@@ -1379,6 +1489,14 @@
     {
       "kind" : "genericParameter",
       "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "E"
     },
     {
       "kind" : "text",
@@ -1407,7 +1525,15 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1419,11 +1545,19 @@
     },
     {
       "kind" : "keyword",
-      "text" : "rethrows"
+      "text" : "throws"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1434,12 +1568,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/map(_:)-4rjo",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/map(_:)-286dx",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "map(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset\/map(_:)-4rjo"
+  "url" : "\/documentation\/poieticcore\/componentset\/map(_:)-286dx"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet/max(by:)": {
   "abstract" : [
@@ -2585,20 +2719,6 @@
   "title" : "withContiguousStorageIfAvailable(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/withcontiguousstorageifavailable(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 }
 }
 }

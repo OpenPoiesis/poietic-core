@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
       ]
     ]
   },
@@ -87,7 +87,8 @@
         "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH",
-        "doc:\/\/PoieticCore\/SY"
+        "doc:\/\/PoieticCore\/SY",
+        "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -104,6 +105,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Value-and-Variant",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
@@ -119,6 +121,8 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/bool",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/double",
@@ -129,12 +133,16 @@
       "title" : "Enumeration Cases"
     },
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/init(rawValue:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/isNumeric"
@@ -142,12 +150,15 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/isConvertible(to:)"
       ],
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType\/Equatable-Implementations",
@@ -589,20 +600,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype\/string"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
-},
 "doc://PoieticCore/documentation/PoieticCore/ID": {
   "abstract" : [
 
@@ -667,6 +664,20 @@
   "title" : "Point",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -832,6 +843,11 @@
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

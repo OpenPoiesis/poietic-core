@@ -63,6 +63,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "class"
             },
             {
@@ -107,6 +115,16 @@
       "kind" : "content"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -117,6 +135,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Metamodel-and-Object-Types",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
@@ -128,25 +147,30 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:plane:traits:abstract:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:traits:abstract:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/abstract",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributeKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/label",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/name",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/plane",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/traits"
       ],
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attribute(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasAttribute(_:)",
@@ -156,8 +180,30 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Type-Properties",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Auxiliary",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Chart",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/ChartSeries",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Control",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Controls",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Delay",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Drains",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Enables",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Fills",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Flow",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/GraphicalFunction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Inhibits",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Note",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Parameter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Produces",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Scenario",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Simulation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stimulates",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stock",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/ValueBinding"
       ],
       "title" : "Type Properties"
     }
@@ -227,7 +273,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
@@ -261,7 +307,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -306,6 +360,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Auxiliary": {
+  "abstract" : [
+    {
+      "text" : "An auxiliary node - containing a constant or a formula.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Auxiliary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Auxiliary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Auxiliary",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/auxiliary"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/BibliographicalReference": {
   "abstract" : [
 
@@ -347,6 +446,856 @@
   "title" : "BibliographicalReference",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Chart": {
+  "abstract" : [
+    {
+      "text" : "A user interface node representing a chart.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Chart"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Chart",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Chart",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/chart"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/ChartSeries": {
+  "abstract" : [
+    {
+      "text" : "An edge type to connect a chart with a series that are included in the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "chart.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChartSeries"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/ChartSeries",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ChartSeries",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/chartseries"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Control": {
+  "abstract" : [
+    {
+      "text" : "A user interface mode representing a control that modifies a value of",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "its target node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Control"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Control",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Control",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/control"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Controls": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Controls"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Controls",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Controls",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/controls"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Delay": {
+  "abstract" : [
+    {
+      "text" : "An auxiliary node - containing a constant or a formula.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Delay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Delay",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Delay",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/delay"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Drains": {
+  "abstract" : [
+    {
+      "text" : "Edge from a stock to a flow. Denotes “what the flow drains”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Drains"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Drains",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Drains",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/drains"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Enables": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Enables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Enables",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Enables",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/enables"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Fills": {
+  "abstract" : [
+    {
+      "text" : "Edge from a flow to a stock. Denotes “what the flow fills”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Fills"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Fills",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Fills",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/fills"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Flow": {
+  "abstract" : [
+    {
+      "text" : "A flow node - one of the two core nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Flow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Flow",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Flow",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/flow"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/GraphicalFunction": {
+  "abstract" : [
+    {
+      "text" : "An auxiliary node with a function that is described by a graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphicalFunction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/GraphicalFunction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GraphicalFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/graphicalfunction"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Inhibits": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Inhibits"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Inhibits",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Inhibits",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/inhibits"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Note": {
+  "abstract" : [
+    {
+      "text" : "A node that contains a note, a comment.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Note"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Note",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Note",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/note"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Parameter": {
+  "abstract" : [
+    {
+      "text" : "An edge between a node that serves as a parameter in another node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Parameter"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Parameter",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Parameter",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/parameter"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Produces": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Produces"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Produces",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Produces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/produces"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Scenario": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Scenario"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Scenario",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Scenario",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/scenario"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Simulation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Simulation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Simulation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Simulation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/simulation"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Stimulates": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Stimulates"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stimulates",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Stimulates",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/stimulates"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Stock": {
+  "abstract" : [
+    {
+      "text" : "A stock node - one of the two core nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Stock"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stock",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Stock",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/stock"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/ValueBinding": {
+  "abstract" : [
+    {
+      "text" : "An edge type to connect controls with their targets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueBinding"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/ValueBinding",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueBinding",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/valuebinding"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/abstract": {
   "abstract" : [
@@ -601,7 +1550,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:plane:traits:abstract:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:traits:abstract:)": {
   "abstract" : [
     {
       "text" : "Create a new object type.",
@@ -670,23 +1619,6 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "plane"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5PlaneO",
-      "text" : "Plane"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
       "text" : "traits"
     },
     {
@@ -720,12 +1652,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:plane:traits:abstract:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:traits:abstract:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:label:structuralType:plane:traits:abstract:)",
+  "title" : "init(name:label:structuralType:traits:abstract:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:plane:traits:abstract:)"
+  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:traits:abstract:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/label": {
   "abstract" : [
@@ -808,43 +1740,6 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/name"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/plane": {
-  "abstract" : [
-    {
-      "text" : "Plane in which the objects of this type reside.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "plane"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5PlaneO",
-      "text" : "Plane"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/plane",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "plane",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/plane"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/structuralType": {
   "abstract" : [
@@ -1020,6 +1915,11 @@
   "title" : "Trait",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

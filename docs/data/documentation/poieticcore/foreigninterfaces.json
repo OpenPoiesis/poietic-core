@@ -27,6 +27,33 @@
     "roleHeading" : "API Collection",
     "title" : "Foreign Interfaces"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "See also: ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -37,19 +64,30 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Persistence-Import-and-Export",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
-      ]
+      ],
+      "title" : "Persistence, Import and Export"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Object-Import-and-Export",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError"
+      ],
+      "title" : "Object Import and Export"
+    },
+    {
+      "anchor" : "Foreign-Value",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
@@ -59,20 +97,7 @@
       "title" : "Foreign Value"
     },
     {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/asForeignObject()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/infoAsForeignRecord()"
-      ],
-      "title" : "Object Import and Export"
-    },
-    {
+      "anchor" : "CSV-Reading-and-Writing",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVFormatter",
@@ -83,6 +108,7 @@
       "title" : "CSV Reading and Writing"
     },
     {
+      "anchor" : "JSON",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType",
@@ -337,62 +363,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameBundle": {
-  "abstract" : [
-    {
-      "text" : "Object representing URL based foreign frame, such as a directory on a file",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "system.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameBundle",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameBundle"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameBundle",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframebundle"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
   "abstract" : [
     {
@@ -427,44 +397,18 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframeerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameInfo": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameLoader": {
   "abstract" : [
     {
-      "text" : "Structure holding information about a foreign frame.",
+      "text" : "Object that loads foreign frames into a mutable frame and resolves object",
       "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
     },
     {
-      "kind" : "text",
-      "text" : " "
+      "text" : " ",
+      "type" : "text"
     },
     {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameInfo",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeinfo"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameReader": {
-  "abstract" : [
-    {
-      "text" : "Object that reads a frame from a frame package.",
+      "text" : "references.",
       "type" : "text"
     }
   ],
@@ -479,33 +423,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameReader"
+      "text" : "ForeignFrameLoader"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameReader",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameReader"
+      "text" : "ForeignFrameLoader"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignFrameReader",
+  "title" : "ForeignFrameLoader",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframereader"
+  "url" : "\/documentation\/poieticcore\/foreignframeloader"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
     {
-      "text" : "A structure that contains an object representation from a foreign interface.",
+      "text" : "Protocol for foreign representation of an object",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -686,34 +630,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalueerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
-  "abstract" : [
-    {
-      "text" : "Formulas - arithmetic expressions.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONDictionary": {
   "abstract" : [
 
@@ -721,7 +637,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -775,6 +691,74 @@
   "title" : "JSONError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONFrameReader": {
+  "abstract" : [
+    {
+      "text" : "Object for reading foreign frames represented as JSON.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONFrameReader"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONFrameReader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONFrameReader",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonframereader"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONFrameWriter": {
+  "abstract" : [
+    {
+      "text" : "Utility class.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONFrameWriter"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONFrameWriter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONFrameWriter",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonframewriter"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONType": {
   "abstract" : [
@@ -872,91 +856,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/asForeignObject()": {
-  "abstract" : [
-    {
-      "text" : "Get a foreign record with all object’s attributes",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asForeignObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignObjectV",
-      "text" : "ForeignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/asForeignObject()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asForeignObject()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/asforeignobject()"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/infoAsForeignRecord()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "infoAsForeignRecord"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/infoAsForeignRecord()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "infoAsForeignRecord()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/infoasforeignrecord()"
-},
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
@@ -970,28 +869,6 @@
   "title" : "Persistence",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
 }
 }
 }

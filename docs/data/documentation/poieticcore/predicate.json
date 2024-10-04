@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates"
       ]
     ]
   },
@@ -72,6 +72,15 @@
             {
               "kind" : "identifier",
               "text" : "Predicate"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s8SendableP",
+              "text" : "Sendable"
             }
           ]
         }
@@ -82,10 +91,17 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
@@ -106,6 +122,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Predicates",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
@@ -116,15 +133,15 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
       ],
       "title" : "Predicates"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-61fti",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(frame:object:)",
@@ -261,40 +278,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/compoundpredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
-  "abstract" : [
-    {
-      "text" : "Definition of a constraint satisfaction requirement.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ConstraintRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ConstraintRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintrequirement"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
   "abstract" : [
     {
@@ -336,37 +319,6 @@
   "title" : "EdgePredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/FunctionPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FunctionPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FunctionPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FunctionPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/functionpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
@@ -752,7 +704,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate\/or(_:)-36pow"
 },
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+"doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [
     {
       "text" : "Predicates specify conditions for filtering specific objects. Constraints",
@@ -767,12 +719,17 @@
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Predicates and Constraints",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+  "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

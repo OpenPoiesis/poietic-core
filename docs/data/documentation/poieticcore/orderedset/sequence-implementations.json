@@ -32,6 +32,7 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/lazy",
@@ -40,12 +41,14 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/allSatisfy(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/compactMap(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/compare(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/contains(where:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/count(where:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/elementsEqual(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/elementsEqual(_:by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/enumerated()",
@@ -62,7 +65,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/joined(separator:)-4u7hg",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/lexicographicallyPrecedes(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/lexicographicallyPrecedes(_:by:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-6f6cd",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-zujt",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/max()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/max(by:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/min()",
@@ -466,6 +469,114 @@
   "title" : "contains(where:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/contains(where:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/count(where:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "where"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/count(where:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count(where:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orderedset\/count(where:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/elementsEqual(_:)": {
   "abstract" : [
@@ -1353,6 +1464,38 @@
   "abstract" : [
 
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sequence",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -1399,6 +1542,38 @@
   "abstract" : [
 
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sequence",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -1793,7 +1968,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/lexicographicallyprecedes(_:by:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/OrderedSet/map(_:)-6f6cd": {
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/map(_:)-zujt": {
   "abstract" : [
 
   ],
@@ -1817,6 +1992,14 @@
     {
       "kind" : "genericParameter",
       "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "E"
     },
     {
       "kind" : "text",
@@ -1845,7 +2028,15 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1857,11 +2048,19 @@
     },
     {
       "kind" : "keyword",
-      "text" : "rethrows"
+      "text" : "throws"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1872,12 +2071,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-6f6cd",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-zujt",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "map(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orderedset\/map(_:)-6f6cd"
+  "url" : "\/documentation\/poieticcore\/orderedset\/map(_:)-zujt"
 },
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/max()": {
   "abstract" : [

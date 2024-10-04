@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "Encodable.encode(to:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Encode the Variant into the encoder.",
       "type" : "text"
     }
   ],
@@ -17,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Encodable-Implementations"
       ]
@@ -140,6 +132,156 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "There are two ways how the variant is encoded. One way stores the type",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "explicitly in addition to the data, the other tries to convert the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "variant to one of the decoder’s coding type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Default is encoding it as an array where the first element is the type",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "and the second element is the variant content.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The data type is encoded as one of the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " values.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example: An integer value ",
+              "type" : "text"
+            },
+            {
+              "code" : "10",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " would be encoded in JSON as ",
+              "type" : "text"
+            },
+            {
+              "code" : "[\"i\", 10]",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "by default. If coalesced encoding is requested then it will be encoded",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "just as a number ",
+              "type" : "text"
+            },
+            {
+              "code" : "10",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To enable coalescing, set the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " to ",
+              "type" : "text"
+            },
+            {
+              "code" : "true",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ":",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "    let encoder = JSONEncoder()",
+            "    encoder.userInfo[Variant.CoalescedCodingTypeKey] = true"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -178,19 +320,53 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
     {
       "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Deign",
+  "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType/typeCode": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "typeCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "typeCode",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype\/typecode"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [
@@ -226,6 +402,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
 },
+"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CoalescedCodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "CoalescedCodingTypeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
+},
 "doc://PoieticCore/documentation/PoieticCore/Variant/Encodable-Implementations": {
   "abstract" : [
 
@@ -239,7 +457,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/encode(to:)": {
   "abstract" : [
-
+    {
+      "text" : "Encode the Variant into the encoder.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

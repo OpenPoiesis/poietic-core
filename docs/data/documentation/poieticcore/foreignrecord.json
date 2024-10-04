@@ -90,6 +90,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
@@ -110,6 +111,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Foreign-Value",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
@@ -121,14 +123,17 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-3f8ez",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-9hwo7"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/allKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/dictionary"
@@ -136,10 +141,11 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValueIfPresent(for:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSON()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValue(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/boolValueIfPresent(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/contains(_:)",
@@ -153,12 +159,15 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Subscripts",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/subscript(_:)"
       ],
       "title" : "Subscripts"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/Decodable-Implementations",
@@ -387,7 +396,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -465,7 +483,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -536,43 +563,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/allkeys"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/asJSON()": {
-  "abstract" : [
-    {
-      "text" : "Create a Foundation-compatible JSON object representation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/asJSON()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asJSON()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord\/asjson()"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/boolValue(for:)": {
   "abstract" : [
     {
@@ -620,7 +610,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -698,7 +697,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -865,7 +873,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -943,7 +960,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -983,7 +1009,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/init()"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)-3f8ez": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)": {
   "abstract" : [
     {
       "text" : "Create a foreign record from a dictionary.",
@@ -1018,55 +1044,12 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-3f8ez",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)-3f8ez"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord/init(_:)-9hwo7": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/init(_:)-9hwo7",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)-9hwo7"
+  "url" : "\/documentation\/poieticcore\/foreignrecord\/init(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecord/intValue(for:)": {
   "abstract" : [
@@ -1115,7 +1098,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1193,7 +1185,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1259,7 +1260,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1337,7 +1347,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1489,6 +1508,11 @@
   "title" : "KeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes"
+},
+"doc://PoieticCore/s8CopyableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
+  "title" : "Swift.Copyable",
+  "type" : "unresolvable"
 }
 }
 }

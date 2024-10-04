@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "List of adjacent edges.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -181,7 +187,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
-
+    {
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -212,7 +229,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood/edges": {
   "abstract" : [
-
+    {
+      "text" : "List of adjacent edges.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

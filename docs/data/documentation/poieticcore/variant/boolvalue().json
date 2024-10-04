@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
       ]
     ]
@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore7VariantO9boolValueSbyKF",
+    "externalID" : "s:11PoieticCore7VariantO9boolValueSbyAA0E5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -44,7 +44,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+        "text" : "ValueError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -95,7 +104,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+              "text" : "ValueError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -242,8 +261,9 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "ValueError\/invalidBooleanValue(_:)",
-                      "type" : "codeVoice"
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)",
+                      "isActive" : true,
+                      "type" : "reference"
                     },
                     {
                       "text" : " ",
@@ -347,19 +367,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
     {
       "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Deign",
+  "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -391,6 +411,53 @@
   "title" : "ValueError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/notConvertible(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "notConvertible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.notConvertible(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/notconvertible(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [
@@ -456,7 +523,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -501,7 +577,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",

@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -71,6 +85,35 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Neighbourhoods are created using ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/hood(_:selector:)-47x7u",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -83,6 +126,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Neighbourhoods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector"
@@ -92,12 +136,16 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood\/init(graph:nodeID:direction:edges:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood\/direction",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood\/edges",
@@ -136,6 +184,66 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Graph/hood(_:selector:)-47x7u": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hood"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selector"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
+      "text" : "NeighborhoodSelector"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+      "text" : "Neighborhood"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph\/hood(_:selector:)-47x7u",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hood(_:selector:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph\/hood(_:selector:)-47x7u"
+},
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
@@ -152,7 +260,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
-
+    {
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -183,7 +302,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood/direction": {
   "abstract" : [
-
+    {
+      "text" : "Direction of the edges to be followed from the main node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -217,7 +339,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood/edges": {
   "abstract" : [
-
+    {
+      "text" : "List of adjacent edges.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -255,7 +380,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood/graph": {
   "abstract" : [
-
+    {
+      "text" : "Graph the neighbourhood is contained within.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -378,7 +506,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Neighborhood/nodeID": {
   "abstract" : [
-
+    {
+      "text" : "ID of a node the neighbourhood adjacent to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignRecordV9boolValue3forSbSS_tKF",
+    "externalID" : "s:11PoieticCore13ForeignRecordV9boolValue3forSbSS_tAA0cD5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -61,7 +61,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+        "text" : "ForeignRecordError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -137,7 +146,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+              "text" : "ForeignRecordError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -333,7 +352,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18ForeignRecordErrorO",
+      "text" : "ForeignRecordError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -347,6 +375,48 @@
   "title" : "boolValue(for:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecord\/boolvalue(for:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
+  "abstract" : [
+    {
+      "text" : "An error thrown when there is an issue with retrieving or converting",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a foreign value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecordError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecordError/unknownKey(_:)": {
   "abstract" : [

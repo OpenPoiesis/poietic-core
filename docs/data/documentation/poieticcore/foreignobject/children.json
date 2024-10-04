@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of references to the object’s children to form the object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "hierarchy.",
+      "text" : "List of references for object’s children.",
       "type" : "text"
     }
   ],
@@ -28,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignObjectV8childrenSaySSGSgvp",
+    "externalID" : "s:11PoieticCore13ForeignObjectP8childrenSaySSGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -53,7 +45,7 @@
       },
       {
         "kind" : "text",
-        "text" : "]?"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -61,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -100,19 +93,11 @@
             },
             {
               "kind" : "text",
-              "text" : "]? { "
+              "text" : "] { "
             },
             {
               "kind" : "keyword",
               "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
             },
             {
               "kind" : "text",
@@ -122,47 +107,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/id",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -218,14 +162,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
     {
-      "text" : "A structure that contains an object representation from a foreign interface.",
+      "text" : "Protocol for foreign representation of an object",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -252,15 +196,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/children": {
   "abstract" : [
     {
-      "text" : "List of references to the object’s children to form the object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "hierarchy.",
+      "text" : "List of references for object’s children.",
       "type" : "text"
     }
   ],
@@ -288,93 +224,16 @@
     },
     {
       "kind" : "text",
-      "text" : "]?"
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/children",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "children",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject\/children"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject/id": {
-  "abstract" : [
-    {
-      "text" : "Reference to an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/id",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "id",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject\/id"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
-  "abstract" : [
-    {
-      "text" : "List of object’s children.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "children"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "children",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/children"
 }
 }
 }

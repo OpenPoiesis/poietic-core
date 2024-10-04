@@ -17,8 +17,9 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/Decodable-Implementations"
       ]
     ]
   },
@@ -28,6 +29,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "PoieticCore",
     "externalID" : "s:11PoieticCore9ValueTypeO4fromACs7Decoder_p_tKcfc",
     "fragments" : [
       {
@@ -160,19 +162,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
     {
       "text" : "Containment and management of design objects and their history.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Deign",
+  "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueType": {
   "abstract" : [
@@ -204,6 +206,17 @@
   "title" : "ValueType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype\/decodable-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueType/init(from:)": {
   "abstract" : [

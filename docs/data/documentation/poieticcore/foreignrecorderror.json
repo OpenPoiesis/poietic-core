@@ -108,6 +108,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Foreign-Value",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
@@ -119,13 +120,16 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/typeMismatch(_:_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/unknownKey(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/unknownKey(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/valueError(_:_:)"
       ],
       "title" : "Enumeration Cases"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/Error-Implementations"
@@ -304,80 +308,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecorderror\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError/typeMismatch(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "Error caused when trying to convert a foreign value to a type",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "that the value can not be converted. For example, trying to get",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "an integer value from a foreign string value ",
-      "type" : "text"
-    },
-    {
-      "code" : "\"moon\"",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "typeMismatch"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/typeMismatch(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "ForeignRecordError.typeMismatch(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecorderror\/typemismatch(_:_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignRecordError/unknownKey(_:)": {
   "abstract" : [
     {
@@ -426,6 +356,80 @@
   "title" : "ForeignRecordError.unknownKey(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecorderror\/unknownkey(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError/valueError(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Error caused when trying to convert a foreign value to a type",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that the value can not be converted. For example, trying to get",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an integer value from a foreign string value ",
+      "type" : "text"
+    },
+    {
+      "code" : "\"moon\"",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError\/valueError(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignRecordError.valueError(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror\/valueerror(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
   "abstract" : [

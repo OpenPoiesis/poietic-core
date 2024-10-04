@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of components that are available within the domain described by",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "this metamodel.",
+      "text" : "List of components that are available within the metamodel.",
       "type" : "text"
     }
   ],
@@ -148,7 +140,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
@@ -182,15 +174,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/traits": {
   "abstract" : [
     {
-      "text" : "List of components that are available within the domain described by",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "this metamodel.",
+      "text" : "List of components that are available within the metamodel.",
       "type" : "text"
     }
   ],
@@ -231,7 +215,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],

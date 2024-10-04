@@ -1,4 +1,15 @@
 {
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "TODO: This should throw",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -14,7 +25,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9JSONValueO12asDictionaryAA14JSONDictionaryVyKF",
+    "externalID" : "s:11PoieticCore9JSONValueO12asDictionarySDySSACGSgyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -30,26 +41,34 @@
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
+        "text" : "() -> ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14JSONDictionaryV",
-        "text" : "JSONDictionary"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+        "text" : "JSONValue"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?"
       }
     ],
     "modules" : [
       {
         "name" : "PoieticCore"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -81,21 +100,26 @@
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "() -> ["
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14JSONDictionaryV",
-              "text" : "JSONDictionary"
+              "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+              "text" : "JSONValue"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?"
             }
           ]
         }
@@ -153,37 +177,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDictionary": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONDictionary",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondictionary"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
 
@@ -219,6 +212,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -234,20 +228,25 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : "() -> ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14JSONDictionaryV",
-      "text" : "JSONDictionary"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDictionary()",

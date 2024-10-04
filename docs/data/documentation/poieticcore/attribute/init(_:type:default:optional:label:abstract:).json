@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9AttributeC_4type7default8optional5label8abstractACSS_AA9ValueTypeOAA7VariantOSgSbSSSgANtcfc",
+    "externalID" : "s:11PoieticCore9AttributeC_4type7default8optional5label8abstractACSS_AA12VariableTypeOAA7VariantOSgSbSSSgANtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -49,8 +49,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-        "text" : "ValueType"
+        "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+        "text" : "VariableType"
       },
       {
         "kind" : "text",
@@ -188,10 +188,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-              "text" : "ValueType"
+              "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+              "text" : "VariableType"
             },
             {
               "kind" : "text",
@@ -326,6 +326,42 @@
             }
           ],
           "name" : "type"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Default value of the attribute if not provided",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "otherwise during initialisation.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "defaultValue"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Flag whether the attribute is optional.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "optional"
         },
         {
           "content" : [
@@ -479,8 +515,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-      "text" : "ValueType"
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
     },
     {
       "kind" : "text",
@@ -599,7 +635,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -610,9 +654,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+"doc://PoieticCore/documentation/PoieticCore/VariableType": {
   "abstract" : [
-
+    {
+      "text" : "Type of a function argument.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -625,21 +672,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ValueType"
+      "text" : "VariableType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ValueType"
+      "text" : "VariableType"
     }
   ],
   "role" : "symbol",
-  "title" : "ValueType",
+  "title" : "VariableType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valuetype"
+  "url" : "\/documentation\/poieticcore\/variabletype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [

@@ -3,7 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
       ]
     ]
@@ -15,7 +15,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore7VariantO8fromJSON_4pathAcA9JSONValueO_SaySSGtKFZ",
+    "externalID" : "s:11PoieticCore7VariantO8fromJSON_4pathAcA9JSONValueO_SaySSGtAA17ForeignValueErrorOYKFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -73,7 +73,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
+        "text" : "ForeignValueError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -175,7 +184,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
+              "text" : "ForeignValueError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
@@ -225,19 +244,36 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValueError": {
   "abstract" : [
+
+  ],
+  "fragments" : [
     {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValueError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Deign",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignValueError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignValueError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
+  "url" : "\/documentation\/poieticcore\/foreignvalueerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
@@ -269,6 +305,20 @@
   "title" : "JSONValue",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [
@@ -365,7 +415,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
+      "text" : "ForeignValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",

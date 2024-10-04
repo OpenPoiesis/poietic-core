@@ -1,4 +1,15 @@
 {
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "TODO: This should throw",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -14,7 +25,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9JSONValueO7asArraySayACGyKF",
+    "externalID" : "s:11PoieticCore9JSONValueO7asArraySayACGSgyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -30,15 +41,16 @@
       },
       {
         "kind" : "text",
-        "text" : "() "
+        "text" : "() -> "
       },
       {
-        "kind" : "keyword",
-        "text" : "throws"
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sa",
+        "text" : "Array"
       },
       {
         "kind" : "text",
-        "text" : " -> ["
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -47,13 +59,16 @@
       },
       {
         "kind" : "text",
-        "text" : "]"
+        "text" : ">?"
       }
     ],
     "modules" : [
       {
         "name" : "PoieticCore"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -85,15 +100,16 @@
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "() -> "
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sa",
+              "text" : "Array"
             },
             {
               "kind" : "text",
-              "text" : " -> ["
+              "text" : "<"
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
@@ -103,7 +119,7 @@
             },
             {
               "kind" : "text",
-              "text" : "]"
+              "text" : ">?"
             }
           ]
         }
@@ -196,6 +212,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -211,15 +228,16 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "() -> "
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sa",
+      "text" : "Array"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -228,7 +246,7 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : ">?"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asArray()",

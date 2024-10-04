@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9AttributeC4typeAA9ValueTypeOvp",
+    "externalID" : "s:11PoieticCore9AttributeC4typeAA12VariableTypeOvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,8 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-        "text" : "ValueType"
+        "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+        "text" : "VariableType"
       }
     ],
     "modules" : [
@@ -82,10 +82,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-              "text" : "ValueType"
+              "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+              "text" : "VariableType"
             }
           ]
         }
@@ -189,8 +189,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-      "text" : "ValueType"
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute\/type",
@@ -203,7 +203,15 @@
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -214,9 +222,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValueType": {
+"doc://PoieticCore/documentation/PoieticCore/VariableType": {
   "abstract" : [
-
+    {
+      "text" : "Type of a function argument.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -229,21 +240,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ValueType"
+      "text" : "VariableType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ValueType"
+      "text" : "VariableType"
     }
   ],
   "role" : "symbol",
-  "title" : "ValueType",
+  "title" : "VariableType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valuetype"
+  "url" : "\/documentation\/poieticcore\/variabletype"
 }
 }
 }

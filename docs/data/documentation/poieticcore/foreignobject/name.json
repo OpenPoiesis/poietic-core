@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convenience attribute for object name.",
+      "text" : "Name of the foreign object.",
       "type" : "text"
     }
   ],
@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignObjectV4nameSSSgvp",
+    "externalID" : "s:11PoieticCore13ForeignObjectP4nameSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -53,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -100,14 +101,6 @@
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
               "text" : " }"
             }
           ]
@@ -126,7 +119,16 @@
         {
           "inlineContent" : [
             {
-              "text" : "The name might be also used by foreign interfaces as an object",
+              "text" : "The name is also used in the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader\/load(_:into:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " as",
               "type" : "text"
             },
             {
@@ -134,125 +136,11 @@
               "type" : "text"
             },
             {
-              "text" : "reference. However, when there are objects with multiple names,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "the behaviour is unspecified, typically might result in an error.",
+              "text" : "an object reference.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Using ",
-              "type" : "text"
-            },
-            {
-              "inlineContent" : [
-                {
-                  "text" : "name",
-                  "type" : "text"
-                }
-              ],
-              "type" : "emphasis"
-            },
-            {
-              "text" : " as an object reference is just for human convenience in",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "small hand-written designs and should not be used when",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "importing\/exporting objects for non-human use.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "If the foreign record contains attribute ",
-              "type" : "text"
-            },
-            {
-              "code" : "name",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " it will be used",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "instead of this ",
-              "type" : "text"
-            },
-            {
-              "inlineContent" : [
-                {
-                  "text" : "name",
-                  "type" : "text"
-                }
-              ],
-              "type" : "emphasis"
-            },
-            {
-              "text" : " attribute of the foreign object.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/attributes",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/id",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -294,6 +182,81 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameLoader/load(_:into:)": {
+  "abstract" : [
+    {
+      "text" : "Incrementally read frame data into a mutable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "load"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
+      "text" : "ForeignFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore16FrameLoaderErrorO",
+      "text" : "FrameLoaderError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader\/load(_:into:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "load(_:into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeloader\/load(_:into:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
@@ -311,14 +274,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [
     {
-      "text" : "A structure that contains an object representation from a foreign interface.",
+      "text" : "Protocol for foreign representation of an object",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -342,88 +305,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject/attributes": {
-  "abstract" : [
-    {
-      "text" : "Attributes and their values.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "attributes"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ForeignRecordV",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/attributes",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "attributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject\/attributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject/id": {
-  "abstract" : [
-    {
-      "text" : "Reference to an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/id",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "id",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject\/id"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/name": {
   "abstract" : [
     {
-      "text" : "Convenience attribute for object name.",
+      "text" : "Name of the foreign object.",
       "type" : "text"
     }
   ],
@@ -456,6 +341,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/name",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",

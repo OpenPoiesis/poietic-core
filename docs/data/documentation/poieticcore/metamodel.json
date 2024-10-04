@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
@@ -97,7 +97,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The metamodel is the ultimate source of truth for the model domain and",
+              "text" : "The metamodel is formed by a collection of object types, traits and",
               "type" : "text"
             },
             {
@@ -105,7 +105,16 @@
               "type" : "text"
             },
             {
-              "text" : "should contain all named concepts that can be described declaratively. The",
+              "text" : "constraints that together define a domain to which the design conforms.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The design can contain only types and traits that are present in the",
               "type" : "text"
             },
             {
@@ -113,267 +122,62 @@
               "type" : "text"
             },
             {
-              "text" : "main components of the metamodel are:",
+              "text" : "metamodel. The design must comply with all constraints in the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "metamodel.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Object types – list of types of objects that are allowed for the domain",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Components - list of components that can be assigned to the objects",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Queries - list of predicates and queries to provide domain specific view",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "of a design and of the design graph.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "unorderedList"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Reasons for this approach:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "One source of truth.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Abstraction from persistence, inspection (UI), scripting.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Transparency and audit-ability of the domain model.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Reflection.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Fair compromise between model DSL and native programming language, while",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "providing some possibility of accessing some of the meta-model components",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "through the native programming language identifiers.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Potentially, in the far future, the metamodel or its parts can be compiled",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "for better performance (which is out of scope at this moment).",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "unorderedList"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The major use-cases of the reflection:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Documentation.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Provide information through tooling to the user about what can be created,",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "used, inspected.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "There are going to be multiple versions of the toolkit in the wild, users",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "can investigate the capabilities of their installed version of the toolkit.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "unorderedList"
         },
         {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "Each application is expected to provide their own domain specific metamodel.",
+                  "text" : "",
                   "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+                  "isActive" : true,
+                  "type" : "reference"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "Note",
+          "name" : "See Also",
           "style" : "note",
           "type" : "aside"
         }
       ],
       "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -386,6 +190,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Metamodel-and-Object-Types",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
@@ -397,26 +202,51 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(traits:objectTypes:variables:constraints:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:merging:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:constraints:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/traits",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variableNames",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variables"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/types"
       ],
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectType(name:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Subscripts",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
+    },
+    {
+      "anchor" : "Type-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/Basic",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/ChangeLanguage",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/StockFlow"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -481,10 +311,124 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
+  "abstract" : [
+    {
+      "text" : "An object that checks constraints, including object types, of a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintChecker",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
+  "abstract" : [
+    {
+      "text" : "Accepts a frame and make it a stable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
+      "text" : "MutableFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
+      "text" : "FrameConstraintError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Protocol for meta–models – models describing problem domain models.",
+      "text" : "Object describing a model.",
       "type" : "text"
     }
   ],
@@ -514,6 +458,146 @@
   "title" : "Metamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/Basic": {
+  "abstract" : [
+    {
+      "text" : "Metamodel with some basic object types that are typical for multiple",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "kinds of designs.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Basic"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/Basic",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Basic",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/basic"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/ChangeLanguage": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChangeLanguage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/ChangeLanguage",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ChangeLanguage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/changelanguage"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/StockFlow": {
+  "abstract" : [
+    {
+      "text" : "The metamodel for Stock-and-Flows domain model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StockFlow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/StockFlow",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StockFlow",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/stockflow"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/constraints": {
   "abstract" : [
@@ -556,7 +640,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/constraints"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(traits:objectTypes:variables:constraints:)": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init()": {
   "abstract" : [
 
   ],
@@ -567,7 +651,106 @@
     },
     {
       "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/init()"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:merging:)": {
+  "abstract" : [
+    {
+      "text" : "Create a metamodel by merging multiple metamodels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "merging"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : "...)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:merging:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(name:merging:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:merging:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:traits:types:constraints:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -588,7 +771,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "objectTypes"
+      "text" : "types"
     },
     {
       "kind" : "text",
@@ -598,23 +781,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
       "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "variables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8VariableC",
-      "text" : "Variable"
     },
     {
       "kind" : "text",
@@ -638,12 +804,53 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(traits:objectTypes:variables:constraints:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:constraints:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(traits:objectTypes:variables:constraints:)",
+  "title" : "init(name:traits:types:constraints:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/init(traits:objecttypes:variables:constraints:)"
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:traits:types:constraints:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/name": {
+  "abstract" : [
+    {
+      "text" : "Name of the metamodel, for debug purposes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/name"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/objectType(name:)": {
   "abstract" : [
@@ -700,29 +907,27 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/objecttype(name:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/objectTypes": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/subscript(_:)": {
   "abstract" : [
-    {
-      "text" : "List of object types allowed in the model.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "subscript"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : "("
     },
     {
-      "kind" : "identifier",
-      "text" : "objectTypes"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -731,28 +936,20 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectTypes",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/subscript(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "objectTypes",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/objecttypes"
+  "url" : "\/documentation\/poieticcore\/metamodel\/subscript(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/traits": {
   "abstract" : [
     {
-      "text" : "List of components that are available within the domain described by",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "this metamodel.",
+      "text" : "List of components that are available within the metamodel.",
       "type" : "text"
     }
   ],
@@ -790,51 +987,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/traits"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/variableNames": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/types": {
   "abstract" : [
     {
-      "text" : "Get a list of built-in variable names.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "variableNames"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variableNames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "variableNames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/variablenames"
-},
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/variables": {
-  "abstract" : [
-    {
-      "text" : "List of built-in variables.",
+      "text" : "List of object types allowed in the model.",
       "type" : "text"
     }
   ],
@@ -849,7 +1005,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "variables"
+      "text" : "types"
     },
     {
       "kind" : "text",
@@ -857,25 +1013,33 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8VariableC",
-      "text" : "Variable"
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/variables",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/types",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "variables",
+  "title" : "types",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/variables"
+  "url" : "\/documentation\/poieticcore\/metamodel\/types"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Metamodel describes the types of the design objects and their properties.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
@@ -953,6 +1117,11 @@
   "title" : "Trait",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

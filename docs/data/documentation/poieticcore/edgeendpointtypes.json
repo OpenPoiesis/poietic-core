@@ -17,7 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ]
     ]
   },
@@ -71,6 +71,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "class"
             },
             {
@@ -90,7 +98,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -107,6 +116,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Constraints",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
@@ -114,19 +124,24 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "title" : "Constraints"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes\/init(origin:target:edge:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes\/edge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes\/origin",
@@ -135,6 +150,8 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes\/check(frame:objects:)"
       ],
@@ -222,7 +239,15 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing constraint that checks edges.",
+      "text" : "An object representing a constraint rule for checking whether a design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is valid within a given problem domain.",
       "type" : "text"
     }
   ],
@@ -638,10 +663,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes\/target"
 },
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
       "type" : "text"
     },
     {
@@ -649,16 +674,16 @@
       "type" : "text"
     },
     {
-      "text" : "define requirements for a set of objects.",
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
+  "title" : "Metamodel and Types",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -782,6 +807,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9JSONValueO5asIntSiyKF",
+    "externalID" : "s:11PoieticCore9JSONValueO5asIntSiyAA9JSONErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -38,7 +38,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+        "text" : "JSONError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -89,7 +98,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+              "text" : "JSONError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -152,6 +171,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonerror"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
 
@@ -210,7 +260,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
+      "text" : "JSONError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",

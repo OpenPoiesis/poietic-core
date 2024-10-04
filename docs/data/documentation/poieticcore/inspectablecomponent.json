@@ -142,12 +142,17 @@
         {
           "inlineContent" : [
             {
-              "text" : "Component attributes can be retrieved and set by their name, using ",
+              "text" : "Component attributes can be retrieved and set by their name, using",
               "type" : "text"
             },
             {
-              "code" : "Component\/attribute(forKey:)",
-              "type" : "codeVoice"
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/attribute(forKey:)",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : " ",
@@ -158,11 +163,12 @@
               "type" : "text"
             },
             {
-              "code" : "Component\/setAttribute(value:forKey:)",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/setAttribute(value:forKey:)",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
-              "text" : " respectively. This interface",
+              "text" : " respectively.",
               "type" : "text"
             },
             {
@@ -170,7 +176,7 @@
               "type" : "text"
             },
             {
-              "text" : "is for unified modification of the component attributes from a foreign",
+              "text" : "This interface is for unified modification of the component attributes from",
               "type" : "text"
             },
             {
@@ -178,7 +184,7 @@
               "type" : "text"
             },
             {
-              "text" : "source, such as foreign data or a script.",
+              "text" : "a foreign source, such as foreign data or a script.",
               "type" : "text"
             }
           ],
@@ -235,6 +241,8 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/attribute(forKey:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/setAttribute(value:forKey:)"
@@ -242,17 +250,12 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Type-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/trait"
       ],
       "title" : "Type Properties"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/KeyedAttributes-Implementations"
-      ],
-      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -350,17 +353,6 @@
   "title" : "InspectableComponent",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent/KeyedAttributes-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent\/KeyedAttributes-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "KeyedAttributes Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent\/keyedattributes-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent/attribute(forKey:)": {
   "abstract" : [

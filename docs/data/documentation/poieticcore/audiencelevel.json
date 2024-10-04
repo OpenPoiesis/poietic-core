@@ -75,8 +75,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/Se",
-        "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH",
         "doc:\/\/PoieticCore\/SY"
@@ -96,6 +94,8 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/advanced",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/any",
@@ -106,12 +106,15 @@
       "title" : "Enumeration Cases"
     },
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/Equatable-Implementations",
@@ -134,11 +137,6 @@
   ]
 , 
 "references": {
-"doc://PoieticCore/SE": {
-  "identifier" : "doc:\/\/PoieticCore\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
 "doc://PoieticCore/SH": {
   "identifier" : "doc:\/\/PoieticCore\/SH",
   "title" : "Swift.Hashable",
@@ -152,11 +150,6 @@
 "doc://PoieticCore/SY": {
   "identifier" : "doc:\/\/PoieticCore\/SY",
   "title" : "Swift.RawRepresentable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/Se": {
-  "identifier" : "doc:\/\/PoieticCore\/Se",
-  "title" : "Swift.Decodable",
   "type" : "unresolvable"
 },
 "doc://PoieticCore/documentation/PoieticCore": {

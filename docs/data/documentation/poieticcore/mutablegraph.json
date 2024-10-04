@@ -117,6 +117,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Graph-Nodes-and-Edges",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
@@ -130,13 +131,13 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createEdge(_:origin:target:attributes:components:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:)-jkr4",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:name:attributes:components:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-4enkr",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-9huce",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/remove(edge:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/remove(node:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/removeAll()-98jcu"
@@ -596,22 +597,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph\/createedge(_:origin:target:attributes:components:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:)-jkr4": {
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:)": {
   "abstract" : [
-    {
-      "text" : "Convenience method to create a node without a name and without any",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "components.",
-      "type" : "text"
-    }
+
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -644,13 +633,12 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:)-jkr4",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/createNode(_:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "createNode(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:)-jkr4"
+  "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph/createNode(_:name:attributes:components:)": {
   "abstract" : [
@@ -755,90 +743,6 @@
   "title" : "createNode(_:name:attributes:components:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablegraph\/createnode(_:name:attributes:components:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph/insert(_:)-4enkr": {
-  "abstract" : [
-    {
-      "text" : "Add a node to the graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "insert"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeV",
-      "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-4enkr",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "insert(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph\/insert(_:)-4enkr"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph/insert(_:)-9huce": {
-  "abstract" : [
-    {
-      "text" : "Add an edge to the graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "insert"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
-      "text" : "Edge"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph\/insert(_:)-9huce",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "insert(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph\/insert(_:)-9huce"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableGraph/remove(edge:)": {
   "abstract" : [

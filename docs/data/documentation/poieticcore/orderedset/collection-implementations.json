@@ -32,6 +32,7 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/count",
@@ -44,6 +45,7 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/distance(from:to:)",
@@ -60,8 +62,10 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/index(_:offsetBy:limitedBy:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/index(after:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/index(of:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/indices(of:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/indices(where:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/makeIterator()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-3cm6o",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-157y7",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/prefix(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/prefix(through:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/prefix(upTo:)",
@@ -69,6 +73,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/randomElement()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/randomElement(using:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/ranges(of:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/removingSubranges(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/split(separator:maxSplits:omittingEmptySubsequences:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/suffix(_:)",
@@ -79,6 +84,7 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Subscripts",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/subscript(_:)"
@@ -1613,6 +1619,223 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/indices"
 },
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/indices(of:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Equatable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "indices"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8RangeSetV",
+      "text" : "RangeSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sl5IndexQa",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/indices(of:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "indices(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orderedset\/indices(of:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/indices(where:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "indices"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "where"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ST7ElementQa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8RangeSetV",
+      "text" : "RangeSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sl5IndexQa",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/indices(where:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "indices(where:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orderedset\/indices(where:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/makeIterator()": {
   "abstract" : [
 
@@ -1691,7 +1914,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/makeiterator()"
 },
-"doc://PoieticCore/documentation/PoieticCore/OrderedSet/map(_:)-3cm6o": {
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/map(_:)-157y7": {
   "abstract" : [
 
   ],
@@ -1715,6 +1938,14 @@
     {
       "kind" : "genericParameter",
       "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "E"
     },
     {
       "kind" : "text",
@@ -1743,7 +1974,15 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -1755,11 +1994,19 @@
     },
     {
       "kind" : "keyword",
-      "text" : "rethrows"
+      "text" : "throws"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",
@@ -1770,12 +2017,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-3cm6o",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/map(_:)-157y7",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "map(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orderedset\/map(_:)-3cm6o"
+  "url" : "\/documentation\/poieticcore\/orderedset\/map(_:)-157y7"
 },
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/prefix(_:)": {
   "abstract" : [
@@ -2288,6 +2535,78 @@
   "title" : "ranges(of:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/ranges(of:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet/removingSubranges(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removingSubranges"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8RangeSetV",
+      "text" : "RangeSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sl5IndexQa",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s18DiscontiguousSliceV",
+      "text" : "DiscontiguousSlice"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/removingSubranges(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removingSubranges(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orderedset\/removingsubranges(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/split(maxSplits:omittingEmptySubsequences:whereSeparator:)": {
   "abstract" : [

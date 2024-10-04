@@ -63,6 +63,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "class"
             },
             {
@@ -135,7 +143,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP"
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -152,11 +161,11 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Functions",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinComparisonOperators",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunctions"
       ],
@@ -165,6 +174,8 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/init(_:variadic:returns:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/init(numeric:)",
@@ -173,6 +184,8 @@
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/isVariadic",
@@ -184,12 +197,16 @@
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/validate(_:)"
       ],
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Type-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/NumericUnary",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/NumericVariadic"
@@ -197,6 +214,8 @@
       "title" : "Type Properties"
     },
     {
+      "anchor" : "Enumerations",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/ValidationResult"
       ],
@@ -889,7 +908,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1012,43 +1031,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/signature\/variadic"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnionType": {
-  "abstract" : [
-    {
-      "text" : "Type of a function argument.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnionType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UnionType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UnionType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniontype"
-},
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

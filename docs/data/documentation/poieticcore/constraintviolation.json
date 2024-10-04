@@ -3,7 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ]
     ]
   },
@@ -76,6 +76,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s28CustomDebugStringConvertibleP",
         "doc:\/\/PoieticCore\/s5ErrorP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
@@ -94,6 +95,7 @@
   ],
   "seeAlsoSections" : [
     {
+      "anchor" : "Constraints",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
@@ -101,26 +103,33 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "title" : "Constraints"
     }
   ],
   "topicSections" : [
     {
+      "anchor" : "Initializers",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/init(constraint:objects:)"
       ],
       "title" : "Initializers"
     },
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/debugDescription",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/objects"
       ],
       "title" : "Instance Properties"
     },
     {
+      "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/Error-Implementations"
@@ -209,7 +218,15 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing constraint that checks edges.",
+      "text" : "An object representing a constraint rule for checking whether a design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is valid within a given problem domain.",
       "type" : "text"
     }
   ],
@@ -239,6 +256,40 @@
   "title" : "Constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
@@ -315,6 +366,40 @@
   "title" : "constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/debugDescription": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation\/debugDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debugDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolation\/debugdescription"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/init(constraint:objects:)": {
   "abstract" : [
@@ -451,10 +536,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/PredicatesAndConstraints": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
       "type" : "text"
     },
     {
@@ -462,16 +547,16 @@
       "type" : "text"
     },
     {
-      "text" : "define requirements for a set of objects.",
+      "text" : "must satisfy to be considered valid.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PredicatesAndConstraints",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
+  "title" : "Metamodel and Types",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicatesandconstraints"
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -595,6 +680,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s5ErrorP": {
   "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",
