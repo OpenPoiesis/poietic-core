@@ -8,13 +8,16 @@ See also: <doc:Persistence>
 
 ### Object Import and Export
 
-- ``ForeignFrameLoader``
 - ``JSONFrameReader``
 - ``JSONFrameWriter``
+- ``ForeignFrameLoader``
+- ``ForeignFrame``
+- ``ForeignFrameError``
 - ``ForeignObject``
 - ``ForeignObjectError``
 - ``ForeignValueError``
-- ``ForeignFrameError``
+- ``FrameLoaderError``
+- ``Variant/CoalescedCodingTypeKey``
 
 ### Foreign Value
 
@@ -22,6 +25,7 @@ See also: <doc:Persistence>
 - ``AttributeKey``
 - ``KeyedAttributes``
 - ``ForeignRecordError``
+- ``VariantCodingError``
 
 ### CSV Reading and Writing
 

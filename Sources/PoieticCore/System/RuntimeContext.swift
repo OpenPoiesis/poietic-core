@@ -5,40 +5,48 @@
 //  Created by Stefan Urbanek on 20/09/2023.
 //
 
+// TODO: Reconsider necessity of this left-over class.
 /// Context containing runtime information about the design.
+///
+/// Runtime context collects issues and components during frame processing.
 ///
 public class RuntimeContext {
     // TODO: We have this in frame
-    public let metamodel: Metamodel
-    
     /// Frame that is being transformed.
     public let frame: Frame
+
+
+    var metamodel: Metamodel { frame.design.metamodel }
     
-    // TODO: Private
+
     public var issues: [ObjectID: [Error]]
 
-    public var objectComponents: [ObjectID: ComponentSet]
+    /// Runtime components.
+    ///
+    /// - SeeAlso: ``setComponent(_:for:)``, ``component(for:)``
+    ///
+    public private(set) var objectComponents: [ObjectID: ComponentSet]
+
     // Components for the whole context
     // public var globalComponents: [ComponentSet]
 
+    /// Associate a component with an object within the runtime context.
+    ///
+    /// Only one instance per type of a component can be associated with an object.
+    ///
     public func setComponent<T:Component>(_ component: T, for id: ObjectID) {
         objectComponents[id, default: ComponentSet()].set(component)
     }
     
+    /// Get a component of a given type for an object.
+    ///
     public func component<T:Component>(for id: ObjectID) -> T? {
         objectComponents[id]?[T.self]
     }
     
-    //    public var objectsWithIssues: [ObjectID] {
-//        return Array(issues.keys)
-//    }
-//
-//    public func issuesForObject(_ id: ObjectID) -> [Error] {
-//        issues[id] ?? []
-//    }
-    
+    /// Create a new context and bind it to a frame.
+    ///
     public init(frame: Frame) {
-        self.metamodel = frame.design.metamodel
         self.frame = frame
         self.issues = [:]
         self.objectComponents = [:]

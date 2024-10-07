@@ -12,6 +12,12 @@ import Foundation
 /// Makeshift persistent design store stores the design as a JSON generated
 /// by the Swift _Codable_ protocol.
 ///
+/// - Note: The reason we are using the `Codable` protocol is that the Swift
+/// Foundation (at this time) does not have a viable reading/writing of raw JSON
+/// that is not bound to the Codable protocol. We need raw reading/writing to
+/// adapt for potential version changes of the file being read and for
+/// better error reporting.
+/// 
 /// - Note: This is a solution before we get a proper store design.
 ///
 public class MakeshiftDesignStore {

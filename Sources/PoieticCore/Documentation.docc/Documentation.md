@@ -49,5 +49,6 @@ For querying features of a graph there is ``Neighborhood`` and
 
 - <doc:Graphs>
 - <doc:Formulas>
+- <doc:Runtime>
 
 

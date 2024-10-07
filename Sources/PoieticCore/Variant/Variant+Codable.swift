@@ -7,13 +7,31 @@
 
 import Foundation
 
+/// Error thrown when trying to decode a variant
+///
+/// - SeeAlso: ``ValueType/typeCode``
+///
 public enum VariantCodingError: Error {
+    /// Type code not recognised.
+    ///
+    /// - SeeAlso: ``ValueType/typeCode``
+    ///
     case invalidValueTypeCode(String)
+    
+    /// Point value is not encoded in expected form.
+    ///
     case invalidPointValue
+    
+    /// Decoded variant value is of different type that the varian type
+    /// code specifies.
+    ///
     case invalidVariantValue
 }
 
 extension ValueType: Codable {
+
+    /// Code used for encoding of a varian value of the type.
+    ///
     public var typeCode: String {
         switch self {
         case let .atom(type):
@@ -34,6 +52,7 @@ extension ValueType: Codable {
             }
         }
     }
+    
     public init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
         let code = try container.decode(String.self)
@@ -62,11 +81,44 @@ extension ValueType: Codable {
 
 
 extension Variant: Codable {
+    /// Coding key used for a flag denoting how the variants are encoded.
+    ///
+    /// If the flag is `true`, then the decoder tries to decode an any type
+    /// from the decoder and then tries to convert it to the closest convertable
+    /// variant type.
+    ///
+    /// If the flag is `false` (default), the decoder expects a two-value
+    /// array to be encoded where the first value is a variant
+    /// type code (``ValueType/typeCode``) and the second value is encoded
+    /// variant.
+    ///
+    /// - Note: This is a workaround for (Swift) Foundation not providing
+    ///   full control over reading of raw JSON data without necessity of
+    ///   mapping it to a type using Codable protocol.
+    ///
     public static let CoalescedCodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CoalescedCodingTypeKey")!
 
     // Use default implementation.
     // NOTE: Do not use Codable for anything public (import/export).
     // NOTE: For JSON that is to be exported/imported use custom JSON methods.
+    /// Read a variant from a decoder.
+    ///
+    /// For reading JSON that might be hand-written (more error-prone):
+    ///
+    /// ```swift
+    /// let decoder = JSONDecoder()
+    /// decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
+    /// ```
+    ///
+    /// Reading a foreign frame produced by the library:
+    ///
+    /// ```swift
+    /// let decoder = JSONDecoder()
+    /// decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
+    /// ```
+    ///
+    /// See ``Variant/CoalescedCodingTypeKey`` for more information.
+    ///
     public init(from decoder: any Decoder) throws {
         if decoder.userInfo[Self.CoalescedCodingTypeKey] as? Bool == true {
             let container = try decoder.singleValueContainer()
@@ -183,6 +235,8 @@ extension Variant: Codable {
     ///     let encoder = JSONEncoder()
     ///     encoder.userInfo[Variant.CoalescedCodingTypeKey] = true
     /// ```
+    ///
+    /// - SeeAlso: ``init(from:)``, ``ValueType/typeCode``, ``Variant/CoalescedCodingTypeKey``
     ///
     public func encode(to encoder: any Encoder) throws {
         if encoder.userInfo[Self.CoalescedCodingTypeKey] as? Bool == true {

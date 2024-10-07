@@ -80,12 +80,28 @@ extension Graph {
     }
 }
 
+/// Protocol for objects that represent an edge.
+///
+/// - SeeAlso: ``topologicalSort(_:edges:)``
+///
 public protocol EdgeType: Identifiable where ID == ObjectID {
+    /// Object ID of an edge origin.
     var origin: ObjectID { get }
+
+    /// Object ID of an edge target.
     var target: ObjectID { get }
 }
 
-public func topologicalSort<T: EdgeType>(_ toSort: [ObjectID], edges: [T]) throws -> [ObjectID] {
+
+/// Sort edges topologically.
+///
+/// - Parameters:
+///     - toSort: List of node object IDs to be sorted.
+///     - edges: List of edges between nodes.
+///
+/// - Throws: ``GraphCycleError`` when a cycle is detected.
+///
+public func topologicalSort<T: EdgeType>(_ toSort: [ObjectID], edges: [T]) throws (GraphCycleError) -> [ObjectID] {
     var sorted: [ObjectID] = []
     let nodes: [ObjectID] = toSort
     

@@ -89,7 +89,11 @@ extension ForeignObject {
     }
 }
 
+/// Protocol that represents a frame which originates or is meant to be used
+/// by a foreign interface.
+///
 public protocol ForeignFrame {
+    /// List of foreign objects contained in the frame.
     var objects: [ForeignObject] { get }
 }
 

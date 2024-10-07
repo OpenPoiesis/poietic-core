@@ -96,6 +96,7 @@ examples see ``Constraint``.
 ### Constraints
 
 - ``Constraint``
+- ``ConstraintChecker``
 - ``EdgeEndpointTypes``
 - ``RejectAll``
 - ``AcceptAll``
@@ -114,6 +115,7 @@ examples see ``Constraint``.
 - ``Trait/DesignInfo``
 - ``ObjectType/DesignInfo``
 - ``Trait/AudienceLevel``
+- ``AudienceLevel``
 
 ### Other
 

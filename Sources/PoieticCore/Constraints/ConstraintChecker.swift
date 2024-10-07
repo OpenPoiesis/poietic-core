@@ -5,12 +5,6 @@
 //  Created by Stefan Urbanek on 18/09/2024.
 //
 
-// FIXME: [REFACTORING] Rename methods
-
-extension Array<ObjectTypeError>: @retroactive Error {
-    
-}
-
 extension ObjectSnapshot {
     
     /// Checks object's conformance to a trait.
