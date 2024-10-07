@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Get a component of a given type for an object.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext"
       ]
     ]
@@ -276,6 +283,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
+"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a runtime system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtime"
+},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -312,7 +333,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext/component(for:)": {
   "abstract" : [
-
+    {
+      "text" : "Get a component of a given type for an object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

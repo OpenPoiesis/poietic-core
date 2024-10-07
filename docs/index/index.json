@@ -1254,15 +1254,6 @@
                     "type" : "method"
                   },
                   {
-                    "title" : "Type Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey",
-                    "title" : "static let CoalescedCodingTypeKey: CodingUserInfoKey",
-                    "type" : "property"
-                  },
-                  {
                     "title" : "Type Methods",
                     "type" : "groupMarker"
                   },
@@ -3335,6 +3326,40 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/constraintchecker\/init(_:)",
+                    "title" : "init(Metamodel)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/constraintchecker\/metamodel",
+                    "title" : "let metamodel: Metamodel",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)",
+                    "title" : "func check(any Frame) throws(FrameConstraintError)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/constraintchecker",
+                "title" : "ConstraintChecker",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/init(origin:target:edge:)",
                     "title" : "init(origin: IsTypePredicate?, target: IsTypePredicate?, edge: IsTypePredicate?)",
                     "type" : "init"
@@ -3609,6 +3634,96 @@
                 "path" : "\/documentation\/poieticcore\/trait\/audiencelevel",
                 "title" : "static let AudienceLevel: Trait",
                 "type" : "property"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/advanced",
+                    "title" : "case advanced",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/any",
+                    "title" : "case any",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/beginner",
+                    "title" : "case beginner",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/expert",
+                    "title" : "case expert",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/intermediate",
+                    "title" : "case intermediate",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/init(rawvalue:)",
+                    "title" : "init(rawValue: Int)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/audiencelevel\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/audiencelevel\/hashvalue",
+                        "title" : "var hashValue: Int",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/audiencelevel\/hash(into:)",
+                        "title" : "func hash(into: inout Hasher)",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/audiencelevel\/rawrepresentable-implementations",
+                    "title" : "RawRepresentable Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/audiencelevel",
+                "title" : "AudienceLevel",
+                "type" : "enum"
               },
               {
                 "title" : "Other",
@@ -4283,40 +4398,6 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/init()",
-                    "title" : "init()",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/references",
-                    "title" : "var references: [String : ObjectID]",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/load(_:into:)",
-                    "title" : "func load(any ForeignFrame, into: MutableFrame) throws(FrameLoaderError)",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/foreignframeloader",
-                "title" : "ForeignFrameLoader",
-                "type" : "class"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/jsonframereader\/init()",
                     "title" : "init()",
                     "type" : "init"
@@ -4369,6 +4450,172 @@
                 "path" : "\/documentation\/poieticcore\/jsonframewriter",
                 "title" : "JSONFrameWriter",
                 "type" : "class"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/init()",
+                    "title" : "init()",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/references",
+                    "title" : "var references: [String : ObjectID]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeloader\/load(_:into:)",
+                    "title" : "func load(any ForeignFrame, into: MutableFrame) throws(FrameLoaderError)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/foreignframeloader",
+                "title" : "ForeignFrameLoader",
+                "type" : "class"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframe\/objects",
+                    "title" : "var objects: [any ForeignObject]",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/foreignframe",
+                "title" : "ForeignFrame",
+                "type" : "protocol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/jsonerror(_:)",
+                    "title" : "case JSONError(JSONError)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/datacorrupted(_:_:)",
+                    "title" : "case dataCorrupted(String, [String])",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/foreignobjecterror(_:_:)",
+                    "title" : "case foreignObjectError(ForeignObjectError, Int)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/invalidreference(_:_:_:)",
+                    "title" : "case invalidReference(String, String, Int)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/missingframeformatversion",
+                    "title" : "case missingFrameFormatVersion",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/propertynotfound(_:_:)",
+                    "title" : "case propertyNotFound(String, [String])",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/typemismatch(_:_:)",
+                    "title" : "case typeMismatch(String, [String])",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unabletoreaddata",
+                    "title" : "case unableToReadData",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unknowndecodingerror(_:)",
+                    "title" : "case unknownDecodingError(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unknownobjecttype(_:_:)",
+                    "title" : "case unknownObjectType(String, Int)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unsupportedversion(_:)",
+                    "title" : "case unsupportedVersion(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/valuenotfound(_:_:)",
+                    "title" : "case valueNotFound(String, [String])",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/description",
+                    "title" : "var description: String",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/foreignframeerror\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/foreignframeerror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/foreignframeerror",
+                "title" : "ForeignFrameError",
+                "type" : "enum"
               },
               {
                 "children" : [
@@ -4605,63 +4852,18 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/jsonerror(_:)",
-                    "title" : "case JSONError(JSONError)",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/foreignobjecterror(_:_:)",
+                    "title" : "case foreignObjectError(ForeignObjectError, String?)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/datacorrupted(_:_:)",
-                    "title" : "case dataCorrupted(String, [String])",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/invalidreference(_:_:_:)",
+                    "title" : "case invalidReference(String, String, String?)",
                     "type" : "case"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/foreignobjecterror(_:_:)",
-                    "title" : "case foreignObjectError(ForeignObjectError, Int)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/invalidreference(_:_:_:)",
-                    "title" : "case invalidReference(String, String, Int)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/missingframeformatversion",
-                    "title" : "case missingFrameFormatVersion",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/propertynotfound(_:_:)",
-                    "title" : "case propertyNotFound(String, [String])",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/typemismatch(_:_:)",
-                    "title" : "case typeMismatch(String, [String])",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unabletoreaddata",
-                    "title" : "case unableToReadData",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unknowndecodingerror(_:)",
-                    "title" : "case unknownDecodingError(String)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unknownobjecttype(_:_:)",
-                    "title" : "case unknownObjectType(String, Int)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/unsupportedversion(_:)",
-                    "title" : "case unsupportedVersion(String)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/valuenotfound(_:_:)",
-                    "title" : "case valueNotFound(String, [String])",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/unknownobjecttype(_:_:)",
+                    "title" : "case unknownObjectType(String, String?)",
                     "type" : "case"
                   },
                   {
@@ -4669,7 +4871,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/description",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/description",
                     "title" : "var description: String",
                     "type" : "property"
                   },
@@ -4684,12 +4886,12 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/poieticcore\/foreignframeerror\/!=(_:_:)",
+                        "path" : "\/documentation\/poieticcore\/frameloadererror\/!=(_:_:)",
                         "title" : "static func != (Self, Self) -> Bool",
                         "type" : "op"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/equatable-implementations",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/equatable-implementations",
                     "title" : "Equatable Implementations",
                     "type" : "symbol"
                   },
@@ -4700,19 +4902,24 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/poieticcore\/foreignframeerror\/localizeddescription",
+                        "path" : "\/documentation\/poieticcore\/frameloadererror\/localizeddescription",
                         "title" : "var localizedDescription: String",
                         "type" : "property"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/foreignframeerror\/error-implementations",
+                    "path" : "\/documentation\/poieticcore\/frameloadererror\/error-implementations",
                     "title" : "Error Implementations",
                     "type" : "symbol"
                   }
                 ],
-                "path" : "\/documentation\/poieticcore\/foreignframeerror",
-                "title" : "ForeignFrameError",
+                "path" : "\/documentation\/poieticcore\/frameloadererror",
+                "title" : "FrameLoaderError",
                 "type" : "enum"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey",
+                "title" : "static let CoalescedCodingTypeKey: CodingUserInfoKey",
+                "type" : "property"
               },
               {
                 "title" : "Foreign Value",
@@ -5184,6 +5391,52 @@
                 ],
                 "path" : "\/documentation\/poieticcore\/foreignrecorderror",
                 "title" : "ForeignRecordError",
+                "type" : "enum"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidpointvalue",
+                    "title" : "case invalidPointValue",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidvaluetypecode(_:)",
+                    "title" : "case invalidValueTypeCode(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidvariantvalue",
+                    "title" : "case invalidVariantValue",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/variantcodingerror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/variantcodingerror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/variantcodingerror",
+                "title" : "VariantCodingError",
                 "type" : "enum"
               },
               {
@@ -5967,6 +6220,142 @@
                 "path" : "\/documentation\/poieticcore\/makeshiftdesignstore",
                 "title" : "MakeshiftDesignStore",
                 "type" : "class"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/cannotopenstore(_:)",
+                    "title" : "case cannotOpenStore(URL)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/currentframeidnotset",
+                    "title" : "case currentFrameIDNotSet",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/datacorrupted",
+                    "title" : "case dataCorrupted",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicateframe(_:)",
+                    "title" : "case duplicateFrame(ObjectID)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicatesnapshot(_:)",
+                    "title" : "case duplicateSnapshot(ObjectID)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/extraneousstructuralproperty(_:_:)",
+                    "title" : "case extraneousStructuralProperty(StructuralType, String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidframereference(_:_:)",
+                    "title" : "case invalidFrameReference(String, ObjectID)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidsnapshotreference(_:_:)",
+                    "title" : "case invalidSnapshotReference(ObjectID, ObjectID)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidstructuraltype(_:)",
+                    "title" : "case invalidStructuralType(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/missingproperty(_:_:)",
+                    "title" : "case missingProperty(String, [String])",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/missingstructuralproperty(_:_:)",
+                    "title" : "case missingStructuralProperty(StructuralType, String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/storemissing",
+                    "title" : "case storeMissing",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/structuraltypemismatch(_:_:)",
+                    "title" : "case structuralTypeMismatch(StructuralType, StructuralType)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/typemismatch(_:)",
+                    "title" : "case typeMismatch([String])",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/unknownobjecttype(_:)",
+                    "title" : "case unknownObjectType(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/unsupportedformatversion(_:)",
+                    "title" : "case unsupportedFormatVersion(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/description",
+                    "title" : "var description: String",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/persistentstoreerror\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/persistentstoreerror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/persistentstoreerror",
+                "title" : "PersistentStoreError",
+                "type" : "enum"
               }
             ],
             "path" : "\/documentation\/poieticcore\/persistence",
@@ -6093,12 +6482,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-9v9o",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(edge:)-97l6i",
                             "title" : "func contains(edge: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -6116,12 +6505,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -6216,12 +6605,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-10660",
+                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-6huic",
                             "title" : "func node(ObjectID) -> Node",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-6huic",
+                            "path" : "\/documentation\/poieticcore\/graph\/node(_:)-10660",
                             "title" : "func node(ObjectID) -> Node",
                             "type" : "method"
                           }
@@ -6468,6 +6857,27 @@
               {
                 "children" : [
                   {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/edgetype\/origin",
+                    "title" : "var origin: ObjectID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/edgetype\/target",
+                    "title" : "var target: ObjectID",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/edgetype",
+                "title" : "EdgeType",
+                "type" : "protocol"
+              },
+              {
+                "children" : [
+                  {
                     "title" : "Enumeration Cases",
                     "type" : "groupMarker"
                   },
@@ -6514,6 +6924,11 @@
                 "path" : "\/documentation\/poieticcore\/edgedirection",
                 "title" : "EdgeDirection",
                 "type" : "enum"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/topologicalsort(_:edges:)",
+                "title" : "func topologicalSort<T>([ObjectID], edges: [T]) throws(GraphCycleError) -> [ObjectID]",
+                "type" : "func"
               },
               {
                 "children" : [
@@ -8150,143 +8565,1175 @@
             "type" : "symbol"
           },
           {
-            "title" : "Classes",
-            "type" : "groupMarker"
-          },
-          {
             "children" : [
               {
-                "title" : "Initializers",
+                "title" : "Types",
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/init(frame:)",
-                "title" : "init(frame: any Frame)",
-                "type" : "init"
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/init(frame:)",
+                    "title" : "init(frame: any Frame)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/frame",
+                    "title" : "let frame: any Frame",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/hasissues",
+                    "title" : "var hasIssues: Bool",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/issues",
+                    "title" : "var issues: [ObjectID : [any Error]]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/objectcomponents",
+                    "title" : "var objectComponents: [ObjectID : ComponentSet]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/appendissue(_:for:)",
+                    "title" : "func appendIssue(any Error, for: ObjectID)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/component(for:)",
+                    "title" : "func component<T>(for: ObjectID) -> T?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimecontext\/setcomponent(_:for:)",
+                    "title" : "func setComponent<T>(T, for: ObjectID)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/runtimecontext",
+                "title" : "RuntimeContext",
+                "type" : "class"
               },
               {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimesystem\/update(_:)",
+                    "title" : "func update(RuntimeContext)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/runtimesystem",
+                "title" : "RuntimeSystem",
+                "type" : "protocol"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/frame",
-                "title" : "let frame: any Frame",
-                "type" : "property"
+                "path" : "\/documentation\/poieticcore\/component",
+                "title" : "Component",
+                "type" : "protocol"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/hasissues",
-                "title" : "var hasIssues: Bool",
-                "type" : "property"
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/inspectablecomponent\/attribute(forkey:)",
+                    "title" : "func attribute(forKey: AttributeKey) -> Variant?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/inspectablecomponent\/setattribute(value:forkey:)",
+                    "title" : "func setAttribute(value: Variant, forKey: AttributeKey) throws",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/inspectablecomponent\/trait",
+                    "title" : "static var trait: Trait",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/inspectablecomponent",
+                "title" : "InspectableComponent",
+                "type" : "protocol"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/issues",
-                "title" : "var issues: [ObjectID : [any Error]]",
-                "type" : "property"
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/init(_:)",
+                    "title" : "init([any Component])",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/count",
+                    "title" : "var count: Int",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/has(_:)",
+                    "title" : "func has(any Component.Type) -> Bool",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/remove(_:)",
+                    "title" : "func remove(any Component.Type)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/removeall()",
+                    "title" : "func removeAll()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/set(_:)-5rqbo",
+                    "title" : "func set(any Component)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/set(_:)-7o58e",
+                    "title" : "func set([any Component])",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-5d8h6",
+                    "title" : "subscript<T>(T.Type) -> T?",
+                    "type" : "subscript"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-7cqju",
+                    "title" : "subscript(any Component.Type) -> (any Component)?",
+                    "type" : "subscript"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/endindex",
+                        "title" : "var endIndex: ComponentSet.Index",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/first",
+                        "title" : "var first: Self.Element?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/indices",
+                        "title" : "var indices: DefaultIndices<Self>",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/isempty",
+                        "title" : "var isEmpty: Bool",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/startindex",
+                        "title" : "var startIndex: ComponentSet.Index",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/underestimatedcount",
+                        "title" : "var underestimatedCount: Int",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/distance(from:to:)",
+                        "title" : "func distance(from: Self.Index, to: Self.Index) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/drop(while:)",
+                        "title" : "func drop(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/dropfirst(_:)",
+                        "title" : "func dropFirst(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/droplast(_:)",
+                        "title" : "func dropLast(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/firstindex(where:)",
+                        "title" : "func firstIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/formindex(_:offsetby:)",
+                        "title" : "func formIndex(inout Self.Index, offsetBy: Int)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/formindex(_:offsetby:limitedby:)",
+                        "title" : "func formIndex(inout Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/formindex(after:)",
+                        "title" : "func formIndex(after: inout Self.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/index(_:offsetby:)",
+                        "title" : "func index(Self.Index, offsetBy: Int) -> Self.Index",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/index(_:offsetby:limitedby:)",
+                        "title" : "func index(Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/index(after:)",
+                        "title" : "func index(after: ComponentSet.Index) -> ComponentSet.Index",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/indices(where:)",
+                        "title" : "func indices(where: (Self.Element) throws -> Bool) rethrows -> RangeSet<Self.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/makeiterator()",
+                        "title" : "func makeIterator() -> IndexingIterator<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/map(_:)-72p9i",
+                        "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/prefix(_:)",
+                        "title" : "func prefix(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/prefix(through:)",
+                        "title" : "func prefix(through: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/prefix(upto:)",
+                        "title" : "func prefix(upTo: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/prefix(while:)",
+                        "title" : "func prefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/randomelement()",
+                        "title" : "func randomElement() -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/randomelement(using:)",
+                        "title" : "func randomElement<T>(using: inout T) -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/removingsubranges(_:)",
+                        "title" : "func removingSubranges(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/split(maxsplits:omittingemptysubsequences:whereseparator:)",
+                        "title" : "func split(maxSplits: Int, omittingEmptySubsequences: Bool, whereSeparator: (Self.Element) throws -> Bool) rethrows -> [Self.SubSequence]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/suffix(_:)",
+                        "title" : "func suffix(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/suffix(from:)",
+                        "title" : "func suffix(from: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/trimmingprefix(while:)",
+                        "title" : "func trimmingPrefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "title" : "Subscripts",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-4rn2g",
+                        "title" : "subscript<R>(R) -> Self.SubSequence",
+                        "type" : "subscript"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-62pt4",
+                        "title" : "subscript(Range<Self.Index>) -> Slice<Self>",
+                        "type" : "subscript"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-6ytl5",
+                        "title" : "subscript(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
+                        "type" : "subscript"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9nfo4",
+                        "title" : "subscript((UnboundedRange_) -> ()) -> Self.SubSequence",
+                        "type" : "subscript"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9xnhm",
+                        "title" : "subscript(ComponentSet.Index) -> any Component",
+                        "type" : "subscript"
+                      },
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/index",
+                        "title" : "ComponentSet.Index",
+                        "type" : "typealias"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/componentset\/collection-implementations",
+                    "title" : "Collection Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/init(arrayliteral:)",
+                        "title" : "init(arrayLiteral: any ComponentSet.ArrayLiteralElement...)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/arrayliteralelement",
+                        "title" : "ComponentSet.ArrayLiteralElement",
+                        "type" : "typealias"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/componentset\/expressiblebyarrayliteral-implementations",
+                    "title" : "ExpressibleByArrayLiteral Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/lazy",
+                        "title" : "var lazy: LazySequence<Self>",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/publisher",
+                        "title" : "var publisher: Publishers.Sequence<Self, Never>",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/allsatisfy(_:)",
+                        "title" : "func allSatisfy((Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/compactmap(_:)",
+                        "title" : "func compactMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/compare(_:_:)",
+                        "title" : "func compare<Comparator>(Comparator.Compared, Comparator.Compared) -> ComparisonResult",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/contains(where:)",
+                        "title" : "func contains(where: (Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/count(where:)",
+                        "title" : "func count<E>(where: (Self.Element) throws(E) -> Bool) throws(E) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/elementsequal(_:by:)",
+                        "title" : "func elementsEqual<OtherSequence>(OtherSequence, by: (Self.Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/enumerated()",
+                        "title" : "func enumerated() -> EnumeratedSequence<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/filter(_:)-44vw0",
+                        "title" : "func filter((Self.Element) throws -> Bool) rethrows -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/filter(_:)-68t0j",
+                        "title" : "func filter(Predicate<Self.Element>) throws -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/first(where:)",
+                        "title" : "func first(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/flatmap(_:)-4lcj",
+                        "title" : "func flatMap<SegmentOfResult>((Self.Element) throws -> SegmentOfResult) rethrows -> [SegmentOfResult.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/flatmap(_:)-5cxck",
+                        "title" : "func flatMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/foreach(_:)",
+                        "title" : "func forEach((Self.Element) throws -> Void) rethrows",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/formatted(_:)",
+                        "title" : "func formatted<S>(S) -> S.FormatOutput",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/lexicographicallyprecedes(_:by:)",
+                        "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence, by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/map(_:)-286dx",
+                        "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/max(by:)",
+                        "title" : "func max(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/min(by:)",
+                        "title" : "func min(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/reduce(_:_:)",
+                        "title" : "func reduce<Result>(Result, (Result, Self.Element) throws -> Result) rethrows -> Result",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/reduce(into:_:)",
+                        "title" : "func reduce<Result>(into: Result, (inout Result, Self.Element) throws -> ()) rethrows -> Result",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/reversed()",
+                        "title" : "func reversed() -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/shuffled()",
+                        "title" : "func shuffled() -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/shuffled(using:)",
+                        "title" : "func shuffled<T>(using: inout T) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/sorted(by:)",
+                        "title" : "func sorted(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/sorted(using:)-14mv4",
+                        "title" : "func sorted<Comparator>(using: Comparator) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/sorted(using:)-8ong7",
+                        "title" : "func sorted<S, Comparator>(using: S) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/starts(with:by:)",
+                        "title" : "func starts<PossiblePrefix>(with: PossiblePrefix, by: (Self.Element, PossiblePrefix.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/componentset\/withcontiguousstorageifavailable(_:)",
+                        "title" : "func withContiguousStorageIfAvailable<R>((UnsafeBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/componentset\/sequence-implementations",
+                    "title" : "Sequence Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/componentset",
+                "title" : "ComponentSet",
+                "type" : "struct"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/metamodel",
-                "title" : "let metamodel: Metamodel",
-                "type" : "property"
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/issuelistcomponent\/init(errors:)",
+                    "title" : "init(errors: [any Error])",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/issuelistcomponent\/errors",
+                    "title" : "var errors: [any Error]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/issuelistcomponent\/append(_:)",
+                    "title" : "func append(any Error)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/issuelistcomponent\/removeall()",
+                    "title" : "func removeAll()",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/issuelistcomponent",
+                "title" : "IssueListComponent",
+                "type" : "struct"
               },
               {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/objectcomponents",
-                "title" : "var objectComponents: [ObjectID : ComponentSet]",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/appendissue(_:for:)",
-                "title" : "func appendIssue(any Error, for: ObjectID)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/component(for:)",
-                "title" : "func component<T>(for: ObjectID) -> T?",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/runtimecontext\/setcomponent(_:for:)",
-                "title" : "func setComponent<T>(T, for: ObjectID)",
-                "type" : "method"
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/init()",
+                    "title" : "init()",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/init(_:)",
+                    "title" : "init([OrderedSet<T>.Item])",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/isempty",
+                    "title" : "var isEmpty: Bool",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/add(_:)",
+                    "title" : "func add(OrderedSet<T>.Item)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/contains(_:)",
+                    "title" : "func contains(OrderedSet<T>.Item) -> Bool",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/remove(_:)",
+                    "title" : "func remove(OrderedSet<T>.Item)",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/index",
+                    "title" : "OrderedSet.Index",
+                    "type" : "typealias"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/orderedset\/item",
+                    "title" : "OrderedSet.Item",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/count",
+                        "title" : "var count: Int",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/endindex",
+                        "title" : "var endIndex: OrderedSet<T>.Index",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/first",
+                        "title" : "var first: Self.Element?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/indices",
+                        "title" : "var indices: DefaultIndices<Self>",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/startindex",
+                        "title" : "var startIndex: OrderedSet<T>.Index",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/underestimatedcount",
+                        "title" : "var underestimatedCount: Int",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/distance(from:to:)",
+                        "title" : "func distance(from: Self.Index, to: Self.Index) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/drop(while:)",
+                        "title" : "func drop(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/dropfirst(_:)",
+                        "title" : "func dropFirst(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/droplast(_:)",
+                        "title" : "func dropLast(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/firstindex(of:)",
+                        "title" : "func firstIndex(of: Self.Element) -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/firstindex(where:)",
+                        "title" : "func firstIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/firstrange(of:)",
+                        "title" : "func firstRange<C>(of: C) -> Range<Self.Index>?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/formindex(_:offsetby:)",
+                        "title" : "func formIndex(inout Self.Index, offsetBy: Int)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/formindex(_:offsetby:limitedby:)",
+                        "title" : "func formIndex(inout Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/formindex(after:)",
+                        "title" : "func formIndex(after: inout Self.Index)",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/index(_:offsetby:)",
+                        "title" : "func index(Self.Index, offsetBy: Int) -> Self.Index",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/index(_:offsetby:limitedby:)",
+                        "title" : "func index(Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/index(after:)",
+                        "title" : "func index(after: OrderedSet<T>.Index) -> OrderedSet<T>.Index",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/index(of:)",
+                        "title" : "func index(of: Self.Element) -> Self.Index?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/indices(of:)",
+                        "title" : "func indices(of: Self.Element) -> RangeSet<Self.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/indices(where:)",
+                        "title" : "func indices(where: (Self.Element) throws -> Bool) rethrows -> RangeSet<Self.Index>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/makeiterator()",
+                        "title" : "func makeIterator() -> IndexingIterator<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/map(_:)-157y7",
+                        "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/prefix(_:)",
+                        "title" : "func prefix(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/prefix(through:)",
+                        "title" : "func prefix(through: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/prefix(upto:)",
+                        "title" : "func prefix(upTo: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/prefix(while:)",
+                        "title" : "func prefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/randomelement()",
+                        "title" : "func randomElement() -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/randomelement(using:)",
+                        "title" : "func randomElement<T>(using: inout T) -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/ranges(of:)",
+                        "title" : "func ranges<C>(of: C) -> [Range<Self.Index>]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/removingsubranges(_:)",
+                        "title" : "func removingSubranges(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/split(maxsplits:omittingemptysubsequences:whereseparator:)",
+                        "title" : "func split(maxSplits: Int, omittingEmptySubsequences: Bool, whereSeparator: (Self.Element) throws -> Bool) rethrows -> [Self.SubSequence]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/split(separator:maxsplits:omittingemptysubsequences:)",
+                        "title" : "func split(separator: Self.Element, maxSplits: Int, omittingEmptySubsequences: Bool) -> [Self.SubSequence]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/suffix(_:)",
+                        "title" : "func suffix(Int) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/suffix(from:)",
+                        "title" : "func suffix(from: Self.Index) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/trimmingprefix(_:)",
+                        "title" : "func trimmingPrefix<Prefix>(Prefix) -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/trimmingprefix(while:)",
+                        "title" : "func trimmingPrefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
+                        "type" : "method"
+                      },
+                      {
+                        "title" : "Subscripts",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/subscript(_:)",
+                        "title" : "subscript(OrderedSet<T>.Index) -> OrderedSet<T>.Item",
+                        "type" : "subscript"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/orderedset\/collection-implementations",
+                    "title" : "Collection Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/orderedset\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/init(arrayliteral:)",
+                        "title" : "init(arrayLiteral: T...)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Type Aliases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/arrayliteralelement",
+                        "title" : "OrderedSet.ArrayLiteralElement",
+                        "type" : "typealias"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/orderedset\/expressiblebyarrayliteral-implementations",
+                    "title" : "ExpressibleByArrayLiteral Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/lazy",
+                        "title" : "var lazy: LazySequence<Self>",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/publisher",
+                        "title" : "var publisher: Publishers.Sequence<Self, Never>",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/allsatisfy(_:)",
+                        "title" : "func allSatisfy((Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/compactmap(_:)",
+                        "title" : "func compactMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/compare(_:_:)",
+                        "title" : "func compare<Comparator>(Comparator.Compared, Comparator.Compared) -> ComparisonResult",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/contains(where:)",
+                        "title" : "func contains(where: (Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/count(where:)",
+                        "title" : "func count<E>(where: (Self.Element) throws(E) -> Bool) throws(E) -> Int",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/elementsequal(_:)",
+                        "title" : "func elementsEqual<OtherSequence>(OtherSequence) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/elementsequal(_:by:)",
+                        "title" : "func elementsEqual<OtherSequence>(OtherSequence, by: (Self.Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/enumerated()",
+                        "title" : "func enumerated() -> EnumeratedSequence<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/filter(_:)-a4a6",
+                        "title" : "func filter(Predicate<Self.Element>) throws -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/filter(_:)-nfpt",
+                        "title" : "func filter((Self.Element) throws -> Bool) rethrows -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/first(where:)",
+                        "title" : "func first(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/flatmap(_:)-5l690",
+                        "title" : "func flatMap<SegmentOfResult>((Self.Element) throws -> SegmentOfResult) rethrows -> [SegmentOfResult.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/flatmap(_:)-8dgje",
+                        "title" : "func flatMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/foreach(_:)",
+                        "title" : "func forEach((Self.Element) throws -> Void) rethrows",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/formatted()",
+                        "title" : "func formatted() -> String",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/formatted(_:)",
+                        "title" : "func formatted<S>(S) -> S.FormatOutput",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/joined()",
+                        "title" : "func joined() -> FlattenSequence<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/joined(separator:)-2mfau",
+                        "title" : "func joined<Separator>(separator: Separator) -> JoinedSequence<Self>",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/joined(separator:)-4u7hg",
+                        "title" : "func joined(separator: String) -> String",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/lexicographicallyprecedes(_:)",
+                        "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/lexicographicallyprecedes(_:by:)",
+                        "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence, by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/map(_:)-zujt",
+                        "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/max()",
+                        "title" : "func max() -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/max(by:)",
+                        "title" : "func max(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/min()",
+                        "title" : "func min() -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/min(by:)",
+                        "title" : "func min(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/reduce(_:_:)",
+                        "title" : "func reduce<Result>(Result, (Result, Self.Element) throws -> Result) rethrows -> Result",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/reduce(into:_:)",
+                        "title" : "func reduce<Result>(into: Result, (inout Result, Self.Element) throws -> ()) rethrows -> Result",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/reversed()",
+                        "title" : "func reversed() -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/shuffled()",
+                        "title" : "func shuffled() -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/shuffled(using:)",
+                        "title" : "func shuffled<T>(using: inout T) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/sorted()",
+                        "title" : "func sorted() -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/sorted(by:)",
+                        "title" : "func sorted(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/sorted(using:)-218pn",
+                        "title" : "func sorted<Comparator>(using: Comparator) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/sorted(using:)-7tm2s",
+                        "title" : "func sorted<S, Comparator>(using: S) -> [Self.Element]",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/starts(with:)",
+                        "title" : "func starts<PossiblePrefix>(with: PossiblePrefix) -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/starts(with:by:)",
+                        "title" : "func starts<PossiblePrefix>(with: PossiblePrefix, by: (Self.Element, PossiblePrefix.Element) throws -> Bool) rethrows -> Bool",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/orderedset\/withcontiguousstorageifavailable(_:)",
+                        "title" : "func withContiguousStorageIfAvailable<R>((UnsafeBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/orderedset\/sequence-implementations",
+                    "title" : "Sequence Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/orderedset",
+                "title" : "OrderedSet",
+                "type" : "struct"
               }
             ],
-            "path" : "\/documentation\/poieticcore\/runtimecontext",
-            "title" : "RuntimeContext",
-            "type" : "class"
+            "path" : "\/documentation\/poieticcore\/runtime",
+            "title" : "Runtime",
+            "type" : "symbol"
           },
           {
             "title" : "Protocols",
             "type" : "groupMarker"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/edgetype\/origin",
-                "title" : "var origin: ObjectID",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/edgetype\/target",
-                "title" : "var target: ObjectID",
-                "type" : "property"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/edgetype",
-            "title" : "EdgeType",
-            "type" : "protocol"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/foreignframe\/objects",
-                "title" : "var objects: [any ForeignObject]",
-                "type" : "property"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/foreignframe",
-            "title" : "ForeignFrame",
-            "type" : "protocol"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/inspectablecomponent\/attribute(forkey:)",
-                "title" : "func attribute(forKey: AttributeKey) -> Variant?",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/inspectablecomponent\/setattribute(value:forkey:)",
-                "title" : "func setAttribute(value: Variant, forKey: AttributeKey) throws",
-                "type" : "method"
-              },
-              {
-                "title" : "Type Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/inspectablecomponent\/trait",
-                "title" : "static var trait: Trait",
-                "type" : "property"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/inspectablecomponent",
-            "title" : "InspectableComponent",
-            "type" : "protocol"
           },
           {
             "children" : [
@@ -8323,528 +9770,8 @@
             "type" : "protocol"
           },
           {
-            "children" : [
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/runtimesystem\/update(_:)",
-                "title" : "func update(RuntimeContext)",
-                "type" : "method"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/runtimesystem",
-            "title" : "RuntimeSystem",
-            "type" : "protocol"
-          },
-          {
             "title" : "Structures",
             "type" : "groupMarker"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/init(_:)",
-                "title" : "init([any Component])",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/count",
-                "title" : "var count: Int",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/has(_:)",
-                "title" : "func has(any Component.Type) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/remove(_:)",
-                "title" : "func remove(any Component.Type)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/removeall()",
-                "title" : "func removeAll()",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/set(_:)-5rqbo",
-                "title" : "func set(any Component)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/set(_:)-7o58e",
-                "title" : "func set([any Component])",
-                "type" : "method"
-              },
-              {
-                "title" : "Subscripts",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-5d8h6",
-                "title" : "subscript<T>(T.Type) -> T?",
-                "type" : "subscript"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-7cqju",
-                "title" : "subscript(any Component.Type) -> (any Component)?",
-                "type" : "subscript"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/endindex",
-                    "title" : "var endIndex: ComponentSet.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/first",
-                    "title" : "var first: Self.Element?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/indices",
-                    "title" : "var indices: DefaultIndices<Self>",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/isempty",
-                    "title" : "var isEmpty: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/startindex",
-                    "title" : "var startIndex: ComponentSet.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/underestimatedcount",
-                    "title" : "var underestimatedCount: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/distance(from:to:)",
-                    "title" : "func distance(from: Self.Index, to: Self.Index) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/drop(while:)",
-                    "title" : "func drop(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/dropfirst(_:)",
-                    "title" : "func dropFirst(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/droplast(_:)",
-                    "title" : "func dropLast(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/firstindex(where:)",
-                    "title" : "func firstIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/formindex(_:offsetby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/formindex(_:offsetby:limitedby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/formindex(after:)",
-                    "title" : "func formIndex(after: inout Self.Index)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/index(_:offsetby:)",
-                    "title" : "func index(Self.Index, offsetBy: Int) -> Self.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/index(_:offsetby:limitedby:)",
-                    "title" : "func index(Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/index(after:)",
-                    "title" : "func index(after: ComponentSet.Index) -> ComponentSet.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/indices(where:)",
-                    "title" : "func indices(where: (Self.Element) throws -> Bool) rethrows -> RangeSet<Self.Index>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/makeiterator()",
-                    "title" : "func makeIterator() -> IndexingIterator<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/map(_:)-72p9i",
-                    "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/prefix(_:)",
-                    "title" : "func prefix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/prefix(through:)",
-                    "title" : "func prefix(through: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/prefix(upto:)",
-                    "title" : "func prefix(upTo: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/prefix(while:)",
-                    "title" : "func prefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/randomelement()",
-                    "title" : "func randomElement() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/randomelement(using:)",
-                    "title" : "func randomElement<T>(using: inout T) -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/removingsubranges(_:)",
-                    "title" : "func removingSubranges(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/split(maxsplits:omittingemptysubsequences:whereseparator:)",
-                    "title" : "func split(maxSplits: Int, omittingEmptySubsequences: Bool, whereSeparator: (Self.Element) throws -> Bool) rethrows -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/suffix(_:)",
-                    "title" : "func suffix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/suffix(from:)",
-                    "title" : "func suffix(from: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/trimmingprefix(while:)",
-                    "title" : "func trimmingPrefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Subscripts",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-4rn2g",
-                    "title" : "subscript<R>(R) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-62pt4",
-                    "title" : "subscript(Range<Self.Index>) -> Slice<Self>",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-6ytl5",
-                    "title" : "subscript(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9nfo4",
-                    "title" : "subscript((UnboundedRange_) -> ()) -> Self.SubSequence",
-                    "type" : "subscript"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9xnhm",
-                    "title" : "subscript(ComponentSet.Index) -> any Component",
-                    "type" : "subscript"
-                  },
-                  {
-                    "title" : "Type Aliases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/index",
-                    "title" : "ComponentSet.Index",
-                    "type" : "typealias"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/componentset\/collection-implementations",
-                "title" : "Collection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/init(arrayliteral:)",
-                    "title" : "init(arrayLiteral: any ComponentSet.ArrayLiteralElement...)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Type Aliases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/arrayliteralelement",
-                    "title" : "ComponentSet.ArrayLiteralElement",
-                    "type" : "typealias"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/componentset\/expressiblebyarrayliteral-implementations",
-                "title" : "ExpressibleByArrayLiteral Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/lazy",
-                    "title" : "var lazy: LazySequence<Self>",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/publisher",
-                    "title" : "var publisher: Publishers.Sequence<Self, Never>",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/allsatisfy(_:)",
-                    "title" : "func allSatisfy((Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/compactmap(_:)",
-                    "title" : "func compactMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/compare(_:_:)",
-                    "title" : "func compare<Comparator>(Comparator.Compared, Comparator.Compared) -> ComparisonResult",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/contains(where:)",
-                    "title" : "func contains(where: (Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/count(where:)",
-                    "title" : "func count<E>(where: (Self.Element) throws(E) -> Bool) throws(E) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/elementsequal(_:by:)",
-                    "title" : "func elementsEqual<OtherSequence>(OtherSequence, by: (Self.Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/enumerated()",
-                    "title" : "func enumerated() -> EnumeratedSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/filter(_:)-44vw0",
-                    "title" : "func filter((Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/filter(_:)-68t0j",
-                    "title" : "func filter(Predicate<Self.Element>) throws -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/first(where:)",
-                    "title" : "func first(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/flatmap(_:)-4lcj",
-                    "title" : "func flatMap<SegmentOfResult>((Self.Element) throws -> SegmentOfResult) rethrows -> [SegmentOfResult.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/flatmap(_:)-5cxck",
-                    "title" : "func flatMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/foreach(_:)",
-                    "title" : "func forEach((Self.Element) throws -> Void) rethrows",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/formatted(_:)",
-                    "title" : "func formatted<S>(S) -> S.FormatOutput",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/lexicographicallyprecedes(_:by:)",
-                    "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence, by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/map(_:)-286dx",
-                    "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/max(by:)",
-                    "title" : "func max(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/min(by:)",
-                    "title" : "func min(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/reduce(_:_:)",
-                    "title" : "func reduce<Result>(Result, (Result, Self.Element) throws -> Result) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/reduce(into:_:)",
-                    "title" : "func reduce<Result>(into: Result, (inout Result, Self.Element) throws -> ()) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/reversed()",
-                    "title" : "func reversed() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/shuffled()",
-                    "title" : "func shuffled() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/shuffled(using:)",
-                    "title" : "func shuffled<T>(using: inout T) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/sorted(by:)",
-                    "title" : "func sorted(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/sorted(using:)-14mv4",
-                    "title" : "func sorted<Comparator>(using: Comparator) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/sorted(using:)-8ong7",
-                    "title" : "func sorted<S, Comparator>(using: S) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/starts(with:by:)",
-                    "title" : "func starts<PossiblePrefix>(with: PossiblePrefix, by: (Self.Element, PossiblePrefix.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/withcontiguousstorageifavailable(_:)",
-                    "title" : "func withContiguousStorageIfAvailable<R>((UnsafeBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/componentset\/sequence-implementations",
-                "title" : "Sequence Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/componentset",
-            "title" : "ComponentSet",
-            "type" : "struct"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/constraintchecker\/init(_:)",
-                "title" : "init(Metamodel)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/constraintchecker\/metamodel",
-                "title" : "let metamodel: Metamodel",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)",
-                "title" : "func check(any Frame) throws(FrameConstraintError)",
-                "type" : "method"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/constraintchecker",
-            "title" : "ConstraintChecker",
-            "type" : "struct"
           },
           {
             "children" : [
@@ -8922,591 +9849,6 @@
             "type" : "struct"
           },
           {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issuelistcomponent\/init(errors:)",
-                "title" : "init(errors: [any Error])",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issuelistcomponent\/errors",
-                "title" : "var errors: [any Error]",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issuelistcomponent\/append(_:)",
-                "title" : "func append(any Error)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issuelistcomponent\/removeall()",
-                "title" : "func removeAll()",
-                "type" : "method"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/issuelistcomponent",
-            "title" : "IssueListComponent",
-            "type" : "struct"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/init()",
-                "title" : "init()",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/init(_:)",
-                "title" : "init([OrderedSet<T>.Item])",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/isempty",
-                "title" : "var isEmpty: Bool",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/add(_:)",
-                "title" : "func add(OrderedSet<T>.Item)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/contains(_:)",
-                "title" : "func contains(OrderedSet<T>.Item) -> Bool",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/remove(_:)",
-                "title" : "func remove(OrderedSet<T>.Item)",
-                "type" : "method"
-              },
-              {
-                "title" : "Type Aliases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/index",
-                "title" : "OrderedSet.Index",
-                "type" : "typealias"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/orderedset\/item",
-                "title" : "OrderedSet.Item",
-                "type" : "typealias"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/count",
-                    "title" : "var count: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/endindex",
-                    "title" : "var endIndex: OrderedSet<T>.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/first",
-                    "title" : "var first: Self.Element?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/indices",
-                    "title" : "var indices: DefaultIndices<Self>",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/startindex",
-                    "title" : "var startIndex: OrderedSet<T>.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/underestimatedcount",
-                    "title" : "var underestimatedCount: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/distance(from:to:)",
-                    "title" : "func distance(from: Self.Index, to: Self.Index) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/drop(while:)",
-                    "title" : "func drop(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/dropfirst(_:)",
-                    "title" : "func dropFirst(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/droplast(_:)",
-                    "title" : "func dropLast(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/firstindex(of:)",
-                    "title" : "func firstIndex(of: Self.Element) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/firstindex(where:)",
-                    "title" : "func firstIndex(where: (Self.Element) throws -> Bool) rethrows -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/firstrange(of:)",
-                    "title" : "func firstRange<C>(of: C) -> Range<Self.Index>?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/formindex(_:offsetby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/formindex(_:offsetby:limitedby:)",
-                    "title" : "func formIndex(inout Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/formindex(after:)",
-                    "title" : "func formIndex(after: inout Self.Index)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/index(_:offsetby:)",
-                    "title" : "func index(Self.Index, offsetBy: Int) -> Self.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/index(_:offsetby:limitedby:)",
-                    "title" : "func index(Self.Index, offsetBy: Int, limitedBy: Self.Index) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/index(after:)",
-                    "title" : "func index(after: OrderedSet<T>.Index) -> OrderedSet<T>.Index",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/index(of:)",
-                    "title" : "func index(of: Self.Element) -> Self.Index?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/indices(of:)",
-                    "title" : "func indices(of: Self.Element) -> RangeSet<Self.Index>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/indices(where:)",
-                    "title" : "func indices(where: (Self.Element) throws -> Bool) rethrows -> RangeSet<Self.Index>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/makeiterator()",
-                    "title" : "func makeIterator() -> IndexingIterator<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/map(_:)-157y7",
-                    "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/prefix(_:)",
-                    "title" : "func prefix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/prefix(through:)",
-                    "title" : "func prefix(through: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/prefix(upto:)",
-                    "title" : "func prefix(upTo: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/prefix(while:)",
-                    "title" : "func prefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/randomelement()",
-                    "title" : "func randomElement() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/randomelement(using:)",
-                    "title" : "func randomElement<T>(using: inout T) -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/ranges(of:)",
-                    "title" : "func ranges<C>(of: C) -> [Range<Self.Index>]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/removingsubranges(_:)",
-                    "title" : "func removingSubranges(RangeSet<Self.Index>) -> DiscontiguousSlice<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/split(maxsplits:omittingemptysubsequences:whereseparator:)",
-                    "title" : "func split(maxSplits: Int, omittingEmptySubsequences: Bool, whereSeparator: (Self.Element) throws -> Bool) rethrows -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/split(separator:maxsplits:omittingemptysubsequences:)",
-                    "title" : "func split(separator: Self.Element, maxSplits: Int, omittingEmptySubsequences: Bool) -> [Self.SubSequence]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/suffix(_:)",
-                    "title" : "func suffix(Int) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/suffix(from:)",
-                    "title" : "func suffix(from: Self.Index) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/trimmingprefix(_:)",
-                    "title" : "func trimmingPrefix<Prefix>(Prefix) -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/trimmingprefix(while:)",
-                    "title" : "func trimmingPrefix(while: (Self.Element) throws -> Bool) rethrows -> Self.SubSequence",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Subscripts",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/subscript(_:)",
-                    "title" : "subscript(OrderedSet<T>.Index) -> OrderedSet<T>.Item",
-                    "type" : "subscript"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/orderedset\/collection-implementations",
-                "title" : "Collection Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Operators",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/orderedset\/equatable-implementations",
-                "title" : "Equatable Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/init(arrayliteral:)",
-                    "title" : "init(arrayLiteral: T...)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Type Aliases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/arrayliteralelement",
-                    "title" : "OrderedSet.ArrayLiteralElement",
-                    "type" : "typealias"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/orderedset\/expressiblebyarrayliteral-implementations",
-                "title" : "ExpressibleByArrayLiteral Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/lazy",
-                    "title" : "var lazy: LazySequence<Self>",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/publisher",
-                    "title" : "var publisher: Publishers.Sequence<Self, Never>",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/allsatisfy(_:)",
-                    "title" : "func allSatisfy((Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/compactmap(_:)",
-                    "title" : "func compactMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/compare(_:_:)",
-                    "title" : "func compare<Comparator>(Comparator.Compared, Comparator.Compared) -> ComparisonResult",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/contains(where:)",
-                    "title" : "func contains(where: (Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/count(where:)",
-                    "title" : "func count<E>(where: (Self.Element) throws(E) -> Bool) throws(E) -> Int",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/elementsequal(_:)",
-                    "title" : "func elementsEqual<OtherSequence>(OtherSequence) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/elementsequal(_:by:)",
-                    "title" : "func elementsEqual<OtherSequence>(OtherSequence, by: (Self.Element, OtherSequence.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/enumerated()",
-                    "title" : "func enumerated() -> EnumeratedSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/filter(_:)-a4a6",
-                    "title" : "func filter(Predicate<Self.Element>) throws -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/filter(_:)-nfpt",
-                    "title" : "func filter((Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/first(where:)",
-                    "title" : "func first(where: (Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/flatmap(_:)-5l690",
-                    "title" : "func flatMap<SegmentOfResult>((Self.Element) throws -> SegmentOfResult) rethrows -> [SegmentOfResult.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/flatmap(_:)-8dgje",
-                    "title" : "func flatMap<ElementOfResult>((Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/foreach(_:)",
-                    "title" : "func forEach((Self.Element) throws -> Void) rethrows",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/formatted()",
-                    "title" : "func formatted() -> String",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/formatted(_:)",
-                    "title" : "func formatted<S>(S) -> S.FormatOutput",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/joined()",
-                    "title" : "func joined() -> FlattenSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/joined(separator:)-2mfau",
-                    "title" : "func joined<Separator>(separator: Separator) -> JoinedSequence<Self>",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/joined(separator:)-4u7hg",
-                    "title" : "func joined(separator: String) -> String",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/lexicographicallyprecedes(_:)",
-                    "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/lexicographicallyprecedes(_:by:)",
-                    "title" : "func lexicographicallyPrecedes<OtherSequence>(OtherSequence, by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/map(_:)-zujt",
-                    "title" : "func map<T, E>((Self.Element) throws(E) -> T) throws(E) -> [T]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/max()",
-                    "title" : "func max() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/max(by:)",
-                    "title" : "func max(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/min()",
-                    "title" : "func min() -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/min(by:)",
-                    "title" : "func min(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> Self.Element?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/reduce(_:_:)",
-                    "title" : "func reduce<Result>(Result, (Result, Self.Element) throws -> Result) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/reduce(into:_:)",
-                    "title" : "func reduce<Result>(into: Result, (inout Result, Self.Element) throws -> ()) rethrows -> Result",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/reversed()",
-                    "title" : "func reversed() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/shuffled()",
-                    "title" : "func shuffled() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/shuffled(using:)",
-                    "title" : "func shuffled<T>(using: inout T) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/sorted()",
-                    "title" : "func sorted() -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/sorted(by:)",
-                    "title" : "func sorted(by: (Self.Element, Self.Element) throws -> Bool) rethrows -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/sorted(using:)-218pn",
-                    "title" : "func sorted<Comparator>(using: Comparator) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/sorted(using:)-7tm2s",
-                    "title" : "func sorted<S, Comparator>(using: S) -> [Self.Element]",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/starts(with:)",
-                    "title" : "func starts<PossiblePrefix>(with: PossiblePrefix) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/starts(with:by:)",
-                    "title" : "func starts<PossiblePrefix>(with: PossiblePrefix, by: (Self.Element, PossiblePrefix.Element) throws -> Bool) rethrows -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/orderedset\/withcontiguousstorageifavailable(_:)",
-                    "title" : "func withContiguousStorageIfAvailable<R>((UnsafeBufferPointer<Self.Element>) throws -> R) rethrows -> R?",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/orderedset\/sequence-implementations",
-                "title" : "Sequence Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/orderedset",
-            "title" : "OrderedSet",
-            "type" : "struct"
-          },
-          {
-            "title" : "Functions",
-            "type" : "groupMarker"
-          },
-          {
-            "path" : "\/documentation\/poieticcore\/topologicalsort(_:edges:)",
-            "title" : "func topologicalSort<T>([ObjectID], edges: [T]) throws -> [ObjectID]",
-            "type" : "func"
-          },
-          {
             "title" : "Type Aliases",
             "type" : "groupMarker"
           },
@@ -9518,167 +9860,6 @@
           {
             "title" : "Enumerations",
             "type" : "groupMarker"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Enumeration Cases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/advanced",
-                "title" : "case advanced",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/any",
-                "title" : "case any",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/beginner",
-                "title" : "case beginner",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/expert",
-                "title" : "case expert",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/intermediate",
-                "title" : "case intermediate",
-                "type" : "case"
-              },
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/init(rawvalue:)",
-                "title" : "init(rawValue: Int)",
-                "type" : "init"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Operators",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/audiencelevel\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/equatable-implementations",
-                "title" : "Equatable Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/audiencelevel\/hashvalue",
-                    "title" : "var hashValue: Int",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/audiencelevel\/hash(into:)",
-                    "title" : "func hash(into: inout Hasher)",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/audiencelevel\/rawrepresentable-implementations",
-                "title" : "RawRepresentable Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/audiencelevel",
-            "title" : "AudienceLevel",
-            "type" : "enum"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Enumeration Cases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/foreignobjecterror(_:_:)",
-                "title" : "case foreignObjectError(ForeignObjectError, String?)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/invalidreference(_:_:_:)",
-                "title" : "case invalidReference(String, String, String?)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/unknownobjecttype(_:_:)",
-                "title" : "case unknownObjectType(String, String?)",
-                "type" : "case"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/description",
-                "title" : "var description: String",
-                "type" : "property"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Operators",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/frameloadererror\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/equatable-implementations",
-                "title" : "Equatable Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/frameloadererror\/localizeddescription",
-                    "title" : "var localizedDescription: String",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/frameloadererror\/error-implementations",
-                "title" : "Error Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/frameloadererror",
-            "title" : "FrameLoaderError",
-            "type" : "enum"
           },
           {
             "children" : [
@@ -9749,142 +9930,6 @@
             ],
             "path" : "\/documentation\/poieticcore\/objecttypeerror",
             "title" : "ObjectTypeError",
-            "type" : "enum"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Enumeration Cases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/cannotopenstore(_:)",
-                "title" : "case cannotOpenStore(URL)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/currentframeidnotset",
-                "title" : "case currentFrameIDNotSet",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/datacorrupted",
-                "title" : "case dataCorrupted",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicateframe(_:)",
-                "title" : "case duplicateFrame(ObjectID)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicatesnapshot(_:)",
-                "title" : "case duplicateSnapshot(ObjectID)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/extraneousstructuralproperty(_:_:)",
-                "title" : "case extraneousStructuralProperty(StructuralType, String)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidframereference(_:_:)",
-                "title" : "case invalidFrameReference(String, ObjectID)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidsnapshotreference(_:_:)",
-                "title" : "case invalidSnapshotReference(ObjectID, ObjectID)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/invalidstructuraltype(_:)",
-                "title" : "case invalidStructuralType(String)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/missingproperty(_:_:)",
-                "title" : "case missingProperty(String, [String])",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/missingstructuralproperty(_:_:)",
-                "title" : "case missingStructuralProperty(StructuralType, String)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/storemissing",
-                "title" : "case storeMissing",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/structuraltypemismatch(_:_:)",
-                "title" : "case structuralTypeMismatch(StructuralType, StructuralType)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/typemismatch(_:)",
-                "title" : "case typeMismatch([String])",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/unknownobjecttype(_:)",
-                "title" : "case unknownObjectType(String)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/unsupportedformatversion(_:)",
-                "title" : "case unsupportedFormatVersion(String)",
-                "type" : "case"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/description",
-                "title" : "var description: String",
-                "type" : "property"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Operators",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/equatable-implementations",
-                "title" : "Equatable Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/persistentstoreerror\/localizeddescription",
-                    "title" : "var localizedDescription: String",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/persistentstoreerror\/error-implementations",
-                "title" : "Error Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/persistentstoreerror",
-            "title" : "PersistentStoreError",
             "type" : "enum"
           },
           {
@@ -10073,52 +10118,6 @@
             "type" : "enum"
           },
           {
-            "children" : [
-              {
-                "title" : "Enumeration Cases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidpointvalue",
-                "title" : "case invalidPointValue",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidvaluetypecode(_:)",
-                "title" : "case invalidValueTypeCode(String)",
-                "type" : "case"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/variantcodingerror\/invalidvariantvalue",
-                "title" : "case invalidVariantValue",
-                "type" : "case"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variantcodingerror\/localizeddescription",
-                    "title" : "var localizedDescription: String",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/variantcodingerror\/error-implementations",
-                "title" : "Error Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/variantcodingerror",
-            "title" : "VariantCodingError",
-            "type" : "enum"
-          },
-          {
             "title" : "Extended Modules",
             "type" : "groupMarker"
           },
@@ -10127,33 +10126,6 @@
               {
                 "title" : "Extended Structures",
                 "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/swift\/array\/localizeddescription",
-                        "title" : "var localizedDescription: String",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/swift\/array\/error-implementations",
-                    "title" : "Error Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/swift\/array",
-                "title" : "Array",
-                "type" : "extension"
               },
               {
                 "children" : [

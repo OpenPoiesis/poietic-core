@@ -2,7 +2,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence"
       ]
     ]
   },
@@ -92,6 +93,16 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Store",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore"
+      ],
+      "title" : "Store"
+    }
+  ],
   "topicSections" : [
     {
       "anchor" : "Enumeration-Cases",
@@ -166,6 +177,54 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
+  "abstract" : [
+    {
+      "text" : "A makeshift persistent store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MakeshiftDesignStore"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MakeshiftDesignStore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Persistence": {
+  "abstract" : [
+    {
+      "text" : "Persistence of a design - storing from and restoring to a file system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Persistence",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Persistence",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistence"
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
   "abstract" : [

@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
       ]
     ]
   },
@@ -134,6 +135,21 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Types",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
+      ],
+      "title" : "Types"
+    }
+  ],
   "topicSections" : [
     {
       "anchor" : "Initializers",
@@ -220,6 +236,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Component": {
+  "abstract" : [
+    {
+      "text" : "Protocol for runtime components of objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Component",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/component"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
@@ -642,6 +692,190 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-7cqju"
+},
+"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
+  "abstract" : [
+    {
+      "text" : "Protocol for components where attributes can be inspected by their names.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InspectableComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InspectableComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InspectableComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
+  "abstract" : [
+    {
+      "text" : "Component that holds a list of errors related to a node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IssueListComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IssueListComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IssueListComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issuelistcomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/OrderedSet": {
+  "abstract" : [
+    {
+      "text" : "Set of unique objects that maintains their order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OrderedSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OrderedSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OrderedSet",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orderedset"
+},
+"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a runtime system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtime"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
+  "abstract" : [
+    {
+      "text" : "Context containing runtime information about the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeContext"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeContext"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RuntimeContext",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimecontext"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeSystem": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects that manage runtime data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeSystem"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RuntimeSystem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RuntimeSystem",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimesystem"
 },
 "doc://PoieticCore/s25ExpressibleByArrayLiteralP": {
   "identifier" : "doc:\/\/PoieticCore\/s25ExpressibleByArrayLiteralP",

@@ -279,6 +279,45 @@
           ],
           "syntax" : "swift",
           "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(from:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -336,7 +375,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueType/typeCode": {
   "abstract" : [
-
+    {
+      "text" : "Code used for encoding of a varian value of the type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -404,7 +446,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
   "abstract" : [
-
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -507,6 +552,51 @@
   "title" : "encode(to:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/encode(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/init(from:)": {
+  "abstract" : [
+    {
+      "text" : "Read a variant from a decoder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/init(from:)"
 }
 }
 }

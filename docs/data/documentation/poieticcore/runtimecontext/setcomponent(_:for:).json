@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Associate a component with an object within the runtime context.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext"
       ]
     ]
@@ -186,6 +193,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Only one instance per type of a component can be associated with an object.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -292,6 +319,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
+"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a runtime system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtime"
+},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -328,7 +369,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext/setComponent(_:for:)": {
   "abstract" : [
-
+    {
+      "text" : "Associate a component with an object within the runtime context.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

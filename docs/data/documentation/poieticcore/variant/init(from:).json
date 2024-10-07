@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "Decodable.init(from:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Read a variant from a decoder.",
       "type" : "text"
     }
   ],
@@ -124,6 +116,69 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For reading JSON that might be hand-written (more error-prone):",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let decoder = JSONDecoder()",
+            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = true"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Reading a foreign frame produced by the library:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let decoder = JSONDecoder()",
+            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = true"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "See ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for more information.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -210,6 +265,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
 },
+"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+  "abstract" : [
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CoalescedCodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "CoalescedCodingTypeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
+},
 "doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
   "abstract" : [
 
@@ -223,7 +323,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/init(from:)": {
   "abstract" : [
-
+    {
+      "text" : "Read a variant from a decoder.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

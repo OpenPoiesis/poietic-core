@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Type code not recognised.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ]
     ]
@@ -91,6 +98,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -129,9 +168,63 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType/typeCode": {
+  "abstract" : [
+    {
+      "text" : "Code used for encoding of a varian value of the type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "typeCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "typeCode",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype\/typecode"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when trying to decode a variant",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -162,7 +255,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError/invalidValueTypeCode(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Type code not recognised.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

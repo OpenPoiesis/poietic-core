@@ -8,7 +8,8 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ]
     ]
   },
@@ -86,6 +87,23 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Constraints",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+      ],
+      "title" : "Constraints"
+    }
+  ],
   "topicSections" : [
     {
       "anchor" : "Initializers",
@@ -139,6 +157,98 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are required. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and accepts them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AcceptAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/acceptall"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint": {
+  "abstract" : [
+    {
+      "text" : "An object representing a constraint rule for checking whether a design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is valid within a given problem domain.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Constraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
@@ -317,6 +427,258 @@
   "title" : "metamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintchecker\/metamodel"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintViolation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointTypes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are prohibited. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RejectAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rejectall"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueNeighbourRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueNeighbourRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueProperty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty"
 }
 }
 }

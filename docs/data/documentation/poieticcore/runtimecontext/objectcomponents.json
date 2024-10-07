@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Runtime components.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext"
       ]
     ]
@@ -105,12 +112,53 @@
             },
             {
               "kind" : "text",
-              "text" : "]"
+              "text" : "] { get }"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext\/setComponent(_:for:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext\/component(for:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -217,6 +265,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
+"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a runtime system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtime"
+},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -251,9 +313,77 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtimecontext"
 },
+"doc://PoieticCore/documentation/PoieticCore/RuntimeContext/component(for:)": {
+  "abstract" : [
+    {
+      "text" : "Get a component of a given type for an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "component"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext\/component(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "component(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimecontext\/component(for:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext/objectComponents": {
   "abstract" : [
-
+    {
+      "text" : "Runtime components.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -297,6 +427,71 @@
   "title" : "objectComponents",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtimecontext\/objectcomponents"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeContext/setComponent(_:for:)": {
+  "abstract" : [
+    {
+      "text" : "Associate a component with an object within the runtime context.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setComponent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext\/setComponent(_:for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setComponent(_:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimecontext\/setcomponent(_:for:)"
 }
 }
 }

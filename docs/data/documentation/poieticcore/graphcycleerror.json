@@ -107,7 +107,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)"
       ],
       "title" : "Graph, Nodes and Edges"
     }
@@ -241,6 +243,40 @@
   "title" : "EdgeDirection",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeType": {
+  "abstract" : [
+    {
+      "text" : "Protocol for objects that represent an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgetype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
@@ -484,6 +520,97 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/topologicalSort(_:edges:)": {
+  "abstract" : [
+    {
+      "text" : "Sort edges topologically.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologicalSort"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+      "text" : "GraphCycleError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "topologicalSort(_:edges:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologicalsort(_:edges:)"
 },
 "doc://PoieticCore/s5ErrorP": {
   "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",

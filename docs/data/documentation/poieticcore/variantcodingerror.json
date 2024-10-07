@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Error thrown when trying to decode a variant",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
       ]
     ]
   },
@@ -70,6 +77,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -90,6 +129,19 @@
   },
   "sections" : [
 
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Foreign-Value",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
+      ],
+      "title" : "Foreign Value"
+    }
   ],
   "topicSections" : [
     {
@@ -139,9 +191,215 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
+  "abstract" : [
+    {
+      "text" : "Type for object attribute key.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AttributeKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AttributeKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AttributeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/attributekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
+  "abstract" : [
+    {
+      "text" : "A collection of key-value pairs that store data used for exchange with",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "external environment such as database.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecord"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecord"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecord",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecord"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
+  "abstract" : [
+    {
+      "text" : "An error thrown when there is an issue with retrieving or converting",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a foreign value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignRecordError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignRecordError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
+},
+"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
+  "abstract" : [
+    {
+      "text" : "A protocol for objects that provide their attributes by keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "KeyedAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "KeyedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/keyedattributes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType/typeCode": {
+  "abstract" : [
+    {
+      "text" : "Code used for encoding of a varian value of the type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "typeCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "typeCode",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype\/typecode"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when trying to decode a variant",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -183,7 +441,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError/invalidPointValue": {
   "abstract" : [
-
+    {
+      "text" : "Point value is not encoded in expected form.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -208,7 +469,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError/invalidValueTypeCode(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Type code not recognised.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -246,7 +510,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError/invalidVariantValue": {
   "abstract" : [
-
+    {
+      "text" : "Decoded variant value is of different type that the varian type",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "code specifies.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

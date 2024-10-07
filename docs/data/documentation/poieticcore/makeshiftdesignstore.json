@@ -121,6 +121,62 @@
             {
               "inlineContent" : [
                 {
+                  "text" : "The reason we are using the ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Codable",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " protocol is that the Swift",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Foundation (at this time) does not have a viable reading\/writing of raw JSON",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "that is not bound to the Codable protocol. We need raw reading\/writing to",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "adapt for potential version changes of the file being read and for",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "better error reporting.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
                   "text" : "This is a solution before we get a proper store design.",
                   "type" : "text"
                 }
@@ -143,6 +199,16 @@
   },
   "sections" : [
 
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Store",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError"
+      ],
+      "title" : "Store"
+    }
   ],
   "topicSections" : [
     {
@@ -493,6 +559,37 @@
   "title" : "Persistence",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
+},
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PersistentStoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PersistentStoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PersistentStoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror"
 }
 }
 }

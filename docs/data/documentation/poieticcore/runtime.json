@@ -1,87 +1,37 @@
 {
   "abstract" : [
     {
-      "text" : "Protocol for objects that manage runtime data.",
+      "text" : "Types and functionality for a runtime system.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem"
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
   },
-  "kind" : "symbol",
+  "kind" : "article",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13RuntimeSystemP",
-    "fragments" : [
-      {
-        "kind" : "keyword",
-        "text" : "protocol"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "RuntimeSystem"
-      }
-    ],
     "modules" : [
       {
         "name" : "PoieticCore"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "RuntimeSystem"
-      }
-    ],
-    "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
-    "title" : "RuntimeSystem"
+    "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
+    "title" : "Runtime"
   },
   "primaryContentSections" : [
     {
-      "declarations" : [
-        {
-          "languages" : [
-            "swift"
-          ],
-          "platforms" : [
-            "macOS"
-          ],
-          "tokens" : [
-            {
-              "kind" : "keyword",
-              "text" : "protocol"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "RuntimeSystem"
-            }
-          ]
-        }
-      ],
-      "kind" : "declarations"
-    },
-    {
       "content" : [
         {
-          "anchor" : "overview",
+          "anchor" : "Overview",
           "level" : 2,
           "text" : "Overview",
           "type" : "heading"
@@ -89,7 +39,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Runtime systems are objects that derive data from design frames,",
+              "text" : "Runtime systems require to hold additional information about a frame being",
               "type" : "text"
             },
             {
@@ -97,7 +47,15 @@
               "type" : "text"
             },
             {
-              "text" : "manage runtime components.",
+              "text" : "processed. The Poietic library provides some helper types to hold the runtime",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "state.",
               "type" : "text"
             }
           ],
@@ -117,10 +75,21 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Types",
+      "anchor" : "Others",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
+      ],
+      "title" : "Others"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Types",
+      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
@@ -130,20 +99,10 @@
       "title" : "Types"
     }
   ],
-  "topicSections" : [
-    {
-      "anchor" : "Instance-Methods",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem\/update(_:)"
-      ],
-      "title" : "Instance Methods"
-    }
-  ],
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/poieticcore\/runtimesystem"
+        "\/documentation\/poieticcore\/runtime"
       ],
       "traits" : [
         {
@@ -235,6 +194,34 @@
   "title" : "ComponentSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas - arithmetic expressions.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
   "abstract" : [
@@ -338,20 +325,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
 },
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
-},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -419,45 +392,6 @@
   "title" : "RuntimeSystem",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtimesystem"
-},
-"doc://PoieticCore/documentation/PoieticCore/RuntimeSystem/update(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "update"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14RuntimeContextC",
-      "text" : "RuntimeContext"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem\/update(_:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "update(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtimesystem\/update(_:)"
 }
 }
 }

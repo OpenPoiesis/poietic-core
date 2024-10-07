@@ -106,6 +106,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -262,6 +263,40 @@
   "title" : "Constraint",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
+  "abstract" : [
+    {
+      "text" : "An object that checks constraints, including object types, of a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintChecker",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [

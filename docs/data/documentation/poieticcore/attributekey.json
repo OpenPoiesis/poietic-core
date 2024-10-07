@@ -103,7 +103,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ],
       "title" : "Foreign Value"
     }
@@ -301,6 +302,40 @@
   "title" : "KeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/keyedattributes"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when trying to decode a variant",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantCodingError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantcodingerror"
 }
 }
 }

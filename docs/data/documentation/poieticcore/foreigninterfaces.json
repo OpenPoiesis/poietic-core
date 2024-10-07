@@ -76,13 +76,16 @@
     {
       "anchor" : "Object-Import-and-Export",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey"
       ],
       "title" : "Object Import and Export"
     },
@@ -92,7 +95,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ],
       "title" : "Foreign Value"
     },
@@ -363,6 +367,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter"
 },
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
+  "abstract" : [
+    {
+      "text" : "Protocol that represents a frame which originates or is meant to be used",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "by a foreign interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframe"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
   "abstract" : [
     {
@@ -630,6 +676,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalueerror"
 },
+"doc://PoieticCore/documentation/PoieticCore/FrameLoaderError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by a foreign frame loader.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameLoaderError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameLoaderError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameLoaderError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameloadererror"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONDictionary": {
   "abstract" : [
 
@@ -869,6 +949,85 @@
   "title" : "Persistence",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+  "abstract" : [
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CoalescedCodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "CoalescedCodingTypeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when trying to decode a variant",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VariantCodingError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VariantCodingError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantcodingerror"
 }
 }
 }

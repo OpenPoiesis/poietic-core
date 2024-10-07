@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Sort edges topologically.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs"
       ]
     ]
   },
@@ -12,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15topologicalSort_5edgesSays6UInt64VGAF_SayxGtKAA8EdgeTypeRzlF",
+    "externalID" : "s:11PoieticCore15topologicalSort_5edgesSays6UInt64VGAF_SayxGtAA15GraphCycleErrorVYKAA8EdgeTypeRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -69,7 +76,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> ["
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+        "text" : "GraphCycleError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> ["
       },
       {
         "kind" : "typeIdentifier",
@@ -174,7 +190,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> ["
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+              "text" : "GraphCycleError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> ["
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
@@ -212,6 +238,75 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "List of node object IDs to be sorted.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "toSort"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "List of edges between nodes.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "edges"
+        }
+      ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " when a cycle is detected.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Throws",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -221,6 +316,22 @@
   },
   "sections" : [
 
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Graph-Nodes-and-Edges",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
+      ],
+      "title" : "Graph, Nodes and Edges"
+    }
   ],
   "variants" : [
     {
@@ -250,9 +361,88 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Edge": {
+  "abstract" : [
+    {
+      "text" : "View of an object as an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Edge"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Edge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edge"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
+  "abstract" : [
+    {
+      "text" : "Designation of which direction of an edge from a node projection perspective",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is to be considered.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeDirection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgedirection"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeType": {
   "abstract" : [
-
+    {
+      "text" : "Protocol for objects that represent an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -280,6 +470,156 @@
   "title" : "EdgeType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph": {
+  "abstract" : [
+    {
+      "text" : "Protocol for views of a frame as a graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphCycleError": {
+  "abstract" : [
+    {
+      "text" : "An error raised when a cycle is detected in the graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphCycleError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphCycleError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphCycleError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphcycleerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
+  "abstract" : [
+    {
+      "text" : "Protocol",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableGraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableGraph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutablegraph"
+},
+"doc://PoieticCore/documentation/PoieticCore/Node": {
+  "abstract" : [
+    {
+      "text" : "View of an object as a graph node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -317,7 +657,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/topologicalSort(_:edges:)": {
   "abstract" : [
-
+    {
+      "text" : "Sort edges topologically.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -375,7 +718,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+      "text" : "GraphCycleError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",

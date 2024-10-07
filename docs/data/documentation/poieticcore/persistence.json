@@ -39,7 +39,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "A design can be and is expected to be persisted on a file system.",
+              "text" : "Makeshift persistence is done by storing the content of the design as a single",
               "type" : "text"
             },
             {
@@ -47,15 +47,7 @@
               "type" : "text"
             },
             {
-              "text" : "Current implementation stores the content of the design as a single JSON",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "file with several collections of objects.",
+              "text" : "JSON file.",
               "type" : "text"
             }
           ],
@@ -98,7 +90,8 @@
       ],
       "anchor" : "Store",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError"
       ],
       "title" : "Store"
     }
@@ -178,6 +171,37 @@
   "title" : "MakeshiftDesignStore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+},
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PersistentStoreError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PersistentStoreError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PersistentStoreError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror"
 }
 }
 }

@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "List of foreign objects contained in the frame.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame"
       ]
     ]
@@ -141,7 +148,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
   "abstract" : [
-
+    {
+      "text" : "Protocol that represents a frame which originates or is meant to be used",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "by a foreign interface.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -172,7 +190,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrame/objects": {
   "abstract" : [
-
+    {
+      "text" : "List of foreign objects contained in the frame.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -208,6 +229,20 @@
   "title" : "objects",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframe\/objects"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
   "abstract" : [

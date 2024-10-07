@@ -1,8 +1,15 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new context and bind it to a frame.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext"
       ]
     ]
@@ -164,6 +171,20 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
+"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a runtime system.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtime"
+},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -200,7 +221,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext/init(frame:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new context and bind it to a frame.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
