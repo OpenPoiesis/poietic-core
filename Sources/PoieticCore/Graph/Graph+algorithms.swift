@@ -38,7 +38,7 @@ extension Graph {
     ///   are passed as an argument to this function. Behaviour is undefined if
     ///   it is not the case.
     ///
-    public func topologicalSort(_ toSort: [ObjectID], edges: [Edge]) throws -> [ObjectID] {
+    public func topologicalSort(_ toSort: [ObjectID], edges: [Edge]) throws (GraphCycleError) -> [ObjectID] {
         var sorted: [ObjectID] = []
         let nodes: [ObjectID] = toSort
         
