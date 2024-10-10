@@ -36,6 +36,8 @@ public final class Metamodel: Sendable {
     ///
     public let constraints: [Constraint]
 
+    /// Create a new empty metamodel.
+    ///
     public init() {
         self.name = nil
         self.traits = []
@@ -109,10 +111,30 @@ public final class Metamodel: Sendable {
         self.constraints = constraints
     }
     
+    /// Get an object type by its name.
+    ///
+    /// Example:
+    ///
+    /// ```swift
+    /// let metamodel = Metamodel.StockFlow
+    ///
+    /// let stockType = metamodel["Stock"]
+    /// let flowType = metamodel["Flow"]
+    /// ```
     public subscript(name: String) -> ObjectType? {
         return types.first { $0.name == name}
     }
 
+    /// Get an object type by its name.
+    ///
+    /// Example:
+    ///
+    /// ```swift
+    /// let metamodel = Metamodel.StockFlow
+    ///
+    /// let stockType = metamodel.objectType(name: "Stock")
+    /// let flowType = metamodel.objectType(name: "Flow")
+    /// ```
     public func objectType(name: String) -> ObjectType? {
         return types.first { $0.name == name}
     }

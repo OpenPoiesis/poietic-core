@@ -1,14 +1,15 @@
 # Metamodel and Types
 
 Metamodel defines types of the design objects and constraints that the design
-must satisfy to be considered valid.
+must satisfy to be considered valid within a modelled problem domain.
 
 ## Overview
 
-Metamodel represents a problem domain. The metamodel defines which types of
-objects the domain considers and what are the constraints or structural rules.
-The design objects must conform to the defined types and satisfy the constraints
-for the design to be valid within the problem domain.
+Metamodel represents a problem domain, methodology or a combination of both.
+The metamodel defines which types of objects the domain considers and
+what are the constraints or structural rules. The design objects must conform
+to the defined types and satisfy the constraints for the design to be valid
+within the problem domain.
 
 Example: A domain for modelling systems dynamics using stock and flows might
 consider node types _Stock_, _Flow_ and and _Drains_, _Fills_ edge types.
@@ -97,6 +98,7 @@ examples see ``Constraint``.
 
 - ``Constraint``
 - ``ConstraintChecker``
+- ``ObjectConstraintError``
 - ``EdgeEndpointTypes``
 - ``RejectAll``
 - ``AcceptAll``
