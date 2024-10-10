@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new empty metamodel.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -132,7 +138,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/init()": {
   "abstract" : [
-
+    {
+      "text" : "Create a new empty metamodel.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -162,7 +171,7 @@
       "type" : "text"
     },
     {
-      "text" : "must satisfy to be considered valid.",
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
   ],

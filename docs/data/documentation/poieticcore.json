@@ -41,7 +41,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The Poietic Core provides functionality to iteratively construct models that",
+              "text" : "The Poietic Core is a library that provides functionality to iteratively",
               "type" : "text"
             },
             {
@@ -49,7 +49,7 @@
               "type" : "text"
             },
             {
-              "text" : "are typically represented as a graph, such as Stock and Flow models,",
+              "text" : "construct models of systems representable as graphs. One example of such models",
               "type" : "text"
             },
             {
@@ -57,7 +57,7 @@
               "type" : "text"
             },
             {
-              "text" : "causal maps or biochemical pathways.",
+              "text" : "is a Stock and Flow model, a causal map or a biochemical pathways map.",
               "type" : "text"
             }
           ],
@@ -79,7 +79,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Allow user to experiment with a model design without worry.",
+                      "text" : "Treat user’s input as holy.",
                       "type" : "text"
                     }
                   ],
@@ -92,7 +92,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Treat user’s input as holy.",
+                      "text" : "Allow user to experiment with a model design without worry.",
                       "type" : "text"
                     }
                   ],
@@ -145,36 +145,24 @@
               "type" : "reference"
             },
             {
-              "text" : " – and their changes. The ",
+              "text" : " – and their changes in form of",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "design frames ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "also manages history of changes in form of frames which might be gathered in",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "frame collections. One of the frame collections is the design history that",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "features undo and redo functionality.",
+              "text" : ".",
               "type" : "text"
             }
           ],
@@ -183,7 +171,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The library focuses on category of models that are representable as graphs.",
+              "text" : "Designs are typically a part of a problem domain, or follow a methodology. The",
               "type" : "text"
             },
             {
@@ -191,34 +179,7 @@
               "type" : "text"
             },
             {
-              "text" : "The types for graph representation are mainly ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ", ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " and ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
+              "text" : "concepts and rules of the problem domain or a methodology or both are described",
               "type" : "text"
             },
             {
@@ -226,25 +187,28 @@
               "type" : "text"
             },
             {
-              "text" : "For querying features of a graph there is ",
+              "text" : "in a ",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " and",
+              "text" : " associated with the design. More in ",
               "type" : "text"
             },
             {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
               "isActive" : true,
+              "overridingTitle" : "Metamodel and Types",
+              "overridingTitleInlineContent" : [
+                {
+                  "text" : "Metamodel and Types",
+                  "type" : "text"
+                }
+              ],
               "type" : "reference"
             },
             {
@@ -478,40 +442,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designlibraryitem"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
-  "abstract" : [
-    {
-      "text" : "View of an object as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Edge",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
 
@@ -605,40 +535,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
-  "abstract" : [
-    {
-      "text" : "Protocol for views of a frame as a graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
-},
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
@@ -653,6 +549,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
 },
+"doc://PoieticCore/documentation/PoieticCore/Metamodel": {
+  "abstract" : [
+    {
+      "text" : "Object describing a model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Metamodel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Metamodel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Metamodel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel"
+},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -664,7 +594,7 @@
       "type" : "text"
     },
     {
-      "text" : "must satisfy to be considered valid.",
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
   ],
@@ -716,113 +646,6 @@
   "title" : "MutableKeyedAttributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
-  "abstract" : [
-    {
-      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "that node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Neighborhood"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Neighborhood"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Neighborhood",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/neighborhood"
-},
-"doc://PoieticCore/documentation/PoieticCore/NeighborhoodSelector": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NeighborhoodSelector"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NeighborhoodSelector",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NeighborhoodSelector"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NeighborhoodSelector",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/neighborhoodselector"
-},
-"doc://PoieticCore/documentation/PoieticCore/Node": {
-  "abstract" : [
-    {
-      "text" : "View of an object as a graph node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Node",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [

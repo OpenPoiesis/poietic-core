@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Get an object type by its name.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -111,6 +117,36 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let metamodel = Metamodel.StockFlow",
+            "",
+            "let stockType = metamodel[\"Stock\"]",
+            "let flowType = metamodel[\"Flow\"]"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -185,7 +221,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/subscript(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Get an object type by its name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -233,7 +272,7 @@
       "type" : "text"
     },
     {
-      "text" : "must satisfy to be considered valid.",
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
   ],

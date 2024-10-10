@@ -22,7 +22,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5GraphPAAE15topologicalSort_5edgesSays6UInt64VGAH_SayAA4EdgeVGtKF::SYNTHESIZED::s:11PoieticCore12MutableFrameC",
+    "externalID" : "s:11PoieticCore5GraphPAAE15topologicalSort_5edgesSays6UInt64VGAH_SayAA4EdgeVGtAA0C10CycleErrorVYKF::SYNTHESIZED::s:11PoieticCore12MutableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -72,7 +72,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> ["
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+        "text" : "GraphCycleError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> ["
       },
       {
         "kind" : "typeIdentifier",
@@ -171,7 +180,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> ["
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+              "text" : "GraphCycleError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> ["
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
@@ -501,7 +520,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
+      "text" : "GraphCycleError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
     },
     {
       "kind" : "typeIdentifier",

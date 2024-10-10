@@ -17,13 +17,230 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/objectid",
-                "title" : "ObjectID",
-                "type" : "typealias"
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/init(id:snapshotid:type:structure:parent:attributes:components:)",
+                    "title" : "init(id: ObjectID, snapshotID: SnapshotID, type: ObjectType, structure: StructuralComponent, parent: ObjectID?, attributes: [String : Variant], components: [any Component])",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/attributekeys",
+                    "title" : "var attributeKeys: [AttributeKey]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/attributes",
+                    "title" : "var attributes: [String : Variant]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/children",
+                    "title" : "var children: ChildrenSet",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/components",
+                    "title" : "var components: ComponentSet",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/debugid",
+                    "title" : "var debugID: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/description",
+                    "title" : "var description: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/hasissues",
+                    "title" : "var hasIssues: Bool",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/id-swift.property",
+                    "title" : "let id: ObjectID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/inspectablecomponents",
+                    "title" : "var inspectableComponents: [any InspectableComponent]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/issues",
+                    "title" : "var issues: [any Error]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/name",
+                    "title" : "var name: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/parent",
+                    "title" : "var parent: ObjectID?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/position",
+                    "title" : "var position: Point?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/prettydescription",
+                    "title" : "var prettyDescription: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/snapshotid",
+                    "title" : "let snapshotID: SnapshotID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/state",
+                    "title" : "var state: VersionState",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/structure",
+                    "title" : "var structure: StructuralComponent",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/type",
+                    "title" : "let type: ObjectType",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/appendissue(_:)",
+                    "title" : "func appendIssue(any Error)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/attribute(forkey:)",
+                    "title" : "func attribute(forKey: String) -> Variant?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/check(conformsto:)",
+                    "title" : "func check(conformsTo: Trait) throws(ObjectConstraintError)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/promote(_:)",
+                    "title" : "func promote(VersionState)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/removeallissues()",
+                    "title" : "func removeAllIssues()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/removeattribute(forkey:)",
+                    "title" : "func removeAttribute(forKey: String)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/setattribute(value:forkey:)",
+                    "title" : "func setAttribute(value: Variant, forKey: String)",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-3b9l1",
+                    "title" : "subscript<T>(T.Type) -> T?",
+                    "type" : "subscript"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-3wrl3",
+                    "title" : "subscript(String) -> (Variant)?",
+                    "type" : "subscript"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-4wdrq",
+                    "title" : "subscript(any Component.Type) -> (any Component)?",
+                    "type" : "subscript"
+                  },
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/id-swift.typealias",
+                    "title" : "ObjectSnapshot.ID",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/reservedattributenames",
+                    "title" : "static let ReservedAttributeNames: [String]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objectsnapshot\/dictionary(withkeys:)",
+                        "title" : "func dictionary(withKeys: [AttributeKey]) -> [AttributeKey : Variant]",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/keyedattributes-implementations",
+                    "title" : "KeyedAttributes Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objectsnapshot\/setattributes(_:)",
+                        "title" : "func setAttributes([AttributeKey : Variant]) throws",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/objectsnapshot\/mutablekeyedattributes-implementations",
+                    "title" : "MutableKeyedAttributes Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/objectsnapshot",
+                "title" : "ObjectSnapshot",
+                "type" : "class"
               },
               {
-                "path" : "\/documentation\/poieticcore\/snapshotid",
-                "title" : "SnapshotID",
+                "path" : "\/documentation\/poieticcore\/objectid",
+                "title" : "ObjectID",
                 "type" : "typealias"
               },
               {
@@ -181,58 +398,152 @@
                 "type" : "enum"
               },
               {
+                "path" : "\/documentation\/poieticcore\/snapshotid",
+                "title" : "SnapshotID",
+                "type" : "typealias"
+              },
+              {
                 "path" : "\/documentation\/poieticcore\/childrenset",
                 "title" : "ChildrenSet",
                 "type" : "typealias"
               },
               {
+                "title" : "Design and Version Frames",
+                "type" : "groupMarker"
+              },
+              {
                 "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/init(underlyingerrors:)",
-                    "title" : "init(underlyingErrors: [ObjectTypeError])",
-                    "type" : "init"
-                  },
                   {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/underlyingerrors",
-                    "title" : "let underlyingErrors: [ObjectTypeError]",
+                    "path" : "\/documentation\/poieticcore\/frame\/design",
+                    "title" : "var design: Design",
                     "type" : "property"
                   },
                   {
-                    "title" : "Default Implementations",
+                    "path" : "\/documentation\/poieticcore\/frame\/id",
+                    "title" : "var id: FrameID",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/snapshots",
+                    "title" : "var snapshots: [ObjectSnapshot]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/objectconstrainterror\/localizeddescription",
-                        "title" : "var localizedDescription: String",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/error-implementations",
-                    "title" : "Error Implementations",
-                    "type" : "symbol"
+                    "path" : "\/documentation\/poieticcore\/frame\/assert(constraint:)-79bse",
+                    "title" : "func assert(constraint: Constraint) throws",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/brokenreferences()-pz81",
+                    "title" : "func brokenReferences() -> [ObjectID]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/brokenreferences(snapshot:)",
+                    "title" : "func brokenReferences(snapshot: ObjectSnapshot) -> [ObjectID]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/contains(_:)",
+                    "title" : "func contains(ObjectID) -> Bool",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filter(_:)-44p52",
+                    "title" : "func filter((ObjectSnapshot) -> Bool) -> [ObjectSnapshot]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filter(_:)-50lwx",
+                    "title" : "func filter(any Predicate) -> [ObjectSnapshot]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filter(component:)",
+                    "title" : "func filter<T>(component: T.Type) -> [(ObjectSnapshot, T)]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filter(trait:)",
+                    "title" : "func filter(trait: Trait) -> [ObjectSnapshot]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filter(type:)-2khoe",
+                    "title" : "func filter(type: ObjectType) -> [ObjectSnapshot]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filteredges(_:)",
+                    "title" : "func filterEdges((Edge) -> Bool) -> [Edge]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/filternodes(_:)",
+                    "title" : "func filterNodes((ObjectSnapshot) -> Bool) -> [Node]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/first(trait:)",
+                    "title" : "func first(trait: Trait) -> ObjectSnapshot?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/first(type:)",
+                    "title" : "func first(type: ObjectType) -> ObjectSnapshot?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/first(where:)",
+                    "title" : "func first(where: (ObjectSnapshot) -> Bool) -> ObjectSnapshot?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-78e2a",
+                    "title" : "func hasReferentialIntegrity() -> Bool",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/neighbours(_:selector:)",
+                    "title" : "func neighbours(ObjectID, selector: NeighborhoodSelector) -> [Edge]",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/object(_:)",
+                    "title" : "func object(ObjectID) -> ObjectSnapshot",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/object(named:)",
+                    "title" : "func object(named: String) -> ObjectSnapshot?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/object(stringreference:)",
+                    "title" : "func object(stringReference: String) -> ObjectSnapshot?",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Subscripts",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183",
+                    "title" : "subscript(ObjectID) -> ObjectSnapshot",
+                    "type" : "subscript"
                   }
                 ],
-                "path" : "\/documentation\/poieticcore\/objectconstrainterror",
-                "title" : "ObjectConstraintError",
-                "type" : "struct"
-              },
-              {
-                "title" : "Design and Version Frames",
-                "type" : "groupMarker"
+                "path" : "\/documentation\/poieticcore\/frame",
+                "title" : "Frame",
+                "type" : "protocol"
               },
               {
                 "children" : [
@@ -475,7 +786,7 @@
                       },
                       {
                         "path" : "\/documentation\/poieticcore\/stableframe\/topologicalsort(_:edges:)",
-                        "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws -> [ObjectID]",
+                        "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws(GraphCycleError) -> [ObjectID]",
                         "type" : "method"
                       }
                     ],
@@ -798,7 +1109,7 @@
                       },
                       {
                         "path" : "\/documentation\/poieticcore\/mutableframe\/topologicalsort(_:edges:)",
-                        "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws -> [ObjectID]",
+                        "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws(GraphCycleError) -> [ObjectID]",
                         "type" : "method"
                       }
                     ],
@@ -2402,37 +2713,11 @@
                 "type" : "groupMarker"
               },
               {
-                "children" : [
-                  {
-                    "children" : [
-                      {
-                        "path" : "\/documentation\/poieticcore\/frame\/assert(constraint:)-3ln1f",
-                        "title" : "func assert(constraint: Constraint) throws",
-                        "type" : "method"
-                      }
-                    ],
-                    "title" : "Frame Implementations",
-                    "type" : "groupMarker"
-                  }
-                ],
                 "path" : "\/documentation\/poieticcore\/frame\/assert(constraint:)-79bse",
                 "title" : "func assert(constraint: Constraint) throws",
                 "type" : "method"
               },
               {
-                "children" : [
-                  {
-                    "children" : [
-                      {
-                        "path" : "\/documentation\/poieticcore\/frame\/brokenreferences()-9kz8l",
-                        "title" : "func brokenReferences() -> [ObjectID]",
-                        "type" : "method"
-                      }
-                    ],
-                    "title" : "Frame Implementations",
-                    "type" : "groupMarker"
-                  }
-                ],
                 "path" : "\/documentation\/poieticcore\/frame\/brokenreferences()-pz81",
                 "title" : "func brokenReferences() -> [ObjectID]",
                 "type" : "method"
@@ -2468,19 +2753,6 @@
                 "type" : "method"
               },
               {
-                "children" : [
-                  {
-                    "children" : [
-                      {
-                        "path" : "\/documentation\/poieticcore\/frame\/filter(type:)-3zj9k",
-                        "title" : "func filter(type: ObjectType) -> [ObjectSnapshot]",
-                        "type" : "method"
-                      }
-                    ],
-                    "title" : "Frame Implementations",
-                    "type" : "groupMarker"
-                  }
-                ],
                 "path" : "\/documentation\/poieticcore\/frame\/filter(type:)-2khoe",
                 "title" : "func filter(type: ObjectType) -> [ObjectSnapshot]",
                 "type" : "method"
@@ -2511,19 +2783,6 @@
                 "type" : "method"
               },
               {
-                "children" : [
-                  {
-                    "children" : [
-                      {
-                        "path" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-52e58",
-                        "title" : "func hasReferentialIntegrity() -> Bool",
-                        "type" : "method"
-                      }
-                    ],
-                    "title" : "Frame Implementations",
-                    "type" : "groupMarker"
-                  }
-                ],
                 "path" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-78e2a",
                 "title" : "func hasReferentialIntegrity() -> Bool",
                 "type" : "method"
@@ -2553,19 +2812,6 @@
                 "type" : "groupMarker"
               },
               {
-                "children" : [
-                  {
-                    "children" : [
-                      {
-                        "path" : "\/documentation\/poieticcore\/frame\/subscript(_:)-4l1r1",
-                        "title" : "subscript(ObjectID) -> ObjectSnapshot",
-                        "type" : "subscript"
-                      }
-                    ],
-                    "title" : "Frame Implementations",
-                    "type" : "groupMarker"
-                  }
-                ],
                 "path" : "\/documentation\/poieticcore\/frame\/subscript(_:)-1a183",
                 "title" : "subscript(ObjectID) -> ObjectSnapshot",
                 "type" : "subscript"
@@ -3351,6 +3597,51 @@
                 ],
                 "path" : "\/documentation\/poieticcore\/constraintchecker",
                 "title" : "ConstraintChecker",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/init(underlyingerrors:)",
+                    "title" : "init(underlyingErrors: [ObjectTypeError])",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/underlyingerrors",
+                    "title" : "let underlyingErrors: [ObjectTypeError]",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objectconstrainterror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/objectconstrainterror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/objectconstrainterror",
+                "title" : "ObjectConstraintError",
                 "type" : "struct"
               },
               {
@@ -6505,12 +6796,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -6679,7 +6970,7 @@
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/graph\/topologicalsort(_:edges:)",
-                    "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws -> [ObjectID]",
+                    "title" : "func topologicalSort([ObjectID], edges: [Edge]) throws(GraphCycleError) -> [ObjectID]",
                     "type" : "method"
                   }
                 ],

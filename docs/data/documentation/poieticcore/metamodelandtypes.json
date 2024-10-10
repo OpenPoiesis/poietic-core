@@ -9,7 +9,7 @@
       "type" : "text"
     },
     {
-      "text" : "must satisfy to be considered valid.",
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
   ],
@@ -47,7 +47,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Metamodel represents a problem domain. The metamodel defines which types of",
+              "text" : "Metamodel represents a problem domain, methodology or a combination of both.",
               "type" : "text"
             },
             {
@@ -55,7 +55,7 @@
               "type" : "text"
             },
             {
-              "text" : "objects the domain considers and what are the constraints or structural rules.",
+              "text" : "The metamodel defines which types of objects the domain considers and",
               "type" : "text"
             },
             {
@@ -63,7 +63,7 @@
               "type" : "text"
             },
             {
-              "text" : "The design objects must conform to the defined types and satisfy the constraints",
+              "text" : "what are the constraints or structural rules. The design objects must conform",
               "type" : "text"
             },
             {
@@ -71,7 +71,15 @@
               "type" : "text"
             },
             {
-              "text" : "for the design to be valid within the problem domain.",
+              "text" : "to the defined types and satisfy the constraints for the design to be valid",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "within the problem domain.",
               "type" : "text"
             }
           ],
@@ -355,6 +363,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -747,6 +756,48 @@
   "title" : "Metamodel",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintError": {
+  "abstract" : [
+    {
+      "text" : "Collection of object type violation errors produced when checking object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectConstraintError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectConstraintError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectConstraintError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectconstrainterror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [

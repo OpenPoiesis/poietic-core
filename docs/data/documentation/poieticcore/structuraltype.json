@@ -135,11 +135,11 @@
       "anchor" : "Object",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
       ],
       "title" : "Object"
     }
@@ -257,48 +257,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/childrenset"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintError": {
-  "abstract" : [
-    {
-      "text" : "Collection of object type violation errors produced when checking object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectConstraintError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectconstrainterror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
@@ -332,6 +290,40 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Representation of a design object’s version.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
   "abstract" : [

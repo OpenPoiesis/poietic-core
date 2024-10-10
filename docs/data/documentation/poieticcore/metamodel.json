@@ -642,7 +642,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/init()": {
   "abstract" : [
-
+    {
+      "text" : "Create a new empty metamodel.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -854,7 +857,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/objectType(name:)": {
   "abstract" : [
-
+    {
+      "text" : "Get an object type by its name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -909,7 +915,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/subscript(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Get an object type by its name.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1039,7 +1048,7 @@
       "type" : "text"
     },
     {
-      "text" : "must satisfy to be considered valid.",
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
   ],
