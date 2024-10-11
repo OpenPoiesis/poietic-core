@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Result of function validation.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -72,6 +78,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/validate(_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -148,7 +186,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -195,7 +233,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult": {
   "abstract" : [
-
+    {
+      "text" : "Result of function validation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -237,7 +278,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult/invalidNumberOfArguments": {
   "abstract" : [
-
+    {
+      "text" : "Number of arguments does not match the required number of arguments.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -262,7 +306,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult/ok": {
   "abstract" : [
-
+    {
+      "text" : "Validation was successful.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -287,7 +334,26 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult/typeMismatch(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Argument types are of different type than expected. The associated",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "value is a list of indices with arguments of which types do not",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "match.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -322,6 +388,61 @@
   "title" : "Signature.ValidationResult.typeMismatch(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/signature\/validationresult\/typemismatch(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Signature/validate(_:)": {
+  "abstract" : [
+    {
+      "text" : "Validate the arguments against the signature.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9SignatureC",
+      "text" : "Signature"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9SignatureC16ValidationResultO",
+      "text" : "ValidationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/validate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/signature\/validate(_:)"
 }
 }
 }

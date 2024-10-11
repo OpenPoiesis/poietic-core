@@ -66,7 +66,121 @@
         {
           "inlineContent" : [
             {
-              "text" : "Particular focus features of the library are:",
+              "text" : "The core functionality is:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Design, design objects and their history",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Metamodel - domain description",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Model constraints",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Design data representation",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Simple querying",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Reading, writing, foreign interfaces and persistence",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Arithmetic expressions and functions",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "core-modules",
+              "type" : "image"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The philosophy for applications on top of the library is:",
               "type" : "text"
             }
           ],
@@ -217,6 +331,28 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "See also ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "package for a concrete domain use-case of the core package.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -296,7 +432,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType"
       ],
       "title" : "Enumerations"
@@ -324,6 +459,20 @@
   ]
 , 
 "references": {
+"core-modules": {
+  "alt" : "Core Areas",
+  "identifier" : "core-modules",
+  "type" : "image",
+  "variants" : [
+    {
+      "traits" : [
+        "2x",
+        "light"
+      ],
+      "url" : "\/images\/PoieticCore\/core-modules@2x.png"
+    }
+  ]
+},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
@@ -490,7 +639,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -765,37 +914,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtime"
 },
-"doc://PoieticCore/documentation/PoieticCore/ScannerError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ScannerError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ScannerError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ScannerError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/scannererror"
-},
 "doc://PoieticCore/documentation/PoieticCore/Swift": {
   "abstract" : [
 
@@ -854,6 +972,18 @@
   "title" : "VariableType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variabletype"
+},
+"https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/": {
+  "identifier" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/",
+  "title" : "PoieticFlows",
+  "titleInlineContent" : [
+    {
+      "text" : "PoieticFlows",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/"
 }
 }
 }

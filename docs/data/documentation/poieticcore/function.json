@@ -264,7 +264,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -312,7 +312,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Function/Body": {
   "abstract" : [
     {
-      "text" : "Type of the funotion callable body closure.",
+      "text" : "Type of the function callable body closure.",
       "type" : "text"
     }
   ],
@@ -345,7 +345,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/BooleanVariadic(_:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a variadic function that takes a list of boolean arguments and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a boolean.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -422,7 +433,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/Comparison(_:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a comparison function that takes two values of any type and returns a",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "boolean.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -516,7 +538,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/NumericBinary(_:leftArgument:rightArgument:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a function that takes two numeric values (int or double) and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a double value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -636,7 +669,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/NumericUnary(_:argumentName:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a function that takes a numeric values (int or double) and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a double value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -898,7 +942,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/init(name:signature:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new function with given name and signature.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

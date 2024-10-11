@@ -6796,12 +6796,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -7461,22 +7461,6 @@
                 "type" : "typealias"
               },
               {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionconvertible\/toexpression",
-                    "title" : "var toExpression: UnboundExpression",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/expressionconvertible",
-                "title" : "ExpressionConvertible",
-                "type" : "protocol"
-              },
-              {
                 "title" : "Functions",
                 "type" : "groupMarker"
               },
@@ -7743,121 +7727,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Associated Types",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/lexer\/tokentype",
-                    "title" : "TokenType",
-                    "type" : "associatedtype"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "children" : [
-                          {
-                            "path" : "\/documentation\/poieticcore\/lexer\/atend-5lkrl",
-                            "title" : "var atEnd: Bool",
-                            "type" : "property"
-                          }
-                        ],
-                        "title" : "Lexer Implementations",
-                        "type" : "groupMarker"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/lexer\/atend-5zjy4",
-                    "title" : "var atEnd: Bool",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/lexer\/scanner",
-                    "title" : "var scanner: Scanner",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/lexer\/acceptleadingtrivia()",
-                    "title" : "func acceptLeadingTrivia()",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/lexer\/accepttoken()",
-                    "title" : "func acceptToken() -> Self.TokenType?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/lexer\/accepttrailingtrivia()",
-                    "title" : "func acceptTrailingTrivia()",
-                    "type" : "method"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "children" : [
-                          {
-                            "path" : "\/documentation\/poieticcore\/lexer\/next()-2ucgz",
-                            "title" : "func next() -> Token<Self.TokenType>",
-                            "type" : "method"
-                          }
-                        ],
-                        "title" : "Lexer Implementations",
-                        "type" : "groupMarker"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/lexer\/next()-2g4r7",
-                    "title" : "func next() -> Token<Self.TokenType>",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/lexer",
-                "title" : "Lexer",
-                "type" : "protocol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scanner\/init(string:)",
-                    "title" : "init(string: String)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scanner\/currentindex",
-                    "title" : "var currentIndex: String.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scanner\/endindex",
-                    "title" : "let endIndex: String.Index",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scanner\/source",
-                    "title" : "let source: String",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/scanner",
-                "title" : "Scanner",
-                "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
                     "title" : "Initializers",
                     "type" : "groupMarker"
                   },
@@ -7883,102 +7752,6 @@
                 ],
                 "path" : "\/documentation\/poieticcore\/expressionparser",
                 "title" : "ExpressionParser",
-                "type" : "class"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/init(scanner:)",
-                    "title" : "init(scanner: Scanner)",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/init(string:)",
-                    "title" : "convenience init(string: String)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/scanner",
-                    "title" : "var scanner: Scanner",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/accepttoken()",
-                    "title" : "func acceptToken() -> ExpressionTokenType?",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Type Aliases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/tokentype",
-                    "title" : "ExpressionLexer.TokenType",
-                    "type" : "typealias"
-                  },
-                  {
-                    "title" : "Type Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/operatorcharacters",
-                    "title" : "static let OperatorCharacters: String",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/expressionlexer\/atend",
-                        "title" : "var atEnd: Bool",
-                        "type" : "property"
-                      },
-                      {
-                        "title" : "Instance Methods",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/expressionlexer\/acceptleadingtrivia()",
-                        "title" : "func acceptLeadingTrivia()",
-                        "type" : "method"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/expressionlexer\/accepttrailingtrivia()",
-                        "title" : "func acceptTrailingTrivia()",
-                        "type" : "method"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/expressionlexer\/next()",
-                        "title" : "func next() -> Token<Self.TokenType>",
-                        "type" : "method"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations",
-                    "title" : "Lexer Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/expressionlexer",
-                "title" : "ExpressionLexer",
                 "type" : "class"
               },
               {
@@ -8124,6 +7897,217 @@
                 "path" : "\/documentation\/poieticcore\/token",
                 "title" : "Token",
                 "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Associated Types",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/lexer\/tokentype",
+                    "title" : "TokenType",
+                    "type" : "associatedtype"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "children" : [
+                          {
+                            "path" : "\/documentation\/poieticcore\/lexer\/atend-5lkrl",
+                            "title" : "var atEnd: Bool",
+                            "type" : "property"
+                          }
+                        ],
+                        "title" : "Lexer Implementations",
+                        "type" : "groupMarker"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/lexer\/atend-5zjy4",
+                    "title" : "var atEnd: Bool",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/lexer\/scanner",
+                    "title" : "var scanner: Scanner",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/lexer\/acceptleadingtrivia()",
+                    "title" : "func acceptLeadingTrivia()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/lexer\/accepttoken()",
+                    "title" : "func acceptToken() -> Self.TokenType?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/lexer\/accepttrailingtrivia()",
+                    "title" : "func acceptTrailingTrivia()",
+                    "type" : "method"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "children" : [
+                          {
+                            "path" : "\/documentation\/poieticcore\/lexer\/next()-2ucgz",
+                            "title" : "func next() -> Token<Self.TokenType>",
+                            "type" : "method"
+                          }
+                        ],
+                        "title" : "Lexer Implementations",
+                        "type" : "groupMarker"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/lexer\/next()-2g4r7",
+                    "title" : "func next() -> Token<Self.TokenType>",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/lexer",
+                "title" : "Lexer",
+                "type" : "protocol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/scanner\/init(string:)",
+                    "title" : "init(string: String)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/scanner\/currentindex",
+                    "title" : "var currentIndex: String.Index",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/scanner\/endindex",
+                    "title" : "let endIndex: String.Index",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/scanner\/source",
+                    "title" : "let source: String",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/scanner",
+                "title" : "Scanner",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/init(scanner:)",
+                    "title" : "init(scanner: Scanner)",
+                    "type" : "init"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/init(string:)",
+                    "title" : "convenience init(string: String)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/scanner",
+                    "title" : "var scanner: Scanner",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/accepttoken()",
+                    "title" : "func acceptToken() -> ExpressionTokenType?",
+                    "type" : "method"
+                  },
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/tokentype",
+                    "title" : "ExpressionLexer.TokenType",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/operatorcharacters",
+                    "title" : "static let OperatorCharacters: String",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionlexer\/atend",
+                        "title" : "var atEnd: Bool",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionlexer\/acceptleadingtrivia()",
+                        "title" : "func acceptLeadingTrivia()",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionlexer\/accepttrailingtrivia()",
+                        "title" : "func acceptTrailingTrivia()",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionlexer\/next()",
+                        "title" : "func next() -> Token<Self.TokenType>",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations",
+                    "title" : "Lexer Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/expressionlexer",
+                "title" : "ExpressionLexer",
+                "type" : "class"
               },
               {
                 "children" : [
@@ -8324,6 +8308,58 @@
                 ],
                 "path" : "\/documentation\/poieticcore\/expressionsyntaxerror",
                 "title" : "ExpressionSyntaxError",
+                "type" : "enum"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/scannererror\/unexpectedend",
+                    "title" : "case unexpectedEnd",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/scannererror\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/scannererror\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/scannererror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/scannererror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/scannererror",
+                "title" : "ScannerError",
                 "type" : "enum"
               },
               {
@@ -10221,58 +10257,6 @@
             ],
             "path" : "\/documentation\/poieticcore\/objecttypeerror",
             "title" : "ObjectTypeError",
-            "type" : "enum"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Enumeration Cases",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/scannererror\/unexpectedend",
-                "title" : "case unexpectedEnd",
-                "type" : "case"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Operators",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scannererror\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/scannererror\/equatable-implementations",
-                "title" : "Equatable Implementations",
-                "type" : "symbol"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/scannererror\/localizeddescription",
-                    "title" : "var localizedDescription: String",
-                    "type" : "property"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/scannererror\/error-implementations",
-                "title" : "Error Implementations",
-                "type" : "symbol"
-              }
-            ],
-            "path" : "\/documentation\/poieticcore\/scannererror",
-            "title" : "ScannerError",
             "type" : "enum"
           },
           {

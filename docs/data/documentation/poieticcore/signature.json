@@ -106,7 +106,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Example:",
+              "text" : "Example of a signature for a string comparison function:",
               "type" : "text"
             }
           ],
@@ -114,23 +114,74 @@
         },
         {
           "code" : [
-            "",
-            "\/\/ A signature for a function `compare(left, right)`",
-            "",
             "let textComparisonSignature = Signature(",
             "    [",
-            "        FunctionArgument(name: \"left\",",
-            "                         type: .string),",
-            "        FunctionArgument(name: \"right\",",
-            "                         type: .string),",
-            "    ]",
-            ")",
-            "",
-            "\/\/ A signature for a function `max(a, b, c, d, e)`",
-            "",
+            "        FunctionArgument(name: \"left\", type: .string),",
+            "        FunctionArgument(name: \"right\", type: .string),",
+            "    ],",
+            "    returns: .bool",
+            ")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A signature for a function ",
+              "type" : "text"
+            },
+            {
+              "code" : "max(a, b, c, d, e)",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " where the arguments",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "can be any of the numeric types – ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "int",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " or ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "double",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ":",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
             "let maxNumberSignature = Signature(",
-            "    variadic: FunctionArgument(name: \"left\",",
-            "                               type: .union([.int, .double]))",
+            "    variadic: FunctionArgument(name: \"value\",",
+            "                               type: .union([.int, .double])),",
+            "    returns: .double",
             ")"
           ],
           "syntax" : "swift",
@@ -335,7 +386,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -548,7 +599,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult": {
   "abstract" : [
-
+    {
+      "text" : "Result of function validation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -828,7 +882,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/minimalArgumentCount": {
   "abstract" : [
-
+    {
+      "text" : "Minimal number of arguments that are required.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -903,7 +960,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/returnType": {
   "abstract" : [
-
+    {
+      "text" : "Function return type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -938,7 +998,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Signature/validate(_:)": {
   "abstract" : [
     {
-      "text" : "Return list of indices of values that do not match required type.",
+      "text" : "Validate the arguments against the signature.",
       "type" : "text"
     }
   ],

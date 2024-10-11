@@ -189,8 +189,7 @@
       "anchor" : "Arithmetic-Expression",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression"
       ],
       "title" : "Arithmetic Expression"
     }
@@ -1060,37 +1059,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/variable(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionConvertible": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionconvertible"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
   "abstract" : [
     {
@@ -1128,7 +1096,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -1141,7 +1109,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [
-
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

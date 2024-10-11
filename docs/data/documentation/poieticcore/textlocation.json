@@ -127,14 +127,15 @@
       "anchor" : "Parsing",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError"
       ],
       "title" : "Parsing"
     }
@@ -335,7 +336,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -413,6 +414,37 @@
   "title" : "Scanner",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/scanner"
+},
+"doc://PoieticCore/documentation/PoieticCore/ScannerError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScannerError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScannerError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScannerError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/scannererror"
 },
 "doc://PoieticCore/documentation/PoieticCore/TextLocation": {
   "abstract" : [

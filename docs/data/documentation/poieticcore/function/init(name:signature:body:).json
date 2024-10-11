@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new function with given name and signature.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -189,6 +195,115 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "name: Name of the function",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "signature: Signature of the function - types of arguments and return value",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "body: Function body block",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            " let binaryNumericSignature = Signature(",
+            "       [",
+            "           FunctionArgument(\"left\", type: .numeric),",
+            "           FunctionArgument(\"right\", type: .numeric),",
+            "       ],",
+            "       returns: .double",
+            "   )",
+            "",
+            " let add = Function(",
+            "   name: \"add\",",
+            "   signature: binaryNumericSignature,",
+            "   body: { arguments in",
+            "       let left = try! arguments[0].doubleValue()",
+            "       let left = try! arguments[1].doubleValue()",
+            "",
+            "       return Variant(lhs + rhs)",
+            "   }",
+            ")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -230,7 +345,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -278,7 +393,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Function/Body": {
   "abstract" : [
     {
-      "text" : "Type of the funotion callable body closure.",
+      "text" : "Type of the function callable body closure.",
       "type" : "text"
     }
   ],
@@ -311,7 +426,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/init(name:signature:body:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new function with given name and signature.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -116,6 +116,31 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/isVariadic",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -160,7 +185,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -238,6 +263,43 @@
   "title" : "Signature",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/signature"
+},
+"doc://PoieticCore/documentation/PoieticCore/Signature/isVariadic": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the function is variadic.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isVariadic"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/isVariadic",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isVariadic",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/signature\/isvariadic"
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/variadic": {
   "abstract" : [

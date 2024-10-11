@@ -406,14 +406,15 @@
       "anchor" : "Parsing",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError"
       ],
       "title" : "Parsing"
     }
@@ -736,7 +737,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -814,6 +815,37 @@
   "title" : "Scanner",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/scanner"
+},
+"doc://PoieticCore/documentation/PoieticCore/ScannerError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScannerError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScannerError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScannerError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/scannererror"
 },
 "doc://PoieticCore/documentation/PoieticCore/TextLocation": {
   "abstract" : [
@@ -973,7 +1005,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [
-
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

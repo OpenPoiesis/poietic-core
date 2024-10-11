@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -103,6 +117,39 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This type of expression is created by the parser:",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser\/parse()",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -118,8 +165,7 @@
       "anchor" : "Arithmetic-Expression",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression"
       ],
       "title" : "Arithmetic Expression"
     }
@@ -186,14 +232,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionConvertible": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionParser/parse()": {
   "abstract" : [
-
+    {
+      "text" : "Parse the expression and return an unbound arithmetic expression.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -201,26 +250,37 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ExpressionConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "parse"
+    },
     {
-      "kind" : "identifier",
-      "text" : "ExpressionConvertible"
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17UnboundExpressiona",
+      "text" : "UnboundExpression"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser\/parse()",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ExpressionConvertible",
+  "title" : "parse()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionconvertible"
+  "url" : "\/documentation\/poieticcore\/expressionparser\/parse()"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -233,7 +293,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [
-
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

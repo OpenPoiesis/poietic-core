@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Return list of indices of values that do not match required type.",
+      "text" : "Validate the arguments against the signature.",
       "type" : "text"
     }
   ],
@@ -145,6 +145,51 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature\/ValidationResult",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " which indicates whether the arguments",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "are as expected, whether the number of arguments is correct and",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "whether the argument types match signature expectations.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -186,7 +231,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -233,7 +278,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult": {
   "abstract" : [
-
+    {
+      "text" : "Result of function validation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -265,7 +313,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Signature/validate(_:)": {
   "abstract" : [
     {
-      "text" : "Return list of indices of values that do not match required type.",
+      "text" : "Validate the arguments against the signature.",
       "type" : "text"
     }
   ],

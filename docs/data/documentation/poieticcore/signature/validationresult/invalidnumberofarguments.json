@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Number of arguments does not match the required number of arguments.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -108,7 +114,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
     {
-      "text" : "Formulas - arithmetic expressions.",
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
       "type" : "text"
     }
   ],
@@ -155,7 +161,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult": {
   "abstract" : [
-
+    {
+      "text" : "Result of function validation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -186,7 +195,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Signature/ValidationResult/invalidNumberOfArguments": {
   "abstract" : [
-
+    {
+      "text" : "Number of arguments does not match the required number of arguments.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
