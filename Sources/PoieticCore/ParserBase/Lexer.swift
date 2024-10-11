@@ -5,11 +5,6 @@
 //  Created by Stefan Urbanek on 08/08/2023.
 //
 
-// NOTE: This has been created with purpose to support multiple micro-DSLs.
-//       During prototyping phase there were several DSLs created and discarded.
-//       I am keeping it here for other experiments.
-//
-
 /// Protocol for token types used by the ``Lexer``.
 ///
 /// The `TokenTypeProtocol` is typically used by enums.
@@ -22,6 +17,10 @@ public protocol TokenTypeProtocol: Equatable {
 
 
 /// Protocol for syntax lexers.
+///
+/// - Note: This protocol was created with purpose to support multiple
+///         micro-DSLs. During prototyping phase there were several DSLs
+///         created and discarded. I am keeping it here for other experiments.
 ///
 public protocol Lexer {
     associatedtype TokenType: TokenTypeProtocol

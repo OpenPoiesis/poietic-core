@@ -8,7 +8,19 @@ The Poietic Core is a library that provides functionality to iteratively
 construct models of systems representable as graphs. One example of such models
 is a Stock and Flow model, a causal map or a biochemical pathways map.
 
-Particular focus features of the library are:
+The core functionality is:
+
+- Design, design objects and their history
+- Metamodel - domain description
+- Model constraints
+- Design data representation
+- Simple querying
+- Reading, writing, foreign interfaces and persistence
+- Arithmetic expressions and functions
+
+![Core Areas](core-modules)
+
+The philosophy for applications on top of the library is:
 
 - Treat user's input as holy.
 - Allow user to experiment with a model design without worry.
@@ -21,6 +33,8 @@ design frames ``Frame``.
 Designs are typically a part of a problem domain, or follow a methodology. The
 concepts and rules of the problem domain or a methodology or both are described
 in a ``Metamodel`` associated with the design. More in [Metamodel and Types](doc:MetamodelAndTypes).
+
+
 
 ## Topics
 

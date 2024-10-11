@@ -9,7 +9,7 @@
 /// Class representing a function used in arithmetic expression evaluation.
 ///
 public class Function: CustomStringConvertible {
-    /// Type of the funotion callable body closure.
+    /// Type of the function callable body closure.
     ///
     /// The body takes a list of variants and returns a variant.
     ///
@@ -39,6 +39,38 @@ public class Function: CustomStringConvertible {
     ///
     public let apply: Body
 
+    /// Create a new function with given name and signature.
+    ///
+    /// - Parameters:
+    ///  - name: Name of the function
+    ///  - signature: Signature of the function - types of arguments and return value
+    ///  - body: Function body block
+    ///
+    /// Example:
+    ///
+    /// ```swift
+    ///  let binaryNumericSignature = Signature(
+    ///        [
+    ///            FunctionArgument("left", type: .numeric),
+    ///            FunctionArgument("right", type: .numeric),
+    ///        ],
+    ///        returns: .double
+    ///    )
+    ///
+    ///  let add = Function(
+    ///    name: "add",
+    ///    signature: binaryNumericSignature,
+    ///    body: { arguments in
+    ///        let left = try! arguments[0].doubleValue()
+    ///        let left = try! arguments[1].doubleValue()
+    ///
+    ///        return Variant(lhs + rhs)
+    ///    }
+    /// )
+    /// ```
+    ///
+    /// - SeeAlso: ``Signature``
+    ///
     public init(name: String, signature: Signature, body: @escaping Body) {
         self.name = name
         self.signature = signature
@@ -61,6 +93,9 @@ public class Function: CustomStringConvertible {
         )
     }
 
+    /// Create a variadic function that takes a list of boolean arguments and returns
+    /// a boolean.
+    ///
     public static func BooleanVariadic(_ name: String,
                                        body: @escaping ([Bool]) -> Bool) -> Function {
         Function(
@@ -77,6 +112,10 @@ public class Function: CustomStringConvertible {
         )
     }
     
+    
+    /// Create a function that takes two numeric values (int or double) and returns
+    /// a double value.
+    ///
     public static func NumericBinary(_ name: String,
                                      leftArgument: String = "lhs",
                                      rightArgument: String = "rhs",
@@ -105,6 +144,9 @@ public class Function: CustomStringConvertible {
         )
     }
     
+    /// Create a function that takes a numeric values (int or double) and returns
+    /// a double value.
+    ///
     public static func NumericUnary(_ name: String,
                                     argumentName: String = "value",
                                     body: @escaping (Double) -> Double) -> Function {
@@ -129,6 +171,9 @@ public class Function: CustomStringConvertible {
         )
     }
 
+    /// Create a comparison function that takes two values of any type and returns a
+    /// boolean.
+    ///
     public static func Comparison(_ name: String,
                           body: @escaping (Variant, Variant) throws -> Bool) -> Function {
         Function(

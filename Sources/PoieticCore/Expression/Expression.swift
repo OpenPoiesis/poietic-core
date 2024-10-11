@@ -5,10 +5,12 @@
 //  Created by Stefan Urbanek on 26/05/2022.
 //
 
-public protocol ExpressionConvertible {
-    var toExpression: UnboundExpression { get }
-}
-
+/// Type alias for an expression where the variables and functions are
+/// represented by a string - typically their names.
+///
+/// This type of expression is created by the parser:
+/// ``ExpressionParser/parse()``.
+///
 public typealias UnboundExpression = ArithmeticExpression<String, String>
 
 /// Arithmetic expression.
@@ -29,7 +31,6 @@ public indirect enum ArithmeticExpression<V, F> {
     /// operators.
     ///
     public typealias FunctionReference = F
-    // Literals
 
     /// Literal value.
     case value(LiteralValue)

@@ -53,7 +53,7 @@ public final class Metamodel: Sendable {
     ///   - constraints: List of constraints that are used for design
     ///     validation.
     ///
-    ///  - SeeAlso: ``Design/validate(_:)``
+    ///  - SeeAlso: ``ConstraintChecker/check(_:)``
     ///
     public init(name: String? = nil,
                 traits: [Trait] = [],

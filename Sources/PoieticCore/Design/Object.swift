@@ -28,8 +28,8 @@
 /// let design: Design
 /// let frame: MutableFrame
 ///
-/// // Create a new unstructured snapshot of type MyType (assuming the type exists)
-/// let snapshot = design.createSnapshot(MyType)
+/// // Create a new unstructured snapshot of type Note
+/// let snapshot = design.createSnapshot(ObjectType.Note)
 /// frame.insert(snapshot)
 ///
 /// ```

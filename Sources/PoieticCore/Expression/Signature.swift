@@ -8,6 +8,8 @@
 
 /// Object representing a function argument description.
 ///
+/// - SeeAlso: ``Function``, ``Signature``
+///
 public struct FunctionArgument: Sendable {
     /// Name of the function argument.
     ///
@@ -39,26 +41,26 @@ public struct FunctionArgument: Sendable {
 ///
 /// An object that represents description of function's arguments.
 ///
-/// Example:
+/// Example of a signature for a string comparison function:
 ///
 /// ```swift
-///
-/// // A signature for a function `compare(left, right)`
-///
 /// let textComparisonSignature = Signature(
 ///     [
-///         FunctionArgument(name: "left",
-///                          type: .string),
-///         FunctionArgument(name: "right",
-///                          type: .string),
-///     ]
+///         FunctionArgument(name: "left", type: .string),
+///         FunctionArgument(name: "right", type: .string),
+///     ],
+///     returns: .bool
 /// )
+/// ```
 ///
-/// // A signature for a function `max(a, b, c, d, e)`
+/// A signature for a function `max(a, b, c, d, e)` where the arguments
+/// can be any of the numeric types – _int_ or _double_:
 ///
+/// ```swift
 /// let maxNumberSignature = Signature(
-///     variadic: FunctionArgument(name: "left",
-///                                type: .union([.int, .double]))
+///     variadic: FunctionArgument(name: "value",
+///                                type: .union([.int, .double])),
+///     returns: .double
 /// )
 /// ```
 ///
@@ -74,8 +76,12 @@ public final class Signature: CustomStringConvertible, Sendable {
     ///
     /// If not provided, the function is not variadic.
     ///
+    /// - SeeAlso: ``isVariadic``.
+    ///
     public let variadic: FunctionArgument?
     
+    /// Minimal number of arguments that are required.
+    ///
     public var minimalArgumentCount: Int {
         if isVariadic {
             positional.count + 1
@@ -87,8 +93,12 @@ public final class Signature: CustomStringConvertible, Sendable {
     
     /// Flag whether the function is variadic.
     ///
+    /// - SeeAlso: ``variadic``
+    ///
     public var isVariadic: Bool { variadic != nil }
    
+    /// Function return type.
+    ///
     public let returnType: ValueType
     
     /// Convenience signature representing a numeric function with one argument.
@@ -148,12 +158,31 @@ public final class Signature: CustomStringConvertible, Sendable {
         self.init(variadic: variadic, returns: .double)
     }
 
+    /// Result of function validation.
+    ///
+    /// - SeeAlso: ``validate(_:)``
+    ///
     public enum ValidationResult: Equatable {
+        /// Validation was successful.
         case ok
+        
+        /// Number of arguments does not match the required number of arguments.
+        ///
         case invalidNumberOfArguments
+        
+        /// Argument types are of different type than expected. The associated
+        /// value is a list of indices with arguments of which types do not
+        /// match.
+        ///
         case typeMismatch([Int])
     }
-    /// Return list of indices of values that do not match required type.
+    
+    /// Validate the arguments against the signature.
+    ///
+    /// - Returns: ``ValidationResult`` which indicates whether the arguments
+    ///   are as expected, whether the number of arguments is correct and
+    ///   whether the argument types match signature expectations.
+    ///
     public func validate(_ types: [ValueType] = []) -> ValidationResult {
         guard (isVariadic && (types.count >= positional.count + 1))
                 || (!isVariadic && types.count == positional.count) else {
@@ -187,5 +216,4 @@ public final class Signature: CustomStringConvertible, Sendable {
         }
         
     }
-    
 }
