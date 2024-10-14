@@ -20,6 +20,10 @@ Focus and approach:
   a set of equations and graph is just accidental" perspective. Gives us more
   freedom for further development and invention of new methods.
 
+See the [Poietic Tool](https://github.com/OpenPoiesis/PoieticTool) for
+a command-line tool that uses this library to manipulate
+and run the models.
+
 ## Features
 
 Current:
