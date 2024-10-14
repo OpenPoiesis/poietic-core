@@ -101,7 +101,7 @@ public enum ValueType: Equatable, CustomStringConvertible, Sendable {
 
 /// Type of a function argument.
 ///
-public enum VariableType: Equatable, Sendable {
+public enum VariableType: Equatable, Sendable, CustomStringConvertible {
     /// Function argument can be of any type.
     case any
     
@@ -171,6 +171,17 @@ public enum VariableType: Equatable, Sendable {
                     ltype.isConvertible(to: rtype)
                 }
             }
+        }
+    }
+    
+    public var description: String {
+        switch self {
+        case .any:
+            return "any"
+        case .concrete(let type):
+            return type.description
+        case .union(let types):
+            return types.map { $0.description }.joined(separator: " | ")
         }
     }
 

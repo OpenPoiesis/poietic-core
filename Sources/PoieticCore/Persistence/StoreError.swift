@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PersistentStoreError: Error, Equatable {
+public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     // Tested:
     case storeMissing
     case cannotOpenStore(URL)
@@ -31,9 +31,9 @@ public enum PersistentStoreError: Error, Equatable {
     public var description: String {
         switch self {
         case .storeMissing:
-            "Store is missing (no data or no URL)."
+            "Design store is missing (no data or no URL)."
         case let .cannotOpenStore(url):
-            "Can not open archive '\(url)'"
+            "Can not open design store: \(url)"
         case .dataCorrupted:
             "Store data is corrupted"
         case let .missingProperty(property, path):

@@ -110,7 +110,25 @@ public final class Metamodel: Sendable {
         self.types = types
         self.constraints = constraints
     }
-    
+   
+    /// Selection of node object types.
+    ///
+    public var nodeTypes: [ObjectType] {
+        types.filter { $0.structuralType == .node }
+    }
+
+    /// Selection of edge object types.
+    ///
+    public var edgeTypes: [ObjectType] {
+        types.filter { $0.structuralType == .edge }
+    }
+
+    /// Selection of unstructured object types.
+    ///
+    public var unstructuredTypes: [ObjectType] {
+        types.filter { $0.structuralType == .unstructured }
+    }
+
     /// Get an object type by its name.
     ///
     /// Example:
