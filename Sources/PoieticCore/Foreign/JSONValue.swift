@@ -132,32 +132,6 @@ public enum JSONValue: Equatable, Codable {
         }
     }
 
-    @available(*, deprecated, message: "TODO: This should throw")
-    public func asDictionary() -> [String:JSONValue]? {
-        switch self {
-        case let.object(dict):
-            return dict
-        default:
-            return nil
-        }
-    }
-    public func _asDictionary(context: String? = nil) throws (JSONError) -> [String:JSONValue] {
-        switch self {
-        case let.object(dict):
-            return dict
-        default:
-            throw JSONError.typeMismatch(.object, context)
-        }
-    }
-    @available(*, deprecated, message: "TODO: This should throw")
-    public func asArray() -> Array<JSONValue>? {
-        switch self {
-        case let.array(items):
-            return items
-        default:
-            return nil
-        }
-    }
     public func _asArray(context: String?=nil) throws (JSONError) -> Array<JSONValue> {
         switch self {
         case let.array(items):

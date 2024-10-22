@@ -8,7 +8,7 @@
 /// Requirement that the edge origin, edge target and the edge itself matches
 /// given labels.
 ///
-public final class EdgeEndpointTypes: ConstraintRequirement {
+public final class EdgeEndpointRequirement: ConstraintRequirement {
     /// Labels to be matched on the edge's origin, if provided.
     public let origin: IsTypePredicate?
     
