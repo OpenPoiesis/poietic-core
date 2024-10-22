@@ -34,7 +34,7 @@ Designs are typically a part of a problem domain, or follow a methodology. The
 concepts and rules of the problem domain or a methodology or both are described
 in a ``Metamodel`` associated with the design. More in [Metamodel and Types](doc:MetamodelAndTypes).
 
-See also [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
+See also [PoieticFlows](https://openpoiesis.github.io/poietic-flows/documentation/poieticflows/)
 package for a concrete domain use-case of the core package.
 
 

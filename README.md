@@ -20,7 +20,7 @@ Focus and approach:
   a set of equations and graph is just accidental" perspective. Gives us more
   freedom for further development and invention of new methods.
 
-See the [Poietic Tool](https://github.com/OpenPoiesis/PoieticTool) for
+See the [Poietic Tool](https://github.com/OpenPoiesis/poietic-tool) for
 a command-line tool that uses this library to manipulate
 and run the models.
 
@@ -36,7 +36,7 @@ Current:
 - Non-destructive editing with undo and redo command.
 - Simple arithmetic expressions (formulas).
 
-See also [PoieticFlows](https://github.com/OpenPoiesis/PoieticFlows)
+See also [PoieticFlows](https://github.com/OpenPoiesis/poietic-flows)
 – Stock and Flow modelling package.
 
 Planned:
@@ -68,8 +68,8 @@ repository.
 
 ## Documentation
 
-- [PoieticCore](https://openpoiesis.github.io/PoieticCore/documentation/poieticcore/)
-- [PoieticFlows](https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/)
+- [PoieticCore](https://openpoiesis.github.io/poietic-core/documentation/poieticcore/)
+- [PoieticFlows](https://openpoiesis.github.io/poietic-flows/documentation/poieticflows/)
 
 
 ## Development
