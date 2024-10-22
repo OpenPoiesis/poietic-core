@@ -101,7 +101,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
@@ -127,7 +127,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
@@ -473,7 +472,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointTypes": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
   "abstract" : [
     {
       "text" : "Requirement that the edge origin, edge target and the edge itself matches",
@@ -499,21 +498,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EdgeEndpointTypes"
+      "text" : "EdgeEndpointRequirement"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointTypes",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "EdgeEndpointTypes"
+      "text" : "EdgeEndpointRequirement"
     }
   ],
   "role" : "symbol",
-  "title" : "EdgeEndpointTypes",
+  "title" : "EdgeEndpointRequirement",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeendpointtypes"
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [

@@ -216,9 +216,12 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/name",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/nodeTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/traits",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/types"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/types",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/unstructuredTypes"
       ],
       "title" : "Instance Properties"
     },
@@ -243,8 +246,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/Basic",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/ChangeLanguage",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/StockFlow"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/ChangeLanguage"
       ],
       "title" : "Type Properties"
     }
@@ -554,51 +556,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/changelanguage"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/StockFlow": {
-  "abstract" : [
-    {
-      "text" : "The metamodel for Stock-and-Flows domain model.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StockFlow"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/StockFlow",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "StockFlow",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/stockflow"
-},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/constraints": {
   "abstract" : [
     {
@@ -639,6 +596,47 @@
   "title" : "constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/constraints"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeTypes": {
+  "abstract" : [
+    {
+      "text" : "Selection of edge object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeTypes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edgeTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/edgetypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/init()": {
   "abstract" : [
@@ -855,6 +853,47 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/name"
 },
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/nodeTypes": {
+  "abstract" : [
+    {
+      "text" : "Selection of node object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodeTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/nodeTypes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodeTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/nodetypes"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/objectType(name:)": {
   "abstract" : [
     {
@@ -1036,6 +1075,47 @@
   "title" : "types",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/types"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/unstructuredTypes": {
+  "abstract" : [
+    {
+      "text" : "Selection of unstructured object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unstructuredTypes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/unstructuredTypes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "unstructuredTypes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/unstructuredtypes"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [

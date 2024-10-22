@@ -81,6 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
@@ -112,6 +113,7 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType\/isArray"
       ],
       "title" : "Instance Properties"
@@ -383,6 +385,40 @@
   "title" : "VariableType.concrete(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variabletype\/concrete(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariableType/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variabletype\/description"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariableType/double": {
   "abstract" : [
@@ -986,6 +1022,11 @@
   "title" : "VariableType.union(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variabletype\/union(_:)"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

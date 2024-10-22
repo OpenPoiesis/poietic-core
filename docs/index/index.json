@@ -3084,8 +3084,18 @@
                     "type" : "property"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/metamodel\/edgetypes",
+                    "title" : "var edgeTypes: [ObjectType]",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/metamodel\/name",
                     "title" : "let name: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/metamodel\/nodetypes",
+                    "title" : "var nodeTypes: [ObjectType]",
                     "type" : "property"
                   },
                   {
@@ -3096,6 +3106,11 @@
                   {
                     "path" : "\/documentation\/poieticcore\/metamodel\/types",
                     "title" : "let types: [ObjectType]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/metamodel\/unstructuredtypes",
+                    "title" : "var unstructuredTypes: [ObjectType]",
                     "type" : "property"
                   },
                   {
@@ -3128,11 +3143,6 @@
                   {
                     "path" : "\/documentation\/poieticcore\/metamodel\/changelanguage",
                     "title" : "static let ChangeLanguage: Metamodel",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/metamodel\/stockflow",
-                    "title" : "static let StockFlow: Metamodel",
                     "type" : "property"
                   }
                 ],
@@ -3219,28 +3229,8 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/auxiliary",
-                    "title" : "static let Auxiliary: ObjectType",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference",
                     "title" : "static let BibliographicalReference: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/chart",
-                    "title" : "static let Chart: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/chartseries",
-                    "title" : "static let ChartSeries: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/control",
-                    "title" : "static let Control: ObjectType",
                     "type" : "property"
                   },
                   {
@@ -3249,33 +3239,8 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/delay",
-                    "title" : "static let Delay: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/drains",
-                    "title" : "static let Drains: ObjectType",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/objecttype\/enables",
                     "title" : "static let Enables: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/fills",
-                    "title" : "static let Fills: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/flow",
-                    "title" : "static let Flow: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/graphicalfunction",
-                    "title" : "static let GraphicalFunction: ObjectType",
                     "type" : "property"
                   },
                   {
@@ -3284,43 +3249,13 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/note",
-                    "title" : "static let Note: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/parameter",
-                    "title" : "static let Parameter: ObjectType",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/objecttype\/produces",
                     "title" : "static let Produces: ObjectType",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/scenario",
-                    "title" : "static let Scenario: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/simulation",
-                    "title" : "static let Simulation: ObjectType",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/objecttype\/stimulates",
                     "title" : "static let Stimulates: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/stock",
-                    "title" : "static let Stock: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/valuebinding",
-                    "title" : "static let ValueBinding: ObjectType",
                     "type" : "property"
                   }
                 ],
@@ -3383,48 +3318,8 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/trait\/chart",
-                    "title" : "static let Chart: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/control",
-                    "title" : "static let Control: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/delay",
-                    "title" : "static let Delay: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/flow",
-                    "title" : "static let Flow: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/formula",
-                    "title" : "static let Formula: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/graphicalfunction",
-                    "title" : "static let GraphicalFunction: Trait",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/trait\/position",
                     "title" : "static let Position: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/simulation",
-                    "title" : "static let Simulation: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/stock",
-                    "title" : "static let Stock: Trait",
                     "type" : "property"
                   }
                 ],
@@ -3643,50 +3538,6 @@
                 "path" : "\/documentation\/poieticcore\/objectconstrainterror",
                 "title" : "ObjectConstraintError",
                 "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/init(origin:target:edge:)",
-                    "title" : "init(origin: IsTypePredicate?, target: IsTypePredicate?, edge: IsTypePredicate?)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/edge",
-                    "title" : "let edge: IsTypePredicate?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/origin",
-                    "title" : "let origin: IsTypePredicate?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/target",
-                    "title" : "let target: IsTypePredicate?",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeendpointtypes\/check(frame:objects:)",
-                    "title" : "func check(frame: any Frame, objects: [ObjectSnapshot]) -> [ObjectID]",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/edgeendpointtypes",
-                "title" : "EdgeEndpointTypes",
-                "type" : "class"
               },
               {
                 "children" : [
@@ -4728,6 +4579,15 @@
               },
               {
                 "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/jsonframewriter\/init()",
+                    "title" : "init()",
+                    "type" : "init"
+                  },
                   {
                     "title" : "Type Methods",
                     "type" : "groupMarker"
@@ -6251,18 +6111,8 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/asarray()",
-                    "title" : "func asArray() -> Array<JSONValue>?",
-                    "type" : "method"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/jsonvalue\/asbool()",
                     "title" : "func asBool() throws(JSONError) -> Bool",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/asdictionary()",
-                    "title" : "func asDictionary() -> [String : JSONValue]?",
                     "type" : "method"
                   },
                   {
@@ -6796,12 +6646,12 @@
                       {
                         "children" : [
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-80fw4",
+                            "path" : "\/documentation\/poieticcore\/graph\/contains(node:)-4zshy",
                             "title" : "func contains(node: ObjectID) -> Bool",
                             "type" : "method"
                           }
@@ -10059,6 +9909,54 @@
             "type" : "symbol"
           },
           {
+            "title" : "Classes",
+            "type" : "groupMarker"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/edgeendpointrequirement\/init(origin:target:edge:)",
+                "title" : "init(origin: IsTypePredicate?, target: IsTypePredicate?, edge: IsTypePredicate?)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/edgeendpointrequirement\/edge",
+                "title" : "let edge: IsTypePredicate?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/edgeendpointrequirement\/origin",
+                "title" : "let origin: IsTypePredicate?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/edgeendpointrequirement\/target",
+                "title" : "let target: IsTypePredicate?",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/edgeendpointrequirement\/check(frame:objects:)",
+                "title" : "func check(frame: any Frame, objects: [ObjectSnapshot]) -> [ObjectID]",
+                "type" : "method"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/edgeendpointrequirement",
+            "title" : "EdgeEndpointRequirement",
+            "type" : "class"
+          },
+          {
             "title" : "Protocols",
             "type" : "groupMarker"
           },
@@ -10176,6 +10074,110 @@
             "type" : "struct"
           },
           {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/init(_:)",
+                "title" : "init(ObjectSnapshot)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/init(from:)",
+                "title" : "init(from: any Decoder) throws",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/attributes",
+                "title" : "var attributes: [String : Variant]",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/children",
+                "title" : "var children: [String]",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/id",
+                "title" : "var id: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/name",
+                "title" : "var name: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/origin",
+                "title" : "var origin: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/parent",
+                "title" : "var parent: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/snapshotid",
+                "title" : "var snapshotID: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/structuraltype",
+                "title" : "var structuralType: StructuralType?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/target",
+                "title" : "var target: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/type",
+                "title" : "var type: String?",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/encode(to:)",
+                "title" : "func encode(to: any Encoder) throws",
+                "type" : "method"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/jsonforeignobject\/validatestructure(_:)",
+                    "title" : "func validateStructure(StructuralType) throws(ForeignObjectError)",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/jsonforeignobject\/foreignobject-implementations",
+                "title" : "ForeignObject Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/jsonforeignobject",
+            "title" : "JSONForeignObject",
+            "type" : "struct"
+          },
+          {
             "title" : "Type Aliases",
             "type" : "groupMarker"
           },
@@ -10283,6 +10285,11 @@
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/variabletype\/description",
+                "title" : "var description: String",
+                "type" : "property"
               },
               {
                 "path" : "\/documentation\/poieticcore\/variabletype\/isarray",

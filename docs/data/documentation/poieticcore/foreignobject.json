@@ -116,6 +116,16 @@
       "kind" : "content"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -953,6 +963,40 @@
   "title" : "FrameLoaderError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameloadererror"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject": {
+  "abstract" : [
+    {
+      "text" : "Helper structure to convert objects to and from JSON using coding.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONForeignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonforeignobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONFrameReader": {
   "abstract" : [

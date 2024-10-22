@@ -403,6 +403,14 @@
       "title" : "Others"
     },
     {
+      "anchor" : "Classes",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
+      ],
+      "title" : "Classes"
+    },
+    {
       "anchor" : "Protocols",
       "generated" : true,
       "identifiers" : [
@@ -415,7 +423,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject"
       ],
       "title" : "Structures"
     },
@@ -591,6 +600,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designlibraryitem"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
 
@@ -697,6 +748,40 @@
   "title" : "Graph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject": {
+  "abstract" : [
+    {
+      "text" : "Helper structure to convert objects to and from JSON using coding.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONForeignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonforeignobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [

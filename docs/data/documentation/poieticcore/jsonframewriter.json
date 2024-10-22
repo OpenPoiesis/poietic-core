@@ -63,14 +63,6 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "final"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
               "text" : "class"
             },
             {
@@ -141,6 +133,14 @@
     }
   ],
   "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter\/init()"
+      ],
+      "title" : "Initializers"
+    },
     {
       "anchor" : "Type-Methods",
       "generated" : true,
@@ -518,6 +518,30 @@
   "title" : "JSONFrameWriter",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonframewriter"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONFrameWriter/init()": {
+  "abstract" : [
+    {
+      "text" : "Create a frame reader.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonframewriter\/init()"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONFrameWriter/objectToJSON(_:)": {
   "abstract" : [

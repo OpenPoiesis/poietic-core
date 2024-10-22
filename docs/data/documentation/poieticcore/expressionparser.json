@@ -378,9 +378,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "Trait\/Formula",
+              "type" : "codeVoice"
             },
             {
               "text" : ".",
@@ -957,51 +956,6 @@
   "title" : "TokenTypeProtocol",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/tokentypeprotocol"
-},
-"doc://PoieticCore/documentation/PoieticCore/Trait/Formula": {
-  "abstract" : [
-    {
-      "text" : "Trait of simulation nodes that are computed using an arithmetic formula.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Formula"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Formula",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/formula"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [

@@ -143,9 +143,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asAnyValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asBool()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDictionary()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDouble()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asInt()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asJSONString()",
@@ -433,54 +431,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/asanyvalue()"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asArray()": {
-  "abstract" : [
-
-  ],
-  "deprecated" : true,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asArray"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sa",
-      "text" : "Array"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asArray()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asArray()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asarray()"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/asBool()": {
   "abstract" : [
 
@@ -531,54 +481,6 @@
   "title" : "asBool()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/asbool()"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asDictionary()": {
-  "abstract" : [
-
-  ],
-  "deprecated" : true,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asDictionary"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDictionary()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asDictionary()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asdictionary()"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/asDouble()": {
   "abstract" : [
