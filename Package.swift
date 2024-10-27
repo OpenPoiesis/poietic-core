@@ -25,6 +25,5 @@ let package = Package(
         .testTarget(
             name: "PoieticCoreTests",
             dependencies: ["PoieticCore"]),
-    ],
-    swiftLanguageVersions: [.v6]
+    ]
 )
