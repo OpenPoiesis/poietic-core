@@ -36,7 +36,7 @@ public final class Variable: Hashable, Sendable {
     
     /// Data type of the variable value.
     ///
-    public let valueType: ValueType = .double
+    public let valueType: ValueType
     
     /// Create a new built-in variable.
     ///
@@ -47,9 +47,11 @@ public final class Variable: Hashable, Sendable {
     ///
     public init(name: String,
                 value: Variant? = nil,
+                valueType: ValueType = .double,
                 abstract: String?) {
         self.name = name
         self.initialValue = value
+        self.valueType = valueType
         self.abstract = abstract
     }
     
