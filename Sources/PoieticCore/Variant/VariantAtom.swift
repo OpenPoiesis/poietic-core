@@ -386,6 +386,17 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point(_): throw ValueError.conversionToIDFailed(.point)
         }
     }
+   
+    /// Make a single-element array from the atom
+    public func makeArray() -> Variant {
+        switch self {
+        case .int(let value): .array(.int([value]))
+        case .double(let value):  .array(.double([value]))
+        case .string(let value):  .array(.string([value]))
+        case .bool(let value):  .array(.bool([value]))
+        case .point(let value):  .array(.point([value]))
+        }
+    }
     
     public var description: String {
         stringValue()

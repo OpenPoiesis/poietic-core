@@ -6,7 +6,7 @@
 //
 
 public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable {
-
+    
     /// Representation of an integer.
     case int([Int])
     
@@ -21,7 +21,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
     
     /// Representation of a 2D point value.
     case point([Point])
-   
+    
     public init(_ values: [Int]) {
         self = .int(values)
     }
@@ -37,7 +37,18 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
     public init(_ values: [String]) {
         self = .string(values)
     }
-
+   
+    /// Create an empty array of given type.
+    public init(type: AtomType) {
+        switch type {
+        case .bool:   self = .bool([])
+        case .int:    self = .int([])
+        case .double: self = .double([])
+        case .string: self = .string([])
+        case .point:  self = .point([])
+        }
+    }
+    
     /// Create a variant array from an array of supported types.
     public init?<T>(any value: [T]) {
         switch value {
@@ -49,14 +60,14 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         default: return nil
         }
     }
-
+    
     /// Check whether the array value is convertible to a given value type.
     ///
     /// See ``Variant/isConvertible(to:)`` for more information.
     ///
     public func isConvertible(to type: ValueType) -> Bool {
         switch (self, type) {
-        // Bool to string, int or itself only
+            // Bool to string, int or itself only
         case (.bool,   .array(.string)): true
         case (.bool,   .array(.bool)):   true
         case (.bool,   .array(.int)):    true
@@ -64,7 +75,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.bool,   .array(.point)):  false
         case (.bool,   .atom(_)):      false
             
-        // Int to all except point
+            // Int to all except point
         case (.int,    .array(.string)): true
         case (.int,    .array(.bool)):   true
         case (.int,    .array(.int)):    true
@@ -73,7 +84,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.int,    .atom(.point)):    items.count == 2
         case (.int,    .atom(_)):        false
             
-        // Double to string or to itself
+            // Double to string or to itself
         case (.double, .array(.string)): true
         case (.double, .array(.bool)):   false
         case (.double, .array(.int)):    true
@@ -82,7 +93,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.double, .atom(.point)):    items.count == 2
         case (.double, .atom(_)):        false
             
-        // String to all except point
+            // String to all except point
         case (.string, .array(.string)): true
         case (.string, .array(.bool)):   true
         case (.string, .array(.int)):    true
@@ -90,7 +101,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.string, .array(.point)):  false
         case (.string, .atom(_)):        false
             
-        // Point
+            // Point
         case (.point, .array(.string)): true
         case (.point, .array(.bool)):   false
         case (.point, .array(.int)):    false
@@ -104,7 +115,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.point, .atom(.point)):  false
         }
     }
-
+    
     /// Type of array's items.
     ///
     public var itemType: AtomType {
@@ -132,7 +143,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
             values.count
         }
     }
-
+    
     public var items: [VariantAtom] {
         switch self {
         case .int(let values):
@@ -161,7 +172,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
             values.map { String(describing: $0) }
         }
     }
-
+    
     
     public var description: String {
         let content: String
@@ -184,8 +195,127 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
     }
 }
 
+extension VariantArray: MutableCollection /* random access collection-like */ {
+    public typealias Element = Variant
+    public typealias Index = Array<Variant>.Index
+    
+    public var endIndex: Index { count }
+    public var startIndex: Index { 0 }
+    
+    public subscript(position: Array<Variant>.Index) -> Variant {
+        get {
+            switch self {
+            case .int(let values):
+                Variant(values[position])
+            case .double(let values):
+                Variant(values[position])
+            case .bool(let values):
+                Variant(values[position])
+            case .string(let values):
+                Variant(values[position])
+            case .point(let values):
+                Variant(values[position])
+            }
+        }
+        set(item) {
+            switch (self, item) {
+            case (var .int(items), let .atom(.int(item))):
+                items[position] = item
+                self = .int(items)
+            case (var .bool(items), let .atom(.bool(item))):
+                items[position] = item
+                self = .bool(items)
+            case (var .double(items), let .atom(.double(item))):
+                items[position] = item
+                self = .double(items)
+            case (var .string(items), let .atom(.string(item))):
+                items[position] = item
+                self = .string(items)
+            case (var .point(items), let .atom(.point(item))):
+                items[position] = item
+                self = .point(items)
+            default:
+                fatalError("Array and atom type mismatch")
+            }
+        }
+    }
+
+    public func index(after index: Index) -> Index {
+        return index + 1
+    }
+    
+    public mutating func append(_ item: VariantAtom) {
+        switch (self, item) {
+        case let (.int(items), .int(item)):
+            self = VariantArray.int(items + [item])
+        case let (.string(items), .string(item)):
+            self = VariantArray.string(items + [item])
+        case let (.double(items), .double(item)):
+            self = VariantArray.double(items + [item])
+        case let (.bool(items), .bool(item)):
+            self = VariantArray.bool(items + [item])
+        case let (.point(items), .point(item)):
+            self = VariantArray.point(items + [item])
+        // FIXME: [IMPORTANT] I've reached a point of realising that this needs some reconsidering
+        case let (.int(items), atom):
+            self = VariantArray.int(items + [try! atom.intValue()])
+        case let (.string(items), atom):
+            self = VariantArray.string(items + [atom.stringValue()])
+        case let (.double(items), atom):
+            self = VariantArray.double(items + [try! atom.doubleValue()])
+        case let (.bool(items), atom):
+            self = VariantArray.bool(items + [try! atom.boolValue()])
+        case let (.point(items), atom):
+            self = VariantArray.point(items + [try! atom.pointValue()])
+        }
+    }
+
+    public mutating func remove(at index: Int) -> VariantAtom {
+        switch self {
+        case .int(var values):
+            let result = values.remove(at: index)
+            self = .int(values)
+            return .int(result)
+        case .double(var values):
+            let result = values.remove(at: index)
+            self = .double(values)
+            return .double(result)
+        case .bool(var values):
+            let result = values.remove(at: index)
+            self = .bool(values)
+            return .bool(result)
+        case .string(var values):
+            let result = values.remove(at: index)
+            self = .string(values)
+            return .string(result)
+        case .point(var values):
+            let result = values.remove(at: index)
+            self = .point(values)
+            return .point(result)
+        }
+    }
+    
+    public var last: Variant? {
+        if count == 0 {
+            return nil
+        }
+        else {
+            return self[count-1]
+        }
+    }
+    public var first: Variant? {
+        if count == 0 {
+            return nil
+        }
+        else {
+            return self[0]
+        }
+    }
+}
+
 extension VariantArray: Codable {
     // Use default implementation.
     // NOTE: Do not use Codable for anything public (import/export).
     // NOTE: For JSON that is to be exported/imported use custom JSON methods.
 }
+

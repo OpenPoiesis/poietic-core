@@ -503,6 +503,14 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
         }
     }
 
+    /// Make a single-element array from the atom
+    public func makeArray() -> Variant {
+        switch self {
+        case .atom(let value): value.makeArray()
+        case .array(_): self
+        }
+    }
+
     public var description: String {
         switch self {
         case .atom(let value):
