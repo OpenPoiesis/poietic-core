@@ -244,7 +244,7 @@ extension VariantArray: MutableCollection /* random access collection-like */ {
         return index + 1
     }
     
-    public mutating func append(_ item: VariantAtom) {
+    public mutating func append(_ item: VariantAtom) throws {
         switch (self, item) {
         case let (.int(items), .int(item)):
             self = VariantArray.int(items + [item])

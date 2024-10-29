@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "PoieticCore",
+    name: "poietic-core",
     platforms: [.macOS("14"), .custom("linux", versionString: "1")],
     products: [
         .library(
