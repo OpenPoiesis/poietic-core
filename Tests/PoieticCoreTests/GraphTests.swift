@@ -15,7 +15,7 @@ final class GraphTests: XCTestCase {
     
     override func setUp() {
         design = Design()
-        frame = design.deriveFrame()
+        frame = design.createFrame()
     }
     
     func testBasic() throws {

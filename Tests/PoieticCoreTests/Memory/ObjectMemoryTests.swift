@@ -18,7 +18,7 @@ final class DesignTests: XCTestCase {
         
         XCTAssertNil(design.currentFrameID)
         
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         
         try design.accept(frame)
         
@@ -29,7 +29,7 @@ final class DesignTests: XCTestCase {
     func testSimpleAccept() throws {
         let design = Design(metamodel: self.metamodel)
 
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let a = frame.create(TestType)
         let b = frame.create(TestType)
         
@@ -41,24 +41,24 @@ final class DesignTests: XCTestCase {
         try design.accept(frame)
         
         XCTAssertEqual(design.versionHistory, [frame.id])
-        XCTAssertEqual(design.currentFrame.id, frame.id)
-        XCTAssertTrue(design.currentFrame.contains(a))
-        XCTAssertTrue(design.currentFrame.contains(b))
+        XCTAssertEqual(design.currentFrame?.id, frame.id)
+        XCTAssertTrue(design.currentFrame!.contains(a))
+        XCTAssertTrue(design.currentFrame!.contains(b))
     }
     
     func testMakeObjectFrozenAfterAccept() throws {
         let design = Design(metamodel: self.metamodel)
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let a = frame.create(TestType)
         try design.accept(frame)
         
-        let obj = design.currentFrame.object(a)
+        let obj = design.currentFrame![a]
         XCTAssertEqual(obj.state, VersionState.validated)
     }
     
     func testDiscard() throws {
         let design = Design()
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let _ = frame.create(TestType)
         
         design.discard(frame)
@@ -69,22 +69,22 @@ final class DesignTests: XCTestCase {
     
     func testRemoveObject() throws {
         let design = Design(metamodel: self.metamodel)
-        let originalFrame = design.deriveFrame()
+        let originalFrame = design.createFrame()
         
         let a = originalFrame.create(TestType)
         try design.accept(originalFrame)
         
         let originalVersion = design.currentFrameID
         
-        let removalFrame = design.deriveFrame()
-        XCTAssertTrue(design.currentFrame.contains(a))
+        let removalFrame = design.createFrame(cloning: design.currentFrame)
+        XCTAssertTrue(design.currentFrame!.contains(a))
         removalFrame.removeCascading(a)
         XCTAssertTrue(removalFrame.hasChanges)
         XCTAssertFalse(removalFrame.contains(a))
         
         try design.accept(removalFrame)
-        XCTAssertEqual(design.currentFrame.id, removalFrame.id)
-        XCTAssertFalse(design.currentFrame.contains(a))
+        XCTAssertEqual(design.currentFrame!.id, removalFrame.id)
+        XCTAssertFalse(design.currentFrame!.contains(a))
         
         let original2 = design.frame(originalVersion!)!
         XCTAssertTrue(original2.contains(a))
@@ -96,16 +96,16 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.deriveFrame()
+        let frame1 = design.createFrame(cloning: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.deriveFrame()
+        let frame2 = design.createFrame(cloning: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        XCTAssertTrue(design.currentFrame.contains(a))
-        XCTAssertTrue(design.currentFrame.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a))
+        XCTAssertTrue(design.currentFrame!.contains(b))
         XCTAssertEqual(design.versionHistory, [v0, frame1.id, frame2.id])
         
         design.undo(to: frame1.id)
@@ -120,42 +120,42 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.undoableFrames, [])
         XCTAssertEqual(design.redoableFrames, [frame1.id, frame2.id])
         
-        XCTAssertFalse(design.currentFrame.contains(a))
-        XCTAssertFalse(design.currentFrame.contains(b))
+        XCTAssertFalse(design.currentFrame!.contains(a))
+        XCTAssertFalse(design.currentFrame!.contains(b))
     }
     
     func testUndoComponent() throws {
         let design = Design(metamodel: self.metamodel)
 
-        let frame1 = design.deriveFrame()
+        let frame1 = design.createFrame()
         let a = frame1.create(TestType, components: [TestComponent(text: "before")])
         try design.accept(frame1)
         
-        let frame2 = design.deriveFrame()
+        let frame2 = design.createFrame(cloning: design.currentFrame)
         let obj = frame2.mutableObject(a)
         obj[TestComponent.self] = TestComponent(text: "after")
         
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
-        let altered = design.currentFrame.object(a)
+        let altered = design.currentFrame![a]
         XCTAssertEqual(altered[TestComponent.self]!.text, "before")
     }
     func testUndoProperty() throws {
         let design = Design(metamodel: self.metamodel)
 
-        let frame1 = design.deriveFrame()
+        let frame1 = design.createFrame()
         let a = frame1.create(TestType, attributes: ["text": "before"])
         try design.accept(frame1)
         
-        let frame2 = design.deriveFrame()
+        let frame2 = design.createFrame(cloning: design.currentFrame)
         let obj = frame2.mutableObject(a)
         obj["text"] = "after"
         
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
-        let altered = design.currentFrame.object(a)
+        let altered = design.currentFrame![a]
         XCTAssertEqual(altered["text"], "before")
     }
 
@@ -164,19 +164,19 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.deriveFrame()
+        let frame1 = design.createFrame(cloning: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.deriveFrame()
+        let frame2 = design.createFrame(cloning: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
         design.redo(to: frame2.id)
         
-        XCTAssertTrue(design.currentFrame.contains(a))
-        XCTAssertTrue(design.currentFrame.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a))
+        XCTAssertTrue(design.currentFrame!.contains(b))
         
         XCTAssertEqual(design.currentFrameID, frame2.id)
         XCTAssertEqual(design.undoableFrames, [v0, frame1.id])
@@ -199,8 +199,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.redoableFrames, [frame2.id])
         XCTAssertTrue(design.canRedo)
         
-        XCTAssertTrue(design.currentFrame.contains(a))
-        XCTAssertFalse(design.currentFrame.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a))
+        XCTAssertFalse(design.currentFrame!.contains(b))
     }
     
     func testRedoReset() throws {
@@ -208,13 +208,13 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.deriveFrame()
+        let frame1 = design.createFrame(cloning: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
         design.undo(to: v0)
         
-        let frame2 = design.deriveFrame()
+        let frame2 = design.createFrame(cloning: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -223,8 +223,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.undoableFrames, [v0])
         XCTAssertEqual(design.redoableFrames, [])
         
-        XCTAssertFalse(design.currentFrame.contains(a))
-        XCTAssertTrue(design.currentFrame.contains(b))
+        XCTAssertFalse(design.currentFrame!.contains(a))
+        XCTAssertTrue(design.currentFrame!.contains(b))
     }
     
     func testConstraintViolationAccept() throws {
@@ -235,7 +235,7 @@ final class DesignTests: XCTestCase {
        
         let metamodel = Metamodel(constraints: [constraint])
         let design = Design(metamodel: metamodel)
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let a = frame.createNode(TestNodeType)
         let b = frame.createNode(TestNodeType)
         
@@ -257,7 +257,7 @@ final class DesignTests: XCTestCase {
     
     func testDefaultValueTrait() {
         let design = Design()
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let a = frame.create(TestTypeNoDefault)
         let obj_a = frame[a]
         XCTAssertNil(obj_a["text"])
@@ -269,7 +269,7 @@ final class DesignTests: XCTestCase {
     }
     func testDefaultValueTraitError() {
         let design = Design(metamodel: self.metamodel)
-        let frame = design.deriveFrame()
+        let frame = design.createFrame()
         let a = frame.create(TestTypeNoDefault)
         let _ = frame[a]
 

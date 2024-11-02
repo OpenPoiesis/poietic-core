@@ -140,12 +140,13 @@ public class Design {
     /// - Note: It is a programming error to get current frame when there is no
     ///         history.
     ///
-    public var currentFrame: StableFrame {
-        guard let id = currentFrameID else {
-            // TODO: What should we do here?
-            fatalError("There is no current frame in the history.")
+    public var currentFrame: StableFrame? {
+        if let currentFrameID {
+            return _stableFrames[currentFrameID]
         }
-        return _stableFrames[id]!
+        else {
+            return nil
+        }
     }
 
     /// List of IDs of frames that can undone.
@@ -272,35 +273,11 @@ public class Design {
         return _stableFrames[id] != nil
     }
     
-    /// Create a new empty mutable frame.
-    ///
-    /// The frame will be associated with the design.
-    ///
-    /// To make the frame stable use ``accept(_:appendHistory:)``.
-    ///
-    /// It is rare that you might want to use this method. See rather
-    /// ``deriveFrame(original:id:)``.
-    ///
-    /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
-    ///
-    @discardableResult
-    public func createFrame(id: FrameID? = nil) -> MutableFrame {
-        let actualID = allocateID(required: id)
-        guard _stableFrames[actualID] == nil
-                && _mutableFrames[actualID] == nil else {
-            fatalError("Design already contains a frame with ID \(actualID)")
-        }
-        
-        let frame = MutableFrame(design: self, id: actualID)
-        _mutableFrames[actualID] = frame
-        return frame
-    }
     
-    /// Derive a new frame from an existing frame.
+    /// Create a new frame or derive a frame from an existing frame.
     ///
     /// - Parameters:
-    ///     - originalID: ID of the original frame to be derived. If not provided
-    ///       then the most recent frame in the history will be used.
+    ///     - originalID: ID of the original frame to be derived.
     ///     - id: Proposed ID of the new frame. Must be unique and must not
     ///       already exist in the design. If not provided, a new unique ID
     ///       is generated.
@@ -316,36 +293,24 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func deriveFrame(original originalID: FrameID? = nil,
+    public func createFrame(cloning original: StableFrame? = nil,
                             id: FrameID? = nil) -> MutableFrame {
         let actualID = allocateID(required: id)
-        guard _stableFrames[actualID] == nil
-                && _mutableFrames[actualID] == nil else {
-            fatalError("Can not derive frame: Frame with ID \(actualID) already exists")
-        }
         
-        let snapshots: [ObjectSnapshot]
         let derived: MutableFrame
 
-        if let originalID {
-            guard let originalFrame = _stableFrames[originalID] else {
-                fatalError("Can not derive frame: Unknown original stable frame ID \(originalID)")
-            }
-            snapshots = originalFrame.snapshots
+        if let original {
+            precondition(original.design === self, "Trying to clone a frame from different design")
+            
+            derived = MutableFrame(design: self,
+                                   id: actualID,
+                                   snapshots: original.snapshots)
         }
         else {
-            if currentFrameID != nil {
-                snapshots = currentFrame.snapshots
-            }
-            else {
-                // Empty – we have no current frame
-                snapshots = []
-            }
+            derived = MutableFrame(design: self,
+                                   id: actualID)
         }
 
-        derived = MutableFrame(design: self,
-                               id: actualID,
-                               snapshots: snapshots)
 
         _mutableFrames[actualID] = derived
         return derived

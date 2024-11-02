@@ -84,6 +84,7 @@ public final class JSONFrameReader {
     /// ```
     ///
     public func read(bundleAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
+        // FIXME: Check for file existence, decouple data reading from decoding
         let container: _JSONForeignFrameContainer
         let decoder = JSONDecoder()
         

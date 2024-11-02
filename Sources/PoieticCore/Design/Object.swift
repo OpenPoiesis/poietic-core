@@ -267,15 +267,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         self.state = state
     }
     
-    public subscript(componentType: Component.Type) -> (Component)? {
-        get {
-            return components[componentType]
-        }
-        set(component) {
-            precondition(state.isMutable)
-            components[componentType] = component
-        }
-    }
     
     public subscript(attributeName: String) -> (Variant)? {
         get {

@@ -82,59 +82,58 @@ public class MakeshiftDesignStore {
     /// - Returns: Restored ``Design`` object.
     /// - Throws: ``PersistentStoreError``.
     ///
-    func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws -> Design {
+    func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
         let design = Design(metamodel: metamodel)
 
         // TODO: Handle different versions here
         if perDesign.storeFormatVersion != MakeshiftDesignStore.FormatVersion {
-            throw PersistentStoreError.unsupportedFormatVersion(perDesign.storeFormatVersion)
+            throw .unsupportedFormatVersion(perDesign.storeFormatVersion)
         }
 
         // 1. Read Snapshots
         // ----------------------------------------------------------------
         var snapshots: [SnapshotID: ObjectSnapshot] = [:]
-        
+
         for perSnapshot in perDesign.snapshots {
             guard let type = metamodel.objectType(name: perSnapshot.type) else {
-                throw PersistentStoreError.unknownObjectType(perSnapshot.type)
+                throw .unknownObjectType(perSnapshot.type)
             }
 
             guard let structuralType = StructuralType(rawValue: perSnapshot.structuralType) else {
-                throw PersistentStoreError.invalidStructuralType(perSnapshot.structuralType)
+                throw .invalidStructuralType(perSnapshot.structuralType)
             }
             guard type.structuralType == structuralType else {
-                throw PersistentStoreError.structuralTypeMismatch(type.structuralType,
-                                                                  structuralType)
+                throw .structuralTypeMismatch(type.structuralType, structuralType)
             }
 
             guard snapshots[perSnapshot.snapshotID] == nil else {
-                throw PersistentStoreError.duplicateSnapshot(perSnapshot.snapshotID)
+                throw .duplicateSnapshot(perSnapshot.snapshotID)
             }
             
             let structure: StructuralComponent
             switch type.structuralType {
             case .unstructured:
                 guard perSnapshot.origin == nil else {
-                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "origin")
+                    throw .extraneousStructuralProperty(type.structuralType, "origin")
                 }
                 guard perSnapshot.target == nil else {
-                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "target")
+                    throw .extraneousStructuralProperty(type.structuralType, "target")
                 }
                 structure = .unstructured
             case .node:
                 guard perSnapshot.origin == nil else {
-                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "origin")
+                    throw .extraneousStructuralProperty(type.structuralType, "origin")
                 }
                 guard perSnapshot.target == nil else {
-                    throw PersistentStoreError.extraneousStructuralProperty(type.structuralType, "target")
+                    throw .extraneousStructuralProperty(type.structuralType, "target")
                 }
                 structure = .node
             case .edge:
                 guard let origin = perSnapshot.origin else {
-                    throw PersistentStoreError.missingStructuralProperty(type.structuralType, "from")
+                    throw .missingStructuralProperty(type.structuralType, "from")
                 }
                 guard let target = perSnapshot.target else {
-                    throw PersistentStoreError.missingStructuralProperty(type.structuralType, "to")
+                    throw .missingStructuralProperty(type.structuralType, "to")
                 }
                 structure = .edge(ObjectID(origin), ObjectID(target))
             }
@@ -150,30 +149,33 @@ public class MakeshiftDesignStore {
 
 
             snapshots[snapshot.snapshotID] = snapshot
-//            snapshot.promote(.validated)
         }
 
         // 3. Read frames
         // ----------------------------------------------------------------
-
         for perFrame in perDesign.frames {
             if design.containsFrame(perFrame.id) {
-                throw PersistentStoreError.duplicateFrame(perFrame.id)
+                throw .duplicateFrame(perFrame.id)
             }
             
-            let frame = design.createFrame(id: perFrame.id)
+            let newFrame = design.createFrame(id: perFrame.id)
             
             for id in perFrame.snapshots {
                 guard let snapshot = snapshots[id] else {
-                    throw PersistentStoreError.invalidSnapshotReference(frame.id, id)
+                    throw .invalidSnapshotReference(newFrame.id, id)
                 }
                 // Do not check for referential integrity yet
-                frame.unsafeInsert(snapshot, owned: false)
+                newFrame.unsafeInsert(snapshot, owned: false)
             }
             // We accept the frame making sure that constraints are met.
-            try design.accept(frame)
+            do {
+                try design.accept(newFrame)
+            }
+            catch {
+                throw .frameConstraintError(newFrame.id)
+            }
         }
-
+        
         // 4. Design state (undo, redo, current frame)
         // ----------------------------------------------------------------
         

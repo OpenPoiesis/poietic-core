@@ -27,6 +27,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     case currentFrameIDNotSet
     case unsupportedFormatVersion(String)
     case invalidFrameReference(String, ObjectID)
+    
+    case frameConstraintError(ObjectID)
 
     public var description: String {
         switch self {
@@ -64,6 +66,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Unsupported format version: \(version)"
         case let .invalidFrameReference(context, id):
             "Invalid frame reference \(id) in \(context)"
+        case let .frameConstraintError(id):
+            "Constraint error in frame \(id)"
         }
     }
 

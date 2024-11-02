@@ -23,12 +23,10 @@ extension Design {
     /// - Note: Attributes are not checked according to the object type during
     ///   object creation. The object is not yet required to satisfy any
     ///   constraints.
+    /// - Note: Existence of the parent is not verified, it will be during the
+    ///   frame insertion.
     ///
-    /// The `structuralReferences` list must contain:
-    ///
-    /// - no references for ``StructuralType/unstructured`` and ``StructuralType/node``
-    /// - two references for ``StructuralType/edge``: first for edge's origin,
-    ///   second for edge's target.
+    /// - SeeAlso: ``MutableFrame/insert(_:)``
     ///
     public func createSnapshot(_ type: ObjectType,
                                id: ObjectID? = nil,
@@ -38,7 +36,6 @@ extension Design {
                                attributes: [String:Variant]=[:],
                                components: [any Component]=[],
                                state: VersionState = .stable) -> ObjectSnapshot {
-        // FIXME: Add parent, use same order as object snapshot.
         let actualID = allocateID(required: id)
         let actualSnapshotID = allocateID(required: snapshotID)
 

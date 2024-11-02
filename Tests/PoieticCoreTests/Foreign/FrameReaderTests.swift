@@ -18,7 +18,7 @@ final class JSONFrameReaderTests: XCTestCase {
     
     override func setUp() {
         design = Design(metamodel: TestMetamodel)
-        frame = design.deriveFrame()
+        frame = design.createFrame()
         reader = JSONFrameReader()
         loader = ForeignFrameLoader()
     }

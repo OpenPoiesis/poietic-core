@@ -393,6 +393,7 @@ public class MutableFrame: Frame {
     /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
     public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
+        // TODO: Rename to `mutate(_)`
         precondition(state.isMutable, "Trying to modify a frozen frame")
         
         guard let originalRef = self.objects[id] else {
