@@ -23,8 +23,8 @@ final class MutableFrameTests: XCTestCase {
         frame.insert(original)
         let originalFrame = try design.accept(frame)
         
-        let derivedFrame = design.createFrame(cloning: originalFrame)
-        let derived = derivedFrame.mutableObject(original.id)
+        let derivedFrame = design.createFrame(deriving: originalFrame)
+        let derived = derivedFrame.mutate(original.id)
         XCTAssertEqual(original.structure, derived.structure)
     }
     
@@ -37,16 +37,16 @@ final class MutableFrameTests: XCTestCase {
         frame.setParent(obj, to: parent)
         frame.setParent(child, to: obj)
         
-        let derivedFrame = design.createFrame(cloning: try design.accept(frame))
-        let derivedObj = derivedFrame.mutableObject(obj)
+        let derivedFrame = design.createFrame(deriving: try design.accept(frame))
+        let derivedObj = derivedFrame.mutate(obj)
         XCTAssertEqual(derivedObj.parent, parent)
         XCTAssertEqual(derivedObj.children, [child])
 
-        let derivedParent = derivedFrame.mutableObject(parent)
+        let derivedParent = derivedFrame.mutate(parent)
         XCTAssertEqual(derivedParent.parent, nil)
         XCTAssertEqual(derivedParent.children, [obj])
 
-        let derivedChild = derivedFrame.mutableObject(child)
+        let derivedChild = derivedFrame.mutate(child)
         XCTAssertEqual(derivedChild.parent, obj)
         XCTAssertEqual(derivedChild.children, [])
     }
@@ -71,8 +71,8 @@ final class MutableFrameTests: XCTestCase {
                              attributes: ["text": Variant("before")])
         let original = try design.accept(frame)
         
-        let frame2 = design.createFrame(cloning: original)
-        let alt_obj = frame2.mutableObject(a)
+        let frame2 = design.createFrame(deriving: original)
+        let alt_obj = frame2.mutate(a)
         alt_obj["text"] = "after"
         
         XCTAssertTrue(frame2.hasChanges)
@@ -92,8 +92,8 @@ final class MutableFrameTests: XCTestCase {
         let a = frame.create(TestType, components: [TestComponent(text: "before")])
         let original = try design.accept(frame)
         
-        let frame2 = design.createFrame(cloning: original)
-        let mutable_a = frame2.mutableObject(a)
+        let frame2 = design.createFrame(deriving: original)
+        let mutable_a = frame2.mutate(a)
         mutable_a[TestComponent.self] = TestComponent(text: "after")
         
         XCTAssertTrue(frame2.hasChanges)
@@ -114,13 +114,13 @@ final class MutableFrameTests: XCTestCase {
         let originalSnap = original[id]
         try design.accept(original)
         
-        let derived = design.createFrame(cloning: design.currentFrame)
-        let derivedSnap = derived.mutableObject(id)
+        let derived = design.createFrame(deriving: design.currentFrame)
+        let derivedSnap = derived.mutate(id)
         
         XCTAssertEqual(derivedSnap.id, originalSnap.id)
         XCTAssertNotEqual(derivedSnap.snapshotID, originalSnap.snapshotID)
         
-        let derivedSnap2 = derived.mutableObject(id)
+        let derivedSnap2 = derived.mutate(id)
         XCTAssertIdentical(derivedSnap, derivedSnap2)
     }
 
@@ -129,8 +129,8 @@ final class MutableFrameTests: XCTestCase {
         let id = original.create(TestType, attributes: ["text": "hello"])
         try design.accept(original)
         
-        let derived = design.createFrame(cloning: design.currentFrame)
-        let derivedSnap = derived.mutableObject(id)
+        let derived = design.createFrame(deriving: design.currentFrame)
+        let derivedSnap = derived.mutate(id)
         
         XCTAssertEqual(derivedSnap["text"], "hello")
     }
@@ -156,15 +156,62 @@ final class MutableFrameTests: XCTestCase {
         XCTAssertFalse(frame.contains(edge.id))
         XCTAssertTrue(frame.contains(node2.id))
     }
-    
+
+    func testOnlyOriginalsRemoved() throws {
+        let frame = design.createFrame()
+        
+        let originalNode = design.createSnapshot(TestNodeType)
+        frame.insert(originalNode)
+        
+        let original = try design.accept(frame)
+        
+        let trans = design.createFrame(deriving: original)
+        
+        let newNode = design.createSnapshot(TestNodeType)
+        trans.insert(newNode)
+        trans.removeCascading(newNode.id)
+        trans.removeCascading(originalNode.id)
+
+        XCTAssertEqual(trans.snapshotIDs.count, 0)
+        XCTAssertEqual(trans.removedObjects.count, 1)
+        XCTAssertFalse(trans.removedObjects.contains(newNode.id))
+        XCTAssertTrue(trans.removedObjects.contains(originalNode.id))
+
+        XCTAssertFalse(trans.contains(originalNode.id))
+        XCTAssertFalse(trans.contains(newNode.id))
+    }
+
+    func testRemoveCreate() throws {
+        let frame = design.createFrame()
+        
+        let originalNode = design.createSnapshot(TestNodeType)
+        frame.insert(originalNode)
+        
+        let original = try design.accept(frame)
+        
+        let trans = design.createFrame(deriving: original)
+        
+        let newNode = design.createSnapshot(TestNodeType, id: originalNode.id)
+
+        trans.removeCascading(originalNode.id)
+        XCTAssertEqual(trans.removedObjects.count, 1)
+        XCTAssertTrue(trans.removedObjects.contains(originalNode.id))
+
+        trans.insert(newNode)
+
+        XCTAssertEqual(trans.snapshotIDs.count, 1)
+        XCTAssertEqual(trans.removedObjects.count, 0)
+        XCTAssertTrue(trans.contains(newNode.id))
+    }
+
     func testFrameMutableObjectRemovesPreviousSnapshot() throws {
         let original = design.createFrame()
         let id = original.create(TestType)
         let originalSnap = original[id]
         try design.accept(original)
         
-        let derived = design.createFrame(cloning: design.currentFrame)
-        let derivedSnap = derived.mutableObject(id)
+        let derived = design.createFrame(deriving: design.currentFrame)
+        let derivedSnap = derived.mutate(id)
         
         XCTAssertFalse(derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
         XCTAssertTrue(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
@@ -258,7 +305,7 @@ final class MutableFrameTests: XCTestCase {
         frame.addChild(c2, to: p)
         let accepted = try design.accept(frame)
         
-        let derived = design.createFrame(cloning: accepted)
+        let derived = design.createFrame(deriving: accepted)
         // A sanity check
         XCTAssertEqual(derived[p].snapshotID, frame[p].snapshotID)
 

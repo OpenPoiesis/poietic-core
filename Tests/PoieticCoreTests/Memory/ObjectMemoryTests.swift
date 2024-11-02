@@ -76,7 +76,7 @@ final class DesignTests: XCTestCase {
         
         let originalVersion = design.currentFrameID
         
-        let removalFrame = design.createFrame(cloning: design.currentFrame)
+        let removalFrame = design.createFrame(deriving: design.currentFrame)
         XCTAssertTrue(design.currentFrame!.contains(a))
         removalFrame.removeCascading(a)
         XCTAssertTrue(removalFrame.hasChanges)
@@ -96,11 +96,11 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(cloning: design.currentFrame)
+        let frame1 = design.createFrame(deriving: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(cloning: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -131,8 +131,8 @@ final class DesignTests: XCTestCase {
         let a = frame1.create(TestType, components: [TestComponent(text: "before")])
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(cloning: design.currentFrame)
-        let obj = frame2.mutableObject(a)
+        let frame2 = design.createFrame(deriving: design.currentFrame)
+        let obj = frame2.mutate(a)
         obj[TestComponent.self] = TestComponent(text: "after")
         
         try design.accept(frame2)
@@ -148,8 +148,8 @@ final class DesignTests: XCTestCase {
         let a = frame1.create(TestType, attributes: ["text": "before"])
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(cloning: design.currentFrame)
-        let obj = frame2.mutableObject(a)
+        let frame2 = design.createFrame(deriving: design.currentFrame)
+        let obj = frame2.mutate(a)
         obj["text"] = "after"
         
         try design.accept(frame2)
@@ -164,11 +164,11 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(cloning: design.currentFrame)
+        let frame1 = design.createFrame(deriving: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(cloning: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -208,13 +208,13 @@ final class DesignTests: XCTestCase {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(cloning: design.currentFrame)
+        let frame1 = design.createFrame(deriving: design.currentFrame)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
         design.undo(to: v0)
         
-        let frame2 = design.createFrame(cloning: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         

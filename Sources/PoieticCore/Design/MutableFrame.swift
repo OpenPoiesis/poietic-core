@@ -56,6 +56,8 @@ public class MutableFrame: Frame {
         return ref.snapshot
     }
    
+    /// Get an object version of object with identity `id`.
+    ///
     public subscript(id: ObjectID) -> ObjectSnapshot {
         get {
             return object(id)
@@ -83,8 +85,10 @@ public class MutableFrame: Frame {
     ///
     var snapshotIDs: Set<SnapshotID>
     
-    // TODO: Include only objects that were NOT present in the original frame.
-    /// A set of objects that were removed from the frame.
+    /// List of object IDs that were provided during initialisation.
+    public let originalIDs: Set<ObjectID>
+
+    /// A set of original objects that were removed from the frame.
     ///
     public internal(set) var removedObjects: Set<ObjectID> = Set()
 
@@ -132,15 +136,18 @@ public class MutableFrame: Frame {
         self.id = id
         self.objects = [:]
         self.snapshotIDs = Set()
-
+        var originals: Set<ObjectID> = Set()
+        
         if let snapshots {
             for snapshot in snapshots {
                 let ref = SnapshotReference(snapshot: snapshot,
                                             owned: false)
                 self.objects[snapshot.id] = ref
                 self.snapshotIDs.insert(snapshot.snapshotID)
+                originals.insert(snapshot.id)
             }
         }
+        self.originalIDs = originals
     }
     
     /// Insert an object snapshot to a frame while maintaining referential
@@ -219,6 +226,10 @@ public class MutableFrame: Frame {
 
         objects[snapshot.id] = ref
         snapshotIDs.insert(snapshot.snapshotID)
+        
+        if originalIDs.contains(snapshot.id) {
+            removedObjects.remove(snapshot.id)
+        }
     }
     
     
@@ -298,7 +309,7 @@ public class MutableFrame: Frame {
             removed.insert(garbageID)
             
             if let parentID = garbage.parent, !removed.contains(parentID) {
-                let parent = mutableObject(parentID)
+                let parent = mutate(parentID)
                 parent.children.remove(garbageID)
             }
             for child in garbage.children where !removed.contains(child) {
@@ -316,6 +327,16 @@ public class MutableFrame: Frame {
             }
         }
         return removed
+    }
+    
+    internal func _remove(_ snapshot: ObjectSnapshot) {
+        precondition(state.isMutable)
+        objects[snapshot.id] = nil
+        snapshotIDs.remove(snapshot.snapshotID)
+
+        if originalIDs.contains(snapshot.id) {
+            removedObjects.insert(snapshot.id)
+        }
     }
     
 
@@ -350,14 +371,6 @@ public class MutableFrame: Frame {
         print("-- END OF FRAME \(id)")
     }
 
-    internal func _remove(_ snapshot: ObjectSnapshot) {
-        precondition(state.isMutable)
-        objects[snapshot.id] = nil
-        snapshotIDs.remove(snapshot.snapshotID)
-        removedObjects.insert(id)
-    }
-    
-
     /// Promote the frame to a state that is higher than the current
     /// state.
     ///
@@ -375,9 +388,9 @@ public class MutableFrame: Frame {
         self.state = state
     }
        
-    /// Return a snapshot that can be mutated.
+    /// Make a snapshot mutable within the frame.
     ///
-    /// If the snapshot is mutable and is owned by the frame, then it is
+    /// If the snapshot is already mutable and is owned by the frame, then it is
     /// returned as is. If the snapshot is not owned by the frame, then it is
     /// derived first and the derived snapshot is returned.
     ///
@@ -392,8 +405,7 @@ public class MutableFrame: Frame {
     /// - Precondition: The frame must contain an object with given ID.
     /// - Precondition: The frame is not frozen. See ``promote(_:)``.
     ///
-    public func mutableObject(_ id: ObjectID) -> ObjectSnapshot {
-        // TODO: Rename to `mutate(_)`
+    public func mutate(_ id: ObjectID) -> ObjectSnapshot {
         precondition(state.isMutable, "Trying to modify a frozen frame")
         
         guard let originalRef = self.objects[id] else {
@@ -430,8 +442,8 @@ public class MutableFrame: Frame {
     /// ``MutableFrame/removeFromParent(_:)``,
     /// ``MutableFrame/removeCascading(_:)``.
     public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
-        let parent = self.mutableObject(parentID)
-        let child = self.mutableObject(childID)
+        let parent = self.mutate(parentID)
+        let child = self.mutate(childID)
         
         precondition(child.parent == nil)
         
@@ -454,8 +466,8 @@ public class MutableFrame: Frame {
     /// ``MutableFrame/removeFromParent(_:)``,
     /// ``MutableFrame/removeCascading(_:)``.
     public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
-        let parent = self.mutableObject(parentID)
-        let child = self.mutableObject(childID)
+        let parent = self.mutate(parentID)
+        let child = self.mutate(childID)
 
         precondition(child.parent == parentID)
         precondition(parent.children.contains(childID))
@@ -479,13 +491,13 @@ public class MutableFrame: Frame {
     /// ``MutableFrame/removeFromParent(_:)``,
     /// ``MutableFrame/removeCascading(_:)``.
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
-        let child = mutableObject(childID)
+        let child = mutate(childID)
         if let originalParentID = child.parent {
-            mutableObject(originalParentID).children.remove(childID)
+            mutate(originalParentID).children.remove(childID)
         }
         child.parent = parentID
         if let parentID {
-            mutableObject(parentID).children.add(childID)
+            mutate(parentID).children.add(childID)
         }
     }
     
@@ -514,8 +526,8 @@ public class MutableFrame: Frame {
             return
         }
         
-        mutableObject(parentID).children.remove(childID)
-        mutableObject(childID).parent = nil
+        mutate(parentID).children.remove(childID)
+        mutate(childID).parent = nil
     }
 
 }

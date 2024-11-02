@@ -293,7 +293,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(cloning original: StableFrame? = nil,
+    public func createFrame(deriving original: StableFrame? = nil,
                             id: FrameID? = nil) -> MutableFrame {
         let actualID = allocateID(required: id)
         
