@@ -90,9 +90,9 @@ public final class ForeignFrameLoader {
     ///         frame should be discarded.
     /// - Throws: ``FrameLoaderError``
     /// - SeeAlso: ``Design/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
-    ///     ``MutableFrame/insert(_:)``
+    ///     ``TransientFrame/insert(_:)``
     ///
-    public func load(_ foreignFrame: ForeignFrame, into frame: MutableFrame) throws (FrameLoaderError) {
+    public func load(_ foreignFrame: ForeignFrame, into frame: TransientFrame) throws (FrameLoaderError) {
         let foreignObjects = foreignFrame.objects
         let design = frame.design
         let metamodel = design.metamodel

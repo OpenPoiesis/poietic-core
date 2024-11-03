@@ -65,8 +65,8 @@ extension MutableGraph {
 
 /// Graph contained within a mutable frame where the references to the nodes and
 /// edges are not directly bound and are resolved at the time of querying.
-extension MutableFrame: MutableGraph {
-    var mutableFrame: MutableFrame { self }
+extension TransientFrame: MutableGraph {
+    var mutableFrame: TransientFrame { self }
     
     // Object creation
     @discardableResult

@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import PoieticCore
 
-final class MutableFrameTests: XCTestCase {
+final class TransientFrameTests: XCTestCase {
     var design: Design!
     
     override func setUp() {

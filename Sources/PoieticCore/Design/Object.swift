@@ -26,7 +26,7 @@
 /// ```swift
 /// // The design and the frame is given
 /// let design: Design
-/// let frame: MutableFrame
+/// let frame: TransientFrame
 ///
 /// // Create a new unstructured snapshot of type Note
 /// let snapshot = design.createSnapshot(ObjectType.Note)
@@ -34,7 +34,7 @@
 ///
 /// ```
 ///
-/// - SeeAlso: ``Frame``, ``MutableFrame``
+/// - SeeAlso: ``Frame``, ``TransientFrame``
 ///
 public final class ObjectSnapshot: Identifiable, CustomStringConvertible, MutableKeyedAttributes {
     public static let ReservedAttributeNames = [
@@ -63,10 +63,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// necessary to be provided when importing object from foreign interfaces
     /// which are dealing with only single version frame.
     ///
-    /// When mutating an object with ``MutableFrame/mutableObject(_:)`` a new
+    /// When mutating an object with ``TransientFrame/mutableObject(_:)`` a new
     /// snapshot with new snapshot ID but the same object ID will be created.
     ///
-    /// - SeeAlso: ``id``, ``MutableFrame/insert(_:)``,
+    /// - SeeAlso: ``id``, ``TransientFrame/insert(_:)``,
     ///    ``Design/allocateID(required:)``
     ///
     public let snapshotID: SnapshotID
@@ -81,12 +81,12 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// The object ID is preserved during persistence.
     ///
-    /// When mutating an object with ``MutableFrame/mutableObject(_:)`` a new
+    /// When mutating an object with ``TransientFrame/mutableObject(_:)`` a new
     /// snapshot with new snapshot ID but the same object ID will be created.
     ///
     /// - SeeAlso: ``snapshotID``,
     ///   ``Frame/object(_:)``, ``Frame/contains(_:)``,
-    ///    ``MutableFrame/mutableObject(_:)``,
+    ///    ``TransientFrame/mutableObject(_:)``,
     ///    ``Design/allocateID(proposed:)``
     ///
     public let id: ObjectID
@@ -145,7 +145,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// For example, if objects is an edge and any of it's ``StructuralComponent/edge(_:_:)``
     /// elements is removed from a design, then the edge is removed as well.
     ///
-    /// - SeeAlso: ``MutableFrame/removeCascading(_:)``, ``Graph``
+    /// - SeeAlso: ``TransientFrame/removeCascading(_:)``, ``Graph``
     ///
     public var structure: StructuralComponent
     
@@ -159,10 +159,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// hierarchy is with the ``structure``.
     ///
     /// - SeeAlso: ``children``,
-    /// ``MutableFrame/addChild(_:to:)``,
-    /// ``MutableFrame/removeChild(_:from:)``,
-    /// ``MutableFrame/removeFromParent(_:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
+    /// ``TransientFrame/addChild(_:to:)``,
+    /// ``TransientFrame/removeChild(_:from:)``,
+    /// ``TransientFrame/removeFromParent(_:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
     ///
     public var parent: ObjectID? = nil {
         willSet {
@@ -184,10 +184,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// hierarchy is with the ``structure``.
     ///
     /// - SeeAlso: ``parent``,
-    /// ``MutableFrame/addChild(_:to:)``,
-    /// ``MutableFrame/removeChild(_:from:)``,
-    /// ``MutableFrame/removeFromParent(_:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
+    /// ``TransientFrame/addChild(_:to:)``,
+    /// ``TransientFrame/removeChild(_:from:)``,
+    /// ``TransientFrame/removeFromParent(_:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
     ///
     ///
     public var children: ChildrenSet = ChildrenSet() {

@@ -1,5 +1,5 @@
 //
-//  MutableFrame.swift
+//  TransientFrame.swift
 //  
 //
 //  Created by Stefan Urbanek on 23/03/2023.
@@ -16,22 +16,71 @@ struct SnapshotReference {
     let owned: Bool
 }
 
-/// Mutable frame is a version frame that can be changed - mutated.
+/// Transient frame is frame that can be modified.
 ///
-/// Mutable frame represents a design version where changes can be applied
-/// and grouped together. It is somewhat analogous to a transaction.
+/// Transient frames are created using ``Design/createFrame(deriving:id:)``.
 ///
-/// The basic changes that can be done with a mutable frame:
+/// Multiple changes are applied to a transient frame, which can be then
+/// validated and turned into a stable frame using ``Design/accept(_:appendHistory:)``.
+/// If the changes can not be validated or for any other reason the changes
+/// are not to be accepted, the frame can be discarded by ``Design/discard(_:).
 ///
-/// - Add objects to the frame using ``MutableFrame/create(_:structure:attributes:components:)``
-///    or ``MutableFrame/insert(_:)``.
+/// Transient frames are not persisted, they exist only during runtime.
+///
+/// The changes that can be performed with the transient frame:
+///
+/// - Add objects with ``TransientFrame/create(_:structure:attributes:components:)``
+///    or ``TransientFrame/insert(_:)``.
 /// - Mutate existing objects in the frame using
-///   ``MutableFrame/mutableObject(_:)``.
+///   ``TransientFrame/mutableObject(_:)``.
+/// - Change parent/child hierarchy.
 ///
-/// Completed change set is expected to be accepted to the design using
-/// ``Design/accept(_:appendHistory:)``.
+/// Once the frame is accepted or discarded, it can no longer be modified.
 ///
-public class MutableFrame: Frame {
+public class TransientFrame: Frame {
+    /// Design with which this frame is associated with.
+    ///
+    public unowned let design: Design
+    
+    /// ID of the frame.
+    ///
+    /// The ID is unique within the design.
+    ///
+    public let id: FrameID
+
+    
+    /// State of the transient frame.
+    ///
+    public enum State {
+        /// The frame is transient and can be modified.
+        case transient
+        /// The frame has been accepted and can not be modified any more.
+        case accepted
+        /// The frame has been discarded and can not be modified any more.
+        case discarded
+    }
+    /// Current state of the transient frame.
+    ///
+    /// Frame can be modified if it is in ``State/transient``.
+    ///
+    var state: State = .transient
+    
+    var objects: [ObjectID:SnapshotReference]
+
+    /// Cache of snapshot IDs used to verify unique ownership
+    ///
+    var snapshotIDs: Set<SnapshotID>
+    
+    /// List of object IDs that were provided during initialisation.
+    ///
+    public let originalIDs: Set<ObjectID>
+
+    /// A set of original objects that were removed from the frame.
+    ///
+    /// This is a subset of ``originalIDs``.
+    ///
+    public internal(set) var removedObjects: Set<ObjectID> = Set()
+
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
@@ -40,8 +89,7 @@ public class MutableFrame: Frame {
         return self.objects.values.map { $0.snapshot }
     }
     
-    /// Returns `true` if the frame contains a snapshot with given object
-    /// identity.
+    /// Returns `true` if the frame contains an object with given object ID.
     ///
     public func contains(_ id: ObjectID) -> Bool {
         return self.objects[id] != nil
@@ -63,34 +111,6 @@ public class MutableFrame: Frame {
             return object(id)
         }
     }
-    
-    /// Design with which this frame is associated with.
-    ///
-    public unowned let design: Design
-    
-    /// ID of the frame.
-    ///
-    /// The ID is unique within the design.
-    ///
-    public let id: FrameID
-
-    // TODO: Remove state or change to FrameState: open, accepted, discarded
-    var state: VersionState = .transient
-    
-    /// Frame objects.
-    ///
-    var objects: [ObjectID:SnapshotReference]
-
-    /// Cache of snapshot IDs used to verify unique ownership
-    ///
-    var snapshotIDs: Set<SnapshotID>
-    
-    /// List of object IDs that were provided during initialisation.
-    public let originalIDs: Set<ObjectID>
-
-    /// A set of original objects that were removed from the frame.
-    ///
-    public internal(set) var removedObjects: Set<ObjectID> = Set()
 
     /// List of object snapshots that were inserted to this frame or were
     /// derived for the purpose of mutation.
@@ -166,7 +186,7 @@ public class MutableFrame: Frame {
     /// If the requirements are not met, then it is considered a programming
     /// error.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``MutableFrame/unsafeInsert(_:owned:)``
+    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``TransientFrame/unsafeInsert(_:owned:)``
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // Check for referential integrity
@@ -202,13 +222,11 @@ public class MutableFrame: Frame {
     ///     - owned: Flag whether the snapshot will be owned by the frame or
     ///              not.
     ///
-    /// - SeeAlso: ``MutableFrame/insert(_:)``
+    /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
     public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
-        precondition(state.isMutable,
-                     "Trying to modify a frame that is not mutable")
-        precondition(snapshot.state != .transient,
-                     "Trying to insert an unstable object")
+        precondition(state == .transient)
+        precondition(snapshot.state != .transient)
         precondition(objects[snapshot.id] == nil,
                      "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
@@ -265,7 +283,7 @@ public class MutableFrame: Frame {
                        structure: StructuralComponent? = nil,
                        attributes: [String:Variant] = [:],
                        components: [any Component] = []) -> ObjectID {
-        precondition(state.isMutable)
+        precondition(state == .transient)
         
         let snapshot = design.createSnapshot(type,
                                              structure: structure,
@@ -295,7 +313,7 @@ public class MutableFrame: Frame {
     ///
     @discardableResult
     public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
-        precondition(state.isMutable)
+        precondition(state == .transient)
         precondition(contains(id),
                      "Unknown object ID \(id) in frame \(self.id)")
         
@@ -330,7 +348,7 @@ public class MutableFrame: Frame {
     }
     
     internal func _remove(_ snapshot: ObjectSnapshot) {
-        precondition(state.isMutable)
+        precondition(state == .transient)
         objects[snapshot.id] = nil
         snapshotIDs.remove(snapshot.snapshotID)
 
@@ -339,6 +357,170 @@ public class MutableFrame: Frame {
         }
     }
     
+    /// Mark the frame as accepted and reject any further modifications.
+    ///
+    /// Also mark all owned objects as ``VersionState/validated``.
+    ///
+    public func markAccepted() {
+        precondition(state == .transient)
+
+        for ref in objects.values {
+            if ref.owned {
+                ref.snapshot.promote(.validated)
+            }
+        }
+        
+        self.state = .accepted
+    }
+    
+    /// Mark the frame as discarded and reject any further modifications.
+    ///
+    public func markDiscarded() {
+        precondition(state == .transient)
+        self.state = .discarded
+    }
+       
+    /// Make a snapshot mutable within the frame.
+    ///
+    /// If the snapshot is already mutable and is owned by the frame, then it is
+    /// returned as is. If the snapshot is not owned by the frame, then it is
+    /// derived first and the derived snapshot is returned.
+    ///
+    /// - Parameters:
+    ///     - id: Object ID of the object to be derived.
+    ///
+    /// The new snapshot will be assigned a new snapshot ID from the shared
+    /// identity generator of the associated design.
+    ///
+    /// - Returns: Newly derived object snapshot.
+    /// 
+    /// - Precondition: The frame must contain an object with given ID.
+    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
+    ///
+    public func mutate(_ id: ObjectID) -> ObjectSnapshot {
+        precondition(state == .transient)
+
+        guard let originalRef = self.objects[id] else {
+            fatalError("No object with ID \(id) in frame ID \(self.id)")
+        }
+        if originalRef.owned {
+            return originalRef.snapshot
+        }
+        else {
+            let derived = design.deriveSnapshot(originalRef.snapshot.snapshotID)
+
+            let ref = SnapshotReference(snapshot: derived, owned: true)
+            self.objects[id] = ref
+            self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
+            self.snapshotIDs.insert(derived.snapshotID)
+
+            return derived
+        }
+    }
+    
+    // MARK: - Hierarchy
+    //
+    
+    /// Assign a child to a parent object.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// both parent and a child.
+    ///
+    /// - Precondition: The child object must not have a parent.
+    /// - ToDo: Check for cycles.
+    ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``TransientFrame/removeChild(_:from:)``,
+    /// ``TransientFrame/removeFromParent(_:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
+    public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
+        let parent = self.mutate(parentID)
+        let child = self.mutate(childID)
+        
+        precondition(child.parent == nil)
+        
+        child.parent = parentID
+        parent.children.add(childID)
+    }
+    
+    /// Remove an object `childID` from parent `parentID`.
+    ///
+    /// The child is removed from the list of children of the parent. Child's
+    /// parent will be set to `nil`.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// both parent and a child.
+    ///
+    /// The object will remain in the frame, will not be deleted.
+    ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``TransientFrame/addChild(_:to:)``,
+    /// ``TransientFrame/removeFromParent(_:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
+    public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
+        let parent = self.mutate(parentID)
+        let child = self.mutate(childID)
+
+        precondition(child.parent == parentID)
+        precondition(parent.children.contains(childID))
+
+        parent.children.remove(childID)
+        child.parent = nil
+    }
+    
+    /// Move a child to a different parent.
+    ///
+    /// If the child has a parent, then the child will be removed from the
+    /// parent's children list.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// a child. Mutable version of the old parent will be created, if
+    /// necessary.
+    ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``TransientFrame/addChild(_:to:)``,
+    /// ``TransientFrame/removeChild(_:from:)``,
+    /// ``TransientFrame/removeFromParent(_:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
+    public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
+        let child = mutate(childID)
+        if let originalParentID = child.parent {
+            mutate(originalParentID).children.remove(childID)
+        }
+        child.parent = parentID
+        if let parentID {
+            mutate(parentID).children.add(childID)
+        }
+    }
+    
+    /// Removes a child from its parent.
+    ///
+    /// If the child has a parent, it will be removed from the parent's children
+    /// list.
+    ///
+    /// This is a mutating function – it creates a mutable version of
+    /// a child. Mutable version of the old parent will be created, if
+    /// necessary.
+    ///
+    /// The object will remain in the frame, will not be deleted.
+    ///
+    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// ``TransientFrame/addChild(_:to:)``,
+    /// ``TransientFrame/removeChild(_:from:)``,
+    /// ``TransientFrame/removeCascading(_:)``.
+    public func removeFromParent(_ childID: ObjectID) {
+        let child = self[childID]
+        guard let parentID = child.parent else {
+            return
+        }
+        let parent = self[parentID]
+        guard parent.children.contains(childID) else {
+            return
+        }
+        
+        mutate(parentID).children.remove(childID)
+        mutate(childID).parent = nil
+    }
 
     public func debugPrint() {
         print("-- FRAME \(id)")
@@ -370,166 +552,6 @@ public class MutableFrame: Frame {
         }
         print("-- END OF FRAME \(id)")
     }
-
-    /// Promote the frame to a state that is higher than the current
-    /// state.
-    ///
-    /// This is called by the design when the frame is accepted.
-    ///
-    public func promote(_ state: VersionState) {
-        precondition(self.state < state,
-                     "Can not promote from state \(self.state) to \(state)")
-        for ref in objects.values {
-            if ref.owned {
-                ref.snapshot.promote(state)
-            }
-        }
-        
-        self.state = state
-    }
-       
-    /// Make a snapshot mutable within the frame.
-    ///
-    /// If the snapshot is already mutable and is owned by the frame, then it is
-    /// returned as is. If the snapshot is not owned by the frame, then it is
-    /// derived first and the derived snapshot is returned.
-    ///
-    /// - Parameters:
-    ///     - id: Object ID of the object to be derived.
-    ///
-    /// The new snapshot will be assigned a new snapshot ID from the shared
-    /// identity generator of the associated design.
-    ///
-    /// - Returns: Newly derived object snapshot.
-    /// 
-    /// - Precondition: The frame must contain an object with given ID.
-    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
-    ///
-    public func mutate(_ id: ObjectID) -> ObjectSnapshot {
-        precondition(state.isMutable, "Trying to modify a frozen frame")
-        
-        guard let originalRef = self.objects[id] else {
-            fatalError("No object with ID \(id) in frame ID \(self.id)")
-        }
-        if originalRef.owned {
-            return originalRef.snapshot
-        }
-        else {
-            let derived = design.deriveSnapshot(originalRef.snapshot.snapshotID)
-
-            let ref = SnapshotReference(snapshot: derived, owned: true)
-            self.objects[id] = ref
-            self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
-            self.snapshotIDs.insert(derived.snapshotID)
-
-            return derived
-        }
-    }
-    
-    // MARK: - Hierarchy
-    //
-    
-    /// Assign a child to a parent object.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// both parent and a child.
-    ///
-    /// - Precondition: The child object must not have a parent.
-    /// - ToDo: Check for cycles.
-    ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
-    /// ``MutableFrame/removeChild(_:from:)``,
-    /// ``MutableFrame/removeFromParent(_:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
-    public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
-        let parent = self.mutate(parentID)
-        let child = self.mutate(childID)
-        
-        precondition(child.parent == nil)
-        
-        child.parent = parentID
-        parent.children.add(childID)
-    }
-    
-    /// Remove an object `childID` from parent `parentID`.
-    ///
-    /// The child is removed from the list of children of the parent. Child's
-    /// parent will be set to `nil`.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// both parent and a child.
-    ///
-    /// The object will remain in the frame, will not be deleted.
-    ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
-    /// ``MutableFrame/addChild(_:to:)``,
-    /// ``MutableFrame/removeFromParent(_:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
-    public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
-        let parent = self.mutate(parentID)
-        let child = self.mutate(childID)
-
-        precondition(child.parent == parentID)
-        precondition(parent.children.contains(childID))
-
-        parent.children.remove(childID)
-        child.parent = nil
-    }
-    
-    /// Move a child to a different parent.
-    ///
-    /// If the child has a parent, then the child will be removed from the
-    /// parent's children list.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// a child. Mutable version of the old parent will be created, if
-    /// necessary.
-    ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
-    /// ``MutableFrame/addChild(_:to:)``,
-    /// ``MutableFrame/removeChild(_:from:)``,
-    /// ``MutableFrame/removeFromParent(_:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
-    public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
-        let child = mutate(childID)
-        if let originalParentID = child.parent {
-            mutate(originalParentID).children.remove(childID)
-        }
-        child.parent = parentID
-        if let parentID {
-            mutate(parentID).children.add(childID)
-        }
-    }
-    
-    /// Removes a child from its parent.
-    ///
-    /// If the child has a parent, it will be removed from the parent's children
-    /// list.
-    ///
-    /// This is a mutating function – it creates a mutable version of
-    /// a child. Mutable version of the old parent will be created, if
-    /// necessary.
-    ///
-    /// The object will remain in the frame, will not be deleted.
-    ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
-    /// ``MutableFrame/addChild(_:to:)``,
-    /// ``MutableFrame/removeChild(_:from:)``,
-    /// ``MutableFrame/removeCascading(_:)``.
-    public func removeFromParent(_ childID: ObjectID) {
-        let child = self[childID]
-        guard let parentID = child.parent else {
-            return
-        }
-        let parent = self[parentID]
-        guard parent.children.contains(childID) else {
-            return
-        }
-        
-        mutate(parentID).children.remove(childID)
-        mutate(childID).parent = nil
-    }
-
 }
 
 

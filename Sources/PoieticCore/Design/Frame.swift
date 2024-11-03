@@ -7,7 +7,7 @@
 
 /// Protocol for version frames.
 ///
-/// Fame Base is a protocol for all version frame types: ``MutableFrame`` and
+/// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``StableFrame``
 ///
 public protocol Frame: Graph {
@@ -336,7 +336,7 @@ extension Frame /* Graph */ {
 /// To create a derivative frame from a stable frame use
 /// ``Design/deriveFrame(original:id:)``.
 ///
-/// - SeeAlso: ``MutableFrame``
+/// - SeeAlso: ``TransientFrame``
 ///
 public class StableFrame: Frame {
     /// Design to which the frame belongs.

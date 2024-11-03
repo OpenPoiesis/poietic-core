@@ -12,7 +12,7 @@ import XCTest
 final class JSONFrameReaderTests: XCTestCase {
     
     var design: Design!
-    var frame: MutableFrame!
+    var frame: TransientFrame!
     var loader: ForeignFrameLoader!
     var reader: JSONFrameReader!
     

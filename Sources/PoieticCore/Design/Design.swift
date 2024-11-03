@@ -24,7 +24,7 @@
 ///
 /// The design distinguishes between two states of a version frame:
 /// ``StableFrame`` – immutable version snapshot of a frame, that is guaranteed
-/// to be valid and follow all required constraints. The ``MutableFrame``
+/// to be valid and follow all required constraints. The ``TransientFrame``
 /// represents a transactional frame, which is "under construction" and does
 /// not have yet to maintain integrity. The integrity is enforced once the
 /// frame is accepted using ``Design/accept(_:appendHistory:)``.
@@ -33,7 +33,7 @@
 /// associated with the frame. They are guaranteed to follow requirements of
 /// the metamodel. They are persisted.
 ///
-/// ``MutableFrame``s can be changed, they do not have to follow requirements
+/// ``TransientFrame``s can be changed, they do not have to follow requirements
 /// of the metamodel. They are _not_ persisted. See _Archiving_ below.
 ///
 /// The concept of frames allows us to have functionality like undo/redo,
@@ -52,11 +52,11 @@
 ///
 /// 1. Derive a new frame from an existing one using ``deriveFrame(original:id:)``
 ///    or create a new empty frame using ``createFrame(id:)`` which produces
-///    a new ``MutableFrame``.
-/// 2. Add objects to the derived frame using ``MutableFrame/create(_:structure:attributes:components:)``
-///    or ``MutableFrame/insert(_:owned:)``.
+///    a new ``TransientFrame``.
+/// 2. Add objects to the derived frame using ``TransientFrame/create(_:structure:attributes:components:)``
+///    or ``TransientFrame/insert(_:owned:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
-///    snapshot of the object using ``MutableFrame/mutableObject(_:)`` and
+///    snapshot of the object using ``TransientFrame/mutableObject(_:)`` and
 ///    make changes using the returned new snapshot.
 /// 4. Conclude all the changes by accepting the frame ``accept(_:appendHistory:)``.
 ///
@@ -73,7 +73,7 @@
 /// ## Archiving
 ///
 /// The design can be archived (in the future incrementally synchronised)
-/// to a persistent store. All stable frames are stored. Mutable frames are not
+/// to a persistent store. All stable frames are stored. Transient frames are not
 /// included in the archive and therefore not restored after unarchiving.
 /// Therefore one can rely on the archive containing only frames that maintain integrity as defined by the
 /// metamodel.
@@ -84,7 +84,7 @@
 ///   how it is expected to work.
 ///
 /// The design keeps only those object snapshots which are contained in frames,
-/// be it a mutable frame or a stable frame. If a frame is removed, all objects
+/// be it a transient frame or a stable frame. If a frame is removed, all objects
 /// that are referred to only by that frame and no other frame, are removed
 /// from the design as well.
 ///
@@ -118,7 +118,7 @@ public class Design {
     
     var _allSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
-    var _mutableFrames: [FrameID: MutableFrame]
+    var _transientFrames: [FrameID: TransientFrame]
     
     /// Chronological list of frame IDs.
     ///
@@ -174,7 +174,7 @@ public class Design {
         // NOTE: Sync with removeAll()
         self.objectIDSequence = 1
         self._stableFrames = [:]
-        self._mutableFrames = [:]
+        self._transientFrames = [:]
         self._allSnapshots = [:]
         self.undoableFrames = []
         self.redoableFrames = []
@@ -205,7 +205,7 @@ public class Design {
                          "Trying to allocate an ID \(id) that is already used as a snapshot ID")
             precondition(_stableFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a stable frame ID")
-            precondition(_mutableFrames[id] == nil,
+            precondition(_transientFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
             
             // Mark the ID as used
@@ -284,7 +284,7 @@ public class Design {
     ///
     /// The newly derived frame will not own any of the objects from the
     /// original frame.
-    /// See ``MutableFrame/init(design:id:snapshots:)`` for more information
+    /// See ``TransientFrame/init(design:id:snapshots:)`` for more information
     /// about how the objects from the original frame are going to be treated.
     ///
     /// - Precondition: The `original` frame must exist in the design.
@@ -294,25 +294,25 @@ public class Design {
     ///
     @discardableResult
     public func createFrame(deriving original: StableFrame? = nil,
-                            id: FrameID? = nil) -> MutableFrame {
+                            id: FrameID? = nil) -> TransientFrame {
         let actualID = allocateID(required: id)
         
-        let derived: MutableFrame
+        let derived: TransientFrame
 
         if let original {
             precondition(original.design === self, "Trying to clone a frame from different design")
             
-            derived = MutableFrame(design: self,
+            derived = TransientFrame(design: self,
                                    id: actualID,
                                    snapshots: original.snapshots)
         }
         else {
-            derived = MutableFrame(design: self,
+            derived = TransientFrame(design: self,
                                    id: actualID)
         }
 
 
-        _mutableFrames[actualID] = derived
+        _transientFrames[actualID] = derived
         return derived
     }
     
@@ -327,8 +327,8 @@ public class Design {
         if _stableFrames[id] != nil {
             _stableFrames[id] = nil
         }
-        else if _mutableFrames[id] != nil {
-            _mutableFrames[id] = nil
+        else if _transientFrames[id] != nil {
+            _transientFrames[id] = nil
         }
         else {
             fatalError("Removing frame failed: unknown frame ID \(id)")
@@ -356,30 +356,33 @@ public class Design {
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the design.
     ///
-    /// - SeeAlso: ``ConstraintChecker/check(_:)``, ``MutableFrame/promote(_:)``
+    /// - SeeAlso: ``ConstraintChecker/check(_:)``, ``TransientFrame/promote(_:)``
+    ///
+    /// - Precondition: Frame must belong to the design.
+    /// - Precondition: Frame must be in transient state.
+    /// - Precondition: Frame with give ID must not be already accepted and must
+    ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: MutableFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> StableFrame {
-        precondition(frame.design === self,
-                     "Trying to accept a frame from a different design")
-        precondition(frame.state.isMutable,
-                     "Trying to accept a frozen frame")
+    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> StableFrame {
+        precondition(frame.design === self)
+        precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
-                     "Trying to accept a frame with ID (\(frame.id)) that has already been accepted")
-        precondition(_mutableFrames[frame.id] != nil,
-                     "Trying to accept am unknown frame with ID (\(frame.id))")
+                     "Trying to accept already accepted frame (id: \(frame.id))")
+        precondition(_transientFrames[frame.id] != nil,
+                     "Trying to accept unknown transient frame (id: \(frame.id))")
         
         let checker = ConstraintChecker(metamodel)
         
         try checker.check(frame)
 
-        frame.promote(.validated)
+        frame.markAccepted()
         
         let stableFrame = StableFrame(design: self,
                                       id: frame.id,
                                       snapshots: frame.snapshots)
         _stableFrames[frame.id] = stableFrame
-        _mutableFrames[frame.id] = nil
+        _transientFrames[frame.id] = nil
         
         if appendHistory {
             if let currentFrameID {
@@ -394,17 +397,13 @@ public class Design {
     
     /// Discards the mutable frame that is associated with the design.
     ///
-    public func discard(_ frame: MutableFrame) {
-        // TODO: Garbage collection
-        
-        precondition(frame.design === self,
-                     "Trying to discard a frame from a different design")
-        precondition(frame.state.isMutable,
-                     "Trying to discard a frozen frame")
-        // FIXME: use .discarded
-        frame.promote(.validated)
+    public func discard(_ frame: TransientFrame) {
+        precondition(frame.design === self)
+        precondition(frame.state == .transient)
 
-        _mutableFrames[frame.id] = nil
+        frame.markDiscarded()
+
+        _transientFrames[frame.id] = nil
 
         for snap in frame.derivedObjects {
             self._allSnapshots.removeValue(forKey: snap.snapshotID)
@@ -500,7 +499,7 @@ public class Design {
         self.objectIDSequence = 1
         self._allSnapshots.removeAll()
         self._stableFrames.removeAll()
-        self._mutableFrames.removeAll()
+        self._transientFrames.removeAll()
         self.undoableFrames.removeAll()
         self.redoableFrames.removeAll()
     }

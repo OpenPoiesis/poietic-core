@@ -24,7 +24,7 @@ public typealias ObjectID = ID
 /// The snapshot ID is unique within a design containing the snapshot.
 ///
 /// SeeAlso: ``ObjectSnapshot``, ``Design``,
-///     ``Design/allocateID(required:)``, ``MutableFrame/mutableObject(_:)``
+///     ``Design/allocateID(required:)``, ``TransientFrame/mutableObject(_:)``
 ///
 public typealias SnapshotID = ID
 

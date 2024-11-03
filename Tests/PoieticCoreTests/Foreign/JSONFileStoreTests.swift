@@ -41,7 +41,7 @@ final class JSONFileStoreTests: XCTestCase {
         return fileURL
     }
     var db: Design!
-    var frame: MutableFrame!
+    var frame: TransientFrame!
     var graph: MutableGraph!
     
     override func setUp() {

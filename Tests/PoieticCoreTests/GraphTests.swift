@@ -11,7 +11,7 @@ import XCTest
 
 final class GraphTests: XCTestCase {
     var design: Design!
-    var frame: MutableFrame!
+    var frame: TransientFrame!
     
     override func setUp() {
         design = Design()

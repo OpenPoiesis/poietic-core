@@ -22,7 +22,7 @@ final class DesignTests: XCTestCase {
         
         try design.accept(frame)
         
-        XCTAssertFalse(frame.state.isMutable)
+        XCTAssertEqual(frame.state, .accepted)
         XCTAssertTrue(design.containsFrame(frame.id))
     }
     
@@ -64,7 +64,7 @@ final class DesignTests: XCTestCase {
         design.discard(frame)
         
         XCTAssertEqual(design.versionHistory.count, 0)
-        XCTAssertEqual(frame.state, VersionState.validated)
+        XCTAssertEqual(frame.state, .discarded)
     }
    
     func testDiscardGarbageCollect() throws {

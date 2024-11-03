@@ -26,7 +26,7 @@ extension Design {
     /// - Note: Existence of the parent is not verified, it will be during the
     ///   frame insertion.
     ///
-    /// - SeeAlso: ``MutableFrame/insert(_:)``
+    /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
     public func createSnapshot(_ type: ObjectType,
                                id: ObjectID? = nil,
