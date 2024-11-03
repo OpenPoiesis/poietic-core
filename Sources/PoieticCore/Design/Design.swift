@@ -401,8 +401,14 @@ public class Design {
                      "Trying to discard a frame from a different design")
         precondition(frame.state.isMutable,
                      "Trying to discard a frozen frame")
+        // FIXME: use .discarded
         frame.promote(.validated)
+
         _mutableFrames[frame.id] = nil
+
+        for snap in frame.derivedObjects {
+            self._allSnapshots.removeValue(forKey: snap.snapshotID)
+        }
     }
     
     /// Flag whether the design has any un-doable frames.

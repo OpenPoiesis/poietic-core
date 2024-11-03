@@ -66,7 +66,34 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.versionHistory.count, 0)
         XCTAssertEqual(frame.state, VersionState.validated)
     }
+   
+    func testDiscardGarbageCollect() throws {
+        let design = Design()
+        let frame = design.createFrame()
+        let id = frame.create(TestType)
+        let obj = frame[id]
+        
+        XCTAssertNotNil(design.snapshot(obj.snapshotID))
+        design.discard(frame)
+        XCTAssertNil(design.snapshot(obj.snapshotID))
+    }
     
+    func testDiscardGarbageCollectOnlyNew() throws {
+        let design = Design(metamodel: TestMetamodel)
+        let frame = design.createFrame()
+        let old = frame.create(TestType)
+        let stable = try design.accept(frame)
+
+        let trans = design.createFrame(deriving: stable)
+        let new = trans.create(TestType)
+        
+        XCTAssertNotNil(design.snapshot(trans[old].snapshotID))
+        XCTAssertNotNil(design.snapshot(trans[new].snapshotID))
+        design.discard(trans)
+        XCTAssertNotNil(design.snapshot(trans[old].snapshotID))
+        XCTAssertNil(design.snapshot(trans[new].snapshotID))
+    }
+
     func testRemoveObject() throws {
         let design = Design(metamodel: self.metamodel)
         let originalFrame = design.createFrame()

@@ -274,7 +274,6 @@ final class MutableFrameTests: XCTestCase {
         XCTAssertEqual(frame[c].parent, b)
     }
     func testRemoveFromParent() throws {
-        // TODO: Test remove from non-owned parent
         let frame = design.createFrame()
         
         let a = frame.create(TestType)
@@ -294,7 +293,6 @@ final class MutableFrameTests: XCTestCase {
     }
 
     func testRemoveFromUnownedParentMutates() throws {
-        // TODO: Test remove from non-owned parent
         let frame = design.createFrame()
         
         let p = frame.create(TestType)
@@ -318,7 +316,6 @@ final class MutableFrameTests: XCTestCase {
         derived.removeFromParent(c2)
         XCTAssertEqual(derivedP.snapshotID, derived[p].snapshotID)
     }
-
     
     func testRemoveCascadingChildren() throws {
         // a - b - c
