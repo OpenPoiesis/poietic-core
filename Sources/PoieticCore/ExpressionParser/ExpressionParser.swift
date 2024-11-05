@@ -129,7 +129,7 @@ public class ExpressionParser {
     ///
     ///     variable_call -> IDENTIFIER ["(" ARGUMENTS ")"]
     ///
-    func variable_or_call() throws -> (any ExpressionSyntax)? {
+    func variable_or_call() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         guard let ident = identifier() else {
             return nil
         }
@@ -175,7 +175,7 @@ public class ExpressionParser {
     ///
     ///     primary -> NUMBER | STRING | VARIABLE_OR_CALL | "(" expression ")" ;
     ///
-    func primary() throws -> (any ExpressionSyntax)? {
+    func primary() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         // TODO: true, false, nil
         if let node = number() {
             return node
@@ -201,7 +201,7 @@ public class ExpressionParser {
     ///
     ///     unary -> "-" unary | primary ;
     ///
-    func unary() throws -> (any ExpressionSyntax)? {
+    func unary() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         // TODO: Add '!'
         if let op = `operator`("-") {
             guard let right = try unary() else {
@@ -220,7 +220,7 @@ public class ExpressionParser {
     ///
     ///     factor -> unary ( ( "/" | "*" ) unary )* ;
     ///
-    func factor() throws -> (any ExpressionSyntax)? {
+    func factor() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         guard var left: any ExpressionSyntax = try unary() else {
             return nil
         }
@@ -241,7 +241,7 @@ public class ExpressionParser {
     ///
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
-    func term() throws -> (any ExpressionSyntax)? {
+    func term() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         guard var left: any ExpressionSyntax = try factor() else {
             return nil
         }
@@ -262,7 +262,7 @@ public class ExpressionParser {
     ///
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
-    func comparison_expression() throws -> (any ExpressionSyntax)? {
+    func comparison_expression() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         guard var left: any ExpressionSyntax = try term() else {
             return nil
         }
@@ -286,7 +286,7 @@ public class ExpressionParser {
     ///
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
-    func equality_expression() throws -> (any ExpressionSyntax)? {
+    func equality_expression() throws (ExpressionSyntaxError) -> (any ExpressionSyntax)? {
         guard var left: any ExpressionSyntax = try comparison_expression() else {
             return nil
         }
@@ -303,7 +303,7 @@ public class ExpressionParser {
         return left
     }
 
-    func expression() throws -> ExpressionSyntax? {
+    func expression() throws (ExpressionSyntaxError) -> ExpressionSyntax? {
         return try equality_expression()
     }
     
@@ -311,7 +311,7 @@ public class ExpressionParser {
     /// Parse the expression and return an unbound arithmetic expression.
     ///
     /// - Throws: `SyntaxError` when there is an issue with the expression.
-    public func parse() throws -> UnboundExpression {
+    public func parse() throws (ExpressionSyntaxError) -> UnboundExpression {
         guard let expr = try expression() else {
             throw ExpressionSyntaxError.expressionExpected
         }
