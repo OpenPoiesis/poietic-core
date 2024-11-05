@@ -81,7 +81,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.int,    .array(.int)):    true
         case (.int,    .array(.double)): true
         case (.int,    .array(.point)):  false
-        case (.int,    .atom(.point)):    items.count == 2
+        case (.int,    .atom(.point)):   items.count == 2
         case (.int,    .atom(_)):        false
             
             // Double to string or to itself
@@ -90,7 +90,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.double, .array(.int)):    true
         case (.double, .array(.double)): true
         case (.double, .array(.point)):  false
-        case (.double, .atom(.point)):    items.count == 2
+        case (.double, .atom(.point)):   items.count == 2
         case (.double, .atom(_)):        false
             
             // String to all except point
@@ -108,11 +108,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case (.point, .array(.double)): false
         case (.point, .array(.point)):  true
             
-        case (.point, .atom(.string)): false
-        case (.point, .atom(.bool)):   false
-        case (.point, .atom(.int)):    true
-        case (.point, .atom(.double)): true
-        case (.point, .atom(.point)):  false
+        case (.point, .atom(_)): false
         }
     }
     
@@ -173,6 +169,28 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         }
     }
     
+    /// Get a point value from an array of items.
+    ///
+    /// The array is convertible to a point if it has exactly two items and
+    /// when both items are convertible to a double.
+    ///
+    public func pointValue() throws (ValueError) -> Point {
+        switch self {
+        case .double(let items):
+            guard items.count == 2 else {
+                throw ValueError.conversionFailed(.array(itemType), .point)
+            }
+            return Point(x: items[0], y: items[1])
+        case .int(let items):
+            guard items.count == 2 else {
+                throw ValueError.conversionFailed(.array(itemType), .point)
+            }
+            return Point(x: Double(items[0]), y: Double(items[1]))
+        default:
+            throw ValueError.notConvertible(.array(itemType), .point)
+        }
+    }
+
     
     public var description: String {
         let content: String

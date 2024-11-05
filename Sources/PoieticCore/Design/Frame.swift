@@ -390,9 +390,11 @@ public class StableFrame: Frame {
     
     /// Return an object snapshots with given object ID.
     ///
+    /// - Precondition: Frame must contain object with given ID.
+    ///
     public func object(_ id: ObjectID) -> ObjectSnapshot {
         guard let snapshot = _snapshots[id] else {
-            fatalError("Frame \(self.id) does not contain object \(id)")
+            preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }
         return snapshot
     }

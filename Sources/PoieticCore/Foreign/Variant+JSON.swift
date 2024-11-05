@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 11/07/2023.
 //
 
-// TODO: [REFACTORING] Consolidate this error with other errors
+// TODO: Consolidate this error with other errors
 public enum ForeignValueError: Error {
     case notConvertible
     case invalidPointValue
@@ -87,7 +87,6 @@ extension VariantArray {
     // TODO: Make it into init()
     public static func fromJSONItems(_ items: [JSONValue], path: [String] = []) throws (ForeignValueError) -> VariantArray {
         if items.count == 0 {
-            // TODO: Have empty array variant?
             // We default to a string array, as it is the most to-value convertible
             return .string([])
         }

@@ -194,18 +194,17 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         // Double to string or to itself
         case (.double, .atom(.string)): true
         case (.double, .atom(.bool)):   false
-        // not loselessly
-        case (.double, .atom(.int)):    true
+        case (.double, .atom(.int)):    true // not lossless
         case (.double, .atom(.double)): true
         case (.double, .atom(.point)):  false
         case (.double, .array(_)):      false
             
         // String to all except point
         case (.string, .atom(.string)): true
-        case (.string, .atom(.bool)):   true
-        case (.string, .atom(.int)):    true
-        case (.string, .atom(.double)): true
-        case (.string, .atom(.point)):  false
+        case (.string, .atom(.bool)):   (try? boolValue()) != nil
+        case (.string, .atom(.int)):    (try? intValue()) != nil
+        case (.string, .atom(.double)): (try? doubleValue()) != nil
+        case (.string, .atom(.point)):  (try? pointValue()) != nil
         case (.string, .array(_)):      false
             
         // Point to string or itself

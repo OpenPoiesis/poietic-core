@@ -83,9 +83,9 @@ public final class ObjectType: Sendable {
         var attributes: [Attribute] = []
         for trait in traits {
             for attr in trait.attributes {
-                guard attributeTraits[attr.name] == nil else {
-                    fatalError("Object type '\(name)' has duplicate attribute \(attr.name) in trait: \(trait)")
-                }
+                precondition(attributeTraits[attr.name] == nil,
+                             "Object type '\(name)' has duplicate attribute \(attr.name) in trait: \(trait)")
+
                 attributeTraits[attr.name] = trait
                 attributeMap[attr.name] = attr
                 attributes.append(attr)

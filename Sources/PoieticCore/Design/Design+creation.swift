@@ -27,6 +27,9 @@ extension Design {
     ///   frame insertion.
     ///
     /// - SeeAlso: ``TransientFrame/insert(_:)``
+    /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
+    ///   in the design.
+    /// - Precondition: `structure` must match ``ObjectType/structuralType``.
     ///
     public func createSnapshot(_ type: ObjectType,
                                id: ObjectID? = nil,

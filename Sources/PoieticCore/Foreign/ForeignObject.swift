@@ -24,7 +24,7 @@ public protocol ForeignObject {
     ///
     var structuralType: StructuralType? { get }
 
-    // FIXME: Depreate name here, use "id"
+    // TODO: Depreate name here, use "id"
     /// Name of the foreign object.
     ///
     /// The name is also used in the ``ForeignFrameLoader/load(_:into:)`` as

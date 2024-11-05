@@ -69,7 +69,6 @@ public final class Constraint: Sendable {
     ///
     public let name: String
     
-    // TODO: Rename to non-conflicting attribute, like "message"
     /// Human-readable description of the constraint. The recommended content
     /// can be:
     ///

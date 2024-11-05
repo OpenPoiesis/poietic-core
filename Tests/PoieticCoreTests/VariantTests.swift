@@ -101,7 +101,6 @@ final class OldForeignValueJSONTests: XCTestCase {
     }
     
     func testVariantFromJSON() throws {
-        // TODO: Int should be int
         XCTAssertEqual(try Variant.fromJSON(toJSON("0")).valueType, .int)
         XCTAssertEqual(try Variant.fromJSON(toJSON("1")).valueType, .int)
         XCTAssertEqual(try Variant.fromJSON(toJSON("10")).valueType, .int)
@@ -120,22 +119,6 @@ final class OldForeignValueJSONTests: XCTestCase {
         XCTAssertEqual(try VariantAtom("hello").asJSON().asJSONString(), "\"hello\"")
         XCTAssertEqual(try VariantAtom(Point(10, 20)).asJSON().asJSONString(), "[10,20]")
     }
-//
-//    
-//    func testValueFromJSON() throws {
-//        // TODO: Int should be int
-//        XCTAssertEqual(try Variant.fromJSON("10").valueType, .double)
-//        XCTAssertEqual(try ForeignValue.fromJSON("10.0").valueType, .double)
-//        XCTAssertEqual(try ForeignValue.fromJSON("true").valueType, .bool)
-//        XCTAssertEqual(try ForeignValue.fromJSON("\"hello\"").valueType, .string)
-////        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").valueType, .point)
-//
-//        XCTAssertEqual(try ForeignValue.fromJSON("[10, 20]").arrayItemType, .double)
-//        XCTAssertEqual(try ForeignValue.fromJSON("[\"a\", \"b\"]").arrayItemType, .string)
-//        XCTAssertEqual(try ForeignValue.fromJSON("[[10, 20], [30, 40]]").arrayItemType, .point)
-//
-//        XCTAssertThrowsError(try ForeignValue.fromJSON("[\"a\", 10]"))
-//    }
 }
 
 

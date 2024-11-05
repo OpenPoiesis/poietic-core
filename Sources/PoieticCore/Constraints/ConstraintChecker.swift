@@ -29,7 +29,6 @@ extension ObjectSnapshot {
         for attr in trait.attributes {
             if let value = self[attr.name] {
 
-                // TODO: Enable type checking
                 // For type validation to work correctly we must make sure that
                 // the types are persisted and restored.
                 //

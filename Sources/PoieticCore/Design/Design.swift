@@ -331,7 +331,7 @@ public class Design {
             _transientFrames[id] = nil
         }
         else {
-            fatalError("Removing frame failed: unknown frame ID \(id)")
+            preconditionFailure("Unknown frame ID \(id) in \(#function)")
         }
     }
     
@@ -489,18 +489,5 @@ public class Design {
             violations.append(violation)
         }
         return violations
-    }
-    
-    /// Remove everything from the design.
-    ///
-    func removeAll() {
-        // TODO: [REVIEW] We needed this for archival. Is it still relevant?
-        // NOTE: Sync with init(...)
-        self.objectIDSequence = 1
-        self._allSnapshots.removeAll()
-        self._stableFrames.removeAll()
-        self._transientFrames.removeAll()
-        self.undoableFrames.removeAll()
-        self.redoableFrames.removeAll()
     }
 }

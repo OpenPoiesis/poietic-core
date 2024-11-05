@@ -120,7 +120,7 @@ public final class ForeignFrameLoader {
                     actualSnapshotID = design.allocateID()
                 }
 
-            // FIXME: Deprecate, use ID
+            // TODO: Deprecate, use ID
             if let name = object.name {
                 references[name] = actualID
             }

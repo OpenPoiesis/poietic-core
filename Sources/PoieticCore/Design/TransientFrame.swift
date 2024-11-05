@@ -97,9 +97,11 @@ public class TransientFrame: Frame {
     
     /// Get an object version of object with identity `id`.
     ///
+    /// - Precondition: Frame must contain object with given ID.
+    ///
     public func object(_ id: ObjectID) -> ObjectSnapshot {
         guard let ref = objects[id] else {
-            fatalError("Invalid object ID \(id) in frame \(self.id).")
+            preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }
         return ref.snapshot
     }
@@ -186,12 +188,15 @@ public class TransientFrame: Frame {
     /// If the requirements are not met, then it is considered a programming
     /// error.
     ///
+    /// - Precondition: References such as edge endpoints, parent, children
+    ///   must be valid within the frame.
+    ///
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``TransientFrame/unsafeInsert(_:owned:)``
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // Check for referential integrity
         guard brokenReferences(snapshot: snapshot).isEmpty else {
-            fatalError("Trying to insert an object that contains invalid references. Hint: Check structure, children or parent.")
+            preconditionFailure("Trying to insert an object that contains invalid references")
         }
         unsafeInsert(snapshot, owned: true)
     }
@@ -401,7 +406,7 @@ public class TransientFrame: Frame {
         precondition(state == .transient)
 
         guard let originalRef = self.objects[id] else {
-            fatalError("No object with ID \(id) in frame ID \(self.id)")
+            preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
         if originalRef.owned {
             return originalRef.snapshot

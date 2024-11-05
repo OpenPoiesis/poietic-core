@@ -68,8 +68,7 @@ struct TestComponent:Component {
         switch key {
         case "text": self.text = try value.stringValue()
         default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
+            fatalError("Unknown attribute")
         }
     }
 }
@@ -104,13 +103,11 @@ struct IntegerComponent: Component, Equatable {
         switch key {
         case "value": self.value = try value.intValue()
         default:
-            throw AttributeError.unknownAttribute(name: key,
-                                                  type: String(describing: type(of: self)))
+            fatalError("Unknown attribute")
         }
     }
 }
 
-// TODO: Move to ObjectType
 extension ObjectType {
     static let Unstructured = ObjectType(
         name: "Unstructured",

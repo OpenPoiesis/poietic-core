@@ -29,14 +29,14 @@ extension ExpressionSyntax {
                 var sanitizedNumber = node.literal.text
                 sanitizedNumber.removeAll { $0 == "_" }
                 guard let value = Int(sanitizedNumber) else {
-                    fatalError("Unable to convert integer token '\(node.literal.text)' to actual Int. Internal hint: lexer seems to be broken.")
+                    fatalError("Unable to convert integer token '\(node.literal.text)' to actual Int. Broken lexer?")
                 }
                 return .value(Variant(value))
             case .double:
                 var sanitizedNumber = node.literal.text
                 sanitizedNumber.removeAll { $0 == "_" }
                 guard let value = Double(sanitizedNumber) else {
-                    fatalError("Unable to convert double token '\(node.literal.text)' to actual Double. Internal hint: lexer seems to be broken.")
+                    fatalError("Unable to convert double token '\(node.literal.text)' to actual Double. Broken lexer?")
                 }
                 return .value(Variant(value))
             }

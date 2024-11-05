@@ -204,7 +204,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
             types.contains { isConvertible(to: $0) }
         }
     }
-
+    
     /// Return an underlying atom value type or `nil` if the variant
     /// is an array.
     ///
@@ -350,21 +350,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     public func pointValue() throws (ValueError) -> Point {
         switch self {
         case .atom(let value): return try value.pointValue()
-        case .array(let array):
-            switch array {
-            case .double(let items):
-                guard items.count == 2 else {
-                    throw ValueError.conversionFailed(self.valueType, .point)
-                }
-                return Point(x: items[0], y: items[1])
-            case .int(let items):
-                guard items.count == 2 else {
-                    throw ValueError.conversionFailed(self.valueType, .point)
-                }
-                return Point(x: Double(items[0]), y: Double(items[1]))
-            default:
-                throw ValueError.notConvertible(self.valueType, .point)
-            }
+        case .array(let array): return try array.pointValue()
         }
     }
 
