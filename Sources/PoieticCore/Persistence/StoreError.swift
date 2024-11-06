@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StoreError.swift
 //  
 //
 //  Created by Stefan Urbanek on 08/05/2024.
@@ -7,41 +7,62 @@
 
 import Foundation
 
+/// An error thrown when saving and restoring a design to/from a persistent
+/// store.
+///
+/// - SeeAlso: ``MakeshiftDesignStore/load(metamodel:)``,
+///   ``MakeshiftDesignStore/save(design:)``
+///
 public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
-    // Tested:
+    
+    // Main errors
     case storeMissing
     case cannotOpenStore(URL)
+    case unableToWrite(URL)
     case dataCorrupted
+    case unsupportedFormatVersion(String)
+
+    // Decoding errors
     case missingProperty(String, [String])
     case typeMismatch([String])
+    
+    // The following errors can be put under a single error "dataStructureIntegrityError".
+    // Users should not be bothered with the details of the error, only tool developers.
+
+    // Integrity errors
     case unknownObjectType(String)
     case invalidStructuralType(String)
     case structuralTypeMismatch(StructuralType, StructuralType)
     case duplicateSnapshot(ObjectID)
-    
-    // NOT TESTED:
+    case extraneousStructuralProperty(StructuralType, String)
+    case missingStructuralProperty(StructuralType, String)
     case duplicateFrame(ObjectID)
     case invalidSnapshotReference(ObjectID, ObjectID)
-    case missingStructuralProperty(StructuralType, String)
-    case extraneousStructuralProperty(StructuralType, String)
+    case frameValidationFailed(ObjectID)
     case currentFrameIDNotSet
-    case unsupportedFormatVersion(String)
     case invalidFrameReference(String, ObjectID)
     
-    case frameConstraintError(ObjectID)
-
     public var description: String {
         switch self {
+        // Main errors
         case .storeMissing:
             "Design store is missing (no data or no URL)."
         case let .cannotOpenStore(url):
-            "Can not open design store: \(url)"
+            "Can not open design store: \(url.absoluteString)"
+        case let .unableToWrite(url):
+            "Can not write store to: \(url.absoluteString)"
         case .dataCorrupted:
             "Store data is corrupted"
+        case let .unsupportedFormatVersion(version):
+            "Unsupported store format version: \(version)"
+
+        // Decoding errors
         case let .missingProperty(property, path):
             "Missing property '\(property)' at \(path)"
         case let .typeMismatch(path):
             "Type mismatch at key path \(path)"
+
+        // Integrity errors
         case let .unknownObjectType(type):
             "Unknown object type '\(type)'"
         case let .invalidStructuralType(type):
@@ -50,8 +71,6 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Structural type mismatch, expected: \(expected), provided: \(provided)"
         case let .duplicateSnapshot(id):
             "Duplicate snapshot \(id)"
-        
-        // NOT TESTED:
         case let .duplicateFrame(id):
             "Duplicate frame \(id)"
         case let .invalidSnapshotReference(owner, ref):
@@ -62,12 +81,10 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Extraneous structural property \(property) for \(type)"
         case     .currentFrameIDNotSet:
             "Missing current frame ID"
-        case let .unsupportedFormatVersion(version):
-            "Unsupported format version: \(version)"
+        case let .frameValidationFailed(id):
+            "Constraint validation of frame \(id) failed"
         case let .invalidFrameReference(context, id):
-            "Invalid frame reference \(id) in \(context)"
-        case let .frameConstraintError(id):
-            "Constraint error in frame \(id)"
+            "Invalid frame reference: \(id) in: \(context)"
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MakeshiftDesignStore.swift
 //
 //
 //  Created by Stefan Urbanek on 20/10/2023.
@@ -21,7 +21,10 @@ import Foundation
 /// - Note: This is a solution before we get a proper store design.
 ///
 public class MakeshiftDesignStore {
-    static let FormatVersion = "0.0.4"
+    // Development note: The format version should be the latest version tag
+    // when the format has changed.
+    //
+    static let FormatVersion = "0.3"
     
     public let data: Data?
     public let url: URL?
@@ -83,18 +86,24 @@ public class MakeshiftDesignStore {
     /// - Throws: ``PersistentStoreError``.
     ///
     func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
-        let design = Design(metamodel: metamodel)
-
-        // TODO: Handle different versions here
-        if perDesign.storeFormatVersion != MakeshiftDesignStore.FormatVersion {
+        switch perDesign.storeFormatVersion {
+        case "0.0.4", Self.FormatVersion:
+            return try restoreCurrentVersion(perDesign, metamodel: metamodel)
+        // case "x.y.z":
+        //     return try restoreVersionX_Y_Z(perDesign, metamodel: metamodel)
+        default:
             throw .unsupportedFormatVersion(perDesign.storeFormatVersion)
         }
+    }
+
+    func restoreCurrentVersion(_ persistent: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
+        let design = Design(metamodel: metamodel)
 
         // 1. Read Snapshots
         // ----------------------------------------------------------------
         var snapshots: [SnapshotID: ObjectSnapshot] = [:]
 
-        for perSnapshot in perDesign.snapshots {
+        for perSnapshot in persistent.snapshots {
             guard let type = metamodel.objectType(name: perSnapshot.type) else {
                 throw .unknownObjectType(perSnapshot.type)
             }
@@ -153,7 +162,7 @@ public class MakeshiftDesignStore {
 
         // 3. Read frames
         // ----------------------------------------------------------------
-        for perFrame in perDesign.frames {
+        for perFrame in persistent.frames {
             if design.containsFrame(perFrame.id) {
                 throw .duplicateFrame(perFrame.id)
             }
@@ -172,38 +181,41 @@ public class MakeshiftDesignStore {
                 try design.accept(newFrame)
             }
             catch {
-                throw .frameConstraintError(newFrame.id)
+                throw .frameValidationFailed(newFrame.id)
             }
         }
         
         // 4. Design state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
-        for item in perDesign.state.undoableFrames {
+        for item in persistent.state.undoableFrames {
             if !design.containsFrame(item) {
                 throw PersistentStoreError.invalidFrameReference("undoable_frames", item)
             }
         }
-        design.undoableFrames = perDesign.state.undoableFrames
+        design.undoableFrames = persistent.state.undoableFrames
 
-        for item in perDesign.state.redoableFrames {
+        for item in persistent.state.redoableFrames {
             if !design.containsFrame(item) {
                 throw PersistentStoreError.invalidFrameReference("redoable_frames", item)
             }
         }
-        design.redoableFrames = perDesign.state.redoableFrames
+        design.redoableFrames = persistent.state.redoableFrames
 
         // Consistency check: currentFrameID must be set when there is history.
-        if perDesign.state.currentFrame == nil
+        if persistent.state.currentFrame == nil
             && (!design.undoableFrames.isEmpty || !design.redoableFrames.isEmpty) {
             throw PersistentStoreError.currentFrameIDNotSet
         }
-        design.currentFrameID = perDesign.state.currentFrame
+        design.currentFrameID = persistent.state.currentFrame
 
         return design
     }
     
-    public func save(design: Design) throws {
+    /// Save the design to store's URL.
+    ///
+    /// - Throws: ``PersistentStoreError/unableToWrite(_:)``
+    public func save(design: Design) throws (PersistentStoreError) {
         guard let url = self.url else {
             fatalError("No store URL set to save design to.")
         }
@@ -253,8 +265,21 @@ public class MakeshiftDesignStore {
         
         let encoder = JSONEncoder()
         
-        let data = try encoder.encode(perDesign)
-        try data.write(to: url)
+        let data: Data
+        do {
+            data = try encoder.encode(perDesign)
+        }
+        catch {
+            // Not user's fault, it is ours.
+            fatalError("Unable to encode design for persistent store. Underlying error: \(error)")
+        }
+        
+        do {
+            try data.write(to: url)
+        }
+        catch {
+            throw .unableToWrite(url)
+        }
     }
 }
 
