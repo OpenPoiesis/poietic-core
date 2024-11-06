@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import PoieticCore
-
+import RegexBuilder
 final class VariantTests: XCTestCase {
     func testIntFromString() throws {
         XCTAssertEqual(try Variant("10").intValue(), 10)
@@ -35,7 +35,7 @@ final class VariantTests: XCTestCase {
         XCTAssertThrowsError(try Variant("").boolValue())
     }
     func testPointFromString() throws {
-        XCTAssertEqual(try Variant("1.2x3.4").pointValue(), Point(x:1.2, y:3.4))
+        XCTAssertEqual(try Variant("[1.2,3.4]").pointValue(), Point(x:1.2, y:3.4))
         // TODO: Accept underscore in numeric values
 //        XCTAssertEqual(try Variant("1_0_0").intValue(), 100)
 
@@ -46,14 +46,13 @@ final class VariantTests: XCTestCase {
         XCTAssertThrowsError(try Variant("").intValue())
     }
     func testStringToPoint() throws {
-        XCTAssertEqual(try Variant(Point(x:1.0, y:2.0)).stringValue(), "1.0x2.0")
+        XCTAssertEqual(try Variant(Point(x:1.0, y:2.0)).stringValue(), "[1.0,2.0]")
     }
     
     func testTwoItemArrayIsAPointConvertible() throws {
         XCTAssertEqual(try Variant([1, 2]).pointValue(), Point(1.0, 2.0))
 
     }
-
 }
 
 // FIXME: Review this
@@ -314,6 +313,7 @@ final class VariantJSONCodableTests: XCTestCase {
         XCTAssertEqual(value, Variant([Point(x:10, y:20), Point(x:30, y:40)]))
         XCTAssertEqual(value.valueType, .array(.point))
     }
+    
     // TODO: Test invalid point value
     // TODO: Test invalid values
 }

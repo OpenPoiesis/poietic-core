@@ -206,7 +206,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case .bool(let values):
             content = values.map { String($0) }.joined(separator: ", ")
         case .point(let values):
-            content = values.map { String(describing: $0) }.joined(separator: ", ")
+            content = values.map { "[\($0.x), \($0.y)]" }.joined(separator: ", ")
         }
         
         return "[\(content)]"

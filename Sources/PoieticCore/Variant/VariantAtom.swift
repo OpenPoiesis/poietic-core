@@ -199,7 +199,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.double, .atom(.point)):  false
         case (.double, .array(_)):      false
             
-        // String to all except point
+        // String to all except array
         case (.string, .atom(.string)): true
         case (.string, .atom(.bool)):   (try? boolValue()) != nil
         case (.string, .atom(.int)):    (try? intValue()) != nil
@@ -275,10 +275,12 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// The boolean value is converted to a string as `true` or `false` depending
     /// whether the value is true or false respectively.
     ///
-    /// The point value is converted to a string with the `x` character as
-    /// point component value separator, so for example point `Point(x:10, y:20)`
-    /// is represented as string as `"10.0x20.0"` (note that the point components
-    /// are doubles)
+    /// String representation of a point value is two numbers in square brackets
+    /// separated by a comma: `[x, y]`. It is an equivalent to a JSON array of
+    /// two JSON numbers.
+    ///
+    /// - Throws: ``ValueError`` if the value can not be converted to a point.
+    /// - SeeAlso: [JSON RFC Specification](https://www.rfc-editor.org/rfc/rfc8259)
     ///
     public func stringValue() -> String {
         switch self {
@@ -286,8 +288,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case let .double(value): return String(value)
         case let .string(value): return String(value)
         case let .bool(value): return String(value)
-        // FIXME: Remove this conversion, replace with JSON
-        case let .point(value): return "\(value.x)x\(value.y)"
+        case let .point(value): return "[\(value.x),\(value.y)]"
         }
     }
 
@@ -321,42 +322,29 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         }
     }
     
-    // FIXME: Remove the 10x20 string representation and replace with JSON-compatible
     /// Try to get a 2D point value from the atom value. Convert if necessary.
     ///
     /// Only a point value and certain string values can be converted to a point.
     ///
-    /// The point value is represented as a string with the `x` character as
-    /// point component value separator, so for example point `Point(x:10, y:20)`
-    /// is represented as string as `"10.0x20.0"` (note that the point components
-    /// are doubles). The conversion is as follows:
+    /// String representation of a point value is two numbers in square brackets
+    /// separated by a comma: `[x, y]`. It is an equivalent to a JSON array of
+    /// two JSON numbers.
     ///
-    /// - The string is split at the first `x` character
-    /// - If there are not exactly two values - an error is thrown
-    /// - Each of the two values is converted to a double, if the conversion fails
-    ///   an error is thrown.
-    /// - The first value is the `x` component of the point and the second value
-    ///   is the `y` component of the point.
-    ///
-    /// - Throws ``ValueError`` if the value
-    ///   can not be converted to point.
-    ///
-    /// - Note: In the future the point format might change or support different
-    ///   formats.
+    /// - Throws: ``ValueError`` if the value can not be converted to a point.
+    /// - SeeAlso: [JSON RFC Specification](https://www.rfc-editor.org/rfc/rfc8259)
     ///
     public func pointValue() throws (ValueError) -> Point  {
         switch self {
         case .int(_): throw ValueError.notConvertible(.int, .point)
         case .double(_): throw ValueError.notConvertible(.double, .point)
         case .string(let value):
-            let split = value.split(separator: "x", maxSplits: 2)
-            guard split.count == 2 else {
+            guard let match = value.wholeMatch(of: VariantAtom.PointRegex) else {
                 throw ValueError.conversionFailed(.string, .point)
             }
-            guard let x = Double(split[0]),
-                  let y = Double(split[1]) else {
+            guard let x = Double(match.1), let y = Double(match.2) else {
                 throw ValueError.conversionFailed(.string, .point)
             }
+
             return Point(x: x, y: y)
         case .bool(_): throw ValueError.notConvertible(.bool, .point)
         case .point(let value): return value
