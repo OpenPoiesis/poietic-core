@@ -19,15 +19,10 @@ final class GraphTests: XCTestCase {
     }
     
     func testBasic() throws {
-        let n1 = design.createSnapshot(TestNodeType)
-        let n2 = design.createSnapshot(TestNodeType)
-        let u1 = design.createSnapshot(TestType)
-        let e1 = design.createSnapshot(TestEdgeType, structure: .edge(n1.id, n2.id))
-
-        frame.insert(n1)
-        frame.insert(n2)
-        frame.insert(u1)
-        frame.insert(e1)
+        let n1 = frame.create(TestNodeType)
+        let n2 = frame.create(TestNodeType)
+        let _ = frame.create(TestType)
+        let e1 = frame.create(TestEdgeType, structure: .edge(n1.id, n2.id))
 
         XCTAssertEqual(frame.nodes.count, 2)
         XCTAssertTrue(frame.nodes.contains(where: {$0.id == n1.id}))

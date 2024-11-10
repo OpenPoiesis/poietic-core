@@ -82,17 +82,15 @@ extension TransientFrame: MutableGraph {
         precondition(contains(target),
                      "Trying to create an edge with unknown target ID \(target) in the frame")
 
-        let snapshot = mutableFrame.design.createSnapshot(
+        let snapshot = mutableFrame.create(
             type,
             structure: .edge(origin, target),
             attributes: attributes,
-            components: components,
-            state: .transient
+            components: components
         )
-
         
+        // FIXME: [REFACTORING] [MARK]
         snapshot.promote(.stable)
-        mutableFrame.insert(snapshot)
         return snapshot.id
     }
    
@@ -122,15 +120,12 @@ extension TransientFrame: MutableGraph {
             actualAttributes["name"] = Variant(name)
         }
         
-        let snapshot = mutableFrame.design.createSnapshot(
+        let snapshot = mutableFrame.create(
             type,
             attributes: actualAttributes,
-            components: components,
-            state: .transient
+            components: components
         )
 
-        snapshot.promote(.stable)
-        mutableFrame.insert(snapshot)
         return snapshot.id
     }
 

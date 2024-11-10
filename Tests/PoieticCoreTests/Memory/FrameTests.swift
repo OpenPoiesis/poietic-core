@@ -19,8 +19,7 @@ final class TransientFrameTests: XCTestCase {
     func testDeriveObjectWithStructure() throws {
         let  frame = design.createFrame()
         
-        let original = design.createSnapshot(TestNodeType)
-        frame.insert(original)
+        let original = frame.create(TestNodeType)
         let originalFrame = try design.accept(frame)
         
         let derivedFrame = design.createFrame(deriving: originalFrame)
@@ -34,29 +33,26 @@ final class TransientFrameTests: XCTestCase {
         let obj = frame.create(TestNodeType)
         let parent = frame.create(TestNodeType)
         let child = frame.create(TestNodeType)
-        frame.setParent(obj, to: parent)
-        frame.setParent(child, to: obj)
+        frame.setParent(obj.id, to: parent.id)
+        frame.setParent(child.id, to: obj.id)
         
         let derivedFrame = design.createFrame(deriving: try design.accept(frame))
-        let derivedObj = derivedFrame.mutate(obj)
-        XCTAssertEqual(derivedObj.parent, parent)
-        XCTAssertEqual(derivedObj.children, [child])
+        let derivedObj = derivedFrame.mutate(obj.id)
+        XCTAssertEqual(derivedObj.parent, parent.id)
+        XCTAssertEqual(derivedObj.children, [child.id])
 
-        let derivedParent = derivedFrame.mutate(parent)
+        let derivedParent = derivedFrame.mutate(parent.id)
         XCTAssertEqual(derivedParent.parent, nil)
-        XCTAssertEqual(derivedParent.children, [obj])
+        XCTAssertEqual(derivedParent.children, [obj.id])
 
-        let derivedChild = derivedFrame.mutate(child)
-        XCTAssertEqual(derivedChild.parent, obj)
+        let derivedChild = derivedFrame.mutate(child.id)
+        XCTAssertEqual(derivedChild.parent, obj.id)
         XCTAssertEqual(derivedChild.children, [])
     }
     
     func testSetAttribute() throws {
         let frame = design.createFrame()
-        let id = frame.create(TestType, 
-                              attributes: ["text": Variant("before")])
-        
-        let obj = frame[id]
+        let obj = frame.create(TestType, attributes: ["text": Variant("before")])
         
         obj.setAttribute(value: Variant("after"), forKey: "text")
         
@@ -72,16 +68,16 @@ final class TransientFrameTests: XCTestCase {
         let original = try design.accept(frame)
         
         let frame2 = design.createFrame(deriving: original)
-        let alt_obj = frame2.mutate(a)
+        let alt_obj = frame2.mutate(a.id)
         alt_obj["text"] = "after"
         
         XCTAssertTrue(frame2.hasChanges)
 
         let altered = try design.accept(frame2)
         
-        XCTAssertEqual(altered[a]["text"], "after")
+        XCTAssertEqual(altered[a.id]["text"], "after")
         
-        let aOriginal = design.frame(original.id)![a]
+        let aOriginal = design.frame(original.id)![a.id]
         XCTAssertEqual(aOriginal["text"], "before")
     }
     
@@ -93,16 +89,16 @@ final class TransientFrameTests: XCTestCase {
         let original = try design.accept(frame)
         
         let frame2 = design.createFrame(deriving: original)
-        let mutable_a = frame2.mutate(a)
+        let mutable_a = frame2.mutate(a.id)
         mutable_a[TestComponent.self] = TestComponent(text: "after")
         
         XCTAssertTrue(frame2.hasChanges)
 
         let altered = try design.accept(frame2)
-        let comp: TestComponent = altered[a][TestComponent.self]!
+        let comp: TestComponent = altered[a.id][TestComponent.self]!
         XCTAssertEqual(comp.text, "after")
         
-        let aOriginal = design.frame(original.id)![a]
+        let aOriginal = design.frame(original.id)![a.id]
         let compOrignal: TestComponent = aOriginal[TestComponent.self]!
         XCTAssertEqual(compOrignal.text, "before")
     }
@@ -110,27 +106,27 @@ final class TransientFrameTests: XCTestCase {
 
     func testMutableObject() throws {
         let original = design.createFrame()
-        let id = original.create(TestType)
-        let originalSnap = original[id]
+        let obj = original.create(TestType)
+        let originalSnap = original[obj.id]
         try design.accept(original)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(id)
+        let derivedSnap = derived.mutate(obj.id)
         
         XCTAssertEqual(derivedSnap.id, originalSnap.id)
         XCTAssertNotEqual(derivedSnap.snapshotID, originalSnap.snapshotID)
         
-        let derivedSnap2 = derived.mutate(id)
+        let derivedSnap2 = derived.mutate(obj.id)
         XCTAssertIdentical(derivedSnap, derivedSnap2)
     }
 
     func testMutableObjectCopyAttributes() throws {
         let original = design.createFrame()
-        let id = original.create(TestType, attributes: ["text": "hello"])
+        let obj = original.create(TestType, attributes: ["text": "hello"])
         try design.accept(original)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(id)
+        let derivedSnap = derived.mutate(obj.id)
         
         XCTAssertEqual(derivedSnap["text"], "hello")
     }
@@ -138,14 +134,9 @@ final class TransientFrameTests: XCTestCase {
     func testRemoveObjectCascading() throws {
         let frame = design.createFrame()
         
-        let node1 = design.createSnapshot(TestNodeType)
-        frame.insert(node1)
-        
-        let node2 = design.createSnapshot(TestNodeType)
-        frame.insert(node2)
-        
-        let edge = design.createSnapshot(TestEdgeType, structure: .edge(node1.id, node2.id))
-        frame.insert(edge)
+        let node1 = frame.create(TestNodeType)
+        let node2 = frame.create(TestNodeType)
+        let edge = frame.create(TestEdgeType, structure: .edge(node1.id, node2.id))
         
         let removed = frame.removeCascading(node1.id)
         XCTAssertEqual(removed.count, 2)
@@ -159,45 +150,34 @@ final class TransientFrameTests: XCTestCase {
 
     func testOnlyOriginalsRemoved() throws {
         let frame = design.createFrame()
-        
-        let originalNode = design.createSnapshot(TestNodeType)
-        frame.insert(originalNode)
-        
+        let originalNode = frame.create(TestNodeType)
         let original = try design.accept(frame)
         
         let trans = design.createFrame(deriving: original)
-        
-        let newNode = design.createSnapshot(TestNodeType)
-        trans.insert(newNode)
-        trans.removeCascading(newNode.id)
         trans.removeCascading(originalNode.id)
-
         XCTAssertEqual(trans.snapshotIDs.count, 0)
+
+        let newNode = trans.create(TestNodeType)
         XCTAssertEqual(trans.removedObjects.count, 1)
         XCTAssertFalse(trans.removedObjects.contains(newNode.id))
         XCTAssertTrue(trans.removedObjects.contains(originalNode.id))
 
         XCTAssertFalse(trans.contains(originalNode.id))
-        XCTAssertFalse(trans.contains(newNode.id))
+        XCTAssertTrue(trans.contains(newNode.id))
     }
 
     func testRemoveCreate() throws {
         let frame = design.createFrame()
-        
-        let originalNode = design.createSnapshot(TestNodeType)
-        frame.insert(originalNode)
-        
+        let originalNode = frame.create(TestNodeType)
         let original = try design.accept(frame)
-        
+
         let trans = design.createFrame(deriving: original)
-        
-        let newNode = design.createSnapshot(TestNodeType, id: originalNode.id)
 
         trans.removeCascading(originalNode.id)
         XCTAssertEqual(trans.removedObjects.count, 1)
         XCTAssertTrue(trans.removedObjects.contains(originalNode.id))
 
-        trans.insert(newNode)
+        let newNode = trans.create(TestNodeType, id: originalNode.id)
 
         XCTAssertEqual(trans.snapshotIDs.count, 1)
         XCTAssertEqual(trans.removedObjects.count, 0)
@@ -206,12 +186,11 @@ final class TransientFrameTests: XCTestCase {
 
     func testFrameMutableObjectRemovesPreviousSnapshot() throws {
         let original = design.createFrame()
-        let id = original.create(TestType)
-        let originalSnap = original[id]
+        let originalSnap = original.create(TestType)
         try design.accept(original)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(id)
+        let derivedSnap = derived.mutate(originalSnap.id)
         
         XCTAssertFalse(derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
         XCTAssertTrue(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
@@ -226,12 +205,12 @@ final class TransientFrameTests: XCTestCase {
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b, to: a)
-        frame.addChild(c, to: a)
+        frame.addChild(b.id, to: a.id)
+        frame.addChild(c.id, to: a.id)
         
-        XCTAssertEqual(frame[a].children, [b, c])
-        XCTAssertEqual(frame[b].parent, a)
-        XCTAssertEqual(frame[c].parent, a)
+        XCTAssertEqual(a.children, [b.id, c.id])
+        XCTAssertEqual(b.parent, a.id)
+        XCTAssertEqual(c.parent, a.id)
     }
     
     func testRemoveChild() throws {
@@ -241,15 +220,15 @@ final class TransientFrameTests: XCTestCase {
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b, to: a)
-        frame.addChild(c, to: a)
+        frame.addChild(b.id, to: a.id)
+        frame.addChild(c.id, to: a.id)
         
-        frame.removeChild(c, from: a)
+        frame.removeChild(c.id, from: a.id)
         
-        XCTAssertEqual(frame[a].children, [b])
-        XCTAssertNil(frame[c].parent)
-        XCTAssertEqual(frame[b].parent, a)
-        XCTAssertEqual(frame[c].parent, nil)
+        XCTAssertEqual(a.children, [b.id])
+        XCTAssertNil(c.parent)
+        XCTAssertEqual(b.parent, a.id)
+        XCTAssertEqual(c.parent, nil)
     }
     
     func testSetParent() throws {
@@ -259,19 +238,19 @@ final class TransientFrameTests: XCTestCase {
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b, to: a)
-        frame.setParent(c, to: a)
+        frame.addChild(b.id, to: a.id)
+        frame.setParent(c.id, to: a.id)
         
-        XCTAssertEqual(frame[a].children, [b, c])
-        XCTAssertEqual(frame[b].parent, a)
-        XCTAssertEqual(frame[c].parent, a)
+        XCTAssertEqual(a.children, [b.id, c.id])
+        XCTAssertEqual(b.parent, a.id)
+        XCTAssertEqual(c.parent, a.id)
         
-        frame.setParent(c, to: b)
+        frame.setParent(c.id, to: b.id)
         
-        XCTAssertEqual(frame[a].children, [b])
-        XCTAssertEqual(frame[b].children, [c])
-        XCTAssertEqual(frame[b].parent, a)
-        XCTAssertEqual(frame[c].parent, b)
+        XCTAssertEqual(a.children, [b.id])
+        XCTAssertEqual(b.children, [c.id])
+        XCTAssertEqual(b.parent, a.id)
+        XCTAssertEqual(c.parent, b.id)
     }
     func testRemoveFromParent() throws {
         let frame = design.createFrame()
@@ -280,16 +259,16 @@ final class TransientFrameTests: XCTestCase {
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b, to: a)
-        frame.addChild(c, to: a)
+        frame.addChild(b.id, to: a.id)
+        frame.addChild(c.id, to: a.id)
 
-        frame.removeFromParent(b)
-        XCTAssertNil(frame[b].parent)
-        XCTAssertEqual(frame[a].children, [c])
+        frame.removeFromParent(b.id)
+        XCTAssertNil(b.parent)
+        XCTAssertEqual(a.children, [c.id])
 
-        frame.removeFromParent(c)
-        XCTAssertNil(frame[c].parent)
-        XCTAssertEqual(frame[a].children, [])
+        frame.removeFromParent(c.id)
+        XCTAssertNil(c.parent)
+        XCTAssertEqual(a.children, [])
     }
 
     func testRemoveFromUnownedParentMutates() throws {
@@ -299,22 +278,15 @@ final class TransientFrameTests: XCTestCase {
         let c1 = frame.create(TestType)
         let c2 = frame.create(TestType)
         
-        frame.addChild(c1, to: p)
-        frame.addChild(c2, to: p)
+        frame.addChild(c1.id, to: p.id)
+        frame.addChild(c2.id, to: p.id)
+
         let accepted = try design.accept(frame)
-        
         let derived = design.createFrame(deriving: accepted)
-        // A sanity check
-        XCTAssertEqual(derived[p].snapshotID, frame[p].snapshotID)
+        derived.removeFromParent(c1.id)
 
-        // A the real check
-        derived.removeFromParent(c1)
-        let derivedP = derived[p]
-        XCTAssertNotEqual(derivedP.snapshotID, frame[p].snapshotID)
-
-        // A sanity check
-        derived.removeFromParent(c2)
-        XCTAssertEqual(derivedP.snapshotID, derived[p].snapshotID)
+        let derivedP = derived[p.id]
+        XCTAssertNotEqual(derivedP.snapshotID, p.snapshotID)
     }
     
     func testRemoveCascadingChildren() throws {
@@ -330,17 +302,17 @@ final class TransientFrameTests: XCTestCase {
         let e = frame.create(TestType)
         let f = frame.create(TestType)
 
-        frame.addChild(b, to: a)
-        frame.addChild(c, to: b)
-        frame.addChild(e, to: d)
-        frame.addChild(f, to: e)
+        frame.addChild(b.id, to: a.id)
+        frame.addChild(c.id, to: b.id)
+        frame.addChild(e.id, to: d.id)
+        frame.addChild(f.id, to: e.id)
 
-        frame.removeCascading(b)
-        XCTAssertFalse(frame.contains(b))
-        XCTAssertFalse(frame.contains(c))
-        XCTAssertFalse(frame[a].children.contains(b))
+        frame.removeCascading(b.id)
+        XCTAssertFalse(frame.contains(b.id))
+        XCTAssertFalse(frame.contains(c.id))
+        XCTAssertFalse(frame[a.id].children.contains(b.id))
 
-        frame.removeCascading(d)
+        frame.removeCascading(d.id)
         XCTAssertFalse(frame.contains(d))
         XCTAssertFalse(frame.contains(e))
         XCTAssertFalse(frame.contains(f))
@@ -348,12 +320,9 @@ final class TransientFrameTests: XCTestCase {
     
     func testBrokenReferences() throws {
         let frame = design.createFrame()
-        let a = design.createSnapshot(TestEdgeType, 
-                                      id: 5,
-                                      structure: .edge(30, 40))
+        let a = frame.create(TestEdgeType, id: 5, structure: .edge(30, 40))
         a.parent = 10
         a.children = [20]
-        frame.unsafeInsert(a, owned: true)
 
         let refs = frame.brokenReferences()
         
@@ -363,19 +332,4 @@ final class TransientFrameTests: XCTestCase {
         XCTAssertTrue(refs.contains(30))
         XCTAssertTrue(refs.contains(40))
     }
-    
-    func testSomethingIDK() throws {
-        let frame = design.createFrame()
-        // Edge with children
-        let a = frame.create(TestNodeType)
-        let b = frame.create(TestNodeType)
-        let c = frame.create(TestNodeType)
-        let e = frame.create(TestEdgeType, structure: .edge(a, a))
-        frame.addChild(b, to: e)
-        frame.addChild(c, to: e)
-        
-        frame.removeCascading(a)
-        XCTAssertEqual(frame.snapshots.map {$0.id}, [])
-    }
-    
 }

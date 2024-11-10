@@ -7,13 +7,10 @@
 
 import XCTest
 @testable import PoieticCore
-import RegexBuilder
+
 final class VariantTests: XCTestCase {
     func testIntFromString() throws {
         XCTAssertEqual(try Variant("10").intValue(), 10)
-        // TODO: Accept underscore in numeric values
-//        XCTAssertEqual(try Variant("1_0_0").intValue(), 100)
-
         XCTAssertThrowsError(try Variant("10x").intValue())
         XCTAssertThrowsError(try Variant("").intValue())
     }
@@ -36,9 +33,6 @@ final class VariantTests: XCTestCase {
     }
     func testPointFromString() throws {
         XCTAssertEqual(try Variant("[1.2,3.4]").pointValue(), Point(x:1.2, y:3.4))
-        // TODO: Accept underscore in numeric values
-//        XCTAssertEqual(try Variant("1_0_0").intValue(), 100)
-
         XCTAssertThrowsError(try Variant("10 x 20").pointValue())
         XCTAssertThrowsError(try Variant("10x").pointValue())
         XCTAssertThrowsError(try Variant("x10").pointValue())

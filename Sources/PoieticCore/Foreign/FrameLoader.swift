@@ -93,14 +93,13 @@ public final class ForeignFrameLoader {
     ///     ``TransientFrame/insert(_:)``
     ///
     public func load(_ foreignFrame: ForeignFrame, into frame: TransientFrame) throws (FrameLoaderError) {
+        var ids: [(ObjectID, SnapshotID)] = []
+        
         let foreignObjects = foreignFrame.objects
         let design = frame.design
         let metamodel = design.metamodel
         
         var snapshots: [ObjectSnapshot] = []
-        
-        var ids: [ObjectID] = []
-        var snapshotIDs: [ObjectID] = []
         
         // 1. Allocate identities and collect references
         for object in foreignObjects {
@@ -124,15 +123,13 @@ public final class ForeignFrameLoader {
             if let name = object.name {
                 references[name] = actualID
             }
-            ids.append(actualID)
-            snapshotIDs.append(actualSnapshotID)
+            ids.append((actualID, actualSnapshotID))
         }
         
         // 2. Instantiate objects
         //
         for (index, foreignObject) in foreignObjects.enumerated() {
-            let id = ids[index]
-            let snapshotID = snapshotIDs[index]
+            let (id, snapshotID) = ids[index]
             
             let structure: StructuralComponent
             
@@ -167,30 +164,25 @@ public final class ForeignFrameLoader {
 
                 structure = .edge(originID, targetID)
             }
-            let snapshot = design.createSnapshot(type,
-                                                 id: id,
-                                                 snapshotID: snapshotID,
-                                                 structure: structure,
-                                                 state: .transient)
             
+            var fullAttributes = foreignObject.attributes
             if let name = foreignObject.name {
-                snapshot.setAttribute(value: Variant(name), forKey: "name")
-                references[name] = snapshot.id
+                fullAttributes["name"] = Variant(name)
+                references[name] = id
             }
-            
-            for (key, value) in foreignObject.attributes {
-                snapshot.setAttribute(value: value, forKey: key)
-            }
+
+            let snapshot = frame.create(type,
+                                        id: id,
+                                        snapshotID: snapshotID,
+                                        structure: structure,
+                                        attributes: fullAttributes)
             
             snapshots.append(snapshot)
-            snapshot.promote(.stable)
-            frame.unsafeInsert(snapshot, owned: true)
         }
 
         // 3. Make parent-child hierarchy
         //
         // All objects are initialised now.
-        // TODO: Do not use addChild, do it in unsafe way, we are ok here.
         for (snapshot, object) in zip(snapshots, foreignObjects) {
             for childRef in object.children {
                 guard let childID = references[childRef] else {

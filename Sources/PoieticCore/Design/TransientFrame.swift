@@ -8,12 +8,13 @@
 struct SnapshotReference {
     let snapshot: ObjectSnapshot
     
+    // FIXME: [REFACTORING] [TOUCH]
     /// Flag whether the snapshot reference is owned by the mutable frame and
     /// therefore can be mutated. Snapshots that are not owned by the frame can
     /// not be mutated.
     ///
     /// Un-owned snapshots are expected to be stable.
-    let owned: Bool
+    let mutable: Bool
 }
 
 /// Transient frame is frame that can be modified.
@@ -47,7 +48,7 @@ public class TransientFrame: Frame {
     /// The ID is unique within the design.
     ///
     public let id: FrameID
-
+    
     
     /// State of the transient frame.
     ///
@@ -66,7 +67,7 @@ public class TransientFrame: Frame {
     var state: State = .transient
     
     var objects: [ObjectID:SnapshotReference]
-
+    
     /// Cache of snapshot IDs used to verify unique ownership
     ///
     var snapshotIDs: Set<SnapshotID>
@@ -74,13 +75,13 @@ public class TransientFrame: Frame {
     /// List of object IDs that were provided during initialisation.
     ///
     public let originalIDs: Set<ObjectID>
-
+    
     /// A set of original objects that were removed from the frame.
     ///
     /// This is a subset of ``originalIDs``.
     ///
     public internal(set) var removedObjects: Set<ObjectID> = Set()
-
+    
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
@@ -95,6 +96,10 @@ public class TransientFrame: Frame {
         return self.objects[id] != nil
     }
     
+    public func contains(_ snapshot: ObjectSnapshot) -> Bool {
+        return self.objects[snapshot.id]?.snapshot === snapshot
+    }
+
     /// Get an object version of object with identity `id`.
     ///
     /// - Precondition: Frame must contain object with given ID.
@@ -122,7 +127,7 @@ public class TransientFrame: Frame {
     ///
     var derivedObjects: [ObjectSnapshot] {
         return objects.values.filter {
-            $0.owned
+            $0.mutable
         }
         .map {
             $0.snapshot
@@ -163,7 +168,7 @@ public class TransientFrame: Frame {
         if let snapshots {
             for snapshot in snapshots {
                 let ref = SnapshotReference(snapshot: snapshot,
-                                            owned: false)
+                                            mutable: false)
                 self.objects[snapshot.id] = ref
                 self.snapshotIDs.insert(snapshot.snapshotID)
                 originals.insert(snapshot.id)
@@ -171,7 +176,98 @@ public class TransientFrame: Frame {
         }
         self.originalIDs = originals
     }
-    
+
+    /// Create a new object within the frame.
+    ///
+    /// The method creates a new object and assigns default values as defined
+    /// in the ``type``.
+    ///
+    /// If object ID or snapshot ID are provided, they are used, otherwise
+    /// they are generated.
+    ///
+    /// - Parameters:
+    ///     - type: Object type.
+    ///     - id: Proposed object ID. If not provided, one will be generated.
+    ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
+    ///     - attributes: Attribute dictionary to be used for object
+    ///       initialisation.
+    ///     - parent: Optional parent object in the hierarchy of objects.
+    ///     - components: List of components to be set for the newly created object.
+    ///     - structure: Structural component of the new object that must match
+    ///       the object type.
+    ///     - state: Initial state of the object snapshot.
+    ///
+    /// - Note: Attributes are not checked according to the object type during
+    ///   object creation. The object is not yet required to satisfy any
+    ///   constraints.
+    /// - Note: Existence of the parent is not verified, it will be during the
+    ///   frame insertion.
+    ///
+    /// - SeeAlso: ``TransientFrame/insert(_:)``
+    ///
+    /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
+    ///   in the frame.
+    /// - Precondition: `structure` must match ``ObjectType/structuralType``.
+    ///
+    public func create(_ type: ObjectType,
+                       id: ObjectID? = nil,
+                       snapshotID: SnapshotID? = nil,
+                       structure: StructuralComponent? = nil,
+                       parent: ObjectID? = nil,
+                       attributes: [String:Variant]=[:],
+                       components: [any Component]=[]) -> ObjectSnapshot {
+        precondition(state == .transient)
+        
+        let actualID = design.allocateID(required: id)
+        let actualSnapshotID = design.allocateID(required: snapshotID)
+        
+        let actualStructure: StructuralComponent
+        switch type.structuralType {
+        case .unstructured:
+            precondition(structure == nil || structure == .unstructured,
+                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
+            actualStructure = .unstructured
+        case .node:
+            precondition(structure == nil || structure == .node,
+                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
+            actualStructure = .node
+        case .edge:
+            guard let structure else {
+                fatalError("Structural component of type `edge` is required to be provided for type \(type.name)")
+            }
+            
+            precondition(structure.type == .edge,
+                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
+            
+            actualStructure = structure
+        }
+        var actualAttributes = attributes
+        
+        // Add required components as described by the object type.
+        //
+        for attribute in type.attributes {
+            if actualAttributes[attribute.name] == nil {
+                actualAttributes[attribute.name] = attribute.defaultValue
+            }
+        }
+        
+        let snapshot = ObjectSnapshot(id: actualID,
+                                      snapshotID: actualSnapshotID,
+                                      type: type,
+                                      structure: actualStructure,
+                                      parent: parent,
+                                      attributes: actualAttributes,
+                                      components: components)
+        
+        snapshot.state = .transient
+        self.objects[actualID] = SnapshotReference(snapshot: snapshot, mutable: true)
+        self.snapshotIDs.insert(actualSnapshotID)
+        self.removedObjects.remove(actualID)
+
+        // FIXME: [REFACTORING] Return transient reference
+        return snapshot
+    }
+
     /// Insert an object snapshot to a frame while maintaining referential
     /// integrity.
     ///
@@ -180,7 +276,7 @@ public class TransientFrame: Frame {
     ///
     /// Requirements for the snapshot:
     ///
-    /// - snapshot state must not be ``VersionState/transient``
+    /// - snapshot state must be ``VersionState/stable``
     /// - ID and snapshot ID must not be present in the frame
     /// - mutable must be owned, immutable must not be owned
     /// - structural dependencies must be satisfied
@@ -195,10 +291,8 @@ public class TransientFrame: Frame {
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // Check for referential integrity
-        guard brokenReferences(snapshot: snapshot).isEmpty else {
-            preconditionFailure("Trying to insert an object that contains invalid references")
-        }
-        unsafeInsert(snapshot, owned: true)
+        precondition(brokenReferences(snapshot: snapshot).isEmpty)
+        unsafeInsert(snapshot)
     }
     
     /// Unsafely insert a snapshot to the frame, not checking for structural
@@ -213,39 +307,22 @@ public class TransientFrame: Frame {
     /// It is rather rare to use this method. Typically one would
     /// use the ``insert(_:)`` method.
     ///
-    /// Requirements for the snapshot:
-    ///
-    /// - snapshot state must not be ``VersionState/transient``
-    /// - ID and snapshot ID must not be present in the frame
-    /// - mutable must be owned, immutable must not be owned
-    ///
-    /// If the requirements are not met, then it is considered a programming
-    /// error.
-    ///
     /// - Parameters:
     ///     - snapshot: Snapshot to be inserted.
-    ///     - owned: Flag whether the snapshot will be owned by the frame or
-    ///              not.
+    ///
+    /// - Precondition: Frame must be transient, must not contain snapshot with
+    ///   the same ID or with the same snapshot ID.
     ///
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
-    public func unsafeInsert(_ snapshot: ObjectSnapshot, owned: Bool = false) {
+    public func unsafeInsert(_ snapshot: ObjectSnapshot) {
         precondition(state == .transient)
-        precondition(snapshot.state != .transient)
         precondition(objects[snapshot.id] == nil,
-                     "Trying to insert an object with object ID \(snapshot.id) that already exists in frame \(id)")
+                     "Inserting duplicate object ID \(snapshot.id) to frame \(id)")
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
-                     "Trying to insert an object with snapshot ID \(snapshot.snapshotID) that already exists in frame \(id)")
-        
-        // Make sure we do not own immutable objects.
-        // This can be put into one condition, however we split it for better error understanding
-        precondition(!owned || (owned && snapshot.state.isMutable),
-                     "Inserting mutable object must be owned by the frame")
-        precondition(owned || (!owned && !snapshot.state.isMutable),
-                     "Inserting immutable object must not be owned by the frame")
+                     "Inserting duplicate snapshot ID \(snapshot.id) to frame \(id)")
 
-        let ref = SnapshotReference(snapshot: snapshot,
-                                    owned: owned)
+        let ref = SnapshotReference(snapshot: snapshot, mutable: (snapshot.state == .transient))
 
         objects[snapshot.id] = ref
         snapshotIDs.insert(snapshot.snapshotID)
@@ -253,49 +330,6 @@ public class TransientFrame: Frame {
         if originalIDs.contains(snapshot.id) {
             removedObjects.remove(snapshot.id)
         }
-    }
-    
-    
-    /// Create a new object within the frame.
-    ///
-    /// The method creates a new objects, assigns provided components and
-    /// creates all necessary components as defined by the object type, if
-    /// not explicitly provided.
-    ///
-    /// The new object ID is generated from the identity generator.
-    ///
-    /// - Parameters:
-    ///     - type: Type of the object to be created.
-    ///     - attributes: Attribute dictionary to be used for object
-    ///       initialization.
-    ///     - structure: Structural component of the new object that must match
-    ///       the object type.
-    ///    - components: List of components to be associated with the newly
-    ///       created object.
-    ///
-    /// - Note: Attributes are not checked according to the object type during
-    ///   object creation. The object is not yet required to satisfy any
-    ///   constraints.
-    ///
-    /// - Returns: Object ID of the newly created object.
-    ///
-    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
-    ///
-    /// - SeeAlso: ``Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``,
-    ///   ``ObjectSnapshot/init(id:snapshotID:type:structure:components:)
-    ///
-    public func create(_ type: ObjectType,
-                       structure: StructuralComponent? = nil,
-                       attributes: [String:Variant] = [:],
-                       components: [any Component] = []) -> ObjectID {
-        precondition(state == .transient)
-        
-        let snapshot = design.createSnapshot(type,
-                                             structure: structure,
-                                             attributes: attributes,
-                                             components: components)
-        insert(snapshot)
-        return snapshot.id
     }
     
     /// Remove an object from the frame and all its dependants.
@@ -366,11 +400,11 @@ public class TransientFrame: Frame {
     ///
     /// Also mark all owned objects as ``VersionState/validated``.
     ///
-    public func markAccepted() {
+    public func accept() {
         precondition(state == .transient)
 
         for ref in objects.values {
-            if ref.owned {
+            if ref.mutable {
                 ref.snapshot.promote(.validated)
             }
         }
@@ -381,6 +415,7 @@ public class TransientFrame: Frame {
     /// Mark the frame as discarded and reject any further modifications.
     ///
     public func markDiscarded() {
+        // FIXME: [REFACTORING] Rename to discard()
         precondition(state == .transient)
         self.state = .discarded
     }
@@ -408,19 +443,40 @@ public class TransientFrame: Frame {
         guard let originalRef = self.objects[id] else {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
-        if originalRef.owned {
+        if originalRef.mutable {
             return originalRef.snapshot
         }
         else {
-            let derived = design.deriveSnapshot(originalRef.snapshot.snapshotID)
+            let original = originalRef.snapshot
+            
+            let derivedSnapshotID: SnapshotID = design.allocateID()
+            let derived = ObjectSnapshot(id: original.id,
+                                         snapshotID: derivedSnapshotID,
+                                         type: original.type,
+                                         structure: original.structure,
+                                         parent: original.parent,
+                                         attributes: original.attributes,
+                                         components: original.components.components)
+            derived.children = original.children
 
-            let ref = SnapshotReference(snapshot: derived, owned: true)
+            let ref = SnapshotReference(snapshot: derived, mutable: true)
             self.objects[id] = ref
             self.snapshotIDs.remove(originalRef.snapshot.snapshotID)
             self.snapshotIDs.insert(derived.snapshotID)
 
             return derived
         }
+    }
+    
+    /// Checks whether the object is marked as mutable.
+    ///
+    /// - SeeAlso: ``mutate(_:)``
+    ///
+    public func isMutable(_ id: ObjectID) -> Bool {
+        guard let object = objects[id] else {
+            preconditionFailure("Frame \(self.id) has no object \(id)")
+        }
+        return object.mutable
     }
     
     // MARK: - Hierarchy
@@ -533,7 +589,7 @@ public class TransientFrame: Frame {
         for snapshot in self.snapshots {
             let isOwned: String
             
-            if objects[snapshot.id]!.owned {
+            if objects[snapshot.id]!.mutable {
                 isOwned = "*"
             }
             else {

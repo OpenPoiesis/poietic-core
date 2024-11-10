@@ -52,7 +52,7 @@ final class DesignTests: XCTestCase {
         let a = frame.create(TestType)
         try design.accept(frame)
         
-        let obj = design.currentFrame![a]
+        let obj = design.currentFrame![a.id]
         XCTAssertEqual(obj.state, VersionState.validated)
     }
     
@@ -67,33 +67,6 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(frame.state, .discarded)
     }
    
-    func testDiscardGarbageCollect() throws {
-        let design = Design()
-        let frame = design.createFrame()
-        let id = frame.create(TestType)
-        let obj = frame[id]
-        
-        XCTAssertNotNil(design.snapshot(obj.snapshotID))
-        design.discard(frame)
-        XCTAssertNil(design.snapshot(obj.snapshotID))
-    }
-    
-    func testDiscardGarbageCollectOnlyNew() throws {
-        let design = Design(metamodel: TestMetamodel)
-        let frame = design.createFrame()
-        let old = frame.create(TestType)
-        let stable = try design.accept(frame)
-
-        let trans = design.createFrame(deriving: stable)
-        let new = trans.create(TestType)
-        
-        XCTAssertNotNil(design.snapshot(trans[old].snapshotID))
-        XCTAssertNotNil(design.snapshot(trans[new].snapshotID))
-        design.discard(trans)
-        XCTAssertNotNil(design.snapshot(trans[old].snapshotID))
-        XCTAssertNil(design.snapshot(trans[new].snapshotID))
-    }
-
     func testRemoveObject() throws {
         let design = Design(metamodel: self.metamodel)
         let originalFrame = design.createFrame()
@@ -105,7 +78,7 @@ final class DesignTests: XCTestCase {
         
         let removalFrame = design.createFrame(deriving: design.currentFrame)
         XCTAssertTrue(design.currentFrame!.contains(a))
-        removalFrame.removeCascading(a)
+        removalFrame.removeCascading(a.id)
         XCTAssertTrue(removalFrame.hasChanges)
         XCTAssertFalse(removalFrame.contains(a))
         
@@ -159,13 +132,13 @@ final class DesignTests: XCTestCase {
         try design.accept(frame1)
         
         let frame2 = design.createFrame(deriving: design.currentFrame)
-        let obj = frame2.mutate(a)
+        let obj = frame2.mutate(a.id)
         obj[TestComponent.self] = TestComponent(text: "after")
         
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
-        let altered = design.currentFrame![a]
+        let altered = design.currentFrame![a.id]
         XCTAssertEqual(altered[TestComponent.self]!.text, "before")
     }
     func testUndoProperty() throws {
@@ -176,13 +149,13 @@ final class DesignTests: XCTestCase {
         try design.accept(frame1)
         
         let frame2 = design.createFrame(deriving: design.currentFrame)
-        let obj = frame2.mutate(a)
+        let obj = frame2.mutate(a.id)
         obj["text"] = "after"
         
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
-        let altered = design.currentFrame![a]
+        let altered = design.currentFrame![a.id]
         XCTAssertEqual(altered["text"], "before")
     }
 
@@ -286,22 +259,17 @@ final class DesignTests: XCTestCase {
         let design = Design()
         let frame = design.createFrame()
         let a = frame.create(TestTypeNoDefault)
-        let obj_a = frame[a]
-        XCTAssertNil(obj_a["text"])
+        XCTAssertNil(a["text"])
 
         let b = frame.create(TestTypeWithDefault)
-        let obj_b = frame[b]
-        XCTAssertNotNil(obj_b["text"])
-        XCTAssertEqual(obj_b["text"], "default")
+        XCTAssertNotNil(b["text"])
+        XCTAssertEqual(b["text"], "default")
     }
     func testDefaultValueTraitError() {
         let design = Design(metamodel: self.metamodel)
         let frame = design.createFrame()
         let a = frame.create(TestTypeNoDefault)
-        let _ = frame[a]
-
         let b = frame.create(TestTypeWithDefault)
-        let _ = frame[b]
 
         XCTAssertThrowsError(try design.accept(frame)) {
             
@@ -312,13 +280,13 @@ final class DesignTests: XCTestCase {
             
             XCTAssertEqual(error.violations.count, 0)
             XCTAssertEqual(error.objectErrors.count, 1)
-            if let a_errors = error.objectErrors[a] {
+            if let a_errors = error.objectErrors[a.id] {
                 XCTAssertEqual(a_errors.first, .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
             }
             else {
                 XCTFail("Expected errors for object 'a'")
             }
-            XCTAssertNil(error.objectErrors[b])
+            XCTAssertNil(error.objectErrors[b.id])
         }
     }
 

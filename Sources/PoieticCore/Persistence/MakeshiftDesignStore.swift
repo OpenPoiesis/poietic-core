@@ -147,20 +147,20 @@ public class MakeshiftDesignStore {
                 structure = .edge(ObjectID(origin), ObjectID(target))
             }
 
-            let snapshot = design.createSnapshot(type,
-                                                 id: perSnapshot.id,
-                                                 snapshotID: perSnapshot.snapshotID,
-                                                 structure: structure,
-                                                 parent: perSnapshot.parent,
-                                                 attributes: perSnapshot.attributes,
-                                                 components: [],
-                                                 state: .validated)
+            let snapshot = ObjectSnapshot(id: perSnapshot.id,
+                                          snapshotID: perSnapshot.snapshotID,
+                                          type: type,
+                                          structure: structure,
+                                          parent: perSnapshot.parent,
+                                          attributes: perSnapshot.attributes,
+                                          components: [])
 
-
+            // FIXME: [REFACTORING] Were are we fixing children?
+            snapshot.promote(.stable)
             snapshots[snapshot.snapshotID] = snapshot
         }
 
-        // 3. Read frames
+        // 2. Read frames
         // ----------------------------------------------------------------
         for perFrame in persistent.frames {
             if design.containsFrame(perFrame.id) {
@@ -174,7 +174,7 @@ public class MakeshiftDesignStore {
                     throw .invalidSnapshotReference(newFrame.id, id)
                 }
                 // Do not check for referential integrity yet
-                newFrame.unsafeInsert(snapshot, owned: false)
+                newFrame.unsafeInsert(snapshot)
             }
             // We accept the frame making sure that constraints are met.
             do {
@@ -184,8 +184,8 @@ public class MakeshiftDesignStore {
                 throw .frameValidationFailed(newFrame.id)
             }
         }
-        
-        // 4. Design state (undo, redo, current frame)
+
+        // 3. Design state (undo, redo, current frame)
         // ----------------------------------------------------------------
         
         for item in persistent.state.undoableFrames {
@@ -208,7 +208,6 @@ public class MakeshiftDesignStore {
             throw PersistentStoreError.currentFrameIDNotSet
         }
         design.currentFrameID = persistent.state.currentFrame
-
         return design
     }
     

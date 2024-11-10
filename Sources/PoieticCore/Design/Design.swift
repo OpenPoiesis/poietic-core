@@ -115,9 +115,10 @@ public class Design {
     /// - SeeAlso: ``allocateID(required:)``
     ///
     private var objectIDSequence: ObjectID
-    
-    var _allSnapshots: [SnapshotID: ObjectSnapshot]
+
+    var _stableSnapshots: [SnapshotID: ObjectSnapshot]
     var _stableFrames: [FrameID: StableFrame]
+
     var _transientFrames: [FrameID: TransientFrame]
     
     /// Chronological list of frame IDs.
@@ -175,7 +176,7 @@ public class Design {
         self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
-        self._allSnapshots = [:]
+        self._stableSnapshots = [:]
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
@@ -200,8 +201,9 @@ public class Design {
     /// - Precondition: If ID is specified, it must not be used.
     ///
     public func allocateID(required: ID? = nil) -> ID {
+        // FIXME: [REFACTORING] Just use "usedIDs"
         if let id = required {
-            precondition(_allSnapshots[id] == nil,
+            precondition(_stableSnapshots[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a snapshot ID")
             precondition(_stableFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a stable frame ID")
@@ -220,7 +222,7 @@ public class Design {
     }
     
     public func snapshot(_ snapshotID: ObjectID) -> ObjectSnapshot? {
-        return self._allSnapshots[snapshotID]
+        return self._stableSnapshots[snapshotID]
     }
 
     // MARK: Frames
@@ -262,9 +264,10 @@ public class Design {
         return result
     }
 
-    /// Get a sequence of all snapshots
+    /// Get a sequence of all stable snapshots in all frames.
+    ///
     public var allSnapshots: any Sequence<ObjectSnapshot> {
-        return _allSnapshots.values
+        return _stableSnapshots.values
     }
     
     /// Test whether the design contains a stable frame with given ID.
@@ -368,16 +371,15 @@ public class Design {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
-                     "Trying to accept already accepted frame (id: \(frame.id))")
+                     "Frame \(frame.id) already accepted")
         precondition(_transientFrames[frame.id] != nil,
-                     "Trying to accept unknown transient frame (id: \(frame.id))")
+                     "Trying to accept unknown transient frame \(frame.id)")
         
         let checker = ConstraintChecker(metamodel)
         
         try checker.check(frame)
 
-        frame.markAccepted()
-        
+        frame.accept()
         let stableFrame = StableFrame(design: self,
                                       id: frame.id,
                                       snapshots: frame.snapshots)
@@ -404,10 +406,6 @@ public class Design {
         frame.markDiscarded()
 
         _transientFrames[frame.id] = nil
-
-        for snap in frame.derivedObjects {
-            self._allSnapshots.removeValue(forKey: snap.snapshotID)
-        }
     }
     
     /// Flag whether the design has any un-doable frames.

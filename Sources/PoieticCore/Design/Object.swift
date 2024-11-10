@@ -5,6 +5,36 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
+public typealias ID = UInt64
+
+/// Identifier of a design objects.
+///
+/// The object ID is unique within the frame containing the object.
+/// There might be multiple object snapshots representing the same object
+/// and therefore have the same object ID.
+///
+/// - SeeAlso: ``ObjectSnapshot``, ``Design``,
+///     ``Design/allocateID(required:)``
+///
+public typealias ObjectID = ID
+
+/// Identifier of a design object version.
+///
+/// The snapshot ID is unique within a design containing the snapshot.
+///
+/// SeeAlso: ``ObjectSnapshot``, ``Design``,
+///     ``Design/allocateID(required:)``, ``TransientFrame/mutableObject(_:)``
+///
+public typealias SnapshotID = ID
+
+/// Identifier of a version frame.
+///
+/// Each frame in a design has an unique frame ID.
+///
+/// - SeeAlso: ``Frame``, ``Design/createFrame(id:)``, ``Design/deriveFrame(original:id:)``
+///
+public typealias FrameID = ID
+
 /// Representation of a design object's version.
 ///
 /// All design objects are represented by one or more object snapshots. The
@@ -19,18 +49,17 @@
 /// ## Creation
 ///
 /// Objects are typically being created using a dedicated _Design_ method
-/// ``Design/createSnapshot(_:id:snapshotID:attributes:components:structure:state:)``.
+/// ``TransientFrame/create(_:id:snapshotID:structure:parent:attributes:components:)``.
 /// If the ``id`` and ``snapshotID`` are not provided, then they are generated
 /// by the design ID generation.
 ///
 /// ```swift
 /// // The design and the frame is given
 /// let design: Design
-/// let frame: TransientFrame
+/// let frame: TransientFrame = design.createFrame()
 ///
-/// // Create a new unstructured snapshot of type Note
-/// let snapshot = design.createSnapshot(ObjectType.Note)
-/// frame.insert(snapshot)
+/// // Create a new Note object.
+/// let object = frame.create(ObjectType.Note)
 ///
 /// ```
 ///
@@ -44,7 +73,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         "target",
         "type",
         "parent",
-        
+
         "structure",
     ]
     
@@ -93,16 +122,15 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     
     /// Object attributes.
     ///
-    public var attributes: [String:Variant]
+    public private(set) var attributes: [String:Variant]
     
     /// List of run-time components of the object.
     ///
-    /// An object can have multiple runtime components but only
-    /// one component of a given type.
+    /// An object can have multiple runtime components but only one component
+    /// of a given type. Components are used to store custom information
+    /// during runtime. The components are not persisted.
     ///
-    /// - Note: The runtime components are not persisted.
-    ///
-    /// - SeeAlso: ``Component``, ``ObjectType``.
+    /// - SeeAlso: ``Component``.
     ///
     public var components: ComponentSet
     
@@ -166,7 +194,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     public var parent: ObjectID? = nil {
         willSet {
-            precondition(state.isMutable)
+            precondition(state == .transient)
         }
     }
 
@@ -192,7 +220,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     public var children: ChildrenSet = ChildrenSet() {
         willSet {
-            precondition(state.isMutable)
+            precondition(state == .transient)
         }
     }
     
@@ -231,7 +259,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
 
         self.attributes = attributes
         self.components = ComponentSet(components)
-
+        self.state = .transient
     }
    
     /// Textual description of the object.
@@ -242,7 +270,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
             ($0.name, self[$0.name] ?? "nil")
         }.map { "\($0.0)=\($0.1)"}
         .joined(separator: ",")
-        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
+        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs), state: \(state)"
     }
     
     /// Prettier description of the object.
@@ -261,13 +289,14 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// Validated objects can no longer be changed. They make up ``StableFrame``s.
     ///
+    @inlinable
     public func promote(_ state: VersionState) {
         precondition(self.state < state,
                      "Can not promote from state \(self.state) to \(state)")
         self.state = state
     }
     
-    
+    @inlinable
     public subscript(attributeName: String) -> (Variant)? {
         get {
             return attribute(forKey: attributeName)
@@ -283,7 +312,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     }
     
     public func removeAttribute(forKey key: String) {
-        precondition(state.isMutable)
+        precondition(state == .transient)
         attributes[key] = nil
     }
     
@@ -322,18 +351,14 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     ///
     /// - SeeAlso: ``InspectableComponent/attribute(forKey:)``
     ///
+    @inlinable
     public func attribute(forKey key: String) -> Variant? {
-        // TODO: This is asymmetrical with setAttribute, it should not be (that much)
-        // TODO: Add tests
         switch key {
-        case "id": return Variant(String(id))
-        case "snapshot_id": return Variant(String(snapshotID))
-        case "type":
-            return Variant(type.name)
-        case "structure": return Variant(structure.type.rawValue)
-        default:
-            // Find first component that has the value.
-            return attributes[key]
+        case "id": Variant(String(id))
+        case "snapshot_id": Variant(String(snapshotID))
+        case "type": Variant(type.name)
+        case "structure": Variant(structure.type.rawValue)
+        default: attributes[key]
         }
     }
     
@@ -342,13 +367,14 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// - Precondition: The attribute must not be a reserved attribute (``ObjectSnapshot/ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
-        precondition(state.isMutable,
-                     "Trying to set attribute on an immutable snapshot \(snapshotID)")
+        precondition(state == .transient,
+                     "Trying to set attribute on non-transient snapshot \(snapshotID)")
         precondition(ObjectSnapshot.ReservedAttributeNames.firstIndex(of: "key") == nil,
-                     "Trying to set a reserved attribute '\(key)'")
+                     "Trying to set a reserved read-only attribute '\(key)'")
         attributes[key] = value
     }
     
+    @inlinable
     public var attributeKeys: [AttributeKey] {
         return type.attributeKeys
     }

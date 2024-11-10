@@ -25,6 +25,7 @@ public protocol Frame: Graph {
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
     ///
     func contains(_ id: ObjectID) -> Bool
+    func contains(_ snapshot: ObjectSnapshot) -> Bool
 
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
@@ -322,6 +323,11 @@ extension Frame /* Graph */ {
             Edge($0)
         }
     }
+    
+    /// Get list of objects that have no parent.
+    public func top() -> [ObjectSnapshot] {
+        self.snapshots.filter { $0.parent == nil }
+    }
 }
 
 
@@ -361,8 +367,8 @@ public class StableFrame: Frame {
     /// - Precondition: Snapshot must not be mutable.
     ///
     init(design: Design, id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
-        precondition(snapshots?.allSatisfy({ !$0.state.isMutable }) ?? true,
-                     "Trying to create a stable frame with one or more mutable snapshots")
+        precondition(snapshots?.allSatisfy({ $0.state > .transient }) ?? true,
+                     "Trying to create a stable frame with some transient snapshots")
         
         self.design = design
         self.id = id
@@ -387,7 +393,11 @@ public class StableFrame: Frame {
     public func contains(_ id: ObjectID) -> Bool {
         return _snapshots[id] != nil
     }
-    
+
+    public func contains(_ snapshot: ObjectSnapshot) -> Bool {
+        return _snapshots[snapshot.id] === snapshot
+    }
+
     /// Return an object snapshots with given object ID.
     ///
     /// - Precondition: Frame must contain object with given ID.
