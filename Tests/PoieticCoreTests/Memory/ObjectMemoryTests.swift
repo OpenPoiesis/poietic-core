@@ -240,8 +240,8 @@ final class DesignTests: XCTestCase {
             XCTAssertEqual(error.violations.count, 1)
             let violation = error.violations[0]
             XCTAssertEqual(violation.objects.count, 2)
-            XCTAssertTrue(violation.objects.contains(a))
-            XCTAssertTrue(violation.objects.contains(b))
+            XCTAssertTrue(violation.objects.contains(a.id))
+            XCTAssertTrue(violation.objects.contains(b.id))
         }
     }
     

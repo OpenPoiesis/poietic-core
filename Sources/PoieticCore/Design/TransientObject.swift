@@ -15,6 +15,7 @@ public let ReservedAttributeNames = [
 
 
 public class MutableObject: ObjectSnapshot {
+    
     public let id: ObjectID
     public let snapshotID: ObjectID
     public let type: ObjectType
@@ -73,6 +74,10 @@ public class MutableObject: ObjectSnapshot {
         }
     }
     
+    public var attributeKeys: [AttributeKey] {
+        return Array(attributes.keys)
+    }
+
     public subscript(key: String) -> Variant? {
         get {
             attribute(forKey: key)
@@ -115,8 +120,12 @@ public class MutableObject: ObjectSnapshot {
 
 // MARK: - Transient Object
 
+/// A proxy for for an object in a transient frame.
+///
+/// The transient object refers to one of two possible target objects: original
+/// stable snapshot or a mutable snapshot in a ``TransientFrame``.
+///
 public struct TransientObject: ObjectSnapshot {
-    
     let frame: TransientFrame
     public let id: ObjectID
 
@@ -148,6 +157,13 @@ public struct TransientObject: ObjectSnapshot {
     public func attribute(forKey key: String) -> Variant? {
         snapshot[key]
     }
+
+    public var attributeKeys: [AttributeKey] {
+        return Array(snapshot.attributeKeys)
+    }
+    
+    
+
     public subscript<T>(componentType: T.Type) -> T? where T : Component {
         get {
             return snapshot[componentType]

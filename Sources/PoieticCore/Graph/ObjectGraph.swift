@@ -5,39 +5,10 @@
 //  Created by Stefan Urbanek on 04/06/2023.
 //
 
-/// View of an object as a graph node.
-///
-/// Graph nodes are objects that can be connected to other nodes with edges.
-///
-/// - SeeAlso: `Edge`, `Graph`, `MutableGraph`
-///
-public struct Node {
-    /// Object snapshot that represents the node.
-    ///
-    public let snapshot: any ObjectSnapshot
-    
-    
-    /// Create a new node view from a snapshot.
-    ///
-    ///
-    public init?(_ snapshot: any ObjectSnapshot) {
-        guard snapshot.structure.type == .node else {
-            return nil
-        }
-        self.snapshot = snapshot
-    }
-    
-}
-
-extension Node {
-    public var id: ObjectID { snapshot.id }
-    public var type: ObjectType { snapshot.type }
-    public var name: String? { snapshot.name }
-}
-
 /// View of an object as an edge.
 ///
-public struct Edge {
+public struct EdgeSnapshot: EdgeProtocol {
+    // FIXME: [WIP] Clean-up the types
     public let snapshot: any ObjectSnapshot
     public let origin: ObjectID
     public let target: ObjectID
@@ -51,26 +22,35 @@ public struct Edge {
         self.origin = origin
         self.target = target
     }
-}
 
-extension Edge {
     public var id: ObjectID { snapshot.id }
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
 }
 
+/// Protocol for edges in a graph.
+///
+/// - SeeAlso: ``ObjectGraph``
+public protocol EdgeProtocol: Identifiable where ID == ObjectID {
+    /// Origin of the edge.
+    var origin: ObjectID { get }
+    /// Target of the edge.
+    var target: ObjectID { get }
+}
 
-/// Protocol for views of a frame as a graph.
+
+/// Collection of objects as nodes and edges.
 ///
-/// You can access the graph-related contents of the frame through the
-/// graph view. The view gives access to objects of structural type ``StructuralType/node``
-/// and ``StructuralType/edge`` for nodes and edges respectively. Objects
-/// of other structural types are ignored.
+/// Graphs are used to view interconnected object structures. When you use design frames
+/// you will benefit from operations that find neighbourhoods or sort objects topologically.
 ///
-public protocol Graph {
+public protocol ObjectGraph {
+    associatedtype Node: ObjectSnapshot
+    associatedtype Edge: EdgeProtocol
+    
     /// List of indices of all nodes
     var nodeIDs: [ObjectID] { get }
-
+    
     /// List of indices of all edges
     var edgeIDs: [ObjectID] { get }
     
@@ -79,23 +59,18 @@ public protocol Graph {
     
     /// All edges of the graph
     var edges: [Edge] { get }
-
+    
     /// Get a node by ID.
     ///
     func node(_ index: ObjectID) -> Node
-
+    
     /// Get an edge by ID.
     ///
     func edge(_ index: ObjectID) -> Edge
-
-    /// Check whether the graph contains a node and whether the node is valid.
+    
+    /// Check whether the graph contains a node object with given ID.
     ///
     /// - Returns: `true` if the graph contains the node.
-    ///
-    /// - Note: Node comparison is based on its identity. Two nodes with the
-    /// same attributes that are equatable are considered distinct nodes in the
-    /// graph.
-    ///
     ///
     func contains(node: ObjectID) -> Bool
     
@@ -103,19 +78,17 @@ public protocol Graph {
     ///
     /// - Returns: `true` if the graph contains the edge.
     ///
-    /// - Note: Edge comparison is based on its identity.
-    ///
     func contains(edge: ObjectID) -> Bool
-
+    
     /// Get a list of outgoing edges from a node.
     ///
     /// - Parameters:
     ///     - origin: Node from which the edges originate - node is origin
-    ///     node of the edge.
+    ///       node of the edge.
     ///
     /// - Returns: List of edges.
     ///
-    /// - Complexity: O(n). All edges are traversed.
+    /// - Complexity: O(n) for the default implementation – all edges are traversed.
     ///
     /// - Note: If you want to get both outgoing and incoming edges of a node
     ///   then use ``neighbours(_:)``. Using ``outgoing(_:)`` + ``incoming(_:)`` might
@@ -139,7 +112,6 @@ public protocol Graph {
     ///   result in duplicates for edges that are loops to and from the same
     ///   node.
     ///
-
     func incoming(_ target: ObjectID) -> [Edge]
     
     /// Get a list of edges that are related to the neighbours of the node. That
@@ -151,21 +123,13 @@ public protocol Graph {
     ///
     func neighbours(_ node: ObjectID) -> [Edge]
     
-    /// Get a list of nodes that match the given predicate.
-    ///
-    func selectNodes(_ predicate: Predicate) -> [Node]
-
-    /// Get a list of edges that match the given predicate.
-    ///
-    func selectEdges(_ predicate: Predicate) -> [Edge]
-
     /// Get a neighbourhood of a node where the edges match the neighbourhood
     /// selector `selector`.
     ///
-    func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood
+    func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood<Self>
 }
 
-extension Graph {
+extension ObjectGraph {
     public var nodeIDs: [ObjectID] {
         nodes.map { $0.id }
     }
@@ -205,23 +169,11 @@ extension Graph {
     }
 
     public func outgoing(_ origin: ObjectID) -> [Edge] {
-        let result: [Edge]
-        
-        result = self.edges.filter {
-            $0.origin == origin
-        }
-
-        return result
+        return self.edges.filter { $0.origin == origin }
     }
     
     public func incoming(_ target: ObjectID) -> [Edge] {
-        let result: [Edge]
-        
-        result = self.edges.filter {
-            $0.target == target
-        }
-
-        return result
+        return self.edges.filter { $0.target == target }
     }
     
     public func neighbours(_ node: ObjectID) -> [Edge] {
@@ -231,23 +183,6 @@ extension Graph {
             $0.target == node || $0.origin == node
         }
 
-        return result
-    }
-        
-    public var prettyDebugDescription: String {
-        var result: String = ""
-        
-        result += "NODES:\n"
-        for node in nodes {
-            result += "  \(node.id) \(node.type.name)\n"
-        }
-        result += "EDGES:\n"
-        for edge in edges {
-            var str: String = ""
-            str += "  \(edge.id) \(edge.type.name) "
-            + "\(edge.origin) --> \(edge.target)\n"
-            result += str
-        }
         return result
     }
 }

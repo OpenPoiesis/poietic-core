@@ -24,19 +24,17 @@ public struct GraphCycleError: Error {
     }
 }
 
-extension Graph {
+
+
+extension ObjectGraph {
     /// Sort nodes topologically.
     ///
     /// - Parameters:
     ///  - nodes: list of nodes to be sorted
     ///  - edges: list of edges to be considered during the sorting
     ///
+    /// - Returns: Sorted node IDs when there were no issues, or nil if there was a cycle.
     /// - Throws: ``GraphCycleError`` when a cycle is detected in the graph.
-    ///
-    /// - Note: The list of edges is expected to be valid and present edges
-    ///   within the graph. The origin, the target or both refer to nodes that
-    ///   are passed as an argument to this function. Behaviour is undefined if
-    ///   it is not the case.
     ///
     public func topologicalSort(_ toSort: [ObjectID], edges: [Edge]) throws (GraphCycleError) -> [ObjectID] {
         var sorted: [ObjectID] = []
@@ -72,11 +70,13 @@ extension Graph {
                 }
             }
         }
-        if !edges.isEmpty {
-            throw GraphCycleError(edges: edges.map {$0.id} )
-        }
 
-        return sorted
+        if edges.isEmpty {
+            return sorted
+        }
+        else {
+            throw GraphCycleError(edges: edges.map({ $0.id }))
+        }
     }
 }
 

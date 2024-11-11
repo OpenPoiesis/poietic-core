@@ -6,20 +6,21 @@
 //
 
 /// Protocol
-public protocol MutableGraph: Graph {
+public protocol MutableGraph: ObjectGraph {
+    // FIXME: [WIP] Remove component from the convenience methods below
     // Object creation
     @discardableResult
     func createNode(_ type: ObjectType,
                     name: String?,
                     attributes: [String:Variant],
-                    components: [Component]) -> ObjectID
+                    components: [Component]) -> MutableObject
     
     @discardableResult
     func createEdge(_ type: ObjectType,
                     origin: ObjectID,
                     target: ObjectID,
                     attributes: [String:Variant],
-                    components: [Component]) -> ObjectID
+                    components: [Component]) -> MutableObject
 
     /// Remove all nodes and edges from the graph.
     func removeAll()
@@ -44,14 +45,14 @@ extension MutableGraph {
         }
     }
     
-    public func createNode(_ type: ObjectType) -> ObjectID {
+    public func createNode(_ type: ObjectType) -> MutableObject {
         return self.createNode(type, name: nil, attributes: [:], components: [])
     }
 
     @discardableResult
     public func createEdge(_ type: ObjectType,
                     origin: ObjectID,
-                    target: ObjectID) -> ObjectID{
+                    target: ObjectID) -> MutableObject {
 
         return self.createEdge(type,
                                origin: origin,
@@ -74,22 +75,35 @@ extension TransientFrame: MutableGraph {
                            origin: ObjectID,
                            target: ObjectID,
                            attributes: [String:Variant] = [:],
-                           components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == .edge,
-                     "Trying to create an edge using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
-        precondition(contains(origin),
-                     "Trying to create an edge with unknown origin ID \(origin) in the frame")
-        precondition(contains(target),
-                     "Trying to create an edge with unknown target ID \(target) in the frame")
+                           components: [any Component] = []) -> MutableObject {
+        precondition(type.structuralType == .edge, "Structural type mismatch")
+        precondition(contains(origin), "Missing edge origin")
+        precondition(contains(target), "Missing edge target")
 
-        let snapshot = mutableFrame.create(
-            type,
+        let snapshot = mutableFrame.create(type,
             structure: .edge(origin, target),
             attributes: attributes,
-            components: components
-        )
+            components: components)
         
-        return snapshot.id
+        return snapshot
+    }
+                     
+                     @discardableResult
+    public func createEdge(_ type: ObjectType,
+                           origin: any ObjectSnapshot,
+                           target: any ObjectSnapshot,
+                           attributes: [String:Variant] = [:],
+                           components: [any Component] = []) -> MutableObject {
+        precondition(type.structuralType == .edge, "Structural type mismatch")
+        precondition(contains(origin.id), "Missing edge origin")
+        precondition(contains(target.id), "Missing edge target")
+        
+        let snapshot = mutableFrame.create(type,
+                                           structure: .edge(origin.id, target.id),
+                                           attributes: attributes,
+                                           components: components)
+        
+        return snapshot
     }
    
     
@@ -108,9 +122,8 @@ extension TransientFrame: MutableGraph {
     public func createNode(_ type: ObjectType,
                            name: String? = nil,
                            attributes: [String:Variant] = [:],
-                           components: [any Component] = []) -> ObjectID {
-        precondition(type.structuralType == .node,
-                     "Trying to create a node using a type '\(type.name)' that has a different structural type: \(type.structuralType)")
+                           components: [any Component] = []) -> MutableObject {
+            precondition(type.structuralType == .node, "Structural type mismatch")
 
         var actualAttributes = attributes
         
@@ -124,7 +137,7 @@ extension TransientFrame: MutableGraph {
             components: components
         )
 
-        return snapshot.id
+        return snapshot
     }
 
     public func remove(node nodeID: ObjectID) {

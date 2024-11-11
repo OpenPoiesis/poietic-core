@@ -65,7 +65,7 @@ public typealias FrameID = ID
 /// ``structure`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
-public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
+public protocol ObjectSnapshot: KeyedAttributes, Identifiable where ID == ObjectID {
     /// Primary object identity.
     ///
     /// The object ID defines the main identity of an object within a design.

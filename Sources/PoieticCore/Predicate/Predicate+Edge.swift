@@ -30,18 +30,18 @@ public final class EdgePredicate: Predicate {
     }
     
     public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
-        guard let edge = Edge(object) else {
+        guard let edge = EdgeSnapshot(object) else {
             return false
         }
         if let predicate = originPredicate {
             let node = frame.node(edge.origin)
-            if !predicate.match(frame: frame, object: node.snapshot) {
+            if !predicate.match(frame: frame, object: node) {
                 return false
             }
         }
         if let predicate = targetPredicate {
             let node = frame.node(edge.target)
-            if !predicate.match(frame: frame, object: node.snapshot) {
+            if !predicate.match(frame: frame, object: node) {
                 return false
             }
         }

@@ -42,6 +42,7 @@ public final class NeighborhoodSelector: Sendable {
 // TODO: Rethink Neighbourhoods. They are useful, but not well implemented
 // TODO: Split this into Bound and Unbound
 // TODO: Document complexity O(n) - all edges are traversed
+// TODO: Make it a view.
 
 // NOTE: There used to be more evolved neighbourhood-like collection of
 //       objects in the past. This is what remained.
@@ -51,10 +52,10 @@ public final class NeighborhoodSelector: Sendable {
 ///
 /// Neighbourhoods are created using ``Graph/hood(_:selector:)``.
 ///
-public class Neighborhood {
+public class Neighborhood<G: ObjectGraph> {
     /// Graph the neighbourhood is contained within.
     ///
-    public let graph: Graph
+    public let graph: G
     
     /// ID of a node the neighbourhood adjacent to.
     ///
@@ -66,20 +67,16 @@ public class Neighborhood {
     
     /// List of adjacent edges.
     ///
-    public let edges: [Edge]
+    public let edges: [G.Edge]
     
-    public init(graph: Graph,
-                nodeID: ObjectID,
-                direction: EdgeDirection,
-                edges: [Edge]) {
-        
+    public init(graph: G, nodeID: ObjectID, direction: EdgeDirection, edges: [G.Edge]) {
         self.graph = graph
         self.nodeID = nodeID
         self.direction = direction
         self.edges = edges
     }
     
-    public var nodes: [Node] {
+    public var nodes: [G.Node] {
         edges.map { edge in
             let endpointID: ObjectID
             switch direction {

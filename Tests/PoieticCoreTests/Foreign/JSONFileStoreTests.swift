@@ -42,7 +42,6 @@ final class JSONFileStoreTests: XCTestCase {
     }
     var db: Design!
     var frame: TransientFrame!
-    var graph: MutableGraph!
     
     override func setUp() {
         db = Design(metamodel: TestMetamodel)

@@ -18,7 +18,9 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public class StableFrame: Frame {
+public final class StableFrame: Frame {
+    public typealias Snapshot = StableObject
+    
     /// Design to which the frame belongs.
     public unowned let design: Design
     
@@ -82,7 +84,7 @@ public class StableFrame: Frame {
     
     /// Get an immutable graph view of the frame.
     ///
-    public var graph: Graph {
+    public var graph: any ObjectGraph {
         return self
     }
 }

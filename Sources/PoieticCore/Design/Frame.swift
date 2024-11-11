@@ -10,7 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``StableFrame``
 ///
-public protocol Frame: Graph {
+public protocol Frame: ObjectGraph where Node == Snapshot, Edge == EdgeSnapshot {
     associatedtype Snapshot: ObjectSnapshot
     /// Design to which the frame belongs.
     var design: Design { get }
@@ -50,6 +50,8 @@ public protocol Frame: Graph {
     
     func filter(type: ObjectType) -> [Snapshot]
 }
+
+// MARK: - Default Implementations
 
 extension Frame {
     public subscript(id: ObjectID) -> Snapshot {
@@ -239,21 +241,19 @@ extension Frame {
     }
 }
 
-/// Graph contained within a mutable frame where the references to the nodes and
-/// edges are not directly bound and are resolved at the time of querying.
-///
-extension Frame /* Graph */ {
+// MARK: - Graph Implementations
+
+extension Frame {
     /// Get a node by ID.
     ///
     /// - Precondition: The object must exist and must be a node.
     ///
     public func node(_ id: ObjectID) -> Node {
-        if let node = Node(self[id]) {
-            return node
+        let object = self[id]
+        guard object.structure.type == .node else {
+            preconditionFailure("Object is not a node")
         }
-        else {
-            preconditionFailure("Frame object \(id) must be a node.")
-        }
+        return object
     }
     
     /// Get an edge by ID.
@@ -289,14 +289,8 @@ extension Frame /* Graph */ {
         }
     }
     
-    public func neighbours(_ node: ObjectID, selector: NeighborhoodSelector) -> [Edge] {
-        fatalError("Neighbours of mutable graph not implemented")
-    }
-    
     public var nodes: [Node] {
-        return self.snapshots.compactMap {
-            Node($0)
-        }
+        return self.snapshots.filter { $0.structure.type == .node }
     }
     
     public var edges: [Edge] {
@@ -310,14 +304,7 @@ extension Frame /* Graph */ {
         self.filter { $0.parent == nil }
     }
     
-    public func selectNodes(_ predicate: Predicate) -> [Node] {
-        return nodes.filter { predicate.match(frame: self, object: $0.snapshot) }
-    }
-    public func selectEdges(_ predicate: Predicate) -> [Edge] {
-        return edges.filter { predicate.match(frame: self, object: $0.snapshot) }
-    }
-    
-    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
+    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood<Self> {
         let edges: [Edge]
         switch selector.direction {
         case .incoming: edges = incoming(nodeID)
@@ -333,7 +320,6 @@ extension Frame /* Graph */ {
                             edges: filtered)
     }
 }
-
 
 
 extension Frame {

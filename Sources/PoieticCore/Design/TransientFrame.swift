@@ -45,7 +45,7 @@
 ///
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
-public class TransientFrame: Frame {
+public final class TransientFrame: Frame {
     public typealias Snapshot = TransientObject
     /// Design with which this frame is associated with.
     ///

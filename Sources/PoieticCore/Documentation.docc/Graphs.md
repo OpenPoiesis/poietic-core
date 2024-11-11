@@ -6,7 +6,7 @@ Graphs are views that comprise of nodes and edges – connections between nodes.
 
 ### Graph, Nodes and Edges
 
-- ``Graph``
+- ``ObjectGraph``
 - ``MutableGraph``
 
 - ``Node``
