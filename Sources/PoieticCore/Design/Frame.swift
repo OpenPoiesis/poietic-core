@@ -11,6 +11,7 @@
 /// ``StableFrame``
 ///
 public protocol Frame: Graph {
+    associatedtype Snapshot: ObjectSnapshot
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -18,23 +19,23 @@ public protocol Frame: Graph {
     
     /// Get a list of all snapshots in the frame.
     ///
-    var snapshots: [ObjectSnapshot] { get }
+    var snapshots: [Snapshot] { get }
 
     /// Check whether the frame contains an object with given ID.
     ///
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
     ///
     func contains(_ id: ObjectID) -> Bool
-    func contains(_ snapshot: ObjectSnapshot) -> Bool
+    func contains(_ snapshot: Snapshot) -> Bool
 
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    func object(_ id: ObjectID) -> ObjectSnapshot
+    func object(_ id: ObjectID) -> Snapshot
     
     /// Get an object by an ID.
     ///
-    subscript(id: ObjectID) -> ObjectSnapshot { get }
+    subscript(id: ObjectID) -> Snapshot { get }
 
     
     /// Asserts that the frame satisfies the given constraint. Raises a
@@ -47,15 +48,20 @@ public protocol Frame: Graph {
 
     func hasReferentialIntegrity() -> Bool
     
-    func filter(type: ObjectType) -> [ObjectSnapshot]
+    func filter(type: ObjectType) -> [Snapshot]
 }
 
 extension Frame {
-    public subscript(id: ObjectID) -> ObjectSnapshot {
+    public subscript(id: ObjectID) -> Snapshot {
         get {
             self.object(id)
         }
     }
+    /// Get a list of missing IDs from the list of IDs
+    public func missing(_ ids: [ObjectID]) -> [ObjectID] {
+        return ids.filter { !contains($0) }
+    }
+    
 
     /// Get a list of object IDs that are referenced within the frame
     /// but do not exist in the frame.
@@ -116,7 +122,7 @@ extension Frame {
     /// - SeeAlso: ``Frame/brokenReferences()``,
     ///     ``Frame/hasReferentialIntegrity()``
     ///
-    public func brokenReferences(snapshot: ObjectSnapshot) -> [ObjectID] {
+    public func brokenReferences(snapshot: Snapshot) -> [ObjectID] {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame
         //
         var broken: Set<ObjectID> = []
@@ -162,7 +168,7 @@ extension Frame {
     /// This method is used to find singleton objects, for example
     /// design info object.
     ///
-    public func first(type: ObjectType) -> ObjectSnapshot? {
+    public func first(type: ObjectType) -> Snapshot? {
         return snapshots.first { $0.type === type }
     }
 
@@ -171,7 +177,7 @@ extension Frame {
     /// - Note: The type is compared for identity, that means that the snapshots
     /// must have exactly the provided object type instance associated.
     ///
-    public func filter(type: ObjectType) -> [ObjectSnapshot] {
+    public func filter(type: ObjectType) -> [Snapshot] {
         return snapshots.filter { $0.type === type }
     }
     
@@ -183,7 +189,7 @@ extension Frame {
     ///   matching the filter must have exactly the provided trait associated
     ///   with the object's type.
     ///
-    public func filter(trait: Trait) -> [ObjectSnapshot] {
+    public func filter(trait: Trait) -> [Snapshot] {
         return snapshots.filter {
             $0.type.traits.contains { $0 === trait }
         }
@@ -191,7 +197,7 @@ extension Frame {
 
     /// Filter objects by a closure.
     /// 
-    public func filter(_ test: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
+    public func filter(_ test: (Snapshot) -> Bool) -> [Snapshot] {
         return snapshots.filter(test)
     }
 
@@ -200,7 +206,7 @@ extension Frame {
     /// If multiple objects satisfy the condition, then which one is
     /// returned is undefined.
     ///
-    public func first(where predicate: (ObjectSnapshot) -> Bool) -> ObjectSnapshot? {
+    public func first(where predicate: (Snapshot) -> Bool) -> Snapshot? {
         return snapshots.first(where: predicate)
     }
 
@@ -211,19 +217,8 @@ extension Frame {
     ///
     /// Use this only for traits of singletons.
     ///
-    public func first(trait: Trait) -> ObjectSnapshot? {
+    public func first(trait: Trait) -> Snapshot? {
         return snapshots.first { $0.type.hasTrait(trait) }
-    }
-
-    public func filterNodes(_ block: (ObjectSnapshot) -> Bool) -> [Node] {
-        return snapshots.compactMap {
-            if let node = Node($0), block($0) {
-                return node
-            }
-            else {
-                return nil
-            }
-        }
     }
 
     public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
@@ -237,19 +232,7 @@ extension Frame {
         }
     }
 
-    public func filter<T>(component type: T.Type) -> [(ObjectSnapshot, T)]
-            where T : Component {
-        return snapshots.compactMap {
-            if let component: T = $0.components[type]{
-                ($0, component)
-            }
-            else {
-                nil
-            }
-        }
-    }
-    
-    public func filter(_ predicate: Predicate) -> [ObjectSnapshot] {
+    public func filter(_ predicate: Predicate) -> [Snapshot] {
         return snapshots.filter {
             predicate.match(frame: self, object: $0)
         }
@@ -260,34 +243,32 @@ extension Frame {
 /// edges are not directly bound and are resolved at the time of querying.
 ///
 extension Frame /* Graph */ {
-    public var frame: Frame { self }
-
     /// Get a node by ID.
     ///
     /// - Precondition: The object must exist and must be a node.
     ///
     public func node(_ id: ObjectID) -> Node {
-        if let node = Node(frame[id]) {
+        if let node = Node(self[id]) {
             return node
         }
         else {
             preconditionFailure("Frame object \(id) must be a node.")
         }
     }
-
+    
     /// Get an edge by ID.
     ///
     /// - Precondition: The object must exist and must be an edge.
     ///
     public func edge(_ id: ObjectID) -> Edge {
-        if let edge = Edge(frame[id]) {
+        if let edge = Edge(self[id]) {
             return edge
         }
         else {
             preconditionFailure("Frame object \(id) must be an edge.")
         }
     }
-
+    
     public func contains(node nodeID: ObjectID) -> Bool {
         if contains(nodeID) {
             let obj = self[nodeID]
@@ -297,7 +278,7 @@ extension Frame /* Graph */ {
             return false
         }
     }
-
+    
     public func contains(edge edgeID: ObjectID) -> Bool {
         if contains(edgeID) {
             let obj = self[edgeID]
@@ -307,114 +288,53 @@ extension Frame /* Graph */ {
             return false
         }
     }
-
+    
     public func neighbours(_ node: ObjectID, selector: NeighborhoodSelector) -> [Edge] {
         fatalError("Neighbours of mutable graph not implemented")
     }
     
     public var nodes: [Node] {
-        return self.frame.snapshots.compactMap {
+        return self.snapshots.compactMap {
             Node($0)
         }
     }
     
     public var edges: [Edge] {
-        return self.frame.snapshots.compactMap {
+        return self.snapshots.compactMap {
             Edge($0)
         }
     }
     
     /// Get list of objects that have no parent.
-    public func top() -> [ObjectSnapshot] {
-        self.snapshots.filter { $0.parent == nil }
+    public func top() -> [Snapshot] {
+        self.filter { $0.parent == nil }
+    }
+    
+    public func selectNodes(_ predicate: Predicate) -> [Node] {
+        return nodes.filter { predicate.match(frame: self, object: $0.snapshot) }
+    }
+    public func selectEdges(_ predicate: Predicate) -> [Edge] {
+        return edges.filter { predicate.match(frame: self, object: $0.snapshot) }
+    }
+    
+    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
+        let edges: [Edge]
+        switch selector.direction {
+        case .incoming: edges = incoming(nodeID)
+        case .outgoing: edges = outgoing(nodeID)
+        }
+        let filtered: [Edge] = edges.filter {
+            selector.predicate.match(frame: self, object: $0.snapshot)
+        }
+        
+        return Neighborhood(graph: self,
+                            nodeID: nodeID,
+                            direction: selector.direction,
+                            edges: filtered)
     }
 }
 
 
-/// Stable design frame that can not be mutated.
-///
-/// The stable frame is a collection of object versions that together represent
-/// a version snapshot of a design. The frame is immutable.
-///
-/// Stable frames can not be created directly. They can be created only from
-/// mutable frames through validation using ``Design/accept(_:appendHistory:)``.
-///
-/// To create a derivative frame from a stable frame use
-/// ``Design/deriveFrame(original:id:)``.
-///
-/// - SeeAlso: ``TransientFrame``
-///
-public class StableFrame: Frame {
-    /// Design to which the frame belongs.
-    public unowned let design: Design
-    
-    /// ID of the frame.
-    ///
-    /// ID is unique within the design.
-    ///
-    public let id: FrameID
-    
-    /// Versions of objects in the plane.
-    ///
-    /// Objects not in the map do not exist in the version plane, but might
-    /// exist in the design.
-    ///
-    private(set) internal var _snapshots: [ObjectID:ObjectSnapshot]
-    
-    
-    /// Create a new stable frame with given ID and with list of snapshots.
-    ///
-    /// - Precondition: Snapshot must not be mutable.
-    ///
-    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot]? = nil) {
-        precondition(snapshots?.allSatisfy({ $0.state > .transient }) ?? true,
-                     "Trying to create a stable frame with some transient snapshots")
-        
-        self.design = design
-        self.id = id
-        self._snapshots = [:]
-        
-        if let snapshots {
-            for snapshot in snapshots {
-                self._snapshots[snapshot.id] = snapshot
-            }
-        }
-    }
-    
-    /// Get a list of snapshots.
-    ///
-    public var snapshots: [ObjectSnapshot] {
-        return Array(_snapshots.values)
-    }
-    
-    /// Returns `true` if the frame contains an object with given object
-    /// identity.
-    ///
-    public func contains(_ id: ObjectID) -> Bool {
-        return _snapshots[id] != nil
-    }
-
-    public func contains(_ snapshot: ObjectSnapshot) -> Bool {
-        return _snapshots[snapshot.id] === snapshot
-    }
-
-    /// Return an object snapshots with given object ID.
-    ///
-    /// - Precondition: Frame must contain object with given ID.
-    ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
-        guard let snapshot = _snapshots[id] else {
-            preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
-        }
-        return snapshot
-    }
-    
-    /// Get an immutable graph view of the frame.
-    ///
-    public var graph: Graph {
-        return self
-    }
-}
 
 extension Frame {
     /// Get object by a name, if the object contains a named component.
@@ -431,7 +351,7 @@ extension Frame {
     ///   with the given name exists.
     ///
     ///
-    public func object(named name: String) -> ObjectSnapshot? {
+    public func object(named name: String) -> Snapshot? {
         return snapshots.first { $0.name == name }
     }
     
@@ -445,7 +365,7 @@ extension Frame {
     /// calls to the method with the same name do not guarantee that
     /// the same object will be returned if multiple objects have the same name.
     ///
-    public func object(stringReference: String) -> ObjectSnapshot? {
+    public func object(stringReference: String) -> Snapshot? {
         if let id = ObjectID(stringReference), contains(id) {
             return self[id]
         }

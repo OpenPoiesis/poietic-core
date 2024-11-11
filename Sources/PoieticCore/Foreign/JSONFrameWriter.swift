@@ -12,7 +12,7 @@ import Foundation
 /// - Note: This is just a prototype of a functionality.
 ///
 public class JSONFrameWriter {
-    static public func objectToJSON(_ object: ObjectSnapshot) throws -> Data {
+    static public func objectToJSON(_ object: StableObject) throws -> Data {
         let foreign = JSONForeignObject(object)
         let encoder = JSONEncoder()
         let data = try encoder.encode(foreign)

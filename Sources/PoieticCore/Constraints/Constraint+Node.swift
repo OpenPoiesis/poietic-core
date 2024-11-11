@@ -27,7 +27,7 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
     }
 
     
-    public func check(frame: Frame, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: any Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
         return objects.filter {
             guard let node = Node($0) else {
                 return false

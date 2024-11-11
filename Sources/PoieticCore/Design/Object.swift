@@ -35,6 +35,132 @@ public typealias SnapshotID = ID
 ///
 public typealias FrameID = ID
 
+/// A version of a design object.
+///
+/// Design objects are the main entities of the design. Each object can have
+/// multiple versions and each version is called an _object snapshot_. In the
+/// design process the object might exist in different states, based on its
+/// mutability and validity. The ``ObjectSnapshot`` protocol provides unified
+/// interface for all of those state representations.
+///
+/// The different representations that the object might be in are:
+///
+/// - ``StableObject``: Object that has been validated and can not be modified.
+///   They are the items of a``StableFrame`` and can be shared by multiple frames.
+/// - ``MutableObject``: Object of a temporary nature, that can be modified. The
+///   Mutable object is then turned into a ``StableObject`` when valid.
+/// - ``TransientObject``: Rather a wrapper over an object that belongs to a
+///   ``TransientFrame``, it might refer to an original ``StableObject`` while
+///   the object has not been modified or to a ``MutableObject`` once a
+///   modification has been requested.
+///
+///
+public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
+    /// Primary object identity.
+    ///
+    /// The object ID defines the main identity of an object within a design.
+    /// One object can share multiple snapshots, which are identified by their
+    /// ``snapshotID``.
+    ///
+    /// Objects within a ``Frame`` have unique object ``id``, however there
+    /// might be multiple snapshots with the same ``id`` within the design.
+    ///
+    /// The ID is generated using ``Design/allocateID(required:)`` and is
+    /// guaranteed to be unique within the design. If an object is coming from
+    /// a foreign interface or from a storage, an explicit ID might be
+    /// requested, however the programmer is responsible for checking its
+    /// uniqueness within given context.
+    ///
+    /// - SeeAlso: ``snapshotID``,
+    ///    ``Design/allocateID(proposed:)``,
+    ///    ``Frame/object(_:)``,
+    ///    ``Frame/contains(_:)``,
+    ///
+    var id: ObjectID { get }
+    
+    /// Unique identifier of the object version snapshot within the design.
+    ///
+    /// The ``snapshotID`` represents a concrete version of an object. An
+    /// object can have multiple versions, which all share the same identity
+    /// of object ``id``.
+    ///
+    /// Typically when working with the design and design frames, one does not
+    /// need to use the ``snapshotID``. It is used only when considering
+    /// different versions of objects.
+    ///
+    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
+    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
+    ///
+    /// - SeeAlso: ``id``,
+    ///    ``Design/allocateID(required:)``
+    ///    ``TransientFrame/mutate(_:)``
+    ///
+    var snapshotID: SnapshotID { get }
+    
+    
+    /// Object type from the problem domain described by a metamodel.
+    ///
+    /// The ``ObjectType`` describes the typical object structure within a
+    /// domain model. The domain model is described through ``Metamodel``.
+    ///
+    /// When object is validated and accepted by ``Design/accept(_:appendHistory:)``,
+    /// the object attributes and their values must conform to the object type
+    /// attributes.
+    ///
+    /// - SeeAlso:
+    ///     ``ObjectType``, ``Metamodel``
+    ///     ``Frame/filter(type:)``,
+    ///     ``IsTypePredicate``
+    ///
+    var type: ObjectType { get }
+
+    /// Structural role of the object within a design.
+    ///
+    /// Objects can be either unstructured (``StructuralComponent/unstructured``)
+    /// or have a special role in different views of the design, such as nodes
+    /// and edges in a graph.
+    ///
+    /// Structural component also denotes which objects depend on the object.
+    /// For example, if objects is an edge and any of it's ``StructuralComponent/edge(_:_:)``
+    /// elements is removed from a design, then the edge is removed as well.
+    ///
+    /// - SeeAlso: ``TransientFrame/removeCascading(_:)``, ``Graph``
+    ///
+    var structure: StructuralComponent { get }
+    var parent: ObjectID? { get }
+    var children: ChildrenSet { get }
+    var components: ComponentSet { get }
+    
+    var name: String? { get }
+    
+    subscript(attributeKey: String) -> Variant? { get }
+    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
+}
+
+extension ObjectSnapshot {
+    /// Get object name if the object has an attribute `name`.
+    ///
+    /// This is provided for convenience.
+    ///
+    /// - Note: The `name` attribute must be either a string or an integer,
+    ///   otherwise `nil` is returned.
+    ///
+    public var name: String? {
+        guard let value = self["name"] else {
+            return nil
+        }
+        guard case .atom(let atom) = value else {
+            return nil
+        }
+
+        switch atom {
+        case .string(let name): return name
+        case .int(let name): return String(name)
+        default: return nil
+        }
+    }
+}
+
 /// Representation of a design object's version.
 ///
 /// All design objects are represented by one or more object snapshots. The
@@ -65,61 +191,12 @@ public typealias FrameID = ID
 ///
 /// - SeeAlso: ``Frame``, ``TransientFrame``
 ///
-public final class ObjectSnapshot: Identifiable, CustomStringConvertible, MutableKeyedAttributes {
-    public static let ReservedAttributeNames = [
-        "id",
-        "snapshot_id",
-        "origin",
-        "target",
-        "type",
-        "parent",
-
-        "structure",
-    ]
+public final class StableObject: ObjectSnapshot, CustomStringConvertible {
     
-    public typealias ID = ObjectID
-    
-    /// Unique identifier of the version snapshot within the database.
-    ///
-    /// The `snapshotID` is unique in the whole design.
-    ///
-    /// One typically does not use the snapshot ID as it refers to object's
-    /// particular version. Through the design the object's ``id`` is used as
-    /// a logical reference to an object where the concrete version is used
-    /// within the context of a frame.
-    ///
-    /// The snapshot ID is preserved during persistence. However, it is not
-    /// necessary to be provided when importing object from foreign interfaces
-    /// which are dealing with only single version frame.
-    ///
-    /// When mutating an object with ``TransientFrame/mutableObject(_:)`` a new
-    /// snapshot with new snapshot ID but the same object ID will be created.
-    ///
-    /// - SeeAlso: ``id``, ``TransientFrame/insert(_:)``,
-    ///    ``Design/allocateID(required:)``
-    ///
     public let snapshotID: SnapshotID
-    
-    /// Object identity.
-    ///
-    /// The object ID defines the main identity of an object. An object might
-    /// have multiple version snapshots which are identified by ``snapshotID``.
-    /// Snapshots sharing the same object ID are different versions of the same
-    /// object. Typically only snapshots from within the same frame are
-    /// considered.
-    ///
-    /// The object ID is preserved during persistence.
-    ///
-    /// When mutating an object with ``TransientFrame/mutableObject(_:)`` a new
-    /// snapshot with new snapshot ID but the same object ID will be created.
-    ///
-    /// - SeeAlso: ``snapshotID``,
-    ///   ``Frame/object(_:)``, ``Frame/contains(_:)``,
-    ///    ``TransientFrame/mutableObject(_:)``,
-    ///    ``Design/allocateID(proposed:)``
-    ///
     public let id: ObjectID
-    
+    public let type: ObjectType
+
     /// Object attributes.
     ///
     public private(set) var attributes: [String:Variant]
@@ -143,39 +220,8 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         }
     }
     
-    /// Object type within the problem domain.
-    ///
-    /// The ``ObjectType`` describes the typical object structure within a
-    /// domain model. The domain model is described through ``Metamodel``.
-    ///
-    /// Object type is also used in querying of objects using ``Frame/filter(type:)-3zj9k``
-    /// or using ``Frame/filter(_:)-50lwx`` with ``IsTypePredicate``.
-    ///
-    /// - SeeAlso: ``ObjectType``, ``Metamodel``
-    ///
-    public let type: ObjectType
     
-    /// State in which the object is in.
-    ///
-    /// Denotes whether the object can be mutated and how it can be used in
-    /// frames.
-    ///
-    public var state: VersionState
-    
-    /// Variable denoting the structural property or rather structural role
-    /// of the object within a design.
-    ///
-    /// Objects can be either unstructured (``StructuralComponent/unstructured``)
-    /// or have a special role in different views of the design, such as nodes
-    /// and edges in a graph.
-    ///
-    /// Structural component also denotes which objects depend on the object.
-    /// For example, if objects is an edge and any of it's ``StructuralComponent/edge(_:_:)``
-    /// elements is removed from a design, then the edge is removed as well.
-    ///
-    /// - SeeAlso: ``TransientFrame/removeCascading(_:)``, ``Graph``
-    ///
-    public var structure: StructuralComponent
+    public let structure: StructuralComponent
     
     // Hierarchy
     /// Object's parent – denotes hierarchical organisation of objects.
@@ -192,11 +238,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
     ///
-    public var parent: ObjectID? = nil {
-        willSet {
-            precondition(state == .transient)
-        }
-    }
+    public let parent: ObjectID?
 
     /// List of object's children.
     ///
@@ -218,11 +260,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     /// ``TransientFrame/removeCascading(_:)``.
     ///
     ///
-    public var children: ChildrenSet = ChildrenSet() {
-        willSet {
-            precondition(state == .transient)
-        }
-    }
+    public let children: ChildrenSet
     
     /// Create an empty object.
     ///
@@ -245,23 +283,34 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
                 type: ObjectType,
                 structure: StructuralComponent = .unstructured,
                 parent: ObjectID? = nil,
+                children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
-        precondition(ObjectSnapshot.ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
+        precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
         
         self.id = id
         self.snapshotID = snapshotID
         self.type = type
-        self.state = .transient
         self.structure = structure
         self.parent = parent
 
         self.attributes = attributes
         self.components = ComponentSet(components)
-        self.state = .transient
+        self.children = ChildrenSet(children)
     }
-   
+    
+    convenience init(_ object: MutableObject) {
+        self.init(id: object.id,
+                  snapshotID: object.snapshotID,
+                  type: object.type,
+                  structure: object.structure,
+                  parent: object.parent,
+                  children: object.children.items,
+                  attributes: object.attributes,
+                  components: object.components.components)
+    }
+
     /// Textual description of the object.
     ///
     public var description: String {
@@ -270,7 +319,7 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
             ($0.name, self[$0.name] ?? "nil")
         }.map { "\($0.0)=\($0.1)"}
         .joined(separator: ",")
-        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs), state: \(state)"
+        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
     }
     
     /// Prettier description of the object.
@@ -281,39 +330,9 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
     }
     
 
-    /// Promote the object's state.
-    ///
-    /// The state must be a higher state than the current state of the object.
-    /// The state order, from lowest to highest is: transient, stable,
-    /// validated.
-    ///
-    /// Validated objects can no longer be changed. They make up ``StableFrame``s.
-    ///
-    @inlinable
-    public func promote(_ state: VersionState) {
-        precondition(self.state < state,
-                     "Can not promote from state \(self.state) to \(state)")
-        self.state = state
-    }
-    
     @inlinable
     public subscript(attributeName: String) -> (Variant)? {
-        get {
-            return attribute(forKey: attributeName)
-        }
-        set(value) {
-            if let value {
-                setAttribute(value: value, forKey: attributeName)
-            }
-            else {
-                removeAttribute(forKey: attributeName)
-            }
-        }
-    }
-    
-    public func removeAttribute(forKey key: String) {
-        precondition(state == .transient)
-        attributes[key] = nil
+        return attribute(forKey: attributeName)
     }
     
     /// Get or set a component of given type, if present.
@@ -328,8 +347,6 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
             return components[componentType]
         }
         set(component) {
-            precondition(state.isMutable,
-                         "Trying to set a component of an immutable object (id: \(self.id), sid: \(self.snapshotID))")
             components[componentType] = component
         }
     }
@@ -362,47 +379,10 @@ public final class ObjectSnapshot: Identifiable, CustomStringConvertible, Mutabl
         }
     }
     
-    /// Set an attribute value for given key.
-    ///
-    /// - Precondition: The attribute must not be a reserved attribute (``ObjectSnapshot/ReservedAttributeNames``).
-    ///
-    public func setAttribute(value: Variant, forKey key: String) {
-        precondition(state == .transient,
-                     "Trying to set attribute on non-transient snapshot \(snapshotID)")
-        precondition(ObjectSnapshot.ReservedAttributeNames.firstIndex(of: "key") == nil,
-                     "Trying to set a reserved read-only attribute '\(key)'")
-        attributes[key] = value
-    }
-    
     @inlinable
     public var attributeKeys: [AttributeKey] {
-        return type.attributeKeys
+        return attributes.keys.map { $0 }
     }
 
-    public var debugID: String {
-        return "\(self.id).\(self.snapshotID)"
-    }
-    
-    /// Get object name if the object has an attribute `name`.
-    ///
-    /// This is provided for convenience.
-    ///
-    /// - Note: The `name` attribute must be either a string or an integer,
-    ///   otherwise `nil` is returned.
-    ///
-    public var name: String? {
-        guard let value = attributes["name"] else {
-            return nil
-        }
-        guard case .atom(let atom) = value else {
-            return nil
-        }
-
-        switch atom {
-        case .string(let name): return name
-        case .int(let name): return String(name)
-        default: return nil
-        }
-    }
 }
 

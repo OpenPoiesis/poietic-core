@@ -29,7 +29,7 @@ public final class EdgePredicate: Predicate {
         self.edgePredicate = edge
     }
     
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         guard let edge = Edge(object) else {
             return false
         }

@@ -116,7 +116,7 @@ public class Design {
     ///
     private var objectIDSequence: ObjectID
 
-    var _stableSnapshots: [SnapshotID: ObjectSnapshot]
+    var _stableSnapshots: [SnapshotID: StableObject]
     var _stableFrames: [FrameID: StableFrame]
 
     var _transientFrames: [FrameID: TransientFrame]
@@ -221,7 +221,7 @@ public class Design {
         }
     }
     
-    public func snapshot(_ snapshotID: ObjectID) -> ObjectSnapshot? {
+    public func snapshot(_ snapshotID: ObjectID) -> StableObject? {
         return self._stableSnapshots[snapshotID]
     }
 
@@ -247,9 +247,9 @@ public class Design {
     ///
     /// The order of the returned snapshots is arbitrary.
     ///
-    public var validatedSnapshots: [ObjectSnapshot] {
+    public var validatedSnapshots: [StableObject] {
         var seen: Set<SnapshotID> = Set()
-        var result: [ObjectSnapshot] = []
+        var result: [StableObject] = []
         
         for frame in self._stableFrames.values {
             for snapshot in frame.snapshots {
@@ -266,7 +266,7 @@ public class Design {
 
     /// Get a sequence of all stable snapshots in all frames.
     ///
-    public var allSnapshots: any Sequence<ObjectSnapshot> {
+    public var allSnapshots: any Sequence<StableObject> {
         return _stableSnapshots.values
     }
     
@@ -379,10 +379,11 @@ public class Design {
         
         try checker.check(frame)
 
-        frame.accept()
+        let snapshots: [StableObject] = frame.accept()
+        
         let stableFrame = StableFrame(design: self,
                                       id: frame.id,
-                                      snapshots: frame.snapshots)
+                                      snapshots: snapshots)
         _stableFrames[frame.id] = stableFrame
         _transientFrames[frame.id] = nil
         
@@ -475,7 +476,7 @@ public class Design {
     ///
     /// - Returns: List of constraint violations.
     /// 
-    public func checkConstraints(_ frame: Frame) -> [ConstraintViolation] {
+    public func checkConstraints(_ frame: some Frame) -> [ConstraintViolation] {
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
             let violators = constraint.check(frame)

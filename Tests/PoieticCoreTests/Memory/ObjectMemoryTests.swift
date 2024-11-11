@@ -42,18 +42,8 @@ final class DesignTests: XCTestCase {
         
         XCTAssertEqual(design.versionHistory, [frame.id])
         XCTAssertEqual(design.currentFrame?.id, frame.id)
-        XCTAssertTrue(design.currentFrame!.contains(a))
-        XCTAssertTrue(design.currentFrame!.contains(b))
-    }
-    
-    func testMakeObjectFrozenAfterAccept() throws {
-        let design = Design(metamodel: self.metamodel)
-        let frame = design.createFrame()
-        let a = frame.create(TestType)
-        try design.accept(frame)
-        
-        let obj = design.currentFrame![a.id]
-        XCTAssertEqual(obj.state, VersionState.validated)
+        XCTAssertTrue(design.currentFrame!.contains(a.id))
+        XCTAssertTrue(design.currentFrame!.contains(b.id))
     }
     
     func testDiscard() throws {
@@ -77,17 +67,17 @@ final class DesignTests: XCTestCase {
         let originalVersion = design.currentFrameID
         
         let removalFrame = design.createFrame(deriving: design.currentFrame)
-        XCTAssertTrue(design.currentFrame!.contains(a))
+        XCTAssertTrue(design.currentFrame!.contains(a.id))
         removalFrame.removeCascading(a.id)
         XCTAssertTrue(removalFrame.hasChanges)
         XCTAssertFalse(removalFrame.contains(a))
         
         try design.accept(removalFrame)
         XCTAssertEqual(design.currentFrame!.id, removalFrame.id)
-        XCTAssertFalse(design.currentFrame!.contains(a))
+        XCTAssertFalse(design.currentFrame!.contains(a.id))
         
         let original2 = design.frame(originalVersion!)!
-        XCTAssertTrue(original2.contains(a))
+        XCTAssertTrue(original2.contains(a.id))
     }
     
     
@@ -104,8 +94,8 @@ final class DesignTests: XCTestCase {
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        XCTAssertTrue(design.currentFrame!.contains(a))
-        XCTAssertTrue(design.currentFrame!.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a.id))
+        XCTAssertTrue(design.currentFrame!.contains(b.id))
         XCTAssertEqual(design.versionHistory, [v0, frame1.id, frame2.id])
         
         design.undo(to: frame1.id)
@@ -120,8 +110,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.undoableFrames, [])
         XCTAssertEqual(design.redoableFrames, [frame1.id, frame2.id])
         
-        XCTAssertFalse(design.currentFrame!.contains(a))
-        XCTAssertFalse(design.currentFrame!.contains(b))
+        XCTAssertFalse(design.currentFrame!.contains(a.id))
+        XCTAssertFalse(design.currentFrame!.contains(b.id))
     }
     
     func testUndoComponent() throws {
@@ -175,8 +165,8 @@ final class DesignTests: XCTestCase {
         design.undo(to: frame1.id)
         design.redo(to: frame2.id)
         
-        XCTAssertTrue(design.currentFrame!.contains(a))
-        XCTAssertTrue(design.currentFrame!.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a.id))
+        XCTAssertTrue(design.currentFrame!.contains(b.id))
         
         XCTAssertEqual(design.currentFrameID, frame2.id)
         XCTAssertEqual(design.undoableFrames, [v0, frame1.id])
@@ -199,8 +189,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.redoableFrames, [frame2.id])
         XCTAssertTrue(design.canRedo)
         
-        XCTAssertTrue(design.currentFrame!.contains(a))
-        XCTAssertFalse(design.currentFrame!.contains(b))
+        XCTAssertTrue(design.currentFrame!.contains(a.id))
+        XCTAssertFalse(design.currentFrame!.contains(b.id))
     }
     
     func testRedoReset() throws {
@@ -223,8 +213,8 @@ final class DesignTests: XCTestCase {
         XCTAssertEqual(design.undoableFrames, [v0])
         XCTAssertEqual(design.redoableFrames, [])
         
-        XCTAssertFalse(design.currentFrame!.contains(a))
-        XCTAssertTrue(design.currentFrame!.contains(b))
+        XCTAssertFalse(design.currentFrame!.contains(a.id))
+        XCTAssertTrue(design.currentFrame!.contains(b.id))
     }
     
     func testConstraintViolationAccept() throws {

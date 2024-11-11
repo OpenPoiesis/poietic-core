@@ -29,11 +29,27 @@ extension ObjectSnapshot {
     /// Get position of the object.
     ///
     /// The position is retrieved from the `position` attribute, if it is
-    /// present. If the object has no `position` attribute, then `nil` is
-    /// returned.
+    /// present. If the object has no `position` attribute or the attribute
+    /// is not convertible to a valid point, then `nil` is returned.
     ///
-    /// If the value of the `position` attribute is not convertible to a point,
-    /// then `nil` is returned as well.
+    public var position: Point? {
+        get {
+            if let value = self["position"] {
+                return try? value.pointValue()
+            }
+            else {
+                return nil
+            }
+        }
+    }
+}
+
+extension MutableObject {
+    /// Get or set position of the object.
+    ///
+    /// The position is retrieved from the `position` attribute, if it is
+    /// present. If the object has no `position` attribute or the attribute
+    /// is not convertible to a valid point, then `nil` is returned.
     ///
     public var position: Point? {
         get {
@@ -52,6 +68,5 @@ extension ObjectSnapshot {
                 self["position"] = nil
             }
         }
-        
     }
 }

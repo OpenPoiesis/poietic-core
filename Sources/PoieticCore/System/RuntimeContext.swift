@@ -13,7 +13,7 @@
 public class RuntimeContext {
     // TODO: We have this in frame
     /// Frame that is being transformed.
-    public let frame: Frame
+    public let frame: any Frame
 
 
     var metamodel: Metamodel { frame.design.metamodel }
@@ -46,7 +46,7 @@ public class RuntimeContext {
     
     /// Create a new context and bind it to a frame.
     ///
-    public init(frame: Frame) {
+    public init(frame: any Frame) {
         self.frame = frame
         self.issues = [:]
         self.objectComponents = [:]
@@ -64,7 +64,6 @@ public class RuntimeContext {
     ///
     public func appendIssue(_ error: Error, for id: ObjectID) {
         issues[id, default: []].append(error)
-        frame[id].appendIssue(error)
     }
     
     // TODO: Consider the following merge(...) API:

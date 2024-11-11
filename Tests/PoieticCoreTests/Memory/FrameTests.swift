@@ -27,6 +27,19 @@ final class TransientFrameTests: XCTestCase {
         XCTAssertEqual(original.structure, derived.structure)
     }
     
+    func testAcceptPreservesParentChild() throws {
+        let frame = design.createFrame()
+        let obj = frame.create(TestNodeType)
+        let parent = frame.create(TestNodeType)
+        let child = frame.create(TestNodeType)
+        frame.setParent(obj.id, to: parent.id)
+        frame.setParent(child.id, to: obj.id)
+        
+        let accepted = try design.accept(frame)
+        XCTAssertEqual(accepted[obj.id].children, obj.children)
+        XCTAssertEqual(accepted[obj.id].parent, obj.parent)
+    }
+    
     func testDeriveObjectWithChildrenParent() throws {
         let frame = design.createFrame()
         

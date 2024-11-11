@@ -14,13 +14,13 @@
 public struct Node {
     /// Object snapshot that represents the node.
     ///
-    public let snapshot: ObjectSnapshot
+    public let snapshot: any ObjectSnapshot
     
     
     /// Create a new node view from a snapshot.
     ///
     ///
-    public init?(_ snapshot: ObjectSnapshot) {
+    public init?(_ snapshot: any ObjectSnapshot) {
         guard snapshot.structure.type == .node else {
             return nil
         }
@@ -33,21 +33,16 @@ extension Node {
     public var id: ObjectID { snapshot.id }
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
-    
-    public func attribute(forKey key: String) -> Variant? {
-        snapshot.attribute(forKey: key)
-    }
-
 }
 
 /// View of an object as an edge.
 ///
 public struct Edge {
-    public let snapshot: ObjectSnapshot
+    public let snapshot: any ObjectSnapshot
     public let origin: ObjectID
     public let target: ObjectID
     
-    public init?(_ snapshot: ObjectSnapshot) {
+    public init?(_ snapshot: any ObjectSnapshot) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }
@@ -62,10 +57,6 @@ extension Edge {
     public var id: ObjectID { snapshot.id }
     public var type: ObjectType { snapshot.type }
     public var name: String? { snapshot.name }
-
-    public func attribute(forKey key: String) -> Variant? {
-        snapshot.attribute(forKey: key)
-    }
 }
 
 
@@ -77,9 +68,6 @@ extension Edge {
 /// of other structural types are ignored.
 ///
 public protocol Graph {
-    /// Frame that the graph is being bound to.
-    var frame: Frame { get }
-    
     /// List of indices of all nodes
     var nodeIDs: [ObjectID] { get }
 
@@ -200,7 +188,7 @@ extension Graph {
     ///
     public func node(_ oid: ObjectID) -> Node {
         guard let first: Node = nodes.first(where: { $0.id == oid }) else {
-            fatalError("No node \(oid) in frame \(frame.id)")
+            fatalError("Missing node")
         }
         return first
     }
@@ -211,7 +199,7 @@ extension Graph {
     ///
     public func edge(_ oid: ObjectID) -> Edge {
         guard let first:Edge = edges.first(where: { $0.id == oid }) else {
-            fatalError("No edge \(oid) in frame \(frame.id)")
+            fatalError("Missing edge")
         }
         return first
     }
@@ -245,30 +233,7 @@ extension Graph {
 
         return result
     }
-    
-    public func selectNodes(_ predicate: Predicate) -> [Node] {
-        return nodes.filter { predicate.match(frame: frame, object: $0.snapshot) }
-    }
-    public func selectEdges(_ predicate: Predicate) -> [Edge] {
-        return edges.filter { predicate.match(frame: frame, object: $0.snapshot) }
-    }
-    
-    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood {
-        let edges: [Edge]
-        switch selector.direction {
-        case .incoming: edges = incoming(nodeID)
-        case .outgoing: edges = outgoing(nodeID)
-        }
-        let filtered: [Edge] = edges.filter {
-            selector.predicate.match(frame: frame, object: $0.snapshot)
-        }
         
-        return Neighborhood(graph: self,
-                            nodeID: nodeID,
-                            direction: selector.direction,
-                            edges: filtered)
-    }
-    
     public var prettyDebugDescription: String {
         var result: String = ""
         

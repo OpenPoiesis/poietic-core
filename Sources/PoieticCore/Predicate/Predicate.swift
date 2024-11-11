@@ -13,7 +13,7 @@ public enum LogicalConnective: Sendable {
 /// A predicate.
 ///
 public protocol Predicate: Sendable {
-    func match(frame: Frame, object: ObjectSnapshot) -> Bool
+    func match(frame: some Frame, object: some ObjectSnapshot) -> Bool
     func and(_ predicate: Predicate) -> CompoundPredicate
     func or(_ predicate: Predicate) -> CompoundPredicate
     func not() -> Predicate
@@ -42,7 +42,7 @@ public final class CompoundPredicate: Predicate {
         self.predicates = predicates
     }
     
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         switch connective {
         case .and: return predicates.allSatisfy{ $0.match(frame: frame, object: object) }
         case .or: return predicates.contains{ $0.match(frame: frame, object: object) }
@@ -55,7 +55,7 @@ public final class NegationPredicate: Predicate {
     public init(_ predicate: any Predicate) {
         self.predicate = predicate
     }
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         return !predicate.match(frame: frame, object: object)
     }
 }
@@ -66,7 +66,7 @@ public final class AnyPredicate: Predicate {
     
     /// Matches any node – always returns `true`.
     ///
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         return true
     }
 }
@@ -78,7 +78,7 @@ public final class HasComponentPredicate: Predicate {
         self.type = type
     }
 
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         return object.components.has(self.type)
     }
     
@@ -91,7 +91,7 @@ public final class HasTraitPredicate: Predicate {
         self.trait = trait
     }
 
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         object.type.traits.contains { $0 === trait }
     }
     
@@ -107,7 +107,7 @@ public final class IsTypePredicate: Predicate {
     public init(_ type: ObjectType) {
         self.types = [type]
     }
-    public func match(frame: Frame, object: ObjectSnapshot) -> Bool {
+    public func match(frame: some Frame, object: some ObjectSnapshot) -> Bool {
         return types.allSatisfy{
             object.type === $0
         }

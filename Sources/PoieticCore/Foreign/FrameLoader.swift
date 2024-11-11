@@ -99,7 +99,7 @@ public final class ForeignFrameLoader {
         let design = frame.design
         let metamodel = design.metamodel
         
-        var snapshots: [ObjectSnapshot] = []
+        var snapshots: [MutableObject] = []
         
         // 1. Allocate identities and collect references
         for object in foreignObjects {

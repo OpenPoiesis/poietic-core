@@ -89,8 +89,6 @@ extension TransientFrame: MutableGraph {
             components: components
         )
         
-        // FIXME: [REFACTORING] [MARK]
-        snapshot.promote(.stable)
         return snapshot.id
     }
    

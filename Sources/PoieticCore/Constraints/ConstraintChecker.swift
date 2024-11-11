@@ -85,7 +85,7 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/check(conformsTo:)``
     ///
-    public func check(_ frame: Frame) throws (FrameConstraintError) {
+    public func check(_ frame: some Frame) throws (FrameConstraintError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]
 
         // Check types

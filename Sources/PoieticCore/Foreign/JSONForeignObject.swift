@@ -35,7 +35,7 @@ public struct JSONForeignObject: Codable, ForeignObject {
         case attributes
     }
    
-    public init(_ object: ObjectSnapshot) {
+    public init(_ object: StableObject) {
         let originString: String?
         let targetString: String?
         

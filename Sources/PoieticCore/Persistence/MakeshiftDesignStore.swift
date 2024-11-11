@@ -101,7 +101,7 @@ public class MakeshiftDesignStore {
 
         // 1. Read Snapshots
         // ----------------------------------------------------------------
-        var snapshots: [SnapshotID: ObjectSnapshot] = [:]
+        var snapshots: [SnapshotID: StableObject] = [:]
 
         for perSnapshot in persistent.snapshots {
             guard let type = metamodel.objectType(name: perSnapshot.type) else {
@@ -147,7 +147,7 @@ public class MakeshiftDesignStore {
                 structure = .edge(ObjectID(origin), ObjectID(target))
             }
 
-            let snapshot = ObjectSnapshot(id: perSnapshot.id,
+            let snapshot = StableObject(id: perSnapshot.id,
                                           snapshotID: perSnapshot.snapshotID,
                                           type: type,
                                           structure: structure,
@@ -156,7 +156,6 @@ public class MakeshiftDesignStore {
                                           components: [])
 
             // FIXME: [REFACTORING] Were are we fixing children?
-            snapshot.promote(.stable)
             snapshots[snapshot.snapshotID] = snapshot
         }
 
