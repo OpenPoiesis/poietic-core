@@ -63,12 +63,18 @@ public struct FrameConstraintError: Error {
     ///
     public let objectErrors: [ObjectID: [ObjectTypeError]]
     
+    /// Broken referential integrity of a frame. Keys are offending objects,
+    /// values is a list of IDs that are not present in the frame.
+    public let brokenReferences: [ObjectID]
+    
     /// Create a new constraint validation error.
     ///
     public init(violations: [ConstraintViolation],
-                objectErrors: [ObjectID:[ObjectTypeError]]) {
+                objectErrors: [ObjectID:[ObjectTypeError]],
+                brokenReferences: [ObjectID] = []) {
         self.violations = violations
         self.objectErrors = objectErrors
+        self.brokenReferences = brokenReferences
     }
 }
 

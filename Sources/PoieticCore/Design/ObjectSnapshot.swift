@@ -222,4 +222,27 @@ extension ObjectSnapshot {
         default: return nil
         }
     }
+    
+    /// List of structural references to other objects.
+    ///
+    /// The list contains collection of references from the following, if present:
+    /// - parent
+    /// - child
+    /// - edge origin and edge target
+    ///
+    /// The order in which the objects are listed is undefined.
+    ///
+    public var structuralReferences: [ObjectID] {
+        var refs: Set<ObjectID> = []
+        
+        if case let .edge(origin, target) = structure {
+            refs.insert(origin)
+            refs.insert(target)
+        }
+        refs.formUnion(children)
+        if let parent {
+            refs.insert(parent)
+        }
+        return Array(refs)
+    }
 }

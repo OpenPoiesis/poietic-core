@@ -5,6 +5,19 @@
 //  Created by Stefan Urbanek on 23/03/2023.
 //
 
+/// Error thrown when validating and accepting a frame.
+///
+/// - SeeAlso: ``TransientFrame/accept()``
+/// 
+public enum TransientFrameError: Error {
+    /// The frame contains references to objects that are not present in the frame.
+    ///
+    /// Use ``TransientFrame/brokenReferences()`` to investigate.
+    ///
+    case brokenReferences
+    case brokenParentChild
+    case edgeEndpointNotANode
+}
 
 /// Transient frame that represents a change transaction.
 ///
@@ -234,6 +247,7 @@ public final class TransientFrame: Frame {
     ///   in the frame.
     /// - Precondition: `structure` must match ``ObjectType/structuralType``.
     ///
+    @discardableResult
     public func create(_ type: ObjectType,
                        id: ObjectID? = nil,
                        snapshotID: SnapshotID? = nil,
@@ -429,14 +443,67 @@ public final class TransientFrame: Frame {
     
     /// Mark the frame as accepted and reject any further modifications.
     ///
+    /// The method validates that:
+    /// - All object references are valid - must exist within the frame
+    /// - Children-parent relationship must be mutual.
+    /// - No parent cycle.
+    ///
     /// - Returns: List of stable objects. Objects originating elsewhere, not
     ///   mutated in this frame will be returned as they were. For each new
     ///   snapshot a new instance is created.
+    /// - Precondition: The frame must be in transient state – must not be
+    ///   previously accepted or discarded.
     ///
-    public func accept() -> [StableObject] {
-        // FIXME: [WIP] Referential integrity here
-        // FIXME: [WIP] Object types and attributes here
+    public func accept() throws (TransientFrameError) -> [StableObject] {
+        // TODO: Check object types and attributes here
         precondition(state == .transient)
+
+        // Integrity checks
+        for snapshot in snapshots {
+            // Check references
+            let broken = snapshot.structuralReferences.contains { objects[$0] == nil }
+            if broken {
+                throw .brokenReferences
+            }
+
+            for childID in snapshot.children {
+                let child = objects[childID]!
+                guard child.unwrapped.parent == snapshot.id else {
+                    throw .brokenParentChild
+                }
+            }
+            
+            if let parentID = snapshot.parent {
+                let parent = objects[parentID]!
+                guard parent.unwrapped.children.contains(snapshot.id) else {
+                    throw .brokenParentChild
+                }
+            }
+        
+            // Parent-child cycle
+            if var currentID = snapshot.parent {
+                var seen: [ObjectID] = [currentID]
+                
+                while let parentID = objects[currentID]!.unwrapped.parent {
+                    if seen.contains(parentID) {
+                        throw .brokenParentChild
+                    }
+                    else {
+                        seen.append(parentID)
+                        currentID = parentID
+                    }
+                }
+            }
+
+            // Edges point to nodes
+            if case let .edge(originID, targetID) = snapshot.structure {
+                let (origin, target) = (objects[originID]!, objects[targetID]!)
+                guard origin.unwrapped.structure == .node
+                        && target.unwrapped.structure == .node else {
+                    throw .edgeEndpointNotANode
+                }
+            }
+        }
 
         let stable: [StableObject] = objects.values.map { ref in
             switch ref {

@@ -381,7 +381,16 @@ public class Design {
         
         try checker.check(frame)
 
-        let snapshots: [StableObject] = frame.accept()
+        let snapshots: [StableObject]
+        
+        do {
+            snapshots = try frame.accept()
+        }
+        catch {
+            throw FrameConstraintError(violations: [],
+                                       objectErrors: [:],
+                                       brokenReferences: frame.brokenReferences())
+        }
         
         let stableFrame = StableFrame(design: self,
                                       id: frame.id,

@@ -345,4 +345,79 @@ final class TransientFrameTests: XCTestCase {
         XCTAssertTrue(refs.contains(30))
         XCTAssertTrue(refs.contains(40))
     }
+    
+    func testRejectMissingReferences() throws {
+        let frame = design.createFrame()
+        frame.create(TestEdgeType, id: 10, structure: .edge(900, 901))
+        frame.create(TestType, id: 20, parent: 902, children: [903])
+
+        XCTAssertThrowsError(try frame.accept()) {
+            guard $0 as? TransientFrameError != nil else {
+                XCTFail("Got unexpected error: \($0)")
+                return
+            }
+            
+            XCTAssertEqual(frame.brokenReferences().sorted(), [900, 901, 902, 903])
+        }
+
+    }
+
+    func testRejectBrokenParentChild() throws {
+        let frame = design.createFrame()
+        frame.create(TestType, id: 10, children: [20])
+        frame.create(TestType, id: 20, parent: 30)
+        frame.create(TestType, id: 30)
+
+        XCTAssertThrowsError(try frame.accept()) {
+            guard let error = $0 as? TransientFrameError else {
+                XCTFail("Got unexpected error: \($0)")
+                return
+            }
+            XCTAssertEqual(error, .brokenParentChild)
+        }
+    }
+    
+    func testRejectBrokenParentNoChild() throws {
+        let frame = design.createFrame()
+        frame.create(TestType, id: 10, parent: 30)
+        frame.create(TestType, id: 30)
+
+        XCTAssertThrowsError(try frame.accept()) {
+            guard let error = $0 as? TransientFrameError else {
+                XCTFail("Got unexpected error: \($0)")
+                return
+            }
+            XCTAssertEqual(error, .brokenParentChild)
+        }
+
+    }
+    func testRejectBrokenParentChildCycle() throws {
+        let frame = design.createFrame()
+        frame.create(TestType, id: 10, parent: 30, children: [30])
+        frame.create(TestType, id: 30, parent: 10, children: [10])
+
+        XCTAssertThrowsError(try frame.accept()) {
+            guard let error = $0 as? TransientFrameError else {
+                XCTFail("Got unexpected error: \($0)")
+                return
+            }
+            XCTAssertEqual(error, .brokenParentChild)
+        }
+
+    }
+    func testRejectEdgeEndpointNotANOde() throws {
+        let frame = design.createFrame()
+        frame.create(TestEdgeType, id: 10, structure: .edge(20, 20))
+        frame.create(TestType, id: 20)
+
+        XCTAssertThrowsError(try frame.accept()) {
+            guard let error = $0 as? TransientFrameError else {
+                XCTFail("Got unexpected error: \($0)")
+                return
+            }
+            XCTAssertEqual(error, .edgeEndpointNotANode)
+        }
+
+    }
+
 }

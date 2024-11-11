@@ -47,29 +47,21 @@ final class JSONFileStoreTests: XCTestCase {
         db = Design(metamodel: TestMetamodel)
         frame = db.createFrame()
 
-        let flow = frame.createNode(TestMetamodel["Flow"]!,
-                                    name: nil,
-                                    attributes: [:],
-                                    components: [IntegerComponent(value: 10)])
-        let source = frame.createNode(TestMetamodel["Stock"]!,
-                                      name: nil,
-                                      attributes: [:],
-                                      components: [IntegerComponent(value: 20)])
-        let sink = frame.createNode(TestMetamodel["Stock"]!,
-                                    name:nil,
-                                    attributes: [:],
-                                    components: [IntegerComponent(value: 30)])
+        let flow = frame.create(TestMetamodel["Flow"]!,
+                                structure: .node,
+                                attributes: [:],
+                                components: [IntegerComponent(value: 10)])
+        let source = frame.create(TestMetamodel["Stock"]!,
+                                  structure: .node,
+                                  attributes: [:],
+                                  components: [IntegerComponent(value: 20)])
+        let sink = frame.create(TestMetamodel["Stock"]!,
+                                structure: .node,
+                                attributes: [:],
+                                components: [IntegerComponent(value: 30)])
         
-        frame.createEdge(TestMetamodel["Arrow"]!,
-                         origin: source,
-                         target: flow,
-                         attributes: [:],
-                         components: [])
-        frame.createEdge(TestMetamodel["Arrow"]!,
-                         origin: flow,
-                         target: sink,
-                         attributes: [:],
-                         components: [])
+        frame.createEdge(TestMetamodel["Arrow"]!, origin: source, target: flow)
+        frame.createEdge(TestMetamodel["Arrow"]!, origin: flow, target: sink)
         do {
             try db.accept(frame)
         }

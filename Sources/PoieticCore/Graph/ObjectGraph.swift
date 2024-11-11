@@ -8,7 +8,7 @@
 /// View of an object as an edge.
 ///
 public struct EdgeSnapshot: EdgeProtocol {
-    // FIXME: [WIP] Clean-up the types
+    // TODO: Clean-up the types
     public let snapshot: any ObjectSnapshot
     public let origin: ObjectID
     public let target: ObjectID
