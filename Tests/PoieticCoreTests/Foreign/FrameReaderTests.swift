@@ -399,7 +399,7 @@ final class JSONFrameReaderTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(param.structure, StructuralComponent.edge(src.id, drain.id))
+        XCTAssertEqual(param.structure, Structure.edge(src.id, drain.id))
 
     }
 

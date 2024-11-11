@@ -131,7 +131,7 @@ public final class ForeignFrameLoader {
         for (index, foreignObject) in foreignObjects.enumerated() {
             let (id, snapshotID) = ids[index]
             
-            let structure: StructuralComponent
+            let structure: Structure
             
             guard let typeName = foreignObject.type else {
                 throw .foreignObjectError(.missingObjectType, foreignObject.id)

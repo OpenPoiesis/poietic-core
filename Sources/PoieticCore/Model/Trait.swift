@@ -46,8 +46,8 @@ public final class Trait: Sendable {
     ///   model validation in place, then which `name` will be used is
     ///   undeterminable.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/attribute(forKey:)``,
-    ///     ``ObjectSnapshot/setAttribute(value:forKey:)``
+    /// - SeeAlso: ``ObjectSnapshot/subscript(attributeKey:)``,
+    ///   ``MutableObject/subscript(key:)``
     ///
     public let attributes: [Attribute]
     

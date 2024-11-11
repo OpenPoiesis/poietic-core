@@ -6,26 +6,44 @@
 //
 
 
-/// Transient frame is frame that can be modified.
+/// Transient frame that represents a change transaction.
 ///
-/// Transient frames are created using ``Design/createFrame(deriving:id:)``.
+/// Designated way of creating transient frames is with ``Design/createFrame(deriving:id:)``.
+/// The frame needs to be accepted to the design to be considered valid and to be used
+/// by other parts of the library.
+///
+/// ```swift
+/// let design: Design
+///
+/// let frame = design.createFrame()
+///
+/// let note = frame.create(ObjectType.Note)
+/// note["text"] = "Important note"
+///
+/// do {
+///     try design.accept(frame)
+/// }
+/// catch { // Handle error
+///     design.discard(frame)
+/// }
+/// ```
 ///
 /// Multiple changes are applied to a transient frame, which can be then
 /// validated and turned into a stable frame using ``Design/accept(_:appendHistory:)``.
 /// If the changes can not be validated or for any other reason the changes
-/// are not to be accepted, the frame can be discarded by ``Design/discard(_:).
+/// are not to be accepted, the frame can be discarded by ``Design/discard(_:)``.
 ///
 /// Transient frames are not persisted, they exist only during runtime.
 ///
 /// The changes that can be performed with the transient frame:
 ///
-/// - Add objects with ``TransientFrame/create(_:structure:attributes:components:)``
-///    or ``TransientFrame/insert(_:)``.
 /// - Mutate existing objects in the frame using
-///   ``TransientFrame/mutableObject(_:)``.
+///   ``TransientFrame/mutate(_:)``.
+/// - Add objects with ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+///    or ``TransientFrame/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
-/// Once the frame is accepted or discarded, it can no longer be modified.
+/// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
 public class TransientFrame: Frame {
     public typealias Snapshot = TransientObject
@@ -159,7 +177,7 @@ public class TransientFrame: Frame {
     /// The frame will contain all the provided snapshots, but will not own
     /// them. The frame will own only snapshots inserted directly to the frame
     /// using ``insert(_:)`` or by deriving an object using
-    /// ``mutableObject(_:)``.
+    /// ``mutate(_:)``.
     ///
     /// Snapshots removed from the mutable frame are only disassociated with the
     /// frame, not removed from the design or any other frame.
@@ -187,7 +205,7 @@ public class TransientFrame: Frame {
     /// Create a new object within the frame.
     ///
     /// The method creates a new object and assigns default values as defined
-    /// in the ``type``.
+    /// in the type.
     ///
     /// If object ID or snapshot ID are provided, they are used, otherwise
     /// they are generated.
@@ -196,13 +214,13 @@ public class TransientFrame: Frame {
     ///     - type: Object type.
     ///     - id: Proposed object ID. If not provided, one will be generated.
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
+    ///     - children: Children of the new object.
     ///     - attributes: Attribute dictionary to be used for object
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
     ///     - components: List of components to be set for the newly created object.
     ///     - structure: Structural component of the new object that must match
     ///       the object type.
-    ///     - state: Initial state of the object snapshot.
     ///
     /// - Note: Attributes are not checked according to the object type during
     ///   object creation. The object is not yet required to satisfy any
@@ -219,7 +237,7 @@ public class TransientFrame: Frame {
     public func create(_ type: ObjectType,
                        id: ObjectID? = nil,
                        snapshotID: SnapshotID? = nil,
-                       structure: StructuralComponent? = nil,
+                       structure: Structure? = nil,
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
                        attributes: [String:Variant]=[:],
@@ -229,7 +247,7 @@ public class TransientFrame: Frame {
         let actualID = design.allocateID(required: id)
         let actualSnapshotID = design.allocateID(required: snapshotID)
         
-        let actualStructure: StructuralComponent
+        let actualStructure: Structure
         switch type.structuralType {
         case .unstructured:
             precondition(structure == nil || structure == .unstructured,
@@ -283,7 +301,6 @@ public class TransientFrame: Frame {
     ///
     /// Requirements for the snapshot:
     ///
-    /// - snapshot state must be ``VersionState/stable``
     /// - ID and snapshot ID must not be present in the frame
     /// - mutable must be owned, immutable must not be owned
     /// - structural dependencies must be satisfied
@@ -294,7 +311,7 @@ public class TransientFrame: Frame {
     /// - Precondition: References such as edge endpoints, parent, children
     ///   must be valid within the frame.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``, ``TransientFrame/unsafeInsert(_:owned:)``
+    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
     ///
     public func insert(_ snapshot: StableObject) {
         // Check for referential integrity
@@ -357,7 +374,7 @@ public class TransientFrame: Frame {
     /// All object's children will be removed as well.
     ///
     /// All parents from which an object is removed will be mutated using
-    /// ``mutableObject(_:)``.
+    /// ``mutate(_:)``.
     ///
     /// - Returns: A list of objects removed from the frame except the object
     ///   asked to be removed.
@@ -365,7 +382,7 @@ public class TransientFrame: Frame {
     /// - Complexity: Worst case O(n^2), typically O(n).
     ///
     /// - Precondition: The frame must contain object with given ID.
-    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
+    /// - Precondition: The frame state must be ``State/transient``.
     ///
     @discardableResult
     public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
@@ -433,8 +450,9 @@ public class TransientFrame: Frame {
     
     /// Mark the frame as discarded and reject any further modifications.
     ///
-    public func markDiscarded() {
-        // FIXME: [REFACTORING] Rename to discard()
+    /// - Precondition: The frame state must be ``State/transient``.
+    ///
+    public func discard() {
         precondition(state == .transient)
         self.state = .discarded
     }
@@ -454,7 +472,7 @@ public class TransientFrame: Frame {
     /// - Returns: Newly derived object snapshot.
     /// 
     /// - Precondition: The frame must contain an object with given ID.
-    /// - Precondition: The frame is not frozen. See ``promote(_:)``.
+    /// - Precondition: The frame state must be ``State/transient``.
     ///
     public func mutate(_ id: ObjectID) -> MutableObject {
         precondition(state == .transient)
@@ -513,6 +531,7 @@ public class TransientFrame: Frame {
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
+    ///
     public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
         let parent = self.mutate(parentID)
         let child = self.mutate(childID)
@@ -537,6 +556,7 @@ public class TransientFrame: Frame {
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
+    ///
     public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
         let parent = self.mutate(parentID)
         let child = self.mutate(childID)
@@ -562,6 +582,7 @@ public class TransientFrame: Frame {
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
+    ///
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
         let child = mutate(childID)
         if let originalParentID = child.parent {
@@ -588,6 +609,7 @@ public class TransientFrame: Frame {
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeCascading(_:)``.
+    ///
     public func removeFromParent(_ childID: ObjectID) {
         let child = self[childID]
         guard let parentID = child.parent else {

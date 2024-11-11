@@ -26,11 +26,6 @@
 ///
 /// Parser produces ``UnboundExpression``.
 ///
-/// ## Object Types with Expressions
-///
-/// Objects that contain arithmetic expressions typically have a trait
-/// ``Trait/Formula``.
-///
 public class ExpressionParser {
     var lexer: ExpressionLexer
     var currentToken: ExpressionToken?

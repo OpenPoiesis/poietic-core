@@ -43,6 +43,7 @@ public final class Variable: Hashable, Sendable {
     /// - Parameters:
     ///     - name: Name of the variable
     ///     - value: Default value of the variable.
+    ///     - valueType: Expected type of the value content.
     ///     - abstract: short human description of the variable.
     ///
     public init(name: String,

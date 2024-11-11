@@ -4,7 +4,11 @@
 //
 //  Created by Stefan Urbanek on 10/11/2024.
 //
-// TODO: Find a home
+
+// TODO: Find a better home
+// TODO: Use some special pattern, such as "__" prefix or "%"
+/// List of attribute names that are reserved and should not be used.
+///
 public let ReservedAttributeNames = [
     "id", "snapshot_id", "origin", "target", "type", "parent", "structure",
 ]
@@ -14,7 +18,7 @@ public class MutableObject: ObjectSnapshot {
     public let id: ObjectID
     public let snapshotID: ObjectID
     public let type: ObjectType
-    public var structure: StructuralComponent
+    public var structure: Structure
     public var attributes: [String:Variant]
     public var parent: ObjectID?
     public var children: ChildrenSet
@@ -23,7 +27,7 @@ public class MutableObject: ObjectSnapshot {
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
                 type: ObjectType,
-                structure: StructuralComponent = .unstructured,
+                structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
@@ -118,7 +122,7 @@ public struct TransientObject: ObjectSnapshot {
 
     public var snapshotID: SnapshotID { snapshot.snapshotID }
     public var type: ObjectType { snapshot.type }
-    public var structure: StructuralComponent { snapshot.structure }
+    public var structure: Structure { snapshot.structure }
     public var parent: ObjectID? { snapshot.parent }
     public var children: ChildrenSet { snapshot.children }
     public var components: ComponentSet { snapshot.components }

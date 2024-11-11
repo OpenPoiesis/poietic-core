@@ -14,7 +14,7 @@
 /// mutable frames through validation using ``Design/accept(_:appendHistory:)``.
 ///
 /// To create a derivative frame from a stable frame use
-/// ``Design/deriveFrame(original:id:)``.
+/// ``Design/createFrame(deriving:id:)``.
 ///
 /// - SeeAlso: ``TransientFrame``
 ///

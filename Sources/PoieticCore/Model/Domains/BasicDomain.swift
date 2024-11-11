@@ -156,12 +156,19 @@ extension ObjectType {
             Trait.AudienceLevel,
             Trait.Keywords,
         ])
-
+    
     public static let BibliographicalReference = ObjectType(
         name: "BibliographicalReference",
         structuralType: .unstructured,
         traits: [
             Trait.BibliographicalReference,
+        ])
+
+    public static let Group = ObjectType(
+        name: "Group",
+        structuralType: .unstructured,
+        traits: [
+            Trait.Name,
         ])
 }
 
@@ -181,6 +188,7 @@ extension Metamodel {
         ],
         types: [
             ObjectType.DesignInfo,
+            ObjectType.Group,
         ],
         constraints: []
     )

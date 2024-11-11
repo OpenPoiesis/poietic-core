@@ -119,7 +119,7 @@ public class MakeshiftDesignStore {
                 throw .duplicateSnapshot(perSnapshot.snapshotID)
             }
             
-            let structure: StructuralComponent
+            let structure: Structure
             switch type.structuralType {
             case .unstructured:
                 guard perSnapshot.origin == nil else {

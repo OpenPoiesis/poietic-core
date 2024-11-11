@@ -23,14 +23,14 @@ public enum StructuralType: String, Equatable, Codable, Sendable {
     case edge
 }
 
-/// Structural component defines object's relationship with other objects.
+/// Structure defines relationship of an object with other objects.
 ///
-/// Structural component is another way of specifying object structure
-/// besides the parent-child hierarchy.
+/// - Note: There are other structure types considered that have not been
+///   implemented but might be in the future, such as _proxy_ or a _port_.
 ///
 /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``
 ///
-public enum StructuralComponent: Equatable, CustomStringConvertible {
+public enum Structure: Equatable, CustomStringConvertible {
     /// The object has no relationships with other objects,
     /// has no structural dependencies and no objects depend on it.
     ///
@@ -63,6 +63,9 @@ public enum StructuralComponent: Equatable, CustomStringConvertible {
     /// - SeeAlso: ``node``
     ///
     case edge(ObjectID, ObjectID)
+    
+    // Should be interpreted as another object.
+    // case proxy(ObjectID)
     
     /// A structural type of the component.
     ///

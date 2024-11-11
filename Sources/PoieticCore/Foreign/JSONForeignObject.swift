@@ -8,7 +8,7 @@
 /// Helper structure to convert objects to and from JSON using coding.
 ///
 /// This structure is just a helper to have better control over JSON using
-/// the built-in ``Codable`` protocol.
+/// the built-in `Codable` protocol.
 ///
 public struct JSONForeignObject: Codable, ForeignObject {
     public var id: String?

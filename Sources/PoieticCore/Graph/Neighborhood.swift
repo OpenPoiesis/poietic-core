@@ -49,7 +49,7 @@ public final class NeighborhoodSelector: Sendable {
 /// Neighbourhood is a subgraph centred on a node with edges adjacent to
 /// that node.
 ///
-/// Neighbourhoods are created using ``Graph/hood(_:selector:)-47x7u``.
+/// Neighbourhoods are created using ``Graph/hood(_:selector:)``.
 ///
 public class Neighborhood {
     /// Graph the neighbourhood is contained within.

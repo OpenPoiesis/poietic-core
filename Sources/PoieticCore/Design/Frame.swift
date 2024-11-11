@@ -71,7 +71,7 @@ extension Frame {
     ///
     /// The following references from the snapshot are being considered:
     ///
-    /// - If the structure type is an edge (``StructuralComponent/edge(_:_:)``)
+    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
     /// - All children – ``ObjectSnapshot/children``.
     /// - The object's parent – ``ObjectSnapshot/parent``.
@@ -114,7 +114,7 @@ extension Frame {
     ///
     /// The following references from the snapshot are being considered:
     ///
-    /// - If the structure type is an edge (``StructuralComponent/edge(_:_:)``)
+    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
     /// - All children – ``ObjectSnapshot/children``.
     /// - The object's parent – ``ObjectSnapshot/parent``.

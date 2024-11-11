@@ -50,13 +50,12 @@
 ///
 /// To make a change and produce a new frame:
 ///
-/// 1. Derive a new frame from an existing one using ``deriveFrame(original:id:)``
-///    or create a new empty frame using ``createFrame(id:)`` which produces
-///    a new ``TransientFrame``.
-/// 2. Add objects to the derived frame using ``TransientFrame/create(_:structure:attributes:components:)``
-///    or ``TransientFrame/insert(_:owned:)``.
+/// 1. Derive a new frame from an existing one or create a new frame using
+///   ``createFrame(deriving:id:)``.
+/// 2. Add objects to the derived frame using ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+///    or ``TransientFrame/insert(_:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
-///    snapshot of the object using ``TransientFrame/mutableObject(_:)`` and
+///    snapshot of the object using ``TransientFrame/mutate(_:)`` and
 ///    make changes using the returned new snapshot.
 /// 4. Conclude all the changes by accepting the frame ``accept(_:appendHistory:)``.
 ///
@@ -280,7 +279,8 @@ public class Design {
     /// Create a new frame or derive a frame from an existing frame.
     ///
     /// - Parameters:
-    ///     - originalID: ID of the original frame to be derived.
+    ///     - original: A stable frame to derive new frame from. If not provided,
+    ///       a new frame will be created.
     ///     - id: Proposed ID of the new frame. Must be unique and must not
     ///       already exist in the design. If not provided, a new unique ID
     ///       is generated.
@@ -359,7 +359,9 @@ public class Design {
     /// - Throws: `ConstraintViolationError` when the frame contents violates
     ///   constraints of the design.
     ///
-    /// - SeeAlso: ``ConstraintChecker/check(_:)``, ``TransientFrame/promote(_:)``
+    /// - SeeAlso: ``ConstraintChecker/check(_:)``,
+    ///     ``TransientFrame/accept()``,
+    ///     ``TransientFrame/discard()``
     ///
     /// - Precondition: Frame must belong to the design.
     /// - Precondition: Frame must be in transient state.
@@ -404,7 +406,7 @@ public class Design {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
 
-        frame.markDiscarded()
+        frame.discard()
 
         _transientFrames[frame.id] = nil
     }

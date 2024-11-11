@@ -9,7 +9,7 @@
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
 ///
-/// Only objects with structural type ``StructuralComponent/edge(_:_:)`` will
+/// Only objects with structural type ``Structure/edge(_:_:)`` will
 /// be matched by this predicate.
 ///
 public final class EdgePredicate: Predicate {
