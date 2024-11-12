@@ -6,7 +6,8 @@
 //
 
 public final class UniqueNeighbourRequirement: ConstraintRequirement {
-    public let selector: NeighborhoodSelector
+    public let predicate: Predicate
+    public let direction: EdgeDirection
     public let isRequired: Bool
     
     /// Creates a constraint for unique neighbour.
@@ -21,8 +22,9 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
     ///       matching node
     ///     - required: Wether the unique neighbour is required.
     ///
-    public init(_ selector: NeighborhoodSelector, required: Bool=false) {
-        self.selector = selector
+    public init(_ predicate: Predicate, direction: EdgeDirection = .outgoing, required: Bool=false) {
+        self.predicate = predicate
+        self.direction = direction
         self.isRequired = required
     }
 
@@ -32,7 +34,9 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
             guard $0.structure.type == .node else {
                 return false
             }
-            let hood = frame.hood($0.id, selector: self.selector)
+            let hood = frame.hood($0.id, direction: direction) { edge in
+                predicate.match(frame: frame, object: edge.snapshot)
+            }
             let count = hood.edges.count
             
             return count > 1 || (count == 0 && isRequired)

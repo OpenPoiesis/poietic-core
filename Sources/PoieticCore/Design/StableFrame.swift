@@ -84,8 +84,7 @@ public final class StableFrame: Frame {
     
     /// Get an immutable graph view of the frame.
     ///
-    public var graph: any ObjectGraph {
+    public var graph: any GraphProtocol {
         return self
     }
 }
-

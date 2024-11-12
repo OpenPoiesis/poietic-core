@@ -10,7 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``StableFrame``
 ///
-public protocol Frame: ObjectGraph where Node == Snapshot, Edge == EdgeSnapshot {
+public protocol Frame: GraphProtocol where Node == Snapshot, Edge == EdgeSnapshot {
     associatedtype Snapshot: ObjectSnapshot
     /// Design to which the frame belongs.
     var design: Design { get }
@@ -302,22 +302,6 @@ extension Frame {
     /// Get list of objects that have no parent.
     public func top() -> [Snapshot] {
         self.filter { $0.parent == nil }
-    }
-    
-    public func hood(_ nodeID: ObjectID, selector: NeighborhoodSelector) -> Neighborhood<Self> {
-        let edges: [Edge]
-        switch selector.direction {
-        case .incoming: edges = incoming(nodeID)
-        case .outgoing: edges = outgoing(nodeID)
-        }
-        let filtered: [Edge] = edges.filter {
-            selector.predicate.match(frame: self, object: $0.snapshot)
-        }
-        
-        return Neighborhood(graph: self,
-                            nodeID: nodeID,
-                            direction: selector.direction,
-                            edges: filtered)
     }
 }
 

@@ -5,45 +5,13 @@
 //  Created by Stefan Urbanek on 21/08/2023.
 //
 
-/// Protocol
-public protocol MutableGraph: ObjectGraph {
-    // Object creation
-    @discardableResult
-    func createNode(_ type: ObjectType, name: String?, attributes: [String:Variant]) -> MutableObject
-    
-    @discardableResult
-    func createEdge(_ type: ObjectType, origin: ObjectID, target: ObjectID,
-                    attributes: [String:Variant]) -> MutableObject
-
-    /// Remove all nodes and edges from the graph.
-    func removeAll()
-    
-    /// Remove a node from the graph and return a list of edges that were
-    /// removed together with the node.
+extension TransientFrame /* MutableGraph (no longer formally present) */ {
+    /// Convenience method to create an edge.
     ///
-    func remove(node nodeID: ObjectID)
-    
-    /// Remove an edge from the graph.
+    /// If the object name is provided, then attribute `name` of the
+    /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
-    func remove(edge edgeID: ObjectID)
-}
-
-extension MutableGraph {
-    public func removeAll() {
-        for edge in edgeIDs {
-            remove(edge: edge)
-        }
-        for node in nodeIDs {
-            remove(node: node)
-        }
-    }
-}
-
-
-/// Graph contained within a mutable frame where the references to the nodes and
-/// edges are not directly bound and are resolved at the time of querying.
-extension TransientFrame: MutableGraph {
-    // Object creation
+    /// - SeeAlso: ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
     @discardableResult
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
@@ -58,22 +26,28 @@ extension TransientFrame: MutableGraph {
         return snapshot
     }
                      
+    /// Convenience method to create an edge.
+    ///
+    /// If the object name is provided, then attribute `name` of the
+    /// object is set. Replaces `name` attribute in the `attributes` dictionary.
+    ///
+    /// - SeeAlso: ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
     @discardableResult
     public func createEdge(_ type: ObjectType,
                            origin: any ObjectSnapshot,
                            target: any ObjectSnapshot,
                            attributes: [String:Variant] = [:]) -> MutableObject {
+        // FIXME: [WIP] Still needed?
         return createEdge(type, origin: origin.id, target: target.id, attributes: attributes)
     }
    
     
-    /// Creates a new node.
+    /// Convenience method to a new node.
     ///
     /// - Parameters:
     ///     - type: Object type of the newly created node.
     ///     - name: Optional object name. See note below.
     ///     - attributes: Dictionary of attributes to set.
-    ///     - components: List of components assigned with the node.
     ///
     /// If the object name is provided, then attribute `name` of the
     /// object is set. Replaces `name` attribute in the `attributes` dictionary.

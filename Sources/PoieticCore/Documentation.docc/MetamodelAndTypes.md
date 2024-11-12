@@ -106,6 +106,7 @@ examples see ``Constraint``.
 - ``UniqueNeighbourRequirement``
 - ``UniqueProperty``
 - ``ConstraintRequirement``
+- ``EdgeEndpointRequirement``
 
 ### Common Components and Types
 

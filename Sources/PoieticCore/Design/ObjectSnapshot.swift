@@ -246,3 +246,30 @@ extension ObjectSnapshot {
         return Array(refs)
     }
 }
+
+// MARK: - Graph Protocol
+
+// TODO: Find a more descriptive name.
+/// Wrapper of an object snapshot presented as an edge.
+///
+public struct EdgeSnapshot: EdgeProtocol {
+    public typealias NodeID = ObjectID
+    public let snapshot: any ObjectSnapshot
+    public let origin: ObjectID
+    public let target: ObjectID
+    
+    public init?(_ snapshot: any ObjectSnapshot) {
+        guard case let .edge(origin, target) = snapshot.structure else {
+            return nil
+        }
+
+        self.snapshot = snapshot
+        self.origin = origin
+        self.target = target
+    }
+
+    public var id: ObjectID { snapshot.id }
+    public var type: ObjectType { snapshot.type }
+    public var name: String? { snapshot.name }
+}
+
