@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -71,6 +77,47 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -105,7 +152,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ],
       "title" : "Constraints"
     }
@@ -292,6 +340,64 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintchecker"
 },
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/check(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check a frame for constraints violations and object type conformance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "check"
+    },
+    {
+      "kind" : "text",
+      "text" : "(some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
+      "text" : "FrameConstraintError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "check(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [
     {
@@ -328,7 +434,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -370,7 +479,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/constraint": {
   "abstract" : [
-
+    {
+      "text" : "Constraint that was violated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -438,7 +550,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/init(constraint:objects:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a constraint violation error for a given constraint and list of objects that violate",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the constraints.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -493,7 +616,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/objects": {
   "abstract" : [
-
+    {
+      "text" : "List of objects that violated the constraint.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -528,6 +654,82 @@
   "title" : "objects",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation\/objects"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError": {
+  "abstract" : [
+    {
+      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameConstraintError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameConstraintError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameConstraintError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameconstrainterror"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
@@ -645,7 +847,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [
-
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

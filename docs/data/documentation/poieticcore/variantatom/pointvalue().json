@@ -147,15 +147,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The point value is represented as a string with the ",
-              "type" : "text"
-            },
-            {
-              "code" : "x",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " character as",
+              "text" : "String representation of a point value is two numbers in square brackets",
               "type" : "text"
             },
             {
@@ -163,27 +155,15 @@
               "type" : "text"
             },
             {
-              "text" : "point component value separator, so for example point ",
+              "text" : "separated by a comma: ",
               "type" : "text"
             },
             {
-              "code" : "Point(x:10, y:20)",
+              "code" : "[x, y]",
               "type" : "codeVoice"
             },
             {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "is represented as string as ",
-              "type" : "text"
-            },
-            {
-              "code" : "\"10.0x20.0\"",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " (note that the point components",
+              "text" : ". It is an equivalent to a JSON array of",
               "type" : "text"
             },
             {
@@ -191,160 +171,55 @@
               "type" : "text"
             },
             {
-              "text" : "are doubles). The conversion is as follows:",
+              "text" : "two JSON numbers.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
         },
         {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "The string is split at the first ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "x",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " character",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "If there are not exactly two values - an error is thrown",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Each of the two values is converted to a double, if the conversion fails",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "an error is thrown.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "The first value is the ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "x",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " component of the point and the second value",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "is the ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "y",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " component of the point.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Throws ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : " if the value",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "can not be converted to point.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "unorderedList"
-        },
-        {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "In the future the point format might change or support different",
+                  "text" : "",
                   "type" : "text"
                 },
                 {
-                  "text" : " ",
-                  "type" : "text"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
-                  "text" : "formats.",
+                  "text" : " if the value can not be converted to a point.",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "Note",
+          "name" : "Throws",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/www.rfc-editor.org\/rfc\/rfc8259",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
           "style" : "note",
           "type" : "aside"
         }
@@ -554,6 +429,18 @@
   "title" : "pointValue()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/pointvalue()"
+},
+"https://www.rfc-editor.org/rfc/rfc8259": {
+  "identifier" : "https:\/\/www.rfc-editor.org\/rfc\/rfc8259",
+  "title" : "JSON RFC Specification",
+  "titleInlineContent" : [
+    {
+      "text" : "JSON RFC Specification",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/www.rfc-editor.org\/rfc\/rfc8259"
 }
 }
 }

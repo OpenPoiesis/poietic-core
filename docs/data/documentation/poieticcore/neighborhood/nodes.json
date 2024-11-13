@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore12NeighborhoodC5nodesSayAA4NodeVGvp",
+    "externalID" : "s:11PoieticCore12NeighborhoodC5nodesSay4NodeQzGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,15 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4NodeV",
+        "text" : "G"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
         "text" : "Node"
       },
       {
@@ -80,9 +88,17 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4NodeV",
+              "text" : "G"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
               "text" : "Node"
             },
             {
@@ -138,6 +154,41 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12IdentifiableP",
+      "text" : "Identifiable"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
@@ -218,7 +269,15 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4NodeV",
+      "text" : "G"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
       "text" : "Node"
     },
     {
@@ -232,40 +291,6 @@
   "title" : "nodes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/neighborhood\/nodes"
-},
-"doc://PoieticCore/documentation/PoieticCore/Node": {
-  "abstract" : [
-    {
-      "text" : "View of an object as a graph node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Node",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node"
 }
 }
 }

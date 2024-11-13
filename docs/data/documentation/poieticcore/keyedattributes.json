@@ -83,7 +83,8 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -91,7 +92,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -578,10 +581,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/MutableObject": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "Transient object that can be modified.",
       "type" : "text"
     }
   ],
@@ -589,6 +592,40 @@
     {
       "kind" : "keyword",
       "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MutableObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MutableObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "A version of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -611,6 +648,74 @@
   "title" : "ObjectSnapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StableObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StableObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
+  "abstract" : [
+    {
+      "text" : "A wrapper for for an object in a transient frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
   "abstract" : [

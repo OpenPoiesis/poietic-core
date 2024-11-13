@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore18ForeignFrameLoaderC4load_4intoyAA0cD0_p_AA07MutableD0CtAA0dE5ErrorOYKF",
+    "externalID" : "s:11PoieticCore18ForeignFrameLoaderC4load_4intoyAA0cD0_p_AA09TransientD0CtAA0dE5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,8 +57,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-        "text" : "MutableFrame"
+        "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+        "text" : "TransientFrame"
       },
       {
         "kind" : "text",
@@ -162,10 +162,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-              "text" : "MutableFrame"
+              "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+              "text" : "TransientFrame"
             },
             {
               "kind" : "text",
@@ -480,8 +480,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "Design\/allocateUnstructuredSnapshot(_:id:snapshotID:)",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
                   "text" : ",",
@@ -492,7 +493,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/insert(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -543,6 +544,60 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/allocateID(required:)": {
+  "abstract" : [
+    {
+      "text" : "Create an ID or use a specific ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allocateID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "required"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore2IDa",
+      "text" : "ID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allocateID(required:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
   "abstract" : [
@@ -774,8 +829,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
     },
     {
       "kind" : "text",
@@ -854,10 +909,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameloadererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
     {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
+      "text" : "Transient frame that represents a change transaction.",
       "type" : "text"
     }
   ],
@@ -872,23 +927,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MutableFrame"
+      "text" : "TransientFrame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MutableFrame"
+      "text" : "TransientFrame"
     }
   ],
   "role" : "symbol",
-  "title" : "MutableFrame",
+  "title" : "TransientFrame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
+  "url" : "\/documentation\/poieticcore\/transientframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insert(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/insert(_:)": {
   "abstract" : [
     {
       "text" : "Insert an object snapshot to a frame while maintaining referential",
@@ -922,20 +977,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/insert(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "insert(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/insert(_:)"
+  "url" : "\/documentation\/poieticcore\/transientframe\/insert(_:)"
 }
 }
 }

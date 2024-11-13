@@ -22,7 +22,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE6object5namedAA14ObjectSnapshotCSgSS_tF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE6object5named4NodeQzSgSS_tF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -59,8 +59,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-        "text" : "ObjectSnapshot"
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+        "text" : "Snapshot"
       },
       {
         "kind" : "text",
@@ -130,10 +138,18 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-              "text" : "ObjectSnapshot"
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+              "text" : "Snapshot"
             },
             {
               "kind" : "text",
@@ -278,17 +294,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/Snapshot": {
   "abstract" : [
-    {
-      "text" : "Representation of a design object’s version.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "associatedtype"
     },
     {
       "kind" : "text",
@@ -296,21 +309,16 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "Snapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
+  "required" : true,
   "role" : "symbol",
-  "title" : "ObjectSnapshot",
+  "title" : "Snapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/frame\/snapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -400,8 +408,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+      "text" : "Snapshot"
     },
     {
       "kind" : "text",

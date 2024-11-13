@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore11StableFrameC6objectyAA14ObjectSnapshotCs6UInt64VF",
+    "externalID" : "s:11PoieticCore11StableFrameC6objectyAA0C6ObjectCs6UInt64VF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,8 +49,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-        "text" : "ObjectSnapshot"
+        "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+        "text" : "StableObject"
       }
     ],
     "modules" : [
@@ -117,15 +117,42 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-              "text" : "ObjectSnapshot"
+              "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+              "text" : "StableObject"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Frame must contain object with given ID.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -198,40 +225,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Representation of a design object’s version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
-},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
     {
@@ -301,8 +294,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(_:)",
@@ -311,6 +304,40 @@
   "title" : "object(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/object(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StableObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StableObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

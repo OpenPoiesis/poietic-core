@@ -207,7 +207,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -233,12 +233,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -306,12 +309,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -337,12 +343,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -368,12 +377,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -399,7 +411,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -457,7 +472,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -484,7 +499,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "A predicate.",
+      "text" : "An object predicate.",
       "type" : "text"
     }
   ],

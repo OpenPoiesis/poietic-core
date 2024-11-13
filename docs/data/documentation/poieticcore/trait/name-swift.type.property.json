@@ -199,7 +199,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name-2tr9a",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -342,8 +342,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+      "text" : "Snapshot"
     },
     {
       "kind" : "text",
@@ -379,21 +387,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/name": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/name-2tr9a": {
   "abstract" : [
     {
-      "text" : "Get object name if the object has an attribute ",
-      "type" : "text"
-    },
-    {
-      "code" : "name",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Name of an object.",
       "type" : "text"
     }
   ],
+  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -421,12 +422,13 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name-2tr9a",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/name"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/name-2tr9a"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/DesignInfo": {
   "abstract" : [

@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA11StableFrameCAA07MutableH0C_SbtAA0H15ConstraintErrorVYKF",
+    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA11StableFrameCAA09TransientH0C_SbtAA0H15ConstraintErrorVYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-        "text" : "MutableFrame"
+        "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+        "text" : "TransientFrame"
       },
       {
         "kind" : "text",
@@ -148,10 +148,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-              "text" : "MutableFrame"
+              "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+              "text" : "TransientFrame"
             },
             {
               "kind" : "text",
@@ -398,11 +398,28 @@
                   "type" : "reference"
                 },
                 {
-                  "text" : ", ",
+                  "text" : ",",
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ",",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -411,6 +428,62 @@
             }
           ],
           "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Frame must belong to the design.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Frame must be in transient state.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Frame with give ID must not be already accepted and must",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "exist as a transient frame in the design.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
           "style" : "note",
           "type" : "aside"
         }
@@ -476,7 +549,7 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
@@ -580,8 +653,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
     },
     {
       "kind" : "text",
@@ -668,89 +741,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameconstrainterror"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
-  "abstract" : [
-    {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/promote(_:)": {
-  "abstract" : [
-    {
-      "text" : "Promote the frame to a state that is higher than the current",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "state.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "promote"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VersionStateO",
-      "text" : "VersionState"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/promote(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "promote(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/promote(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
     {
@@ -784,6 +774,130 @@
   "title" : "StableFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
+  "abstract" : [
+    {
+      "text" : "Transient frame that represents a change transaction.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/accept()": {
+  "abstract" : [
+    {
+      "text" : "Mark the frame as accepted and reject any further modifications.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19TransientFrameErrorO",
+      "text" : "TransientFrameError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/accept()"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/discard()": {
+  "abstract" : [
+    {
+      "text" : "Mark the frame as discarded and reject any further modifications.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "discard"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "discard()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/discard()"
 }
 }
 }

@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ]
     ]
@@ -27,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore23EdgeEndpointRequirementC6origin6target4edgeAcA15IsTypePredicateCSg_A2Itcfc",
+    "externalID" : "s:11PoieticCore23EdgeEndpointRequirementC6origin6target4edgeAcA15IsTypePredicateVSg_A2Itcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -47,7 +48,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
         "text" : "IsTypePredicate"
       },
       {
@@ -64,7 +65,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
         "text" : "IsTypePredicate"
       },
       {
@@ -81,7 +82,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+        "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
         "text" : "IsTypePredicate"
       },
       {
@@ -129,7 +130,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
               "text" : "IsTypePredicate"
             },
             {
@@ -147,7 +148,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
               "text" : "IsTypePredicate"
             },
             {
@@ -165,7 +166,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+              "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
               "text" : "IsTypePredicate"
             },
             {
@@ -337,7 +338,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
       "text" : "IsTypePredicate"
     },
     {
@@ -354,7 +355,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
       "text" : "IsTypePredicate"
     },
     {
@@ -371,7 +372,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateC",
+      "preciseIdentifier" : "s:11PoieticCore15IsTypePredicateV",
       "text" : "IsTypePredicate"
     },
     {
@@ -388,12 +389,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -416,6 +420,28 @@
   "title" : "IsTypePredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/istypepredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 }
 }
 }

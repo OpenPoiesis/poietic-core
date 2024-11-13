@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9RejectAllC5check5frame7objectsSays6UInt64VGAA5Frame_p_SayAA14ObjectSnapshotCGtF",
+    "externalID" : "s:11PoieticCore9RejectAllC5check5frame7objectsSays6UInt64VGx_Sayq_GtAA5FrameRzAA14ObjectSnapshotR_r0_lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -52,7 +52,7 @@
       },
       {
         "kind" : "text",
-        "text" : ": any "
+        "text" : ": some "
       },
       {
         "kind" : "typeIdentifier",
@@ -69,11 +69,11 @@
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": [some "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
         "text" : "ObjectSnapshot"
       },
       {
@@ -133,7 +133,7 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": some "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
@@ -151,12 +151,12 @@
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": [some "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
               "text" : "ObjectSnapshot"
             },
             {
@@ -308,14 +308,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -427,7 +427,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
@@ -444,11 +444,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
       "text" : "ObjectSnapshot"
     },
     {

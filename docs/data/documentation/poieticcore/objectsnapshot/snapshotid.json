@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Unique identifier of the version snapshot within the database.",
+      "text" : "Unique identifier of the object version snapshot within the design.",
       "type" : "text"
     }
   ],
@@ -24,11 +24,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC10snapshotIDs6UInt64Vvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP10snapshotIDs6UInt64Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "let"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -53,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -71,7 +72,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "let"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -90,6 +91,18 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
               "text" : "SnapshotID"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -111,37 +124,12 @@
               "type" : "text"
             },
             {
-              "code" : "snapshotID",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " is unique in the whole design.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "One typically does not use the snapshot ID as it refers to object’s",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "particular version. Through the design the object’s ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id-swift.property",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " is used as",
+              "text" : " represents a concrete version of an object. An",
               "type" : "text"
             },
             {
@@ -149,7 +137,7 @@
               "type" : "text"
             },
             {
-              "text" : "a logical reference to an object where the concrete version is used",
+              "text" : "object can have multiple versions, which all share the same identity",
               "type" : "text"
             },
             {
@@ -157,50 +145,25 @@
               "type" : "text"
             },
             {
-              "text" : "within the context of a frame.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The snapshot ID is preserved during persistence. However, it is not",
+              "text" : "of object ",
               "type" : "text"
             },
             {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "necessary to be provided when importing object from foreign interfaces",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "which are dealing with only single version frame.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "When mutating an object with ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " a new",
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Typically when working with the design and design frames, one does not",
               "type" : "text"
             },
             {
@@ -208,7 +171,64 @@
               "type" : "text"
             },
             {
-              "text" : "snapshot with new snapshot ID but the same object ID will be created.",
+              "text" : "need to use the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". It is used only when considering",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "different versions of objects.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When an object is mutated with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", the object",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is preserved, but a new the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is generated.",
               "type" : "text"
             }
           ],
@@ -223,16 +243,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id-swift.property",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -246,6 +257,15 @@
                 },
                 {
                   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -351,112 +371,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/insert(_:)": {
-  "abstract" : [
-    {
-      "text" : "Insert an object snapshot to a frame while maintaining referential",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "integrity.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "insert"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/insert(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "insert(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/insert(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
-  "abstract" : [
-    {
-      "text" : "Return a snapshot that can be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "mutableObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "mutableObject(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/mutableobject(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -480,17 +405,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id-swift.property": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id": {
   "abstract" : [
     {
-      "text" : "Object identity.",
+      "text" : "Primary object identity.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -510,24 +435,25 @@
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id-swift.property",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "id",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/id-swift.property"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/id"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/snapshotID": {
   "abstract" : [
     {
-      "text" : "Unique identifier of the version snapshot within the database.",
+      "text" : "Unique identifier of the object version snapshot within the design.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -549,6 +475,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "snapshotID",
   "type" : "topic",
@@ -587,6 +514,52 @@
   "title" : "SnapshotID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/snapshotid"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
+  "abstract" : [
+    {
+      "text" : "Make a snapshot mutable within the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mutate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
+      "text" : "MutableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mutate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

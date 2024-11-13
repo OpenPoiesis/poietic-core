@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -13,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17CompoundPredicateC",
+    "externalID" : "s:11PoieticCore17CompoundPredicateV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -40,8 +46,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "CompoundPredicate"
   },
   "primaryContentSections" : [
@@ -57,15 +63,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "final"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -79,6 +77,47 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-78jy4",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-78n5",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -140,7 +179,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/match(frame:object:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/match(_:in:)"
       ],
       "title" : "Instance Methods"
     },
@@ -225,7 +264,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -251,12 +290,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -293,7 +335,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/connective": {
   "abstract" : [
-
+    {
+      "text" : "Logical connective to connect the predicates with.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -327,7 +372,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/init(_:predicates:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -372,7 +420,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/compoundpredicate\/init(_:predicates:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/match(frame:object:)": {
+"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/match(_:in:)": {
   "abstract" : [
 
   ],
@@ -391,20 +439,12 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -412,16 +452,16 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "object"
+      "text" : "in"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -433,16 +473,19 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/match(frame:object:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/match(_:in:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "match(frame:object:)",
+  "title" : "match(_:in:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/compoundpredicate\/match(frame:object:)"
+  "url" : "\/documentation\/poieticcore\/compoundpredicate\/match(_:in:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/predicates": {
   "abstract" : [
-
+    {
+      "text" : "List of predicates that are evaluated together with the same logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -522,12 +565,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -553,12 +599,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -584,12 +633,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -615,7 +667,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -651,7 +706,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -678,7 +733,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "A predicate.",
+      "text" : "An object predicate.",
       "type" : "text"
     }
   ],
@@ -708,6 +763,118 @@
   "title" : "Predicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/and(_:)-78jy4": {
+  "abstract" : [
+    {
+      "text" : "Creates a compound predicate with the other predicate using a logical ∧ – ",
+      "type" : "text"
+    },
+    {
+      "code" : "and",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connective.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "and"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
+      "text" : "CompoundPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-78jy4",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "and(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/and(_:)-78jy4"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/or(_:)-78n5": {
+  "abstract" : [
+    {
+      "text" : "Creates a compound predicate with the other predicate using a logical ⋁ – ",
+      "type" : "text"
+    },
+    {
+      "code" : "or",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connective.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "or"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
+      "text" : "CompoundPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-78n5",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "or(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/or(_:)-78n5"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [

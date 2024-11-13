@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferences8snapshotSays6UInt64VGAA14ObjectSnapshotC_tF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferences8snapshotSays6UInt64VG4NodeQz_tF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -58,8 +58,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-        "text" : "ObjectSnapshot"
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+        "text" : "Snapshot"
       },
       {
         "kind" : "text",
@@ -121,10 +129,18 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-              "text" : "ObjectSnapshot"
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+              "text" : "Snapshot"
             },
             {
               "kind" : "text",
@@ -190,7 +206,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -332,6 +348,32 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/Frame/Snapshot": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Snapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Snapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/snapshot"
+},
 "doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()-pz81": {
   "abstract" : [
 
@@ -442,44 +484,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Representation of a design object’s version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
   "abstract" : [
     {
-      "text" : "List of object’s children.",
+      "text" : "Children of an object in a hierarchical structure.",
       "type" : "text"
     }
   ],
@@ -508,6 +516,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "children",
   "type" : "topic",
@@ -516,7 +525,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/parent": {
   "abstract" : [
     {
-      "text" : "Object’s parent – denotes hierarchical organisation of objects.",
+      "text" : "Parent of an object in a hierarchical structure.",
       "type" : "text"
     }
   ],
@@ -549,6 +558,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "parent",
   "type" : "topic",
@@ -641,8 +651,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
+      "text" : "Snapshot"
     },
     {
       "kind" : "text",
@@ -665,7 +683,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/brokenreferences(snapshot:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Structure/edge(_:_:)": {
   "abstract" : [
     {
       "text" : "The object with this component is part of a graph and represents an",
@@ -716,12 +734,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "StructuralComponent.edge(_:_:)",
+  "title" : "Structure.edge(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent\/edge(_:_:)"
+  "url" : "\/documentation\/poieticcore\/structure\/edge(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

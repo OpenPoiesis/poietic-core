@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Variable denoting the structural property or rather structural role",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the object within a design.",
+      "text" : "Structural role of the object within a design.",
       "type" : "text"
     }
   ],
@@ -32,7 +24,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC9structureAA19StructuralComponentOvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP9structureAA9StructureOvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -52,8 +44,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
-        "text" : "StructuralComponent"
+        "preciseIdentifier" : "s:11PoieticCore9StructureO",
+        "text" : "Structure"
       }
     ],
     "modules" : [
@@ -61,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -94,10 +87,22 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
-              "text" : "StructuralComponent"
+              "preciseIdentifier" : "s:11PoieticCore9StructureO",
+              "text" : "Structure"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -115,16 +120,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Objects can be either unstructured (",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/unstructured",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ")",
+              "text" : "This property is the only other property to the parent\/child hierarchy,",
               "type" : "text"
             },
             {
@@ -132,7 +128,16 @@
               "type" : "text"
             },
             {
-              "text" : "or have a special role in different views of the design, such as nodes",
+              "text" : "where an object can have references to other objects.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Primary content of the design is a graph, which has two kinds of",
               "type" : "text"
             },
             {
@@ -140,7 +145,23 @@
               "type" : "text"
             },
             {
-              "text" : "and edges in a graph.",
+              "text" : "entities: nodes and edges. From the design content perspective, they",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "are all objects with only difference, that the edge can refer to",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "other objects.",
               "type" : "text"
             }
           ],
@@ -161,7 +182,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -185,7 +206,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeCascading(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -249,14 +270,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Protocol for views of a frame as a graph.",
+      "text" : "Collection of nodes connected by edges.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -280,7 +301,171 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeCascading(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "A version of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/structure": {
+  "abstract" : [
+    {
+      "text" : "Structural role of the object within a design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "structure"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9StructureO",
+      "text" : "Structure"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "structure",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/structure"
+},
+"doc://PoieticCore/documentation/PoieticCore/Structure": {
+  "abstract" : [
+    {
+      "text" : "Structure defines relationship of an object with other objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Structure"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Structure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Structure",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structure"
+},
+"doc://PoieticCore/documentation/PoieticCore/Structure/edge(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "The object with this component is part of a graph and represents an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge - a link between two nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Structure.edge(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structure\/edge(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeCascading(_:)": {
   "abstract" : [
     {
       "text" : "Remove an object from the frame and all its dependants.",
@@ -332,219 +517,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeCascading(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeCascading(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/removecascading(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Representation of a design object’s version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/structure": {
-  "abstract" : [
-    {
-      "text" : "Variable denoting the structural property or rather structural role",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the object within a design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "structure"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "structure",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/structure"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
-  "abstract" : [
-    {
-      "text" : "Structural component defines object’s relationship with other objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StructuralComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "The object with this component is part of a graph and represents an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "edge - a link between two nodes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "edge"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "StructuralComponent.edge(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent\/edge(_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/unstructured": {
-  "abstract" : [
-    {
-      "text" : "The object has no relationships with other objects,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "has no structural dependencies and no objects depend on it.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "unstructured"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/unstructured",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "StructuralComponent.unstructured",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent\/unstructured"
+  "url" : "\/documentation\/poieticcore\/transientframe\/removecascading(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

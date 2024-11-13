@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Object’s parent – denotes hierarchical organisation of objects.",
+      "text" : "Parent of an object in a hierarchical structure.",
       "type" : "text"
     }
   ],
@@ -24,7 +24,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC6parents6UInt64VSgvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP6parents6UInt64VSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,6 +57,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -105,14 +106,6 @@
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "set"
-            },
-            {
-              "kind" : "text",
               "text" : " }"
             }
           ]
@@ -131,7 +124,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "You typically never have to set the parent property. It is being set",
+              "text" : "When the object’s parent is removed from the design, all its children",
               "type" : "text"
             },
             {
@@ -139,33 +132,7 @@
               "type" : "text"
             },
             {
-              "text" : "by one of the mutable frame’s methods (see below).",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Another way of specifying structural relationship of objects besides",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "hierarchy is with the ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
+              "text" : "are removed with it, including their dependencies.",
               "type" : "text"
             }
           ],
@@ -193,7 +160,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/addChild(_:to:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/addChild(_:to:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -206,7 +173,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeChild(_:from:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeChild(_:from:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -219,7 +186,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeFromParent(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeFromParent(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -232,13 +199,9 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeCascading(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
                   "isActive" : true,
                   "type" : "reference"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
                 }
               ],
               "type" : "paragraph"
@@ -288,7 +251,155 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/addChild(_:to:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "A version of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
+  "abstract" : [
+    {
+      "text" : "Children of an object in a hierarchical structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
+      "text" : "ChildrenSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "children",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/children"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/parent": {
+  "abstract" : [
+    {
+      "text" : "Parent of an object in a hierarchical structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "parent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/parent"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/addChild(_:to:)": {
   "abstract" : [
     {
       "text" : "Assign a child to a parent object.",
@@ -339,14 +450,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/addChild(_:to:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/addChild(_:to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addChild(_:to:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/addchild(_:to:)"
+  "url" : "\/documentation\/poieticcore\/transientframe\/addchild(_:to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeCascading(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeCascading(_:)": {
   "abstract" : [
     {
       "text" : "Remove an object from the frame and all its dependants.",
@@ -398,14 +509,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeCascading(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeCascading(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/removecascading(_:)"
+  "url" : "\/documentation\/poieticcore\/transientframe\/removecascading(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeChild(_:from:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeChild(_:from:)": {
   "abstract" : [
     {
       "text" : "Remove an object ",
@@ -472,14 +583,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeChild(_:from:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeChild(_:from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeChild(_:from:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/removechild(_:from:)"
+  "url" : "\/documentation\/poieticcore\/transientframe\/removechild(_:from:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/removeFromParent(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeFromParent(_:)": {
   "abstract" : [
     {
       "text" : "Removes a child from its parent.",
@@ -513,203 +624,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/removeFromParent(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeFromParent(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeFromParent(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/removefromparent(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
-  "abstract" : [
-    {
-      "text" : "Identifier of a design objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Representation of a design object’s version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
-  "abstract" : [
-    {
-      "text" : "List of object’s children.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "children"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "children",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/children"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/parent": {
-  "abstract" : [
-    {
-      "text" : "Object’s parent – denotes hierarchical organisation of objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "parent"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "parent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/parent"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/structure": {
-  "abstract" : [
-    {
-      "text" : "Variable denoting the structural property or rather structural role",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the object within a design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "structure"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19StructuralComponentO",
-      "text" : "StructuralComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/structure",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "structure",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/structure"
+  "url" : "\/documentation\/poieticcore\/transientframe\/removefromparent(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

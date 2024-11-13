@@ -155,7 +155,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -397,7 +397,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/children": {
   "abstract" : [
     {
-      "text" : "List of object’s children.",
+      "text" : "Children of an object in a hierarchical structure.",
       "type" : "text"
     }
   ],
@@ -426,6 +426,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "children",
   "type" : "topic",
@@ -434,7 +435,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/parent": {
   "abstract" : [
     {
-      "text" : "Object’s parent – denotes hierarchical organisation of objects.",
+      "text" : "Parent of an object in a hierarchical structure.",
       "type" : "text"
     }
   ],
@@ -467,6 +468,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "parent",
   "type" : "topic",
@@ -566,7 +568,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/brokenreferences()"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Structure/edge(_:_:)": {
   "abstract" : [
     {
       "text" : "The object with this component is part of a graph and represents an",
@@ -617,12 +619,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "StructuralComponent.edge(_:_:)",
+  "title" : "Structure.edge(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent\/edge(_:_:)"
+  "url" : "\/documentation\/poieticcore\/structure\/edge(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

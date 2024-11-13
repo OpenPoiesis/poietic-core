@@ -109,18 +109,12 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Graph-Nodes-and-Edges",
+      "anchor" : "Neighbourhoods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood"
       ],
-      "title" : "Graph, Nodes and Edges"
+      "title" : "Neighbourhoods"
     }
   ],
   "topicSections" : [
@@ -187,40 +181,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
-  "abstract" : [
-    {
-      "text" : "View of an object as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Edge",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
   "abstract" : [
@@ -394,108 +354,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection\/reversed"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeType": {
-  "abstract" : [
-    {
-      "text" : "Protocol for objects that represent an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgetype"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
-  "abstract" : [
-    {
-      "text" : "Protocol for views of a frame as a graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphCycleError": {
-  "abstract" : [
-    {
-      "text" : "An error raised when a cycle is detected in the graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphCycleError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "GraphCycleError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphCycleError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphcycleerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
     {
@@ -510,17 +368,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableGraph": {
+"doc://PoieticCore/documentation/PoieticCore/Neighborhood": {
   "abstract" : [
     {
-      "text" : "Protocol",
+      "text" : "Neighbourhood is a subgraph centred on a node with edges adjacent to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that node.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -528,146 +394,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MutableGraph"
+      "text" : "Neighborhood"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableGraph",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MutableGraph"
+      "text" : "Neighborhood"
     }
   ],
   "role" : "symbol",
-  "title" : "MutableGraph",
+  "title" : "Neighborhood",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablegraph"
-},
-"doc://PoieticCore/documentation/PoieticCore/Node": {
-  "abstract" : [
-    {
-      "text" : "View of an object as a graph node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Node",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Node",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/node"
-},
-"doc://PoieticCore/documentation/PoieticCore/topologicalSort(_:edges:)": {
-  "abstract" : [
-    {
-      "text" : "Sort edges topologically.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "topologicalSort"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "edges"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15GraphCycleErrorV",
-      "text" : "GraphCycleError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/topologicalSort(_:edges:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "topologicalSort(_:edges:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/topologicalsort(_:edges:)"
+  "url" : "\/documentation\/poieticcore\/neighborhood"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

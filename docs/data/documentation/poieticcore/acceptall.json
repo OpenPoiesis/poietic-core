@@ -134,7 +134,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ],
       "title" : "Constraints"
     }
@@ -273,7 +274,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
@@ -290,11 +291,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
       "text" : "ObjectSnapshot"
     },
     {
@@ -454,7 +455,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -482,6 +486,48 @@
   "title" : "ConstraintViolation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
@@ -599,7 +645,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [
-
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

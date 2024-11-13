@@ -460,7 +460,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/save(design:)": {
   "abstract" : [
-
+    {
+      "text" : "Save the design to store’s URL.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -499,6 +502,19 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20PersistentStoreErrorO",
+      "text" : "PersistentStoreError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/save(design:)",
@@ -562,7 +578,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
   "abstract" : [
-
+    {
+      "text" : "An error thrown when saving and restoring a design to\/from a persistent",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "store.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

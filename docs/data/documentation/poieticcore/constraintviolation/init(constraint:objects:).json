@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a constraint violation error for a given constraint and list of objects that violate",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the constraints.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -210,7 +224,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -241,7 +258,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/init(constraint:objects:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a constraint violation error for a given constraint and list of objects that violate",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the constraints.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

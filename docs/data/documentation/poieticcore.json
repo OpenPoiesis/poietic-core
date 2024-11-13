@@ -339,7 +339,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/",
+              "identifier" : "https:\/\/openpoiesis.github.io\/poietic-flows\/documentation\/poieticflows\/",
               "isActive" : true,
               "type" : "reference"
             },
@@ -403,14 +403,6 @@
       "title" : "Others"
     },
     {
-      "anchor" : "Classes",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
-      ],
-      "title" : "Classes"
-    },
-    {
       "anchor" : "Protocols",
       "generated" : true,
       "identifiers" : [
@@ -429,6 +421,14 @@
       "title" : "Structures"
     },
     {
+      "anchor" : "Variables",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ReservedAttributeNames"
+      ],
+      "title" : "Variables"
+    },
+    {
       "anchor" : "Type-Aliases",
       "generated" : true,
       "identifiers" : [
@@ -441,6 +441,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrameError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType"
       ],
       "title" : "Enumerations"
@@ -599,48 +600,6 @@
   "title" : "DesignLibraryItem",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designlibraryitem"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
-  "abstract" : [
-    {
-      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given labels.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeEndpointRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
@@ -884,14 +843,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -985,6 +944,47 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicates"
 },
+"doc://PoieticCore/documentation/PoieticCore/ReservedAttributeNames": {
+  "abstract" : [
+    {
+      "text" : "List of attribute names that are reserved and should not be used.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReservedAttributeNames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ReservedAttributeNames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ReservedAttributeNames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/reservedattributenames"
+},
 "doc://PoieticCore/documentation/PoieticCore/Runtime": {
   "abstract" : [
     {
@@ -1009,6 +1009,40 @@
   "title" : "Swift",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/swift"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrameError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrameError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrameError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrameError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientFrameError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframeerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
@@ -1058,8 +1092,8 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variabletype"
 },
-"https://openpoiesis.github.io/PoieticFlows/documentation/poieticflows/": {
-  "identifier" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/",
+"https://openpoiesis.github.io/poietic-flows/documentation/poieticflows/": {
+  "identifier" : "https:\/\/openpoiesis.github.io\/poietic-flows\/documentation\/poieticflows\/",
   "title" : "PoieticFlows",
   "titleInlineContent" : [
     {
@@ -1068,7 +1102,7 @@
     }
   ],
   "type" : "link",
-  "url" : "https:\/\/openpoiesis.github.io\/PoieticFlows\/documentation\/poieticflows\/"
+  "url" : "https:\/\/openpoiesis.github.io\/poietic-flows\/documentation\/poieticflows\/"
 }
 }
 }

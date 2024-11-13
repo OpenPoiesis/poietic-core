@@ -109,7 +109,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -182,7 +182,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(frame:object:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(_:in:)"
       ],
       "title" : "Instance Methods"
     },
@@ -267,7 +267,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -293,12 +293,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -439,7 +442,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate\/init(_:origin:target:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/match(frame:object:)": {
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/match(_:in:)": {
   "abstract" : [
 
   ],
@@ -458,20 +461,12 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -479,16 +474,16 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "object"
+      "text" : "in"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -500,21 +495,24 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(frame:object:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/match(_:in:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "match(frame:object:)",
+  "title" : "match(_:in:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate\/match(frame:object:)"
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/match(_:in:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -540,12 +538,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -571,12 +572,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -602,7 +606,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -638,7 +645,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -665,7 +672,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "A predicate.",
+      "text" : "An object predicate.",
       "type" : "text"
     }
   ],
@@ -718,7 +725,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicates"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent/edge(_:_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Structure/edge(_:_:)": {
   "abstract" : [
     {
       "text" : "The object with this component is part of a graph and represents an",
@@ -769,12 +776,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent\/edge(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "StructuralComponent.edge(_:_:)",
+  "title" : "Structure.edge(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent\/edge(_:_:)"
+  "url" : "\/documentation\/poieticcore\/structure\/edge(_:_:)"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

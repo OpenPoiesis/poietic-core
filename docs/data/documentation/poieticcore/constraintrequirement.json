@@ -131,7 +131,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ],
       "title" : "Constraints"
     }
@@ -395,7 +396,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
@@ -412,11 +413,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
       "text" : "ObjectSnapshot"
     },
     {
@@ -443,7 +444,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -630,7 +634,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [
-
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore16ExpressionParserC5parseAA010ArithmeticC0OyS2SGyKF",
+    "externalID" : "s:11PoieticCore16ExpressionParserC5parseAA010ArithmeticC0OyS2SGyAA0C11SyntaxErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -44,7 +44,16 @@
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+        "text" : "ExpressionSyntaxError"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -95,7 +104,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+              "text" : "ExpressionSyntaxError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
@@ -244,7 +263,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+      "text" : "ExpressionSyntaxError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -258,6 +286,40 @@
   "title" : "parse()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparser\/parse()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the expression language parser.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionSyntaxError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [

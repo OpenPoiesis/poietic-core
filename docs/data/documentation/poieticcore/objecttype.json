@@ -184,11 +184,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Controls",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Enables",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Inhibits",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Produces",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stimulates"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Group"
       ],
       "title" : "Type Properties"
     }
@@ -387,7 +383,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/Controls": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/Group": {
   "abstract" : [
 
   ],
@@ -410,7 +406,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Controls"
+      "text" : "Group"
     },
     {
       "kind" : "text",
@@ -422,180 +418,12 @@
       "text" : "ObjectType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Controls",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Group",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "Controls",
+  "title" : "Group",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/controls"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/Enables": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Enables"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Enables",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Enables",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/enables"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/Inhibits": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Inhibits"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Inhibits",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Inhibits",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/inhibits"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/Produces": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Produces"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Produces",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Produces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/produces"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/Stimulates": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Stimulates"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Stimulates",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Stimulates",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/stimulates"
+  "url" : "\/documentation\/poieticcore\/objecttype\/group"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/abstract": {
   "abstract" : [

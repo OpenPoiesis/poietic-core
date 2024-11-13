@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore12NeighborhoodC5graphAA5Graph_pvp",
+    "externalID" : "s:11PoieticCore12NeighborhoodC5graphxvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -36,12 +36,28 @@
       },
       {
         "kind" : "text",
-        "text" : ": any "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5GraphP",
-        "text" : "Graph"
+        "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+        "text" : "Neighborhood"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "G"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "GraphType"
       }
     ],
     "modules" : [
@@ -79,13 +95,29 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5GraphP",
-              "text" : "Graph"
+              "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+              "text" : "Neighborhood"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "G"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "GraphType"
             }
           ]
         }
@@ -128,40 +160,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
-  "abstract" : [
-    {
-      "text" : "Protocol for views of a frame as a graph.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Graph"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
@@ -241,12 +239,28 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore12NeighborhoodC",
+      "text" : "Neighborhood"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "G"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "GraphType"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Neighborhood\/graph",

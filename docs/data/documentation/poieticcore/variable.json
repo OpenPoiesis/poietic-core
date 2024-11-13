@@ -231,7 +231,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable\/init(name:value:abstract:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable\/init(name:value:valueType:abstract:)"
       ],
       "title" : "Initializers"
     },
@@ -527,7 +527,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variable\/hash(into:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variable/init(name:value:abstract:)": {
+"doc://PoieticCore/documentation/PoieticCore/Variable/init(name:value:valueType:abstract:)": {
   "abstract" : [
     {
       "text" : "Create a new built-in variable.",
@@ -579,6 +579,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "valueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "abstract"
     },
     {
@@ -595,12 +612,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable\/init(name:value:abstract:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variable\/init(name:value:valueType:abstract:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:value:abstract:)",
+  "title" : "init(name:value:valueType:abstract:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variable\/init(name:value:abstract:)"
+  "url" : "\/documentation\/poieticcore\/variable\/init(name:value:valuetype:abstract:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variable/initialValue": {
   "abstract" : [

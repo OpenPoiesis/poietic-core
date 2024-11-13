@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -71,6 +77,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -212,7 +250,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -238,12 +276,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -311,12 +352,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -342,12 +386,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -373,12 +420,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -404,7 +454,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -446,7 +499,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective/and": {
   "abstract" : [
-
+    {
+      "text" : "Logical ∧ – ",
+      "type" : "text"
+    },
+    {
+      "code" : "and",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -471,7 +535,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective/or": {
   "abstract" : [
-
+    {
+      "text" : "Logical ⋁ – ",
+      "type" : "text"
+    },
+    {
+      "code" : "or",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -501,7 +576,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -528,7 +603,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "A predicate.",
+      "text" : "An object predicate.",
       "type" : "text"
     }
   ],

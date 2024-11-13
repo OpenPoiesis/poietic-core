@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore11StableFrameC5graphAA5Graph_pvp",
+    "externalID" : "s:11PoieticCore11StableFrameC5graphAA13GraphProtocol_pvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,8 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5GraphP",
-        "text" : "Graph"
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP",
+        "text" : "GraphProtocol"
       }
     ],
     "modules" : [
@@ -82,10 +82,10 @@
               "text" : ": any "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5GraphP",
-              "text" : "Graph"
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP",
+              "text" : "GraphProtocol"
             },
             {
               "kind" : "text",
@@ -141,10 +141,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol": {
   "abstract" : [
     {
-      "text" : "Protocol for views of a frame as a graph.",
+      "text" : "Protocol for object graphs - nodes connected by edges.",
       "type" : "text"
     }
   ],
@@ -159,21 +159,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "GraphProtocol"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "GraphProtocol"
     }
   ],
   "role" : "symbol",
-  "title" : "Graph",
+  "title" : "GraphProtocol",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
+  "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -235,8 +235,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP",
+      "text" : "GraphProtocol"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/graph",

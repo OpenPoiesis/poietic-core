@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -13,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15IsTypePredicateC",
+    "externalID" : "s:11PoieticCore15IsTypePredicateV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -40,8 +46,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "IsTypePredicate"
   },
   "primaryContentSections" : [
@@ -57,15 +63,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "final"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -123,8 +121,8 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-1toby",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-9kpa"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-3nwis",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-72hke"
       ],
       "title" : "Initializers"
     },
@@ -132,7 +130,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/match(frame:object:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/match(_:in:)"
       ],
       "title" : "Instance Methods"
     },
@@ -217,7 +215,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -243,12 +241,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -316,12 +317,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -347,12 +351,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -378,12 +385,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object is of one or multiple given types.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -418,39 +428,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/istypepredicate\/predicate-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/init(_:)-1toby": {
+"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/init(_:)-3nwis": {
   "abstract" : [
-
-  ],
-  "fragments" : [
     {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
-    },
-    {
-      "kind" : "text",
-      "text" : "])"
+      "text" : "Create a new predicate with a type to test for.",
+      "type" : "text"
     }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-1toby",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate\/init(_:)-1toby"
-},
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/init(_:)-9kpa": {
-  "abstract" : [
-
   ],
   "fragments" : [
     {
@@ -471,14 +454,47 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-9kpa",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-3nwis",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate\/init(_:)-9kpa"
+  "url" : "\/documentation\/poieticcore\/istypepredicate\/init(_:)-3nwis"
 },
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/match(frame:object:)": {
+"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/init(_:)-72hke": {
+  "abstract" : [
+    {
+      "text" : "Create a new predicate with a list of types to test for.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/init(_:)-72hke",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/istypepredicate\/init(_:)-72hke"
+},
+"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate/match(_:in:)": {
   "abstract" : [
 
   ],
@@ -497,20 +513,12 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -518,16 +526,16 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "object"
+      "text" : "in"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
     },
     {
       "kind" : "text",
@@ -539,16 +547,19 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/match(frame:object:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate\/match(_:in:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "match(frame:object:)",
+  "title" : "match(_:in:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate\/match(frame:object:)"
+  "url" : "\/documentation\/poieticcore\/istypepredicate\/match(_:in:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -584,7 +595,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -611,7 +622,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "A predicate.",
+      "text" : "An object predicate.",
       "type" : "text"
     }
   ],

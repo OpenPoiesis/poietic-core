@@ -360,33 +360,6 @@
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "anchor" : "Object-Types-with-Expressions",
-          "level" : 2,
-          "text" : "Object Types with Expressions",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Objects that contain arithmetic expressions typically have a trait",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "code" : "Trait\/Formula",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : ".",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -653,7 +626,16 @@
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+      "text" : "ExpressionSyntaxError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",

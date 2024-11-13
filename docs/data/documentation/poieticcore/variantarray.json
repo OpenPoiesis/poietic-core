@@ -76,13 +76,16 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/Sl",
         "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/SM",
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/ST"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -147,7 +150,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(_:)-5yuvb",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(_:)-81h9n",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(_:)-9klfb",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(any:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(any:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:)"
       ],
       "title" : "Initializers"
     },
@@ -157,8 +161,10 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/count",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/first",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/itemType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/items",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/last",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/stringItems"
       ],
       "title" : "Instance Properties"
@@ -167,8 +173,11 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/append(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/asJSON()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/isConvertible(to:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/isConvertible(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/pointValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/remove(at:)"
       ],
       "title" : "Instance Methods"
     },
@@ -184,8 +193,11 @@
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Collection-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Decodable-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Equatable-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Equatable-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/MutableCollection-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Sequence-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -214,14 +226,29 @@
   "title" : "Swift.Hashable",
   "type" : "unresolvable"
 },
+"doc://PoieticCore/SM": {
+  "identifier" : "doc:\/\/PoieticCore\/SM",
+  "title" : "Swift.MutableCollection",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/SQ": {
   "identifier" : "doc:\/\/PoieticCore\/SQ",
   "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
+"doc://PoieticCore/ST": {
+  "identifier" : "doc:\/\/PoieticCore\/ST",
+  "title" : "Swift.Sequence",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/Se": {
   "identifier" : "doc:\/\/PoieticCore\/Se",
   "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/Sl": {
+  "identifier" : "doc:\/\/PoieticCore\/Sl",
+  "title" : "Swift.Collection",
   "type" : "unresolvable"
 },
 "doc://PoieticCore/documentation/PoieticCore": {
@@ -542,6 +569,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/!=(_:_:)-98fys"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/Collection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Collection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Collection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/collection-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/Decodable-Implementations": {
   "abstract" : [
 
@@ -563,6 +601,28 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/MutableCollection-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/MutableCollection-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MutableCollection Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/mutablecollection-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/Sequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/sequence-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/_(_:_:)-4bk3p": {
   "abstract" : [
@@ -852,6 +912,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/_=(_:_:)-8cozq"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/append(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "append"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/append(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "append(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/append(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/asJSON()": {
   "abstract" : [
 
@@ -1035,6 +1137,44 @@
   "title" : "VariantArray.double(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/double(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/first": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "first"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/first",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "first",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/first"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/fromJSONItems(_:path:)": {
   "abstract" : [
@@ -1319,6 +1459,47 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/init(any:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/init(type:)": {
+  "abstract" : [
+    {
+      "text" : "Create an empty array of given type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
+      "text" : "AtomType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(type:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/init(type:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/int(_:)": {
   "abstract" : [
     {
@@ -1489,6 +1670,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/items"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/last": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "last"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/last",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "last",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/last"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/point(_:)": {
   "abstract" : [
     {
@@ -1529,6 +1748,111 @@
   "title" : "VariantArray.point(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/point(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/pointValue()": {
+  "abstract" : [
+    {
+      "text" : "Get a point value from an array of items.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pointValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5Pointa",
+      "text" : "Point"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/pointValue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pointValue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/pointvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/remove(at:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "remove"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/remove(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "remove(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/remove(at:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/string(_:)": {
   "abstract" : [

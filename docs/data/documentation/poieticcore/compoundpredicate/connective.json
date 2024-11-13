@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Logical connective to connect the predicates with.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -14,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17CompoundPredicateC10connectiveAA17LogicalConnectiveOvp",
+    "externalID" : "s:11PoieticCore17CompoundPredicateV10connectiveAA17LogicalConnectiveOvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -125,12 +131,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate that connects multiple predicates with a logical connective.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -156,7 +165,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/connective": {
   "abstract" : [
-
+    {
+      "text" : "Logical connective to connect the predicates with.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -190,7 +202,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
   "abstract" : [
-
+    {
+      "text" : "Type of logical connective for a compound predicate.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

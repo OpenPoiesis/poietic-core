@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Get position of the object.",
+      "text" : "Get position of an object.",
       "type" : "text"
     }
   ],
@@ -25,7 +25,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC8positions5SIMD2VySdGSgvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotPAAE8positions5SIMD2VySdGSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -106,14 +106,6 @@
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "set"
-            },
-            {
-              "kind" : "text",
               "text" : " }"
             }
           ]
@@ -156,15 +148,7 @@
               "type" : "codeVoice"
             },
             {
-              "text" : " attribute, then ",
-              "type" : "text"
-            },
-            {
-              "code" : "nil",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " is",
+              "text" : " attribute or the attribute",
               "type" : "text"
             },
             {
@@ -172,32 +156,7 @@
               "type" : "text"
             },
             {
-              "text" : "returned.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "If the value of the ",
-              "type" : "text"
-            },
-            {
-              "code" : "position",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " attribute is not convertible to a point,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "then ",
+              "text" : "is not convertible to a valid point, then ",
               "type" : "text"
             },
             {
@@ -205,7 +164,7 @@
               "type" : "codeVoice"
             },
             {
-              "text" : " is returned as well.",
+              "text" : " is returned.",
               "type" : "text"
             }
           ],
@@ -254,14 +213,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -288,7 +247,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/position": {
   "abstract" : [
     {
-      "text" : "Get position of the object.",
+      "text" : "Get position of an object.",
       "type" : "text"
     }
   ],

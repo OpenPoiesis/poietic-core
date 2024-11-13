@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Create a new predicate to test for a trait.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -14,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17HasTraitPredicateCyAcA0D0Ccfc",
+    "externalID" : "s:11PoieticCore17HasTraitPredicateVyAcA0D0Ccfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -133,12 +139,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -164,7 +173,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate/init(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a new predicate to test for a trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

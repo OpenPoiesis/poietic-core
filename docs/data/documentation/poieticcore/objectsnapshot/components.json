@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of run-time components of the object.",
+      "text" : "Runtime components of an object.",
       "type" : "text"
     }
   ],
@@ -24,7 +24,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC10componentsAA12ComponentSetVvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP10componentsAA12ComponentSetVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -53,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -90,6 +91,18 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore12ComponentSetV",
               "text" : "ComponentSet"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -105,28 +118,19 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
-            {
-              "text" : "An object can have multiple runtime components but only",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "one component of a given type.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "The runtime components are not persisted.",
+                  "text" : "The components are not persisted. They are also not passed",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "through foreign interfaces unless a custom functionality is provided.",
                   "type" : "text"
                 }
               ],
@@ -134,40 +138,6 @@
             }
           ],
           "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
           "style" : "note",
           "type" : "aside"
         }
@@ -211,40 +181,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for runtime components of objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
     {
@@ -282,14 +218,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -316,7 +252,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/components": {
   "abstract" : [
     {
-      "text" : "List of run-time components of the object.",
+      "text" : "Runtime components of an object.",
       "type" : "text"
     }
   ],
@@ -345,44 +281,11 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/components",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "components",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/components"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectType": {
-  "abstract" : [
-    {
-      "text" : "Object representing a type of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

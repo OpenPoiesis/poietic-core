@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Graph.outgoing(_:)",
+      "code" : "GraphProtocol.outgoing(_:)",
       "type" : "codeVoice"
     },
     {
@@ -19,7 +19,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations"
       ]
     ]
   },
@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5GraphPAAE8outgoingySayAA4EdgeVGs6UInt64VF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
+    "externalID" : "s:11PoieticCore13GraphProtocolPAAE8outgoingySay4EdgeQzGAE_6NodeIDQZF::SYNTHESIZED::s:11PoieticCore11StableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,8 +50,25 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-        "text" : "ObjectID"
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
+        "text" : "Node"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
+        "text" : "ID"
       },
       {
         "kind" : "text",
@@ -59,7 +76,15 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
         "text" : "Edge"
       },
       {
@@ -121,19 +146,44 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-              "text" : "ObjectID"
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
+              "text" : "Node"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
+              "text" : "ID"
             },
             {
               "kind" : "text",
               "text" : ") -> ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Edge",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
               "text" : "Edge"
             },
             {
@@ -182,17 +232,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Edge": {
   "abstract" : [
-    {
-      "text" : "View of an object as an edge.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "associatedtype"
     },
     {
       "kind" : "text",
@@ -201,32 +248,33 @@
     {
       "kind" : "identifier",
       "text" : "Edge"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+    },
     {
-      "kind" : "identifier",
-      "text" : "Edge"
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP",
+      "text" : "EdgeProtocol"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Edge",
+  "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "Edge",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/edge"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
   "abstract" : [
-    {
-      "text" : "Identifier of a design objects.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "associatedtype"
     },
     {
       "kind" : "text",
@@ -234,21 +282,25 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "Node"
+    },
     {
-      "kind" : "identifier",
-      "text" : "ObjectID"
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12IdentifiableP",
+      "text" : "Identifiable"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+  "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
-  "title" : "ObjectID",
+  "title" : "Node",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -284,16 +336,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/Graph-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/GraphProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Graph Implementations",
+  "title" : "GraphProtocol Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/graph-implementations"
+  "url" : "\/documentation\/poieticcore\/stableframe\/graphprotocol-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/outgoing(_:)": {
   "abstract" : [
@@ -318,8 +370,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
+      "text" : "Node"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
+      "text" : "ID"
     },
     {
       "kind" : "text",
@@ -327,7 +396,15 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
       "text" : "Edge"
     },
     {

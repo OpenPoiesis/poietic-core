@@ -190,9 +190,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attribute(forKey:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "ObjectSnapshot\/subscript(_:)",
+                  "type" : "codeVoice"
                 },
                 {
                   "text" : ",",
@@ -203,9 +202,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/setAttribute(value:forKey:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "MutableObject\/subscript(_:)",
+                  "type" : "codeVoice"
                 }
               ],
               "type" : "paragraph"
@@ -310,130 +308,6 @@
   "title" : "Metamodel and Types",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/attribute(forKey:)": {
-  "abstract" : [
-    {
-      "text" : "Get a value for an attribute.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "attribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/attribute(forKey:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "attribute(forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/attribute(forkey:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/setAttribute(value:forKey:)": {
-  "abstract" : [
-    {
-      "text" : "Set an attribute value for given key.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "setAttribute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "value"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "forKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/setAttribute(value:forKey:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "setAttribute(value:forKey:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/setattribute(value:forkey:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [

@@ -17,6 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ]
     ]
@@ -27,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore23EdgeEndpointRequirementC5check5frame7objectsSays6UInt64VGAA5Frame_p_SayAA14ObjectSnapshotCGtF",
+    "externalID" : "s:11PoieticCore23EdgeEndpointRequirementC5check5frame7objectsSays6UInt64VGx_Sayq_GtAA5FrameRzAA14ObjectSnapshotR_r0_lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -51,7 +52,7 @@
       },
       {
         "kind" : "text",
-        "text" : ": any "
+        "text" : ": some "
       },
       {
         "kind" : "typeIdentifier",
@@ -68,11 +69,11 @@
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": [some "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
         "text" : "ObjectSnapshot"
       },
       {
@@ -132,7 +133,7 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": some "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
@@ -150,12 +151,12 @@
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": [some "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
               "text" : "ObjectSnapshot"
             },
             {
@@ -283,7 +284,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
@@ -300,11 +301,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
       "text" : "ObjectSnapshot"
     },
     {
@@ -362,6 +363,28 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
@@ -399,14 +422,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",

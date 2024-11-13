@@ -73,12 +73,15 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test whether an object has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -134,7 +137,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateC",
+      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
       "text" : "CompoundPredicate"
     }
   ],
@@ -211,7 +214,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateC",
+      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
       "text" : "CompoundPredicate"
     }
   ],

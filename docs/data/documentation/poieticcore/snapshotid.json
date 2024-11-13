@@ -143,7 +143,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
               "isActive" : true,
               "type" : "reference"
             }
@@ -168,8 +168,9 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
       ],
@@ -362,52 +363,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/id"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame/mutableObject(_:)": {
-  "abstract" : [
-    {
-      "text" : "Return a snapshot that can be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "mutableObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame\/mutableObject(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "mutableObject(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe\/mutableobject(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
@@ -445,14 +400,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -510,17 +465,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/snapshotid"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralComponent": {
+"doc://PoieticCore/documentation/PoieticCore/StableObject": {
   "abstract" : [
     {
-      "text" : "Structural component defines object’s relationship with other objects.",
+      "text" : "Version snapshot of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -528,21 +483,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StructuralComponent"
+      "text" : "StableObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StructuralComponent"
+      "text" : "StableObject"
     }
   ],
   "role" : "symbol",
-  "title" : "StructuralComponent",
+  "title" : "StableObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralcomponent"
+  "url" : "\/documentation\/poieticcore\/stableobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralType": {
   "abstract" : [
@@ -577,6 +532,86 @@
   "title" : "StructuralType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuraltype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Structure": {
+  "abstract" : [
+    {
+      "text" : "Structure defines relationship of an object with other objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Structure"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Structure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Structure",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structure"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
+  "abstract" : [
+    {
+      "text" : "Make a snapshot mutable within the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mutate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
+      "text" : "MutableObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mutate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

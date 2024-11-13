@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Flag whether at least one edge is required. If true, then the edge matching",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the predicate must exist.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -146,7 +160,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [
-
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -177,7 +194,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/isRequired": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether at least one edge is required. If true, then the edge matching",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the predicate must exist.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

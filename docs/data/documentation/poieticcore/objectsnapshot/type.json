@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Object type within the problem domain.",
+      "text" : "Object type from the problem domain described by a metamodel.",
       "type" : "text"
     }
   ],
@@ -24,11 +24,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotC4typeAA0C4TypeCvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP4typeAA0C4TypeCvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "let"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -53,6 +53,7 @@
         "name" : "PoieticCore"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -71,7 +72,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "let"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -90,6 +91,18 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
               "text" : "ObjectType"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -142,72 +155,36 @@
         {
           "inlineContent" : [
             {
-              "text" : "Object type is also used in querying of objects using ",
+              "text" : "When object is validated and accepted by ",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-3zj9k",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
               "isActive" : true,
               "type" : "reference"
+            },
+            {
+              "text" : ",",
+              "type" : "text"
             },
             {
               "text" : " ",
               "type" : "text"
             },
             {
-              "text" : "or using ",
+              "text" : "the object attributes and their values must conform to the object type",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)-50lwx",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " with ",
+              "text" : " ",
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
+              "text" : "attributes.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -249,57 +226,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/filter(_:)-50lwx": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "filter"
-    },
-    {
-      "kind" : "text",
-      "text" : "(any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
-      "text" : "Predicate"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)-50lwx",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "filter(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/filter(_:)-50lwx"
-},
-"doc://PoieticCore/documentation/PoieticCore/Frame/filter(type:)-3zj9k": {
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Filter snapshots by object type.",
+      "text" : "Accepts a frame and make it a stable frame.",
       "type" : "text"
     }
   ],
@@ -314,15 +244,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "filter"
+      "text" : "accept"
     },
     {
       "kind" : "text",
       "text" : "("
     },
     {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
       "kind" : "externalParam",
-      "text" : "type"
+      "text" : "appendHistory"
     },
     {
       "kind" : "text",
@@ -330,60 +269,42 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
-      "text" : "ObjectType"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     },
     {
       "kind" : "text",
-      "text" : ") -> ["
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
+      "text" : "FrameConstraintError"
     },
     {
       "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-3zj9k",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "filter(type:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/filter(type:)-3zj9k"
-},
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
+      "text" : ") -> "
     },
     {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
   "role" : "symbol",
-  "title" : "IsTypePredicate",
+  "title" : "accept(_:appendHistory:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate"
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
@@ -422,14 +343,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Representation of a design object’s version.",
+      "text" : "A version of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -456,14 +377,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/type": {
   "abstract" : [
     {
-      "text" : "Object type within the problem domain.",
+      "text" : "Object type from the problem domain described by a metamodel.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -485,6 +406,7 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/type",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "type",
   "type" : "topic",

@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Graph.edges",
+      "code" : "GraphProtocol.edges",
       "type" : "codeVoice"
     },
     {
@@ -19,7 +19,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations"
       ]
     ]
   },
@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE5edgesSayAA4EdgeVGvp::SYNTHESIZED::s:11PoieticCore11StableFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE5edgesSayAA12EdgeSnapshotVGvp::SYNTHESIZED::s:11PoieticCore11StableFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,8 +50,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore4EdgeV",
-        "text" : "Edge"
+        "preciseIdentifier" : "s:11PoieticCore12EdgeSnapshotV",
+        "text" : "EdgeSnapshot"
       },
       {
         "kind" : "text",
@@ -96,10 +96,10 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore4EdgeV",
-              "text" : "Edge"
+              "preciseIdentifier" : "s:11PoieticCore12EdgeSnapshotV",
+              "text" : "EdgeSnapshot"
             },
             {
               "kind" : "text",
@@ -155,10 +155,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Edge": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeSnapshot": {
   "abstract" : [
     {
-      "text" : "View of an object as an edge.",
+      "text" : "Wrapper of an object snapshot presented as an edge.",
       "type" : "text"
     }
   ],
@@ -173,21 +173,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Edge"
+      "text" : "EdgeSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Edge",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Edge"
+      "text" : "EdgeSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "Edge",
+  "title" : "EdgeSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edge"
+  "url" : "\/documentation\/poieticcore\/edgesnapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -223,16 +223,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/Graph-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/GraphProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Graph Implementations",
+  "title" : "GraphProtocol Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/graph-implementations"
+  "url" : "\/documentation\/poieticcore\/stableframe\/graphprotocol-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/edges": {
   "abstract" : [
@@ -257,8 +257,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore4EdgeV",
-      "text" : "Edge"
+      "preciseIdentifier" : "s:11PoieticCore12EdgeSnapshotV",
+      "text" : "EdgeSnapshot"
     },
     {
       "kind" : "text",

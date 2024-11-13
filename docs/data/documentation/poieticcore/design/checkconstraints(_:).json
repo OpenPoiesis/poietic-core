@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC16checkConstraintsySayAA19ConstraintViolationVGAA5Frame_pF",
+    "externalID" : "s:11PoieticCore6DesignC16checkConstraintsySayAA19ConstraintViolationVGxAA5FrameRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -35,7 +35,7 @@
       },
       {
         "kind" : "text",
-        "text" : "(any "
+        "text" : "(some "
       },
       {
         "kind" : "typeIdentifier",
@@ -107,7 +107,7 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": some "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
@@ -193,7 +193,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -286,7 +289,7 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",

@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -112,7 +118,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
       ],
       "title" : "Constraints"
     }
@@ -122,7 +129,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/init(_:required:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/init(_:direction:required:)"
       ],
       "title" : "Initializers"
     },
@@ -130,8 +137,9 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/direction",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/isRequired",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/selector"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/predicate"
       ],
       "title" : "Instance Properties"
     },
@@ -334,7 +342,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -362,6 +373,48 @@
   "title" : "ConstraintViolation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
@@ -479,7 +532,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
   "abstract" : [
-
+    {
+      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -535,7 +591,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": some "
     },
     {
       "kind" : "typeIdentifier",
@@ -552,11 +608,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": [some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
       "text" : "ObjectSnapshot"
     },
     {
@@ -580,7 +636,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/check(frame:objects:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/init(_:required:)": {
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/direction": {
+  "abstract" : [
+    {
+      "text" : "Direction of the edge relative to the node being tested for the requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "direction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/direction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "direction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/direction"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/init(_:direction:required:)": {
   "abstract" : [
     {
       "text" : "Creates a constraint for unique neighbour.",
@@ -594,12 +687,29 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "(any "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
-      "text" : "NeighborhoodSelector"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "direction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+      "text" : "EdgeDirection"
     },
     {
       "kind" : "text",
@@ -623,16 +733,27 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/init(_:required:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/init(_:direction:required:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(_:required:)",
+  "title" : "init(_:direction:required:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/init(_:required:)"
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/init(_:direction:required:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/isRequired": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether at least one edge is required. If true, then the edge matching",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the predicate must exist.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -664,9 +785,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/isrequired"
 },
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/selector": {
+"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement/predicate": {
   "abstract" : [
-
+    {
+      "text" : "Predicate to test the adjacent edges.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -679,24 +803,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "selector"
+      "text" : "predicate"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": any "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20NeighborhoodSelectorC",
-      "text" : "NeighborhoodSelector"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/selector",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement\/predicate",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "selector",
+  "title" : "predicate",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/selector"
+  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement\/predicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
   "abstract" : [

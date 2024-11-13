@@ -134,9 +134,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID"
       ],
       "title" : "Design and Version Frames"
     }
@@ -146,7 +144,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/init(violations:objectErrors:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/init(violations:objectErrors:brokenReferences:)"
       ],
       "title" : "Initializers"
     },
@@ -154,6 +152,7 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/brokenReferences",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/objectErrors",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/violations"
       ],
@@ -218,7 +217,7 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
@@ -333,7 +332,56 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameconstrainterror\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError/init(violations:objectErrors:)": {
+"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError/brokenReferences": {
+  "abstract" : [
+    {
+      "text" : "Broken referential integrity of a frame. Keys are offending objects,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "values is a list of IDs that are not present in the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/brokenReferences",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "brokenReferences",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameconstrainterror\/brokenreferences"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError/init(violations:objectErrors:brokenReferences:)": {
   "abstract" : [
     {
       "text" : "Create a new constraint validation error.",
@@ -390,15 +438,32 @@
     },
     {
       "kind" : "text",
-      "text" : "]])"
+      "text" : "]], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "brokenReferences"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/init(violations:objectErrors:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError\/init(violations:objectErrors:brokenReferences:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(violations:objectErrors:)",
+  "title" : "init(violations:objectErrors:brokenReferences:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameconstrainterror\/init(violations:objecterrors:)"
+  "url" : "\/documentation\/poieticcore\/frameconstrainterror\/init(violations:objecterrors:brokenreferences:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameConstraintError/objectErrors": {
   "abstract" : [
@@ -525,40 +590,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
-  "abstract" : [
-    {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
-},
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
     {
@@ -606,40 +637,6 @@
   "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
-"doc://PoieticCore/documentation/PoieticCore/VersionState": {
-  "abstract" : [
-    {
-      "text" : "State of a versioned object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VersionState",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate"
 },
 "doc://PoieticCore/s5ErrorP": {
   "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",

@@ -63,6 +63,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "class"
             },
             {
@@ -140,7 +148,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(deriving:id:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -160,7 +168,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -180,7 +188,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -201,9 +209,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError"
       ],
       "title" : "Design and Version Frames"
@@ -225,17 +231,26 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)-1vjvv",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)-tocv",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(_:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Snapshot"
+      ],
+      "title" : "Type Aliases"
     },
     {
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Frame-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -294,8 +309,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
     },
     {
       "kind" : "text",
@@ -348,10 +363,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/deriveFrame(original:id:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/createFrame(deriving:id:)": {
   "abstract" : [
     {
-      "text" : "Derive a new frame from an existing frame.",
+      "text" : "Create a new frame or derive a frame from an existing frame.",
       "type" : "text"
     }
   ],
@@ -366,7 +381,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "deriveFrame"
+      "text" : "createFrame"
     },
     {
       "kind" : "text",
@@ -374,7 +389,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "original"
+      "text" : "deriving"
     },
     {
       "kind" : "text",
@@ -382,8 +397,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
+      "text" : "StableFrame"
     },
     {
       "kind" : "text",
@@ -408,16 +423,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12MutableFrameC",
-      "text" : "MutableFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/deriveFrame(original:id:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(deriving:id:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "deriveFrame(original:id:)",
+  "title" : "createFrame(deriving:id:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/deriveframe(original:id:)"
+  "url" : "\/documentation\/poieticcore\/design\/createframe(deriving:id:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -521,10 +536,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol": {
   "abstract" : [
     {
-      "text" : "Protocol for views of a frame as a graph.",
+      "text" : "Protocol for object graphs - nodes connected by edges.",
       "type" : "text"
     }
   ],
@@ -539,55 +554,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "GraphProtocol"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Graph"
+      "text" : "GraphProtocol"
     }
   ],
   "role" : "symbol",
-  "title" : "Graph",
+  "title" : "GraphProtocol",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graph"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableFrame": {
-  "abstract" : [
-    {
-      "text" : "Mutable frame is a version frame that can be changed - mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MutableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MutableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableframe"
+  "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame": {
   "abstract" : [
@@ -634,18 +615,49 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/frame-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/Graph-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/GraphProtocol-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Graph-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/GraphProtocol-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Graph Implementations",
+  "title" : "GraphProtocol Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/graph-implementations"
+  "url" : "\/documentation\/poieticcore\/stableframe\/graphprotocol-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/StableFrame/contains(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/Snapshot": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Snapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/Snapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Snapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StableFrame.Snapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/snapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/contains(_:)-1vjvv": {
   "abstract" : [
     {
       "text" : "Returns ",
@@ -700,12 +712,55 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)-1vjvv",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contains(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe\/contains(_:)"
+  "url" : "\/documentation\/poieticcore\/stableframe\/contains(_:)-1vjvv"
+},
+"doc://PoieticCore/documentation/PoieticCore/StableFrame/contains(_:)-tocv": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/contains(_:)-tocv",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/stableframe\/contains(_:)-tocv"
 },
 "doc://PoieticCore/documentation/PoieticCore/StableFrame/design": {
   "abstract" : [
@@ -770,8 +825,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5GraphP",
-      "text" : "Graph"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP",
+      "text" : "GraphProtocol"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/graph",
@@ -853,8 +908,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame\/object(_:)",
@@ -890,8 +945,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
+      "text" : "StableObject"
     },
     {
       "kind" : "text",
@@ -904,6 +959,40 @@
   "title" : "snapshots",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/stableframe\/snapshots"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
+  "abstract" : [
+    {
+      "text" : "Transient frame that represents a change transaction.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
@@ -918,40 +1007,6 @@
   "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
-"doc://PoieticCore/documentation/PoieticCore/VersionState": {
-  "abstract" : [
-    {
-      "text" : "State of a versioned object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VersionState",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VersionState"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VersionState",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/versionstate"
 }
 }
 }

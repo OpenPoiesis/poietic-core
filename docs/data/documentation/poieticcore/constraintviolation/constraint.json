@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Constraint that was violated.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -167,7 +173,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
-
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -198,7 +207,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintViolation/constraint": {
   "abstract" : [
-
+    {
+      "text" : "Constraint that was violated.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

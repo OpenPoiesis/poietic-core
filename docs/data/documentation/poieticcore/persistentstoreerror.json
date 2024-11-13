@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "An error thrown when saving and restoring a design to\/from a persistent",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "store.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -71,6 +85,51 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/load(metamodel:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ",",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/save(design:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -115,6 +174,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateFrame(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateSnapshot(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/extraneousStructuralProperty(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/frameValidationFailed(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/invalidFrameReference(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/invalidSnapshotReference(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/invalidStructuralType(_:)",
@@ -123,6 +183,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/storeMissing",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/structuralTypeMismatch(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/typeMismatch(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/unableToWrite(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/unknownObjectType(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/unsupportedFormatVersion(_:)"
       ],
@@ -213,6 +274,134 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
 },
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/load(metamodel:)": {
+  "abstract" : [
+    {
+      "text" : "Load and restore a design from the store.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "load"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/load(metamodel:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "load(metamodel:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/load(metamodel:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore/save(design:)": {
+  "abstract" : [
+    {
+      "text" : "Save the design to store’s URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "save"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "design"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20PersistentStoreErrorO",
+      "text" : "PersistentStoreError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore\/save(design:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "save(design:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore\/save(design:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
@@ -229,7 +418,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
   "abstract" : [
-
+    {
+      "text" : "An error thrown when saving and restoring a design to\/from a persistent",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "store.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -524,6 +724,44 @@
   "title" : "PersistentStoreError.extraneousStructuralProperty(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistentstoreerror\/extraneousstructuralproperty(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/frameValidationFailed(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "frameValidationFailed"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/frameValidationFailed(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PersistentStoreError.frameValidationFailed(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror\/framevalidationfailed(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/invalidFrameReference(_:_:)": {
   "abstract" : [
@@ -860,6 +1098,44 @@
   "title" : "PersistentStoreError.typeMismatch(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistentstoreerror\/typemismatch(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/unableToWrite(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unableToWrite"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/unableToWrite(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PersistentStoreError.unableToWrite(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror\/unabletowrite(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/unknownObjectType(_:)": {
   "abstract" : [

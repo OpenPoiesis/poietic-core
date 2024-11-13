@@ -225,6 +225,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/doubleValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/intValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isConvertible(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/makeArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/pointValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/stringValue()"
       ],
@@ -1682,6 +1683,43 @@
   "title" : "isNumeric",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/isnumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/makeArray()": {
+  "abstract" : [
+    {
+      "text" : "Make a single-element array from the atom",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeArray"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/makeArray()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeArray()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom\/makearray()"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/point(_:)": {
   "abstract" : [
