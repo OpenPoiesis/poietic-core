@@ -17,24 +17,12 @@
 /// - `__le__` is `<=`
 ///
 nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
-    .Comparison("__eq__") { (lhs, rhs) in
-        return lhs == rhs
-    },
-    .Comparison("__neq__") { (lhs, rhs) in
-        return lhs != rhs
-    },
-    .Comparison("__lt__") { (lhs, rhs) in
-        return try lhs < rhs
-    },
-    .Comparison("__le__") { (lhs, rhs) in
-        return try lhs <= rhs
-    },
-    .Comparison("__gt__") { (lhs, rhs) in
-        return try lhs > rhs
-    },
-    .Comparison("__ge__") { (lhs, rhs) in
-        return try lhs >= rhs
-    },
+    .Comparison("__eq__") { (lhs, rhs) in lhs == rhs },
+    .Comparison("__neq__") { (lhs, rhs) in lhs != rhs },
+    .Comparison("__lt__") { (lhs, rhs) in try lhs < rhs },
+    .Comparison("__le__") { (lhs, rhs) in try lhs <= rhs },
+    .Comparison("__gt__") { (lhs, rhs) in try lhs > rhs },
+    .Comparison("__ge__") { (lhs, rhs) in try lhs >= rhs },
 ]
 
 

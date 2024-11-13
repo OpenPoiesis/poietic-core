@@ -67,8 +67,7 @@ public protocol InspectableComponent: Component, MutableKeyedAttributes {
     ///   likely included in the future.
     ///
     /// - Throws: ``ValueError`` if the value provided is of a type that can not
-    ///   be converted meaningfully to the attribute. ``AttributeError`` when
-    ///   trying to set an attribute that the component does not recognise.
+    ///   be converted meaningfully to the attribute.
     ///
     /// - SeeAlso: ``attribute(forKey:)``
     ///

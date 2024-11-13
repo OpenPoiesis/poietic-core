@@ -34,9 +34,13 @@ public protocol GraphProtocol {
     
     /// Get a node by ID.
     ///
+    /// - Precondition: The graph must contain the node.
+    ///
     func node(_ index: Node.ID) -> Node
     
     /// Get an edge by ID.
+    ///
+    /// - Precondition: The graph must contain the edge.
     ///
     func edge(_ index: Edge.ID) -> Edge
     
@@ -62,11 +66,6 @@ public protocol GraphProtocol {
     ///
     /// - Complexity: O(n). All edges are traversed in the default implementation.
     ///
-    /// - Note: If you want to get both outgoing and incoming edges of a node
-    ///   then use ``neighbours(_:)``. Using ``outgoing(_:)`` + ``incoming(_:)`` might
-    ///   result in duplicates for edges that are loops to and from the same
-    ///   node.
-    ///
     func outgoing(_ origin: Node.ID) -> [Edge]
     
     /// Get a list of edges incoming to a node.
@@ -78,11 +77,6 @@ public protocol GraphProtocol {
     /// - Returns: List of edges.
     ///
     /// - Complexity: O(n). All edges are traversed in the default implementation.
-    ///
-    /// - Note: If you want to get both outgoing and incoming edges of a node
-    ///   then use ``neighbours(_:)``. Using ``outgoing(_:)`` + ``incoming(_:)`` might
-    ///   result in duplicates for edges that are loops to and from the same
-    ///   node.
     ///
     func incoming(_ target: Node.ID) -> [Edge]
     
@@ -103,10 +97,6 @@ extension GraphProtocol {
         return edges.contains { $0.id == edge }
     }
     
-    /// Get a node by ID.
-    ///
-    /// If id is `nil` then returns nil.
-    ///
     public func node(_ oid: Node.ID) -> Node {
         guard let first: Node = nodes.first(where: { $0.id == oid }) else {
             fatalError("Missing node")
@@ -114,10 +104,6 @@ extension GraphProtocol {
         return first
     }
     
-    /// Get an edge by ID.
-    ///
-    /// If id is `nil` then returns nil.
-    ///
     public func edge(_ oid: Edge.ID) -> Edge {
         guard let first:Edge = edges.first(where: { $0.id == oid }) else {
             fatalError("Missing edge")

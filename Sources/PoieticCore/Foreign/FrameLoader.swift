@@ -89,7 +89,7 @@ public final class ForeignFrameLoader {
     ///         represent a transaction. When the function fails, the whole
     ///         frame should be discarded.
     /// - Throws: ``FrameLoaderError``
-    /// - SeeAlso: ``Design/allocateUnstructuredSnapshot(_:id:snapshotID:)``,
+    /// - SeeAlso: ``Design/allocateID(required:)``,
     ///     ``TransientFrame/insert(_:)``
     ///
     public func load(_ foreignFrame: ForeignFrame, into frame: TransientFrame) throws (FrameLoaderError) {

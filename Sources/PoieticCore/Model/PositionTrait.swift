@@ -26,7 +26,7 @@ extension Trait {
 }
 
 extension ObjectSnapshot {
-    /// Get position of the object.
+    /// Get position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is
     /// present. If the object has no `position` attribute or the attribute
@@ -45,7 +45,7 @@ extension ObjectSnapshot {
 }
 
 extension MutableObject {
-    /// Get or set position of the object.
+    /// Get or set position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is
     /// present. If the object has no `position` attribute or the attribute

@@ -1,13 +1,13 @@
 //
 //  Predicate.swift
-//  
+//
 //
 //  Created by Stefan Urbanek on 13/06/2022.
 //
 
 /// An object predicate.
 ///
-/// Predicates check properties of an object using the ``match(frame:object:)`` method.
+/// Predicates check properties of an object using the ``match(_:in:)`` method.
 ///
 /// Predicates can be composed using logical operations ``and(_:)`` and ``or(_:)``. For example:
 ///

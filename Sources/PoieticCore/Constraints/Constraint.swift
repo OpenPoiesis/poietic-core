@@ -5,12 +5,21 @@
 //  Created by Stefan Urbanek on 13/06/2022.
 //
 
+/// Error thrown when a constraint violation was found.
+///
+/// - SeeAlso: ``ConstraintChecker/check(_:)``, ``FrameConstraintError``
+///
 public struct ConstraintViolation: Error, CustomDebugStringConvertible {
+    /// Constraint that was violated.
     public let constraint: Constraint
+    
+    /// List of objects that violated the constraint.
     public let objects: [ObjectID]
     
-    public init(constraint: Constraint,
-                objects: [ObjectID] = []) {
+    /// Create a constraint violation error for a given constraint and list of objects that violate
+    /// the constraints.
+    ///
+    public init(constraint: Constraint, objects: [ObjectID] = []) {
         self.constraint = constraint
         self.objects = objects
     }

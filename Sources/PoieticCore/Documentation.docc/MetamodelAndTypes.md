@@ -99,7 +99,6 @@ examples see ``Constraint``.
 - ``Constraint``
 - ``ConstraintChecker``
 - ``ObjectConstraintError``
-- ``EdgeEndpointTypes``
 - ``RejectAll``
 - ``AcceptAll``
 - ``ConstraintViolation``

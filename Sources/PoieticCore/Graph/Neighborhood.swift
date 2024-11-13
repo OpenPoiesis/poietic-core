@@ -29,7 +29,7 @@ public enum EdgeDirection: Sendable {
 /// Neighbourhood is a subgraph centred on a node with edges adjacent to
 /// that node.
 ///
-/// Neighbourhoods are created using ``Graph/hood(_:selector:)``.
+/// Neighbourhoods are created using ``Graph/hood(_:direction:where:)``.
 ///
 public class Neighborhood<G: GraphProtocol> {
     public typealias GraphType = G

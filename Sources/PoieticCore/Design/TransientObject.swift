@@ -104,7 +104,7 @@ public class MutableObject: ObjectSnapshot {
     
     /// Set an attribute value for given key.
     ///
-    /// - Precondition: The attribute must not be a reserved attribute (``ObjectSnapshot/ReservedAttributeNames``).
+    /// - Precondition: The attribute must not be a reserved attribute (``ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
         precondition(ReservedAttributeNames.firstIndex(of: "key") == nil,
