@@ -14,8 +14,17 @@ public let ReservedAttributeNames = [
 ]
 
 
+/// Transient object that can be modified.
+///
+/// Mutable objects are temporary and typically exist only during a change
+/// transaction. New objects are created within a ``TransientFrame`` by ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
+/// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
+///
+/// Mutable objects are converted to stable objects with ``TransientFrame/accept()``.
+///
+/// - SeeAlso: ``TransientFrame``
+///
 public class MutableObject: ObjectSnapshot {
-    
     public let id: ObjectID
     public let snapshotID: ObjectID
     public let type: ObjectType
@@ -120,10 +129,12 @@ public class MutableObject: ObjectSnapshot {
 
 // MARK: - Transient Object
 
-/// A proxy for for an object in a transient frame.
+/// A wrapper for for an object in a transient frame.
 ///
 /// The transient object refers to one of two possible target objects: original
 /// stable snapshot or a mutable snapshot in a ``TransientFrame``.
+///
+/// - SeeAlso: ``MutableObject``
 ///
 public struct TransientObject: ObjectSnapshot {
     let frame: TransientFrame

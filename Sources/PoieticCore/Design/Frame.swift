@@ -236,7 +236,7 @@ extension Frame {
 
     public func filter(_ predicate: Predicate) -> [Snapshot] {
         return snapshots.filter {
-            predicate.match(frame: self, object: $0)
+            predicate.match($0, in: self)
         }
     }
 }

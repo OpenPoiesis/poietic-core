@@ -5,9 +5,17 @@
 //  Created by Stefan Urbanek on 16/06/2022.
 //
 
+/// Requirement that there must be at most one edge adjacent to a tested node.
+///
 public final class UniqueNeighbourRequirement: ConstraintRequirement {
+    /// Predicate to test the adjacent edges.
     public let predicate: Predicate
+    
+    /// Direction of the edge relative to the node being tested for the requirement.
     public let direction: EdgeDirection
+    
+    /// Flag whether at least one edge is required. If true, then the edge matching
+    /// the predicate must exist.
     public let isRequired: Bool
     
     /// Creates a constraint for unique neighbour.
@@ -18,8 +26,8 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
     /// one neighbour or when there is none.
     ///
     /// - Parameters:
-    ///     - selector: neigborhood selector that has to be unique for the
-    ///       matching node
+    ///     - predicate: Predicate to select neighbourhood edges.
+    ///     - direction: Edge direction to consider relative to the object tested.
     ///     - required: Wether the unique neighbour is required.
     ///
     public init(_ predicate: Predicate, direction: EdgeDirection = .outgoing, required: Bool=false) {
@@ -27,7 +35,6 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
         self.direction = direction
         self.isRequired = required
     }
-
     
     public func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
         return objects.filter {
@@ -35,7 +42,7 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
                 return false
             }
             let hood = frame.hood($0.id, direction: direction) { edge in
-                predicate.match(frame: frame, object: edge.snapshot)
+                predicate.match(edge.snapshot, in: frame)
             }
             let count = hood.edges.count
             

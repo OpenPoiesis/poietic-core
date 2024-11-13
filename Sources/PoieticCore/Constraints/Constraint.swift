@@ -58,7 +58,6 @@ public struct ConstraintViolation: Error, CustomDebugStringConvertible {
 ///     )
 /// )
 /// ```
-
 public final class Constraint: Sendable {
     /// Identifier of the constraint.
     ///
@@ -110,9 +109,9 @@ public final class Constraint: Sendable {
     /// Check the frame for the constraint and return a list of nodes that
     /// violate the constraint
     ///
-    public func check(_ frame: any Frame) -> [ObjectID] {
+    public func check(_ frame: some Frame) -> [ObjectID] {
         let matched = frame.snapshots.filter {
-            match.match(frame: frame, object: $0)
+            match.match($0, in: frame)
         }
         // .map { $0.snapshot }
         return requirement.check(frame: frame, objects: matched)
@@ -123,7 +122,7 @@ public final class Constraint: Sendable {
 ///
 public protocol ConstraintRequirement: Sendable {
     /// - Returns: List of IDs of objects that do not satisfy the requirement.
-    func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID]
+    func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID]
 }
 
 /// Requirement that all matched objects satisfy a given predicate.
@@ -137,8 +136,8 @@ public final class AllSatisfy: ConstraintRequirement {
         self.predicate = predicate
     }
 
-    public func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
-        objects.filter { !predicate.match(frame: frame, object: $0) }
+    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+        objects.filter { !predicate.match($0, in: frame) }
             .map { $0.id }
     }
 }
@@ -157,7 +156,7 @@ public final class RejectAll: ConstraintRequirement {
     /// Returns all objects it is provided – meaning, that all of them are
     /// violating the constraint.
     ///
-    public func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
         /// We reject whatever comes in
         return objects.map { $0.id }
     }
@@ -176,7 +175,7 @@ public final class AcceptAll: ConstraintRequirement {
     /// Returns an empty list, meaning that none of the objects are violating
     /// the constraint.
     ///
-    public func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
         // We accept everything, therefore we do not return any violations.
         return []
     }
@@ -201,7 +200,7 @@ public final class UniqueProperty: ConstraintRequirement {
     /// value from each of the objects and returns a list of those objects
     /// that have duplicate values.
     /// 
-    public func check(frame: some Frame, objects: [any ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
         var seen: [Variant:[ObjectID]] = [:]
         
         for object in objects {
@@ -211,11 +210,7 @@ public final class UniqueProperty: ConstraintRequirement {
             seen[value, default: []].append(object.id)
         }
         
-        let duplicates = seen.filter {
-            $0.value.count > 1
-        }.flatMap {
-            $0.value
-        }
+        let duplicates = seen.filter { $0.value.count > 1 }.flatMap { $0.value }
         return duplicates
     }
 }
