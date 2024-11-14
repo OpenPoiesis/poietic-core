@@ -5,43 +5,43 @@
 //  Created by Stefan Urbanek on 13/11/2024.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
-final class TestPredicates : XCTestCase {
-    var design: Design!
-    var frame: StableFrame!
-    var empty: StableObject!
-    var textObject: StableObject!
-    
-    override func setUp() {
+@Suite struct PredicateTest {
+    let design: Design
+    let frame: StableFrame
+    let empty: StableObject
+    let textObject: StableObject
+
+    init() throws {
         design = Design()
-        empty = StableObject(id: design.allocateID(),
-                              snapshotID: design.allocateID(),
-                              type: TestType)
-        textObject = StableObject(id: design.allocateID(),
-                              snapshotID: design.allocateID(),
-                              type: TestTypeWithDefault)
+        
+        empty = StableObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestType)
+        textObject = StableObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestTypeWithDefault)
+        
         frame = StableFrame(design: design,
                             id: design.allocateID(),
                             snapshots: [empty, textObject]
         )
     }
-    func testAnyPredicate() throws {
-        let predicate = AnyPredicate()
-        XCTAssertTrue(predicate.match(empty, in: frame))
-    }
-    func testNotPredicate() throws {
-        let predicate = NegationPredicate(AnyPredicate())
-        XCTAssertFalse(predicate.match(empty, in: frame))
-    }
-    func testTypePredicate() throws {
-        XCTAssertTrue(IsTypePredicate(TestType).match(empty, in: frame))
-        XCTAssertFalse(IsTypePredicate(TestEdgeType).match(empty, in: frame))
-    }
-    func testTraitPredicate() throws {
-        XCTAssertTrue(HasTraitPredicate(TestTraitWithDefault).match(textObject, in: frame))
-        XCTAssertFalse(HasTraitPredicate(TestTraitNoDefault).match(textObject, in: frame))
-    }
-}
 
+    
+    @Test func anyPredicate() throws {
+        #expect(AnyPredicate().match(empty, in: frame))
+    }
+
+    @Test func notPredicate() throws {
+        let predicate = NegationPredicate(AnyPredicate())
+        #expect(!predicate.match(empty, in: frame))
+    }
+    @Test func typePredicate() throws {
+        #expect(IsTypePredicate(TestType).match(empty, in: frame))
+        #expect(!IsTypePredicate(TestEdgeType).match(empty, in: frame))
+    }
+    @Test func traitPredicate() throws {
+        #expect(HasTraitPredicate(TestTraitWithDefault).match(textObject, in: frame))
+        #expect(!HasTraitPredicate(TestTraitNoDefault).match(textObject, in: frame))
+    }
+
+}

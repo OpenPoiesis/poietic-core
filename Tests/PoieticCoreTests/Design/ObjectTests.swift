@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 11/07/2023.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
 fileprivate struct CustomNameComponent: Equatable {
@@ -48,26 +48,27 @@ fileprivate struct NonStringNameComponent: Equatable {
 
 
 
-final class ObjectTests: XCTestCase {
-    /// Name should be nil if there is no component with a name.
-    func testEmptyName() throws {
+@Suite struct ObjectTests {
+    @Test func emtpyName() throws {
         let object = StableObject(id: 1, snapshotID: 1, type: TestType)
-        XCTAssertNil(object.name)
+        #expect(object.name == nil)
     }
-    func testNameComponentName() throws {
-        let object = StableObject(id: 1,
-                                    snapshotID: 1,
-                                    type: TestType,
-                                    attributes: ["name": "test"])
-        XCTAssertEqual(object.name, "test")
+    @Test func nameAttribute() throws {
+        let object = StableObject(id: 1, snapshotID: 1, type: TestType,
+                                  attributes: ["name": "test"])
+        #expect(object.name == "test")
     }
 
-    func testNonStringNameComponent() throws {
-        let object = StableObject(id: 1,
-                                    snapshotID: 1,
-                                    type: TestType,
-                                    attributes: ["name": 12345])
-        XCTAssertEqual(object.name, "12345")
+    @Test func nonStringName() throws {
+        let object = StableObject(id: 1, snapshotID: 1, type: TestType,
+                                  attributes: ["name": 12345])
+        #expect(object.name == "12345")
+    }
+
+    @Test func invalidNonStringName() throws {
+        let object = StableObject(id: 1, snapshotID: 1, type: TestType,
+                                  attributes: ["name": 3.14])
+        #expect(object.name == nil)
     }
 
 }

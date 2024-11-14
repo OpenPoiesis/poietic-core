@@ -37,7 +37,6 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
                            origin: any ObjectSnapshot,
                            target: any ObjectSnapshot,
                            attributes: [String:Variant] = [:]) -> MutableObject {
-        // FIXME: [WIP] Still needed?
         return createEdge(type, origin: origin.id, target: target.id, attributes: attributes)
     }
    
