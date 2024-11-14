@@ -507,6 +507,11 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     }
 }
 
+extension Variant: ExpressibleByBooleanLiteral {
+    public init(booleanLiteral value: Bool) {
+        self = .atom(.bool(value))
+    }
+}
 extension Variant: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
         self = .atom(.int(value))
