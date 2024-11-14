@@ -201,14 +201,11 @@ import Testing
         #expect {
             try design.accept(frame)
         } throws: {
-            guard let error = $0 as? FrameConstraintError else {
-                Issue.record("Error is not a FrameConstraintError")
-                return false
-            }
-            guard let violation = error.violations.first else {
-                Issue.record("No constraint violation found")
-                return false
-            }
+            let error = try #require($0 as? FrameConstraintError,
+                                     "Error is not a FrameConstraintError")
+            let violation = try #require(error.violations.first,
+                                         "No constraint violation found")
+
             return error.violations.count == 1
                     && violation.objects.count == 2
                     && violation.objects.contains(a.id)

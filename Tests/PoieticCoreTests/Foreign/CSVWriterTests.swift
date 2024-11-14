@@ -1,27 +1,27 @@
 //
-//  File.swift
-//  
+//  CSVWriterTests.swift
+//
 //
 //  Created by Stefan Urbanek on 12/09/2023.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
-final class CSVFormatterTests: XCTestCase {
-    func testQuoteEmpty() throws {
+@Suite struct CSVFormatterTests {
+    @Test func testQuoteEmpty() throws {
         let formatter = CSVFormatter()
-        XCTAssertEqual(formatter.quote(""), "")
+        #expect(formatter.quote("") == "")
     }
-    func testQuoteNotNeeded() throws {
+    @Test func testQuoteNotNeeded() throws {
         let formatter = CSVFormatter()
-        XCTAssertEqual(formatter.quote("10"), "10")
-        XCTAssertEqual(formatter.quote("abc"), "abc")
-        XCTAssertEqual(formatter.quote("one two"), "one two")
-        XCTAssertEqual(formatter.quote("-"), "-")
-        XCTAssertEqual(formatter.quote(" "), " ")
+        #expect(formatter.quote("10") == "10")
+        #expect(formatter.quote("abc") == "abc")
+        #expect(formatter.quote("one two") == "one two")
+        #expect(formatter.quote("-") == "-")
+        #expect(formatter.quote(" ") == " ")
     }
-    func testQuoteQuote() throws {
+    @Test func testQuoteQuote() throws {
         let formatter = CSVFormatter()
         // Single quote yields four:
         //
@@ -31,27 +31,26 @@ final class CSVFormatterTests: XCTestCase {
         //   opening --^^ ^
         //              | |
         //   escaping---+ +---- closing
-        XCTAssertEqual(formatter.quote("\""), "\"\"\"\"")
-        XCTAssertEqual(formatter.quote("middle\"quote"), "\"middle\"\"quote\"")
-        XCTAssertEqual(formatter.quote("\n"), "\"\n\"")
+        #expect(formatter.quote("\"") == "\"\"\"\"")
+        #expect(formatter.quote("middle\"quote") == "\"middle\"\"quote\"")
+        #expect(formatter.quote("\n") == "\"\n\"")
     }
-    func testQuoteSeparators() throws {
+    @Test func testQuoteSeparators() throws {
         let formatter = CSVFormatter()
         
-        XCTAssertEqual(formatter.quote("one,two"), "\"one,two\"")
-        XCTAssertEqual(formatter.quote("new\nline"), "\"new\nline\"")
+        #expect(formatter.quote("one,two") == "\"one,two\"")
+        #expect(formatter.quote("new\nline") == "\"new\nline\"")
     }
-    func testFormatRowEmpty() throws {
+    @Test func testFormatRowEmpty() throws {
         let formatter = CSVFormatter()
-        XCTAssertEqual(formatter.format([]), "")
+        #expect(formatter.format([]) == "")
     }
-    func testFormatRow() throws {
+    @Test func testFormatRow() throws {
         let formatter = CSVFormatter()
-        XCTAssertEqual(formatter.format(["one","two"]), "one,two")
+        #expect(formatter.format(["one","two"]) == "one,two")
     }
-    func testFormatRowQuote() throws {
+    @Test func testFormatRowQuote() throws {
         let formatter = CSVFormatter()
-        XCTAssertEqual(formatter.format(["one,two","three"]),
-                       "\"one,two\",three")
+        #expect(formatter.format(["one,two","three"]) == "\"one,two\",three")
     }
 }

@@ -4,152 +4,93 @@
 //  Created by Stefan Urbanek on 2021/8/31.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
-final class CSVReaderTests: XCTestCase {
-    func testEmptyReader() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
-        
-        reader = CSVReader("")
-        token = reader.nextToken()
-        
-        XCTAssertEqual(token, .empty)
+@Suite struct CSVReaderTests {
+    @Test func testEmptyReader() throws {
+        let reader = CSVReader("")
+        #expect(reader.nextToken() == .empty)
     }
 
-    func testWhitespaceRows() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
+    @Test func testWhitespaceRows() throws {
+        let reader = CSVReader(" ")
+        #expect(reader.nextToken() == .value(" "))
+        #expect(reader.nextToken() == .empty)
         
-        reader = CSVReader(" ")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value(" "))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
-        
-        reader = CSVReader("\n")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .recordSeparator)
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
+        let reader2 = CSVReader("\n")
+        #expect(reader2.nextToken() == .recordSeparator)
+        #expect(reader2.nextToken() == .empty)
     }
     
-    func testRowTokens() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
-        
-        reader = CSVReader("one,two,three")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("one"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .fieldSeparator)
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("two"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .fieldSeparator)
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("three"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
+    @Test func testRowTokens() throws {
+        let reader = CSVReader("one,two,three")
+
+        #expect(reader.nextToken() == .value("one"))
+        #expect(reader.nextToken() == .fieldSeparator)
+        #expect(reader.nextToken() == .value("two"))
+        #expect(reader.nextToken() == .fieldSeparator)
+        #expect(reader.nextToken() == .value("three"))
+        #expect(reader.nextToken() == .empty)
     }
-    func testCustomDelimiters() throws {
+    @Test func testCustomDelimiters() throws {
         let reader = CSVReader("1@2|10@20",
-                               options: CSVOptions(fieldDelimiter:"@",
-                                                          recordDelimiter:"|"))
+                               options: CSVOptions(fieldDelimiter:"@", recordDelimiter:"|"))
 
-        let row1 = reader.next()
-        XCTAssertEqual(row1, ["1", "2"])
-
-        let row2 = reader.next()
-        XCTAssertEqual(row2, ["10", "20"])
+        #expect(reader.next() == ["1", "2"])
+        #expect(reader.next() == ["10", "20"])
     }
 
-    func testQuote() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
+    @Test func testQuote() throws {
+        let reader = CSVReader("\"quoted\"")
+        #expect(reader.nextToken() == .value("quoted"))
+        #expect(reader.nextToken() == .empty)
         
-        reader = CSVReader("\"quoted\"")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("quoted"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
+        let reader2 = CSVReader("\"quoted,comma\"")
+        #expect(reader2.nextToken() == .value("quoted,comma"))
+        #expect(reader2.nextToken() == .empty)
         
-        reader = CSVReader("\"quoted,comma\"")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("quoted,comma"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
-        
-        reader = CSVReader("\"quoted\nnewline\"")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("quoted\nnewline"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
+        let reader3 = CSVReader("\"quoted\nnewline\"")
+        #expect(reader3.nextToken() == .value("quoted\nnewline"))
+        #expect(reader3.nextToken() == .empty)
     }
-    func testQuoteEscape() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
-        
-        reader = CSVReader("\"\"\"\"")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("\""))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
-    }
-    func testWeirdQuote() throws {
-        var reader:CSVReader
-        var token: CSVReader.Token
-        
-        // The following behavior was observed with Numbers and with MS Word
-        
-        // This is broken but should be parsed into a signle quote value
-        reader = CSVReader("\"\"\"")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("\""))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
 
-        // This is broken but should be parsed into a signle quote value
-        reader = CSVReader("\"quoted\" value")
-        token = reader.nextToken()
-        XCTAssertEqual(token, .value("quoted value"))
-        token = reader.nextToken()
-        XCTAssertEqual(token, .empty)
+    @Test func testQuoteEscape() throws {
+        let reader = CSVReader("\"\"\"\"")
+        #expect(reader.nextToken() == .value("\""))
+        #expect(reader.nextToken() == .empty)
     }
     
-    func testRow() throws {
-        var reader: CSVReader
-        var row: [String]?
-        
-        reader = CSVReader("one,two,three")
-        row = reader.next()
-        
-        XCTAssertEqual(row, ["one", "two", "three"])
-        XCTAssertNil(reader.next())
+    @Test func testWeirdQuote() throws {
+        // The following behavior was observed with Numbers and with MS Word
+        // This is broken but should be parsed into a signle quote value
+
+        let reader = CSVReader("\"\"\"")
+        #expect(reader.nextToken() == .value("\""))
+        #expect(reader.nextToken() == .empty)
+
+        // This is broken but should be parsed into a signle quote value
+        let reader2 = CSVReader("\"quoted\" value")
+        #expect(reader2.nextToken() == .value("quoted value"))
+        #expect(reader2.nextToken() == .empty)
+    }
+    
+    @Test func testRow() throws {
+        let reader = CSVReader("one,two,three")
+        #expect(reader.next() == ["one", "two", "three"])
+        #expect(reader.next() == nil)
     }
 
-    func testQuotedRow() throws {
-        var reader: CSVReader
-        var row: [String]?
-        
-        reader = CSVReader("one,\"quoted value\",three")
-        row = reader.next()
-        
-        XCTAssertEqual(row, ["one", "quoted value", "three"])
+    @Test func testQuotedRow() throws {
+        let reader = CSVReader("one,\"quoted value\",three")
+        #expect(reader.next() == ["one", "quoted value", "three"])
     }
 
-    func testMultipleRows() throws {
-        var reader: CSVReader
-        var row: [String]?
-        
-        reader = CSVReader("11,12,13\n21,22,23\n31,32,33")
-        row = reader.next()
-        XCTAssertEqual(row, ["11", "12", "13"])
-        row = reader.next()
-        XCTAssertEqual(row, ["21", "22", "23"])
-        row = reader.next()
-        XCTAssertEqual(row, ["31", "32", "33"])
-    }
+    @Test func testMultipleRows() throws {
+        let reader = CSVReader("11,12,13\n21,22,23\n31,32,33")
 
+        #expect(reader.next() == ["11", "12", "13"])
+        #expect(reader.next() == ["21", "22", "23"])
+        #expect(reader.next() == ["31", "32", "33"])
+    }
 }

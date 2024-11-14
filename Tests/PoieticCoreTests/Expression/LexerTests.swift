@@ -1,247 +1,244 @@
 //
-//  File.swift
-//  
+//  LexerTests.swift
+//
 //
 //  Created by Stefan Urbanek on 01/07/2022.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
-final class LexerTests: XCTestCase {
-    func testAcceptFunction() throws {
-        // TODO: This is a scanner test. (originally it was in the lexer)
+@Suite struct LexerTests {
+    @Test func acceptFunction() throws {
         let lexer = ExpressionLexer(string: " ")
-        XCTAssertNotNil(lexer.scanner.currentChar)
-        XCTAssertTrue(lexer.scanner.scan(\.isWhitespace))
-        XCTAssertNil(lexer.scanner.currentChar)
-        XCTAssertTrue(lexer.scanner.atEnd)
+        #expect(lexer.scanner.currentChar != nil)
+        // Swift Testing macro expansion is complaining about having \.isWhitespace within #expect
+        let flag = lexer.scanner.scan(\.isWhitespace)
+        #expect(flag)
+        #expect(lexer.scanner.currentChar == nil)
+        #expect(lexer.scanner.atEnd)
     }
     
-    func testEmpty() throws {
+    @Test func emptyString() throws {
         var lexer = ExpressionLexer(string: "")
         
-        XCTAssertTrue(lexer.atEnd)
-        XCTAssertEqual(lexer.next().type, ExpressionTokenType.empty)
-        XCTAssertEqual(lexer.next().type, ExpressionTokenType.empty)
+        #expect(lexer.atEnd)
+        #expect(lexer.next().type == .empty)
+        #expect(lexer.next().type == .empty)
     }
     
-    func testSpace() throws {
+    @Test func spaceOnly() throws {
         var lexer = ExpressionLexer(string: " ")
         
-        XCTAssertFalse(lexer.atEnd)
-        XCTAssertEqual(lexer.next().type, ExpressionTokenType.empty)
-        XCTAssertTrue(lexer.atEnd)
+        #expect(!lexer.atEnd)
+        #expect(lexer.next().type == .empty)
+        #expect(lexer.atEnd)
     }
-    //    func testUnexpected() throws {
-    //        var lexer = ExpressionLexer(string: "$")
-    //        let token = lexer.next()
-    //
-    //        XCTAssertEqual(token.type, ExpressionTokenType.error(.unexpectedCharacter))
-    //        XCTAssertEqual(token.text, "$")
-    //    }
-    
+
     // MARK: Numbers
     
-    func testInteger() throws {
+    @Test func integerToken() throws {
         var lexer = ExpressionLexer(string: "1234")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "1234")
+
+        #expect(token.type == .int)
+        #expect(token.text == "1234")
     }
     
-    func testThousandsSeparator() throws {
+    @Test func thousandsSeparator() throws {
         var lexer = ExpressionLexer(string: "123_456_789")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "123_456_789")
+        
+        #expect(token.type == .int)
+        #expect(token.text == "123_456_789")
     }
     
-    func testMultipleInts() throws {
+    @Test func multipleInts() throws {
         var lexer = ExpressionLexer(string: "1 22 333 ")
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "1")
+        
+        #expect(token.type == .int)
+        #expect(token.text == "1")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "22")
+        #expect(token.type == .int)
+        #expect(token.text == "22")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "333")
+        #expect(token.type == .int)
+        #expect(token.text == "333")
     }
     
-    func testInvalidInteger() throws {
+    @Test func invalidInteger() throws {
         var lexer = ExpressionLexer(string: "1234x")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.error(.invalidCharacterInNumber))
-        XCTAssertEqual(token.text, "1234x")
+        #expect(token.type == .error(.invalidCharacterInNumber))
+        #expect(token.text == "1234x")
     }
     
-    func testFloat() throws {
+    @Test func floatTokens() throws {
         var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30")
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.double)
-        XCTAssertEqual(token.text, "10.20")
+        #expect(token.type == .double)
+        #expect(token.text == "10.20")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.double)
-        XCTAssertEqual(token.text, "10e20")
+        #expect(token.type == .double)
+        #expect(token.text == "10e20")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.double)
-        XCTAssertEqual(token.text, "10.20e30")
+        #expect(token.type == .double)
+        #expect(token.text == "10.20e30")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.double)
-        XCTAssertEqual(token.text, "10.20e-30")
+        #expect(token.type == .double)
+        #expect(token.text == "10.20e-30")
     }
     
-    func testInvalidFloat() throws {
+    @Test func invalidFloat() throws {
         var lexer = ExpressionLexer(string: "1. 2.x 3ex")
         
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.error(.numberExpected))
-        XCTAssertEqual(token.text, "1. ")
+        #expect(token.type == .error(.numberExpected))
+        #expect(token.text == "1. ")
         
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.error(.numberExpected))
-        XCTAssertEqual(token.text, "2.x")
+        #expect(token.type == .error(.numberExpected))
+        #expect(token.text == "2.x")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.error(.numberExpected))
-        XCTAssertEqual(token.text, "3ex")
+        #expect(token.type == .error(.numberExpected))
+        #expect(token.text == "3ex")
     }
     
     
-    func testIdentifier() throws {
+    @Test func identifierToken() throws {
         var lexer = ExpressionLexer(string: "an_identifier_1")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.identifier)
-        XCTAssertEqual(token.text, "an_identifier_1")
+        #expect(token.type == .identifier)
+        #expect(token.text == "an_identifier_1")
     }
     
     // MARK: Punctuation and operators
     
-    func testPunctuation() throws {
+    @Test func punctuationToken() throws {
         var lexer = ExpressionLexer(string: "( , )")
         
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.leftParen)
-        XCTAssertEqual(token.text, "(")
+        #expect(token.type == .leftParen)
+        #expect(token.text == "(")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.comma)
-        XCTAssertEqual(token.text, ",")
+        #expect(token.type == .comma)
+        #expect(token.text == ",")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.rightParen)
-        XCTAssertEqual(token.text, ")")
+        #expect(token.type == .rightParen)
+        #expect(token.text == ")")
     }
     
-    func testOperator() throws {
+    @Test func operatorToken() throws {
         var lexer = ExpressionLexer(string: "+ - * / %")
         
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "+")
+        #expect(token.type == .operator)
+        #expect(token.text == "+")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "-")
+        #expect(token.type == .operator)
+        #expect(token.text == "-")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "*")
+        #expect(token.type == .operator)
+        #expect(token.text == "*")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "/")
+        #expect(token.type == .operator)
+        #expect(token.text == "/")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "%")
+        #expect(token.type == .operator)
+        #expect(token.text == "%")
     }
-    func testComparisonOperator() throws {
+    @Test func comparisonOperator() throws {
         var lexer = ExpressionLexer(string: "> >= < <= == != !")
         
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, ">")
+        #expect(token.type == .operator)
+        #expect(token.text == ">")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, ">=")
+        #expect(token.type == .operator)
+        #expect(token.text == ">=")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "<")
+        #expect(token.type == .operator)
+        #expect(token.text == "<")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "<=")
+        #expect(token.type == .operator)
+        #expect(token.text == "<=")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "==")
+        #expect(token.type == .operator)
+        #expect(token.text == "==")
 
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "!=")
+        #expect(token.type == .operator)
+        #expect(token.text == "!=")
 
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "!")
+        #expect(token.type == .operator)
+        #expect(token.text == "!")
     }
 
-    func testMinusAsOperator() throws {
+    @Test func minusAsOperator() throws {
         var lexer = ExpressionLexer(string: "1-2")
         var token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "1")
+        #expect(token.type == .int)
+        #expect(token.text == "1")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.operator)
-        XCTAssertEqual(token.text, "-")
+        #expect(token.type == .operator)
+        #expect(token.text == "-")
         
         token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.int)
-        XCTAssertEqual(token.text, "2")
+        #expect(token.type == .int)
+        #expect(token.text == "2")
     }
     
     // MARK: Trivia
     
-    func testEmptyTrivia() throws {
+    @Test func emptyTrivia() throws {
         var lexer = ExpressionLexer(string: "   ")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.empty)
-        XCTAssertEqual(token.text, "")
-        XCTAssertEqual(token.fullText, "   ")
+        #expect(token.type == .empty)
+        #expect(token.text == "")
+        #expect(token.fullText == "   ")
     }
     
-    func testTrailingTrivia() throws {
+    @Test func trailingTrivia() throws {
         var lexer = ExpressionLexer(string: "thing   ")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.identifier)
-        XCTAssertEqual(token.text, "thing")
-        XCTAssertEqual(token.trailingTrivia, "   ")
+        #expect(token.type == .identifier)
+        #expect(token.text == "thing")
+        #expect(token.trailingTrivia == "   ")
     }
     
-    func testTrailingTriviaComment() throws {
+    @Test func trailingTriviaComment() throws {
         var lexer = ExpressionLexer(string: "thing   # This\nThat")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.identifier)
-        XCTAssertEqual(token.text, "thing")
-        XCTAssertEqual(token.trailingTrivia, "   # This")
+        #expect(token.type == .identifier)
+        #expect(token.text == "thing")
+        #expect(token.trailingTrivia == "   # This")
     }
-    func testLeadingTriviaComment() throws {
+    @Test func leadingTriviaComment() throws {
         var lexer = ExpressionLexer(string: "# Comment\nthing")
         let token = lexer.next()
-        XCTAssertEqual(token.type, ExpressionTokenType.identifier)
-        XCTAssertEqual(token.text, "thing")
-        XCTAssertEqual(token.leadingTrivia, "# Comment\n")
+        #expect(token.type == .identifier)
+        #expect(token.text == "thing")
+        #expect(token.leadingTrivia == "# Comment\n")
     }
 
 }
