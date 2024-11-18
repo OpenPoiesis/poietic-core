@@ -19,13 +19,16 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case typeMismatch(String, [String])
     case propertyNotFound(String, [String])
     case valueNotFound(String, [String])
-    // FIXME: [REFACTORING] REMOVE THIS
-    case missingFrameFormatVersion
 
     case JSONError(JSONError)
     case foreignObjectError(ForeignObjectError, Int)
     case unknownObjectType(String, Int)
     case unsupportedVersion(String)
+
+    /// Invalid object reference.
+    ///
+    /// Items are (_reference_, _kind_, _index_).
+    ///
     case invalidReference(String, String, Int)
     
     case unknownDecodingError(String)
@@ -96,8 +99,6 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             "Error in object at \(index): \(error)"
         case .unknownObjectType(let type, let index):
             "Unknown object type '\(type)' for object at index \(index)"
-        case .missingFrameFormatVersion:
-            "Missing frame format version"
         case .unsupportedVersion(let version):
             "Unsupported version: \(version)"
         case let .invalidReference(ref, kind, index):

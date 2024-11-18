@@ -92,15 +92,8 @@ extension Variant: Codable {
     /// type code (``ValueType/typeCode``) and the second value is encoded
     /// variant.
     ///
-    /// - Note: This is a workaround for (Swift) Foundation not providing
-    ///   full control over reading of raw JSON data without necessity of
-    ///   mapping it to a type using Codable protocol.
-    ///
     public static let CoalescedCodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CoalescedCodingTypeKey")!
 
-    // Use default implementation.
-    // NOTE: Do not use Codable for anything public (import/export).
-    // NOTE: For JSON that is to be exported/imported use custom JSON methods.
     /// Read a variant from a decoder.
     ///
     /// For reading JSON that might be hand-written (more error-prone):

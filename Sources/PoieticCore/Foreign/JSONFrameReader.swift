@@ -10,10 +10,40 @@ import Foundation
 
 /// Object for reading foreign frames represented as JSON.
 ///
+/// - Note: Hand-writing foreign frames in JSON is discouraged, as they might become
+///   complex very quickly. It is not the purpose of this toolkit to
+///   process and maintain raw human-written textual representation of designs.
+///
+/// There are two representations of a foreign frame as JSON: single-file representation
+/// and a bundle representation.
+///
+/// The single file representation is a dictionary with the keys described below:
+///
+/// - `format_version` _(recommended, string)_: Format of the frame. Currently `0`.
+///    See ``JSONFrameReader/CurrentFormatVersion``.
+/// - `objects`: An array of objects. See below _Foreign Objects_.
+/// - `collections` (optional): List of collection names, if the frame is represented as a bundle.
+///
+/// Bundle or a directory representation is a directory that contains a required `info.json`
+/// file and a collection of files with objects in the `objects` subdirectory. Typical bundle
+/// directory structure might look like this:
+///
+/// ```
+/// MyDesign.poieticframe/
+///     info.json
+///     objects/
+///         design.json
+///         main.json
+///         ...
+/// ```
+///
+/// - Note: The reason for a bundle representation is an experimentation with potential future
+///   format that might include other assets in their more native form, such as data in CSV files.
+///
 /// ## Foreign Objects
 ///
 /// The JSON representation of foreign object is a dictionary with the following
-/// keys:
+/// keys and their corresponding _string_ values:
 ///
 /// - `id` (optional): Object ID, if not provided, one will be generated during
 ///   loading.
@@ -27,10 +57,9 @@ import Foundation
 /// - `from` (contextual): if the object is an edge, the property references its origin
 /// - `to` (contextual): if the object is an edge, the property references its target
 /// - `parent` (optional): reference to object's parent
-/// - `children` (optional): list of object's children – convenience mechanism
-///    for parent-child relationships, only recommended for hand-written frames
 /// - `attributes`: a dictionary where keys are attribute names and values are
 ///    attribute values.
+///
 ///
 /// ## References
 ///
@@ -39,16 +68,42 @@ import Foundation
 /// referenced by their names as well. One can refer to an object by its
 /// name in an edge origin or a target, for example.
 ///
-/// When multiple objects have the same name, then which object will be
-/// referred to is undefined.
+/// When multiple objects have the same name, then which object a reference
+/// refers to is undefined.
 ///
-/// - Note: Hand-writing foreign frames is discouraged, as they might become
-///   complex very quickly. It is not the purpose of this toolkit to
-///   process and maintain raw human-written textual representation of models.
+///
+/// ## Attributes
+///
+/// The attribute values are decoded from JSON as follows:
+///
+/// - bool is bool variant
+/// - number is tried to be converted to int first, then double
+/// - string stays a string
+/// - array of items of the same type (bools, numbers or strings) becomes an array of that type
+/// - array of two-item number arrays becomes an array of points, for example: `[[0, 0], [10, 20]]`
+///
+/// There is no explicit JSON way of specifying a single point, it has to be expressed
+/// as a two-item array of two numbers. Even then it will be treated just as an array of numbers.
+///
+/// Invalid variant values are:
+///
+/// - a dictionary
+/// - an array of different types
+/// - any nested arrays except the point array
 ///
 public final class JSONFrameReader {
+    public typealias ForeignFrame = JSONForeignFrame
+    public static let CurrentFormatVersion = "0"
+    
     public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONForeignFrameVersion")!
 
+    public class DecodingConfiguration {
+        public var version: String
+        public init(version: String) {
+            self.version = version
+        }
+    }
+    
     // NOTE: For now, the class exists only for code organisation purposes/name-spacing
    
     /// Create a frame reader.
@@ -84,30 +139,44 @@ public final class JSONFrameReader {
     /// ```
     ///
     public func read(bundleAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
-        // FIXME: Check for file existence, decouple data reading from decoding
-        let container: _JSONForeignFrameContainer
+        // TODO: Check for file existence
+        let data: Data
+        let frame: JSONForeignFrame
         let decoder = JSONDecoder()
+        let config = DecodingConfiguration(version: Self.CurrentFormatVersion)
         
         decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
         
         let infoURL = url.appending(component: "info.json")
+
         do {
-            let data = try Data(contentsOf: infoURL)
-            container = try decoder.decode(_JSONForeignFrameContainer.self, from: data)
+            data = try Data(contentsOf: infoURL)
         }
         catch let error as NSError {
             throw .dataCorrupted(error.localizedDescription, [])
         }
         catch {
+            throw .unableToReadData
+        }
+        
+        do {
+            frame = try decoder.decode(JSONForeignFrame.self, from: data, configuration: config)
+        }
+        catch let error as ForeignFrameError {
+            throw error
+        }
+        catch {
             throw .dataCorrupted(String(describing: error), [])
         }
         
-        var collections: [String:_JSONForeignObjectCollection] = [:]
-        for name in container.collectionNames {
+        var collections: [String:[JSONForeignObject]] = [:]
+        for name in frame.collectionNames {
             let collectionURL = url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
             do {
                 let data = try Data(contentsOf: collectionURL)
-                let collection = try decoder.decode(_JSONForeignObjectCollection.self, from: data)
+                let collection = try decoder.decode([JSONForeignObject].self,
+                                                    from: data,
+                                                    configuration: config)
                 collections[name] = collection
             }
             catch let error as DecodingError {
@@ -118,7 +187,15 @@ public final class JSONFrameReader {
             }
         }
 
-        return _JSONForeignFrame(container: container, collections: collections)
+        if collections.isEmpty {
+            return frame
+        }
+        else {
+            let joinedObjects = frame.objects + collections.values.joined()
+            return JSONForeignFrame(metamodel: frame.metamodel,
+                                    objects: joinedObjects,
+                                    collections: frame.collectionNames)
+        }
     }
     
     /// Read a frame file at a given URL.
@@ -146,12 +223,15 @@ public final class JSONFrameReader {
 
     public func read(data: Data) throws (ForeignFrameError) -> ForeignFrame {
         let decoder = JSONDecoder()
+        let config = DecodingConfiguration(version: Self.CurrentFormatVersion)
         
         decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
 
-        let container: _JSONForeignFrameContainer
+        let frame: JSONForeignFrame
         do {
-            container = try decoder.decode(_JSONForeignFrameContainer.self, from: data)
+            frame = try decoder.decode(JSONForeignFrame.self,
+                                           from: data,
+                                           configuration: config)
         }
         catch let error as DecodingError {
             throw ForeignFrameError(error)
@@ -160,10 +240,9 @@ public final class JSONFrameReader {
             // FIXME: [FIXME] Handle correctly
             throw .dataCorrupted("Unhandlederror \(type(of:error)): \(error)", [])
         }
-        guard container.collectionNames.isEmpty else {
+        guard frame.collectionNames.isEmpty else {
             fatalError("Foreign frame from data (inline frame) must not refer to other collections, only bundle foreign frame can.")
         }
-
-        return _JSONForeignFrame(container: container, collections: [:])
+        return frame
     }
 }

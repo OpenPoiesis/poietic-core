@@ -92,7 +92,7 @@ public final class ForeignFrameLoader {
     /// - SeeAlso: ``Design/allocateID(required:)``,
     ///     ``TransientFrame/insert(_:)``
     ///
-    public func load(_ foreignFrame: ForeignFrame, into frame: TransientFrame) throws (FrameLoaderError) {
+    public func load(_ foreignFrame: some ForeignFrameProtocol, into frame: TransientFrame) throws (FrameLoaderError) {
         var ids: [(ObjectID, SnapshotID)] = []
         
         let foreignObjects = foreignFrame.objects
@@ -184,11 +184,11 @@ public final class ForeignFrameLoader {
         //
         // All objects are initialised now.
         for (snapshot, object) in zip(snapshots, foreignObjects) {
-            for childRef in object.children {
-                guard let childID = references[childRef] else {
-                    throw .invalidReference(childRef, "child", object.id)
+            if let parentRef = object.parent {
+                guard let parent = references[parentRef] else {
+                    throw .invalidReference(parentRef, "parent", object.id)
                 }
-                frame.addChild(childID, to: snapshot.id)
+                frame.addChild(snapshot.id, to: parent)
             }
         }
     }

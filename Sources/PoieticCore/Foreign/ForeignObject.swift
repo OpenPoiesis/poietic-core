@@ -53,9 +53,6 @@ public protocol ForeignObject {
     /// Reference to a parent object.
     var parent: String? { get }
     
-    /// List of references for object's children.
-    var children: [String] { get }
-    
     /// Dictionary of object attributes.
     var attributes: [String:Variant] { get }
 }
@@ -92,9 +89,10 @@ extension ForeignObject {
 /// Protocol that represents a frame which originates or is meant to be used
 /// by a foreign interface.
 ///
-public protocol ForeignFrame {
+public protocol ForeignFrameProtocol {
+    associatedtype Object: ForeignObject
     /// List of foreign objects contained in the frame.
-    var objects: [ForeignObject] { get }
+    var objects: [Object] { get }
 }
 
 
