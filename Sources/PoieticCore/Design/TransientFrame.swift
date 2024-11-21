@@ -17,6 +17,7 @@ public enum TransientFrameError: Error {
     case brokenReferences
     case brokenParentChild
     case edgeEndpointNotANode
+    case proxyCycle
 }
 
 /// Transient frame that represents a change transaction.
@@ -280,6 +281,15 @@ public final class TransientFrame: Frame {
                          "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
             
             actualStructure = structure
+        case .proxy:
+            guard let structure else {
+                fatalError("Structural component of type `proxy` is required to be provided for type \(type.name)")
+            }
+            
+            precondition(structure.type == .proxy,
+                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
+            
+            actualStructure = structure
         }
         var actualAttributes = attributes
         
@@ -431,10 +441,17 @@ public final class TransientFrame: Frame {
             // Check for dependants (edges)
             //
             for dependant in snapshots where !removed.contains(dependant.id) {
-                if case let .edge(origin, target) = dependant.structure {
+                switch dependant.structure {
+                case let .edge(origin, target):
                     if garbage.id == origin || garbage.id == target {
                         scheduled.insert(dependant.id)
                     }
+                case let .proxy(subject):
+                    if garbage.id == subject {
+                        scheduled.insert(dependant.id)
+                    }
+                case .node, .unstructured:
+                    break 
                 }
             }
         }
@@ -511,6 +528,11 @@ public final class TransientFrame: Frame {
             case let .original(original): original
             }
         }
+        
+        if self.hasProxyCycle() {
+            throw .proxyCycle
+        }
+        
         self.state = .accepted
         return stable
     }

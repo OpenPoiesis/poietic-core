@@ -50,40 +50,14 @@ public protocol ForeignObject {
     /// Reference to an object that is a target of an edge.
     var target: String? { get }
     
+    /// Reference to an object that is a target of an edge.
+    var subject: String? { get }
+
     /// Reference to a parent object.
     var parent: String? { get }
     
     /// Dictionary of object attributes.
     var attributes: [String:Variant] { get }
-}
-
-extension ForeignObject {
-    public func validateStructure(_ structuralType: StructuralType) throws (ForeignObjectError) {
-        switch structuralType {
-        case .unstructured:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
-            }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
-            }
-        case .node:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
-            }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
-            }
-        case .edge:
-            guard origin != nil else {
-                throw .propertyNotFound("from")
-            }
-            guard target != nil else {
-                throw .propertyNotFound("to")
-            }
-        }
-
-    }
 }
 
 /// Protocol that represents a frame which originates or is meant to be used

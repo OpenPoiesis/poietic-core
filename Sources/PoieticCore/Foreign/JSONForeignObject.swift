@@ -25,6 +25,7 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
     public var origin: String?  { systemAttributes["from"] }
     public var target: String?  { systemAttributes["to"] }
     public var parent: String?  { systemAttributes["parent"] }
+    public var subject: String?  { systemAttributes["subject"] }
     public var structuralType: StructuralType?  {
         if let type = systemAttributes["structure"] {
             StructuralType(rawValue: type)
@@ -43,14 +44,14 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
         case structure
         case origin = "from"
         case target = "to"
-        // case subject // from proxy
+        case subject
         case parent
         case attributes
         
         static var systemKeys: [CodingKeys] {
             [.id, .snapshotID, .name, .type, .structure,
-            .origin, .target,
-            .parent]
+             .origin, .target, .subject,
+             .parent]
         }
     }
    
@@ -61,9 +62,14 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
         systemAttributes["snapshot_id"] = String(object.snapshotID)
         systemAttributes["type"] = object.type.name
 
-        if case let .edge(origin, target) = object.structure {
+        switch object.structure {
+        case let .edge(origin, target):
             systemAttributes["from"] = String(origin)
             systemAttributes["to"] = String(target)
+        case let .proxy(subject):
+            systemAttributes["subject"] = String(subject)
+        case .unstructured, .node:
+            break
         }
 
         if let parent = object.parent {

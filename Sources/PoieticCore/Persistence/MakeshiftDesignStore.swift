@@ -122,29 +122,22 @@ public class MakeshiftDesignStore {
             let structure: Structure
             switch type.structuralType {
             case .unstructured:
-                guard perSnapshot.origin == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "origin")
-                }
-                guard perSnapshot.target == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "target")
-                }
                 structure = .unstructured
             case .node:
-                guard perSnapshot.origin == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "origin")
-                }
-                guard perSnapshot.target == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "target")
-                }
                 structure = .node
             case .edge:
                 guard let origin = perSnapshot.origin else {
-                    throw .missingStructuralProperty(type.structuralType, "from")
+                    throw .missingStructuralProperty(type.structuralType, "origin")
                 }
                 guard let target = perSnapshot.target else {
-                    throw .missingStructuralProperty(type.structuralType, "to")
+                    throw .missingStructuralProperty(type.structuralType, "target")
                 }
                 structure = .edge(ObjectID(origin), ObjectID(target))
+            case .proxy:
+                guard let subject = perSnapshot.subject else {
+                    throw .missingStructuralProperty(type.structuralType, "subject")
+                }
+                structure = .proxy(ObjectID(subject))
             }
 
             let snapshot = StableObject(id: perSnapshot.id,
@@ -223,11 +216,21 @@ public class MakeshiftDesignStore {
         for snapshot in design.validatedSnapshots {
             let origin: ObjectID?
             let target: ObjectID?
+            let subject: ObjectID?
+            
             switch snapshot.structure {
             case .edge(let sOrigin, let sTarget):
-                (origin, target) = (sOrigin, sTarget)
-            default:
-                (origin, target) = (nil, nil)
+                origin = sOrigin
+                target = sTarget
+                subject = nil
+            case .proxy(let sSubject):
+                origin = nil
+                target = nil
+                subject = sSubject
+            case .node, .unstructured:
+                origin = nil
+                target = nil
+                subject = nil
             }
             
             let perSnapshot = _PersistentSnapshot(
@@ -237,6 +240,7 @@ public class MakeshiftDesignStore {
                 structuralType: snapshot.structure.type.rawValue,
                 origin: origin,
                 target: target,
+                subject: subject,
                 parent: snapshot.parent,
                 attributes: snapshot.attributes
             )

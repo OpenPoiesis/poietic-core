@@ -16,6 +16,7 @@ struct _PersistentSnapshot: Codable {
     let structuralType: String
     let origin: ObjectID?
     let target: ObjectID?
+    let subject: ObjectID?
     let parent: ObjectID?
     let attributes: [String:Variant]
 
@@ -26,6 +27,7 @@ struct _PersistentSnapshot: Codable {
         case structuralType = "structural_type"
         case origin
         case target
+        case subject
         case parent
         case attributes
     }

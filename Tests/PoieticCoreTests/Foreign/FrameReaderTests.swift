@@ -244,7 +244,7 @@ import Testing
                    """.data(using:.utf8)!
         let fframe = try #require(try reader.read(data: data_no_origin))
 
-        #expect(throws: FrameLoaderError.invalidReference("unknown", "origin", nil)) {
+        #expect(throws: FrameLoaderError.invalidReference("unknown", "from", nil)) {
             try loader.load(fframe, into: frame)
         }
 
@@ -260,39 +260,11 @@ import Testing
 
         let fframe2 = try #require(try reader.read(data: data_no_target))
 
-        #expect(throws: FrameLoaderError.invalidReference("unknown", "target", nil)) {
+        #expect(throws: FrameLoaderError.invalidReference("unknown", "to", nil)) {
             try loader.load(fframe2, into: frame)
         }
     }
     
-    @Test func shouldNotHaveOriginOrTarget() throws {
-        let data_extra_origin = """
-                   {
-                   "frame_format_version": "0",
-                   "objects": [
-                        { "type": "Unstructured", "from": "invalid"}
-                   ]
-                   }
-                   """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data_extra_origin))
-        #expect(throws: FrameLoaderError.foreignObjectError(.extraPropertyFound("from"), nil)) {
-            try loader.load(fframe, into: frame)
-        }
-
-        let data_extra_target = """
-                   {
-                   "frame_format_version": "0",
-                   "objects": [
-                        { "type": "Stock", "to": "invalid"}
-                   ]
-                   }
-                   """.data(using:.utf8)!
-        let fframe2 = try #require(try reader.read(data: data_extra_target))
-        #expect(throws: FrameLoaderError.foreignObjectError(.extraPropertyFound("to"), nil)) {
-            try loader.load(fframe2, into: frame)
-        }
-    }
-
     @Test func connectEdge() throws {
         let data = """
                    {
@@ -359,6 +331,67 @@ import Testing
         #expect(throws: FrameLoaderError.invalidReference("unknown", "child", nil)) {
             try loader.load(fframe, into: frame)
         }
+    }
+    @Test func loadPortProxy() throws {
+        let data_no_origin = """
+                   {
+                   "frame_format_version": "0",
+                   "objects": [
+                    { "type": "TestNode", "name": "a" },
+                    { "type": "Port", "name": "port", "subject": "a" }
+                   ]
+                   }
+                   """.data(using:.utf8)!
+        
+        let fframe = try #require(try reader.read(data: data_no_origin))
+        try loader.load(fframe, into: frame)
+
+        let a = try #require(frame.object(named: "a"))
+        let port = try #require(frame.object(named: "port"))
+        guard case let .proxy(subject) = port.structure else {
+            Issue.record("Structure is not a proxy")
+            return
+        }
+        
+        #expect(subject == a.id)
+        
+    }
+    
+    // MARK: - Proxies
+    
+    @Test func testUnknownProxyReference() throws {
+        let data = """
+                   {
+                   "frame_format_version": "0",
+                   "objects": [
+                        { "type": "Port", "subject": "unknown" }
+                   ]
+                   }
+                   """.data(using:.utf8)!
+        let fframe = try #require(try reader.read(data: data))
+        #expect(throws: FrameLoaderError.invalidReference("unknown", "subject", nil)) {
+            try loader.load(fframe, into: frame)
+        }
+    }
+
+    @Test func goodSubject() throws {
+        let data = """
+                   {
+                   "frame_format_version": "0",
+                   "objects": [
+                        { "type": "TestNode", "name": "a" },
+                        { "type": "Port", "name": "port", "subject": "a" }
+                   ]
+                   }
+                   """.data(using:.utf8)!
+        let fframe = try #require(try reader.read(data: data))
+        try loader.load(fframe, into: frame)
+
+        let a = try #require(frame.object(named: "a"))
+        let port = try #require(frame.object(named: "port"))
+
+        let proxy = try #require(frame.proxy(port.id))
+        #expect(proxy.subject == a.id)
     }
 }
 

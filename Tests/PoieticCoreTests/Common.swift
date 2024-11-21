@@ -117,6 +117,13 @@ extension ObjectType {
         ]
     )
     
+    static let Port = ObjectType(
+        name: "Port",
+        structuralType: .proxy,
+        traits: [ ]
+    )
+    
+
     static let Stock = ObjectType(
         name: "Stock",
         structuralType: .node,
@@ -165,6 +172,7 @@ public let TestMetamodel = Metamodel(
         ObjectType.Flow,
         ObjectType.Parameter,
         ObjectType.Arrow,
+        ObjectType.Port,
     ],
     constraints: []
 )

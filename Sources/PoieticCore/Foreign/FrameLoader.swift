@@ -140,29 +140,35 @@ public final class ForeignFrameLoader {
             guard let type = metamodel.objectType(name: typeName) else {
                 throw .unknownObjectType(typeName, foreignObject.id)
             }
-            do {
-                try foreignObject.validateStructure(type.structuralType)
-            }
-            catch {
-                throw .foreignObjectError(error, foreignObject.id)
-            }
+            
             switch type.structuralType {
             case .unstructured:
                 structure = .unstructured
             case .node:
                 structure = .node
             case .edge:
-                let originRef = foreignObject.origin!
-                guard let originID = references[originRef] else {
-                    throw .invalidReference(originRef, "origin", foreignObject.id)
+                guard let originRef = foreignObject.origin else {
+                    throw .foreignObjectError(.propertyNotFound("from"), foreignObject.name)
                 }
-
-                let targetRef = foreignObject.target!
+                guard let targetRef = foreignObject.target else {
+                    throw .foreignObjectError(.propertyNotFound("to"), foreignObject.name)
+                }
+                guard let originID = references[originRef] else {
+                    throw .invalidReference(originRef, "from", foreignObject.id)
+                }
                 guard let targetID = references[targetRef] else {
-                    throw .invalidReference(targetRef, "target", foreignObject.id)
+                    throw .invalidReference(targetRef, "to", foreignObject.id)
                 }
 
                 structure = .edge(originID, targetID)
+            case .proxy:
+                guard let ref = foreignObject.subject else {
+                    throw .foreignObjectError(.propertyNotFound("subject"), foreignObject.name)
+                }
+                guard let subjectID = references[ref] else {
+                    throw .invalidReference(ref, "subject", foreignObject.id)
+                }
+                structure = .proxy(subjectID)
             }
             
             var fullAttributes = foreignObject.attributes

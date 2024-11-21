@@ -21,6 +21,9 @@ public enum StructuralType: String, Equatable, Codable, Sendable {
     
     /// Graph component representing a connection between two nodes.
     case edge
+    
+    /// Represents another object.
+    case proxy
 }
 
 /// Structure defines relationship of an object with other objects.
@@ -65,7 +68,14 @@ public enum Structure: Equatable, CustomStringConvertible {
     case edge(ObjectID, ObjectID)
     
     // Should be interpreted as another object.
-    // case proxy(ObjectID)
+    /// Represents another object.
+    ///
+    /// The value is a subject of the proxy.
+    ///
+    /// - Note: This is an experimental feature.
+    /// - SeeAlso: ``Frame/ultimateSubjects()``, ``Frame/ultimateSubject(proxy:)``
+    ///
+    case proxy(ObjectID)
     
     /// A structural type of the component.
     ///
@@ -74,6 +84,7 @@ public enum Structure: Equatable, CustomStringConvertible {
         case .unstructured: .unstructured
         case .node: .node
         case .edge: .edge
+        case .proxy: .proxy
         }
     }
     
@@ -83,6 +94,7 @@ public enum Structure: Equatable, CustomStringConvertible {
         case .unstructured: "unstructured"
         case .node: "node"
         case .edge(let origin, let target): "edge(\(origin),\(target))"
+        case .proxy(let subject): "proxy(\(subject))"
         }
     }
 }
