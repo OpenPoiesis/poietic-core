@@ -53,6 +53,10 @@ import Testing
         #expect(design.currentFrame?.id == frame.id)
         #expect(design.currentFrame!.contains(a.id))
         #expect(design.currentFrame!.contains(b.id))
+        
+        // FIXME: Make this work
+        //        #expect(design.snapshot(a.id) != nil)
+        //        #expect(design.snapshot(b.id) != nil)
     }
     
     @Test func discard() throws {

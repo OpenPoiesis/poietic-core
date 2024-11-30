@@ -11,14 +11,14 @@ import Testing
 @Suite struct PredicateTest {
     let design: Design
     let frame: StableFrame
-    let empty: StableObject
-    let textObject: StableObject
+    let empty: DesignObject
+    let textObject: DesignObject
 
     init() throws {
         design = Design()
         
-        empty = StableObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestType)
-        textObject = StableObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestTypeWithDefault)
+        empty = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestType)
+        textObject = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestTypeWithDefault)
         
         frame = StableFrame(design: design,
                             id: design.allocateID(),

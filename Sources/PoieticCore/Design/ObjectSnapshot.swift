@@ -45,12 +45,12 @@ public typealias FrameID = ID
 ///
 /// The different representations that the object might be in are:
 ///
-/// - ``StableObject``: Object that has been validated and can not be modified.
+/// - ``DesignObject``: Object that has been validated and can not be modified.
 ///   They are the items of a``StableFrame`` and can be shared by multiple frames.
 /// - ``MutableObject``: Object of a temporary nature, that can be modified. The
-///   Mutable object is then turned into a ``StableObject`` when valid.
+///   Mutable object is then turned into a ``DesignObject`` when valid.
 /// - ``TransientObject``: Rather a wrapper over an object that belongs to a
-///   ``TransientFrame``, it might refer to an original ``StableObject`` while
+///   ``TransientFrame``, it might refer to an original ``DesignObject`` while
 ///   the object has not been modified or to a ``MutableObject`` once a
 ///   modification has been requested.
 ///
@@ -221,29 +221,6 @@ extension ObjectSnapshot {
         case .int(let name): return String(name)
         default: return nil
         }
-    }
-    
-    /// List of structural references to other objects.
-    ///
-    /// The list contains collection of references from the following, if present:
-    /// - parent
-    /// - child
-    /// - edge origin and edge target
-    ///
-    /// The order in which the objects are listed is undefined.
-    ///
-    public var structuralReferences: [ObjectID] {
-        var refs: Set<ObjectID> = []
-        
-        if case let .edge(origin, target) = structure {
-            refs.insert(origin)
-            refs.insert(target)
-        }
-        refs.formUnion(children)
-        if let parent {
-            refs.insert(parent)
-        }
-        return Array(refs)
     }
 }
 

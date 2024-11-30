@@ -115,7 +115,7 @@ public class Design {
     ///
     private var objectIDSequence: ObjectID
 
-    var _stableSnapshots: [SnapshotID: StableObject]
+    var _stableSnapshots: [SnapshotID: DesignObject]
     var _stableFrames: [FrameID: StableFrame]
 
     var _transientFrames: [FrameID: TransientFrame]
@@ -220,7 +220,7 @@ public class Design {
         }
     }
     
-    public func snapshot(_ snapshotID: ObjectID) -> StableObject? {
+    public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
         return self._stableSnapshots[snapshotID]
     }
 
@@ -246,9 +246,9 @@ public class Design {
     ///
     /// The order of the returned snapshots is arbitrary.
     ///
-    public var validatedSnapshots: [StableObject] {
+    public var validatedObjects: [DesignObject] {
         var seen: Set<SnapshotID> = Set()
-        var result: [StableObject] = []
+        var result: [DesignObject] = []
         
         for frame in self._stableFrames.values {
             for snapshot in frame.snapshots {
@@ -265,7 +265,7 @@ public class Design {
 
     /// Get a sequence of all stable snapshots in all frames.
     ///
-    public var allSnapshots: any Sequence<StableObject> {
+    public var allSnapshots: some Collection<DesignObject> {
         return _stableSnapshots.values
     }
     
@@ -378,10 +378,7 @@ public class Design {
                      "Trying to accept unknown transient frame \(frame.id)")
         
         let checker = ConstraintChecker(metamodel)
-        
-        try checker.check(frame)
-
-        let snapshots: [StableObject]
+        let snapshots: [DesignObject]
         
         do {
             snapshots = try frame.accept()
@@ -395,6 +392,10 @@ public class Design {
         let stableFrame = StableFrame(design: self,
                                       id: frame.id,
                                       snapshots: snapshots)
+
+        try checker.check(stableFrame)
+
+
         _stableFrames[frame.id] = stableFrame
         _transientFrames[frame.id] = nil
         

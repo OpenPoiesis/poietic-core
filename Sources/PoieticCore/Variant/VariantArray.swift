@@ -50,7 +50,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
     }
     
     /// Create a variant array from an array of supported types.
-    public init?<T>(any value: [T]) {
+    public init?(any value: [Any]) {
         switch value {
         case let value as [Int]: self = .int(value)
         case let value as [Double]: self = .double(value)
@@ -60,7 +60,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         default: return nil
         }
     }
-    
+
     /// Check whether the array value is convertible to a given value type.
     ///
     /// See ``Variant/isConvertible(to:)`` for more information.

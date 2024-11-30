@@ -22,7 +22,7 @@
 public protocol Predicate: Sendable {
     /// Check whether an object matches the predicate condition.
     ///
-    func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool
+    func match(_ object: DesignObject, in frame: some Frame) -> Bool
 
     /// Creates a compound predicate with the other predicate using a logical ∧ – `and` connective.
     func and(_ predicate: Predicate) -> CompoundPredicate
@@ -85,7 +85,7 @@ public struct CompoundPredicate: Predicate {
         self.predicates = predicates
     }
     
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         switch connective {
         case .and: return predicates.allSatisfy{ $0.match(object, in: frame) }
         case .or: return predicates.contains{ $0.match(object, in: frame) }
@@ -98,7 +98,7 @@ public struct NegationPredicate: Predicate {
     public init(_ predicate: any Predicate) {
         self.predicate = predicate
     }
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         return !predicate.match(object, in: frame)
     }
 }
@@ -109,7 +109,7 @@ public struct AnyPredicate: Predicate {
     
     /// Matches any node – always returns `true`.
     ///
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         return true
     }
 }
@@ -125,7 +125,7 @@ public struct HasComponentPredicate: Predicate {
         self.type = type
     }
 
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         return object.components.has(self.type)
     }
     
@@ -142,7 +142,7 @@ public struct HasTraitPredicate: Predicate {
         self.trait = trait
     }
 
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         object.type.traits.contains { $0 === trait }
     }
     
@@ -164,7 +164,7 @@ public struct IsTypePredicate: Predicate {
         self.types = [type]
     }
     
-    public func match(_ object: some ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         return types.allSatisfy{
             object.type === $0
         }

@@ -19,7 +19,7 @@
 /// - SeeAlso: ``TransientFrame``
 ///
 public final class StableFrame: Frame {
-    public typealias Snapshot = StableObject
+    public typealias Snapshot = DesignObject
     
     /// Design to which the frame belongs.
     public unowned let design: Design
@@ -35,14 +35,14 @@ public final class StableFrame: Frame {
     /// Objects not in the map do not exist in the version plane, but might
     /// exist in the design.
     ///
-    private(set) internal var _snapshots: [ObjectID:StableObject]
+    private(set) internal var _snapshots: [ObjectID:DesignObject]
     
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
     /// - Precondition: Snapshot must not be mutable.
     ///
-    init(design: Design, id: FrameID, snapshots: [StableObject]? = nil) {
+    init(design: Design, id: FrameID, snapshots: [DesignObject]? = nil) {
         self.design = design
         self.id = id
         self._snapshots = [:]
@@ -56,7 +56,7 @@ public final class StableFrame: Frame {
     
     /// Get a list of snapshots.
     ///
-    public var snapshots: [StableObject] {
+    public var snapshots: [DesignObject] {
         return Array(_snapshots.values)
     }
     
@@ -67,7 +67,7 @@ public final class StableFrame: Frame {
         return _snapshots[id] != nil
     }
 
-    public func contains(_ snapshot: StableObject) -> Bool {
+    public func contains(_ snapshot: DesignObject) -> Bool {
         return _snapshots[snapshot.id] === snapshot
     }
 
@@ -75,7 +75,7 @@ public final class StableFrame: Frame {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> StableObject {
+    public func object(_ id: ObjectID) -> DesignObject {
         guard let snapshot = _snapshots[id] else {
             preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }

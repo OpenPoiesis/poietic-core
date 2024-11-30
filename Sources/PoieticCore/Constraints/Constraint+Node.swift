@@ -36,7 +36,7 @@ public final class UniqueNeighbourRequirement: ConstraintRequirement {
         self.isRequired = required
     }
     
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         return objects.filter {
             guard $0.structure.type == .node else {
                 return false

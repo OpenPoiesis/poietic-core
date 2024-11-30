@@ -14,8 +14,11 @@ public enum TransientFrameError: Error {
     ///
     /// Use ``TransientFrame/brokenReferences()`` to investigate.
     ///
-    case brokenReferences
-    case brokenParentChild
+    case brokenEdgeEndpoint
+    case brokenChild
+    case brokenParent
+    case parentChildMismatch
+    case parentChildCycle
     case edgeEndpointNotANode
 }
 
@@ -59,7 +62,6 @@ public enum TransientFrameError: Error {
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
 public final class TransientFrame: Frame {
-    public typealias Snapshot = StableObject
     /// Design with which this frame is associated with.
     ///
     public unowned let design: Design
@@ -88,7 +90,7 @@ public final class TransientFrame: Frame {
     var state: State = .transient
     
     enum TransientReference {
-        case stable(StableObject)
+        case stable(DesignObject)
         case mutable(MutableObject)
 
         public var isMutable: Bool {
@@ -98,10 +100,50 @@ public final class TransientFrame: Frame {
             }
         }
 
-        func asStable() -> StableObject {
+        var parent: ObjectID? {
+            switch self {
+            case let .stable(object): object.parent
+            case let .mutable(object): object.parent
+            }
+        }
+
+        var children: ChildrenSet {
+            switch self {
+            case let .stable(object): object.children
+            case let .mutable(object): object.children
+            }
+        }
+        
+        var structure: Structure {
+            switch self {
+            case let .stable(object): object.structure
+            case let .mutable(object): object.structure
+            }
+        }
+
+        var edgeEndpoints: (ObjectID, ObjectID)? {
+            switch self {
+            case let .stable(object):
+                if case let .edge(origin, target) = object.structure {
+                    return (origin, target)
+                }
+                else {
+                    return nil
+                }
+            case let .mutable(object):
+                if case let .edge(origin, target) = object.structure {
+                    return (origin, target)
+                }
+                else {
+                    return nil
+                }
+            }
+        }
+
+        func asStable() -> DesignObject {
             switch self {
             case let .stable(object): object
-            case let .mutable(object): StableObject(body: object._body, components: object.components)
+            case let .mutable(object): DesignObject(body: object._body, components: object.components)
             }
         }
     }
@@ -126,7 +168,7 @@ public final class TransientFrame: Frame {
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
     ///
-    public var snapshots: [StableObject] {
+    public var snapshots: [DesignObject] {
         objects.values.map { $0.asStable() }
     }
         
@@ -146,7 +188,7 @@ public final class TransientFrame: Frame {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> StableObject {
+    public func object(_ id: ObjectID) -> DesignObject {
         guard let ref = objects[id] else {
             preconditionFailure("Unknown object \(id)")
         }
@@ -155,7 +197,7 @@ public final class TransientFrame: Frame {
    
     /// Get an object version of object with identity `id`.
     ///
-    public subscript(id: ObjectID) -> StableObject {
+    public subscript(id: ObjectID) -> DesignObject {
         get { object(id) }
     }
 
@@ -184,7 +226,7 @@ public final class TransientFrame: Frame {
     ///
     public init(design: Design,
                 id: FrameID,
-                snapshots: [StableObject]? = nil) {
+                snapshots: [DesignObject]? = nil) {
         self.design = design
         self.id = id
         self.objects = [:]
@@ -313,7 +355,7 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
     ///
-    public func insert(_ snapshot: StableObject) {
+    public func insert(_ snapshot: DesignObject) {
         // Check for referential integrity
         
         if case let .edge(origin, target) = snapshot.structure {
@@ -351,7 +393,7 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
-    public func unsafeInsert(_ snapshot: StableObject) {
+    public func unsafeInsert(_ snapshot: DesignObject) {
         precondition(state == .transient)
         precondition(objects[snapshot.id] == nil,
                      "Inserting duplicate object ID \(snapshot.id) to frame \(id)")
@@ -427,74 +469,104 @@ public final class TransientFrame: Frame {
         return removed
     }
     
-    /// Mark the frame as accepted and reject any further modifications.
+    /// Validate structural references.
     ///
-    /// The method validates that:
-    /// - All object references are valid - must exist within the frame
+    /// The method validates structural integrity of objects:
+    ///
+    /// - Edge endpoints must exist within the frame.
     /// - Children-parent relationship must be mutual.
-    /// - No parent cycle.
+    /// - There must be no parent-child cycle.
     ///
-    /// - Returns: List of stable objects. Objects originating elsewhere, not
-    ///   mutated in this frame will be returned as they were. For each new
-    ///   snapshot a new instance is created.
+    /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
+    /// method.
+    ///
+    /// - SeeAlso: ``accept()``, ``Design/accept(_:appendHistory:)``
     /// - Precondition: The frame must be in transient state – must not be
     ///   previously accepted or discarded.
     ///
-    public func accept() throws (TransientFrameError) -> [StableObject] {
+    public func validateStructure() throws (TransientFrameError) {
         // TODO: Check object types and attributes here
         precondition(state == .transient)
 
-        var stable: [ObjectID:StableObject] = [:]
-        for (id, object) in objects {
-            stable[id] = object.asStable()
-        }
-
-        // Integrity checks
-        for (checkedID, checked) in stable {
-            // Check references
-            let broken = checked.structuralReferences.contains { stable[$0] == nil }
-            if broken {
-                throw .brokenReferences
-            }
-
-            for childID in checked.children {
-                guard let child = stable[childID], child.parent == checkedID else {
-                    throw .brokenParentChild
-                }
-            }
-            
-            if let parentID = checked.parent {
-                guard let parent = stable[parentID], parent.children.contains(checkedID) else {
-                    throw .brokenParentChild
-                }
+        var parents: [(parent: ObjectID, child: ObjectID)] = []
         
-                // Parent-child cycle
-                var currentID = parentID
-                var seen: [ObjectID] = [currentID]
-                
-                while let parentID = stable[currentID]!.parent {
-                    if seen.contains(parentID) {
-                        throw .brokenParentChild
-                    }
-                    else {
-                        seen.append(parentID)
-                        currentID = parentID
-                    }
+        // Integrity checks
+        for (checkedID, checked) in self.objects {
+            // Check references
+            if let (origin, target) = checked.edgeEndpoints {
+                guard let origin = objects[origin], let target = objects[target] else {
+                    throw .brokenEdgeEndpoint
                 }
-            }
 
-            // Edges point to nodes
-            if case let .edge(originID, targetID) = checked.structure {
-                let origin = stable[originID]!
-                let target = stable[targetID]!
                 guard origin.structure == .node && target.structure == .node else {
                     throw .edgeEndpointNotANode
                 }
             }
+            
+            for childID in checked.children {
+                guard let child = objects[childID] else {
+                    throw .brokenChild
+                }
+                guard child.parent == checkedID else {
+                    throw .parentChildMismatch
+                }
+            }
+            
+            if let parentID = checked.parent {
+                guard let parent = objects[parentID] else {
+                    throw .brokenParent
+                }
+                guard parent.children.contains(checkedID) else {
+                    throw .parentChildMismatch
+                }
+                parents.append((parent: parentID, child: checkedID))
+            }
         }
 
+        // Map: child -> parent
+
+        let children = Set(parents.map { $0.child })
+        var tops: [ObjectID] = parents.compactMap {
+            if children.contains($0.parent) {
+                nil
+            }
+            else {
+                $0.parent
+            }
+        }
+        
+        while !tops.isEmpty {
+            let topParent = tops.removeFirst()
+            let related = parents.filter { $0.parent == topParent }
+            for (parent, child) in related {
+                parents.removeAll { $0.parent == parent }
+                tops.append(child)
+            }
+        }
+        
+        if !parents.isEmpty {
+            throw .parentChildCycle
+        }
+    }
+    
+    /// Accept objects in the transient frame.
+    ///
+    /// Validates the object structure and returns list of stable design objects if the structure is
+    /// valid. See ``validateStructure()`` for more information about structure validation.
+    ///
+    /// If the structure was valid, the frame will be marked as _accepted_ and will no longer be
+    /// mutable.
+    ///
+    /// - Returns: list of immutable design objects.
+    /// - Precondition: Frame state must be transient.
+    /// - SeeAlso: ``validateStructure()``, ``Design/accept(_:appendHistory:)``
+    ///
+    public func accept() throws (TransientFrameError) -> [DesignObject] {
+        precondition(state == .transient)
+        
+        try validateStructure()
         self.state = .accepted
-        return Array(stable.values)
+        return objects.values.map { $0.asStable() }
     }
     
     /// Mark the frame as discarded and reject any further modifications.

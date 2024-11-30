@@ -54,7 +54,7 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
         }
     }
    
-    public init(_ object: StableObject) {
+    public init(_ object: DesignObject) {
         var systemAttributes: [String:String] = [:]
 
         systemAttributes["id"] = String(object.id)

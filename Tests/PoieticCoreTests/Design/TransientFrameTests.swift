@@ -376,16 +376,32 @@ import Testing
         #expect(refs.contains(40))
     }
     
-    @Test func rejectMissingReferences() throws {
+    @Test func rejectBrokenEdgeEndpoint() throws {
         frame.create(TestEdgeType, id: 10, structure: .edge(900, 901))
-        frame.create(TestType, id: 20, parent: 902, children: [903])
 
-        #expect(frame.brokenReferences().sorted() == [900, 901, 902, 903])
-        
-        #expect(throws: TransientFrameError.self ) {
-            try frame.accept()
+        #expect(frame.brokenReferences().sorted() == [900, 901])
+        #expect(throws: TransientFrameError.brokenEdgeEndpoint) {
+            try frame.validateStructure()
         }
 
+    }
+
+    @Test func rejectMissingParent() throws {
+        frame.create(TestType, id: 20, parent: 902)
+
+        #expect(frame.brokenReferences().sorted() == [902])
+        #expect(throws: TransientFrameError.brokenParent) {
+            try frame.validateStructure()
+        }
+    }
+
+    @Test func rejectMissingChild() throws {
+        frame.create(TestType, id: 20, children: [903])
+
+        #expect(frame.brokenReferences().sorted() == [903])
+        #expect(throws: TransientFrameError.brokenChild) {
+            try frame.validateStructure()
+        }
     }
 
     @Test func rejectBrokenParentChild() throws {
@@ -394,12 +410,12 @@ import Testing
         frame.create(TestType, id: 30)
 
         #expect {
-            try frame.accept()
+            try frame.validateStructure()
         } throws: {
             guard let error = $0 as? TransientFrameError else {
                 return false
             }
-            return error == .brokenParentChild
+            return error == .parentChildMismatch
         }
     }
     
@@ -408,12 +424,12 @@ import Testing
         frame.create(TestType, id: 30)
 
         #expect {
-            try frame.accept()
+            try frame.validateStructure()
         } throws: {
             guard let error = $0 as? TransientFrameError else {
                 return false
             }
-            return error == .brokenParentChild
+            return error == .parentChildMismatch
         }
     }
 
@@ -422,12 +438,12 @@ import Testing
         frame.create(TestType, id: 30, parent: 10, children: [10])
 
         #expect{
-            try frame.accept()
+            try frame.validateStructure()
         } throws: {
             guard let error = $0 as? TransientFrameError else {
                 return false
             }
-            return error == .brokenParentChild
+            return error == .parentChildCycle
         }
 
     }
@@ -437,7 +453,7 @@ import Testing
         frame.create(TestType, id: 20)
 
         #expect {
-            try frame.accept()
+            try frame.validateStructure()
         } throws: {
             guard let error = $0 as? TransientFrameError else {
                 return false

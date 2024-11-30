@@ -26,21 +26,6 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
         return snapshot
     }
                      
-    /// Convenience method to create an edge.
-    ///
-    /// If the object name is provided, then attribute `name` of the
-    /// object is set. Replaces `name` attribute in the `attributes` dictionary.
-    ///
-    /// - SeeAlso: ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
-    @discardableResult
-    public func createEdge(_ type: ObjectType,
-                           origin: any ObjectSnapshot,
-                           target: any ObjectSnapshot,
-                           attributes: [String:Variant] = [:]) -> MutableObject {
-        return createEdge(type, origin: origin.id, target: target.id, attributes: attributes)
-    }
-   
-    
     /// Convenience method to a new node.
     ///
     /// - Parameters:

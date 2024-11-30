@@ -131,7 +131,7 @@ public final class Constraint: Sendable {
 ///
 public protocol ConstraintRequirement: Sendable {
     /// - Returns: List of IDs of objects that do not satisfy the requirement.
-    func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID]
+    func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID]
 }
 
 /// Requirement that all matched objects satisfy a given predicate.
@@ -145,7 +145,7 @@ public final class AllSatisfy: ConstraintRequirement {
         self.predicate = predicate
     }
 
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         objects.filter { !predicate.match($0, in: frame) }
             .map { $0.id }
     }
@@ -165,7 +165,7 @@ public final class RejectAll: ConstraintRequirement {
     /// Returns all objects it is provided – meaning, that all of them are
     /// violating the constraint.
     ///
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         /// We reject whatever comes in
         return objects.map { $0.id }
     }
@@ -184,7 +184,7 @@ public final class AcceptAll: ConstraintRequirement {
     /// Returns an empty list, meaning that none of the objects are violating
     /// the constraint.
     ///
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         // We accept everything, therefore we do not return any violations.
         return []
     }
@@ -209,7 +209,7 @@ public final class UniqueProperty: ConstraintRequirement {
     /// value from each of the objects and returns a list of those objects
     /// that have duplicate values.
     /// 
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         var seen: [Variant:[ObjectID]] = [:]
         
         for object in objects {

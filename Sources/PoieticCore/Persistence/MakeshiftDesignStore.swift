@@ -101,7 +101,7 @@ public class MakeshiftDesignStore {
 
         // 1. Read Snapshots
         // ----------------------------------------------------------------
-        var snapshots: [SnapshotID: StableObject] = [:]
+        var snapshots: [SnapshotID: DesignObject] = [:]
 
         for perSnapshot in persistent.snapshots {
             guard let type = metamodel.objectType(name: perSnapshot.type) else {
@@ -147,7 +147,7 @@ public class MakeshiftDesignStore {
                 structure = .edge(ObjectID(origin), ObjectID(target))
             }
 
-            let snapshot = StableObject(id: perSnapshot.id,
+            let snapshot = DesignObject(id: perSnapshot.id,
                                           snapshotID: perSnapshot.snapshotID,
                                           type: type,
                                           structure: structure,
@@ -220,7 +220,7 @@ public class MakeshiftDesignStore {
         var snapshots: [_PersistentSnapshot] = []
         var frames: [_PersistentFrame] = []
         
-        for snapshot in design.validatedSnapshots {
+        for snapshot in design.validatedObjects {
             let origin: ObjectID?
             let target: ObjectID?
             switch snapshot.structure {

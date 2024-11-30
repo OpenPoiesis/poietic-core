@@ -39,7 +39,7 @@ public final class EdgeEndpointRequirement: ConstraintRequirement {
         self.edge = edge
     }
     
-    public func check(frame: some Frame, objects: [some ObjectSnapshot]) -> [ObjectID] {
+    public func check(frame: some Frame, objects: [DesignObject]) -> [ObjectID] {
         var violations: [ObjectID] = []
         
         for object in objects {

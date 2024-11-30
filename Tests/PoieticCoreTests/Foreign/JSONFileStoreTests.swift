@@ -60,8 +60,8 @@ final class JSONFileStoreTests: XCTestCase {
                                 attributes: [:],
                                 components: [IntegerComponent(value: 30)])
         
-        frame.createEdge(TestMetamodel["Arrow"]!, origin: source, target: flow)
-        frame.createEdge(TestMetamodel["Arrow"]!, origin: flow, target: sink)
+        frame.createEdge(TestMetamodel["Arrow"]!, origin: source.id, target: flow.id)
+        frame.createEdge(TestMetamodel["Arrow"]!, origin: flow.id, target: sink.id)
         do {
             try db.accept(frame)
         }

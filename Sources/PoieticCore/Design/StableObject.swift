@@ -1,5 +1,5 @@
 //
-//  StableObject.swift
+//  DesignObject.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 11/11/2024.
@@ -59,7 +59,7 @@ package struct _ObjectBody {
 /// ```swift
 /// let design: Design // Let's assume we have this
 ///
-/// let snapshot = StableObject(id: design.allocateID(),
+/// let snapshot = DesignObject(id: design.allocateID(),
 ///                             snapshotID: design.allocateID(),
 ///                             type: ObjectType.Node)
 ///
@@ -72,7 +72,7 @@ package struct _ObjectBody {
 ///
 /// - SeeAlso: ``StableFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
-public final class StableObject: ObjectSnapshot, CustomStringConvertible {
+public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     @usableFromInline
     let _body: _ObjectBody
     public var components: ComponentSet
