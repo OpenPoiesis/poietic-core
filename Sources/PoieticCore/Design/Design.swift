@@ -23,13 +23,13 @@
 /// all its versions – snapshots. Within a frame, the object ID is unique.
 ///
 /// The design distinguishes between two states of a version frame:
-/// ``StableFrame`` – immutable version snapshot of a frame, that is guaranteed
+/// ``DesignFrame`` – immutable version snapshot of a frame, that is guaranteed
 /// to be valid and follow all required constraints. The ``TransientFrame``
 /// represents a transactional frame, which is "under construction" and does
 /// not have yet to maintain integrity. The integrity is enforced once the
 /// frame is accepted using ``Design/accept(_:appendHistory:)``.
 ///
-/// ``StableFrame``s can not be mutated, neither any of the object snapshots
+/// ``DesignFrame``s can not be mutated, neither any of the object snapshots
 /// associated with the frame. They are guaranteed to follow requirements of
 /// the metamodel. They are persisted.
 ///
@@ -79,9 +79,6 @@
 ///
 /// ## Garbage Collection
 ///
-/// - ToDo: Garbage collection is not yet implemented. This is just a description
-///   how it is expected to work.
-///
 /// The design keeps only those object snapshots which are contained in frames,
 /// be it a transient frame or a stable frame. If a frame is removed, all objects
 /// that are referred to only by that frame and no other frame, are removed
@@ -92,10 +89,7 @@
 ///   accepted frames are not immediately put into a single historical
 ///   timeline and they might organised into different arrangements. "Rollback"
 ///   would not make sense, since there might be nothing to go back from, if
-///   we are not appending the frame to a history timeline. Moreover,
-///   the mutable frame can be used in an editing session (such as drag/drop
-///   session), which is something like a "live transaction".
-///
+///   we are not appending the frame to a history timeline.
 ///
 public class Design {
     /// Meta-model that the design conforms to.
@@ -117,7 +111,7 @@ public class Design {
 
     var _snapshots: [SnapshotID: DesignObject]
     var _refCount: [SnapshotID:Int]
-    var _stableFrames: [FrameID: StableFrame]
+    var _stableFrames: [FrameID: DesignFrame]
 
     var _transientFrames: [FrameID: TransientFrame]
     
@@ -141,7 +135,7 @@ public class Design {
     /// - Note: It is a programming error to get current frame when there is no
     ///         history.
     ///
-    public var currentFrame: StableFrame? {
+    public var currentFrame: DesignFrame? {
         if let currentFrameID {
             return _stableFrames[currentFrameID]
         }
@@ -239,7 +233,7 @@ public class Design {
     
     /// List of all stable frames in the design.
     ///
-    public var frames: [StableFrame] {
+    public var frames: [DesignFrame] {
         return Array(_stableFrames.values)
     }
     
@@ -248,7 +242,7 @@ public class Design {
     /// - Returns: A frame ID if the design contains a stable frame with given
     ///   ID or `nil` when there is no such stable frame.
     ///
-    public func frame(_ id: FrameID) -> StableFrame? {
+    public func frame(_ id: FrameID) -> DesignFrame? {
         return _stableFrames[id]
     }
     
@@ -279,7 +273,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(deriving original: StableFrame? = nil,
+    public func createFrame(deriving original: DesignFrame? = nil,
                             id: FrameID? = nil) -> TransientFrame {
         let actualID = allocateID(required: id)
         
@@ -394,7 +388,7 @@ public class Design {
     ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> StableFrame {
+    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> DesignFrame {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
@@ -414,7 +408,7 @@ public class Design {
                                        brokenReferences: frame.brokenReferences())
         }
         
-        let stableFrame = StableFrame(design: self,
+        let stableFrame = DesignFrame(design: self,
                                       id: frame.id,
                                       snapshots: snapshots)
 

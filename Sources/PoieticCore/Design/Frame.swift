@@ -8,7 +8,7 @@
 /// Protocol for version frames.
 ///
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
-/// ``StableFrame``
+/// ``DesignFrame``
 ///
 public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObject<DesignObject> {
     /// Design to which the frame belongs.

@@ -10,7 +10,7 @@ import Testing
 
 @Suite struct PredicateTest {
     let design: Design
-    let frame: StableFrame
+    let frame: DesignFrame
     let empty: DesignObject
     let textObject: DesignObject
 
@@ -20,7 +20,7 @@ import Testing
         empty = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestType)
         textObject = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestTypeWithDefault)
         
-        frame = StableFrame(design: design,
+        frame = DesignFrame(design: design,
                             id: design.allocateID(),
                             snapshots: [empty, textObject]
         )

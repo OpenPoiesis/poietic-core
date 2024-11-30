@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
-/// Stable design frame that can not be mutated.
+/// Design frame that has been accepted and can not be changed.
 ///
 /// The stable frame is a collection of object versions that together represent
 /// a version snapshot of a design. The frame is immutable.
@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class StableFrame: Frame {
+public final class DesignFrame: Frame {
     public typealias Snapshot = DesignObject
     
     /// Design to which the frame belongs.

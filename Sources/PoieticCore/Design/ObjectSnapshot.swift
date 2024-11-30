@@ -46,7 +46,7 @@ public typealias FrameID = ID
 /// The different representations that the object might be in are:
 ///
 /// - ``DesignObject``: Object that has been validated and can not be modified.
-///   They are the items of a``StableFrame`` and can be shared by multiple frames.
+///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
 /// - ``MutableObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``DesignObject`` when valid.
 /// - ``TransientObject``: Rather a wrapper over an object that belongs to a

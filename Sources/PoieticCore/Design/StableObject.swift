@@ -70,7 +70,7 @@ package struct _ObjectBody {
 /// or to derive versions using ``TransientFrame/mutate(_:)`` then turn the
 /// mutable objects into stable objects using ``TransientFrame/accept()``.
 ///
-/// - SeeAlso: ``StableFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
+/// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
 public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     @usableFromInline
