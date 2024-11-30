@@ -59,7 +59,7 @@ public enum TransientFrameError: Error {
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
 public final class TransientFrame: Frame {
-    public typealias Snapshot = TransientObject
+    public typealias Snapshot = StableObject
     /// Design with which this frame is associated with.
     ///
     public unowned let design: Design
@@ -87,26 +87,26 @@ public final class TransientFrame: Frame {
     ///
     var state: State = .transient
     
-    public enum WrappedSnapshot {
-        case original(StableObject)
-        case transient(MutableObject)
-        
-        public var isTransient: Bool {
+    enum TransientReference {
+        case stable(StableObject)
+        case mutable(MutableObject)
+
+        public var isMutable: Bool {
             switch self {
-            case .original(_): false
-            case .transient(_): true
+            case .stable(_): false
+            case .mutable(_): true
             }
         }
 
-        public var unwrapped: any ObjectSnapshot {
+        func asStable() -> StableObject {
             switch self {
-            case .original(let obj): return obj
-            case .transient(let obj): return obj
+            case let .stable(object): object
+            case let .mutable(object): StableObject(body: object._body, components: object.components)
             }
         }
     }
     
-    var objects: [ObjectID:WrappedSnapshot]
+    var objects: [ObjectID:TransientReference]
     
     /// Cache of snapshot IDs used to verify unique ownership
     ///
@@ -126,56 +126,43 @@ public final class TransientFrame: Frame {
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
     ///
-    public var snapshots: [TransientObject] {
-        return objects.keys.map { TransientObject(frame: self, id: $0) }
+    public var snapshots: [StableObject] {
+        objects.values.map { $0.asStable() }
     }
-    
-    func transientSnapshot(_ id: ObjectID) -> WrappedSnapshot? {
-        return objects[id]
-    }
-    
+        
     /// Returns `true` if the frame contains an object with given object ID.
     ///
     public func contains(_ id: ObjectID) -> Bool {
         return self.objects[id] != nil
     }
-    
-    @available(*, deprecated, message: "Do not use, use ID version")
-    public func contains(_ snapshot: TransientObject) -> Bool {
-        return self.objects[snapshot.id] != nil
-    }
 
-    public func contains(_ snapshot: MutableObject) -> Bool {
-        if case let .transient(object) = objects[snapshot.id] {
-            return object === snapshot
-        }
-        else {
-            return false
-        }
-    }
-
-    
-    /// Get stable version of an object with identity `id`.
+    /// Get an object with identity `id`.
+    ///
+    /// Returns an object in its mutation state as it was a the time of the call. If the requested
+    /// object was not mutated at the time of the call, but was mutated later, then returned value
+    /// still refers to the original object.
+    ///
+    /// - Returns: Transient object in a state at the time of the call.
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> TransientObject {
-        precondition(objects[id] != nil)
-        return TransientObject(frame: self, id: id)
+    public func object(_ id: ObjectID) -> StableObject {
+        guard let ref = objects[id] else {
+            preconditionFailure("Unknown object \(id)")
+        }
+        return ref.asStable()
     }
    
     /// Get an object version of object with identity `id`.
     ///
-    public subscript(id: ObjectID) -> TransientObject {
-        get {
-            return object(id)
-        }
+    public subscript(id: ObjectID) -> StableObject {
+        get { object(id) }
     }
 
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
         (!removedObjects.isEmpty
-         || objects.values.contains(where: {$0.isTransient} ) )
+         || objects.values.contains(where: {$0.isMutable} ) )
     }
     
     /// Create a new mutable frame.
@@ -206,8 +193,7 @@ public final class TransientFrame: Frame {
         
         if let snapshots {
             for snapshot in snapshots {
-                let ref = WrappedSnapshot.original(snapshot)
-                self.objects[snapshot.id] = ref
+                self.objects[snapshot.id] = TransientReference.stable(snapshot)
                 self.snapshotIDs.insert(snapshot.snapshotID)
                 originals.insert(snapshot.id)
             }
@@ -300,7 +286,7 @@ public final class TransientFrame: Frame {
                                       attributes: actualAttributes,
                                       components: components)
         
-        self.objects[actualID] = .transient(snapshot)
+        self.objects[actualID] = .mutable(snapshot)
         self.snapshotIDs.insert(actualSnapshotID)
         self.removedObjects.remove(actualID)
 
@@ -372,7 +358,7 @@ public final class TransientFrame: Frame {
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
                      "Inserting duplicate snapshot ID \(snapshot.id) to frame \(id)")
 
-        objects[snapshot.id] = WrappedSnapshot.original(snapshot)
+        objects[snapshot.id] = .stable(snapshot)
         snapshotIDs.insert(snapshot.snapshotID)
         
         if originalIDs.contains(snapshot.id) {
@@ -409,7 +395,7 @@ public final class TransientFrame: Frame {
 
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
-            let garbage = objects[garbageID]!.unwrapped
+            let garbage = objects[garbageID]!.asStable()
 
             objects[garbage.id] = nil
             snapshotIDs.remove(garbage.snapshotID)
@@ -422,7 +408,7 @@ public final class TransientFrame: Frame {
             
             if let parentID = garbage.parent, !removed.contains(parentID) {
                 let parent = mutate(parentID)
-                parent.children.remove(garbageID)
+                parent.removeChild(garbageID)
             }
             for child in garbage.children where !removed.contains(child) {
                 scheduled.insert(child)
@@ -458,33 +444,35 @@ public final class TransientFrame: Frame {
         // TODO: Check object types and attributes here
         precondition(state == .transient)
 
+        var stable: [ObjectID:StableObject] = [:]
+        for (id, object) in objects {
+            stable[id] = object.asStable()
+        }
+
         // Integrity checks
-        for snapshot in snapshots {
+        for (checkedID, checked) in stable {
             // Check references
-            let broken = snapshot.structuralReferences.contains { objects[$0] == nil }
+            let broken = checked.structuralReferences.contains { stable[$0] == nil }
             if broken {
                 throw .brokenReferences
             }
 
-            for childID in snapshot.children {
-                let child = objects[childID]!
-                guard child.unwrapped.parent == snapshot.id else {
+            for childID in checked.children {
+                guard let child = stable[childID], child.parent == checkedID else {
                     throw .brokenParentChild
                 }
             }
             
-            if let parentID = snapshot.parent {
-                let parent = objects[parentID]!
-                guard parent.unwrapped.children.contains(snapshot.id) else {
+            if let parentID = checked.parent {
+                guard let parent = stable[parentID], parent.children.contains(checkedID) else {
                     throw .brokenParentChild
                 }
-            }
         
-            // Parent-child cycle
-            if var currentID = snapshot.parent {
+                // Parent-child cycle
+                var currentID = parentID
                 var seen: [ObjectID] = [currentID]
                 
-                while let parentID = objects[currentID]!.unwrapped.parent {
+                while let parentID = stable[currentID]!.parent {
                     if seen.contains(parentID) {
                         throw .brokenParentChild
                     }
@@ -496,23 +484,17 @@ public final class TransientFrame: Frame {
             }
 
             // Edges point to nodes
-            if case let .edge(originID, targetID) = snapshot.structure {
-                let (origin, target) = (objects[originID]!, objects[targetID]!)
-                guard origin.unwrapped.structure == .node
-                        && target.unwrapped.structure == .node else {
+            if case let .edge(originID, targetID) = checked.structure {
+                let origin = stable[originID]!
+                let target = stable[targetID]!
+                guard origin.structure == .node && target.structure == .node else {
                     throw .edgeEndpointNotANode
                 }
             }
         }
 
-        let stable: [StableObject] = objects.values.map { ref in
-            switch ref {
-            case let .transient(trans): StableObject(trans)
-            case let .original(original): original
-            }
-        }
         self.state = .accepted
-        return stable
+        return Array(stable.values)
     }
     
     /// Mark the frame as discarded and reject any further modifications.
@@ -548,20 +530,20 @@ public final class TransientFrame: Frame {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
         switch current {
-        case .transient(let trans):
+        case .mutable(let trans):
             return trans
-        case .original(let original):
+        case .stable(let original):
             let derivedSnapshotID: SnapshotID = design.allocateID()
             let derived = MutableObject(id: original.id,
-                                          snapshotID: derivedSnapshotID,
-                                          type: original.type,
-                                          structure: original.structure,
-                                          parent: original.parent,
-                                          children: original.children.items,
-                                          attributes: original.attributes,
-                                          components: original.components.components)
+                                        snapshotID: derivedSnapshotID,
+                                        type: original.type,
+                                        structure: original.structure,
+                                        parent: original.parent,
+                                        children: original.children.items,
+                                        attributes: original.attributes,
+                                        components: original.components.components)
 
-            self.objects[id] = .transient(derived)
+            self.objects[id] = .mutable(derived)
             self.snapshotIDs.remove(original.snapshotID)
             self.snapshotIDs.insert(derived.snapshotID)
 
@@ -578,8 +560,8 @@ public final class TransientFrame: Frame {
             preconditionFailure("Frame \(self.id) has no object \(id)")
         }
         switch ref {
-        case .original(_): return false
-        case .transient(_): return true
+        case .stable(_): return false
+        case .mutable(_): return true
         }
     }
     
@@ -606,7 +588,7 @@ public final class TransientFrame: Frame {
         precondition(child.parent == nil)
         
         child.parent = parentID
-        parent.children.add(childID)
+        parent.addChild(childID)
     }
     
     /// Remove an object `childID` from parent `parentID`.
@@ -631,7 +613,7 @@ public final class TransientFrame: Frame {
         precondition(child.parent == parentID)
         precondition(parent.children.contains(childID))
 
-        parent.children.remove(childID)
+        parent.removeChild(childID)
         child.parent = nil
     }
     
@@ -653,11 +635,11 @@ public final class TransientFrame: Frame {
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
         let child = mutate(childID)
         if let originalParentID = child.parent {
-            mutate(originalParentID).children.remove(childID)
+            mutate(originalParentID).removeChild(childID)
         }
         child.parent = parentID
         if let parentID {
-            mutate(parentID).children.add(childID)
+            mutate(parentID).addChild(childID)
         }
     }
     
@@ -687,7 +669,7 @@ public final class TransientFrame: Frame {
             return
         }
         
-        mutate(parentID).children.remove(childID)
+        mutate(parentID).removeChild(childID)
         mutate(childID).parent = nil
     }
 }

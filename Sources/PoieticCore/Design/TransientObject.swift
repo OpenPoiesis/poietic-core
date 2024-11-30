@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
+
 // TODO: Find a better home
 // TODO: Use some special pattern, such as "__" prefix or "%"
 /// List of attribute names that are reserved and should not be used.
@@ -25,15 +26,10 @@ public let ReservedAttributeNames = [
 /// - SeeAlso: ``TransientFrame``
 ///
 public class MutableObject: ObjectSnapshot {
-    public let id: ObjectID
-    public let snapshotID: ObjectID
-    public let type: ObjectType
-    public var structure: Structure
-    public var attributes: [String:Variant]
-    public var parent: ObjectID?
-    public var children: ChildrenSet
+    @usableFromInline
+    package var _body: _ObjectBody
     public var components: ComponentSet
-    
+
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
                 type: ObjectType,
@@ -45,17 +41,36 @@ public class MutableObject: ObjectSnapshot {
         precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
         
-        self.id = id
-        self.snapshotID = snapshotID
-        self.type = type
-        self.structure = structure
-        self.attributes = attributes
+        self._body = _ObjectBody(id: id,
+                                 snapshotID: snapshotID,
+                                 type: type,
+                                 structure: structure,
+                                 parent: parent,
+                                 children: children,
+                                 attributes: attributes)
         self.components = ComponentSet(components)
-        self.parent = parent
-        self.children = ChildrenSet(children)
     }
-    
-    
+
+    init(body: _ObjectBody, components: ComponentSet) {
+        self._body = body
+        self.components = components
+    }
+   
+    @inlinable public var id: ObjectID { _body.id }
+    @inlinable public var snapshotID: ObjectID { _body.snapshotID }
+    @inlinable public var type: ObjectType { _body.type }
+    @inlinable public var structure: Structure {
+        get { _body.structure }
+        set(structure) { _body.structure = structure }
+        
+    }
+    @inlinable public var parent: ObjectID? {
+        get { _body.parent }
+        set(parent) { _body.parent = parent }
+    }
+    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var attributes: [String:Variant] { _body.attributes }
+
     /// Get a value for an attribute.
     ///
     /// The function returns a foreign value for a given attribute from
@@ -63,7 +78,7 @@ public class MutableObject: ObjectSnapshot {
     ///
     /// The special snapshot attributes are:
     /// - `"id"` – object ID of the snapshot
-    /// - `"snapshotID"` – ID of object version snapshot
+    /// - `"snapshot_id"` – ID of object version snapshot
     /// - `"type"` – name of the object type, see ``ObjectType/name``
     /// - `"structure"` – name of the structural type of the object
     ///
@@ -109,11 +124,11 @@ public class MutableObject: ObjectSnapshot {
     public func setAttribute(value: Variant, forKey key: String) {
         precondition(ReservedAttributeNames.firstIndex(of: "key") == nil,
                      "Trying to set a reserved read-only attribute '\(key)'")
-        attributes[key] = value
+        _body.attributes[key] = value
     }
     
     public func removeAttribute(forKey key: String) {
-        attributes[key] = nil
+        _body.attributes[key] = nil
     }
 
     public subscript<T>(componentType: T.Type) -> T? where T : Component {
@@ -124,61 +139,12 @@ public class MutableObject: ObjectSnapshot {
             components[componentType] = component
         }
     }
-
-}
-
-// MARK: - Transient Object
-
-/// A wrapper for for an object in a transient frame.
-///
-/// The transient object refers to one of two possible target objects: original
-/// stable snapshot or a mutable snapshot in a ``TransientFrame``.
-///
-/// - SeeAlso: ``MutableObject``
-///
-public struct TransientObject: ObjectSnapshot {
-    let frame: TransientFrame
-    public let id: ObjectID
-
-    public var snapshotID: SnapshotID { snapshot.snapshotID }
-    public var type: ObjectType { snapshot.type }
-    public var structure: Structure { snapshot.structure }
-    public var parent: ObjectID? { snapshot.parent }
-    public var children: ChildrenSet { snapshot.children }
-    public var components: ComponentSet { snapshot.components }
-
-    var snapshot: any ObjectSnapshot {
-        guard let wrapped = frame.transientSnapshot(id) else {
-            fatalError("Can not get transient snapshot \(id) in frame \(frame.id)")
-        }
-        return wrapped.unwrapped
+    public func removeChild(_ child: ObjectID) {
+        _body.children.remove(child)
     }
-    
-    public init(frame: TransientFrame, id: ObjectID) {
-        self.frame = frame
-        self.id = id
+    public func addChild(_ child: ObjectID) {
+        _body.children.add(child)
     }
 
-    public subscript(key: String) -> (Variant)? {
-        get {
-            attribute(forKey: key)
-        }
-    }
-    
-    public func attribute(forKey key: String) -> Variant? {
-        snapshot[key]
-    }
-
-    public var attributeKeys: [AttributeKey] {
-        return Array(snapshot.attributeKeys)
-    }
-    
-    
-
-    public subscript<T>(componentType: T.Type) -> T? where T : Component {
-        get {
-            return snapshot[componentType]
-        }
-    }
 
 }

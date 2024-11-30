@@ -10,8 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``StableFrame``
 ///
-public protocol Frame: GraphProtocol where Node == Snapshot, Edge == EdgeSnapshot {
-    associatedtype Snapshot: ObjectSnapshot
+public protocol Frame: GraphProtocol where Node == StableObject, Edge == EdgeObject<StableObject> {
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -19,23 +18,22 @@ public protocol Frame: GraphProtocol where Node == Snapshot, Edge == EdgeSnapsho
     
     /// Get a list of all snapshots in the frame.
     ///
-    var snapshots: [Snapshot] { get }
+    var snapshots: [StableObject] { get }
 
     /// Check whether the frame contains an object with given ID.
     ///
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
     ///
     func contains(_ id: ObjectID) -> Bool
-    func contains(_ snapshot: Snapshot) -> Bool
 
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    func object(_ id: ObjectID) -> Snapshot
+    func object(_ id: ObjectID) -> StableObject
     
     /// Get an object by an ID.
     ///
-    subscript(id: ObjectID) -> Snapshot { get }
+    subscript(id: ObjectID) -> StableObject { get }
 
     
     /// Asserts that the frame satisfies the given constraint. Raises a
@@ -48,13 +46,13 @@ public protocol Frame: GraphProtocol where Node == Snapshot, Edge == EdgeSnapsho
 
     func hasReferentialIntegrity() -> Bool
     
-    func filter(type: ObjectType) -> [Snapshot]
+    func filter(type: ObjectType) -> [StableObject]
 }
 
 // MARK: - Default Implementations
 
 extension Frame {
-    public subscript(id: ObjectID) -> Snapshot {
+    public subscript(id: ObjectID) -> StableObject {
         get {
             self.object(id)
         }
@@ -124,7 +122,7 @@ extension Frame {
     /// - SeeAlso: ``Frame/brokenReferences()``,
     ///     ``Frame/hasReferentialIntegrity()``
     ///
-    public func brokenReferences(snapshot: Snapshot) -> [ObjectID] {
+    public func brokenReferences(snapshot: StableObject) -> [ObjectID] {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame
         //
         var broken: Set<ObjectID> = []
@@ -170,7 +168,7 @@ extension Frame {
     /// This method is used to find singleton objects, for example
     /// design info object.
     ///
-    public func first(type: ObjectType) -> Snapshot? {
+    public func first(type: ObjectType) -> StableObject? {
         return snapshots.first { $0.type === type }
     }
 
@@ -179,7 +177,7 @@ extension Frame {
     /// - Note: The type is compared for identity, that means that the snapshots
     /// must have exactly the provided object type instance associated.
     ///
-    public func filter(type: ObjectType) -> [Snapshot] {
+    public func filter(type: ObjectType) -> [StableObject] {
         return snapshots.filter { $0.type === type }
     }
     
@@ -191,7 +189,7 @@ extension Frame {
     ///   matching the filter must have exactly the provided trait associated
     ///   with the object's type.
     ///
-    public func filter(trait: Trait) -> [Snapshot] {
+    public func filter(trait: Trait) -> [StableObject] {
         return snapshots.filter {
             $0.type.traits.contains { $0 === trait }
         }
@@ -199,7 +197,7 @@ extension Frame {
 
     /// Filter objects by a closure.
     /// 
-    public func filter(_ test: (Snapshot) -> Bool) -> [Snapshot] {
+    public func filter(_ test: (StableObject) -> Bool) -> [StableObject] {
         return snapshots.filter(test)
     }
 
@@ -208,7 +206,7 @@ extension Frame {
     /// If multiple objects satisfy the condition, then which one is
     /// returned is undefined.
     ///
-    public func first(where predicate: (Snapshot) -> Bool) -> Snapshot? {
+    public func first(where predicate: (StableObject) -> Bool) -> StableObject? {
         return snapshots.first(where: predicate)
     }
 
@@ -219,7 +217,7 @@ extension Frame {
     ///
     /// Use this only for traits of singletons.
     ///
-    public func first(trait: Trait) -> Snapshot? {
+    public func first(trait: Trait) -> StableObject? {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
 
@@ -234,7 +232,7 @@ extension Frame {
         }
     }
 
-    public func filter(_ predicate: Predicate) -> [Snapshot] {
+    public func filter(_ predicate: Predicate) -> [StableObject] {
         return snapshots.filter {
             predicate.match($0, in: self)
         }
@@ -300,7 +298,7 @@ extension Frame {
     }
     
     /// Get list of objects that have no parent.
-    public func top() -> [Snapshot] {
+    public func top() -> [StableObject] {
         self.filter { $0.parent == nil }
     }
 }
@@ -321,7 +319,7 @@ extension Frame {
     ///   with the given name exists.
     ///
     ///
-    public func object(named name: String) -> Snapshot? {
+    public func object(named name: String) -> StableObject? {
         return snapshots.first { $0.name == name }
     }
     
@@ -335,7 +333,7 @@ extension Frame {
     /// calls to the method with the same name do not guarantee that
     /// the same object will be returned if multiple objects have the same name.
     ///
-    public func object(stringReference: String) -> Snapshot? {
+    public func object(stringReference: String) -> StableObject? {
         if let id = ObjectID(stringReference), contains(id) {
             return self[id]
         }

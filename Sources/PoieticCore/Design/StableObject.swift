@@ -5,6 +5,38 @@
 //  Created by Stefan Urbanek on 11/11/2024.
 //
 
+
+@usableFromInline
+package struct _ObjectBody {
+    // Identity
+    public let snapshotID: SnapshotID
+    public let id: ObjectID
+    public let type: ObjectType
+    
+    // State
+    public var structure: Structure
+    public var parent: ObjectID?
+    public var children: ChildrenSet
+    public var attributes: [String:Variant]
+    
+    public init(id: ObjectID,
+                snapshotID: SnapshotID,
+                type: ObjectType,
+                structure: Structure,
+                parent: ObjectID?,
+                children: [ObjectID],
+                attributes: [String:Variant]) {
+        self.id = id
+        self.snapshotID = snapshotID
+        self.type = type
+        self.structure = structure
+        self.parent = parent
+
+        self.attributes = attributes
+        self.children = ChildrenSet(children)
+    }
+}
+
 /// Version snapshot of a design object.
 ///
 /// This is the primary design entity. Stable objects can be shared between
@@ -41,27 +73,10 @@
 /// - SeeAlso: ``StableFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
 public final class StableObject: ObjectSnapshot, CustomStringConvertible {
-
-    public let snapshotID: SnapshotID
-    public let id: ObjectID
-    public let type: ObjectType
-    public let structure: Structure
-    public let parent: ObjectID?
-    public let children: ChildrenSet
-
-    public private(set) var attributes: [String:Variant]
+    @usableFromInline
+    let _body: _ObjectBody
     public var components: ComponentSet
-    
-    /// List of components where their attributes can be retrieved
-    /// or set by their names.
-    ///
-    public var inspectableComponents: [any InspectableComponent] {
-        components.compactMap {
-            $0 as? InspectableComponent
-        }
-    }
-    
-    
+
     /// Create a stable object.
     ///
     /// - Parameters:
@@ -89,31 +104,28 @@ public final class StableObject: ObjectSnapshot, CustomStringConvertible {
         precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
         
-        self.id = id
-        self.snapshotID = snapshotID
-        self.type = type
-        self.structure = structure
-        self.parent = parent
-
-        self.attributes = attributes
+        self._body = _ObjectBody(id: id,
+                                 snapshotID: snapshotID,
+                                 type: type,
+                                 structure: structure,
+                                 parent: parent,
+                                 children: children,
+                                 attributes: attributes)
         self.components = ComponentSet(components)
-        self.children = ChildrenSet(children)
     }
     
-    /// Create a stable object from a mutable object.
-    ///
-    /// - SeeAlso: ``init(id:snapshotID:type:structure:parent:children:attributes:components:)``
-    ///
-    public convenience init(_ object: MutableObject) {
-        self.init(id: object.id,
-                  snapshotID: object.snapshotID,
-                  type: object.type,
-                  structure: object.structure,
-                  parent: object.parent,
-                  children: object.children.items,
-                  attributes: object.attributes,
-                  components: object.components.components)
+    init(body: _ObjectBody, components: ComponentSet) {
+        self._body = body
+        self.components = components
     }
+    
+    @inlinable public var id: ObjectID { _body.id }
+    @inlinable public var snapshotID: ObjectID { _body.snapshotID }
+    @inlinable public var type: ObjectType { _body.type }
+    @inlinable public var structure: Structure { _body.structure }
+    @inlinable public var parent: ObjectID? { _body.parent }
+    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Textual description of the object.
     ///
@@ -180,13 +192,12 @@ public final class StableObject: ObjectSnapshot, CustomStringConvertible {
         case "snapshot_id": Variant(String(snapshotID))
         case "type": Variant(type.name)
         case "structure": Variant(structure.type.rawValue)
-        default: attributes[key]
+        default: _body.attributes[key]
         }
     }
     
     @inlinable
     public var attributeKeys: [AttributeKey] {
-        return attributes.keys.map { $0 }
+        return _body.attributes.keys.map { $0 }
     }
-
 }

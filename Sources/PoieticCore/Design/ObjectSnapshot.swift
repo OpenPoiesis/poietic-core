@@ -252,13 +252,13 @@ extension ObjectSnapshot {
 // TODO: Find a more descriptive name.
 /// Wrapper of an object snapshot presented as an edge.
 ///
-public struct EdgeSnapshot: EdgeProtocol {
+public struct EdgeObject<Snapshot: ObjectSnapshot>: EdgeProtocol {
     public typealias NodeID = ObjectID
-    public let snapshot: any ObjectSnapshot
+    public let snapshot: Snapshot
     public let origin: ObjectID
     public let target: ObjectID
     
-    public init?(_ snapshot: any ObjectSnapshot) {
+    public init?(_ snapshot: Snapshot) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }

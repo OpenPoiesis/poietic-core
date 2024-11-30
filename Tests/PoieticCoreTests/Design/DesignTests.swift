@@ -78,7 +78,7 @@ import Testing
 
         removalFrame.removeCascading(a.id)
         #expect(removalFrame.hasChanges)
-        #expect(!removalFrame.contains(a))
+        #expect(!removalFrame.contains(a.id))
         
         try design.accept(removalFrame)
         #expect(design.currentFrame!.id == removalFrame.id)

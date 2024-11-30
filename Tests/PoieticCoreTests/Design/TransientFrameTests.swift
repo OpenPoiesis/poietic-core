@@ -22,8 +22,8 @@ import Testing
         let a = frame.create(TestType)
         let b = frame.create(TestType)
         
-        #expect(frame.contains(a))
-        #expect(frame.contains(b))
+        #expect(frame.contains(a.id))
+        #expect(frame.contains(b.id))
         #expect(frame.hasChanges)
     }
 
@@ -318,9 +318,9 @@ import Testing
         #expect(!frame[a.id].children.contains(b.id))
 
         frame.removeCascading(d.id)
-        #expect(!frame.contains(d))
-        #expect(!frame.contains(e))
-        #expect(!frame.contains(f))
+        #expect(!frame.contains(d.id))
+        #expect(!frame.contains(e.id))
+        #expect(!frame.contains(f.id))
     }
     
     @Test func deriveObjectPreservesParentChild() throws {
