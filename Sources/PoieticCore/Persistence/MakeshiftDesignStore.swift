@@ -155,7 +155,6 @@ public class MakeshiftDesignStore {
                                           attributes: perSnapshot.attributes,
                                           components: [])
 
-            // FIXME: [REFACTORING] Were are we fixing children?
             snapshots[snapshot.snapshotID] = snapshot
         }
 
@@ -220,7 +219,7 @@ public class MakeshiftDesignStore {
         var snapshots: [_PersistentSnapshot] = []
         var frames: [_PersistentFrame] = []
         
-        for snapshot in design.validatedObjects {
+        for snapshot in design.snapshots {
             let origin: ObjectID?
             let target: ObjectID?
             switch snapshot.structure {

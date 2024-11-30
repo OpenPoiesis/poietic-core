@@ -115,7 +115,8 @@ public class Design {
     ///
     private var objectIDSequence: ObjectID
 
-    var _stableSnapshots: [SnapshotID: DesignObject]
+    var _snapshots: [SnapshotID: DesignObject]
+    var _refCount: [SnapshotID:Int]
     var _stableFrames: [FrameID: StableFrame]
 
     var _transientFrames: [FrameID: TransientFrame]
@@ -175,7 +176,8 @@ public class Design {
         self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
-        self._stableSnapshots = [:]
+        self._snapshots = [:]
+        self._refCount = [:]
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
@@ -202,7 +204,7 @@ public class Design {
     public func allocateID(required: ID? = nil) -> ID {
         // FIXME: [REFACTORING] Just use "usedIDs"
         if let id = required {
-            precondition(_stableSnapshots[id] == nil,
+            precondition(_snapshots[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a snapshot ID")
             precondition(_stableFrames[id] == nil,
                          "Trying to allocate an ID \(id) that is already used as a stable frame ID")
@@ -220,9 +222,18 @@ public class Design {
         }
     }
     
-    public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
-        return self._stableSnapshots[snapshotID]
+    /// Get a sequence of all stable snapshots in all stable frames.
+    ///
+    public var snapshots: some Collection<DesignObject> {
+        return _snapshots.values
     }
+
+    /// Get a snapshot by snapshot ID.
+    ///
+    public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
+        return self._snapshots[snapshotID]
+    }
+
 
     // MARK: Frames
     
@@ -239,34 +250,6 @@ public class Design {
     ///
     public func frame(_ id: FrameID) -> StableFrame? {
         return _stableFrames[id]
-    }
-    
-    /// Get a sequence of all snapshots in the design from stable frames,
-    /// regardless of their frame presence.
-    ///
-    /// The order of the returned snapshots is arbitrary.
-    ///
-    public var validatedObjects: [DesignObject] {
-        var seen: Set<SnapshotID> = Set()
-        var result: [DesignObject] = []
-        
-        for frame in self._stableFrames.values {
-            for snapshot in frame.snapshots {
-                if seen.contains(snapshot.snapshotID) {
-                    continue
-                }
-                seen.insert(snapshot.snapshotID)
-                result.append(snapshot)
-            }
-        }
-        
-        return result
-    }
-
-    /// Get a sequence of all stable snapshots in all frames.
-    ///
-    public var allSnapshots: some Collection<DesignObject> {
-        return _stableSnapshots.values
     }
     
     /// Test whether the design contains a stable frame with given ID.
@@ -327,8 +310,12 @@ public class Design {
     /// - Precondition: The frame with given ID must exist in the design.
     ///
     public func removeFrame(_ id: FrameID) {
-        if _stableFrames[id] != nil {
+        if let frame = _stableFrames[id] {
             _stableFrames[id] = nil
+            
+            for object in frame.snapshots {
+                _release(object.snapshotID)
+            }
         }
         else if _transientFrames[id] != nil {
             _transientFrames[id] = nil
@@ -338,6 +325,44 @@ public class Design {
         }
     }
     
+    /// Release a snapshot.
+    ///
+    /// This method is called when a frame containing a snapshot is removed from the design. If
+    /// there are no frames referring to a snapshot, then the snapshot is removed from the design.
+    ///
+    /// - SeeAlso: ``removeFrame(_:)``
+    ///
+    public func _release(_ snapshotID: SnapshotID) {
+        guard let count = _refCount[snapshotID] else {
+            preconditionFailure("Missing snapshot \(snapshotID)")
+        }
+        guard count > 0 else {
+            preconditionFailure("Release failure: zero retains")
+        }
+        _refCount[snapshotID] = count - 1
+
+        if count <= 1 {
+            _snapshots[snapshotID] = nil
+        }
+    }
+    
+    /// Insert a new snapshot to the design or retain an existing snapshot.
+    ///
+    /// This method is called for each snapshot when a frame is accepted to the design.
+    ///
+    /// - SeeAlso: ``accept(_:appendHistory:)``
+    ///
+    public func _insertOrRetain(_ snapshot: DesignObject) {
+        if let count = _refCount[snapshot.snapshotID] {
+            precondition(_snapshots[snapshot.snapshotID] === snapshot)
+            _refCount[snapshot.snapshotID] = count + 1
+        }
+        else {
+            _snapshots[snapshot.snapshotID] = snapshot
+            _refCount[snapshot.snapshotID] = 1
+        }
+    }
+
     /// Accepts a frame and make it a stable frame.
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.
@@ -399,6 +424,10 @@ public class Design {
         _stableFrames[frame.id] = stableFrame
         _transientFrames[frame.id] = nil
         
+        for snapshot in snapshots {
+            _insertOrRetain(snapshot)
+        }
+
         if appendHistory {
             if let currentFrameID {
                 undoableFrames.append(currentFrameID)

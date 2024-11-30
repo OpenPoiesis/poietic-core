@@ -100,6 +100,13 @@ public final class TransientFrame: Frame {
             }
         }
 
+        var snapshotID: SnapshotID {
+            switch self {
+            case let .stable(object): object.snapshotID
+            case let .mutable(object): object.snapshotID
+            }
+        }
+
         var parent: ObjectID? {
             switch self {
             case let .stable(object): object.parent
@@ -163,7 +170,7 @@ public final class TransientFrame: Frame {
     /// This is a subset of ``originalIDs``.
     ///
     public internal(set) var removedObjects: Set<ObjectID> = Set()
-    
+
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
@@ -171,7 +178,7 @@ public final class TransientFrame: Frame {
     public var snapshots: [DesignObject] {
         objects.values.map { $0.asStable() }
     }
-        
+     
     /// Returns `true` if the frame contains an object with given object ID.
     ///
     public func contains(_ id: ObjectID) -> Bool {

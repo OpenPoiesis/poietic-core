@@ -54,9 +54,8 @@ import Testing
         #expect(design.currentFrame!.contains(a.id))
         #expect(design.currentFrame!.contains(b.id))
         
-        // FIXME: Make this work
-        //        #expect(design.snapshot(a.id) != nil)
-        //        #expect(design.snapshot(b.id) != nil)
+        #expect(design.snapshot(a.snapshotID) != nil)
+        #expect(design.snapshot(b.snapshotID) != nil)
     }
     
     @Test func discard() throws {
@@ -68,7 +67,19 @@ import Testing
         #expect(design.versionHistory.isEmpty)
         #expect(frame.state == .discarded)
     }
-   
+
+    @Test func removeFrame() throws {
+        let frame = design.createFrame()
+        let a = frame.create(TestType)
+
+        try design.accept(frame)
+        #expect(design.snapshot(a.snapshotID) != nil)
+
+        design.removeFrame(frame.id)
+        #expect(!design.containsFrame(frame.id))
+        #expect(design.snapshot(a.snapshotID) == nil)
+    }
+    
     @Test func removeObject() throws {
         let originalFrame = design.createFrame()
         
@@ -87,7 +98,9 @@ import Testing
         try design.accept(removalFrame)
         #expect(design.currentFrame!.id == removalFrame.id)
         #expect(!design.currentFrame!.contains(a.id))
-        
+
+        #expect(design.snapshot(a.snapshotID) != nil)
+
         let original2 = design.frame(originalVersion!)!
         #expect(original2.contains(a.id))
     }
