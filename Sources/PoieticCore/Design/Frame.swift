@@ -36,16 +36,18 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
     subscript(id: ObjectID) -> DesignObject { get }
 
     
-    /// Asserts that the frame satisfies the given constraint. Raises a
-    /// `ConstraintViolation` error if the frame objects violate the constraints.
+    /// Get a list of broken references.
     ///
-    /// - Throws: `ConstraintViolation` when the frame violates given constraint.
+    /// The list contains IDs from edges and parent-child relationships that are not present in the
+    /// frame.
     ///
-    func assert(constraint: Constraint) throws
+    /// This convenience method is used for debugging.
+    ///
     func brokenReferences() -> [ObjectID]
 
-    func hasReferentialIntegrity() -> Bool
     
+    /// Get objects of given type.
+    ///
     func filter(type: ObjectType) -> [DesignObject]
 }
 
@@ -143,26 +145,6 @@ extension Frame {
         return Array(broken)
     }
 
-    
-    /// Function that determines whether the frame has a referential integrity.
-    ///
-    /// - SeeAlso: ``Frame/brokenReferences()``
-    ///
-
-    public func hasReferentialIntegrity() -> Bool {
-        return brokenReferences().isEmpty
-    }
-    
-    public func assert(constraint: Constraint) throws {
-        let violators = constraint.check(self)
-        if violators.isEmpty {
-            return
-        }
-        let violation = ConstraintViolation(constraint: constraint,
-                                            objects:violators)
-        throw violation
-    }
-    
     /// Get first object of given type.
     ///
     /// This method is used to find singleton objects, for example

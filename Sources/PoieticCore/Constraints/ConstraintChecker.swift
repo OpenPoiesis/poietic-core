@@ -54,6 +54,11 @@ extension ObjectSnapshot {
 
 /// An object that checks constraints, including object types, of a frame.
 ///
+/// Constraint checker is used to validate a frame whether it conforms to a given metamodel.
+///
+/// One can validate a frame against different metamodels which are not associated with the design
+/// owning a frame.
+///
 public struct ConstraintChecker {
     /// Metamodel associated with the constraint checker. Frames and objects
     /// will be validated using the constraints and object types defined

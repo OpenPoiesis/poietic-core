@@ -544,11 +544,10 @@ public final class TransientFrame: Frame {
         
         while !tops.isEmpty {
             let topParent = tops.removeFirst()
-            let related = parents.filter { $0.parent == topParent }
-            for (parent, child) in related {
-                parents.removeAll { $0.parent == parent }
+            for (_, child) in parents.filter({ $0.parent == topParent }) {
                 tops.append(child)
             }
+            parents.removeAll { $0.parent == topParent }
         }
         
         if !parents.isEmpty {
