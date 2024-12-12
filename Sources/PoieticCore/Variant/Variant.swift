@@ -8,7 +8,6 @@
 public enum ValueError: Error, Equatable, CustomStringConvertible {
     case notConvertible(ValueType, ValueType)
     case conversionFailed(ValueType, ValueType)
-    case notComparableTypes(ValueType, ValueType)
 
     // Special case for internal conversions (there is no variant type for IDs)
     case conversionToIDFailed(ValueType)
@@ -20,8 +19,6 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
             "Value of type \(original) is not convertible to type \(target)"
         case .conversionFailed(let original, let target):
             "Conversion of value type \(original) to type \(target) failed"
-        case let .notComparableTypes(lhs, rhs):
-            "Type \(lhs) is not comparable with type \(rhs)"
         // Other
         case .conversionToIDFailed(let original):
             "Value of type \(original) is not convertible to Object ID type"

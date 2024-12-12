@@ -19,10 +19,10 @@
 nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
     .Comparison("__eq__") { (lhs, rhs) in lhs == rhs },
     .Comparison("__neq__") { (lhs, rhs) in lhs != rhs },
-    .Comparison("__lt__") { (lhs, rhs) in try lhs < rhs },
-    .Comparison("__le__") { (lhs, rhs) in try lhs <= rhs },
-    .Comparison("__gt__") { (lhs, rhs) in try lhs > rhs },
-    .Comparison("__ge__") { (lhs, rhs) in try lhs >= rhs },
+    .Comparison("__lt__") { (lhs, rhs) in lhs < rhs },
+    .Comparison("__le__") { (lhs, rhs) in lhs <= rhs },
+    .Comparison("__gt__") { (lhs, rhs) in lhs > rhs },
+    .Comparison("__ge__") { (lhs, rhs) in lhs >= rhs },
 ]
 
 
@@ -46,14 +46,10 @@ nonisolated(unsafe)  public let BuiltinFunctions: [Function] = BuiltinComparison
                 ],
                 returns: .double
              ),
-             body: builtinIfFunctionBody
-            ),
-    Function(
-        name: "not",
-        signature: Signature([FunctionArgument("value", type: .bool)],
-                             returns: .double),
-        body: builtinNotFunctionBody
-    ),
+             body: builtinIfFunctionBody),
+    Function(name: "not",
+             signature: Signature([FunctionArgument("value", type: .bool)], returns: .double),
+             body: builtinNotFunctionBody),
     Function.BooleanVariadic("or") { args in
         args.reduce(false, { x, y in x || y })
     },
@@ -63,25 +59,38 @@ nonisolated(unsafe)  public let BuiltinFunctions: [Function] = BuiltinComparison
 
 ]
 
-func builtinIfFunctionBody(_ arguments: [Variant]) throws -> Variant {
+func builtinIfFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
     guard arguments.count == 3 else {
-        fatalError("Invalid number of arguments (\(arguments.count)) for `if` function. Hint: Expression binding seems to be broken.")
+        throw .invalidNumberOfArguments(arguments.count)
     }
-    let condition = arguments[0]
-    let ifTrue = arguments[1]
-    let ifFalse = arguments[2]
+    let condition: Bool
+    do {
+        condition = try arguments[0].boolValue()
+    }
+    catch {
+        throw .invalidArgument(0, error)
+    }
     
-    if try condition.boolValue() {
-        return ifTrue
+    if condition {
+        return arguments[1]
     }
     else {
-        return ifFalse
+        return arguments[2]
     }
 }
 
-func builtinNotFunctionBody(_ arguments: [Variant]) throws -> Variant {
+func builtinNotFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
     guard arguments.count != 1 else {
-        fatalError("Invalid number of arguments (\(arguments.count)) for `not` function, expected only 1. Hint: Expression binding seems to be broken.")
+        throw .invalidNumberOfArguments(arguments.count)
     }
-    return Variant(!(try arguments[0].boolValue()))
+
+    let value: Bool
+    do {
+        value = try arguments[0].boolValue()
+    }
+    catch {
+        throw .invalidArgument(0, error)
+    }
+
+    return Variant(!value)
 }

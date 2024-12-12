@@ -262,7 +262,7 @@ extension VariantArray: MutableCollection /* random access collection-like */ {
         return index + 1
     }
     
-    public mutating func append(_ item: VariantAtom) throws {
+    public mutating func append(_ item: VariantAtom) throws (ValueError) {
         switch (self, item) {
         case let (.int(items), .int(item)):
             self = VariantArray.int(items + [item])
@@ -276,15 +276,15 @@ extension VariantArray: MutableCollection /* random access collection-like */ {
             self = VariantArray.point(items + [item])
         // FIXME: [IMPORTANT] I've reached a point of realising that this needs some reconsidering
         case let (.int(items), atom):
-            self = VariantArray.int(items + [try! atom.intValue()])
+            self = VariantArray.int(items + [try atom.intValue()])
         case let (.string(items), atom):
             self = VariantArray.string(items + [atom.stringValue()])
         case let (.double(items), atom):
-            self = VariantArray.double(items + [try! atom.doubleValue()])
+            self = VariantArray.double(items + [try atom.doubleValue()])
         case let (.bool(items), atom):
-            self = VariantArray.bool(items + [try! atom.boolValue()])
+            self = VariantArray.bool(items + [try atom.boolValue()])
         case let (.point(items), atom):
-            self = VariantArray.point(items + [try! atom.pointValue()])
+            self = VariantArray.point(items + [try atom.pointValue()])
         }
     }
 
