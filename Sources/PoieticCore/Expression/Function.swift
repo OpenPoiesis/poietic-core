@@ -24,15 +24,17 @@ public class Function: CustomStringConvertible {
     /// The body takes a list of variants and returns a variant.
     ///
     public typealias Body = ([Variant]) throws (FunctionError) -> Variant
+
     /// Name of the function.
     ///
-    /// The name in a function call used in ``ArithmeticExpression`` refers to
-    /// a function with corresponding name.
+    /// - SeeAlso: ``ArithmeticExpression/function(_:_:)``
     ///
     public let name: String
     
-    /// Signature of the function - list of arguments, their types and a type
-    /// of the return value.
+    /// Signature of the function.
+    ///
+    /// Signature describes function's arguments, their types and the return type. It is used
+    /// for argument validation.
     ///
     public let signature: Signature
     
@@ -87,77 +89,53 @@ public class Function: CustomStringConvertible {
         self.apply = body
     }
     
-    public static func boolValues(_ args: [Variant]) throws (FunctionError) -> [Bool] {
-        var values: [Bool] = []
-        
-        for (index, arg) in args.enumerated() {
-            do {
-                values.append(try arg.boolValue())
-            }
-            catch {
-                throw .invalidArgument(index, error)
-            }
-        }
-        return values
-    }
-
-    public static func doubleValues(_ args: [Variant]) throws (FunctionError) -> [Double] {
-        var values: [Double] = []
-        
-        for (index, arg) in args.enumerated() {
-            do {
-                values.append(try arg.doubleValue())
-            }
-            catch {
-                throw .invalidArgument(index, error)
-            }
-        }
-        return values
-    }
     
     /// Create a function that takes variable number of numeric values and
     /// returns a numeric value.
     ///
-    public static func NumericVariadic(_ name: String, body: @escaping ([Double]) -> Double) -> Function {
-        let wrappedBody: Body = { args in
+    public convenience init(numericVariadic name: String, body: @escaping ([Double]) -> Double) {
+        let wrappedBody: Body = { args throws (FunctionError) in
+            guard args.count >= 1 else {
+                throw FunctionError.invalidNumberOfArguments(args.count)
+            }
+
             let numericArguments = try doubleValues(args)
             let result = body(numericArguments)
             return Variant(result)
         }
         
-        return Function(name: name,
-                        signature: Signature(numericVariadic: "value"),
-                        body: wrappedBody)
+        self.init(name: name,
+                  signature: Signature(numericVariadic: "value"),
+                  body: wrappedBody)
     }
 
     /// Create a variadic function that takes a list of boolean arguments and returns
     /// a boolean.
     ///
-    public static func BooleanVariadic(_ name: String, body: @escaping ([Bool]) -> Bool) -> Function {
+    public convenience init(booleanVariadic name: String, body: @escaping ([Bool]) -> Bool) {
         let wrappedBody: Body = { args in
             let numericArguments = try boolValues(args)
             let result = body(numericArguments)
             return Variant(result)
         }
         
-        return Function(
-                name: name,
-                signature: Signature(
-                    variadic: FunctionArgument("value", type: .bool),
-                    returns: .bool
-                ),
-                body: wrappedBody)
+        self.init(
+            name: name,
+            signature: Signature(
+                variadic: FunctionArgument("value", type: .bool),
+                returns: .bool
+            ),
+            body: wrappedBody
+        )
     }
     
     /// Create a function that takes two numeric values (int or double) and returns
     /// a double value.
     ///
-    public static func NumericBinary(_ name: String,
-                                     leftName: String = "lhs",
-                                     rightName: String = "rhs",
-                                     body: @escaping (Double, Double) -> Double) -> Function {
-        
-        
+    public convenience init(numericBinary name: String,
+                            leftName: String = "lhs",
+                            rightName: String = "rhs",
+                            body: @escaping (Double, Double) -> Double) {
         let wrappedBody: Body = { args throws (FunctionError) in
             guard args.count == 2 else {
                 throw FunctionError.invalidNumberOfArguments(args.count)
@@ -168,23 +146,25 @@ public class Function: CustomStringConvertible {
             return Variant(result)
         }
         
-        return Function(name: name,
-                        signature: Signature(
-                            [
-                                FunctionArgument(leftName, type: .numeric),
-                                FunctionArgument(rightName, type: .numeric),
-                            ],
-                            returns: .double
-                        ),
-                        body: wrappedBody)
+        self.init(
+            name: name,
+            signature: Signature(
+                [
+                    FunctionArgument(leftName, type: .numeric),
+                    FunctionArgument(rightName, type: .numeric),
+                ],
+                returns: .double
+            ),
+            body: wrappedBody
+        )
     }
     
     /// Create a function that takes a numeric values (int or double) and returns
     /// a double value.
     ///
-    public static func NumericUnary(_ name: String,
-                                    argumentName: String = "value",
-                                    body: @escaping (Double) -> Double) -> Function {
+    public convenience init(numericUnary name: String,
+                            argumentName: String = "value",
+                            body: @escaping (Double) -> Double) {
         let wrappedBody: Body = { args throws (FunctionError) in
             guard args.count == 1 else {
                 throw FunctionError.invalidNumberOfArguments(args.count)
@@ -195,19 +175,21 @@ public class Function: CustomStringConvertible {
             return Variant(result)
         }
 
-        return Function(name: name,
-                        signature: Signature(
-                            [FunctionArgument(argumentName, type: .numeric)],
-                            returns: .double
-                        ),
-                        body: wrappedBody )
+        self.init(
+            name: name,
+            signature: Signature(
+                [FunctionArgument(argumentName, type: .numeric)],
+                returns: .double
+            ),
+            body: wrappedBody
+        )
     }
 
     /// Create a comparison function that takes two values of any type and returns a
     /// boolean.
     ///
-    public static func Comparison(_ name: String,
-                          body: @escaping (Variant, Variant) throws (FunctionError) -> Bool) -> Function {
+    public convenience init(comparison name: String,
+                            body: @escaping (Variant, Variant) throws (FunctionError) -> Bool) {
         let wrappedBody: Body = { args throws (FunctionError) in
             guard args.count == 2 else {
                 throw FunctionError.invalidNumberOfArguments(args.count)
@@ -216,19 +198,48 @@ public class Function: CustomStringConvertible {
             return Variant(result)
         }
 
-
-        return Function(name: name,
-                        signature: Signature(
-                            [
-                                FunctionArgument("lhs", type: .any),
-                                FunctionArgument("rhs", type: .any),
-                            ],
-                            returns: .bool
-                        ),
-                        body: wrappedBody)
+        self.init(
+            name: name,
+            signature: Signature(
+                [
+                    FunctionArgument("lhs", type: .any),
+                    FunctionArgument("rhs", type: .any),
+                ],
+                returns: .bool
+            ),
+            body: wrappedBody
+        )
     }
 
     public var description: String {
         "\(name)(\(signature))"
     }
+}
+
+func boolValues(_ args: [Variant]) throws (FunctionError) -> [Bool] {
+    var values: [Bool] = []
+    
+    for (index, arg) in args.enumerated() {
+        do {
+            values.append(try arg.boolValue())
+        }
+        catch {
+            throw .invalidArgument(index, error)
+        }
+    }
+    return values
+}
+
+func doubleValues(_ args: [Variant]) throws (FunctionError) -> [Double] {
+    var values: [Double] = []
+    
+    for (index, arg) in args.enumerated() {
+        do {
+            values.append(try arg.doubleValue())
+        }
+        catch {
+            throw .invalidArgument(index, error)
+        }
+    }
+    return values
 }

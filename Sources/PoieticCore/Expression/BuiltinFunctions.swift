@@ -5,61 +5,88 @@
 //  Created by Stefan Urbanek on 06/03/2024.
 //
 
-/// List of built-in binary comparison operators.
-///
-/// The operators:
-///
-/// - `__eq__` is `==`
-/// - `__ne__` is `!=`
-/// - `__gt__` is `>`
-/// - `__ge__` is `>=`
-/// - `__lt__` is `<`
-/// - `__le__` is `<=`
-///
-nonisolated(unsafe)  public let BuiltinComparisonOperators: [Function] = [
-    .Comparison("__eq__") { (lhs, rhs) in lhs == rhs },
-    .Comparison("__neq__") { (lhs, rhs) in lhs != rhs },
-    .Comparison("__lt__") { (lhs, rhs) in lhs < rhs },
-    .Comparison("__le__") { (lhs, rhs) in lhs <= rhs },
-    .Comparison("__gt__") { (lhs, rhs) in lhs > rhs },
-    .Comparison("__ge__") { (lhs, rhs) in lhs >= rhs },
-]
+extension Function {
+    // Comparison
+    
+    nonisolated(unsafe)
+    public static let IsEqual = Function(comparison: "__eq__") { $0 == $1 }
+    nonisolated(unsafe)
+    public static let IsNotEqual = Function(comparison: "__neq__") { $0 != $1 }
+    nonisolated(unsafe)
+    public static let LessThan = Function(comparison: "__lt__") { $0 < $1 }
+    nonisolated(unsafe)
+    public static let LessOrEqual = Function(comparison: "__le__") { $0 <= $1 }
+    nonisolated(unsafe)
+    public static let GreaterThan = Function(comparison: "__gt__") { $0 > $1 }
+    nonisolated(unsafe)
+    public static let GreaterOrEqual = Function(comparison: "__ge__") { $0 >= $1 }
+    
+    nonisolated(unsafe)
+    public static let ComparisonOperators: [Function] = [
+        IsEqual,
+        IsNotEqual,
+        LessThan,
+        LessOrEqual,
+        GreaterThan,
+        GreaterOrEqual
+    ]
+    
+    // Boolean
+    
+    /// Boolean conditional function.
+    ///
+    /// The function takes three arguments:
+    /// - `condition`: a boolean value
+    /// - `if_true`: a value used when the `condition` is _true_
+    /// - `if_false`: a value used when the `condition` is _false_
+    ///
+    nonisolated(unsafe)
+    public static let IfFunction = Function(
+        name: "if",
+        signature: Signature(
+            [
+                FunctionArgument("condition", type: .bool),
+                FunctionArgument("if_true", type: .double),
+                FunctionArgument("if_false", type: .double),
+            ],
+            returns: .double
+        ),
+        body: _builtinIfFunctionBody
+    )
+    
+    /// Logical negation of a boolean value.
+    ///
+    nonisolated(unsafe)
+    public static let BooleanNot = Function(
+        name: "not",
+        signature: Signature([FunctionArgument("value", type: .bool)], returns: .double),
+        body: _builtinNotFunctionBody
+    )
+    
+    /// Logical _OR_ for two or more arguments.
+    ///
+    nonisolated(unsafe)
+    public static let BooleanOr = Function(booleanVariadic: "or") {
+        $0.reduce(false, { x, y in x || y })
+    }
+    
+    /// Logical _AND_ for two or more arguments.
+    ///
+    nonisolated(unsafe)
+    public static let BooleanAnd = Function(booleanVariadic: "and") {
+        $0.reduce(true, { x, y in x && y })
+    }
 
+    nonisolated(unsafe)
+    public static let BooleanFunctions: [Function] = [
+        IfFunction,
+        BooleanNot,
+        BooleanOr,
+        BooleanAnd
+    ]
+}
 
-/// List of all builtin functions provided by the Core.
-///
-/// The list includes all functions from ``BuiltinComparisonOperators`` with
-/// addition of:
-///
-/// - `if(condition, if_true, if_false)`
-/// - `not(value)` as logical negation
-/// - `or(...)` as logical OR
-/// - `and(...)` as logical AND
-/// 
-nonisolated(unsafe)  public let BuiltinFunctions: [Function] = BuiltinComparisonOperators + [
-    Function(name: "if",
-             signature: Signature(
-                [
-                    FunctionArgument("condition", type: .bool),
-                    FunctionArgument("if_true", type: .double),
-                    FunctionArgument("if_false", type: .double),
-                ],
-                returns: .double
-             ),
-             body: builtinIfFunctionBody),
-    Function(name: "not",
-             signature: Signature([FunctionArgument("value", type: .bool)], returns: .double),
-             body: builtinNotFunctionBody),
-    Function.BooleanVariadic("or") { args in
-        args.reduce(false, { x, y in x || y })
-    },
-    Function.BooleanVariadic("and") { args in
-        args.reduce(true, { x, y in x && y })
-    },
-
-]
-
-func builtinIfFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
+fileprivate func _builtinIfFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
     guard arguments.count == 3 else {
         throw .invalidNumberOfArguments(arguments.count)
     }
@@ -79,7 +106,7 @@ func builtinIfFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Var
     }
 }
 
-func builtinNotFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
+fileprivate func _builtinNotFunctionBody(_ arguments: [Variant]) throws (FunctionError) -> Variant {
     guard arguments.count != 1 else {
         throw .invalidNumberOfArguments(arguments.count)
     }
