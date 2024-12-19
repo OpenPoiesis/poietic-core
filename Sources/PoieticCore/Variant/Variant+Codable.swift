@@ -5,6 +5,27 @@
 //  Created by Stefan Urbanek on 08/05/2024.
 //
 
+/*
+ 
+ Variant -> JSONValue -> Data -> JSON String -> CSV
+ Variant -> Data -> JSON text
+
+ Encoding methods:
+ 
+ - for persistent storage, type separate
+ 
+ ["[int]", [1,2,3]]
+ ai [1,2,3]
+ 
+ ["int", 1234]
+ i 1234
+ 
+ 
+ ["string", "this is a string"]
+ s "this is a string"
+ 
+ */
+
 import Foundation
 
 /// Error thrown when trying to decode a variant
@@ -30,7 +51,7 @@ public enum VariantCodingError: Error {
 
 extension ValueType: Codable {
 
-    /// Code used for encoding of a varian value of the type.
+    /// Code used for encoding of a variant value of the type.
     ///
     public var typeCode: String {
         switch self {

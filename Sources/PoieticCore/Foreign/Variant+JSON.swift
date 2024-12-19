@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Variant+JSON.swift
+//
 //
 //  Created by Stefan Urbanek on 11/07/2023.
 //
@@ -13,25 +13,71 @@ public enum ForeignValueError: Error {
 }
 
 extension Variant {
-    // TODO: Make it into init()
-    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws (ForeignValueError) -> Variant {
+    public init(json: JSONValue) throws (ForeignValueError) {
         switch json {
         case let .int(value):
-            return Variant(value)
+            self.init(value)
         case let .bool(value):
-            return Variant(value)
+            self.init(value)
         case let .string(value):
-            return Variant(value)
+            self.init(value)
         case let .double(value):
-            return Variant(value)
+            self.init(value)
         case let .array(items):
-            return try .array(VariantArray.fromJSONItems(items))
+            self = .array(try VariantArray(jsonItems: items))
         default:
             throw ForeignValueError.notConvertible
         }
     }
     
-    /// Create a Foundation-compatible JSON object representation.
+    /// Create a new variant of a given type from a JSON value.
+    ///
+    /// The JSON value type must match required variant type. The following table describes
+    /// corresponding JSON type for a given atom or an array item type:
+    ///
+    /// | Atom/Item Type | Required JSON type |
+    /// |---|---|
+    /// | bool | bool |
+    /// | int | number exactly convertible to int |
+    /// | double | number exactly convertible to double |
+    /// | string | string |
+    /// | point | two-item array with numbers exactly convertible to double |
+    ///
+    /// If the JSON value does not match requirements, then `nil` is returned.
+    ///
+    /// This initialiser is used to decode a JSON-encoded variant tuple.
+    ///
+    /// - SeeAlso: ``VariantAtom/init(type:json:)``, ``VariantArray/init(type:jsonItems:)``
+    ///
+    public init?(type: ValueType, json: JSONValue) {
+        switch type {
+        case let .atom(atomType):
+            if let atom = VariantAtom(type: atomType, json: json) {
+                self = .atom(atom)
+            }
+            else {
+                return nil
+            }
+        case let .array(atomType):
+            guard case let .array(items) = json else {
+                return nil
+            }
+            if let array = VariantArray(type: atomType, jsonItems: items) {
+                self = .array(array)
+            }
+            else {
+                return nil
+            }
+        }
+    }
+
+    /// Get a JSON-encoded variant value.
+    ///
+    /// Convert the variant into a JSON-encoded value without the variant data type.
+    ///
+    /// The caller is expected to store the type separately.
+    ///
+    /// - SeeAlso: - ``init(type:json:)``
     ///
     public func asJSON() -> JSONValue {
         switch self {
@@ -43,35 +89,80 @@ extension Variant {
 
 
 extension VariantAtom {
-    // TODO: Make it into init()
-    public static func fromJSON(_ json: JSONValue, path: [String] = []) throws (ForeignValueError) -> VariantAtom {
+    public init(json: JSONValue) throws (ForeignValueError) {
         switch json {
         case let .int(value):
-            return .int(value)
+            self.init(value)
         case let .bool(value):
-            return .bool(value)
+            self.init(value)
         case let .string(value):
-            return .string(value)
+            self.init(value)
         case let .double(value):
-            return .double(value)
+            self.init(value)
         case let .array(items):
             guard items.count == 2 else {
-                throw ForeignValueError.notConvertible
+                throw .notConvertible
             }
             switch (items[0], items[1]) {
-            case let (.int(x), .int(y)): return .point(Point(Double(x), Double(y)))
-            case let (.int(x), .double(y)): return .point(Point(Double(x), y))
-            case let (.double(x), .int(y)): return .point(Point(x, Double(y)))
-            case let (.double(x), .double(y)): return .point(Point(x, y))
+            case let (.int(x), .int(y)):
+                self = .point(Point(Double(x), Double(y)))
+            case let (.int(x), .double(y)):
+                self = .point(Point(Double(x), y))
+            case let (.double(x), .int(y)):
+                self = .point(Point(x, Double(y)))
+            case let (.double(x), .double(y)):
+                self = .point(Point(x, y))
             default:
-                throw ForeignValueError.invalidPointValue
+                throw .invalidPointValue
             }
         default:
-            throw ForeignValueError.notConvertible
-
+            throw .notConvertible
         }
     }
-    
+
+    /// Create a new variant atom of given type from JSON value.
+    ///
+    /// The JSON value must match required type as described in the ``Variant/init(type:json:)``.
+    /// If the JSON value does not match the requirements, then `nil` is returned.
+    ///
+    /// This initialiser is used to decode a JSON-encoded variant tuple.
+    ///
+    /// - SeeAlso: ``Variant/init(type:json:)``, ``VariantArray/init(type:jsonItems:)``
+    public init?(type: AtomType, json: JSONValue) {
+        switch (type, json) {
+        case (.int, _):
+            if let value = json.exactInt() {
+                self = .int(value)
+            }
+            else {
+                return nil
+            }
+        case (.double, _):
+            if let value = json.exactDouble() {
+                self = .double(value)
+            }
+            else {
+                return nil
+            }
+        case (.bool, let .bool(value)) :
+            self = .bool(value)
+        case (.string, let .string(value)):
+            self = .string(value)
+        case (.point, let .array(items)):
+            guard items.count == 2 else {
+                return nil
+            }
+            if let x = items[0].exactDouble(), let y = items[1].exactDouble() {
+                self = .point(Point(x: x, y: y))
+            }
+            else {
+                return nil
+            }
+        default:
+            return nil
+        }
+    }
+
     public func asJSON() -> JSONValue {
         switch self {
         case let .int(value): .int(value)
@@ -84,11 +175,20 @@ extension VariantAtom {
 }
 
 extension VariantArray {
-    // TODO: Make it into init()
-    public static func fromJSONItems(_ items: [JSONValue], path: [String] = []) throws (ForeignValueError) -> VariantArray {
+    /// Create a new variant array from JSON items.
+    ///
+    /// The array type is decided based on the first item. The rest of the items must be of the
+    /// same type.
+    ///
+    /// If the first item is an array, the item type is expected to be a point. All top-level items
+    /// must have exactly two point components. Point components might be of any numeric type.
+    ///
+    /// If the list of items is empty, then a _string_ type empty array is created, as it is
+    /// the most convertible type.
+    ///
+    public init(jsonItems items: [JSONValue]) throws (ForeignValueError) {
         if items.count == 0 {
-            // We default to a string array, as it is the most to-value convertible
-            return .string([])
+            self = .string([])
         }
 
         let first = items[0]
@@ -96,66 +196,138 @@ extension VariantArray {
         switch first {
         case .bool:
             var array: [Bool] = []
+
             for item in items {
                 guard case let .bool(value) = item else {
-                    throw ForeignValueError.sameItemTypeExpected
+                    throw .sameItemTypeExpected
                 }
                 array.append(value)
             }
-            return .bool(array)
+            self = .bool(array)
         case .int:
             var array: [Int] = []
             for item in items {
                 guard case let .int(value) = item else {
-                    throw ForeignValueError.sameItemTypeExpected
+                    throw .sameItemTypeExpected
                 }
                 array.append(value)
             }
-            return .int(array)
+            self = .int(array)
         case .double:
             var array: [Double] = []
             for item in items {
                 guard case let .double(value) = item else {
-                    throw ForeignValueError.sameItemTypeExpected
+                    throw .sameItemTypeExpected
                 }
                 array.append(value)
             }
-            return .double(array)
+            self = .double(array)
         case .string:
             var array: [String] = []
             for item in items {
                 guard case let .string(value) = item else {
-                    throw ForeignValueError.sameItemTypeExpected
+                    throw .sameItemTypeExpected
                 }
                 array.append(value)
             }
-            return .string(array)
+            self = .string(array)
         case .array:
             var array: [Point] = []
             for item in items {
                 guard case let .array(pointValues) = item else {
-                    throw ForeignValueError.sameItemTypeExpected
+                    throw .sameItemTypeExpected
                 }
                 guard pointValues.count == 2 else {
-                    throw ForeignValueError.invalidPointValue
+                    throw .invalidPointValue
                 }
+                
                 let value: Point
                 switch (pointValues[0], pointValues[1]) {
-                case let (.int(x), .int(y)): value = Point(Double(x), Double(y))
-                case let (.int(x), .double(y)): value = Point(Double(x), y)
-                case let (.double(x), .int(y)): value = Point(x, Double(y))
-                case let (.double(x), .double(y)): value = Point(x, y)
+                case let (.int(x), .int(y)):
+                    value = Point(Double(x), Double(y))
+                case let (.int(x), .double(y)):
+                    value = Point(Double(x), y)
+                case let (.double(x), .int(y)):
+                    value = Point(x, Double(y))
+                case let (.double(x), .double(y)):
+                    value = Point(x, y)
                 default:
-                    throw ForeignValueError.invalidPointValue
+                    throw .invalidPointValue
                 }
 
                 array.append(value)
             }
-            return .point(array)
+            self = .point(array)
         default:
-            throw ForeignValueError.notConvertible
+            throw .notConvertible
         }
     }
+   
+    /// Create a new variant array of given type from JSON items.
+    ///
+    /// The JSON items must match required type as described in the ``Variant/init(type:json:)``.
+    /// If any of the items does not match the required type, then `nil` is returned.
+    ///
+    /// This initialiser is used to decode a JSON-encoded variant tuple.
+    ///
+    /// - SeeAlso: ``Variant/init(type:json:)``, ``VariantAtom/init(type:json:)``
+    ///
+    public init?(type: AtomType, jsonItems items: [JSONValue]) {
+        switch type {
+        case .int:
+            var result: [Int] = []
+            for item in items {
+                guard let value = item.exactInt() else {
+                    return nil
+                }
+                result.append(value)
+            }
+            self = .int(result)
+        case .double:
+            var result: [Double] = []
+            for item in items {
+                guard let value = item.exactDouble() else {
+                    return nil
+                }
+                result.append(value)
+            }
+            self = .double(result)
+        case .bool:
+            var result: [Bool] = []
+            for item in items {
+                guard case let .bool(value) = item else {
+                    return nil
+                }
+                result.append(value)
+            }
+            self = .bool(result)
+        case .string:
+            var result: [String] = []
+            for item in items {
+                guard case let .string(value) = item else {
+                    return nil
+                }
+                result.append(value)
+            }
+            self = .string(result)
+        case .point:
+            var result: [Point] = []
+            for item in items {
+                guard case let .array(components) = item else {
+                    return nil
+                }
+                guard components.count == 2 else {
+                    return nil
+                }
+                guard let x = components[0].exactDouble(), let y = components[1].exactDouble() else {
+                    return nil
+                }
+                result.append(Point(x: x, y: y))
+            }
+            self = .point(result)
+        }
+    }
+    
     public func asJSON() -> JSONValue {
         switch self {
         case let .int(items): .array(items.map { .int($0) })

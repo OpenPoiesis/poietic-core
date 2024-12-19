@@ -17,6 +17,13 @@ public enum JSONType: Equatable, Sendable {
     case null
 }
 
+/// Representation of a JSON value.
+///
+/// The enum represents a JSON value, array or an object.
+///
+/// Main use of the JSON value is to have finer control over encoding and decoding of ``Variant``
+/// using JSON.
+///
 public enum JSONValue: Equatable, Codable {
     case int(Int)
     case double(Double)
@@ -38,7 +45,7 @@ public enum JSONValue: Equatable, Codable {
         }
     }
    
-    public init(string: String) throws (JSONError) {
+    public init(parsing string: String) throws (JSONError) {
         let data = Data(string.utf8)
         try self.init(data: data)
     }
@@ -103,10 +110,21 @@ public enum JSONValue: Equatable, Codable {
         }
     }
     
-    public func asJSONString() throws -> String {
+    public func asJSONString() -> String {
+        // This method must not fail. If it fails, there must be a bug somewhere. Errors are ours
+        // not user's.
+        
         let encoder = JSONEncoder()
-        let data = try encoder.encode(self)
-        let string = String(data: data, encoding: .utf8)!
+        let data: Data
+        do {
+            data = try encoder.encode(self)
+        }
+        catch {
+            fatalError("JSONValue encoding failed")
+        }
+        guard let string = String(data: data, encoding: .utf8) else {
+            fatalError("JSONValue string conversion failed")
+        }
         return string
     }
 
@@ -132,172 +150,45 @@ public enum JSONValue: Equatable, Codable {
         }
     }
 
-    public func _asArray(context: String?=nil) throws (JSONError) -> Array<JSONValue> {
+    /// Get integer value of a numeric JSON value.
+    ///
+    /// - Returns: Int if the JSON value is an int or an int-convertible double.
+    ///   Otherwise `nil`.
+    ///
+    @inlinable
+    public func exactInt() -> Int? {
         switch self {
-        case let.array(items):
-            return items
+        case .int(let value): return value
+        case .double(let value):
+            if let converted = Int(exactly: value) {
+                return converted
+            }
+            else {
+                return nil
+            }
         default:
-            throw JSONError.typeMismatch(.array, context)
-        }
-    }
-
-    @inlinable
-    public func asString() throws (JSONError) -> String {
-        if case let .string(value) = self {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.string, nil)
-        }
-    }
-    
-    @inlinable
-    public func asInt() throws (JSONError) -> Int {
-        if case let .int(value) = self {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.string, nil)
-        }
-    }
-
-    @inlinable
-    public func asBool() throws (JSONError) -> Bool {
-        if case let .bool(value) = self {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.string, nil)
-        }
-    }
-
-    @inlinable
-    public func asDouble() throws (JSONError) -> Double {
-        if case let .double(value) = self {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.string, nil)
-        }
-    }
-
-}
-
-public typealias JSONDictionary = [String:JSONValue]
-
-extension JSONDictionary {
-    @inlinable
-    public func valueIfPresent(forKey key: String ) throws (JSONError) -> JSONValue? {
-        self[key]
-    }
-    
-    @inlinable
-    public func value(forKey key: String ) throws (JSONError) -> JSONValue {
-        if let value = self[key] {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
-        }
-    }
-
-    public func stringIfPresent(forKey key: String ) throws (JSONError) -> String? {
-        guard let jsonValue = self[key] else {
             return nil
         }
-        if case let .string(value) = jsonValue {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.string, key)
-        }
-    }
-    
-    public func string(forKey key: String ) throws (JSONError) -> String {
-        if let value = try stringIfPresent(forKey: key) {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
-        }
     }
 
-    public func boolIfPresent(forKey key: String) throws (JSONError) -> Bool? {
-        guard let jsonValue = self[key] else {
+    /// Get double value of a numeric JSON value.
+    ///
+    /// - Returns: Int if the JSON value is a double or a double-convertible double.
+    ///   Otherwise `nil`.
+    ///
+    @inlinable
+    public func exactDouble() -> Double? {
+        switch self {
+        case .double(let value): return value
+        case .int(let value):
+            if let converted = Double(exactly: value) {
+                return converted
+            }
+            else {
+                return nil
+            }
+        default:
             return nil
-        }
-        if case let .bool(value) = jsonValue {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.bool, key)
-        }
-    }
-    public func bool(forKey key: String ) throws (JSONError) -> Bool {
-        if let value = try boolIfPresent(forKey: key) {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
-        }
-    }
-
-    public func intIfPresent(forKey key: String) throws (JSONError) -> Int? {
-        guard let jsonValue = self[key] else {
-            return nil
-        }
-        if case let .int(value) = jsonValue {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.int, key)
-        }
-    }
-    public func int(forKey key: String ) throws (JSONError) -> Int {
-        if let value = try intIfPresent(forKey: key) {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
-        }
-    }
-    public func doubleIfPresent(forKey key: String) throws (JSONError) -> Double? {
-        guard let jsonValue = self[key] else {
-            return nil
-        }
-        if case let .double(value) = jsonValue {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.double, key)
-        }
-    }
-    public func double(forKey key: String ) throws (JSONError) -> Double {
-        if let value = try doubleIfPresent(forKey: key) {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
-        }
-    }
-    
-    public func arrayIfPresent(forKey key: String) throws (JSONError) -> [JSONValue]? {
-        guard let jsonValue = self[key] else {
-            return nil
-        }
-        if case let .array(value) = jsonValue {
-            return value
-        }
-        else {
-            throw JSONError.typeMismatch(.array, key)
-        }
-    }
-    public func array(forKey key: String ) throws (JSONError) -> [JSONValue] {
-        if let value = try arrayIfPresent(forKey: key) {
-            value
-        }
-        else {
-            throw JSONError.propertyNotFound(key)
         }
     }
 }

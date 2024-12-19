@@ -25,7 +25,7 @@ class CSVReader: Sequence, IteratorProtocol {
     
     var iterator: String.Iterator
     var currentChar: Character?
-    public var tokenText: String = ""
+    var tokenText: String = ""
     
     init(_ iterator: String.Iterator, options: CSVOptions=CSVOptions()) {
         self.iterator = iterator

@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  JSONFrameReaderTests.swift
+//
 //
 //  Created by Stefan Urbanek on 08/09/2023.
 //
@@ -46,7 +46,6 @@ import Testing
     @Test func testCollectionsNotAnArray() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "collections": "not_an_array"
                    }
                    """.data(using:.utf8)!
@@ -59,7 +58,6 @@ import Testing
     @Test func testCollectionItemNotAString() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "collections": [10]
                    }
                    """.data(using:.utf8)!
@@ -87,7 +85,6 @@ import Testing
     @Test func loadEmpty() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": []
                    }
                    """.data(using:.utf8)!
@@ -100,7 +97,6 @@ import Testing
     @Test func loadNoTypeError() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [{}]
                    }
                    """.data(using:.utf8)!
@@ -114,7 +110,6 @@ import Testing
     @Test func loadSingleUnknownObjectTypeError() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [{"type": "Invalid"}]
                    }
                    """.data(using:.utf8)!
@@ -127,7 +122,6 @@ import Testing
     @Test func loadSingleNoID() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         {"type": "Unstructured"}
                    ]
@@ -144,7 +138,6 @@ import Testing
     @Test func loadSingleWithName() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         {"type": "Unstructured", "name":"test"}
                    ]
@@ -162,7 +155,6 @@ import Testing
     @Test func loadWithDefaultValue() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                     { "type": "Stock", "name": "test" }
                    ]
@@ -182,7 +174,6 @@ import Testing
     @Test func testLoadWithAttributes() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         {
                             "type": "Stock",
@@ -204,7 +195,6 @@ import Testing
     @Test func testLoadEdgeNoOriginTargetError() throws {
         let data_no_origin = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                     { "type": "Parameter" }
                    ]
@@ -219,7 +209,6 @@ import Testing
 
         let data_no_target = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                     { "type": "Parameter", "from": "doesnotmatter" }
                    ]
@@ -236,7 +225,6 @@ import Testing
     @Test func testLoadEdgeInvalidOriginTargetIDs() throws {
         let data_no_origin = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                     { "type": "Parameter", "from": "unknown", "to": "doesnotmatter" },
                    ]
@@ -250,7 +238,6 @@ import Testing
 
         let data_no_target = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Parameter", "from": "x", "to": "unknown" },
                         { "type": "Stock", "name": "x"},
@@ -268,7 +255,6 @@ import Testing
     @Test func shouldNotHaveOriginOrTarget() throws {
         let data_extra_origin = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Unstructured", "from": "invalid"}
                    ]
@@ -281,7 +267,6 @@ import Testing
 
         let data_extra_target = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Stock", "to": "invalid"}
                    ]
@@ -296,7 +281,6 @@ import Testing
     @Test func connectEdge() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Parameter", "name": "param", "from":"src", "to":"drain" },
                         { "type": "Stock", "name": "src" },
@@ -319,7 +303,6 @@ import Testing
     func testConnectChildren() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Unstructured", "name": "parent", "children": ["a", "b"] },
                         { "type": "Unstructured", "name": "a" },
@@ -349,7 +332,6 @@ import Testing
     func testUnknownChildReference() throws {
         let data = """
                    {
-                   "frame_format_version": "0",
                    "objects": [
                         { "type": "Unstructured", "children": ["unknown"] },
                    ]
