@@ -8,73 +8,82 @@ import Testing
 @testable import PoieticCore
 
 @Suite struct CSVReaderTests {
-    @Test func testEmptyReader() throws {
+    @Test func emptyReader() throws {
         let reader = CSVReader("")
-        #expect(reader.nextToken() == .empty)
+        #expect(reader.next() == nil)
     }
 
-    @Test func testWhitespaceRows() throws {
+    @Test func whitespaceRow() throws {
         let reader = CSVReader(" ")
-        #expect(reader.nextToken() == .value(" "))
-        #expect(reader.nextToken() == .empty)
-        
+        #expect(reader.next() == [" "])
+        #expect(reader.next() == nil)
+
         let reader2 = CSVReader("\n")
-        #expect(reader2.nextToken() == .recordSeparator)
-        #expect(reader2.nextToken() == .empty)
+        #expect(reader2.next() == [""])
+        #expect(reader2.next() == nil)
     }
     
-    @Test func testRowTokens() throws {
+    @Test func regularRow() throws {
         let reader = CSVReader("one,two,three")
 
-        #expect(reader.nextToken() == .value("one"))
-        #expect(reader.nextToken() == .fieldSeparator)
-        #expect(reader.nextToken() == .value("two"))
-        #expect(reader.nextToken() == .fieldSeparator)
-        #expect(reader.nextToken() == .value("three"))
-        #expect(reader.nextToken() == .empty)
+        #expect(reader.next() == ["one", "two", "three"])
+        #expect(reader.next() == nil)
     }
-    @Test func testCustomDelimiters() throws {
+    @Test func customDelimiters() throws {
         let reader = CSVReader("1@2|10@20",
                                options: CSVOptions(fieldDelimiter:"@", recordDelimiter:"|"))
 
         #expect(reader.next() == ["1", "2"])
         #expect(reader.next() == ["10", "20"])
     }
-
-    @Test func testQuote() throws {
+    @Test func quotedField() throws {
         let reader = CSVReader("\"quoted\"")
-        #expect(reader.nextToken() == .value("quoted"))
-        #expect(reader.nextToken() == .empty)
+        #expect(reader.next() == ["quoted"])
+        #expect(reader.next() == nil)
         
         let reader2 = CSVReader("\"quoted,comma\"")
-        #expect(reader2.nextToken() == .value("quoted,comma"))
-        #expect(reader2.nextToken() == .empty)
+        #expect(reader2.next() == ["quoted,comma"])
+        #expect(reader2.next() == nil)
         
         let reader3 = CSVReader("\"quoted\nnewline\"")
-        #expect(reader3.nextToken() == .value("quoted\nnewline"))
-        #expect(reader3.nextToken() == .empty)
+        #expect(reader3.next() == ["quoted\nnewline"])
+        #expect(reader3.next() == nil)
     }
 
     @Test func testQuoteEscape() throws {
         let reader = CSVReader("\"\"\"\"")
-        #expect(reader.nextToken() == .value("\""))
-        #expect(reader.nextToken() == .empty)
+        #expect(reader.next() == ["\""])
+        #expect(reader.next() == nil)
+    }
+
+    @Test func quoteInTheMiddle() throws {
+        let reader = CSVReader("a \" b,")
+        #expect(reader.next() == ["a \" b",""])
+        #expect(reader.next() == nil)
+
     }
     
-    @Test func testWeirdQuote() throws {
-        // The following behavior was observed with Numbers and with MS Word
-        // This is broken but should be parsed into a signle quote value
+    @Test func earlyQuoteFinish() throws {
+        // The following behaviour was observed with Numbers and with MS Word
+        // This is broken but should be parsed into a single quote value
 
         let reader = CSVReader("\"\"\"")
-        #expect(reader.nextToken() == .value("\""))
-        #expect(reader.nextToken() == .empty)
+        #expect(reader.next() == ["\""])
+        #expect(reader.next() == nil)
 
-        // This is broken but should be parsed into a signle quote value
         let reader2 = CSVReader("\"quoted\" value")
-        #expect(reader2.nextToken() == .value("quoted value"))
-        #expect(reader2.nextToken() == .empty)
+        #expect(reader2.next() == ["quoted value"])
+        #expect(reader2.next() == nil)
+
+        let reader3 = CSVReader("\"quoted\" one \" two \"\"")
+        #expect(reader3.next() == ["quoted one \" two \""])
+        #expect(reader3.next() == nil)
+
+        let reader4 = CSVReader("\"quoted\" open \",")
+        #expect(reader4.next() == ["quoted open \"", ""])
+        #expect(reader4.next() == nil)
     }
-    
+
     @Test func testRow() throws {
         let reader = CSVReader("one,two,three")
         #expect(reader.next() == ["one", "two", "three"])

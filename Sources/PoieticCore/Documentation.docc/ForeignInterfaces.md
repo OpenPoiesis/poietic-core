@@ -29,7 +29,6 @@ See also: <doc:Persistence>
 
 ### CSV Reading and Writing
 
-- ``CSVForeignRecordReader``
 - ``CSVFormatter``
 - ``CSVOptions``
 - ``CSVWriter``

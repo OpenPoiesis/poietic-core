@@ -16,12 +16,14 @@ public class CSVOptions {
     ///
     public let recordDelimiter: Character
     
-    //    public let quoteCharacter: Character = "\""
+    public let quoteCharacter: Character
 
     public init(fieldDelimiter: Character=",",
-                recordDelimiter: Character="\n") {
+                recordDelimiter: Character="\n",
+                quoteCharacter: Character="\"") {
         self.fieldDelimiter = fieldDelimiter
         self.recordDelimiter = recordDelimiter
+        self.quoteCharacter = quoteCharacter
     }
 }
 

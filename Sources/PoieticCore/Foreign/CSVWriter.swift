@@ -46,21 +46,21 @@ public class CSVFormatter {
         var result: String = ""
         var needsQuote: Bool = false
         for char in string {
-            if char == "\"" {
+            switch char {
+            case options.quoteCharacter:
                 needsQuote = true
-                result.append("\"\"")
-            }
-            else if char == options.fieldDelimiter
-                        || char == options.recordDelimiter {
+                result.append(options.quoteCharacter)
+                result.append(options.quoteCharacter)
+            case options.fieldDelimiter,
+                options.recordDelimiter:
                 result.append(char)
                 needsQuote = true
-            }
-            else {
+            default:
                 result.append(char)
             }
         }
         if needsQuote {
-            return "\"\(result)\""
+            return String(options.quoteCharacter) + result + String(options.quoteCharacter)
         }
         else {
             return result
