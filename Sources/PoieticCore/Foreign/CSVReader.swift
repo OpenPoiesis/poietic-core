@@ -17,7 +17,7 @@
 /// until a field or a record separator is encountered. Double quotes are converted to single
 /// quotes. This is a behaviour that has been observed by MS Excel and Apple Numbers.
 ///
-class CSVReader: Sequence, IteratorProtocol {
+public class CSVReader: Sequence, IteratorProtocol {
     enum State {
         case recordStart
         case fieldStart
@@ -26,13 +26,21 @@ class CSVReader: Sequence, IteratorProtocol {
         case pastQuote
     }
     
-    var options: CSVOptions
-    var string: String
+    public private(set) var options: CSVOptions
+    public private(set) var string: String
     var currentIndex: String.Index
     var endIndex: String.Index
     var state: State
 
-    init(_ string: String = "", options: CSVOptions=CSVOptions()) {
+    /// Create a new CSV reader from a string.
+    ///
+    /// - Parameters:
+    ///     - string: Source string containing a comma-separated data.
+    ///     - options: Options for parsing the string.
+    ///
+    /// - SeeAlso: ``next()``
+    ///
+    public init(_ string: String = "", options: CSVOptions=CSVOptions()) {
         self.string = string
         self.currentIndex = string.startIndex
         self.endIndex = string.endIndex
@@ -49,7 +57,9 @@ class CSVReader: Sequence, IteratorProtocol {
         return string[currentIndex]
     }
     
-    var atEnd: Bool { currentIndex >= endIndex }
+    /// Flag whether the reader is at the end of the source string.
+    ///
+    public var atEnd: Bool { currentIndex >= endIndex }
     
     /// Advance the reader and optionally append the current chacter into the
     /// token text.
@@ -58,10 +68,15 @@ class CSVReader: Sequence, IteratorProtocol {
         currentIndex = string.index(after: currentIndex)
     }
     
-    /// Get the next row in the CSV source. A row is a list of string values.
-    /// If the reader is at the end then `nil` is returned.
+    /// Get a next row in the CSV source.
     ///
-    func next() -> [String]? {
+    /// A row is an array of fields as strings.
+    ///
+    /// If the reader is at the end then `nil` is returned. This is notable when the last record
+    /// is terminated with a record separator (typically a newline). The next row is `nil`, not an
+    /// empty row.
+    ///
+    public func next() -> [String]? {
         var row: [String] = []
         var field = ""
         
@@ -69,10 +84,6 @@ class CSVReader: Sequence, IteratorProtocol {
             return nil
         }
         
-        // We eat anything after the closing quote
-        // Note: This behaviour was observed with both
-        // MS Excel and with Apple Numbers.
-
         loop:
         while !atEnd {
             guard let current = peek() else {

@@ -31,6 +31,7 @@ See also: <doc:Persistence>
 
 - ``CSVFormatter``
 - ``CSVOptions``
+- ``CSVReader``
 - ``CSVWriter``
 - ``CSVError``
 
