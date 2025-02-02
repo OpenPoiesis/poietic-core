@@ -161,7 +161,6 @@ public struct ExpressionLexer {
     enum State: String {
         case begin
         case int
-        case decimalPoint
         case decimal
         case exponent
         case identifier
@@ -181,24 +180,19 @@ public struct ExpressionLexer {
                 advance()
                 
                 switch char {
-                case "(":
-                    type = .leftParen
-                case ")":
-                    type = .rightParen
-                case ",":
-                    type = .comma
+                case "(": type = .leftParen
+                case ")": type = .rightParen
+                case ",": type = .comma
                 case "-":
-                    if let char = peek(), char.isWholeNumber {
+                    if let nextChar = peek(), nextChar.isWholeNumber {
                         advance()
                         state = .int
                     }
                     else {
                         type = .operator
                     }
-                case "_":
-                    state = .identifier
-                case "+", "*", "/", "%":
-                    type = .operator
+                case "_": state = .identifier
+                case "+", "*", "/", "%": type = .operator
                 case "<", ">", "!":
                     if peek() == "=" {
                         advance()
@@ -223,16 +217,26 @@ public struct ExpressionLexer {
                         type = .error(.unexpectedCharacter)
                     }
                 }
-
             case .int:
                 if char.isWholeNumber || char == "_" {
                     advance()
                 }
                 else if char == "." {
                     advance()
-                    state = .decimalPoint
+                    if let nextChar = peek() {
+                        advance()
+                        if nextChar.isWholeNumber {
+                            state = .decimal
+                        }
+                        else {
+                            type = .error(.invalidCharacterInNumber)
+                        }
+                    }
+                    else {
+                        type = .error(.numberExpected)
+                    }
                 }
-                else if char == "e" {
+                else if char == "e" || char == "E" {
                     advance()
                     if peek() == "-" {
                         advance()
@@ -245,14 +249,6 @@ public struct ExpressionLexer {
                 }
                 else {
                     type = .int
-                }
-            case .decimalPoint:
-                advance()
-                if char.isWholeNumber {
-                    state = .decimal
-                }
-                else {
-                    type = .error(.numberExpected)
                 }
             case .decimal:
                 if char.isWholeNumber || char == "_" {

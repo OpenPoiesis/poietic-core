@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 12/07/2022.
 //
 
-
-
 /// Abstract syntax tree of arithmetic expression.
 ///
 public indirect enum ExpressionAST {

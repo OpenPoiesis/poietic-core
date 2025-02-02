@@ -75,7 +75,7 @@ import Testing
     }
     
     @Test func floatTokens() throws {
-        var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30")
+        var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30 10E23")
         var token = lexer.next()
         #expect(token.type == .double)
         #expect(token.text == "10.20")
@@ -91,18 +91,22 @@ import Testing
         token = lexer.next()
         #expect(token.type == .double)
         #expect(token.text == "10.20e-30")
+
+        token = lexer.next()
+        #expect(token.type == .double)
+        #expect(token.text == "10E23")
     }
     
     @Test func invalidFloat() throws {
         var lexer = ExpressionLexer(string: "1. 2.x 3ex")
         
         var token = lexer.next()
-        #expect(token.type == .error(.numberExpected))
+        #expect(token.type == .error(.invalidCharacterInNumber))
         #expect(token.text == "1. ")
         
         
         token = lexer.next()
-        #expect(token.type == .error(.numberExpected))
+        #expect(token.type == .error(.invalidCharacterInNumber))
         #expect(token.text == "2.x")
         
         token = lexer.next()
@@ -112,10 +116,14 @@ import Testing
     
     
     @Test func identifierToken() throws {
-        var lexer = ExpressionLexer(string: "an_identifier_1")
-        let token = lexer.next()
+        var lexer = ExpressionLexer(string: "an_identifier_1 _underscore")
+        var token = lexer.next()
         #expect(token.type == .identifier)
         #expect(token.text == "an_identifier_1")
+
+        token = lexer.next()
+        #expect(token.type == .identifier)
+        #expect(token.text == "_underscore")
     }
     
     // MARK: Punctuation and operators
