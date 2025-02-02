@@ -75,7 +75,7 @@ import Testing
     }
     
     @Test func floatTokens() throws {
-        var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30 10E23")
+        var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30 10E23 1E+5")
         var token = lexer.next()
         #expect(token.type == .double)
         #expect(token.text == "10.20")
@@ -95,6 +95,10 @@ import Testing
         token = lexer.next()
         #expect(token.type == .double)
         #expect(token.text == "10E23")
+
+        token = lexer.next()
+        #expect(token.type == .double)
+        #expect(token.text == "1E+5")
     }
     
     @Test func invalidFloat() throws {

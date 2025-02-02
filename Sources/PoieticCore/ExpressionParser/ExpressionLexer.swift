@@ -5,9 +5,21 @@
 //  Created by Stefan Urbanek on 30/06/2022.
 //
 
+/// Token of an arithmetic expression.
+///
+/// ## Trivia
+///
+/// Inspiration from Swift: swift/include/swift/Syntax/Trivia.h.gyb
+/// At this moment there is no reason for parsing the trivia one way
+/// or the other.
+///
+/// 1. A token owns all of its trailing trivia up to, but not including,
+///    the next newline character.
+///
+/// 2. Looking backward in the text, a token owns all of the leading trivia
+///    up to and including the first contiguous sequence of newlines characters.
 public struct ExpressionToken {
     public enum TokenType: Equatable, Sendable {
-        // Expression tokens
         case identifier
         case int
         case double
@@ -33,7 +45,7 @@ public struct ExpressionToken {
     /// The token text.
     public var text: Substring { source[range] }
 
-    /// Range of the trivia that precede the token.
+        /// Range of the trivia that precede the token.
     public let leadingTriviaRange: Range<String.Index>
     public var leadingTrivia: Substring { source[leadingTriviaRange] }
     
@@ -45,14 +57,12 @@ public struct ExpressionToken {
     public var textLocation: TextLocation {
         TextLocation(string: source, index: range.lowerBound)
     }
-
     
     public init(type: TokenType,
                 source: String,
                 range: Range<String.Index>,
                 leadingTriviaRange: Range<String.Index>? = nil,
                 trailingTriviaRange: Range<String.Index>? = nil) {
-        // FIXME: Use Substrings
         self.type = type
         self.range = range
         self.source = source
@@ -81,20 +91,6 @@ public struct ExpressionToken {
 ///     - ``ExpressionToken``
 ///
 public struct ExpressionLexer {
-    // Trivia:
-    //
-    // Inspiration from Swift: swift/include/swift/Syntax/Trivia.h.gyb
-    // At this moment there is no reason for parsing the trivia one way
-    // or the other.
-    //
-    // 1. A token owns all of its trailing trivia up to, but not including,
-    //    the next newline character.
-    //
-    // 2. Looking backward in the text, a token owns all of the leading trivia
-    //    up to and including the first contiguous sequence of newlines characters.
-
-    public static let OperatorCharacters = "!%*+-/<=>"
-    
     public let source: String
     var currentIndex: String.Index
     var endIndex: String.Index
@@ -238,7 +234,7 @@ public struct ExpressionLexer {
                 }
                 else if char == "e" || char == "E" {
                     advance()
-                    if peek() == "-" {
+                    if peek() == "-" || peek() == "+" {
                         advance()
                     }
                     state = .exponent
@@ -254,9 +250,9 @@ public struct ExpressionLexer {
                 if char.isWholeNumber || char == "_" {
                     advance()
                 }
-                else if char == "e" {
+                else if char == "e" || char == "E" {
                     advance()
-                    if peek() == "-" {
+                    if peek() == "-" || peek() == "+" {
                         advance()
                     }
                     state = .exponent
