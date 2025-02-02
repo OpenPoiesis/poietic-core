@@ -42,25 +42,25 @@ extension ExpressionSyntax {
             }
 
         case let node as VariableSyntax:
-            return .variable(node.variable.text)
+            return .variable(String(node.variable.text))
 
         case let node as UnaryOperatorSyntax:
             let operand = node.operand.toExpression()
             let op = node.op.text
-            return .unary(op, operand)
+            return .unary(String(op), operand)
 
         case let node as BinaryOperatorSyntax:
             let op = node.op.text
             let left = node.leftOperand.toExpression()
             let right = node.rightOperand.toExpression()
-            return .binary(op, left, right)
+            return .binary(String(op), left, right)
 
         case let node as FunctionCallSyntax:
             let name = node.name.text
             let args = node.arguments.arguments.map {
                 $0.argument.toExpression()
             }
-            return .function(name, args)
+            return .function(String(name), args)
 
         case let node as ParenthesisSyntax:
             return node.expression.toExpression()

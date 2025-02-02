@@ -10,13 +10,11 @@ import Testing
 
 @Suite struct LexerTests {
     @Test func acceptFunction() throws {
-        let lexer = ExpressionLexer(string: " ")
-        #expect(lexer.scanner.currentChar != nil)
-        // Swift Testing macro expansion is complaining about having \.isWhitespace within #expect
-        let flag = lexer.scanner.scan(\.isWhitespace)
-        #expect(flag)
-        #expect(lexer.scanner.currentChar == nil)
-        #expect(lexer.scanner.atEnd)
+        var lexer = ExpressionLexer(string: " ")
+        #expect(lexer.peek() == " ")
+        lexer.advance()
+        #expect(lexer.peek() == nil)
+        #expect(lexer.atEnd)
     }
     
     @Test func emptyString() throws {
@@ -108,7 +106,7 @@ import Testing
         #expect(token.text == "2.x")
         
         token = lexer.next()
-        #expect(token.type == .error(.numberExpected))
+        #expect(token.type == .error(.invalidCharacterInNumber))
         #expect(token.text == "3ex")
     }
     
@@ -193,19 +191,23 @@ import Testing
         #expect(token.text == "!")
     }
 
-    @Test func minusAsOperator() throws {
-        var lexer = ExpressionLexer(string: "1-2")
+    @Test func minus() throws {
+        var lexer = ExpressionLexer(string: "1-2- 3")
         var token = lexer.next()
         #expect(token.type == .int)
         #expect(token.text == "1")
         
         token = lexer.next()
+        #expect(token.type == .int)
+        #expect(token.text == "-2")
+
+        token = lexer.next()
         #expect(token.type == .operator)
         #expect(token.text == "-")
-        
+
         token = lexer.next()
         #expect(token.type == .int)
-        #expect(token.text == "2")
+        #expect(token.text == "3")
     }
     
     // MARK: Trivia

@@ -62,14 +62,10 @@ Built-in logical functions:
 
 - ``ExpressionParser``
 - ``TextLocation``
-- ``Token``
-- ``Lexer``
-- ``Scanner``
 - ``ExpressionLexer``
-- ``ExpressionTokenType``
+- ``ExpressionToken``
 - ``TokenTypeProtocol``
 - ``ExpressionSyntaxError``
-- ``ScannerError``
 
 ### Abstract Syntax Tree
 
