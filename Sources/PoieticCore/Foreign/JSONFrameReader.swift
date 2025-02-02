@@ -72,17 +72,36 @@ import Foundation
 /// refers to is undefined.
 ///
 ///
-/// ## Attributes
+/// ## Attributes and Variant Values
 ///
-/// The attribute values are decoded from JSON as follows:
+/// The variant values in the attribute dictionary are decoded from JSON as follows:
 ///
-/// - bool is bool variant
-/// - number is tried to be converted to int first, then double
-/// - string stays a string
-/// - array of items of the same type (bools, numbers or strings) becomes an array of that type
-/// - array of two-item number arrays becomes an array of points, for example: `[[0, 0], [10, 20]]`
+/// | JSON value | Variant | Example | Note |
+/// |---|---|:---|:---|
+/// | bool | bool | `true` | |
+/// | number | int or double | `100` | First try exact conversion to _int_, otherwise _double_ |
+/// | string | string | `"thing"` | |
+/// | array of scalars | array of first item type | `[10, 20, 30]` | All items must be of the same type |
+/// | array of two-number arrays | array of points | `[[0, 0], [10.5, 0]]` | Items must be exactly two numbers |
 ///
-/// There is no explicit JSON way of specifying a single point, it has to be expressed
+/// Any other JSON value is considered invalid.
+///
+/// The JSON encoding is lose and non-symmetric.
+///
+/// | Original Variant | Encoded JSON | Decoded Variant | Note |
+/// |---|---|---|:---|
+/// | bool | bool | bool | |
+/// | int | number | int | |
+/// | double | number | int or double | Decoded variant depends on the original variant's convertibility to int |
+/// | string | string | string | |
+/// | point | array of numbers | array of doubles | |
+/// | array of bool | array of bool | array of bool |  |
+/// | array of int | array of int | array of int |  |
+/// | array of double | array of numbers | array of ints or doubles | Depends on the original variant's values |
+/// | array of strings | array of strings | array of strings | |
+/// | array of points | array of two-item number arrays | array of points | |
+///
+    /// There is no explicit JSON way of specifying a single point, it has to be expressed
 /// as a two-item array of two numbers. Even then it will be treated just as an array of numbers.
 ///
 /// Invalid variant values are:

@@ -49,12 +49,13 @@ public class CSVReader: Sequence, IteratorProtocol {
     }
     
     func peek(offset: Int = 0) -> Character? {
-        assert(currentIndex <= endIndex)
-        let peekIndex = string.index(currentIndex, offsetBy: offset)
-        guard peekIndex < endIndex else {
+        guard !atEnd else {
             return nil
         }
-        return string[currentIndex]
+        guard let peekIndex = string.index(currentIndex, offsetBy: offset, limitedBy: endIndex) else {
+            return nil
+        }
+        return string[peekIndex]
     }
     
     /// Flag whether the reader is at the end of the source string.

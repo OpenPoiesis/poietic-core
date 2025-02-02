@@ -171,6 +171,15 @@ public final class TransientFrame: Frame {
     ///
     public internal(set) var removedObjects: Set<ObjectID> = Set()
 
+    public var changedObjects: [ObjectID] {
+        objects.values.compactMap { ref in
+            switch ref {
+            case .mutable(let obj): obj.id
+            case .stable(_): nil
+            }
+        }
+    }
+    
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
