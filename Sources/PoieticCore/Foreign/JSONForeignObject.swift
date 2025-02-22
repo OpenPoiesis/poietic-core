@@ -57,17 +57,17 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
     public init(_ object: DesignObject) {
         var systemAttributes: [String:String] = [:]
 
-        systemAttributes["id"] = String(object.id)
-        systemAttributes["snapshot_id"] = String(object.snapshotID)
+        systemAttributes["id"] = object.id.stringValue
+        systemAttributes["snapshot_id"] = object.snapshotID.stringValue
         systemAttributes["type"] = object.type.name
 
         if case let .edge(origin, target) = object.structure {
-            systemAttributes["from"] = String(origin)
-            systemAttributes["to"] = String(target)
+            systemAttributes["from"] = origin.stringValue
+            systemAttributes["to"] = target.stringValue
         }
 
         if let parent = object.parent {
-            systemAttributes["parent"] = String(parent)
+            systemAttributes["parent"] = parent.stringValue
         }
         
         systemAttributes["structure"] = object.structure.type.rawValue

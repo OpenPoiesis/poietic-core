@@ -92,28 +92,28 @@ public final class TransientFrame: Frame {
     enum TransientReference {
         case stable(DesignObject)
         case mutable(MutableObject)
-
+        
         public var isMutable: Bool {
             switch self {
             case .stable(_): false
             case .mutable(_): true
             }
         }
-
+        
         var snapshotID: SnapshotID {
             switch self {
             case let .stable(object): object.snapshotID
             case let .mutable(object): object.snapshotID
             }
         }
-
+        
         var parent: ObjectID? {
             switch self {
             case let .stable(object): object.parent
             case let .mutable(object): object.parent
             }
         }
-
+        
         var children: ChildrenSet {
             switch self {
             case let .stable(object): object.children
@@ -127,7 +127,7 @@ public final class TransientFrame: Frame {
             case let .mutable(object): object.structure
             }
         }
-
+        
         var edgeEndpoints: (ObjectID, ObjectID)? {
             switch self {
             case let .stable(object):
@@ -146,7 +146,7 @@ public final class TransientFrame: Frame {
                 }
             }
         }
-
+        
         func asStable() -> DesignObject {
             switch self {
             case let .stable(object): object
@@ -170,7 +170,7 @@ public final class TransientFrame: Frame {
     /// This is a subset of ``originalIDs``.
     ///
     public internal(set) var removedObjects: Set<ObjectID> = Set()
-
+    
     public var changedObjects: [ObjectID] {
         objects.values.compactMap { ref in
             switch ref {
@@ -187,13 +187,13 @@ public final class TransientFrame: Frame {
     public var snapshots: [DesignObject] {
         objects.values.map { $0.asStable() }
     }
-     
+    
     /// Returns `true` if the frame contains an object with given object ID.
     ///
     public func contains(_ id: ObjectID) -> Bool {
         return self.objects[id] != nil
     }
-
+    
     /// Get an object with identity `id`.
     ///
     /// Returns an object in its mutation state as it was a the time of the call. If the requested
@@ -210,13 +210,13 @@ public final class TransientFrame: Frame {
         }
         return ref.asStable()
     }
-   
+    
     /// Get an object version of object with identity `id`.
     ///
     public subscript(id: ObjectID) -> DesignObject {
         get { object(id) }
     }
-
+    
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
         (!removedObjects.isEmpty
@@ -258,7 +258,7 @@ public final class TransientFrame: Frame {
         }
         self.originalIDs = originals
     }
-
+    
     /// Create a new object within the frame.
     ///
     /// The method creates a new object and assigns default values as defined
@@ -336,21 +336,21 @@ public final class TransientFrame: Frame {
         }
         
         let snapshot = MutableObject(id: actualID,
-                                      snapshotID: actualSnapshotID,
-                                      type: type,
-                                      structure: actualStructure,
-                                      parent: parent,
-                                      children: children,
-                                      attributes: actualAttributes,
-                                      components: components)
+                                     snapshotID: actualSnapshotID,
+                                     type: type,
+                                     structure: actualStructure,
+                                     parent: parent,
+                                     children: children,
+                                     attributes: actualAttributes,
+                                     components: components)
         
         self.objects[actualID] = .mutable(snapshot)
         self.snapshotIDs.insert(actualSnapshotID)
         self.removedObjects.remove(actualID)
-
+        
         return snapshot
     }
-
+    
     /// Insert an object snapshot to a frame while maintaining referential
     /// integrity.
     ///
@@ -380,12 +380,12 @@ public final class TransientFrame: Frame {
         }
         guard snapshot.children.allSatisfy({ contains($0) }) else {
             preconditionFailure("Missing children in frame")
-
+            
         }
         guard let parent = snapshot.parent, contains(parent) else {
             preconditionFailure("Missing parent in frame")
         }
-
+        
         unsafeInsert(snapshot)
     }
     
@@ -415,7 +415,7 @@ public final class TransientFrame: Frame {
                      "Inserting duplicate object ID \(snapshot.id) to frame \(id)")
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
                      "Inserting duplicate snapshot ID \(snapshot.id) to frame \(id)")
-
+        
         objects[snapshot.id] = .stable(snapshot)
         snapshotIDs.insert(snapshot.snapshotID)
         
@@ -450,18 +450,18 @@ public final class TransientFrame: Frame {
         
         var removed: Set<ObjectID> = Set()
         var scheduled: Set<ObjectID> = [id]
-
+        
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
             let garbage = objects[garbageID]!.asStable()
-
+            
             objects[garbage.id] = nil
             snapshotIDs.remove(garbage.snapshotID)
-
+            
             if originalIDs.contains(garbage.id) {
                 removedObjects.insert(garbage.id)
             }
-
+            
             removed.insert(garbageID)
             
             if let parentID = garbage.parent, !removed.contains(parentID) {
@@ -503,7 +503,7 @@ public final class TransientFrame: Frame {
     public func validateStructure() throws (TransientFrameError) {
         // TODO: Check object types and attributes here
         precondition(state == .transient)
-
+        
         var parents: [(parent: ObjectID, child: ObjectID)] = []
         
         // Integrity checks
@@ -513,7 +513,7 @@ public final class TransientFrame: Frame {
                 guard let origin = objects[origin], let target = objects[target] else {
                     throw .brokenEdgeEndpoint
                 }
-
+                
                 guard origin.structure == .node && target.structure == .node else {
                     throw .edgeEndpointNotANode
                 }
@@ -538,9 +538,9 @@ public final class TransientFrame: Frame {
                 parents.append((parent: parentID, child: checkedID))
             }
         }
-
+        
         // Map: child -> parent
-
+        
         let children = Set(parents.map { $0.child })
         var tops: [ObjectID] = parents.compactMap {
             if children.contains($0.parent) {
@@ -592,7 +592,7 @@ public final class TransientFrame: Frame {
         precondition(state == .transient)
         self.state = .discarded
     }
-       
+    
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is
@@ -606,13 +606,13 @@ public final class TransientFrame: Frame {
     /// identity generator of the associated design.
     ///
     /// - Returns: Newly derived object snapshot.
-    /// 
+    ///
     /// - Precondition: The frame must contain an object with given ID.
     /// - Precondition: The frame state must be ``State/transient``.
     ///
     public func mutate(_ id: ObjectID) -> MutableObject {
         precondition(state == .transient)
-
+        
         guard let current = self.objects[id] else {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
@@ -629,11 +629,11 @@ public final class TransientFrame: Frame {
                                         children: original.children.items,
                                         attributes: original.attributes,
                                         components: original.components.components)
-
+            
             self.objects[id] = .mutable(derived)
             self.snapshotIDs.remove(original.snapshotID)
             self.snapshotIDs.insert(derived.snapshotID)
-
+            
             return derived
         }
     }
@@ -696,10 +696,10 @@ public final class TransientFrame: Frame {
     public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
         let parent = self.mutate(parentID)
         let child = self.mutate(childID)
-
+        
         precondition(child.parent == parentID)
         precondition(parent.children.contains(childID))
-
+        
         parent.removeChild(childID)
         child.parent = nil
     }
@@ -759,6 +759,20 @@ public final class TransientFrame: Frame {
         mutate(parentID).removeChild(childID)
         mutate(childID).parent = nil
     }
+    
+    // Graph Protocol
+    public var edgeIDs: [ObjectID] {
+        objects.compactMap { (id, ref) in
+            ref.structure.type == .edge ? id : nil
+        }
+    }
+
+    public var nodeIDs: [ObjectID] {
+        objects.compactMap { (id, ref) in
+            ref.structure.type == .node ? id : nil
+        }
+    }
+
 }
 
 

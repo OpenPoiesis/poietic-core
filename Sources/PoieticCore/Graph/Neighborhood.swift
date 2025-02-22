@@ -39,7 +39,7 @@ public class Neighborhood<G: GraphProtocol> {
     
     /// ID of a node the neighbourhood adjacent to.
     ///
-    public let nodeID: GraphType.Node.ID
+    public let nodeID: GraphType.NodeID
     
     /// Direction of the edges to be followed from the main node.
     ///
@@ -49,7 +49,7 @@ public class Neighborhood<G: GraphProtocol> {
     ///
     public let edges: [G.Edge]
     
-    public init(graph: G, nodeID: GraphType.Node.ID, direction: EdgeDirection, edges: [G.Edge]) {
+    public init(graph: G, nodeID: GraphType.NodeID, direction: EdgeDirection, edges: [G.Edge]) {
         self.graph = graph
         self.nodeID = nodeID
         self.direction = direction
@@ -58,7 +58,7 @@ public class Neighborhood<G: GraphProtocol> {
     
     public var nodes: [G.Node] {
         edges.map { edge in
-            let endpointID: GraphType.Node.ID
+            let endpointID: GraphType.NodeID
             switch direction {
             case .incoming: endpointID = edge.origin
             case .outgoing: endpointID = edge.target

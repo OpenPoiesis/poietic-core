@@ -110,6 +110,15 @@ public struct ConstraintChecker {
                     errors[object.id, default: []].append(contentsOf: error.underlyingErrors)
                 }
             }
+            
+            if let edge = EdgeSnapshot(object, in: frame) {
+                do {
+                    try validate(edge: edge, in: frame)
+                }
+                catch {
+                    errors[object.id, default: []].append(.edgeRuleViolation(error))
+                }
+            }
         }
 
         // Check constraints
@@ -130,6 +139,38 @@ public struct ConstraintChecker {
                     || errors.values.allSatisfy({$0.isEmpty})) else{
             throw FrameConstraintError(violations: violations,
                                        objectErrors: errors)
+        }
+    }
+    
+    public func validate(edge: EdgeSnapshot<DesignObject>, in frame: some Frame) throws (EdgeRuleViolation) {
+        let typeRules = metamodel.edgeRules.filter {
+            edge.object.type === $0.type
+        }
+        if typeRules.count == 0 {
+            throw .edgeNotAllowed
+        }
+        guard let matchingRule = typeRules.first(where: { rule in
+            rule.match(edge, in: frame)
+        }) else {
+            throw .noSatisfiedRule(edge.object.type)
+        }
+
+        let outgoingCount = frame.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
+        switch matchingRule.outgoing {
+        case .many: break
+        case .one:
+            if outgoingCount != 1 {
+                throw .cardinalityViolation(matchingRule, .outgoing)
+            }
+        }
+        
+        let incomingCount = frame.incoming(edge.target).count { $0.object.type === matchingRule.type }
+        switch matchingRule.incoming {
+        case .many: break
+        case .one:
+            if incomingCount != 1 {
+                throw .cardinalityViolation(matchingRule, .incoming)
+            }
         }
     }
 }

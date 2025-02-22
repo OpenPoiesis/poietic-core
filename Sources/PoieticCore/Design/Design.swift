@@ -107,7 +107,7 @@ public class Design {
     ///
     /// - SeeAlso: ``allocateID(required:)``
     ///
-    private var objectIDSequence: ObjectID
+    private var objectIDSequence: UInt64
 
     var _snapshots: [SnapshotID: DesignObject]
     var _refCount: [SnapshotID:Int]
@@ -195,7 +195,7 @@ public class Design {
     ///
     /// - Precondition: If ID is specified, it must not be used.
     ///
-    public func allocateID(required: ID? = nil) -> ID {
+    public func allocateID(required: ObjectID? = nil) -> ObjectID {
         // FIXME: [REFACTORING] Just use "usedIDs"
         if let id = required {
             precondition(_snapshots[id] == nil,
@@ -206,11 +206,11 @@ public class Design {
                          "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
             
             // Mark the ID as used
-            objectIDSequence = max(self.objectIDSequence, id + 1)
+            objectIDSequence = max(self.objectIDSequence, id.internalSequenceValue + 1)
             return id
         }
         else {
-            let id = objectIDSequence
+            let id = ObjectID(objectIDSequence)
             objectIDSequence += 1
             return id
         }

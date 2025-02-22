@@ -166,5 +166,8 @@ public let TestMetamodel = Metamodel(
         ObjectType.Parameter,
         ObjectType.Arrow,
     ],
-    constraints: []
+    edgeRules: [
+        EdgeRule(type: .Arrow),
+    ]
+    
 )

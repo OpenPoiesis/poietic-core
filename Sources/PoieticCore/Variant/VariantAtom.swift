@@ -166,7 +166,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// Create a variant representing an object ID.
     ///
     init(_ id: ObjectID) {
-        self = .string(String(id))
+        self = .string(id.stringValue)
     }
 
     /// Check whether the atom value is convertible to a given value type.
@@ -358,7 +358,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         // Therefore the single value decoding tries double first before Int
         
         switch self {
-        case let .int(value): return ObjectID(value)
+        case let .int(value): return ObjectID(UInt64(value))
 //        case let .double(value): return ObjectID(value)
         case .double(_): throw ValueError.conversionToIDFailed(.double)
         case let .string(value):

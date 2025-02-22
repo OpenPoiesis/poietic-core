@@ -144,7 +144,7 @@ public class MakeshiftDesignStore {
                 guard let target = perSnapshot.target else {
                     throw .missingStructuralProperty(type.structuralType, "to")
                 }
-                structure = .edge(ObjectID(origin), ObjectID(target))
+                structure = .edge(origin, target)
             }
 
             let snapshot = DesignObject(id: perSnapshot.id,

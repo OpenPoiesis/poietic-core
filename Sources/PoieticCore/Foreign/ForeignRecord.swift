@@ -151,7 +151,7 @@ public struct ForeignRecord {
     ///
     /// - Throws: ``ForeignRecordError/unknownKey(_:)`` if the record
     ///    does not have a value for given key.
-    public func IDValue(for key: String) throws (ForeignRecordError) -> UInt64 {
+    public func IDValue(for key: String) throws (ForeignRecordError) -> ObjectID {
         guard let value = try IDValueIfPresent(for: key) else {
             throw .unknownKey(key)
         }
@@ -237,7 +237,7 @@ public struct ForeignRecord {
     /// - Throws: ``ForeignRecordError/valueError(_:_:)`` if the value
     ///   can not be converted to ID.
     ///
-    public func IDValueIfPresent(for key: String) throws (ForeignRecordError) -> UInt64? {
+    public func IDValueIfPresent(for key: String) throws (ForeignRecordError) -> ObjectID? {
         guard let existingValue = dict[key] else {
             return nil
         }

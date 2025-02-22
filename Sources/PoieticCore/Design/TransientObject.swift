@@ -90,8 +90,8 @@ public class MutableObject: ObjectSnapshot {
     @inlinable
     public func attribute(forKey key: String) -> Variant? {
         switch key {
-        case "id": Variant(String(id))
-        case "snapshot_id": Variant(String(snapshotID))
+        case "id": Variant(id.stringValue)
+        case "snapshot_id": Variant(snapshotID.stringValue)
         case "type": Variant(type.name)
         case "structure": Variant(structure.type.rawValue)
         default: attributes[key]

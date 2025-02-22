@@ -5,6 +5,40 @@
 //  Created by Stefan Urbanek on 17/06/2022.
 //
 
+/**
+ 
+ Constraints:
+ 
+ Node:
+    - predicate -> requirement
+ 
+    requirement: object predicate
+ 
+ Edge:
+    - for EDGE of TYPE
+    - edge (predicate, origin, target) -> requirement
+    - requirement:
+        - edge object requirement
+        - origin object requirement
+        - target object requirement
+        - cardinality requirement (origin, target)
+ 
+ */
+
+public enum EdgeCardinality: Sendable, CustomStringConvertible {
+    // case oneOrZero
+    // case exactlyOne
+    case one
+    case many
+    
+    public var description: String {
+        switch self {
+        case .one: "one"
+        case .many: "many"
+        }
+    }
+}
+
 
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
@@ -12,44 +46,57 @@
 /// Only objects with structural type ``Structure/edge(_:_:)`` will
 /// be matched by this predicate.
 ///
-public final class EdgePredicate: Predicate {
+public struct EdgePredicate: Predicate, CustomStringConvertible {
     let edgePredicate: Predicate?
     let originPredicate: Predicate?
     let targetPredicate: Predicate?
     
+    public init() {
+        self.edgePredicate = nil
+        self.originPredicate = nil
+        self.targetPredicate = nil
+    }
+    
     public init(_ edge: Predicate? = nil,
                 origin: Predicate? = nil,
                 target: Predicate? = nil) {
-        guard !(origin == nil && target == nil && edge == nil) else {
-            preconditionFailure("At least one of the parameters must be set: origin, target or edge")
-        }
-        
+        self.edgePredicate = edge
         self.originPredicate = origin
         self.targetPredicate = target
-        self.edgePredicate = edge
+    }
+    
+    public init(_ edgeType: ObjectType? = nil,
+                origin: ObjectType? = nil,
+                target: ObjectType? = nil) {
+        self.edgePredicate = edgeType.map { IsTypePredicate($0) }
+        self.originPredicate = origin.map { IsTypePredicate($0) }
+        self.targetPredicate = target.map { IsTypePredicate($0) }
     }
     
     public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
-        guard let edge = EdgeObject(object) else {
+        guard let edge = EdgeSnapshot(object, in: frame) else {
             return false
         }
+        if let predicate = edgePredicate {
+            if !predicate.match(object, in: frame) {
+                return false
+            }
+        }
+        
         if let predicate = originPredicate {
-            let node = frame.node(edge.origin)
-            if !predicate.match(node, in: frame) {
+            if !predicate.match(edge.originObject, in: frame) {
                 return false
             }
         }
         if let predicate = targetPredicate {
-            let node = frame.node(edge.target)
-            if !predicate.match(node, in: frame) {
-                return false
-            }
-        }
-        if let predicate = edgePredicate {
-            if !predicate.match(edge.snapshot, in: frame) {
+            if !predicate.match(edge.targetObject, in: frame) {
                 return false
             }
         }
         return true
+    }
+    
+    public var description: String {
+        return "edge(\(edgePredicate), \(originPredicate), \(targetPredicate)"
     }
 }

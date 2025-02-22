@@ -43,7 +43,7 @@ public final class EdgeEndpointRequirement: ConstraintRequirement {
         var violations: [ObjectID] = []
         
         for object in objects {
-            guard let edge = EdgeObject(object) else {
+            guard let edge = EdgeSnapshot(object, in: frame) else {
                 fatalError("Object \(object.id) is not an edge")
             }
 
@@ -61,7 +61,7 @@ public final class EdgeEndpointRequirement: ConstraintRequirement {
                     continue
                 }
             }
-            if let predicate = self.edge, !predicate.match(edge.snapshot, in: frame) {
+            if let predicate = self.edge, !predicate.match(object, in: frame) {
                 violations.append(edge.id)
                 continue
             }

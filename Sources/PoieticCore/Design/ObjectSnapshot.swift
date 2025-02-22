@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
-public typealias ID = UInt64
-
 /// Identifier of a design objects.
 ///
 /// The object ID is unique within the frame containing the object.
@@ -16,7 +14,43 @@ public typealias ID = UInt64
 /// - SeeAlso: ``ObjectSnapshot``, ``Design``,
 ///     ``Design/allocateID(required:)``
 ///
-public typealias ObjectID = ID
+public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral, CustomStringConvertible {
+    public typealias IntegerLiteralType = UInt64
+    var _rawValue: UInt64
+    
+    // Alias for an internal value, used in allocateID(ObjectID). This is relevant only for
+    // integer based IDs and only for current ways of ID generation - sequential. Not needed
+    // if we switch to UUID.
+    var internalSequenceValue: UInt64 { _rawValue }
+    
+    init(_ rawValue: UInt64) {
+        self._rawValue = rawValue
+    }
+    
+    public init(integerLiteral value: Self.IntegerLiteralType) {
+        self._rawValue = value
+    }
+    
+    public init?(_ string: String) {
+        guard let value = UInt64(string) else {
+            return nil
+        }
+        self._rawValue = value
+    }
+    
+    public var stringValue: String { String(_rawValue) }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        self._rawValue = try container.decode(UInt64.self)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(_rawValue)
+    }
+    public var description: String { stringValue }
+}
 
 /// Identifier of a design object version.
 ///
@@ -25,7 +59,7 @@ public typealias ObjectID = ID
 /// SeeAlso: ``ObjectSnapshot``, ``Design``,
 ///     ``Design/allocateID(required:)``, ``TransientFrame/mutate(_:)``
 ///
-public typealias SnapshotID = ID
+public typealias SnapshotID = ObjectID
 
 /// Identifier of a version frame.
 ///
@@ -33,7 +67,7 @@ public typealias SnapshotID = ID
 ///
 /// - SeeAlso: ``Frame``, ``Design/createFrame(deriving:id:)``
 ///
-public typealias FrameID = ID
+public typealias FrameID = ObjectID
 
 /// A version of a design object.
 ///
@@ -222,6 +256,27 @@ extension ObjectSnapshot {
         default: return nil
         }
     }
+    
+    package var unsafeOrigin: ObjectID {
+        guard case .edge(let origin, _) = structure else {
+            preconditionFailure("Unwrapping non-edge object")
+        }
+        return origin
+    }
+
+    package var unsafeTarget: ObjectID {
+        guard case .edge(_, let target) = structure else {
+            preconditionFailure("Unwrapping non-edge object")
+        }
+        return target
+    }
+
+    package var unsafeEdgeEndpoints: (ObjectID, ObjectID) {
+        guard case .edge(let origin, let target) = structure else {
+            preconditionFailure("Unwrapping non-edge object")
+        }
+        return (origin, target)
+    }
 }
 
 // MARK: - Graph Protocol
@@ -229,24 +284,28 @@ extension ObjectSnapshot {
 // TODO: Find a more descriptive name.
 /// Wrapper of an object snapshot presented as an edge.
 ///
-public struct EdgeObject<Snapshot: ObjectSnapshot>: EdgeProtocol {
+public struct EdgeSnapshot<Snapshot: DesignObject>: EdgeProtocol {
     public typealias NodeID = ObjectID
-    public let snapshot: Snapshot
-    public let origin: ObjectID
-    public let target: ObjectID
-    
-    public init?(_ snapshot: Snapshot) {
+    public let object: DesignObject
+    public var id: ObjectID { object.id }
+
+    public let originObject: DesignObject
+    public var origin: ObjectID { originObject.id }
+
+    public let targetObject: DesignObject
+    public var target: ObjectID { targetObject.id }
+
+    public init?(_ snapshot: Snapshot, in frame: some Frame) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }
 
-        self.snapshot = snapshot
-        self.origin = origin
-        self.target = target
+        self.object = snapshot
+        self.originObject = frame[origin]
+        self.targetObject = frame[target]
     }
 
-    public var id: ObjectID { snapshot.id }
-    public var type: ObjectType { snapshot.type }
-    public var name: String? { snapshot.name }
+    // public var type: ObjectType { object.type }
+    // public var name: String? { object.name }
 }
 

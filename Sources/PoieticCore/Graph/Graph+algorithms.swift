@@ -1,5 +1,5 @@
 //
-//  Graph+algorighms.swift
+//  Graph+algorithms.swift
 //  
 //
 //  Created by Stefan Urbanek on 09/09/2022.
@@ -10,21 +10,20 @@ extension GraphProtocol {
     ///
     /// - Returns: Sorted node IDs when there were no issues, or nil if there was a cycle.
     ///
-    public func topologicalSort() -> [Node.ID]? {
+    public func topologicalSort() -> [NodeID]? {
         var edges = self.edges
         let targets = Set(edges.map {$0.target})
-        var sources: [Node.ID] =
-            self.nodes.map { $0.id }.filter { !targets.contains($0) }
-        var sorted: [Node.ID] = []
+        var sources: [NodeID] = self.nodeIDs.filter { !targets.contains($0) }
+        var sorted: [NodeID] = []
 
         while !sources.isEmpty {
-            let node: Node.ID = sources.removeFirst()
+            let node: NodeID = sources.removeFirst()
             let outgoing: [Edge] = edges.filter { $0.origin == node }
             
             sorted.append(node)
 
             for edge in outgoing {
-                let m: Node.ID = edge.target
+                let m: NodeID = edge.target
                 
                 edges.removeAll { $0.id == edge.id }
                 
@@ -48,16 +47,16 @@ extension GraphProtocol {
     ///
     public func cycles() -> [Edge] {
         var edges = self.edges
-        let nodes: [Node.ID] = self.nodes.map { $0.id }
+        let nodes: [NodeID] = self.nodeIDs
         let targets = Set(edges.map {$0.target})
-        var sources: [Node.ID] = nodes.filter { !targets.contains($0) }
+        var sources: [NodeID] = nodes.filter { !targets.contains($0) }
         
         while !sources.isEmpty {
-            let node: Node.ID = sources.removeFirst()
+            let node: NodeID = sources.removeFirst()
             let outgoing: [Edge] = edges.filter { $0.origin == node }
             
             for edge in outgoing {
-                let m: Node.ID = edge.target
+                let m: NodeID = edge.target
                 
                 edges.removeAll { $0.id == edge.id }
                 

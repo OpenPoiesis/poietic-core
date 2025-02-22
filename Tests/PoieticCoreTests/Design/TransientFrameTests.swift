@@ -379,7 +379,9 @@ import Testing
     @Test func rejectBrokenEdgeEndpoint() throws {
         frame.create(TestEdgeType, id: 10, structure: .edge(900, 901))
 
-        #expect(frame.brokenReferences().sorted() == [900, 901])
+        #expect(frame.brokenReferences().count == 2)
+        #expect(frame.brokenReferences().contains(ObjectID(900)))
+        #expect(frame.brokenReferences().contains(ObjectID(901)))
         #expect(throws: TransientFrameError.brokenEdgeEndpoint) {
             try frame.validateStructure()
         }
@@ -389,7 +391,8 @@ import Testing
     @Test func rejectMissingParent() throws {
         frame.create(TestType, id: 20, parent: 902)
 
-        #expect(frame.brokenReferences().sorted() == [902])
+        #expect(frame.brokenReferences().count == 1)
+        #expect(frame.brokenReferences().contains(ObjectID(902)))
         #expect(throws: TransientFrameError.brokenParent) {
             try frame.validateStructure()
         }
@@ -398,7 +401,8 @@ import Testing
     @Test func rejectMissingChild() throws {
         frame.create(TestType, id: 20, children: [903])
 
-        #expect(frame.brokenReferences().sorted() == [903])
+        #expect(frame.brokenReferences().count == 1)
+        #expect(frame.brokenReferences().contains(903))
         #expect(throws: TransientFrameError.brokenChild) {
             try frame.validateStructure()
         }

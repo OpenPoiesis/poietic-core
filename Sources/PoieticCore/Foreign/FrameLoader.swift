@@ -141,6 +141,7 @@ public final class ForeignFrameLoader {
                 throw .unknownObjectType(typeName, foreignObject.id)
             }
             do {
+                // FIXME: [REFACTORING] Add context about the error – object ID or something
                 try foreignObject.validateStructure(type.structuralType)
             }
             catch {

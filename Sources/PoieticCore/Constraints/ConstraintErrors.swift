@@ -24,6 +24,9 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
     ///     
     case typeMismatch(Attribute, ValueType)
     
+    // FIXME: [REFACTORING] Should this remain here? Maybe rename the parent error?
+    case edgeRuleViolation(EdgeRuleViolation)
+    
     public var description: String {
         switch self {
         case let .unknownType(name):
@@ -32,6 +35,8 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
             "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, actualType):
             "Type mismatch of attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
+        case let .edgeRuleViolation(violation):
+            "Edge rule violation: \(violation)"
         }
     }
 }

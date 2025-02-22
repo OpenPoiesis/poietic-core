@@ -82,9 +82,10 @@ public final class DesignFrame: Frame {
         return snapshot
     }
     
-    /// Get an immutable graph view of the frame.
-    ///
-    public var graph: any GraphProtocol {
-        return self
+    // Graph Protocol
+    public var edgeIDs: [ObjectID] {
+        _snapshots.values.compactMap {
+            $0.structure.type == .edge ? $0.id : nil
+        }
     }
 }

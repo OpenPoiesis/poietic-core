@@ -36,6 +36,8 @@ public final class Metamodel: Sendable {
     ///
     public let constraints: [Constraint]
 
+    public let edgeRules: [EdgeRule]
+    
     /// Create a new empty metamodel.
     ///
     public init() {
@@ -43,6 +45,7 @@ public final class Metamodel: Sendable {
         self.traits = []
         self.types = []
         self.constraints = []
+        self.edgeRules = []
     }
     /// Create a new metamodel.
     ///
@@ -58,10 +61,12 @@ public final class Metamodel: Sendable {
     public init(name: String? = nil,
                 traits: [Trait] = [],
                 types: [ObjectType] = [],
+                edgeRules: [EdgeRule] = [],
                 constraints: [Constraint] = []) {
         self.name = name
         self.traits = traits
         self.types = types
+        self.edgeRules = edgeRules
         self.constraints = constraints
     }
     
@@ -74,6 +79,7 @@ public final class Metamodel: Sendable {
         var traits: [Trait] = []
         var constraints: [Constraint] = []
         var types: [ObjectType] = []
+        var edgeRules: [EdgeRule] = []
         
         self.name = name
         
@@ -104,11 +110,14 @@ public final class Metamodel: Sendable {
                     constraints.append(constraint)
                 }
             }
-
+            // TODO: Make merging of edge rules smarter - avoid duplicates
+            edgeRules += domain.edgeRules
         }
+
         self.traits = traits
         self.types = types
         self.constraints = constraints
+        self.edgeRules = edgeRules
     }
    
     /// Selection of node object types.
@@ -156,5 +165,6 @@ public final class Metamodel: Sendable {
     public func objectType(name: String) -> ObjectType? {
         return types.first { $0.name == name}
     }
+    
 }
 
