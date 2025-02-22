@@ -12,6 +12,7 @@ import Foundation
 /// - SeeAlso: ``ForeignFrameLoader/load(_:into:)``
 ///
 public enum FrameLoaderError: Error, Equatable, CustomStringConvertible {
+    // TODO: [IMPORTANT] Add context: object name, object ID, object type (if known), object structure (if known)
     case foreignObjectError(ForeignObjectError, String?)
     case unknownObjectType(String, String?)
     case invalidReference(String, String, String?)
@@ -20,10 +21,10 @@ public enum FrameLoaderError: Error, Equatable, CustomStringConvertible {
         switch self {
         case let .foreignObjectError(error, ref):
             if let ref {
-                return "Foreign object error: '\(error)' in object '\(ref)'"
+                return "Foreign object error: \(error) in object '\(ref)'"
             }
             else {
-                return "Foreign object error '\(error)'"
+                return "Foreign object error \(error)"
             }
         case let .unknownObjectType(type, ref):
             if let ref {
@@ -134,18 +135,18 @@ public final class ForeignFrameLoader {
             let structure: Structure
             
             guard let typeName = foreignObject.type else {
-                throw .foreignObjectError(.missingObjectType, foreignObject.id)
+                throw .foreignObjectError(.missingObjectType, foreignObject.id ?? foreignObject.name)
             }
             
             guard let type = metamodel.objectType(name: typeName) else {
-                throw .unknownObjectType(typeName, foreignObject.id)
+                throw .unknownObjectType(typeName, foreignObject.id ?? foreignObject.name)
             }
             do {
                 // FIXME: [REFACTORING] Add context about the error – object ID or something
                 try foreignObject.validateStructure(type.structuralType)
             }
             catch {
-                throw .foreignObjectError(error, foreignObject.id)
+                throw .foreignObjectError(error, foreignObject.id ?? foreignObject.name)
             }
             switch type.structuralType {
             case .unstructured:
@@ -155,12 +156,12 @@ public final class ForeignFrameLoader {
             case .edge:
                 let originRef = foreignObject.origin!
                 guard let originID = references[originRef] else {
-                    throw .invalidReference(originRef, "origin", foreignObject.id)
+                    throw .invalidReference(originRef, "origin", foreignObject.id ?? foreignObject.name)
                 }
 
                 let targetRef = foreignObject.target!
                 guard let targetID = references[targetRef] else {
-                    throw .invalidReference(targetRef, "target", foreignObject.id)
+                    throw .invalidReference(targetRef, "target", foreignObject.id ?? foreignObject.name)
                 }
 
                 structure = .edge(originID, targetID)

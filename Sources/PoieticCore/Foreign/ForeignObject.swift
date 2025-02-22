@@ -101,7 +101,7 @@ public protocol ForeignFrameProtocol {
 ///
 /// - SeeAlso: ``ForeignFrameError``, ``JSONFrameReader``, ``ForeignObject``
 /// 
-public enum ForeignObjectError: Error, Equatable {
+public enum ForeignObjectError: Error, Equatable, CustomStringConvertible {
     /// The external representation of foreign object is malformed.
     ///
     /// For example, a JSON representation is not a dictionary.
