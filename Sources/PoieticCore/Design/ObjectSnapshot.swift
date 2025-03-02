@@ -39,6 +39,7 @@ public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral
     }
     
     public var stringValue: String { String(_rawValue) }
+    public var intValue: UInt64 { _rawValue }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

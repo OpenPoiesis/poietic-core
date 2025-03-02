@@ -5,27 +5,6 @@
 //  Created by Stefan Urbanek on 20/02/2025.
 //
 
-/**
- edge       origin  target    origin outgoing    target incoming
- ---
- parameter  aux     aux         many    many
- parameter  stock   aux         many    many
- parameter  flow    aux         many    many
- 
- parameter  aux     flow        many    many
- parameter  flow    flow        many    many
- 
- parameter  aux     gr func     many    one
- parameter  stock   gr func     many    one
- parameter  flow    gr func     many    one
- flow       stock   flow        many    one
- flow       flow    stock       one    many
- flow       cloud   flow        many    one
- flow       flow    cloud       one    many
- comment    any     any         many    many
- 
-
- */
 
 public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible {
     case edgeNotAllowed
@@ -81,14 +60,12 @@ public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
         }
         if let predicate = originPredicate {
             if !predicate.match(edge.originObject, in: frame) {
-                print("--x no match origin")
                 return false
             }
         }
         
         if let predicate = targetPredicate {
             if !predicate.match(edge.targetObject, in: frame) {
-                print("--x no match target")
                 return false
             }
         }

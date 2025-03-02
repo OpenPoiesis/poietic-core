@@ -16,8 +16,8 @@ extension Trait {
     ///   Higher number means top – might obscure others,
     ///   lower means bottom - might be obscured.
     ///
-    public static let Position = Trait(
-        name: "Position",
+    public static let DiagramNode = Trait(
+        name: "DiagramNode",
         attributes: [
             Attribute("position", type: .point, default: Variant(Point(0,0))),
             Attribute("z_index", type: .int, default: Variant(0)),
