@@ -42,7 +42,7 @@ import Testing
         #expect {
             try design.accept(frame)
         } throws: {
-            guard let error = $0 as? FrameConstraintError else {
+            guard let error = $0 as? FrameValidationError else {
                 Issue.record("Expected FrameValidationError")
                 return false
             }

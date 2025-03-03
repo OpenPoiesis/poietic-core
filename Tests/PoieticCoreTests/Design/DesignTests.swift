@@ -218,7 +218,7 @@ import Testing
         #expect {
             try design.accept(frame)
         } throws: {
-            let error = try #require($0 as? FrameConstraintError,
+            let error = try #require($0 as? FrameValidationError,
                                      "Error is not a FrameConstraintError")
             let violation = try #require(error.violations.first,
                                          "No constraint violation found")

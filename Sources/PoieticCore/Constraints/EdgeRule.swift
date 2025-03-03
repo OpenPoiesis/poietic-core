@@ -6,15 +6,15 @@
 //
 
 
-public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible {
+public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
     case edgeNotAllowed
-    case noSatisfiedRule(ObjectType)
+    case noRuleSatisfied(ObjectType)
     case cardinalityViolation(EdgeRule, EdgeDirection)
     
     public var description: String {
         switch self {
         case .edgeNotAllowed: "Edge not allowed"
-        case let .noSatisfiedRule(type): "None of rules for edge type \(type.name) is satisfied"
+        case let .noRuleSatisfied(type): "None of rules for edge type \(type.name) is satisfied"
         case let .cardinalityViolation(rule, direction): "Cardinality violation for rule \(rule) direction \(direction)"
         }
     }
@@ -23,12 +23,43 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible {
         switch (lhs, rhs) {
         case (.edgeNotAllowed, .edgeNotAllowed):
             true
-        case let (.noSatisfiedRule(ltype), .noSatisfiedRule(rtype)):
+        case let (.noRuleSatisfied(ltype), .noRuleSatisfied(rtype)):
             ltype === rtype
         case let (.cardinalityViolation(lrule, ldir), .cardinalityViolation(rrule, rdir)):
             lrule == rrule && ldir == rdir
         default:
             false
+        }
+    }
+    
+    public func asDesignIssue() -> DesignIssue {
+        switch self {
+        case .edgeNotAllowed:
+            DesignIssue(domain: .validation,
+                        severity: .error,
+                        identifier: "edge_not_allowed",
+                        message: description,
+                        hint: nil,
+                        details: [:])
+        case .noRuleSatisfied(_):
+            DesignIssue(domain: .validation,
+                        severity: .error,
+                        identifier: "no_edge_rule_satisfied",
+                        message: description,
+                        hint: nil,
+                        details: [:])
+        case let .cardinalityViolation(rule, direction):
+            DesignIssue(domain: .validation,
+                        severity: .error,
+                        identifier: "edge_cardinality_violated",
+                        message: description,
+                        hint: nil,
+                        details: [
+                            "incoming_predicate": Variant(rule.incoming.description),
+                            "outgoing_predicate": Variant(rule.outgoing.description),
+                            "direction": Variant(direction.description)
+                            ]
+                        )
         }
     }
 }

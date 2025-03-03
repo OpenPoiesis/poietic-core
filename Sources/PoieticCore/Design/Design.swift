@@ -388,7 +388,7 @@ public class Design {
     ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameConstraintError) -> DesignFrame {
+    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameValidationError) -> DesignFrame {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
@@ -403,8 +403,9 @@ public class Design {
             snapshots = try frame.accept()
         }
         catch {
-            throw FrameConstraintError(violations: [],
+            throw FrameValidationError(violations: [],
                                        objectErrors: [:],
+                                       edgeRuleViolations: [:],
                                        brokenReferences: frame.brokenReferences())
         }
         

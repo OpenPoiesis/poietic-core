@@ -23,7 +23,7 @@ extension ObjectSnapshot {
     /// - Throws: ``ObjectConstraintError`` when the object does not conform
     ///   to the trait.
     ///
-    public func check(conformsTo trait: Trait) throws (ObjectConstraintError) {
+    public func check(conformsTo trait: Trait) throws (ObjectTypeErrorCollection) {
         var errors:[ObjectTypeError] = []
         
         for attr in trait.attributes {
@@ -47,7 +47,7 @@ extension ObjectSnapshot {
         }
         
         guard errors.isEmpty else {
-            throw ObjectConstraintError(underlyingErrors: errors)
+            throw ObjectTypeErrorCollection(errors)
         }
     }
 }
@@ -90,9 +90,9 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/check(conformsTo:)``
     ///
-    public func check(_ frame: some Frame) throws (FrameConstraintError) {
+    public func check(_ frame: some Frame) throws (FrameValidationError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]
-
+        var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
         // Check types
         // ------------------------------------------------------------
         for object in frame.snapshots {
@@ -107,7 +107,7 @@ public struct ConstraintChecker {
                     try object.check(conformsTo: trait)
                 }
                 catch {
-                    errors[object.id, default: []].append(contentsOf: error.underlyingErrors)
+                    errors[object.id, default: []].append(contentsOf: error.errors)
                 }
             }
             
@@ -116,7 +116,7 @@ public struct ConstraintChecker {
                     try validate(edge: edge, in: frame)
                 }
                 catch {
-                    errors[object.id, default: []].append(.edgeRuleViolation(error))
+                    edgeViolations[object.id, default: []].append(error)
                 }
             }
         }
@@ -135,10 +135,11 @@ public struct ConstraintChecker {
         // Throw an error if there are any violations or errors
         
         guard violations.isEmpty
-                && (errors.isEmpty
-                    || errors.values.allSatisfy({$0.isEmpty})) else{
-            throw FrameConstraintError(violations: violations,
-                                       objectErrors: errors)
+                && errors.isEmpty
+                && edgeViolations.isEmpty else {
+            throw FrameValidationError(violations: violations,
+                                       objectErrors: errors,
+                                       edgeRuleViolations: edgeViolations)
         }
     }
     
@@ -152,7 +153,7 @@ public struct ConstraintChecker {
         guard let matchingRule = typeRules.first(where: { rule in
             rule.match(edge, in: frame)
         }) else {
-            throw .noSatisfiedRule(edge.object.type)
+            throw .noRuleSatisfied(edge.object.type)
         }
 
         let outgoingCount = frame.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
