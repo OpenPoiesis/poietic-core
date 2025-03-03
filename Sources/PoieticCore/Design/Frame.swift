@@ -19,13 +19,13 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeSna
     /// Get a list of all snapshots in the frame.
     ///
     var snapshots: [DesignObject] { get }
-
+    
     /// Check whether the frame contains an object with given ID.
     ///
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
     ///
     func contains(_ id: ObjectID) -> Bool
-
+    
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
@@ -34,7 +34,7 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeSna
     /// Get an object by an ID.
     ///
     subscript(id: ObjectID) -> DesignObject { get }
-
+    
     
     /// Get a list of broken references.
     ///
@@ -44,11 +44,20 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeSna
     /// This convenience method is used for debugging.
     ///
     func brokenReferences() -> [ObjectID]
-
+    
     
     /// Get objects of given type.
     ///
     func filter(type: ObjectType) -> [DesignObject]
+    
+    /// Get distinct values of an attribute.
+    func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant>
+
+    /// Get distinct object types of a list of objects.
+    func distinctTypes(_ ids: [ObjectID]) -> [ObjectType]
+
+    /// Get shared traits of a list of objects.
+    func sharedTraits(_ ids: [ObjectID]) -> [Trait]
 }
 
 // MARK: - Default Implementations
@@ -336,4 +345,53 @@ extension Frame {
             return nil
         }
     }
+}
+
+// MARK: Distinct queries
+
+extension Frame {
+    public func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant> {
+        // TODO: Use ordered set here
+        var values: Set<Variant> = Set()
+        for id in ids {
+            let object = self[id]
+            if let value = object[attributeName] {
+                values.insert(value)
+            }
+        }
+        return values
+    }
+
+    /// Get distinct object types of a list of objects.
+    public func distinctTypes(_ ids: [ObjectID]) -> [ObjectType] {
+        var types: [ObjectType] = []
+        for id in ids {
+            let object = self[id]
+            if types.contains(where: { $0 === object.type}) {
+                continue
+            }
+            else {
+                types.append(object.type)
+            }
+        }
+        return types
+    }
+
+    /// Get shared traits of a list of objects.
+    public func sharedTraits(_ ids: [ObjectID]) -> [Trait] {
+        let types = self.distinctTypes(ids)
+        var traits: [Trait] = []
+        for type in types {
+            for trait in type.traits {
+                if traits.contains(where: { $0 === trait}) {
+                    continue
+                }
+                else {
+                    traits.append(trait)
+                }
+            }
+        }
+        return traits
+    }
+
 }
