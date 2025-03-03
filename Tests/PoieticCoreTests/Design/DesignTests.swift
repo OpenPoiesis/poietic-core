@@ -180,6 +180,43 @@ import Testing
         #expect(design.currentFrame!.contains(a.id))
         #expect(!design.currentFrame!.contains(b.id))
     }
+   
+    @Test func undoRedoNoArgument() throws {
+        #expect(!design.canUndo)
+        #expect(!design.canRedo)
+        #expect(!design.undo())
+        #expect(!design.redo())
+        try design.accept(design.createFrame())
+
+        // Still can not undo, we have only one frame.
+        #expect(!design.canUndo)
+        #expect(!design.canRedo)
+        #expect(!design.undo())
+        #expect(!design.redo())
+
+        try #require(design.currentFrameID != nil)
+        
+        let originalID = design.currentFrameID!
+        let f1 = design.createFrame(deriving: design.currentFrame)
+        try design.accept(f1)
+        
+        #expect(design.canUndo)
+        #expect(!design.canRedo)
+
+        #expect(design.undo())
+        #expect(!design.undo())
+
+        #expect(design.currentFrameID == originalID)
+        
+        #expect(!design.canUndo)
+        #expect(design.canRedo)
+
+        #expect(design.redo())
+        #expect(!design.redo())
+
+        #expect(design.canUndo)
+        #expect(!design.canRedo)
+    }
     
     @Test func redoReset() throws {
         try design.accept(design.createFrame())

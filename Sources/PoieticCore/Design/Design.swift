@@ -465,13 +465,21 @@ public class Design {
     /// frames in the undo history.
     ///
     /// It is up to the caller to verify whether the provided frame ID is part
-    /// of undoable history, otherwise it is a programming error.
+    /// of undoable history.
     ///
+    /// - Returns: `true` if there was anything to undo, `false` if there was nothing to undo.
+    /// - Precondition: `frameID` must exist in the undo history.
     /// - SeeAlso: ``redo(to:)``, ``canUndo``, ``canRedo``
     ///
-    public func undo(to frameID: FrameID) {
-        guard let index = undoableFrames.firstIndex(of: frameID) else {
-            fatalError("Trying to undo to frame \(frameID), which does not exist in the history")
+    @discardableResult
+    public func undo(to frameID: FrameID? = nil) -> Bool {
+        guard !undoableFrames.isEmpty else {
+            return false
+        }
+        
+        let actualFrameID = frameID ?? undoableFrames.last!
+        guard let index = undoableFrames.firstIndex(of: actualFrameID) else {
+            fatalError("Trying to undo to frame \(actualFrameID), which does not exist in the history")
         }
 
         var suffix = undoableFrames.suffix(from: index)
@@ -482,6 +490,7 @@ public class Design {
         redoableFrames = suffix + [currentFrameID!] + redoableFrames
 
         currentFrameID = newCurrentFrameID
+        return true
     }
     
     /// Change the current frame to `frameID` which is one of the previously
@@ -493,11 +502,20 @@ public class Design {
     /// It is up to the caller to verify whether the provided frame ID is part
     /// of redoable history, otherwise it is a programming error.
     ///
+    /// - Returns: `true` if there was anything to redo, `false` if there was nothing to redo.
+    /// - Precondition: `frameID` must exist in the redo history.
     /// - SeeAlso: ``undo(to:)``, ``canUndo``, ``canRedo``
     ///
-    public func redo(to frameID: FrameID) {
-        guard let index = redoableFrames.firstIndex(of: frameID) else {
-            fatalError("Trying to redo to frame \(frameID), which does not exist in the history")
+    @discardableResult
+    public func redo(to frameID: FrameID? = nil) -> Bool {
+        guard !redoableFrames.isEmpty else {
+            return false
+        }
+        
+        let actualFrameID = frameID ?? redoableFrames.first!
+
+        guard let index = redoableFrames.firstIndex(of: actualFrameID) else {
+            fatalError("Trying to redo to frame \(actualFrameID), which does not exist in the history")
         }
         var prefix = redoableFrames.prefix(through: index)
 
@@ -506,6 +524,7 @@ public class Design {
         let after = redoableFrames.index(after: index)
         redoableFrames = Array(redoableFrames.suffix(from: after))
         currentFrameID = newCurrentFrameID
+        return true
     }
     
     /// Check constraints for the given frame.
