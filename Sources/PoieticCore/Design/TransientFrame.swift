@@ -581,6 +581,7 @@ public final class TransientFrame: Frame {
         
         try validateStructure()
         self.state = .accepted
+        
         return objects.values.map { $0.asStable() }
     }
     
@@ -617,8 +618,8 @@ public final class TransientFrame: Frame {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
         switch current {
-        case .mutable(let trans):
-            return trans
+        case .mutable(let snapshot):
+            return snapshot
         case .stable(let original):
             let derivedSnapshotID: SnapshotID = design.allocateID()
             let derived = MutableObject(id: original.id,

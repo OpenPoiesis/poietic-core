@@ -96,7 +96,16 @@ public class MakeshiftDesignStore {
         }
     }
 
+    
+    func assertUniqueID(_ id: ObjectID, in design: Design, context: String) throws (PersistentStoreError) {
+        guard design.checkUnique(id) else {
+            throw .duplicateID(id, context)
+        }
+        design.consumeID(id)
+    }
+
     func restoreCurrentVersion(_ persistent: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
+
         let design = Design(metamodel: metamodel)
 
         // 1. Read Snapshots
@@ -146,14 +155,18 @@ public class MakeshiftDesignStore {
                 }
                 structure = .edge(origin, target)
             }
+            // TODO: Handle corrupted store with existing IDs
+            // TODO: Handle corrupted store with duplicate objectIDs within frame
+            design.consumeID(perSnapshot.id)
+            try assertUniqueID(perSnapshot.snapshotID, in: design, context: "snapshot")
 
             let snapshot = DesignObject(id: perSnapshot.id,
-                                          snapshotID: perSnapshot.snapshotID,
-                                          type: type,
-                                          structure: structure,
-                                          parent: perSnapshot.parent,
-                                          attributes: perSnapshot.attributes,
-                                          components: [])
+                                        snapshotID: perSnapshot.snapshotID,
+                                        type: type,
+                                        structure: structure,
+                                        parent: perSnapshot.parent,
+                                        attributes: perSnapshot.attributes,
+                                        components: [])
 
             snapshots[snapshot.snapshotID] = snapshot
         }
@@ -161,6 +174,7 @@ public class MakeshiftDesignStore {
         // 2. Read frames
         // ----------------------------------------------------------------
         for perFrame in persistent.frames {
+            try assertUniqueID(perFrame.id, in: design, context: "frame")
             if design.containsFrame(perFrame.id) {
                 throw .duplicateFrame(perFrame.id)
             }

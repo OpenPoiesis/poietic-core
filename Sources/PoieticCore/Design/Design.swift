@@ -193,20 +193,13 @@ public class Design {
     ///
     /// If ID is not provided, then a new ID will be created.
     ///
-    /// - Precondition: If ID is specified, it must not be used.
+    /// - Precondition: If ID is specified, it must not be used before.
     ///
     public func allocateID(required: ObjectID? = nil) -> ObjectID {
-        // FIXME: [REFACTORING] Just use "usedIDs"
+        // TODO: Just use "usedIDs"
         if let id = required {
-            precondition(_snapshots[id] == nil,
-                         "Trying to allocate an ID \(id) that is already used as a snapshot ID")
-            precondition(_stableFrames[id] == nil,
-                         "Trying to allocate an ID \(id) that is already used as a stable frame ID")
-            precondition(_transientFrames[id] == nil,
-                         "Trying to allocate an ID \(id) that is already used as a mutable frame ID")
-            
-            // Mark the ID as used
-            objectIDSequence = max(self.objectIDSequence, id.internalSequenceValue + 1)
+            precondition(checkUnique(id), "Requested ID \(id) is not unique")
+            consumeID(id)
             return id
         }
         else {
@@ -214,6 +207,19 @@ public class Design {
             objectIDSequence += 1
             return id
         }
+    }
+    public func consumeID(_ id: ObjectID) {
+        objectIDSequence = max(self.objectIDSequence, id.internalSequenceValue + 1)
+    }
+
+    /// Returns `true` if the design contains an entity with given ID.
+    ///
+    /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
+    ///
+    public func checkUnique(_ id: ObjectID) -> Bool {
+        return _snapshots[id] == nil
+                && _stableFrames[id] == nil
+                && _transientFrames[id] == nil
     }
     
     /// Get a sequence of all stable snapshots in all stable frames.
@@ -348,6 +354,8 @@ public class Design {
     ///
     public func _insertOrRetain(_ snapshot: DesignObject) {
         if let count = _refCount[snapshot.snapshotID] {
+            // HINT: When this happens, it is very likely that uniqueness of IDs was not verified.
+            // HINT: Places to look at: persistent store or frame loader.
             precondition(_snapshots[snapshot.snapshotID] === snapshot)
             _refCount[snapshot.snapshotID] = count + 1
         }

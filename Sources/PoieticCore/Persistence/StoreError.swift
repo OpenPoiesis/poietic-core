@@ -30,6 +30,7 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     // Users should not be bothered with the details of the error, only tool developers.
 
     // Integrity errors
+    case duplicateID(ObjectID, String)
     case unknownObjectType(String)
     case invalidStructuralType(String)
     case structuralTypeMismatch(StructuralType, StructuralType)
@@ -63,6 +64,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Type mismatch at key path \(path)"
 
         // Integrity errors
+        case let .duplicateID(id, what):
+            "Duplicate ID \(id) in \(what)"
         case let .unknownObjectType(type):
             "Unknown object type '\(type)'"
         case let .invalidStructuralType(type):
