@@ -41,7 +41,7 @@ public struct DesignIssueCollection {
 
 /// Representation of an issue in the design caused by the user.
 ///
-public struct DesignIssue: Sendable {
+public struct DesignIssue: Sendable, CustomStringConvertible {
     public enum Domain: Sendable, CustomStringConvertible {
         /// Issue occurred during validation.
         ///
@@ -147,7 +147,11 @@ public struct DesignIssue: Sendable {
         self.hint = hint
         self.details = details
     }
-    
+
+    public var description: String {
+        return "\(severity)[\(domain),\(identifier)]: \(message)"
+    }
+
 }
 
 /// Protocol for errors that can be converted to a design issue.
