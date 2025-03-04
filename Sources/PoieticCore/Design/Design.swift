@@ -352,7 +352,7 @@ public class Design {
     ///
     /// - SeeAlso: ``accept(_:appendHistory:)``
     ///
-    public func _insertOrRetain(_ snapshot: DesignObject) {
+    func _insertOrRetain(_ snapshot: DesignObject) {
         if let count = _refCount[snapshot.snapshotID] {
             // HINT: When this happens, it is very likely that uniqueness of IDs was not verified.
             // HINT: Places to look at: persistent store or frame loader.
@@ -396,7 +396,7 @@ public class Design {
     ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (FrameValidationError) -> DesignFrame {
+    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (StructuralIntegrityError) -> DesignFrame {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
@@ -404,25 +404,11 @@ public class Design {
         precondition(_transientFrames[frame.id] != nil,
                      "Trying to accept unknown transient frame \(frame.id)")
         
-        let checker = ConstraintChecker(metamodel)
-        let snapshots: [DesignObject]
+        try frame.validateStructure()
+        frame.state = .accepted
         
-        do {
-            snapshots = try frame.accept()
-        }
-        catch {
-            throw FrameValidationError(violations: [],
-                                       objectErrors: [:],
-                                       edgeRuleViolations: [:],
-                                       brokenReferences: frame.brokenReferences())
-        }
-        
-        let stableFrame = DesignFrame(design: self,
-                                      id: frame.id,
-                                      snapshots: snapshots)
-
-        try checker.check(stableFrame)
-
+        let snapshots: [DesignObject] = frame.snapshots
+        let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
 
         _stableFrames[frame.id] = stableFrame
         _transientFrames[frame.id] = nil
@@ -442,13 +428,28 @@ public class Design {
         return stableFrame
     }
     
+    @discardableResult
+    public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
+        precondition(frame.design === self)
+        precondition(_stableFrames[frame.id] != nil)
+        
+        let validationMetamodel = metamodel ?? self.metamodel
+        
+        let checker = ConstraintChecker(validationMetamodel)
+        try checker.check(frame)
+
+        let validated = ValidatedFrame(frame, metamodel: validationMetamodel)
+        
+        return validated
+    }
+
     /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: TransientFrame) {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
 
-        frame.discard()
+        frame.state = .discarded
 
         _transientFrames[frame.id] = nil
     }

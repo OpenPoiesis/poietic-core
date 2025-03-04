@@ -9,7 +9,7 @@
 ///
 /// - SeeAlso: ``TransientFrame/accept()``
 /// 
-public enum TransientFrameError: Error {
+public enum StructuralIntegrityError: Error {
     /// The frame contains references to objects that are not present in the frame.
     ///
     /// Use ``TransientFrame/brokenReferences()`` to investigate.
@@ -500,7 +500,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: The frame must be in transient state – must not be
     ///   previously accepted or discarded.
     ///
-    public func validateStructure() throws (TransientFrameError) {
+    public func validateStructure() throws (StructuralIntegrityError) {
         // TODO: Check object types and attributes here
         precondition(state == .transient)
         
@@ -562,36 +562,6 @@ public final class TransientFrame: Frame {
         if !parents.isEmpty {
             throw .parentChildCycle
         }
-    }
-    
-    /// Accept objects in the transient frame.
-    ///
-    /// Validates the object structure and returns list of stable design objects if the structure is
-    /// valid. See ``validateStructure()`` for more information about structure validation.
-    ///
-    /// If the structure was valid, the frame will be marked as _accepted_ and will no longer be
-    /// mutable.
-    ///
-    /// - Returns: list of immutable design objects.
-    /// - Precondition: Frame state must be transient.
-    /// - SeeAlso: ``validateStructure()``, ``Design/accept(_:appendHistory:)``
-    ///
-    public func accept() throws (TransientFrameError) -> [DesignObject] {
-        precondition(state == .transient)
-        
-        try validateStructure()
-        self.state = .accepted
-        
-        return objects.values.map { $0.asStable() }
-    }
-    
-    /// Mark the frame as discarded and reject any further modifications.
-    ///
-    /// - Precondition: The frame state must be ``State/transient``.
-    ///
-    public func discard() {
-        precondition(state == .transient)
-        self.state = .discarded
     }
     
     /// Make a snapshot mutable within the frame.

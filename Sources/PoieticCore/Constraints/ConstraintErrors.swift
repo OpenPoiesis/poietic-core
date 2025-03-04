@@ -91,30 +91,44 @@ public struct ObjectTypeErrorCollection: Error {
 public struct FrameValidationError: Error {
     /// List of constraint violations.
     ///
+    /// - SeeAlso: ``Metamodel/constraints``, ``Constraint``.
+    ///
     public let violations: [ConstraintViolation]
     
     /// List of object type errors.
     ///
+    /// - SeeAlso: ``Metamodel/types``, ``ObjectType``.
+    ///
     public let objectErrors: [ObjectID: [ObjectTypeError]]
     
+    /// Violations of edge rules.
+    ///
+    /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``.
+    ///
     public let edgeRuleViolations: [ObjectID: [EdgeRuleViolation]]
-    
-    /// Broken referential integrity of a frame. Keys are offending objects,
-    /// values is a list of IDs that are not present in the frame.
-    public let brokenReferences: [ObjectID]
     
     /// Create a new constraint validation error.
     ///
+    /// - Parameters:
+    ///     - violations: List of ``Constraint`` violations.
+    ///     - objectErrors: List of errors caused by not conforming to ``ObjectType``
+    ///     - edgeRuleViolations: List of ``EdgeRule`` violations.
+    ///
+    /// - SeeAlso: ``Metamodel/constraints``, ``Metamodel/types``, ``Metamodel/edgeRules``.
+    ///
     public init(violations: [ConstraintViolation],
                 objectErrors: [ObjectID:[ObjectTypeError]],
-                edgeRuleViolations: [ObjectID:[EdgeRuleViolation]],
-                brokenReferences: [ObjectID] = []) {
+                edgeRuleViolations: [ObjectID:[EdgeRuleViolation]]) {
         self.violations = violations
         self.objectErrors = objectErrors
         self.edgeRuleViolations = edgeRuleViolations
-        self.brokenReferences = brokenReferences
     }
     
+    /// Converts the validation error into an application oriented design issue.
+    ///
+    /// This method is used when the errors are to be presented by an application. For example
+    /// in an error browser or by an object error inspector.
+    ///
     public func asDesignIssueCollection() -> DesignIssueCollection {
         var result: DesignIssueCollection = DesignIssueCollection()
         for violation in violations {
@@ -142,18 +156,7 @@ public struct FrameValidationError: Error {
                 result.append(error.asDesignIssue(), for: id)
             }
         }
-        // TODO: This is provided only for debug purposes, broken references are an application error and should never be surfaced to the user.
-        
-        for id in brokenReferences {
-            let issue = DesignIssue(
-                domain: .validation,
-                severity: .fatal,
-                identifier: "broken_reference",
-                message: "Broken object reference"
-            )
-            result.append(issue, for: id)
 
-        }
         return result
     }
 }

@@ -40,7 +40,7 @@ import Testing
         let b = frame.create(TestTypeWithDefault)
 
         #expect {
-            try design.accept(frame)
+            try design.validate(try design.accept(frame))
         } throws: {
             guard let error = $0 as? FrameValidationError else {
                 Issue.record("Expected FrameValidationError")
@@ -382,7 +382,7 @@ import Testing
         #expect(frame.brokenReferences().count == 2)
         #expect(frame.brokenReferences().contains(ObjectID(900)))
         #expect(frame.brokenReferences().contains(ObjectID(901)))
-        #expect(throws: TransientFrameError.brokenEdgeEndpoint) {
+        #expect(throws: StructuralIntegrityError.brokenEdgeEndpoint) {
             try frame.validateStructure()
         }
 
@@ -393,7 +393,7 @@ import Testing
 
         #expect(frame.brokenReferences().count == 1)
         #expect(frame.brokenReferences().contains(ObjectID(902)))
-        #expect(throws: TransientFrameError.brokenParent) {
+        #expect(throws: StructuralIntegrityError.brokenParent) {
             try frame.validateStructure()
         }
     }
@@ -403,7 +403,7 @@ import Testing
 
         #expect(frame.brokenReferences().count == 1)
         #expect(frame.brokenReferences().contains(903))
-        #expect(throws: TransientFrameError.brokenChild) {
+        #expect(throws: StructuralIntegrityError.brokenChild) {
             try frame.validateStructure()
         }
     }
@@ -416,7 +416,7 @@ import Testing
         #expect {
             try frame.validateStructure()
         } throws: {
-            guard let error = $0 as? TransientFrameError else {
+            guard let error = $0 as? StructuralIntegrityError else {
                 return false
             }
             return error == .parentChildMismatch
@@ -430,7 +430,7 @@ import Testing
         #expect {
             try frame.validateStructure()
         } throws: {
-            guard let error = $0 as? TransientFrameError else {
+            guard let error = $0 as? StructuralIntegrityError else {
                 return false
             }
             return error == .parentChildMismatch
@@ -444,7 +444,7 @@ import Testing
         #expect{
             try frame.validateStructure()
         } throws: {
-            guard let error = $0 as? TransientFrameError else {
+            guard let error = $0 as? StructuralIntegrityError else {
                 return false
             }
             return error == .parentChildCycle
@@ -459,7 +459,7 @@ import Testing
         #expect {
             try frame.validateStructure()
         } throws: {
-            guard let error = $0 as? TransientFrameError else {
+            guard let error = $0 as? StructuralIntegrityError else {
                 return false
             }
             return error == .edgeEndpointNotANode

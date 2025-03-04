@@ -60,6 +60,8 @@ extension ObjectSnapshot {
 /// owning a frame.
 ///
 public struct ConstraintChecker {
+    // NOTE: This object could have been a function, but I like the steps to be separated.
+    
     /// Metamodel associated with the constraint checker. Frames and objects
     /// will be validated using the constraints and object types defined
     /// in the metamodel.

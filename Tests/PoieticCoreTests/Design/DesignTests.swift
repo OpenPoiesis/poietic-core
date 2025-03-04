@@ -253,7 +253,7 @@ import Testing
         let b = frame.createNode(TestNodeType)
         
         #expect {
-            try design.accept(frame)
+            try design.validate(try design.accept(frame))
         } throws: {
             let error = try #require($0 as? FrameValidationError,
                                      "Error is not a FrameConstraintError")
