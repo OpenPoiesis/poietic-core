@@ -72,6 +72,10 @@ public final class DesignFrame: Frame {
         return _snapshots[snapshot.id] === snapshot
     }
 
+    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
+        ids.filter { _snapshots[$0] != nil }
+    }
+
     /// Return an object snapshots with given object ID.
     ///
     /// - Precondition: Frame must contain object with given ID.

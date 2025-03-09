@@ -15,6 +15,8 @@
 /// of selected objects, such as ``Frame/distinctAttribute(_:ids:)``, ``Frame/distinctTypes(_:)-9dh95``,
 /// ``Frame/sharedTraits(_:)``.
 ///
+/// When a selection is preserved between changes, it is recommended to sanitise the objects
+/// in the selection using the ``Frame/contained(_:)`` function.
 ///
 public final class Selection: Collection {
     public typealias Index = [ObjectID].Index
@@ -25,6 +27,10 @@ public final class Selection: Collection {
     public subscript(i: Index) -> ObjectID { return ids[i] }
     
     /// List of object IDs contained in the selection.
+    /// 
+    /// When a selection is preserved between changes, it is recommended to sanitise the objects
+    /// in the selection using the ``Frame/contained(_:)`` function.
+    ///
     public private(set) var ids: [ObjectID] = []
     
     /// Create a new empty selection.
@@ -71,7 +77,7 @@ public final class Selection: Collection {
 
     
     /// Remove all objects in the selection.
-    /// 
+    ///
     public func removeAll() {
         ids.removeAll()
     }

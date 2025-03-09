@@ -58,6 +58,15 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
 
     /// Get shared traits of a list of objects.
     func sharedTraits(_ ids: [ObjectID]) -> [Trait]
+    
+    /// Filter IDs and keep only those that are contained in the frame.
+    ///
+    /// Use this function to sanitise a selection between frame changes, if you want to preserve
+    /// the selection between edits.
+    ///
+    /// - SeeAlso: ``Selection``
+    ///
+    func contained(_ ids: [ObjectID]) -> [ObjectID]
 }
 
 // MARK: - Default Implementations
@@ -73,7 +82,7 @@ extension Frame {
         return ids.filter { !contains($0) }
     }
     
-
+    
     /// Get a list of object IDs that are referenced within the frame
     /// but do not exist in the frame.
     ///
@@ -113,10 +122,10 @@ extension Frame {
                 broken.insert(parent)
             }
         }
-
+        
         return Array(broken)
     }
-
+    
     /// Return a list of objects that the provided object refers to and
     /// that do not exist within the frame.
     ///
@@ -149,10 +158,10 @@ extension Frame {
         if let parent = snapshot.parent, !contains(parent) {
             broken.insert(parent)
         }
-
+        
         return Array(broken)
     }
-
+    
     /// Get first object of given type.
     ///
     /// This method is used to find singleton objects, for example
@@ -161,7 +170,7 @@ extension Frame {
     public func first(type: ObjectType) -> DesignObject? {
         return snapshots.first { $0.type === type }
     }
-
+    
     /// Filter snapshots by object type.
     ///
     /// - Note: The type is compared for identity, that means that the snapshots
@@ -184,13 +193,13 @@ extension Frame {
             $0.type.traits.contains { $0 === trait }
         }
     }
-
+    
     /// Filter objects by a closure.
-    /// 
+    ///
     public func filter(_ test: (DesignObject) -> Bool) -> [DesignObject] {
         return snapshots.filter(test)
     }
-
+    
     /// Get the first object satisfying the condition.
     ///
     /// If multiple objects satisfy the condition, then which one is
@@ -199,7 +208,7 @@ extension Frame {
     public func first(where predicate: (DesignObject) -> Bool) -> DesignObject? {
         return snapshots.first(where: predicate)
     }
-
+    
     /// Get the first object with given trait.
     ///
     /// If multiple objects have the trait, then which one is
@@ -210,7 +219,7 @@ extension Frame {
     public func first(trait: Trait) -> DesignObject? {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
-
+    
     public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
         return snapshots.compactMap {
             if let edge = Edge($0, in: self), block(edge) {
@@ -221,12 +230,17 @@ extension Frame {
             }
         }
     }
-
+    
     public func filter(_ predicate: Predicate) -> [DesignObject] {
         return snapshots.filter {
             predicate.match($0, in: self)
         }
     }
+
+    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
+        ids.filter { contains($0) }
+    }
+
 }
 
 // MARK: - Graph Implementations
