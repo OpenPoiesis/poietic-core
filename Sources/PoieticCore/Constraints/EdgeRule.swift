@@ -8,13 +8,13 @@
 
 public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
     case edgeNotAllowed
-    case noRuleSatisfied(ObjectType)
+    case noRuleSatisfied
     case cardinalityViolation(EdgeRule, EdgeDirection)
     
     public var description: String {
         switch self {
-        case .edgeNotAllowed: "Edge not allowed"
-        case let .noRuleSatisfied(type): "None of rules for edge type \(type.name) is satisfied"
+        case .edgeNotAllowed: "Edge type is not allowed"
+        case let .noRuleSatisfied: "None of edge rules is satisfied"
         case let .cardinalityViolation(rule, direction): "Cardinality violation for rule \(rule) direction \(direction)"
         }
     }
@@ -23,8 +23,8 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
         switch (lhs, rhs) {
         case (.edgeNotAllowed, .edgeNotAllowed):
             true
-        case let (.noRuleSatisfied(ltype), .noRuleSatisfied(rtype)):
-            ltype === rtype
+        case (.noRuleSatisfied, .noRuleSatisfied):
+            true
         case let (.cardinalityViolation(lrule, ldir), .cardinalityViolation(rrule, rdir)):
             lrule == rrule && ldir == rdir
         default:
@@ -41,7 +41,7 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
                         message: description,
                         hint: nil,
                         details: [:])
-        case .noRuleSatisfied(_):
+        case .noRuleSatisfied:
             DesignIssue(domain: .validation,
                         severity: .error,
                         identifier: "no_edge_rule_satisfied",
@@ -65,13 +65,84 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
 }
 
 // TODO: Rename to ConnectionRule
+
+/// Rule for edges that are allowed in the design.
+///
+/// Each edge in the design must conform to the connection rules defined by this object.
+///
+/// For example, to allow any kind of connection of a given edge type, say `Cause`, we can use
+/// the following:
+///
+/// ```swift
+/// let Cause = ObjectType(name: "Cause", structuralType: .edge)
+/// let metamodel = Metamodel(
+///     types: [
+///         Cause,
+///         // more types ...
+///     ],
+///     edgeRules: [
+///         EdgeRule(Cause)
+///     ]
+/// )
+/// ```
+///
+/// - SeeAlso: ``Metamodel/edgeRules``, ``ConstraintChecker/validate(edge:in:)``
+///
 public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
+    // NOTE: When changing/adding edge rule properties, make sure we can validate
+    //       a new edge where the object does not exist yet. That is, we have only origin, target
+    //       and a minimum of other properties that have to be passed to the validation function.
+    //       Currently we require only the object type.
+    
+    /// Type of an edge object that the rule applies to.
+    ///
+    /// There must be at least one rule for each allowed edge type.
+    ///
     public let type: ObjectType
+    
+    /// Predicate to check the origin object of an edge to match.
+    ///
+    /// If not set, then any origin object matches.
+    ///
     public let originPredicate: Predicate?
+
+    /// Allowed cardinality at the origin endpoint of the edge.
+    ///
+    /// The outgoing edges of the type that matches the rule must have given cardinality. For
+    /// example, if the cardinality is ``EdgeCardinality/one``, then only one edge of the matching
+    /// rule must originate in the same object.
+    ///
     public let outgoing: EdgeCardinality
+
+    /// Predicate to check the target object of an edge to match.
+    ///
+    /// If not set, then any target object matches.
+    ///
     public let targetPredicate: Predicate?
+
+    /// Allowed cardinality at the target endpoint of the edge.
+    ///
+    /// The incoming edges of the type that matches the rule must have given cardinality. For
+    /// example, if the cardinality is ``EdgeCardinality/one``, then only one edge of the matching
+    /// rule must target in the same object.
+    ///
     public let incoming: EdgeCardinality
     
+    /// Create a new edge rule.
+    ///
+    /// - Parameters:
+    ///     - type: Type of an edge to be matched.
+    ///     - origin: Predicate for the origin object of the matched edge. If not set, any object
+    ///       matches.
+    ///     - outgoing: Cardinality of the outgoing edges from the origin object.
+    ///     - target: Predicate for the target object of the matched edge. If not set, any object
+    ///       matches.
+    ///     - outgoing: Cardinality of the incoming edges to the target object.
+    ///
+    /// There must be at least one rule per allowed edge type in the metamodel.
+    ///
+    /// - SeeAlso: ``Metamodel/edgeRules``
+    ///
     public init(type: ObjectType,
                 origin: Predicate? = nil,
                 outgoing: EdgeCardinality = .many,
@@ -85,18 +156,54 @@ public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
         self.incoming = incoming
     }
     
-    func match(_ edge: EdgeSnapshot<DesignObject>, in frame: some Frame) -> Bool {
-        guard edge.object.type === type else {
+    /// Validates whether the given edge matches the rule.
+    ///
+    /// The edge matches the rule if all of the following is satisfied:
+    /// - edge type is the same as the type defined in the rule
+    /// - if the origin predicate is defined, then the edge's origin must match the origin predicate
+    /// - if the origin predicate is not defined, then any edge's origin matches
+    /// - if the target predicate is defined, then the edge's target must match the target predicate
+    /// - if the target predicate is not defined, then any edge's target matches
+    ///
+    /// - Returns `true` when the edge matches, `false` when the edge does not match the rule.
+    ///
+    /// This method is used for existing edges. To use for a potential new edge see ``match(_:origin:target:in:)``.
+    ///
+    /// - SeeAlso: ``ConstraintChecker/validate(edge:in:)``, ``ConstraintChecker/canConnect(type:from:to:in:)``
+    ///
+    public func match(_ edge: EdgeObject, in frame: some Frame) -> Bool {
+        return match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: frame)
+    }
+    
+    /// Validates whether the given edge type with given origin and target matches the rule.
+    ///
+    /// The edge matches the rule if all of the following is satisfied:
+    /// - type is the same as the type defined in the rule
+    /// - if the origin predicate is defined, then the edge's origin must match the origin predicate
+    /// - if the origin predicate is not defined, then any edge's origin matches
+    /// - if the target predicate is defined, then the edge's target must match the target predicate
+    /// - if the target predicate is not defined, then any edge's target matches
+    ///
+    /// - Returns `true` when the edge matches, `false` when the edge does not match the rule.
+    ///
+    /// This method is typically used for potential new edges, to check whether they can or can not
+    /// be created. For existing edges see ``match(_:in:)``.
+    ///
+    /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``, ``match(_:in:)``
+    ///
+    @inlinable
+    public func match(_ type: ObjectType, origin: DesignObject, target: DesignObject, in frame: some Frame) -> Bool {
+        guard type === self.type else {
             return false
         }
         if let predicate = originPredicate {
-            if !predicate.match(edge.originObject, in: frame) {
+            if !predicate.match(origin, in: frame) {
                 return false
             }
         }
         
         if let predicate = targetPredicate {
-            if !predicate.match(edge.targetObject, in: frame) {
+            if !predicate.match(target, in: frame) {
                 return false
             }
         }
@@ -128,50 +235,5 @@ public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
         }
         text += ")"
         return text
-    }
-}
-
-public struct EdgeRuleChecker {
-    public let metamodel: Metamodel
-    
-    public init(_ metamodel: Metamodel) {
-        self.metamodel = metamodel
-    }
-    
-    public func validate(edge: EdgeSnapshot<DesignObject>, in frame: some Frame) -> Bool {
-        let edgeTypeRules =  metamodel.edgeRules.filter { rule in
-            edge.object.type === rule.type
-        }
-        
-        guard edgeTypeRules.count > 0 else {
-            // No edge rules
-            return true
-        }
-
-        guard let matchingRule = metamodel.edgeRules.first(where: { rule in
-            rule.match(edge, in: frame)
-        }) else {
-            return false
-        }
-        
-        let outgoingCount = frame.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
-        switch matchingRule.outgoing {
-        case .many: break
-        case .one:
-            if outgoingCount != 1 {
-                return false
-            }
-        }
-        
-        let incomingCount = frame.incoming(edge.target).count { $0.object.type === matchingRule.type }
-        switch matchingRule.incoming {
-        case .many: break
-        case .one:
-            if incomingCount != 1 {
-                return false
-            }
-        }
-        
-        return true
     }
 }

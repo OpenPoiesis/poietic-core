@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 09/09/2022.
 //
 
-extension GraphProtocol {
+extension GraphProtocol where Edge: Identifiable {
     /// Sort nodes topologically.
     ///
     /// - Returns: Sorted node IDs when there were no issues, or nil if there was a cycle.

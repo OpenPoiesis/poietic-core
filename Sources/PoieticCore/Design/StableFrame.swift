@@ -30,6 +30,7 @@ public final class DesignFrame: Frame {
     ///
     public let id: FrameID
     
+    // FIXME: [IMPORTANT] This documentation is confusing and obsolete (old design)
     /// Versions of objects in the plane.
     ///
     /// Objects not in the map do not exist in the version plane, but might
@@ -82,10 +83,46 @@ public final class DesignFrame: Frame {
         return snapshot
     }
     
-    // Graph Protocol
+    // MARK: - Graph Protocol
     public var edgeIDs: [ObjectID] {
         _snapshots.values.compactMap {
             $0.structure.type == .edge ? $0.id : nil
         }
     }
+
+    public func contains(node: NodeID) -> Bool {
+        guard let snapshot = _snapshots[id] else {
+            return false
+        }
+        return snapshot.structure == .node
+    }
+
+    public func node(_ oid: NodeID) -> Node {
+        guard let snapshot = _snapshots[id] else {
+            fatalError("Missing node: \(oid)")
+        }
+        guard snapshot.structure == .node else {
+            fatalError("Not a node: \(oid)")
+        }
+        return snapshot
+    }
+
+    public func contains(edge: EdgeID) -> Bool {
+        guard let snapshot = _snapshots[id] else {
+            return false
+        }
+        return snapshot.structure.type == .edge
+    }
+
+    public func edge(_ oid: EdgeID) -> Edge {
+        guard let snapshot = _snapshots[oid] else {
+            fatalError("Missing edge: \(oid)")
+        }
+        guard let edge = EdgeObject(snapshot, in: self) else {
+            fatalError("Not an edge: \(oid)")
+        }
+        return edge
+    }
+    // TODO: add outgoing(...)
+    // TODO: add incoming(...)
 }

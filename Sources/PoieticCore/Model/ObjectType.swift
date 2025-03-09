@@ -5,10 +5,10 @@
 //  Created by Stefan Urbanek on 31/05/2023.
 //
 
-/// Object representing a type of a design object.
+/// Object defining a type of a design object.
 ///
-/// ObjectType describes instances of an object – what are their components,
-/// what are their structural types.
+/// ObjectType describes instances of an object – what are their attributes or traits,
+/// what is their structural role within the design graph.
 ///
 public final class ObjectType: Sendable {
     /// Name of the object type.
@@ -24,9 +24,14 @@ public final class ObjectType: Sendable {
     /// Structural type of the object – how the object can relate to other
     /// objects in the design.
     ///
+    /// - SeeAlso: ``EdgeRule``, ``Metamodel/edgeRules``
+    ///
     public let structuralType: StructuralType
     
-    /// List of component requirements for objects of this type.
+    /// List of traits for objects of this type.
+    ///
+    /// - Note: Trait attributes share the same namespace. Two traits associated with an object can
+    ///         not have the same attribute name.
     ///
     public let traits: [Trait]
     
@@ -36,11 +41,10 @@ public final class ObjectType: Sendable {
     ///
     public let abstract: String?
 
-    /// Mapping between attribute name and a component type that contains the
-    /// attribute.
+    /// Mapping between attribute name and a trait that contains the attribute.
     ///
-    /// - Note: The attributes in the components share the same name-space
-    /// within the object type.
+    /// - Note: The attributes in the traits share the same name-space within the object type.
+    ///
     let attributeTraits: [String:Trait]
     let attributeByName: [String:Attribute]
 
@@ -61,9 +65,12 @@ public final class ObjectType: Sendable {
     ///     - traits: List of traits associated with the object type.
     ///     - abstract: User oriented object type details.
     ///
-    /// - Note: The attributes in components share the same name-space within an
-    ///         object type. In other words, there must not be two components with
+    /// - Note: The attributes in traits share the same name-space within an
+    ///         object type. In other words, there must not be two traits with
     ///         the same attribute in an object type.
+    /// - Note: For edge object types (where ``structuralType`` is ``StructuralType/edge``),
+    ///         make sure that you have a corresponding ``EdgeRule`` for a metamodel. Otherwise
+    ///         the edge will not pass validation.
     /// - Precondition: There must be no duplicate attribute names in the
     ///   components.
     ///
@@ -97,18 +104,28 @@ public final class ObjectType: Sendable {
 
     }
    
+    /// Returns `true` of the object type has a given trait.
+    ///
     public func hasTrait(_ trait: Trait) -> Bool {
         traits.contains { $0 === trait }
     }
     
+    /// Returns `true` of the object type has a given attribute.
+    ///
     public func hasAttribute(_ name: String) -> Bool {
         attributeByName[name] != nil
     }
     
+    /// Returns a trait with given name, if it is associated with the object type. Otherwise returns
+    /// `nil`.
+    ///
     public func trait(forAttribute name: String) -> Trait? {
         attributeTraits[name]
     }
     
+    /// Returns an attribute with given name, if it is associated with the object type.
+    /// Otherwise returns `nil`.
+    ///
     public func attribute(_ name: String) -> Attribute? {
         return attributeByName[name]
     }

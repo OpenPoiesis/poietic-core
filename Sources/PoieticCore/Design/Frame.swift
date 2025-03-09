@@ -10,7 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``DesignFrame``
 ///
-public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeSnapshot<DesignObject> {
+public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObject, EdgeID == ObjectID {
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -240,7 +240,7 @@ extension Frame {
     public func node(_ id: ObjectID) -> Node {
         let object = self[id]
         guard object.structure.type == .node else {
-            preconditionFailure("Object is not a node")
+            preconditionFailure("Not a node: \(id)")
         }
         return object
     }
@@ -254,7 +254,7 @@ extension Frame {
             return edge
         }
         else {
-            preconditionFailure("Frame object \(id) must be an edge.")
+            preconditionFailure("Not an edge: \(id)")
         }
     }
     
@@ -282,7 +282,7 @@ extension Frame {
         return self.snapshots.filter { $0.structure.type == .node }.map { $0.id }
     }
     
-    public var edgesIDs: [EdgeID] {
+    public var edgeIDs: [EdgeID] {
         return self.snapshots.compactMap {
             Edge($0, in: self)
         }.map { $0.id }

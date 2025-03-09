@@ -8,7 +8,7 @@
 import Foundation
 
 
-// FIXME: [REFACTORING] Review necessity of this
+// FIXME: Review necessity of this
 /// Error thrown when reading or processing a foreign frame.
 ///
 /// - SeeAlso: ``ForeignFrameLoader``, ``ForeignObjectError``

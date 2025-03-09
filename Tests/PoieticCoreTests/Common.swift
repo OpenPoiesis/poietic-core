@@ -112,40 +112,39 @@ extension ObjectType {
     static let Unstructured = ObjectType(
         name: "Unstructured",
         structuralType: .unstructured,
-        traits: [
-            IntegerTrait,
-        ]
+        traits: [ IntegerTrait, ]
     )
     
     static let Stock = ObjectType(
         name: "Stock",
         structuralType: .node,
-        traits: [
-            IntegerTrait,
-        ]
+        traits: [ IntegerTrait, ]
     )
+    
+    static let FlowRate = ObjectType(
+        name: "FlowRate",
+        structuralType: .node,
+        traits: [ IntegerTrait, ]
+    )
+    
+    // Edges
     
     static let Flow = ObjectType(
         name: "Flow",
-        structuralType: .node,
-        traits: [
-            IntegerTrait,
-        ]
+        structuralType: .edge
     )
     
     static let Parameter = ObjectType(
         name: "Parameter",
-        structuralType: .edge,
-        traits: [
-            // None for now
-        ]
+        structuralType: .edge
     )
     static let Arrow = ObjectType(
         name: "Arrow",
-        structuralType: .edge,
-        traits: [
-            // None for now
-        ]
+        structuralType: .edge
+    )
+    static let IllegalEdge = ObjectType(
+        name: "Illegal",
+        structuralType: .edge
     )
 }
 
@@ -162,12 +161,22 @@ public let TestMetamodel = Metamodel(
 
         ObjectType.Unstructured,
         ObjectType.Stock,
+        ObjectType.FlowRate,
         ObjectType.Flow,
         ObjectType.Parameter,
         ObjectType.Arrow,
+        ObjectType.IllegalEdge,
     ],
     edgeRules: [
         EdgeRule(type: .Arrow),
+        EdgeRule(type: .Flow,
+                 origin: IsTypePredicate(.FlowRate),
+                 outgoing: .one,
+                 target: IsTypePredicate(.Stock)),
+        EdgeRule(type: .Flow,
+                 origin: IsTypePredicate(.Stock),
+                 target: IsTypePredicate(.FlowRate),
+                 incoming: .one)
     ]
     
 )

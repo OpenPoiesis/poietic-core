@@ -5,47 +5,68 @@
 //  Created by Stefan Urbanek on 04/06/2023.
 //
 
-// FIXME: [REFACTORING] In Compiler.initialize():
-// FIXME: [REFACTORING] Frame.filterEdges
-// FIXME: [REFACTORING] View.simulationNodes
-// FIXME: [REFACTORING] View.flowEdges: [EdgeSnapshot<DesignObject>] {
-
-/**
- Edge types:
- 
- (object: object -> object)
- (some: id -> id)
- 
- 
- */
-
 /// Protocol for edges in a graph.
 ///
 /// - SeeAlso: ``GraphProtocol``
-public protocol EdgeProtocol: Identifiable {
-    associatedtype NodeID
+public protocol EdgeProtocol {
+    // TODO: Can we make add Identifiable requirement? Seems like we can.
+
+    associatedtype NodeID: Hashable
     /// Origin of the edge.
     var origin: NodeID { get }
     /// Target of the edge.
     var target: NodeID { get }
 }
 
-// DesignObject DesignEdge
-public struct _ReferenceEdge: EdgeProtocol {
-    public typealias ID = ObjectID
-    public let id: ObjectID
-    public let origin: ObjectID
-    public let target: ObjectID
-}
+/// Wrapper of an object snapshot presented as an edge.
+///
+/// The edge object contains direct references to concrete design objects.
+/// The edge object is relevant only within the context of a frame that was used during
+/// initialisation.
+///
+public struct EdgeObject: EdgeProtocol, Identifiable {
+    public typealias NodeID = ObjectID
 
-public struct SnapshotEdge: EdgeProtocol {
-    public typealias ID = ObjectID
+    /// Design object representing the edge
     public let object: DesignObject
-    public let origin: DesignObject
-    public let target: DesignObject
 
+    /// ID of the edge design object.
     public var id: ObjectID { object.id }
+
+    /// Reference to the edge origin object extracted from a frame during initialisation.
+    public let originObject: DesignObject
+
+    /// ID of the edge origin.
+    public var origin: ObjectID { originObject.id }
+
+    /// Reference to the edge target object extracted from a frame during initialisation.
+    public let targetObject: DesignObject
+
+    /// ID of the edge target.
+    public var target: ObjectID { targetObject.id }
+
+    /// Create a new edge object for a given design object.
+    ///
+    /// Extracts the edge origin and target object references from the frame based on the
+    /// edge endpoints IDs.
+    ///
+    /// The edge object is relevant only within the context of the frame that was used here, during
+    /// the initialisation. It should not be stored or shared.
+    ///
+    /// - Returns: initialised edge object when the design object is an edge,
+    ///            otherwise it returns `nil` if the design object is of some other structural type.
+    ///
+    public init?(_ snapshot: DesignObject, in frame: some Frame) {
+        guard case let .edge(origin, target) = snapshot.structure else {
+            return nil
+        }
+
+        self.object = snapshot
+        self.originObject = frame[origin]
+        self.targetObject = frame[target]
+    }
 }
+
 
 /// Protocol for object graphs - nodes connected by edges.
 ///
@@ -53,13 +74,21 @@ public struct SnapshotEdge: EdgeProtocol {
 /// you will benefit from operations that find neighbourhoods or sort objects topologically.
 ///
 public protocol GraphProtocol {
+    /// Type of an unique identifier of a node.
     associatedtype NodeID: Hashable
+    /// Object type of a node.
     associatedtype Node
+    /// Type of an unique identifier of an edge.
     associatedtype EdgeID: Hashable
-    associatedtype Edge: EdgeProtocol where Edge.ID == EdgeID, Edge.NodeID == NodeID
+    /// Object type of an edge.
+    associatedtype Edge: EdgeProtocol where Edge.NodeID == NodeID
 
+    /// Get list of graph's node IDs.
+    ///
     var nodeIDs: [NodeID] { get }
     
+    /// Get list of graph's edge IDs.
+    ///
     var edgeIDs: [EdgeID] { get }
 
     /// All nodes of the graph
@@ -78,7 +107,7 @@ public protocol GraphProtocol {
     ///
     /// - Precondition: The graph must contain the edge.
     ///
-    func edge(_ id: Edge.ID) -> Edge
+    func edge(_ id: EdgeID) -> Edge
     
     /// Check whether the graph contains a node object with given ID.
     ///
@@ -136,18 +165,8 @@ extension GraphProtocol where Node: Identifiable<NodeID> {
         return first
     }
 }
+
 extension GraphProtocol {
-    public func contains(edge: EdgeID) -> Bool {
-        return edges.contains { $0.id == edge }
-    }
-    
-    public func edge(_ oid: Edge.ID) -> Edge {
-        guard let first:Edge = edges.first(where: { $0.id == oid }) else {
-            fatalError("Missing edge")
-        }
-        return first
-    }
-    
     public func outgoing(_ origin: NodeID) -> [Edge] {
         return self.edges.filter { $0.origin == origin }
     }
@@ -175,23 +194,27 @@ extension GraphProtocol {
     }
 }
 
+extension GraphProtocol where Edge: Identifiable, Edge.ID == EdgeID {
+    public func contains(edge: EdgeID) -> Bool {
+        return edges.contains { $0.id == edge }
+    }
+
+    public func edge(_ oid: EdgeID) -> Edge {
+        guard let first:Edge = edges.first(where: { $0.id == oid }) else {
+            fatalError("Missing edge")
+        }
+        return first
+    }
+}
+
+
 /// Collection of nodes connected by edges.
 ///
-public struct Graph<N: Identifiable, E: EdgeProtocol>: GraphProtocol
-where E.NodeID == N.ID {
-    public var nodeIDs: [NodeID] {
-        nodes.map { $0.id }
-    }
-    
-    public var edgeIDs: [EdgeID] {
-        edges.map { $0.id }
-    }
-
-    public typealias Node = N
-    public typealias NodeID = N.ID
-    public typealias Edge = E
-    public typealias EdgeID = E.ID
-
+/// Both nodes and edges are identifiable by the same type.
+///
+public struct Graph<Node: Identifiable, Edge: EdgeProtocol>: GraphProtocol
+where Edge.NodeID == Node.ID, Edge: Identifiable {
+    // TODO: Make it a dict
     /// List of nodes.
     public var nodes: [Node] = []
 
@@ -202,5 +225,13 @@ where E.NodeID == N.ID {
     public init(nodes: [Node], edges: [Edge]) {
         self.nodes = nodes
         self.edges = edges
+    }
+
+    public var nodeIDs: [NodeID] {
+        nodes.map { $0.id }
+    }
+    
+    public var edgeIDs: [EdgeID] {
+        edges.map { $0.id }
     }
 }

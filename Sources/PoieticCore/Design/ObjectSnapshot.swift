@@ -280,33 +280,3 @@ extension ObjectSnapshot {
     }
 }
 
-// MARK: - Graph Protocol
-
-// TODO: Find a more descriptive name.
-/// Wrapper of an object snapshot presented as an edge.
-///
-public struct EdgeSnapshot<Snapshot: DesignObject>: EdgeProtocol {
-    public typealias NodeID = ObjectID
-    public let object: DesignObject
-    public var id: ObjectID { object.id }
-
-    public let originObject: DesignObject
-    public var origin: ObjectID { originObject.id }
-
-    public let targetObject: DesignObject
-    public var target: ObjectID { targetObject.id }
-
-    public init?(_ snapshot: Snapshot, in frame: some Frame) {
-        guard case let .edge(origin, target) = snapshot.structure else {
-            return nil
-        }
-
-        self.object = snapshot
-        self.originObject = frame[origin]
-        self.targetObject = frame[target]
-    }
-
-    // public var type: ObjectType { object.type }
-    // public var name: String? { object.name }
-}
-

@@ -47,7 +47,7 @@ final class JSONFileStoreTests: XCTestCase {
         db = Design(metamodel: TestMetamodel)
         frame = db.createFrame()
 
-        let flow = frame.create(TestMetamodel["Flow"]!,
+        let flow = frame.create(TestMetamodel["FlowRate"]!,
                                 structure: .node,
                                 attributes: [:],
                                 components: [IntegerComponent(value: 10)])
