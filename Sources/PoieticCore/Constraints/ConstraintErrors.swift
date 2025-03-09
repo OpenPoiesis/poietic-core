@@ -131,6 +131,7 @@ public struct FrameValidationError: Error {
     ///
     public func asDesignIssueCollection() -> DesignIssueCollection {
         var result: DesignIssueCollection = DesignIssueCollection()
+        // TODO: Use object-less design issues
         for violation in violations {
             for object in violation.objects {
                 let issue = DesignIssue(

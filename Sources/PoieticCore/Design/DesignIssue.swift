@@ -7,7 +7,7 @@
 
 /// Collection of design issues.
 ///
-public struct DesignIssueCollection {
+public struct DesignIssueCollection: Sendable {
     /// Issues of the design as a whole.
     public var designIssues: [DesignIssue]
     /// Issues specific to particular object.

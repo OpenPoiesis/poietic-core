@@ -42,6 +42,7 @@ public class MakeshiftDesignStore {
     /// - Throws: ``PersistentStoreError``.
     ///
     public func load(metamodel: Metamodel = Metamodel()) throws -> Design {
+        // FIXME: Do not throw validation error, Only persistent store error
         let data: Data
         if let providedData = self.data {
             data = providedData
@@ -193,6 +194,7 @@ public class MakeshiftDesignStore {
                 try design.accept(newFrame)
             }
             catch {
+                // FIXME: Provide more details why it failed - structural integrity details
                 throw .frameValidationFailed(newFrame.id)
             }
         }
