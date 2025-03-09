@@ -157,7 +157,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
   "abstract" : [
-
+    {
+      "text" : "Object type of a node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -171,15 +174,6 @@
     {
       "kind" : "identifier",
       "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",

@@ -124,6 +124,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -171,6 +172,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/connective",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/predicates"
       ],
       "title" : "Instance Properties"
@@ -370,6 +372,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/compoundpredicate\/connective"
 },
+"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/compoundpredicate\/description"
+},
 "doc://PoieticCore/documentation/PoieticCore/CompoundPredicate/init(_:predicates:)": {
   "abstract" : [
     {
@@ -439,12 +475,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(some "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -539,7 +575,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -897,6 +933,11 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

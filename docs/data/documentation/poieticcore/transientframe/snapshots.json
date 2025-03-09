@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14TransientFrameC9snapshotsSayAA0C6ObjectVGvp",
+    "externalID" : "s:11PoieticCore14TransientFrameC9snapshotsSayAA12DesignObjectCGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,8 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-        "text" : "TransientObject"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -86,10 +86,10 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-              "text" : "TransientObject"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -172,6 +172,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
     {
@@ -232,8 +266,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-      "text" : "TransientObject"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -246,40 +280,6 @@
   "title" : "snapshots",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/snapshots"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
-  "abstract" : [
-    {
-      "text" : "A wrapper for for an object in a transient frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

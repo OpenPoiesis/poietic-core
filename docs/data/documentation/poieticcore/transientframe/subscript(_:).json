@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14TransientFrameCyAA0C6ObjectVs6UInt64Vcip",
+    "externalID" : "s:11PoieticCore14TransientFrameCyAA12DesignObjectCAA0F2IDVcip",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,7 +40,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       },
       {
@@ -49,8 +49,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-        "text" : "TransientObject"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       }
     ],
     "modules" : [
@@ -93,7 +93,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -101,10 +101,10 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-              "text" : "TransientObject"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -160,6 +160,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
@@ -170,7 +204,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -254,7 +288,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -263,8 +297,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15TransientObjectV",
-      "text" : "TransientObject"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/subscript(_:)",
@@ -273,40 +307,6 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/subscript(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
-  "abstract" : [
-    {
-      "text" : "A wrapper for for an object in a transient frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

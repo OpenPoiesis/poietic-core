@@ -15,7 +15,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore12VariantArrayO6appendyyAA0C4AtomOKF",
+    "externalID" : "s:11PoieticCore12VariantArrayO6appendyyAA0C4AtomOAA10ValueErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -45,6 +45,19 @@
       {
         "kind" : "keyword",
         "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+        "text" : "ValueError"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -121,6 +134,20 @@
             {
               "kind" : "keyword",
               "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+              "text" : "ValueError"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
@@ -177,6 +204,37 @@
   "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray": {
   "abstract" : [
@@ -242,6 +300,19 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/append(_:)",

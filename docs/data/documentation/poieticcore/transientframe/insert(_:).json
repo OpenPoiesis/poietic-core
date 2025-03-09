@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14TransientFrameC6insertyyAA12StableObjectCF",
+    "externalID" : "s:11PoieticCore14TransientFrameC6insertyyAA12DesignObjectCF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -48,8 +48,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-        "text" : "StableObject"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -110,10 +110,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-              "text" : "StableObject"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -310,6 +310,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences(snapshot:)": {
   "abstract" : [
     {
@@ -352,16 +386,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-      "text" : "Snapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -369,7 +395,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -383,40 +409,6 @@
   "title" : "brokenReferences(snapshot:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/brokenreferences(snapshot:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableObject": {
-  "abstract" : [
-    {
-      "text" : "Version snapshot of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StableObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
@@ -486,8 +478,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-      "text" : "StableObject"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",

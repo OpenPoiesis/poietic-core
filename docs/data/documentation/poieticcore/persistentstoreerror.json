@@ -172,6 +172,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/currentFrameIDNotSet",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/dataCorrupted",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateFrame(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateID(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateSnapshot(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/extraneousStructuralProperty(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/frameValidationFailed(_:)",
@@ -625,7 +626,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -639,6 +640,53 @@
   "title" : "PersistentStoreError.duplicateFrame(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicateframe(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/duplicateID(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "duplicateID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError\/duplicateID(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PersistentStoreError.duplicateID(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/persistentstoreerror\/duplicateid(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/PersistentStoreError/duplicateSnapshot(_:)": {
   "abstract" : [
@@ -663,7 +711,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -748,7 +796,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -795,7 +843,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -833,7 +881,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -842,7 +890,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {

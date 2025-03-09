@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Invalid object reference.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -128,6 +134,65 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Items are (",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "reference",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "kind",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "index",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ").",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -202,7 +267,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError/invalidReference(_:_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Invalid object reference.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

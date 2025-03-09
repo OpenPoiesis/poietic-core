@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferences8snapshotSays6UInt64VG4NodeQz_tF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferences8snapshotSayAA8ObjectIDVGAA06DesignG0C_tF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -58,16 +58,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-        "text" : "Snapshot"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -75,7 +67,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       },
       {
@@ -129,18 +121,10 @@
               "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-              "text" : "Snapshot"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -149,7 +133,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -283,20 +267,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-pz81",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ",",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/hasReferentialIntegrity()-78e2a",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -348,14 +319,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/Snapshot": {
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
   "abstract" : [
-
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "associatedtype"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -363,20 +337,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Snapshot"
+      "text" : "DesignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
   "kind" : "symbol",
-  "required" : true,
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
   "role" : "symbol",
-  "title" : "Snapshot",
+  "title" : "DesignObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/snapshot"
+  "url" : "\/documentation\/poieticcore\/designobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()-pz81": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()-44ghi": {
   "abstract" : [
-
+    {
+      "text" : "Get a list of broken references.",
+      "type" : "text"
+    }
   ],
   "defaultImplementations" : 1,
   "fragments" : [
@@ -398,7 +380,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -406,49 +388,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-pz81",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "brokenReferences()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()-pz81"
-},
-"doc://PoieticCore/documentation/PoieticCore/Frame/hasReferentialIntegrity()-78e2a": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hasReferentialIntegrity"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/hasReferentialIntegrity()-78e2a",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "hasReferentialIntegrity()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-78e2a"
+  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()-44ghi"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -460,7 +406,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -548,7 +494,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -598,7 +544,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -607,7 +553,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -709,16 +655,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-      "text" : "Snapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -726,7 +664,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {

@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9JSONValueO12asJSONStringSSyKF",
+    "externalID" : "s:11PoieticCore9JSONValueO12asJSONStringSSyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -30,15 +30,7 @@
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
+        "text" : "() -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -81,15 +73,7 @@
             },
             {
               "kind" : "text",
-              "text" : "() "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
+              "text" : "() -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -154,7 +138,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
-
+    {
+      "text" : "Representation of a JSON value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -202,15 +189,7 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : "() -> "
     },
     {
       "kind" : "typeIdentifier",

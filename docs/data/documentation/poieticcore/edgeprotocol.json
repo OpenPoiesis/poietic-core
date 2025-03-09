@@ -72,15 +72,6 @@
             {
               "kind" : "identifier",
               "text" : "EdgeProtocol"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12IdentifiableP",
-              "text" : "Identifiable"
             }
           ]
         }
@@ -123,15 +114,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/s12IdentifiableP"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -153,7 +136,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject"
       ],
       "title" : "Graph, Nodes and Edges"
     }
@@ -205,6 +188,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
+  "abstract" : [
+    {
+      "text" : "Wrapper of an object snapshot presented as an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
   "abstract" : [
     {
@@ -255,6 +272,15 @@
     {
       "kind" : "identifier",
       "text" : "NodeID"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SH",
+      "text" : "Hashable"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeID",
@@ -357,40 +383,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeprotocol\/target"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Wrapper of an object snapshot presented as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgesnapshot"
-},
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
@@ -472,11 +464,6 @@
   "title" : "Graph",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphs"
-},
-"doc://PoieticCore/s12IdentifiableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s12IdentifiableP",
-  "title" : "Swift.Identifiable",
-  "type" : "unresolvable"
 }
 }
 }

@@ -104,7 +104,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point"
       ],
       "title" : "Value and Variant"
@@ -117,7 +116,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionFailed(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionToIDFailed(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notComparableTypes(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)"
       ],
       "title" : "Enumeration Cases"
@@ -206,37 +204,6 @@
   "title" : "AtomType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
 },
 "doc://PoieticCore/documentation/PoieticCore/Point": {
   "abstract" : [
@@ -457,53 +424,6 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror\/description"
-},
-"doc://PoieticCore/documentation/PoieticCore/ValueError/notComparableTypes(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "notComparableTypes"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-      "text" : "ValueType"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-      "text" : "ValueType"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notComparableTypes(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "ValueError.notComparableTypes(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valueerror\/notcomparabletypes(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError/notConvertible(_:_:)": {
   "abstract" : [

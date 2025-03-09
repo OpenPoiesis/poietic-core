@@ -9,7 +9,7 @@
     {
       "anchor" : "GraphProtocol-Implementations",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/nodes-89r7h"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/nodes-8qpcj"
       ],
       "title" : "GraphProtocol Implementations"
     }
@@ -207,7 +207,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
   "abstract" : [
-
+    {
+      "text" : "Object type of a node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -221,15 +224,6 @@
     {
       "kind" : "identifier",
       "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
@@ -291,7 +285,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/nodes-5ubov"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/nodes-89r7h": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/nodes-8qpcj": {
   "abstract" : [
 
   ],
@@ -314,28 +308,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-      "text" : "Node"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/nodes-89r7h",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/nodes-8qpcj",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "nodes",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodes-89r7h"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodes-8qpcj"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

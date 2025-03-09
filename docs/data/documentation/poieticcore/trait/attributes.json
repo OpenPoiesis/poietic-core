@@ -190,8 +190,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "ObjectSnapshot\/subscript(_:)",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-59fi3",
+                  "isActive" : true,
+                  "type" : "reference"
                 },
                 {
                   "text" : ",",
@@ -202,8 +203,9 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "MutableObject\/subscript(_:)",
-                  "type" : "codeVoice"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/subscript(_:)-2wuh9",
+                  "isActive" : true,
+                  "type" : "reference"
                 }
               ],
               "type" : "paragraph"
@@ -308,6 +310,88 @@
   "title" : "Metamodel and Types",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/subscript(_:)-2wuh9": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/subscript(_:)-2wuh9",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/subscript(_:)-2wuh9"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-59fi3": {
+  "abstract" : [
+    {
+      "text" : "Get an attribute value by their name.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-59fi3",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-59fi3"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [

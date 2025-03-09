@@ -1,0 +1,330 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/cardinalityViolation(_:_:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore17EdgeRuleViolationO011cardinalityE0yAcA0cD0V_AA0C9DirectionOtcACmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "cardinalityViolation"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+        "text" : "EdgeRule"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+        "text" : "EdgeDirection"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "EdgeRuleViolation.cardinalityViolation(_:_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "cardinalityViolation"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+              "text" : "EdgeRule"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+              "text" : "EdgeDirection"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/edgeruleviolation\/cardinalityviolation(_:_:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
+  "abstract" : [
+    {
+      "text" : "Designation of which direction of an edge from a node projection perspective",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is to be considered.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeDirection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeDirection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeDirection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgedirection"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
+  "abstract" : [
+    {
+      "text" : "Rule for edges that are allowed in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgerule"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRuleViolation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRuleViolation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRuleViolation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/cardinalityViolation(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cardinalityViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+      "text" : "EdgeRule"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13EdgeDirectionO",
+      "text" : "EdgeDirection"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/cardinalityViolation(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "EdgeRuleViolation.cardinalityViolation(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/cardinalityviolation(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+}
+}
+}

@@ -24,7 +24,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotP2ids6UInt64Vvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotP2idAA0C2IDVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -44,7 +44,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       }
     ],
@@ -97,7 +97,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -297,7 +297,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contains(_:)-424zf",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contains(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -387,8 +387,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     },
     {
       "kind" : "text",
@@ -396,8 +396,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
@@ -441,7 +441,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/contains(_:)-424zf": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/contains(_:)": {
   "abstract" : [
     {
       "text" : "Check whether the frame contains an object with given ID.",
@@ -467,7 +467,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -480,13 +480,13 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contains(_:)-424zf",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contains(_:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "contains(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/contains(_:)-424zf"
+  "url" : "\/documentation\/poieticcore\/frame\/contains(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/object(_:)": {
   "abstract" : [
@@ -530,7 +530,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -539,16 +539,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-      "text" : "Snapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(_:)",
@@ -569,7 +561,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -653,7 +645,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     }
   ],

@@ -341,7 +341,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The attributes in components share the same name-space within an",
+                  "text" : "The attributes in traits share the same name-space within an",
                   "type" : "text"
                 },
                 {
@@ -349,7 +349,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "object type. In other words, there must not be two components with",
+                  "text" : "object type. In other words, there must not be two traits with",
                   "type" : "text"
                 },
                 {
@@ -358,6 +358,65 @@
                 },
                 {
                   "text" : "the same attribute in an object type.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "For edge object types (where ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " is ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/edge",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : "),",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "make sure that you have a corresponding ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " for a metamodel. Otherwise",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "the edge will not pass validation.",
                   "type" : "text"
                 }
               ],
@@ -432,6 +491,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
+  "abstract" : [
+    {
+      "text" : "Rule for edges that are allowed in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgerule"
+},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -457,7 +550,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -597,6 +690,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:traits:abstract:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/structuralType": {
+  "abstract" : [
+    {
+      "text" : "Structural type of the object – how the object can relate to other",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "objects in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "structuralType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14StructuralTypeO",
+      "text" : "StructuralType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "structuralType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/structuraltype"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralType": {
   "abstract" : [
     {
@@ -630,6 +768,34 @@
   "title" : "StructuralType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuraltype"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralType/edge": {
+  "abstract" : [
+    {
+      "text" : "Graph component representing a connection between two nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/edge",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralType.edge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype\/edge"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [

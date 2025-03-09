@@ -9,7 +9,7 @@
     {
       "anchor" : "GraphProtocol-Implementations",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edges-9v8ru"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edges-16hah"
       ],
       "title" : "GraphProtocol Implementations"
     }
@@ -207,7 +207,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Edge": {
   "abstract" : [
-
+    {
+      "text" : "Object type of an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -239,6 +242,44 @@
   "title" : "Edge",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/edge"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edges-16hah": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
+      "text" : "EdgeObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edges-16hah",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edges",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/edges-16hah"
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edges-8zjm8": {
   "abstract" : [
@@ -290,44 +331,6 @@
   "title" : "edges",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/edges-8zjm8"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edges-9v8ru": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "edges"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12EdgeSnapshotV",
-      "text" : "EdgeSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edges-9v8ru",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "edges",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/edges-9v8ru"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

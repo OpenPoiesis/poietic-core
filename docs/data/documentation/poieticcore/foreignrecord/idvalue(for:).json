@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13ForeignRecordV7IDValue3fors6UInt64VSS_tAA0cD5ErrorOYKF",
+    "externalID" : "s:11PoieticCore13ForeignRecordV7IDValue3forAA8ObjectIDVSS_tAA0cD5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -74,8 +74,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s6UInt64V",
-        "text" : "UInt64"
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "text" : "ObjectID"
       }
     ],
     "modules" : [
@@ -159,9 +159,10 @@
               "text" : ") -> "
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s6UInt64V",
-              "text" : "UInt64"
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "text" : "ObjectID"
             }
           ]
         }
@@ -365,8 +366,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6UInt64V",
-      "text" : "UInt64"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord\/IDValue(for:)",
@@ -466,6 +467,40 @@
   "title" : "ForeignRecordError.unknownKey(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignrecorderror\/unknownkey(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
 }
 }
 }

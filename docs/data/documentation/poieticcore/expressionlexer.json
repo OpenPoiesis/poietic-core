@@ -19,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ExpressionLexerC",
+    "externalID" : "s:11PoieticCore15ExpressionLexerV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -46,8 +46,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "ExpressionLexer"
   },
   "primaryContentSections" : [
@@ -63,7 +63,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -107,16 +107,6 @@
       "kind" : "content"
     }
   ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -132,13 +122,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
       ],
       "title" : "Parsing"
     }
@@ -148,7 +133,6 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/init(scanner:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/init(string:)"
       ],
       "title" : "Initializers"
@@ -157,7 +141,8 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/scanner"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/atEnd",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/source"
       ],
       "title" : "Instance Properties"
     },
@@ -165,33 +150,10 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptToken()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptLeadingTrivia()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptTrailingTrivia()"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "anchor" : "Type-Aliases",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/TokenType"
-      ],
-      "title" : "Type Aliases"
-    },
-    {
-      "anchor" : "Type-Properties",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/OperatorCharacters"
-      ],
-      "title" : "Type Properties"
-    },
-    {
-      "anchor" : "Default-Implementations",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations"
-      ],
-      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -232,7 +194,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -256,94 +218,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionlexer"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/Lexer-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/Lexer-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Lexer Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/lexer-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/OperatorCharacters": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "OperatorCharacters"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/OperatorCharacters",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "OperatorCharacters",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/operatorcharacters"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/TokenType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TokenType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/TokenType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TokenType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionLexer.TokenType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/tokentype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptToken()": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptLeadingTrivia()": {
   "abstract" : [
     {
-      "text" : "Accept a valid token.",
+      "text" : "Accepts leading trivia.",
       "type" : "text"
     }
   ],
@@ -358,45 +236,68 @@
     },
     {
       "kind" : "identifier",
-      "text" : "acceptToken"
+      "text" : "acceptLeadingTrivia"
     },
     {
       "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19ExpressionTokenTypeO",
-      "text" : "ExpressionTokenType"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptToken()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptLeadingTrivia()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "acceptToken()",
+  "title" : "acceptLeadingTrivia()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/accepttoken()"
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/acceptleadingtrivia()"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/init(scanner:)": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/acceptTrailingTrivia()": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
-      "kind" : "identifier",
-      "text" : "init"
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : " "
     },
     {
-      "kind" : "externalParam",
-      "text" : "scanner"
+      "kind" : "identifier",
+      "text" : "acceptTrailingTrivia"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/acceptTrailingTrivia()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "acceptTrailingTrivia()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/accepttrailingtrivia()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/atEnd": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the reader is at the end of the source string.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atEnd"
     },
     {
       "kind" : "text",
@@ -404,37 +305,22 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7ScannerV",
-      "text" : "Scanner"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/init(scanner:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/atEnd",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(scanner:)",
+  "title" : "atEnd",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/init(scanner:)"
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/atend"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/init(string:)": {
   "abstract" : [
-    {
-      "text" : "Creates a lexer that parses a source string.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "convenience"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "identifier",
       "text" : "init"
@@ -468,14 +354,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionlexer\/init(string:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/scanner": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/source": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -483,7 +369,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "scanner"
+      "text" : "source"
     },
     {
       "kind" : "text",
@@ -491,16 +377,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7ScannerV",
-      "text" : "Scanner"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/scanner",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer\/source",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "scanner",
+  "title" : "source",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionlexer\/scanner"
+  "url" : "\/documentation\/poieticcore\/expressionlexer\/source"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
   "abstract" : [
@@ -570,89 +456,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntaxerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionTokenType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionTokenType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionTokenType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionTokenType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionTokenType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontokentype"
-},
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
   "abstract" : [
     {
-      "text" : "Formulas are arithmetic expressions that can be used for computation.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Lexer": {
-  "abstract" : [
-    {
-      "text" : "Protocol for syntax lexers.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Lexer"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Lexer"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Lexer",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/lexer"
-},
-"doc://PoieticCore/documentation/PoieticCore/Scanner": {
-  "abstract" : [
-    {
-      "text" : "Base object for simple lexers.",
+      "text" : "Token of an arithmetic expression.",
       "type" : "text"
     }
   ],
@@ -667,52 +474,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Scanner"
+      "text" : "ExpressionToken"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Scanner",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Scanner"
+      "text" : "ExpressionToken"
     }
   ],
   "role" : "symbol",
-  "title" : "Scanner",
+  "title" : "ExpressionToken",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/scanner"
+  "url" : "\/documentation\/poieticcore\/expressiontoken"
 },
-"doc://PoieticCore/documentation/PoieticCore/ScannerError": {
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
-
-  ],
-  "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ScannerError"
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
+      "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScannerError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ScannerError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ScannerError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/scannererror"
+  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/TextLocation": {
   "abstract" : [
@@ -747,83 +537,6 @@
   "title" : "TextLocation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/textlocation"
-},
-"doc://PoieticCore/documentation/PoieticCore/Token": {
-  "abstract" : [
-    {
-      "text" : "Token represents a lexical unit of the source.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Token",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Token"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Token",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/token"
-},
-"doc://PoieticCore/documentation/PoieticCore/TokenTypeProtocol": {
-  "abstract" : [
-    {
-      "text" : "Protocol for token types used by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Lexer",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TokenTypeProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TokenTypeProtocol",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TokenTypeProtocol"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TokenTypeProtocol",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/tokentypeprotocol"
 }
 }
 }

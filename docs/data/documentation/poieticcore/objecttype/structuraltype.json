@@ -99,6 +99,47 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeRules",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -137,6 +178,78 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
+  "abstract" : [
+    {
+      "text" : "Rule for edges that are allowed in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgerule"
+},
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeRules": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeRules"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+      "text" : "EdgeRule"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeRules",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edgeRules",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/edgerules"
+},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -162,7 +275,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],

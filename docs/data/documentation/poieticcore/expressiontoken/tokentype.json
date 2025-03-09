@@ -1,0 +1,489 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore15ExpressionTokenV0D4TypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TokenType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TokenType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "ExpressionToken.TokenType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TokenType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/comma",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/double",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/empty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/error(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/identifier",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/int",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/leftParen",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/operator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/rightParen"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/expressiontoken\/tokentype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
+  "abstract" : [
+    {
+      "text" : "Token of an arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionToken"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionToken"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionToken",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TokenType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TokenType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/comma": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "comma"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/comma",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.comma",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/comma"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/double": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/double",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.double",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/double"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/empty": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "empty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/empty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.empty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/empty"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/error(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "error"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+      "text" : "ExpressionSyntaxError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/error(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.error(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/error(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/identifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "identifier"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/identifier"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/int": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/int",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.int",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/int"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/leftParen": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "leftParen"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/leftParen",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.leftParen",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/leftparen"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/operator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "`operator`"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/operator",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.operator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/operator"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/rightParen": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rightParen"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/rightParen",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.rightParen",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/rightparen"
+},
+"doc://PoieticCore/documentation/PoieticCore/Formulas": {
+  "abstract" : [
+    {
+      "text" : "Formulas are arithmetic expressions that can be used for computation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formulas",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/formulas"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

@@ -83,6 +83,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -124,6 +125,14 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate\/init(_:)"
       ],
       "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate\/description"
+      ],
+      "title" : "Instance Properties"
     },
     {
       "anchor" : "Instance-Methods",
@@ -290,7 +299,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -359,6 +368,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/hascomponentpredicate\/predicate-implementations"
 },
+"doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/hascomponentpredicate\/description"
+},
 "doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate/init(_:)": {
   "abstract" : [
     {
@@ -411,12 +454,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(some "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -640,6 +683,11 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

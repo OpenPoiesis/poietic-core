@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17ConstraintCheckerV5checkyyxAA05FrameC5ErrorVYKAA0F0RzlF",
+    "externalID" : "s:11PoieticCore17ConstraintCheckerV5checkyyxAA20FrameValidationErrorVYKAA0F0RzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,8 +57,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-        "text" : "FrameConstraintError"
+        "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
+        "text" : "FrameValidationError"
       },
       {
         "kind" : "text",
@@ -137,10 +137,10 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-              "text" : "FrameConstraintError"
+              "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
+              "text" : "FrameValidationError"
             },
             {
               "kind" : "text",
@@ -246,7 +246,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -417,8 +417,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-      "text" : "FrameConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
+      "text" : "FrameValidationError"
     },
     {
       "kind" : "text",
@@ -492,8 +492,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-      "text" : "FrameConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
     },
     {
       "kind" : "text",
@@ -501,8 +501,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-      "text" : "StableFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
@@ -546,7 +546,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError": {
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
   "abstract" : [
     {
       "text" : "Error generated when a frame is checked for constraints and object types.",
@@ -564,21 +564,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameConstraintError"
+      "text" : "FrameValidationError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameConstraintError"
+      "text" : "FrameValidationError"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameConstraintError",
+  "title" : "FrameValidationError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameconstrainterror"
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
@@ -653,8 +653,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore21ObjectConstraintErrorV",
-      "text" : "ObjectConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
+      "text" : "ObjectTypeErrorCollection"
     },
     {
       "kind" : "text",

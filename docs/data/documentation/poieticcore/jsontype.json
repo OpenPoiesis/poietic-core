@@ -99,8 +99,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError"
       ],
       "title" : "JSON"
     }
@@ -180,37 +179,6 @@
   "title" : "Foreign Interfaces",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONDictionary": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONDictionary",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondictionary"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONError": {
   "abstract" : [
@@ -462,7 +430,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
-
+    {
+      "text" : "Representation of a JSON value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

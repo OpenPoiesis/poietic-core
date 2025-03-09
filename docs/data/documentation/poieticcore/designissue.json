@@ -1,0 +1,1236 @@
+{
+  "abstract" : [
+    {
+      "text" : "Representation of an issue in the design caused by the user.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore11DesignIssueV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "DesignIssue"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "DesignIssue"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "DesignIssue"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "DesignIssue"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Constraints",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
+      ],
+      "title" : "Constraints"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/init(domain:severity:identifier:message:hint:details:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/details",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/domain-swift.property",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/hint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/identifier",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/message",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/severity-swift.property"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/Domain-swift.enum",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/Severity-swift.enum"
+      ],
+      "title" : "Enumerations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/designissue"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are required. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and accepts them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AcceptAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/acceptall"
+},
+"doc://PoieticCore/documentation/PoieticCore/Constraint": {
+  "abstract" : [
+    {
+      "text" : "An object representing a constraint rule for checking whether a design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is valid within a given problem domain.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Constraint"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Constraint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraint"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
+  "abstract" : [
+    {
+      "text" : "An object that checks constraints, including object types, of a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintChecker",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
+  "abstract" : [
+    {
+      "text" : "Definition of a constraint satisfaction requirement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a constraint violation was found.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintViolation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintViolation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
+  "abstract" : [
+    {
+      "text" : "Representation of an issue in the design caused by the user.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/Domain-swift.enum": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Domain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/Domain-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Domain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssue.Domain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/Severity-swift.enum": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Severity"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/Severity-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Severity"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssue.Severity",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/details": {
+  "abstract" : [
+    {
+      "text" : "Details about the issue that applications can present or use.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "details"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/details",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "details",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/details"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/domain-swift.property": {
+  "abstract" : [
+    {
+      "text" : "Issue domain specifies where the issue happened.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "domain"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
+      "text" : "DesignIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV6DomainO",
+      "text" : "Domain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/domain-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "domain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/domain-swift.property"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/hint": {
+  "abstract" : [
+    {
+      "text" : "Optional hint stating how the issue can be corrected or where to look for further",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "investigation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/hint",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/hint"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/identifier": {
+  "abstract" : [
+    {
+      "text" : "Identifier of the issue kind to be used for investigation, analogous to an error code.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/identifier"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/init(domain:severity:identifier:message:hint:details:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "domain"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
+      "text" : "DesignIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV6DomainO",
+      "text" : "Domain"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "severity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
+      "text" : "DesignIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV8SeverityO",
+      "text" : "Severity"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "message"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "hint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "details"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/init(domain:severity:identifier:message:hint:details:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(domain:severity:identifier:message:hint:details:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/init(domain:severity:identifier:message:hint:details:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/message": {
+  "abstract" : [
+    {
+      "text" : "User-oriented message describing the issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "message"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/message",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "message",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/message"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue/severity-swift.property": {
+  "abstract" : [
+    {
+      "text" : "Severity of the issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "severity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
+      "text" : "DesignIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV8SeverityO",
+      "text" : "Severity"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/severity-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "severity",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue\/severity-swift.property"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of design issues.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissuecollection"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
+  "abstract" : [
+    {
+      "text" : "Protocol for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissueconvertible"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
+  "abstract" : [
+    {
+      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "given labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeEndpointRequirement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeEndpointRequirement",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
+},
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
+  "abstract" : [
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of object type violation errors produced when checking object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeErrorCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
+},
+"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are prohibited. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RejectAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rejectall"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueProperty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

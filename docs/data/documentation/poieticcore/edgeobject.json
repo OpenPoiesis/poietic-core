@@ -1,0 +1,667 @@
+{
+  "abstract" : [
+    {
+      "text" : "Wrapper of an object snapshot presented as an edge.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore10EdgeObjectV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "EdgeObject"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "EdgeObject"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "EdgeObject"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "EdgeObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The edge object contains direct references to concrete design objects.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "The edge object is relevant only within the context of a frame that was used during",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "initialisation.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol",
+        "doc:\/\/PoieticCore\/s12IdentifiableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Graph-Nodes-and-Edges",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol"
+      ],
+      "title" : "Graph, Nodes and Edges"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/init(_:in:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/id",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/object",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/origin",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/originObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/target",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/targetObject"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/NodeID"
+      ],
+      "title" : "Type Aliases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/edgeobject"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
+  "abstract" : [
+    {
+      "text" : "Wrapper of an object snapshot presented as an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/NodeID": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/NodeID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NodeID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeObject.NodeID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/nodeid"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/id": {
+  "abstract" : [
+    {
+      "text" : "ID of the edge design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/id"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/init(_:in:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new edge object for a given design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "in"
+    },
+    {
+      "kind" : "text",
+      "text" : ": some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/init(_:in:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:in:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/init(_:in:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/object": {
+  "abstract" : [
+    {
+      "text" : "Design object representing the edge",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "object"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/object",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "object",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/object"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/origin": {
+  "abstract" : [
+    {
+      "text" : "ID of the edge origin.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "origin"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/origin",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "origin",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/origin"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/originObject": {
+  "abstract" : [
+    {
+      "text" : "Reference to the edge origin object extracted from a frame during initialisation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "originObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/originObject",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "originObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/originobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/target": {
+  "abstract" : [
+    {
+      "text" : "ID of the edge target.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "target"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/target",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "target",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/target"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject/targetObject": {
+  "abstract" : [
+    {
+      "text" : "Reference to the edge target object extracted from a frame during initialisation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "targetObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject\/targetObject",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "targetObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject\/targetobject"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
+  "abstract" : [
+    {
+      "text" : "Protocol for edges in a graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph": {
+  "abstract" : [
+    {
+      "text" : "Collection of nodes connected by edges.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Graph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graph"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol": {
+  "abstract" : [
+    {
+      "text" : "Protocol for object graphs - nodes connected by edges.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/s12IdentifiableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s12IdentifiableP",
+  "title" : "Swift.Identifiable",
+  "type" : "unresolvable"
+}
+}
+}

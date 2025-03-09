@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC5frameyAA11StableFrameCSgs6UInt64VF",
+    "externalID" : "s:11PoieticCore6DesignC5frameyAA0C5FrameCSgAA8ObjectIDVF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -48,8 +48,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-        "text" : "StableFrame"
+        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+        "text" : "DesignFrame"
       },
       {
         "kind" : "text",
@@ -120,10 +120,10 @@
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-              "text" : "StableFrame"
+              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+              "text" : "DesignFrame"
             },
             {
               "kind" : "text",
@@ -284,8 +284,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-      "text" : "StableFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
     },
     {
       "kind" : "text",
@@ -298,6 +298,40 @@
   "title" : "frame(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/frame(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+  "abstract" : [
+    {
+      "text" : "Design frame that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
@@ -332,40 +366,6 @@
   "title" : "FrameID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
-  "abstract" : [
-    {
-      "text" : "Stable design frame that can not be mutated.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
 }
 }
 }

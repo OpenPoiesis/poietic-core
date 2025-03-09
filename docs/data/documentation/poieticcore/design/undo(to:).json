@@ -35,7 +35,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC4undo2toys6UInt64V_tF",
+    "externalID" : "s:11PoieticCore6DesignC4undo2toSbAA8ObjectIDVSg_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -68,7 +68,12 @@
       },
       {
         "kind" : "text",
-        "text" : ")"
+        "text" : "?) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
       }
     ],
     "modules" : [
@@ -92,6 +97,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@discardableResult"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -132,12 +145,53 @@
             },
             {
               "kind" : "text",
-              "text" : ")"
+              "text" : "? = nil) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "",
+              "type" : "text"
+            },
+            {
+              "code" : "true",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " if there was anything to undo, ",
+              "type" : "text"
+            },
+            {
+              "code" : "false",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " if there was nothing to undo.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     },
     {
       "content" : [
@@ -158,11 +212,35 @@
               "type" : "text"
             },
             {
-              "text" : "of undoable history, otherwise it is a programming error.",
+              "text" : "of undoable history.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "code" : "frameID",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " must exist in the undo history.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
         },
         {
           "content" : [
@@ -414,7 +492,12 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
@@ -479,7 +562,12 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",

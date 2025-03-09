@@ -22,7 +22,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE4nodey4NodeQzs6UInt64VF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE4nodeyAA12DesignObjectCAA0F2IDVF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,7 +42,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       },
       {
@@ -119,7 +119,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -211,7 +211,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
   "abstract" : [
-
+    {
+      "text" : "Object type of a node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -225,15 +228,6 @@
     {
       "kind" : "identifier",
       "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
@@ -254,7 +248,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -349,7 +343,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {

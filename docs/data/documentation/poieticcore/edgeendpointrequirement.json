@@ -119,15 +119,18 @@
       "anchor" : "Constraints",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
       ],
       "title" : "Constraints"
     }
@@ -382,6 +385,108 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
+  "abstract" : [
+    {
+      "text" : "Representation of an issue in the design caused by the user.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of design issues.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissuecollection"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
+  "abstract" : [
+    {
+      "text" : "Protocol for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissueconvertible"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
   "abstract" : [
     {
@@ -468,12 +573,12 @@
     },
     {
       "kind" : "text",
-      "text" : ": [some "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -481,7 +586,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -724,7 +829,41 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintError": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
+  "abstract" : [
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
   "abstract" : [
     {
       "text" : "Collection of object type violation errors produced when checking object",
@@ -750,21 +889,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectConstraintError"
+      "text" : "ObjectTypeErrorCollection"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectConstraintError"
+      "text" : "ObjectTypeErrorCollection"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectConstraintError",
+  "title" : "ObjectTypeErrorCollection",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectconstrainterror"
+  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -815,40 +954,6 @@
   "title" : "RejectAll",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rejectall"
-},
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
-  "abstract" : [
-    {
-      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UniqueNeighbourRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
   "abstract" : [

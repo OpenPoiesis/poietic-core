@@ -94,7 +94,17 @@
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore13FunctionErrorO",
+              "text" : "FunctionError"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
@@ -245,6 +255,40 @@
   "title" : "Function.Body",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/function\/body"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a function body is called.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [

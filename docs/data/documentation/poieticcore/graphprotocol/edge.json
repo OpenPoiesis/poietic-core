@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Object type of an edge.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -81,69 +87,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP",
               "text" : "EdgeProtocol"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "where"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Edge",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
-              "text" : "Edge"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeID",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP6NodeIDQa",
-              "text" : "NodeID"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-              "text" : "Node"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
-              "text" : "ID"
             }
           ]
         }
@@ -221,32 +164,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/NodeID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeID",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "NodeID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeprotocol\/nodeid"
-},
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol": {
   "abstract" : [
     {
@@ -283,7 +200,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Edge": {
   "abstract" : [
-
+    {
+      "text" : "Object type of an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -315,41 +235,6 @@
   "title" : "Edge",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/edge"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "Node",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/node"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

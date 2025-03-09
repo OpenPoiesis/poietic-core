@@ -207,7 +207,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:merging:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:constraints:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:edgeRules:constraints:)"
       ],
       "title" : "Initializers"
     },
@@ -216,6 +216,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/constraints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeRules",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/nodeTypes",
@@ -229,7 +230,8 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectType(name:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/objectType(name:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/trait(name:)"
       ],
       "title" : "Instance Methods"
     },
@@ -406,8 +408,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-      "text" : "FrameConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
     },
     {
       "kind" : "text",
@@ -415,8 +417,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-      "text" : "StableFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
@@ -554,6 +556,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/constraints"
 },
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeRules": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeRules"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+      "text" : "EdgeRule"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/edgeRules",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edgeRules",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/edgerules"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeTypes": {
   "abstract" : [
     {
@@ -677,7 +717,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/init(name:merging:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:traits:types:constraints:)": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:traits:types:edgeRules:constraints:)": {
   "abstract" : [
     {
       "text" : "Create a new metamodel.",
@@ -746,6 +786,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "edgeRules"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8EdgeRuleV",
+      "text" : "EdgeRule"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "constraints"
     },
     {
@@ -762,12 +819,12 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:constraints:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:edgeRules:constraints:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:traits:types:constraints:)",
+  "title" : "init(name:traits:types:edgeRules:constraints:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:traits:types:constraints:)"
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:traits:types:edgerules:constraints:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/name": {
   "abstract" : [
@@ -951,6 +1008,61 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/subscript(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/trait(name:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/trait(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trait(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodel\/trait(name:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/traits": {
   "abstract" : [
     {
@@ -1099,7 +1211,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],

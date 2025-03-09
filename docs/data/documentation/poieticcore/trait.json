@@ -249,7 +249,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/BibliographicalReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode"
       ],
       "title" : "Type Properties"
     }
@@ -409,7 +409,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -516,7 +516,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/bibliographicalreference"
 },
-"doc://PoieticCore/documentation/PoieticCore/Trait/Position": {
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramNode": {
   "abstract" : [
     {
       "text" : "Trait for objects that can be presented diagrammatically:",
@@ -542,7 +542,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Position"
+      "text" : "DiagramNode"
     },
     {
       "kind" : "text",
@@ -554,12 +554,12 @@
       "text" : "Trait"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "Position",
+  "title" : "DiagramNode",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/position"
+  "url" : "\/documentation\/poieticcore\/trait\/diagramnode"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/abstract": {
   "abstract" : [

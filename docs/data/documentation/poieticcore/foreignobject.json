@@ -141,8 +141,9 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
@@ -158,7 +159,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/attributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/children",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/origin",
@@ -206,48 +206,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
-  "abstract" : [
-    {
-      "text" : "Protocol that represents a frame which originates or is meant to be used",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "by a foreign interface.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
   "abstract" : [
@@ -324,6 +282,48 @@
   "title" : "ForeignFrameLoader",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframeloader"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameProtocol": {
+  "abstract" : [
+    {
+      "text" : "Protocol that represents a frame which originates or is meant to be used",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "by a foreign interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrameProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
@@ -423,48 +423,6 @@
   "title" : "attributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignobject\/attributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject/children": {
-  "abstract" : [
-    {
-      "text" : "List of references for object’s children.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "children"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject\/children",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "children",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject\/children"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignObject/id": {
   "abstract" : [
@@ -963,6 +921,40 @@
   "title" : "FrameLoaderError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameloadererror"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONForeignFrame": {
+  "abstract" : [
+    {
+      "text" : "Helper structure to convert frames to and from JSON using coding.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONForeignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONForeignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonforeignframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONForeignObject": {
   "abstract" : [

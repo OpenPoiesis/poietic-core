@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the object type has a given trait.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -182,7 +196,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -215,7 +229,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the object type has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC10allocateID8requireds6UInt64VAGSg_tF",
+    "externalID" : "s:11PoieticCore6DesignC10allocateID8requiredAA06ObjectE0VAGSg_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -47,8 +47,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore2IDa",
-        "text" : "ID"
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "text" : "ObjectID"
       },
       {
         "kind" : "text",
@@ -56,8 +56,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore2IDa",
-        "text" : "ID"
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "text" : "ObjectID"
       }
     ],
     "modules" : [
@@ -106,20 +106,20 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore2IDa",
-              "text" : "ID"
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "text" : "ObjectID"
             },
             {
               "kind" : "text",
               "text" : "? = nil) -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore2IDa",
-              "text" : "ID"
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "text" : "ObjectID"
             }
           ]
         }
@@ -165,7 +165,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "If ID is specified, it must not be used.",
+                  "text" : "If ID is specified, it must not be used before.",
                   "type" : "text"
                 }
               ],
@@ -292,8 +292,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     },
     {
       "kind" : "text",
@@ -301,8 +301,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
@@ -312,14 +312,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ID": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -327,21 +330,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ID"
+      "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ID"
+      "text" : "ObjectID"
     }
   ],
   "role" : "symbol",
-  "title" : "ID",
+  "title" : "ObjectID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
+  "url" : "\/documentation\/poieticcore\/objectid"
 }
 }
 }

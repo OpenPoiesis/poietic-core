@@ -22,7 +22,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE5first5where4NodeQzSgSbAGXE_tF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE5first5whereAA12DesignObjectCSgSbAGXE_tF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,16 +50,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-        "text" : "Snapshot"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -76,16 +68,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-        "text" : "Snapshot"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -146,18 +130,10 @@
               "text" : ": ("
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-              "text" : "Snapshot"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -173,18 +149,10 @@
               "text" : ") -> "
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-              "text" : "Snapshot"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -260,14 +228,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/Snapshot": {
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
   "abstract" : [
-
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "associatedtype"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -275,16 +246,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Snapshot"
+      "text" : "DesignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/Snapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
   "kind" : "symbol",
-  "required" : true,
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
   "role" : "symbol",
-  "title" : "Snapshot",
+  "title" : "DesignObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/snapshot"
+  "url" : "\/documentation\/poieticcore\/designobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
@@ -365,16 +341,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-      "text" : "Snapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -391,16 +359,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP8SnapshotQa",
-      "text" : "Snapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",

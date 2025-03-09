@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA11StableFrameCAA09TransientH0C_SbtAA0H15ConstraintErrorVYKF",
+    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA0C5FrameCAA09TransientG0C_SbtAA24StructuralIntegrityErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -73,8 +73,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-        "text" : "FrameConstraintError"
+        "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+        "text" : "StructuralIntegrityError"
       },
       {
         "kind" : "text",
@@ -82,8 +82,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-        "text" : "StableFrame"
+        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+        "text" : "DesignFrame"
       }
     ],
     "modules" : [
@@ -183,20 +183,20 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-              "text" : "FrameConstraintError"
+              "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+              "text" : "StructuralIntegrityError"
             },
             {
               "kind" : "text",
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-              "text" : "StableFrame"
+              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+              "text" : "DesignFrame"
             }
           ]
         }
@@ -406,20 +406,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ",",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -570,8 +557,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-      "text" : "FrameConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
+      "text" : "FrameValidationError"
     },
     {
       "kind" : "text",
@@ -687,8 +674,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameConstraintErrorV",
-      "text" : "FrameConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
     },
     {
       "kind" : "text",
@@ -696,8 +683,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-      "text" : "StableFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
@@ -707,44 +694,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError": {
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
   "abstract" : [
     {
-      "text" : "Error generated when a frame is checked for constraints and object types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameConstraintError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameConstraintError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameConstraintError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameconstrainterror"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
-  "abstract" : [
-    {
-      "text" : "Stable design frame that can not be mutated.",
+      "text" : "Design frame that has been accepted and can not be changed.",
       "type" : "text"
     }
   ],
@@ -759,21 +712,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StableFrame"
+      "text" : "DesignFrame"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StableFrame"
+      "text" : "DesignFrame"
     }
   ],
   "role" : "symbol",
-  "title" : "StableFrame",
+  "title" : "DesignFrame",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
+  "url" : "\/documentation\/poieticcore\/designframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
@@ -809,10 +796,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/accept()": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/validateStructure()": {
   "abstract" : [
     {
-      "text" : "Mark the frame as accepted and reject any further modifications.",
+      "text" : "Validate structural references.",
       "type" : "text"
     }
   ],
@@ -827,7 +814,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "accept"
+      "text" : "validateStructure"
     },
     {
       "kind" : "text",
@@ -843,61 +830,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19TransientFrameErrorO",
-      "text" : "TransientFrameError"
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
     },
     {
       "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-      "text" : "StableObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "accept()",
+  "title" : "validateStructure()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/accept()"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/discard()": {
-  "abstract" : [
-    {
-      "text" : "Mark the frame as discarded and reject any further modifications.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "discard"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "discard()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/discard()"
+  "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure()"
 }
 }
 }

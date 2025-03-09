@@ -118,7 +118,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/Se",
+        "doc:\/\/PoieticCore\/10Foundation26DecodableWithConfigurationP",
         "doc:\/\/PoieticCore\/SE"
       ],
       "kind" : "relationships",
@@ -140,7 +140,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/init(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/init(from:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/init(from:configuration:)"
       ],
       "title" : "Initializers"
     },
@@ -149,13 +149,13 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/attributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/children",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/origin",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/parent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/snapshotID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/structuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/systemAttributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/target",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/type"
       ],
@@ -192,14 +192,14 @@
   ]
 , 
 "references": {
+"doc://PoieticCore/10Foundation26DecodableWithConfigurationP": {
+  "identifier" : "doc:\/\/PoieticCore\/10Foundation26DecodableWithConfigurationP",
+  "title" : "Foundation.DecodableWithConfiguration",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/SE": {
   "identifier" : "doc:\/\/PoieticCore\/SE",
   "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/Se": {
-  "identifier" : "doc:\/\/PoieticCore\/Se",
-  "title" : "Swift.Decodable",
   "type" : "unresolvable"
 },
 "doc://PoieticCore/documentation/PoieticCore": {
@@ -302,7 +302,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -341,44 +341,6 @@
   "title" : "attributes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonforeignobject\/attributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/children": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "children"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/children",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "children",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonforeignobject\/children"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/encode(to:)": {
   "abstract" : [
@@ -483,8 +445,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-      "text" : "StableObject"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -498,7 +460,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonforeignobject\/init(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/init(from:)": {
+"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/init(from:configuration:)": {
   "abstract" : [
 
   ],
@@ -526,6 +488,32 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC",
+      "text" : "JSONFrameReader"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC21DecodingConfigurationC",
+      "text" : "DecodingConfiguration"
+    },
+    {
+      "kind" : "text",
       "text" : ") "
     },
     {
@@ -533,12 +521,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/init(from:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/init(from:configuration:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(from:)",
+  "title" : "init(from:configuration:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonforeignobject\/init(from:)"
+  "url" : "\/documentation\/poieticcore\/jsonforeignobject\/init(from:configuration:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/name": {
   "abstract" : [
@@ -729,6 +717,53 @@
   "title" : "structuralType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonforeignobject\/structuraltype"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/systemAttributes": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "systemAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject\/systemAttributes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "systemAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonforeignobject\/systemattributes"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONForeignObject/target": {
   "abstract" : [

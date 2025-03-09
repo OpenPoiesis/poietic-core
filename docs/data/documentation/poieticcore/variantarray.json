@@ -110,7 +110,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AtomType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Point"
       ],
       "title" : "Value and Variant"
@@ -151,7 +150,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(_:)-81h9n",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(_:)-9klfb",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(any:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(jsonItems:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:jsonItems:)"
       ],
       "title" : "Initializers"
     },
@@ -180,14 +181,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/remove(at:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "anchor" : "Type-Methods",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/fromJSONItems(_:path:)"
-      ],
-      "title" : "Type Methods"
     },
     {
       "anchor" : "Default-Implementations",
@@ -298,37 +291,6 @@
   "title" : "AtomType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
 },
 "doc://PoieticCore/documentation/PoieticCore/Point": {
   "abstract" : [
@@ -945,6 +907,19 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ValueErrorO",
+      "text" : "ValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/append(_:)",
@@ -1176,91 +1151,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/first"
 },
-"doc://PoieticCore/documentation/PoieticCore/VariantArray/fromJSONItems(_:path:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "fromJSONItems"
-    },
-    {
-      "kind" : "text",
-      "text" : "(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "path"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
-      "text" : "ForeignValueError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/fromJSONItems(_:path:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "fromJSONItems(_:path:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray\/fromjsonitems(_:path:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/init(_:)-1lmbd": {
   "abstract" : [
 
@@ -1425,15 +1315,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
+      "text" : "?("
     },
     {
       "kind" : "externalParam",
@@ -1444,8 +1326,8 @@
       "text" : ": ["
     },
     {
-      "kind" : "typeIdentifier",
-      "text" : "T"
+      "kind" : "keyword",
+      "text" : "Any"
     },
     {
       "kind" : "text",
@@ -1458,6 +1340,64 @@
   "title" : "init(any:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/init(any:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/init(jsonItems:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new variant array from JSON items.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsonItems"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
+      "text" : "ForeignValueError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(jsonItems:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(jsonItems:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/init(jsonitems:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/init(type:)": {
   "abstract" : [
@@ -1499,6 +1439,64 @@
   "title" : "init(type:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/init(type:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantArray/init(type:jsonItems:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new variant array of given type from JSON items.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
+      "text" : "AtomType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsonItems"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/init(type:jsonItems:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(type:jsonItems:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantarray\/init(type:jsonitems:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/int(_:)": {
   "abstract" : [

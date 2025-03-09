@@ -27,11 +27,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13EdgePredicateC",
+    "externalID" : "s:11PoieticCore13EdgePredicateV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -54,8 +54,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "EdgePredicate"
   },
   "primaryContentSections" : [
@@ -71,15 +71,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "final"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "class"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -136,6 +128,7 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -174,9 +167,19 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)-5lirk",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)-67v5"
       ],
       "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/description"
+      ],
+      "title" : "Instance Properties"
     },
     {
       "anchor" : "Instance-Methods",
@@ -343,7 +346,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -378,7 +381,126 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate\/predicate-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/init(_:origin:target:)": {
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/init()"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/init(_:origin:target:)-5lirk": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "origin"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "target"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)-5lirk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:origin:target:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/init(_:origin:target:)-5lirk"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/init(_:origin:target:)-67v5": {
   "abstract" : [
 
   ],
@@ -435,12 +557,12 @@
       "text" : ")?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/init(_:origin:target:)-67v5",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:origin:target:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate\/init(_:origin:target:)"
+  "url" : "\/documentation\/poieticcore\/edgepredicate\/init(_:origin:target:)-67v5"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgePredicate/match(_:in:)": {
   "abstract" : [
@@ -461,12 +583,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(some "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -759,7 +881,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -768,7 +890,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -782,6 +904,11 @@
   "title" : "Structure.edge(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure\/edge(_:_:)"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

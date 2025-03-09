@@ -21,8 +21,40 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Edge",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Identifiable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore13GraphProtocolPAAE6cyclesSay4EdgeQzGyF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore13GraphProtocolPAAs12Identifiable4EdgeRpzrlE6cyclesSayAFGyF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -177,7 +209,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Edge": {
   "abstract" : [
-
+    {
+      "text" : "Object type of an edge.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -262,6 +297,38 @@
       "type" : "text"
     }
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Edge",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Identifiable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",

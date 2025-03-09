@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of component requirements for objects of this type.",
+      "text" : "List of traits for objects of this type.",
       "type" : "text"
     }
   ],
@@ -99,6 +99,41 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Trait attributes share the same namespace. Two traits associated with an object can",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "not have the same attribute name.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -162,7 +197,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -196,7 +231,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/traits": {
   "abstract" : [
     {
-      "text" : "List of component requirements for objects of this type.",
+      "text" : "List of traits for objects of this type.",
       "type" : "text"
     }
   ],

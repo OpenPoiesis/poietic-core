@@ -103,9 +103,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Signature",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinComparisonOperators",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunctions"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionArgument"
       ],
       "title" : "Functions"
     }
@@ -115,7 +113,12 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(name:signature:body:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(booleanVariadic:body:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(comparison:body:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(name:signature:body:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericBinary:leftName:rightName:body:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericUnary:argumentName:body:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericVariadic:body:)"
       ],
       "title" : "Initializers"
     },
@@ -139,16 +142,23 @@
       "title" : "Type Aliases"
     },
     {
-      "anchor" : "Type-Methods",
+      "anchor" : "Type-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanVariadic(_:body:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/Comparison(_:body:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericBinary(_:leftArgument:rightArgument:body:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericUnary(_:argumentName:body:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericVariadic(_:body:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanAnd",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanFunctions",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanNot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanOr",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/ComparisonOperators",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/GreaterOrEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/GreaterThan",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IfFunction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IsEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IsNotEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/LessOrEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/LessThan"
       ],
-      "title" : "Type Methods"
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -178,88 +188,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/BuiltinComparisonOperators": {
-  "abstract" : [
-    {
-      "text" : "List of built-in binary comparison operators.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinComparisonOperators"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
-      "text" : "Function"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinComparisonOperators",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "BuiltinComparisonOperators",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtincomparisonoperators"
-},
-"doc://PoieticCore/documentation/PoieticCore/BuiltinFunctions": {
-  "abstract" : [
-    {
-      "text" : "List of all builtin functions provided by the Core.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuiltinFunctions"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
-      "text" : "Function"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunctions",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "BuiltinFunctions",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/builtinfunctions"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [
@@ -343,18 +271,23 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/function\/body"
 },
-"doc://PoieticCore/documentation/PoieticCore/Function/BooleanVariadic(_:body:)": {
+"doc://PoieticCore/documentation/PoieticCore/Function/BooleanAnd": {
   "abstract" : [
     {
-      "text" : "Create a variadic function that takes a list of boolean arguments and returns",
+      "text" : "Logical ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "inlineContent" : [
+        {
+          "text" : "AND",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
     },
     {
-      "text" : "a boolean.",
+      "text" : " for two or more arguments.",
       "type" : "text"
     }
   ],
@@ -369,7 +302,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -377,217 +310,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BooleanVariadic"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": (["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
-      "text" : "Function"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanVariadic(_:body:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "BooleanVariadic(_:body:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/function\/booleanvariadic(_:body:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Function/Comparison(_:body:)": {
-  "abstract" : [
-    {
-      "text" : "Create a comparison function that takes two values of any type and returns a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "boolean.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Comparison"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
-      "text" : "Function"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/Comparison(_:body:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Comparison(_:body:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/function\/comparison(_:body:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Function/NumericBinary(_:leftArgument:rightArgument:body:)": {
-  "abstract" : [
-    {
-      "text" : "Create a function that takes two numeric values (int or double) and returns",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a double value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericBinary"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "leftArgument"
+      "text" : "BooleanAnd"
     },
     {
       "kind" : "text",
@@ -595,90 +318,67 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanAnd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BooleanAnd",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/booleanand"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/BooleanFunctions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : " "
     },
     {
-      "kind" : "externalParam",
-      "text" : "rightArgument"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : " "
     },
     {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
+      "kind" : "identifier",
+      "text" : "BooleanFunctions"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore8FunctionC",
       "text" : "Function"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericBinary(_:leftArgument:rightArgument:body:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanFunctions",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "NumericBinary(_:leftArgument:rightArgument:body:)",
+  "title" : "BooleanFunctions",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/function\/numericbinary(_:leftargument:rightargument:body:)"
+  "url" : "\/documentation\/poieticcore\/function\/booleanfunctions"
 },
-"doc://PoieticCore/documentation/PoieticCore/Function/NumericUnary(_:argumentName:body:)": {
+"doc://PoieticCore/documentation/PoieticCore/Function/BooleanNot": {
   "abstract" : [
     {
-      "text" : "Create a function that takes a numeric values (int or double) and returns",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a double value.",
+      "text" : "Logical negation of a boolean value.",
       "type" : "text"
     }
   ],
@@ -693,7 +393,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -701,24 +401,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NumericUnary"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "argumentName"
+      "text" : "BooleanNot"
     },
     {
       "kind" : "text",
@@ -726,64 +409,34 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore8FunctionC",
       "text" : "Function"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericUnary(_:argumentName:body:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanNot",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "NumericUnary(_:argumentName:body:)",
+  "title" : "BooleanNot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/function\/numericunary(_:argumentname:body:)"
+  "url" : "\/documentation\/poieticcore\/function\/booleannot"
 },
-"doc://PoieticCore/documentation/PoieticCore/Function/NumericVariadic(_:body:)": {
+"doc://PoieticCore/documentation/PoieticCore/Function/BooleanOr": {
   "abstract" : [
     {
-      "text" : "Create a function that takes variable number of numeric values and",
+      "text" : "Logical ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "inlineContent" : [
+        {
+          "text" : "OR",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
     },
     {
-      "text" : "returns a numeric value.",
+      "text" : " for two or more arguments.",
       "type" : "text"
     }
   ],
@@ -798,7 +451,7 @@
     },
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -806,46 +459,11 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NumericVariadic"
+      "text" : "BooleanOr"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": (["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
@@ -853,12 +471,355 @@
       "text" : "Function"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/NumericVariadic(_:body:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/BooleanOr",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "NumericVariadic(_:body:)",
+  "title" : "BooleanOr",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/function\/numericvariadic(_:body:)"
+  "url" : "\/documentation\/poieticcore\/function\/booleanor"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/ComparisonOperators": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ComparisonOperators"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/ComparisonOperators",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ComparisonOperators",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/comparisonoperators"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/GreaterOrEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GreaterOrEqual"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/GreaterOrEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GreaterOrEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/greaterorequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/GreaterThan": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GreaterThan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/GreaterThan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "GreaterThan",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/greaterthan"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/IfFunction": {
+  "abstract" : [
+    {
+      "text" : "Boolean conditional function.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IfFunction"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IfFunction",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "IfFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/iffunction"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/IsEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsEqual"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IsEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "IsEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/isequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/IsNotEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsNotEqual"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/IsNotEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "IsNotEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/isnotequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/LessOrEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LessOrEqual"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/LessOrEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "LessOrEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/lessorequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/LessThan": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LessThan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8FunctionC",
+      "text" : "Function"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/LessThan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "LessThan",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/lessthan"
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/apply": {
   "abstract" : [
@@ -939,6 +900,198 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/function\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/init(booleanVariadic:body:)": {
+  "abstract" : [
+    {
+      "text" : "Create a variadic function that takes a list of boolean arguments and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a boolean.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "booleanVariadic"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(booleanVariadic:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(booleanVariadic:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/init(booleanvariadic:body:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/init(comparison:body:)": {
+  "abstract" : [
+    {
+      "text" : "Create a comparison function that takes two values of any type and returns a",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "boolean.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "comparison"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13FunctionErrorO",
+      "text" : "FunctionError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(comparison:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(comparison:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/init(comparison:body:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Function/init(name:signature:body:)": {
   "abstract" : [
@@ -1024,6 +1177,315 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/function\/init(name:signature:body:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/Function/init(numericBinary:leftName:rightName:body:)": {
+  "abstract" : [
+    {
+      "text" : "Create a function that takes two numeric values (int or double) and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a double value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "numericBinary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "leftName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rightName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericBinary:leftName:rightName:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(numericBinary:leftName:rightName:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/init(numericbinary:leftname:rightname:body:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/init(numericUnary:argumentName:body:)": {
+  "abstract" : [
+    {
+      "text" : "Create a function that takes a numeric values (int or double) and returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a double value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "numericUnary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "argumentName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericUnary:argumentName:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(numericUnary:argumentName:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/init(numericunary:argumentname:body:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Function/init(numericVariadic:body:)": {
+  "abstract" : [
+    {
+      "text" : "Create a function that takes variable number of numeric values and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "returns a numeric value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "numericVariadic"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Function\/init(numericVariadic:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(numericVariadic:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/function\/init(numericvariadic:body:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Function/name": {
   "abstract" : [
     {
@@ -1064,15 +1526,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Function/signature": {
   "abstract" : [
     {
-      "text" : "Signature of the function - list of arguments, their types and a type",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the return value.",
+      "text" : "Signature of the function.",
       "type" : "text"
     }
   ],

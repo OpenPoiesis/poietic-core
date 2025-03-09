@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Signature of the function - list of arguments, their types and a type",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the return value.",
+      "text" : "Signature of the function.",
       "type" : "text"
     }
   ],
@@ -99,6 +91,34 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Signature describes function’s arguments, their types and the return type. It is used",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "for argument validation.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -188,15 +208,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Function/signature": {
   "abstract" : [
     {
-      "text" : "Signature of the function - list of arguments, their types and a type",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the return value.",
+      "text" : "Signature of the function.",
       "type" : "text"
     }
   ],

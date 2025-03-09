@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10AllSatisfyC5check5frame7objectsSays6UInt64VGx_Sayq_GtAA5FrameRzAA14ObjectSnapshotR_r0_lF",
+    "externalID" : "s:11PoieticCore10AllSatisfyC5check5frame7objectsSayAA8ObjectIDVGx_SayAA06DesignH0CGtAA5FrameRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -69,12 +69,12 @@
       },
       {
         "kind" : "text",
-        "text" : ": [some "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-        "text" : "ObjectSnapshot"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -82,7 +82,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       },
       {
@@ -151,13 +151,13 @@
             },
             {
               "kind" : "text",
-              "text" : ": [some "
+              "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-              "text" : "ObjectSnapshot"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -166,7 +166,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -293,12 +293,12 @@
     },
     {
       "kind" : "text",
-      "text" : ": [some "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -306,7 +306,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -320,6 +320,40 @@
   "title" : "check(frame:objects:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/allsatisfy\/check(frame:objects:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
@@ -365,7 +399,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -388,40 +422,6 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "A version of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [

@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Creates a lexer that parses a source string.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -20,16 +14,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15ExpressionLexerC6stringACSS_tcfc",
+    "externalID" : "s:11PoieticCore15ExpressionLexerV6stringACSS_tcfc",
     "fragments" : [
-      {
-        "kind" : "keyword",
-        "text" : "convenience"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
       {
         "kind" : "identifier",
         "text" : "init"
@@ -77,14 +63,6 @@
             "macOS"
           ],
           "tokens" : [
-            {
-              "kind" : "keyword",
-              "text" : "convenience"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
             {
               "kind" : "keyword",
               "text" : "init"
@@ -162,7 +140,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -188,20 +166,9 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer/init(string:)": {
   "abstract" : [
-    {
-      "text" : "Creates a lexer that parses a source string.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "convenience"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
     {
       "kind" : "identifier",
       "text" : "init"

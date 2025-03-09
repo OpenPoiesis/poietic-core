@@ -100,30 +100,25 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
+          "content" : [
             {
-              "text" : "The name in a function call used in ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " refers to",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "a function with corresponding name.",
-              "type" : "text"
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/function(_:_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "paragraph"
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -165,17 +160,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/function(_:_:)": {
   "abstract" : [
     {
-      "text" : "Arithmetic expression.",
+      "text" : "Function with multiple expressions as arguments",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "case"
     },
     {
       "kind" : "text",
@@ -183,21 +178,77 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ArithmeticExpression"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "function"
+    },
     {
-      "kind" : "identifier",
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
       "text" : "ArithmeticExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "F"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "FunctionReference"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
+      "text" : "ArithmeticExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "F"
+    },
+    {
+      "kind" : "text",
+      "text" : ">])"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/function(_:_:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ArithmeticExpression",
+  "title" : "ArithmeticExpression.function(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/function(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [

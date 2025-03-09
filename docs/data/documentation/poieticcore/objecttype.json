@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -97,7 +97,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "ObjectType describes instances of an object – what are their components,",
+              "text" : "ObjectType describes instances of an object – what are their attributes or traits,",
               "type" : "text"
             },
             {
@@ -105,7 +105,7 @@
               "type" : "text"
             },
             {
-              "text" : "what are their structural types.",
+              "text" : "what is their structural role within the design graph.",
               "type" : "text"
             }
           ],
@@ -310,7 +310,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -468,7 +468,26 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/attribute(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns an attribute with given name, if it is associated with the object type.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Otherwise returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -594,7 +613,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/hasAttribute(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the object type has a given attribute.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -637,7 +667,18 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the object type has a given trait.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -916,7 +957,22 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/trait(forAttribute:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns a trait with given name, if it is associated with the object type. Otherwise returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -972,7 +1028,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/traits": {
   "abstract" : [
     {
-      "text" : "List of component requirements for objects of this type.",
+      "text" : "List of traits for objects of this type.",
       "type" : "text"
     }
   ],

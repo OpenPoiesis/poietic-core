@@ -78,10 +78,10 @@
               "text" : " = "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore2IDa",
-              "text" : "ID"
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "text" : "ObjectID"
             }
           ]
         }
@@ -153,8 +153,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
       ],
       "title" : "Design and Version Frames"
     }
@@ -221,8 +223,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11StableFrameC",
-      "text" : "StableFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
     },
     {
       "kind" : "text",
@@ -258,6 +260,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/createframe(deriving:id:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+  "abstract" : [
+    {
+      "text" : "Design frame that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designframe"
+},
 "doc://PoieticCore/documentation/PoieticCore/Frame": {
   "abstract" : [
     {
@@ -291,40 +327,6 @@
   "title" : "Frame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
-},
-"doc://PoieticCore/documentation/PoieticCore/FrameConstraintError": {
-  "abstract" : [
-    {
-      "text" : "Error generated when a frame is checked for constraints and object types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameConstraintError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameConstraintError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameConstraintError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameConstraintError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameconstrainterror"
 },
 "doc://PoieticCore/documentation/PoieticCore/FrameID": {
   "abstract" : [
@@ -360,48 +362,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frameid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableFrame": {
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
   "abstract" : [
     {
-      "text" : "Stable design frame that can not be mutated.",
+      "text" : "Error generated when a frame is checked for constraints and object types.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -409,21 +380,89 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StableFrame"
+      "text" : "FrameValidationError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StableFrame"
+      "text" : "FrameValidationError"
     }
   ],
   "role" : "symbol",
-  "title" : "StableFrame",
+  "title" : "FrameValidationError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableframe"
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a design objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
@@ -438,6 +477,37 @@
   "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidatedFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/validatedframe"
 }
 }
 }

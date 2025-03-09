@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE5nodesSay4NodeQzGvp::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE5nodesSayAA12DesignObjectCGvp::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,16 +50,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-        "text" : "Node"
+        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+        "text" : "DesignObject"
       },
       {
         "kind" : "text",
@@ -104,18 +96,10 @@
               "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-              "text" : "Node"
+              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+              "text" : "DesignObject"
             },
             {
               "kind" : "text",
@@ -171,14 +155,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
   "abstract" : [
-
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "associatedtype"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -186,25 +173,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
+      "text" : "DesignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
   "kind" : "symbol",
-  "required" : true,
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
   "role" : "symbol",
-  "title" : "Node",
+  "title" : "DesignObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/node"
+  "url" : "\/documentation\/poieticcore\/designobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
@@ -274,16 +257,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-      "text" : "Node"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",

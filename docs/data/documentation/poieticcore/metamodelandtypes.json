@@ -173,8 +173,8 @@
             "            Attribute(\"delayed_inflow\", type: .bool),",
             "        ]",
             "    )",
-            "    static let Flow = Trait(",
-            "        name: \"Flow\",",
+            "    static let FlowRate = Trait(",
+            "        name: \"FlowRate\",",
             "        attributes: [",
             "            Attribute(\"priority\", type: .int)",
             "        ]",
@@ -228,7 +228,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
               "isActive" : true,
               "type" : "reference"
             },
@@ -254,20 +254,20 @@
             "    static let Stock = ObjectType(",
             "        name: \"Stock\",",
             "        structuralType: .node,",
-            "        traits: [.Name, .Formula, .Stock, .Position],",
+            "        traits: [.Name, .Formula, .Stock, .DiagramNode],",
             "    )",
-            "    static let Flow = ObjectType(",
-            "        name: \"Flow\",",
+            "    static let FlowRate = ObjectType(",
+            "        name: \"FlowRate\",",
             "        structuralType: .node,",
-            "        traits: [.Name, .Formula, .Flow, .Position]",
+            "        traits: [.Name, .Formula, .FlowRate, .DiagramNode]",
             "    )",
             "    \/\/ Edge types",
-            "    static let Drains = ObjectType(",
-            "        name: \"Drains\",",
+            "    static let Flow = ObjectType(",
+            "        name: \"Flow\",",
             "        structuralType: .edge",
             "    )",
-            "    static let Fills = ObjectType(",
-            "        name: \"Fills\",",
+            "    static let Parameter = ObjectType(",
+            "        name: \"Parameter\",",
             "        structuralType: .edge,",
             "    )",
             "}"
@@ -288,10 +288,10 @@
           "code" : [
             "public static let StockFlow = Metamodel(",
             "    name: \"StockFlow\",",
-            "    traits: [ .Stock, .Flow ],",
+            "    traits: [ .Stock, .FlowRate ],",
             "    types: [",
-            "        .Stock, .Flow,       \/\/ Nodes",
-            "        .Drains, .Fills,     \/\/ Edges",
+            "        .Stock, .FlowRate,  \/\/ Nodes",
+            "        .Flow, .Parameter   \/\/ Edges",
             "    ]",
             ")"
           ],
@@ -360,18 +360,30 @@
     {
       "anchor" : "Constraints",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
       ],
       "title" : "Constraints"
+    },
+    {
+      "anchor" : "Edge-Rules",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeCardinality",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation"
+      ],
+      "title" : "Edge Rules"
     },
     {
       "anchor" : "Common-Components-and-Types",
@@ -683,6 +695,142 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
+  "abstract" : [
+    {
+      "text" : "Representation of an issue in the design caused by the user.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissue"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of design issues.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissuecollection"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
+  "abstract" : [
+    {
+      "text" : "Protocol for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignIssueConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignIssueConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissueconvertible"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeCardinality": {
+  "abstract" : [
+    {
+      "text" : "Constraints:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeCardinality"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeCardinality",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeCardinality"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeCardinality",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgecardinality"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
   "abstract" : [
     {
@@ -725,6 +873,71 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
+  "abstract" : [
+    {
+      "text" : "Rule for edges that are allowed in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgerule"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRuleViolation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRuleViolation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRuleViolation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
@@ -759,52 +972,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintError": {
-  "abstract" : [
-    {
-      "text" : "Collection of object type violation errors produced when checking object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectConstraintError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectconstrainterror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -876,6 +1047,82 @@
   "title" : "DesignInfo",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/designinfo"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
+  "abstract" : [
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of object type violation errors produced when checking object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeErrorCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [
@@ -1073,6 +1320,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/designinfo"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramNode": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be presented diagrammatically:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramNode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DiagramNode",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/diagramnode"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
     {
@@ -1252,85 +1544,6 @@
   "title" : "Note",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/note"
-},
-"doc://PoieticCore/documentation/PoieticCore/Trait/Position": {
-  "abstract" : [
-    {
-      "text" : "Trait for objects that can be presented diagrammatically:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Position"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Position",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Position",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/position"
-},
-"doc://PoieticCore/documentation/PoieticCore/UniqueNeighbourRequirement": {
-  "abstract" : [
-    {
-      "text" : "Requirement that there must be at most one edge adjacent to a tested node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueNeighbourRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "UniqueNeighbourRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "UniqueNeighbourRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/uniqueneighbourrequirement"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
   "abstract" : [

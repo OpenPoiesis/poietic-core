@@ -30,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferencesSays6UInt64VGyF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
+    "externalID" : "s:11PoieticCore5FramePAAE16brokenReferencesSayAA8ObjectIDVGyF::SYNTHESIZED::s:11PoieticCore14TransientFrameC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +50,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
         "text" : "ObjectID"
       },
       {
@@ -98,7 +98,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
               "text" : "ObjectID"
             },
             {
@@ -272,7 +272,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/hasReferentialIntegrity()-78e2a",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences(snapshot:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -324,11 +324,21 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/hasReferentialIntegrity()-78e2a": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences(snapshot:)": {
   "abstract" : [
-
+    {
+      "text" : "Return a list of objects that the provided object refers to and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that do not exist within the frame.",
+      "type" : "text"
+    }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -340,25 +350,45 @@
     },
     {
       "kind" : "identifier",
-      "text" : "hasReferentialIntegrity"
+      "text" : "brokenReferences"
     },
     {
       "kind" : "text",
-      "text" : "() -> "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/hasReferentialIntegrity()-78e2a",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences(snapshot:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
-  "title" : "hasReferentialIntegrity()",
+  "title" : "brokenReferences(snapshot:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/hasreferentialintegrity()-78e2a"
+  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences(snapshot:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -370,7 +400,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -458,7 +488,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -508,7 +538,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -517,7 +547,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -611,7 +641,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {

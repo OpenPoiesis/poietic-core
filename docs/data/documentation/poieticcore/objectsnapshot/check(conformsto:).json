@@ -25,7 +25,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore14ObjectSnapshotPAAE5check10conformsToyAA5TraitC_tAA0C15ConstraintErrorVYKF",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotPAAE5check10conformsToyAA5TraitC_tAA0C19TypeErrorCollectionVYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -70,8 +70,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore21ObjectConstraintErrorV",
-        "text" : "ObjectConstraintError"
+        "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
+        "text" : "ObjectTypeErrorCollection"
       },
       {
         "kind" : "text",
@@ -150,10 +150,10 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore21ObjectConstraintErrorV",
-              "text" : "ObjectConstraintError"
+              "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
+              "text" : "ObjectTypeErrorCollection"
             },
             {
               "kind" : "text",
@@ -238,7 +238,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -301,48 +301,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectConstraintError": {
-  "abstract" : [
-    {
-      "text" : "Collection of object type violation errors produced when checking object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectConstraintError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectConstraintError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectConstraintError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectconstrainterror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
@@ -429,8 +387,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore21ObjectConstraintErrorV",
-      "text" : "ObjectConstraintError"
+      "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
+      "text" : "ObjectTypeErrorCollection"
     },
     {
       "kind" : "text",
@@ -443,6 +401,48 @@
   "title" : "check(conformsTo:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/check(conformsto:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
+  "abstract" : [
+    {
+      "text" : "Collection of object type violation errors produced when checking object",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeErrorCollection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeErrorCollection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [

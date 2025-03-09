@@ -145,7 +145,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -166,6 +166,15 @@
                 },
                 {
                   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -206,8 +215,7 @@
       "anchor" : "Changes-and-Versions",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame"
       ],
       "title" : "Changes and Versions"
     }
@@ -242,8 +250,10 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/addChild(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/attribute(forKey:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/removeAttribute(forKey:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/removeChild(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/setAttribute(value:forKey:)"
       ],
       "title" : "Instance Methods"
@@ -294,6 +304,86 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
+  "abstract" : [
+    {
+      "text" : "Accepts a frame and make it a stable frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
+      "text" : "TransientFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
   "abstract" : [
@@ -384,6 +474,44 @@
   "title" : "ObjectSnapshot Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject\/objectsnapshot-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/addChild(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "addChild"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/addChild(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "addChild(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/addchild(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/attribute(forKey:)": {
   "abstract" : [
@@ -603,7 +731,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -619,7 +747,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     }
   ],
@@ -653,7 +781,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -721,7 +849,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -738,7 +866,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -819,7 +947,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -921,6 +1049,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject\/removeattribute(forkey:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/removeChild(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeChild"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/removeChild(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeChild(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/removechild(_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/setAttribute(value:forKey:)": {
   "abstract" : [
     {
@@ -994,7 +1160,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -1010,7 +1176,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     }
   ],
@@ -1146,7 +1312,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -1241,64 +1407,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/accept()": {
-  "abstract" : [
-    {
-      "text" : "Mark the frame as accepted and reject any further modifications.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "accept"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19TransientFrameErrorO",
-      "text" : "TransientFrameError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-      "text" : "StableObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "accept()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/accept()"
-},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)": {
   "abstract" : [
     {
@@ -1342,7 +1450,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -1393,7 +1501,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -1410,7 +1518,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -1499,7 +1607,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
       "text" : "ObjectID"
     },
     {
@@ -1518,40 +1626,6 @@
   "title" : "mutate(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
-  "abstract" : [
-    {
-      "text" : "A wrapper for for an object in a transient frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

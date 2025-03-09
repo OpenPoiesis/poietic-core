@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Representation of a JSON value.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -71,6 +77,48 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The enum represents a JSON value, array or an object.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Main use of the JSON value is to have finer control over encoding and decoding of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "using JSON.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -99,8 +147,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError"
       ],
       "title" : "JSON"
     }
@@ -126,7 +173,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(data:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(string:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(parsing:)"
       ],
       "title" : "Initializers"
     },
@@ -143,12 +190,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asAnyValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asBool()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDouble()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asInt()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asJSONString()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asString()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/encode(to:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/encode(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactDouble()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactInt()"
       ],
       "title" : "Instance Methods"
     },
@@ -218,37 +263,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDictionary": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDictionary",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONDictionary"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONDictionary",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondictionary"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONError": {
   "abstract" : [
 
@@ -313,7 +327,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue": {
   "abstract" : [
-
+    {
+      "text" : "Representation of a JSON value.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -431,159 +448,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/asanyvalue()"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asBool()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asBool"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
-      "text" : "JSONError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asBool()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asBool()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asbool()"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asDouble()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asDouble"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
-      "text" : "JSONError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sd",
-      "text" : "Double"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asDouble()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asDouble()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asdouble()"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asInt()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asInt"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
-      "text" : "JSONError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asInt()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asInt()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asint()"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/asJSONString()": {
   "abstract" : [
 
@@ -603,15 +467,7 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : "() -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -625,57 +481,6 @@
   "title" : "asJSONString()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/asjsonstring()"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asString()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asString"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONErrorO",
-      "text" : "JSONError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asString()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asString()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asstring()"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/bool(_:)": {
   "abstract" : [
@@ -803,6 +608,88 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/encode(to:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/exactDouble()": {
+  "abstract" : [
+    {
+      "text" : "Get double value of a numeric JSON value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "exactDouble"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactDouble()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "exactDouble()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/exactdouble()"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/exactInt()": {
+  "abstract" : [
+    {
+      "text" : "Get integer value of a numeric JSON value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "exactInt"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactInt()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "exactInt()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/exactint()"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/init(data:)": {
   "abstract" : [
 
@@ -900,7 +787,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/init(from:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/init(string:)": {
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/init(parsing:)": {
   "abstract" : [
 
   ],
@@ -915,7 +802,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "string"
+      "text" : "parsing"
     },
     {
       "kind" : "text",
@@ -948,12 +835,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(string:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/init(parsing:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(string:)",
+  "title" : "init(parsing:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/init(string:)"
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/init(parsing:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/int(_:)": {
   "abstract" : [
@@ -1136,6 +1023,40 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/type"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
 }
 }
 }

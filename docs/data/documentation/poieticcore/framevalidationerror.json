@@ -1,0 +1,774 @@
+{
+  "abstract" : [
+    {
+      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore20FrameValidationErrorV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "FrameValidationError"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "FrameValidationError"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "FrameValidationError"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "FrameValidationError"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This error is produced by the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s5ErrorP",
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Design-and-Version-Frames",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
+      ],
+      "title" : "Design and Version Frames"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/init(violations:objectErrors:edgeRuleViolations:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/edgeRuleViolations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/objectErrors",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/violations"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/asDesignIssueCollection()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/Error-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/framevalidationerror"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/check(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check a frame for constraints violations and object type conformance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "check"
+    },
+    {
+      "kind" : "text",
+      "text" : "(some "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5FrameP",
+      "text" : "Frame"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
+      "text" : "FrameValidationError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "check(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+  "abstract" : [
+    {
+      "text" : "Design frame that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame": {
+  "abstract" : [
+    {
+      "text" : "Protocol for version frames.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Frame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Frame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Frame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a version frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameid"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/asDesignIssueCollection()": {
+  "abstract" : [
+    {
+      "text" : "Converts the validation error into an application oriented design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asDesignIssueCollection"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21DesignIssueCollectionV",
+      "text" : "DesignIssueCollection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/asDesignIssueCollection()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asDesignIssueCollection()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/asdesignissuecollection()"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/edgeRuleViolations": {
+  "abstract" : [
+    {
+      "text" : "Violations of edge rules.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeRuleViolations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17EdgeRuleViolationO",
+      "text" : "EdgeRuleViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "]]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/edgeRuleViolations",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edgeRuleViolations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/edgeruleviolations"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/init(violations:objectErrors:edgeRuleViolations:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new constraint validation error.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "violations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19ConstraintViolationV",
+      "text" : "ConstraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "objectErrors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+      "text" : "ObjectTypeError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edgeRuleViolations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17EdgeRuleViolationO",
+      "text" : "EdgeRuleViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "]])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/init(violations:objectErrors:edgeRuleViolations:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(violations:objectErrors:edgeRuleViolations:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/init(violations:objecterrors:edgeruleviolations:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/objectErrors": {
+  "abstract" : [
+    {
+      "text" : "List of object type errors.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectErrors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+      "text" : "ObjectTypeError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/objectErrors",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objectErrors",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/objecterrors"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError/violations": {
+  "abstract" : [
+    {
+      "text" : "List of constraint violations.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "violations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19ConstraintViolationV",
+      "text" : "ConstraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError\/violations",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "violations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror\/violations"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Frames",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValidatedFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValidatedFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/validatedframe"
+},
+"doc://PoieticCore/s5ErrorP": {
+  "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

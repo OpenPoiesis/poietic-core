@@ -429,30 +429,13 @@
       "title" : "Variables"
     },
     {
-      "anchor" : "Type-Aliases",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken"
-      ],
-      "title" : "Type Aliases"
-    },
-    {
       "anchor" : "Enumerations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrameError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType"
       ],
       "title" : "Enumerations"
-    },
-    {
-      "anchor" : "Extended-Modules",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift"
-      ],
-      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -601,37 +584,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designlibraryitem"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionToken"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ExpressionToken"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ExpressionToken",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
@@ -693,6 +645,40 @@
   "title" : "Frame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a function body is called.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [
@@ -874,40 +860,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
-  "abstract" : [
-    {
-      "text" : "Type error detail produced when checking object types against a metamodel.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectTypeError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttypeerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
@@ -998,51 +950,6 @@
   "title" : "Runtime",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtime"
-},
-"doc://PoieticCore/documentation/PoieticCore/Swift": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "Swift",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/swift"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientFrameError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when validating and accepting a frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TransientFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframeerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

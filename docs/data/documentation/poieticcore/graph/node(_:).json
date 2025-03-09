@@ -29,8 +29,56 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Node",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Identifiable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "NodeID",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "Self.Node.ID",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore13GraphProtocolPAAE4nodey4NodeQz4Edge_0F2IDQZF::SYNTHESIZED::s:11PoieticCore5GraphV",
+    "externalID" : "s:11PoieticCore13GraphProtocolPAAs12Identifiable4NodeRpzAE_2IDQZ0fG0RtzrlE4nodeyAfJF::SYNTHESIZED::s:11PoieticCore5GraphV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -58,17 +106,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-        "text" : "Node"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
-        "text" : "ID"
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+        "text" : "NodeID"
       },
       {
         "kind" : "text",
@@ -150,19 +189,10 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-              "text" : "Node"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
-              "text" : "ID"
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+              "text" : "NodeID"
             },
             {
               "kind" : "text",
@@ -273,6 +303,54 @@
   "abstract" : [
 
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Node",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Identifiable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "NodeID",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Self.Node.ID",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -300,17 +378,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4NodeQa",
-      "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP2IDQa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+      "text" : "NodeID"
     },
     {
       "kind" : "text",
@@ -339,7 +408,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Node": {
   "abstract" : [
-
+    {
+      "text" : "Object type of a node.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -353,15 +425,6 @@
     {
       "kind" : "identifier",
       "text" : "Node"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s12IdentifiableP",
-      "text" : "Identifiable"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Node",
@@ -371,6 +434,35 @@
   "title" : "Node",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeID": {
+  "abstract" : [
+    {
+      "text" : "Type of an unique identifier of a node.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "NodeID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodeid"
 },
 "doc://PoieticCore/documentation/PoieticCore/Graphs": {
   "abstract" : [

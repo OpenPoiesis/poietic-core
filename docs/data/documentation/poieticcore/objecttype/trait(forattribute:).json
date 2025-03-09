@@ -1,4 +1,22 @@
 {
+  "abstract" : [
+    {
+      "text" : "Returns a trait with given name, if it is associated with the object type. Otherwise returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -198,7 +216,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object representing a type of a design object.",
+      "text" : "Object defining a type of a design object.",
       "type" : "text"
     }
   ],
@@ -231,7 +249,22 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/trait(forAttribute:)": {
   "abstract" : [
-
+    {
+      "text" : "Returns a trait with given name, if it is associated with the object type. Otherwise returns",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

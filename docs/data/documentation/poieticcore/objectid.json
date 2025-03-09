@@ -19,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore8ObjectIDa",
+    "externalID" : "s:11PoieticCore8ObjectIDV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "typealias"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -46,8 +46,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "ObjectID"
   },
   "primaryContentSections" : [
@@ -63,7 +63,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -72,16 +72,6 @@
             {
               "kind" : "identifier",
               "text" : "ObjectID"
-            },
-            {
-              "kind" : "text",
-              "text" : " = "
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore2IDa",
-              "text" : "ID"
             }
           ]
         }
@@ -91,9 +81,9 @@
     {
       "content" : [
         {
-          "anchor" : "discussion",
+          "anchor" : "overview",
           "level" : 2,
-          "text" : "Discussion",
+          "text" : "Overview",
           "type" : "heading"
         },
         {
@@ -168,6 +158,22 @@
       "kind" : "content"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/Se",
+        "doc:\/\/PoieticCore\/SE",
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
+        "doc:\/\/PoieticCore\/SH",
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -182,13 +188,60 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection"
       ],
       "title" : "Object"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(from:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(integerLiteral:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/intValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/stringValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/encode(to:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/IntegerLiteralType"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -205,6 +258,26 @@
   ]
 , 
 "references": {
+"doc://PoieticCore/SE": {
+  "identifier" : "doc:\/\/PoieticCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/Se": {
+  "identifier" : "doc:\/\/PoieticCore\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
@@ -326,8 +399,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     },
     {
       "kind" : "text",
@@ -335,8 +408,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
@@ -346,14 +419,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ID": {
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
   "abstract" : [
-
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -361,21 +437,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ID"
+      "text" : "DesignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ID"
+      "text" : "DesignObject"
     }
   ],
   "role" : "symbol",
-  "title" : "ID",
+  "title" : "DesignObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/id"
+  "url" : "\/documentation\/poieticcore\/designobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -387,7 +463,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -410,6 +486,319 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/IntegerLiteralType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntegerLiteralType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/IntegerLiteralType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntegerLiteralType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID.IntegerLiteralType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/integerliteraltype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/encode(to:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "encode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7EncoderP",
+      "text" : "Encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/encode(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "encode(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/encode(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/init(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/init(from:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(integerLiteral:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "integerLiteral"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV18IntegerLiteralTypea",
+      "text" : "IntegerLiteralType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(integerLiteral:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(integerLiteral:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/init(integerliteral:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/intValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "intValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/intValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "intValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/intvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID/stringValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stringValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/stringValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stringValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid\/stringvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
@@ -445,6 +834,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
+"doc://PoieticCore/documentation/PoieticCore/Selection": {
+  "abstract" : [
+    {
+      "text" : "Collection of selected objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/selection"
+},
 "doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
   "abstract" : [
     {
@@ -478,40 +901,6 @@
   "title" : "SnapshotID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/snapshotid"
-},
-"doc://PoieticCore/documentation/PoieticCore/StableObject": {
-  "abstract" : [
-    {
-      "text" : "Version snapshot of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "StableObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StableObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "StableObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "StableObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/stableobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralType": {
   "abstract" : [
@@ -594,6 +983,21 @@
   "title" : "Understanding Design Objects and Frames",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s27ExpressibleByIntegerLiteralP": {
+  "identifier" : "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
+  "title" : "Swift.ExpressibleByIntegerLiteral",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

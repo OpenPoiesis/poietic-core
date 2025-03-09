@@ -92,10 +92,9 @@
       "anchor" : "CSV-Reading-and-Writing",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVFormatter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVReader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter"
       ],
       "title" : "CSV Reading and Writing"
     }
@@ -105,7 +104,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/init(fieldDelimiter:recordDelimiter:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/init(fieldDelimiter:recordDelimiter:quoteCharacter:)"
       ],
       "title" : "Initializers"
     },
@@ -114,6 +113,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/fieldDelimiter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/quoteCharacter",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/recordDelimiter"
       ],
       "title" : "Instance Properties"
@@ -146,79 +146,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csverror"
-},
-"doc://PoieticCore/documentation/PoieticCore/CSVForeignRecordReader": {
-  "abstract" : [
-    {
-      "text" : "Reads a CSV text and yields one ",
-      "type" : "text"
-    },
-    {
-      "code" : "ForeignRecord",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " per CSV record.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CSVForeignRecordReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVForeignRecordReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CSVForeignRecordReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CSVForeignRecordReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvforeignrecordreader"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVFormatter": {
   "abstract" : [
@@ -341,7 +268,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvoptions\/fielddelimiter"
 },
-"doc://PoieticCore/documentation/PoieticCore/CSVOptions/init(fieldDelimiter:recordDelimiter:)": {
+"doc://PoieticCore/documentation/PoieticCore/CSVOptions/init(fieldDelimiter:recordDelimiter:quoteCharacter:)": {
   "abstract" : [
 
   ],
@@ -386,15 +313,66 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "quoteCharacter"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SJ",
+      "text" : "Character"
+    },
+    {
+      "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/init(fieldDelimiter:recordDelimiter:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/init(fieldDelimiter:recordDelimiter:quoteCharacter:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(fieldDelimiter:recordDelimiter:)",
+  "title" : "init(fieldDelimiter:recordDelimiter:quoteCharacter:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/csvoptions\/init(fielddelimiter:recorddelimiter:)"
+  "url" : "\/documentation\/poieticcore\/csvoptions\/init(fielddelimiter:recorddelimiter:quotecharacter:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/CSVOptions/quoteCharacter": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "quoteCharacter"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SJ",
+      "text" : "Character"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVOptions\/quoteCharacter",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "quoteCharacter",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/csvoptions\/quotecharacter"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVOptions/recordDelimiter": {
   "abstract" : [
@@ -440,6 +418,40 @@
   "title" : "recordDelimiter",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvoptions\/recorddelimiter"
+},
+"doc://PoieticCore/documentation/PoieticCore/CSVReader": {
+  "abstract" : [
+    {
+      "text" : "Simple CSV string reader.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CSVReader"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVReader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CSVReader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CSVReader",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/csvreader"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVWriter": {
   "abstract" : [

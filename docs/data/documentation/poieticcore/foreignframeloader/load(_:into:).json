@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore18ForeignFrameLoaderC4load_4intoyAA0cD0_p_AA09TransientD0CtAA0dE5ErrorOYKF",
+    "externalID" : "s:11PoieticCore18ForeignFrameLoaderC4load_4intoyx_AA09TransientD0CtAA0dE5ErrorOYKAA0cD8ProtocolRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -36,12 +36,12 @@
       },
       {
         "kind" : "text",
-        "text" : "(any "
+        "text" : "(some "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
-        "text" : "ForeignFrame"
+        "preciseIdentifier" : "s:11PoieticCore20ForeignFrameProtocolP",
+        "text" : "ForeignFrameProtocol"
       },
       {
         "kind" : "text",
@@ -133,13 +133,13 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": some "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
-              "text" : "ForeignFrame"
+              "preciseIdentifier" : "s:11PoieticCore20ForeignFrameProtocolP",
+              "text" : "ForeignFrameProtocol"
             },
             {
               "kind" : "text",
@@ -579,8 +579,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     },
     {
       "kind" : "text",
@@ -588,8 +588,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore2IDa",
-      "text" : "ID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
@@ -598,48 +598,6 @@
   "title" : "allocateID(required:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
-  "abstract" : [
-    {
-      "text" : "Protocol that represents a frame which originates or is meant to be used",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "by a foreign interface.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError/foreignObjectError(_:_:)": {
   "abstract" : [
@@ -690,7 +648,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError/invalidReference(_:_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Invalid object reference.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -808,12 +769,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "(some "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
-      "text" : "ForeignFrame"
+      "preciseIdentifier" : "s:11PoieticCore20ForeignFrameProtocolP",
+      "text" : "ForeignFrameProtocol"
     },
     {
       "kind" : "text",
@@ -860,6 +821,48 @@
   "title" : "load(_:into:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignframeloader\/load(_:into:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignFrameProtocol": {
+  "abstract" : [
+    {
+      "text" : "Protocol that represents a frame which originates or is meant to be used",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "by a foreign interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrameProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ForeignFrameProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignframeprotocol"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
@@ -977,8 +980,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12StableObjectC",
-      "text" : "StableObject"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",

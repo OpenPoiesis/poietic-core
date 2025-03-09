@@ -52,7 +52,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol"
       ],
       "title" : "Graph, Nodes and Edges"
@@ -136,6 +136,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
+  "abstract" : [
+    {
+      "text" : "Wrapper of an object snapshot presented as an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
   "abstract" : [
     {
@@ -169,40 +203,6 @@
   "title" : "EdgeProtocol",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeprotocol"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeSnapshot": {
-  "abstract" : [
-    {
-      "text" : "Wrapper of an object snapshot presented as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgesnapshot"
 },
 "doc://PoieticCore/documentation/PoieticCore/Formulas": {
   "abstract" : [

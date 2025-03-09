@@ -20,7 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore15JSONFrameReaderC4read11bundleAtURLAA12ForeignFrame_p10Foundation0H0V_tAA0iJ5ErrorOYKF",
+    "externalID" : "s:11PoieticCore15JSONFrameReaderC4read11bundleAtURLAA16JSONForeignFrameV10Foundation0H0V_tAA07ForeignJ5ErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -70,11 +70,20 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> any "
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
+        "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC",
+        "text" : "JSONFrameReader"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC12ForeignFramea",
         "text" : "ForeignFrame"
       }
     ],
@@ -156,12 +165,22 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> any "
+              "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
+              "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC",
+              "text" : "JSONFrameReader"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader\/ForeignFrame",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC12ForeignFramea",
               "text" : "ForeignFrame"
             }
           ]
@@ -390,48 +409,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrame": {
-  "abstract" : [
-    {
-      "text" : "Protocol that represents a frame which originates or is meant to be used",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "by a foreign interface.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframe"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
   "abstract" : [
     {
@@ -514,6 +491,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonframereader"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONFrameReader/ForeignFrame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader\/ForeignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ForeignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONFrameReader.ForeignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonframereader\/foreignframe"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONFrameReader/read(bundleAtURL:)": {
   "abstract" : [
     {
@@ -570,11 +578,20 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> any "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ForeignFrameP",
+      "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC",
+      "text" : "JSONFrameReader"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15JSONFrameReaderC12ForeignFramea",
       "text" : "ForeignFrame"
     }
   ],

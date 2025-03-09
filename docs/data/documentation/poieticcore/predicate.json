@@ -79,6 +79,15 @@
             },
             {
               "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s23CustomStringConvertibleP",
+              "text" : "CustomStringConvertible"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:s8SendableP",
               "text" : "Sendable"
             }
@@ -179,6 +188,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -387,7 +397,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -690,12 +700,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(some "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotP",
-      "text" : "ObjectSnapshot"
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
     },
     {
       "kind" : "text",
@@ -848,6 +858,11 @@
   "title" : "Predicates and Constraints",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicates"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
