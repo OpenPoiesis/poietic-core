@@ -68,7 +68,7 @@ package struct _ObjectBody {
 /// ```
 /// Another option is to create objects using ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
 /// or to derive versions using ``TransientFrame/mutate(_:)`` then turn the
-/// mutable objects into stable objects using ``TransientFrame/accept()``.
+/// mutable objects into stable objects using ``Design/accept(_:appendHistory:)``.
 ///
 /// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
@@ -89,7 +89,7 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     ///     - parent: ID of parent object in the object hierarchy.
     ///     - components: List of components to be added to the object.
     ///
-    /// - SeeAlso: ``TransientFrame/insert(_:)``, ``TransientFrame/accept()``
+    /// - SeeAlso: ``MutableObject``
     /// - Precondition: Attributes must not contain any reserved attribute
     ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
     ///

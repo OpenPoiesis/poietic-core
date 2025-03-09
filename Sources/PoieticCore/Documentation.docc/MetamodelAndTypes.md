@@ -25,8 +25,8 @@ extension Trait {
             Attribute("delayed_inflow", type: .bool),
         ]
     )
-    static let Flow = Trait(
-        name: "Flow",
+    static let FlowRate = Trait(
+        name: "FlowRate",
         attributes: [
             Attribute("priority", type: .int)
         ]
@@ -37,7 +37,7 @@ extension Trait {
 Secondly we define object types which also specify structural type – whether
 it is an edge or a node type. Some common traits are provided, such as
 ``Trait/Name`` for objects that are named, ``Trait/Formula`` for objects
-that hold an arithmetic formula and ``Trait/Position`` for objects
+that hold an arithmetic formula and ``Trait/DiagramNode`` for objects
 that can be represented diagramatically.
 
 ```swift
@@ -46,20 +46,20 @@ extension ObjectType {
     static let Stock = ObjectType(
         name: "Stock",
         structuralType: .node,
-        traits: [.Name, .Formula, .Stock, .Position],
+        traits: [.Name, .Formula, .Stock, .DiagramNode],
     )
-    static let Flow = ObjectType(
-        name: "Flow",
+    static let FlowRate = ObjectType(
+        name: "FlowRate",
         structuralType: .node,
-        traits: [.Name, .Formula, .Flow, .Position]
+        traits: [.Name, .Formula, .FlowRate, .DiagramNode]
     )
     // Edge types
-    static let Drains = ObjectType(
-        name: "Drains",
+    static let Flow = ObjectType(
+        name: "Flow",
         structuralType: .edge
     )
-    static let Fills = ObjectType(
-        name: "Fills",
+    static let Parameter = ObjectType(
+        name: "Parameter",
         structuralType: .edge,
     )
 }
@@ -71,18 +71,16 @@ Once we have object types defined, we can assemble the metamodel:
 ```swift
 public static let StockFlow = Metamodel(
     name: "StockFlow",
-    traits: [ .Stock, .Flow ],
+    traits: [ .Stock, .FlowRate ],
     types: [
-        .Stock, .Flow,       // Nodes
-        .Drains, .Fills,     // Edges
+        .Stock, .FlowRate,  // Nodes
+        .Flow, .Parameter   // Edges
     ]
 )
 ```
 
 Metamodels typically contain constraints. For more information and some
 examples see ``Constraint``.
-
-
 
 
 ## Topics
@@ -96,16 +94,25 @@ examples see ``Constraint``.
 
 ### Constraints
 
-- ``Constraint``
 - ``ConstraintChecker``
-- ``ObjectConstraintError``
+- ``Constraint``
+- ``DesignIssue``
+- ``DesignIssueCollection``
+- ``DesignIssueConvertible``
+- ``ObjectTypeError``
 - ``RejectAll``
 - ``AcceptAll``
 - ``ConstraintViolation``
-- ``UniqueNeighbourRequirement``
 - ``UniqueProperty``
 - ``ConstraintRequirement``
 - ``EdgeEndpointRequirement``
+- ``ObjectTypeErrorCollection``
+
+### Edge Rules
+
+- ``EdgeRule``
+- ``EdgeCardinality``
+- ``EdgeRuleViolation``
 
 ### Common Components and Types
 

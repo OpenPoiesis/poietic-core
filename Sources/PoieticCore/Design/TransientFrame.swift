@@ -7,7 +7,7 @@
 
 /// Error thrown when validating and accepting a frame.
 ///
-/// - SeeAlso: ``TransientFrame/accept()``
+/// - SeeAlso: ``TransientFrame/validateStructure()``
 /// 
 public enum StructuralIntegrityError: Error {
     /// The frame contains references to objects that are not present in the frame.
@@ -496,7 +496,7 @@ public final class TransientFrame: Frame {
     /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
     /// method.
     ///
-    /// - SeeAlso: ``accept()``, ``Design/accept(_:appendHistory:)``
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
     /// - Precondition: The frame must be in transient state – must not be
     ///   previously accepted or discarded.
     ///

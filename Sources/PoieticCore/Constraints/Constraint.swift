@@ -7,7 +7,7 @@
 
 /// Error thrown when a constraint violation was found.
 ///
-/// - SeeAlso: ``ConstraintChecker/check(_:)``, ``FrameConstraintError``
+/// - SeeAlso: ``ConstraintChecker/check(_:)``, ``FrameValidationError``
 ///
 public struct ConstraintViolation: Error, CustomDebugStringConvertible {
     /// Constraint that was violated.

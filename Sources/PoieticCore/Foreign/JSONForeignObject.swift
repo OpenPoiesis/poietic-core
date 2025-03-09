@@ -111,7 +111,7 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
 /// Helper structure to convert frames to and from JSON using coding.
 ///
 /// This structure is just a helper to have better control over JSON using
-/// the built-in ``Codable`` protocol.
+/// the built-in `Codable` protocol.
 ///
 public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, DecodableWithConfiguration {
     public typealias Object = JSONForeignObject

@@ -53,10 +53,12 @@ public final class Metamodel: Sendable {
     ///   - name: Name of the metamodel.
     ///   - traits: List of traits used or possible in the metamodel.
     ///   - types: List of object types validated by the metamodel.
-    ///   - constraints: List of constraints that are used for design
-    ///     validation.
+    ///   - edgeRules: List of edge rules used for validation.
+    ///   - constraints: List of constraints that are used for design validation.
     ///
-    ///  - SeeAlso: ``ConstraintChecker/check(_:)``
+    /// Design is validated according to metamodel with ``Design/validate(_:metamodel:)``.
+    ///
+    ///  - SeeAlso: ``ConstraintChecker/check(_:)``, ``EdgeRule``.
     ///
     public init(name: String? = nil,
                 traits: [Trait] = [],

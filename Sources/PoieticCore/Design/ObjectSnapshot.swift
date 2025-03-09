@@ -84,10 +84,6 @@ public typealias FrameID = ObjectID
 ///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
 /// - ``MutableObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``DesignObject`` when valid.
-/// - ``TransientObject``: Rather a wrapper over an object that belongs to a
-///   ``TransientFrame``, it might refer to an original ``DesignObject`` while
-///   the object has not been modified or to a ``MutableObject`` once a
-///   modification has been requested.
 ///
 /// Each object object has an unique identity, collection of attributes
 /// and might have structural properties. Identity serves as a handle of an
@@ -119,7 +115,7 @@ public protocol ObjectSnapshot: KeyedAttributes, Identifiable where ID == Object
     /// - SeeAlso: ``snapshotID``,
     ///    ``Design/allocateID(required:)``,
     ///    ``Frame/object(_:)``,
-    ///    ``Frame/contains(_:)-424zf``,
+    ///    ``Frame/contains(_:)``,
     ///
     var id: ObjectID { get }
     

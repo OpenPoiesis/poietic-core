@@ -53,9 +53,8 @@ public struct EdgeObject: EdgeProtocol, Identifiable {
     /// The edge object is relevant only within the context of the frame that was used here, during
     /// the initialisation. It should not be stored or shared.
     ///
-    /// - Returns: initialised edge object when the design object is an edge,
-    ///            otherwise it returns `nil` if the design object is of some other structural type.
-    ///
+    /// If the design object is not an edge, then the initialiser results in `nil`.
+    /// 
     public init?(_ snapshot: DesignObject, in frame: some Frame) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil

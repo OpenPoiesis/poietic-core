@@ -10,8 +10,9 @@ See also: <doc:Persistence>
 
 - ``JSONFrameReader``
 - ``JSONFrameWriter``
+- ``JSONForeignFrame``
 - ``ForeignFrameLoader``
-- ``ForeignFrame``
+- ``ForeignFrameProtocol``
 - ``ForeignFrameError``
 - ``ForeignObject``
 - ``ForeignObjectError``
@@ -33,11 +34,9 @@ See also: <doc:Persistence>
 - ``CSVOptions``
 - ``CSVReader``
 - ``CSVWriter``
-- ``CSVError``
 
 ### JSON
 
 - ``JSONValue``
 - ``JSONType``
 - ``JSONError``
-- ``JSONDictionary``

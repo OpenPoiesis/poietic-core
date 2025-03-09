@@ -28,11 +28,13 @@ public final class Selection: Collection {
     public private(set) var ids: [ObjectID] = []
     
     /// Create a new empty selection.
+    ///
     public init() {
         self.ids = []
     }
     
     /// Create a selection of given IDs
+    ///
     public init(_ ids:[ObjectID]) {
         self.ids = ids
     }
@@ -41,6 +43,7 @@ public final class Selection: Collection {
         return ids.isEmpty
     }
     
+    /// Append the ID if it is not already present in the selection.
     public func append(_ id: ObjectID) {
         guard !contains(id) else {
             return
@@ -48,6 +51,8 @@ public final class Selection: Collection {
         ids.append(id)
     }
     
+    /// Append IDs to the selection, if they are not already present in the selection.
+    ///
     public func append(_ ids: [ObjectID]) {
         for id in ids {
             guard !contains(id) else {
@@ -57,11 +62,16 @@ public final class Selection: Collection {
         }
     }
 
+    /// Replace all objects in the selection.
+    ///
     public func replaceAll(_ ids: [ObjectID]) {
         self.ids.removeAll()
         self.ids += ids
     }
 
+    
+    /// Remove all objects in the selection.
+    /// 
     public func removeAll() {
         ids.removeAll()
     }

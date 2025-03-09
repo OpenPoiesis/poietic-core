@@ -55,8 +55,6 @@ Built-in logical functions:
 - ``Function``
 - ``Signature``
 - ``FunctionArgument``
-- ``BuiltinComparisonOperators``
-- ``BuiltinFunctions``
 
 ### Parsing
 
@@ -64,17 +62,8 @@ Built-in logical functions:
 - ``TextLocation``
 - ``ExpressionLexer``
 - ``ExpressionToken``
-- ``TokenTypeProtocol``
 - ``ExpressionSyntaxError``
 
 ### Abstract Syntax Tree
 
-- ``ExpressionSyntax``
-- ``ParenthesisSyntax``
-- ``UnaryOperatorSyntax``
-- ``BinaryOperatorSyntax``
-- ``VariableSyntax``
-- ``LiteralSyntax``
-- ``FunctionCallSyntax``
-- ``FunctionArgumentSyntax``
-- ``FunctionArgumentListSyntax``
+- ``ExpressionAST``

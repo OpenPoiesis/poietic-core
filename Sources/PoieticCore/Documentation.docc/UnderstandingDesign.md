@@ -12,7 +12,6 @@ to a movie frame.
 
 ![Design-Frame-Object composition](design-frame-object)
 
-
 Each object is uniquely identified by an ID. Version of an object is
 ``ObjectSnapshot``, which contains object's properties. When working with
 the design, the object ID is the primary object handle.
@@ -21,30 +20,31 @@ the design, the object ID is the primary object handle.
 Each design is assigned a ``Metamodel``, which defines types of objects
 ``ObjectType`` and constraints ``Constraint``.
 
-
 ## Topics
 
 ### Object
 
 - ``ObjectSnapshot``
-- ``StableObject``
+- ``DesignObject``
 - ``ObjectID``
 - ``Structure``
 - ``StructuralType``
 - ``SnapshotID``
 - ``ChildrenSet``
+- ``Selection``
 
 ### Design and Version Frames
 
 - ``Frame``
-- ``StableFrame``
+- ``DesignFrame``
+- ``ValidatedFrame``
 - ``FrameID``
-- ``FrameConstraintError``
+- ``FrameValidationError``
+- ``StructuralIntegrityError``
 
 ### Changes and Versions
 
 - ``TransientFrame``
-- ``TransientObject``
 - ``MutableObject``
 
 ### Value and Variant
@@ -55,7 +55,6 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 - ``ValueType``
 - ``ValueError``
 - ``AtomType``
-- ``ID``
 - ``Point``
 
 ### Component

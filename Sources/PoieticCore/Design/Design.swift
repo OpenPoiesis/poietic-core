@@ -387,8 +387,7 @@ public class Design {
     ///   constraints of the design.
     ///
     /// - SeeAlso: ``ConstraintChecker/check(_:)``,
-    ///     ``TransientFrame/accept()``,
-    ///     ``TransientFrame/discard()``
+    ///     ``TransientFrame/validateStructure()``
     ///
     /// - Precondition: Frame must belong to the design.
     /// - Precondition: Frame must be in transient state.

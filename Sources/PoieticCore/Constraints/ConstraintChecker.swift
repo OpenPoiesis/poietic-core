@@ -20,7 +20,7 @@ extension ObjectSnapshot {
     /// - Parameters:
     ///     - `trait`: Trait to be used for checking
     ///
-    /// - Throws: ``ObjectConstraintError`` when the object does not conform
+    /// - Throws: ``ObjectTypeErrorCollection`` when the object does not conform
     ///   to the trait.
     ///
     public func check(conformsTo trait: Trait) throws (ObjectTypeErrorCollection) {
@@ -87,7 +87,7 @@ public struct ConstraintChecker {
     /// - Objects must conform to all the constraints specified in the
     ///   metamodel.
     ///
-    /// - Throws: ``FrameConstraintError`` if a constraint violation or a
+    /// - Throws: ``FrameValidationError`` if a constraint violation or a
     ///   type error is found, otherwise returns nil.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/check(conformsTo:)``

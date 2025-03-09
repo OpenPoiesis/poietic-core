@@ -14,7 +14,7 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
     public var description: String {
         switch self {
         case .edgeNotAllowed: "Edge type is not allowed"
-        case let .noRuleSatisfied: "None of edge rules is satisfied"
+        case .noRuleSatisfied: "None of edge rules is satisfied"
         case let .cardinalityViolation(rule, direction): "Cardinality violation for rule \(rule) direction \(direction)"
         }
     }
@@ -137,7 +137,7 @@ public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
     ///     - outgoing: Cardinality of the outgoing edges from the origin object.
     ///     - target: Predicate for the target object of the matched edge. If not set, any object
     ///       matches.
-    ///     - outgoing: Cardinality of the incoming edges to the target object.
+    ///     - incoming: Cardinality of the incoming edges to the target object.
     ///
     /// There must be at least one rule per allowed edge type in the metamodel.
     ///

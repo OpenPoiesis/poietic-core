@@ -92,7 +92,7 @@ extension Frame {
     ///   want to use this function is when you are constructing a frame
     ///   in an unsafe way.
     ///
-    /// - SeeAlso: ``Frame/hasReferentialIntegrity()``
+    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``
     ///
     public func brokenReferences() -> [ObjectID] {
         // NOTE: Sync with brokenReferences(snapshot:)
@@ -130,8 +130,7 @@ extension Frame {
     /// - All children – ``ObjectSnapshot/children``.
     /// - The object's parent – ``ObjectSnapshot/parent``.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences()``,
-    ///     ``Frame/hasReferentialIntegrity()``
+    /// - SeeAlso: ``Frame/brokenReferences()``
     ///
     public func brokenReferences(snapshot: DesignObject) -> [ObjectID] {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame

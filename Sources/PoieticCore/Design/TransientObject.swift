@@ -21,9 +21,9 @@ public let ReservedAttributeNames = [
 /// transaction. New objects are created within a ``TransientFrame`` by ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
 /// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
 ///
-/// Mutable objects are converted to stable objects with ``TransientFrame/accept()``.
+/// Mutable objects are converted to stable objects with ``Design/accept(_:appendHistory:)``.
 ///
-/// - SeeAlso: ``TransientFrame``
+/// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
 public class MutableObject: ObjectSnapshot {
     @usableFromInline

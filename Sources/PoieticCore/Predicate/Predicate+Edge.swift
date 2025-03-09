@@ -97,6 +97,6 @@ public struct EdgePredicate: Predicate, CustomStringConvertible {
     }
     
     public var description: String {
-        return "edge(\(edgePredicate), \(originPredicate), \(targetPredicate)"
+        return "edge(\(String(describing: edgePredicate)), \(String(describing: originPredicate)), \(String(describing: targetPredicate))"
     }
 }
