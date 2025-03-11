@@ -420,6 +420,9 @@ public class Design {
             if let currentFrameID {
                 undoableFrames.append(currentFrameID)
             }
+            for id in redoableFrames {
+                removeFrame(id)
+            }
             redoableFrames.removeAll()
         }
         currentFrameID = frame.id

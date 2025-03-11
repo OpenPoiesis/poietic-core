@@ -222,9 +222,9 @@ import Testing
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(deriving: design.currentFrame)
-        let a = frame1.create(TestType)
-        try design.accept(frame1)
+        let discardedFrame = design.createFrame(deriving: design.currentFrame)
+        let discardedObject = discardedFrame.create(TestType)
+        try design.accept(discardedFrame)
         
         design.undo(to: v0)
         
@@ -232,13 +232,15 @@ import Testing
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
+        #expect(!design.currentFrame!.contains(discardedObject.id))
+        #expect(design.currentFrame!.contains(b.id))
+
         #expect(design.currentFrameID == frame2.id)
         #expect(design.versionHistory == [v0, frame2.id])
         #expect(design.undoableFrames == [v0])
         #expect(design.redoableFrames == [])
-        
-        #expect(!design.currentFrame!.contains(a.id))
-        #expect(design.currentFrame!.contains(b.id))
+        #expect(!design.containsFrame(discardedFrame.id))
+        #expect(design.snapshot(discardedObject.snapshotID) == nil)
     }
     
     @Test func constraintViolationAccept() throws {
