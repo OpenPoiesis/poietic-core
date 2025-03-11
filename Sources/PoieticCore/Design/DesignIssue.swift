@@ -37,6 +37,9 @@ public struct DesignIssueCollection: Sendable {
     public mutating func append(_ issue: DesignIssue, for id: ObjectID) {
         objectIssues[id, default: []].append(issue)
     }
+    public mutating func append(_ issues: [DesignIssue], for id: ObjectID) {
+        objectIssues[id, default: []] += issues
+    }
 }
 
 /// Representation of an issue in the design caused by the user.
