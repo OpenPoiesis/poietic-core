@@ -6,18 +6,30 @@
 //
 
 
-public enum AudienceLevel: Int  {
+public enum AudienceLevel: Int, Equatable, Comparable  {
     case any = 0
     case beginner = 1
-    case intermediate = 2
+    case normal = 2
     case advanced = 3
     case expert = 4
+
+    public init?(rawValue: String) {
+        switch rawValue {
+        case "any": self = .any
+        case "beginner": self = .beginner
+        case "normal": self = .normal
+        case "advanced": self = .advanced
+        case "expert": self = .expert
+        default:
+            return nil
+        }
+    }
 
     public init(rawValue: Int) {
         switch rawValue {
         case 0: self = .any
         case 1: self = .beginner
-        case 2: self = .intermediate
+        case 2: self = .normal
         case 3: self = .advanced
         case 4: self = .expert
         default:
@@ -34,14 +46,8 @@ public enum AudienceLevel: Int  {
     ///
     /// Level `any` is always greater than anything else.
     ///
-    static func < (lhs: AudienceLevel, rhs: AudienceLevel) -> Bool {
-        if lhs == .any || rhs == .any {
-            return false
-        }
-        else {
-            return lhs.rawValue < rhs.rawValue
-        }
+    public static func < (lhs: AudienceLevel, rhs: AudienceLevel) -> Bool {
+        return lhs.rawValue < rhs.rawValue
     }
-
 }
 

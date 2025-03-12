@@ -30,14 +30,11 @@ public final class DesignFrame: Frame {
     ///
     public let id: FrameID
     
-    // FIXME: [IMPORTANT] This documentation is confusing and obsolete (old design)
-    /// Versions of objects in the plane.
+    /// Version snapshots contained in the frame.
     ///
-    /// Objects not in the map do not exist in the version plane, but might
-    /// exist in the design.
+    /// Snapshots might be shared between frames.
     ///
     private(set) internal var _snapshots: [ObjectID:DesignObject]
-    
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///

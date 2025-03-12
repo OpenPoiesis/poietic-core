@@ -20,90 +20,84 @@
 ///         by other, foreign systems.
 ///
 public protocol Predicate: Sendable, CustomStringConvertible {
-    // TODO: [IMPORTANT] Make Comparable
     /// Check whether an object matches the predicate condition.
     ///
     func match(_ object: DesignObject, in frame: some Frame) -> Bool
 
     /// Creates a compound predicate with the other predicate using a logical ∧ – `and` connective.
-    func and(_ predicate: Predicate) -> CompoundPredicate
+    func and(_ predicate: Predicate) -> Predicate
 
     /// Creates a compound predicate with the other predicate using a logical ⋁ – `or` connective.
-    func or(_ predicate: Predicate) -> CompoundPredicate
+    func or(_ predicate: Predicate) -> Predicate
     
     /// Creates a predicate that is a negation of the receiver.
     func not() -> Predicate
 }
 
 extension Predicate {
-    public func and(_ predicate: Predicate) -> CompoundPredicate {
-        return CompoundPredicate(.and, predicates: self, predicate)
+    public func and(_ predicate: Predicate) -> Predicate {
+        return AndPredicate(self, predicate)
     }
-    public func or(_ predicate: Predicate) -> CompoundPredicate {
-        return CompoundPredicate(.or, predicates: self, predicate)
+    public func or(_ predicate: Predicate) -> Predicate {
+        return OrPredicate(self, predicate)
     }
     public func not() -> Predicate {
         return NegationPredicate(self)
     }
 }
 
-// TODO: Add &&, || and ! operators
-
-/// Type of logical connective for a compound predicate.
+/// Logical disjunction of multiple predicates.
 ///
-/// - SeeAlso: ``CompoundPredicate``
+/// At least one of the predicates must match.
 ///
-public enum LogicalConnective: Sendable {
-    /// Logical ∧ – `and` connective.
-    ///
-    /// - SeeAlso: ``CompoundPredicate/and(_:)``
-    case and
-    /// Logical ⋁ – `or` connective.
-    ///
-    /// - SeeAlso: ``CompoundPredicate/or(_:)``
-    case or
-}
-
-/// Predicate that connects multiple predicates with a logical connective.
-///
-/// - SeeAlso: ``Predicate/and(_:)``, ``Predicate/or(_:)``
-///
-public struct CompoundPredicate: Predicate, CustomStringConvertible {
-    /// Logical connective to connect the predicates with.
-    public let connective: LogicalConnective
-    
-    /// List of predicates that are evaluated together with the same logical connective.
+public struct OrPredicate: Predicate, CustomStringConvertible {
+    /// List of predicates that are evaluated together.
     public let predicates: [Predicate]
     
-    /// Create a new compound predicate.
+    /// Create a new logical disjunction predicate.
     ///
     /// - Parementes:
-    ///     - connective: Logical connective to connect all the provided predicates with.
     ///     - predicates: List of predicates to connect.
     ///
-    public init(_ connective: LogicalConnective, predicates: any Predicate...) {
-        self.connective = connective
+    public init(_ predicates: any Predicate...) {
         self.predicates = predicates
     }
     
     public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
-        switch connective {
-        case .and: return predicates.allSatisfy{ $0.match(object, in: frame) }
-        case .or: return predicates.contains{ $0.match(object, in: frame) }
-        }
+        predicates.contains{ $0.match(object, in: frame) }
     }
 
     public var description: String {
-        let sep: String
-        switch connective {
-        case .and: sep = " and "
-        case .or: sep = " or "
-        }
-        
-        let items = predicates.map { $0.description }.joined(separator: sep)
+        let items = predicates.map { $0.description }.joined(separator: " OR ")
         return "(\(items))"
     }
+}
 
+/// Logical conjunction of multiple predicates.
+///
+/// All contained predicates must match.
+///
+public struct AndPredicate: Predicate, CustomStringConvertible {
+    /// List of predicates that are evaluated together.
+    public let predicates: [Predicate]
+    
+    /// Create a new logical disjunction predicate.
+    ///
+    /// - Parementes:
+    ///     - predicates: List of predicates to connect.
+    ///
+    public init(_ predicates: any Predicate...) {
+        self.predicates = predicates
+    }
+    
+    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+        predicates.allSatisfy{ $0.match(object, in: frame) }
+    }
+
+    public var description: String {
+        let items = predicates.map { $0.description }.joined(separator: " AND ")
+        return "(\(items))"
+    }
 }
 
 public struct NegationPredicate: Predicate, CustomStringConvertible {
@@ -115,7 +109,7 @@ public struct NegationPredicate: Predicate, CustomStringConvertible {
         return !predicate.match(object, in: frame)
     }
 
-    public var description: String { "not(\(predicate)" }
+    public var description: String { "NOT(\(predicate)" }
 }
 /// Predicate that matches any object.
 ///
@@ -128,7 +122,7 @@ public struct AnyPredicate: Predicate, CustomStringConvertible{
         return true
     }
 
-    public var description: String { "any" }
+    public var description: String { "ANY" }
 }
 
 /// Predicate to test whether an object has a given trait.
@@ -163,7 +157,7 @@ public struct HasTraitPredicate: Predicate, CustomStringConvertible {
     public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
         object.type.traits.contains { $0 === trait }
     }
-    public var description: String { "has(\(trait.name))" }
+    public var description: String { "HAS(\(trait.name))" }
 
 }
 
@@ -182,6 +176,5 @@ public struct IsTypePredicate: Predicate, CustomStringConvertible {
         object.type === type
     }
     
-    public var description: String { "is(\(type.name))" }
+    public var description: String { "IS(\(type.name))" }
 }
-

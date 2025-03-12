@@ -58,9 +58,9 @@ extension Trait {
         name: "Documentation",
         attributes: [
             Attribute("abstract", type: .string, default: "", optional: true,
-                      abstract: "Short abstract about the object."),
+                      abstract: "Short abstract about the object"),
             Attribute("documentation", type: .string, default: "", optional: true,
-                      abstract: "Longer object documentation."),
+                      abstract: "Longer object documentation"),
         ]
     )
  
@@ -85,9 +85,7 @@ extension Trait {
     public static let Note = Trait(
         name: "Note",
         attributes: [
-            Attribute("note",
-                      type: .string,
-                      default: "",
+            Attribute("note", type: .string, default: "",
                       abstract: "Note text"),
         ]
     )
@@ -184,6 +182,7 @@ extension Metamodel {
             Trait.Documentation,
             Trait.AudienceLevel,
             Trait.Keywords,
+            Trait.Note,
             Trait.BibliographicalReference,
         ],
         types: [

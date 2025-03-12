@@ -167,7 +167,6 @@ public class ExpressionParser {
     ///     primary -> NUMBER | STRING | VARIABLE_OR_CALL | "(" expression ")" ;
     ///
     func primary() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        // TODO: true, false, nil
         if let node = number() {
             return node
         }

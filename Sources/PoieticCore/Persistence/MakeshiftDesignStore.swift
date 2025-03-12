@@ -41,8 +41,7 @@ public class MakeshiftDesignStore {
     /// - Returns: Restored ``Design`` object.
     /// - Throws: ``PersistentStoreError``.
     ///
-    public func load(metamodel: Metamodel = Metamodel()) throws -> Design {
-        // FIXME: Do not throw validation error, Only persistent store error
+    public func load(metamodel: Metamodel = Metamodel()) throws (PersistentStoreError) -> Design {
         let data: Data
         if let providedData = self.data {
             data = providedData
@@ -66,16 +65,25 @@ public class MakeshiftDesignStore {
         do {
             perDesign = try decoder.decode(_PersistentDesign.self, from: data)
         }
-        catch DecodingError.dataCorrupted(_){
-            throw PersistentStoreError.dataCorrupted
+        catch let error as DecodingError {
+            switch error {
+            case .dataCorrupted(_):
+                throw .dataCorrupted
+            case let .keyNotFound(key, context):
+                let path = context.codingPath.map { $0.stringValue }
+                throw .missingProperty(key.stringValue, path)
+            case let .typeMismatch(_, context):
+                let path = context.codingPath.map { $0.stringValue }
+                throw .typeMismatch(path)
+            case let .valueNotFound(key, context):
+                let path = context.codingPath.map { $0.stringValue }
+                throw .missingValue(String(describing: key), path)
+            @unknown default:
+                throw .unhandledError("Unknown decoding error case: \(error)")
+            }
         }
-        catch let DecodingError.keyNotFound(key, context) {
-            let path = context.codingPath.map { $0.stringValue }
-            throw PersistentStoreError.missingProperty(key.stringValue, path)
-        }
-        catch let DecodingError.typeMismatch(_, context) {
-            let path = context.codingPath.map { $0.stringValue }
-            throw PersistentStoreError.typeMismatch(path)
+        catch {
+            throw .unhandledError("Unknown decoding error: \(error)")
         }
 
         return try restore(perDesign, metamodel: metamodel)
@@ -189,12 +197,11 @@ public class MakeshiftDesignStore {
                 // Do not check for referential integrity yet
                 newFrame.unsafeInsert(snapshot)
             }
-            // We accept the frame making sure that constraints are met.
+            // We accept the frame making sure that structural integrity is satisfied
             do {
                 try design.accept(newFrame)
             }
             catch {
-                // FIXME: Provide more details why it failed - structural integrity details
                 throw .frameValidationFailed(newFrame.id)
             }
         }

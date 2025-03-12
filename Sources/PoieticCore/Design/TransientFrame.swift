@@ -501,7 +501,6 @@ public final class TransientFrame: Frame {
     ///   previously accepted or discarded.
     ///
     public func validateStructure() throws (StructuralIntegrityError) {
-        // TODO: Check object types and attributes here
         precondition(state == .transient)
         
         var parents: [(parent: ObjectID, child: ObjectID)] = []

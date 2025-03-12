@@ -289,7 +289,7 @@ final class VariantJSONCodableTests: XCTestCase {
         #expect(value.valueType, .array(.point))
     }
     
-    // TODO: Test invalid point value
-    // TODO: Test invalid values
+    // Test invalid point value
+    // Test invalid values
 }
 */

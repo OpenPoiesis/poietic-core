@@ -201,7 +201,7 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
         case .double(let values):
             content = values.map { String($0) }.joined(separator: ", ")
         case .string(let values):
-            // TODO: Escape quotes inside
+            // TODO: Escape quotes inside?
             content = values.map { "\"\($0)\"" }.joined(separator: ", ")
         case .bool(let values):
             content = values.map { String($0) }.joined(separator: ", ")

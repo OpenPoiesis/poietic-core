@@ -6,7 +6,7 @@
 //
 
 
-public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
+public enum EdgeRuleViolation: Error, CustomStringConvertible, DesignIssueConvertible {
     case edgeNotAllowed
     case noRuleSatisfied
     case cardinalityViolation(EdgeRule, EdgeDirection)
@@ -16,19 +16,6 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
         case .edgeNotAllowed: "Edge type is not allowed"
         case .noRuleSatisfied: "None of edge rules is satisfied"
         case let .cardinalityViolation(rule, direction): "Cardinality violation for rule \(rule) direction \(direction)"
-        }
-    }
-    
-    public static func ==(lhs: EdgeRuleViolation, rhs: EdgeRuleViolation) -> Bool {
-        switch (lhs, rhs) {
-        case (.edgeNotAllowed, .edgeNotAllowed):
-            true
-        case (.noRuleSatisfied, .noRuleSatisfied):
-            true
-        case let (.cardinalityViolation(lrule, ldir), .cardinalityViolation(rrule, rdir)):
-            lrule == rrule && ldir == rdir
-        default:
-            false
         }
     }
     
@@ -88,7 +75,7 @@ public enum EdgeRuleViolation: Error, Equatable, CustomStringConvertible, Design
 ///
 /// - SeeAlso: ``Metamodel/edgeRules``, ``ConstraintChecker/validate(edge:in:)``
 ///
-public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
+public struct EdgeRule: Sendable, CustomStringConvertible {
     // NOTE: When changing/adding edge rule properties, make sure we can validate
     //       a new edge where the object does not exist yet. That is, we have only origin, target
     //       and a minimum of other properties that have to be passed to the validation function.
@@ -211,12 +198,6 @@ public struct EdgeRule: Equatable, Sendable, CustomStringConvertible {
         return true
     }
     
-    public static func ==(lhs: EdgeRule, rhs: EdgeRule) -> Bool {
-        return lhs.type === rhs.type
-        // && lhs.originPredicate == rhs.originPredicate
-        // FIXME: [IMPORTANT] Add predicates once Predicate is Comparable
-    }
-
     public var description: String {
         var text: String = "IS \(type.name) FROM \(outgoing.description) ("
 

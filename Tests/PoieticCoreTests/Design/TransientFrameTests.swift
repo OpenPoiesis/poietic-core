@@ -14,7 +14,6 @@ import Testing
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
-        // TODO: Test in Design
         frame = design.createFrame()
     }
    

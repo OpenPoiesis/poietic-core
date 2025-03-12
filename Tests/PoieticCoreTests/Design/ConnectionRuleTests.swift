@@ -8,7 +8,6 @@
 import Testing
 @testable import PoieticCore
 
-
 @Suite struct ConnectionRuleTest {
     let metamodel: Metamodel
     let design: Design
@@ -44,7 +43,10 @@ import Testing
             guard let error = $0 as? EdgeRuleViolation else {
                 return false
             }
-            return error == .edgeNotAllowed
+            switch error {
+            case .edgeNotAllowed: return true
+            default: return false
+            }
         }
     }
     
@@ -62,7 +64,10 @@ import Testing
             guard let error = $0 as? EdgeRuleViolation else {
                 return false
             }
-            return error == .noRuleSatisfied
+            switch error {
+            case .noRuleSatisfied: return true
+            default: return false
+            }
         }
     }
     
@@ -149,6 +154,4 @@ import Testing
         #expect(!checker.canConnect(type: .Flow, from: stock.id, to: rate.id, in: frozen))
         #expect(checker.canConnect(type: .Flow, from: rate.id, to: stock.id, in: frozen))
     }
-
-
 }

@@ -6,6 +6,8 @@
 //
 
 public enum ValueError: Error, Equatable, CustomStringConvertible {
+    case atomExpected
+    case arrayExpected
     case notConvertible(ValueType, ValueType)
     case conversionFailed(ValueType, ValueType)
 
@@ -14,7 +16,10 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
     
     public var description: String {
         switch self {
-            
+        case .atomExpected:
+            "Value is expected to be an atom"
+        case .arrayExpected:
+            "Value is expected to be an array"
         case .notConvertible(let original, let target):
             "Value of type \(original) is not convertible to type \(target)"
         case .conversionFailed(let original, let target):

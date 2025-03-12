@@ -14,6 +14,7 @@ import Foundation
 ///   ``MakeshiftDesignStore/save(design:)``
 ///
 public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
+    case unhandledError(String)
     
     // Main errors
     case storeMissing
@@ -24,6 +25,7 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
 
     // Decoding errors
     case missingProperty(String, [String])
+    case missingValue(String, [String])
     case typeMismatch([String])
     
     // The following errors can be put under a single error "dataStructureIntegrityError".
@@ -45,6 +47,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     
     public var description: String {
         switch self {
+        case .unhandledError(let error):
+            "Unhandled internal error: \(error)"
         // Main errors
         case .storeMissing:
             "Design store is missing (no data or no URL)."
@@ -60,6 +64,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
         // Decoding errors
         case let .missingProperty(property, path):
             "Missing property '\(property)' at \(path)"
+        case let .missingValue(property, path):
+            "Missing value for property '\(property)' at \(path)"
         case let .typeMismatch(path):
             "Type mismatch at key path \(path)"
 

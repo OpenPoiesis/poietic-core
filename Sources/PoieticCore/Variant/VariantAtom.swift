@@ -359,14 +359,12 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         
         switch self {
         case let .int(value): return ObjectID(UInt64(value))
-//        case let .double(value): return ObjectID(value)
         case .double(_): throw ValueError.conversionToIDFailed(.double)
         case let .string(value):
             if let value = ObjectID(value){
                 return value
             }
             else {
-                // TODO: We are convertible, we just failed conversion.
                 throw ValueError.conversionToIDFailed(.string)
             }
         case .bool(_): throw ValueError.conversionToIDFailed(.bool)

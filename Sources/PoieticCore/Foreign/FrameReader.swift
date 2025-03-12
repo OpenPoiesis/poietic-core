@@ -19,7 +19,8 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case typeMismatch(String, [String])
     case propertyNotFound(String, [String])
     case valueNotFound(String, [String])
-
+    case invalidValue(String, [String])
+    
     case JSONError(JSONError)
     case foreignObjectError(ForeignObjectError, Int)
     case unknownObjectType(String, Int)
@@ -67,50 +68,60 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
         }
     }
     
-    
     public var description: String {
         switch self {
         case .unableToReadData:
-            "Unable to read frame data"
+            return "Unable to read frame data"
         case .dataCorrupted(let detail, let path):
+            let message = "Data corrupted: \(detail)."
             if path.isEmpty {
-                "Data corrupted: \(detail)."
+                return message
             }
             else {
-                "Data corrupted: \(detail) at \(path)."
+                return message + " at \(path)."
             }
         case .typeMismatch(let expected, let path):
+            let message = "Type mismatch. Expected the top level to be \(expected)."
             if path.isEmpty {
-                "Type mismatch. Expected the top level to be \(expected)."
+                return message
             }
             else {
-                "Type mismatch. Expected \(expected) at \(path)."
+                return message + " at \(path)."
             }
         case .propertyNotFound(let property, let path):
+            let message = "Property '\(property)' not found."
             if path.isEmpty {
-                "Property '\(property)' not found."
+                return message
             }
             else {
-                "Property '\(property)' not found at \(path)."
+                return message + " at \(path)."
+            }
+        case .invalidValue(let property, let path):
+            let message = "Invalid value for '\(property)'"
+            if path.isEmpty {
+                return message
+            }
+            else {
+                return message + " at \(path)."
             }
         case .JSONError(let error):
-            "JSON error: \(error)"
+            return "JSON error: \(error)"
         case .foreignObjectError(let error, let index):
-            "Error in object at \(index): \(error)"
+            return "Error in object at \(index): \(error)"
         case .unknownObjectType(let type, let index):
-            "Unknown object type '\(type)' for object at index \(index)"
+            return "Unknown object type '\(type)' for object at index \(index)"
         case .unsupportedVersion(let version):
-            "Unsupported version: \(version)"
+            return "Unsupported version: \(version)"
         case let .invalidReference(ref, kind, index):
-            "Invalid \(kind) object reference '\(ref)' in object at index \(index)"
+            return "Invalid \(kind) object reference '\(ref)' in object at index \(index)"
         case .unknownDecodingError(let error):
-            "Unknown decoding error: \(error)"
+            return "Unknown decoding error: \(error)"
         case .valueNotFound(let value, let path):
             if path.isEmpty {
-                "Value not found for \(value)."
+                return "Value not found for \(value)."
             }
             else {
-                "Value not found for \(value) at \(path)."
+                return "Value not found for \(value) at \(path)."
             }
         }
     }

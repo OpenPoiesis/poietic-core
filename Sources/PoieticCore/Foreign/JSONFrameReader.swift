@@ -256,11 +256,13 @@ public final class JSONFrameReader {
             throw ForeignFrameError(error)
         }
         catch {
-            // FIXME: [FIXME] Handle correctly
-            throw .dataCorrupted("Unhandlederror \(type(of:error)): \(error)", [])
+            // TODO: What other errors can happen here?
+            throw .dataCorrupted("Unhandled error \(type(of:error)): \(error)", [])
         }
         guard frame.collectionNames.isEmpty else {
-            fatalError("Foreign frame from data (inline frame) must not refer to other collections, only bundle foreign frame can.")
+            // Foreign frame from data (inline frame) must not refer to other collections,
+            // only bundle foreign frame can."
+            throw .invalidValue("collections", [])
         }
         return frame
     }
