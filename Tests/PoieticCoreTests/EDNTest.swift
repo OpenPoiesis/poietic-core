@@ -78,16 +78,6 @@ import Testing
         #expect(unescape("\\\'") == "\'")
     }
     
-    @Test func asEDNValue() async throws {
-        var lexer = EDNLexer(string: "true false 10 symbol :keyword \"text\"")
-        #expect(lexer.next()?.asEDNValue() == .bool(true))
-        #expect(lexer.next()?.asEDNValue() == .bool(false))
-        #expect(lexer.next()?.asEDNValue() == .int(10))
-        #expect(lexer.next()?.asEDNValue() == .symbol("symbol"))
-        #expect(lexer.next()?.asEDNValue() == .keyword(":keyword"))
-        #expect(lexer.next()?.asEDNValue() == .string("text"))
-    }
-    
     @Test func unexpectedCharacter() async throws {
         var lexer = EDNLexer(string: "-a")
         #expect(lexer.next() == EDNLexer.Token(.error(.unexpectedCharacter), "-"))
@@ -148,6 +138,25 @@ import Testing
         #expect(try parser.next() == nil)
     }
 
+    @Test func variousValues() async throws {
+        var parser = EDNParser(string: "(true false 10 symbol :keyword \"text\")")
+        let token = try #require(try parser.next())
+        guard case let EDNValue.list(list) = token else {
+            Issue.record("Expected a list")
+            return
+        }
+        guard list.count == 6 else {
+            Issue.record("Expected 6 items got \(list.count)")
+            return
+        }
+        #expect(list[0] == .bool(true))
+        #expect(list[1] == .bool(false))
+        #expect(list[2] == .int(10))
+        #expect(list[3] == .symbol("symbol"))
+        #expect(list[4] == .keyword(":keyword"))
+        #expect(list[5] == .string("text"))
+    }
+    
     @Test func unexpectedListEnd() async throws {
         var parser = EDNParser(string: ")")
         #expect {
@@ -192,4 +201,7 @@ import Testing
             return error.error == .invalidNumber
         }
     }
+    
+    // TODO: Symbols starting with +, -, or ..
+    // TODO: Keywords with special characters (e.g., :parent-object-id).
 }

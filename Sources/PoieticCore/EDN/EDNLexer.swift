@@ -18,7 +18,17 @@ enum EDNSyntaxError: Error, Equatable {
 }
 
 
-
+/// Un-escape a string.
+///
+/// Convert escape sequences to their corresponding characters:
+///
+/// - `\0` - null character
+/// - `\t` - tab (ASCII 7)
+/// - `\n` - new line (ASCII 13)
+/// - `\r` - carriage return (ASCII 10)
+/// - `\"` - double quote
+/// - `\'` - single quote
+///
 func unescape(_ text: Substring) -> String {
     var result: String = ""
     var index = text.startIndex
@@ -83,7 +93,6 @@ struct EDNLexer {
     ///
     public var atEnd: Bool { currentIndex >= endIndex }
 
-
     enum TokenType: Equatable {
         case leftParen        // "("
         case rightParen       // ")"
@@ -112,39 +121,6 @@ struct EDNLexer {
         init(_ type: TokenType, _ text: Substring) {
             self.type = type
             self.text = text
-        }
-        
-        func asEDNValue() -> EDNValue? {
-            switch type {
-            case .leftParen, .rightParen, .comma:
-                return nil
-            case .error(_):
-                return nil
-            case .float:
-                guard let value = Double(String(text)) else {
-                    return nil
-                }
-                return .float(value)
-            case .int:
-                guard let value = Int(String(text)) else {
-                    return nil
-                }
-                return .int(value)
-            case .keyword:
-                return .keyword(String(text))
-            case .string:
-                return .string(unescape(text))
-            case .symbol:
-                if text == "true" {
-                    return .bool(true)
-                }
-                else if text == "false" {
-                    return .bool(false)
-                }
-                else {
-                    return .symbol(String(text))
-                }
-            }
         }
     }
     
