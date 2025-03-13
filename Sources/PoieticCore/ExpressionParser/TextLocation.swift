@@ -9,7 +9,7 @@
 ///
 /// `TextLocation` refers to a line number and a column within that line.
 ///
-public struct TextLocation: CustomStringConvertible, Equatable {
+public struct TextLocation: CustomStringConvertible, Equatable, Sendable {
     // NOTE: This has been separated from Lexer when I had some ideas about
     // sharing code for two language parsers. Not sure if it makes sense now
     // and whether it should not be brought back to Lexer. Keeping it here for

@@ -22,7 +22,7 @@ public struct ExpressionToken {
     public enum TokenType: Equatable, Sendable {
         case identifier
         case int
-        case double
+        case float
         case `operator`
         case leftParen
         case rightParen
@@ -214,10 +214,12 @@ public struct ExpressionLexer {
                     }
                 }
             case .int:
-                if char.isWholeNumber || char == "_" {
+                switch char {
+                case "_":
                     advance()
-                }
-                else if char == "." {
+                case _ where char.isWholeNumber:
+                    advance()
+                case ".":
                     advance()
                     if let nextChar = peek() {
                         advance()
@@ -231,49 +233,47 @@ public struct ExpressionLexer {
                     else {
                         type = .error(.numberExpected)
                     }
-                }
-                else if char == "e" || char == "E" {
+                case "e", "E":
                     advance()
                     if peek() == "-" || peek() == "+" {
                         advance()
                     }
                     state = .exponent
-                }
-                else if char.isLetter {
+                case _ where char.isLetter:
                     advance()
                     type = .error(.invalidCharacterInNumber)
-                }
-                else {
+                default:
                     type = .int
                 }
             case .decimal:
-                if char.isWholeNumber || char == "_" {
+                switch char {
+                case "_":
                     advance()
-                }
-                else if char == "e" || char == "E" {
+                case _ where char.isWholeNumber:
+                    advance()
+                case "e", "E":
                     advance()
                     if peek() == "-" || peek() == "+" {
                         advance()
                     }
                     state = .exponent
-                }
-                else if char.isLetter {
+                case _ where char.isLetter:
                     advance()
                     type = .error(.invalidCharacterInNumber)
-                }
-                else {
-                    type = .double
+                default:
+                    type = .float
                 }
             case .exponent:
-                if char.isWholeNumber || char == "_" {
+                switch char {
+                case "_":
                     advance()
-                }
-                else if char.isLetter {
+                case _ where char.isWholeNumber:
+                    advance()
+                case _ where char.isLetter:
                     advance()
                     type = .error(.invalidCharacterInNumber)
-                }
-                else {
-                    type = .double
+                default:
+                    type = .float
                 }
             case .identifier:
                 if char.isLetter || char.isWholeNumber || char == "_" {
@@ -290,7 +290,7 @@ public struct ExpressionLexer {
         else {
             switch state {
             case .int: return .int
-            case .decimal, .exponent: return .double
+            case .decimal, .exponent: return .float
             case .identifier: return .identifier
             default:
                 return .error(.unexpectedCharacter)

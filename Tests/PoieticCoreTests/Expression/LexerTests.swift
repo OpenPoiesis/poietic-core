@@ -77,27 +77,27 @@ import Testing
     @Test func floatTokens() throws {
         var lexer = ExpressionLexer(string: "10.20 10e20 10.20e30 10.20e-30 10E23 1E+5")
         var token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "10.20")
         
         token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "10e20")
         
         token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "10.20e30")
         
         token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "10.20e-30")
 
         token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "10E23")
 
         token = lexer.next()
-        #expect(token.type == .double)
+        #expect(token.type == .float)
         #expect(token.text == "1E+5")
     }
     

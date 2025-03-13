@@ -112,7 +112,7 @@ public class ExpressionParser {
         if let token = accept(.int) {
             return .intLiteral(token)
         }
-        else if let token = accept(.double) {
+        else if let token = accept(.float) {
             return .doubleLiteral(token)
         }
         else {
