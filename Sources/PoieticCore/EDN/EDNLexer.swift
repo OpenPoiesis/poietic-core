@@ -66,7 +66,7 @@ func unescape(_ text: Substring) -> String {
 ///
 /// We are using just a subset of EDN:
 ///
-/// - only lists `(1 2 3)`, no vectors or maps
+/// - only lists `(1 2 3)` and vectors `[1 2 3]`, no maps
 /// - no tagged elements (`#tag`)
 /// - symbols can contain only the following special characters: `. _ - +`
 ///
@@ -96,6 +96,8 @@ struct EDNLexer {
     enum TokenType: Equatable {
         case leftParen        // "("
         case rightParen       // ")"
+        case leftBracket      // "["
+        case rightBracket     // "]"
         case comma            // ","
         case keyword          // e.g., ":edge"
         case string           // e.g., "thing"
@@ -173,6 +175,8 @@ struct EDNLexer {
                 switch char {
                 case "(": tokenType = .leftParen
                 case ")": tokenType = .rightParen
+                case "[": tokenType = .leftBracket
+                case "]": tokenType = .rightBracket
                 case ",": tokenType = .comma
                 case "\"":
                     tokenStart = currentIndex

@@ -33,6 +33,8 @@ struct EDNParser {
         switch token.type {
         case .leftParen: return try parseList()
         case .rightParen: throw ParserError(.unexpectedListEnd, lexer.location)
+        case .leftBracket: return try parseVector()
+        case .rightBracket: throw ParserError(.unexpectedListEnd, lexer.location)
         case .comma: throw ParserError(.unexpectedComma, lexer.location)
         case .error(let error): throw ParserError(error, lexer.location)
         case .float:
@@ -67,7 +69,22 @@ struct EDNParser {
         while let token = lexer.next() {
             switch token.type {
             case .leftParen:  values.append(try parseList())
+            case .leftBracket: values.append(try parseVector())
             case .rightParen: return EDNValue.list(values)
+            case .comma:      continue
+            default:          values.append(try parseValue(token))
+            }
+        }
+        throw ParserError(.unexpectedEndOfList, lexer.location)
+    }
+
+    mutating func parseVector() throws (ParserError) -> EDNValue {
+        var values: [EDNValue] = []
+        while let token = lexer.next() {
+            switch token.type {
+            case .leftParen:  values.append(try parseList())
+            case .leftBracket: values.append(try parseVector())
+            case .rightBracket: return EDNValue.vector(values)
             case .comma:      continue
             default:          values.append(try parseValue(token))
             }

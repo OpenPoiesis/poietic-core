@@ -14,4 +14,5 @@ public enum EDNValue: Equatable {
     case symbol(String)
     case keyword(String)
     case list([EDNValue])
+    case vector([EDNValue])
 }

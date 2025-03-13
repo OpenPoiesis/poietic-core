@@ -10,7 +10,6 @@ import Testing
 
 
 @Suite struct TestLexer {
-    
     @Test func empty() async throws {
         var lexer = EDNLexer(string: "")
         #expect(lexer.next() == nil)
@@ -155,6 +154,25 @@ import Testing
         #expect(list[3] == .symbol("symbol"))
         #expect(list[4] == .keyword(":keyword"))
         #expect(list[5] == .string("text"))
+    }
+
+    @Test func emptyVector() async throws {
+        var parser = EDNParser(string: "[]")
+        #expect(try parser.next() == EDNValue.vector([]))
+        #expect(try parser.next() == nil)
+
+    }
+    @Test func vectors() async throws {
+        var parser = EDNParser(string: "[1 2 3] [true false]")
+        #expect(try parser.next() == EDNValue.vector([.int(1), .int(2), .int(3)]))
+        #expect(try parser.next() == EDNValue.vector([.bool(true), .bool(false)]))
+        #expect(try parser.next() == nil)
+    }
+
+    @Test func nestedVectorList() async throws {
+        var parser = EDNParser(string: "([()])")
+        #expect(try parser.next() == .list([.vector([.list([])])]))
+        #expect(try parser.next() == nil)
     }
     
     @Test func unexpectedListEnd() async throws {
