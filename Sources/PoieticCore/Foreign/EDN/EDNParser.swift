@@ -15,7 +15,6 @@ struct EDNParser {
             self.error = error
             self.location = location
         }
-        
     }
 
     init(string: String) {
@@ -52,14 +51,11 @@ struct EDNParser {
         case .string:
             return .string(unescape(token.text))
         case .symbol:
-            if token.text == "true" {
-                return .bool(true)
-            }
-            else if token.text == "false" {
-                return .bool(false)
-            }
-            else {
-                return .symbol(String(token.text))
+            switch token.text {
+            case "true": return .bool(true)
+            case "false": return .bool(false)
+            case "nil": return .nil
+            default: return .symbol(String(token.text))
             }
         }
     }

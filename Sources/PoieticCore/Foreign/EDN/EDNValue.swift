@@ -6,7 +6,8 @@
 //
 
 
-public enum EDNValue: Equatable {
+enum EDNValue: Equatable {
+    case `nil`
     case bool(Bool)
     case int(Int)
     case float(Double)

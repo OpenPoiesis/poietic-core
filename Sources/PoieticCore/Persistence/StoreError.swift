@@ -45,8 +45,20 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     case currentFrameIDNotSet
     case invalidFrameReference(String, ObjectID)
     
+    
+    // FIXME: [REFACTORING] BEGIN EDN
+    case invalidRootData
+    // FIXME: [REFACTORING] END EDN
+
+    
     public var description: String {
         switch self {
+        case .dataCorrupted:
+            "Store data is corrupted"
+        case .invalidRootData:
+            // HINT: Use doctor
+            "Root store data is invalid"
+        
         case .unhandledError(let error):
             "Unhandled internal error: \(error)"
         // Main errors
@@ -56,8 +68,6 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Can not open design store: \(url.absoluteString)"
         case let .unableToWrite(url):
             "Can not write store to: \(url.absoluteString)"
-        case .dataCorrupted:
-            "Store data is corrupted"
         case let .unsupportedFormatVersion(version):
             "Unsupported store format version: \(version)"
 

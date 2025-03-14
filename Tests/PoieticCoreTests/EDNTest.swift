@@ -110,11 +110,12 @@ import Testing
         #expect(try parser.next() == nil)
     }
     @Test func atoms() async throws {
-        var parser = EDNParser(string: "true 10 \"text\" 1.5")
+        var parser = EDNParser(string: "true 10 \"text\" 1.5 nil")
         #expect(try parser.next() == EDNValue.bool(true))
         #expect(try parser.next() == EDNValue.int(10))
         #expect(try parser.next() == EDNValue.string("text"))
         #expect(try parser.next() == EDNValue.float(1.5))
+        #expect(try parser.next() == EDNValue.nil)
         #expect(try parser.next() == nil)
     }
 
