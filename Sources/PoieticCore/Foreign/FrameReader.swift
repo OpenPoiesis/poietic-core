@@ -14,8 +14,26 @@ import Foundation
 /// - SeeAlso: ``ForeignFrameLoader``, ``ForeignObjectError``
 ///
 public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
+    /// Data is corrupted and can not be even read using given reader.
+    ///
+    /// The user is advised to use reader format specific tools to validate the foreign data
+    /// format.
+    ///
+    /// For example, for JSON frame reader, the file must be valid JSON. Use tools such as `jq` to
+    /// validate the foreign frame data.
+    ///
+    case dataCorrupted(String)
+    
+    /// The root object of the foreign frame is not as expected.
+    ///
+    /// Typically the root object is of a different type. For example, for a JSON foreign frame,
+    /// the root is expected to be a dictionary. For EDN foreign frame, the root is expected to be
+    /// a list.
+    /// 
+    case invalidRoot
+    case unsupportedVersion(String)
+
     case unableToReadData
-    case dataCorrupted(String, [String])
     case typeMismatch(String, [String])
     case propertyNotFound(String, [String])
     case valueNotFound(String, [String])
@@ -24,7 +42,6 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     case JSONError(JSONError)
     case foreignObjectError(ForeignObjectError, Int)
     case unknownObjectType(String, Int)
-    case unsupportedVersion(String)
 
     /// Invalid object reference.
     ///
@@ -60,8 +77,7 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             self = .propertyNotFound(key, path)
 
         case let .dataCorrupted(context):
-            let path = context.codingPath.map { $0.stringValue }
-            self = .dataCorrupted(context.debugDescription, path)
+            self = .dataCorrupted(context.debugDescription)
 
         @unknown default:
             self = .unknownDecodingError(String(describing: error))
@@ -72,16 +88,12 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
         switch self {
         case .unableToReadData:
             return "Unable to read frame data"
-        case .dataCorrupted(let detail, let path):
-            let message = "Data corrupted: \(detail)."
-            if path.isEmpty {
-                return message
-            }
-            else {
-                return message + " at \(path)."
-            }
+        case .dataCorrupted(let detail):
+            return "Data corrupted: \(detail)"
+        case .invalidRoot:
+            return "Invalid root object"
         case .typeMismatch(let expected, let path):
-            let message = "Type mismatch. Expected the top level to be \(expected)."
+            let message = "Type mismatch. Expected the top level to be \(expected)"
             if path.isEmpty {
                 return message
             }

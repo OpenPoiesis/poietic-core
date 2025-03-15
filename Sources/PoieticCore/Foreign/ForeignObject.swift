@@ -5,6 +5,48 @@
 //  Created by Stefan Urbanek on 25/09/2023.
 //
 
+public enum ForeignObjectReference: Equatable, Codable, Sendable, CustomStringConvertible {
+    case id(ObjectID)
+    case int(Int)
+    case string(String)
+    
+    public var description: String {
+        switch self {
+        case .id(let value): value.stringValue
+        case .int(let value): String(value)
+        case .string(let value): value
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let value = try? container.decode(String.self) {
+            self = .string(value)
+        }
+        else if let value = try? container.decode(Int.self) {
+            self = .int(value)
+        }
+        else {
+            let value = try container.decode(ObjectID.self)
+            self = .id(value)
+        }
+    }
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .id(value): try container.encode(value)
+        case let .int(value): try container.encode(value)
+        case let .string(value): try container.encode(value)
+        }
+    }
+}
+
+public enum ForeignStructure {
+    case unstructured
+    case node
+    case edge(ForeignObjectReference, ForeignObjectReference)
+}
+
 
 /// Protocol for foreign representation of an object
 ///
@@ -13,6 +55,7 @@
 ///
 public protocol ForeignObject {
     
+    // TODO: Rename to typeName
     /// Name of the object type.
     ///
     var type: String? { get }
@@ -22,7 +65,7 @@ public protocol ForeignObject {
     /// Some foreign interfaces might provide this information, however the
     /// source of truth is the object type specified in the ``type``.
     ///
-    var structuralType: StructuralType? { get }
+    var structure: ForeignStructure? { get }
 
     // TODO: Depreate name here, use "id"
     /// Name of the foreign object.
@@ -36,54 +79,19 @@ public protocol ForeignObject {
     ///
     /// The ID can be either real object ID or a custom string.
     ///
-    var id: String? { get }
+    var idReference: ForeignObjectReference? { get }
 
     /// Object snapshot ID.
     ///
     /// The ID can be either real object ID or a custom string.
     ///
-    var snapshotID: String? { get }
+    var snapshotIDReference: ForeignObjectReference? { get }
 
-    /// Reference to an object that is an origin of an edge.
-    var origin: String? { get }
-
-    /// Reference to an object that is a target of an edge.
-    var target: String? { get }
-    
     /// Reference to a parent object.
-    var parent: String? { get }
+    var parentReference: ForeignObjectReference? { get }
     
     /// Dictionary of object attributes.
     var attributes: [String:Variant] { get }
-}
-
-extension ForeignObject {
-    public func validateStructure(_ structuralType: StructuralType) throws (ForeignObjectError) {
-        switch structuralType {
-        case .unstructured:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
-            }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
-            }
-        case .node:
-            guard origin == nil else {
-                throw .extraPropertyFound("from")
-            }
-            guard target == nil else {
-                throw .extraPropertyFound("to")
-            }
-        case .edge:
-            guard origin != nil else {
-                throw .propertyNotFound("from")
-            }
-            guard target != nil else {
-                throw .propertyNotFound("to")
-            }
-        }
-
-    }
 }
 
 /// Protocol that represents a frame which originates or is meant to be used
@@ -106,63 +114,34 @@ public enum ForeignObjectError: Error, Equatable, CustomStringConvertible {
     ///
     /// For example, a JSON representation is not a dictionary.
     ///
-    case malformedForeignObject
-    case foreignValueError(String, ForeignValueError)
-    case valueError(String, ValueError)
-    /// Foreign object does not have an object type specified while it is
-    /// required.
+    case malformedObject
+    /// Type of internal property is different from the expected type.
     ///
-    /// Typically object type is required for reading foreign frames.
-    /// However, foreign objects do not have to contain object type in their
-    /// info record if a reader assumes a batch of foreign objects to be of
-    /// the same type.
-    case missingObjectType
-    
-    /// Error for type mismatch of known properties, such as ID or object type.
+    /// First item is a property name, second is a type name as it is known to the foreign interface.
     ///
-    case typeMismatch(ValueType, String)
-    
-    
-    /// Required property not found in object.
+    /// The case tuple is: (_property_, _type_).
     ///
     case propertyNotFound(String)
-    
+
     /// Error when there is an extra property in the object, for example an
     /// origin or a target for non-edge objects.
     ///
     case extraPropertyFound(String)
-    
-    case malformedAttributes
 
-    init(_ error: ForeignRecordError) {
-        switch error {
-        case .unknownKey(let key):
-            self = .propertyNotFound(key)
-        case .valueError(let key, let error):
-            self = .valueError(key, error)
-            
-        }
-    }
+    case invalidStructureType
     
     public var description: String {
         switch self {
-        case .malformedForeignObject:
+        case .malformedObject:
             "Malformed foreign object structure"
-        case .foreignValueError(let error, _):
-            "Value error: \(error)"
-        case .valueError(let key, let error):
-            "Value error for key '\(key)': \(error)"
-        case .missingObjectType:
-            "Missing object type"
-        case .typeMismatch(let expected, let provided):
-            "Type mismatch. Expected: \(expected), got: \(provided)"
+//        case let .typeMismatch(property, type):
+//            "Type mismatch for property \(property), expected type: \(type)"
         case .propertyNotFound(let key):
             "Property '\(key)' not found"
         case .extraPropertyFound(let key):
             "Extra property '\(key)' found"
-        case .malformedAttributes:
-            "Malformed attributes structure"
-
+        case .invalidStructureType:
+            "Invalid structure type"
         }
     }
 }

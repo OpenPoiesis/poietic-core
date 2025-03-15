@@ -9,6 +9,11 @@ import Foundation
 import Testing
 @testable import PoieticCore
 
+// TODO: Invalid int reference -10
+// TODO: Duplicate ID
+// TODO: Test ID=name, attrs no name
+// TODO: Test ID=name, attrs have name -> keep attrs name, not ID name
+
 @Suite struct JSONFrameReaderTests {
     
     let design: Design
@@ -34,11 +39,11 @@ import Testing
     @Test func testInvalidFormatVersion() throws {
         let data = """
                    {
-                   "frame_format_version": 10
+                   "format_version": 10
                    }
                    """.data(using:.utf8)!
 
-        #expect(throws: ForeignFrameError.typeMismatch("String", ["frame_format_version"])) {
+        #expect(throws: ForeignFrameError.typeMismatch("String", ["format_version"])) {
             try reader.read(data: data)
         }
     }
@@ -102,7 +107,7 @@ import Testing
                    """.data(using:.utf8)!
 
         let fframe = try #require(try reader.read(data: data))
-        #expect(throws: FrameLoaderError.foreignObjectError(.missingObjectType, nil)) {
+        #expect(throws: FrameLoaderError.foreignObjectError(.propertyNotFound("type"), 0, nil)) {
             try loader.load(fframe, into: frame)
         }
     }
@@ -115,7 +120,7 @@ import Testing
                    """.data(using:.utf8)!
 
         let fframe = try #require(try reader.read(data: data))
-        #expect(throws: FrameLoaderError.unknownObjectType("Invalid", nil)) {
+        #expect(throws: FrameLoaderError.unknownObjectType("Invalid", 0, nil)) {
             try loader.load(fframe, into: frame)
         }
     }
@@ -139,7 +144,7 @@ import Testing
         let data = """
                    {
                    "objects": [
-                        {"type": "Unstructured", "name":"test"}
+                        {"type": "Unstructured", "id":"test"}
                    ]
                    }
                    """.data(using:.utf8)!
@@ -156,7 +161,7 @@ import Testing
         let data = """
                    {
                    "objects": [
-                    { "type": "Stock", "name": "test" }
+                    { "type": "Stock", "id": "test" }
                    ]
                    }
                    """.data(using:.utf8)!
@@ -192,7 +197,7 @@ import Testing
         #expect(snapshot["name"] == Variant("Felix"))
     }
 
-    @Test func testLoadEdgeNoOriginTargetError() throws {
+    @Test func structureTypeMismatch() throws {
         let data_no_origin = """
                    {
                    "objects": [
@@ -200,13 +205,14 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-
+        
         let fframe = try #require(try reader.read(data: data_no_origin))
-
-        #expect(throws: FrameLoaderError.foreignObjectError(.propertyNotFound("from"), nil)) {
+        
+        #expect(throws: FrameLoaderError.structureMismatch(.edge, 0, nil)) {
             try loader.load(fframe, into: frame)
         }
-
+    }
+    @Test func missingEdgeTo() throws {
         let data_no_target = """
                    {
                    "objects": [
@@ -215,10 +221,8 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe2 = try #require(try reader.read(data: data_no_target))
-
-        #expect(throws: FrameLoaderError.foreignObjectError(.propertyNotFound("to"), nil)) {
-            try loader.load(fframe2, into: frame)
+        #expect(throws: ForeignFrameError.foreignObjectError(.invalidStructureType, 0)) {
+            try reader.read(data: data_no_target)
         }
     }
 
@@ -232,7 +236,7 @@ import Testing
                    """.data(using:.utf8)!
         let fframe = try #require(try reader.read(data: data_no_origin))
 
-        #expect(throws: FrameLoaderError.invalidReference("unknown", "origin", nil)) {
+        #expect(throws: FrameLoaderError.invalidReference("origin", .string("unknown"), 0, nil)) {
             try loader.load(fframe, into: frame)
         }
 
@@ -240,14 +244,14 @@ import Testing
                    {
                    "objects": [
                         { "type": "Parameter", "from": "x", "to": "unknown" },
-                        { "type": "Stock", "name": "x"},
+                        { "type": "Stock", "id": "x"},
                    ]
                    }
                    """.data(using:.utf8)!
 
         let fframe2 = try #require(try reader.read(data: data_no_target))
 
-        #expect(throws: FrameLoaderError.invalidReference("unknown", "target", nil)) {
+        #expect(throws: FrameLoaderError.invalidReference("target", .string("unknown"), 0, nil)) {
             try loader.load(fframe2, into: frame)
         }
     }
@@ -256,24 +260,24 @@ import Testing
         let data_extra_origin = """
                    {
                    "objects": [
-                        { "type": "Unstructured", "from": "invalid"}
+                        { "type": "Unstructured", "from": "invalid", "to": "invalid"}
                    ]
                    }
                    """.data(using:.utf8)!
         let fframe = try #require(try reader.read(data: data_extra_origin))
-        #expect(throws: FrameLoaderError.foreignObjectError(.extraPropertyFound("from"), nil)) {
+        #expect(throws: FrameLoaderError.structureMismatch(.unstructured, 0, nil)) {
             try loader.load(fframe, into: frame)
         }
 
         let data_extra_target = """
                    {
                    "objects": [
-                        { "type": "Stock", "to": "invalid"}
+                        { "type": "Stock", "from":"invalid", "to": "invalid"}
                    ]
                    }
                    """.data(using:.utf8)!
         let fframe2 = try #require(try reader.read(data: data_extra_target))
-        #expect(throws: FrameLoaderError.foreignObjectError(.extraPropertyFound("to"), nil)) {
+        #expect(throws: FrameLoaderError.structureMismatch(.node, 0, nil)) {
             try loader.load(fframe2, into: frame)
         }
     }
@@ -282,9 +286,9 @@ import Testing
         let data = """
                    {
                    "objects": [
-                        { "type": "Parameter", "name": "param", "from":"src", "to":"drain" },
-                        { "type": "Stock", "name": "src" },
-                        { "type": "Stock", "name": "drain" }
+                        { "type": "Parameter", "id": "param", "from":"src", "to":"drain" },
+                        { "type": "Stock", "id": "src" },
+                        { "type": "Stock", "id": "drain" }
                    ]
                    }
                    """.data(using:.utf8)!
@@ -304,10 +308,10 @@ import Testing
         let data = """
                    {
                    "objects": [
-                        { "type": "Unstructured", "name": "parent", "children": ["a", "b"] },
-                        { "type": "Unstructured", "name": "a" },
-                        { "type": "Unstructured", "name": "b" },
-                        { "type": "Unstructured", "name": "c" }
+                        { "type": "Unstructured", "id": "parent", "children": ["a", "b"] },
+                        { "type": "Unstructured", "id": "a" },
+                        { "type": "Unstructured", "id": "b" },
+                        { "type": "Unstructured", "id": "c" }
                    ]
                    }
                    """.data(using:.utf8)!
@@ -338,7 +342,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
         let fframe = try #require(try reader.read(data: data))
-        #expect(throws: FrameLoaderError.invalidReference("unknown", "child", nil)) {
+        #expect(throws: FrameLoaderError.invalidReference("child", .string("unknown"), 0, nil)) {
             try loader.load(fframe, into: frame)
         }
     }

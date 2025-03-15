@@ -162,7 +162,6 @@ public final class JSONFrameReader {
         let data: Data
         let frame: JSONForeignFrame
         let decoder = JSONDecoder()
-        let config = DecodingConfiguration(version: Self.CurrentFormatVersion)
         
         decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
         
@@ -172,20 +171,20 @@ public final class JSONFrameReader {
             data = try Data(contentsOf: infoURL)
         }
         catch let error as NSError {
-            throw .dataCorrupted(error.localizedDescription, [])
+            throw .dataCorrupted(error.localizedDescription)
         }
         catch {
             throw .unableToReadData
         }
         
         do {
-            frame = try decoder.decode(JSONForeignFrame.self, from: data, configuration: config)
+            frame = try decoder.decode(JSONForeignFrame.self, from: data)
         }
         catch let error as ForeignFrameError {
             throw error
         }
         catch {
-            throw .dataCorrupted(String(describing: error), [])
+            throw .dataCorrupted(String(describing: error))
         }
         
         var collections: [String:[JSONForeignObject]] = [:]
@@ -193,16 +192,14 @@ public final class JSONFrameReader {
             let collectionURL = url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
             do {
                 let data = try Data(contentsOf: collectionURL)
-                let collection = try decoder.decode([JSONForeignObject].self,
-                                                    from: data,
-                                                    configuration: config)
+                let collection = try decoder.decode([JSONForeignObject].self, from: data)
                 collections[name] = collection
             }
             catch let error as DecodingError {
                 throw ForeignFrameError(error)
             }
             catch {
-                throw .dataCorrupted(String(describing: error), [])
+                throw .dataCorrupted(String(describing: error))
             }
         }
 
@@ -232,32 +229,32 @@ public final class JSONFrameReader {
         }
         catch let error as NSError {
             // FIXME: We are not getting DecodingError on invalid JSON
-            throw .dataCorrupted(error.localizedDescription, [])
+            throw .dataCorrupted(error.localizedDescription)
         }
         catch {
-            throw .dataCorrupted(String(describing: error), [])
+            throw .dataCorrupted(String(describing: error))
         }
         return try self.read(data: data)
     }
 
     public func read(data: Data) throws (ForeignFrameError) -> ForeignFrame {
         let decoder = JSONDecoder()
-        let config = DecodingConfiguration(version: Self.CurrentFormatVersion)
         
         decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
 
         let frame: JSONForeignFrame
         do {
-            frame = try decoder.decode(JSONForeignFrame.self,
-                                           from: data,
-                                           configuration: config)
+            frame = try decoder.decode(JSONForeignFrame.self, from: data)
+        }
+        catch let error as ForeignFrameError {
+            throw error
         }
         catch let error as DecodingError {
             throw ForeignFrameError(error)
         }
         catch {
             // TODO: What other errors can happen here?
-            throw .dataCorrupted("Unhandled error \(type(of:error)): \(error)", [])
+            throw .dataCorrupted("Unhandled error \(type(of:error)): \(error)")
         }
         guard frame.collectionNames.isEmpty else {
             // Foreign frame from data (inline frame) must not refer to other collections,

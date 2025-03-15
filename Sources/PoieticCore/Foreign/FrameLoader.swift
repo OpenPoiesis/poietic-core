@@ -12,34 +12,27 @@ import Foundation
 /// - SeeAlso: ``ForeignFrameLoader/load(_:into:)``
 ///
 public enum FrameLoaderError: Error, Equatable, CustomStringConvertible {
-    // TODO: [IMPORTANT] Add context: object name, object ID, object type (if known), object structure (if known)
-    case foreignObjectError(ForeignObjectError, String?)
-    case unknownObjectType(String, String?)
-    case invalidReference(String, String, String?)
+    case foreignObjectError(ForeignObjectError, Int, ForeignObjectReference?)
+    case unknownObjectType(String, Int, ForeignObjectReference?)
+    // TODO: Rename to unknownNamedReference
+    case invalidReference(String, ForeignObjectReference?, Int, ForeignObjectReference?)
+    case structureMismatch(StructuralType, Int, ForeignObjectReference?)
 
     public var description: String {
         switch self {
-        case let .foreignObjectError(error, ref):
-            if let ref {
-                return "Foreign object error: \(error) in object '\(ref)'"
-            }
-            else {
-                return "Foreign object error \(error)"
-            }
-        case let .unknownObjectType(type, ref):
-            if let ref {
-                return "Unknown object type '\(type)' in object '\(ref)'"
-            }
-            else {
-                return "Unknown object type '\(type)'"
-            }
-        case let .invalidReference(ref, property, owner):
-            if let owner {
-                return "Invalid reference '\(ref)' for '\(property)' in object '\(owner)'"
-            }
-            else {
-                return "Invalid reference '\(ref)' for '\(property)'"
-            }
+        case let .foreignObjectError(error, index, ref):
+            let refString = ref.map { String(describing: $0) } ?? "no reference"
+            return "Foreign object error \(error) in object at index \(index) (\(refString))"
+        case let .unknownObjectType(type, index, ref):
+            let refString = ref.map { String(describing: $0) } ?? "no reference"
+            return "Unknown object type '\(type)' in object at index \(index) (\(refString))"
+        case let .structureMismatch(type, index, ref):
+            let refString = ref.map { String(describing: $0) } ?? "no reference"
+            return "Structural mismatch. Expected \(type) in object at index \(index) (\(refString))"
+        case let .invalidReference(property, ref, index, ownerRef):
+            let refString = ref.map { "'\($0)'" } ?? "(no reference)"
+            let ownerString = ownerRef.map { String(describing: $0) } ?? "no reference"
+            return "Invalid reference \(refString) for \(property) in object at index \(index) (\(ownerString))"
         }
     }
     
@@ -103,28 +96,16 @@ public final class ForeignFrameLoader {
         var snapshots: [MutableObject] = []
         
         // 1. Allocate identities and collect references
-        for object in foreignObjects {
-            let actualID: ObjectID
-            if let stringID = object.id {
-                actualID = design.allocateID(required: ObjectID(stringID))
+        for (index, foreignObject) in foreignObjects.enumerated() {
+            guard let id = resolveReference(foreignObject.idReference, in: frame, required: false) else {
+                // TODO: Use string value for object reference
+                throw .invalidReference("id", foreignObject.idReference, index, foreignObject.idReference)
             }
-            else {
-                actualID = design.allocateID()
+            guard let snapshotID = resolveReference(foreignObject.snapshotIDReference, in: frame) else {
+                throw .invalidReference("snapshot_id", foreignObject.snapshotIDReference, index, foreignObject.idReference)
             }
 
-            let actualSnapshotID: ObjectID
-                if let stringID = object.snapshotID {
-                    actualSnapshotID = design.allocateID(required: ObjectID(stringID))
-                }
-                else {
-                    actualSnapshotID = design.allocateID()
-                }
-
-            // TODO: Deprecate, use ID
-            if let name = object.name {
-                references[name] = actualID
-            }
-            ids.append((actualID, actualSnapshotID))
+            ids.append((id, snapshotID))
         }
         
         // 2. Instantiate objects
@@ -135,62 +116,91 @@ public final class ForeignFrameLoader {
             let structure: Structure
             
             guard let typeName = foreignObject.type else {
-                throw .foreignObjectError(.missingObjectType, foreignObject.id ?? foreignObject.name)
+                throw .foreignObjectError(.propertyNotFound("type"), index, foreignObject.idReference)
             }
             
             guard let type = metamodel.objectType(name: typeName) else {
-                throw .unknownObjectType(typeName, foreignObject.id ?? foreignObject.name)
+                throw .unknownObjectType(typeName, index, foreignObject.idReference)
             }
-            do {
-                // FIXME: [IMPORTANT] Add context about the error – object ID or something
-                try foreignObject.validateStructure(type.structuralType)
-            }
-            catch {
-                throw .foreignObjectError(error, foreignObject.id ?? foreignObject.name)
-            }
-            switch type.structuralType {
-            case .unstructured:
+
+            switch (foreignObject.structure, type.structuralType) {
+            case (.unstructured, .unstructured), (.none, .unstructured):
                 structure = .unstructured
-            case .node:
+            case (.node, .node), (.none, .node):
                 structure = .node
-            case .edge:
-                let originRef = foreignObject.origin!
-                guard let originID = references[originRef] else {
-                    throw .invalidReference(originRef, "origin", foreignObject.id ?? foreignObject.name)
+            case (.edge(let originRef, let targetRef), .edge):
+                guard let origin = resolveReference(originRef, in: frame) else {
+                    throw .invalidReference("origin", originRef, index, foreignObject.idReference)
                 }
-
-                let targetRef = foreignObject.target!
-                guard let targetID = references[targetRef] else {
-                    throw .invalidReference(targetRef, "target", foreignObject.id ?? foreignObject.name)
+                guard let target = resolveReference(targetRef, in: frame) else {
+                    throw .invalidReference("target", targetRef, index, foreignObject.idReference)
                 }
-
-                structure = .edge(originID, targetID)
+                structure = .edge(origin, target)
+            default:
+                throw .structureMismatch(type.structuralType, index, foreignObject.idReference)
+            
             }
             
-            var fullAttributes = foreignObject.attributes
-            if let name = foreignObject.name {
-                fullAttributes["name"] = Variant(name)
-                references[name] = id
+            var attributes = foreignObject.attributes
+
+            if case let .string(name) = foreignObject.idReference, attributes["name"] == nil {
+                attributes["name"] = Variant(name)
+            }
+
+            let parent: ObjectID?
+            if let parentRef = foreignObject.parentReference {
+                parent = resolveReference(parentRef, in: frame)
+            }
+            else {
+                parent = nil
             }
 
             let snapshot = frame.create(type,
                                         id: id,
                                         snapshotID: snapshotID,
                                         structure: structure,
-                                        attributes: fullAttributes)
+                                        parent: parent,
+                                        attributes: attributes)
             
             snapshots.append(snapshot)
         }
-
-        // 3. Make parent-child hierarchy
-        //
-        // All objects are initialised now.
-        for (snapshot, object) in zip(snapshots, foreignObjects) {
-            if let parentRef = object.parent {
-                guard let parent = references[parentRef] else {
-                    throw .invalidReference(parentRef, "parent", object.id)
-                }
-                frame.addChild(snapshot.id, to: parent)
+    }
+    
+    /// Try to resolved a foreign object reference.
+    ///
+    /// - Object references provided as IDs are passed as they are provided.
+    /// - Integer references are tried to be converted to IDs and returned as such.
+    /// - String references are tried to be converted to ObjectIDs. If conversion was
+    ///   successful, then ObjectID is returned. If not, then:
+    ///     - If there is an ObjectID with the same name in the reference map, then it is returned.
+    ///     - If not, then a new ID is allocated and it is is stored in a reference map.
+    ///       Newly allocated ID is returned.
+    ///
+    public func resolveReference(_ ref: ForeignObjectReference?, in frame: some Frame, required: Bool = true) -> ObjectID? {
+        guard let ref else {
+            return frame.design.allocateID()
+        }
+        switch ref {
+        case let .id(value):
+            return value
+        case let .int(value):
+            if let uint = UInt64(exactly: value) {
+                return ObjectID(uint)
+            }
+            else {
+                return nil
+            }
+        case let .string(string):
+            if let id = references[string] {
+                return id
+            }
+            else if required {
+                return nil
+            }
+            else {
+                let newID = frame.design.allocateID()
+                references[string] = newID
+                return newID
             }
         }
     }

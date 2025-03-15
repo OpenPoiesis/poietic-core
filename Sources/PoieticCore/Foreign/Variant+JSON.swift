@@ -5,11 +5,28 @@
 //  Created by Stefan Urbanek on 11/07/2023.
 //
 
-// TODO: Consolidate this error with other errors
-public enum ForeignValueError: Error {
-    case notConvertible
-    case invalidPointValue
-    case sameItemTypeExpected
+/// Errors that can occur with foreign object properties or attributes.
+///
+public enum ForeignValueError: Error, Equatable {
+    /// Value content is invalid.
+    ///
+    /// This error is typically thrown when:
+    /// - A string value of one of multiple enum values is expected.
+    /// - Inner structure of a property or an attribute is invalid and can not be processed further.
+    case invalidValue
+    
+    /// Value is of a different type than expected. The expected type is the associated value of
+    /// this case. The type is a name of a foreign interface data type, can be more descriptive
+    /// and rather user-oriented.
+    ///
+    case typeMismatch(String)
+
+    /// A property or an attribute is expected, but the value is not present in the foreign data
+    /// or interface.
+    case valueNotFound
+    
+    /// A value, typically an attribute value, is expected but can not be converted to a variant.
+    case notConvertibleToVariant
 }
 
 extension Variant {
@@ -26,7 +43,7 @@ extension Variant {
         case let .array(items):
             self = .array(try VariantArray(jsonItems: items))
         default:
-            throw ForeignValueError.notConvertible
+            throw ForeignValueError.notConvertibleToVariant
         }
     }
     
@@ -101,7 +118,7 @@ extension VariantAtom {
             self.init(value)
         case let .array(items):
             guard items.count == 2 else {
-                throw .notConvertible
+                throw .notConvertibleToVariant
             }
             switch (items[0], items[1]) {
             case let (.int(x), .int(y)):
@@ -113,10 +130,10 @@ extension VariantAtom {
             case let (.double(x), .double(y)):
                 self = .point(Point(x, y))
             default:
-                throw .invalidPointValue
+                throw .invalidValue
             }
         default:
-            throw .notConvertible
+            throw .notConvertibleToVariant
         }
     }
 
@@ -199,7 +216,7 @@ extension VariantArray {
 
             for item in items {
                 guard case let .bool(value) = item else {
-                    throw .sameItemTypeExpected
+                    throw .notConvertibleToVariant
                 }
                 array.append(value)
             }
@@ -208,7 +225,7 @@ extension VariantArray {
             var array: [Int] = []
             for item in items {
                 guard case let .int(value) = item else {
-                    throw .sameItemTypeExpected
+                    throw .notConvertibleToVariant
                 }
                 array.append(value)
             }
@@ -217,7 +234,7 @@ extension VariantArray {
             var array: [Double] = []
             for item in items {
                 guard case let .double(value) = item else {
-                    throw .sameItemTypeExpected
+                    throw .notConvertibleToVariant
                 }
                 array.append(value)
             }
@@ -226,7 +243,7 @@ extension VariantArray {
             var array: [String] = []
             for item in items {
                 guard case let .string(value) = item else {
-                    throw .sameItemTypeExpected
+                    throw .notConvertibleToVariant
                 }
                 array.append(value)
             }
@@ -235,10 +252,10 @@ extension VariantArray {
             var array: [Point] = []
             for item in items {
                 guard case let .array(pointValues) = item else {
-                    throw .sameItemTypeExpected
+                    throw .notConvertibleToVariant
                 }
                 guard pointValues.count == 2 else {
-                    throw .invalidPointValue
+                    throw .notConvertibleToVariant
                 }
                 
                 let value: Point
@@ -252,14 +269,14 @@ extension VariantArray {
                 case let (.double(x), .double(y)):
                     value = Point(x, y)
                 default:
-                    throw .invalidPointValue
+                    throw .notConvertibleToVariant
                 }
 
                 array.append(value)
             }
             self = .point(array)
         default:
-            throw .notConvertible
+            throw .notConvertibleToVariant
         }
     }
    

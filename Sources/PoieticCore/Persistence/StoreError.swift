@@ -45,11 +45,7 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     case currentFrameIDNotSet
     case invalidFrameReference(String, ObjectID)
     
-    
-    // FIXME: [REFACTORING] BEGIN EDN
     case invalidRootData
-    // FIXME: [REFACTORING] END EDN
-
     
     public var description: String {
         switch self {

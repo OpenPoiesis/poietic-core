@@ -13,29 +13,16 @@ import Foundation
 /// This structure is just a helper to have better control over JSON using
 /// the built-in `Codable` protocol.
 ///
-public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignObject {
-
-    public let systemAttributes: [String:String]
+public struct JSONForeignObject: Encodable, Decodable, ForeignObject {
+    public var type: String?
+    public var structure: ForeignStructure?
+    public var name: String?
+    public var idReference: ForeignObjectReference?
+    public var snapshotIDReference: ForeignObjectReference?
+    public var parentReference: ForeignObjectReference?
     public let attributes: [String:Variant]
 
-    public var id: String? { systemAttributes["id"] }
-    public var snapshotID: String?  { systemAttributes["snapshot_id"] }
-    public var name: String?  { systemAttributes["name"] }
-    public var type: String?  { systemAttributes["type"] }
-    public var origin: String?  { systemAttributes["from"] }
-    public var target: String?  { systemAttributes["to"] }
-    public var parent: String?  { systemAttributes["parent"] }
-    public var structuralType: StructuralType?  {
-        if let type = systemAttributes["structure"] {
-            StructuralType(rawValue: type)
-        }
-        else {
-            nil
-        }
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        // Note: When adding a system (string) attribute, add it to the list `system` below
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case snapshotID = "snapshot_id"
         case name
@@ -43,67 +30,98 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
         case structure
         case origin = "from"
         case target = "to"
-        // case subject // from proxy
         case parent
         case attributes
-        
-        static var systemKeys: [CodingKeys] {
-            [.id, .snapshotID, .name, .type, .structure,
-            .origin, .target,
-            .parent]
-        }
     }
    
     public init(_ object: DesignObject) {
-        var systemAttributes: [String:String] = [:]
+        idReference = .id(object.id)
+        snapshotIDReference = .id(object.snapshotID)
+        type = object.type.name
 
-        systemAttributes["id"] = object.id.stringValue
-        systemAttributes["snapshot_id"] = object.snapshotID.stringValue
-        systemAttributes["type"] = object.type.name
-
-        if case let .edge(origin, target) = object.structure {
-            systemAttributes["from"] = origin.stringValue
-            systemAttributes["to"] = target.stringValue
-        }
-
-        if let parent = object.parent {
-            systemAttributes["parent"] = parent.stringValue
+        switch object.structure {
+        case .node: structure = .node
+        case .unstructured: structure = .unstructured
+        case let .edge(origin, target): structure = .edge(.id(origin), .id(target))
         }
         
-        systemAttributes["structure"] = object.structure.type.rawValue
-        self.systemAttributes = systemAttributes
+        if let parent = object.parent {
+            parentReference = .id(parent)
+        }
         
         self.attributes = object.attributes
     }
     
-    public init(from decoder: Decoder, configuration: JSONFrameReader.DecodingConfiguration) throws {
-        var systemAttributes: [String:String] = [:]
-
-        // switch configuration.version {
-        // case "0": ...
-        // default:
-        //     throw ForeignFrameError.unsupportedVersion(configuration.version)
-        // }
-        
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        for key in CodingKeys.systemKeys {
-            if let value = try container.decodeIfPresent(String.self, forKey: key) {
-                systemAttributes[key.stringValue] = value
-            }
+        
+        idReference = try container.decodeIfPresent(ForeignObjectReference.self, forKey: .id)
+        snapshotIDReference = try container.decodeIfPresent(ForeignObjectReference.self, forKey: .snapshotID)
+        parentReference = try container.decodeIfPresent(ForeignObjectReference.self, forKey: .parent)
+        type = try container.decodeIfPresent(String.self, forKey: .type)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        
+        if name != nil {
+            // Old version
+            throw ForeignObjectError.extraPropertyFound("name")
         }
-        self.systemAttributes = systemAttributes
+        
+        let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
+        let origin = try container.decodeIfPresent(ForeignObjectReference.self, forKey: .origin)
+        let target = try container.decodeIfPresent(ForeignObjectReference.self, forKey: .target)
+
+        switch structureType {
+        case "node":
+            structure = .node
+        case "unstructured":
+            structure = .unstructured
+        case "edge":
+            guard let origin else {
+                throw ForeignObjectError.propertyNotFound(CodingKeys.origin.rawValue)
+            }
+            guard let target else {
+                throw ForeignObjectError.propertyNotFound(CodingKeys.target.rawValue)
+            }
+            structure = .edge(origin, target)
+        case .none:
+            if let origin, let target {
+                structure = .edge(origin, target)
+            }
+            else {
+                if (origin != nil && target == nil) || (origin == nil && target != nil) {
+                    throw ForeignObjectError.invalidStructureType
+                }
+                else {
+                    structure = nil
+                }
+            }
+        default:
+            throw ForeignObjectError.invalidStructureType
+        }
+
         self.attributes = try container.decodeIfPresent([String:Variant].self, forKey: .attributes) ?? [:]
     }
     
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        for key in CodingKeys.systemKeys {
-            if let value = systemAttributes[key.stringValue] {
-                try container.encodeIfPresent(value, forKey: key)
-            }
+        try container.encode(idReference, forKey: .id)
+        switch structure {
+        case .node:
+            try container.encode("node", forKey: .structure)
+        case .unstructured:
+            try container.encode("unstructured", forKey: .structure)
+        case let .edge(origin, target):
+            try container.encode("edge", forKey: .structure)
+            try container.encode(origin, forKey: .origin)
+            try container.encode(target, forKey: .target)
+        case .none:
+            break /* unknown structure, just pass */
         }
+        try container.encodeIfPresent(parentReference, forKey: .parent)
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(snapshotIDReference, forKey: .snapshotID)
         try container.encode(attributes, forKey: .attributes)
     }
 }
@@ -113,7 +131,7 @@ public struct JSONForeignObject: Encodable, DecodableWithConfiguration, ForeignO
 /// This structure is just a helper to have better control over JSON using
 /// the built-in `Codable` protocol.
 ///
-public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, DecodableWithConfiguration {
+public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
     public typealias Object = JSONForeignObject
     
     public typealias DecodingConfiguration = JSONFrameReader.DecodingConfiguration
@@ -124,8 +142,6 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, DecodableWithCo
     
     enum CodingKeys: String, CodingKey {
         case version = "format_version"
-        // Private old version key TODO: Remove once prototypes are fixed
-        case version_pre_v0 = "frame_format_version"
         case metamodel
         case collectionNames = "collections"
         case objects
@@ -139,35 +155,31 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, DecodableWithCo
         self.objects = objects
     }
 
-    public init(from decoder: any Decoder, configuration: JSONFrameReader.DecodingConfiguration) throws {
+    public init(from decoder: any Decoder) throws {
         // if decoder.userInfo[JSONFrameReader.Version] as? String == "" {
         // }
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        // Get the version
-        if let version = try container.decodeIfPresent(String.self, forKey: .version) {
-            configuration.version = version
+        // let version: String?
+        
+        do {
+            _ = try container.decodeIfPresent(String.self, forKey: .version)
         }
-        else if let version = try container.decodeIfPresent(String.self, forKey: .version_pre_v0) {
-            configuration.version = version
-        }
-        else {
-            configuration.version = JSONFrameReader.CurrentFormatVersion
+        catch {
+            throw ForeignFrameError.typeMismatch("String", ["format_version"])
         }
 
-        switch configuration.version {
-        case "0":
-            metamodel = try container.decodeIfPresent(String.self, forKey: .metamodel)
-            collectionNames = try container.decodeIfPresent([String].self, forKey: .collectionNames) ?? []
-            objects = try container.decodeIfPresent([JSONForeignObject].self,
-                                                    forKey: .objects,
-                                                    configuration: configuration) ?? []
-        // case "1": ...
-        default:
-            throw ForeignFrameError.unsupportedVersion(configuration.version)
+        metamodel = try container.decodeIfPresent(String.self, forKey: .metamodel)
+        collectionNames = try container.decodeIfPresent([String].self, forKey: .collectionNames) ?? []
+
+        do {
+            let collection = try container.decodeIfPresent(_JSONForeignObjectCollection.self, forKey: .objects)
+            objects = collection.map { $0.objects } ?? []
         }
-        
+        catch let error as ForeignObjectError {
+            throw ForeignFrameError.foreignObjectError(error, 0)
+        }
     }
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -180,5 +192,26 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, DecodableWithCo
         if !objects.isEmpty {
             try container.encodeIfPresent(objects, forKey: .objects)
         }
+    }
+}
+
+/// Wrapper for better error reporting – to get index of broken objects.
+struct _JSONForeignObjectCollection: Decodable {
+    let objects: [JSONForeignObject]
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        var objects: [JSONForeignObject] = []
+        var index: Int = 0
+        while !container.isAtEnd {
+            do {
+                let object = try container.decode(JSONForeignObject.self)
+                objects.append(object)
+            }
+            catch let error as ForeignObjectError {
+                throw ForeignFrameError.foreignObjectError(error, index)
+            }
+            index += 1
+        }
+        self.objects = objects
     }
 }
