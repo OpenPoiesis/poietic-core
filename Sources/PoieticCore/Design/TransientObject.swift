@@ -39,6 +39,7 @@ public class MutableObject: ObjectSnapshot {
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
+        
         precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
         

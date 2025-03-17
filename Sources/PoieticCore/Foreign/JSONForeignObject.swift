@@ -61,9 +61,14 @@ public struct JSONForeignObject: Encodable, Decodable, ForeignObject {
         type = try container.decodeIfPresent(String.self, forKey: .type)
         name = try container.decodeIfPresent(String.self, forKey: .name)
         
-        if name != nil {
-            // Old version
-            throw ForeignObjectError.extraPropertyFound("name")
+        if let name {
+            // Original version had "name" in addition to "ID", now deprecated, but we read it anyway.
+            if idReference == nil {
+                idReference = .string(name)
+            }
+            else {
+                throw ForeignObjectError.extraPropertyFound("name")
+            }
         }
         
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
