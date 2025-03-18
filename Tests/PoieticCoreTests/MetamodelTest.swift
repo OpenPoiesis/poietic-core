@@ -7,7 +7,6 @@
 
 
 import Testing
-@testable import PoieticFlows
 @testable import PoieticCore
 
 
