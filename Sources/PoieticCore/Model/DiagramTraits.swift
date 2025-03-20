@@ -30,8 +30,8 @@ extension Trait {
         name: "DiagramConnection",
         attributes: [
             // types: default(for type), line, orthogonal, curve
-            // Attribute("connection_type", type: .string, optional: true),
-            // Attribute("mid_points", type: .points, optional: true),
+             Attribute("connection_type", type: .string, optional: true),
+             Attribute("mid_points", type: .points, optional: true),
         ]
     )
 }
