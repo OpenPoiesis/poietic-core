@@ -26,8 +26,8 @@ extension Trait {
     
     /// Trait for edges that have visual representation in a diagram.
     ///
-    public static let DiagramConnection = Trait(
-        name: "DiagramConnection",
+    public static let DiagramConnector = Trait(
+        name: "DiagramConnector",
         attributes: [
             // types: default(for type), line, orthogonal, curve
              Attribute("connection_type", type: .string, optional: true),

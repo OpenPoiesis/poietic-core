@@ -144,12 +144,6 @@ public protocol GraphProtocol {
     ///
     func incoming(_ target: NodeID) -> [Edge]
     
-    /// Get a neighbourhood of a node where the edges match the neighbourhood
-    /// selector `selector`.
-    ///
-    func hood(_ nodeID: NodeID,
-              direction: EdgeDirection,
-              where edgeMatch: (Edge) -> Bool) -> Neighborhood<Self>
 }
 
 extension GraphProtocol where Node: Identifiable<NodeID> {
@@ -172,24 +166,6 @@ extension GraphProtocol {
     
     public func incoming(_ target: NodeID) -> [Edge] {
         return self.edges.filter { $0.target == target }
-    }
-    
-    public func hood(_ nodeID: NodeID,
-                     direction: EdgeDirection,
-                     where edgeMatch: (Edge) -> Bool) -> Neighborhood<Self> {
-        let edges: [Edge]
-        switch direction {
-        case .incoming: edges = incoming(nodeID)
-        case .outgoing: edges = outgoing(nodeID)
-        }
-        let filtered: [Edge] = edges.filter {
-            edgeMatch($0)
-        }
-        
-        return Neighborhood(graph: self,
-                            nodeID: nodeID,
-                            direction: direction,
-                            edges: filtered)
     }
 }
 

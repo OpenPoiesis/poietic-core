@@ -5,6 +5,31 @@
 //  Created by Stefan Urbanek on 20/02/2025.
 //
 
+/// Designation of which direction of an edge from a node projection perspective
+/// is to be considered.
+///
+public enum EdgeDirection: Sendable, CustomStringConvertible {
+    /// Direction that considers edges where the node projection is the target.
+    case incoming
+    /// Direction that considers edges where the node projection is the origin.
+    case outgoing
+    
+    /// Reversed direction. For ``incoming`` reversed is ``outgoing`` and
+    /// vice-versa.
+    ///
+    public var reversed: EdgeDirection {
+        switch self {
+        case .incoming: return .outgoing
+        case .outgoing: return .incoming
+        }
+    }
+    public var description: String {
+        switch self {
+        case .incoming: "incoming"
+        case .outgoing: "outgoing"
+        }
+    }
+}
 
 public enum EdgeRuleViolation: Error, CustomStringConvertible, DesignIssueConvertible {
     case edgeNotAllowed
