@@ -8,46 +8,6 @@
 import Testing
 @testable import PoieticCore
 
-fileprivate struct CustomNameComponent: Equatable {
-    var name: String
-    
-    init() { self.name = "unnamed" }
-    init(name: String) { self.name = name }
-    
-    public func attribute(forKey key: AttributeKey) -> Variant? {
-        switch key {
-        case "name": return Variant(name)
-        default: return nil
-        }
-    }
-    
-    public mutating func setAttribute(value: Variant,
-                                      forKey key: AttributeKey) throws {
-        fatalError("\(#function) is not supposed to be called")
-    }
-}
-
-fileprivate struct NonStringNameComponent: Equatable {
-    var name: Int
-    
-    init() { self.name = 0 }
-    init(name: Int) { self.name = name }
-    
-    public func attribute(forKey key: AttributeKey) -> Variant? {
-        switch key {
-        case "name": return Variant(name)
-        default: return nil
-        }
-    }
-    
-    public mutating func setAttribute(value: Variant,
-                                      forKey key: AttributeKey) throws {
-        fatalError("\(#function) is not supposed to be called")
-    }
-}
-
-
-
 @Suite struct ObjectTests {
     @Test func emtpyName() throws {
         let object = DesignObject(id: ObjectID(1), snapshotID: ObjectID(1), type: TestType)

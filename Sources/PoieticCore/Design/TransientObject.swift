@@ -6,9 +6,7 @@
 //
 
 
-// FIXME: [REFACTORING] Remove this
-// TODO: Find a better home
-// TODO: Use some special pattern, such as "__" prefix or "%"
+// FIXME: Remove this
 /// List of attribute names that are reserved and should not be used.
 ///
 public let ReservedAttributeNames = [
@@ -30,7 +28,13 @@ public class MutableObject: ObjectSnapshot {
     @usableFromInline
     package var _body: _ObjectBody
     public var components: ComponentSet
+    
+    public private(set) var hierarchyChanged: Bool
+    public private(set) var changedAttributes: Set<String>
+    public private(set) var original: DesignObject?
 
+    var hasChanges: Bool { !changedAttributes.isEmpty && hierarchyChanged }
+    
     public init(id: ObjectID,
                 snapshotID: SnapshotID,
                 type: ObjectType,
@@ -51,11 +55,21 @@ public class MutableObject: ObjectSnapshot {
                                  children: children,
                                  attributes: attributes)
         self.components = ComponentSet(components)
+        self.changedAttributes = Set()
+        self.hierarchyChanged = false
     }
 
-    init(body: _ObjectBody, components: ComponentSet) {
-        self._body = body
-        self.components = components
+    init(original: DesignObject, snapshotID: SnapshotID) {
+        self._body = _ObjectBody(id: original.id,
+                                 snapshotID: snapshotID,
+                                 type: original.type,
+                                 structure: original.structure,
+                                 parent: original.parent,
+                                 children: Array(original.children),
+                                 attributes: original.attributes)
+        self.components = original.components
+        self.changedAttributes = Set()
+        self.hierarchyChanged = false
     }
    
     @inlinable public var id: ObjectID { _body.id }
@@ -66,10 +80,15 @@ public class MutableObject: ObjectSnapshot {
         set(structure) { _body.structure = structure }
         
     }
-    @inlinable public var parent: ObjectID? {
+    
+    public var parent: ObjectID? {
         get { _body.parent }
-        set(parent) { _body.parent = parent }
+        set(parent) {
+            hierarchyChanged = true
+            _body.parent = parent
+        }
     }
+    
     @inlinable public var children: ChildrenSet { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
@@ -86,8 +105,6 @@ public class MutableObject: ObjectSnapshot {
     ///
     /// Other keys are searched in the list of object's components. The
     /// first value found in the list of the components is returned.
-    ///
-    /// - SeeAlso: ``InspectableComponent/attribute(forKey:)``
     ///
     @inlinable
     public func attribute(forKey key: String) -> Variant? {
@@ -127,6 +144,7 @@ public class MutableObject: ObjectSnapshot {
         precondition(ReservedAttributeNames.firstIndex(of: "key") == nil,
                      "Trying to set a reserved read-only attribute '\(key)'")
         _body.attributes[key] = value
+        changedAttributes.insert(key)
     }
     
     public func removeAttribute(forKey key: String) {
@@ -142,9 +160,11 @@ public class MutableObject: ObjectSnapshot {
         }
     }
     public func removeChild(_ child: ObjectID) {
+        hierarchyChanged = true
         _body.children.remove(child)
     }
     public func addChild(_ child: ObjectID) {
+        hierarchyChanged = true
         _body.children.add(child)
     }
 

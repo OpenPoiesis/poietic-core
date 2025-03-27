@@ -110,6 +110,8 @@ public final class ForeignFrameLoader {
         
         // 2. Instantiate objects
         //
+        var parents: [(ObjectID, ObjectID)] = []
+        
         for (index, foreignObject) in foreignObjects.enumerated() {
             let (id, snapshotID) = ids[index]
             
@@ -159,11 +161,19 @@ public final class ForeignFrameLoader {
                                         id: id,
                                         snapshotID: snapshotID,
                                         structure: structure,
-                                        parent: parent,
                                         attributes: attributes)
+            if let parent {
+                parents.append((id, parent))
+            }
             
             snapshots.append(snapshot)
         }
+        
+        // 3. Update parents
+        for (id, parent) in parents {
+            frame.addChild(id, to: parent)
+        }
+        
     }
     
     /// Try to resolved a foreign object reference.

@@ -205,43 +205,4 @@ final class MakeshiftStoreTests: XCTestCase {
             }
         }
     }
-
-    // MARK: Save tests
-    //
-    /**
-    Creates a URL for a temporary file on disk. Registers a teardown block to
-    delete a file at that URL (if one exists) during test teardown.
-    */
-    func temporaryFileURL() -> URL {
-        let fm = FileManager()
-        // Create a URL for an unique file in the system's temporary directory.
-        let directory = fm.temporaryDirectory.path
-        let filename = UUID().uuidString
-        let fileURL = URL(fileURLWithPath: directory).appendingPathComponent(filename)
-        
-        // Add a teardown block to delete any file at `fileURL`.
-        addTeardownBlock {
-            do {
-                let fileManager = FileManager.default
-                // Check that the file exists before trying to delete it.
-                if fileManager.fileExists(atPath: fileURL.path) {
-                    // Perform the deletion.
-                    try fileManager.removeItem(at: fileURL)
-                    // Verify that the file no longer exists after the deletion.
-                    XCTAssertFalse(fileManager.fileExists(atPath: fileURL.path))
-                }
-            } catch {
-                // Treat any errors during file deletion as a test failure.
-                XCTFail("Error while deleting temporary file: \(error)")
-            }
-        }
-        
-        // Return the temporary file URL for use in a test method.
-        return fileURL
-    }
-
-    func testCreateEmpty() throws {
-//        let store = try MakeshiftDesignStore(url: temporaryFileURL())
-    }
-    
 }

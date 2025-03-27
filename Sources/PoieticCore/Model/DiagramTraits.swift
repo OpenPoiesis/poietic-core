@@ -31,7 +31,7 @@ extension Trait {
         attributes: [
             // types: default(for type), line, orthogonal, curve
              Attribute("connection_type", type: .string, optional: true),
-             Attribute("mid_points", type: .points, optional: true),
+             Attribute("midpoints", type: .points, optional: true),
         ]
     )
 }

@@ -169,12 +169,47 @@ public final class TransientFrame: Frame {
     ///
     /// This is a subset of ``originalIDs``.
     ///
-    public internal(set) var removedObjects: Set<ObjectID> = Set()
-    
-    public var changedObjects: [ObjectID] {
+    public var removedObjects: [ObjectID] { Array(_removedObjects.keys) }
+
+    var _removedObjects: [ObjectID:DesignObject]
+
+    /// List of object types that have been added, removed or mutated.
+    ///
+    public var touchedTypes: [ObjectType] {
+        var map:[ObjectIdentifier:ObjectType] = [:]
+        for object in mutableObjects {
+            map[ObjectIdentifier(object.type)] = object.type
+        }
+        for object in _removedObjects.values {
+            map[ObjectIdentifier(object.type)] = object.type
+        }
+        return Array(map.values)
+    }
+
+    /// List of traits that have been added, removed or mutated.
+    ///
+    public var touchedTraits: [Trait] {
+        var map:[ObjectIdentifier:Trait] = [:]
+        for object in mutableObjects {
+            for attr in object.changedAttributes {
+                guard let trait = object.type.trait(forAttribute: attr) else {
+                    continue
+                }
+                map[ObjectIdentifier(trait)] = trait
+            }
+        }
+        for object in _removedObjects.values {
+            for trait in object.type.traits {
+                map[ObjectIdentifier(trait)] = trait
+                }
+        }
+        return Array(map.values)
+    }
+
+    public var mutableObjects: [MutableObject] {
         objects.values.compactMap { ref in
             switch ref {
-            case .mutable(let obj): obj.id
+            case .mutable(let obj): obj
             case .stable(_): nil
             }
         }
@@ -219,8 +254,16 @@ public final class TransientFrame: Frame {
     
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
-        (!removedObjects.isEmpty
-         || objects.values.contains(where: {$0.isMutable} ) )
+        guard removedObjects.isEmpty else { return true }
+        for object in objects.values {
+            guard case let .mutable(mutObject) = object else {
+                continue
+            }
+            if mutObject.original == nil || mutObject.hasChanges {
+                return true
+            }
+        }
+        return false
     }
     
     /// Create a new mutable frame.
@@ -247,6 +290,7 @@ public final class TransientFrame: Frame {
         self.id = id
         self.objects = [:]
         self.snapshotIDs = Set()
+        self._removedObjects = [:]
         var originals: Set<ObjectID> = Set()
         
         if let snapshots {
@@ -346,7 +390,7 @@ public final class TransientFrame: Frame {
         
         self.objects[actualID] = .mutable(snapshot)
         self.snapshotIDs.insert(actualSnapshotID)
-        self.removedObjects.remove(actualID)
+        self._removedObjects[actualID] = nil
         
         return snapshot
     }
@@ -420,7 +464,7 @@ public final class TransientFrame: Frame {
         snapshotIDs.insert(snapshot.snapshotID)
         
         if originalIDs.contains(snapshot.id) {
-            removedObjects.remove(snapshot.id)
+            _removedObjects[snapshot.id] = nil
         }
     }
     
@@ -459,7 +503,7 @@ public final class TransientFrame: Frame {
             snapshotIDs.remove(garbage.snapshotID)
             
             if originalIDs.contains(garbage.id) {
-                removedObjects.insert(garbage.id)
+                _removedObjects[garbage.id] = garbage
             }
             
             removed.insert(garbageID)
@@ -591,14 +635,7 @@ public final class TransientFrame: Frame {
             return snapshot
         case .stable(let original):
             let derivedSnapshotID: SnapshotID = design.allocateID()
-            let derived = MutableObject(id: original.id,
-                                        snapshotID: derivedSnapshotID,
-                                        type: original.type,
-                                        structure: original.structure,
-                                        parent: original.parent,
-                                        children: original.children.items,
-                                        attributes: original.attributes,
-                                        components: original.components.components)
+            let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
             
             self.objects[id] = .mutable(derived)
             self.snapshotIDs.remove(original.snapshotID)

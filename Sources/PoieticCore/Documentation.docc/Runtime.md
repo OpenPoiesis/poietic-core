@@ -15,7 +15,6 @@ state.
 - ``RuntimeContext``
 - ``RuntimeSystem``
 - ``Component``
-- ``InspectableComponent``
 - ``ComponentSet``
 - ``IssueListComponent``
 - ``OrderedSet``

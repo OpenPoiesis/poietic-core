@@ -70,6 +70,9 @@ public typealias SnapshotID = ObjectID
 ///
 public typealias FrameID = ObjectID
 
+/// Type for object attribute key.
+public typealias AttributeKey = String
+
 /// A version of a design object.
 ///
 /// Design objects are the main entities of the design. Each object can have
@@ -96,7 +99,7 @@ public typealias FrameID = ObjectID
 /// ``structure`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
-public protocol ObjectSnapshot: KeyedAttributes, Identifiable where ID == ObjectID {
+public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     /// Primary object identity.
     ///
     /// The object ID defines the main identity of an object within a design.

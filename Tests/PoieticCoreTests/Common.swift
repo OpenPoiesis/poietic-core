@@ -25,12 +25,6 @@ let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
                           structuralType: .unstructured,
                           traits: [TestTraitWithDefault])
 
-let TestTrait = Trait(
-    name: "Test",
-    attributes: [
-        Attribute("text", type: .string)
-    ]
-)
 let TestTraitNoDefault = Trait(
     name: "Test",
     attributes: [

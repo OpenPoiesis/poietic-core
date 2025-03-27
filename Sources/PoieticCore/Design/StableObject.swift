@@ -183,8 +183,6 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     /// Other keys are searched in the list of object's components. The
     /// first value found in the list of the components is returned.
     ///
-    /// - SeeAlso: ``InspectableComponent/attribute(forKey:)``
-    ///
     @inlinable
     public func attribute(forKey key: String) -> Variant? {
         switch key {

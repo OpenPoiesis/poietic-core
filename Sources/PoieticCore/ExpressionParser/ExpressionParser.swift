@@ -44,16 +44,6 @@ public class ExpressionParser {
         self.init(lexer: ExpressionLexer(string: string))
     }
     
-    /// True if the parser is at the end of the source.
-    var atEnd: Bool {
-        if let token = currentToken {
-            return token.type == .empty
-        }
-        else {
-            return true
-        }
-    }
-    
     /// Advance to the next token.
     ///
     func advance() {

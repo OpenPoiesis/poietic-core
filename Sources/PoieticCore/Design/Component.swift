@@ -19,61 +19,6 @@
 public protocol Component {
 }
 
-
-/// Protocol for components where attributes can be inspected by their names.
-///
-/// User data contained in the component is provided to the user's world through
-/// public attributes that are advertised through ``trait`` that the component
-/// adopts.
-///
-/// Component attributes can be retrieved and set by their name, using
-/// ``InspectableComponent/attribute(forKey:)``
-/// and ``InspectableComponent/setAttribute(value:forKey:)`` respectively.
-/// This interface is for unified modification of the component attributes from
-/// a foreign source, such as foreign data or a script.
-///
-/// Component attribute names share the same name-space within an object.
-/// There must not be multiple components having an attribute with the same
-/// name in an object.
-///
-public protocol InspectableComponent: Component, MutableKeyedAttributes {
-    /// Trait that the component represents.
-    ///
-    static var trait: Trait { get }
-    
-    /// Get an attribute value by its name.
-    ///
-    /// Components should provide values for all user entered attributes so
-    /// that they can be used in interchange or persistence. Moreover, the
-    /// component must be able to recreate its instance using the
-    /// attributes provided through this function.
-    ///
-    /// Derived attributes do not have to be provided through this interface,
-    /// however they might be provided for convenience, debugging or other
-    /// inspection purposes.
-    ///
-    /// - SeeAlso: ``setAttribute(value:forKey:)``
-    ///
-    func attribute(forKey key: AttributeKey) -> Variant?
-
-    
-    /// Set an attribute by its name.
-    ///
-    /// This function sets an attribute value, typically from a foreign source.
-    /// The function should try to convert the value provided
-    ///
-    /// - Note: The component should accept older attribute keys, if sensible
-    ///   and possible. There is no feedback mechanism yet, but it might be
-    ///   likely included in the future.
-    ///
-    /// - Throws: ``ValueError`` if the value provided is of a type that can not
-    ///   be converted meaningfully to the attribute.
-    ///
-    /// - SeeAlso: ``attribute(forKey:)``
-    ///
-    mutating func setAttribute(value: Variant, forKey key: AttributeKey) throws
-}
-
 /// Collection of components of an object.
 ///
 /// - Note: This is a naive implementation. Purpose is rather semantic,

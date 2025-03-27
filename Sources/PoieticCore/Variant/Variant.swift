@@ -356,30 +356,6 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
         }
     }
 
-    // Note: Do not make public. We do not want users to store IDs in unmanaged way.
-    func IDValue() throws (ValueError) -> ObjectID {
-        switch self {
-        case .atom(let value): return try value.IDValue()
-        case .array(_):
-            throw ValueError.conversionToIDFailed(self.valueType)
-        }
-
-    }
-    // Note: Do not make public. We do not want users to store IDs in unmanaged way.
-    func IDArray() throws (ValueError) -> [ObjectID] {
-        switch self {
-        case .atom(_):
-            throw ValueError.conversionToIDFailed(self.valueType)
-        case .array(let array):
-            var items: [ObjectID] = []
-            for item in array.items {
-                items.append(try item.IDValue())
-            }
-            return items
-        }
-    }
-
-    
     /// Converts the variant into a list of integers.
     ///
     /// All elements of the list must be an integer.

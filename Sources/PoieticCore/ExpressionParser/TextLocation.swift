@@ -16,13 +16,13 @@ public struct TextLocation: CustomStringConvertible, Equatable, Sendable {
     // now.
     
     /// Line number in human representation, starting with 1.
-    var line: Int = 1
+    public var line: Int = 1
     
     /// Column number in human representation, starting with 1 for the
     /// leftmost column.
-    var column: Int = 1
+    public var column: Int = 1
 
-    var index: String.Index
+    public var index: String.Index
     
     public init(line: Int, column: Int, index: String.Index) {
         self.line = line
