@@ -268,4 +268,19 @@ import Testing
                     && violation.objects.contains(b.id)
         }
     }
+
+    @Test func removeFrameRemovesFromHistory() throws {
+        let frame = design.createFrame()
+        try design.accept(frame)
+        try design.accept(design.createFrame())
+        try design.accept(design.createFrame())
+        
+        // Sanity first
+        #expect(design.undoableFrames.count == 2)
+        #expect(design.undoableFrames.contains(frame.id))
+        
+        design.removeFrame(frame.id)
+        #expect(design.undoableFrames.count == 1)
+        #expect(!design.undoableFrames.contains(frame.id))
+    }
 }

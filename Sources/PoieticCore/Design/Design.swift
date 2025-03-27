@@ -316,6 +316,9 @@ public class Design {
             for object in frame.snapshots {
                 _release(object.snapshotID)
             }
+            
+            undoableFrames.removeAll { $0 == id }
+            redoableFrames.removeAll { $0 == id }
         }
         else if _transientFrames[id] != nil {
             _transientFrames[id] = nil
