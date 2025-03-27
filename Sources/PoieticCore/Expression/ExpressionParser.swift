@@ -5,6 +5,114 @@
 //  Created by Stefan Urbanek on 27/05/2022.
 //
 
+/// Error thrown by the expression language parser.
+///
+public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
+    case invalidCharacterInNumber
+    case numberExpected
+    case unexpectedCharacter
+    case missingRightParenthesis
+    case expressionExpected
+    case unexpectedToken
+    
+    public var description: String {
+        switch self {
+        case .invalidCharacterInNumber: "Invalid character in a number"
+        case .numberExpected: "Expected a number"
+        case .unexpectedCharacter: "Unexpected character"
+        case .missingRightParenthesis: "Right parenthesis ')' expected"
+        case .expressionExpected: "Expected expression"
+        case .unexpectedToken: "Unexpected token"
+        }
+    }
+}
+
+/// Abstract syntax tree of arithmetic expression.
+///
+public indirect enum ExpressionAST {
+    case intLiteral(ExpressionToken)
+    case doubleLiteral(ExpressionToken)
+    case variable(ExpressionToken)
+    case functionArgument(argument: ExpressionAST, comma: ExpressionToken?)
+    case functionCall(name: ExpressionToken, arguments: [ExpressionAST], openParen: ExpressionToken, closeParen: ExpressionToken)
+    case unaryOperator(operator: ExpressionToken, operand: ExpressionAST)
+    case binaryOperator(operator: ExpressionToken, left: ExpressionAST, right: ExpressionAST)
+    case parenthesis(expression: ExpressionAST, openParen: ExpressionToken, closeParen: ExpressionToken)
+
+    /// Converts an expression syntax node into an unbound arithmetic
+    /// expression.
+    ///
+    /// - SeeAlso: ``UnboundExpression``
+    ///
+    public func toExpression() -> UnboundExpression {
+        switch self {
+        case let .intLiteral(token):
+            var sanitizedNumber = token.text
+            sanitizedNumber.removeAll { $0 == "_" }
+            guard let value = Int(sanitizedNumber) else {
+                fatalError("Lexer error: invalid int token")
+            }
+            return .value(Variant(value))
+
+        case let .doubleLiteral(token):
+            var sanitizedNumber = token.text
+            sanitizedNumber.removeAll { $0 == "_" }
+            guard let value = Double(sanitizedNumber) else {
+                fatalError("Lexer error: invalid double token")
+            }
+            return .value(Variant(value))
+
+        case let .variable(token):
+            return .variable(String(token.text))
+
+        case let .unaryOperator(op, operand):
+            return .unary(String(op.text), operand.toExpression())
+
+        case let .binaryOperator(operator: op, left: left, right: right):
+            return .binary(String(op.text), left.toExpression(), right.toExpression())
+
+        case let .functionCall(name: name, arguments: args, _, _):
+            let expressions = args.map {
+                $0.toExpression()
+            }
+            return .function(String(name.text), expressions)
+
+        case let .parenthesis(expression: expr, _, _):
+            return expr.toExpression()
+
+        case .functionArgument(argument: let argument, _):
+            return argument.toExpression()
+        }
+    }
+    
+    public var fullText: String {
+        switch self {
+        case let .intLiteral(token):
+            return token.text
+        case let .doubleLiteral(token):
+            return token.text
+        case let .variable(token):
+            return token.text
+        case let .functionArgument(argument: argument, comma: comma):
+            if let comma {
+                return argument.fullText + comma.text
+            }
+            else {
+                return argument.fullText
+            }
+        case let .functionCall(name: name, arguments: arguments, openParen: openParen, closeParen: closeParen):
+            return name.text + openParen.text + arguments.map(\.fullText).joined() + closeParen.text
+        case let .unaryOperator(operator: op, operand: operand):
+            return op.text + operand.fullText
+        case let .binaryOperator(operator: op, left: left, right: right):
+            return left.fullText + op.text + right.fullText
+        case let .parenthesis(expression: expression, openParen: openParen, closeParen: closeParen):
+            return openParen.text + expression.fullText + closeParen.text
+        }
+    }
+
+}
+
 // https://craftinginterpreters.com/parsing-expressions.html
 // https://stackoverflow.com/questions/2245962/writing-a-parser-like-flex-bison-that-is-usable-on-8-bit-embedded-systems/2336769#2336769
 

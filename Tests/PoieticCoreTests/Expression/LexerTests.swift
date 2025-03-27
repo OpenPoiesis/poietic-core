@@ -229,7 +229,6 @@ import Testing
         let token = lexer.next()
         #expect(token.type == .empty)
         #expect(token.text == "")
-        #expect(token.fullText == "   ")
     }
     
     @Test func trailingTrivia() throws {
@@ -237,23 +236,6 @@ import Testing
         let token = lexer.next()
         #expect(token.type == .identifier)
         #expect(token.text == "thing")
-        #expect(token.trailingTrivia == "   ")
     }
-    
-    @Test func trailingTriviaComment() throws {
-        var lexer = ExpressionLexer(string: "thing   # This\nThat")
-        let token = lexer.next()
-        #expect(token.type == .identifier)
-        #expect(token.text == "thing")
-        #expect(token.trailingTrivia == "   # This")
-    }
-    @Test func leadingTriviaComment() throws {
-        var lexer = ExpressionLexer(string: "# Comment\nthing")
-        let token = lexer.next()
-        #expect(token.type == .identifier)
-        #expect(token.text == "thing")
-        #expect(token.leadingTrivia == "# Comment\n")
-    }
-
 }
 

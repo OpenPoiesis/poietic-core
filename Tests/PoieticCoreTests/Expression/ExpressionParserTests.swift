@@ -140,6 +140,6 @@ import Testing
         let parser = ExpressionParser(string: text)
         let result = try #require(try parser.expression(),
                                   "Expected valid expression to be parsed")
-        #expect(text == result.fullText)
+        #expect(result.fullText == "-(a+b)*f(c,d,100_000)")
     }
 }
