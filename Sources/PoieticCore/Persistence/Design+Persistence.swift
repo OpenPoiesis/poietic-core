@@ -59,11 +59,13 @@ struct _PersistentDesign: Codable {
     let snapshots: [_PersistentSnapshot]
     let frames: [_PersistentFrame]
     let state: _PersistentDesignState
+    let namedFrames: [String:ObjectID]?
     enum CodingKeys: String, CodingKey {
         case storeFormatVersion = "store_format_version"
         case metamodel
         case snapshots
         case frames
         case state
+        case namedFrames = "named_frames"
     }
 }

@@ -40,6 +40,7 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     case extraneousStructuralProperty(StructuralType, String)
     case missingStructuralProperty(StructuralType, String)
     case duplicateFrame(ObjectID)
+    case illegalFrameAssignment(ObjectID)
     case invalidSnapshotReference(ObjectID, ObjectID)
     case frameValidationFailed(ObjectID)
     case currentFrameIDNotSet
@@ -88,6 +89,8 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
             "Duplicate snapshot \(id)"
         case let .duplicateFrame(id):
             "Duplicate frame \(id)"
+        case let .illegalFrameAssignment(id):
+            "Illegal assignment of frame \(id)"
         case let .invalidSnapshotReference(owner, ref):
             "Invalid snapshot reference \(ref) in \(owner)"
         case let .missingStructuralProperty(type, property):

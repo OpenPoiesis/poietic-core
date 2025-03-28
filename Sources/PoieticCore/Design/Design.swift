@@ -5,6 +5,14 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
+// DEVELOPMENT NOTE:
+//
+// If adding functionality to Design, make sure that the functionality is
+// implementable, and preferably implemented in the poietic-design command-line
+// tool. We want to maintain parity between what programmers can do and what
+// (expert) users can do without access to the development environment.
+//
+
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
@@ -69,6 +77,12 @@
 /// ``discard(_:)``. Discarded frame and its derived object will be removed from
 /// the design.
 ///
+/// ## Named Frames
+///
+/// Named frames are used to store design-wide, non-versioned content. For example, application
+/// state such as current view position. Named frames can not be included in the undo/redo history.
+///
+///
 /// ## Archiving
 ///
 /// The design can be archived (in the future incrementally synchronised)
@@ -113,6 +127,9 @@ public class Design {
     var _refCount: [SnapshotID:Int]
     var _stableFrames: [FrameID: DesignFrame]
 
+    var _namedFrames: [String: DesignFrame]
+    public var namedFrames: [String: DesignFrame] { _namedFrames }
+    
     var _transientFrames: [FrameID: TransientFrame]
     
     /// Chronological list of frame IDs.
@@ -172,6 +189,7 @@ public class Design {
         self._transientFrames = [:]
         self._snapshots = [:]
         self._refCount = [:]
+        self._namedFrames = [:]
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
@@ -252,6 +270,17 @@ public class Design {
         return _stableFrames[id]
     }
     
+    /// Get a frame from the list of named frames.
+    ///
+    /// See the discussion in the ``Design`` about named frames.
+    ///
+    /// - SeeAlso: ``accept(_:replacingName:)``
+    ///
+    public func frame(name: String) -> DesignFrame? {
+        return _namedFrames[name]
+    }
+
+    
     /// Test whether the design contains a stable frame with given ID.
     ///
     public func containsFrame(_ id: FrameID) -> Bool {
@@ -319,6 +348,14 @@ public class Design {
             
             undoableFrames.removeAll { $0 == id }
             redoableFrames.removeAll { $0 == id }
+            
+            let removeKeys = _namedFrames.compactMap {
+                if $0.value.id == id { $0.key }
+                else { nil}
+            }
+            for key in removeKeys {
+                _namedFrames[key] = nil
+            }
         }
         else if _transientFrames[id] != nil {
             _transientFrames[id] = nil
@@ -399,6 +436,59 @@ public class Design {
     ///
     @discardableResult
     public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (StructuralIntegrityError) -> DesignFrame {
+        let stableFrame = try _accept(frame)
+
+        if appendHistory {
+            if let currentFrameID {
+                undoableFrames.append(currentFrameID)
+            }
+            for id in redoableFrames {
+                removeFrame(id)
+            }
+            redoableFrames.removeAll()
+        }
+        currentFrameID = frame.id
+
+        return stableFrame
+    }
+
+    /// Accept a frame as a named frame, replacing the previous frame with the same name.
+    ///
+    /// Example:
+    ///
+    /// ```swift
+    /// let original = design.frame(name: "settings")
+    /// let trans = design.createFrame(deriving: original)
+    /// let settings: MutableObject
+    ///
+    /// if let obj = trans.first(type: .DiagramSettings) {
+    ///    settings = trans.mutate(obj.id)
+    /// }
+    /// else {
+    ///    settings = trans.create(.DiagramSettings)
+    /// }
+    ///
+    /// settings["view_position"] = Variant(Point(100, 100))
+    /// settings["view_zoom"] = Variant(2.0)
+    ///
+    /// try design.accept(trans, replacingName: "settings")
+    /// ```
+    ///
+    /// - SeeAlso: ``frame(name:)``
+    ///
+    @discardableResult
+    public func accept(_ frame: TransientFrame, replacingName name: String) throws (StructuralIntegrityError) -> DesignFrame {
+        let old = _namedFrames[name]
+        let stable = try _accept(frame)
+
+        if let old {
+            removeFrame(old.id)
+        }
+        _namedFrames[name] = stable
+        return stable
+    }
+
+    internal func _accept(_ frame: TransientFrame) throws (StructuralIntegrityError) -> DesignFrame {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(_stableFrames[frame.id] == nil,
@@ -419,19 +509,9 @@ public class Design {
             _insertOrRetain(snapshot)
         }
 
-        if appendHistory {
-            if let currentFrameID {
-                undoableFrames.append(currentFrameID)
-            }
-            for id in redoableFrames {
-                removeFrame(id)
-            }
-            redoableFrames.removeAll()
-        }
-        currentFrameID = frame.id
-
         return stableFrame
     }
+
     
     @discardableResult
     public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {

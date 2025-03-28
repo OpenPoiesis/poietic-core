@@ -44,9 +44,9 @@ import Testing
         let frame = design.createFrame()
         let a = frame.create(TestType)
         let b = frame.create(TestType)
-
+        
         #expect(design.versionHistory.count == 0)
-
+        
         try design.accept(frame)
         
         #expect(design.versionHistory == [frame.id])
@@ -67,14 +67,14 @@ import Testing
         #expect(design.versionHistory.isEmpty)
         #expect(frame.state == .discarded)
     }
-
+    
     @Test func removeFrame() throws {
         let frame = design.createFrame()
         let a = frame.create(TestType)
-
+        
         try design.accept(frame)
         #expect(design.snapshot(a.snapshotID) != nil)
-
+        
         design.removeFrame(frame.id)
         #expect(!design.containsFrame(frame.id))
         #expect(design.snapshot(a.snapshotID) == nil)
@@ -90,7 +90,7 @@ import Testing
         
         let removalFrame = design.createFrame(deriving: design.currentFrame)
         #expect(design.currentFrame!.contains(a.id))
-
+        
         removalFrame.removeCascading(a.id)
         #expect(removalFrame.hasChanges)
         #expect(!removalFrame.contains(a.id))
@@ -98,9 +98,9 @@ import Testing
         try design.accept(removalFrame)
         #expect(design.currentFrame!.id == removalFrame.id)
         #expect(!design.currentFrame!.contains(a.id))
-
+        
         #expect(design.snapshot(a.snapshotID) != nil)
-
+        
         let original2 = design.frame(originalVersion!)!
         #expect(original2.contains(a.id))
     }
@@ -180,20 +180,20 @@ import Testing
         #expect(design.currentFrame!.contains(a.id))
         #expect(!design.currentFrame!.contains(b.id))
     }
-   
+    
     @Test func undoRedoNoArgument() throws {
         #expect(!design.canUndo)
         #expect(!design.canRedo)
         #expect(!design.undo())
         #expect(!design.redo())
         try design.accept(design.createFrame())
-
+        
         // Still can not undo, we have only one frame.
         #expect(!design.canUndo)
         #expect(!design.canRedo)
         #expect(!design.undo())
         #expect(!design.redo())
-
+        
         try #require(design.currentFrameID != nil)
         
         let originalID = design.currentFrameID!
@@ -202,18 +202,18 @@ import Testing
         
         #expect(design.canUndo)
         #expect(!design.canRedo)
-
+        
         #expect(design.undo())
         #expect(!design.undo())
-
+        
         #expect(design.currentFrameID == originalID)
         
         #expect(!design.canUndo)
         #expect(design.canRedo)
-
+        
         #expect(design.redo())
         #expect(!design.redo())
-
+        
         #expect(design.canUndo)
         #expect(!design.canRedo)
     }
@@ -234,7 +234,7 @@ import Testing
         
         #expect(!design.currentFrame!.contains(discardedObject.id))
         #expect(design.currentFrame!.contains(b.id))
-
+        
         #expect(design.currentFrameID == frame2.id)
         #expect(design.versionHistory == [v0, frame2.id])
         #expect(design.undoableFrames == [v0])
@@ -261,14 +261,14 @@ import Testing
                                      "Error is not a FrameConstraintError")
             let violation = try #require(error.violations.first,
                                          "No constraint violation found")
-
+            
             return error.violations.count == 1
-                    && violation.objects.count == 2
-                    && violation.objects.contains(a.id)
-                    && violation.objects.contains(b.id)
+            && violation.objects.count == 2
+            && violation.objects.contains(a.id)
+            && violation.objects.contains(b.id)
         }
     }
-
+    
     @Test func removeFrameRemovesFromHistory() throws {
         let frame = design.createFrame()
         try design.accept(frame)
@@ -283,4 +283,33 @@ import Testing
         #expect(design.undoableFrames.count == 1)
         #expect(!design.undoableFrames.contains(frame.id))
     }
+    
+    @Test func acceptNamedFrame() throws {
+        let frame = design.createFrame()
+        try design.accept(frame, replacingName: "app")
+
+        #expect(design.containsFrame(frame.id))
+        #expect(!design.redoableFrames.contains(frame.id))
+        #expect(!design.undoableFrames.contains(frame.id))
+        #expect(design.frame(name: "app")?.id == frame.id)
+    }
+    @Test func acceptAndReplaceNamedFrame() throws {
+        let frameOld = design.createFrame()
+        try design.accept(frameOld, replacingName: "app")
+        let frame = design.createFrame()
+        try design.accept(frame, replacingName: "app")
+
+        #expect(!design.containsFrame(frameOld.id))
+        #expect(design.containsFrame(frame.id))
+        #expect(design.frame(name: "app")?.id == frame.id)
+    }
+    
+    @Test func removeNamedFrame() throws {
+        let frame = design.createFrame()
+        try design.accept(frame, replacingName: "app")
+        design.removeFrame(frame.id)
+        
+        #expect(design.frame(name: "app")?.id == nil)
+    }
+
 }

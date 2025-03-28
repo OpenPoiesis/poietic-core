@@ -5,57 +5,42 @@
 //  Created by Stefan Urbanek on 30/04/2024.
 //
 
-import XCTest
+import Testing
 @testable import PoieticCore
 
 let TestFormatVersion = "0.0.4"
 
-final class MakeshiftStoreTests: XCTestCase {
+@Suite struct MakeshiftStoreTests {
     // MARK: Load tests
-    func testInvalidJSON() throws {
+    @Test func testInvalidJSON() throws {
         let data = "invalid".data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load()){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.dataCorrupted)
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+        #expect(throws: PersistentStoreError.dataCorrupted) {
+            try store.load()
         }
     }
-    func testRestoreNoFormatVersion() throws {
+    @Test func testRestoreNoFormatVersion() throws {
         let data = """
                    {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load()){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.missingProperty("store_format_version", []))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+        #expect(throws: PersistentStoreError.missingProperty("store_format_version", [])) {
+            try store.load()
         }
     }
-    func testMissingMetamodel() throws {
+    @Test func testMissingMetamodel() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)"
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load()){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.missingProperty("metamodel", []))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+        #expect(throws: PersistentStoreError.missingProperty("metamodel", [])) {
+            try store.load()
         }
     }
-    func testEmpty() throws {
+    @Test func testEmpty() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -66,10 +51,10 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertNoThrow(try store.load())
+        _ = try store.load()
     }
     
-    func testMalformedCollection() throws {
+    @Test func testMalformedCollection() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -80,17 +65,12 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load()){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.typeMismatch(["snapshots"]))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+        #expect(throws: PersistentStoreError.typeMismatch(["snapshots"])) {
+            try store.load()
         }
     }
     
-    func testUnknownObjectType() throws {
+    @Test func testUnknownObjectType() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -108,16 +88,13 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load()){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.unknownObjectType("BOO"))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+
+        #expect(throws: PersistentStoreError.unknownObjectType("BOO")) {
+            try store.load()
         }
+        
     }
-    func testUnknownStructuralType() throws {
+    @Test func testUnknownStructuralType() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -135,16 +112,12 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load(metamodel: TestMetamodel)){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.invalidStructuralType("boo"))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+
+        #expect(throws: PersistentStoreError.invalidStructuralType("boo")) {
+            try store.load(metamodel: TestMetamodel)
         }
     }
-    func testStructuralTypeMismatch() throws {
+    @Test func testStructuralTypeMismatch() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -162,16 +135,12 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load(metamodel: TestMetamodel)){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.structuralTypeMismatch(.node, .edge))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+
+        #expect(throws: PersistentStoreError.structuralTypeMismatch(.node, .edge)) {
+            try store.load(metamodel: TestMetamodel)
         }
     }
-    func testDuplicateSnapshot() throws {
+    @Test func testDuplicateSnapshot() throws {
         let data = """
                    {
                     "store_format_version": "\(TestFormatVersion)",
@@ -196,13 +165,41 @@ final class MakeshiftStoreTests: XCTestCase {
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-        XCTAssertThrowsError(try store.load(metamodel: TestMetamodel)){ error in
-            if let error = error as? PersistentStoreError {
-                XCTAssertEqual(error, PersistentStoreError.duplicateSnapshot(ObjectID(2)))
-            }
-            else {
-                XCTFail("Store error expected, got: \(error)")
-            }
+
+        #expect(throws: PersistentStoreError.duplicateSnapshot(ObjectID(2))) {
+            try store.load(metamodel: TestMetamodel)
+        }
+    }
+    
+    @Test func testNamedFrame() throws {
+        let data = """
+                   {
+                    "store_format_version": "\(TestFormatVersion)",
+                    "metamodel": "",
+                    "state": {"undoable_frames": [], "redoable_frames": []},
+                    "snapshots": [],
+                    "frames": [{"id": 100, "snapshots": []}],
+                    "named_frames": {"app": 100}
+                   }
+                   """.data(using:.utf8)!
+        let store = MakeshiftDesignStore(data: data)
+        let design = try store.load()
+        #expect(design.frame(name: "app")?.id == 100)
+    }
+    @Test func testNamedFrameUndoConflict() throws {
+        let data = """
+                   {
+                    "store_format_version": "\(TestFormatVersion)",
+                    "metamodel": "",
+                    "state": {"undoable_frames": [], "redoable_frames": [], "current_frame": 100},
+                    "snapshots": [],
+                    "frames": [{"id": 100, "snapshots": []}],
+                    "named_frames": {"app": 100}
+                   }
+                   """.data(using:.utf8)!
+        let store = MakeshiftDesignStore(data: data)
+        #expect(throws: PersistentStoreError.illegalFrameAssignment(ObjectID(100))) {
+            try store.load(metamodel: TestMetamodel)
         }
     }
 }

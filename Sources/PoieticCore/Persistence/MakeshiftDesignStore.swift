@@ -229,6 +229,24 @@ public class MakeshiftDesignStore {
             throw PersistentStoreError.currentFrameIDNotSet
         }
         design.currentFrameID = persistent.state.currentFrame
+        
+        var namedFrames: [String:DesignFrame] = [:]
+        if let named = persistent.namedFrames {
+            for (name, id) in named {
+                guard let frame = design.frame(id) else {
+                    throw PersistentStoreError.invalidFrameReference("named_frames.\(name)", id)
+                }
+                guard !design.undoableFrames.contains(id)
+                        && !design.redoableFrames.contains(id)
+                        && design.currentFrameID != id else {
+                    throw PersistentStoreError.illegalFrameAssignment(id)
+
+                }
+                namedFrames[name] = frame
+            }
+            design._namedFrames = namedFrames
+        }
+        
         return design
     }
     
@@ -241,7 +259,8 @@ public class MakeshiftDesignStore {
         }
         var snapshots: [_PersistentSnapshot] = []
         var frames: [_PersistentFrame] = []
-        
+        var namedFrames: [String:ObjectID] = [:]
+
         for snapshot in design.snapshots {
             let origin: ObjectID?
             let target: ObjectID?
@@ -272,6 +291,10 @@ public class MakeshiftDesignStore {
             frames.append(perFrame)
         }
         
+        for (key, value) in design._namedFrames {
+            namedFrames[key] = value.id
+        }
+        
         let state = _PersistentDesignState(currentFrame: design.currentFrameID,
                                            undoableFrames: design.undoableFrames,
                                            redoableFrames: design.redoableFrames)
@@ -280,7 +303,8 @@ public class MakeshiftDesignStore {
             metamodel: "DEFAULT",
             snapshots: snapshots,
             frames: frames,
-            state: state
+            state: state,
+            namedFrames: namedFrames
         )
         
         let encoder = JSONEncoder()
