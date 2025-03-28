@@ -34,6 +34,30 @@ extension Trait {
              Attribute("midpoints", type: .points, optional: true),
         ]
     )
+    /// Trait with view settings of a diagram.
+    ///
+    /// The trait can be used for objects as view bookmarks or as application view settings.
+    ///
+    public static let DiagramView = Trait(
+        name: "DiagramView",
+        attributes: [
+            Attribute("view_position", type: .double, optional: true),
+            Attribute("view_zoom", type: .double, optional: true),
+        ]
+    )
+
+}
+
+
+extension ObjectType {
+    public static let DiagramSettings = ObjectType(
+        name: "DiagramSettings",
+        structuralType: .unstructured,
+        traits: [
+            .DiagramView,
+        ]
+    )
+
 }
 
 extension ObjectSnapshot {

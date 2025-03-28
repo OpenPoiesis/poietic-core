@@ -77,7 +77,7 @@ public final class Trait: Sendable {
                 attributes: [Attribute] = [],
                 abstract: String? = nil) {
         self.name = name
-        self.label = label ?? name
+        self.label = label ?? name.titleCase()
         self.attributes = attributes
         self.abstract = abstract
     }
@@ -147,7 +147,7 @@ public final class Attribute: CustomStringConvertible, Sendable {
         self.type = type
         self.optional = optional
         self.defaultValue = defaultValue
-        self.label = label ?? name
+        self.label = label ?? name.titleCase()
         self.abstract = abstract
     }
     

@@ -80,7 +80,7 @@ public final class ObjectType: Sendable {
                 traits: [Trait] = [],
                 abstract: String? = nil) {
         self.name = name
-        self.label = label ?? name
+        self.label = label ?? name.titleCase()
         self.structuralType = structuralType
         self.traits = traits
         self.abstract = abstract
