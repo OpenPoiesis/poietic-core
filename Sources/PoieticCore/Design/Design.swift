@@ -216,7 +216,7 @@ public class Design {
     public func allocateID(required: ObjectID? = nil) -> ObjectID {
         // TODO: Just use "usedIDs"
         if let id = required {
-            precondition(checkUnique(id), "Requested ID \(id) is not unique")
+            precondition(isUnused(id), "Requested ID \(id) is not unique")
             consumeID(id)
             return id
         }
@@ -234,7 +234,7 @@ public class Design {
     ///
     /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
     ///
-    public func checkUnique(_ id: ObjectID) -> Bool {
+    public func isUnused(_ id: ObjectID) -> Bool {
         return _snapshots[id] == nil
                 && _stableFrames[id] == nil
                 && _transientFrames[id] == nil

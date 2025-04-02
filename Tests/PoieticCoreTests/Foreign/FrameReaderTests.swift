@@ -93,7 +93,7 @@ import Testing
                    "objects": []
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
         #expect(frame.snapshots.count == 0)
         #expect(frame.removedObjects.count == 0)
@@ -106,7 +106,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         #expect(throws: FrameLoaderError.foreignObjectError(.propertyNotFound("type"), 0, nil)) {
             try loader.load(fframe, into: frame)
         }
@@ -119,7 +119,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         #expect(throws: FrameLoaderError.unknownObjectType("Invalid", 0, nil)) {
             try loader.load(fframe, into: frame)
         }
@@ -132,7 +132,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 1)
@@ -148,7 +148,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 1)
@@ -166,7 +166,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 1)
@@ -188,7 +188,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 1)
@@ -206,7 +206,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
         
-        let fframe = try #require(try reader.read(data: data_no_origin))
+        let fframe = try reader.read(data: data_no_origin)
         
         #expect(throws: FrameLoaderError.structureMismatch(.edge, 0, nil)) {
             try loader.load(fframe, into: frame)
@@ -234,7 +234,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data_no_origin))
+        let fframe = try reader.read(data: data_no_origin)
 
         #expect(throws: FrameLoaderError.invalidReference("origin", .string("unknown"), 0, nil)) {
             try loader.load(fframe, into: frame)
@@ -249,7 +249,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe2 = try #require(try reader.read(data: data_no_target))
+        let fframe2 = try reader.read(data: data_no_target)
 
         #expect(throws: FrameLoaderError.invalidReference("target", .string("unknown"), 0, nil)) {
             try loader.load(fframe2, into: frame)
@@ -264,7 +264,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data_extra_origin))
+        let fframe = try reader.read(data: data_extra_origin)
         #expect(throws: FrameLoaderError.structureMismatch(.unstructured, 0, nil)) {
             try loader.load(fframe, into: frame)
         }
@@ -276,7 +276,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe2 = try #require(try reader.read(data: data_extra_target))
+        let fframe2 = try reader.read(data: data_extra_target)
         #expect(throws: FrameLoaderError.structureMismatch(.node, 0, nil)) {
             try loader.load(fframe2, into: frame)
         }
@@ -292,7 +292,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 3)
@@ -316,7 +316,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        let fframe = try #require(try reader.read(data: data))
+        let fframe = try reader.read(data: data)
         try loader.load(fframe, into: frame)
 
         #expect(frame.snapshots.count == 4)

@@ -111,6 +111,7 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
     /// Identifier of the issue kind to be used for investigation, analogous to an error code.
     ///
     public let identifier: String
+    
     /// User-oriented message describing the issue.
     public let message: String
     /// Optional hint stating how the issue can be corrected or where to look for further

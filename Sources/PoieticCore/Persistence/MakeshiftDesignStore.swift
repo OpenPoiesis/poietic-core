@@ -107,7 +107,7 @@ public class MakeshiftDesignStore {
 
     
     func assertUniqueID(_ id: ObjectID, in design: Design, context: String) throws (PersistentStoreError) {
-        guard design.checkUnique(id) else {
+        guard design.isUnused(id) else {
             throw .duplicateID(id, context)
         }
         design.consumeID(id)

@@ -109,6 +109,13 @@ public final class ObjectType: Sendable {
     public func hasTrait(_ trait: Trait) -> Bool {
         traits.contains { $0 === trait }
     }
+
+    /// Returns `true` of the object type has a trait with given name.
+    ///
+    public func hasTrait(_ name: String) -> Bool {
+        traits.contains { $0.name == name }
+    }
+
     
     /// Returns `true` of the object type has a given attribute.
     ///
