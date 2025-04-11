@@ -242,6 +242,21 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
         }
     }
 
+    public var isFiniteNumber: Bool {
+        switch self {
+        case .atom(let value): value.isFiniteNumber
+        case .array(_): false
+        }
+    }
+
+    public var isZero: Bool {
+        switch self {
+        case .atom(let value): value.isZero
+        case .array(_): false
+        }
+    }
+
+    
     /// Try to get an int value from the variant. Convert if necessary.
     ///
     /// Any type of variant is attempted for conversion.

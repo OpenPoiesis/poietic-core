@@ -45,6 +45,8 @@ public struct DesignIssueCollection: Sendable {
 /// Representation of an issue in the design caused by the user.
 ///
 public struct DesignIssue: Sendable, CustomStringConvertible {
+    // TODO: Add priority/weight (to know which display first, or if only one is to be displayed)
+
     public enum Domain: Sendable, CustomStringConvertible {
         /// Issue occurred during validation.
         ///

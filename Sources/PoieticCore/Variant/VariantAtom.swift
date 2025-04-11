@@ -123,6 +123,26 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         }
     }
 
+    public var isFiniteNumber: Bool {
+        switch self {
+        case .int: true
+        case .double(let value): value.isFinite
+        case .string: false
+        case .bool: false
+        case .point: false
+        }
+    }
+
+    public var isZero: Bool {
+        switch self {
+        case .int(let value): value == 0
+        case .double(let value): value.isZero
+        case .string: false
+        case .bool: false
+        case .point: false
+        }
+    }
+
     public var valueType: AtomType {
         switch self {
         case .int: .int
