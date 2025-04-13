@@ -177,17 +177,19 @@ extension Metamodel {
     public static let Basic = Metamodel(
         name: "Basic",
         traits: [
-            Trait.Name,
-            Trait.DesignInfo,
-            Trait.Documentation,
-            Trait.AudienceLevel,
-            Trait.Keywords,
-            Trait.Note,
-            Trait.BibliographicalReference,
+            .Name,
+            .DesignInfo,
+            .Documentation,
+            .AudienceLevel,
+            .Keywords,
+            .Note,
+            .BibliographicalReference,
+            .DiagramView,
         ],
         types: [
-            ObjectType.DesignInfo,
-            ObjectType.Group,
+            .DiagramSettings,
+            .DesignInfo,
+            .Group,
         ],
         constraints: []
     )
