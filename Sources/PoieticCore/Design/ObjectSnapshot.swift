@@ -23,7 +23,7 @@ public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral
     // if we switch to UUID.
     var internalSequenceValue: UInt64 { _rawValue }
     
-    init(_ rawValue: UInt64) {
+    public init(_ rawValue: UInt64) {
         self._rawValue = rawValue
     }
     
