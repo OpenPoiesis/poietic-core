@@ -392,16 +392,21 @@ extension Frame {
 
     /// Get shared traits of a list of objects.
     public func sharedTraits(_ ids: [ObjectID]) -> [Trait] {
+        // TODO: Move this method to metamodel as sharedTraits(_ types: [ObjectType])
+        guard ids.count > 0 else {
+            return []
+        }
+        
         let types = self.distinctTypes(ids)
-        var traits: [Trait] = []
-        for type in types {
-            for trait in type.traits {
-                if traits.contains(where: { $0 === trait}) {
+        
+        var traits = types.first!.traits
+        
+        for type in types.suffix(from: 1) {
+            for trait in traits {
+                if type.hasTrait(trait) {
                     continue
                 }
-                else {
-                    traits.append(trait)
-                }
+                traits.removeAll { $0 === trait }
             }
         }
         return traits
