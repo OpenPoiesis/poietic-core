@@ -34,43 +34,39 @@ public final class DesignFrame: Frame {
     ///
     /// Snapshots might be shared between frames.
     ///
-    private(set) internal var _snapshots: [ObjectID:DesignObject]
+    private let _snapshots: [DesignObject]
+    internal let _index: _FrameIndex
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
     /// - Precondition: Snapshot must not be mutable.
     ///
-    init(design: Design, id: FrameID, snapshots: [DesignObject]? = nil) {
+    init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
         self.design = design
         self.id = id
-        self._snapshots = [:]
-        
-        if let snapshots {
-            for snapshot in snapshots {
-                self._snapshots[snapshot.id] = snapshot
-            }
-        }
+        self._index = _FrameIndex(snapshots)
+        self._snapshots = snapshots
     }
     
     /// Get a list of snapshots.
     ///
     public var snapshots: [DesignObject] {
-        return Array(_snapshots.values)
+        return _snapshots
     }
     
     /// Returns `true` if the frame contains an object with given object
     /// identity.
     ///
     public func contains(_ id: ObjectID) -> Bool {
-        return _snapshots[id] != nil
+        return _index.idMap[id] != nil
     }
 
     public func contains(_ snapshot: DesignObject) -> Bool {
-        return _snapshots[snapshot.id] === snapshot
+        return _index.idMap[snapshot.id] === snapshot
     }
 
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
-        ids.filter { _snapshots[$0] != nil }
+        ids.filter { _index.idMap[$0] != nil }
     }
 
     /// Return an object snapshots with given object ID.
@@ -78,28 +74,33 @@ public final class DesignFrame: Frame {
     /// - Precondition: Frame must contain object with given ID.
     ///
     public func object(_ id: ObjectID) -> DesignObject {
-        guard let snapshot = _snapshots[id] else {
+        guard let snapshot = _index.idMap[id] else {
             preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }
         return snapshot
     }
     
     // MARK: - Graph Protocol
+    public var nodeIDs: [ObjectID] {
+        _index.nodeIDs
+    }
+    public var nodes: [Node] {
+        return _index.nodes
+    }
+    public var edges: [Edge] {
+        return _index.edges
+    }
+
     public var edgeIDs: [ObjectID] {
-        _snapshots.values.compactMap {
-            $0.structure.type == .edge ? $0.id : nil
-        }
+        _index.edgeIDs
     }
 
     public func contains(node: NodeID) -> Bool {
-        guard let snapshot = _snapshots[id] else {
-            return false
-        }
-        return snapshot.structure == .node
+        return _index.nodeIDs.contains(node)
     }
 
     public func node(_ oid: NodeID) -> Node {
-        guard let snapshot = _snapshots[id] else {
+        guard let snapshot = _index.idMap[id] else {
             fatalError("Missing node: \(oid)")
         }
         guard snapshot.structure == .node else {
@@ -108,15 +109,12 @@ public final class DesignFrame: Frame {
         return snapshot
     }
 
-    public func contains(edge: EdgeID) -> Bool {
-        guard let snapshot = _snapshots[id] else {
-            return false
-        }
-        return snapshot.structure.type == .edge
+    public func contains(edge: ObjectID) -> Bool {
+        return _index.edgeIDs.contains(edge)
     }
 
     public func edge(_ oid: EdgeID) -> Edge {
-        guard let snapshot = _snapshots[oid] else {
+        guard let snapshot = _index.idMap[oid] else {
             fatalError("Missing edge: \(oid)")
         }
         guard let edge = EdgeObject(snapshot, in: self) else {
@@ -124,6 +122,11 @@ public final class DesignFrame: Frame {
         }
         return edge
     }
-    // TODO: add outgoing(...)
-    // TODO: add incoming(...)
+    public func outgoing(_ origin: NodeID) -> [Edge] {
+        return _index.outgoingEdges[origin] ?? []
+    }
+    
+    public func incoming(_ target: NodeID) -> [Edge] {
+        return _index.incomingEdges[target] ?? []
+    }
 }

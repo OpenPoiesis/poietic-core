@@ -40,4 +40,12 @@ public struct ValidatedFrame: Frame {
     
     @inlinable
     public var edgeIDs: [ObjectID] { wrapped.edgeIDs }
+
+    public func outgoing(_ origin: NodeID) -> [Edge] {
+        return wrapped.outgoing(origin)
+    }
+    
+    public func incoming(_ target: NodeID) -> [Edge] {
+        return wrapped.incoming(target)
+    }
 }

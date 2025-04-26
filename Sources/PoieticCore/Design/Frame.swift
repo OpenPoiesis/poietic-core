@@ -310,7 +310,7 @@ extension Frame {
             Edge($0, in: self)
         }
     }
-    
+
     /// Get list of objects that have no parent.
     public func top() -> [DesignObject] {
         self.filter { $0.parent == nil }

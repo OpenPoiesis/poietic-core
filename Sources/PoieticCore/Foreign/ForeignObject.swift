@@ -45,6 +45,7 @@ public enum ForeignStructure {
     case unstructured
     case node
     case edge(ForeignObjectReference, ForeignObjectReference)
+    case orderedSet(ForeignObjectReference, [ForeignObjectReference])
 }
 
 

@@ -42,7 +42,10 @@ public struct JSONForeignObject: Encodable, Decodable, ForeignObject {
         switch object.structure {
         case .node: structure = .node
         case .unstructured: structure = .unstructured
-        case let .edge(origin, target): structure = .edge(.id(origin), .id(target))
+        case let .edge(origin, target):
+            structure = .edge(.id(origin), .id(target))
+        case let .orderedSet(owner, items):
+            structure = .orderedSet(.id(owner), items.map({.id($0)}))
         }
         
         if let parent = object.parent {
@@ -120,6 +123,10 @@ public struct JSONForeignObject: Encodable, Decodable, ForeignObject {
             try container.encode("edge", forKey: .structure)
             try container.encode(origin, forKey: .origin)
             try container.encode(target, forKey: .target)
+        case let .orderedSet(owner, items):
+            try container.encode("ordered_set", forKey: .structure)
+            try container.encode(owner, forKey: .origin)
+            try container.encode(items, forKey: .target)
         case .none:
             break /* unknown structure, just pass */
         }

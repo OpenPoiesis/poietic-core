@@ -26,25 +26,25 @@ public protocol EdgeProtocol {
 ///
 public struct EdgeObject: EdgeProtocol, Identifiable {
     public typealias NodeID = ObjectID
-
+    
     /// Design object representing the edge
     public let object: DesignObject
-
+    
     /// ID of the edge design object.
     public var id: ObjectID { object.id }
-
+    
     /// Reference to the edge origin object extracted from a frame during initialisation.
     public let originObject: DesignObject
-
+    
     /// ID of the edge origin.
     public var origin: ObjectID { originObject.id }
-
+    
     /// Reference to the edge target object extracted from a frame during initialisation.
     public let targetObject: DesignObject
-
+    
     /// ID of the edge target.
     public var target: ObjectID { targetObject.id }
-
+    
     /// Create a new edge object for a given design object.
     ///
     /// Extracts the edge origin and target object references from the frame based on the
@@ -54,16 +54,25 @@ public struct EdgeObject: EdgeProtocol, Identifiable {
     /// the initialisation. It should not be stored or shared.
     ///
     /// If the design object is not an edge, then the initialiser results in `nil`.
-    /// 
+    ///
     public init?(_ snapshot: DesignObject, in frame: some Frame) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }
-
+        
         self.object = snapshot
         self.originObject = frame[origin]
         self.targetObject = frame[target]
     }
+    init(_ snapshot: DesignObject, origin: DesignObject, target: DesignObject) {
+        precondition(snapshot.structure == .edge(origin.id, target.id))
+        
+        
+        self.object = snapshot
+        self.originObject = origin
+        self.targetObject = target
+    }
+
 }
 
 
@@ -163,7 +172,7 @@ extension GraphProtocol {
     public func outgoing(_ origin: NodeID) -> [Edge] {
         return self.edges.filter { $0.origin == origin }
     }
-    
+
     public func incoming(_ target: NodeID) -> [Edge] {
         return self.edges.filter { $0.target == target }
     }
@@ -189,6 +198,7 @@ extension GraphProtocol where Edge: Identifiable, Edge.ID == EdgeID {
 ///
 public struct Graph<Node: Identifiable, Edge: EdgeProtocol>: GraphProtocol
 where Edge.NodeID == Node.ID, Edge: Identifiable {
+
     // TODO: Make it a dict
     /// List of nodes.
     public var nodes: [Node] = []

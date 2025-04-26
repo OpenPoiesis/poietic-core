@@ -16,6 +16,7 @@
 ///
 public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral, CustomStringConvertible {
     public typealias IntegerLiteralType = UInt64
+    @usableFromInline
     var _rawValue: UInt64
     
     // Alias for an internal value, used in allocateID(ObjectID). This is relevant only for
@@ -51,6 +52,15 @@ public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral
         try container.encode(_rawValue)
     }
     public var description: String { stringValue }
+
+    @inlinable
+    public static func ==(lhs: ObjectID, rhs: ObjectID) -> Bool {
+        return lhs._rawValue == rhs._rawValue
+    }
+    @inlinable
+    public func hash(into hasher: inout Hasher) {
+        _rawValue.hash(into: &hasher)
+    }
 }
 
 /// Identifier of a design object version.

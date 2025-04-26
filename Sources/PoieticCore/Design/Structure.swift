@@ -21,6 +21,7 @@ public enum StructuralType: String, Equatable, Codable, Sendable {
     
     /// Graph component representing a connection between two nodes.
     case edge
+    case orderedSet
 }
 
 /// Structure defines relationship of an object with other objects.
@@ -64,6 +65,18 @@ public enum Structure: Equatable, CustomStringConvertible {
     ///
     case edge(ObjectID, ObjectID)
     
+    /// Set of object references owned by an object.
+    ///
+    /// Ordered set structural type is a special case of a hyper-edge, where one
+    /// object can point to other objects.
+    ///
+    /// Requirements and constraints:
+    /// - The owner must not be an ordered set.
+    /// - The items must not contain an ordered set.
+    /// - Ordered set must not be an origin or a target of an edge.
+    ///
+    case orderedSet(ObjectID, OrderedSet<ObjectID>)
+    
     // Should be interpreted as another object.
     // case proxy(ObjectID)
     
@@ -74,6 +87,7 @@ public enum Structure: Equatable, CustomStringConvertible {
         case .unstructured: .unstructured
         case .node: .node
         case .edge: .edge
+        case .orderedSet: .orderedSet
         }
     }
     
@@ -83,6 +97,7 @@ public enum Structure: Equatable, CustomStringConvertible {
         case .unstructured: "unstructured"
         case .node: "node"
         case .edge(let origin, let target): "edge(\(origin),\(target))"
+        case .orderedSet(let owner, let items): "edge(\(owner),\(items))"
         }
     }
 }

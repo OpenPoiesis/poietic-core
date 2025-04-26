@@ -140,20 +140,8 @@ public class MakeshiftDesignStore {
             let structure: Structure
             switch type.structuralType {
             case .unstructured:
-                guard perSnapshot.origin == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "origin")
-                }
-                guard perSnapshot.target == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "target")
-                }
                 structure = .unstructured
             case .node:
-                guard perSnapshot.origin == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "origin")
-                }
-                guard perSnapshot.target == nil else {
-                    throw .extraneousStructuralProperty(type.structuralType, "target")
-                }
                 structure = .node
             case .edge:
                 guard let origin = perSnapshot.origin else {
@@ -163,6 +151,9 @@ public class MakeshiftDesignStore {
                     throw .missingStructuralProperty(type.structuralType, "to")
                 }
                 structure = .edge(origin, target)
+            case .orderedSet:
+                // FIXME: [WIP] Implement this
+                fatalError("NOT IMPLEMENTED")
             }
             // TODO: Handle corrupted store with existing IDs
             // TODO: Handle corrupted store with duplicate objectIDs within frame

@@ -368,6 +368,15 @@ public final class TransientFrame: Frame {
                          "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
             
             actualStructure = structure
+        case .orderedSet:
+            guard let structure else {
+                fatalError("Structural component of type `orderedSet` is required to be provided for type \(type.name)")
+            }
+            precondition(structure.type == .orderedSet,
+                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
+            actualStructure = structure
+            // FIXME: [WIP] Review this
+            fatalError("THIS IS UNFINISHED!")
         }
         var actualAttributes = attributes
         
@@ -779,7 +788,6 @@ public final class TransientFrame: Frame {
             ref.structure.type == .node ? id : nil
         }
     }
-
 }
 
 
