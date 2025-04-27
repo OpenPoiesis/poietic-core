@@ -206,7 +206,45 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
             types.contains { isConvertible(to: $0) }
         }
     }
+   
+    /// Returns `true` if the values can be compared in terms of their order.
+    ///
+    /// Rules:
+    /// - Only atoms are comparable, if any of the items is an array, then the result is `false`.
+    /// - Two ints and two doubles are comparable
+    /// - Mixed int and double is comparable with conversion of the int to double
+    /// - Two strings are comparable with each other
+    /// - Two points are comparable
+    /// - Other types and mixed types are not comparable.
+    ///
+    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(_:)``, ``VariantAtom/vaguelyInAscendingOrder(_:)``
+    ///
+    public func isVaguelyComparable(to other: Variant) -> Bool? {
+        switch (self, other) {
+        case let (.atom(latom), .atom(ratom)): latom.isVaguelyComparable(to: ratom)
+        default: false
+        }
+    }
     
+    /// Returns `true` if the values can be compared and are in ascending order.
+    ///
+    /// Rules:
+    /// - Only atoms are comparable, if any of the items is an array, then the result is `nil`.
+    /// - Two ints and two doubles are comparable.
+    /// - Mixed int and double is comparable with conversion of the int to double.
+    /// - Two strings are comparable with each other using basic string comparison.
+    /// - Two points are comparable by length.
+    /// - Other types and mixed types are not comparable.
+    ///
+    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(_:)``, ``VariantAtom/vaguelyInAscendingOrder(_:)``
+    ///
+    public func vaguelyInAscendingOrder(after other: Variant) -> Bool? {
+        switch (self, other) {
+        case let (.atom(latom), .atom(ratom)): return latom.vaguelyInAscendingOrder(after: ratom)
+        default: return nil
+        }
+    }
+
     /// Return an underlying atom value type or `nil` if the variant
     /// is an array.
     ///

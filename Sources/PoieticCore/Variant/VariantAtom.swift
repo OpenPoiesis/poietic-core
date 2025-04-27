@@ -82,16 +82,16 @@ public enum AtomType: String, Equatable, Codable, CustomStringConvertible, Senda
 public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// Representation of an integer.
     case int(Int)
-
+    
     /// Representation of a double precision floating point value.
     case double(Double)
-
+    
     /// Representation of a text string.
     case string(String)
-
+    
     /// Representation of a boolean value.
     case bool(Bool)
-
+    
     /// Representation of a 2D point value.
     case point(Point)
     
@@ -105,7 +105,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         default: return nil
         }
     }
-
+    
     
     /// Flag whether the value is numeric - either an integer or a double
     /// value.
@@ -122,7 +122,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point: false
         }
     }
-
+    
     public var isFiniteNumber: Bool {
         switch self {
         case .int: true
@@ -132,7 +132,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point: false
         }
     }
-
+    
     public var isZero: Bool {
         switch self {
         case .int(let value): value == 0
@@ -142,7 +142,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point: false
         }
     }
-
+    
     public var valueType: AtomType {
         switch self {
         case .int: .int
@@ -158,44 +158,44 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     public init(_ value: Int) {
         self = .int(value)
     }
-
+    
     /// Create a variant representing a double value.
     ///
     public init(_ value: Double) {
         self = .double(value)
     }
-
+    
     /// Create a variant representing a boolean value.
     ///
     public init(_ value: Bool) {
         self = .bool(value)
     }
-
+    
     /// Create a variant representing a string value.
     ///
     public init(_ value: String) {
         self = .string(value)
     }
-
+    
     /// Create a variant representing a 2D point value.
     ///
     public init(_ value: Point) {
         self = .point(value)
     }
-
+    
     /// Create a variant representing an object ID.
     ///
     init(_ id: ObjectID) {
         self = .string(id.stringValue)
     }
-
+    
     /// Check whether the atom value is convertible to a given value type.
     ///
     /// See ``Variant/isConvertible(to:)`` for more information.
     ///
     public func isConvertible(to type: ValueType) -> Bool {
         switch (self, type) {
-        // Bool to string, int or itself only
+            // Bool to string, int or itself only
         case (.bool,   .atom(.string)): true
         case (.bool,   .atom(.bool)):   true
         case (.bool,   .atom(.int)):    true
@@ -203,7 +203,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.bool,   .atom(.point)):  false
         case (.bool,   .array(_)):      false
             
-        // Int to all except point
+            // Int to all except point
         case (.int,    .atom(.string)): true
         case (.int,    .atom(.bool)):   true
         case (.int,    .atom(.int)):    true
@@ -211,7 +211,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.int,    .atom(.point)):  false
         case (.int,    .array(_)):      false
             
-        // Double to string or to itself
+            // Double to string or to itself
         case (.double, .atom(.string)): true
         case (.double, .atom(.bool)):   false
         case (.double, .atom(.int)):    true // not lossless
@@ -219,7 +219,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.double, .atom(.point)):  false
         case (.double, .array(_)):      false
             
-        // String to all except array
+            // String to all except array
         case (.string, .atom(.string)): true
         case (.string, .atom(.bool)):   (try? boolValue()) != nil
         case (.string, .atom(.int)):    (try? intValue()) != nil
@@ -227,7 +227,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.string, .atom(.point)):  (try? pointValue()) != nil
         case (.string, .array(_)):      false
             
-        // Point to string or itself
+            // Point to string or itself
         case (.point, .atom(.string)): true
         case (.point, .atom(.bool)):   false
         case (.point, .atom(.int)):    false
@@ -241,7 +241,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case (.point, .array(.point)):  false
         }
     }
-        
+    
     /// Try to get an int value from the atom value. Convert if necessary.
     ///
     /// Any type of value is attempted for conversion.
@@ -264,7 +264,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point(_): throw ValueError.notConvertible(.point, .int)
         }
     }
-
+    
     /// Try to get a double value from the atom value. Convert if necessary.
     ///
     /// Boolean and ID values can not be converted to double.
@@ -311,7 +311,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case let .point(value): return "[\(value.x),\(value.y)]"
         }
     }
-
+    
     /// Try to get a bool value from the  atom value. Convert if necessary.
     ///
     /// For integers the value is `true` if the integer is non-zero, if it is
@@ -333,10 +333,10 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .int(let value): return (value != 0)
         case .double(_): throw ValueError.notConvertible(.double, .bool)
         case .string(let value): switch value {
-                                    case "true": return true
-                                    case "false": return false
-                                    default: throw ValueError.conversionFailed(.string, .bool)
-                                    }
+        case "true": return true
+        case "false": return false
+        default: throw ValueError.conversionFailed(.string, .bool)
+        }
         case .bool(let value): return value
         case .point(_): throw ValueError.notConvertible(.double, .bool)
         }
@@ -364,13 +364,13 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
             guard let x = Double(match.1), let y = Double(match.2) else {
                 throw ValueError.conversionFailed(.string, .point)
             }
-
+            
             return Point(x: x, y: y)
         case .bool(_): throw ValueError.notConvertible(.bool, .point)
         case .point(let value): return value
         }
     }
-
+    
     // Note: Do not make public. We do not want users to store IDs in unmanaged way.
     func IDValue() throws (ValueError) -> ObjectID {
         // NOTE: We are allowing conversion from double only because the Decoder
@@ -391,7 +391,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         case .point(_): throw ValueError.conversionToIDFailed(.point)
         }
     }
-   
+    
     /// Make a single-element array from the atom
     public func makeArray() -> Variant {
         switch self {
@@ -406,6 +406,54 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     public var description: String {
         stringValue()
     }
+
+    /// Compare the atom with the other atom vaguely.
+    ///
+    /// Used for non-strict ordering of items, preferably using integers. However, since we can not
+    /// guarantee that the content will be always correct, we fail back to some reasonable default
+    /// comparisons.
+    ///
+    /// Rules:
+    /// - Both ints and both doubles are compared as they are.
+    /// - Mixed int and double are first converted to double then compared.
+    /// - Strings are compared using default string comparison.
+    /// - Points are compared by length.
+    /// - Bool and non-comparable types are not comparable, therefore the result is `nil`.
+    ///
+    public func vaguelyInAscendingOrder(after other: VariantAtom) -> Bool? {
+        switch (self, other){
+        case let (.int(lvalue), .int(rvalue)): lvalue > rvalue
+        case let (.int(lvalue), .double(rvalue)): Double(lvalue) > rvalue
+        case let (.double(lvalue), .double(rvalue)): lvalue > rvalue
+        case let (.double(lvalue), .int(rvalue)): lvalue > Double(rvalue)
+        case let (.string(lvalue), .string(rvalue)): lvalue > rvalue
+        case let (.point(lvalue), .point(rvalue)): lvalue.length > rvalue.length
+        default: nil
+        }
+    }
+    /// Returns `true` if the values can be compared in terms of their order.
+    ///
+    /// Comparable atoms:
+    /// - Two ints and two doubles are comparable.
+    /// - Mixed int and double is comparable with conversion of the int to double.
+    /// - Two strings are comparable with each other.
+    /// - Two points are comparable.
+    /// - Other types and mixed types are not comparable.
+    ///
+    /// - SeeAlso: ``vaguelyInAscendingOrder(_:)``
+    ///
+    public func isVaguelyComparable(to other: VariantAtom) -> Bool {
+        switch (self, other) {
+        case (.int, .int): true
+        case (.int, .double): true
+        case (.double, .int): true
+        case (.double, .double): true
+        case (.string, .string): true
+        case (.point, .point): true
+        default: false
+        }
+    }
+
 }
 
 extension VariantAtom: Codable {

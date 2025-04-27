@@ -45,7 +45,6 @@ extension Trait {
             Attribute("view_zoom", type: .double, optional: true),
         ]
     )
-
 }
 
 

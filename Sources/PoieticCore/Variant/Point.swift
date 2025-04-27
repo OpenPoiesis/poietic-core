@@ -8,3 +8,9 @@
 /// Type representing two-dimensional points.
 ///
 public typealias Point = SIMD2<Double>
+
+extension Point {
+    public var length: Scalar {
+        return (x*x + y*y).squareRoot()
+    }
+}

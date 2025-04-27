@@ -25,11 +25,17 @@ extension Trait {
     public static let Name = Trait(
         name: "Name",
         attributes: [
-            Attribute("name", type: .string,
-                      abstract: "Object name"),
+            Attribute("name", type: .string, abstract: "Object name"),
         ]
     )
     
+    public static let Orderable = Trait(
+        name: "Orderable",
+        attributes: [
+            Attribute("order", type: .int, optional: true, abstract: "Order within a group"),
+        ]
+    )
+
     /// Trait denoting level of expertise of the user.
     ///
     /// This trait is used on objects to set users expectations.

@@ -500,8 +500,7 @@ public final class TransientFrame: Frame {
     @discardableResult
     public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
         precondition(state == .transient)
-        precondition(contains(id),
-                     "Unknown object ID \(id) in frame \(self.id)")
+        precondition(contains(id), "Unknown object ID \(id) in frame \(self.id)")
         
         var removed: Set<ObjectID> = Set()
         var scheduled: Set<ObjectID> = [id]
@@ -511,11 +510,11 @@ public final class TransientFrame: Frame {
             // FIXME: We should do it without asStable()
             let garbage = objects[garbageID]!.asStable()
             
-            objects[garbage.id] = nil
+            objects[garbageID] = nil
             snapshotIDs.remove(garbage.snapshotID)
             
-            if originalIDs.contains(garbage.id) {
-                _removedObjects[garbage.id] = garbage
+            if originalIDs.contains(garbageID) {
+                _removedObjects[garbageID] = garbage
             }
             
             removed.insert(garbageID)
@@ -533,16 +532,16 @@ public final class TransientFrame: Frame {
             for dependant in snapshots where !removed.contains(dependant.id) {
                 switch dependant.structure {
                 case let .edge(origin, target):
-                    if origin == garbage.id || target == garbage.id {
+                    if origin == garbageID || target == garbageID {
                         scheduled.insert(dependant.id)
                     }
                 case .orderedSet(let owner, var items):
-                    if owner == garbage.id {
+                    if owner == garbageID {
                         scheduled.insert(dependant.id)
                     }
-                    else if items.contains(garbage.id) {
+                    else if items.contains(garbageID) {
                         let update = mutate(dependant.id)
-                        items.remove(garbage.id)
+                        items.remove(garbageID)
                         update.structure = .orderedSet(owner, items)
                     }
                 case .unstructured:
