@@ -80,6 +80,41 @@ import Testing
         #expect(design.snapshot(a.snapshotID) == nil)
     }
     
+    @Test func removeObjectInOrderedSet() throws {
+        let originalFrame = design.createFrame()
+        
+        let a = originalFrame.create(TestType)
+        let b = originalFrame.create(TestType)
+        let c = originalFrame.create(TestType)
+        let order1 = originalFrame.create(TestOrderType,
+                                         structure: .orderedSet(a.id, []))
+        let order2 = originalFrame.create(TestOrderType,
+                                          structure: .orderedSet(b.id, [c.id]))
+        let original = try design.accept(originalFrame)
+        
+        let trans = design.createFrame(deriving: design.currentFrame)
+        
+        trans.removeCascading(a.id)
+        trans.removeCascading(c.id)
+
+        let result = try design.accept(trans)
+
+        #expect(!result.contains(a.id))
+        #expect(!result.contains(order1.id))
+
+        #expect(!result.contains(c.id))
+        #expect(result.contains(b.id))
+        #expect(result.contains(order2.id))
+
+        let obj = result[order2.id]
+        guard case let .orderedSet(owner, items) = obj.structure else {
+            Issue.record("Structure is not ordered set")
+            return
+        }
+        #expect(owner == b.id)
+        #expect(items == [])
+    }
+    
     @Test func removeObject() throws {
         let originalFrame = design.createFrame()
         
@@ -104,7 +139,7 @@ import Testing
         let original2 = design.frame(originalVersion!)!
         #expect(original2.contains(a.id))
     }
-    
+
     
     @Test func undo() throws {
         try design.accept(design.createFrame())

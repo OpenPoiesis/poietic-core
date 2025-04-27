@@ -5,10 +5,13 @@
 //  Created by Stefan Urbanek on 26/04/2025.
 //
 
+/// Index used to speed-up validation and design compilation process.
+/// 
 class _FrameIndex {
     internal let idMap: [ObjectID:DesignObject]
     internal let outgoingEdges: [ObjectID:[EdgeObject]]
     internal let incomingEdges: [ObjectID:[EdgeObject]]
+    internal let orders: [ObjectID:OrderedSet<ObjectID>]
     internal let unstructured: [DesignObject]
     internal let nodes: [DesignObject]
     internal let edges: [EdgeObject]
@@ -24,6 +27,7 @@ class _FrameIndex {
         var incomingEdges: [ObjectID:[EdgeObject]] = [:]
         var nodeIDs: [ObjectID] = []
         var edgeIDs: [ObjectID] = []
+        var orders: [ObjectID:OrderedSet<ObjectID>] = [:]
 
         for snapshot in snapshots {
             map[snapshot.id] = snapshot
@@ -42,7 +46,7 @@ class _FrameIndex {
                 outgoingEdges[origin, default: []].append(edge)
                 incomingEdges[target, default: []].append(edge)
             case .orderedSet(let owner, let items):
-                fatalError("Ordered set not implemented in \(#function)")
+                orders[owner] = items
             }
 
         }
@@ -55,6 +59,7 @@ class _FrameIndex {
         self.outgoingEdges = outgoingEdges
         self.incomingEdges = incomingEdges
         self.unstructured = unstructured
+        self.orders = orders
     }
     
 }

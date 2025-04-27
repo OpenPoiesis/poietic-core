@@ -375,8 +375,6 @@ public final class TransientFrame: Frame {
             precondition(structure.type == .orderedSet,
                          "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
             actualStructure = structure
-            // FIXME: [WIP] Review this
-            fatalError("THIS IS UNFINISHED!")
         }
         var actualAttributes = attributes
         
@@ -430,6 +428,10 @@ public final class TransientFrame: Frame {
         if case let .edge(origin, target) = snapshot.structure {
             precondition(contains(origin), "Missing origin object in frame")
             precondition(contains(target), "Missing target object in frame")
+        }
+        else if case let .orderedSet(owner, items) = snapshot.structure {
+            precondition(contains(owner), "Missing owner object in frame")
+            precondition(items.allSatisfy({contains($0)}), "Missing ordered set items")
         }
         guard snapshot.children.allSatisfy({ contains($0) }) else {
             preconditionFailure("Missing children in frame")
@@ -506,6 +508,7 @@ public final class TransientFrame: Frame {
         
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
+            // FIXME: We should do it without asStable()
             let garbage = objects[garbageID]!.asStable()
             
             objects[garbage.id] = nil
@@ -528,10 +531,24 @@ public final class TransientFrame: Frame {
             // Check for dependants (edges)
             //
             for dependant in snapshots where !removed.contains(dependant.id) {
-                if case let .edge(origin, target) = dependant.structure {
-                    if garbage.id == origin || garbage.id == target {
+                switch dependant.structure {
+                case let .edge(origin, target):
+                    if origin == garbage.id || target == garbage.id {
                         scheduled.insert(dependant.id)
                     }
+                case .orderedSet(let owner, var items):
+                    if owner == garbage.id {
+                        scheduled.insert(dependant.id)
+                    }
+                    else if items.contains(garbage.id) {
+                        let update = mutate(dependant.id)
+                        items.remove(garbage.id)
+                        update.structure = .orderedSet(owner, items)
+                    }
+                case .unstructured:
+                    break
+                case .node:
+                    break
                 }
             }
         }
@@ -791,3 +808,8 @@ public final class TransientFrame: Frame {
 }
 
 
+extension TransientFrame {
+    func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
+        
+    }
+}

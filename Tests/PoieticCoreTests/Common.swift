@@ -18,6 +18,11 @@ let TestEdgeType = ObjectType(name: "TestEdge",
                           structuralType: .edge,
                           traits: [])
 
+let TestOrderType = ObjectType(name: "TestOrder",
+                          structuralType: .orderedSet,
+                          traits: [])
+
+
 let TestTypeNoDefault = ObjectType(name: "TestNoDefault",
                           structuralType: .unstructured,
                           traits: [TestTraitNoDefault])
