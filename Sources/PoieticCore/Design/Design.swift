@@ -124,8 +124,9 @@ public class Design {
     private var objectIDSequence: UInt64
 
     var _storage: SnapshotStorage
-    var _stableFrames: [FrameID: DesignFrame]
 
+    // FIXME: Order of frames is not preserved during persistence
+    var _stableFrames: [FrameID: DesignFrame]
     var _namedFrames: [String: DesignFrame]
     public var namedFrames: [String: DesignFrame] { _namedFrames }
     

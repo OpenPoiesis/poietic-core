@@ -24,7 +24,7 @@ public struct GenerationalArray<Element> {
     }
 
     /// Internal storage for elements and their generations
-    private var storage: [Element?]
+    internal var storage: [Element?]
     
     /// Tracks the current generation for each index
     private var generations: [UInt]
@@ -102,7 +102,9 @@ public struct GenerationalArray<Element> {
     /// - Returns: Flag whether the index is valid.
     ///
     public func isValid(_ index: Index) -> Bool {
-        index.position < storage.count && generations[index.position] == index.generation
+        index.position < storage.endIndex
+        && storage[index.position] != nil
+        && generations[index.position] == index.generation
     }
 }
 
@@ -119,14 +121,13 @@ extension GenerationalArray: Collection {
     }
     
     public var endIndex: Index {
-        return Index(position: storage.endIndex, generation: UInt.max)
+        return Index(position: storage.endIndex, generation: 0)
     }
     
     public func index(after i: Index) -> Index {
         var position = i.position + 1
         
-        // Find the next non-nil element
-        while storage[position] == nil && position < storage.count {
+        while position < storage.count && storage[position] == nil {
             position += 1
         }
         

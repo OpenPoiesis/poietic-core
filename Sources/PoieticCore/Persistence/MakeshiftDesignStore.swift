@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 20/10/2023.
 //
 
+// TODO: [IMPORTANT] Remove dictionaries from storage and replace with arrays (we want to preserve order)
+
 import Foundation
 
 /// A makeshift persistent store.

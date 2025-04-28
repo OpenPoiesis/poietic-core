@@ -158,7 +158,19 @@ import Testing
         #expect(!design.contains(snapshot: a.snapshotID))
     }
 
-    
+    @Test func iterateAllDesignSnapshots() throws {
+        let trans = design.createFrame()
+        let a = trans.create(TestType)
+        let b = trans.create(TestType)
+
+        let frame = try design.accept(trans)
+        #expect(design.contains(snapshot: a.snapshotID))
+        #expect(design.contains(snapshot: b.snapshotID))
+        
+        let snapshots: [DesignObject] = Array(design.snapshots)
+        #expect(snapshots.count == 2)
+    }
+
     @Test func undo() throws {
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
