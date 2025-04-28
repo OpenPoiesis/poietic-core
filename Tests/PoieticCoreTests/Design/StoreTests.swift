@@ -88,7 +88,7 @@ let TestFormatVersion = "0.0.4"
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-
+        
         #expect(throws: PersistentStoreError.unknownObjectType("BOO")) {
             try store.load()
         }
@@ -112,7 +112,7 @@ let TestFormatVersion = "0.0.4"
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-
+        
         #expect(throws: PersistentStoreError.invalidStructuralType("boo")) {
             try store.load(metamodel: TestMetamodel)
         }
@@ -135,7 +135,7 @@ let TestFormatVersion = "0.0.4"
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-
+        
         #expect(throws: PersistentStoreError.structuralTypeMismatch(.node, .edge)) {
             try store.load(metamodel: TestMetamodel)
         }
@@ -165,7 +165,7 @@ let TestFormatVersion = "0.0.4"
                    }
                    """.data(using:.utf8)!
         let store = MakeshiftDesignStore(data: data)
-
+        
         #expect(throws: PersistentStoreError.duplicateSnapshot(ObjectID(2))) {
             try store.load(metamodel: TestMetamodel)
         }
@@ -202,4 +202,30 @@ let TestFormatVersion = "0.0.4"
             try store.load(metamodel: TestMetamodel)
         }
     }
+    @Test func testRefCount() throws {
+        let data = """
+                   {
+                    "store_format_version": "\(TestFormatVersion)",
+                    "metamodel": "",
+                    "state": {"undoable_frames": [], "redoable_frames": []},
+                    "snapshots": [{
+                        "id": 1,
+                        "snapshot_id": 20,
+                        "type": "Unstructured",
+                        "structural_type": "unstructured",
+                        "attributes": {}
+                    }
+                    ],
+                    "frames": [
+                        {"id": 100, "snapshots": [20]},
+                        {"id": 200, "snapshots": [20]}
+                    ]
+                   }
+                   """.data(using:.utf8)!
+        let store = MakeshiftDesignStore(data: data)
+        let design = try store.load(metamodel: TestMetamodel)
+        let snapshot = try #require(design.snapshot(ObjectID(20)))
+        #expect(snapshot._refCount == 2)
+    }
+
 }
