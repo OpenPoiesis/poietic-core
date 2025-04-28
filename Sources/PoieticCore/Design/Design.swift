@@ -123,8 +123,7 @@ public class Design {
     ///
     private var objectIDSequence: UInt64
 
-    var _snapshots: [SnapshotID: DesignObject]
-    var _refCount: [SnapshotID:Int]
+    var _storage: SnapshotStorage
     var _stableFrames: [FrameID: DesignFrame]
 
     var _namedFrames: [String: DesignFrame]
@@ -187,8 +186,7 @@ public class Design {
         self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
-        self._snapshots = [:]
-        self._refCount = [:]
+        self._storage = SnapshotStorage()
         self._namedFrames = [:]
         self.undoableFrames = []
         self.redoableFrames = []
@@ -235,7 +233,7 @@ public class Design {
     /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
     ///
     public func isUnused(_ id: ObjectID) -> Bool {
-        return _snapshots[id] == nil
+        return !_storage.contains(id)
                 && _stableFrames[id] == nil
                 && _transientFrames[id] == nil
     }
@@ -243,16 +241,21 @@ public class Design {
     /// Get a sequence of all stable snapshots in all stable frames.
     ///
     public var snapshots: some Collection<DesignObject> {
-        return _snapshots.values
+        return _storage.snapshots
     }
 
     /// Get a snapshot by snapshot ID.
     ///
+    // TODO: Used only in tests
     public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
-        return self._snapshots[snapshotID]
+        return _storage.snapshot(snapshotID)
     }
 
 
+    public func contains(snapshot snapshotID: ObjectID ) -> Bool {
+        return _storage.contains(snapshotID)
+    }
+    
     // MARK: Frames
     
     /// List of all stable frames in the design.
@@ -373,17 +376,7 @@ public class Design {
     /// - SeeAlso: ``removeFrame(_:)``
     ///
     public func _release(_ snapshotID: SnapshotID) {
-        guard let count = _refCount[snapshotID] else {
-            preconditionFailure("Missing snapshot \(snapshotID)")
-        }
-        guard count > 0 else {
-            preconditionFailure("Release failure: zero retains")
-        }
-        _refCount[snapshotID] = count - 1
-
-        if count <= 1 {
-            _snapshots[snapshotID] = nil
-        }
+        _storage.release(snapshotID)
     }
     
     /// Insert a new snapshot to the design or retain an existing snapshot.
@@ -393,16 +386,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``
     ///
     func _insertOrRetain(_ snapshot: DesignObject) {
-        if let count = _refCount[snapshot.snapshotID] {
-            // HINT: When this happens, it is very likely that uniqueness of IDs was not verified.
-            // HINT: Places to look at: persistent store or frame loader.
-            precondition(_snapshots[snapshot.snapshotID] === snapshot)
-            _refCount[snapshot.snapshotID] = count + 1
-        }
-        else {
-            _snapshots[snapshot.snapshotID] = snapshot
-            _refCount[snapshot.snapshotID] = 1
-        }
+        _storage.insertOrRetain(snapshot)
     }
 
     /// Accepts a frame and make it a stable frame.

@@ -73,6 +73,7 @@ package struct _ObjectBody {
 /// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
 public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
+    package var _refCount: UInt = 0
     @usableFromInline
     let _body: _ObjectBody
     public var components: ComponentSet

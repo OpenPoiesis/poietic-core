@@ -140,6 +140,24 @@ import Testing
         #expect(original2.contains(a.id))
     }
 
+    @Test func refCountAndGarbageCollect() throws {
+        let trans1 = design.createFrame()
+        let a = trans1.create(TestType)
+        
+        let frame1 = try design.accept(trans1)
+        #expect(design.contains(snapshot: a.snapshotID))
+        #expect(design.snapshot(a.snapshotID)?._refCount == 1)
+        
+        let trans2 = design.createFrame(deriving: design.currentFrame)
+        let frame2 = try design.accept(trans2)
+        #expect(design.contains(snapshot: a.snapshotID))
+        #expect(design.snapshot(a.snapshotID)?._refCount == 2)
+
+        design.removeFrame(frame1.id)
+        design.removeFrame(frame2.id)
+        #expect(!design.contains(snapshot: a.snapshotID))
+    }
+
     
     @Test func undo() throws {
         try design.accept(design.createFrame())
