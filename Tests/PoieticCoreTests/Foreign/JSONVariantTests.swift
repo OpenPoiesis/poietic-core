@@ -18,7 +18,7 @@ import Foundation
     @Test func valueDecoding() throws {
         #expect(try decode("10") == .int(10))
         #expect(try decode("true") == .bool(true))
-        #expect(try decode("10.2") == .double(10.2))
+        #expect(try decode("10.2") == .float(10.2))
         #expect(try decode("\"text\"") == .string("text"))
         #expect(try decode("null") == .null)
         #expect(try decode("[10, true]") == .array([.int(10), .bool(true)]))
@@ -27,14 +27,14 @@ import Foundation
     }
     
     @Test func valueEncoding() throws {
-        #expect(JSONValue.int(10).asJSONString() == "10")
-        #expect(JSONValue.double(10.2).asJSONString() == "10.2")
-        #expect(JSONValue.bool(true).asJSONString() == "true")
-        #expect(JSONValue.string("text").asJSONString() == "\"text\"")
-        #expect(JSONValue.null.asJSONString() == "null")
-        #expect(JSONValue.array([.int(10), .bool(true)]).asJSONString()
+        #expect(try JSONValue.int(10).string() == "10")
+        #expect(try JSONValue.float(10.2).string() == "10.2")
+        #expect(try JSONValue.bool(true).string() == "true")
+        #expect(try JSONValue.string("text").string() == "\"text\"")
+        #expect(try JSONValue.null.string() == "null")
+        #expect(try JSONValue.array([.int(10), .bool(true)]).string()
                 == "[10,true]")
-        #expect(JSONValue.object(["a": .int(10)]).asJSONString()
+        #expect(try JSONValue.object(["a": .int(10)]).string()
                 == "{\"a\":10}")
     }
 }
@@ -65,11 +65,11 @@ import Foundation
     }
 
     @Test func atomToJSON() throws {
-        #expect(VariantAtom(10).asJSON().asJSONString() == "10")
-        #expect(VariantAtom(10.1).asJSON().asJSONString() == "10.1")
-        #expect(VariantAtom(true).asJSON().asJSONString() == "true")
-        #expect(VariantAtom("hello").asJSON().asJSONString() == "\"hello\"")
-        #expect(VariantAtom(Point(10, 20)).asJSON().asJSONString() == "[10,20]")
+        #expect(try VariantAtom(10).asJSON().string() == "10")
+        #expect(try VariantAtom(10.1).asJSON().string() == "10.1")
+        #expect(try VariantAtom(true).asJSON().string() == "true")
+        #expect(try VariantAtom("hello").asJSON().string() == "\"hello\"")
+        #expect(try VariantAtom(Point(10, 20)).asJSON().string() == "[10,20]")
     }
 }
 

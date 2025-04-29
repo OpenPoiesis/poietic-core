@@ -38,7 +38,7 @@ extension Variant {
             self.init(value)
         case let .string(value):
             self.init(value)
-        case let .double(value):
+        case let .float(value):
             self.init(value)
         case let .array(items):
             self = .array(try VariantArray(jsonItems: items))
@@ -114,7 +114,7 @@ extension VariantAtom {
             self.init(value)
         case let .string(value):
             self.init(value)
-        case let .double(value):
+        case let .float(value):
             self.init(value)
         case let .array(items):
             guard items.count == 2 else {
@@ -123,11 +123,11 @@ extension VariantAtom {
             switch (items[0], items[1]) {
             case let (.int(x), .int(y)):
                 self = .point(Point(Double(x), Double(y)))
-            case let (.int(x), .double(y)):
+            case let (.int(x), .float(y)):
                 self = .point(Point(Double(x), y))
-            case let (.double(x), .int(y)):
+            case let (.float(x), .int(y)):
                 self = .point(Point(x, Double(y)))
-            case let (.double(x), .double(y)):
+            case let (.float(x), .float(y)):
                 self = .point(Point(x, y))
             default:
                 throw .invalidValue
@@ -183,10 +183,10 @@ extension VariantAtom {
     public func asJSON() -> JSONValue {
         switch self {
         case let .int(value): .int(value)
-        case let .double(value): .double(value)
+        case let .double(value): .float(value)
         case let .string(value): .string(value)
         case let .bool(value): .bool(value)
-        case let .point(point): .array([.double(point.x), .double(point.y)])
+        case let .point(point): .array([.float(point.x), .float(point.y)])
         }
     }
 }
@@ -230,10 +230,10 @@ extension VariantArray {
                 array.append(value)
             }
             self = .int(array)
-        case .double:
+        case .float:
             var array: [Double] = []
             for item in items {
-                guard case let .double(value) = item else {
+                guard case let .float(value) = item else {
                     throw .notConvertibleToVariant
                 }
                 array.append(value)
@@ -262,11 +262,11 @@ extension VariantArray {
                 switch (pointValues[0], pointValues[1]) {
                 case let (.int(x), .int(y)):
                     value = Point(Double(x), Double(y))
-                case let (.int(x), .double(y)):
+                case let (.int(x), .float(y)):
                     value = Point(Double(x), y)
-                case let (.double(x), .int(y)):
+                case let (.float(x), .int(y)):
                     value = Point(x, Double(y))
-                case let (.double(x), .double(y)):
+                case let (.float(x), .float(y)):
                     value = Point(x, y)
                 default:
                     throw .notConvertibleToVariant
@@ -348,12 +348,12 @@ extension VariantArray {
     public func asJSON() -> JSONValue {
         switch self {
         case let .int(items): .array(items.map { .int($0) })
-        case let .double(items): .array(items.map { .double($0) })
+        case let .double(items): .array(items.map { .float($0) })
         case let .string(items): .array(items.map { .string($0) })
         case let .bool(items): .array(items.map { .bool($0) })
         case let .point(points):
                 .array(points.map {
-                    .array([.double($0.x), .double($0.y)])
+                    .array([.float($0.x), .float($0.y)])
                 })
         }
     }

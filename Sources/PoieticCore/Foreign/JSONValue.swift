@@ -8,13 +8,13 @@
 import Foundation
 
 public enum JSONType: Equatable, Sendable {
-    case int
-    case double
-    case string
+    case null
     case bool
+    case int
+    case float
+    case string
     case array
     case object
-    case null
 }
 
 /// Representation of a JSON value.
@@ -24,19 +24,19 @@ public enum JSONType: Equatable, Sendable {
 /// Main use of the JSON value is to have finer control over encoding and decoding of ``Variant``
 /// using JSON.
 ///
-public enum JSONValue: Equatable, Codable {
-    case int(Int)
-    case double(Double)
-    case string(String)
+public enum JSONValue: Equatable, Codable, Sendable {
+    case null
     case bool(Bool)
+    case int(Int)
+    case float(Double)
+    case string(String)
     case array([JSONValue])
     case object([String:JSONValue])
-    case null
 
     public var type: JSONType {
         switch self {
         case .int: .int
-        case .double: .double
+        case .float: .float
         case .string: .string
         case .bool: .bool
         case .array: .array
@@ -73,7 +73,7 @@ public enum JSONValue: Equatable, Codable {
             self = .int(value)
         }
         else if let value = try? container.decode(Double.self) {
-            self = .double(value)
+            self = .float(value)
         }
         else if let value = try? container.decode(String.self) {
             self = .string(value)
@@ -84,20 +84,23 @@ public enum JSONValue: Equatable, Codable {
         else if let items = try? container.decode([String:JSONValue].self) {
             self = .object(items)
         }
-        else {
-            let _: Int? = try container.decode((Int?).self)
-            // This must be null, since we tried Int above
+        else if container.decodeNil() {
             self = .null
+        }
+        else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: decoder.codingPath,
+                                      debugDescription: "Invalid JSON value"))
         }
     }
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case let .int(value):
-            try container.encode(value)
         case let .bool(value):
             try container.encode(value)
-        case let .double(value):
+        case let .int(value):
+            try container.encode(value)
+        case let .float(value):
             try container.encode(value)
         case let .string(value):
             try container.encode(value)
@@ -106,26 +109,23 @@ public enum JSONValue: Equatable, Codable {
         case let .object(dict):
             try container.encode(dict)
         case .null:
-            try container.encode(Int?(nil))
+            try container.encodeNil()
         }
     }
-    
-    public func asJSONString() -> String {
-        // This method must not fail. If it fails, there must be a bug somewhere. Errors are ours
-        // not user's.
-        
+    public func data(formatting: JSONEncoder.OutputFormatting = .init(),
+                     userInfo: [CodingUserInfoKey:any Sendable]? = nil) throws -> Data {
         let encoder = JSONEncoder()
-        let data: Data
-        do {
-            data = try encoder.encode(self)
+        encoder.outputFormatting = formatting
+        if let userInfo {
+            encoder.userInfo = userInfo
         }
-        catch {
-            fatalError("JSONValue encoding failed")
-        }
-        guard let string = String(data: data, encoding: .utf8) else {
-            fatalError("JSONValue string conversion failed")
-        }
-        return string
+        return try encoder.encode(self)
+    }
+    
+    public func string(formatting: JSONEncoder.OutputFormatting = .init(),
+                       userInfo: [CodingUserInfoKey:any Sendable]? = nil) throws -> String? {
+        let data = try self.data(formatting: formatting, userInfo: userInfo)
+        return String(data:data, encoding: .utf8)
     }
 
     /// Return a Foundation compatible JSON object structure.
@@ -136,7 +136,7 @@ public enum JSONValue: Equatable, Codable {
             return value
         case let .bool(value):
             return value
-        case let .double(value):
+        case let .float(value):
             return value
         case let .string(value):
             return value
@@ -159,7 +159,7 @@ public enum JSONValue: Equatable, Codable {
     public func exactInt() -> Int? {
         switch self {
         case .int(let value): return value
-        case .double(let value):
+        case .float(let value):
             if let converted = Int(exactly: value) {
                 return converted
             }
@@ -179,7 +179,7 @@ public enum JSONValue: Equatable, Codable {
     @inlinable
     public func exactDouble() -> Double? {
         switch self {
-        case .double(let value): return value
+        case .float(let value): return value
         case .int(let value):
             if let converted = Double(exactly: value) {
                 return converted
