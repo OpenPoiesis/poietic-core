@@ -31,7 +31,7 @@ public class MakeshiftDesignStore {
     // Development note: The format version should be the latest version tag
     // when the format has changed.
     //
-    static let FormatVersion = "0.3.1"
+    static let FormatVersion = "0.3"
     
     public let data: Data?
     public let url: URL?
@@ -103,7 +103,7 @@ public class MakeshiftDesignStore {
     ///
     func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
         switch perDesign.storeFormatVersion {
-        case "0.0.4", "0.3", Self.FormatVersion:
+        case "0.0.4", "0.3", "0.3.1":
             return try restoreCurrentVersion(perDesign, metamodel: metamodel)
         // case "x.y.z":
         //     return try restoreVersionX_Y_Z(perDesign, metamodel: metamodel)
