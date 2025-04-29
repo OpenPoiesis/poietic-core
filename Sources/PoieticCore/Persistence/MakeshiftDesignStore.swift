@@ -5,6 +5,11 @@
 //  Created by Stefan Urbanek on 20/10/2023.
 //
 
+// Versions:
+// 0.3.1:
+//   - Changed metamodel name to lowercase `default`
+//   - Order of snapshots is preserved
+
 // TODO: [IMPORTANT] Remove dictionaries from storage and replace with arrays (we want to preserve order)
 
 import Foundation
@@ -26,7 +31,7 @@ public class MakeshiftDesignStore {
     // Development note: The format version should be the latest version tag
     // when the format has changed.
     //
-    static let FormatVersion = "0.3"
+    static let FormatVersion = "0.3.1"
     
     public let data: Data?
     public let url: URL?
@@ -98,7 +103,7 @@ public class MakeshiftDesignStore {
     ///
     func restore(_ perDesign: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
         switch perDesign.storeFormatVersion {
-        case "0.0.4", Self.FormatVersion:
+        case "0.0.4", "0.3", Self.FormatVersion:
             return try restoreCurrentVersion(perDesign, metamodel: metamodel)
         // case "x.y.z":
         //     return try restoreVersionX_Y_Z(perDesign, metamodel: metamodel)
@@ -121,7 +126,8 @@ public class MakeshiftDesignStore {
 
         // 1. Read Snapshots
         // ----------------------------------------------------------------
-        var snapshots: [SnapshotID: DesignObject] = [:]
+        var snapshots: [DesignObject] = []
+        var snapshotMap: [ObjectID:DesignObject] = [:]
 
         for perSnapshot in persistent.snapshots {
             guard let type = metamodel.objectType(name: perSnapshot.type) else {
@@ -135,7 +141,7 @@ public class MakeshiftDesignStore {
                 throw .structuralTypeMismatch(type.structuralType, structuralType)
             }
 
-            guard snapshots[perSnapshot.snapshotID] == nil else {
+            guard snapshotMap[perSnapshot.snapshotID] == nil else {
                 throw .duplicateSnapshot(perSnapshot.snapshotID)
             }
             
@@ -170,7 +176,8 @@ public class MakeshiftDesignStore {
                                         attributes: perSnapshot.attributes,
                                         components: [])
 
-            snapshots[snapshot.snapshotID] = snapshot
+            snapshots.append(snapshot)
+            snapshotMap[snapshot.snapshotID] = snapshot
         }
 
         // 2. Read frames
@@ -184,7 +191,7 @@ public class MakeshiftDesignStore {
             let newFrame = design.createFrame(id: perFrame.id)
             
             for id in perFrame.snapshots {
-                guard let snapshot = snapshots[id] else {
+                guard let snapshot = snapshotMap[id] else {
                     throw .invalidSnapshotReference(newFrame.id, id)
                 }
                 // Do not check for referential integrity yet
@@ -293,7 +300,7 @@ public class MakeshiftDesignStore {
                                            redoableFrames: design.redoableFrames)
         let perDesign = _PersistentDesign(
             storeFormatVersion: Self.FormatVersion,
-            metamodel: "DEFAULT",
+            metamodel: "default",
             snapshots: snapshots,
             frames: frames,
             state: state,
