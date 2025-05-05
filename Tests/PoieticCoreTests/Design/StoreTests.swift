@@ -225,7 +225,7 @@ let TestFormatVersion = "0.0.4"
         let store = MakeshiftDesignStore(data: data)
         let design = try store.load(metamodel: TestMetamodel)
         let snapshot = try #require(design.snapshot(ObjectID(20)))
-        #expect(snapshot._refCount == 2)
+        #expect(design._storage.referenceCount(snapshot.snapshotID) == 2)
     }
 
 }

@@ -22,8 +22,12 @@ public class SnapshotStorage {
         let snapshot: DesignObject
         let index: RefcountedObjectArray.Index
     }
+    struct RefCountCell {
+        let snapshot: DesignObject
+        var refCount: Int
+    }
 
-    typealias RefcountedObjectArray = GenerationalArray<DesignObject>
+    typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
 
     var _snapshots: RefcountedObjectArray
     var _lookup: [ObjectID:SnapshotReference]
@@ -38,7 +42,7 @@ public class SnapshotStorage {
     /// Get a list of contained snapshots.
     ///
     public var snapshots: some Collection<DesignObject> {
-        return _snapshots
+        return _snapshots.map { $0.snapshot }
     }
     
     /// Returns `true` if the storage contains a snapshot with given ID.
@@ -55,6 +59,12 @@ public class SnapshotStorage {
         }
         return ref.snapshot
     }
+    public func referenceCount(_ snapshotID: ObjectID) -> Int? {
+        guard let ref = _lookup[snapshotID] else {
+            return nil
+        }
+        return _snapshots[ref.index].refCount
+    }
     
     /// Inserts a snapshot into the store, if it does not already exist or increases reference
     /// count of a snapshot.
@@ -66,17 +76,15 @@ public class SnapshotStorage {
         // TODO: [WIP] Remove refcount from the design object, move it here.
         
         if let ref = _lookup[snapshot.snapshotID] {
-            let count = _snapshots[ref.index]._refCount
+            let count = _snapshots[ref.index].refCount
             precondition(count > 0)
             // HINT: When this happens, it is very likely that uniqueness of IDs was not verified.
             // HINT: Places to look at: persistent store or frame loader.
-            precondition(_snapshots[ref.index] === snapshot)
-            _snapshots[ref.index]._refCount = count + 1
+            precondition(_snapshots[ref.index].snapshot === snapshot)
+            _snapshots[ref.index].refCount = count + 1
         }
         else {
-            precondition(snapshot._refCount == 0)
-            snapshot._refCount = 1
-            let index = _snapshots.append(snapshot)
+            let index = _snapshots.append(RefCountCell(snapshot: snapshot, refCount: 1))
             _lookup[snapshot.snapshotID] = SnapshotReference(snapshot: snapshot, index: index)
         }
     }
@@ -88,10 +96,10 @@ public class SnapshotStorage {
         guard let ref = _lookup[snapshotID] else {
             preconditionFailure("Missing snapshot \(snapshotID)")
         }
-        precondition(_snapshots[ref.index]._refCount > 0, "Release failure: zero retains")
+        precondition(_snapshots[ref.index].refCount > 0, "Release failure: zero retains")
         
-        _snapshots[ref.index]._refCount -= 1
-        if _snapshots[ref.index]._refCount == 0 {
+        _snapshots[ref.index].refCount -= 1
+        if _snapshots[ref.index].refCount == 0 {
             _snapshots.remove(at: ref.index)
             _lookup[snapshotID] = nil
         }
