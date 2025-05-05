@@ -161,7 +161,87 @@ extension Frame {
         
         return Array(broken)
     }
-    
+
+    /// Validate structural references.
+    ///
+    /// The method validates structural integrity of objects:
+    ///
+    /// - Edge endpoints must exist within the frame.
+    /// - Children-parent relationship must be mutual.
+    /// - There must be no parent-child cycle.
+    ///
+    /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
+    /// method.
+    ///
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
+    /// - Precondition: The frame must be in transient state – must not be
+    ///   previously accepted or discarded.
+    ///
+    public func validateStructure() throws (StructuralIntegrityError) {
+        var parents: [(parent: ObjectID, child: ObjectID)] = []
+        
+        // Integrity checks
+        for checked in self.snapshots {
+            switch checked.structure {
+            case .unstructured: break // Nothing to validate.
+            case .node: break // Nothing to validate.
+            case let .edge(originID, targetID):
+                guard self.contains(originID) && self.contains(targetID) else {
+                    throw .brokenEdgeEndpoint
+                }
+                guard self[originID].structure == .node && self[targetID].structure == .node else {
+                    throw .edgeEndpointNotANode
+                }
+            case .orderedSet: break // FIXME: [WIP] Validate ordered set
+            }
+            
+            for childID in checked.children {
+                guard self.contains(childID) else {
+                    throw .brokenChild
+                }
+                let child = self[childID]
+                guard child.parent == checked.id else {
+                    throw .parentChildMismatch
+                }
+            }
+            
+            if let parentID = checked.parent {
+                guard self.contains(parentID) else {
+                    throw .brokenParent
+                }
+                let parent = self[parentID]
+                guard parent.children.contains(checked.id) else {
+                    throw .parentChildMismatch
+                }
+                parents.append((parent: parentID, child: checked.id))
+            }
+        }
+        
+        // Map: child -> parent
+        
+        let children = Set(parents.map { $0.child })
+        var tops: [ObjectID] = parents.compactMap {
+            if children.contains($0.parent) {
+                nil
+            }
+            else {
+                $0.parent
+            }
+        }
+        
+        while !tops.isEmpty {
+            let topParent = tops.removeFirst()
+            for (_, child) in parents.filter({ $0.parent == topParent }) {
+                tops.append(child)
+            }
+            parents.removeAll { $0.parent == topParent }
+        }
+        
+        if !parents.isEmpty {
+            throw .parentChildCycle
+        }
+    }
+
     /// Get first object of given type.
     ///
     /// This method is used to find singleton objects, for example
