@@ -345,10 +345,31 @@ public final class TransientFrame: Frame {
                        attributes: [String:Variant]=[:],
                        components: [any Component]=[]) -> MutableObject {
         precondition(state == .transient)
-        
-        let actualID = design.allocateID(required: id)
-        let actualSnapshotID = design.allocateID(required: snapshotID)
-        
+       
+        let actualID: ObjectID
+        if let id {
+            // TODO: [WIP] Validate whether it is used for the purpose (not a frame)
+            if !design.isUsed(id) {
+                design.useID(id)
+            }
+            precondition(!self.contains(id))
+            actualID = id
+        }
+        else {
+            actualID = design.createID()
+        }
+
+        let actualSnapshotID: ObjectID
+        if let snapshotID {
+            guard design.useID(snapshotID) else {
+                preconditionFailure("ID already used (\(snapshotID))")
+            }
+            actualSnapshotID = snapshotID
+        }
+        else {
+            actualSnapshotID = design.createID()
+        }
+
         let actualStructure: Structure
         switch type.structuralType {
         case .unstructured:
@@ -659,7 +680,7 @@ public final class TransientFrame: Frame {
         case .mutable(let snapshot):
             return snapshot
         case .stable(let original):
-            let derivedSnapshotID: SnapshotID = design.allocateID()
+            let derivedSnapshotID: SnapshotID = design.createID()
             let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
             
             self.objects[id] = .mutable(derived)

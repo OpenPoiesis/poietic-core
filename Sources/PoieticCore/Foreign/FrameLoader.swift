@@ -188,7 +188,8 @@ public final class ForeignFrameLoader {
     ///
     public func resolveReference(_ ref: ForeignObjectReference?, in frame: some Frame, required: Bool = true) -> ObjectID? {
         guard let ref else {
-            return frame.design.allocateID()
+            // FIXME: [WIP] Release reserved IDs
+            return frame.design.createID()
         }
         switch ref {
         case let .id(value):
@@ -208,7 +209,8 @@ public final class ForeignFrameLoader {
                 return nil
             }
             else {
-                let newID = frame.design.allocateID()
+                // FIXME: [WIP] Release reserved IDs
+                let newID = frame.design.createID()
                 references[string] = newID
                 return newID
             }

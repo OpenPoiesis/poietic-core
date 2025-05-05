@@ -112,12 +112,11 @@ public class MakeshiftDesignStore {
         }
     }
 
-    
+    // FIXME: [WIP] Remove this
     func assertUniqueID(_ id: ObjectID, in design: Design, context: String) throws (PersistentStoreError) {
-        guard design.isUnused(id) else {
+        guard design.reserveID(id) else {
             throw .duplicateID(id, context)
         }
-        design.consumeID(id)
     }
 
     func restoreCurrentVersion(_ persistent: _PersistentDesign, metamodel: Metamodel) throws (PersistentStoreError) -> Design {
@@ -165,7 +164,7 @@ public class MakeshiftDesignStore {
             }
             // TODO: Handle corrupted store with existing IDs
             // TODO: Handle corrupted store with duplicate objectIDs within frame
-            design.consumeID(perSnapshot.id)
+            design.useID(perSnapshot.id)
             try assertUniqueID(perSnapshot.snapshotID, in: design, context: "snapshot")
 
             let snapshot = DesignObject(id: perSnapshot.id,
