@@ -146,12 +146,12 @@ import Testing
         
         let frame1 = try design.accept(trans1)
         #expect(design.contains(snapshot: a.snapshotID))
-        #expect(design._storage.referenceCount(a.snapshotID) == 1)
+        #expect(design.referenceCount(a.snapshotID) == 1)
         
         let trans2 = design.createFrame(deriving: design.currentFrame)
         let frame2 = try design.accept(trans2)
         #expect(design.contains(snapshot: a.snapshotID))
-        #expect(design._storage.referenceCount(a.snapshotID) == 2)
+        #expect(design.referenceCount(a.snapshotID) == 2)
 
         design.removeFrame(frame1.id)
         design.removeFrame(frame2.id)

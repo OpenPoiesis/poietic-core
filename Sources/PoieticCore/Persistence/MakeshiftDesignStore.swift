@@ -114,7 +114,7 @@ public class MakeshiftDesignStore {
 
     // FIXME: [WIP] Remove this
     func assertUniqueID(_ id: ObjectID, in design: Design, context: String) throws (PersistentStoreError) {
-        guard design.reserveID(id) else {
+        guard design.reserve(id: id, type: .UNKNOWN_SENTINEL) else {
             throw .duplicateID(id, context)
         }
     }
@@ -164,7 +164,7 @@ public class MakeshiftDesignStore {
             }
             // TODO: Handle corrupted store with existing IDs
             // TODO: Handle corrupted store with duplicate objectIDs within frame
-            design.useID(perSnapshot.id)
+            design.use(id: perSnapshot.id, type: .snapshot)
             try assertUniqueID(perSnapshot.snapshotID, in: design, context: "snapshot")
 
             let snapshot = DesignObject(id: perSnapshot.id,

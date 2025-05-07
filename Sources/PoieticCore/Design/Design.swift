@@ -5,63 +5,17 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
+//  DEVELOPMENT NOTE:
+//
+//  If adding functionality to Design, make sure that the functionality is
+//  implementable, and preferably implemented in the poietic-design command-line
+//  tool. We want to maintain parity between what programmers can do and what
+//  (expert) users can do without access to the development environment.
+//
+
 import Synchronization
 
-// DEVELOPMENT NOTE:
-//
-// If adding functionality to Design, make sure that the functionality is
-// implementable, and preferably implemented in the poietic-design command-line
-// tool. We want to maintain parity between what programmers can do and what
-// (expert) users can do without access to the development environment.
-//
-
-struct IdentityManager: ~Copyable {
-    var sequence: UInt64 = 1
-    var usedIDs: Set<UInt64> = Set()
-    var reservedIDs: Set<UInt64> = Set()
-    
-    @inlinable
-    func isUsed(_ rawID: UInt64) -> Bool {
-        return usedIDs.contains(rawID) || reservedIDs.contains(rawID)
-    }
-    @inlinable
-    func isUsed(_ id: ObjectID) -> Bool {
-        return isUsed(id.intValue)
-    }
-    @inlinable
-    mutating func create() -> ObjectID {
-        var nextID = sequence
-        while isUsed(nextID) {
-            nextID += 1
-        }
-        sequence = nextID + 1
-        return ObjectID(nextID)
-    }
-    @inlinable
-    mutating func reserve(_ id: ObjectID) -> Bool {
-        if isUsed(id.intValue) {
-            return false
-        }
-        else {
-            reservedIDs.insert(id.intValue)
-            return true
-        }
-    }
-    @inlinable
-    @discardableResult
-    mutating func use(_ id: ObjectID) -> Bool {
-        let rawID = id.intValue
-        guard !usedIDs.contains(rawID) else { return false }
-        if reservedIDs.contains(rawID) {
-            reservedIDs.remove(rawID)
-        }
-        usedIDs.insert(rawID)
-        return true
-    }
-    mutating func flushReserved() {
-        reservedIDs.removeAll()
-    }
-}
+// TODO: [WIP] Mark as unsafe, as well as any other
 
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
@@ -163,17 +117,12 @@ public class Design {
     ///
     public let metamodel: Metamodel
     
-    /// Value used to generate next object ID.
+    /// Generator of object IDs.
     ///
-    /// - Note: This is very primitive and naive sequence number generator. If an ID
-    ///   is marked as used and the number is higher than current sequence, all
-    ///   numbers are just skipped and the next sequence would be the used +1.
+    /// - SeeAlso: ``createID()``, ``reserveID(_:)``, ``useID(_:)``, ``isUsed(_:)``
     ///
-    /// - SeeAlso: ``allocateID(required:)``
-    ///
-    private var objectIDSequence: UInt64
-    private var reservedIDs: Set<ObjectID> = Set()
-    
+    let identityManager:Mutex<IdentityManager> = Mutex(IdentityManager())
+
     var _storage: SnapshotStorage
 
     // FIXME: Order of frames is not preserved during persistence
@@ -236,7 +185,6 @@ public class Design {
     ///
     public init(metamodel: Metamodel = Metamodel()) {
         // NOTE: Sync with removeAll()
-        self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
         self._storage = SnapshotStorage()
@@ -255,35 +203,57 @@ public class Design {
    
     // MARK: - Identity
     // TODO: [WIP] Move to front
-    let identityManager:Mutex<IdentityManager> = Mutex(IdentityManager())
 
-    public func createID() -> ObjectID {
-        return identityManager.withLock {
-            $0.create()
-        }
-    }
-    // TODO: [WIP] Rename this to allocateID, rename allocateID to createID without argument
-    public func reserveID(_ id: ObjectID) -> Bool {
-        return identityManager.withLock {
-            return $0.reserve(id)
-        }
-    }
-    public func useID(_ id: ObjectID) -> Bool {
-        return identityManager.withLock {
-            return $0.use(id)
+    public func reserve(id: ObjectID, type: IdentityType) -> Bool {
+        identityManager.withLock {
+            $0.reserve(id, type: type)
         }
     }
 
+    func createAndReserve(type: IdentityType) -> ObjectID {
+        return identityManager.withLock {
+            return $0.createAndReserve(type: type)
+        }
+    }
+    func createAndUse(type: IdentityType) -> ObjectID {
+        return identityManager.withLock {
+            return $0.createAndUse(type: type)
+        }
+    }
+
+    func reserveIfNeeded(id: ObjectID, type: IdentityType) -> Bool {
+        return identityManager.withLock {
+            if let existingType = $0.type(id) {
+                return existingType == type
+            }
+            else {
+                return $0.reserve(id, type: type)
+            }
+        }
+    }
+
+    @discardableResult
+    public func use(id: ObjectID, type: IdentityType) -> Bool {
+        return identityManager.withLock {
+            return $0.use(id, type: type)
+        }
+    }
+
+    /// Checks whether any entity in the design has the given ID.
+    ///
     /// Returns `true` if the design contains an entity with given ID.
     ///
     /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
     ///
-    public func isUsed(_ id: ObjectID) -> Bool {
-        return identityManager.withLock {
-            return $0.isUsed(id)
-        }
+    public func isUsed(id: ObjectID) -> Bool {
+        identityManager.withLock { $0.contains(id) }
     }
     
+    func idType(_ id: ObjectID) -> IdentityType? {
+        identityManager.withLock { $0.type(id) }
+    }
+
+
     /// Get a sequence of all stable snapshots in all stable frames.
     ///
     public var snapshots: some Collection<DesignObject> {
@@ -297,11 +267,18 @@ public class Design {
         return _storage.snapshot(snapshotID)
     }
 
-
-    public func contains(snapshot snapshotID: ObjectID ) -> Bool {
+    public func contains(snapshot snapshotID: ObjectID) -> Bool {
         return _storage.contains(snapshotID)
     }
     
+    public func referenceCount(_ snapshotID: ObjectID) -> Int? {
+        return _storage.referenceCount(snapshotID)
+    }
+    
+    public func contains(stableFrame frameID: ObjectID) -> Bool {
+        return _stableFrames[frameID] != nil
+    }
+
     // MARK: Frames
     
     /// List of all stable frames in the design.
@@ -361,11 +338,11 @@ public class Design {
                             id: FrameID? = nil) -> TransientFrame {
         let actualID: ObjectID
         if let id {
-            precondition(!useID(id), "ID already used (\(id)")
+            precondition(!use(id: id, type: .frame), "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = createID()
+            actualID = createAndUse(type: .frame)
         }
         
         let derived: TransientFrame
@@ -560,9 +537,23 @@ public class Design {
         return stableFrame
     }
 
+    /// Unsafely insert a frame without structural or snapshot reference validation.
+    ///
+    /// This method is used internally by transactions where the validation happens.
+    ///
+    /// - Precondition: The design must not contain a stable frame with given ID.
+    ///
+    func _unsafeInsert(_ frame: DesignFrame) {
+        precondition(!contains(stableFrame: frame.id))
+        _stableFrames[frame.id] = frame
+        for snapshot in frame.snapshots {
+            _insertOrRetain(snapshot)
+        }
+    }
     
     @discardableResult
     public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
+        // TODO: Seems like this method can be moved out of design.
         precondition(frame.design === self)
         precondition(_stableFrames[frame.id] != nil)
         

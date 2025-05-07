@@ -97,11 +97,11 @@ public final class ForeignFrameLoader {
         
         // 1. Allocate identities and collect references
         for (index, foreignObject) in foreignObjects.enumerated() {
-            guard let id = resolveReference(foreignObject.idReference, in: frame, required: false) else {
+            guard let id = resolveReference(foreignObject.idReference, in: frame, required: false, type: .object) else {
                 // TODO: Use string value for object reference
                 throw .invalidReference("id", foreignObject.idReference, index, foreignObject.idReference)
             }
-            guard let snapshotID = resolveReference(foreignObject.snapshotIDReference, in: frame) else {
+            guard let snapshotID = resolveReference(foreignObject.snapshotIDReference, in: frame, type: .snapshot) else {
                 throw .invalidReference("snapshot_id", foreignObject.snapshotIDReference, index, foreignObject.idReference)
             }
 
@@ -131,10 +131,10 @@ public final class ForeignFrameLoader {
             case (.node, .node), (.none, .node):
                 structure = .node
             case (.edge(let originRef, let targetRef), .edge):
-                guard let origin = resolveReference(originRef, in: frame) else {
+                guard let origin = resolveReference(originRef, in: frame, type: .object) else {
                     throw .invalidReference("origin", originRef, index, foreignObject.idReference)
                 }
-                guard let target = resolveReference(targetRef, in: frame) else {
+                guard let target = resolveReference(targetRef, in: frame, type: .object) else {
                     throw .invalidReference("target", targetRef, index, foreignObject.idReference)
                 }
                 structure = .edge(origin, target)
@@ -151,7 +151,7 @@ public final class ForeignFrameLoader {
 
             let parent: ObjectID?
             if let parentRef = foreignObject.parentReference {
-                parent = resolveReference(parentRef, in: frame)
+                parent = resolveReference(parentRef, in: frame, type: .object)
             }
             else {
                 parent = nil
@@ -186,10 +186,10 @@ public final class ForeignFrameLoader {
     ///     - If not, then a new ID is allocated and it is is stored in a reference map.
     ///       Newly allocated ID is returned.
     ///
-    public func resolveReference(_ ref: ForeignObjectReference?, in frame: some Frame, required: Bool = true) -> ObjectID? {
+    public func resolveReference(_ ref: ForeignObjectReference?, in frame: some Frame, required: Bool = true, type: IdentityType) -> ObjectID? {
         guard let ref else {
             // FIXME: [WIP] Release reserved IDs
-            return frame.design.createID()
+            return frame.design.createAndReserve(type: type)
         }
         switch ref {
         case let .id(value):
@@ -210,7 +210,7 @@ public final class ForeignFrameLoader {
             }
             else {
                 // FIXME: [WIP] Release reserved IDs
-                let newID = frame.design.createID()
+                let newID = frame.design.createAndReserve(type: type)
                 references[string] = newID
                 return newID
             }
