@@ -80,25 +80,76 @@ struct RawNamedList {
     let ids: [RawObjectID]
 }
 
+/// Raw representation of a design.
+///
+/// Raw design representation contains all entities from which a design can be constructed.
+/// Raw design does not have to conform to metamodel. The structural integrity is not guaranteed
+/// neither checked.
+///
 public class RawDesign {
+    /// Name of the metamodel the raw design represents.
+    ///
+    /// When loading, the metamodel of the raw design must match metamodel expected by the
+    /// application. Metamodel name mismatch should result either in a loading error or in an
+    /// upgrade/migration request, if possible.
+    ///
+    /// When metamodel name is not provided, application should expect the metamodel name to be
+    /// as expected by the application. Same for a special metamodel name `"default"`.
+    ///
     var metamodelName: String? = nil
+
+    /// Version of the metamodel within the raw design.
+    ///
+    /// When the version is not matching application expectations, the application should offer
+    /// an upgrade to the user, if possible. Otherwise version mismatch should result in an error
+    /// and should prevent loading.
+    ///
+    /// When metamodel version is not provided, application should expect the metamodel version to be
+    /// as expected by the application. Guessing a version is considered an act of optional kindness.
+    ///
     var metamodelVersion: SemanticVersion? = nil
+
+    /// List of snapshots contained in the raw design.
+    ///
+    /// Snapshots are expected to be used by the frames. Any snapshot not used by a frame within the
+    /// raw design should be discarded during loading process.
+    ///
     var snapshots: [RawSnapshot] = []
+
+    /// List of frames.
+    ///
     var frames: [RawFrame] = []
 
+    /// References to metamodel entities created by an user, typically through an application.
+    ///
+    /// For example, ``Design/namedFrames`` are stored here as named references of type `"frame"`.
+    ///
     var userReferences: [RawNamedReference] = []
+
+    /// Named lists of references created by an user, typically through an application.
+    ///
+    /// This is for future extensions and uses. Currently it is ignored and exists for parity
+    /// with ``systemLists``.
+    ///
     var userLists: [RawNamedList] = []
 
-    /// Known system references:
-    /// - `"current_frame"`, `"frame"`
-    /// - `"application_settings"`, `"frame"`
-    /// - `"design_info"`, `"object"`
-    /// - `"diagram_settings"`, `"object"`
+    /// References to metamodel entities created and managed by the system.
+    ///
+    /// Currently known and used system references:
+    ///
+    /// | Name | Type | Description |
+    /// | ---- | ---- | ----------- |
+    /// | `current_frame` |  `frame` | ID of current frame (see ``Design/currentFrameID``) |
+    /// | `application_settings` | `frame` | ID of frame containing application settings. A non-versioned frame. |
     var systemReferences: [RawNamedReference] = []
 
-    /// Known system lists:
-    /// - `"undo"`, `"frame"`
-    /// - `"redo"`, `"frame`
+    /// Named lists of references created by and managed by the system.
+    ///
+    /// | Name | Item Type | Description |
+    /// | ---- | --------- | ----------- |
+    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoableFrames`` |
+    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoableFrames`` |
+    ///
     var systemLists: [RawNamedList] = []
     
     /// Create a new raw design.
@@ -167,3 +218,4 @@ public class RawFrame {
         self.objects = objects
     }
 }
+
