@@ -128,25 +128,6 @@ public final class TransientFrame: Frame {
             }
         }
         
-        var edgeEndpoints: (ObjectID, ObjectID)? {
-            switch self {
-            case let .stable(object):
-                if case let .edge(origin, target) = object.structure {
-                    return (origin, target)
-                }
-                else {
-                    return nil
-                }
-            case let .mutable(object):
-                if case let .edge(origin, target) = object.structure {
-                    return (origin, target)
-                }
-                else {
-                    return nil
-                }
-            }
-        }
-        
         func asStable() -> DesignObject {
             switch self {
             case let .stable(object): object
@@ -345,10 +326,27 @@ public final class TransientFrame: Frame {
                        attributes: [String:Variant]=[:],
                        components: [any Component]=[]) -> MutableObject {
         precondition(state == .transient)
-        
-        let actualID = design.allocateID(required: id)
-        let actualSnapshotID = design.allocateID(required: snapshotID)
-        
+       
+        let actualSnapshotID: ObjectID
+        if let snapshotID {
+            precondition(design.isUsed(id: snapshotID), "ID not registered: \(snapshotID)")
+            actualSnapshotID = snapshotID
+        }
+        else {
+            actualSnapshotID = design.createAndReserve(type: .snapshot)
+        }
+
+        let actualID: ObjectID
+        if let id {
+            // TODO: [WIP] Validate whether it is used for the purpose (not a frame)
+            precondition(design.reserveIfNeeded(id: id, type: .object), "Type mismatch for ID \(id)")
+            precondition(!self.contains(id))
+            actualID = id
+        }
+        else {
+            actualID = design.createAndReserve(type: .object)
+        }
+
         let actualStructure: Structure
         switch type.structuralType {
         case .unstructured:
@@ -554,84 +552,6 @@ public final class TransientFrame: Frame {
         return removed
     }
     
-    /// Validate structural references.
-    ///
-    /// The method validates structural integrity of objects:
-    ///
-    /// - Edge endpoints must exist within the frame.
-    /// - Children-parent relationship must be mutual.
-    /// - There must be no parent-child cycle.
-    ///
-    /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
-    /// method.
-    ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
-    /// - Precondition: The frame must be in transient state – must not be
-    ///   previously accepted or discarded.
-    ///
-    public func validateStructure() throws (StructuralIntegrityError) {
-        precondition(state == .transient)
-        
-        var parents: [(parent: ObjectID, child: ObjectID)] = []
-        
-        // Integrity checks
-        for (checkedID, checked) in self.objects {
-            // Check references
-            if let (origin, target) = checked.edgeEndpoints {
-                guard let origin = objects[origin], let target = objects[target] else {
-                    throw .brokenEdgeEndpoint
-                }
-                
-                guard origin.structure == .node && target.structure == .node else {
-                    throw .edgeEndpointNotANode
-                }
-            }
-            
-            for childID in checked.children {
-                guard let child = objects[childID] else {
-                    throw .brokenChild
-                }
-                guard child.parent == checkedID else {
-                    throw .parentChildMismatch
-                }
-            }
-            
-            if let parentID = checked.parent {
-                guard let parent = objects[parentID] else {
-                    throw .brokenParent
-                }
-                guard parent.children.contains(checkedID) else {
-                    throw .parentChildMismatch
-                }
-                parents.append((parent: parentID, child: checkedID))
-            }
-        }
-        
-        // Map: child -> parent
-        
-        let children = Set(parents.map { $0.child })
-        var tops: [ObjectID] = parents.compactMap {
-            if children.contains($0.parent) {
-                nil
-            }
-            else {
-                $0.parent
-            }
-        }
-        
-        while !tops.isEmpty {
-            let topParent = tops.removeFirst()
-            for (_, child) in parents.filter({ $0.parent == topParent }) {
-                tops.append(child)
-            }
-            parents.removeAll { $0.parent == topParent }
-        }
-        
-        if !parents.isEmpty {
-            throw .parentChildCycle
-        }
-    }
-    
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is
@@ -659,7 +579,7 @@ public final class TransientFrame: Frame {
         case .mutable(let snapshot):
             return snapshot
         case .stable(let original):
-            let derivedSnapshotID: SnapshotID = design.allocateID()
+            let derivedSnapshotID: SnapshotID = design.createAndUse(type: .snapshot)
             let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
             
             self.objects[id] = .mutable(derived)

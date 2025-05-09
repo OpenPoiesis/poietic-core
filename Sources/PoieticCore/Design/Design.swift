@@ -5,13 +5,17 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
-// DEVELOPMENT NOTE:
+//  DEVELOPMENT NOTE:
 //
-// If adding functionality to Design, make sure that the functionality is
-// implementable, and preferably implemented in the poietic-design command-line
-// tool. We want to maintain parity between what programmers can do and what
-// (expert) users can do without access to the development environment.
+//  If adding functionality to Design, make sure that the functionality is
+//  implementable, and preferably implemented in the poietic-design command-line
+//  tool. We want to maintain parity between what programmers can do and what
+//  (expert) users can do without access to the development environment.
 //
+
+import Synchronization
+
+// TODO: [WIP] Mark as unsafe, as well as any other
 
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
@@ -113,21 +117,18 @@ public class Design {
     ///
     public let metamodel: Metamodel
     
-    /// Value used to generate next object ID.
+    /// Generator of object IDs.
     ///
-    /// - Note: This is very primitive and naive sequence number generator. If an ID
-    ///   is marked as used and the number is higher than current sequence, all
-    ///   numbers are just skipped and the next sequence would be the used +1.
+    /// - SeeAlso: ``createID()``, ``reserveID(_:)``, ``useID(_:)``, ``isUsed(_:)``
     ///
-    /// - SeeAlso: ``allocateID(required:)``
-    ///
-    private var objectIDSequence: UInt64
+    let identityManager:Mutex<IdentityManager> = Mutex(IdentityManager())
 
     var _storage: SnapshotStorage
 
     // FIXME: Order of frames is not preserved during persistence
     var _stableFrames: [FrameID: DesignFrame]
     var _namedFrames: [String: DesignFrame]
+    // FIXME: [WIP] Use just access methods, do not make this public
     public var namedFrames: [String: DesignFrame] { _namedFrames }
     
     var _transientFrames: [FrameID: TransientFrame]
@@ -184,7 +185,6 @@ public class Design {
     ///
     public init(metamodel: Metamodel = Metamodel()) {
         // NOTE: Sync with removeAll()
-        self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
         self._storage = SnapshotStorage()
@@ -202,43 +202,58 @@ public class Design {
     }
    
     // MARK: - Identity
-    
-    /// Create an ID or use a specific ID.
-    ///
-    /// If an ID is provided, then it is marked as used and accepted. It must
-    /// not already exist in the design, otherwise it is a programming error.
-    ///
-    /// If ID is not provided, then a new ID will be created.
-    ///
-    /// - Precondition: If ID is specified, it must not be used before.
-    ///
-    public func allocateID(required: ObjectID? = nil) -> ObjectID {
-        // TODO: Just use "usedIDs"
-        if let id = required {
-            precondition(isUnused(id), "Requested ID \(id) is not unique")
-            consumeID(id)
-            return id
+    // TODO: [WIP] Move to front
+
+    public func reserve(id: ObjectID, type: IdentityType) -> Bool {
+        identityManager.withLock {
+            $0.reserve(id, type: type)
         }
-        else {
-            let id = ObjectID(objectIDSequence)
-            objectIDSequence += 1
-            return id
-        }
-    }
-    public func consumeID(_ id: ObjectID) {
-        objectIDSequence = max(self.objectIDSequence, id.internalSequenceValue + 1)
     }
 
+    func createAndReserve(type: IdentityType) -> ObjectID {
+        return identityManager.withLock {
+            return $0.createAndReserve(type: type)
+        }
+    }
+    func createAndUse(type: IdentityType) -> ObjectID {
+        return identityManager.withLock {
+            return $0.createAndUse(type: type)
+        }
+    }
+
+    func reserveIfNeeded(id: ObjectID, type: IdentityType) -> Bool {
+        return identityManager.withLock {
+            if let existingType = $0.type(id) {
+                return existingType == type
+            }
+            else {
+                return $0.reserve(id, type: type)
+            }
+        }
+    }
+
+    @discardableResult
+    public func use(id: ObjectID, type: IdentityType) -> Bool {
+        return identityManager.withLock {
+            return $0.use(id, type: type)
+        }
+    }
+
+    /// Checks whether any entity in the design has the given ID.
+    ///
     /// Returns `true` if the design contains an entity with given ID.
     ///
     /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
     ///
-    public func isUnused(_ id: ObjectID) -> Bool {
-        return !_storage.contains(id)
-                && _stableFrames[id] == nil
-                && _transientFrames[id] == nil
+    public func isUsed(id: ObjectID) -> Bool {
+        identityManager.withLock { $0.contains(id) }
     }
     
+    func idType(_ id: ObjectID) -> IdentityType? {
+        identityManager.withLock { $0.type(id) }
+    }
+
+
     /// Get a sequence of all stable snapshots in all stable frames.
     ///
     public var snapshots: some Collection<DesignObject> {
@@ -252,11 +267,18 @@ public class Design {
         return _storage.snapshot(snapshotID)
     }
 
-
-    public func contains(snapshot snapshotID: ObjectID ) -> Bool {
+    public func contains(snapshot snapshotID: ObjectID) -> Bool {
         return _storage.contains(snapshotID)
     }
     
+    public func referenceCount(_ snapshotID: ObjectID) -> Int? {
+        return _storage.referenceCount(snapshotID)
+    }
+    
+    public func contains(stableFrame frameID: ObjectID) -> Bool {
+        return _stableFrames[frameID] != nil
+    }
+
     // MARK: Frames
     
     /// List of all stable frames in the design.
@@ -314,7 +336,14 @@ public class Design {
     @discardableResult
     public func createFrame(deriving original: DesignFrame? = nil,
                             id: FrameID? = nil) -> TransientFrame {
-        let actualID = allocateID(required: id)
+        let actualID: ObjectID
+        if let id {
+            precondition(!use(id: id, type: .frame), "ID already used (\(id)")
+            actualID = id
+        }
+        else {
+            actualID = createAndUse(type: .frame)
+        }
         
         let derived: TransientFrame
 
@@ -388,6 +417,17 @@ public class Design {
     ///
     func _insertOrRetain(_ snapshot: DesignObject) {
         _storage.insertOrRetain(snapshot)
+    }
+    
+    /// Insert an unique snapshot to the design.
+    ///
+    /// The inserted snapshot's reference count will be set to 1 and it is expected to be
+    /// owned by a frame.
+    ///
+    /// - Precondition: The snapshot must not exist in the design.
+    func insert(unique snapshot: DesignObject) {
+        // TODO: Create a concept of "on-hold"
+        // TODO: [WIP] Fix this
     }
 
     /// Accepts a frame and make it a stable frame.
@@ -497,9 +537,23 @@ public class Design {
         return stableFrame
     }
 
+    /// Unsafely insert a frame without structural or snapshot reference validation.
+    ///
+    /// This method is used internally by transactions where the validation happens.
+    ///
+    /// - Precondition: The design must not contain a stable frame with given ID.
+    ///
+    func _unsafeInsert(_ frame: DesignFrame) {
+        precondition(!contains(stableFrame: frame.id))
+        _stableFrames[frame.id] = frame
+        for snapshot in frame.snapshots {
+            _insertOrRetain(snapshot)
+        }
+    }
     
     @discardableResult
     public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
+        // TODO: Seems like this method can be moved out of design.
         precondition(frame.design === self)
         precondition(_stableFrames[frame.id] != nil)
         

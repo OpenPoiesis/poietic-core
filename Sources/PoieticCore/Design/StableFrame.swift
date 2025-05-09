@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
+// TODO: [WIP] [NOTE] Does not have to have referential integrity
 /// Design frame that has been accepted and can not be changed.
 ///
 /// The stable frame is a collection of object versions that together represent
@@ -39,7 +40,7 @@ public final class DesignFrame: Frame {
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
-    /// - Precondition: Snapshot must not be mutable.
+    /// - Precondition: Snapshots must have referential integrity.
     ///
     init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
         self.design = design

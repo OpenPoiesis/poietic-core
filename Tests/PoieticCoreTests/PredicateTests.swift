@@ -17,11 +17,15 @@ import Testing
     init() throws {
         design = Design()
         
-        empty = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestType)
-        textObject = DesignObject(id: design.allocateID(), snapshotID: design.allocateID(), type: TestTypeWithDefault)
+        empty = DesignObject(id: design.createAndUse(type: .object),
+                             snapshotID: design.createAndUse(type: .snapshot),
+                             type: TestType)
+        textObject = DesignObject(id: design.createAndUse(type: .object),
+                                  snapshotID: design.createAndUse(type: .object),
+                                  type: TestTypeWithDefault)
         
         frame = DesignFrame(design: design,
-                            id: design.allocateID(),
+                            id: design.createAndUse(type: .frame),
                             snapshots: [empty, textObject]
         )
     }
