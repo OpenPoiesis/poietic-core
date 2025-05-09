@@ -23,6 +23,9 @@ struct IdentityReservation: ~Copyable {
     /// Design that the identity reservation is bound to.
     let design: Design
 
+    /// All IDs reserved using this reservation.
+    var reserved: Set<ObjectID>
+    
     /// Mapping between raw object IDs and allocated IDs
     var rawMap: [RawObjectID:ObjectID]
 
@@ -39,6 +42,11 @@ struct IdentityReservation: ~Copyable {
         self.snapshots = []
         self.frames = []
         self.rawMap = [:]
+        self.reserved = Set()
+    }
+    
+    func contains(_ id: ObjectID) -> Bool {
+        reserved.contains(id)
     }
     
     mutating func reserve(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) throws (RawIdentityError) {
@@ -64,25 +72,27 @@ struct IdentityReservation: ~Copyable {
     ///
     @discardableResult
     mutating func reserveUnique(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
         if let rawID {
             if let id = ObjectID(rawID) {
                 guard design.reserve(id: id, type: type) else {
                     throw .duplicateID(rawID)
                 }
-                return id
+                reservedID = id
             }
             else {
                 guard rawMap[rawID] == nil else {
                     throw .duplicateID(rawID)
                 }
-                let id = design.createAndReserve(type: type)
-                rawMap[rawID] = id
-                return id
+                reservedID = design.createAndReserve(type: type)
+                rawMap[rawID] = reservedID
             }
         }
         else {
-            return design.createAndReserve(type: type)
+            reservedID = design.createAndReserve(type: type)
         }
+        reserved.insert(reservedID)
+        return reservedID
     }
     /// Reserve an ID for entity of given type.
     ///
@@ -93,35 +103,47 @@ struct IdentityReservation: ~Copyable {
     ///
     @discardableResult
     mutating func reserveIfNeeded(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
         if let rawID {
             if let id = rawMap[rawID] {
                 guard design.idType(id) == type else {
                     throw .typeMismatch(rawID)
                 }
-                return id
+                reservedID = id
             }
             else if let id = ObjectID(rawID) {
                 guard design.reserveIfNeeded(id: id, type: type) else {
                     throw .typeMismatch(rawID)
                 }
-                return id
+                reservedID = id
             }
             else {
-                let id = design.createAndReserve(type: type)
-                rawMap[rawID] = id
-                return id
+                reservedID = design.createAndReserve(type: type)
+                rawMap[rawID] = reservedID
             }
         }
         else {
-            return design.createAndReserve(type: type)
+            reservedID = design.createAndReserve(type: type)
         }
+        reserved.insert(reservedID)
+        return reservedID
     }
 
     
     /// List of objects that have invalid or missing types. If design is migrated, this
     /// might be used as a source of information for setting the correct type. Otherwise
     /// non-empty array means an error.
-    func id(_ rawID: RawObjectID) -> ObjectID? {
-        rawMap[rawID]
+    subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
+        if let actualID = ObjectID(rawID), reserved.contains(actualID), let type = design.idType(actualID) {
+            return (id: actualID, type: type)
+        }
+        else {
+            if let actualID = rawMap[rawID], let type = design.idType(actualID) {
+                return (id: actualID, type: type)
+            }
+            else {
+                return nil
+            }
+        }
     }
 }

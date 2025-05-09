@@ -90,6 +90,8 @@ struct TestIdentityReservation {
     @Test func reserveUniqueProvided() async throws {
         var reservation = IdentityReservation(design: design)
         try reservation.reserveUnique(id: .int(10), type: .snapshot)
+        #expect(reservation.contains(ObjectID(10)) == true)
+        #expect(reservation.contains(ObjectID(20)) == false)
         #expect(throws: RawIdentityError.duplicateID(.int(10))) {
             try reservation.reserveUnique(id: .int(10), type: .snapshot)
         }
@@ -103,6 +105,7 @@ struct TestIdentityReservation {
     @Test func reserveUniqueProvidedName() async throws {
         var reservation = IdentityReservation(design: design)
         let id = try reservation.reserveUnique(id: .string("thing"), type: .snapshot)
+        #expect(reservation.contains(id) == true)
         #expect(throws: RawIdentityError.duplicateID(.string("thing"))) {
             try reservation.reserveUnique(id: .string("thing"), type: .snapshot)
         }
@@ -115,6 +118,7 @@ struct TestIdentityReservation {
         let id1 = try reservation.reserveIfNeeded(id: .int(10), type: .snapshot)
         let id2 = try reservation.reserveIfNeeded(id: .int(10), type: .snapshot)
         #expect(id1 == id2)
+        #expect(reservation.contains(id1) == true)
     }
     @Test func reserveIfNeededTypeMismatch() async throws {
         var reservation = IdentityReservation(design: design)
@@ -129,6 +133,18 @@ struct TestIdentityReservation {
         #expect(throws: RawIdentityError.typeMismatch(.id(id))) {
             try reservation.reserveIfNeeded(id: .id(id), type: .object)
         }
+    }
+    @Test func getActualFromRaw() async throws {
+        var reservation = IdentityReservation(design: design)
+        design.use(id: ObjectID(10), type: .object)
+        #expect(reservation[.id(ObjectID(10))] == nil)
+
+        try reservation.reserveIfNeeded(id: .int(20), type: .object)
+        #expect(reservation[.int(20)]?.id == ObjectID(20))
+
+        let thingID = try reservation.reserveIfNeeded(id: .string("thing"), type: .object)
+        #expect(reservation[.string("thing")]?.id == thingID)
+
     }
     @Test func reserveSnapshot() async throws {
         var reservation = IdentityReservation(design: design)
