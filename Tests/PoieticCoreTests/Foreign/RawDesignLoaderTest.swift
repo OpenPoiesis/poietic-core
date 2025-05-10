@@ -38,7 +38,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestPlain", snapshotID: RawObjectID.int(1))
             ],
             frames: [
-                RawFrame(objects: [.int(1)])
+                RawFrame(snapshots: [.int(1)])
             ]
         )
         let design = try loader.load(raw)
@@ -52,7 +52,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), structure: RawStructure("node")),
             ],
             frames: [
-                RawFrame(objects: [.int(100), .int(101)])
+                RawFrame(snapshots: [.int(100), .int(101)])
             ]
         )
         let design = try loader.load(raw)
@@ -81,7 +81,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestPlain", snapshotID: .int(104), id: .int(14), parent: .int(10)),
             ],
             frames: [
-                RawFrame(objects: [.int(100), .int(101), .int(102), .int(103), .int(104)])
+                RawFrame(snapshots: [.int(100), .int(101), .int(102), .int(103), .int(104)])
             ]
         )
         let design = try loader.load(raw)
@@ -122,7 +122,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: nil, snapshotID: RawObjectID.int(10)),
             ],
             frames: [
-                RawFrame(objects: [.int(10)])
+                RawFrame(snapshots: [.int(10)])
             ]
         )
         #expect(throws: RawDesignLoaderError.snapshotError(0, .missingObjectType)) {
@@ -135,7 +135,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "Unknown", snapshotID: RawObjectID.int(10)),
             ],
             frames: [
-                RawFrame(objects: [.int(10)])
+                RawFrame(snapshots: [.int(10)])
             ]
         )
         #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectType("Unknown"))) {
@@ -148,7 +148,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(10), structure: RawStructure("edge", references: [])),
             ],
             frames: [
-                RawFrame(objects: [.int(10)])
+                RawFrame(snapshots: [.int(10)])
             ]
         )
         #expect(throws: RawDesignLoaderError.snapshotError(0, .invalidStructuralType)) {
@@ -161,7 +161,7 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(10), structure: RawStructure("edge", references: [.int(100), .int(200)])),
             ],
             frames: [
-                RawFrame(objects: [.int(10)])
+                RawFrame(snapshots: [.int(10)])
             ]
         )
         #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
@@ -175,11 +175,36 @@ struct RawDesignLoaderTest {
                 RawSnapshot(typeName: "TestEdge", snapshotID: .int(10), parent: .int(100)),
             ],
             frames: [
-                RawFrame(objects: [.int(10)])
+                RawFrame(snapshots: [.int(10)])
             ]
         )
         #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
             try loader.load(raw)
         }
     }
+    
+    @Test func loadSystemReferences() async throws {
+        let raw = RawDesign(
+            snapshots: [
+            ],
+            frames: [
+                RawFrame(id: .int(100), snapshots: []),
+                RawFrame(id: .int(101), snapshots: []),
+                RawFrame(id: .int(102), snapshots: []),
+                RawFrame(id: .int(103), snapshots: []),
+            ],
+            systemReferences: [
+                RawNamedReference("current_frame", type: "frame", id: .int(100))
+            ],
+            systemLists: [
+                RawNamedList("undo", itemType: "frame", ids: [.int(101), .int(102)]),
+                RawNamedList("redo", itemType: "frame", ids: [.int(103)]),
+            ]
+        )
+        let design = try loader.load(raw)
+        #expect(design.currentFrameID == ObjectID(100))
+        #expect(design.undoableFrames == [ObjectID(101), ObjectID(102)])
+        #expect(design.redoableFrames == [ObjectID(103)])
+    }
+
 }

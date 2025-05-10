@@ -243,7 +243,7 @@ class RawDesignLoader {
         for (i, rawFrame) in rawFrames.enumerated() {
             let frameID = reservation.frames[i]
             var snapshots: [DesignObject] = []
-            for rawSnapshotID in rawFrame.objects {
+            for rawSnapshotID in rawFrame.snapshots {
                 guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
                     throw .frameError(i, .unknownSnapshotID(rawSnapshotID))
                 }

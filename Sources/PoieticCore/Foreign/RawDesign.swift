@@ -72,12 +72,25 @@ struct RawNamedReference {
     /// Known types: `frame`, `object`
     let type: String
     let id: RawObjectID
+
+    internal init(_ name: String, type: String, id: RawObjectID) {
+        self.name = name
+        self.type = type
+        self.id = id
+    }
 }
+
 struct RawNamedList {
     let name: String
     /// Known types: `frame`
     let itemType: String
     let ids: [RawObjectID]
+
+    internal init(_ name: String, itemType: String, ids: [RawObjectID]) {
+        self.name = name
+        self.itemType = itemType
+        self.ids = ids
+    }
 }
 
 /// Raw representation of a design.
@@ -178,6 +191,18 @@ public struct RawStructure {
     var type: String? = nil
     var references: [RawObjectID] = []
 
+    init(_ structure: Structure) {
+        switch structure {
+        case .unstructured: self.type = "unstructured"
+        case .node: self.type = "node"
+        case .edge(let origin, let target):
+            self.type = "edge"
+            self.references = [.id(origin), .id(target)]
+        case .orderedSet(let owner, let items):
+            self.type = "ordered_set"
+            self.references = [.id(owner)] + items.map { .id($0) }
+        }
+    }
     internal init(_ type: String? = nil, references: [RawObjectID] = []) {
         self.type = type
         self.references = references
@@ -212,10 +237,10 @@ public class RawSnapshot {
 public class RawFrame {
     var id: RawObjectID? = nil
     // TODO: Rename to snapshots
-    var objects: [RawObjectID] = []
-    internal init(id: RawObjectID? = nil, objects: [RawObjectID] = []) {
+    var snapshots: [RawObjectID] = []
+    internal init(id: RawObjectID? = nil, snapshots: [RawObjectID] = []) {
         self.id = id
-        self.objects = objects
+        self.snapshots = snapshots
     }
 }
 
