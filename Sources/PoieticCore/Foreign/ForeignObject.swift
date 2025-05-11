@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 25/09/2023.
 //
 
+// TODO: [WIP] [DEPRECATED] The whole Foreign* is replaced by Raw*
+
 public enum ForeignObjectReference: Equatable, Codable, Sendable, CustomStringConvertible {
     case id(ObjectID)
     case int(Int)

@@ -187,7 +187,7 @@ public class RawDesign {
 ///
 }
 
-public struct RawStructure {
+public struct RawStructure: Equatable {
     var type: String? = nil
     var references: [RawObjectID] = []
 
@@ -231,6 +231,10 @@ public class RawSnapshot {
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
+    }
+    
+    subscript(key: String) -> Variant? {
+        return attributes[key]
     }
 }
 

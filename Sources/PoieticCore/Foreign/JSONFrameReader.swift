@@ -6,7 +6,102 @@
 //
 
 import Foundation
+// TODO: [WIP] Add reading context to the reader (such as path)
 
+public enum RawDesignReaderError: Error, Equatable {
+
+    public enum PathItem: Equatable, Sendable {
+        case int(Int)
+        case string(String)
+        
+        var stringValue: String {
+            switch self {
+            case .int(let value): String(value)
+            case .string(let value): value
+            }
+        }
+    }
+    protocol EquatableError: Error, Equatable {
+        
+    }
+    public struct Context: Sendable, Equatable {
+
+        init(_ decodingContext: DecodingError.Context) {
+            var path: [PathItem] = []
+            for item in decodingContext.codingPath {
+                if let value = item.intValue {
+                    path.append(.int(value))
+                }
+                else {
+                    path.append(.string(item.stringValue))
+                }
+            }
+            self.path = path
+            self.underlyingError = decodingContext.underlyingError
+        }
+        
+
+        let path: [PathItem]
+        let underlyingError: (any Error)?
+        public static func == (lhs: RawDesignReaderError.Context, rhs: RawDesignReaderError.Context) -> Bool {
+            guard lhs.path == rhs.path else { return false }
+            if lhs.underlyingError == nil && rhs.underlyingError == nil {
+                return true
+            }
+            guard let lhsError = lhs.underlyingError, let rhsError = rhs.underlyingError else {
+                return false
+            }
+            return "\(lhsError)" == "\(rhsError)"
+        }
+        
+    }
+
+    public enum EntityError: Error, Equatable {
+        case propertyNotFound(String)
+    }
+    
+    case dataCorrupted(Context)
+    case typeMismatch(String, [String])
+    case valueNotFound(String, [String])
+    case propertyNotFound(String, [String])
+    case unknownDecodingError(String)
+
+    case unknownFormatVersion(String)
+    case snapshotError(Int, EntityError)
+    
+    
+    init(_ error: DecodingError) {
+        switch error {
+            
+        case let .typeMismatch(type, context):
+            let path = context.codingPath.map { $0.stringValue }
+            if type.self is Dictionary<String, Any>.Type {
+                self = .typeMismatch("dictionary", path)
+            }
+            else if type.self is Array<Any>.Type {
+                self = .typeMismatch("array", path)
+            }
+            else {
+                self = .typeMismatch("\(type)", path)
+            }
+
+        case let .valueNotFound(key, context):
+            let path = context.codingPath.map { $0.stringValue }
+            self = .valueNotFound(String(describing: key), path)
+            
+        case let .keyNotFound(key, context):
+            let path = context.codingPath.map { $0.stringValue }
+            let key = key.stringValue
+            self = .propertyNotFound(key, path)
+
+        case let .dataCorrupted(context):
+            self = .dataCorrupted(RawDesignReaderError.Context(context))
+
+        @unknown default:
+            self = .unknownDecodingError(String(describing: error))
+        }
+    }
+}
 
 /// Object for reading foreign frames represented as JSON.
 ///
@@ -110,157 +205,302 @@ import Foundation
 /// - an array of different types
 /// - any nested arrays except the point array
 ///
-public final class JSONFrameReader {
-    public typealias ForeignFrame = JSONForeignFrame
-    public static let CurrentFormatVersion = "0"
+public final class JSONDesignReader {
+    public static let CurrentFormatVersion = "0.1"
     
     public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONForeignFrameVersion")!
 
-    public class DecodingConfiguration {
-        public var version: String
-        public init(version: String) {
-            self.version = version
-        }
-    }
+    // TODO: let forceFormatVersion: SemanticVersion
     
-    // NOTE: For now, the class exists only for code organisation purposes/name-spacing
-   
     /// Create a frame reader.
     ///
     public init() {
         // Nothing here for now
     }
     
-    /// Read a frame bundle at a given URL.
-    ///
-    /// The bundle is a directory with the following content:
-    ///
-    /// - `info.json` – information about the frame. A dictionary containing the
-    ///   following keys:
-    ///     - `frame_format_version`: Version of the frame format (required)
-    ///     - `objects`: An array of objects (see the class information about
-    ///        details)
-    ///     - `collections`: List of collection names, where each collection is
-    ///       a separate file.
-    /// - `objects/` directory with JSON files where each file represents an
-    ///   object collection. The names in this directory should correspond
-    ///   to the names in the `collections` array.
-    ///
-    /// Example:
-    ///
-    /// ```
-    /// MyModel.poieticframe/
-    ///     info.json
-    ///     objects/
-    ///         design.json
-    ///         core.json
-    ///         charts.json
-    /// ```
-    ///
-    public func read(bundleAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
-        // TODO: Check for file existence
-        let data: Data
-        let frame: JSONForeignFrame
+    public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
-        
-        let infoURL = url.appending(component: "info.json")
-
+        let json: JSONValue
         do {
-            data = try Data(contentsOf: infoURL)
+            json = try decoder.decode(JSONValue.self, from: data)
         }
-        catch let error as NSError {
-            throw .dataCorrupted(error.localizedDescription)
+        catch let error as DecodingError {
+            throw RawDesignReaderError(error)
         }
         catch {
-            throw .unableToReadData
-        }
-        
-        do {
-            frame = try decoder.decode(JSONForeignFrame.self, from: data)
-        }
-        catch let error as ForeignFrameError {
-            throw error
-        }
-        catch {
-            throw .dataCorrupted(String(describing: error))
-        }
-        
-        var collections: [String:[JSONForeignObject]] = [:]
-        for name in frame.collectionNames {
-            let collectionURL = url.appending(components: "objects", "\(name).json", directoryHint: .notDirectory)
-            do {
-                let data = try Data(contentsOf: collectionURL)
-                let collection = try decoder.decode([JSONForeignObject].self, from: data)
-                collections[name] = collection
-            }
-            catch let error as DecodingError {
-                throw ForeignFrameError(error)
-            }
-            catch {
-                throw .dataCorrupted(String(describing: error))
-            }
+            // TODO: What other errors can happen here? Custom decoding errors?
+            fatalError("Unhandled reader error \(type(of:error)): \(error)")
         }
 
-        if collections.isEmpty {
-            return frame
+        let design = try read(json: json)
+        
+        return design
+    }
+    public func read(json: JSONValue, forceFormatVersion: String? = nil) throws (RawDesignReaderError) -> RawDesign {
+        guard let dict = json.objectValue else {
+            throw .typeMismatch("object", [])
+        }
+
+        let formatVersion: String? = forceFormatVersion ?? dict["format_version"]?.stringValue
+        switch formatVersion {
+        case .none, Self.CurrentFormatVersion: return try readCurrentVersion(dict)
+        case "0": return try readMakeshiftVersion(dict)
+        default: throw .unknownFormatVersion(formatVersion!)
+        }
+    }
+    func readMakeshiftVersion(_ dict: [String:JSONValue]) -> RawDesign {
+        fatalError("Makeshift version reading not implemented")
+    }
+    func readCurrentVersion(_ dict: [String:JSONValue]) throws (RawDesignReaderError) -> RawDesign {
+        let metamodelName: String? = dict["metamodel"]?.stringValue
+        let metamodelVersion: SemanticVersion?
+        if let versionString: String = dict["metamodel_version"]?.stringValue {
+            metamodelVersion = SemanticVersion(versionString)
         }
         else {
-            let joinedObjects = frame.objects + collections.values.joined()
-            return JSONForeignFrame(metamodel: frame.metamodel,
-                                    objects: joinedObjects,
-                                    collections: frame.collectionNames)
+            metamodelVersion = nil
+        }
+
+        let design = RawDesign(
+            metamodelName: metamodelName,
+            metamodelVersion: metamodelVersion
+        )
+        
+        if let jsonSnapshots = dict["snapshots"] {
+            guard jsonSnapshots.type == .array else {
+                throw .typeMismatch("array", ["snapshots"])
+            }
+            let snapshots = try readSnapshots(jsonSnapshots.arrayValue!)
+            design.snapshots = snapshots
+        }
+        
+        return design
+    }
+    func readSnapshots(_ jsonSnapshots: [JSONValue]) throws (RawDesignReaderError) -> [RawSnapshot] {
+        var snapshots: [RawSnapshot] = []
+        for (i, json) in jsonSnapshots.enumerated() {
+            guard let dict = json.objectValue else {
+                throw .typeMismatch("object", ["snapshots", String(i)])
+            }
+
+            let typeName = dict["type"]?.stringValue
+            let id = dict["id"]?.rawIDValue
+            let snapshotID = dict["snapshot_id"]?.rawIDValue
+            let parent = dict["parent"]?.rawIDValue
+            let structure: RawStructure
+            if let structureType = dict["structure"]?.stringValue {
+                switch structureType {
+                case "unstructured": structure = RawStructure("unstructured")
+                case "node": structure = RawStructure("node")
+                case "edge":
+                    guard let origin = dict["origin"]?.rawIDValue else {
+                        fatalError()
+                    }
+                    guard let target = dict["target"]?.rawIDValue else {
+                        fatalError()
+                    }
+                    structure = RawStructure("edge", references: [origin, target])
+                default:
+                    fatalError()
+                }
+            }
+            else {
+                structure = RawStructure("unstructured")
+            }
+
+            var attributes: [String:Variant] = [:]
+
+            if let maybeAttributes = dict["attributes"] {
+                guard let jsonAttributes = maybeAttributes.objectValue else {
+                    fatalError()
+                }
+                for (key, jsonValue) in jsonAttributes {
+                    guard let value = jsonValue.typedVariantValue else {
+                        fatalError()
+                    }
+                    attributes[key] = value
+                }
+            }
+            let snapshot = RawSnapshot(
+                typeName: typeName,
+                snapshotID: snapshotID,
+                id: id,
+                structure: structure,
+                parent: parent,
+                attributes: attributes,
+            )
+            snapshots.append(snapshot)
+        }
+        return snapshots
+    }
+    
+}
+
+public extension JSONValue {
+    var rawIDValue: RawObjectID? {
+        switch self {
+        case let .int(value): .int(Int64(value))
+        case let .string(value): .string(value)
+        default: nil
+        }
+
+    }
+}
+
+extension JSONValue {
+    /// Get a variant value with type represented within the JSON.
+    ///
+    /// Typed variant is represented as a dictionary
+    var typedVariantValue: Variant? {
+        guard let dict = self.objectValue,
+              let type = dict["type"]?.stringValue
+        else {
+            return nil
+        }
+        
+        switch type {
+        case "bool":
+            guard let value = dict["value"]?.boolValue else {
+                return nil
+            }
+            return .atom(.bool(value))
+        case "int":
+            guard let value = dict["value"]?.intValue else {
+                return nil
+            }
+            return .atom(.int(value))
+        case "float":
+            guard let value = dict["value"]?.doubleValue else {
+                return nil
+            }
+            return .atom(.double(value))
+        case "string":
+            guard let value = dict["value"]?.stringValue else {
+                return nil
+            }
+            return .atom(.string(value))
+        case "point":
+            guard let items = dict["value"]?.arrayValue,
+                  items.count == 2,
+                  let x = items[0].numericValue,
+                  let y = items[1].numericValue
+            else {
+                return nil
+            }
+            return .atom(.point(Point(x, y)))
+        case "bool_array":
+            guard let jsonItems = dict["items"]?.arrayValue else {
+                return nil
+            }
+            let items: [Bool] = jsonItems.compactMap { $0.boolValue }
+            guard items.count == jsonItems.count else {
+                return nil
+            }
+            return .array(.bool(items))
+        case "int_array":
+            guard let jsonItems = dict["items"]?.arrayValue else {
+                return nil
+            }
+            let items: [Int] = jsonItems.compactMap { $0.intValue }
+            guard items.count == jsonItems.count else {
+                return nil
+            }
+            return .array(.int(items))
+        case "float_array":
+            guard let jsonItems = dict["items"]?.arrayValue else {
+                return nil
+            }
+            let items: [Double] = jsonItems.compactMap { $0.numericValue }
+            guard items.count == jsonItems.count else {
+                return nil
+            }
+            return .array(.double(items))
+        case "string_array":
+            guard let jsonItems = dict["items"]?.arrayValue else {
+                return nil
+            }
+            let items: [String] = jsonItems.compactMap { $0.stringValue }
+            guard items.count == jsonItems.count else {
+                return nil
+            }
+            return .array(.string(items))
+        case "point_array":
+            guard let jsonItems = dict["items"]?.arrayValue else {
+                return nil
+            }
+            let items: [Point] = jsonItems.compactMap {
+                guard let items = $0.arrayValue,
+                      items.count == 2,
+                      let x = items[0].numericValue,
+                      let y = items[1].numericValue
+                else {
+                    return nil
+                }
+                return Point(x, y)
+            }
+            guard items.count == jsonItems.count else {
+                return nil
+            }
+            return .array(.point(items))
+        default:
+            return nil
         }
     }
     
-    /// Read a frame file at a given URL.
-    ///
-    /// The frame file is a JSON file with the following content:
-    ///
-    /// - `frame_format_version`: Version of the frame format (required)
-    /// - `objects`: An array of objects (see the class information about
-    ///    details)
-    ///
-    public func read(fileAtURL url: URL) throws (ForeignFrameError) -> ForeignFrame {
-        let data: Data
-        do {
-            data = try Data(contentsOf: url)
+    init(typedVariant variant: Variant) {
+        switch variant {
+        case .atom(let atom):
+            let type: String
+            let outValue: JSONValue
+            switch atom {
+            case .bool(let value):
+                type = "bool"
+                outValue = JSONValue.bool(value)
+            case .int(let value):
+                type = "int"
+                outValue = JSONValue.int(value)
+            case .double(let value):
+                type = "float"
+                outValue = JSONValue.float(value)
+            case .string(let value):
+                type = "string"
+                outValue = JSONValue.string(value)
+            case .point(let value):
+                type = "point"
+                outValue = JSONValue.array([.float(value.x), .float(value.y)])
+            }
+            self = .object([
+                "type": .string(type),
+                "value": outValue,
+            ])
+        case .array(let array):
+            let type: String
+            let outItems: [JSONValue]
+            switch array {
+            case .bool(let items):
+                type = "bool"
+                outItems = items.map { JSONValue.bool($0) }
+            case .int(let items):
+                type = "int"
+                outItems = items.map { JSONValue.int($0) }
+            case .double(let items):
+                type = "float"
+                outItems = items.map { JSONValue.float($0) }
+            case .string(let items):
+                type = "string"
+                outItems = items.map { JSONValue.string($0) }
+            case .point(let items):
+                type = "point"
+                outItems = items.map {
+                    JSONValue.array([.float($0.x), .float($0.y)])
+                }
+            }
+            self = .object([
+                "type": .string(type),
+                "items": .array(outItems),
+            ])
         }
-        catch let error as NSError {
-            // FIXME: We are not getting DecodingError on invalid JSON
-            throw .dataCorrupted(error.localizedDescription)
-        }
-        catch {
-            throw .dataCorrupted(String(describing: error))
-        }
-        return try self.read(data: data)
-    }
-
-    public func read(data: Data) throws (ForeignFrameError) -> ForeignFrame {
-        let decoder = JSONDecoder()
-        
-        decoder.userInfo[Variant.CoalescedCodingTypeKey] = true
-
-        let frame: JSONForeignFrame
-        do {
-            frame = try decoder.decode(JSONForeignFrame.self, from: data)
-        }
-        catch let error as ForeignFrameError {
-            throw error
-        }
-        catch let error as DecodingError {
-            throw ForeignFrameError(error)
-        }
-        catch {
-            // TODO: What other errors can happen here?
-            throw .dataCorrupted("Unhandled error \(type(of:error)): \(error)")
-        }
-        guard frame.collectionNames.isEmpty else {
-            // Foreign frame from data (inline frame) must not refer to other collections,
-            // only bundle foreign frame can."
-            throw .invalidValue("collections", [])
-        }
-        return frame
     }
 }
+
+

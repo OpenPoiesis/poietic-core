@@ -358,5 +358,3 @@ extension VariantArray {
         }
     }
 }
-
-

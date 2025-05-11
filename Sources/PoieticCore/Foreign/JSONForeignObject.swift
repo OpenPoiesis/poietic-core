@@ -146,7 +146,7 @@ public struct JSONForeignObject: Encodable, Decodable, ForeignObject {
 public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
     public typealias Object = JSONForeignObject
     
-    public typealias DecodingConfiguration = JSONFrameReader.DecodingConfiguration
+    public typealias DecodingConfiguration = MakeshiftJSONFrameReader.DecodingConfiguration
 
     public let metamodel: String?
     public let collectionNames: [String]
@@ -196,7 +196,7 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(JSONFrameReader.CurrentFormatVersion, forKey: .version)
+        try container.encode(MakeshiftJSONFrameReader.CurrentFormatVersion, forKey: .version)
         try container.encodeIfPresent(metamodel, forKey: .metamodel)
         if !collectionNames.isEmpty {
             try container.encodeIfPresent(collectionNames, forKey: .collectionNames)

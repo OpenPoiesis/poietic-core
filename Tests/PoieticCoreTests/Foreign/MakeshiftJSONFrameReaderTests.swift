@@ -14,17 +14,17 @@ import Testing
 // TODO: Test ID=name, attrs no name
 // TODO: Test ID=name, attrs have name -> keep attrs name, not ID name
 
-@Suite struct JSONFrameReaderTests {
+@Suite struct MakeshiftJSONFrameReaderTests {
     
     let design: Design
     let frame: TransientFrame
     let loader: ForeignFrameLoader
-    let reader: JSONFrameReader
+    let reader: MakeshiftJSONFrameReader
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
         frame = design.createFrame()
-        reader = JSONFrameReader()
+        reader = MakeshiftJSONFrameReader()
         loader = ForeignFrameLoader()
     }
    
