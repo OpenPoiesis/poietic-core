@@ -58,17 +58,20 @@ public enum RawDesignReaderError: Error, Equatable {
 
     public enum EntityError: Error, Equatable {
         case propertyNotFound(String)
+        case typeMismatch(String, String)
     }
     
     case dataCorrupted(Context)
+    case unknownFormatVersion(String)
+
     case typeMismatch(String, [String])
     case valueNotFound(String, [String])
     case propertyNotFound(String, [String])
     case unknownDecodingError(String)
 
-    case unknownFormatVersion(String)
     case snapshotError(Int, EntityError)
-    
+    case entityError(String, Int, EntityError)
+
     
     init(_ error: DecodingError) {
         switch error {
@@ -208,8 +211,8 @@ public enum RawDesignReaderError: Error, Equatable {
 public final class JSONDesignReader {
     public static let CurrentFormatVersion = "0.1"
     
-    public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONForeignFrameVersion")!
-
+    public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONRawDesignFormatVersion")!
+    
     // TODO: let forceFormatVersion: SemanticVersion
     
     /// Create a frame reader.
@@ -220,9 +223,11 @@ public final class JSONDesignReader {
     
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         let decoder = JSONDecoder()
-        let json: JSONValue
+        decoder.userInfo[Self.VersionKey] = Self.CurrentFormatVersion
+        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        let rawDesign: RawDesign
         do {
-            json = try decoder.decode(JSONValue.self, from: data)
+            rawDesign = try decoder.decode(RawDesign.self, from: data)
         }
         catch let error as DecodingError {
             throw RawDesignReaderError(error)
@@ -231,109 +236,9 @@ public final class JSONDesignReader {
             // TODO: What other errors can happen here? Custom decoding errors?
             fatalError("Unhandled reader error \(type(of:error)): \(error)")
         }
-
-        let design = try read(json: json)
         
-        return design
+        return rawDesign
     }
-    public func read(json: JSONValue, forceFormatVersion: String? = nil) throws (RawDesignReaderError) -> RawDesign {
-        guard let dict = json.objectValue else {
-            throw .typeMismatch("object", [])
-        }
-
-        let formatVersion: String? = forceFormatVersion ?? dict["format_version"]?.stringValue
-        switch formatVersion {
-        case .none, Self.CurrentFormatVersion: return try readCurrentVersion(dict)
-        case "0": return try readMakeshiftVersion(dict)
-        default: throw .unknownFormatVersion(formatVersion!)
-        }
-    }
-    func readMakeshiftVersion(_ dict: [String:JSONValue]) -> RawDesign {
-        fatalError("Makeshift version reading not implemented")
-    }
-    func readCurrentVersion(_ dict: [String:JSONValue]) throws (RawDesignReaderError) -> RawDesign {
-        let metamodelName: String? = dict["metamodel"]?.stringValue
-        let metamodelVersion: SemanticVersion?
-        if let versionString: String = dict["metamodel_version"]?.stringValue {
-            metamodelVersion = SemanticVersion(versionString)
-        }
-        else {
-            metamodelVersion = nil
-        }
-
-        let design = RawDesign(
-            metamodelName: metamodelName,
-            metamodelVersion: metamodelVersion
-        )
-        
-        if let jsonSnapshots = dict["snapshots"] {
-            guard jsonSnapshots.type == .array else {
-                throw .typeMismatch("array", ["snapshots"])
-            }
-            let snapshots = try readSnapshots(jsonSnapshots.arrayValue!)
-            design.snapshots = snapshots
-        }
-        
-        return design
-    }
-    func readSnapshots(_ jsonSnapshots: [JSONValue]) throws (RawDesignReaderError) -> [RawSnapshot] {
-        var snapshots: [RawSnapshot] = []
-        for (i, json) in jsonSnapshots.enumerated() {
-            guard let dict = json.objectValue else {
-                throw .typeMismatch("object", ["snapshots", String(i)])
-            }
-
-            let typeName = dict["type"]?.stringValue
-            let id = dict["id"]?.rawIDValue
-            let snapshotID = dict["snapshot_id"]?.rawIDValue
-            let parent = dict["parent"]?.rawIDValue
-            let structure: RawStructure
-            if let structureType = dict["structure"]?.stringValue {
-                switch structureType {
-                case "unstructured": structure = RawStructure("unstructured")
-                case "node": structure = RawStructure("node")
-                case "edge":
-                    guard let origin = dict["origin"]?.rawIDValue else {
-                        fatalError()
-                    }
-                    guard let target = dict["target"]?.rawIDValue else {
-                        fatalError()
-                    }
-                    structure = RawStructure("edge", references: [origin, target])
-                default:
-                    fatalError()
-                }
-            }
-            else {
-                structure = RawStructure("unstructured")
-            }
-
-            var attributes: [String:Variant] = [:]
-
-            if let maybeAttributes = dict["attributes"] {
-                guard let jsonAttributes = maybeAttributes.objectValue else {
-                    fatalError()
-                }
-                for (key, jsonValue) in jsonAttributes {
-                    guard let value = jsonValue.typedVariantValue else {
-                        fatalError()
-                    }
-                    attributes[key] = value
-                }
-            }
-            let snapshot = RawSnapshot(
-                typeName: typeName,
-                snapshotID: snapshotID,
-                id: id,
-                structure: structure,
-                parent: parent,
-                attributes: attributes,
-            )
-            snapshots.append(snapshot)
-        }
-        return snapshots
-    }
-    
 }
 
 public extension JSONValue {
@@ -343,164 +248,19 @@ public extension JSONValue {
         case let .string(value): .string(value)
         default: nil
         }
-
     }
-}
-
-extension JSONValue {
-    /// Get a variant value with type represented within the JSON.
-    ///
-    /// Typed variant is represented as a dictionary
-    var typedVariantValue: Variant? {
-        guard let dict = self.objectValue,
-              let type = dict["type"]?.stringValue
-        else {
+    var rawIDArrayValue: [RawObjectID]? {
+        guard let items = self.arrayValue else {
             return nil
         }
-        
-        switch type {
-        case "bool":
-            guard let value = dict["value"]?.boolValue else {
+        var ids: [RawObjectID] = []
+        for item in items {
+            guard let id = item.rawIDValue else {
                 return nil
             }
-            return .atom(.bool(value))
-        case "int":
-            guard let value = dict["value"]?.intValue else {
-                return nil
-            }
-            return .atom(.int(value))
-        case "float":
-            guard let value = dict["value"]?.doubleValue else {
-                return nil
-            }
-            return .atom(.double(value))
-        case "string":
-            guard let value = dict["value"]?.stringValue else {
-                return nil
-            }
-            return .atom(.string(value))
-        case "point":
-            guard let items = dict["value"]?.arrayValue,
-                  items.count == 2,
-                  let x = items[0].numericValue,
-                  let y = items[1].numericValue
-            else {
-                return nil
-            }
-            return .atom(.point(Point(x, y)))
-        case "bool_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Bool] = jsonItems.compactMap { $0.boolValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.bool(items))
-        case "int_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Int] = jsonItems.compactMap { $0.intValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.int(items))
-        case "float_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Double] = jsonItems.compactMap { $0.numericValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.double(items))
-        case "string_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [String] = jsonItems.compactMap { $0.stringValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.string(items))
-        case "point_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Point] = jsonItems.compactMap {
-                guard let items = $0.arrayValue,
-                      items.count == 2,
-                      let x = items[0].numericValue,
-                      let y = items[1].numericValue
-                else {
-                    return nil
-                }
-                return Point(x, y)
-            }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.point(items))
-        default:
-            return nil
+            ids.append(id)
         }
-    }
-    
-    init(typedVariant variant: Variant) {
-        switch variant {
-        case .atom(let atom):
-            let type: String
-            let outValue: JSONValue
-            switch atom {
-            case .bool(let value):
-                type = "bool"
-                outValue = JSONValue.bool(value)
-            case .int(let value):
-                type = "int"
-                outValue = JSONValue.int(value)
-            case .double(let value):
-                type = "float"
-                outValue = JSONValue.float(value)
-            case .string(let value):
-                type = "string"
-                outValue = JSONValue.string(value)
-            case .point(let value):
-                type = "point"
-                outValue = JSONValue.array([.float(value.x), .float(value.y)])
-            }
-            self = .object([
-                "type": .string(type),
-                "value": outValue,
-            ])
-        case .array(let array):
-            let type: String
-            let outItems: [JSONValue]
-            switch array {
-            case .bool(let items):
-                type = "bool"
-                outItems = items.map { JSONValue.bool($0) }
-            case .int(let items):
-                type = "int"
-                outItems = items.map { JSONValue.int($0) }
-            case .double(let items):
-                type = "float"
-                outItems = items.map { JSONValue.float($0) }
-            case .string(let items):
-                type = "string"
-                outItems = items.map { JSONValue.string($0) }
-            case .point(let items):
-                type = "point"
-                outItems = items.map {
-                    JSONValue.array([.float($0.x), .float($0.y)])
-                }
-            }
-            self = .object([
-                "type": .string(type),
-                "items": .array(outItems),
-            ])
-        }
+        return ids
     }
 }
-
 

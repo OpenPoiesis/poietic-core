@@ -67,7 +67,8 @@ public class MakeshiftDesignStore {
 
         let decoder = JSONDecoder()
         // decoder.userInfo[Self.FormatVersionKey] = Self.FormatVersion
-        
+        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
+
         let perDesign: _PersistentDesign
         do {
             perDesign = try decoder.decode(_PersistentDesign.self, from: data)

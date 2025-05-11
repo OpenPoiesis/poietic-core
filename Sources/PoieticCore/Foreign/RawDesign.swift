@@ -67,7 +67,7 @@ extension ObjectID {
     }
 }
 
-struct RawNamedReference {
+struct RawNamedReference: Equatable, Codable {
     let name: String
     /// Known types: `frame`, `object`
     let type: String
@@ -80,11 +80,17 @@ struct RawNamedReference {
     }
 }
 
-struct RawNamedList {
+struct RawNamedList: Equatable, Codable {
     let name: String
     /// Known types: `frame`
     let itemType: String
     let ids: [RawObjectID]
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case itemType = "item_type"
+        case ids
+    }
 
     internal init(_ name: String, itemType: String, ids: [RawObjectID]) {
         self.name = name
@@ -99,7 +105,7 @@ struct RawNamedList {
 /// Raw design does not have to conform to metamodel. The structural integrity is not guaranteed
 /// neither checked.
 ///
-public class RawDesign {
+public class RawDesign: Codable {
     /// Name of the metamodel the raw design represents.
     ///
     /// When loading, the metamodel of the raw design must match metamodel expected by the
@@ -184,7 +190,97 @@ public class RawDesign {
         self.systemLists = systemLists
     }
     
-///
+    enum CodingKeys: String, CodingKey {
+        case formatVersion = "format_version"
+        
+        case metamodelName = "metamodel"
+        case metamodelVersion = "metamodel_version"
+        case snapshots
+        case frames
+        case userReferences = "user_references"
+        case systemReferences = "system_references"
+        case userLists = "user_lists"
+        case systemLists = "system_lists"
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: Self.CodingKeys)
+        try container.encode(JSONDesignReader.CurrentFormatVersion, forKey: .formatVersion)
+        try container.encodeIfPresent(metamodelName, forKey: .metamodelName)
+        try container.encodeIfPresent(metamodelVersion?.description, forKey: .metamodelVersion)
+        if !snapshots.isEmpty {
+            try container.encode(snapshots, forKey: .snapshots)
+        }
+        if !frames.isEmpty {
+            try container.encode(frames, forKey: .frames)
+        }
+        if !userReferences.isEmpty {
+            try container.encode(userReferences, forKey: .frames)
+        }
+        if !systemReferences.isEmpty {
+            try container.encode(systemReferences, forKey: .frames)
+        }
+        if !userLists.isEmpty {
+            try container.encode(userLists, forKey: .frames)
+        }
+        if !systemLists.isEmpty {
+            try container.encode(systemLists, forKey: .frames)
+        }
+    }
+    
+    public required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: Self.CodingKeys)
+        let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
+        
+        if let versionString {
+            guard versionString == JSONDesignReader.CurrentFormatVersion else {
+                throw RawDesignReaderError.unknownFormatVersion(versionString)
+            }
+        }
+        
+        self.metamodelName = try container.decodeIfPresent(String.self, forKey: .metamodelName)
+        let metamodelVersionString = try container.decodeIfPresent(String.self, forKey: .metamodelVersion)
+        if let metamodelVersionString, let version = SemanticVersion(metamodelVersionString) {
+            self.metamodelVersion = version
+        }
+        if let snapshots = try container.decodeIfPresent([RawSnapshot].self, forKey: .snapshots) {
+            self.snapshots = snapshots
+        }
+        else {
+            self.snapshots = []
+        }
+        if let frames = try container.decodeIfPresent([RawFrame].self, forKey: .frames) {
+            self.frames = frames
+        }
+        else {
+            self.frames = []
+        }
+        if let refs = try container.decodeIfPresent([RawNamedReference].self, forKey: .userReferences) {
+            self.userReferences = refs
+        }
+        else {
+            self.userReferences = []
+        }
+        if let refs = try container.decodeIfPresent([RawNamedReference].self, forKey: .systemReferences) {
+            self.systemReferences = refs
+        }
+        else {
+            self.systemReferences = []
+        }
+        if let lists = try container.decodeIfPresent([RawNamedList].self, forKey: .userLists) {
+            self.userLists = lists
+        }
+        else {
+            self.userLists = []
+        }
+        if let lists = try container.decodeIfPresent([RawNamedList].self, forKey: .systemLists) {
+            self.systemLists = lists
+        }
+        else {
+            self.systemLists = []
+        }
+    }
+    
 }
 
 public struct RawStructure: Equatable {
@@ -209,8 +305,7 @@ public struct RawStructure: Equatable {
     }
 }
 
-public class RawSnapshot {
-    
+public class RawSnapshot: Codable {
     var typeName: String? = nil
     var structure: RawStructure = RawStructure(nil, references: [])
     var id: RawObjectID? = nil
@@ -219,6 +314,20 @@ public class RawSnapshot {
     var parent: RawObjectID? = nil
     var attributes: [String:Variant] = [:]
     
+    enum CodingKeys: String, CodingKey {
+        case typeName = "type"
+        case structure
+        case id
+        case snapshotID = "snapshot_id"
+        case parent
+        case attributes
+        // Structure keys
+        case origin
+        case target
+        // case owner
+        // case orderedSet = "ordered_set"
+    }
+
     internal init(typeName: String? = nil,
                   snapshotID: RawObjectID? = nil,
                   id: RawObjectID? = nil,
@@ -232,13 +341,60 @@ public class RawSnapshot {
         self.parent = parent
         self.attributes = attributes
     }
-    
+
+    public required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: Self.CodingKeys)
+        
+        self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
+        self.id = try container.decodeIfPresent(RawObjectID.self, forKey: .id)
+        self.snapshotID = try container.decodeIfPresent(RawObjectID.self, forKey: .snapshotID)
+        self.parent = try container.decodeIfPresent(RawObjectID.self, forKey: .parent)
+        let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
+        
+        switch structureType {
+        case "unstructured": self.structure = RawStructure(structureType)
+        case "node": self.structure = RawStructure(structureType)
+        case "edge":
+            let origin = try container.decode(RawObjectID.self, forKey: .origin)
+            let target = try container.decode(RawObjectID.self, forKey: .target)
+            self.structure = RawStructure(structureType, references: [origin, target])
+        default:
+            self.structure = RawStructure(structureType)
+        }
+        
+        if let attributes = try container.decodeIfPresent([String:Variant].self, forKey: .attributes) {
+            self.attributes = attributes
+        }
+        else {
+            self.attributes = [:]
+        }
+    }
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: Self.CodingKeys)
+        try container.encodeIfPresent(typeName, forKey: .typeName)
+        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
+        try container.encodeIfPresent(parent, forKey: .parent)
+        try container.encodeIfPresent(attributes, forKey: .attributes)
+        try container.encodeIfPresent(structure.type, forKey: .structure)
+        switch structure.type {
+        case "edge":
+            guard structure.references.count == 2 else {
+                break
+            }
+            try container.encodeIfPresent(structure.references[0], forKey: .origin)
+            try container.encodeIfPresent(structure.references[1], forKey: .target)
+        default:
+            break
+        }
+    }
+
     subscript(key: String) -> Variant? {
         return attributes[key]
     }
 }
 
-public class RawFrame {
+public class RawFrame: Codable {
     var id: RawObjectID? = nil
     // TODO: Rename to snapshots
     var snapshots: [RawObjectID] = []
