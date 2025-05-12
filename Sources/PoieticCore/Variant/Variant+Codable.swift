@@ -26,6 +26,8 @@
  
  */
 
+// FIXME: [WIP] Add NaN and Inf for doubles + document it in JSONReader
+
 import Foundation
 
 /// Error thrown when trying to decode a variant

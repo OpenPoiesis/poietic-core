@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 01/05/2025.
 //
 
+// TODO: [IMPORTANT] [WIP] Parent loading is not implemented
 
 public enum ForeignDesignCompatibility {
     case incompatible
@@ -67,7 +68,7 @@ extension ObjectID {
     }
 }
 
-struct RawNamedReference: Equatable, Codable {
+public struct RawNamedReference: Equatable, Codable {
     let name: String
     /// Known types: `frame`, `object`
     let type: String
@@ -80,7 +81,7 @@ struct RawNamedReference: Equatable, Codable {
     }
 }
 
-struct RawNamedList: Equatable, Codable {
+public struct RawNamedList: Equatable, Codable {
     let name: String
     /// Known types: `frame`
     let itemType: String
@@ -335,10 +336,10 @@ public struct RawStructure: Equatable {
 
 public class RawSnapshot: Codable {
     var typeName: String?
-    var structure: RawStructure
-    var id: RawObjectID?
-    // Must be ObjectID convertible
     var snapshotID: RawObjectID?
+    var id: RawObjectID?
+    var structure: RawStructure
+    // Must be ObjectID convertible
     var parent: RawObjectID?
     var attributes: [String:Variant]
     

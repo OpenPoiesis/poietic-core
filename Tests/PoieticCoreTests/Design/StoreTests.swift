@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 30/04/2024.
 //
 
+// TODO: This code is from the prototype phase. Remove once fully replaced with new raw design loading/writing.
+
 import Testing
 @testable import PoieticCore
 

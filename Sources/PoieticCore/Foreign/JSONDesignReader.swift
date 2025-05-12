@@ -8,6 +8,8 @@
 import Foundation
 // TODO: [WIP] Add reading context to the reader (such as path)
 
+/// Error raised by the design readers.
+///
 public enum RawDesignReaderError: Error, Equatable {
 
     public enum PathItem: Equatable, Sendable {
@@ -21,15 +23,18 @@ public enum RawDesignReaderError: Error, Equatable {
             }
         }
     }
-    protocol EquatableError: Error, Equatable {
-        
-    }
-    public struct Context: Sendable, Equatable {
 
-        let path: [PathItem]
-        let underlyingError: (any Error)?
+    /// Context of an error that is typically coming from other libraries.
+    ///
+    public struct Context: Sendable, Equatable {
+        /// Path to the item that caused the error, if known.
+        public let path: [PathItem]
+        /// Actual underlying foreign error, if known.
+        public let underlyingError: (any Error)?
         
-        init(_ decodingContext: DecodingError.Context) {
+        /// Create a new context from a decoding error context.
+        ///
+        public init(_ decodingContext: DecodingError.Context) {
             var path: [PathItem] = []
             for item in decodingContext.codingPath {
                 if let value = item.intValue {
@@ -42,11 +47,21 @@ public enum RawDesignReaderError: Error, Equatable {
             self.path = path
             self.underlyingError = decodingContext.underlyingError
         }
-        init(path: [PathItem] = [], underlyingError: (any Error)?) {
+        
+        /// Create a new foreign error context.
+        ///
+        public init(path: [PathItem] = [], underlyingError: (any Error)?) {
             self.path = path
             self.underlyingError = underlyingError
         }
         
+        /// Loosely compares two errors.
+        ///
+        /// The foreign underlying errors are compared based on their
+        /// description (string) representations. Used only for testing or debugging.
+        ///
+        /// Internal comparison only. Do not use for anything critical or user-oriented.
+        ///
         public static func == (lhs: RawDesignReaderError.Context, rhs: RawDesignReaderError.Context) -> Bool {
             guard lhs.path == rhs.path else { return false }
             if lhs.underlyingError == nil && rhs.underlyingError == nil {
@@ -111,111 +126,88 @@ public enum RawDesignReaderError: Error, Equatable {
     }
 }
 
-/// Object for reading foreign frames represented as JSON.
+/// Object for reading foreign designs represented as JSON.
 ///
 /// - Note: Hand-writing foreign frames in JSON is discouraged, as they might become
 ///   complex very quickly. It is not the purpose of this toolkit to
 ///   process and maintain raw human-written textual representation of designs.
 ///
-/// There are two representations of a foreign frame as JSON: single-file representation
-/// and a bundle representation.
+/// The top-level structure of the design is a dictionary with the following keys:
 ///
-/// The single file representation is a dictionary with the keys described below:
+/// - `format_version` _(recommended, string)_: Version of the JSON encoding format. Currently
+///    `"0.4.0"`.
+///    See ``JSONDesignReader/CurrentFormatVersion``.
+/// - `metamodel`: Name of the metamodel the design contents conforms to. See ``Metamodel``.
+///     If not present, the default metamodel by the tool/application at hand is assumed. It is
+///     always preferred to include the metamodel name.
+/// - `metamodel_version`: Version of the metamodel. If not provided, then the latest version
+///     should be assumed by the application/tool.
+/// - `snapshots`: All object version snapshots, referenced by frames. See ``RawSnapshot``.
+/// - `frames`: Design frames contained within. See ``RawFrame``.
+/// - `user_references`: User defined references to any identifiable entity within the design.
+///         See ``RawNamedReference``.
+///         Named frames (``Design/frame(name:)``) are stored in the user references as well.
+/// - `system_references`: References used by the system (same structure as `user_references`).
+///         For example the current design frame is stored as a system reference.
+/// - `user_lists`: User defined lists of references to any identifiable entity within the design. See ``RawNamedList``.
+/// - `system_lists`: Reference lists used by the system (same structure as `user_references`).
+///         For example undo and redo history is stored in the system lists.
 ///
-/// - `format_version` _(recommended, string)_: Format of the frame. Currently `0`.
-///    See ``JSONFrameReader/CurrentFormatVersion``.
-/// - `objects`: An array of objects. See below _Foreign Objects_.
-/// - `collections` (optional): List of collection names, if the frame is represented as a bundle.
+/// ## Snapshots
 ///
-/// Bundle or a directory representation is a directory that contains a required `info.json`
-/// file and a collection of files with objects in the `objects` subdirectory. Typical bundle
-/// directory structure might look like this:
+/// For detailed information see ``RawSnapshot``.
 ///
-/// ```
-/// MyDesign.poieticframe/
-///     info.json
-///     objects/
-///         design.json
-///         main.json
-///         ...
-/// ```
+/// The JSON representation of a snapshot object is a dictionary with the following
+/// keys and their corresponding values:
 ///
-/// - Note: The reason for a bundle representation is an experimentation with potential future
-///   format that might include other assets in their more native form, such as data in CSV files.
-///
-/// ## Foreign Objects
-///
-/// The JSON representation of foreign object is a dictionary with the following
-/// keys and their corresponding _string_ values:
-///
-/// - `id` (optional): Object ID, if not provided, one will be generated during
-///   loading.
-/// - `snapshot_id` (optional): snapshot ID, if not provided, one will be
-///   generated during loading
-/// - `name` (optional): used as both, object name and an object reference.
-///   See note below about references. If provided, it will be used as
-///   an attribute `name` of the object.
-/// - `type` (required): name of the object type. During the loading process
-///   the type must be known to the loader.
-/// - `from` (contextual): if the object is an edge, the property references its origin
-/// - `to` (contextual): if the object is an edge, the property references its target
-/// - `parent` (optional): reference to object's parent
+/// - `type` _(required)_: Name of the object type. The type must exist in the metamodel that the
+///   design conforms to.
+/// - `id` _(recommended)_: Object ID, if not provided, one will be generated during
+///   loading, but the object can not be referenced to within structural references
+///   (edges, parent/child). Can be an int or a string.
+/// - `snapshot_id` _(recommended)_: snapshot ID, if not provided, one will be
+///   generated during loading. Can be an int or a string.
+/// - `structure`_(recommended)_: Structure type: `node`, `edge`, `unstructured`. See ``RawStructure``.
+/// - `origin` (structural): If the structure is an edge, the property references its origin object ID.
+/// - `target` (structural): If the structure is an edge, the property references its target object ID.
+/// - `parent` (optional): reference to object's parent object ID.
 /// - `attributes`: a dictionary where keys are attribute names and values are
-///    attribute values.
+///    variants. See below how variants are encoded.
 ///
+/// ## Variants
 ///
-/// ## References
+/// Variant values are encoded as dictionaries with two keys. Required key is `type` which
+/// denotes the variant type. The other key depends on the variant type:
 ///
-/// Typically the unique identifier of an object within a frame is its ID.
-/// For convenience of hand-writing small foreign frames, objects can be
-/// referenced by their names as well. One can refer to an object by its
-/// name in an edge origin or a target, for example.
+/// - Variant atom types `bool`, `int`, `float`, `string`, `point`: value is under the `value` key.
+/// - Variant array types `bool_array`, `int_array`, `float_array`, `string_array`, `point_array`:
+///   value is under the `items` key.
 ///
-/// When multiple objects have the same name, then which object a reference
-/// refers to is undefined.
+/// Validation and requirements:
 ///
+/// - For array variants all items must be of the same type.
+/// - For int or float variants or arrays of ints or floats, any int or float convertible value is
+///   accepted. If the value is not exactly convertible, the value is invalid.
+/// - Point is represented as a two-item array of numeric values. Empty, one item or array with more
+///   items is considered invalid.
+/// - Array of points is an array of two-item arrays of numeric values.
 ///
-/// ## Attributes and Variant Values
-///
-/// The variant values in the attribute dictionary are decoded from JSON as follows:
+/// Examples:
 ///
 /// | JSON value | Variant | Example | Note |
 /// |---|---|:---|:---|
-/// | bool | bool | `true` | |
-/// | number | int or double | `100` | First try exact conversion to _int_, otherwise _double_ |
-/// | string | string | `"thing"` | |
-/// | array of scalars | array of first item type | `[10, 20, 30]` | All items must be of the same type |
-/// | array of two-number arrays | array of points | `[[0, 0], [10.5, 0]]` | Items must be exactly two numbers |
-///
-/// Any other JSON value is considered invalid.
-///
-/// The JSON encoding is lose and non-symmetric.
-///
-/// | Original Variant | Encoded JSON | Decoded Variant | Note |
-/// |---|---|---|:---|
-/// | bool | bool | bool | |
-/// | int | number | int | |
-/// | double | number | int or double | Decoded variant depends on the original variant's convertibility to int |
-/// | string | string | string | |
-/// | point | array of numbers | array of doubles | |
-/// | array of bool | array of bool | array of bool |  |
-/// | array of int | array of int | array of int |  |
-/// | array of double | array of numbers | array of ints or doubles | Depends on the original variant's values |
-/// | array of strings | array of strings | array of strings | |
-/// | array of points | array of two-item number arrays | array of points | |
-///
-    /// There is no explicit JSON way of specifying a single point, it has to be expressed
-/// as a two-item array of two numbers. Even then it will be treated just as an array of numbers.
-///
-/// Invalid variant values are:
-///
-/// - a dictionary
-/// - an array of different types
-/// - any nested arrays except the point array
+/// | `{"type": "bool", "value": true}` | bool | `true` | |
+/// | `{"type": "int", "value": 10}` | int | 10 | Any convertible JSON numeric value is allowed.|
+/// | `{"type": "float", "value": 1.5}` | float | 1.5 | Any convertible JSON numeric value is allowed. |
+/// | `{"type": "point", "value": [10, 20]}` | point | Point(x: 10.0, y: 20.0) | Must be an array of exactly two numbers. |
+/// | `{"type": "int_array", "items": [10, 20, 30]}` | array of ints | `[10, 20, 30]`| All items must be of the same type. |
+/// | `{"type": "point_array", "items": [[10, 20], [30, 40]]}` | array of ints | `[Point(x:10, y:20), Point(x:30, y:40)]`| |
 ///
 public final class JSONDesignReader {
     // TODO: Rename to DecodableDesignReader
+    // NOTE: Update in the JSONDesignReader class documentation
     public static let CurrentFormatVersion = SemanticVersion(0, 4, 0)
+    // TODO: [WIP] Still needed?
     public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
     // TODO: let forceFormatVersion: SemanticVersion
@@ -226,6 +218,12 @@ public final class JSONDesignReader {
         // Nothing here for now
     }
     
+    /// Read a raw design from a JSON file at given URL.
+    ///
+    /// See the class documentation for more information about the format.
+    ///
+    /// See ``read(data:)`` for more information about reading and version handling.
+    ///
     public func read(fileAtURL url: URL) throws (RawDesignReaderError) -> RawDesign {
         var data: Data
         do {
@@ -238,6 +236,16 @@ public final class JSONDesignReader {
         return try read(data: data)
     }
     
+    /// Read a raw design from JSON data.
+    ///
+    /// See the class documentation for more information about the format.
+    ///
+    /// When the data does not match expected version, the method tries to delegate to
+    /// built-in adapters dispatched in ``read(data:version:)``. When even the adapters
+    /// can not successfully read the data, then ``RawDesignReaderError/unknownFormatVersion(_:)``
+    /// is thrown. Caller can then handle custom reading based on the version included
+    /// in the error.
+    ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         let decoder = JSONDecoder()
         decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
@@ -253,12 +261,20 @@ public final class JSONDesignReader {
             rawDesign = try read(data: data, version: version)
         }
         catch {
-            // TODO: What other errors can happen here? Custom decoding errors?
+            // TODO: [WIP] What other errors can happen here? Custom decoding errors?
             fatalError("Unhandled reader error \(type(of:error)): \(error)")
         }
         
         return rawDesign
     }
+
+    /// Read a raw design from JSON data using an adapter for a non-current version.
+    ///
+    /// This method is called by the ``read(data:)`` when the format version is incompatible
+    /// with the current version reader.
+    ///
+    /// See the class documentation for more information about the format.
+    ///
     public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
         switch version {
         case "makeshift_store":
@@ -280,28 +296,3 @@ public final class JSONDesignReader {
         }
     }
 }
-
-public extension JSONValue {
-    var rawIDValue: RawObjectID? {
-        switch self {
-        case let .int(value): .int(Int64(value))
-        case let .string(value): .string(value)
-        default: nil
-        }
-    }
-    var rawIDArrayValue: [RawObjectID]? {
-        guard let items = self.arrayValue else {
-            return nil
-        }
-        var ids: [RawObjectID] = []
-        for item in items {
-            guard let id = item.rawIDValue else {
-                return nil
-            }
-            ids.append(id)
-        }
-        return ids
-    }
-}
-
-// Legacy

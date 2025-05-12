@@ -5,11 +5,23 @@
 //  Created by Stefan Urbanek on 09/05/2025.
 //
 
-class RawDesignExporter {
-    func export(_ design: Design) -> RawDesign {
+
+/// Object that exports a design into a raw design representation for foreign interfaces or for
+/// unsafe structural surgeries.
+///
+public class RawDesignExporter {
+    
+    /// Create a raw design from a design.
+    ///
+    /// - SeeAlso: ``export(_:)-9pzqp``, ``RawDesign``, ``RawSnapshot``
+    ///
+    public func export(_ design: Design) -> RawDesign {
         var snapshots: [RawSnapshot] = []
         var frames: [RawFrame] = []
-        
+        var sysLists: [RawNamedList] = []
+        let sysReferences: [RawNamedReference]
+        var userReferences: [RawNamedReference] = []
+
         // 1. Snapshots and frames
         for snapshot in design.snapshots {
             let raw = export(snapshot)
@@ -20,12 +32,8 @@ class RawDesignExporter {
             frames.append(raw)
         }
         
-
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
-        
-        var sysLists: [RawNamedList] = []
-
         if !design.undoableFrames.isEmpty {
             let undoList: [RawObjectID] = design.undoableFrames.map { .id($0) }
             sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
@@ -34,8 +42,6 @@ class RawDesignExporter {
             let redoList: [RawObjectID] = design.redoableFrames.map { .id($0) }
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
-
-        let sysReferences: [RawNamedReference]
         
         if let id = design.currentFrameID {
             sysReferences = [
@@ -48,8 +54,6 @@ class RawDesignExporter {
 
         // 3. User references
         // Write all, including empty ones.
-        
-        var userReferences: [RawNamedReference] = []
         for (name, frame) in design.namedFrames {
             let ref = RawNamedReference(name, type: "frame", id: .id(frame.id))
             userReferences.append(ref)
@@ -68,7 +72,11 @@ class RawDesignExporter {
         return rawDesign
     }
     
-    func export(_ snapshot: DesignObject) -> RawSnapshot {
+    /// Create a raw snapshot representation from a design snapshot.
+    ///
+    /// - SeeAlso: ``export(_:)``
+    ///
+    public func export(_ snapshot: DesignObject) -> RawSnapshot {
         let rawParent: RawObjectID? = snapshot.parent.map { .id($0) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
@@ -81,11 +89,12 @@ class RawDesignExporter {
         return raw
     }
     
-    func export(_ frame: DesignFrame) -> RawFrame {
+    /// Create a raw frame from a design frame.
+    ///
+    public func export(_ frame: DesignFrame) -> RawFrame {
         return RawFrame(
             id: .id(frame.id),
             snapshots: frame.snapshots.map { .id($0.snapshotID) }
         )
     }
-    
 }
