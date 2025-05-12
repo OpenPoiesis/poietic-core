@@ -334,13 +334,13 @@ public struct RawStructure: Equatable {
 }
 
 public class RawSnapshot: Codable {
-    var typeName: String? = nil
-    var structure: RawStructure = RawStructure(nil, references: [])
-    var id: RawObjectID? = nil
+    var typeName: String?
+    var structure: RawStructure
+    var id: RawObjectID?
     // Must be ObjectID convertible
-    var snapshotID: RawObjectID? = nil
-    var parent: RawObjectID? = nil
-    var attributes: [String:Variant] = [:]
+    var snapshotID: RawObjectID?
+    var parent: RawObjectID?
+    var attributes: [String:Variant]
     
     enum CodingKeys: String, CodingKey {
         case typeName = "type"
@@ -368,6 +368,24 @@ public class RawSnapshot: Codable {
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
+    }
+    public init(_ snapshot: DesignObject) {
+        self.typeName = snapshot.type.name
+        self.snapshotID = .id(snapshot.snapshotID)
+        self.id = .id(snapshot.id)
+        self.parent = snapshot.parent.map { .id($0) }
+        self.attributes = snapshot.attributes
+        switch snapshot.structure {
+        case .unstructured:
+            self.structure = RawStructure("unstructured")
+        case .node:
+            self.structure = RawStructure("node")
+        case let .edge(origin, target):
+            self.structure = RawStructure("edge", references: [.id(origin), .id(target)])
+        case let .orderedSet(owner, ids):
+            let allRefs: [RawObjectID] = [.id(owner)] + ids.map { .id($0) }
+            self.structure = RawStructure("edge", references: allRefs)
+        }
     }
 
     public required init(from decoder: any Decoder) throws {

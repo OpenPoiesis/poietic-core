@@ -5,7 +5,8 @@
 //  Created by Stefan Urbanek on 05/05/2025.
 //
 
-enum TransactionError: Error, Equatable {
+// FIXME: [WIP] Do we need this to be public?
+public enum TransactionError: Error, Equatable {
     case brokenStructuralIntegrity(StructuralIntegrityError)
     case duplicateFrame(ObjectID)
     case duplicateSnapshot(ObjectID)

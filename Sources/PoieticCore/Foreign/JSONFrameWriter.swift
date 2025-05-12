@@ -11,7 +11,7 @@ import Foundation
 ///
 /// - Note: This is just a prototype of a functionality.
 ///
-public class JSONFrameWriter {
+public class JSONDesignWriter {
     /// Create a frame reader.
     ///
     public init() {

@@ -29,7 +29,7 @@ public enum RawDesignEntity {
     case userNamedList
 }
 
-enum RawDesignLoaderError: Error, Equatable {
+public enum RawDesignLoaderError: Error, Equatable {
     case snapshotError(Int, RawSnapshotError)
     case frameError(Int, RawFrameError)
     case unknownNamedReference(String, RawObjectID)
@@ -58,12 +58,12 @@ public enum RawFrameError: Error, Equatable {
 }
 // TODO: [WIP] Loaded batch must refer to IDs only within the batch, not outside
 
-class RawDesignLoader {
+public class RawDesignLoader {
     let metamodel: Metamodel
     let compatibilityVersion: SemanticVersion?
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
     
-    init(metamodel: Metamodel, compatibilityVersion version: SemanticVersion? = nil) {
+    public init(metamodel: Metamodel, compatibilityVersion version: SemanticVersion? = nil) {
         self.metamodel = metamodel
         self.compatibilityVersion = version
     }
@@ -134,6 +134,8 @@ class RawDesignLoader {
     ///
     public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (RawDesignLoaderError) {
         // FIXME: [WIP] rename makeshiftLoad or load(snapshotsFrom:into:) something
+        // FIXME: [WIP] add which frame to load
+        // FIXME: [WIP] what to do on dupes?
         let trans = AppendingTransaction(frame.design)
 
         var reservation = IdentityReservation(design: frame.design)

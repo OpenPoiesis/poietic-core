@@ -26,6 +26,9 @@ public enum RawDesignReaderError: Error, Equatable {
     }
     public struct Context: Sendable, Equatable {
 
+        let path: [PathItem]
+        let underlyingError: (any Error)?
+        
         init(_ decodingContext: DecodingError.Context) {
             var path: [PathItem] = []
             for item in decodingContext.codingPath {
@@ -39,10 +42,11 @@ public enum RawDesignReaderError: Error, Equatable {
             self.path = path
             self.underlyingError = decodingContext.underlyingError
         }
+        init(path: [PathItem] = [], underlyingError: (any Error)?) {
+            self.path = path
+            self.underlyingError = underlyingError
+        }
         
-
-        let path: [PathItem]
-        let underlyingError: (any Error)?
         public static func == (lhs: RawDesignReaderError.Context, rhs: RawDesignReaderError.Context) -> Bool {
             guard lhs.path == rhs.path else { return false }
             if lhs.underlyingError == nil && rhs.underlyingError == nil {
@@ -59,6 +63,7 @@ public enum RawDesignReaderError: Error, Equatable {
     /// The data can not be read or parsed.
     ///
     case dataCorrupted(Context)
+    case canNotReadData
 
     /// Error thrown when the reader can not read given version.
     ///
@@ -210,7 +215,7 @@ public enum RawDesignReaderError: Error, Equatable {
 ///
 public final class JSONDesignReader {
     // TODO: Rename to DecodableDesignReader
-    public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
+    public static let CurrentFormatVersion = SemanticVersion(0, 4, 0)
     public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
     // TODO: let forceFormatVersion: SemanticVersion
@@ -219,6 +224,18 @@ public final class JSONDesignReader {
     ///
     public init() {
         // Nothing here for now
+    }
+    
+    public func read(fileAtURL url: URL) throws (RawDesignReaderError) -> RawDesign {
+        var data: Data
+        do {
+            data = try Data(contentsOf: url)
+        }
+        catch {
+            
+            throw .canNotReadData
+        }
+        return try read(data: data)
     }
     
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
@@ -244,7 +261,21 @@ public final class JSONDesignReader {
     }
     public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
         switch version {
-        case "makeshift_store": fatalError("Reading makeshift store not implemented")
+        case "makeshift_store":
+            let makeshiftDesign: _MakeshiftPersistentDesign
+            do {
+                let decoder = JSONDecoder()
+                makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
+            }
+            catch let error as DecodingError {
+                throw RawDesignReaderError(error)
+            }
+            catch {
+                // TODO: [WIP] HANDLE ERROR
+                print("CAN NOT READ DATA: \(error)")
+                throw .canNotReadData
+            }
+            return makeshiftDesign.asRawDesign()
         default:
             throw RawDesignReaderError.unknownFormatVersion(version)
         }
@@ -274,3 +305,4 @@ public extension JSONValue {
     }
 }
 
+// Legacy

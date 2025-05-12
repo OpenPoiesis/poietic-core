@@ -13,7 +13,9 @@ import Foundation
 /// - SeeAlso: ``MakeshiftDesignStore/load(metamodel:)``,
 ///   ``MakeshiftDesignStore/save(design:)``
 ///
-public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
+public enum DesignStoreError: Error, Equatable, CustomStringConvertible {
+    case readingError(RawDesignReaderError)
+    case loadingError(RawDesignLoaderError)
     case unhandledError(String)
     
     // Main errors
@@ -49,6 +51,10 @@ public enum PersistentStoreError: Error, Equatable, CustomStringConvertible {
     
     public var description: String {
         switch self {
+        case .readingError(let error):
+            "Reading error: \(error)"
+        case .loadingError(let error):
+            "Loading error: \(error)"
         case .dataCorrupted:
             "Store data is corrupted"
         case .invalidRootData:
