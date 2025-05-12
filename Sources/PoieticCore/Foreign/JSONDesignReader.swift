@@ -81,6 +81,11 @@ public enum RawDesignReaderError: Error, Equatable {
             }
             return "\(lhsError)" == "\(rhsError)"
         }
+        public var debugDescription: String {
+            let pathString = path.map { $0.debugDescription }.joined(separator: ",")
+            let errorString = underlyingError.map { String(describing: $0) } ?? "(underlying error not specified)"
+            return "[\(pathString)], \(errorString)"
+        }
         
     }
 
@@ -220,10 +225,12 @@ public final class JSONDesignReader {
     public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
     // TODO: let forceFormatVersion: SemanticVersion
+    public let variantCoding: Variant.CodingType
     
     /// Create a frame reader.
     ///
-    public init() {
+    public init(variantCoding: Variant.CodingType = .dictionary) {
+        self.variantCoding = variantCoding
         // Nothing here for now
     }
     
@@ -240,7 +247,7 @@ public final class JSONDesignReader {
         }
         catch {
             
-            throw .canNotReadData
+            throw .dataCorrupted(RawDesignReaderError.Context(underlyingError: error))
         }
         return try read(data: data)
     }
@@ -257,7 +264,7 @@ public final class JSONDesignReader {
     ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         let decoder = JSONDecoder()
-        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        decoder.userInfo[Variant.CodingTypeKey] = self.variantCoding
         
         let rawDesign: RawDesign
         do {

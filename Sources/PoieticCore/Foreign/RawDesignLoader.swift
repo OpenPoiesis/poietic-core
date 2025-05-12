@@ -63,10 +63,27 @@ public class RawDesignLoader {
     let metamodel: Metamodel
     let compatibilityVersion: SemanticVersion?
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
+    let options: Options
     
-    public init(metamodel: Metamodel, compatibilityVersion version: SemanticVersion? = nil) {
+    public struct Options: OptionSet, Sendable {
+        public typealias RawValue = Int
+
+        public var rawValue: Int
+        public init() {
+            self.rawValue = 0
+        }
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        
+        /// When snapshot ID is a string, use it as a name attribute, if not present.
+        public static let nameFromID = Options(rawValue: 1 << 0)
+    }
+    
+    public init(metamodel: Metamodel, options: Options = Options(), compatibilityVersion version: SemanticVersion? = nil) {
         self.metamodel = metamodel
         self.compatibilityVersion = version
+        self.options = options
     }
     
     /// Loads a raw design and creates new design.
@@ -259,8 +276,8 @@ public class RawDesignLoader {
         }
         
         var attributes: [String:Variant] = rawSnapshot.attributes
-        
-        if compatibilityVersion == Self.MakeshiftJSONLoaderVersion {
+        if compatibilityVersion == Self.MakeshiftJSONLoaderVersion
+            || (options.contains(.nameFromID)) {
             if let id = rawSnapshot.id,
                case let .string(name) = id,
                attributes["name"] == nil {
