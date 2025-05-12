@@ -56,21 +56,21 @@ public enum RawDesignReaderError: Error, Equatable {
         
     }
 
-    public enum EntityError: Error, Equatable {
-        case propertyNotFound(String)
-        case typeMismatch(String, String)
-    }
-    
+    /// The data can not be read or parsed.
+    ///
     case dataCorrupted(Context)
+
+    /// Error thrown when the reader can not read given version.
+    ///
+    /// Caller should catch this error and dispatch accordingly to other kinds of readers,
+    /// if available.
+    ///
     case unknownFormatVersion(String)
 
     case typeMismatch(String, [String])
     case valueNotFound(String, [String])
     case propertyNotFound(String, [String])
     case unknownDecodingError(String)
-
-    case snapshotError(Int, EntityError)
-    case entityError(String, Int, EntityError)
 
     
     init(_ error: DecodingError) {
@@ -209,6 +209,7 @@ public enum RawDesignReaderError: Error, Equatable {
 /// - any nested arrays except the point array
 ///
 public final class JSONDesignReader {
+    // TODO: Rename to DecodableDesignReader
     public static let CurrentFormatVersion = "0.1"
     
     public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONRawDesignFormatVersion")!
@@ -223,8 +224,8 @@ public final class JSONDesignReader {
     
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         let decoder = JSONDecoder()
-        decoder.userInfo[Self.VersionKey] = Self.CurrentFormatVersion
         decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        
         let rawDesign: RawDesign
         do {
             rawDesign = try decoder.decode(RawDesign.self, from: data)
@@ -232,12 +233,23 @@ public final class JSONDesignReader {
         catch let error as DecodingError {
             throw RawDesignReaderError(error)
         }
+        catch RawDesignReaderError.unknownFormatVersion(let version) {
+            rawDesign = try read(data: data, version: version)
+        }
         catch {
             // TODO: What other errors can happen here? Custom decoding errors?
             fatalError("Unhandled reader error \(type(of:error)): \(error)")
         }
         
         return rawDesign
+    }
+    public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
+        switch version {
+        case "0": fatalError("Reading makeshift foreign frame not implemented")
+        case "makeshift_store": fatalError("Reading makeshift store not implemented")
+        default:
+            throw RawDesignReaderError.unknownFormatVersion(version)
+        }
     }
 }
 

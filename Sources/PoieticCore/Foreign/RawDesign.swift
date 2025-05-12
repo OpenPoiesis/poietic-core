@@ -192,7 +192,8 @@ public class RawDesign: Codable {
     
     enum CodingKeys: String, CodingKey {
         case formatVersion = "format_version"
-        
+        case _makeshiftStoreFormatVersion = "store_format_version"
+
         case metamodelName = "metamodel"
         case metamodelVersion = "metamodel_version"
         case snapshots
@@ -236,6 +237,9 @@ public class RawDesign: Codable {
             guard versionString == JSONDesignReader.CurrentFormatVersion else {
                 throw RawDesignReaderError.unknownFormatVersion(versionString)
             }
+        }
+        if let _makeshiftVersion = try container.decodeIfPresent(String.self, forKey: ._makeshiftStoreFormatVersion) {
+            throw RawDesignReaderError.unknownFormatVersion("makeshift_store")
         }
         
         self.metamodelName = try container.decodeIfPresent(String.self, forKey: .metamodelName)
