@@ -64,7 +64,6 @@ extension Design {
         }
         // 2. Insert
         for frame in trans.frames {
-            print("Inserting frame: \(frame)")
             _unsafeInsert(frame)
         }
     }

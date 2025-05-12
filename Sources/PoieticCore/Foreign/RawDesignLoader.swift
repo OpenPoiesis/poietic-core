@@ -97,14 +97,11 @@ public class RawDesignLoader {
         
         // 3. Create transaction
         // ----------------------------------------------------------------------
-        print("--- Create trans")
         let trans = AppendingTransaction(design)
         try load(snapshots: rawDesign.snapshots, in: trans, reservation: reservation)
         try load(frames: rawDesign.frames, in: trans, reservation: reservation)
         // 4. Apply
         // ----------------------------------------------------------------------
-        debugPrint(trans.snapshots.snapshots)
-        debugPrint(trans.frames)
         do {
             try design.accept(appending: trans)
         }

@@ -12,7 +12,8 @@ import Foundation
 ///
 public enum RawDesignReaderError: Error, Equatable {
 
-    public enum PathItem: Equatable, Sendable {
+    public enum PathItem: Equatable, Sendable, CustomStringConvertible, CustomDebugStringConvertible {
+        
         case int(Int)
         case string(String)
         
@@ -20,6 +21,14 @@ public enum RawDesignReaderError: Error, Equatable {
             switch self {
             case .int(let value): String(value)
             case .string(let value): value
+            }
+        }
+        public var description: String { self.stringValue }
+        
+        public var debugDescription: String {
+            switch self {
+            case .int(let value): String(value)
+            case .string(let value): "\"" + value + "\""
             }
         }
     }
@@ -206,7 +215,7 @@ public enum RawDesignReaderError: Error, Equatable {
 public final class JSONDesignReader {
     // TODO: Rename to DecodableDesignReader
     // NOTE: Update in the JSONDesignReader class documentation
-    public static let CurrentFormatVersion = SemanticVersion(0, 4, 0)
+    public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
     // TODO: [WIP] Still needed?
     public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
@@ -255,9 +264,11 @@ public final class JSONDesignReader {
             rawDesign = try decoder.decode(RawDesign.self, from: data)
         }
         catch let error as DecodingError {
+            print("<<< [reader] RETHROW: \(error)")
             throw RawDesignReaderError(error)
         }
         catch RawDesignReaderError.unknownFormatVersion(let version) {
+            print("--- [reader] re-read version: \(version)")
             rawDesign = try read(data: data, version: version)
         }
         catch {
@@ -279,8 +290,9 @@ public final class JSONDesignReader {
         switch version {
         case "makeshift_store":
             let makeshiftDesign: _MakeshiftPersistentDesign
+            let decoder = JSONDecoder()
+            decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
             do {
-                let decoder = JSONDecoder()
                 makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
             }
             catch let error as DecodingError {

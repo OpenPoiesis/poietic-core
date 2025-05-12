@@ -245,16 +245,23 @@ public class RawDesign: Codable {
         let container = try decoder.container(keyedBy: Self.CodingKeys)
         let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
         
+        debugPrint("--- checking version")
         if let versionString {
+            debugPrint("--> got version string:", versionString)
             guard let version = SemanticVersion(versionString) else {
+                debugPrint("<<< THROW: version string is not a semantic version")
                 throw RawDesignReaderError.unknownFormatVersion(versionString)
             }
             guard version == SemanticVersion(0,1,0) else {
+                debugPrint("<<< THROW: version is not current")
                 // TODO: Remove backward compatibility with makeshift (not public)
                 throw RawDesignReaderError.unknownFormatVersion(versionString)
             }
+            debugPrint("--- version is OK")
         }
+        debugPrint("--- checking makeshift version")
         if let _makeshiftVersion = try container.decodeIfPresent(String.self, forKey: ._makeshiftStoreFormatVersion) {
+            debugPrint("<<< THROW makeshift string: \(_makeshiftVersion)")
             throw RawDesignReaderError.unknownFormatVersion("makeshift_store")
         }
         

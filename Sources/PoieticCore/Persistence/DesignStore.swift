@@ -66,9 +66,11 @@ public class DesignStore {
         }
         
         do {
+            print("--- TRY to load")
             design = try load(currentVersion: data, metamodel: metamodel)
         }
         catch .unsupportedFormatVersion(let versionString) {
+            print("--- CATCH unsupported version: \(versionString)")
             if let version = SemanticVersion(versionString) {
                 if version < SemanticVersion(0, 4, 0) {
                     design = try load(makeshiftVersion: data, metamodel: metamodel)
@@ -88,16 +90,21 @@ public class DesignStore {
         let reader = JSONDesignReader()
         var rawDesign: RawDesign
         var design: Design
+        debugPrint("=== READ START")
         do {
+            debugPrint("--- Trying to read current version")
             rawDesign = try reader.read(data: data)
         }
         catch RawDesignReaderError.unknownFormatVersion(let version) {
+            debugPrint("<<< Unsupported version: \(version)")
             throw .unsupportedFormatVersion(version)
         }
         catch {
+            debugPrint("<<< Reading error: ", error)
             throw .readingError(error)
         }
-        
+        debugPrint("=== LOAD START")
+
         let loader = RawDesignLoader(metamodel: metamodel)
         do {
             design = try loader.load(rawDesign)
@@ -108,16 +115,19 @@ public class DesignStore {
         return design
 
     }
+    // FIXME: [WIP] remove this (handled in the reader
     public func load(makeshiftVersion data: Data, metamodel: Metamodel = Metamodel()) throws (DesignStoreError) -> Design {
         let decoder = JSONDecoder()
         // decoder.userInfo[Self.FormatVersionKey] = Self.FormatVersion
         decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
 
+        debugPrint(">>> DECODING MAKESHIFT")
         let makeshiftDesign: _MakeshiftPersistentDesign
         do {
             makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
         }
         catch let error as DecodingError {
+            debugPrint("!!! ERROR: ", error)
             switch error {
             case .dataCorrupted(_):
                 throw .dataCorrupted
@@ -155,7 +165,30 @@ public class DesignStore {
     ///
     /// - Throws: ``PersistentStoreError/unableToWrite(_:)``
     public func save(design: Design) throws (DesignStoreError) {
-        fatalError("Saving of design is not yet implemented")
+        guard let url = self.url else {
+            fatalError("No store URL set to save design to.")
+        }
+        print("=== Saving store to: \(url)")
+
+        let exporter = RawDesignExporter()
+        let rawDesign = exporter.export(design)
+        let encoder = JSONEncoder()
+        let data: Data
+
+        do {
+            data = try encoder.encode(rawDesign)
+        }
+        catch {
+            // Not user's fault, it is ours.
+            fatalError("Unable to encode design for persistent store. Underlying error: \(error)")
+        }
+
+        do {
+            try data.write(to: url)
+        }
+        catch {
+            throw .unableToWrite(url)
+        }
     }
 }
 
