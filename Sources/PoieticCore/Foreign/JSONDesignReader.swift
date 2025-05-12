@@ -272,7 +272,6 @@ public final class JSONDesignReader {
             }
             catch {
                 // TODO: [WIP] HANDLE ERROR
-                print("CAN NOT READ DATA: \(error)")
                 throw .canNotReadData
             }
             return makeshiftDesign.asRawDesign()

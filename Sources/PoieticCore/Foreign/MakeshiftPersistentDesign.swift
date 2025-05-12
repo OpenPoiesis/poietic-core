@@ -91,7 +91,7 @@ struct _MakeshiftPersistentDesignState: Codable {
 /// Root structure for makeshift persistent store.
 ///
 struct _MakeshiftPersistentDesign: Codable {
-    let storeFormatVersion: String
+    let storeFormatVersion: String?
     let metamodel: String
     let snapshots: [_MakeshiftPersistentSnapshot]
     let frames: [_MakeshiftPersistentFrame]

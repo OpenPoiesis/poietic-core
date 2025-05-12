@@ -30,11 +30,7 @@ import Foundation
 /// - Note: This is a solution before we get a proper store design.
 ///
 public class DesignStore {
-    // Development note: The format version should be the latest version tag
-    // when the format has changed.
-    //
-    static let FormatVersion = "0.4"
-    
+    // TODO: [WIP] Rename back to makeshift store, just a wrapper for reader/loader/...
     public let data: Data?
     public let url: URL?
 

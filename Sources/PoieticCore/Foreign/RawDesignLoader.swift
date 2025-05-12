@@ -46,6 +46,7 @@ public enum RawSnapshotError: Error, Equatable {
     case missingObjectType
     case unknownObjectType(String)
     case invalidStructuralType
+    // TODO: Is this used in identity error?
     case unknownObjectID(RawObjectID) // referenced
 }
 public enum RawFrameError: Error, Equatable {
@@ -234,6 +235,7 @@ public class RawDesignLoader {
         case "node": structure = .node
         case "edge":
             guard references.count == 2 else {
+                // TODO: [WIP] Throw structural type mismatch
                 throw .invalidStructuralType
             }
             guard let origin = reservation[references[0]], origin.type == .object else {
