@@ -147,7 +147,7 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
     public typealias Object = JSONForeignObject
     
     public typealias DecodingConfiguration = MakeshiftJSONFrameReader.DecodingConfiguration
-
+    
     public let metamodel: String?
     public let collectionNames: [String]
     public let objects: [JSONForeignObject]
@@ -166,13 +166,13 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
         self.collectionNames = collections
         self.objects = objects
     }
-
+    
     public init(from decoder: any Decoder) throws {
         // if decoder.userInfo[JSONFrameReader.Version] as? String == "" {
         // }
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         // let version: String?
         
         do {
@@ -181,10 +181,10 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
         catch {
             throw ForeignFrameError.typeMismatch("String", ["format_version"])
         }
-
+        
         metamodel = try container.decodeIfPresent(String.self, forKey: .metamodel)
         collectionNames = try container.decodeIfPresent([String].self, forKey: .collectionNames) ?? []
-
+        
         do {
             let collection = try container.decodeIfPresent(_JSONForeignObjectCollection.self, forKey: .objects)
             objects = collection.map { $0.objects } ?? []
@@ -195,7 +195,7 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
     }
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
+        
         try container.encode(MakeshiftJSONFrameReader.CurrentFormatVersion, forKey: .version)
         try container.encodeIfPresent(metamodel, forKey: .metamodel)
         if !collectionNames.isEmpty {
@@ -203,6 +203,53 @@ public struct JSONForeignFrame: ForeignFrameProtocol, Encodable, Decodable {
         }
         if !objects.isEmpty {
             try container.encodeIfPresent(objects, forKey: .objects)
+        }
+    }
+    
+    public func asRawDesign() -> RawDesign {
+        let design = RawDesign()
+        var snapshots: [RawSnapshot] = []
+
+        design.metamodelName = self.metamodel
+        
+        for foreign in self.objects {
+            let structure: RawStructure
+            
+            switch foreign.structure {
+            case .none:
+                structure = RawStructure()
+            case .unstructured:
+                structure = RawStructure("unstructured")
+            case .node:
+                structure = RawStructure("node")
+            case .edge(let origin, let target):
+                structure = RawStructure("edge", references: [origin.rawIDValue, target.rawIDValue])
+            case .orderedSet(_, _):
+                fatalError("Unhandled ordered set structure")
+            }
+            
+            let snapshot = RawSnapshot(
+                typeName: foreign.type,
+                snapshotID: foreign.snapshotIDReference?.rawIDValue,
+                id: foreign.idReference?.rawIDValue,
+                structure: structure,
+                parent: foreign.parentReference?.rawIDValue,
+                attributes: foreign.attributes
+            )
+            snapshots.append(snapshot)
+        }
+        design.snapshots = snapshots
+        return design
+    }
+    
+}
+
+extension ForeignObjectReference {
+    var rawIDValue: RawObjectID {
+        switch self {
+        case .id(let value): return .id(value)
+        case .string(let value): return .string(value)
+        case .int(let value): return .int(Int64(value))
         }
     }
 }

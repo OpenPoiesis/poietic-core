@@ -60,10 +60,12 @@ public enum RawFrameError: Error, Equatable {
 
 class RawDesignLoader {
     let metamodel: Metamodel
+    let compatibilityVersion: SemanticVersion?
+    static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
     
-
-    init(metamodel: Metamodel) {
+    init(metamodel: Metamodel, compatibilityVersion version: SemanticVersion? = nil) {
         self.metamodel = metamodel
+        self.compatibilityVersion = version
     }
     
     /// Loads a raw design and creates new design.
@@ -128,6 +130,22 @@ class RawDesignLoader {
         return design
     }
     
+    /// Load
+    ///
+    public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (RawDesignLoaderError) {
+        // FIXME: [WIP] rename makeshiftLoad or load(snapshotsFrom:into:) something
+        let trans = AppendingTransaction(frame.design)
+
+        var reservation = IdentityReservation(design: frame.design)
+        try reserveIdentities(snapshots: rawDesign.snapshots, with: &reservation)
+        try load(snapshots: rawDesign.snapshots, in: trans, reservation: reservation)
+
+        for snapshot in trans.snapshots {
+            frame.unsafeInsert(snapshot)
+        }
+        
+    }
+    
     /// Method that reserves identities for snapshots.
     ///
     /// For each snapshot, an identity is reserved using the ``IdentityManager`` of the design.
@@ -184,58 +202,88 @@ class RawDesignLoader {
               reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) {
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
             let (snapshotID, objectID) = reservation.snapshots[i]
+            let snapshot: DesignObject
             
-            guard let typeName = rawSnapshot.typeName else {
-                throw .snapshotError(i, .missingObjectType)
+            do {
+                snapshot = try create(rawSnapshot, id: objectID, snapshotID: snapshotID, reservation: reservation)
             }
-            guard let type = metamodel.objectType(name: typeName) else {
-                throw .snapshotError(i, .unknownObjectType(typeName))
+            catch {
+                throw .snapshotError(i, error)
             }
-            
-            // FIXME: [WIP] What about type <-> structure mismatch?
-            let structure: Structure
-            let references = rawSnapshot.structure.references
-            switch rawSnapshot.structure.type {
-            case .none: structure = .unstructured
-            case "unstructured": structure = .unstructured
-            case "node": structure = .node
-            case "edge":
-                guard references.count == 2 else {
-                    throw .snapshotError(i, .invalidStructuralType)
-                }
-                guard let origin = reservation[references[0]], origin.type == .object else {
-                    throw .snapshotError(i, .unknownObjectID(references[0]))
-                }
-                guard let target = reservation[references[1]], target.type == .object else {
-                    throw .snapshotError(i, .unknownObjectID(references[1]))
-                }
-                structure = .edge(origin.id, target.id)
-            default:
-                // TODO: Strategy: unknownAsUnstructured
-                throw .snapshotError(i, .invalidStructuralType)
-            }
-            
-            let parent: ObjectID?
-            if let rawParent = rawSnapshot.parent {
-                guard let res = reservation[rawParent], res.type == .object else {
-                    throw .snapshotError(i, .unknownObjectID(rawParent))
-                }
-                parent = res.id
-            }
-            else {
-                parent = nil
-            }
-            
-            let snapshot = DesignObject(id: objectID,
-                                        snapshotID: snapshotID,
-                                        type: type,
-                                        structure: structure,
-                                        parent: parent,
-                                        attributes: rawSnapshot.attributes)
             
             trans.insert(snapshot)
         }
     }
+    
+    func create(_ rawSnapshot: RawSnapshot, id objectID: ObjectID, snapshotID: ObjectID, reservation: borrowing IdentityReservation) throws (RawSnapshotError) -> DesignObject {
+        guard let typeName = rawSnapshot.typeName else {
+            throw .missingObjectType
+        }
+        guard let type = metamodel.objectType(name: typeName) else {
+            throw .unknownObjectType(typeName)
+        }
+        
+        // FIXME: [WIP] What about type <-> structure mismatch?
+        let structure: Structure
+        let references = rawSnapshot.structure.references
+        switch rawSnapshot.structure.type {
+        case .none: structure = .unstructured
+        case "unstructured": structure = .unstructured
+        case "node": structure = .node
+        case "edge":
+            guard references.count == 2 else {
+                throw .invalidStructuralType
+            }
+            guard let origin = reservation[references[0]], origin.type == .object else {
+                throw .unknownObjectID(references[0])
+            }
+            guard let target = reservation[references[1]], target.type == .object else {
+                throw .unknownObjectID(references[1])
+            }
+            structure = .edge(origin.id, target.id)
+        default:
+            // TODO: Strategy: unknownAsUnstructured
+            throw .invalidStructuralType
+        }
+        
+        let parent: ObjectID?
+        if let rawParent = rawSnapshot.parent {
+            guard let res = reservation[rawParent], res.type == .object else {
+                throw .unknownObjectID(rawParent)
+            }
+            parent = res.id
+        }
+        else {
+            parent = nil
+        }
+        
+        var attributes: [String:Variant] = rawSnapshot.attributes
+        
+        if compatibilityVersion == Self.MakeshiftJSONLoaderVersion {
+            if let id = rawSnapshot.id,
+               case let .string(name) = id,
+               attributes["name"] == nil {
+                attributes["name"] = Variant(name)
+            }
+        }
+        
+        // Set default attributes according to the type
+        // TODO: Should this be here?
+        for attribute in type.attributes {
+            if attributes[attribute.name] == nil {
+                attributes[attribute.name] = attribute.defaultValue
+            }
+        }
+        
+        let snapshot = DesignObject(id: objectID,
+                                    snapshotID: snapshotID,
+                                    type: type,
+                                    structure: structure,
+                                    parent: parent,
+                                    attributes: attributes)
+        return snapshot
+    }
+    
     func load(frames rawFrames: [RawFrame],
               in trans: AppendingTransaction,
               reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) {

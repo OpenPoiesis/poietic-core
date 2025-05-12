@@ -22,12 +22,12 @@ public class SnapshotStorage {
         let snapshot: DesignObject
         let index: RefcountedObjectArray.Index
     }
-    struct RefCountCell {
+    public struct RefCountCell {
         let snapshot: DesignObject
         var refCount: Int
     }
 
-    typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
+    public typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
 
     var _snapshots: RefcountedObjectArray
     var _lookup: [ObjectID:SnapshotReference]
@@ -103,5 +103,26 @@ public class SnapshotStorage {
             _snapshots.remove(at: ref.index)
             _lookup[snapshotID] = nil
         }
+    }
+}
+
+extension SnapshotStorage: Collection {
+    public typealias Index = RefcountedObjectArray.Index
+    public typealias Element = DesignObject
+    
+    public var startIndex: Index {
+        return _snapshots.startIndex
+    }
+    
+    public var endIndex: Index {
+        return _snapshots.endIndex
+    }
+    
+    public func index(after i: Index) -> Index {
+        return _snapshots.index(after: i)
+    }
+    
+    public subscript(position: Index) -> DesignObject {
+        return _snapshots[position].snapshot
     }
 }

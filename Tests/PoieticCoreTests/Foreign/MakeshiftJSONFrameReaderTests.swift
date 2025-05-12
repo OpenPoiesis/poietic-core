@@ -18,20 +18,20 @@ import Testing
     
     let design: Design
     let frame: TransientFrame
-    let loader: ForeignFrameLoader
-    let reader: MakeshiftJSONFrameReader
+    let loader: RawDesignLoader
+    let reader: JSONDesignReader
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
         frame = design.createFrame()
-        reader = MakeshiftJSONFrameReader()
-        loader = ForeignFrameLoader()
+        reader = JSONDesignReader()
+        loader = RawDesignLoader(metamodel: TestMetamodel, compatibilityVersion: RawDesignLoader.MakeshiftJSONLoaderVersion)
     }
    
     @Test func notADict() throws {
         let data = "[]".data(using:.utf8)!
         
-        #expect(throws: ForeignFrameError.typeMismatch("dictionary", [])) {
+        #expect(throws: RawDesignReaderError.typeMismatch("dictionary", [])) {
             try reader.read(data: data)
         }
     }
@@ -43,7 +43,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        #expect(throws: ForeignFrameError.typeMismatch("String", ["format_version"])) {
+        #expect(throws: RawDesignReaderError.typeMismatch("String", ["format_version"])) {
             try reader.read(data: data)
         }
     }
@@ -55,7 +55,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        #expect(throws: ForeignFrameError.typeMismatch("array", ["collections"])) {
+        #expect(throws: RawDesignReaderError.typeMismatch("array", ["collections"])) {
             try reader.read(data: data)
         }
     }
@@ -67,7 +67,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        #expect(throws: ForeignFrameError.typeMismatch("String", ["collections", "Index 0"])) {
+        #expect(throws: RawDesignReaderError.typeMismatch("String", ["collections", "Index 0"])) {
             try reader.read(data: data)
         }
     }
@@ -81,7 +81,7 @@ import Testing
                    }
                    """.data(using:.utf8)!
 
-        #expect(throws: ForeignFrameError.typeMismatch("array", ["objects"])) {
+        #expect(throws: RawDesignReaderError.typeMismatch("array", ["objects"])) {
             try reader.read(data: data)
         }
     }
@@ -107,7 +107,7 @@ import Testing
                    """.data(using:.utf8)!
 
         let fframe = try reader.read(data: data)
-        #expect(throws: FrameLoaderError.foreignObjectError(.propertyNotFound("type"), 0, nil)) {
+        #expect(throws: RawDesignLoaderError.snapshotError(0, .missingObjectType)) {
             try loader.load(fframe, into: frame)
         }
     }
@@ -120,7 +120,7 @@ import Testing
                    """.data(using:.utf8)!
 
         let fframe = try reader.read(data: data)
-        #expect(throws: FrameLoaderError.unknownObjectType("Invalid", 0, nil)) {
+        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectType("Invalid"))) {
             try loader.load(fframe, into: frame)
         }
     }
@@ -179,6 +179,7 @@ import Testing
     @Test func testLoadWithAttributes() throws {
         let data = """
                    {
+                   "format_version": "0",
                    "objects": [
                         {
                             "type": "Stock",
@@ -321,10 +322,10 @@ import Testing
 
         #expect(frame.snapshots.count == 4)
         
-        let parent = frame.object(named: "parent")!
-        let a = frame.object(named: "a")!
-        let b = frame.object(named: "b")!
-        let c = frame.object(named: "c")!
+        let parent = try #require(frame.object(named: "parent"))
+        let a = try #require(frame.object(named: "a"))
+        let b = try #require(frame.object(named: "b"))
+        let c = try #require(frame.object(named: "c"))
         
         #expect(parent.children.contains(a.id))
         #expect(parent.parent == nil)

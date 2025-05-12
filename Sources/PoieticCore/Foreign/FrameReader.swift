@@ -13,7 +13,7 @@ import Foundation
 ///
 /// - SeeAlso: ``ForeignFrameLoader``, ``ForeignObjectError``
 ///
-public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
+public enum ForeignFrameError: Error, CustomStringConvertible {
     /// Data is corrupted and can not be even read using given reader.
     ///
     /// The user is advised to use reader format specific tools to validate the foreign data
@@ -22,7 +22,7 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
     /// For example, for JSON frame reader, the file must be valid JSON. Use tools such as `jq` to
     /// validate the foreign frame data.
     ///
-    case dataCorrupted(String)
+    case dataCorrupted(Error?)
     
     /// The root object of the foreign frame is not as expected.
     ///
@@ -77,7 +77,7 @@ public enum ForeignFrameError: Error, Equatable, CustomStringConvertible {
             self = .propertyNotFound(key, path)
 
         case let .dataCorrupted(context):
-            self = .dataCorrupted(context.debugDescription)
+            self = .dataCorrupted(context.underlyingError)
 
         @unknown default:
             self = .unknownDecodingError(String(describing: error))

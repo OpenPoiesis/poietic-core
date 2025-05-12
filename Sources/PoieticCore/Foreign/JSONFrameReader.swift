@@ -210,9 +210,8 @@ public enum RawDesignReaderError: Error, Equatable {
 ///
 public final class JSONDesignReader {
     // TODO: Rename to DecodableDesignReader
-    public static let CurrentFormatVersion = "0.1"
-    
-    public static let VersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "JSONRawDesignFormatVersion")!
+    public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
+    public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
     // TODO: let forceFormatVersion: SemanticVersion
     
@@ -245,12 +244,30 @@ public final class JSONDesignReader {
     }
     public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
         switch version {
-        case "0": fatalError("Reading makeshift foreign frame not implemented")
+        case "0":
+            return try self.read(makeshiftFrameFormat: data)
         case "makeshift_store": fatalError("Reading makeshift store not implemented")
         default:
             throw RawDesignReaderError.unknownFormatVersion(version)
         }
     }
+    public func read(makeshiftFrameFormat data: Data) throws (RawDesignReaderError) -> RawDesign {
+        let reader = MakeshiftJSONFrameReader()
+        let fframe: JSONForeignFrame
+        do {
+            fframe = try reader.read(data: data)
+        }
+        catch {
+            switch error {
+            case .dataCorrupted(let undError): throw .dataCorrupted(RawDesignReaderError(error))
+                
+            }
+            fatalError("BOO")
+        }
+
+        return fframe.asRawDesign()
+    }
+    
 }
 
 public extension JSONValue {

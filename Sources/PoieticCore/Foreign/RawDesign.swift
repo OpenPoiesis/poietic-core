@@ -171,6 +171,13 @@ public class RawDesign: Codable {
     ///
     var systemLists: [RawNamedList] = []
     
+    /// Dictionary to capture properties of older versions.
+    ///
+    /// Known properties:
+    ///
+    /// - `collections: [String]`
+    var _compatibility: [String:Any] = [:]
+    
     /// Create a new raw design.
     internal init(metamodelName: String? = nil,
                   metamodelVersion: SemanticVersion? = nil,
@@ -192,7 +199,6 @@ public class RawDesign: Codable {
     
     enum CodingKeys: String, CodingKey {
         case formatVersion = "format_version"
-        case _makeshiftStoreFormatVersion = "store_format_version"
 
         case metamodelName = "metamodel"
         case metamodelVersion = "metamodel_version"
@@ -202,11 +208,16 @@ public class RawDesign: Codable {
         case systemReferences = "system_references"
         case userLists = "user_lists"
         case systemLists = "system_lists"
+        
+        // TODO: Remove these. Used during prototyping.
+        case _makeshiftStoreFormatVersion = "store_format_version"
+        case _collections = "collections"
+        case _objects = "objects"
     }
 
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: Self.CodingKeys)
-        try container.encode(JSONDesignReader.CurrentFormatVersion, forKey: .formatVersion)
+        try container.encode(JSONDesignReader.CurrentFormatVersion.description, forKey: .formatVersion)
         try container.encodeIfPresent(metamodelName, forKey: .metamodelName)
         try container.encodeIfPresent(metamodelVersion?.description, forKey: .metamodelVersion)
         if !snapshots.isEmpty {
@@ -234,7 +245,11 @@ public class RawDesign: Codable {
         let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
         
         if let versionString {
-            guard versionString == JSONDesignReader.CurrentFormatVersion else {
+            guard let version = SemanticVersion(versionString) else {
+                throw RawDesignReaderError.unknownFormatVersion(versionString)
+            }
+            guard version == SemanticVersion(0,1,0) else {
+                // TODO: Remove backward compatibility with makeshift (not public)
                 throw RawDesignReaderError.unknownFormatVersion(versionString)
             }
         }
@@ -248,6 +263,9 @@ public class RawDesign: Codable {
             self.metamodelVersion = version
         }
         if let snapshots = try container.decodeIfPresent([RawSnapshot].self, forKey: .snapshots) {
+            self.snapshots = snapshots
+        }
+        else if let snapshots = try container.decodeIfPresent([RawSnapshot].self, forKey: ._objects) {
             self.snapshots = snapshots
         }
         else {
@@ -282,6 +300,12 @@ public class RawDesign: Codable {
         }
         else {
             self.systemLists = []
+        }
+
+        // Old versions/Compatibility
+        // --------------------------------
+        if let collections = try container.decodeIfPresent([String].self, forKey: ._collections) {
+            self._compatibility["collections"] = collections
         }
     }
     
