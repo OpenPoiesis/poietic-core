@@ -228,16 +228,16 @@ public class RawDesign: Codable {
             try container.encode(frames, forKey: .frames)
         }
         if !userReferences.isEmpty {
-            try container.encode(userReferences, forKey: .frames)
+            try container.encode(userReferences, forKey: .userReferences)
         }
         if !systemReferences.isEmpty {
-            try container.encode(systemReferences, forKey: .frames)
+            try container.encode(systemReferences, forKey: .systemReferences)
         }
         if !userLists.isEmpty {
-            try container.encode(userLists, forKey: .frames)
+            try container.encode(userLists, forKey: .userLists)
         }
         if !systemLists.isEmpty {
-            try container.encode(systemLists, forKey: .frames)
+            try container.encode(systemLists, forKey: .systemLists)
         }
     }
     

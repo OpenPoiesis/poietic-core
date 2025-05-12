@@ -173,6 +173,8 @@ public class DesignStore {
         let exporter = RawDesignExporter()
         let rawDesign = exporter.export(design)
         let encoder = JSONEncoder()
+        encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+
         let data: Data
 
         do {
