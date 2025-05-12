@@ -12,13 +12,6 @@ import Foundation
 /// - Note: This is just a prototype of a functionality.
 ///
 public class JSONFrameWriter {
-    static public func objectToJSON(_ object: DesignObject) throws -> Data {
-        let foreign = JSONForeignObject(object)
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(foreign)
-        return data
-    }
-
     /// Create a frame reader.
     ///
     public init() {

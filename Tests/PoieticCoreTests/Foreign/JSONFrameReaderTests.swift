@@ -18,14 +18,12 @@ import Testing
     
     let design: Design
     let frame: TransientFrame
-    let loader: ForeignFrameLoader
     let reader: JSONDesignReader
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
         frame = design.createFrame()
         reader = JSONDesignReader()
-        loader = ForeignFrameLoader()
     }
    
     @Test func notADict() throws {
