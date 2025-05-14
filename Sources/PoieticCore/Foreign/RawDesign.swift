@@ -69,12 +69,12 @@ extension ObjectID {
 }
 
 public struct RawNamedReference: Equatable, Codable {
-    let name: String
+    public let name: String
     /// Known types: `frame`, `object`
-    let type: String
-    let id: RawObjectID
+    public let type: String
+    public let id: RawObjectID
 
-    internal init(_ name: String, type: String, id: RawObjectID) {
+    public init(_ name: String, type: String, id: RawObjectID) {
         self.name = name
         self.type = type
         self.id = id
@@ -82,10 +82,10 @@ public struct RawNamedReference: Equatable, Codable {
 }
 
 public struct RawNamedList: Equatable, Codable {
-    let name: String
+    public let name: String
     /// Known types: `frame`
-    let itemType: String
-    let ids: [RawObjectID]
+    public let itemType: String
+    public let ids: [RawObjectID]
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -93,7 +93,7 @@ public struct RawNamedList: Equatable, Codable {
         case ids
     }
 
-    internal init(_ name: String, itemType: String, ids: [RawObjectID]) {
+    public init(_ name: String, itemType: String, ids: [RawObjectID]) {
         self.name = name
         self.itemType = itemType
         self.ids = ids
@@ -116,7 +116,7 @@ public class RawDesign: Codable {
     /// When metamodel name is not provided, application should expect the metamodel name to be
     /// as expected by the application. Same for a special metamodel name `"default"`.
     ///
-    var metamodelName: String? = nil
+    public var metamodelName: String? = nil
 
     /// Version of the metamodel within the raw design.
     ///
@@ -127,31 +127,31 @@ public class RawDesign: Codable {
     /// When metamodel version is not provided, application should expect the metamodel version to be
     /// as expected by the application. Guessing a version is considered an act of optional kindness.
     ///
-    var metamodelVersion: SemanticVersion? = nil
+    public var metamodelVersion: SemanticVersion? = nil
 
     /// List of snapshots contained in the raw design.
     ///
     /// Snapshots are expected to be used by the frames. Any snapshot not used by a frame within the
     /// raw design should be discarded during loading process.
     ///
-    var snapshots: [RawSnapshot] = []
+    public var snapshots: [RawSnapshot] = []
 
     /// List of frames.
     ///
-    var frames: [RawFrame] = []
+    public var frames: [RawFrame] = []
 
     /// References to metamodel entities created by an user, typically through an application.
     ///
     /// For example, ``Design/namedFrames`` are stored here as named references of type `"frame"`.
     ///
-    var userReferences: [RawNamedReference] = []
+    public var userReferences: [RawNamedReference] = []
 
     /// Named lists of references created by an user, typically through an application.
     ///
     /// This is for future extensions and uses. Currently it is ignored and exists for parity
     /// with ``systemLists``.
     ///
-    var userLists: [RawNamedList] = []
+    public var userLists: [RawNamedList] = []
 
     /// References to metamodel entities created and managed by the system.
     ///
@@ -161,7 +161,7 @@ public class RawDesign: Codable {
     /// | ---- | ---- | ----------- |
     /// | `current_frame` |  `frame` | ID of current frame (see ``Design/currentFrameID``) |
     /// | `application_settings` | `frame` | ID of frame containing application settings. A non-versioned frame. |
-    var systemReferences: [RawNamedReference] = []
+    public var systemReferences: [RawNamedReference] = []
 
     /// Named lists of references created by and managed by the system.
     ///
@@ -170,17 +170,17 @@ public class RawDesign: Codable {
     /// | `undo` | `frame` | List of undoable frames. See ``Design/undoableFrames`` |
     /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoableFrames`` |
     ///
-    var systemLists: [RawNamedList] = []
+    public var systemLists: [RawNamedList] = []
     
     /// Dictionary to capture properties of older versions.
     ///
     /// Known properties:
     ///
     /// - `collections: [String]`
-    var _compatibility: [String:Any] = [:]
+    public var _compatibility: [String:Any] = [:]
     
     /// Create a new raw design.
-    internal init(metamodelName: String? = nil,
+    public init(metamodelName: String? = nil,
                   metamodelVersion: SemanticVersion? = nil,
                   snapshots: [RawSnapshot] = [],
                   frames: [RawFrame] = [],
@@ -320,10 +320,10 @@ public class RawDesign: Codable {
 }
 
 public struct RawStructure: Equatable {
-    var type: String? = nil
-    var references: [RawObjectID] = []
+    public var type: String? = nil
+    public var references: [RawObjectID] = []
 
-    init(_ structure: Structure) {
+    public init(_ structure: Structure) {
         switch structure {
         case .unstructured: self.type = "unstructured"
         case .node: self.type = "node"
@@ -335,20 +335,20 @@ public struct RawStructure: Equatable {
             self.references = [.id(owner)] + items.map { .id($0) }
         }
     }
-    internal init(_ type: String? = nil, references: [RawObjectID] = []) {
+    public init(_ type: String? = nil, references: [RawObjectID] = []) {
         self.type = type
         self.references = references
     }
 }
 
 public class RawSnapshot: Codable {
-    var typeName: String?
-    var snapshotID: RawObjectID?
-    var id: RawObjectID?
-    var structure: RawStructure
+    public var typeName: String?
+    public var snapshotID: RawObjectID?
+    public var id: RawObjectID?
+    public var structure: RawStructure
     // Must be ObjectID convertible
-    var parent: RawObjectID?
-    var attributes: [String:Variant]
+    public var parent: RawObjectID?
+    public var attributes: [String:Variant]
     
     enum CodingKeys: String, CodingKey {
         case typeName = "type"
@@ -364,7 +364,7 @@ public class RawSnapshot: Codable {
         // case orderedSet = "ordered_set"
     }
 
-    internal init(typeName: String? = nil,
+    public init(typeName: String? = nil,
                   snapshotID: RawObjectID? = nil,
                   id: RawObjectID? = nil,
                   structure: RawStructure = RawStructure(nil, references: []),
@@ -449,10 +449,10 @@ public class RawSnapshot: Codable {
 }
 
 public class RawFrame: Codable {
-    var id: RawObjectID? = nil
+    public var id: RawObjectID? = nil
     // TODO: Rename to snapshots
-    var snapshots: [RawObjectID] = []
-    internal init(id: RawObjectID? = nil, snapshots: [RawObjectID] = []) {
+    public var snapshots: [RawObjectID] = []
+    public init(id: RawObjectID? = nil, snapshots: [RawObjectID] = []) {
         self.id = id
         self.snapshots = snapshots
     }

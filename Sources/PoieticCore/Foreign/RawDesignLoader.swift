@@ -20,6 +20,8 @@
  
  */
 
+// FIXME: [WIP] [IMPORTANT] Loading is using unsafe insert, we did not validate objects
+
 public enum RawDesignEntity {
     case snapshot
     case frame
@@ -33,7 +35,9 @@ public enum RawDesignLoaderError: Error, Equatable {
     case snapshotError(Int, RawSnapshotError)
     case frameError(Int, RawFrameError)
     case unknownNamedReference(String, RawObjectID)
-    case transactionError(TransactionError)
+    case duplicateFrame(ObjectID)
+    case duplicateSnapshot(ObjectID)
+    case brokenStructuralIntegrity(StructuralIntegrityError)
 }
 
 
@@ -106,25 +110,23 @@ public class RawDesignLoader {
         // 2. Validate user and system references
         let userReferences = try makeNamedReferences(rawDesign.userReferences, with: reservation)
         let systemReferences = try makeNamedReferences(rawDesign.systemReferences, with: reservation)
-        let userLists = try makeNamedReferenceList(rawDesign.userLists, with: reservation)
+        // let userLists = try makeNamedReferenceList(rawDesign.userLists, with: reservation)
         let systemLists = try makeNamedReferenceList(rawDesign.systemLists, with: reservation)
 
         // TODO: Validate undo/redo is frame list
         // TODO: Validate current_frame is frame
+        // TODO: [WIP] reopder the arguments, start with into:design
         
-        // 3. Create transaction
+        // 3. Create Snapshots
         // ----------------------------------------------------------------------
-        let trans = AppendingTransaction(design)
-        try load(snapshots: rawDesign.snapshots, in: trans, reservation: reservation)
-        try load(frames: rawDesign.frames, in: trans, reservation: reservation)
-        // 4. Apply
-        // ----------------------------------------------------------------------
-        do {
-            try design.accept(appending: trans)
-        }
-        catch {
-            throw .transactionError(error)
-        }
+        let snapshots = try create(snapshots: rawDesign.snapshots, reservation: reservation)
+
+        // 4. Load (commit)
+        
+        try load(into: design,
+                 frames: rawDesign.frames,
+                 snapshots: snapshots,
+                 reservation: reservation)
         
         // 5. Post-process
         design.undoableFrames = systemLists["undo"]?.ids ?? []
@@ -145,24 +147,33 @@ public class RawDesignLoader {
         return design
     }
     
-    /// Load
+    /// Load raw snapshots into a transient frame.
     ///
-    public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (RawDesignLoaderError) {
-        // FIXME: [WIP] rename makeshiftLoad or load(snapshotsFrom:into:) something
-        // FIXME: [WIP] add which frame to load
+    /// This method is intended to be used when importing external frames or for pasting in the
+    /// Copy & Paste mechanism.
+    ///
+    /// Process:
+    ///
+    /// 1. Reserve snapshot identities.
+    /// 2. Validate structural integrity of the snapshots within the context of the frame.
+    ///
+    public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (RawDesignLoaderError) {
         // FIXME: [WIP] what to do on dupes?
-        let trans = AppendingTransaction(frame.design)
-
         var reservation = IdentityReservation(design: frame.design)
-        try reserveIdentities(snapshots: rawDesign.snapshots, with: &reservation)
-        try load(snapshots: rawDesign.snapshots, in: trans, reservation: reservation)
+        try reserveIdentities(snapshots: rawSnapshots, with: &reservation)
+        let snapshots = try create(snapshots: rawSnapshots, reservation: reservation)
 
-        for snapshot in trans.snapshots {
+        for snapshot in snapshots {
+            do {
+                try frame.validateStructure(snapshot)
+            }
+            catch {
+                throw .brokenStructuralIntegrity(error)
+            }
             frame.unsafeInsert(snapshot)
         }
         
     }
-    
     /// Method that reserves identities for snapshots.
     ///
     /// For each snapshot, an identity is reserved using the ``IdentityManager`` of the design.
@@ -214,9 +225,10 @@ public class RawDesignLoader {
         }
     }
 
-    func load(snapshots rawSnapshots: [RawSnapshot],
-              in trans: AppendingTransaction,
-              reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) {
+    func create(snapshots rawSnapshots: [RawSnapshot],
+                reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) -> SnapshotStorage {
+        let result = SnapshotStorage()
+        
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
             let (snapshotID, objectID) = reservation.snapshots[i]
             let snapshot: DesignObject
@@ -228,10 +240,11 @@ public class RawDesignLoader {
                 throw .snapshotError(i, error)
             }
             
-            trans.insert(snapshot)
+            result.insertOrRetain(snapshot)
         }
+        return result
     }
-    
+
     func create(_ rawSnapshot: RawSnapshot, id objectID: ObjectID, snapshotID: ObjectID, reservation: borrowing IdentityReservation) throws (RawSnapshotError) -> DesignObject {
         guard let typeName = rawSnapshot.typeName else {
             throw .missingObjectType
@@ -302,26 +315,65 @@ public class RawDesignLoader {
         return snapshot
     }
     
-    func load(frames rawFrames: [RawFrame],
-              in trans: AppendingTransaction,
+    func load(into design: Design,
+              frames rawFrames: [RawFrame],
+              snapshots: SnapshotStorage,
               reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) {
+        var frames: [DesignFrame] = []
+        let usedSnapshots = SnapshotStorage()
         
         for (i, rawFrame) in rawFrames.enumerated() {
+            let frame: DesignFrame
             let frameID = reservation.frames[i]
-            var snapshots: [DesignObject] = []
-            for rawSnapshotID in rawFrame.snapshots {
-                guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
-                    throw .frameError(i, .unknownSnapshotID(rawSnapshotID))
-                }
-                guard let snapshot = trans.snapshots.snapshot(snapshotRes.id) else {
-                    throw .frameError(i, .unknownSnapshotID(rawSnapshotID))
-                }
-                snapshots.append(snapshot)
+            guard !design.contains(stableFrame: frameID) else {
+                throw .duplicateFrame(frameID)
             }
-            let frame = DesignFrame(design: trans.design, id: frameID, snapshots: snapshots)
-            trans.insert(frame: frame)
+            do {
+                frame = try create(frame: rawFrame,
+                                   id: frameID,
+                                   snapshots: snapshots,
+                                   for: design,
+                                   reservation: reservation)
+            }
+            catch {
+                throw .frameError(i, error)
+            }
+            do {
+                try frame.validateStructure()
+            }
+            catch {
+                throw .brokenStructuralIntegrity(error)
+            }
+            for snapshot in frame.snapshots {
+                usedSnapshots.insertOrRetain(snapshot)
+            }
+            frames.append(frame)
         }
+        for frame in frames {
+            design._unsafeInsert(frame)
+        }
+        
     }
+    // TODO: [WIP] Add validation (validateStructure())
+    func create(frame rawFrame: RawFrame,
+                id frameID: ObjectID,
+                snapshots: SnapshotStorage,
+                for design: Design,
+                reservation: borrowing IdentityReservation) throws (RawFrameError) -> DesignFrame {
+        var frameSnapshots: [DesignObject] = []
+        for rawSnapshotID in rawFrame.snapshots {
+            guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
+                throw .unknownSnapshotID(rawSnapshotID)
+            }
+            guard let snapshot = snapshots.snapshot(snapshotRes.id) else {
+                throw .unknownSnapshotID(rawSnapshotID)
+            }
+            frameSnapshots.append(snapshot)
+        }
+        let frame = DesignFrame(design: design, id: frameID, snapshots: frameSnapshots)
+        return frame
+    }
+    
     struct NamedReference {
         let type: String
         let id: ObjectID

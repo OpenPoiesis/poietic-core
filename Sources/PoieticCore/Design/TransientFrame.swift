@@ -14,12 +14,12 @@ public enum StructuralIntegrityError: Error {
     ///
     /// Use ``TransientFrame/brokenReferences()`` to investigate.
     ///
-    case brokenEdgeEndpoint
+    case brokenStructureReference
     case brokenChild
     case brokenParent
     case parentChildMismatch
     case parentChildCycle
-    case edgeEndpointNotANode
+    case edgeEndpointNotANode // TODO: Rename to invalidStructureReferenceTargetType (or simpler)
 }
 
 /// Transient frame that represents a change transaction.
@@ -421,27 +421,39 @@ public final class TransientFrame: Frame {
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
     ///
     public func insert(_ snapshot: DesignObject) {
+        // TODO: [WIP] Make insert() function throwing (StructuralIntegrityError)
         // Check for referential integrity
-        
-        if case let .edge(origin, target) = snapshot.structure {
-            precondition(contains(origin), "Missing origin object in frame")
-            precondition(contains(target), "Missing target object in frame")
+        do {
+            try validateStructure(snapshot)
         }
-        else if case let .orderedSet(owner, items) = snapshot.structure {
-            precondition(contains(owner), "Missing owner object in frame")
-            precondition(items.allSatisfy({contains($0)}), "Missing ordered set items")
-        }
-        guard snapshot.children.allSatisfy({ contains($0) }) else {
-            preconditionFailure("Missing children in frame")
-            
-        }
-        guard let parent = snapshot.parent, contains(parent) else {
-            preconditionFailure("Missing parent in frame")
+        catch {
+            preconditionFailure("Structural integrity error")
         }
         
         unsafeInsert(snapshot)
     }
+    public func validateStructure(_ snapshot: DesignObject) throws (StructuralIntegrityError) {
+        switch snapshot.structure {
+        case .node, .unstructured: break
+        case let .edge(origin, target):
+            guard contains(origin) && contains(target) else {
+                throw .brokenStructureReference
+            }
+        case let .orderedSet(owner, items):
+            guard contains(owner) && items.allSatisfy({ contains($0) }) else {
+                throw .brokenStructureReference
+            }
+        }
+        guard snapshot.children.allSatisfy({ contains($0) }) else {
+            throw .brokenChild
+            
+        }
+        guard let parent = snapshot.parent, contains(parent) else {
+            throw .brokenParent
+        }
+    }
     
+
     /// Unsafely insert a snapshot to the frame, not checking for structural
     /// references.
     ///

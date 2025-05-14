@@ -43,6 +43,7 @@ public final class DesignFrame: Frame {
     /// - Precondition: Snapshots must have referential integrity.
     ///
     init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
+        // FIXME: [WIP] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
         self._index = _FrameIndex(snapshots)

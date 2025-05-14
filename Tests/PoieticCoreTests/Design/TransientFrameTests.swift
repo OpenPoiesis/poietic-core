@@ -381,7 +381,7 @@ import Testing
         #expect(frame.brokenReferences().count == 2)
         #expect(frame.brokenReferences().contains(ObjectID(900)))
         #expect(frame.brokenReferences().contains(ObjectID(901)))
-        #expect(throws: StructuralIntegrityError.brokenEdgeEndpoint) {
+        #expect(throws: StructuralIntegrityError.brokenStructureReference) {
             try frame.validateStructure()
         }
 

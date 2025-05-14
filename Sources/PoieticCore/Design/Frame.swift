@@ -187,7 +187,7 @@ extension Frame {
             case .node: break // Nothing to validate.
             case let .edge(originID, targetID):
                 guard self.contains(originID) && self.contains(targetID) else {
-                    throw .brokenEdgeEndpoint
+                    throw .brokenStructureReference
                 }
                 guard self[originID].structure == .node && self[targetID].structure == .node else {
                     throw .edgeEndpointNotANode
