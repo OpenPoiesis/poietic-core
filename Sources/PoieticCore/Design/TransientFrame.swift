@@ -325,6 +325,9 @@ public final class TransientFrame: Frame {
                        children: [ObjectID] = [],
                        attributes: [String:Variant]=[:],
                        components: [any Component]=[]) -> MutableObject {
+        // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
+        // TODO: Consider moving this to Design (as well as its RawDesignLoader counterpart)
+        // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
         let actualSnapshotID: ObjectID
@@ -339,7 +342,8 @@ public final class TransientFrame: Frame {
         let actualID: ObjectID
         if let id {
             // TODO: [WIP] Validate whether it is used for the purpose (not a frame)
-            precondition(design.reserveIfNeeded(id: id, type: .object), "Type mismatch for ID \(id)")
+            let reservation = design.reserveIfNeeded(id: id, type: .object)
+            assert(reservation, "Type mismatch for ID \(id)")
             precondition(!self.contains(id))
             actualID = id
         }

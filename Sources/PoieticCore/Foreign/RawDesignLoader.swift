@@ -50,6 +50,7 @@ public enum RawSnapshotError: Error, Equatable {
     case missingObjectType
     case unknownObjectType(String)
     case invalidStructuralType
+    case structuralTypeMismatch(StructuralType)
     // TODO: Is this used in identity error?
     case unknownObjectID(RawObjectID) // referenced
 }
@@ -69,6 +70,8 @@ public class RawDesignLoader {
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
     let options: Options
     
+    /// Options of the loading process.
+    ///
     public struct Options: OptionSet, Sendable {
         public typealias RawValue = Int
 
@@ -81,7 +84,7 @@ public class RawDesignLoader {
         }
         
         /// When snapshot ID is a string, use it as a name attribute, if not present.
-        public static let nameFromID = Options(rawValue: 1 << 0)
+        public static let useIDAsNameAttribute = Options(rawValue: 1 << 0)
     }
     
     public init(metamodel: Metamodel, options: Options = Options(), compatibilityVersion version: SemanticVersion? = nil) {
@@ -246,6 +249,8 @@ public class RawDesignLoader {
     }
 
     func create(_ rawSnapshot: RawSnapshot, id objectID: ObjectID, snapshotID: ObjectID, reservation: borrowing IdentityReservation) throws (RawSnapshotError) -> DesignObject {
+        // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
+        // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
         guard let typeName = rawSnapshot.typeName else {
             throw .missingObjectType
         }
@@ -257,10 +262,26 @@ public class RawDesignLoader {
         let structure: Structure
         let references = rawSnapshot.structure.references
         switch rawSnapshot.structure.type {
-        case .none: structure = .unstructured
-        case "unstructured": structure = .unstructured
-        case "node": structure = .node
+        case .none:
+            switch type.structuralType {
+            case .unstructured: structure = .unstructured
+            case .node: structure = .node
+            default: throw .structuralTypeMismatch(type.structuralType)
+            }
+        case "unstructured":
+            guard type.structuralType == .unstructured else {
+                throw .structuralTypeMismatch(type.structuralType)
+            }
+            structure = .unstructured
+        case "node":
+            guard type.structuralType == .node else {
+                throw .structuralTypeMismatch(type.structuralType)
+            }
+            structure = .node
         case "edge":
+            guard type.structuralType == .edge else {
+                throw .structuralTypeMismatch(type.structuralType)
+            }
             guard references.count == 2 else {
                 // TODO: [WIP] Throw structural type mismatch
                 throw .invalidStructuralType
@@ -290,7 +311,7 @@ public class RawDesignLoader {
         
         var attributes: [String:Variant] = rawSnapshot.attributes
         if compatibilityVersion == Self.MakeshiftJSONLoaderVersion
-            || (options.contains(.nameFromID)) {
+            || (options.contains(.useIDAsNameAttribute)) {
             if let id = rawSnapshot.id,
                case let .string(name) = id,
                attributes["name"] == nil {

@@ -406,6 +406,16 @@ public class RawSnapshot: Codable {
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
         
         switch structureType {
+        case .none:
+            // Compatibility/legacy
+            // Otherwise: Do not use origin/target without structure key.
+            if let origin = try container.decodeIfPresent(RawObjectID.self, forKey: .origin),
+               let target = try container.decodeIfPresent(RawObjectID.self, forKey: .target) {
+                self.structure = RawStructure("edge", references: [origin, target])
+            }
+            else {
+                self.structure = RawStructure("unstructured")
+            }
         case "unstructured": self.structure = RawStructure(structureType)
         case "node": self.structure = RawStructure(structureType)
         case "edge":
@@ -423,6 +433,7 @@ public class RawSnapshot: Codable {
             self.attributes = [:]
         }
     }
+    
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: Self.CodingKeys)
         try container.encodeIfPresent(typeName, forKey: .typeName)

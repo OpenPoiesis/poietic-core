@@ -137,6 +137,40 @@ import Testing
         #expect(snapshot.snapshotID == .int(10))
         #expect(snapshot.parent == .int(20))
     }
+    @Test func readSnapshotStructure() throws {
+        let data = """
+                   {
+                   "format_version": "0.1",
+                   "snapshots": [
+                        { "id": "i" },
+                        { "id": "u", "structure": "unstructured"},
+                        { "id": "n", "structure": "node"},
+                        { "id": "e", "structure": "edge", "origin": 10, "target": 20 },
+                        { "id": "ie", "origin": 30, "target": 40 }
+                   ]
+                   }
+                   """.data(using:.utf8)!
+        let design = try reader.read(data: data)
+
+        #expect(design.snapshots.count == 5)
+
+        #expect(design.snapshots[0].id == .string("i"))
+        #expect(design.snapshots[0].structure == RawStructure("unstructured", references: []))
+
+        #expect(design.snapshots[1].id == .string("u"))
+        #expect(design.snapshots[1].structure == RawStructure("unstructured", references: []))
+
+        #expect(design.snapshots[2].id == .string("n"))
+        #expect(design.snapshots[2].structure == RawStructure("node", references: []))
+
+        #expect(design.snapshots[3].id == .string("e"))
+        #expect(design.snapshots[3].structure == RawStructure("edge", references: [.int(10), .int(20)]))
+
+        #expect(design.snapshots[4].id == .string("ie"))
+        #expect(design.snapshots[4].structure == RawStructure("edge", references: [.int(30), .int(40)]))
+
+    }
+
     @Test func readSnapshotAttributes() throws {
         let data = """
                    {
