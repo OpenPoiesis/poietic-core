@@ -7,6 +7,8 @@
 
 // TODO: Test createFrame when ID is reserved
 // TODO: Test create object when both IDs are reserved
+// TODO: Validate undo/redo is frame list
+// TODO: Validate current_frame is frame
 
 // Upgrade rules:
 // 1. use structural type based on node type

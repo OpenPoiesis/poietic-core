@@ -199,10 +199,6 @@ public class RawDesignLoader {
         // let userLists = try makeNamedReferenceList(rawDesign.userLists, with: reservation)
         let systemLists = try makeNamedReferenceList(rawDesign.systemLists, with: reservation)
 
-        // TODO: Validate undo/redo is frame list
-        // TODO: Validate current_frame is frame
-        // TODO: [WIP] reopder the arguments, start with into:design
-        
         // 3. Create Snapshots
         // ----------------------------------------------------------------------
         let snapshots = try create(snapshots: rawDesign.snapshots, reservation: reservation)
@@ -244,7 +240,6 @@ public class RawDesignLoader {
     /// 2. Validate structural integrity of the snapshots within the context of the frame.
     ///
     public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (RawDesignLoaderError) {
-        // FIXME: [WIP] what to do on dupes?
         var reservation = IdentityReservation(design: frame.design)
         try reserveIdentities(snapshots: rawSnapshots, with: &reservation)
         let snapshots = try create(snapshots: rawSnapshots, reservation: reservation)
@@ -361,7 +356,6 @@ public class RawDesignLoader {
             throw .unknownObjectType(typeName)
         }
         
-        // FIXME: [WIP] What about type <-> structure mismatch?
         let structure: Structure
         let references = rawSnapshot.structure.references
         switch rawSnapshot.structure.type {
@@ -386,7 +380,6 @@ public class RawDesignLoader {
                 throw .structuralTypeMismatch(type.structuralType)
             }
             guard references.count == 2 else {
-                // TODO: [WIP] Throw structural type mismatch
                 throw .invalidStructuralType
             }
             guard let origin = reservation[references[0]], origin.type == .object else {
@@ -397,7 +390,6 @@ public class RawDesignLoader {
             }
             structure = .edge(origin.id, target.id)
         default:
-            // TODO: Strategy: unknownAsUnstructured
             throw .invalidStructuralType
         }
         
@@ -478,7 +470,7 @@ public class RawDesignLoader {
         }
         
     }
-    // TODO: [WIP] Add validation (validateStructure())
+    // TODO: Add validation (validateStructure())
     func create(frame rawFrame: RawFrame,
                 id frameID: ObjectID,
                 snapshots: SnapshotStorage,

@@ -50,35 +50,11 @@ public struct SemanticVersion: Comparable,
     }
 }
 
-// FIXME: [WIP] Decide which one to keep
-
-struct SemanticVersionRange2: Equatable {
+struct SemanticVersionRange: Equatable {
     var lowerBound: SemanticVersion
     var upperBound: SemanticVersion
     func contains(_ version: SemanticVersion) -> Bool {
         return version >= lowerBound && version <= upperBound
     }
 
-}
-
-enum SemanticVersionRange: Hashable {
-    case major(Range<Int>)
-    case minor(Int, Range<Int>)
-    case patch(Int, Int, Range<Int>)
-    case exact(Int, Int, Int)
-
-    func contains(_ version: SemanticVersion) -> Bool {
-        switch self {
-        case let .major(majorRange):
-            majorRange.contains(version.major)
-        case let .minor(major, minorRange):
-            version.major == major && minorRange.contains(version.minor)
-        case let .patch(major, minor, patchRange):
-            version.major == major
-            && version.minor == minor
-            && patchRange.contains(version.patch)
-        case let .exact(major, minor, patch):
-            version == SemanticVersion(major, minor, patch)
-        }
-    }
 }

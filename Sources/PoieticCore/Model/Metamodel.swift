@@ -19,7 +19,8 @@
 public final class Metamodel: Sendable {
     /// Name of the metamodel, for debug purposes.
     public let name: String?
-    
+    public let version: SemanticVersion?
+
     /// List of components that are available within the metamodel.
     ///
     public let traits: [Trait]
@@ -42,6 +43,7 @@ public final class Metamodel: Sendable {
     ///
     public init() {
         self.name = nil
+        self.version = nil
         self.traits = []
         self.types = []
         self.constraints = []
@@ -61,11 +63,13 @@ public final class Metamodel: Sendable {
     ///  - SeeAlso: ``ConstraintChecker/check(_:)``, ``EdgeRule``.
     ///
     public init(name: String? = nil,
+                version: SemanticVersion? = nil,
                 traits: [Trait] = [],
                 types: [ObjectType] = [],
                 edgeRules: [EdgeRule] = [],
                 constraints: [Constraint] = []) {
         self.name = name
+        self.version = version
         self.traits = traits
         self.types = types
         self.edgeRules = edgeRules
@@ -77,13 +81,14 @@ public final class Metamodel: Sendable {
     /// If traits, constraints and types have duplicate name, then the later
     /// will be used.
     ///
-    public init(name: String? = nil, merging metamodels: Metamodel ...) {
+    public init(name: String? = nil, version: SemanticVersion? = nil, merging metamodels: Metamodel ...) {
         var traits: [Trait] = []
         var constraints: [Constraint] = []
         var types: [ObjectType] = []
         var edgeRules: [EdgeRule] = []
         
         self.name = name
+        self.version = version
         
         for domain in metamodels {
             for trait in domain.traits {

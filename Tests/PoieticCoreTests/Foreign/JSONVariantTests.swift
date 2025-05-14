@@ -149,4 +149,10 @@ import Foundation
         #expect(try decode("{\"type\": \"string_array\", \"items\": [\"one\", \"two\"]}") == Variant(["one", "two"]))
         #expect(try decode("{\"type\": \"string_array\", \"items\": []}") == .array(.string([])))
     }
+    // FIXME: Implement NaN and Inf, see JSONDecoder.NonConformingFloatDecodingStrategy
+//    @Test func doubleNaNs() throws {
+//        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+//        #expect(try decode("{\"type\": \"float\ondecoder, \"value\": \"Inf\"}") == Variant(Double.infinity))
+//    }
+
 }
