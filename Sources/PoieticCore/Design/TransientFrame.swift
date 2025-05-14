@@ -452,8 +452,10 @@ public final class TransientFrame: Frame {
             throw .brokenChild
             
         }
-        guard let parent = snapshot.parent, contains(parent) else {
-            throw .brokenParent
+        if let parent = snapshot.parent {
+            guard contains(parent) else {
+                throw .brokenParent
+            }
         }
     }
     

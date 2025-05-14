@@ -155,7 +155,7 @@ import Testing
         #expect(design.snapshots.count == 5)
 
         #expect(design.snapshots[0].id == .string("i"))
-        #expect(design.snapshots[0].structure == RawStructure("unstructured", references: []))
+        #expect(design.snapshots[0].structure == RawStructure(nil, references: []))
 
         #expect(design.snapshots[1].id == .string("u"))
         #expect(design.snapshots[1].structure == RawStructure("unstructured", references: []))

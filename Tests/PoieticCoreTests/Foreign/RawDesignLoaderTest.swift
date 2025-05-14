@@ -172,7 +172,7 @@ struct RawDesignLoaderTest {
     @Test func loadInvalidParentID() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestEdge", snapshotID: .int(10), parent: .int(100)),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(10), parent: .int(100)),
             ],
             frames: [
                 RawFrame(snapshots: [.int(10)])
