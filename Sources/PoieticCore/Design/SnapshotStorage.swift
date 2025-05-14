@@ -17,19 +17,19 @@
 /// insertion is not preserved.
 ///
 public class SnapshotStorage {
-    // TODO: [WIP] Add subscript by ID.
-    struct SnapshotReference {
-        let snapshot: DesignObject
-        let index: RefcountedObjectArray.Index
+    public struct SnapshotReference {
+        public let snapshot: DesignObject
+        public let index: RefcountedObjectArray.Index
     }
     public struct RefCountCell {
-        let snapshot: DesignObject
-        var refCount: Int
+        public let snapshot: DesignObject
+        public var refCount: Int
     }
 
     public typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
 
     var _snapshots: RefcountedObjectArray
+    @usableFromInline
     var _lookup: [ObjectID:SnapshotReference]
     
     /// Create an empty snapshot storage.
@@ -53,12 +53,19 @@ public class SnapshotStorage {
     
     /// Get a snapshot by snapshot ID, if it exists.
     ///
+    @inlinable
     public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
         guard let ref = _lookup[snapshotID] else {
             return nil
         }
         return ref.snapshot
     }
+    
+    @inlinable
+    public subscript(_ snapshotID: ObjectID) -> DesignObject? {
+        return snapshot(snapshotID)
+    }
+
     public func referenceCount(_ snapshotID: ObjectID) -> Int? {
         guard let ref = _lookup[snapshotID] else {
             return nil
@@ -72,9 +79,6 @@ public class SnapshotStorage {
     /// - Precondition: If the store already contains snapshot with given ID it must be the same
     ///   snapshot.
     public func insertOrRetain(_ snapshot: DesignObject) {
-        // TODO: [WIP] Make this two separate methods insert(DesignObject)/retain(ObjectID)
-        // TODO: [WIP] Remove refcount from the design object, move it here.
-        
         if let ref = _lookup[snapshot.snapshotID] {
             let count = _snapshots[ref.index].refCount
             precondition(count > 0)

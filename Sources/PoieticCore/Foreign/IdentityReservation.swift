@@ -19,9 +19,9 @@ public enum RawIdentityError: Error, Equatable {
 ///
 /// Intended use of the identity reservation is during loading process from foreign (raw) sources.
 ///
-struct IdentityReservation: ~Copyable {
+public struct IdentityReservation: ~Copyable {
     /// Design that the identity reservation is bound to.
-    let design: Design
+    public let design: Design
 
     /// All IDs reserved using this reservation.
     var reserved: Set<ObjectID>
@@ -45,7 +45,7 @@ struct IdentityReservation: ~Copyable {
         self.reserved = Set()
     }
     
-    func contains(_ id: ObjectID) -> Bool {
+    public func contains(_ id: ObjectID) -> Bool {
         reserved.contains(id)
     }
     
@@ -133,7 +133,7 @@ struct IdentityReservation: ~Copyable {
     /// List of objects that have invalid or missing types. If design is migrated, this
     /// might be used as a source of information for setting the correct type. Otherwise
     /// non-empty array means an error.
-    subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
+    public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
         if let actualID = ObjectID(rawID), reserved.contains(actualID), let type = design.idType(actualID) {
             return (id: actualID, type: type)
         }

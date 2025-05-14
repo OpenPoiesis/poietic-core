@@ -192,7 +192,10 @@ extension Frame {
                 guard self[originID].structure == .node && self[targetID].structure == .node else {
                     throw .edgeEndpointNotANode
                 }
-            case .orderedSet: break // FIXME: [WIP] Validate ordered set
+            case let .orderedSet(owner, ids):
+                guard self.contains(owner) && ids.allSatisfy({contains($0)}) else {
+                    throw .brokenStructureReference
+                }
             }
             
             for childID in checked.children {

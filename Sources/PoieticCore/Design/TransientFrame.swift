@@ -264,9 +264,12 @@ public final class TransientFrame: Frame {
     /// Snapshots removed from the mutable frame are only disassociated with the
     /// frame, not removed from the design or any other frame.
     ///
+    /// - Precondition: Snapshots must have structural integrity.
+    ///
     public init(design: Design,
                 id: FrameID,
                 snapshots: [DesignObject]? = nil) {
+        // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
         self.id = id
         self.objects = [:]
@@ -327,7 +330,7 @@ public final class TransientFrame: Frame {
                        components: [any Component]=[]) -> MutableObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
         // TODO: Consider moving this to Design (as well as its RawDesignLoader counterpart)
-        // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
+        // FIXME: Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
         let actualSnapshotID: ObjectID
@@ -341,7 +344,6 @@ public final class TransientFrame: Frame {
 
         let actualID: ObjectID
         if let id {
-            // TODO: [WIP] Validate whether it is used for the purpose (not a frame)
             let reservation = design.reserveIfNeeded(id: id, type: .object)
             assert(reservation, "Type mismatch for ID \(id)")
             precondition(!self.contains(id))
@@ -425,7 +427,7 @@ public final class TransientFrame: Frame {
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
     ///
     public func insert(_ snapshot: DesignObject) {
-        // TODO: [WIP] Make insert() function throwing (StructuralIntegrityError)
+        // TODO: Make insert() function throwing (StructuralIntegrityError)
         // Check for referential integrity
         do {
             try validateStructure(snapshot)

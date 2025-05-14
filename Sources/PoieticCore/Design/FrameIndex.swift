@@ -8,8 +8,6 @@
 /// Index used to speed-up validation and design compilation process.
 /// 
 class _FrameIndex {
-    // TODO: [WIP] Review which ones to keep and which ones to throw away after changes.
-    
     internal let idMap: [ObjectID:DesignObject]
     internal let outgoingEdges: [ObjectID:[EdgeObject]]
     internal let incomingEdges: [ObjectID:[EdgeObject]]

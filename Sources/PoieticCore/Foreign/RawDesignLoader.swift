@@ -20,55 +20,138 @@
  
  */
 
-// FIXME: [WIP] [IMPORTANT] Loading is using unsafe insert, we did not validate objects
-
-public enum RawDesignEntity {
-    case snapshot
-    case frame
-    case systemNamedReference
-    case systemNamedList
-    case userNamedReference
-    case userNamedList
-}
-
-public enum RawDesignLoaderError: Error, Equatable {
+/// Error thrown by the design loader.
+///
+/// - SeeAlso: ``RawDesignLoader/load(_:)``, ``RawDesignLoader/load(_:into:)``
+///
+public enum RawDesignLoaderError: Error, Equatable, CustomStringConvertible {
+    
+    /// Error with a snapshot. First item is an index of the offending snapshot, second item is the error.
     case snapshotError(Int, RawSnapshotError)
+
+    /// Error with a frame. First item is an index of the offending frame, second item is the error.
     case frameError(Int, RawFrameError)
+
+    /// Referencing raw object id provided as a name (a string) is not defined as any object or
+    /// other design entity ID.
     case unknownNamedReference(String, RawObjectID)
+    /// Duplicate frame ID.
     case duplicateFrame(ObjectID)
+    /// Duplicate snapshot ID.
     case duplicateSnapshot(ObjectID)
+    /// The loaded frame or collection of snapshots have broken structural integrity.
+    ///
+    /// - SeeAlso: ``Frame/validateStructure()``
+    ///
     case brokenStructuralIntegrity(StructuralIntegrityError)
+    
+    public var description: String {
+        switch self {
+        case let .snapshotError(index, error):
+            "Error in snapshot #\(index): \(error)"
+        case let .frameError(index, error):
+            "Error in frame #\(index): \(error)"
+        case let .unknownNamedReference(name, id):
+            "Unknown named reference \(name): \(id)"
+        case let .duplicateFrame(id):
+            "Duplicate frame ID: \(id)"
+        case let .duplicateSnapshot(id):
+            "Duplicate snapshot ID: \(id)"
+        case let .brokenStructuralIntegrity(error):
+            "Broken structural integrity: \(error)"
+        }
+    }
 }
 
-
-// RawSnapshotError
-public enum RawSnapshotError: Error, Equatable {
+/// Error thrown by the design loader when there is an issue with an object snapshot.
+///
+public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
+    /// Object ID or object snapshot ID has issues.
     case identityError(RawIdentityError)
     
+    /// Object ID is provided, but can not be converted to internal ObjectID
     case invalidObjectID(RawObjectID)
+    
+    /// Object ID or snapshot ID is already used by another object or other design entity
+    /// (such as frame).
     case duplicateID(RawObjectID)
+    
+    /// Object type is not provided.
     case missingObjectType
+    
+    /// There is no such object type in the associated metamodel.
+    ///
+    /// See: ``RawDesignLoader/metamodel``
     case unknownObjectType(String)
+    
+    /// Structural type is unknown or malformed.
+    ///
+    /// For example, an edge does not contain endpoint references.
+    ///
     case invalidStructuralType
+    
+    /// Structural type of the raw object and the type object does not match.
     case structuralTypeMismatch(StructuralType)
-    // TODO: Is this used in identity error?
-    case unknownObjectID(RawObjectID) // referenced
-}
-public enum RawFrameError: Error, Equatable {
-//    case invalidObjectID(RawObjectID)
-    case identityError(RawIdentityError)
-//    case missingObjectType
-//    case unknownObjectType(String)
-//    case invalidStructure
-    case unknownSnapshotID(RawObjectID) // referenced
-}
-// TODO: [WIP] Loaded batch must refer to IDs only within the batch, not outside
 
+    /// Referenced object does not exist within the reserved or required references.
+    case unknownObjectID(RawObjectID) // referenced
+
+    public var description: String {
+        switch self {
+        case let .identityError(error):
+            "Identity error: \(error)"
+        case let .invalidObjectID(id):
+            "Invalid object ID: '\(id)'"
+        case let .duplicateID(id):
+            "Duplicate ID: '\(id)'"
+        case .missingObjectType:
+            "Missing object type"
+        case let .unknownObjectType(typeName):
+            "Unknown object type name: '\(typeName)'"
+        case .invalidStructuralType:
+            "Invalid structural type"
+        case let .structuralTypeMismatch(type):
+            "Structural type mismatch. Expected: \(type)"
+        case let .unknownObjectID(id):
+            "Unknown object ID: '\(id)'"
+        }
+    }
+}
+
+/// Error thrown by the design loader when there is an issue with a raw frame.
+///
+public enum RawFrameError: Error, Equatable {
+    /// Issue with frame ID.
+    case identityError(RawIdentityError)
+
+    /// Frame contains an unknown object.
+    case unknownSnapshotID(RawObjectID)
+}
+
+
+/// Object that loads raw representation of design or design entities into a design.
+///
+/// The design loader is the primary way of constructing whole design or its components from
+/// foreign representations that were converted into raw design entities
+/// (``RawSnapshot``, ``RawFrame``, ``RawDesign``, ...).
+///
+/// The typical application use-cases for the design loader are:
+/// - Create a design from an external representation such as a file. See ``JSONDesignReader`` and
+///   ``load(_:)``.
+/// - Import from another design. See ``load(_:into:)``.
+/// - Paste from a pasteboard during Copy & Paste operation. See ``load(_:into:)``,
+///   and ``JSONDesignWriter``.
+///
+/// The main responsibilities of the deign loader are:
+/// - Reservation of object identities.
+/// -
 public class RawDesignLoader {
-    let metamodel: Metamodel
+    // TODO: Rename just to DesignLoader, "raw" is assumed
+    
+    public let metamodel: Metamodel
     let compatibilityVersion: SemanticVersion?
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
-    let options: Options
+    public let options: Options
     
     /// Options of the loading process.
     ///
@@ -189,6 +272,9 @@ public class RawDesignLoader {
     ///       an object ID, otherwise type mismatch error is thrown.
     ///     - `nil`: New ID will be created and reserved.
     ///
+    /// You typically do not need to call this method, it is called in ``load(_:)``
+    /// and ``load(_:into:)``. It is provided for more customised loading.
+    ///
     /// ## Orphans
     ///
     /// If ID is not provided, it will be generated. However, that object is considered an orphan
@@ -196,8 +282,8 @@ public class RawDesignLoader {
     ///
     /// Orphaned snapshots will be ignored. Objects with orphaned object identity will be preserved.
     ///
-    func reserveIdentities(snapshots rawSnapshots: [RawSnapshot],
-                           with reservation: inout IdentityReservation)
+    public func reserveIdentities(snapshots rawSnapshots: [RawSnapshot],
+                                  with reservation: inout IdentityReservation)
     throws (RawDesignLoaderError) {
 //        var reservation = IdentityReservation(design: design)
         // 1. Allocate snapshot IDs
@@ -212,12 +298,13 @@ public class RawDesignLoader {
             }
         }
     }
-    func reserveIdentities(frames rawFrames: [RawFrame],
-                           with reservation: inout IdentityReservation)
+    /// Reserve identities of frames.
+    ///
+    ///
+    public func reserveIdentities(frames rawFrames: [RawFrame],
+                                  with reservation: inout IdentityReservation)
     throws (RawDesignLoaderError) {
-//        var reservation = IdentityReservation(design: design)
-        // 1. Allocate snapshot IDs
-        // ----------------------------------------------------------------
+        // TODO: Rename to be generic reservation of id list
         for (i, rawFrame) in rawFrames.enumerated() {
             do {
                 try reservation.reserve(frameID: rawFrame.id)
@@ -227,9 +314,12 @@ public class RawDesignLoader {
             }
         }
     }
-
-    func create(snapshots rawSnapshots: [RawSnapshot],
-                reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) -> SnapshotStorage {
+    /// Create snapshots from raw snapshots.
+    ///
+    /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
+    ///
+    public func create(snapshots rawSnapshots: [RawSnapshot],
+                       reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) -> SnapshotStorage {
         let result = SnapshotStorage()
         
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
@@ -248,7 +338,20 @@ public class RawDesignLoader {
         return result
     }
 
-    func create(_ rawSnapshot: RawSnapshot, id objectID: ObjectID, snapshotID: ObjectID, reservation: borrowing IdentityReservation) throws (RawSnapshotError) -> DesignObject {
+    /// Create a snapshot from its raw representation.
+    ///
+    /// Requirements:
+    /// - Snapshot object type must exist in the metamodel.
+    /// - Snapshot structural type must be valid and must match the object type.
+    /// - All references must exist within the reservations.
+    ///
+    /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
+    ///
+    public func create(_ rawSnapshot: RawSnapshot,
+                       id objectID: ObjectID,
+                       snapshotID: ObjectID,
+                       reservation: borrowing IdentityReservation)
+    throws (RawSnapshotError) -> DesignObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
         // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
         guard let typeName = rawSnapshot.typeName else {
@@ -386,7 +489,7 @@ public class RawDesignLoader {
             guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
                 throw .unknownSnapshotID(rawSnapshotID)
             }
-            guard let snapshot = snapshots.snapshot(snapshotRes.id) else {
+            guard let snapshot = snapshots[snapshotRes.id] else {
                 throw .unknownSnapshotID(rawSnapshotID)
             }
             frameSnapshots.append(snapshot)
@@ -396,7 +499,7 @@ public class RawDesignLoader {
     }
     
     struct NamedReference {
-        let type: String
+        public let type: String
         let id: ObjectID
     }
     struct NamedReferenceList {

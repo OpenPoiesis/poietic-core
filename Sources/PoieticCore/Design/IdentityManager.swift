@@ -6,7 +6,6 @@
 //
 
 public enum IdentityType: Sendable {
-    case UNKNOWN_SENTINEL // FIXME: [TODO] Remove this once happy
     /// Unique within design.
     case snapshot
     /// Unique within design.
@@ -16,7 +15,6 @@ public enum IdentityType: Sendable {
     // case track
 }
 
-// FIXME: [WIP] Use this in every mutating function in Design, such as insert(frame:)
 /// Note: We are not releasing any previously used IDs
 struct IdentityManager: ~Copyable {
     var sequence: UInt64 = 1

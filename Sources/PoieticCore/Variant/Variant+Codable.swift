@@ -141,6 +141,8 @@ extension Variant: Codable {
     ///
     static let CodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CodingTypeKey")!
 
+    /// Specifier of the variant encoding method.
+    ///
     public enum CodingType: Sendable {
         /// Try to convert to/from native JSON value. Preserving the correct type is not guaranteed.
         case coalescing  // try to convert from value

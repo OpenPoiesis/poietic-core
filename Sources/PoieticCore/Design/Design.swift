@@ -15,8 +15,6 @@
 
 import Synchronization
 
-// TODO: [WIP] Mark as unsafe, as well as any other
-
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
@@ -128,7 +126,6 @@ public class Design {
     // FIXME: Order of frames is not preserved during persistence
     var _stableFrames: [FrameID: DesignFrame]
     var _namedFrames: [String: DesignFrame]
-    // FIXME: [WIP] Use just access methods, do not make this public
     public var namedFrames: [String: DesignFrame] { _namedFrames }
     
     var _transientFrames: [FrameID: TransientFrame]
@@ -202,9 +199,8 @@ public class Design {
     }
    
     // MARK: - Identity
-    // TODO: [WIP] Move to front
 
-    public func reserve(id: ObjectID, type: IdentityType) -> Bool {
+    func reserve(id: ObjectID, type: IdentityType) -> Bool {
         identityManager.withLock {
             $0.reserve(id, type: type)
         }
@@ -350,15 +346,11 @@ public class Design {
         if let original {
             precondition(original.design === self, "Trying to clone a frame from different design")
             
-            derived = TransientFrame(design: self,
-                                   id: actualID,
-                                   snapshots: original.snapshots)
+            derived = TransientFrame(design: self, id: actualID, snapshots: original.snapshots)
         }
         else {
-            derived = TransientFrame(design: self,
-                                   id: actualID)
+            derived = TransientFrame(design: self, id: actualID)
         }
-
 
         _transientFrames[actualID] = derived
         return derived
@@ -419,17 +411,6 @@ public class Design {
         _storage.insertOrRetain(snapshot)
     }
     
-    /// Insert an unique snapshot to the design.
-    ///
-    /// The inserted snapshot's reference count will be set to 1 and it is expected to be
-    /// owned by a frame.
-    ///
-    /// - Precondition: The snapshot must not exist in the design.
-    func insert(unique snapshot: DesignObject) {
-        // TODO: Create a concept of "on-hold"
-        // TODO: [WIP] Fix this
-    }
-
     /// Accepts a frame and make it a stable frame.
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.

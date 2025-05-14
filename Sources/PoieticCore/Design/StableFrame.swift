@@ -5,7 +5,6 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
-// TODO: [WIP] [NOTE] Does not have to have referential integrity
 /// Design frame that has been accepted and can not be changed.
 ///
 /// The stable frame is a collection of object versions that together represent
@@ -48,6 +47,8 @@ public final class DesignFrame: Frame {
         self.id = id
         self._index = _FrameIndex(snapshots)
         self._snapshots = snapshots
+        // FIXME: [WIP] Enable this
+//        try! self.validateStructure()
     }
     
     /// Get a list of snapshots.

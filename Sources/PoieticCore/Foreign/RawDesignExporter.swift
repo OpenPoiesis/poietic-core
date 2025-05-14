@@ -61,7 +61,8 @@ public class RawDesignExporter {
         
         let rawDesign = RawDesign(
             metamodelName: design.metamodel.name,
-            metamodelVersion: nil, // FIXME: [WIP] Fill-in from metamodel (not yet there)
+            // FIXME: [WIP] Fill-in from metamodel (not yet there)
+            metamodelVersion: nil,
             snapshots: snapshots,
             frames: frames,
             userReferences: userReferences,

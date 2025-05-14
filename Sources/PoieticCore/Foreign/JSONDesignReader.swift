@@ -6,7 +6,6 @@
 //
 
 import Foundation
-// TODO: [WIP] Add reading context to the reader (such as path)
 
 /// Error raised by the design readers.
 ///
@@ -221,8 +220,6 @@ public final class JSONDesignReader {
     // TODO: Rename to DecodableDesignReader
     // NOTE: Update in the JSONDesignReader class documentation
     public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
-    // TODO: [WIP] Still needed?
-    public static let CompatibilityVersionKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CompatibilityVersionKey")!
     
     // TODO: let forceFormatVersion: SemanticVersion
     public let variantCoding: Variant.CodingType
@@ -279,7 +276,7 @@ public final class JSONDesignReader {
             rawDesign = try read(data: data, version: version)
         }
         catch {
-            // TODO: [WIP] What other errors can happen here? Custom decoding errors?
+            // TODO: What other errors can happen here? Custom decoding errors?
             fatalError("Unhandled reader error \(type(of:error)): \(error)")
         }
         
@@ -306,7 +303,6 @@ public final class JSONDesignReader {
                 throw RawDesignReaderError(error)
             }
             catch {
-                // TODO: [WIP] HANDLE ERROR
                 throw .canNotReadData
             }
             return makeshiftDesign.asRawDesign()

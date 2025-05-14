@@ -30,7 +30,6 @@ import Foundation
 /// - Note: This is a solution before we get a proper store design.
 ///
 public class DesignStore {
-    // TODO: [WIP] Rename back to makeshift store, just a wrapper for reader/loader/...
     public let data: Data?
     public let url: URL?
 
