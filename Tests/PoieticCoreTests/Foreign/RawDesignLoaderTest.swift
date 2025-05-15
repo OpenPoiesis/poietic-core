@@ -327,17 +327,11 @@ struct RawDesignLoaderTest {
     
     @Test func loadInto() async throws {
         let trans = design.createFrame()
-        var reservation = IdentityReservation(design: self.design)
-        let rawSnapshots = [
-            RawSnapshot(typeName: "TestPlain")
-        ]
-        try loader.reserveIdentities(snapshots: rawSnapshots, with: &reservation)
-
-        try loader.load(rawSnapshots, into: trans)
+        let raw = RawSnapshot(typeName: "TestPlain")
+        try loader.load([raw], into: trans)
         
         #expect(trans.snapshots.count == 1)
         #expect(trans.hasChanges)
     }
-
 }
 

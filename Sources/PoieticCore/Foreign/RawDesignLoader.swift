@@ -253,7 +253,6 @@ public class RawDesignLoader {
             }
             frame.unsafeInsert(snapshot)
         }
-        
     }
     /// Method that reserves identities for snapshots.
     ///

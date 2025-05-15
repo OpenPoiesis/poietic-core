@@ -16,6 +16,8 @@
 
 import Foundation
 
+
+
 /// A makeshift persistent store.
 ///
 /// Makeshift persistent design store stores the design as a JSON generated
@@ -54,7 +56,7 @@ public class DesignStore {
         }
         else {
             guard let url = self.url else {
-                throw DesignStoreError.storeMissing
+                throw DesignStoreError.noStoreURL
             }
             do {
                 data = try Data(contentsOf: url)
@@ -65,16 +67,12 @@ public class DesignStore {
         }
         
         do {
-            print("--- TRY to load")
             design = try load(currentVersion: data, metamodel: metamodel)
         }
         catch .unsupportedFormatVersion(let versionString) {
-            print("--- CATCH unsupported version: \(versionString)")
             if let version = SemanticVersion(versionString) {
-                if version < SemanticVersion(0, 4, 0) {
-                    design = try load(makeshiftVersion: data, metamodel: metamodel)
-                }
-                else {
+                switch version {
+                default:
                     throw .unsupportedFormatVersion(versionString)
                 }
             }
@@ -89,20 +87,15 @@ public class DesignStore {
         let reader = JSONDesignReader()
         var rawDesign: RawDesign
         var design: Design
-        debugPrint("=== READ START")
         do {
-            debugPrint("--- Trying to read current version")
             rawDesign = try reader.read(data: data)
         }
         catch RawDesignReaderError.unknownFormatVersion(let version) {
-            debugPrint("<<< Unsupported version: \(version)")
             throw .unsupportedFormatVersion(version)
         }
         catch {
-            debugPrint("<<< Reading error: ", error)
             throw .readingError(error)
         }
-        debugPrint("=== LOAD START")
 
         let loader = RawDesignLoader(metamodel: metamodel)
         do {
@@ -114,51 +107,6 @@ public class DesignStore {
         return design
 
     }
-    // FIXME: [WIP] remove this (handled in the reader
-    public func load(makeshiftVersion data: Data, metamodel: Metamodel = Metamodel()) throws (DesignStoreError) -> Design {
-        let decoder = JSONDecoder()
-        // decoder.userInfo[Self.FormatVersionKey] = Self.FormatVersion
-        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
-
-        debugPrint(">>> DECODING MAKESHIFT")
-        let makeshiftDesign: _MakeshiftPersistentDesign
-        do {
-            makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
-        }
-        catch let error as DecodingError {
-            debugPrint("!!! ERROR: ", error)
-            switch error {
-            case .dataCorrupted(_):
-                throw .dataCorrupted
-            case let .keyNotFound(key, context):
-                let path = context.codingPath.map { $0.stringValue }
-                throw .missingProperty(key.stringValue, path)
-            case let .typeMismatch(_, context):
-                let path = context.codingPath.map { $0.stringValue }
-                throw .typeMismatch(path)
-            case let .valueNotFound(key, context):
-                let path = context.codingPath.map { $0.stringValue }
-                throw .missingValue(String(describing: key), path)
-            @unknown default:
-                throw .unhandledError("Unknown decoding error case: \(error)")
-            }
-        }
-        catch {
-            throw .unhandledError("Unknown decoding error: \(error)")
-        }
-
-        let rawDesign = makeshiftDesign.asRawDesign()
-        let loader = RawDesignLoader(metamodel: metamodel)
-        let design: Design
-        do {
-            design = try loader.load(rawDesign)
-        }
-        catch {
-            // FIXME: [WIP] Handle errors here (must throw raw loader error)
-            fatalError("Handling errors not implemented")
-        }
-        return design
-    }
     
     /// Save the design to store's URL.
     ///
@@ -167,7 +115,6 @@ public class DesignStore {
         guard let url = self.url else {
             fatalError("No store URL set to save design to.")
         }
-        print("=== Saving store to: \(url)")
 
         let exporter = RawDesignExporter()
         let rawDesign = exporter.export(design)

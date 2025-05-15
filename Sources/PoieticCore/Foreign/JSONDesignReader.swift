@@ -268,11 +268,9 @@ public final class JSONDesignReader {
             rawDesign = try decoder.decode(RawDesign.self, from: data)
         }
         catch let error as DecodingError {
-            print("<<< [reader] RETHROW: \(error)")
             throw RawDesignReaderError(error)
         }
         catch RawDesignReaderError.unknownFormatVersion(let version) {
-            print("--- [reader] re-read version: \(version)")
             rawDesign = try read(data: data, version: version)
         }
         catch {

@@ -12,12 +12,11 @@ public enum RawIdentityError: Error, Equatable {
     case typeMismatch(RawObjectID)
 }
 
-/// Identity reservation provides functionality to reserve IDs for snapshots, objects, frames and
-/// other design entities.
-///
-/// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
+/// Identity reservation provides functionality to reserve IDs within a single transaction.
 ///
 /// Intended use of the identity reservation is during loading process from foreign (raw) sources.
+///
+/// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
 ///
 public struct IdentityReservation: ~Copyable {
     /// Design that the identity reservation is bound to.
@@ -56,7 +55,7 @@ public struct IdentityReservation: ~Copyable {
 
     }
     mutating func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
-        let id = try reserveUnique(id: rawSnapshotID, type: .snapshot)
+        let id = try reserveUnique(id: rawSnapshotID, type: .frame)
         frames.append(id)
     }
 
@@ -94,6 +93,10 @@ public struct IdentityReservation: ~Copyable {
         reserved.insert(reservedID)
         return reservedID
     }
+
+    /// Rules
+    /// - Must not exist within this reservation
+    ///
     /// Reserve an ID for entity of given type.
     ///
     /// If there is no such ID a new one will be reserved. If there is already an ID for given

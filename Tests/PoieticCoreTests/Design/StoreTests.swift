@@ -28,17 +28,6 @@ let TestFormatVersion = "0.0.4"
             return true
         }
     }
-    @Test func testMissingMetamodel() throws {
-        let data = """
-                   {
-                    "format_version": "\(TestFormatVersion)"
-                   }
-                   """.data(using:.utf8)!
-        let store = DesignStore(data: data)
-        #expect(throws: DesignStoreError.missingProperty("metamodel", [])) {
-            try store.load()
-        }
-    }
     @Test func testEmpty() throws {
         let data = """
                    {
