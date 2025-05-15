@@ -90,47 +90,55 @@ public final class TransientFrame: Frame {
     var state: State = .transient
     
     enum TransientReference {
-        case stable(DesignObject)
+        // FIXME: This is just workaround for tracking changes, re-think the original/new concept
+        case original(DesignObject)
+        case new(DesignObject)
         case mutable(MutableObject)
         
         public var isMutable: Bool {
             switch self {
-            case .stable(_): false
+            case .original(_): false
+            case .new(_): false
             case .mutable(_): true
             }
         }
         
         var snapshotID: SnapshotID {
             switch self {
-            case let .stable(object): object.snapshotID
+            case let .original(object): object.snapshotID
+            case let .new(object): object.snapshotID
             case let .mutable(object): object.snapshotID
             }
         }
         
         var parent: ObjectID? {
             switch self {
-            case let .stable(object): object.parent
+            case let .original(object): object.parent
+            case let .new(object): object.parent
             case let .mutable(object): object.parent
             }
         }
         
         var children: ChildrenSet {
             switch self {
-            case let .stable(object): object.children
+            case let .original(object): object.children
+            case let .new(object): object.children
             case let .mutable(object): object.children
             }
         }
         
         var structure: Structure {
             switch self {
-            case let .stable(object): object.structure
+            case let .original(object): object.structure
+            case let .new(object): object.structure
             case let .mutable(object): object.structure
             }
         }
         
         func asStable() -> DesignObject {
             switch self {
-            case let .stable(object): object
+            case let .original(object): object
+            case let .new(object): object
             case let .mutable(object): DesignObject(body: object._body, components: object.components)
             }
         }
@@ -191,7 +199,8 @@ public final class TransientFrame: Frame {
         objects.values.compactMap { ref in
             switch ref {
             case .mutable(let obj): obj
-            case .stable(_): nil
+            case .original(_): nil
+            case .new(_): nil
             }
         }
     }
@@ -236,12 +245,11 @@ public final class TransientFrame: Frame {
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
         guard removedObjects.isEmpty else { return true }
-        for object in objects.values {
-            guard case let .mutable(mutObject) = object else {
-                continue
-            }
-            if mutObject.original == nil || mutObject.hasChanges {
-                return true
+        for ref in objects.values {
+            switch ref {
+            case .mutable(let object): return object.original == nil || object.hasChanges
+            case .new(_): return true
+            case .original(_): continue
             }
         }
         return false
@@ -279,7 +287,7 @@ public final class TransientFrame: Frame {
         
         if let snapshots {
             for snapshot in snapshots {
-                self.objects[snapshot.id] = TransientReference.stable(snapshot)
+                self.objects[snapshot.id] = TransientReference.original(snapshot)
                 self.snapshotIDs.insert(snapshot.snapshotID)
                 originals.insert(snapshot.id)
             }
@@ -489,7 +497,7 @@ public final class TransientFrame: Frame {
         precondition(!snapshotIDs.contains(snapshot.snapshotID),
                      "Inserting duplicate snapshot ID \(snapshot.id) to frame \(id)")
         
-        objects[snapshot.id] = .stable(snapshot)
+        objects[snapshot.id] = .new(snapshot)
         snapshotIDs.insert(snapshot.snapshotID)
         
         if originalIDs.contains(snapshot.id) {
@@ -598,7 +606,17 @@ public final class TransientFrame: Frame {
         switch current {
         case .mutable(let snapshot):
             return snapshot
-        case .stable(let original):
+        case .original(let original):
+            // FIXME: This is duplicate work, re-think the original/new concept
+            let derivedSnapshotID: SnapshotID = design.createAndUse(type: .snapshot)
+            let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
+            
+            self.objects[id] = .mutable(derived)
+            self.snapshotIDs.remove(original.snapshotID)
+            self.snapshotIDs.insert(derived.snapshotID)
+            
+            return derived
+        case .new(let original):
             let derivedSnapshotID: SnapshotID = design.createAndUse(type: .snapshot)
             let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
             
@@ -619,7 +637,8 @@ public final class TransientFrame: Frame {
             preconditionFailure("Frame \(self.id) has no object \(id)")
         }
         switch ref {
-        case .stable(_): return false
+        case .original(_): return false
+        case .new(_): return false
         case .mutable(_): return true
         }
     }
