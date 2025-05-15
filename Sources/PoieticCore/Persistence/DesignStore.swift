@@ -116,8 +116,8 @@ public class DesignStore {
             fatalError("No store URL set to save design to.")
         }
 
-        let exporter = RawDesignExporter()
-        let rawDesign = exporter.export(design)
+        let extractor = RawDesignExtractor()
+        let rawDesign = extractor.extract(design)
         let encoder = JSONEncoder()
         encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
 
