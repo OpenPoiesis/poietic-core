@@ -307,9 +307,8 @@ public final class TransientFrame: Frame {
     // FIXME: Order is not preserved, use SnapshotStorage or something similar
     var _snapshots: TransientSnapshotStorage
     var _removedObjects: Set<ObjectID>
+    var _reservations: Set<ObjectID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
-
-    var identityReservation: IdentityReservation
     
     public var mutableObjects: [MutableObject] {
         _snapshots.mutableObjects
@@ -396,14 +395,40 @@ public final class TransientFrame: Frame {
         self.design = design
         self.id = id
         self._snapshots = TransientSnapshotStorage()
-        self.identityReservation = IdentityReservation(design: design)
         self._removedObjects = Set()
+        self._reservations = []
         
         if let snapshots {
             for snapshot in snapshots {
                 _snapshots.append(snapshot, isOriginal: false)
             }
         }
+    }
+    
+    /// Mark the frame as accepted and use the ID reservations in the design identity manager.
+    ///
+    /// You typically do not need to call this method, it is called by
+    /// ``Design/accept(_:appendHistory:)``.
+    ///
+    /// - SeeAlso: ``discard()``
+    ///
+    public func accept() {
+        precondition(state == .transient)
+        design.identityManager.useReservations(Array(_reservations))
+        self.state = .accepted
+    }
+    
+    /// Mark the frame as accepted and release ID reservations in the design identity manager.
+    ///
+    /// You typically do not need to call this method, it is called by
+    /// ``Design/discard(_:)``.
+    ///
+    /// - SeeAlso: ``accept()``
+    ///
+    public func discard() {
+        precondition(state == .transient)
+        design.identityManager.releaseReservations(Array(_reservations))
+        self.state = .discarded
     }
     
     /// Create a new object within the frame.
@@ -449,28 +474,31 @@ public final class TransientFrame: Frame {
                        components: [any Component]=[]) -> MutableObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
         // TODO: Consider moving this to Design (as well as its RawDesignLoader counterpart)
-        // FIXME: Consider throwing an exception instead of having runtime errors
+        // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
         let actualSnapshotID: ObjectID
         if let snapshotID {
-            precondition(design.isUsed(id: snapshotID), "ID not registered: \(snapshotID)")
+            let success = design.identityManager.reserve(snapshotID, type: .snapshot)
+            precondition(success, "Duplicate snapshot ID: \(snapshotID)")
             actualSnapshotID = snapshotID
         }
         else {
-            actualSnapshotID = design.createAndReserve(type: .snapshot)
+            actualSnapshotID = design.identityManager.createAndReserve(type: .snapshot)
         }
+        _reservations.insert(actualSnapshotID)
 
         let actualID: ObjectID
         if let id {
-            let reservation = design.reserveIfNeeded(id: id, type: .object)
-            assert(reservation, "Type mismatch for ID \(id)")
-            precondition(!self.contains(id))
+            let success = design.identityManager.reserveIfNeeded(id, type: .object)
+            precondition(success, "Type mismatch for ID \(id)")
+            precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
         else {
-            actualID = design.createAndReserve(type: .object)
+            actualID = design.identityManager.createAndReserve(type: .object)
         }
+        _reservations.insert(actualID)
 
         let actualStructure: Structure
         switch type.structuralType {
@@ -578,7 +606,6 @@ public final class TransientFrame: Frame {
             }
         }
     }
-    
 
     /// Unsafely insert a snapshot to the frame, not checking for structural
     /// references.
@@ -714,10 +741,10 @@ public final class TransientFrame: Frame {
         case .mutable(let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID: SnapshotID = design.createAndUse(type: .snapshot)
+            let derivedSnapshotID: SnapshotID = design.identityManager.createAndReserve(type: .snapshot)
             let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
             _snapshots.replace(derived)
-            
+            _reservations.insert(derivedSnapshotID)
             return derived
         }
     }

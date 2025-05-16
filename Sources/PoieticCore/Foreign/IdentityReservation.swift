@@ -47,14 +47,15 @@ public struct IdentityReservation: ~Copyable {
     public func contains(_ id: ObjectID) -> Bool {
         reserved.contains(id)
     }
-
+    
     /// Get object ID and its type for given raw object ID, if it exists in the reservation.
     public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
-        if let actualID = ObjectID(rawID), reserved.contains(actualID), let type = design.idType(actualID) {
+        if let actualID = ObjectID(rawID), reserved.contains(actualID),
+           let type = design.identityManager.type(actualID) {
             return (id: actualID, type: type)
         }
         else {
-            if let actualID = rawMap[rawID], let type = design.idType(actualID) {
+            if let actualID = rawMap[rawID], let type = design.identityManager.type(actualID) {
                 return (id: actualID, type: type)
             }
             else {
@@ -95,7 +96,7 @@ public struct IdentityReservation: ~Copyable {
         let reservedID: ObjectID
         if let rawID {
             if let id = ObjectID(rawID) {
-                guard design.reserve(id: id, type: type) else {
+                guard design.identityManager.reserve(id, type: type) else {
                     throw .duplicateID(rawID)
                 }
                 reservedID = id
@@ -104,12 +105,12 @@ public struct IdentityReservation: ~Copyable {
                 guard rawMap[rawID] == nil else {
                     throw .duplicateID(rawID)
                 }
-                reservedID = design.createAndReserve(type: type)
+                reservedID = design.identityManager.createAndReserve(type: type)
                 rawMap[rawID] = reservedID
             }
         }
         else {
-            reservedID = design.createAndReserve(type: type)
+            reservedID = design.identityManager.createAndReserve(type: type)
         }
         reserved.insert(reservedID)
         return reservedID
@@ -118,11 +119,11 @@ public struct IdentityReservation: ~Copyable {
     mutating func create(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
         let reservedID: ObjectID
         if let rawID {
-            reservedID = design.createAndReserve(type: type)
+            reservedID = design.identityManager.createAndReserve(type: type)
             rawMap[rawID] = reservedID
         }
         else {
-            reservedID = design.createAndReserve(type: type)
+            reservedID = design.identityManager.createAndReserve(type: type)
         }
         reserved.insert(reservedID)
         return reservedID
@@ -136,12 +137,12 @@ public struct IdentityReservation: ~Copyable {
                 return id
             }
             else {
-                reservedID = design.createAndReserve(type: type)
+                reservedID = design.identityManager.createAndReserve(type: type)
                 rawMap[rawID] = reservedID
             }
         }
         else {
-            reservedID = design.createAndReserve(type: type)
+            reservedID = design.identityManager.createAndReserve(type: type)
         }
         reserved.insert(reservedID)
         return reservedID
@@ -162,24 +163,24 @@ public struct IdentityReservation: ~Copyable {
         let reservedID: ObjectID
         if let rawID {
             if let id = rawMap[rawID] {
-                guard design.idType(id) == type else {
+                guard design.identityManager.type(id) == type else {
                     throw .typeMismatch(rawID)
                 }
                 reservedID = id
             }
             else if let id = ObjectID(rawID) {
-                guard design.reserveIfNeeded(id: id, type: type) else {
+                guard design.identityManager.reserveIfNeeded(id, type: type) else {
                     throw .typeMismatch(rawID)
                 }
                 reservedID = id
             }
             else {
-                reservedID = design.createAndReserve(type: type)
+                reservedID = design.identityManager.createAndReserve(type: type)
                 rawMap[rawID] = reservedID
             }
         }
         else {
-            reservedID = design.createAndReserve(type: type)
+            reservedID = design.identityManager.createAndReserve(type: type)
         }
         reserved.insert(reservedID)
         return reservedID

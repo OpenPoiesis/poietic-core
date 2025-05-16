@@ -8,6 +8,8 @@
 import Testing
 @testable import PoieticCore
 
+// TODO: [WIP] Test reservation release on transient frame
+
 @Suite struct TransientFrameTest {
     let design: Design
     let frame: TransientFrame
@@ -465,5 +467,35 @@ import Testing
             }
             return error == .edgeEndpointNotANode
         }
+    }
+    
+    @Test func reserveIdentities() throws {
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        #expect(design.identityManager.isReserved(ObjectID(10)))
+        #expect(design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+    }
+
+    @Test func reserveAndAccept() throws {
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        frame.accept()
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(ObjectID(20)))
+    }
+
+    @Test func reserveAndDiscard() throws {
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        frame.discard()
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
     }
 }

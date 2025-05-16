@@ -13,8 +13,6 @@
 //  (expert) users can do without access to the development environment.
 //
 
-import Synchronization
-
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
@@ -119,7 +117,7 @@ public class Design {
     ///
     /// - SeeAlso: ``createID()``, ``reserveID(_:)``, ``useID(_:)``, ``isUsed(_:)``
     ///
-    let identityManager:Mutex<IdentityManager> = Mutex(IdentityManager())
+    let identityManager: IdentityManager
 
     var _storage: SnapshotStorage
 
@@ -189,6 +187,7 @@ public class Design {
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
+        self.identityManager = IdentityManager()
     }
    
     /// True if the design does not contain any stable frames. Mutable frames
@@ -198,58 +197,6 @@ public class Design {
         return self._stableFrames.isEmpty
     }
    
-    // MARK: - Identity
-
-    func reserve(id: ObjectID, type: IdentityType) -> Bool {
-        identityManager.withLock {
-            $0.reserve(id, type: type)
-        }
-    }
-
-    func createAndReserve(type: IdentityType) -> ObjectID {
-        return identityManager.withLock {
-            return $0.createAndReserve(type: type)
-        }
-    }
-    func createAndUse(type: IdentityType) -> ObjectID {
-        return identityManager.withLock {
-            return $0.createAndUse(type: type)
-        }
-    }
-
-    func reserveIfNeeded(id: ObjectID, type: IdentityType) -> Bool {
-        return identityManager.withLock {
-            if let existingType = $0.type(id) {
-                return existingType == type
-            }
-            else {
-                return $0.reserve(id, type: type)
-            }
-        }
-    }
-
-    @discardableResult
-    public func use(id: ObjectID, type: IdentityType) -> Bool {
-        return identityManager.withLock {
-            return $0.use(id, type: type)
-        }
-    }
-
-    /// Checks whether any entity in the design has the given ID.
-    ///
-    /// Returns `true` if the design contains an entity with given ID.
-    ///
-    /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
-    ///
-    public func isUsed(id: ObjectID) -> Bool {
-        identityManager.withLock { $0.contains(id) }
-    }
-    
-    func idType(_ id: ObjectID) -> IdentityType? {
-        identityManager.withLock { $0.type(id) }
-    }
-
-
     /// Get a sequence of all stable snapshots in all stable frames.
     ///
     public var snapshots: some Collection<DesignObject> {
@@ -334,11 +281,12 @@ public class Design {
                             id: FrameID? = nil) -> TransientFrame {
         let actualID: ObjectID
         if let id {
-            precondition(!use(id: id, type: .frame), "ID already used (\(id)")
+            let success = identityManager.use(id, type: .frame)
+            precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = createAndUse(type: .frame)
+            actualID = identityManager.createAndUse(type: .frame)
         }
         
         let derived: TransientFrame
@@ -503,7 +451,6 @@ public class Design {
                      "Trying to accept unknown transient frame \(frame.id)")
         
         try frame.validateStructure()
-        frame.state = .accepted
         
         let snapshots: [DesignObject] = frame.snapshots
         let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
@@ -515,6 +462,7 @@ public class Design {
             _insertOrRetain(snapshot)
         }
 
+        frame.accept()
         return stableFrame
     }
 
@@ -554,7 +502,7 @@ public class Design {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
 
-        frame.state = .discarded
+        frame.discard()
 
         _transientFrames[frame.id] = nil
     }

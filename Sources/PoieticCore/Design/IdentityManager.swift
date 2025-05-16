@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 05/05/2025.
 //
 
+import Synchronization
+
 public enum IdentityType: Sendable {
     /// Unique within design.
     case snapshot
@@ -15,89 +17,12 @@ public enum IdentityType: Sendable {
     // case track
 }
 
-/// Note: We are not releasing any previously used IDs
-struct IdentityManager: ~Copyable {
-    var sequence: UInt64 = 1
-    var usedIDs: [UInt64:IdentityType] = [:]
-    var reservedIDs: [UInt64:IdentityType] = [:]
-    
-    @inlinable
-    func contains(_ rawID: UInt64) -> Bool {
-        usedIDs[rawID] != nil || reservedIDs[rawID] != nil
-    }
-    
-    @inlinable
-    func contains(_ id: ObjectID) -> Bool {
-        contains(id.intValue)
-    }
-    
-    @inlinable
-    func type(_ id: ObjectID) -> IdentityType? {
-        reservedIDs[id.intValue] ?? usedIDs[id.intValue]
-    }
-
-    @inlinable
-    mutating func _next() -> UInt64 {
-        var nextID = sequence
-        while contains(nextID) {
-            nextID += 1
-        }
-        sequence = nextID + 1
-        return nextID
-    }
-    
-    @inlinable
-    mutating func createAndUse(type: IdentityType) -> ObjectID {
-        let nextID = _next()
-        usedIDs[nextID] = type
-        return ObjectID(nextID)
-    }
-    @inlinable
-    @discardableResult
-    mutating func createAndReserve(type: IdentityType) -> ObjectID {
-        let nextID = _next()
-        reservedIDs[nextID] = type
-        return ObjectID(nextID)
-    }
-    
-    @inlinable
-    @discardableResult
-    mutating func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
-        if contains(id.intValue) {
-            return false
-        }
-        else {
-            reservedIDs[id.intValue] = type
-            return true
-        }
-    }
-    
-
-    /// Returns: `true` if there was a reservation for given ID and was released. Otherwise returns
-    ///          `false`.
-    @inlinable
-    @discardableResult
-    mutating func releaseReservation(_ id: ObjectID) -> Bool {
-        reservedIDs.removeValue(forKey: id.intValue) != nil
-    }
-    
-    @inlinable
-    @discardableResult
-    mutating func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
-        let rawID = id.intValue
-        guard usedIDs[rawID] == nil else { return false }
-        if let type = reservedIDs[rawID] {
-            guard type == requiredType else { return false }
-            reservedIDs[rawID] = nil
-        }
-        usedIDs[rawID] = requiredType
-        return true
-    }
-}
-
-import Synchronization
-
-struct NEW_IdentityManager: ~Copyable {
+/// Thread-safe identity management.
+///
+/// All methods are atomic. Intended to be used within transaction boundaries. Transactions
+/// are responsible for reservations, consuming used or releasing unused reservations.
+///
+class IdentityManager {
     let ids: Mutex<Identities>
     
     init() {
@@ -158,7 +83,7 @@ struct NEW_IdentityManager: ~Copyable {
     }
 
     @inlinable
-    mutating func createAndUse(type: IdentityType) -> ObjectID {
+    func createAndUse(type: IdentityType) -> ObjectID {
         ids.withLock {
             let nextID = $0.next()
             $0.used[nextID] = type
@@ -167,7 +92,7 @@ struct NEW_IdentityManager: ~Copyable {
     }
     @inlinable
     @discardableResult
-    mutating func createAndReserve(type: IdentityType) -> ObjectID {
+    func createAndReserve(type: IdentityType) -> ObjectID {
         ids.withLock {
             let nextID = $0.next()
             $0.reserved[nextID] = type
@@ -177,7 +102,7 @@ struct NEW_IdentityManager: ~Copyable {
     
     @inlinable
     @discardableResult
-    mutating func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
+    func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
         ids.withLock {
             if $0.contains(id) {
                 return false
@@ -192,7 +117,7 @@ struct NEW_IdentityManager: ~Copyable {
     ///   requested type. If the ID exists and is of different type it returns `false`.
     @inlinable
     @discardableResult
-    mutating func reserveIfNeeded(_ id: ObjectID, type: IdentityType) -> Bool {
+    func reserveIfNeeded(_ id: ObjectID, type: IdentityType) -> Bool {
         ids.withLock {
             if let existingType = $0.type(id) {
                 return existingType == type
@@ -208,15 +133,34 @@ struct NEW_IdentityManager: ~Copyable {
     ///          `false`.
     @inlinable
     @discardableResult
-    mutating func releaseReservation(_ id: ObjectID) -> Bool {
+    func release(_ id: ObjectID) -> Bool {
         ids.withLock {
             $0.reserved.removeValue(forKey: id) != nil
         }
     }
-    
+
+    @inlinable
+    func releaseReservations(_ toRelease: [ObjectID]) {
+        ids.withLock {
+            for id in toRelease {
+                $0.reserved.removeValue(forKey: id)
+            }
+        }
+    }
+    @inlinable
+    func useReservations(_ toUse: [ObjectID]) {
+        ids.withLock {
+            for id in toUse {
+                if let type = $0.reserved.removeValue(forKey: id) {
+                    $0.used[id] = type
+                }
+            }
+        }
+    }
+
     @inlinable
     @discardableResult
-    mutating func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
+    func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
         ids.withLock {
             guard $0.used[id] == nil else { return false }
             if let type = $0.reserved[id] {

@@ -11,7 +11,7 @@ import Testing
 
 struct TestIdentityManager {
     @Test func testContains() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         idman.use(ObjectID(20), type: .object)
         #expect(idman.contains(ObjectID(10)) == true)
@@ -27,45 +27,45 @@ struct TestIdentityManager {
         #expect(idman.isUsed(ObjectID(30)) == false)
     }
     @Test func testType() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         idman.use(ObjectID(20), type: .snapshot)
         #expect(idman.type(ObjectID(10)) == .object)
         #expect(idman.type(ObjectID(20)) == .snapshot)
     }
     @Test func useRemovesReservation() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         idman.use(ObjectID(10), type: .object)
         #expect(idman.isReserved(ObjectID(10)) == false)
         #expect(idman.isUsed(ObjectID(10)) == true)
     }
     @Test func useTypeMismatch() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         #expect(idman.use(ObjectID(10), type: .snapshot) == false)
     }
     @Test func useUsedFail() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         #expect(idman.use(ObjectID(10), type: .object) == true)
         #expect(idman.use(ObjectID(10), type: .object) == false)
     }
 
     @Test func testCreateAndReserve() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         let id = idman.createAndReserve(type: .object)
         #expect(idman.isReserved(id) == true)
         #expect(idman.isUsed(id) == false)
     }
     @Test func testCreateAndUse() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         let id = idman.createAndUse(type: .object)
         #expect(idman.isReserved(id) == false)
         #expect(idman.isUsed(id) == true)
     }
     @Test func testReserveIfNeeded() async throws {
-        var idman = NEW_IdentityManager()
+        let idman = IdentityManager()
         idman.reserve(ObjectID(10), type: .object)
         idman.use(ObjectID(20), type: .object)
         #expect(idman.reserveIfNeeded(ObjectID(10), type: .object) == true)
@@ -136,7 +136,7 @@ struct TestIdentityReservation {
     }
     @Test func getActualFromRaw() async throws {
         var reservation = IdentityReservation(design: design)
-        design.use(id: ObjectID(10), type: .object)
+        design.identityManager.use(ObjectID(10), type: .object)
         #expect(reservation[.id(ObjectID(10))] == nil)
 
         try reservation.reserveIfNeeded(id: .int(20), type: .object)
