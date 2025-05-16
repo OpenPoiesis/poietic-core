@@ -368,6 +368,65 @@ struct RawDesignLoaderTest {
             try loader.load([edge], into: trans)
         }
     }
+    @Test func importIntoNoCurrentID() async throws {
+        let trans = design.createFrame()
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain")
+            ]
+        )
+        try loader.load(rawDesign, into: trans)
+        
+        #expect(trans.snapshots.count == 1)
+        #expect(trans.hasChanges)
+    }
+
+    @Test func importIntoInvalidCurrentID() async throws {
+        let trans = design.createFrame()
+        let rawDesign = RawDesign(
+            snapshots: [
+            ],
+            systemReferences: [
+                RawNamedReference("current_frame", type: "frame", id: .int(99))
+            ]
+        )
+        #expect(throws: RawDesignLoaderError.unknownFrameID(.int(99))) {
+            try loader.load(rawDesign, into: trans)
+        }
+    }
+    @Test func importIntoNoCurrentIDWithMultipleFrames() async throws {
+        let trans = design.createFrame()
+        let rawDesign = RawDesign(
+            snapshots: [
+            ],
+            frames: [
+                RawFrame(),
+                RawFrame()
+            ]
+        )
+        #expect(throws: RawDesignLoaderError.missingCurrentFrame) {
+            try loader.load(rawDesign, into: trans)
+        }
+    }
+    @Test func importFromCurrentFrame() async throws {
+        let trans = design.createFrame()
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(20)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(30)),
+            ],
+            frames: [
+                RawFrame(id: .int(1000), snapshots: [.int(10)]),
+                RawFrame(id: .int(1001), snapshots: [.int(10), .int(20)]),
+            ],
+            systemReferences: [
+                RawNamedReference("current_frame", type: "frame", id: .int(1000))
+            ]
+        )
+        try loader.load(rawDesign, into: trans)
+        #expect(trans.snapshots.count == 1)
+    }
 
 }
 

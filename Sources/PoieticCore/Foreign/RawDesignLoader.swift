@@ -35,6 +35,8 @@ public enum RawDesignLoaderError: Error, Equatable, CustomStringConvertible {
     /// Referencing raw object id provided as a name (a string) is not defined as any object or
     /// other design entity ID.
     case unknownNamedReference(String, RawObjectID)
+    case unknownFrameID(RawObjectID)
+    case missingCurrentFrame
     /// Duplicate frame ID.
     case duplicateFrame(ObjectID)
     /// Duplicate snapshot ID.
@@ -55,6 +57,10 @@ public enum RawDesignLoaderError: Error, Equatable, CustomStringConvertible {
             "Unknown named reference \(name): \(id)"
         case let .duplicateFrame(id):
             "Duplicate frame ID: \(id)"
+        case let .unknownFrameID(id):
+            "Unknown frame ID: \(id)"
+        case .missingCurrentFrame:
+            "Missing current frame reference"
         case let .duplicateSnapshot(id):
             "Duplicate snapshot ID: \(id)"
         case let .brokenStructuralIntegrity(error):
@@ -253,6 +259,41 @@ public class RawDesignLoader {
             }
             frame.unsafeInsert(snapshot)
         }
+    }
+
+    /// Loads current frame of the design into a transient frame.
+    ///
+    /// This is used for foreign design imports.
+    ///
+    /// Requirements:
+    ///
+    /// - With current frame: the first frame in the frame list with current frame ID is loaded.
+    /// - Without current frame: All snapshots will be used, but must not have any frames defined.
+    ///
+    /// - SeeAlso: ``load(_:into:)-3iaxp``
+    ///
+    public func load(_ design: RawDesign, into frame: TransientFrame) throws (RawDesignLoaderError) {
+        var snapshots: [RawSnapshot] = []
+        
+        if let currentFrameID = design.currentFrameID {
+            guard let currentFrame = design.frames.first(where: { $0.id == currentFrameID }) else {
+                throw .unknownFrameID(currentFrameID)
+            }
+            
+            for (i, id) in currentFrame.snapshots.enumerated() {
+                guard let snapshot = design.first(snapshotWithID: id) else {
+                    throw .snapshotError(i, .unknownObjectID(id))
+                }
+                snapshots.append(snapshot)
+            }
+        }
+        else {
+            guard design.frames.isEmpty else {
+                throw .missingCurrentFrame
+            }
+            snapshots = design.snapshots
+        }
+        try load(snapshots, into: frame)
     }
     /// Method that reserves identities for snapshots.
     ///

@@ -47,6 +47,21 @@ public struct IdentityReservation: ~Copyable {
     public func contains(_ id: ObjectID) -> Bool {
         reserved.contains(id)
     }
+
+    /// Get object ID and its type for given raw object ID, if it exists in the reservation.
+    public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
+        if let actualID = ObjectID(rawID), reserved.contains(actualID), let type = design.idType(actualID) {
+            return (id: actualID, type: type)
+        }
+        else {
+            if let actualID = rawMap[rawID], let type = design.idType(actualID) {
+                return (id: actualID, type: type)
+            }
+            else {
+                return nil
+            }
+        }
+    }
     
     mutating func reserve(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) throws (RawIdentityError) {
         let snapshotID = try reserveUnique(id: rawSnapshotID, type: .snapshot)
@@ -171,20 +186,4 @@ public struct IdentityReservation: ~Copyable {
     }
 
     
-    /// List of objects that have invalid or missing types. If design is migrated, this
-    /// might be used as a source of information for setting the correct type. Otherwise
-    /// non-empty array means an error.
-    public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
-        if let actualID = ObjectID(rawID), reserved.contains(actualID), let type = design.idType(actualID) {
-            return (id: actualID, type: type)
-        }
-        else {
-            if let actualID = rawMap[rawID], let type = design.idType(actualID) {
-                return (id: actualID, type: type)
-            }
-            else {
-                return nil
-            }
-        }
-    }
 }

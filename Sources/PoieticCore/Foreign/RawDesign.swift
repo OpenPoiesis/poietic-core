@@ -310,6 +310,13 @@ public class RawDesign: Codable {
         }
     }
     
+    var currentFrameID: RawObjectID? {
+        return systemReferences.first { $0.name == "current_frame" }.map { $0.id }
+    }
+    
+    func first(snapshotWithID id: RawObjectID) -> RawSnapshot? {
+        return snapshots.first { $0.snapshotID == id }
+    }
 }
 
 public struct RawStructure: Equatable {
