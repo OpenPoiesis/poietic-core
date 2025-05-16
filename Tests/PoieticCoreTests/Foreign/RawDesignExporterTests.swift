@@ -11,7 +11,7 @@ import Testing
 struct RawDesignExpoerterTest {
     @Test func exportEmptyDesign() async throws {
         let design = Design()
-        let exporter = RawDesignExtractor()
+        let exporter = DesignExtractor()
         let raw = exporter.extract(design)
         #expect(raw.metamodelName == nil)
         #expect(raw.metamodelVersion == nil)
@@ -39,7 +39,7 @@ struct RawDesignExpoerterTest {
         design.undoableFrames = [first.id]
 
         
-        let exporter = RawDesignExtractor()
+        let exporter = DesignExtractor()
         let raw = exporter.extract(design)
 
         #expect(raw.metamodelName == TestMetamodel.name)
@@ -80,7 +80,7 @@ struct RawDesignExpoerterTest {
                                 snapshots: [parent, child, node1, node2, edge ])
         design._unsafeInsert(frame)
 
-        let extractor = RawDesignExtractor()
+        let extractor = DesignExtractor()
 
         let extract1 = extractor.extractPruning(snapshots: [node1.id, node2.id, edge.id], frame: frame)
         #expect(extract1.map { $0.id } == [.id(node1.id), .id(node2.id), .id(edge.id)])

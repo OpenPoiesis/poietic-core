@@ -18,9 +18,9 @@ import Testing
 
 struct RawDesignLoaderTest {
     let design: Design
-    let loader: RawDesignLoader
+    let loader: DesignLoader
     init() {
-        self.loader = RawDesignLoader(metamodel: TestMetamodel)
+        self.loader = DesignLoader(metamodel: TestMetamodel)
         self.design = Design(metamodel: TestMetamodel)
         
     }
@@ -127,7 +127,7 @@ struct RawDesignLoaderTest {
                 RawFrame(snapshots: [.int(10)])
             ]
         )
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .missingObjectType)) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .missingObjectType)) {
             try loader.load(raw)
         }
     }
@@ -140,7 +140,7 @@ struct RawDesignLoaderTest {
                 RawFrame(snapshots: [.int(10)])
             ]
         )
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectType("Unknown"))) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .unknownObjectType("Unknown"))) {
             try loader.load(raw)
         }
     }
@@ -153,7 +153,7 @@ struct RawDesignLoaderTest {
                 RawFrame(snapshots: [.int(10)])
             ]
         )
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .invalidStructuralType)) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .invalidStructuralType)) {
             try loader.load(raw)
         }
     }
@@ -166,7 +166,7 @@ struct RawDesignLoaderTest {
                 RawFrame(snapshots: [.int(10)])
             ]
         )
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
             try loader.load(raw)
         }
     }
@@ -180,7 +180,7 @@ struct RawDesignLoaderTest {
                 RawFrame(snapshots: [.int(10)])
             ]
         )
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .unknownObjectID(.int(100)))) {
             try loader.load(raw)
         }
     }
@@ -311,7 +311,7 @@ struct RawDesignLoaderTest {
     
     @Test func createSnapshotUseNameAsID() async throws {
         // Compatibility feature
-        let loader = RawDesignLoader(metamodel: TestMetamodel, options: .useIDAsNameAttribute)
+        let loader = DesignLoader(metamodel: TestMetamodel, options: .useIDAsNameAttribute)
         
         let reservation = IdentityReservation(design: self.design)
         let rawNamed = RawSnapshot(typeName: "TestPlain", id: .string("thing"))
@@ -364,7 +364,7 @@ struct RawDesignLoaderTest {
     @Test func loadIntoBrokenReference() async throws {
         let trans = design.createFrame()
         let edge = RawSnapshot(typeName: "TestEdge", id: .int(30), structure: RawStructure(origin: .int(10), target: .int(20)))
-        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(10)))) {
+        #expect(throws: DesignLoaderError.snapshotError(0, .unknownObjectID(.int(10)))) {
             try loader.load([edge], into: trans)
         }
     }
@@ -390,7 +390,7 @@ struct RawDesignLoaderTest {
                 RawNamedReference("current_frame", type: "frame", id: .int(99))
             ]
         )
-        #expect(throws: RawDesignLoaderError.unknownFrameID(.int(99))) {
+        #expect(throws: DesignLoaderError.unknownFrameID(.int(99))) {
             try loader.load(rawDesign, into: trans)
         }
     }
@@ -404,7 +404,7 @@ struct RawDesignLoaderTest {
                 RawFrame()
             ]
         )
-        #expect(throws: RawDesignLoaderError.missingCurrentFrame) {
+        #expect(throws: DesignLoaderError.missingCurrentFrame) {
             try loader.load(rawDesign, into: trans)
         }
     }

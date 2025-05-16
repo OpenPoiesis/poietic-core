@@ -22,7 +22,7 @@
 
 /// Error thrown by the design loader.
 ///
-/// - SeeAlso: ``RawDesignLoader/load(_:)``, ``RawDesignLoader/load(_:into:)``
+/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:)``
 ///
 public enum RawDesignLoaderError: Error, Equatable, CustomStringConvertible {
     
@@ -151,7 +151,7 @@ public enum RawFrameError: Error, Equatable {
 /// The main responsibilities of the deign loader are:
 /// - Reservation of object identities.
 /// -
-public class RawDesignLoader {
+public class DesignLoader {
     // TODO: Rename just to DesignLoader, "raw" is assumed
     
     public let metamodel: Metamodel

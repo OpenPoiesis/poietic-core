@@ -97,7 +97,7 @@ public class DesignStore {
             throw .readingError(error)
         }
 
-        let loader = RawDesignLoader(metamodel: metamodel)
+        let loader = DesignLoader(metamodel: metamodel)
         do {
             design = try loader.load(rawDesign)
         }
@@ -116,7 +116,7 @@ public class DesignStore {
             fatalError("No store URL set to save design to.")
         }
 
-        let extractor = RawDesignExtractor()
+        let extractor = DesignExtractor()
         let rawDesign = extractor.extract(design)
         let encoder = JSONEncoder()
         encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary

@@ -9,7 +9,7 @@
 /// Object that exports a design into a raw design representation for foreign interfaces or for
 /// unsafe structural surgeries.
 ///
-public class RawDesignExtractor {
+public class DesignExtractor {
     
     public init() {
         // Nothing for now

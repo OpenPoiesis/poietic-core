@@ -23,7 +23,7 @@ public enum DesignStoreError: Error, Equatable, CustomStringConvertible {
     case unsupportedFormatVersion(String)
     
     case readingError(RawDesignReaderError)
-    case loadingError(RawDesignLoaderError)
+    case loadingError(DesignLoaderError)
 
     public var description: String {
         switch self {
