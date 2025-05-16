@@ -166,8 +166,9 @@ import Testing
         let original = try design.accept(frame)
         
         let trans = design.createFrame(deriving: original)
+        #expect(trans.contains(snapshotID: originalNode.snapshotID))
         trans.removeCascading(originalNode.id)
-        #expect(trans.snapshotIDs.isEmpty)
+        #expect(!trans.contains(snapshotID: originalNode.snapshotID))
 
         let newNode = trans.create(TestNodeType)
 
@@ -191,7 +192,7 @@ import Testing
 
         let newNode = trans.create(TestNodeType, id: originalNode.id)
 
-        #expect(trans.snapshotIDs.count == 1)
+        #expect(trans.contains(snapshotID: newNode.snapshotID))
         #expect(trans.removedObjects.count == 0)
         #expect(trans.contains(newNode.id))
     }
@@ -203,11 +204,12 @@ import Testing
         
         let derived = design.createFrame(deriving: design.currentFrame)
         let derivedSnap = derived.mutate(originalSnap.id)
-        
+        #expect(derived.snapshots.count == 1)
+
         #expect(!derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
         #expect(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
-        #expect(!derived.snapshotIDs.contains(originalSnap.snapshotID))
-        #expect(derived.snapshotIDs.contains(derivedSnap.snapshotID))
+        #expect(!derived.contains(snapshotID: originalSnap.snapshotID))
+        #expect(derived.contains(snapshotID: derivedSnap.snapshotID))
     }
 
     // MARK: Parent-child
