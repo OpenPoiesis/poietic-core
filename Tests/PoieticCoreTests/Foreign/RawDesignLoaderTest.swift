@@ -325,7 +325,7 @@ struct RawDesignLoaderTest {
     
     // MARK: - Load Into -
     
-    @Test func loadInto() async throws {
+    @Test func loadIntoHasChanges() async throws {
         let trans = design.createFrame()
         let raw = RawSnapshot(typeName: "TestPlain")
         try loader.load([raw], into: trans)
@@ -333,5 +333,41 @@ struct RawDesignLoaderTest {
         #expect(trans.snapshots.count == 1)
         #expect(trans.hasChanges)
     }
+
+    @Test func loadIntoMultipleTimes() async throws {
+        let trans = design.createFrame()
+        let raw = RawSnapshot(typeName: "TestPlain")
+        try loader.load([raw], into: trans)
+        try loader.load([raw], into: trans)
+
+        try #require(trans.snapshots.count == 2)
+
+        #expect(trans.snapshots[0].snapshotID != trans.snapshots[1].snapshotID)
+        #expect(trans.snapshots[0].id != trans.snapshots[1].id)
+    }
+    @Test func loadIntoReferences() async throws {
+        let trans = design.createFrame()
+        let node1 = RawSnapshot(typeName: "TestNode", id: .int(10))
+        let node2 = RawSnapshot(typeName: "TestNode", id: .int(20))
+        let edge = RawSnapshot(typeName: "TestEdge", id: .int(30), structure: RawStructure(origin: .int(10), target: .int(20)))
+        try loader.load([node1, node2, edge], into: trans)
+
+        try #require(trans.snapshots.count == 3)
+        let createdEdge = try #require(trans.snapshots.first (where: { $0.structure.type == .edge }))
+        
+        if case let .edge(origin, target) = createdEdge.structure {
+            #expect(origin != target)
+            #expect(trans.contains(origin))
+            #expect(trans.contains(target))
+        }
+    }
+    @Test func loadIntoBrokenReference() async throws {
+        let trans = design.createFrame()
+        let edge = RawSnapshot(typeName: "TestEdge", id: .int(30), structure: RawStructure(origin: .int(10), target: .int(20)))
+        #expect(throws: RawDesignLoaderError.snapshotError(0, .unknownObjectID(.int(10)))) {
+            try loader.load([edge], into: trans)
+        }
+    }
+
 }
 

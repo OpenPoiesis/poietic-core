@@ -241,7 +241,7 @@ public class RawDesignLoader {
     ///
     public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (RawDesignLoaderError) {
         var reservation = IdentityReservation(design: frame.design)
-        try reserveIdentities(snapshots: rawSnapshots, with: &reservation)
+        try createIdentities(snapshots: rawSnapshots, with: &reservation)
         let snapshots = try create(snapshots: rawSnapshots, reservation: reservation)
 
         for snapshot in snapshots {
@@ -292,6 +292,19 @@ public class RawDesignLoader {
             }
         }
     }
+    /// Create identities for a batch of snapshots.
+    ///
+    /// The identities provided in the raw snapshots are used only for references within the batch,
+    /// they will not be preserved.
+    ///
+    public func createIdentities(snapshots rawSnapshots: [RawSnapshot],
+                                 with reservation: inout IdentityReservation)
+    throws (RawDesignLoaderError) {
+        for rawSnapshot in rawSnapshots {
+            reservation.create(snapshotID: rawSnapshot.snapshotID, objectID: rawSnapshot.id)
+        }
+    }
+
     /// Reserve identities of frames.
     ///
     ///

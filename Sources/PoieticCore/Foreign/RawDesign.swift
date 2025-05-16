@@ -332,6 +332,12 @@ public struct RawStructure: Equatable {
         self.type = type
         self.references = references
     }
+    
+    /// Create a raw structure representing an edge.
+    public init(origin: RawObjectID, target: RawObjectID) {
+        self.type = "edge"
+        self.references = [origin, target]
+    }
 }
 
 public class RawSnapshot: Codable {

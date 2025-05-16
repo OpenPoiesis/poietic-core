@@ -52,8 +52,14 @@ public struct IdentityReservation: ~Copyable {
         let snapshotID = try reserveUnique(id: rawSnapshotID, type: .snapshot)
         let objectID = try reserveIfNeeded(id: rawObjectID, type: .object)
         snapshots.append((snapshotID, objectID))
-
     }
+
+    mutating func create(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) {
+        let snapshotID = create(id: rawSnapshotID, type: .snapshot)
+        let objectID = createIfNeeded(id: rawObjectID, type: .object)
+        snapshots.append((snapshotID, objectID))
+    }
+
     mutating func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
         let id = try reserveUnique(id: rawSnapshotID, type: .frame)
         frames.append(id)
@@ -83,6 +89,38 @@ public struct IdentityReservation: ~Copyable {
                 guard rawMap[rawID] == nil else {
                     throw .duplicateID(rawID)
                 }
+                reservedID = design.createAndReserve(type: type)
+                rawMap[rawID] = reservedID
+            }
+        }
+        else {
+            reservedID = design.createAndReserve(type: type)
+        }
+        reserved.insert(reservedID)
+        return reservedID
+    }
+    @discardableResult
+    mutating func create(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
+        let reservedID: ObjectID
+        if let rawID {
+            reservedID = design.createAndReserve(type: type)
+            rawMap[rawID] = reservedID
+        }
+        else {
+            reservedID = design.createAndReserve(type: type)
+        }
+        reserved.insert(reservedID)
+        return reservedID
+    }
+
+    @discardableResult
+    mutating func createIfNeeded(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
+        let reservedID: ObjectID
+        if let rawID {
+            if let id = rawMap[rawID] {
+                return id
+            }
+            else {
                 reservedID = design.createAndReserve(type: type)
                 rawMap[rawID] = reservedID
             }

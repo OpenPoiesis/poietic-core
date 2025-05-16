@@ -136,7 +136,8 @@ public final class TransientFrame: Frame {
             }
         }
     }
-    
+   
+    // FIXME: Order is not preserved, use SnapshotStorage or something similar
     var objects: [ObjectID:TransientReference]
     
     /// Cache of snapshot IDs used to verify unique ownership
