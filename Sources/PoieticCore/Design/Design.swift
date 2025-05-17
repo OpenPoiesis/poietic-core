@@ -115,9 +115,7 @@ public class Design {
     
     /// Generator of object IDs.
     ///
-    /// - SeeAlso: ``createID()``, ``reserveID(_:)``, ``useID(_:)``, ``isUsed(_:)``
-    ///
-    let identityManager: IdentityManager
+    public let identityManager: IdentityManager
 
     var _storage: SnapshotStorage
 

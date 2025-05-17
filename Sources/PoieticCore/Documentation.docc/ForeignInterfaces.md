@@ -6,27 +6,38 @@ See also: <doc:Persistence>
 
 ## Topics
 
-### Object Import and Export
+### Raw Entities
 
-- ``JSONFrameReader``
-- ``JSONFrameWriter``
-- ``JSONForeignFrame``
-- ``ForeignFrameLoader``
-- ``ForeignFrameProtocol``
-- ``ForeignFrameError``
-- ``ForeignObject``
-- ``ForeignObjectError``
-- ``ForeignValueError``
-- ``FrameLoaderError``
-- ``Variant/CoalescedCodingTypeKey``
+- ``RawDesign``
+- ``RawFrame``
+- ``RawSnapshot``
+- ``RawStructure``
+- ``RawNamedList``
+- ``RawNamedReference``
+- ``RawObjectID``
+
+- ``SemanticVersion``
+
+### Reading and Loading
+
+- ``JSONDesignReader``
+- ``DesignLoader``
+- ``DesignLoaderError``
+- ``RawFrameError``
+- ``RawSnapshotError``
+- ``RawIdentityError``
+- ``RawDesignReaderError``
+
+### Extracting and Writing
+
+- ``DesignExtractor``
+- ``JSONDesignWriter``
+- ``RawDesignWriterError``
 
 ### Foreign Value
 
-- ``ForeignRecord``
-- ``AttributeKey``
-- ``KeyedAttributes``
-- ``ForeignRecordError``
 - ``VariantCodingError``
+- ``ForeignValueError``
 
 ### CSV Reading and Writing
 

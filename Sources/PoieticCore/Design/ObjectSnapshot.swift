@@ -11,8 +11,7 @@
 /// There might be multiple object snapshots representing the same object
 /// and therefore have the same object ID.
 ///
-/// - SeeAlso: ``ObjectSnapshot``, ``Design``,
-///     ``Design/allocateID(required:)``
+/// - SeeAlso: ``ObjectSnapshot``, ``Design``, ``RawObjectID``.
 ///
 public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral, CustomStringConvertible {
     public typealias IntegerLiteralType = UInt64
@@ -67,8 +66,7 @@ public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral
 ///
 /// The snapshot ID is unique within a design containing the snapshot.
 ///
-/// SeeAlso: ``ObjectSnapshot``, ``Design``,
-///     ``Design/allocateID(required:)``, ``TransientFrame/mutate(_:)``
+/// SeeAlso: ``ObjectSnapshot``, ``Design``.
 ///
 public typealias SnapshotID = ObjectID
 
@@ -119,14 +117,13 @@ public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     /// Objects within a ``Frame`` have unique object ``id``, however there
     /// might be multiple snapshots with the same ``id`` within the design.
     ///
-    /// The ID is generated using ``Design/allocateID(required:)`` and is
+    /// The ID is generated using internal identity manager and is
     /// guaranteed to be unique within the design. If an object is coming from
     /// a foreign interface or from a storage, an explicit ID might be
     /// requested, however the programmer is responsible for checking its
     /// uniqueness within given context.
     ///
     /// - SeeAlso: ``snapshotID``,
-    ///    ``Design/allocateID(required:)``,
     ///    ``Frame/object(_:)``,
     ///    ``Frame/contains(_:)``,
     ///
@@ -146,7 +143,6 @@ public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
     ///
     /// - SeeAlso: ``id``,
-    ///    ``Design/allocateID(required:)``
     ///    ``TransientFrame/mutate(_:)``
     ///
     var snapshotID: SnapshotID { get }

@@ -7,7 +7,7 @@
 
 // TODO: [IMPORTANT] [WIP] Parent loading is not implemented
 
-public enum ForeignDesignCompatibility {
+enum ForeignDesignCompatibility {
     case incompatible
     case needsUpgrade
     case compatible
@@ -19,9 +19,24 @@ enum RawLoadingResult {
     case needsUpgrade(RawDesign)
 }
 
+/// Object ID retrieved from a foreign interface.
+///
+/// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
+/// as an int, as a string or an explicit ``ObjectID``.
+///
 public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, Hashable {
+    /// Native Object ID representation
     case id(ObjectID)
+    /// Representation as an integer.
+    ///
+    /// Known applications that use integer representation:
+    ///
+    /// - Poietic Playground
+    ///
     case int(Int64)
+    
+    /// Representation as a string.
+    ///
     case string(String)
     
     public var description: String {
@@ -34,7 +49,10 @@ public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, 
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(String.self) {
+        if let value = try? container.decode(ObjectID.self) {
+            self = .id(value)
+        }
+        else if let value = try? container.decode(String.self) {
             self = .string(value)
         }
         else if let value = try? container.decode(Int64.self) {
@@ -254,7 +272,7 @@ public class RawDesign: Codable {
                 throw RawDesignReaderError.unknownFormatVersion(versionString)
             }
         }
-        if let _makeshiftVersion = try container.decodeIfPresent(String.self, forKey: ._makeshiftStoreFormatVersion) {
+        if let _ = try container.decodeIfPresent(String.self, forKey: ._makeshiftStoreFormatVersion) {
             throw RawDesignReaderError.unknownFormatVersion("makeshift_store")
         }
         
@@ -347,13 +365,51 @@ public struct RawStructure: Equatable {
     }
 }
 
+/// Raw representation of a snapshot.
+///
+/// Raw snapshot can be freely mutated and does not have to conform to any constraints, neither
+/// has to have referential integrity with other snapshots within any other raw structure, unless
+/// needed to be loaded.
+///
 public class RawSnapshot: Codable {
+    
+    /// Name of object type.
+    ///
+    /// Used to look-up object type in a metamodel ``Metamodel/objectType(name:)``.
+    ///
     public var typeName: String?
+    
+    /// Raw representation of snapshot ID.
+    ///
+    /// If not provided, it will be typically generated.
+    ///
     public var snapshotID: RawObjectID?
+
+    /// Raw representation of snapshot ID.
+    ///
+    /// If not provided, it will be typically generated.
+    ///
+    /// If ``DesignLoader/Options-swift.struct/useIDAsNameAttribute`` option is set for a design
+    /// loader, if the ID is a string and if the attributes do not contain `name` key,
+    /// then the string ID value will be also used as the `name` attribute.
+    ///
     public var id: RawObjectID?
+    
+    /// Raw structure representation.
+    ///
+    /// - Note: When raw snapshot is encoded, then the `edge` structure type will result in two
+    ///   additional keys `origin` and `target` that are part of the raw structure references.
+    ///
     public var structure: RawStructure
     // Must be ObjectID convertible
+
+    /// Parent object ID.
     public var parent: RawObjectID?
+
+    /// Dictionary of object attributes.
+    ///
+    /// See also note about `name` in ``id`` property description.
+    ///
     public var attributes: [String:Variant]
     
     enum CodingKeys: String, CodingKey {
@@ -370,6 +426,8 @@ public class RawSnapshot: Codable {
         // case orderedSet = "ordered_set"
     }
 
+    /// Create a new raw snapshot.
+    ///
     public init(typeName: String? = nil,
                   snapshotID: RawObjectID? = nil,
                   id: RawObjectID? = nil,
@@ -383,6 +441,9 @@ public class RawSnapshot: Codable {
         self.parent = parent
         self.attributes = attributes
     }
+    
+    /// Create a raw snapshot from a design object.
+    ///
     public init(_ snapshot: DesignObject) {
         self.typeName = snapshot.type.name
         self.snapshotID = .id(snapshot.snapshotID)

@@ -53,6 +53,7 @@ public final class Metamodel: Sendable {
     ///
     /// - Parameters:
     ///   - name: Name of the metamodel.
+    ///   - version: Version of the metamodel.
     ///   - traits: List of traits used or possible in the metamodel.
     ///   - types: List of object types validated by the metamodel.
     ///   - edgeRules: List of edge rules used for validation.

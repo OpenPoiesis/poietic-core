@@ -36,9 +36,8 @@ extension Trait {
 
 Secondly we define object types which also specify structural type – whether
 it is an edge or a node type. Some common traits are provided, such as
-``Trait/Name`` for objects that are named, ``Trait/Formula`` for objects
-that hold an arithmetic formula and ``Trait/DiagramNode`` for objects
-that can be represented diagramatically.
+``Trait/Name`` for objects that are named or ``Trait/DiagramNode`` for objects
+that can be represented diagrammatically.
 
 ```swift
 extension ObjectType {
@@ -92,6 +91,12 @@ examples see ``Constraint``.
 - ``Trait``
 - ``Attribute``
 
+### Edge Rules
+
+- ``EdgeRule``
+- ``EdgeCardinality``
+- ``EdgeRuleViolation``
+
 ### Constraints
 
 - ``ConstraintChecker``
@@ -105,14 +110,6 @@ examples see ``Constraint``.
 - ``ConstraintViolation``
 - ``UniqueProperty``
 - ``ConstraintRequirement``
-- ``EdgeEndpointRequirement``
-- ``ObjectTypeErrorCollection``
-
-### Edge Rules
-
-- ``EdgeRule``
-- ``EdgeCardinality``
-- ``EdgeRuleViolation``
 
 ### Common Components and Types
 

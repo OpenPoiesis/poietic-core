@@ -22,7 +22,7 @@
 
 /// Error thrown by the design loader.
 ///
-/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:)``
+/// - SeeAlso: ``DesignLoader/load(_:into:)-6m9va``, ``DesignLoader/load(_:into:)-1o6qf``
 ///
 public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
     
@@ -87,7 +87,7 @@ public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
     
     /// There is no such object type in the associated metamodel.
     ///
-    /// See: ``RawDesignLoader/metamodel``
+    /// See: ``DesignLoader/metamodel``
     case unknownObjectType(String)
     
     /// Structural type is unknown or malformed.
@@ -144,8 +144,8 @@ public enum RawFrameError: Error, Equatable {
 /// The typical application use-cases for the design loader are:
 /// - Create a design from an external representation such as a file. See ``JSONDesignReader`` and
 ///   ``load(_:)``.
-/// - Import from another design. See ``load(_:into:)``.
-/// - Paste from a pasteboard during Copy & Paste operation. See ``load(_:into:)``,
+/// - Import from another design. See ``load(_:into:)-(RawDesign,_)``.
+/// - Paste from a pasteboard during Copy & Paste operation. See ``load(_:into:)-([RawSnapshot],_)``,
 ///   and ``JSONDesignWriter``.
 ///
 /// The main responsibilities of the deign loader are:
@@ -270,7 +270,7 @@ public class DesignLoader {
     /// - With current frame: the first frame in the frame list with current frame ID is loaded.
     /// - Without current frame: All snapshots will be used, but must not have any frames defined.
     ///
-    /// - SeeAlso: ``load(_:into:)-3iaxp``
+    /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     public func load(_ design: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
         var snapshots: [RawSnapshot] = []
@@ -308,7 +308,7 @@ public class DesignLoader {
     ///     - `nil`: New ID will be created and reserved.
     ///
     /// You typically do not need to call this method, it is called in ``load(_:)``
-    /// and ``load(_:into:)``. It is provided for more customised loading.
+    /// and ``load(_:into:)-1o6qf``. It is provided for more customised loading.
     ///
     /// ## Orphans
     ///

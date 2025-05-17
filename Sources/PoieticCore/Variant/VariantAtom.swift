@@ -440,7 +440,7 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
     /// - Two points are comparable.
     /// - Other types and mixed types are not comparable.
     ///
-    /// - SeeAlso: ``vaguelyInAscendingOrder(_:)``
+    /// - SeeAlso: ``vaguelyInAscendingOrder(after:)``
     ///
     public func isVaguelyComparable(to other: VariantAtom) -> Bool {
         switch (self, other) {

@@ -45,7 +45,7 @@ public class DesignStore {
     /// Load and restore a design from the store.
     ///
     /// - Returns: Restored ``Design`` object.
-    /// - Throws: ``PersistentStoreError``.
+    /// - Throws: ``DesignStoreError``.
     ///
     public func load(metamodel: Metamodel = Metamodel()) throws (DesignStoreError) -> Design {
         let data: Data
@@ -110,7 +110,7 @@ public class DesignStore {
     
     /// Save the design to store's URL.
     ///
-    /// - Throws: ``PersistentStoreError/unableToWrite(_:)``
+    /// - Throws: ``DesignStoreError/unableToWrite(_:)``
     public func save(design: Design) throws (DesignStoreError) {
         guard let url = self.url else {
             fatalError("No store URL set to save design to.")

@@ -11,7 +11,7 @@ JSON file.
 
 ### Store
 
-- ``MakeshiftDesignStore``
-- ``PersistentStoreError``
+- ``DesignStore``
+- ``DesignStoreError``
 
 See also: <doc:ForeignInterfaces>

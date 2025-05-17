@@ -217,7 +217,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// - Two points are comparable
     /// - Other types and mixed types are not comparable.
     ///
-    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(_:)``, ``VariantAtom/vaguelyInAscendingOrder(_:)``
+    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(after:)``, ``Variant/vaguelyInAscendingOrder(after:)``
     ///
     public func isVaguelyComparable(to other: Variant) -> Bool? {
         switch (self, other) {
@@ -236,7 +236,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     /// - Two points are comparable by length.
     /// - Other types and mixed types are not comparable.
     ///
-    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(_:)``, ``VariantAtom/vaguelyInAscendingOrder(_:)``
+    /// - SeeAlso: ``VariantAtom/vaguelyInAscendingOrder(after:)``, ``Variant/vaguelyInAscendingOrder(after:)``
     ///
     public func vaguelyInAscendingOrder(after other: Variant) -> Bool? {
         switch (self, other) {

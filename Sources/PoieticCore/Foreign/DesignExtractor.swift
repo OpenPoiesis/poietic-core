@@ -17,7 +17,7 @@ public class DesignExtractor {
    // FIXME: Rename to RawDesignExtractor
     /// Create a raw design from a design.
     ///
-    /// - SeeAlso: ``export(_:)-9pzqp``, ``RawDesign``, ``RawSnapshot``
+    /// - SeeAlso: ``extract(_:)``, ``RawDesign``, ``RawSnapshot``
     ///
     public func extract(_ design: Design) -> RawDesign {
         var snapshots: [RawSnapshot] = []
@@ -92,7 +92,7 @@ public class DesignExtractor {
     
     /// Create a raw snapshot representation from a design snapshot.
     ///
-    /// - SeeAlso: ``export(_:)``
+    /// - SeeAlso: ``extract(_:)``
     ///
     public func extract(_ snapshot: DesignObject) -> RawSnapshot {
         let rawParent: RawObjectID? = snapshot.parent.map { .id($0) }

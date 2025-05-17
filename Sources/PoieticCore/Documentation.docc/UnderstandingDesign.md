@@ -41,6 +41,7 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 - ``FrameID``
 - ``FrameValidationError``
 - ``StructuralIntegrityError``
+- ``SnapshotStorage``
 
 ### Changes and Versions
 
@@ -56,6 +57,7 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 - ``ValueError``
 - ``AtomType``
 - ``Point``
+
 
 ### Component
 

@@ -10,8 +10,8 @@ import Foundation
 /// An error thrown when saving and restoring a design to/from a persistent
 /// store.
 ///
-/// - SeeAlso: ``MakeshiftDesignStore/load(metamodel:)``,
-///   ``MakeshiftDesignStore/save(design:)``
+/// - SeeAlso: ``DesignStore/load(metamodel:)``,
+///   ``DesignStore/save(design:)``
 ///
 public enum DesignStoreError: Error, Equatable, CustomStringConvertible {
     

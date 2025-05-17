@@ -63,7 +63,7 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
         /// Issue occurred when trying to import or export the design through a foreign interface.
         /// For example reading a foreign frame.
         ///
-        /// - SeeAlso: ``ForeignFrameLoader``
+        /// - SeeAlso: ``JSONDesignReader``
         ///
         case foreignInterface
         

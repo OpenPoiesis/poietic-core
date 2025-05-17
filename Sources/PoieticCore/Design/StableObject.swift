@@ -52,25 +52,18 @@ package struct _ObjectBody {
 /// needs to be assured. It can be either provided by the design, taken
 /// from an external source or created in a custom way.
 ///
-/// To create a new object with new identity the ``Design/allocateID(required:)``
-/// is used first then passed to the ``init(id:snapshotID:type:structure:parent:children:attributes:components:)``.
-/// Stable object then can be inserted in a ``TransientFrame``:
+/// To create a new object, use the ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+/// method:
 ///
 /// ```swift
 /// let design: Design // Let's assume we have this
-///
-/// let snapshot = DesignObject(id: design.allocateID(),
-///                             snapshotID: design.allocateID(),
-///                             type: ObjectType.Node)
-///
-/// let frame design.createFrame()
-/// frame.insert(snapshot)
+/// let trans = design.createFrame()
+/// let object = trans.create(MyObjectType)
+/// // ... Modify the object here ...
+/// // ... Add more objects...
+/// try design.accept(trans)
 /// ```
-/// Another option is to create objects using ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
-/// or to derive versions using ``TransientFrame/mutate(_:)`` then turn the
-/// mutable objects into stable objects using ``Design/accept(_:appendHistory:)``.
-///
-/// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``
+/// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
 public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     @usableFromInline

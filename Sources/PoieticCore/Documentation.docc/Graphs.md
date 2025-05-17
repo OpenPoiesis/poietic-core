@@ -13,5 +13,4 @@ Graphs are views that comprise of nodes and edges – connections between nodes.
 
 ### Neighbourhoods
 
-- ``Neighborhood``
 - ``EdgeDirection``

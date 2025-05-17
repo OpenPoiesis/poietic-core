@@ -169,13 +169,6 @@ extension Variant: Codable {
     
     /// Read a variant from a decoder.
     ///
-    /// For reading JSON that might be hand-written (more error-prone):
-    ///
-    /// ```swift
-    /// let decoder = JSONDecoder()
-    /// decoder.userInfo[Variant.CodingTypeKey] = .coalescing
-    /// ```
-    ///
     /// Reading a foreign frame produced by the library:
     ///
     /// ```swift
@@ -183,7 +176,12 @@ extension Variant: Codable {
     /// decoder.userInfo[Variant.CoalescedCodingTypeKey] = .dictionary
     /// ```
     ///
-    /// See ``Variant/CodingTypeKey`` for more information.
+    /// For reading JSON that might be hand-adjusted (more error-prone):
+    ///
+    /// ```swift
+    /// let decoder = JSONDecoder()
+    /// decoder.userInfo[Variant.CodingTypeKey] = .dictionaryWithFallback
+    /// ```
     ///
     public init(from decoder: any Decoder) throws {
         let codingType = decoder.userInfo[Self.CodingTypeKey] as? CodingType
@@ -363,14 +361,14 @@ extension Variant: Codable {
     /// by default. If coalesced encoding is requested then it will be encoded
     /// just as a number `10`.
     ///
-    /// To enable coalescing, set the ``Variant/CoalescedCodingTypeKey`` to `true`:
+    /// To enable coalescing, set the ``Variant/CodingType`` to `true`:
     ///
     /// ```swift
     ///     let encoder = JSONEncoder()
     ///     encoder.userInfo[Variant.CoalescedCodingTypeKey] = true
     /// ```
     ///
-    /// - SeeAlso: ``init(from:)``, ``ValueType/typeCode``, ``Variant/CoalescedCodingTypeKey``
+    /// - SeeAlso: ``init(from:)``
     ///
     public func encode(to encoder: any Encoder) throws {
         let codingType = encoder.userInfo[Self.CodingTypeKey] as? CodingType
@@ -406,7 +404,7 @@ extension Variant: Codable {
             }
         case .tuple:
             var container = encoder.unkeyedContainer()
-            try container.encode(self.valueType.typeCode)
+            try container.encode(self.valueType.codingType)
             switch self {
             case let .atom(.bool(value)):
                 try container.encode(value)

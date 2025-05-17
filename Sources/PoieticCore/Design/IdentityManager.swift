@@ -22,15 +22,21 @@ public enum IdentityType: Sendable {
 /// All methods are atomic. Intended to be used within transaction boundaries. Transactions
 /// are responsible for reservations, consuming used or releasing unused reservations.
 ///
-class IdentityManager {
+public class IdentityManager {
+    @usableFromInline
     let ids: Mutex<Identities>
     
     init() {
         ids = Mutex(Identities())
     }
+
+    @usableFromInline
     struct Identities: ~Copyable {
+        @usableFromInline
         var sequence: UInt64 = 1
+        @usableFromInline
         var used: [ObjectID:IdentityType] = [:]
+        @usableFromInline
         var reserved: [ObjectID:IdentityType] = [:]
         @inlinable
         func contains(_ id: ObjectID) -> Bool {
@@ -55,28 +61,28 @@ class IdentityManager {
     }
     
     @inlinable
-    func contains(_ id: ObjectID) -> Bool {
+    public func contains(_ id: ObjectID) -> Bool {
         ids.withLock {
             $0.contains(id)
         }
     }
 
     @inlinable
-    func isReserved(_ id: ObjectID) -> Bool {
+    public func isReserved(_ id: ObjectID) -> Bool {
         ids.withLock {
             $0.reserved[id] != nil
         }
     }
 
     @inlinable
-    func isUsed(_ id: ObjectID) -> Bool {
+    public func isUsed(_ id: ObjectID) -> Bool {
         ids.withLock {
             $0.used[id] != nil
         }
     }
 
     @inlinable
-    func type(_ id: ObjectID) -> IdentityType? {
+    public func type(_ id: ObjectID) -> IdentityType? {
         ids.withLock {
             $0.type(id)
         }
@@ -92,7 +98,7 @@ class IdentityManager {
     }
     @inlinable
     @discardableResult
-    func createAndReserve(type: IdentityType) -> ObjectID {
+    public func createAndReserve(type: IdentityType) -> ObjectID {
         ids.withLock {
             let nextID = $0.next()
             $0.reserved[nextID] = type
@@ -102,7 +108,7 @@ class IdentityManager {
     
     @inlinable
     @discardableResult
-    func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
+    public func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
         ids.withLock {
             if $0.contains(id) {
                 return false
@@ -117,7 +123,7 @@ class IdentityManager {
     ///   requested type. If the ID exists and is of different type it returns `false`.
     @inlinable
     @discardableResult
-    func reserveIfNeeded(_ id: ObjectID, type: IdentityType) -> Bool {
+    public func reserveIfNeeded(_ id: ObjectID, type: IdentityType) -> Bool {
         ids.withLock {
             if let existingType = $0.type(id) {
                 return existingType == type
@@ -133,14 +139,14 @@ class IdentityManager {
     ///          `false`.
     @inlinable
     @discardableResult
-    func release(_ id: ObjectID) -> Bool {
+    public func release(_ id: ObjectID) -> Bool {
         ids.withLock {
             $0.reserved.removeValue(forKey: id) != nil
         }
     }
 
     @inlinable
-    func releaseReservations(_ toRelease: [ObjectID]) {
+    public func releaseReservations(_ toRelease: [ObjectID]) {
         ids.withLock {
             for id in toRelease {
                 $0.reserved.removeValue(forKey: id)
@@ -148,7 +154,7 @@ class IdentityManager {
         }
     }
     @inlinable
-    func useReservations(_ toUse: [ObjectID]) {
+    public func useReservations(_ toUse: [ObjectID]) {
         ids.withLock {
             for id in toUse {
                 if let type = $0.reserved.removeValue(forKey: id) {
@@ -160,7 +166,7 @@ class IdentityManager {
 
     @inlinable
     @discardableResult
-    func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
+    public func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
         ids.withLock {
             guard $0.used[id] == nil else { return false }
             if let type = $0.reserved[id] {

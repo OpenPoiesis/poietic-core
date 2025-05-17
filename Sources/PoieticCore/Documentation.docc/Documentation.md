@@ -12,10 +12,10 @@ The core functionality is:
 
 - Design, design objects and their history
 - Metamodel - domain description
-- Model constraints
+- Edge rules and model constraints
 - Design data representation
 - Simple querying
-- Reading, writing, foreign interfaces and persistence
+- Reading, writing, foreign interfaces and persistence (JSON included)
 - Arithmetic expressions and functions
 
 ![Core Areas](core-modules)
@@ -27,8 +27,8 @@ The philosophy for applications on top of the library is:
 - Assure sustainability, evolvability and repairability of the design data.
 
 The core class of the model is the ``Design`` which contains and manages
-all the design objects – ``ObjectSnapshot`` – and their changes in form of
-design frames ``Frame``.
+all the design objects – ``DesignObject`` – and their changes in form of
+design frames ``DesignFrame``.
 
 Designs are typically a part of a problem domain, or follow a methodology. The
 concepts and rules of the problem domain or a methodology or both are described
@@ -44,8 +44,8 @@ package for a concrete domain use-case of the core package.
 
 - <doc:UnderstandingDesign>
 - ``Design``
-- ``Frame``
-- ``ObjectSnapshot``
+- ``DesignFrame``
+- ``DesignObject``
 
 ### Problem Domain
 

@@ -15,7 +15,8 @@ particular component with ``HasComponentPredicate``.
 ### Predicates
 
 - ``Predicate``
-- ``CompoundPredicate``
+- ``AndPredicate``
+- ``OrPredicate``
 - ``EdgePredicate``
 - ``AnyPredicate``
 - ``IsTypePredicate``
@@ -23,4 +24,3 @@ particular component with ``HasComponentPredicate``.
 - ``NegationPredicate``
 - ``HasComponentPredicate``
 - ``AllSatisfy``
-- ``LogicalConnective``
