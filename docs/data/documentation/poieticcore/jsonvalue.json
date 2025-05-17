@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -126,7 +125,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
-        "doc:\/\/PoieticCore\/SQ"
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -159,7 +159,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/array(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/bool(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/double(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/float(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/int(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/null",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/object(_:)",
@@ -181,6 +181,13 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/arrayValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/boolValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/doubleValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/intValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/numericValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/objectValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/stringValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/type"
       ],
       "title" : "Instance Properties"
@@ -190,10 +197,11 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asAnyValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asJSONString()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/data(formatting:userInfo:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/encode(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactDouble()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactInt()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/exactInt()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/string(formatting:userInfo:)"
       ],
       "title" : "Instance Methods"
     },
@@ -248,20 +256,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONError": {
   "abstract" : [
@@ -408,6 +402,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/array(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/arrayValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arrayValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/arrayValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arrayValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/arrayvalue"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/asAnyValue()": {
   "abstract" : [
     {
@@ -448,40 +480,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/asanyvalue()"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/asJSONString()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asJSONString"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/asJSONString()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asJSONString()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/asjsonstring()"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/bool(_:)": {
   "abstract" : [
 
@@ -520,14 +518,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/bool(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONValue/double(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/boolValue": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -535,11 +533,143 @@
     },
     {
       "kind" : "identifier",
-      "text" : "double"
+      "text" : "boolValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/boolValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "boolValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/boolvalue"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/data(formatting:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "data"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "formatting"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+      "text" : "JSONEncoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC16OutputFormattingV",
+      "text" : "OutputFormatting"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "userInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8SendableP",
+      "text" : "Sendable"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/data(formatting:userInfo:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "data(formatting:userInfo:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/data(formatting:userinfo:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/doubleValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "doubleValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
@@ -548,15 +678,15 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/double(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/doubleValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "JSONValue.double(_:)",
+  "title" : "doubleValue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue\/double(_:)"
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/doublevalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/encode(to:)": {
   "abstract" : [
@@ -689,6 +819,44 @@
   "title" : "exactInt()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/exactint()"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/float(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "float"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/float(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "JSONValue.float(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/float(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/init(data:)": {
   "abstract" : [
@@ -880,6 +1048,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/int(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/intValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "intValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/intValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "intValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/intvalue"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/null": {
   "abstract" : [
 
@@ -904,6 +1110,44 @@
   "title" : "JSONValue.null",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/null"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/numericValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "numericValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/numericValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "numericValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/numericvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/object(_:)": {
   "abstract" : [
@@ -952,6 +1196,53 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/object(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/objectValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
+      "text" : "JSONValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/objectValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objectValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/objectvalue"
+},
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/string(_:)": {
   "abstract" : [
 
@@ -989,6 +1280,142 @@
   "title" : "JSONValue.string(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue\/string(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/string(formatting:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "string"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "formatting"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+      "text" : "JSONEncoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC16OutputFormattingV",
+      "text" : "OutputFormatting"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "userInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8SendableP",
+      "text" : "Sendable"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/string(formatting:userInfo:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "string(formatting:userInfo:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/string(formatting:userinfo:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONValue/stringValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stringValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue\/stringValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stringValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsonvalue\/stringvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONValue/type": {
   "abstract" : [
@@ -1057,6 +1484,11 @@
   "title" : "Variant",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

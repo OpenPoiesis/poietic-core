@@ -9,7 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait"
       ]
     ]
   },
@@ -199,7 +199,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name-2tr9a",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -357,29 +357,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/object(named:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/name-2tr9a": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/name": {
   "abstract" : [
     {
       "text" : "Name of an object.",
@@ -414,13 +392,13 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name-2tr9a",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/name",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "name",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/name-2tr9a"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/name"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/DesignInfo": {
   "abstract" : [

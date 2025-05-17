@@ -17,7 +17,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue\/Domain-swift.enum"
       ]
@@ -99,7 +98,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -252,18 +251,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/foreigninterface"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameLoader": {
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
     {
-      "text" : "Object that loads foreign frames into a mutable frame and resolves object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "references.",
+      "text" : "Object for reading foreign designs represented as JSON.",
       "type" : "text"
     }
   ],
@@ -278,43 +269,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
+      "text" : "JSONDesignReader"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
+      "text" : "JSONDesignReader"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignFrameLoader",
+  "title" : "JSONDesignReader",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeloader"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+  "url" : "\/documentation\/poieticcore\/jsondesignreader"
 }
 }
 }

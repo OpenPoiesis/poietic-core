@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -212,6 +211,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/edge(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/node",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/orderedSet(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/unstructured"
       ],
       "title" : "Enumeration Cases"
@@ -750,6 +750,65 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure\/node"
 },
+"doc://PoieticCore/documentation/PoieticCore/Structure/orderedSet(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Set of object references owned by an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "orderedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10OrderedSetV",
+      "text" : "OrderedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure\/orderedSet(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Structure.orderedSet(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structure\/orderedset(_:_:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Structure/type": {
   "abstract" : [
     {
@@ -822,20 +881,6 @@
   "title" : "Structure.unstructured",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure\/unstructured"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

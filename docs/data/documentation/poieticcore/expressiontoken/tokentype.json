@@ -3,7 +3,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken"
       ]
     ]
@@ -99,9 +98,9 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/comma",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/double",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/empty",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/error(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/float",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/identifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/int",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/leftParen",
@@ -253,31 +252,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/comma"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/double": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "double"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/double",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "ExpressionToken.TokenType.double",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/double"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/empty": {
   "abstract" : [
 
@@ -340,6 +314,31 @@
   "title" : "ExpressionToken.TokenType.error(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/error(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/float": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "float"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/float",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.float",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/float"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/identifier": {
   "abstract" : [
@@ -465,20 +464,6 @@
   "title" : "ExpressionToken.TokenType.rightParen",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/rightparen"
-},
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
-  "abstract" : [
-    {
-      "text" : "Formulas are arithmetic expressions that can be used for computation.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -79,6 +78,16 @@
       "kind" : "declarations"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -101,9 +110,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "title" : "Constraints"
     }
@@ -132,7 +139,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)-1xd7n",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)-3ohfi"
       ],
       "title" : "Instance Methods"
     },
@@ -476,7 +484,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissuecollection\/append(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection/append(_:for:)": {
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection/append(_:for:)-1xd7n": {
   "abstract" : [
     {
       "text" : "Append an issue for a specific object.",
@@ -527,12 +535,67 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)-1xd7n",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "append(_:for:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissuecollection\/append(_:for:)"
+  "url" : "\/documentation\/poieticcore\/designissuecollection\/append(_:for:)-1xd7n"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection/append(_:for:)-3ohfi": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "append"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
+      "text" : "DesignIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection\/append(_:for:)-3ohfi",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "append(_:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designissuecollection\/append(_:for:)-3ohfi"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection/designIssues": {
   "abstract" : [
@@ -756,70 +819,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissueconvertible"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
-  "abstract" : [
-    {
-      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given labels.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeEndpointRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
     {
@@ -853,48 +852,6 @@
   "title" : "ObjectTypeError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of object type violation errors produced when checking object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeErrorCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeErrorCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectTypeErrorCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -987,6 +944,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/Collection-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
       ]
     ]
   },
@@ -132,7 +130,14 @@
       }
     ],
     "platforms" : [
-
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "deprecatedAt" : "5.0",
+        "name" : "Swift",
+        "renamed" : "firstIndex(of:)",
+        "unavailable" : false
+      }
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -292,17 +297,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
 },
-"doc://PoieticCore/documentation/PoieticCore/OrderedSet/Collection-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet\/Collection-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Collection Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orderedset\/collection-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/OrderedSet/index(of:)": {
   "abstract" : [
 
@@ -406,20 +400,6 @@
   "title" : "index(of:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset\/index(of:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
 }
 }
 }

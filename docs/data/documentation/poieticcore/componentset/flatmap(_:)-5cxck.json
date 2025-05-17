@@ -28,9 +28,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/Sequence-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet"
       ]
     ]
   },
@@ -126,7 +124,15 @@
       }
     ],
     "platforms" : [
-
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "deprecatedAt" : "4.1",
+        "message" : "Please use compactMap(_:) for the case where closure returns an optional value",
+        "name" : "Swift",
+        "renamed" : "compactMap(_:)",
+        "unavailable" : false
+      }
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -309,17 +315,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
 },
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet/Sequence-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/Sequence-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Sequence Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset\/sequence-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet/flatMap(_:)-5cxck": {
   "abstract" : [
 
@@ -406,20 +401,6 @@
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/flatmap(_:)-5cxck"
-},
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
 }
 }
 }

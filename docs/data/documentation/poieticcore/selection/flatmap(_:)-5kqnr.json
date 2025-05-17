@@ -28,9 +28,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/Sequence-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection"
       ]
     ]
   },
@@ -126,7 +124,15 @@
       }
     ],
     "platforms" : [
-
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "deprecatedAt" : "4.1",
+        "message" : "Please use compactMap(_:) for the case where closure returns an optional value",
+        "name" : "Swift",
+        "renamed" : "compactMap(_:)",
+        "unavailable" : false
+      }
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -309,17 +315,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selection"
 },
-"doc://PoieticCore/documentation/PoieticCore/Selection/Sequence-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/Sequence-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Sequence Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/selection\/sequence-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/Selection/flatMap(_:)-5kqnr": {
   "abstract" : [
 
@@ -406,20 +401,6 @@
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selection\/flatmap(_:)-5kqnr"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

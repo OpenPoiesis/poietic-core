@@ -74,30 +74,46 @@
   ],
   "topicSections" : [
     {
-      "anchor" : "Object-Import-and-Export",
+      "anchor" : "Raw-Entities",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesign",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedList",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedReference",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SemanticVersion"
       ],
-      "title" : "Object Import and Export"
+      "title" : "Raw Entities"
+    },
+    {
+      "anchor" : "Reading-and-Loading",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError"
+      ],
+      "title" : "Reading and Loading"
+    },
+    {
+      "anchor" : "Extracting-and-Writing",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignExtractor",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignWriterError"
+      ],
+      "title" : "Extracting and Writing"
     },
     {
       "anchor" : "Foreign-Value",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError"
       ],
       "title" : "Foreign Value"
     },
@@ -148,40 +164,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
-  "abstract" : [
-    {
-      "text" : "Type for object attribute key.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AttributeKey"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AttributeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/attributekey"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVFormatter": {
   "abstract" : [
@@ -327,44 +309,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
+"doc://PoieticCore/documentation/PoieticCore/DesignExtractor": {
   "abstract" : [
     {
-      "text" : "Error thrown when reading or processing a foreign frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameLoader": {
-  "abstract" : [
-    {
-      "text" : "Object that loads foreign frames into a mutable frame and resolves object",
+      "text" : "Object that exports a design into a raw design representation for foreign interfaces or for",
       "type" : "text"
     },
     {
@@ -372,7 +320,7 @@
       "type" : "text"
     },
     {
-      "text" : "references.",
+      "text" : "unsafe structural surgeries.",
       "type" : "text"
     }
   ],
@@ -387,41 +335,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
+      "text" : "DesignExtractor"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignExtractor",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
+      "text" : "DesignExtractor"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignFrameLoader",
+  "title" : "DesignExtractor",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeloader"
+  "url" : "\/documentation\/poieticcore\/designextractor"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameProtocol": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Protocol that represents a frame which originates or is meant to be used",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "by a foreign interface.",
+      "text" : "Object that loads raw representation of design or design entities into a design.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -429,68 +369,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameProtocol"
+      "text" : "DesignLoader"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignFrameProtocol"
+      "text" : "DesignLoader"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignFrameProtocol",
+  "title" : "DesignLoader",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeprotocol"
+  "url" : "\/documentation\/poieticcore\/designloader"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError": {
   "abstract" : [
     {
-      "text" : "Protocol for foreign representation of an object",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObjectError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when there is an issue with a foreign object, typically",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "in a foreign frame.",
+      "text" : "Error thrown by the design loader.",
       "type" : "text"
     }
   ],
@@ -505,109 +403,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ForeignObjectError"
+      "text" : "DesignLoaderError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ForeignObjectError"
+      "text" : "DesignLoaderError"
     }
   ],
   "role" : "symbol",
-  "title" : "ForeignObjectError",
+  "title" : "DesignLoaderError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobjecterror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecord": {
-  "abstract" : [
-    {
-      "text" : "A collection of key-value pairs that store data used for exchange with",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "external environment such as database.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecord",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecord"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecord",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecord"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignRecordError": {
-  "abstract" : [
-    {
-      "text" : "An error thrown when there is an issue with retrieving or converting",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a foreign value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignRecordError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignRecordError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignRecordError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignrecorderror"
+  "url" : "\/documentation\/poieticcore\/designloadererror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ForeignValueError": {
   "abstract" : [
-
+    {
+      "text" : "Errors that can occur with foreign object properties or attributes.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -636,17 +453,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalueerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameLoaderError": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
   "abstract" : [
     {
-      "text" : "Error thrown by a foreign frame loader.",
+      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -654,21 +471,89 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameLoaderError"
+      "text" : "IdentityReservation"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameLoaderError"
+      "text" : "IdentityReservation"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameLoaderError",
+  "title" : "IdentityReservation",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameloadererror"
+  "url" : "\/documentation\/poieticcore\/identityreservation"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
+  "abstract" : [
+    {
+      "text" : "Object for reading foreign designs represented as JSON.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignReader"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignReader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONDesignReader",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsondesignreader"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter": {
+  "abstract" : [
+    {
+      "text" : "Utility class.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignWriter"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignWriter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONDesignWriter",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsondesignwriter"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONError": {
   "abstract" : [
@@ -700,108 +585,6 @@
   "title" : "JSONError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONForeignFrame": {
-  "abstract" : [
-    {
-      "text" : "Helper structure to convert frames to and from JSON using coding.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONForeignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONForeignFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONForeignFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonforeignframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONFrameReader": {
-  "abstract" : [
-    {
-      "text" : "Object for reading foreign frames represented as JSON.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONFrameReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonframereader"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONFrameWriter": {
-  "abstract" : [
-    {
-      "text" : "Utility class.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameWriter"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameWriter"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONFrameWriter",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonframewriter"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONType": {
   "abstract" : [
@@ -868,40 +651,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsonvalue"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
-  "abstract" : [
-    {
-      "text" : "A protocol for objects that provide their attributes by keys.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeyedAttributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keyedattributes"
-},
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
     {
@@ -916,25 +665,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+"doc://PoieticCore/documentation/PoieticCore/RawDesign": {
   "abstract" : [
     {
-      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "text" : "Raw representation of a design.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -942,24 +683,420 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CoalescedCodingTypeKey"
+      "text" : "RawDesign"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesign",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDesign"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawDesign",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawdesign"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError": {
+  "abstract" : [
+    {
+      "text" : "Error raised by the design readers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : " "
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
-      "text" : "CodingUserInfoKey"
+      "kind" : "identifier",
+      "text" : "RawDesignReaderError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDesignReaderError"
+    }
+  ],
   "role" : "symbol",
-  "title" : "CoalescedCodingTypeKey",
+  "title" : "RawDesignReaderError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
+  "url" : "\/documentation\/poieticcore\/rawdesignreadererror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawDesignWriterError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawDesignWriterError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignWriterError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDesignWriterError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawDesignWriterError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawdesignwritererror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawFrame": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawframe"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawFrameError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the design loader when there is an issue with a raw frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawFrameError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawFrameError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawFrameError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawframeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawIdentityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawIdentityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawIdentityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawIdentityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawidentityerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawNamedList": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawNamedList"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawNamedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawNamedList",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawnamedlist"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawNamedReference": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawNamedReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawNamedReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawNamedReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawnamedreference"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
+  "abstract" : [
+    {
+      "text" : "Object ID retrieved from a foreign interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawobjectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Raw representation of a snapshot.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawsnapshot"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawSnapshotError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by the design loader when there is an issue with an object snapshot.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawSnapshotError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawSnapshotError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawSnapshotError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawsnapshoterror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawStructure": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawStructure"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawStructure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawStructure",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawstructure"
+},
+"doc://PoieticCore/documentation/PoieticCore/SemanticVersion": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SemanticVersion"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SemanticVersion",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SemanticVersion"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SemanticVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/semanticversion"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
   "abstract" : [

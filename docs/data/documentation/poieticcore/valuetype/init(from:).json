@@ -13,13 +13,22 @@
       "type" : "text"
     }
   ],
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "Legacy, used in prototype\/makeshift store",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/Decodable-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType"
       ]
     ]
   },
@@ -65,6 +74,14 @@
     "modules" : [
       {
         "name" : "PoieticCore"
+      }
+    ],
+    "platforms" : [
+      {
+        "beta" : false,
+        "deprecated" : true,
+        "message" : "Legacy, used in prototype\/makeshift store",
+        "unavailable" : false
       }
     ],
     "role" : "symbol",
@@ -162,20 +179,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValueType": {
   "abstract" : [
 
@@ -207,21 +210,11 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valuetype"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValueType/Decodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/Decodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Decodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/valuetype\/decodable-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValueType/init(from:)": {
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "identifier",

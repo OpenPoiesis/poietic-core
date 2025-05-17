@@ -1,25 +1,9 @@
 {
-  "abstract" : [
-    {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphProtocol.edgeIDs",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edgeIDs-3ng2"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ]
     ]
   },
@@ -189,57 +173,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edgeIDs-3ng2": {
-  "abstract" : [
-    {
-      "text" : "Get list of graph’s edge IDs.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "edgeIDs"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6EdgeIDQa",
-      "text" : "EdgeID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edgeIDs-3ng2",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "edgeIDs",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/edgeids-3ng2"
-},
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edgeIDs-9598d": {
   "abstract" : [
 
@@ -277,20 +210,6 @@
   "title" : "edgeIDs",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/edgeids-9598d"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [

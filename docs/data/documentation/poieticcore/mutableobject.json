@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -193,7 +192,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
         "doc:\/\/PoieticCore\/s12IdentifiableP"
       ],
@@ -235,9 +233,12 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/attributeKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/attributes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/changedAttributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/children",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/components",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/hierarchyChanged",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/id",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/original",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/parent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/position",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/snapshotID",
@@ -271,7 +272,6 @@
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/KeyedAttributes-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/ObjectSnapshot-Implementations"
       ],
       "title" : "Default Implementations"
@@ -385,40 +385,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/KeyedAttributes": {
-  "abstract" : [
-    {
-      "text" : "A protocol for objects that provide their attributes by keys.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/KeyedAttributes",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "KeyedAttributes"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "KeyedAttributes",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/keyedattributes"
-},
 "doc://PoieticCore/documentation/PoieticCore/MutableObject": {
   "abstract" : [
     {
@@ -452,17 +418,6 @@
   "title" : "MutableObject",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/MutableObject/KeyedAttributes-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/KeyedAttributes-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "KeyedAttributes Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableobject\/keyedattributes-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/ObjectSnapshot-Implementations": {
   "abstract" : [
@@ -656,6 +611,53 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject\/attributes"
 },
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/changedAttributes": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "changedAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/changedAttributes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "changedAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/changedattributes"
+},
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/children": {
   "abstract" : [
 
@@ -723,6 +725,40 @@
   "title" : "components",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject\/components"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/hierarchyChanged": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hierarchyChanged"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/hierarchyChanged",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hierarchyChanged",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/hierarchychanged"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/id": {
   "abstract" : [
@@ -923,6 +959,44 @@
   "title" : "init(id:snapshotID:type:structure:parent:children:attributes:components:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/mutableobject\/init(id:snapshotid:type:structure:parent:children:attributes:components:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/MutableObject/original": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "original"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/original",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "original",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/mutableobject\/original"
 },
 "doc://PoieticCore/documentation/PoieticCore/MutableObject/parent": {
   "abstract" : [
@@ -1626,20 +1700,6 @@
   "title" : "mutate(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/s12IdentifiableP": {
   "identifier" : "doc:\/\/PoieticCore\/s12IdentifiableP",

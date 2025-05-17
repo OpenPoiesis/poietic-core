@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -206,8 +205,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:merging:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:edgeRules:constraints:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:version:merging:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:version:traits:types:edgeRules:constraints:)"
       ],
       "title" : "Initializers"
     },
@@ -222,7 +221,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/nodeTypes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/traits",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/types",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/unstructuredTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/unstructuredTypes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/version"
       ],
       "title" : "Instance Properties"
     },
@@ -659,7 +659,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/init()"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:merging:)": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:version:merging:)": {
   "abstract" : [
     {
       "text" : "Create a metamodel by merging multiple metamodels.",
@@ -694,6 +694,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "version"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15SemanticVersionV",
+      "text" : "SemanticVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "merging"
     },
     {
@@ -710,14 +727,14 @@
       "text" : "...)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:merging:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:version:merging:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:merging:)",
+  "title" : "init(name:version:merging:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:merging:)"
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:version:merging:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:traits:types:edgeRules:constraints:)": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/init(name:version:traits:types:edgeRules:constraints:)": {
   "abstract" : [
     {
       "text" : "Create a new metamodel.",
@@ -745,6 +762,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "version"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15SemanticVersionV",
+      "text" : "SemanticVersion"
     },
     {
       "kind" : "text",
@@ -819,12 +853,12 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:traits:types:edgeRules:constraints:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/init(name:version:traits:types:edgeRules:constraints:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:traits:types:edgeRules:constraints:)",
+  "title" : "init(name:version:traits:types:edgeRules:constraints:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:traits:types:edgerules:constraints:)"
+  "url" : "\/documentation\/poieticcore\/metamodel\/init(name:version:traits:types:edgerules:constraints:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/name": {
   "abstract" : [
@@ -1186,27 +1220,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel\/unstructuredtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+"doc://PoieticCore/documentation/PoieticCore/Metamodel/version": {
   "abstract" : [
+
+  ],
+  "fragments" : [
     {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "kind" : "text",
+      "text" : " "
     },
     {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
+      "kind" : "identifier",
+      "text" : "version"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15SemanticVersionV",
+      "text" : "SemanticVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/version",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "version",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+  "url" : "\/documentation\/poieticcore\/metamodel\/version"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [

@@ -9,9 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Decodable-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
       ]
     ]
   },
@@ -128,23 +126,6 @@
         {
           "inlineContent" : [
             {
-              "text" : "For reading JSON that might be hand-written (more error-prone):",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "let decoder = JSONDecoder()",
-            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = true"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "inlineContent" : [
-            {
               "text" : "Reading a foreign frame produced by the library:",
               "type" : "text"
             }
@@ -154,7 +135,7 @@
         {
           "code" : [
             "let decoder = JSONDecoder()",
-            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = true"
+            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = .dictionary"
           ],
           "syntax" : "swift",
           "type" : "codeListing"
@@ -162,20 +143,19 @@
         {
           "inlineContent" : [
             {
-              "text" : "See ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " for more information.",
+              "text" : "For reading JSON that might be hand-adjusted (more error-prone):",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let decoder = JSONDecoder()",
+            "decoder.userInfo[Variant.CodingTypeKey] = .dictionaryWithFallback"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
         }
       ],
       "kind" : "content"
@@ -217,20 +197,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/Variant": {
   "abstract" : [
     {
@@ -264,62 +230,6 @@
   "title" : "Variant",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
-  "abstract" : [
-    {
-      "text" : "Coding key used for a flag denoting how the variants are encoded.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CoalescedCodingTypeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
-      "text" : "CodingUserInfoKey"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "CoalescedCodingTypeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Decodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Decodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/decodable-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/init(from:)": {
   "abstract" : [

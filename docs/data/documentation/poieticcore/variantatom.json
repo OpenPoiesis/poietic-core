@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -172,7 +171,7 @@
       "anchor" : "Operators",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/!=(_:_:)-6rl99",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/!=(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/_(_:_:)-2hs9",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/_(_:_:)-83cj4",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/_=(_:_:)-24llo",
@@ -212,7 +211,9 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isFiniteNumber",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isNumeric",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isZero",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/valueType"
       ],
       "title" : "Instance Properties"
@@ -226,9 +227,11 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/doubleValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/intValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isConvertible(to:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isVaguelyComparable(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/makeArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/pointValue()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/stringValue()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/stringValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/vaguelyInAscendingOrder(after:)"
       ],
       "title" : "Instance Methods"
     },
@@ -357,20 +360,6 @@
   "title" : "Point",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -533,7 +522,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom"
 },
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom/!=(_:_:)-6rl99": {
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -590,12 +579,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/!=(_:_:)-6rl99",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom\/!=(_:_:)-6rl99"
+  "url" : "\/documentation\/poieticcore\/variantatom\/!=(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/Decodable-Implementations": {
   "abstract" : [
@@ -1597,6 +1586,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/isconvertible(to:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/isFiniteNumber": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isFiniteNumber"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isFiniteNumber",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isFiniteNumber",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom\/isfinitenumber"
+},
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/isNumeric": {
   "abstract" : [
     {
@@ -1641,6 +1664,102 @@
   "title" : "isNumeric",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/isnumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/isVaguelyComparable(to:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the values can be compared in terms of their order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isVaguelyComparable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isVaguelyComparable(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isVaguelyComparable(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom\/isvaguelycomparable(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/isZero": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isZero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/isZero",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isZero",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom\/iszero"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/makeArray()": {
   "abstract" : [
@@ -1851,6 +1970,64 @@
   "title" : "stringValue()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/stringvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantAtom/vaguelyInAscendingOrder(after:)": {
+  "abstract" : [
+    {
+      "text" : "Compare the atom with the other atom vaguely.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "vaguelyInAscendingOrder"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "after"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11VariantAtomO",
+      "text" : "VariantAtom"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/vaguelyInAscendingOrder(after:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "vaguelyInAscendingOrder(after:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variantatom\/vaguelyinascendingorder(after:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/valueType": {
   "abstract" : [

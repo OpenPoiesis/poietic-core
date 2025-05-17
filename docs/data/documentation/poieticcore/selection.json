@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -151,7 +150,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)-9c9tr",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -173,12 +172,38 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)-8eqnn",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)",
               "isActive" : true,
               "type" : "reference"
             },
             {
               "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When a selection is preserved between changes, it is recommended to sanitise the objects",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "in the selection using the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " function.",
               "type" : "text"
             }
           ],
@@ -233,7 +258,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/init()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/init(_:)-1uk06"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/init(_:)"
       ],
       "title" : "Initializers"
     },
@@ -397,7 +422,59 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/distinctAttribute(_:ids:)-9c9tr": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/contained(_:)": {
+  "abstract" : [
+    {
+      "text" : "Filter IDs and keep only those that are contained in the frame.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contained"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "contained(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/contained(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/distinctAttribute(_:ids:)": {
   "abstract" : [
     {
       "text" : "Get distinct values of an attribute.",
@@ -467,13 +544,13 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)-9c9tr",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "distinctAttribute(_:ids:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/distinctattribute(_:ids:)-9c9tr"
+  "url" : "\/documentation\/poieticcore\/frame\/distinctattribute(_:ids:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/distinctTypes(_:)-9dh95": {
   "abstract" : [
@@ -525,7 +602,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/distincttypes(_:)-9dh95"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/sharedTraits(_:)-8eqnn": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/sharedTraits(_:)": {
   "abstract" : [
     {
       "text" : "Get shared traits of a list of objects.",
@@ -569,13 +646,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)-8eqnn",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "sharedTraits(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/sharedtraits(_:)-8eqnn"
+  "url" : "\/documentation\/poieticcore\/frame\/sharedtraits(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -1013,7 +1090,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selection\/init()"
 },
-"doc://PoieticCore/documentation/PoieticCore/Selection/init(_:)-1uk06": {
+"doc://PoieticCore/documentation/PoieticCore/Selection/init(_:)": {
   "abstract" : [
     {
       "text" : "Create a selection of given IDs",
@@ -1039,12 +1116,12 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/init(_:)-1uk06",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/init(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/selection\/init(_:)-1uk06"
+  "url" : "\/documentation\/poieticcore\/selection\/init(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Selection/isEmpty": {
   "abstract" : [
@@ -1390,20 +1467,6 @@
   "title" : "Structure",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/s10SetAlgebraP": {
   "identifier" : "doc:\/\/PoieticCore\/s10SetAlgebraP",

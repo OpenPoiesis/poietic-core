@@ -2,8 +2,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -125,6 +124,7 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/codingType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/isArray",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/isAtom",
@@ -279,20 +279,6 @@
   "title" : "Point",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -570,6 +556,40 @@
   "title" : "bools",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valuetype\/bools"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueType/codingType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "codingType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/codingType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "codingType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuetype\/codingtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueType/description": {
   "abstract" : [
@@ -1206,6 +1226,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

@@ -1,25 +1,9 @@
 {
-  "abstract" : [
-    {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphProtocol.contains(edge:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(edge:)-5n6h6"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ]
     ]
   },
@@ -215,70 +199,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(edge:)-5n6h6": {
-  "abstract" : [
-    {
-      "text" : "Check whether the graph contains an edge and whether the node is valid.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 2,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "contains"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "edge"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6EdgeIDQa",
-      "text" : "EdgeID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(edge:)-5n6h6",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "contains(edge:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(edge:)-5n6h6"
-},
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(edge:)-7qk6r": {
   "abstract" : [
 
@@ -329,20 +249,6 @@
   "title" : "contains(edge:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(edge:)-7qk6r"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [

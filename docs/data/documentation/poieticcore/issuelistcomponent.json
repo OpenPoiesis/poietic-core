@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -125,7 +124,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
       ],
@@ -254,40 +252,6 @@
   "title" : "ComponentSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
-},
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
-  "abstract" : [
-    {
-      "text" : "Protocol for components where attributes can be inspected by their names.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InspectableComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InspectableComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "InspectableComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
 },
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
   "abstract" : [
@@ -499,20 +463,6 @@
   "title" : "OrderedSet",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [

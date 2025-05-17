@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/Predicate-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate"
       ]
     ]
   },
@@ -30,7 +28,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore9PredicatePAAE3andyAA08CompoundC0VAaB_pF::SYNTHESIZED::s:11PoieticCore13EdgePredicateV",
+    "externalID" : "s:11PoieticCore9PredicatePAAE3andyAaB_pAaB_pF::SYNTHESIZED::s:11PoieticCore13EdgePredicateV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -55,12 +53,12 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> "
+        "text" : ") -> any "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
-        "text" : "CompoundPredicate"
+        "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+        "text" : "Predicate"
       }
     ],
     "modules" : [
@@ -124,13 +122,13 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : ") -> any "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
-              "text" : "CompoundPredicate"
+              "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+              "text" : "Predicate"
             }
           ]
         }
@@ -174,40 +172,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that connects multiple predicates with a logical connective.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CompoundPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/compoundpredicate"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
   "abstract" : [
     {
@@ -250,17 +214,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgepredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate/Predicate-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/Predicate-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicate Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate\/predicate-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgePredicate/and(_:)": {
   "abstract" : [
 
@@ -289,12 +242,12 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ") -> any "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17CompoundPredicateV",
-      "text" : "CompoundPredicate"
+      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "text" : "Predicate"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate\/and(_:)",
@@ -337,28 +290,6 @@
   "title" : "Predicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/Predicates": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicates"
 }
 }
 }

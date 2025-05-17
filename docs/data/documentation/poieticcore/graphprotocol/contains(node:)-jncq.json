@@ -1,25 +1,9 @@
 {
-  "abstract" : [
-    {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphProtocol.contains(node:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-6b0hk"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ]
     ]
   },
@@ -215,70 +199,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)-6b0hk": {
-  "abstract" : [
-    {
-      "text" : "Check whether the graph contains a node object with given ID.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 2,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "contains"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "node"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-      "text" : "NodeID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-6b0hk",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "contains(node:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)-6b0hk"
-},
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)-jncq": {
   "abstract" : [
 
@@ -329,20 +249,6 @@
   "title" : "contains(node:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)-jncq"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [

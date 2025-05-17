@@ -3,6 +3,10 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame"
+      ],
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame"
       ]
@@ -52,7 +56,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/object(named:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/object(stringReference:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/sharedTraits(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/top()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/top()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/validateStructure()"
       ],
       "title" : "Instance Methods"
     },
@@ -1141,6 +1146,55 @@
   "title" : "top()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designframe\/top()"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame/validateStructure()": {
+  "abstract" : [
+    {
+      "text" : "Validate structural references.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/validateStructure()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateStructure()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designframe\/validatestructure()"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

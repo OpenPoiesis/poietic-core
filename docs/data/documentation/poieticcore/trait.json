@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -248,8 +247,17 @@
       "anchor" : "Type-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/BibliographicalReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramConnector",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramView",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Keywords",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Orderable"
       ],
       "title" : "Type Properties"
     }
@@ -384,28 +392,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
@@ -474,6 +460,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait/AudienceLevel": {
+  "abstract" : [
+    {
+      "text" : "Trait denoting level of expertise of the user.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AudienceLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AudienceLevel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/audiencelevel"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait/BibliographicalReference": {
   "abstract" : [
 
@@ -515,6 +546,96 @@
   "title" : "BibliographicalReference",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/bibliographicalreference"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
+  "abstract" : [
+    {
+      "text" : "Trait for design information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/designinfo"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramConnector": {
+  "abstract" : [
+    {
+      "text" : "Trait for edges that have visual representation in a diagram.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramConnector"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramConnector",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DiagramConnector",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/diagramconnector"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DiagramNode": {
   "abstract" : [
@@ -560,6 +681,273 @@
   "title" : "DiagramNode",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/diagramnode"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramView": {
+  "abstract" : [
+    {
+      "text" : "Trait with view settings of a diagram.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramView"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramView",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DiagramView",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/diagramview"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be documented.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Documentation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Documentation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/documentation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
+  "abstract" : [
+    {
+      "text" : "Trait for a list of keywords.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Keywords"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Keywords",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Keywords",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/keywords"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Name-swift.type.property": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that have a name.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/name-swift.type.property"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Note": {
+  "abstract" : [
+    {
+      "text" : "Trait for a note or a comment.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Note"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Note",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/note"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Orderable": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Orderable"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Orderable",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Orderable",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/orderable"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/abstract": {
   "abstract" : [

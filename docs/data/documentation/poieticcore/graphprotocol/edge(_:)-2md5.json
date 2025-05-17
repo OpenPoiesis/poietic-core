@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edge(_:)-7qo39"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ]
     ]
   },
@@ -470,84 +468,6 @@
   "title" : "edge(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/edge(_:)-2md5"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/edge(_:)-7qo39": {
-  "abstract" : [
-    {
-      "text" : "Get an edge by ID.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 2,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "edge"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6EdgeIDQa",
-      "text" : "EdgeID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
-      "text" : "Edge"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/edge(_:)-7qo39",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "edge(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/edge(_:)-7qo39"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
 }
 }
 }

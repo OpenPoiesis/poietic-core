@@ -2,8 +2,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -111,7 +110,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/array",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/bool",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/double",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/float",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/int",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/null",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/object",
@@ -165,20 +164,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONError": {
   "abstract" : [
@@ -303,7 +288,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsontype\/bool"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONType/double": {
+"doc://PoieticCore/documentation/PoieticCore/JSONType/float": {
   "abstract" : [
 
   ],
@@ -318,15 +303,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "double"
+      "text" : "float"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/double",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType\/float",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "JSONType.double",
+  "title" : "JSONType.float",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsontype\/double"
+  "url" : "\/documentation\/poieticcore\/jsontype\/float"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONType/int": {
   "abstract" : [

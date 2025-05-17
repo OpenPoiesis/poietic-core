@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -174,7 +173,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attribute(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasAttribute(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)-3cvby",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)-7vxeu",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/trait(forAttribute:)"
       ],
       "title" : "Instance Methods"
@@ -184,6 +184,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/BibliographicalReference",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DiagramSettings",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/Group"
       ],
       "title" : "Type Properties"
@@ -285,28 +287,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
@@ -382,6 +362,90 @@
   "title" : "BibliographicalReference",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/DesignInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DesignInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/designinfo"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/DiagramSettings": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramSettings"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/DiagramSettings",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DiagramSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/diagramsettings"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/Group": {
   "abstract" : [
@@ -665,7 +729,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/hasattribute(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)-3cvby": {
   "abstract" : [
     {
       "text" : "Returns ",
@@ -712,12 +776,66 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)-3cvby",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "hasTrait(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)"
+  "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)-3cvby"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/hasTrait(_:)-7vxeu": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the object type has a trait with given name.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasTrait"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/hasTrait(_:)-7vxeu",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasTrait(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)-7vxeu"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:traits:abstract:)": {
   "abstract" : [

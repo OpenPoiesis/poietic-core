@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -77,89 +76,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "Trivia",
-          "level" : 2,
-          "text" : "Trivia",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Inspiration from Swift: swift\/include\/swift\/Syntax\/Trivia.h.gyb",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "At this moment there is no reason for parsing the trivia one way",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "or the other.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "A token owns all of its trailing trivia up to, but not including,",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "the next newline character.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Looking backward in the text, a token owns all of the leading trivia",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "up to and including the first contiguous sequence of newlines characters.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "orderedList"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -188,7 +104,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/init(type:source:range:leadingTriviaRange:trailingTriviaRange:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/init(type:source:range:)"
       ],
       "title" : "Initializers"
     },
@@ -196,15 +112,10 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/fullText",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/leadingTrivia",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/leadingTriviaRange",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/range",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/source",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/text",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/textLocation",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/trailingTrivia",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/trailingTriviaRange",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/type"
       ],
       "title" : "Instance Properties"
@@ -413,44 +324,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/fullText": {
-  "abstract" : [
-    {
-      "text" : "Full text of the token - including leading and trailing trivia.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "fullText"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/fullText",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "fullText",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/fulltext"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/init(type:source:range:leadingTriviaRange:trailingTriviaRange:)": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/init(type:source:range:)": {
   "abstract" : [
 
   ],
@@ -539,178 +413,15 @@
     },
     {
       "kind" : "text",
-      "text" : ">, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "leadingTriviaRange"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS5IndexV",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "trailingTriviaRange"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS5IndexV",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?)"
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/init(type:source:range:leadingTriviaRange:trailingTriviaRange:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/init(type:source:range:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(type:source:range:leadingTriviaRange:trailingTriviaRange:)",
+  "title" : "init(type:source:range:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/init(type:source:range:leadingtriviarange:trailingtriviarange:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/leadingTrivia": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "leadingTrivia"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Ss",
-      "text" : "Substring"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/leadingTrivia",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "leadingTrivia",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/leadingtrivia"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/leadingTriviaRange": {
-  "abstract" : [
-    {
-      "text" : "Range of the trivia that precede the token.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "leadingTriviaRange"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS5IndexV",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/leadingTriviaRange",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "leadingTriviaRange",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/leadingtriviarange"
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/init(type:source:range:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken/range": {
   "abstract" : [
@@ -831,8 +542,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Ss",
-      "text" : "Substring"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/text",
@@ -879,99 +590,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/textlocation"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/trailingTrivia": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "trailingTrivia"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Ss",
-      "text" : "Substring"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/trailingTrivia",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "trailingTrivia",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/trailingtrivia"
-},
-"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/trailingTriviaRange": {
-  "abstract" : [
-    {
-      "text" : "Range of the trivia that follow the token.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "trailingTriviaRange"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS5IndexV",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/trailingTriviaRange",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "trailingTriviaRange",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressiontoken\/trailingtriviarange"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken/type": {
   "abstract" : [
     {
@@ -1017,20 +635,6 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/type"
-},
-"doc://PoieticCore/documentation/PoieticCore/Formulas": {
-  "abstract" : [
-    {
-      "text" : "Formulas are arithmetic expressions that can be used for computation.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Formulas",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/formulas"
 },
 "doc://PoieticCore/documentation/PoieticCore/TextLocation": {
   "abstract" : [

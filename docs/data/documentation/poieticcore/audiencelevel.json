@@ -2,8 +2,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -76,6 +75,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/SL",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH",
         "doc:\/\/PoieticCore\/SY"
@@ -112,6 +112,14 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Operators",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/_(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
       "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
@@ -119,7 +127,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/any",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/beginner",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/expert",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/intermediate"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/normal"
       ],
       "title" : "Enumeration Cases"
     },
@@ -127,7 +135,8 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)-3xqfv",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)-7edc6"
       ],
       "title" : "Initializers"
     },
@@ -135,6 +144,7 @@
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/Comparable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/Equatable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/RawRepresentable-Implementations"
       ],
@@ -158,6 +168,11 @@
 "doc://PoieticCore/SH": {
   "identifier" : "doc:\/\/PoieticCore\/SH",
   "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SL": {
+  "identifier" : "doc:\/\/PoieticCore\/SL",
+  "title" : "Swift.Comparable",
   "type" : "unresolvable"
 },
 "doc://PoieticCore/SQ": {
@@ -215,6 +230,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel"
 },
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/Comparable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/Comparable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Comparable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/audiencelevel\/comparable-implementations"
+},
 "doc://PoieticCore/documentation/PoieticCore/AudienceLevel/Equatable-Implementations": {
   "abstract" : [
 
@@ -236,6 +262,73 @@
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel\/rawrepresentable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/_(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Compare two audience levels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "<"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13AudienceLevelO",
+      "text" : "AudienceLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13AudienceLevelO",
+      "text" : "AudienceLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/_(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "<(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/audiencelevel\/_(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/AudienceLevel/advanced": {
   "abstract" : [
@@ -337,7 +430,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/audiencelevel\/expert"
 },
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/init(rawValue:)": {
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/init(rawValue:)-3xqfv": {
   "abstract" : [
 
   ],
@@ -368,14 +461,52 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)-3xqfv",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel\/init(rawvalue:)"
+  "url" : "\/documentation\/poieticcore\/audiencelevel\/init(rawvalue:)-3xqfv"
 },
-"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/intermediate": {
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/init(rawValue:)-7edc6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/init(rawValue:)-7edc6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/audiencelevel\/init(rawvalue:)-7edc6"
+},
+"doc://PoieticCore/documentation/PoieticCore/AudienceLevel/normal": {
   "abstract" : [
 
   ],
@@ -390,37 +521,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "intermediate"
+      "text" : "normal"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/intermediate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AudienceLevel\/normal",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AudienceLevel.intermediate",
+  "title" : "AudienceLevel.normal",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/audiencelevel\/intermediate"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+  "url" : "\/documentation\/poieticcore\/audiencelevel\/normal"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/DesignInfo": {
   "abstract" : [

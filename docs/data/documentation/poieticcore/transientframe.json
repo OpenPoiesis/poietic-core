@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -350,13 +349,12 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/changedObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/design",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/edgeIDs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/hasChanges",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/id",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutableObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/nodeIDs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/originalIDs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removedObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/snapshots"
       ],
@@ -366,11 +364,14 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/addChild(_:to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(snapshotID:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/create(_:id:snapshotID:structure:parent:children:attributes:components:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/createEdge(_:origin:target:attributes:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/createNode(_:name:attributes:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/insert(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/isMutable(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
@@ -382,7 +383,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeFromParent(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/setParent(_:to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/unsafeInsert(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure(_:)"
       ],
       "title" : "Instance Methods"
     },
@@ -824,6 +825,38 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/state"
 },
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/accept()": {
+  "abstract" : [
+    {
+      "text" : "Mark the frame as accepted and use the ID reservations in the design identity manager.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/accept()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/accept()"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/addChild(_:to:)": {
   "abstract" : [
     {
@@ -882,44 +915,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/addchild(_:to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/changedObjects": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "changedObjects"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/changedObjects",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "changedObjects",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/changedobjects"
-},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/contains(_:)": {
   "abstract" : [
     {
@@ -973,6 +968,57 @@
   "title" : "contains(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/contains(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/contains(snapshotID:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(snapshotID:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(snapshotID:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/contains(snapshotid:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)": {
   "abstract" : [
@@ -1380,6 +1426,38 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/design"
 },
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/discard()": {
+  "abstract" : [
+    {
+      "text" : "Mark the frame as accepted and release ID reservations in the design identity manager.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "discard"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/discard()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "discard()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/discard()"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/edgeIDs": {
   "abstract" : [
 
@@ -1662,6 +1740,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/ismutable(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutableObjects": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mutableObjects"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
+      "text" : "MutableObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutableObjects",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mutableObjects",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/mutableobjects"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
   "abstract" : [
     {
@@ -1799,56 +1915,6 @@
   "title" : "object(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/object(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/originalIDs": {
-  "abstract" : [
-    {
-      "text" : "List of object IDs that were provided during initialisation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "originalIDs"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sh",
-      "text" : "Set"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/originalIDs",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "originalIDs",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/originalids"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/remove(edge:)": {
   "abstract" : [
@@ -2118,10 +2184,7 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/removedObjects": {
   "abstract" : [
-    {
-      "text" : "A set of original objects that were removed from the frame.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -2138,16 +2201,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sh",
-      "text" : "Set"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
@@ -2156,7 +2210,7 @@
     },
     {
       "kind" : "text",
-      "text" : ">"
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removedObjects",
@@ -2360,12 +2414,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/unsafeinsert(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/validateStructure()": {
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/validateStructure(_:)": {
   "abstract" : [
-    {
-      "text" : "Validate structural references.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -2382,7 +2433,16 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -2402,26 +2462,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validateStructure()",
+  "title" : "validateStructure(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure()"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
+  "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure(_:)"
 }
 }
 }

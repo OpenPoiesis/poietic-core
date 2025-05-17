@@ -1,9 +1,14 @@
 {
+  "abstract" : [
+    {
+      "text" : "Errors that can occur with foreign object properties or attributes.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -78,7 +83,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/SH",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -96,21 +100,12 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Object-Import-and-Export",
+      "anchor" : "Foreign-Value",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ],
-      "title" : "Object Import and Export"
+      "title" : "Foreign Value"
     }
   ],
   "topicSections" : [
@@ -118,9 +113,10 @@
       "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/invalidPointValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/notConvertible",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/sameItemTypeExpected"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/invalidValue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/notConvertibleToVariant",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/typeMismatch(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/valueNotFound"
       ],
       "title" : "Enumeration Cases"
     },
@@ -148,11 +144,6 @@
   ]
 , 
 "references": {
-"doc://PoieticCore/SH": {
-  "identifier" : "doc:\/\/PoieticCore\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
 "doc://PoieticCore/SQ": {
   "identifier" : "doc:\/\/PoieticCore\/SQ",
   "title" : "Swift.Equatable",
@@ -172,217 +163,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when reading or processing a foreign frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameLoader": {
-  "abstract" : [
-    {
-      "text" : "Object that loads foreign frames into a mutable frame and resolves object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "references.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameLoader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameLoader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameLoader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeloader"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignFrameProtocol": {
-  "abstract" : [
-    {
-      "text" : "Protocol that represents a frame which originates or is meant to be used",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "by a foreign interface.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignFrameProtocol",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignFrameProtocol"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignFrameProtocol",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignframeprotocol"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObject": {
-  "abstract" : [
-    {
-      "text" : "Protocol for foreign representation of an object",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/ForeignObjectError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when there is an issue with a foreign object, typically",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "in a foreign frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObjectError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignObjectError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignObjectError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignObjectError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignobjecterror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ForeignValueError": {
   "abstract" : [
-
+    {
+      "text" : "Errors that can occur with foreign object properties or attributes.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -433,9 +219,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalueerror\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/invalidPointValue": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/invalidValue": {
   "abstract" : [
-
+    {
+      "text" : "Value content is invalid.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -448,19 +237,22 @@
     },
     {
       "kind" : "identifier",
-      "text" : "invalidPointValue"
+      "text" : "invalidValue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/invalidPointValue",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/invalidValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ForeignValueError.invalidPointValue",
+  "title" : "ForeignValueError.invalidValue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/invalidpointvalue"
+  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/invalidvalue"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/notConvertible": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/notConvertibleToVariant": {
   "abstract" : [
-
+    {
+      "text" : "A value, typically an attribute value, is expected but can not be converted to a variant.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -473,19 +265,38 @@
     },
     {
       "kind" : "identifier",
-      "text" : "notConvertible"
+      "text" : "notConvertibleToVariant"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/notConvertible",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/notConvertibleToVariant",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ForeignValueError.notConvertible",
+  "title" : "ForeignValueError.notConvertibleToVariant",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/notconvertible"
+  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/notconvertibletovariant"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/sameItemTypeExpected": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/typeMismatch(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Value is of a different type than expected. The expected type is the associated value of",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "this case. The type is a name of a foreign interface data type, can be more descriptive",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "and rather user-oriented.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -498,20 +309,69 @@
     },
     {
       "kind" : "identifier",
-      "text" : "sameItemTypeExpected"
+      "text" : "typeMismatch"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/sameItemTypeExpected",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/typeMismatch(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ForeignValueError.sameItemTypeExpected",
+  "title" : "ForeignValueError.typeMismatch(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/sameitemtypeexpected"
+  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/typemismatch(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameLoaderError": {
+"doc://PoieticCore/documentation/PoieticCore/ForeignValueError/valueNotFound": {
   "abstract" : [
     {
-      "text" : "Error thrown by a foreign frame loader.",
+      "text" : "A property or an attribute is expected, but the value is not present in the foreign data",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueNotFound"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError\/valueNotFound",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ForeignValueError.valueNotFound",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreignvalueerror\/valuenotfound"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariantCodingError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when trying to decode a variant",
       "type" : "text"
     }
   ],
@@ -526,168 +386,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameLoaderError"
+      "text" : "VariantCodingError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameLoaderError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameLoaderError"
+      "text" : "VariantCodingError"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameLoaderError",
+  "title" : "VariantCodingError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameloadererror"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONForeignFrame": {
-  "abstract" : [
-    {
-      "text" : "Helper structure to convert frames to and from JSON using coding.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONForeignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONForeignFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONForeignFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonforeignframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONFrameReader": {
-  "abstract" : [
-    {
-      "text" : "Object for reading foreign frames represented as JSON.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameReader"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameReader",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameReader"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONFrameReader",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonframereader"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONFrameWriter": {
-  "abstract" : [
-    {
-      "text" : "Utility class.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameWriter"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONFrameWriter",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONFrameWriter"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONFrameWriter",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonframewriter"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
-  "abstract" : [
-    {
-      "text" : "Coding key used for a flag denoting how the variants are encoded.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CoalescedCodingTypeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
-      "text" : "CodingUserInfoKey"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "CoalescedCodingTypeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
+  "url" : "\/documentation\/poieticcore\/variantcodingerror"
 },
 "doc://PoieticCore/s5ErrorP": {
   "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",

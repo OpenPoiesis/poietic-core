@@ -9,9 +9,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Encodable-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
       ]
     ]
   },
@@ -253,7 +251,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType",
               "isActive" : true,
               "type" : "reference"
             },
@@ -290,24 +288,6 @@
                 },
                 {
                   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(from:)",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueType\/typeCode",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -359,20 +339,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValueType/typeCode": {
   "abstract" : [
     {
@@ -380,6 +346,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -444,25 +411,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/CoalescedCodingTypeKey": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/CodingType": {
   "abstract" : [
     {
-      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "text" : "Specifier of the variant encoding method.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -470,35 +429,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CoalescedCodingTypeKey"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
-      "text" : "CodingUserInfoKey"
+      "text" : "CodingType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CoalescedCodingTypeKey",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType",
   "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "CoalescedCodingTypeKey",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/coalescedcodingtypekey"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/Encodable-Implementations": {
-  "abstract" : [
-
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodingType"
+    }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
+  "role" : "symbol",
+  "title" : "Variant.CodingType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/encodable-implementations"
+  "url" : "\/documentation\/poieticcore\/variant\/codingtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/encode(to:)": {
   "abstract" : [

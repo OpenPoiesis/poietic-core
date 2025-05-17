@@ -17,7 +17,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame"
       ]
     ]
@@ -56,17 +55,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-        "text" : "DesignFrame"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC6EdgeIDa",
-        "text" : "EdgeID"
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "text" : "ObjectID"
       },
       {
         "kind" : "text",
@@ -124,19 +114,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-              "text" : "DesignFrame"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC6EdgeIDa",
-              "text" : "EdgeID"
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "text" : "ObjectID"
             },
             {
               "kind" : "text",
@@ -254,17 +235,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC6EdgeIDa",
-      "text" : "EdgeID"
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
     },
     {
       "kind" : "text",
@@ -283,19 +255,39 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designframe\/contains(edge:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
-      "text" : "Containment and management of design objects and their history.",
+      "text" : "Identifier of a design objects.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
+  "url" : "\/documentation\/poieticcore\/objectid"
 }
 }
 }

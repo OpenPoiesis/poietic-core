@@ -2,8 +2,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -114,6 +113,8 @@
       "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/arrayExpected",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/atomExpected",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionFailed(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionToIDFailed(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)"
@@ -239,20 +240,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
 
@@ -305,6 +292,56 @@
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/arrayExpected": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arrayExpected"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/arrayExpected",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.arrayExpected",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/arrayexpected"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/atomExpected": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "atomExpected"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/atomExpected",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.atomExpected",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/atomexpected"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError/conversionFailed(_:_:)": {
   "abstract" : [

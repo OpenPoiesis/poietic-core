@@ -2,8 +2,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -78,7 +77,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-        "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
         "doc:\/\/PoieticCore\/s8SendableP"
       ],
@@ -107,14 +105,6 @@
     }
   ],
   "topicSections" : [
-    {
-      "anchor" : "Operators",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/==(_:_:)"
-      ],
-      "title" : "Operators"
-    },
     {
       "anchor" : "Enumeration-Cases",
       "generated" : true,
@@ -145,7 +135,6 @@
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/Equatable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/Error-Implementations"
       ],
       "title" : "Default Implementations"
@@ -165,11 +154,6 @@
   ]
 , 
 "references": {
-"doc://PoieticCore/SQ": {
-  "identifier" : "doc:\/\/PoieticCore\/SQ",
-  "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
@@ -316,81 +300,6 @@
   "title" : "EdgeRuleViolation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/==(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "=="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17EdgeRuleViolationO",
-      "text" : "EdgeRuleViolation"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17EdgeRuleViolationO",
-      "text" : "EdgeRuleViolation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/==(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "==(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/==(_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/Equatable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/equatable-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/Error-Implementations": {
   "abstract" : [
@@ -567,28 +476,6 @@
   "title" : "EdgeRuleViolation.noRuleSatisfied",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/norulesatisfied"
-},
-"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
-  "abstract" : [
-    {
-      "text" : "Metamodel defines types of the design objects and constraints that the design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "must satisfy to be considered valid within a modelled problem domain.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Metamodel and Types",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

@@ -8,12 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
-      ],
-      [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -155,14 +150,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherited By",
-      "type" : "inheritedBy"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent"
       ],
       "kind" : "relationships",
@@ -185,7 +172,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
@@ -289,40 +275,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset"
 },
-"doc://PoieticCore/documentation/PoieticCore/InspectableComponent": {
-  "abstract" : [
-    {
-      "text" : "Protocol for components where attributes can be inspected by their names.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InspectableComponent"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InspectableComponent"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "InspectableComponent",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/inspectablecomponent"
-},
 "doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
   "abstract" : [
     {
@@ -391,20 +343,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/orderedset"
 },
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
-},
 "doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
   "abstract" : [
     {
@@ -472,20 +410,6 @@
   "title" : "RuntimeSystem",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtimesystem"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

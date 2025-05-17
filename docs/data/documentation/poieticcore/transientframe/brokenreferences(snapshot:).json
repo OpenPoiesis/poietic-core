@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/Frame-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame"
       ]
     ]
   },
@@ -267,7 +265,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -353,7 +351,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()-44ghi": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()": {
   "abstract" : [
     {
       "text" : "Get a list of broken references.",
@@ -388,13 +386,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "brokenReferences()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()-44ghi"
+  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
@@ -602,17 +600,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/Frame-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/Frame-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Frame Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/frame-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/brokenReferences(snapshot:)": {
   "abstract" : [
     {
@@ -678,20 +665,6 @@
   "title" : "brokenReferences(snapshot:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/brokenreferences(snapshot:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

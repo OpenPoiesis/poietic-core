@@ -9,10 +9,6 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore"
-      ],
-      [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
       ]
     ]
   },
@@ -252,14 +248,17 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Essentials",
+      "anchor" : "Design-and-Version-Frames",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage"
       ],
-      "title" : "Essentials"
+      "title" : "Design and Version Frames"
     }
   ],
   "topicSections" : [
@@ -277,15 +276,16 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences(snapshot:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contains(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)-9c9tr",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctTypes(_:)-5cphj",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctTypes(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)-2e0ak",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(_:)-3joen",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(trait:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-xwm6",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filterEdges(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(trait:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/first(type:)",
@@ -294,8 +294,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(named:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/object(stringReference:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)-8eqnn",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/top()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/top()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/validateStructure()"
       ],
       "title" : "Instance Methods"
     },
@@ -303,7 +304,7 @@
       "anchor" : "Subscripts",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-7vowv"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)"
       ],
       "title" : "Subscripts"
     }
@@ -335,48 +336,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
-  "abstract" : [
-    {
-      "text" : "Design is a container representing a model, idea or a document with their",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "history of changes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Design"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Design"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Design",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
   "abstract" : [
@@ -514,7 +473,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()-44ghi": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences()": {
   "abstract" : [
     {
       "text" : "Get a list of broken references.",
@@ -549,13 +508,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()-44ghi",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/brokenReferences()",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "brokenReferences()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()-44ghi"
+  "url" : "\/documentation\/poieticcore\/frame\/brokenreferences()"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/brokenReferences(snapshot:)": {
   "abstract" : [
@@ -622,6 +581,58 @@
   "title" : "brokenReferences(snapshot:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/brokenreferences(snapshot:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/contained(_:)": {
+  "abstract" : [
+    {
+      "text" : "Filter IDs and keep only those that are contained in the frame.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contained"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "contained(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/contained(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/contains(_:)": {
   "abstract" : [
@@ -708,7 +719,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/distinctAttribute(_:ids:)-9c9tr": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/distinctAttribute(_:ids:)": {
   "abstract" : [
     {
       "text" : "Get distinct values of an attribute.",
@@ -778,15 +789,15 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)-9c9tr",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctAttribute(_:ids:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "distinctAttribute(_:ids:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/distinctattribute(_:ids:)-9c9tr"
+  "url" : "\/documentation\/poieticcore\/frame\/distinctattribute(_:ids:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/distinctTypes(_:)-5cphj": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/distinctTypes(_:)": {
   "abstract" : [
     {
       "text" : "Get distinct object types of a list of objects.",
@@ -830,13 +841,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctTypes(_:)-5cphj",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/distinctTypes(_:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "distinctTypes(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/distincttypes(_:)-5cphj"
+  "url" : "\/documentation\/poieticcore\/frame\/distincttypes(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/filter(_:)-2e0ak": {
   "abstract" : [
@@ -1002,7 +1013,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/filter(trait:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/filter(type:)-xwm6": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/filter(type:)": {
   "abstract" : [
     {
       "text" : "Get objects of given type.",
@@ -1054,13 +1065,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)-xwm6",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/filter(type:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "filter(type:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/filter(type:)-xwm6"
+  "url" : "\/documentation\/poieticcore\/frame\/filter(type:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/filterEdges(_:)": {
   "abstract" : [
@@ -1589,7 +1600,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/object(stringreference:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/sharedTraits(_:)-8eqnn": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/sharedTraits(_:)": {
   "abstract" : [
     {
       "text" : "Get shared traits of a list of objects.",
@@ -1633,13 +1644,13 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)-8eqnn",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/sharedTraits(_:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "sharedTraits(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/sharedtraits(_:)-8eqnn"
+  "url" : "\/documentation\/poieticcore\/frame\/sharedtraits(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/snapshots": {
   "abstract" : [
@@ -1683,7 +1694,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/snapshots"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)-7vowv": {
+"doc://PoieticCore/documentation/PoieticCore/Frame/subscript(_:)": {
   "abstract" : [
     {
       "text" : "Get an object by an ID.",
@@ -1715,13 +1726,13 @@
       "text" : "DesignObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)-7vowv",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/subscript(_:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)-7vowv"
+  "url" : "\/documentation\/poieticcore\/frame\/subscript(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Frame/top()": {
   "abstract" : [
@@ -1763,6 +1774,123 @@
   "title" : "top()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/frame\/top()"
+},
+"doc://PoieticCore/documentation/PoieticCore/Frame/validateStructure()": {
+  "abstract" : [
+    {
+      "text" : "Validate structural references.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/validateStructure()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateStructure()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frame\/validatestructure()"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameID": {
+  "abstract" : [
+    {
+      "text" : "Identifier of a version frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/frameid"
+},
+"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FrameValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FrameValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol": {
   "abstract" : [
@@ -1937,17 +2065,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/SnapshotStorage": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Reference counted storage of object snapshots.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -1955,21 +2083,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "SnapshotStorage"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshot"
+      "text" : "SnapshotStorage"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectSnapshot",
+  "title" : "SnapshotStorage",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/snapshotstorage"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
   "abstract" : [
@@ -2004,20 +2166,6 @@
   "title" : "TransientFrame",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
   "abstract" : [

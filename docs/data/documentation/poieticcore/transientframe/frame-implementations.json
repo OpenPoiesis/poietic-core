@@ -33,11 +33,23 @@
   ],
   "topicSections" : [
     {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/edges",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/nodes"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/brokenReferences()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/brokenReferences(snapshot:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contained(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(edge:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(node:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/distinctAttribute(_:ids:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/distinctTypes(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/edge(_:)",
@@ -54,7 +66,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/object(named:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/object(stringReference:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/sharedTraits(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/top()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/top()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()"
       ],
       "title" : "Instance Methods"
     }
@@ -236,6 +249,155 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/brokenreferences(snapshot:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/contained(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contained"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contained(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contained(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/contained(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/contains(edge:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "edge"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(edge:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(edge:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/contains(edge:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/contains(node:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contains"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "node"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/contains(node:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contains(node:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/contains(node:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/distinctAttribute(_:ids:)": {
   "abstract" : [
 
@@ -412,6 +574,44 @@
   "title" : "edge(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/edge(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/edges": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edges"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
+      "text" : "EdgeObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/edges",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "edges",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/edges"
 },
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/filter(_:)-32n9i": {
   "abstract" : [
@@ -994,6 +1194,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/node(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/nodes": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
+      "text" : "DesignObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/nodes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/nodes"
+},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/object(named:)": {
   "abstract" : [
     {
@@ -1208,6 +1446,55 @@
   "title" : "top()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/top()"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientFrame/validateStructure()": {
+  "abstract" : [
+    {
+      "text" : "Validate structural references.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateStructure()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure()"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

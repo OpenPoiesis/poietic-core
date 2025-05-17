@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -153,6 +152,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/edge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/node",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/orderedSet",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/unstructured"
       ],
       "title" : "Enumeration Cases"
@@ -587,6 +587,31 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuraltype\/node"
 },
+"doc://PoieticCore/documentation/PoieticCore/StructuralType/orderedSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "orderedSet"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType\/orderedSet",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralType.orderedSet",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuraltype\/orderedset"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralType/unstructured": {
   "abstract" : [
     {
@@ -656,20 +681,6 @@
   "title" : "Structure",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

@@ -1,15 +1,8 @@
 {
-  "abstract" : [
-    {
-      "text" : "A set of original objects that were removed from the frame.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame"
       ]
     ]
@@ -20,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14TransientFrameC14removedObjectsShyAA8ObjectIDVGvp",
+    "externalID" : "s:11PoieticCore14TransientFrameC14removedObjectsSayAA8ObjectIDVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -36,16 +29,7 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sh",
-        "text" : "Set"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
@@ -54,7 +38,7 @@
       },
       {
         "kind" : "text",
-        "text" : ">"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -92,16 +76,7 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sh",
-              "text" : "Set"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
+              "text" : ": ["
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
@@ -111,41 +86,20 @@
             },
             {
               "kind" : "text",
-              "text" : "> { get }"
+              "text" : "] { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This is a subset of ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/originalIDs",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -252,62 +206,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/originalIDs": {
-  "abstract" : [
-    {
-      "text" : "List of object IDs that were provided during initialisation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "originalIDs"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sh",
-      "text" : "Set"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/originalIDs",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "originalIDs",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/originalids"
-},
 "doc://PoieticCore/documentation/PoieticCore/TransientFrame/removedObjects": {
   "abstract" : [
-    {
-      "text" : "A set of original objects that were removed from the frame.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -324,16 +225,7 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sh",
-      "text" : "Set"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
@@ -342,7 +234,7 @@
     },
     {
       "kind" : "text",
-      "text" : ">"
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removedObjects",
@@ -351,20 +243,6 @@
   "title" : "removedObjects",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/removedobjects"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

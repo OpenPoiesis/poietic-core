@@ -183,8 +183,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject"
       ],
       "title" : "Essentials"
     }
@@ -212,7 +212,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage"
       ],
       "title" : "Design and Version Frames"
     },
@@ -911,6 +912,40 @@
   "title" : "SnapshotID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/snapshotid"
+},
+"doc://PoieticCore/documentation/PoieticCore/SnapshotStorage": {
+  "abstract" : [
+    {
+      "text" : "Reference counted storage of object snapshots.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SnapshotStorage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/snapshotstorage"
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
   "abstract" : [

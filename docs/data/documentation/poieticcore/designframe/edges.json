@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/GraphProtocol-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame"
       ]
     ]
   },
@@ -29,8 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore5FramePAAE5edgesSayAA10EdgeObjectVGvp::SYNTHESIZED::s:11PoieticCore11DesignFrameC",
+    "externalID" : "s:11PoieticCore11DesignFrameC5edgesSayAA10EdgeObjectVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,8 +47,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
-        "text" : "EdgeObject"
+        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+        "text" : "DesignFrame"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC4Edgea",
+        "text" : "Edge"
       },
       {
         "kind" : "text",
@@ -96,10 +102,19 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
-              "text" : "EdgeObject"
+              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+              "text" : "DesignFrame"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC4Edgea",
+              "text" : "Edge"
             },
             {
               "kind" : "text",
@@ -189,17 +204,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignFrame/GraphProtocol-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame\/GraphProtocol-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "GraphProtocol Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designframe\/graphprotocol-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignFrame/edges": {
   "abstract" : [
 
@@ -223,8 +227,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
-      "text" : "EdgeObject"
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
+      "text" : "DesignFrame"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC4Edgea",
+      "text" : "Edge"
     },
     {
       "kind" : "text",
@@ -237,54 +250,6 @@
   "title" : "edges",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designframe\/edges"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
-  "abstract" : [
-    {
-      "text" : "Wrapper of an object snapshot presented as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

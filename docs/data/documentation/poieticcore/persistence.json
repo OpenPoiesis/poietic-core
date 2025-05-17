@@ -90,8 +90,8 @@
       ],
       "anchor" : "Store",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStoreError"
       ],
       "title" : "Store"
     }
@@ -124,21 +124,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
-  "abstract" : [
-    {
-      "text" : "Structures and functionality for interfacing with other systems.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Foreign Interfaces",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
-},
-"doc://PoieticCore/documentation/PoieticCore/MakeshiftDesignStore": {
+"doc://PoieticCore/documentation/PoieticCore/DesignStore": {
   "abstract" : [
     {
       "text" : "A makeshift persistent store.",
@@ -156,23 +142,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MakeshiftDesignStore"
+      "text" : "DesignStore"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MakeshiftDesignStore",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MakeshiftDesignStore"
+      "text" : "DesignStore"
     }
   ],
   "role" : "symbol",
-  "title" : "MakeshiftDesignStore",
+  "title" : "DesignStore",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/makeshiftdesignstore"
+  "url" : "\/documentation\/poieticcore\/designstore"
 },
-"doc://PoieticCore/documentation/PoieticCore/PersistentStoreError": {
+"doc://PoieticCore/documentation/PoieticCore/DesignStoreError": {
   "abstract" : [
     {
       "text" : "An error thrown when saving and restoring a design to\/from a persistent",
@@ -198,21 +184,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "PersistentStoreError"
+      "text" : "DesignStoreError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PersistentStoreError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStoreError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "PersistentStoreError"
+      "text" : "DesignStoreError"
     }
   ],
   "role" : "symbol",
-  "title" : "PersistentStoreError",
+  "title" : "DesignStoreError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/persistentstoreerror"
+  "url" : "\/documentation\/poieticcore\/designstoreerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
+  "abstract" : [
+    {
+      "text" : "Structures and functionality for interfacing with other systems.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignInterfaces",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Foreign Interfaces",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/foreigninterfaces"
 }
 }
 }

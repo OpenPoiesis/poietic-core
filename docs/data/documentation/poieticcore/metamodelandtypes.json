@@ -208,23 +208,7 @@
               "type" : "reference"
             },
             {
-              "text" : " for objects that are named, ",
-              "type" : "text"
-            },
-            {
-              "code" : "Trait\/Formula",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " for objects",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "that hold an arithmetic formula and ",
+              "text" : " for objects that are named or ",
               "type" : "text"
             },
             {
@@ -241,7 +225,7 @@
               "type" : "text"
             },
             {
-              "text" : "that can be represented diagramatically.",
+              "text" : "that can be represented diagrammatically.",
               "type" : "text"
             }
           ],
@@ -358,6 +342,15 @@
       "title" : "Metamodel and Object Types"
     },
     {
+      "anchor" : "Edge-Rules",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeCardinality",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation"
+      ],
+      "title" : "Edge Rules"
+    },
+    {
       "anchor" : "Constraints",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
@@ -370,20 +363,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
       "title" : "Constraints"
-    },
-    {
-      "anchor" : "Edge-Rules",
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeCardinality",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation"
-      ],
-      "title" : "Edge Rules"
     },
     {
       "anchor" : "Common-Components-and-Types",
@@ -831,48 +813,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgecardinality"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeEndpointRequirement": {
-  "abstract" : [
-    {
-      "text" : "Requirement that the edge origin, edge target and the edge itself matches",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "given labels.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeEndpointRequirement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeEndpointRequirement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeEndpointRequirement",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeendpointrequirement"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
   "abstract" : [
     {
@@ -1081,48 +1021,6 @@
   "title" : "ObjectTypeError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of object type violation errors produced when checking object",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeErrorCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectTypeErrorCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectTypeErrorCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicates": {
   "abstract" : [

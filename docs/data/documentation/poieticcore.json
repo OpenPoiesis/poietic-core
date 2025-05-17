@@ -105,7 +105,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Model constraints",
+                      "text" : "Edge rules and model constraints",
                       "type" : "text"
                     }
                   ],
@@ -144,7 +144,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Reading, writing, foreign interfaces and persistence",
+                      "text" : "Reading, writing, foreign interfaces and persistence (JSON included)",
                       "type" : "text"
                     }
                   ],
@@ -254,7 +254,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
               "isActive" : true,
               "type" : "reference"
             },
@@ -271,7 +271,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
               "isActive" : true,
               "type" : "reference"
             },
@@ -372,8 +372,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject"
       ],
       "title" : "Essentials"
     },
@@ -403,12 +403,12 @@
       "title" : "Others"
     },
     {
-      "anchor" : "Protocols",
+      "anchor" : "Classes",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager"
       ],
-      "title" : "Protocols"
+      "title" : "Classes"
     },
     {
       "anchor" : "Structures",
@@ -416,7 +416,9 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GenerationalArray",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection"
       ],
       "title" : "Structures"
     },
@@ -429,13 +431,30 @@
       "title" : "Variables"
     },
     {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
       "anchor" : "Enumerations",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType"
       ],
       "title" : "Enumerations"
+    },
+    {
+      "anchor" : "Extended-Modules",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift"
+      ],
+      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -480,6 +499,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/AttributeKey": {
+  "abstract" : [
+    {
+      "text" : "Type for object attribute key.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AttributeKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AttributeKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AttributeKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AttributeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/attributekey"
+},
 "doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
@@ -521,6 +574,40 @@
   "title" : "Design",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+  "abstract" : [
+    {
+      "text" : "Design frame that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignFrame"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignFrame",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designframe"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLibraryInfo": {
   "abstract" : [
@@ -584,6 +671,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designlibraryitem"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObject"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObject",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobject"
+},
 "doc://PoieticCore/documentation/PoieticCore/ForeignInterfaces": {
   "abstract" : [
     {
@@ -611,40 +732,6 @@
   "title" : "Formulas",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/formulas"
-},
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
-  "abstract" : [
-    {
-      "text" : "Protocol for version frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Frame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
 },
 "doc://PoieticCore/documentation/PoieticCore/FunctionError": {
   "abstract" : [
@@ -680,24 +767,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/functionerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+"doc://PoieticCore/documentation/PoieticCore/GenerationalArray": {
   "abstract" : [
     {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONForeignObject": {
-  "abstract" : [
-    {
-      "text" : "Helper structure to convert objects to and from JSON using coding.",
+      "text" : "An indexable collection of elements that tracks validity of indices.",
       "type" : "text"
     }
   ],
@@ -712,21 +785,134 @@
     },
     {
       "kind" : "identifier",
-      "text" : "JSONForeignObject"
+      "text" : "GenerationalArray"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONForeignObject",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GenerationalArray",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "JSONForeignObject"
+      "text" : "GenerationalArray"
     }
   ],
   "role" : "symbol",
-  "title" : "JSONForeignObject",
+  "title" : "GenerationalArray",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonforeignobject"
+  "url" : "\/documentation\/poieticcore\/generationalarray"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graphs": {
+  "abstract" : [
+    {
+      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Graph",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/graphs"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager": {
+  "abstract" : [
+    {
+      "text" : "Thread-safe identity management.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityManager"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IdentityManager",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identitymanager"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
+  "abstract" : [
+    {
+      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityReservation"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityReservation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IdentityReservation",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identityreservation"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IdentityType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identitytype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
@@ -784,10 +970,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelandtypes"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableKeyedAttributes": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeErrorCollection": {
   "abstract" : [
     {
-      "text" : "Protocol for objects where attributes can be modified by using the attribute",
+      "text" : "Collection of object type violation errors produced when checking object",
       "type" : "text"
     },
     {
@@ -795,14 +981,14 @@
       "type" : "text"
     },
     {
-      "text" : "names.",
+      "text" : "types.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -810,55 +996,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MutableKeyedAttributes"
+      "text" : "ObjectTypeErrorCollection"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableKeyedAttributes",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeErrorCollection",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MutableKeyedAttributes"
+      "text" : "ObjectTypeErrorCollection"
     }
   ],
   "role" : "symbol",
-  "title" : "MutableKeyedAttributes",
+  "title" : "ObjectTypeErrorCollection",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutablekeyedattributes"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
-  "abstract" : [
-    {
-      "text" : "A version of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshot"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshot",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+  "url" : "\/documentation\/poieticcore\/objecttypeerrorcollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [
@@ -950,6 +1102,17 @@
   "title" : "Runtime",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtime"
+},
+"doc://PoieticCore/documentation/PoieticCore/Swift": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Swift",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Swift",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/swift"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [

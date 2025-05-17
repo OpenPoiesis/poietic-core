@@ -122,15 +122,15 @@
       "anchor" : "Predicates",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
       ],
       "title" : "Predicates"
     }
@@ -197,6 +197,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/allsatisfy"
 },
+"doc://PoieticCore/documentation/PoieticCore/AndPredicate": {
+  "abstract" : [
+    {
+      "text" : "Logical conjunction of multiple predicates.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AndPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AndPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AndPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/andpredicate"
+},
 "doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
   "abstract" : [
     {
@@ -230,40 +264,6 @@
   "title" : "AnyPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/anypredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/CompoundPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that connects multiple predicates with a logical connective.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CompoundPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CompoundPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CompoundPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/compoundpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
   "abstract" : [
@@ -409,40 +409,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/istypepredicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/LogicalConnective": {
-  "abstract" : [
-    {
-      "text" : "Type of logical connective for a compound predicate.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LogicalConnective"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/LogicalConnective",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LogicalConnective"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LogicalConnective",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/logicalconnective"
-},
 "doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
@@ -495,6 +461,40 @@
   "title" : "NegationPredicate",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/negationpredicate"
+},
+"doc://PoieticCore/documentation/PoieticCore/OrPredicate": {
+  "abstract" : [
+    {
+      "text" : "Logical disjunction of multiple predicates.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OrPredicate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OrPredicate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OrPredicate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/orpredicate"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [

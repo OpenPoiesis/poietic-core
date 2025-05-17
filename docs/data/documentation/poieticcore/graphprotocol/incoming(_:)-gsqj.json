@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/incoming(_:)-3c7l"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol"
       ]
     ]
   },
@@ -315,74 +313,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/nodeid"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/incoming(_:)-3c7l": {
-  "abstract" : [
-    {
-      "text" : "Get a list of edges incoming to a node.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "incoming"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-      "text" : "NodeID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
-      "text" : "Edge"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/incoming(_:)-3c7l",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "incoming(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/incoming(_:)-3c7l"
-},
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/incoming(_:)-gsqj": {
   "abstract" : [
 
@@ -445,20 +375,6 @@
   "title" : "incoming(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/incoming(_:)-gsqj"
-},
-"doc://PoieticCore/documentation/PoieticCore/Graphs": {
-  "abstract" : [
-    {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graphs",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Graph",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphs"
 }
 }
 }

@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -126,26 +125,8 @@
               "type" : "reference"
             },
             {
-              "text" : ",",
+              "text" : ".",
               "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ", ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
-              "isActive" : true,
-              "type" : "reference"
             }
           ],
           "type" : "paragraph"
@@ -278,60 +259,6 @@
   "title" : "Design",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/allocateID(required:)": {
-  "abstract" : [
-    {
-      "text" : "Create an ID or use a specific ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "allocateID"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "required"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/allocateID(required:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "allocateID(required:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/allocateid(required:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignObject": {
   "abstract" : [
@@ -570,66 +497,6 @@
   "title" : "Structure",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structure"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
-  "abstract" : [
-    {
-      "text" : "Make a snapshot mutable within the frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "mutate"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
-      "text" : "MutableObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "mutate(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 }
 }
 }

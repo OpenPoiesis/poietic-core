@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -186,7 +185,7 @@
       "anchor" : "Operators",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/!=(_:_:)-3aev2",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/!=(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/_(_:_:)-1pr71",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/_(_:_:)-8q79x",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/_=(_:_:)-1i27p",
@@ -232,7 +231,9 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/atomValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isArray",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isFiniteNumber",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isNumeric",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isZero",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/items",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/valueType"
       ],
@@ -251,13 +252,23 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/intValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isConvertible(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isRepresentable(as:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isVaguelyComparable(to:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/makeArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/pointArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/pointValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/stringArray()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/stringValue()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/stringValue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/vaguelyInAscendingOrder(after:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType"
+      ],
+      "title" : "Enumerations"
     },
     {
       "anchor" : "Default-Implementations",
@@ -270,8 +281,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByFloatLiteral-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByIntegerLiteral-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByStringLiteral-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByUnicodeScalarLiteral-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByStringLiteral-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -392,20 +402,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
 },
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
 
@@ -502,7 +498,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/!=(_:_:)-3aev2": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/!=(_:_:)": {
   "abstract" : [
 
   ],
@@ -559,12 +555,46 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/!=(_:_:)-3aev2",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "!=(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/!=(_:_:)-3aev2"
+  "url" : "\/documentation\/poieticcore\/variant\/!=(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/CodingType": {
+  "abstract" : [
+    {
+      "text" : "Specifier of the variant encoding method.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CodingType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodingType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant.CodingType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/codingtype"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
   "abstract" : [
@@ -653,17 +683,6 @@
   "title" : "ExpressibleByStringLiteral Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/expressiblebystringliteral-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/ExpressibleByUnicodeScalarLiteral-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/ExpressibleByUnicodeScalarLiteral-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ExpressibleByUnicodeScalarLiteral Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/expressiblebyunicodescalarliteral-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/_(_:_:)-1pr71": {
   "abstract" : [
@@ -2107,6 +2126,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/isconvertible(to:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/Variant/isFiniteNumber": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isFiniteNumber"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isFiniteNumber",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isFiniteNumber",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isfinitenumber"
+},
 "doc://PoieticCore/documentation/PoieticCore/Variant/isNumeric": {
   "abstract" : [
     {
@@ -2213,6 +2266,106 @@
   "title" : "isRepresentable(as:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/isrepresentable(as:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/isVaguelyComparable(to:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the values can be compared in terms of their order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isVaguelyComparable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isVaguelyComparable(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isVaguelyComparable(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/isvaguelycomparable(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/isZero": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isZero"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/isZero",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isZero",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/iszero"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/items": {
   "abstract" : [
@@ -2524,6 +2677,72 @@
   "title" : "stringValue()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/stringvalue()"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/vaguelyInAscendingOrder(after:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the values can be compared and are in ascending order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "vaguelyInAscendingOrder"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "after"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/vaguelyInAscendingOrder(after:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "vaguelyInAscendingOrder(after:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/vaguelyinascendingorder(after:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/valueType": {
   "abstract" : [

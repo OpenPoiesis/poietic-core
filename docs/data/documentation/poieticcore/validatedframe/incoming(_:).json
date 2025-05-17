@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame\/GraphProtocol-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame"
       ]
     ]
   },
@@ -29,8 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore13GraphProtocolPAAE8incomingySay4EdgeQzG6NodeIDQzF::SYNTHESIZED::s:11PoieticCore14ValidatedFrameV",
+    "externalID" : "s:11PoieticCore14ValidatedFrameV8incomingySayAA10EdgeObjectVGAA0G2IDVF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +47,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
+        "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+        "text" : "ValidatedFrame"
       },
       {
         "kind" : "text",
@@ -58,7 +56,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+        "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV6NodeIDa",
         "text" : "NodeID"
       },
       {
@@ -67,7 +65,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
+        "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+        "text" : "ValidatedFrame"
       },
       {
         "kind" : "text",
@@ -75,7 +74,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
+        "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV4Edgea",
         "text" : "Edge"
       },
       {
@@ -137,17 +136,18 @@
               "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
               "kind" : "typeIdentifier",
-              "text" : "Self"
+              "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+              "text" : "ValidatedFrame"
             },
             {
               "kind" : "text",
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+              "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV6NodeIDa",
               "text" : "NodeID"
             },
             {
@@ -155,17 +155,18 @@
               "text" : ") -> ["
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
               "kind" : "typeIdentifier",
-              "text" : "Self"
+              "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+              "text" : "ValidatedFrame"
             },
             {
               "kind" : "text",
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Edge",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
+              "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV4Edgea",
               "text" : "Edge"
             },
             {
@@ -214,87 +215,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/Edge": {
-  "abstract" : [
-    {
-      "text" : "Object type of an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Edge"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP",
-      "text" : "EdgeProtocol"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/Edge",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "Edge",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/edge"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeID": {
-  "abstract" : [
-    {
-      "text" : "Type of an unique identifier of a node.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "associatedtype"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NodeID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "NodeID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodeid"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
   "abstract" : [
 
@@ -326,17 +246,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/validatedframe"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValidatedFrame/GraphProtocol-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame\/GraphProtocol-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "GraphProtocol Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/validatedframe\/graphprotocol-implementations"
-},
 "doc://PoieticCore/documentation/PoieticCore/ValidatedFrame/incoming(_:)": {
   "abstract" : [
 
@@ -360,7 +269,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
+      "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+      "text" : "ValidatedFrame"
     },
     {
       "kind" : "text",
@@ -368,7 +278,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
+      "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV6NodeIDa",
       "text" : "NodeID"
     },
     {
@@ -377,7 +287,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
+      "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
+      "text" : "ValidatedFrame"
     },
     {
       "kind" : "text",
@@ -385,7 +296,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP4EdgeQa",
+      "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV4Edgea",
       "text" : "Edge"
     },
     {

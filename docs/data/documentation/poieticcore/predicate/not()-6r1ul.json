@@ -17,9 +17,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not()-473jv"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate"
       ]
     ]
   },
@@ -173,45 +171,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicate/not()-473jv": {
-  "abstract" : [
-    {
-      "text" : "Creates a predicate that is a negation of the receiver.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "not"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
-      "text" : "Predicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not()-473jv",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "not()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate\/not()-473jv"
-},
 "doc://PoieticCore/documentation/PoieticCore/Predicate/not()-6r1ul": {
   "abstract" : [
 
@@ -245,28 +204,6 @@
   "title" : "not()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate\/not()-6r1ul"
-},
-"doc://PoieticCore/documentation/PoieticCore/Predicates": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicates"
 }
 }
 }

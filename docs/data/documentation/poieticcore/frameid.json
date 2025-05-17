@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -156,7 +155,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage"
       ],
       "title" : "Design and Version Frames"
     }
@@ -430,6 +430,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
+"doc://PoieticCore/documentation/PoieticCore/SnapshotStorage": {
+  "abstract" : [
+    {
+      "text" : "Reference counted storage of object snapshots.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SnapshotStorage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/snapshotstorage"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
   "abstract" : [
     {
@@ -463,20 +497,6 @@
   "title" : "StructuralIntegrityError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
   "abstract" : [

@@ -8,8 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
       ]
     ]
   },
@@ -141,7 +140,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage"
       ],
       "title" : "Design and Version Frames"
     }
@@ -152,8 +152,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenChild",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenEdgeEndpoint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenParent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenStructureReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/edgeEndpointNotANode",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/parentChildCycle",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/parentChildMismatch"
@@ -344,6 +344,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/framevalidationerror"
 },
+"doc://PoieticCore/documentation/PoieticCore/SnapshotStorage": {
+  "abstract" : [
+    {
+      "text" : "Reference counted storage of object snapshots.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SnapshotStorage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SnapshotStorage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/snapshotstorage"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
   "abstract" : [
     {
@@ -425,34 +459,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuralintegrityerror\/brokenchild"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError/brokenEdgeEndpoint": {
-  "abstract" : [
-    {
-      "text" : "The frame contains references to objects that are not present in the frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "brokenEdgeEndpoint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenEdgeEndpoint",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "StructuralIntegrityError.brokenEdgeEndpoint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralintegrityerror\/brokenedgeendpoint"
-},
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError/brokenParent": {
   "abstract" : [
 
@@ -477,6 +483,34 @@
   "title" : "StructuralIntegrityError.brokenParent",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuralintegrityerror\/brokenparent"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError/brokenStructureReference": {
+  "abstract" : [
+    {
+      "text" : "The frame contains references to objects that are not present in the frame.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenStructureReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError\/brokenStructureReference",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError.brokenStructureReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror\/brokenstructurereference"
 },
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError/edgeEndpointNotANode": {
   "abstract" : [
@@ -601,20 +635,6 @@
   "title" : "validateStructure()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure()"
-},
-"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
-  "abstract" : [
-    {
-      "text" : "Containment and management of design objects and their history.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
   "abstract" : [
