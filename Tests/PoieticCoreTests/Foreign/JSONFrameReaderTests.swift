@@ -23,7 +23,8 @@ import Testing
     init() throws {
         design = Design(metamodel: TestMetamodel)
         frame = design.createFrame()
-        reader = JSONDesignReader()
+//        reader = JSONDesignReader()
+        reader = JSONDesignReader(variantCoding: .dictionaryWithFallback)
     }
    
     @Test func notADict() throws {
@@ -108,7 +109,7 @@ import Testing
         #expect(design.frames.count == 1)
         let frame = try #require(design.frames.first)
         let snapshot = try #require(design.snapshots.first)
-        #expect(frame.id == .int(1000))
+        #expect(frame.id == .id(1000))
         #expect(frame.snapshots == [.string("first")])
     }
     @Test func readSnapshotBasic() throws {
@@ -126,6 +127,7 @@ import Testing
                    ]
                    }
                    """.data(using:.utf8)!
+
         let design = try reader.read(data: data)
 
         #expect(design.snapshots.count == 1)
@@ -134,8 +136,8 @@ import Testing
         #expect(snapshot.typeName == "Some")
         #expect(snapshot.structure == RawStructure("node", references: []))
         #expect(snapshot.id == .string("first"))
-        #expect(snapshot.snapshotID == .int(10))
-        #expect(snapshot.parent == .int(20))
+        #expect(snapshot.snapshotID == .id(10))
+        #expect(snapshot.parent == .id(20))
     }
     @Test func readSnapshotStructure() throws {
         let data = """
@@ -164,10 +166,10 @@ import Testing
         #expect(design.snapshots[2].structure == RawStructure("node", references: []))
 
         #expect(design.snapshots[3].id == .string("e"))
-        #expect(design.snapshots[3].structure == RawStructure("edge", references: [.int(10), .int(20)]))
+        #expect(design.snapshots[3].structure == RawStructure("edge", references: [.id(10), .id(20)]))
 
         #expect(design.snapshots[4].id == .string("ie"))
-        #expect(design.snapshots[4].structure == RawStructure("edge", references: [.int(30), .int(40)]))
+        #expect(design.snapshots[4].structure == RawStructure("edge", references: [.id(30), .id(40)]))
 
     }
 
@@ -218,8 +220,8 @@ import Testing
                    """.data(using:.utf8)!
         let design = try reader.read(data: data)
         
-        #expect(design.userReferences == [RawNamedReference("config", type: "frame", id: .int(10))])
-        #expect(design.systemReferences == [RawNamedReference("current_frame", type: "frame", id: .int(20))])
+        #expect(design.userReferences == [RawNamedReference("config", type: "frame", id: .id(10))])
+        #expect(design.systemReferences == [RawNamedReference("current_frame", type: "frame", id: .id(20))])
     }
 }
 
