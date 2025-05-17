@@ -24,7 +24,7 @@
 ///
 /// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:)``
 ///
-public enum RawDesignLoaderError: Error, Equatable, CustomStringConvertible {
+public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
     
     /// Error with a snapshot. First item is an index of the offending snapshot, second item is the error.
     case snapshotError(Int, RawSnapshotError)
@@ -190,7 +190,7 @@ public class DesignLoader {
     /// 3. Validate frames.
     /// 4. Create a new design.
     ///
-    public func load(_ rawDesign: RawDesign) throws (RawDesignLoaderError) -> Design {
+    public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
         let design: Design = Design(metamodel: metamodel)
         
         // 1. Reserve identities
@@ -245,7 +245,7 @@ public class DesignLoader {
     /// 1. Reserve snapshot identities.
     /// 2. Validate structural integrity of the snapshots within the context of the frame.
     ///
-    public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (RawDesignLoaderError) {
+    public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (DesignLoaderError) {
         var reservation = IdentityReservation(design: frame.design)
         try createIdentities(snapshots: rawSnapshots, with: &reservation)
         let snapshots = try create(snapshots: rawSnapshots, reservation: reservation)
@@ -272,7 +272,7 @@ public class DesignLoader {
     ///
     /// - SeeAlso: ``load(_:into:)-3iaxp``
     ///
-    public func load(_ design: RawDesign, into frame: TransientFrame) throws (RawDesignLoaderError) {
+    public func load(_ design: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = design.currentFrameID {
@@ -319,7 +319,7 @@ public class DesignLoader {
     ///
     public func reserveIdentities(snapshots rawSnapshots: [RawSnapshot],
                                   with reservation: inout IdentityReservation)
-    throws (RawDesignLoaderError) {
+    throws (DesignLoaderError) {
 //        var reservation = IdentityReservation(design: design)
         // 1. Allocate snapshot IDs
         // ----------------------------------------------------------------
@@ -340,7 +340,7 @@ public class DesignLoader {
     ///
     public func createIdentities(snapshots rawSnapshots: [RawSnapshot],
                                  with reservation: inout IdentityReservation)
-    throws (RawDesignLoaderError) {
+    throws (DesignLoaderError) {
         for rawSnapshot in rawSnapshots {
             reservation.create(snapshotID: rawSnapshot.snapshotID, objectID: rawSnapshot.id)
         }
@@ -351,7 +351,7 @@ public class DesignLoader {
     ///
     public func reserveIdentities(frames rawFrames: [RawFrame],
                                   with reservation: inout IdentityReservation)
-    throws (RawDesignLoaderError) {
+    throws (DesignLoaderError) {
         // TODO: Rename to be generic reservation of id list
         for (i, rawFrame) in rawFrames.enumerated() {
             do {
@@ -367,7 +367,7 @@ public class DesignLoader {
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
     public func create(snapshots rawSnapshots: [RawSnapshot],
-                       reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) -> SnapshotStorage {
+                       reservation: borrowing IdentityReservation) throws (DesignLoaderError) -> SnapshotStorage {
         let result = SnapshotStorage()
         
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
@@ -487,7 +487,7 @@ public class DesignLoader {
     func load(into design: Design,
               frames rawFrames: [RawFrame],
               snapshots: SnapshotStorage,
-              reservation: borrowing IdentityReservation) throws (RawDesignLoaderError) {
+              reservation: borrowing IdentityReservation) throws (DesignLoaderError) {
         var frames: [DesignFrame] = []
         let usedSnapshots = SnapshotStorage()
         
@@ -553,7 +553,7 @@ public class DesignLoader {
     }
     func makeNamedReferences(_ refs: [RawNamedReference],
                              with reservation: borrowing IdentityReservation)
-    throws (RawDesignLoaderError) -> [String:NamedReference] {
+    throws (DesignLoaderError) -> [String:NamedReference] {
         var map: [String:NamedReference] = [:]
         for ref in refs {
             guard let idRes = reservation[ref.id] else {
@@ -565,7 +565,7 @@ public class DesignLoader {
     }
     func makeNamedReferenceList(_ lists: [RawNamedList],
                                 with reservation: borrowing IdentityReservation)
-    throws (RawDesignLoaderError) -> [String:NamedReferenceList] {
+    throws (DesignLoaderError) -> [String:NamedReferenceList] {
         var result: [String:NamedReferenceList] = [:]
         for list in lists {
             var ids: [ObjectID] = []
