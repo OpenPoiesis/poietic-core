@@ -8,6 +8,8 @@
 import Testing
 @testable import PoieticCore
 
+// TODO: [WIP] Test reservation release on transient frame
+
 @Suite struct TransientFrameTest {
     let design: Design
     let frame: TransientFrame
@@ -166,8 +168,9 @@ import Testing
         let original = try design.accept(frame)
         
         let trans = design.createFrame(deriving: original)
+        #expect(trans.contains(snapshotID: originalNode.snapshotID))
         trans.removeCascading(originalNode.id)
-        #expect(trans.snapshotIDs.isEmpty)
+        #expect(!trans.contains(snapshotID: originalNode.snapshotID))
 
         let newNode = trans.create(TestNodeType)
 
@@ -191,7 +194,7 @@ import Testing
 
         let newNode = trans.create(TestNodeType, id: originalNode.id)
 
-        #expect(trans.snapshotIDs.count == 1)
+        #expect(trans.contains(snapshotID: newNode.snapshotID))
         #expect(trans.removedObjects.count == 0)
         #expect(trans.contains(newNode.id))
     }
@@ -203,11 +206,12 @@ import Testing
         
         let derived = design.createFrame(deriving: design.currentFrame)
         let derivedSnap = derived.mutate(originalSnap.id)
-        
+        #expect(derived.snapshots.count == 1)
+
         #expect(!derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
         #expect(derived.snapshots.contains(where: { $0.snapshotID == derivedSnap.snapshotID }))
-        #expect(!derived.snapshotIDs.contains(originalSnap.snapshotID))
-        #expect(derived.snapshotIDs.contains(derivedSnap.snapshotID))
+        #expect(!derived.contains(snapshotID: originalSnap.snapshotID))
+        #expect(derived.contains(snapshotID: derivedSnap.snapshotID))
     }
 
     // MARK: Parent-child
@@ -381,7 +385,7 @@ import Testing
         #expect(frame.brokenReferences().count == 2)
         #expect(frame.brokenReferences().contains(ObjectID(900)))
         #expect(frame.brokenReferences().contains(ObjectID(901)))
-        #expect(throws: StructuralIntegrityError.brokenEdgeEndpoint) {
+        #expect(throws: StructuralIntegrityError.brokenStructureReference) {
             try frame.validateStructure()
         }
 
@@ -463,5 +467,35 @@ import Testing
             }
             return error == .edgeEndpointNotANode
         }
+    }
+    
+    @Test func reserveIdentities() throws {
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        #expect(design.identityManager.isReserved(ObjectID(10)))
+        #expect(design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+    }
+
+    @Test func reserveAndAccept() throws {
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        frame.accept()
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(ObjectID(20)))
+    }
+
+    @Test func reserveAndDiscard() throws {
+        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        frame.discard()
+        #expect(!design.identityManager.isReserved(ObjectID(10)))
+        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
     }
 }

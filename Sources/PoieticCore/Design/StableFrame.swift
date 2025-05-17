@@ -39,13 +39,16 @@ public final class DesignFrame: Frame {
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
-    /// - Precondition: Snapshot must not be mutable.
+    /// - Precondition: Snapshots must have referential integrity.
     ///
     init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
+        // FIXME: [WIP] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
         self._index = _FrameIndex(snapshots)
         self._snapshots = snapshots
+        // FIXME: [WIP] Enable this
+//        try! self.validateStructure()
     }
     
     /// Get a list of snapshots.

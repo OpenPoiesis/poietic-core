@@ -5,39 +5,27 @@
 //  Created by Stefan Urbanek on 30/04/2024.
 //
 
+// TODO: This code is from the prototype phase. Remove once fully replaced with new raw design loading/writing.
+
 import Testing
 @testable import PoieticCore
 
 let TestFormatVersion = "0.0.4"
 
 @Suite struct MakeshiftStoreTests {
-    // MARK: Load tests
     @Test func testInvalidJSON() throws {
         let data = "invalid".data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
-        #expect(throws: PersistentStoreError.dataCorrupted) {
+        let store = DesignStore(data: data)
+        #expect {
             try store.load()
         }
-    }
-    @Test func testRestoreNoFormatVersion() throws {
-        let data = """
-                   {
-                   }
-                   """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
-        #expect(throws: PersistentStoreError.missingProperty("store_format_version", [])) {
-            try store.load()
-        }
-    }
-    @Test func testMissingMetamodel() throws {
-        let data = """
-                   {
-                    "store_format_version": "\(TestFormatVersion)"
-                   }
-                   """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
-        #expect(throws: PersistentStoreError.missingProperty("metamodel", [])) {
-            try store.load()
+        throws: {
+            guard let error = $0 as? DesignStoreError,
+                  case .readingError(let readingError) = error,
+                  case .dataCorrupted(_) = readingError else {
+                return false
+            }
+            return true
         }
     }
     @Test func testEmpty() throws {
@@ -50,7 +38,7 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         _ = try store.load()
     }
     
@@ -64,8 +52,8 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
-        #expect(throws: PersistentStoreError.typeMismatch(["snapshots"])) {
+        let store = DesignStore(data: data)
+        #expect(throws: DesignStoreError.readingError(.typeMismatch("array", ["snapshots"]))) {
             try store.load()
         }
     }
@@ -79,7 +67,7 @@ let TestFormatVersion = "0.0.4"
                     "snapshots": [{
                         "id": 1,
                         "snapshot_id": 2,
-                        "type": "BOO",
+                        "type": "UNKNOWN",
                         "structural_type": "node",
                         "attributes": {}
                     }
@@ -87,9 +75,9 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         
-        #expect(throws: PersistentStoreError.unknownObjectType("BOO")) {
+        #expect(throws: DesignStoreError.loadingError(.snapshotError(0, .unknownObjectType("UNKNOWN")))) {
             try store.load()
         }
         
@@ -111,9 +99,9 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         
-        #expect(throws: PersistentStoreError.invalidStructuralType("boo")) {
+        #expect(throws: DesignStoreError.loadingError(.snapshotError(0, .invalidStructuralType))) {
             try store.load(metamodel: TestMetamodel)
         }
     }
@@ -134,9 +122,9 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         
-        #expect(throws: PersistentStoreError.structuralTypeMismatch(.node, .edge)) {
+        #expect(throws: DesignStoreError.loadingError(.snapshotError(0, .invalidStructuralType))) {
             try store.load(metamodel: TestMetamodel)
         }
     }
@@ -164,9 +152,9 @@ let TestFormatVersion = "0.0.4"
                     "frames": []
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         
-        #expect(throws: PersistentStoreError.duplicateSnapshot(ObjectID(2))) {
+        #expect(throws: DesignStoreError.loadingError(.snapshotError(1, .identityError(.duplicateID(.id(2)))))) {
             try store.load(metamodel: TestMetamodel)
         }
     }
@@ -182,25 +170,9 @@ let TestFormatVersion = "0.0.4"
                     "named_frames": {"app": 100}
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         let design = try store.load()
         #expect(design.frame(name: "app")?.id == 100)
-    }
-    @Test func testNamedFrameUndoConflict() throws {
-        let data = """
-                   {
-                    "store_format_version": "\(TestFormatVersion)",
-                    "metamodel": "",
-                    "state": {"undoable_frames": [], "redoable_frames": [], "current_frame": 100},
-                    "snapshots": [],
-                    "frames": [{"id": 100, "snapshots": []}],
-                    "named_frames": {"app": 100}
-                   }
-                   """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
-        #expect(throws: PersistentStoreError.illegalFrameAssignment(ObjectID(100))) {
-            try store.load(metamodel: TestMetamodel)
-        }
     }
     @Test func testRefCount() throws {
         let data = """
@@ -222,10 +194,10 @@ let TestFormatVersion = "0.0.4"
                     ]
                    }
                    """.data(using:.utf8)!
-        let store = MakeshiftDesignStore(data: data)
+        let store = DesignStore(data: data)
         let design = try store.load(metamodel: TestMetamodel)
         let snapshot = try #require(design.snapshot(ObjectID(20)))
-        #expect(snapshot._refCount == 2)
+        #expect(design.referenceCount(snapshot.snapshotID) == 2)
     }
 
 }

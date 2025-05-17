@@ -5,12 +5,12 @@
 //  Created by Stefan Urbanek on 02/06/2023.
 //
 
-// DEVELOPMENT NOTE:
+//  DEVELOPMENT NOTE:
 //
-// If adding functionality to Design, make sure that the functionality is
-// implementable, and preferably implemented in the poietic-design command-line
-// tool. We want to maintain parity between what programmers can do and what
-// (expert) users can do without access to the development environment.
+//  If adding functionality to Design, make sure that the functionality is
+//  implementable, and preferably implemented in the poietic-design command-line
+//  tool. We want to maintain parity between what programmers can do and what
+//  (expert) users can do without access to the development environment.
 //
 
 /// Design is a container representing a model, idea or a document with their
@@ -113,15 +113,11 @@ public class Design {
     ///
     public let metamodel: Metamodel
     
-    /// Value used to generate next object ID.
+    /// Generator of object IDs.
     ///
-    /// - Note: This is very primitive and naive sequence number generator. If an ID
-    ///   is marked as used and the number is higher than current sequence, all
-    ///   numbers are just skipped and the next sequence would be the used +1.
+    /// - SeeAlso: ``createID()``, ``reserveID(_:)``, ``useID(_:)``, ``isUsed(_:)``
     ///
-    /// - SeeAlso: ``allocateID(required:)``
-    ///
-    private var objectIDSequence: UInt64
+    let identityManager: IdentityManager
 
     var _storage: SnapshotStorage
 
@@ -184,7 +180,6 @@ public class Design {
     ///
     public init(metamodel: Metamodel = Metamodel()) {
         // NOTE: Sync with removeAll()
-        self.objectIDSequence = 1
         self._stableFrames = [:]
         self._transientFrames = [:]
         self._storage = SnapshotStorage()
@@ -192,6 +187,7 @@ public class Design {
         self.undoableFrames = []
         self.redoableFrames = []
         self.metamodel = metamodel
+        self.identityManager = IdentityManager()
     }
    
     /// True if the design does not contain any stable frames. Mutable frames
@@ -201,44 +197,6 @@ public class Design {
         return self._stableFrames.isEmpty
     }
    
-    // MARK: - Identity
-    
-    /// Create an ID or use a specific ID.
-    ///
-    /// If an ID is provided, then it is marked as used and accepted. It must
-    /// not already exist in the design, otherwise it is a programming error.
-    ///
-    /// If ID is not provided, then a new ID will be created.
-    ///
-    /// - Precondition: If ID is specified, it must not be used before.
-    ///
-    public func allocateID(required: ObjectID? = nil) -> ObjectID {
-        // TODO: Just use "usedIDs"
-        if let id = required {
-            precondition(isUnused(id), "Requested ID \(id) is not unique")
-            consumeID(id)
-            return id
-        }
-        else {
-            let id = ObjectID(objectIDSequence)
-            objectIDSequence += 1
-            return id
-        }
-    }
-    public func consumeID(_ id: ObjectID) {
-        objectIDSequence = max(self.objectIDSequence, id.internalSequenceValue + 1)
-    }
-
-    /// Returns `true` if the design contains an entity with given ID.
-    ///
-    /// Checked IDs are: object snapshot ID, stable frame ID, transient frame ID.
-    ///
-    public func isUnused(_ id: ObjectID) -> Bool {
-        return !_storage.contains(id)
-                && _stableFrames[id] == nil
-                && _transientFrames[id] == nil
-    }
-    
     /// Get a sequence of all stable snapshots in all stable frames.
     ///
     public var snapshots: some Collection<DesignObject> {
@@ -252,11 +210,18 @@ public class Design {
         return _storage.snapshot(snapshotID)
     }
 
-
-    public func contains(snapshot snapshotID: ObjectID ) -> Bool {
+    public func contains(snapshot snapshotID: ObjectID) -> Bool {
         return _storage.contains(snapshotID)
     }
     
+    public func referenceCount(_ snapshotID: ObjectID) -> Int? {
+        return _storage.referenceCount(snapshotID)
+    }
+    
+    public func contains(stableFrame frameID: ObjectID) -> Bool {
+        return _stableFrames[frameID] != nil
+    }
+
     // MARK: Frames
     
     /// List of all stable frames in the design.
@@ -314,22 +279,26 @@ public class Design {
     @discardableResult
     public func createFrame(deriving original: DesignFrame? = nil,
                             id: FrameID? = nil) -> TransientFrame {
-        let actualID = allocateID(required: id)
+        let actualID: ObjectID
+        if let id {
+            let success = identityManager.use(id, type: .frame)
+            precondition(success, "ID already used (\(id)")
+            actualID = id
+        }
+        else {
+            actualID = identityManager.createAndUse(type: .frame)
+        }
         
         let derived: TransientFrame
 
         if let original {
             precondition(original.design === self, "Trying to clone a frame from different design")
             
-            derived = TransientFrame(design: self,
-                                   id: actualID,
-                                   snapshots: original.snapshots)
+            derived = TransientFrame(design: self, id: actualID, snapshots: original.snapshots)
         }
         else {
-            derived = TransientFrame(design: self,
-                                   id: actualID)
+            derived = TransientFrame(design: self, id: actualID)
         }
-
 
         _transientFrames[actualID] = derived
         return derived
@@ -389,7 +358,7 @@ public class Design {
     func _insertOrRetain(_ snapshot: DesignObject) {
         _storage.insertOrRetain(snapshot)
     }
-
+    
     /// Accepts a frame and make it a stable frame.
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.
@@ -482,7 +451,6 @@ public class Design {
                      "Trying to accept unknown transient frame \(frame.id)")
         
         try frame.validateStructure()
-        frame.state = .accepted
         
         let snapshots: [DesignObject] = frame.snapshots
         let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
@@ -494,12 +462,27 @@ public class Design {
             _insertOrRetain(snapshot)
         }
 
+        frame.accept()
         return stableFrame
     }
 
+    /// Unsafely insert a frame without structural or snapshot reference validation.
+    ///
+    /// This method is used internally by transactions where the validation happens.
+    ///
+    /// - Precondition: The design must not contain a stable frame with given ID.
+    ///
+    func _unsafeInsert(_ frame: DesignFrame) {
+        precondition(!contains(stableFrame: frame.id))
+        _stableFrames[frame.id] = frame
+        for snapshot in frame.snapshots {
+            _insertOrRetain(snapshot)
+        }
+    }
     
     @discardableResult
     public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
+        // TODO: Seems like this method can be moved out of design.
         precondition(frame.design === self)
         precondition(_stableFrames[frame.id] != nil)
         
@@ -519,7 +502,7 @@ public class Design {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
 
-        frame.state = .discarded
+        frame.discard()
 
         _transientFrames[frame.id] = nil
     }

@@ -191,6 +191,52 @@ public enum JSONValue: Equatable, Codable, Sendable {
             return nil
         }
     }
+    
+    public var boolValue: Bool? {
+        guard case let .bool(value) = self else {
+            return nil
+        }
+        return value
+    }
+    public var stringValue: String? {
+        guard case let .string(value) = self else {
+            return nil
+        }
+        return value
+    }
+    public var intValue: Int? {
+        guard case let .int(value) = self else {
+            return nil
+        }
+        return value
+    }
+    public var doubleValue: Double? {
+        guard case let .float(value) = self else {
+            return nil
+        }
+        return value
+    }
+    
+    public var numericValue: Double? {
+        switch self {
+        case let .float(value): return value
+        case let .int(value): return Double(value)
+        default: return nil
+        }
+    }
+
+    public var arrayValue: [JSONValue]? {
+        guard case let .array(value) = self else {
+            return nil
+        }
+        return value
+    }
+    public var objectValue: [String:JSONValue]? {
+        guard case let .object(value) = self else {
+            return nil
+        }
+        return value
+    }
 }
 
 public enum JSONError: Error, Equatable, CustomStringConvertible {
