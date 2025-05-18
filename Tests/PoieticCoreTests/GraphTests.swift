@@ -22,14 +22,14 @@ final class GraphTests: XCTestCase {
         let n1 = frame.create(TestNodeType)
         let n2 = frame.create(TestNodeType)
         let _ = frame.create(TestType)
-        let e1 = frame.create(TestEdgeType, structure: .edge(n1.id, n2.id))
+        let e1 = frame.create(TestEdgeType, structure: .edge(n1.objectID, n2.objectID))
 
         XCTAssertEqual(frame.nodes.count, 2)
-        XCTAssertTrue(frame.nodes.contains(where: {$0.id == n1.id}))
-        XCTAssertTrue(frame.nodes.contains(where: {$0.id == n2.id}))
+        XCTAssertTrue(frame.nodes.contains(where: {$0.objectID == n1.objectID}))
+        XCTAssertTrue(frame.nodes.contains(where: {$0.objectID == n2.objectID}))
         
         XCTAssertEqual(frame.edges.count, 1)
-        XCTAssertTrue(frame.edges.contains(where: {$0.id == e1.id}))
+        XCTAssertTrue(frame.edges.contains(where: {$0.id == e1.objectID}))
 
     }
 }

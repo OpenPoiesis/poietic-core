@@ -28,22 +28,22 @@ public struct EdgeObject: EdgeProtocol, Identifiable {
     public typealias NodeID = ObjectID
     
     /// Design object representing the edge
-    public let object: DesignObject
+    public let object: ObjectSnapshot
     
     /// ID of the edge design object.
-    public var id: ObjectID { object.id }
+    public var id: ObjectID { object.objectID }
     
     /// Reference to the edge origin object extracted from a frame during initialisation.
-    public let originObject: DesignObject
+    public let originObject: ObjectSnapshot
     
     /// ID of the edge origin.
-    public var origin: ObjectID { originObject.id }
+    public var origin: ObjectID { originObject.objectID }
     
     /// Reference to the edge target object extracted from a frame during initialisation.
-    public let targetObject: DesignObject
+    public let targetObject: ObjectSnapshot
     
     /// ID of the edge target.
-    public var target: ObjectID { targetObject.id }
+    public var target: ObjectID { targetObject.objectID }
     
     /// Create a new edge object for a given design object.
     ///
@@ -55,7 +55,7 @@ public struct EdgeObject: EdgeProtocol, Identifiable {
     ///
     /// If the design object is not an edge, then the initialiser results in `nil`.
     ///
-    public init?(_ snapshot: DesignObject, in frame: some Frame) {
+    public init?(_ snapshot: ObjectSnapshot, in frame: some Frame) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }
@@ -64,8 +64,8 @@ public struct EdgeObject: EdgeProtocol, Identifiable {
         self.originObject = frame[origin]
         self.targetObject = frame[target]
     }
-    init(_ snapshot: DesignObject, origin: DesignObject, target: DesignObject) {
-        precondition(snapshot.structure == .edge(origin.id, target.id))
+    init(_ snapshot: ObjectSnapshot, origin: ObjectSnapshot, target: ObjectSnapshot) {
+        precondition(snapshot.structure == .edge(origin.objectID, target.objectID))
         
         
         self.object = snapshot

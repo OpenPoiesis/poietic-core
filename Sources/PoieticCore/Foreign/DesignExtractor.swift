@@ -94,12 +94,12 @@ public class DesignExtractor {
     ///
     /// - SeeAlso: ``extract(_:)``
     ///
-    public func extract(_ snapshot: DesignObject) -> RawSnapshot {
+    public func extract(_ snapshot: ObjectSnapshot) -> RawSnapshot {
         let rawParent: RawObjectID? = snapshot.parent.map { .id($0) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
             snapshotID: .id(snapshot.snapshotID),
-            id: .id(snapshot.id),
+            id: .id(snapshot.objectID),
             structure: RawStructure(snapshot.structure),
             parent: rawParent,
             attributes: snapshot.attributes

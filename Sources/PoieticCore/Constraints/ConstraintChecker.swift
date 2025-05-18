@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 18/09/2024.
 //
 
-extension ObjectSnapshot {
+extension ObjectSnapshotProtocol {
     
     /// Checks object's conformance to a trait.
     ///
@@ -83,14 +83,14 @@ public struct ConstraintChecker {
     ///
     /// - All objects have a type from the metamodel.
     /// - Object conforms to traits of the object's type.
-    ///   See ``ObjectSnapshot/check(conformsTo:)``) for more information.
+    ///   See ``ObjectSnapshotProtocol/check(conformsTo:)``) for more information.
     /// - Objects must conform to all the constraints specified in the
     ///   metamodel.
     ///
     /// - Throws: ``FrameValidationError`` if a constraint violation or a
     ///   type error is found, otherwise returns nil.
     ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshot/check(conformsTo:)``
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshotProtocol/check(conformsTo:)``
     ///
     public func check(_ frame: some Frame) throws (FrameValidationError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]
@@ -100,7 +100,7 @@ public struct ConstraintChecker {
         for object in frame.snapshots {
             guard let type = metamodel.objectType(name: object.type.name) else {
                 let error = ObjectTypeError.unknownType(object.type.name)
-                errors[object.id, default: []].append(error)
+                errors[object.objectID, default: []].append(error)
                 continue
             }
             
@@ -109,7 +109,7 @@ public struct ConstraintChecker {
                     try object.check(conformsTo: trait)
                 }
                 catch {
-                    errors[object.id, default: []].append(contentsOf: error.errors)
+                    errors[object.objectID, default: []].append(contentsOf: error.errors)
                 }
             }
             
@@ -118,7 +118,7 @@ public struct ConstraintChecker {
                     try validate(edge: edge, in: frame)
                 }
                 catch {
-                    edgeViolations[object.id, default: []].append(error)
+                    edgeViolations[object.objectID, default: []].append(error)
                 }
             }
         }

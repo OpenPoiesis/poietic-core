@@ -393,6 +393,7 @@ public class RawSnapshot: Codable {
     /// loader, if the ID is a string and if the attributes do not contain `name` key,
     /// then the string ID value will be also used as the `name` attribute.
     ///
+    // FIXME: [WIP] Rename to "ObjectID" or sometehing
     public var id: RawObjectID?
     
     /// Raw structure representation.
@@ -444,10 +445,10 @@ public class RawSnapshot: Codable {
     
     /// Create a raw snapshot from a design object.
     ///
-    public init(_ snapshot: DesignObject) {
+    public init(_ snapshot: ObjectSnapshot) {
         self.typeName = snapshot.type.name
         self.snapshotID = .id(snapshot.snapshotID)
-        self.id = .id(snapshot.id)
+        self.id = .id(snapshot.objectID)
         self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
         switch snapshot.structure {

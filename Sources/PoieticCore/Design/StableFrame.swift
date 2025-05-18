@@ -18,8 +18,8 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class DesignFrame: Frame {
-    public typealias Snapshot = DesignObject
+public final class DesignFrame: Frame, Identifiable {
+    public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
     public unowned let design: Design
@@ -28,24 +28,24 @@ public final class DesignFrame: Frame {
     ///
     /// ID is unique within the design.
     ///
-    public let id: FrameID
+    public let id: EntityID
     
     /// Version snapshots contained in the frame.
     ///
     /// Snapshots might be shared between frames.
     ///
-    private let _snapshots: [DesignObject]
-    internal let _index: _FrameIndex
+    private let _snapshots: [ObjectSnapshot]
+    internal let _index: StructuralSnapshotIndex
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
-    init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
+    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
         // FIXME: [WIP] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
-        self._index = _FrameIndex(snapshots)
+        self._index = StructuralSnapshotIndex(snapshots)
         self._snapshots = snapshots
         // FIXME: [WIP] Enable this
 //        try! self.validateStructure()
@@ -53,7 +53,7 @@ public final class DesignFrame: Frame {
     
     /// Get a list of snapshots.
     ///
-    public var snapshots: [DesignObject] {
+    public var snapshots: [ObjectSnapshot] {
         return _snapshots
     }
     
@@ -64,8 +64,8 @@ public final class DesignFrame: Frame {
         return _index.idMap[id] != nil
     }
 
-    public func contains(_ snapshot: DesignObject) -> Bool {
-        return _index.idMap[snapshot.id] === snapshot
+    public func contains(_ snapshot: ObjectSnapshot) -> Bool {
+        return _index.idMap[snapshot.objectID] === snapshot
     }
 
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
@@ -76,7 +76,7 @@ public final class DesignFrame: Frame {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> DesignObject {
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
         guard let snapshot = _index.idMap[id] else {
             preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }

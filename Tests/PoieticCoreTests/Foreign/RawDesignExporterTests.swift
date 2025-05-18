@@ -27,11 +27,11 @@ struct RawDesignExpoerterTest {
 
         let first = DesignFrame(design: design, id: 1000, snapshots: [])
         design._unsafeInsert(first)
-        let trans = design.createFrame(deriving: first)
-        let unstructured = DesignObject(id: 10, snapshotID: 100, type: TestType)
-        let node1 = DesignObject(id: 11, snapshotID: 101, type: TestNodeType)
-        let node2 = DesignObject(id: 12, snapshotID: 102, type: TestNodeType)
-        let edge = DesignObject(id: 13, snapshotID: 103, type: TestEdgeType, structure: .edge(node1.id, node2.id))
+        let _ = design.createFrame(deriving: first)
+        let unstructured = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10)
+        let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 101, objectID: 11)
+        let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
+        let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 103, objectID: 13, structure: .edge(node1.objectID, node2.objectID))
         let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [unstructured, node1, node2, edge ])
         design._unsafeInsert(frame)
@@ -71,31 +71,31 @@ struct RawDesignExpoerterTest {
     @Test func extractPruning() async throws {
         let design = Design(metamodel: TestMetamodel)
         let trans = design.createFrame()
-        let parent = DesignObject(id: 10, snapshotID: 100, type: TestType, children: [ObjectID(11)])
-        let child = DesignObject(id: 11, snapshotID: 101, type: TestType, parent: ObjectID(10))
-        let node1 = DesignObject(id: 12, snapshotID: 102, type: TestNodeType)
-        let node2 = DesignObject(id: 13, snapshotID: 103, type: TestNodeType)
-        let edge = DesignObject(id: 14, snapshotID: 104, type: TestEdgeType, structure: .edge(node1.id, node2.id))
+        let parent = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10, children: [ObjectID(11)])
+        let child = ObjectSnapshot(type: TestType, snapshotID: 101, objectID: 11, parent: ObjectID(10))
+        let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
+        let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 103, objectID: 13)
+        let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 104, objectID: 14, structure: .edge(node1.objectID, node2.objectID))
         let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [parent, child, node1, node2, edge ])
         design._unsafeInsert(frame)
 
         let extractor = DesignExtractor()
 
-        let extract1 = extractor.extractPruning(snapshots: [node1.id, node2.id, edge.id], frame: frame)
-        #expect(extract1.map { $0.id } == [.id(node1.id), .id(node2.id), .id(edge.id)])
+        let extract1 = extractor.extractPruning(snapshots: [node1.objectID, node2.objectID, edge.objectID], frame: frame)
+        #expect(extract1.map { $0.id } == [.id(node1.objectID), .id(node2.objectID), .id(edge.objectID)])
 
-        let extract2 = extractor.extractPruning(snapshots: [node1.id, edge.id], frame: frame)
-        #expect(extract2.map { $0.id } == [.id(node1.id)])
+        let extract2 = extractor.extractPruning(snapshots: [node1.objectID, edge.objectID], frame: frame)
+        #expect(extract2.map { $0.id } == [.id(node1.objectID)])
 
-        let extract3 = extractor.extractPruning(snapshots: [edge.id], frame: frame)
+        let extract3 = extractor.extractPruning(snapshots: [edge.objectID], frame: frame)
         #expect(extract3.map { $0.id } == [])
 
         // Parent-child
-        let extract4 = extractor.extractPruning(snapshots: [parent.id, child.id], frame: frame)
-        #expect(extract4.map { $0.parent } == [nil, .id(parent.id)])
+        let extract4 = extractor.extractPruning(snapshots: [parent.objectID, child.objectID], frame: frame)
+        #expect(extract4.map { $0.parent } == [nil, .id(parent.objectID)])
 
-        let extract5 = extractor.extractPruning(snapshots: [child.id], frame: frame)
+        let extract5 = extractor.extractPruning(snapshots: [child.objectID], frame: frame)
         #expect(extract5.map { $0.parent } == [nil])
 
     }

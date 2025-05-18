@@ -1,5 +1,5 @@
 //
-//  DesignObject.swift
+//  ObjectSnapshot.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 11/11/2024.
@@ -9,7 +9,6 @@
 @usableFromInline
 package struct _ObjectBody {
     // Identity
-    public let snapshotID: SnapshotID
     public let id: ObjectID
     public let type: ObjectType
     
@@ -20,18 +19,15 @@ package struct _ObjectBody {
     public var attributes: [String:Variant]
     
     public init(id: ObjectID,
-                snapshotID: SnapshotID,
                 type: ObjectType,
                 structure: Structure,
                 parent: ObjectID?,
                 children: [ObjectID],
                 attributes: [String:Variant]) {
         self.id = id
-        self.snapshotID = snapshotID
         self.type = type
         self.structure = structure
         self.parent = parent
-
         self.attributes = attributes
         self.children = ChildrenSet(children)
     }
@@ -65,7 +61,14 @@ package struct _ObjectBody {
 /// ```
 /// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
-public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
+public final class ObjectSnapshot: ObjectSnapshotProtocol, CustomStringConvertible, Identifiable {
+    // FIXME: [WIP] --- THIS IS IMPORTANT ---
+    public struct _SnapshotIDSentinel { let value = 0 }
+//    public let id: _SnapshotIDSentinel = _SnapshotIDSentinel()
+    public var id: ObjectID { self._body.id }
+    // Snapshot ID
+    @usableFromInline
+    let _id: EntityID
     @usableFromInline
     let _body: _ObjectBody
     public var components: ComponentSet
@@ -86,19 +89,17 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     /// - Precondition: Attributes must not contain any reserved attribute
     ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
     ///
-    public init(id: ObjectID,
-                snapshotID: SnapshotID,
-                type: ObjectType,
+    public init(type: ObjectType,
+                snapshotID: EntityID,
+                objectID: ObjectID,
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
-        precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
-                     "The attributes must not contain any reserved attribute")
-        
-        self._body = _ObjectBody(id: id,
-                                 snapshotID: snapshotID,
+
+        self._id = snapshotID
+        self._body = _ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
                                  parent: parent,
@@ -107,13 +108,14 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
         self.components = ComponentSet(components)
     }
     
-    init(body: _ObjectBody, components: ComponentSet) {
+    init(id: EntityID, body: _ObjectBody, components: ComponentSet) {
+        self._id = id
         self._body = body
         self.components = components
     }
     
-    @inlinable public var id: ObjectID { _body.id }
-    @inlinable public var snapshotID: ObjectID { _body.snapshotID }
+    @inlinable public var objectID: ObjectID { _body.id }
+    @inlinable public var snapshotID: EntityID { self._id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure { _body.structure }
     @inlinable public var parent: ObjectID? { _body.parent }
@@ -128,14 +130,14 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
             ($0.name, self[$0.name] ?? "nil")
         }.map { "\($0.0)=\($0.1)"}
         .joined(separator: ",")
-        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
+        return "\(structuralName)(oid:\(_body.id), sid:\(self._id), type:\(type.name), attrs:\(attrs)"
     }
     
     /// Prettier description of the object.
     ///
     public var prettyDescription: String {
         let name: String = self.name ?? "(unnamed)"
-        return "\(id) {\(type.name), \(structure.description), \(name))}"
+        return "\(_body.id) {\(type.name), \(structure.description), \(name))}"
     }
     
 
@@ -163,28 +165,9 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     
     /// Get a value for an attribute.
     ///
-    /// The function returns a foreign value for a given attribute from
-    /// the components or for a special snapshot attribute.
-    ///
-    /// The special snapshot attributes are:
-    ///
-    /// - `"id"` – object ID of the snapshot
-    /// - `"snapshotID"` – ID of object version snapshot
-    /// - `"type"` – name of the object type, see ``ObjectType/name``
-    /// - `"structure"` – name of the structural type of the object
-    ///
-    /// Other keys are searched in the list of object's components. The
-    /// first value found in the list of the components is returned.
-    ///
     @inlinable
     public func attribute(forKey key: String) -> Variant? {
-        switch key {
-        case "id": Variant(id.stringValue)
-        case "snapshot_id": Variant(snapshotID.stringValue)
-        case "type": Variant(type.name)
-        case "structure": Variant(structure.type.rawValue)
-        default: _body.attributes[key]
-        }
+        _body.attributes[key]
     }
     
     @inlinable

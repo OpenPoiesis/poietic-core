@@ -16,13 +16,15 @@
 /// existing objects, disrupting local order of the neighbours. Note that the general order of
 /// insertion is not preserved.
 ///
+//typealias SnapshotStorage = RefCountedStorage<DesignObject>
+
 public class SnapshotStorage {
     public struct SnapshotReference {
-        public let snapshot: DesignObject
+        public let snapshot: ObjectSnapshot
         public let index: RefcountedObjectArray.Index
     }
     public struct RefCountCell {
-        public let snapshot: DesignObject
+        public let snapshot: ObjectSnapshot
         public var refCount: Int
     }
 
@@ -41,7 +43,7 @@ public class SnapshotStorage {
     
     /// Get a list of contained snapshots.
     ///
-    public var snapshots: some Collection<DesignObject> {
+    public var snapshots: some Collection<ObjectSnapshot> {
         return _snapshots.map { $0.snapshot }
     }
     
@@ -54,7 +56,7 @@ public class SnapshotStorage {
     /// Get a snapshot by snapshot ID, if it exists.
     ///
     @inlinable
-    public func snapshot(_ snapshotID: ObjectID) -> DesignObject? {
+    public func snapshot(_ snapshotID: ObjectID) -> ObjectSnapshot? {
         guard let ref = _lookup[snapshotID] else {
             return nil
         }
@@ -62,7 +64,7 @@ public class SnapshotStorage {
     }
     
     @inlinable
-    public subscript(_ snapshotID: ObjectID) -> DesignObject? {
+    public subscript(_ snapshotID: ObjectID) -> ObjectSnapshot? {
         return snapshot(snapshotID)
     }
 
@@ -78,7 +80,7 @@ public class SnapshotStorage {
     ///
     /// - Precondition: If the store already contains snapshot with given ID it must be the same
     ///   snapshot.
-    public func insertOrRetain(_ snapshot: DesignObject) {
+    public func insertOrRetain(_ snapshot: ObjectSnapshot) {
         if let ref = _lookup[snapshot.snapshotID] {
             let count = _snapshots[ref.index].refCount
             precondition(count > 0)
@@ -112,7 +114,7 @@ public class SnapshotStorage {
 
 extension SnapshotStorage: Collection {
     public typealias Index = RefcountedObjectArray.Index
-    public typealias Element = DesignObject
+    public typealias Element = ObjectSnapshot
     
     public var startIndex: Index {
         return _snapshots.startIndex
@@ -126,7 +128,163 @@ extension SnapshotStorage: Collection {
         return _snapshots.index(after: i)
     }
     
-    public subscript(position: Index) -> DesignObject {
+    public subscript(position: Index) -> ObjectSnapshot {
         return _snapshots[position].snapshot
+    }
+}
+
+
+/// A reference counted, ID-keyed storage for design entities.
+///
+/// Manages the lifecycle and ID-based lookup of design entities, with reference counting and weak
+/// insertion-order preservation.
+///
+/// - Preserves insertion order (with gaps after deletions).
+/// - Entities are removed only when ref-count reaches zero.
+/// - Internal (backend) use only.
+///
+public class EntityTable<E> where E:Identifiable {
+    public typealias Element = E
+    public struct RefCountCell {
+        public let element: Element
+        public var refCount: Int
+    }
+
+    public typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
+
+    @usableFromInline
+    var _items: RefcountedObjectArray
+    @usableFromInline
+    var _lookup: [E.ID:RefcountedObjectArray.Index]
+    
+    /// Create an empty snapshot storage.
+    ///
+    public init() {
+        self._items = []
+        self._lookup = [:]
+    }
+    
+    /// Get a list of contained snapshots.
+    ///
+    public var items: some Collection<Element> {
+        return _items.map { $0.element }
+    }
+    
+    /// Returns `true` if the storage contains a snapshot with given ID.
+    ///
+    public func contains(_ id: Element.ID) -> Bool {
+        _lookup[id] != nil
+    }
+    
+    /// Get a snapshot by snapshot ID, if it exists.
+    ///
+    @inlinable
+    public func snapshot(_ id: Element.ID) -> Element? {
+        guard let index = _lookup[id] else {
+            return nil
+        }
+        return _items[index].element
+    }
+    
+    @inlinable
+    public subscript(_ id: Element.ID) -> Element? {
+        return snapshot(id)
+    }
+
+    public func referenceCount(_ id: Element.ID) -> Int? {
+        guard let index = _lookup[id] else {
+            return nil
+        }
+        return _items[index].refCount
+    }
+    
+    /// Inserts an item into the table, or retains existing item with the same ID.
+    ///
+    /// - Note: The method does not compare the content of the element, just the ID. To replace an item
+    ///         in the table, the old one has to be removed first either by completely releasing it
+    ///         or using ``remove(_:)``.
+    ///
+    public func insertOrRetain(_ item: Element) {
+        if let index = _lookup[item.id] {
+            let count = _items[index].refCount
+            assert(count > 0)
+            _items[index].refCount = count + 1
+        }
+        else {
+            let index = _items.append(RefCountCell(element: item, refCount: 1))
+            _lookup[item.id] = index
+        }
+    }
+    
+    /// Insert a new item to the table and set its reference count to 1.
+    ///
+    /// - Precondition: given ID must exist in the table.
+    ///
+    public func insert(_ newItem: Element) {
+        precondition(_lookup[newItem.id] == nil, "Duplicate item \(newItem.id). Did you mean insertOrRetain?")
+
+        let index = _items.append(RefCountCell(element: newItem, refCount: 1))
+        _lookup[newItem.id] = index
+    }
+
+    public func replace(_ newItem: Element) {
+        guard let index = _lookup[newItem.id] else {
+            preconditionFailure("Unknown ID \(newItem.id)")
+        }
+        _items[index] = RefCountCell(element: newItem, refCount: 1)
+        _lookup[newItem.id] = index
+    }
+
+    /// Reduce reference count of an object. If the reference count reaches zero, the object is
+    /// removed from the store.
+    ///
+    /// - Precondition: given ID must exist in the table.
+    ///
+    public func release(_ id: Element.ID) {
+        guard let index = _lookup[id] else {
+            preconditionFailure("Unknown ID \(id)")
+        }
+        precondition(_items[index].refCount > 0, "Release failure: zero retains")
+        
+        _items[index].refCount -= 1
+        if _items[index].refCount == 0 {
+            _items.remove(at: index)
+            _lookup[id] = nil
+        }
+    }
+    
+    /// Remove object from the store, regardless of the reference count.
+    ///
+    /// It is rather recommended to use ``release(_:)``.
+    ///
+    /// - Precondition: given ID must exist in the table.
+    ///
+    public func remove(_ id: Element.ID) {
+        guard let index = _lookup[id] else {
+            preconditionFailure("Missing item \(id)")
+        }
+        
+        _items.remove(at: index)
+        _lookup[id] = nil
+    }
+}
+
+extension EntityTable: Collection {
+    public typealias Index = RefcountedObjectArray.Index
+    
+    public var startIndex: Index {
+        return _items.startIndex
+    }
+    
+    public var endIndex: Index {
+        return _items.endIndex
+    }
+    
+    public func index(after i: Index) -> Index {
+        return _items.index(after: i)
+    }
+    
+    public subscript(position: Index) -> Element {
+        return _items[position].element
     }
 }

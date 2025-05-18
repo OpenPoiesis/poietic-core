@@ -10,7 +10,7 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``DesignFrame``
 ///
-public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObject, EdgeID == ObjectID {
+public protocol Frame: GraphProtocol where Node == ObjectSnapshot, Edge == EdgeObject, EdgeID == ObjectID {
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -18,7 +18,7 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
     
     /// Get a list of all snapshots in the frame.
     ///
-    var snapshots: [DesignObject] { get }
+    var snapshots: [ObjectSnapshot] { get }
     
     /// Check whether the frame contains an object with given ID.
     ///
@@ -29,11 +29,11 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    func object(_ id: ObjectID) -> DesignObject
+    func object(_ id: ObjectID) -> ObjectSnapshot
     
     /// Get an object by an ID.
     ///
-    subscript(id: ObjectID) -> DesignObject { get }
+    subscript(id: ObjectID) -> ObjectSnapshot { get }
     
     
     /// Get a list of broken references.
@@ -48,7 +48,7 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
     
     /// Get objects of given type.
     ///
-    func filter(type: ObjectType) -> [DesignObject]
+    func filter(type: ObjectType) -> [ObjectSnapshot]
     
     /// Get distinct values of an attribute.
     func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant>
@@ -72,7 +72,7 @@ public protocol Frame: GraphProtocol where Node == DesignObject, Edge == EdgeObj
 // MARK: - Default Implementations
 
 extension Frame {
-    public subscript(id: ObjectID) -> DesignObject {
+    public subscript(id: ObjectID) -> ObjectSnapshot {
         get {
             self.object(id)
         }
@@ -93,8 +93,8 @@ extension Frame {
     ///
     /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshot/children``.
-    /// - The object's parent – ``ObjectSnapshot/parent``.
+    /// - All children – ``ObjectSnapshotProtocol/children``.
+    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
     ///
     /// - Note: This is semi-internal function to validate correct workings
     ///   of the system. You should rarely use it. Typical scenario when you
@@ -136,12 +136,12 @@ extension Frame {
     ///
     /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshot/children``.
-    /// - The object's parent – ``ObjectSnapshot/parent``.
+    /// - All children – ``ObjectSnapshotProtocol/children``.
+    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
     ///
     /// - SeeAlso: ``Frame/brokenReferences()``
     ///
-    public func brokenReferences(snapshot: DesignObject) -> [ObjectID] {
+    public func brokenReferences(snapshot: ObjectSnapshot) -> [ObjectID] {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame
         //
         var broken: Set<ObjectID> = []
@@ -203,7 +203,7 @@ extension Frame {
                     throw .brokenChild
                 }
                 let child = self[childID]
-                guard child.parent == checked.id else {
+                guard child.parent == checked.objectID else {
                     throw .parentChildMismatch
                 }
             }
@@ -213,10 +213,10 @@ extension Frame {
                     throw .brokenParent
                 }
                 let parent = self[parentID]
-                guard parent.children.contains(checked.id) else {
+                guard parent.children.contains(checked.objectID) else {
                     throw .parentChildMismatch
                 }
-                parents.append((parent: parentID, child: checked.id))
+                parents.append((parent: parentID, child: checked.objectID))
             }
         }
         
@@ -250,7 +250,7 @@ extension Frame {
     /// This method is used to find singleton objects, for example
     /// design info object.
     ///
-    public func first(type: ObjectType) -> DesignObject? {
+    public func first(type: ObjectType) -> ObjectSnapshot? {
         return snapshots.first { $0.type === type }
     }
     
@@ -259,7 +259,7 @@ extension Frame {
     /// - Note: The type is compared for identity, that means that the snapshots
     /// must have exactly the provided object type instance associated.
     ///
-    public func filter(type: ObjectType) -> [DesignObject] {
+    public func filter(type: ObjectType) -> [ObjectSnapshot] {
         return snapshots.filter { $0.type === type }
     }
     
@@ -271,7 +271,7 @@ extension Frame {
     ///   matching the filter must have exactly the provided trait associated
     ///   with the object's type.
     ///
-    public func filter(trait: Trait) -> [DesignObject] {
+    public func filter(trait: Trait) -> [ObjectSnapshot] {
         return snapshots.filter {
             $0.type.traits.contains { $0 === trait }
         }
@@ -279,7 +279,7 @@ extension Frame {
     
     /// Filter objects by a closure.
     ///
-    public func filter(_ test: (DesignObject) -> Bool) -> [DesignObject] {
+    public func filter(_ test: (ObjectSnapshot) -> Bool) -> [ObjectSnapshot] {
         return snapshots.filter(test)
     }
     
@@ -288,7 +288,7 @@ extension Frame {
     /// If multiple objects satisfy the condition, then which one is
     /// returned is undefined.
     ///
-    public func first(where predicate: (DesignObject) -> Bool) -> DesignObject? {
+    public func first(where predicate: (ObjectSnapshot) -> Bool) -> ObjectSnapshot? {
         return snapshots.first(where: predicate)
     }
     
@@ -299,7 +299,7 @@ extension Frame {
     ///
     /// Use this only for traits of singletons.
     ///
-    public func first(trait: Trait) -> DesignObject? {
+    public func first(trait: Trait) -> ObjectSnapshot? {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
     
@@ -314,7 +314,7 @@ extension Frame {
         }
     }
     
-    public func filter(_ predicate: Predicate) -> [DesignObject] {
+    public func filter(_ predicate: Predicate) -> [ObjectSnapshot] {
         return snapshots.filter {
             predicate.match($0, in: self)
         }
@@ -375,7 +375,7 @@ extension Frame {
     }
     
     public var nodeIDs: [NodeID] {
-        return self.snapshots.filter { $0.structure.type == .node }.map { $0.id }
+        return self.snapshots.filter { $0.structure.type == .node }.map { $0.objectID }
     }
     
     public var edgeIDs: [EdgeID] {
@@ -395,7 +395,7 @@ extension Frame {
     }
 
     /// Get list of objects that have no parent.
-    public func top() -> [DesignObject] {
+    public func top() -> [ObjectSnapshot] {
         self.filter { $0.parent == nil }
     }
 }
@@ -416,7 +416,7 @@ extension Frame {
     ///   with the given name exists.
     ///
     ///
-    public func object(named name: String) -> DesignObject? {
+    public func object(named name: String) -> ObjectSnapshot? {
         return snapshots.first { $0.name == name }
     }
     
@@ -430,7 +430,7 @@ extension Frame {
     /// calls to the method with the same name do not guarantee that
     /// the same object will be returned if multiple objects have the same name.
     ///
-    public func object(stringReference: String) -> DesignObject? {
+    public func object(stringReference: String) -> ObjectSnapshot? {
         if let id = ObjectID(stringReference), contains(id) {
             return self[id]
         }

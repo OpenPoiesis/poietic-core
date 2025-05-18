@@ -6,7 +6,7 @@
 //
 
 public struct ValidatedFrame: Frame {
-    public typealias Snapshot = DesignObject
+    public typealias Snapshot = ObjectSnapshot
 
     /// Stable frame that was validated.
     public let wrapped: DesignFrame
@@ -26,7 +26,7 @@ public struct ValidatedFrame: Frame {
     public var id: FrameID { wrapped.id }
     
     @inlinable
-    public var snapshots: [DesignObject] { wrapped.snapshots }
+    public var snapshots: [ObjectSnapshot] { wrapped.snapshots }
     
     @inlinable
     public func contains(_ id: ObjectID) -> Bool {
@@ -34,7 +34,7 @@ public struct ValidatedFrame: Frame {
     }
     
     @inlinable
-    public func object(_ id: ObjectID) -> DesignObject {
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
         wrapped.object(id)
     }
     

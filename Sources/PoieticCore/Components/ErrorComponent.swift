@@ -25,7 +25,7 @@ public struct IssueListComponent: Component {
     }
 }
 
-//extension ObjectSnapshot {
+//extension ObjectSnapshotProtocol {
 //    /// An error is appended to the list of errors in the ``IssueListComponent``
 //    /// of the specified node. If the component is not present in the node
 //    /// then a new one will be created.

@@ -11,18 +11,18 @@ import Testing
 @Suite struct PredicateTest {
     let design: Design
     let frame: DesignFrame
-    let empty: DesignObject
-    let textObject: DesignObject
+    let empty: ObjectSnapshot
+    let textObject: ObjectSnapshot
 
     init() throws {
         design = Design()
         
-        empty = DesignObject(id: design.identityManager.createAndUse(type: .object),
-                             snapshotID: design.identityManager.createAndUse(type: .snapshot),
-                             type: TestType)
-        textObject = DesignObject(id: design.identityManager.createAndUse(type: .object),
-                                  snapshotID: design.identityManager.createAndUse(type: .object),
-                                  type: TestTypeWithDefault)
+        empty = ObjectSnapshot(type: TestType,
+                               snapshotID: design.identityManager.createAndUse(type: .snapshot),
+                               objectID: design.identityManager.createAndUse(type: .object))
+        textObject = ObjectSnapshot(type: TestTypeWithDefault,
+                                    snapshotID: design.identityManager.createAndUse(type: .object),
+                                    objectID: design.identityManager.createAndUse(type: .object))
         
         frame = DesignFrame(design: design,
                             id: design.identityManager.createAndUse(type: .frame),
