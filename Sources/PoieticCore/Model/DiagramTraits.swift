@@ -59,7 +59,7 @@ extension ObjectType {
 
 }
 
-extension ObjectSnapshotProtocol {
+extension ObjectProtocol {
     /// Get position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is

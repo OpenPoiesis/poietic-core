@@ -24,16 +24,16 @@ public protocol Frame: GraphProtocol where Node == ObjectSnapshot, Edge == EdgeO
     ///
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
     ///
-    func contains(_ id: ObjectID) -> Bool
+    func contains(_ objectID: ObjectID) -> Bool
     
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    func object(_ id: ObjectID) -> ObjectSnapshot
+    func object(_ objectID: ObjectID) -> ObjectSnapshot
     
     /// Get an object by an ID.
     ///
-    subscript(id: ObjectID) -> ObjectSnapshot { get }
+    subscript(objectID: ObjectID) -> ObjectSnapshot { get }
     
     
     /// Get a list of broken references.

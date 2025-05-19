@@ -170,6 +170,7 @@ import Testing
         let trans = design.createFrame(deriving: original)
         #expect(trans.contains(snapshotID: originalNode.snapshotID))
         trans.removeCascading(originalNode.objectID)
+        #expect(trans.snapshots.isEmpty)
         #expect(!trans.contains(snapshotID: originalNode.snapshotID))
 
         let newNode = trans.create(TestNodeType)
@@ -205,6 +206,9 @@ import Testing
         try design.accept(original)
         
         let derived = design.createFrame(deriving: design.currentFrame)
+
+        #expect(derived.contains(snapshotID: originalSnap.snapshotID))
+
         let derivedSnap = derived.mutate(originalSnap.objectID)
         #expect(derived.snapshots.count == 1)
 

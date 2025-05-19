@@ -9,16 +9,27 @@
 @usableFromInline
 package struct _ObjectBody {
     // Identity
-    public let id: ObjectID
-    public let type: ObjectType
+    @usableFromInline
+    package let id: ObjectID
+    @usableFromInline
+    package let type: ObjectType
     
     // State
-    public var structure: Structure
-    public var parent: ObjectID?
-    public var children: ChildrenSet
-    public var attributes: [String:Variant]
+    @usableFromInline
+    package var structure: Structure
+    @usableFromInline
+    package var parent: ObjectID?
+    @usableFromInline
+    package var children: ChildrenSet
+    @usableFromInline
+    package var attributes: [String:Variant]
     
-    public init(id: ObjectID,
+    package subscript(attributeKey: String) -> Variant? {
+        attributes[attributeKey]
+    }
+    
+    
+    package init(id: ObjectID,
                 type: ObjectType,
                 structure: Structure,
                 parent: ObjectID?,
@@ -31,6 +42,7 @@ package struct _ObjectBody {
         self.attributes = attributes
         self.children = ChildrenSet(children)
     }
+    
 }
 
 /// Version snapshot of a design object.
@@ -61,14 +73,25 @@ package struct _ObjectBody {
 /// ```
 /// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
-public final class ObjectSnapshot: ObjectSnapshotProtocol, CustomStringConvertible, Identifiable {
-    // FIXME: [WIP] --- THIS IS IMPORTANT ---
-    public struct _SnapshotIDSentinel { let value = 0 }
-//    public let id: _SnapshotIDSentinel = _SnapshotIDSentinel()
-    public var id: ObjectID { self._body.id }
-    // Snapshot ID
-    @usableFromInline
-    let _id: EntityID
+public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol {
+    /// Unique identifier of the object version snapshot within the design.
+    ///
+    /// The ``snapshotID`` represents a concrete version of an object. An
+    /// object can have multiple versions, which all share the same identity
+    /// of object ``id``.
+    ///
+    /// Typically when working with the design and design frames, one does not
+    /// need to use the ``snapshotID``. It is used only when considering
+    /// different versions of objects.
+    ///
+    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
+    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
+    ///
+    /// - SeeAlso: ``id``,
+    ///    ``TransientFrame/mutate(_:)``
+    ///
+    public let id: EntityID
+
     @usableFromInline
     let _body: _ObjectBody
     public var components: ComponentSet
@@ -98,7 +121,7 @@ public final class ObjectSnapshot: ObjectSnapshotProtocol, CustomStringConvertib
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
 
-        self._id = snapshotID
+        self.id = snapshotID
         self._body = _ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
@@ -109,13 +132,13 @@ public final class ObjectSnapshot: ObjectSnapshotProtocol, CustomStringConvertib
     }
     
     init(id: EntityID, body: _ObjectBody, components: ComponentSet) {
-        self._id = id
+        self.id = id
         self._body = body
         self.components = components
     }
     
     @inlinable public var objectID: ObjectID { _body.id }
-    @inlinable public var snapshotID: EntityID { self._id }
+    @inlinable public var snapshotID: EntityID { self.id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure { _body.structure }
     @inlinable public var parent: ObjectID? { _body.parent }
@@ -130,13 +153,13 @@ public final class ObjectSnapshot: ObjectSnapshotProtocol, CustomStringConvertib
             ($0.name, self[$0.name] ?? "nil")
         }.map { "\($0.0)=\($0.1)"}
         .joined(separator: ",")
-        return "\(structuralName)(oid:\(_body.id), sid:\(self._id), type:\(type.name), attrs:\(attrs)"
+        return "\(structuralName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs)"
     }
     
     /// Prettier description of the object.
     ///
     public var prettyDescription: String {
-        let name: String = self.name ?? "(unnamed)"
+        let name: String = name ?? "(unnamed)"
         return "\(_body.id) {\(type.name), \(structure.description), \(name))}"
     }
     

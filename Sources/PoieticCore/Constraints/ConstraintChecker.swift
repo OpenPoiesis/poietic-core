@@ -5,53 +5,6 @@
 //  Created by Stefan Urbanek on 18/09/2024.
 //
 
-extension ObjectSnapshotProtocol {
-    
-    /// Checks object's conformance to a trait.
-    ///
-    /// The object conforms to a trait if the following is true:
-    ///
-    /// - Object has values for all traits required attributes
-    /// - All attributes from the trait that are present in the object
-    ///   must be convertible to the type of the corresponding trait attribute.
-    ///
-    /// For each non-met requirement an error is included in the result.
-    ///
-    /// - Parameters:
-    ///     - `trait`: Trait to be used for checking
-    ///
-    /// - Throws: ``ObjectTypeErrorCollection`` when the object does not conform
-    ///   to the trait.
-    ///
-    public func check(conformsTo trait: Trait) throws (ObjectTypeErrorCollection) {
-        var errors:[ObjectTypeError] = []
-        
-        for attr in trait.attributes {
-            if let value = self[attr.name] {
-
-                // For type validation to work correctly we must make sure that
-                // the types are persisted and restored.
-                //
-                if !value.isRepresentable(as: attr.type) {
-                    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
-                    errors.append(error)
-                }
-            }
-            else if attr.optional {
-                continue
-            }
-            else {
-                let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
-                errors.append(error)
-            }
-        }
-        
-        guard errors.isEmpty else {
-            throw ObjectTypeErrorCollection(errors)
-        }
-    }
-}
-
 /// An object that checks constraints, including object types, of a frame.
 ///
 /// Constraint checker is used to validate a frame whether it conforms to a given metamodel.
@@ -77,6 +30,50 @@ public struct ConstraintChecker {
         self.metamodel = metamodel
     }
     
+    /// Checks object's conformance to a trait.
+    ///
+    /// The object conforms to a trait if the following is true:
+    ///
+    /// - Object has values for all traits required attributes
+    /// - All attributes from the trait that are present in the object
+    ///   must be convertible to the type of the corresponding trait attribute.
+    ///
+    /// For each non-met requirement an error is included in the result.
+    ///
+    /// - Parameters:
+    ///     - `trait`: Trait to be used for checking
+    ///
+    /// - Throws: ``ObjectTypeErrorCollection`` when the object does not conform
+    ///   to the trait.
+    ///
+    public func check(_ snapshot: ObjectSnapshot, conformsTo trait: Trait) throws (ObjectTypeErrorCollection) {
+        var errors:[ObjectTypeError] = []
+        
+        for attr in trait.attributes {
+            if let value = snapshot[attr.name] {
+
+                // For type validation to work correctly we must make sure that
+                // the types are persisted and restored.
+                //
+                if !value.isRepresentable(as: attr.type) {
+                    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
+                    errors.append(error)
+                }
+            }
+            else if attr.optional {
+                continue
+            }
+            else {
+                let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
+                errors.append(error)
+            }
+        }
+        
+        guard errors.isEmpty else {
+            throw ObjectTypeErrorCollection(errors)
+        }
+    }
+
     /// Check a frame for constraints violations and object type conformance.
     ///
     /// The function first checks that:
@@ -97,28 +94,28 @@ public struct ConstraintChecker {
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
         // Check types
         // ------------------------------------------------------------
-        for object in frame.snapshots {
-            guard let type = metamodel.objectType(name: object.type.name) else {
-                let error = ObjectTypeError.unknownType(object.type.name)
-                errors[object.objectID, default: []].append(error)
+        for snapshot in frame.snapshots {
+            guard let type = metamodel.objectType(name: snapshot.type.name) else {
+                let error = ObjectTypeError.unknownType(snapshot.type.name)
+                errors[snapshot.objectID, default: []].append(error)
                 continue
             }
             
             for trait in type.traits {
                 do {
-                    try object.check(conformsTo: trait)
+                    try check(snapshot, conformsTo: trait)
                 }
                 catch {
-                    errors[object.objectID, default: []].append(contentsOf: error.errors)
+                    errors[snapshot.objectID, default: []].append(contentsOf: error.errors)
                 }
             }
             
-            if let edge = EdgeObject(object, in: frame) {
+            if let edge = EdgeObject(snapshot, in: frame) {
                 do {
                     try validate(edge: edge, in: frame)
                 }
                 catch {
-                    edgeViolations[object.objectID, default: []].append(error)
+                    edgeViolations[snapshot.objectID, default: []].append(error)
                 }
             }
         }

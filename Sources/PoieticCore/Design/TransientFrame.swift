@@ -119,8 +119,8 @@ public final class TransientFrame: Frame {
     
     /// Returns `true` if the frame contains an object with given object ID.
     ///
-    public func contains(_ id: ObjectID) -> Bool {
-        _snapshots[id] != nil
+    public func contains(_ objectID: ObjectID) -> Bool {
+        _snapshots[objectID] != nil
     }
     public func contains(snapshotID: ObjectID) -> Bool {
         _snapshotIDs.contains(snapshotID)
@@ -421,6 +421,8 @@ public final class TransientFrame: Frame {
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
                      "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
+        precondition(!_snapshotIDs.contains(snapshot.snapshotID),
+                     "Inserting duplicate snapshot ID \(snapshot.snapshotID) to frame \(id)")
         precondition(_snapshots.allSatisfy { $0.snapshotID != snapshot.snapshotID },
                      "Inserting duplicate snapshot ID \(snapshot.objectID) to frame \(id)")
         
@@ -448,18 +450,18 @@ public final class TransientFrame: Frame {
     /// - Precondition: The frame state must be ``State/transient``.
     ///
     @discardableResult
-    public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
+    public func removeCascading(_ objectID: ObjectID) -> Set<ObjectID> {
         precondition(state == .transient)
-        precondition(contains(id), "Unknown object ID \(id) in frame \(self.id)")
+        precondition(contains(objectID), "Unknown object ID \(objectID) in frame \(self.id)")
         
         var removed: Set<ObjectID> = Set()
-        var scheduled: Set<ObjectID> = [id]
+        var scheduled: Set<ObjectID> = [objectID]
         
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
-            // FIXME: We should do it without asStable()
             let garbage = _snapshots[garbageID]!
             _snapshots.remove(garbageID)
+            _snapshotIDs.remove(garbage.snapshotID)
             _removedObjects.insert(garbageID)
             
             if garbage.isOriginal {
@@ -537,6 +539,8 @@ public final class TransientFrame: Frame {
             let box = _TransientSnapshotBox(derived)
             _snapshots.replace(box)
             _reservations.insert(derivedSnapshotID)
+            _snapshotIDs.remove(original.snapshotID)
+            _snapshotIDs.insert(derivedSnapshotID)
             return derived
         }
     }

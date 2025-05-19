@@ -107,8 +107,7 @@ public typealias AttributeKey = String
 /// ``structure`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
-//public protocol ObjectSnapshotProtocol: Identifiable where ID == ObjectID {
-public protocol ObjectSnapshotProtocol {
+public protocol ObjectProtocol: Identifiable {
     /// Primary object identity.
     ///
     /// The object ID defines the main identity of an object within a design.
@@ -129,24 +128,6 @@ public protocol ObjectSnapshotProtocol {
     ///    ``Frame/contains(_:)``,
     ///
     var objectID: ObjectID { get }
-    
-    /// Unique identifier of the object version snapshot within the design.
-    ///
-    /// The ``snapshotID`` represents a concrete version of an object. An
-    /// object can have multiple versions, which all share the same identity
-    /// of object ``id``.
-    ///
-    /// Typically when working with the design and design frames, one does not
-    /// need to use the ``snapshotID``. It is used only when considering
-    /// different versions of objects.
-    ///
-    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
-    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
-    ///
-    /// - SeeAlso: ``id``,
-    ///    ``TransientFrame/mutate(_:)``
-    ///
-    var snapshotID: EntityID { get }
     
     
     /// Object type from the problem domain described by a metamodel.
@@ -215,7 +196,7 @@ public protocol ObjectSnapshotProtocol {
     /// - Note: The components are not persisted. They are also not passed
     ///   through foreign interfaces unless a custom functionality is provided.
     ///
-    var components: ComponentSet { get }
+//    var components: ComponentSet { get }
     
     /// Name of an object.
     ///
@@ -238,10 +219,11 @@ public protocol ObjectSnapshotProtocol {
     
     /// Get a runtime component.
     ///
-    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
+    // FIXME: [WIP] Re-introduce this
+    //    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 }
 
-extension ObjectSnapshotProtocol {
+extension ObjectProtocol {
     /// Get object name if the object has an attribute `name`.
     ///
     /// This is provided for convenience.
@@ -250,10 +232,7 @@ extension ObjectSnapshotProtocol {
     ///   otherwise `nil` is returned.
     ///
     public var name: String? {
-        guard let value = self["name"] else {
-            return nil
-        }
-        guard case .atom(let atom) = value else {
+        guard let value = self["name"], case .atom(let atom) = value else {
             return nil
         }
 
@@ -263,26 +242,4 @@ extension ObjectSnapshotProtocol {
         default: return nil
         }
     }
-    
-    package var unsafeOrigin: ObjectID {
-        guard case .edge(let origin, _) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return origin
-    }
-
-    package var unsafeTarget: ObjectID {
-        guard case .edge(_, let target) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return target
-    }
-
-    package var unsafeEdgeEndpoints: (ObjectID, ObjectID) {
-        guard case .edge(let origin, let target) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return (origin, target)
-    }
 }
-

@@ -14,6 +14,9 @@ public let ReservedAttributeNames = [
 ]
 
 class _TransientSnapshotBox: Identifiable {
+    // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
+    /// Object ID
+    ///
     var id: ObjectID
     
     enum Content {
@@ -109,10 +112,11 @@ class _TransientSnapshotBox: Identifiable {
 ///
 /// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
-public class MutableObject: ObjectSnapshotProtocol {
+public class MutableObject: ObjectProtocol {
+    
     // TODO: [WIP] Rename to "TransientSnapshot" or "MutableSnapshot"
     @usableFromInline
-    package var _id: ObjectID
+    package var snapshotID: ObjectID
     @usableFromInline
     package var _body: _ObjectBody
     public var components: ComponentSet
@@ -135,7 +139,7 @@ public class MutableObject: ObjectSnapshotProtocol {
         precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
                      "The attributes must not contain any reserved attribute")
         
-        self._id = snapshotID
+        self.snapshotID = snapshotID
         self._body = _ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
@@ -148,20 +152,14 @@ public class MutableObject: ObjectSnapshotProtocol {
     }
 
     init(original: ObjectSnapshot, snapshotID: EntityID) {
-        self._id = original.snapshotID
-        self._body = _ObjectBody(id: original.objectID,
-                                 type: original.type,
-                                 structure: original.structure,
-                                 parent: original.parent,
-                                 children: Array(original.children),
-                                 attributes: original.attributes)
+        self.snapshotID = snapshotID
+        self._body = original._body
         self.components = original.components
         self.changedAttributes = Set()
         self.hierarchyChanged = false
     }
    
     @inlinable public var objectID: ObjectID { _body.id }
-    @inlinable public var snapshotID: ObjectID { self._id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure {
         get { _body.structure }
