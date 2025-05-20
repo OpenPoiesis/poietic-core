@@ -10,7 +10,10 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``DesignFrame``
 ///
-public protocol Frame: GraphProtocol where Node == ObjectSnapshot, Edge == EdgeObject, EdgeID == ObjectID {
+public protocol Frame:
+    GraphProtocol where NodeKey == ObjectID,
+                        EdgeKey == ObjectID,
+                        Edge == EdgeObject {
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -303,6 +306,7 @@ extension Frame {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
     
+    // FIXME: [WIP] See what filters are used, consider adding "type" edges, maybe index later
     public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
         return snapshots.compactMap {
             if let edge = Edge($0, in: self), block(edge) {
@@ -333,7 +337,7 @@ extension Frame {
     ///
     /// - Precondition: The object must exist and must be a node.
     ///
-    public func node(_ id: ObjectID) -> Node {
+    public func node(_ id: ObjectID) -> ObjectSnapshot {
         let object = self[id]
         guard object.structure.type == .node else {
             preconditionFailure("Not a node: \(id)")
@@ -374,23 +378,21 @@ extension Frame {
         }
     }
     
-    public var nodeIDs: [NodeID] {
+    public var nodeKeys: [ObjectID] {
         return self.snapshots.filter { $0.structure.type == .node }.map { $0.objectID }
     }
     
-    public var edgeIDs: [EdgeID] {
-        return self.snapshots.compactMap {
-            Edge($0, in: self)
-        }.map { $0.id }
+    public var edgeKeys: [ObjectID] {
+        return self.snapshots.filter { $0.structure.type == .edge }.map { $0.objectID }
     }
 
-    public var nodes: [Node] {
-        return self.snapshots.filter { $0.structure.type == .node }
-    }
+//    public var nodes: [Node] {
+//        return self.snapshots.filter { $0.structure.type == .node }
+//    }
     
-    public var edges: [Edge] {
+    public var edges: [EdgeObject] {
         return self.snapshots.compactMap {
-            Edge($0, in: self)
+            EdgeObject($0, in: self)
         }
     }
 

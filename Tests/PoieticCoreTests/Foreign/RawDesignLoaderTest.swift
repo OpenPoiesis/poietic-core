@@ -320,7 +320,7 @@ struct RawDesignLoaderTest {
         let snapshot = try loader.create(rawNamed, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
         #expect(try snapshot.attributes["name"]?.stringValue() == "thing")
         let snapshotNot = try loader.create(rawNotNamed, id: ObjectID(20), snapshotID: ObjectID(101), reservation: reservation)
-        #expect(try snapshotNot.attributes["name"] == nil)
+        #expect(snapshotNot.attributes["name"] == nil)
     }
     
     // MARK: - Load Into -

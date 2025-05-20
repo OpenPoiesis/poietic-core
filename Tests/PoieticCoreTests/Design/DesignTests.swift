@@ -91,7 +91,7 @@ import Testing
                                          structure: .orderedSet(a.objectID, []))
         let order2 = originalFrame.create(TestOrderType,
                                           structure: .orderedSet(b.objectID, [c.objectID]))
-        let original = try design.accept(originalFrame)
+        try design.accept(originalFrame)
         
         let trans = design.createFrame(deriving: design.currentFrame)
         
@@ -164,7 +164,7 @@ import Testing
         let a = trans.create(TestType)
         let b = trans.create(TestType)
 
-        let frame = try design.accept(trans)
+        try design.accept(trans)
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.contains(snapshot: b.snapshotID))
         

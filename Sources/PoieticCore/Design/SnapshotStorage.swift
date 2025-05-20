@@ -18,6 +18,7 @@
 ///
 //typealias SnapshotStorage = RefCountedStorage<DesignObject>
 
+// FIXME: [WIP] Remove this once happy (requires rewiring tests)
 public class SnapshotStorage {
     public struct SnapshotReference {
         public let snapshot: ObjectSnapshot
@@ -176,19 +177,12 @@ public class EntityTable<E> where E:Identifiable {
         _lookup[id] != nil
     }
     
-    /// Get a snapshot by snapshot ID, if it exists.
-    ///
     @inlinable
-    public func snapshot(_ id: Element.ID) -> Element? {
+    public subscript(_ id: Element.ID) -> Element? {
         guard let index = _lookup[id] else {
             return nil
         }
         return _items[index].element
-    }
-    
-    @inlinable
-    public subscript(_ id: Element.ID) -> Element? {
-        return snapshot(id)
     }
 
     public func referenceCount(_ id: Element.ID) -> Int? {
@@ -238,9 +232,11 @@ public class EntityTable<E> where E:Identifiable {
     /// Reduce reference count of an object. If the reference count reaches zero, the object is
     /// removed from the store.
     ///
+    /// - Returns: `true` if the object was also removed, otherwise `false`.
     /// - Precondition: given ID must exist in the table.
     ///
-    public func release(_ id: Element.ID) {
+    @discardableResult
+    public func release(_ id: Element.ID) -> Bool {
         guard let index = _lookup[id] else {
             preconditionFailure("Unknown ID \(id)")
         }
@@ -250,6 +246,10 @@ public class EntityTable<E> where E:Identifiable {
         if _items[index].refCount == 0 {
             _items.remove(at: index)
             _lookup[id] = nil
+            return true
+        }
+        else {
+            return false
         }
     }
     

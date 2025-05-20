@@ -91,10 +91,13 @@ public final class TransientFrame: Frame {
     
     // FIXME: Order is not preserved, use SnapshotStorage or something similar
     // validate also snapshot IDs
+    @usableFromInline
     var _snapshots: EntityTable<_TransientSnapshotBox>
+    @usableFromInline
     var _snapshotIDs: Set<ObjectID>
     
 //    var _snapshots: TransientSnapshotStorage
+    @usableFromInline
     var _removedObjects: Set<ObjectID>
     var _reservations: Set<ObjectID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
@@ -460,9 +463,7 @@ public final class TransientFrame: Frame {
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
             let garbage = _snapshots[garbageID]!
-            _snapshots.remove(garbageID)
-            _snapshotIDs.remove(garbage.snapshotID)
-            _removedObjects.insert(garbageID)
+            _remove(snapshotID: garbage.snapshotID, objectID: garbage.objectID)
             
             if garbage.isOriginal {
                 // FIXME: [WIP] !!!IMPORTANT NOT IMPLEMENTED!!!
@@ -506,7 +507,12 @@ public final class TransientFrame: Frame {
         }
         return removed
     }
-    
+    @inlinable
+    func _remove(snapshotID: ObjectID, objectID: ObjectID) {
+        _snapshots.remove(objectID)
+        _snapshotIDs.remove(snapshotID)
+        _removedObjects.insert(objectID)
+    }
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is

@@ -11,6 +11,7 @@
 /// - Requires: All `ObjectID`s in `snapshots` must be valid (caller ensures referential integrity).
 ///
 class StructuralSnapshotIndex {
+    // FIXME: [WIP] Replace with property graph
     internal let idMap: [ObjectID:ObjectSnapshot]
     internal let outgoingEdges: [ObjectID:[EdgeObject]]
     internal let incomingEdges: [ObjectID:[EdgeObject]]
@@ -45,7 +46,7 @@ class StructuralSnapshotIndex {
             case .edge(let origin, let target):
                 let edge = EdgeObject(snapshot, origin: map[origin]!, target: map[target]!)
                 edges.append(edge)
-                edgeIDs.append(edge.id)
+                edgeIDs.append(edge.key)
                 outgoingEdges[origin, default: []].append(edge)
                 incomingEdges[target, default: []].append(edge)
             case .orderedSet(let owner, let items):

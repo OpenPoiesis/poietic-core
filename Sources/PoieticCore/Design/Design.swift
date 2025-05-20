@@ -121,16 +121,13 @@ public class Design {
     public let identityManager: IdentityManager
 
     var _snapshots: EntityTable<ObjectSnapshot>
-    var _frames: EntityTable<DesignFrame>
+    var _frames: EntityTable<StableFrame>
     // var _objects: EntityTable<DesignObject>
-    
-//    var _snapshots: SnapshotStorage
-//    var _objetcts: SnapshotStorage
-
-    var _namedFrames: [String: DesignFrame]
-    public var namedFrames: [String: DesignFrame] { _namedFrames }
-    
     var _transientFrames: [FrameID: TransientFrame]
+
+    var _namedFrames: [String: StableFrame]
+    public var namedFrames: [String: StableFrame] { _namedFrames }
+    
     
     /// Chronological list of frame IDs.
     ///
@@ -152,7 +149,7 @@ public class Design {
     /// - Note: It is a programming error to get current frame when there is no
     ///         history.
     ///
-    public var currentFrame: DesignFrame? {
+    public var currentFrame: StableFrame? {
         guard let currentFrameID else {
             return nil
         }
@@ -216,29 +213,32 @@ public class Design {
         return _snapshots.contains(snapshotID)
     }
     
+    // TODO: [WIP] Used only in tests
     public func referenceCount(_ snapshotID: ObjectID) -> Int? {
         return _snapshots.referenceCount(snapshotID)
     }
     
-    public func contains(stableFrame frameID: ObjectID) -> Bool {
-        return _frames[frameID] != nil
-    }
-
     // MARK: Frames
     
     /// List of all stable frames in the design.
     ///
-    public var frames: some Collection<DesignFrame> {
+    public var frames: some Collection<StableFrame> {
         return _frames.items
     }
     
     /// Get a stable frame with given ID.
     ///
-    /// - Returns: A frame ID if the design contains a stable frame with given
-    ///   ID or `nil` when there is no such stable frame.
+    /// - Returns: A stable frame, if it is contained in the design and is stable (not transient),
+    ///   otherwise `nil`.
     ///
-    public func frame(_ id: FrameID) -> DesignFrame? {
+    public func frame(_ id: FrameID) -> StableFrame? {
         return _frames[id]
+    }
+
+    /// Test whether the design contains a stable frame with given ID.
+    ///
+    public func containsFrame(_ id: FrameID) -> Bool {
+        return _frames[id] != nil
     }
     
     /// Get a frame from the list of named frames.
@@ -247,18 +247,10 @@ public class Design {
     ///
     /// - SeeAlso: ``accept(_:replacingName:)``
     ///
-    public func frame(name: String) -> DesignFrame? {
+    public func frame(name: String) -> StableFrame? {
         return _namedFrames[name]
     }
 
-    
-    /// Test whether the design contains a stable frame with given ID.
-    ///
-    public func containsFrame(_ id: FrameID) -> Bool {
-        return _frames[id] != nil
-    }
-    
-    
     /// Create a new frame or derive a frame from an existing frame.
     ///
     /// - Parameters:
@@ -279,8 +271,9 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(deriving original: DesignFrame? = nil,
+    public func createFrame(deriving original: StableFrame? = nil,
                             id: FrameID? = nil) -> TransientFrame {
+        // TODO: [WIP] Throw some identity error here
         let actualID: ObjectID
         if let id {
             let success = identityManager.use(id, type: .frame)
@@ -320,6 +313,7 @@ public class Design {
             _frames.remove(id)
             
             for snapshot in frame.snapshots {
+                // FIXME: [WIP] Also release IDs
                 _snapshots.release(snapshot.snapshotID)
             }
             
@@ -393,7 +387,7 @@ public class Design {
     ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (StructuralIntegrityError) -> DesignFrame {
+    public func accept(_ frame: TransientFrame, appendHistory: Bool = true) throws (StructuralIntegrityError) -> StableFrame {
         let stableFrame = try _accept(frame)
 
         if appendHistory {
@@ -435,7 +429,7 @@ public class Design {
     /// - SeeAlso: ``frame(name:)``
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, replacingName name: String) throws (StructuralIntegrityError) -> DesignFrame {
+    public func accept(_ frame: TransientFrame, replacingName name: String) throws (StructuralIntegrityError) -> StableFrame {
         let old = _namedFrames[name]
         let stable = try _accept(frame)
 
@@ -446,7 +440,7 @@ public class Design {
         return stable
     }
 
-    internal func _accept(_ frame: TransientFrame) throws (StructuralIntegrityError) -> DesignFrame {
+    internal func _accept(_ frame: TransientFrame) throws (StructuralIntegrityError) -> StableFrame {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(!_frames.contains(frame.id), "Frame \(frame.id) already accepted")
@@ -456,12 +450,14 @@ public class Design {
         try frame.validateStructure()
         
         let snapshots: [ObjectSnapshot] = frame.snapshots
-        let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
+        let stableFrame = StableFrame(design: self, id: frame.id, snapshots: snapshots)
 
+        // TODO: [WIP] Retain IDs here too -> retain frame ID (from reservation)
         _frames.insertOrRetain(stableFrame)
         _transientFrames[frame.id] = nil
         
         for snapshot in snapshots {
+            // TODO: [WIP] Retain IDs here too -> retain snapshot and object ID (from reservation)
             _snapshots.insertOrRetain(snapshot)
         }
 
@@ -475,7 +471,7 @@ public class Design {
     ///
     /// - Precondition: The design must not contain a stable frame with given ID.
     ///
-    func _unsafeInsert(_ frame: DesignFrame) {
+    func _unsafeInsert(_ frame: StableFrame) {
         _frames.insert(frame)
         for snapshot in frame.snapshots {
             _snapshots.insertOrRetain(snapshot)
@@ -483,7 +479,7 @@ public class Design {
     }
     
     @discardableResult
-    public func validate(_ frame: DesignFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
+    public func validate(_ frame: StableFrame, metamodel: Metamodel? = nil) throws (FrameValidationError) -> ValidatedFrame {
         precondition(frame.design === self)
         precondition(_frames.contains(frame.id))
         

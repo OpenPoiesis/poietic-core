@@ -488,13 +488,13 @@ public class DesignLoader {
               frames rawFrames: [RawFrame],
               snapshots: SnapshotStorage,
               reservation: borrowing IdentityReservation) throws (DesignLoaderError) {
-        var frames: [DesignFrame] = []
+        var frames: [StableFrame] = []
         let usedSnapshots = SnapshotStorage()
         
         for (i, rawFrame) in rawFrames.enumerated() {
-            let frame: DesignFrame
+            let frame: StableFrame
             let frameID = reservation.frames[i]
-            guard !design.contains(stableFrame: frameID) else {
+            guard !design.containsFrame(frameID) else {
                 throw .duplicateFrame(frameID)
             }
             do {
@@ -528,7 +528,7 @@ public class DesignLoader {
                 id frameID: ObjectID,
                 snapshots: SnapshotStorage,
                 for design: Design,
-                reservation: borrowing IdentityReservation) throws (RawFrameError) -> DesignFrame {
+                reservation: borrowing IdentityReservation) throws (RawFrameError) -> StableFrame {
         var frameSnapshots: [ObjectSnapshot] = []
         for rawSnapshotID in rawFrame.snapshots {
             guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
@@ -539,7 +539,7 @@ public class DesignLoader {
             }
             frameSnapshots.append(snapshot)
         }
-        let frame = DesignFrame(design: design, id: frameID, snapshots: frameSnapshots)
+        let frame = StableFrame(design: design, id: frameID, snapshots: frameSnapshots)
         return frame
     }
     

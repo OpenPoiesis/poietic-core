@@ -13,10 +13,12 @@ public let ReservedAttributeNames = [
     "id", "snapshot_id", "origin", "target", "type", "parent", "structure",
 ]
 
+@usableFromInline
 class _TransientSnapshotBox: Identifiable {
     // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
     /// Object ID
     ///
+    @usableFromInline
     var id: ObjectID
     
     enum Content {
@@ -118,7 +120,7 @@ public class MutableObject: ObjectProtocol {
     @usableFromInline
     package var snapshotID: ObjectID
     @usableFromInline
-    package var _body: _ObjectBody
+    package var _body: ObjectBody
     public var components: ComponentSet
     
     public private(set) var hierarchyChanged: Bool
@@ -140,7 +142,7 @@ public class MutableObject: ObjectProtocol {
                      "The attributes must not contain any reserved attribute")
         
         self.snapshotID = snapshotID
-        self._body = _ObjectBody(id: objectID,
+        self._body = ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
                                  parent: parent,

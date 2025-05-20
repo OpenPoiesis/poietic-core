@@ -109,7 +109,7 @@ public class DesignExtractor {
     
     /// Create a raw frame from a design frame.
     ///
-    public func extract(_ frame: DesignFrame) -> RawFrame {
+    public func extract(_ frame: StableFrame) -> RawFrame {
         return RawFrame(
             id: .id(frame.id),
             snapshots: frame.snapshots.map { .id($0.snapshotID) }
@@ -131,7 +131,7 @@ public class DesignExtractor {
     /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the frame are ignored.
     ///
-    public func extractPruning(snapshots: [ObjectID], frame: DesignFrame) -> [RawSnapshot] {
+    public func extractPruning(snapshots: [ObjectID], frame: StableFrame) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(snapshots)
         var result: [RawSnapshot] = []
         

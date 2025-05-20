@@ -5,47 +5,20 @@
 //  Created by Stefan Urbanek on 11/11/2024.
 //
 
-
-@usableFromInline
-package struct _ObjectBody {
-    // Identity
-    @usableFromInline
-    package let id: ObjectID
-    @usableFromInline
-    package let type: ObjectType
+public final class LogicalObject: CustomStringConvertible, Identifiable {
+    public let id: EntityID
     
-    // State
-    @usableFromInline
-    package var structure: Structure
-    @usableFromInline
-    package var parent: ObjectID?
-    @usableFromInline
-    package var children: ChildrenSet
-    @usableFromInline
-    package var attributes: [String:Variant]
-    
-    package subscript(attributeKey: String) -> Variant? {
-        attributes[attributeKey]
-    }
-    
-    
-    package init(id: ObjectID,
-                type: ObjectType,
-                structure: Structure,
-                parent: ObjectID?,
-                children: [ObjectID],
-                attributes: [String:Variant]) {
+    public init(id: EntityID) {
         self.id = id
-        self.type = type
-        self.structure = structure
-        self.parent = parent
-        self.attributes = attributes
-        self.children = ChildrenSet(children)
     }
     
+    public var description: String { "object(\(id)" }
 }
 
+// FIXME: [WIP] Update documentation
 /// Version snapshot of a design object.
+///
+/// Immutable, point-in-time capture of an object's state.
 ///
 /// This is the primary design entity. Stable objects can be shared between
 /// multiple frames.
@@ -93,7 +66,15 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     public let id: EntityID
 
     @usableFromInline
-    let _body: _ObjectBody
+    let _body: ObjectBody
+    @inlinable public var objectID: ObjectID { _body.id }
+    @inlinable public var snapshotID: EntityID { self.id }
+    @inlinable public var type: ObjectType { _body.type }
+    @inlinable public var structure: Structure { _body.structure }
+    @inlinable public var parent: ObjectID? { _body.parent }
+    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var attributes: [String:Variant] { _body.attributes }
+
     public var components: ComponentSet
 
     /// Create a stable object.
@@ -122,7 +103,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
                 components: [any Component] = []) {
 
         self.id = snapshotID
-        self._body = _ObjectBody(id: objectID,
+        self._body = ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
                                  parent: parent,
@@ -131,20 +112,12 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         self.components = ComponentSet(components)
     }
     
-    init(id: EntityID, body: _ObjectBody, components: ComponentSet) {
+    init(id: EntityID, body: ObjectBody, components: ComponentSet) {
         self.id = id
         self._body = body
         self.components = components
     }
     
-    @inlinable public var objectID: ObjectID { _body.id }
-    @inlinable public var snapshotID: EntityID { self.id }
-    @inlinable public var type: ObjectType { _body.type }
-    @inlinable public var structure: Structure { _body.structure }
-    @inlinable public var parent: ObjectID? { _body.parent }
-    @inlinable public var children: ChildrenSet { _body.children }
-    @inlinable public var attributes: [String:Variant] { _body.attributes }
-
     /// Textual description of the object.
     ///
     public var description: String {
@@ -163,10 +136,9 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         return "\(_body.id) {\(type.name), \(structure.description), \(name))}"
     }
     
-
     @inlinable
     public subscript(attributeName: String) -> (Variant)? {
-        return attribute(forKey: attributeName)
+        _body.attributes[attributeName]
     }
     
     /// Get or set a component of given type, if present.
@@ -183,18 +155,5 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         set(component) {
             components[componentType] = component
         }
-    }
-    
-    
-    /// Get a value for an attribute.
-    ///
-    @inlinable
-    public func attribute(forKey key: String) -> Variant? {
-        _body.attributes[key]
-    }
-    
-    @inlinable
-    public var attributeKeys: [AttributeKey] {
-        return _body.attributes.keys.map { $0 }
     }
 }

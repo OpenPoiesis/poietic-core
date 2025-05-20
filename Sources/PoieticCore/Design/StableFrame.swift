@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class DesignFrame: Frame, Identifiable {
+public final class StableFrame: Frame, Identifiable {
     public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
@@ -87,7 +87,7 @@ public final class DesignFrame: Frame, Identifiable {
     public var nodeIDs: [ObjectID] {
         _index.nodeIDs
     }
-    public var nodes: [Node] {
+    public var nodes: [ObjectSnapshot] {
         return _index.nodes
     }
     public var edges: [Edge] {
@@ -98,11 +98,11 @@ public final class DesignFrame: Frame, Identifiable {
         _index.edgeIDs
     }
 
-    public func contains(node: NodeID) -> Bool {
+    public func contains(node: NodeKey) -> Bool {
         return _index.nodeIDs.contains(node)
     }
 
-    public func node(_ oid: NodeID) -> Node {
+    public func node(_ oid: NodeKey) -> ObjectSnapshot {
         guard let snapshot = _index.idMap[id] else {
             fatalError("Missing node: \(oid)")
         }
@@ -116,7 +116,7 @@ public final class DesignFrame: Frame, Identifiable {
         return _index.edgeIDs.contains(edge)
     }
 
-    public func edge(_ oid: EdgeID) -> Edge {
+    public func edge(_ oid: EdgeKey) -> Edge {
         guard let snapshot = _index.idMap[oid] else {
             fatalError("Missing edge: \(oid)")
         }
@@ -125,11 +125,11 @@ public final class DesignFrame: Frame, Identifiable {
         }
         return edge
     }
-    public func outgoing(_ origin: NodeID) -> [Edge] {
+    public func outgoing(_ origin: NodeKey) -> [Edge] {
         return _index.outgoingEdges[origin] ?? []
     }
     
-    public func incoming(_ target: NodeID) -> [Edge] {
+    public func incoming(_ target: NodeKey) -> [Edge] {
         return _index.incomingEdges[target] ?? []
     }
 }
