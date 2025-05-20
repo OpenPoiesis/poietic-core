@@ -10,24 +10,32 @@ import Testing
 
 @Suite struct ObjectTests {
     @Test func emtpyName() throws {
-        let object = DesignObject(id: ObjectID(1), snapshotID: ObjectID(1), type: TestType)
+        let object = ObjectSnapshot(type: TestType,
+                                    snapshotID: ObjectID(1),
+                                    objectID: ObjectID(1))
         #expect(object.name == nil)
     }
     @Test func nameAttribute() throws {
-        let object = DesignObject(id: ObjectID(1), snapshotID: ObjectID(1), type: TestType,
-                                  attributes: ["name": "test"])
+        let object = ObjectSnapshot(type: TestType,
+                                    snapshotID: ObjectID(1),
+                                    objectID: ObjectID(1),
+                                    attributes: ["name": "test"])
         #expect(object.name == "test")
     }
 
     @Test func nonStringName() throws {
-        let object = DesignObject(id: ObjectID(1), snapshotID: ObjectID(1), type: TestType,
-                                  attributes: ["name": 12345])
+        let object = ObjectSnapshot(type: TestType,
+                                    snapshotID: ObjectID(1),
+                                    objectID: ObjectID(1),
+                                    attributes: ["name": 12345])
         #expect(object.name == "12345")
     }
 
     @Test func invalidNonStringName() throws {
-        let object = DesignObject(id: ObjectID(1), snapshotID: ObjectID(1), type: TestType,
-                                  attributes: ["name": 3.14])
+        let object = ObjectSnapshot(type: TestType,
+                                    snapshotID: ObjectID(1),
+                                    objectID: ObjectID(1),
+                                    attributes: ["name": 3.14])
         #expect(object.name == nil)
     }
 

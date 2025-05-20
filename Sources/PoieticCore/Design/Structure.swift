@@ -29,7 +29,7 @@ public enum StructuralType: String, Equatable, Codable, Sendable {
 /// - Note: There are other structure types considered that have not been
 ///   implemented but might be in the future, such as _proxy_ or a _port_.
 ///
-/// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``
+/// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``
 ///
 public enum Structure: Equatable, CustomStringConvertible {
     /// The object has no relationships with other objects,

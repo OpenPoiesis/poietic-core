@@ -73,7 +73,7 @@ public struct EdgePredicate: Predicate, CustomStringConvertible {
         self.targetPredicate = target.map { IsTypePredicate($0) }
     }
     
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         guard let edge = EdgeObject(object, in: frame) else {
             return false
         }

@@ -372,7 +372,7 @@ public class DesignLoader {
         
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
             let (snapshotID, objectID) = reservation.snapshots[i]
-            let snapshot: DesignObject
+            let snapshot: ObjectSnapshot
             
             do {
                 snapshot = try create(rawSnapshot, id: objectID, snapshotID: snapshotID, reservation: reservation)
@@ -399,7 +399,7 @@ public class DesignLoader {
                        id objectID: ObjectID,
                        snapshotID: ObjectID,
                        reservation: borrowing IdentityReservation)
-    throws (RawSnapshotError) -> DesignObject {
+    throws (RawSnapshotError) -> ObjectSnapshot {
         // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
         // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
         guard let typeName = rawSnapshot.typeName else {
@@ -475,12 +475,12 @@ public class DesignLoader {
             }
         }
         
-        let snapshot = DesignObject(id: objectID,
-                                    snapshotID: snapshotID,
-                                    type: type,
-                                    structure: structure,
-                                    parent: parent,
-                                    attributes: attributes)
+        let snapshot = ObjectSnapshot(type: type,
+                                      snapshotID: snapshotID,
+                                      objectID: objectID,
+                                      structure: structure,
+                                      parent: parent,
+                                      attributes: attributes)
         return snapshot
     }
     
@@ -488,13 +488,13 @@ public class DesignLoader {
               frames rawFrames: [RawFrame],
               snapshots: SnapshotStorage,
               reservation: borrowing IdentityReservation) throws (DesignLoaderError) {
-        var frames: [DesignFrame] = []
+        var frames: [StableFrame] = []
         let usedSnapshots = SnapshotStorage()
         
         for (i, rawFrame) in rawFrames.enumerated() {
-            let frame: DesignFrame
+            let frame: StableFrame
             let frameID = reservation.frames[i]
-            guard !design.contains(stableFrame: frameID) else {
+            guard !design.containsFrame(frameID) else {
                 throw .duplicateFrame(frameID)
             }
             do {
@@ -528,8 +528,8 @@ public class DesignLoader {
                 id frameID: ObjectID,
                 snapshots: SnapshotStorage,
                 for design: Design,
-                reservation: borrowing IdentityReservation) throws (RawFrameError) -> DesignFrame {
-        var frameSnapshots: [DesignObject] = []
+                reservation: borrowing IdentityReservation) throws (RawFrameError) -> StableFrame {
+        var frameSnapshots: [ObjectSnapshot] = []
         for rawSnapshotID in rawFrame.snapshots {
             guard let snapshotRes = reservation[rawSnapshotID], snapshotRes.type == .snapshot else {
                 throw .unknownSnapshotID(rawSnapshotID)
@@ -539,7 +539,7 @@ public class DesignLoader {
             }
             frameSnapshots.append(snapshot)
         }
-        let frame = DesignFrame(design: design, id: frameID, snapshots: frameSnapshots)
+        let frame = StableFrame(design: design, id: frameID, snapshots: frameSnapshots)
         return frame
     }
     

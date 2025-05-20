@@ -204,7 +204,7 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``, ``match(_:in:)``
     ///
     @inlinable
-    public func match(_ type: ObjectType, origin: DesignObject, target: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in frame: some Frame) -> Bool {
         guard type === self.type else {
             return false
         }

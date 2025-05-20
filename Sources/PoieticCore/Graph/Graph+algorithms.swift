@@ -5,27 +5,27 @@
 //  Created by Stefan Urbanek on 09/09/2022.
 //
 
-extension GraphProtocol where Edge: Identifiable {
+extension GraphProtocol {
     /// Sort nodes topologically.
     ///
     /// - Returns: Sorted node IDs when there were no issues, or nil if there was a cycle.
     ///
-    public func topologicalSort() -> [NodeID]? {
+    public func topologicalSort() -> [NodeKey]? {
         var edges = self.edges
         let targets = Set(edges.map {$0.target})
-        var sources: [NodeID] = self.nodeIDs.filter { !targets.contains($0) }
-        var sorted: [NodeID] = []
+        var sources: [NodeKey] = self.nodeKeys.filter { !targets.contains($0) }
+        var sorted: [NodeKey] = []
 
         while !sources.isEmpty {
-            let node: NodeID = sources.removeFirst()
+            let node: NodeKey = sources.removeFirst()
             let outgoing: [Edge] = edges.filter { $0.origin == node }
             
             sorted.append(node)
 
             for edge in outgoing {
-                let m: NodeID = edge.target
+                let m: NodeKey = edge.target
                 
-                edges.removeAll { $0.id == edge.id }
+                edges.removeAll { $0.key == edge.key }
                 
                 if edges.allSatisfy({$0.target != m}) {
                     sources.append(m)
@@ -47,18 +47,18 @@ extension GraphProtocol where Edge: Identifiable {
     ///
     public func cycles() -> [Edge] {
         var edges = self.edges
-        let nodes: [NodeID] = self.nodeIDs
+        let nodes: [NodeKey] = self.nodeKeys
         let targets = Set(edges.map {$0.target})
-        var sources: [NodeID] = nodes.filter { !targets.contains($0) }
+        var sources: [NodeKey] = nodes.filter { !targets.contains($0) }
         
         while !sources.isEmpty {
-            let node: NodeID = sources.removeFirst()
+            let node: NodeKey = sources.removeFirst()
             let outgoing: [Edge] = edges.filter { $0.origin == node }
             
             for edge in outgoing {
-                let m: NodeID = edge.target
+                let m: NodeKey = edge.target
                 
-                edges.removeAll { $0.id == edge.id }
+                edges.removeAll { $0.key == edge.key }
                 
                 if edges.allSatisfy({$0.target != m}) {
                     sources.append(m)

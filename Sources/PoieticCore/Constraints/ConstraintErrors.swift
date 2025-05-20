@@ -7,7 +7,7 @@
 
 /// Type error detail produced when checking object types against a metamodel.
 ///
-/// - SeeAlso: ``ObjectSnapshot/check(conformsTo:)``
+/// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``
 ///
 public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
     
@@ -20,7 +20,7 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
     /// Value for an attribute is not convertible to a required type as
     /// specified in the trait owning the attribute.
     /// 
-    /// - SeeAlso: ``ObjectSnapshot/check(conformsTo:)``,
+    /// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``,
     ///     ``Variant/isConvertible(to:)``, ``Variant/isRepresentable(as:)``
     ///     
     case typeMismatch(Attribute, ValueType)
@@ -74,7 +74,7 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
 /// Collection of object type violation errors produced when checking object
 /// types.
 ///
-/// - SeeAlso: ``ObjectSnapshot/check(conformsTo:)``
+/// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``
 ///
 public struct ObjectTypeErrorCollection: Error {
     public let errors: [ObjectTypeError]

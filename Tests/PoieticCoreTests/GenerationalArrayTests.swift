@@ -125,7 +125,7 @@ struct GenerationalArrayTests {
     
     @Test
     func iterateEmpty() throws {
-        var array = GenerationalArray<Int>()
+        let array = GenerationalArray<Int>()
         #expect(array.startIndex == array.endIndex)
         for _ in array { }
     }

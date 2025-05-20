@@ -108,7 +108,6 @@ import Testing
         #expect(design.snapshots.count == 1)
         #expect(design.frames.count == 1)
         let frame = try #require(design.frames.first)
-        let snapshot = try #require(design.snapshots.first)
         #expect(frame.id == .id(1000))
         #expect(frame.snapshots == [.string("first")])
     }
