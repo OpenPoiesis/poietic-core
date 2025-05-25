@@ -488,7 +488,7 @@ import Testing
 
     @Test func reserveAndAccept() throws {
         frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
-        frame.accept()
+        try design.accept(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(design.identityManager.isUsed(ObjectID(10)))
@@ -497,7 +497,7 @@ import Testing
 
     @Test func reserveAndDiscard() throws {
         frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
-        frame.discard()
+        design.discard(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))

@@ -14,7 +14,7 @@ public struct ValidatedFrame: Frame {
     /// Metamodel according to which the frame was validated.
     public let metamodel: Metamodel
 
-    init(_ wrapped: StableFrame, metamodel: Metamodel) {
+    internal init(_ wrapped: StableFrame, metamodel: Metamodel) {
         self.wrapped = wrapped
         self.metamodel = metamodel
     }
@@ -39,12 +39,18 @@ public struct ValidatedFrame: Frame {
     }
     
     @inlinable
-    public var edgeIDs: [ObjectID] { wrapped.edgeIDs }
-
+    public var nodeKeys: [ObjectID] { wrapped.nodeKeys }
+    @inlinable
+    public var edgeKeys: [ObjectID] { wrapped.edgeKeys }
+    @inlinable
+    public var edges: [EdgeObject] { wrapped.edges }
+    
+    @inlinable
     public func outgoing(_ origin: NodeKey) -> [Edge] {
         return wrapped.outgoing(origin)
     }
     
+    @inlinable
     public func incoming(_ target: NodeKey) -> [Edge] {
         return wrapped.incoming(target)
     }

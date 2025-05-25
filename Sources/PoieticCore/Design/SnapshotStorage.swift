@@ -106,7 +106,7 @@ public class SnapshotStorage {
         precondition(_snapshots[ref.index].refCount > 0, "Release failure: zero retains")
         
         _snapshots[ref.index].refCount -= 1
-        if _snapshots[ref.index].refCount == 0 {
+        if _snapshots[ref.index].refCount <= 0 {
             _snapshots.remove(at: ref.index)
             _lookup[snapshotID] = nil
         }
@@ -209,7 +209,17 @@ public class EntityTable<E> where E:Identifiable {
             _lookup[item.id] = index
         }
     }
-    
+
+    public func retain(_ id: Element.ID) {
+        guard let index = _lookup[id] else {
+            preconditionFailure("Unknown ID \(id)")
+        }
+        
+        let count = _items[index].refCount
+        assert(count > 0)
+        _items[index].refCount = count + 1
+    }
+
     /// Insert a new item to the table and set its reference count to 1.
     ///
     /// - Precondition: given ID must exist in the table.

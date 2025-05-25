@@ -20,13 +20,18 @@ where E.NodeKey == NK {
     internal let outgoingEdges: [NodeKey:[Edge]]
     /// key: node, value: edge where target == node
     internal let incomingEdges: [NodeKey:[Edge]]
-    let _nodeKeys: Set<NodeKey>
-    public var nodeKeys: [NodeKey] { Array(_nodeKeys) }
-    let _edgeKeys: Set<EdgeKey>
-    public var edgeKeys: [EdgeKey] { Array(_edgeKeys) }
-    public let edges: [Edge]
+    internal let _nodeKeys: Set<NodeKey>
+    internal let _edgeKeys: Set<EdgeKey>
     internal let edgeMap: [EdgeKey:Edge]
 
+    public var nodeKeys: [NodeKey] { Array(_nodeKeys) }
+    public var edgeKeys: [EdgeKey] { Array(_edgeKeys) }
+    public let edges: [Edge]
+
+    /// Create a new graph with given node keys and edges.
+    ///
+    /// - SeeAlso: ``EdgeProtocol``.
+    ///
     public init(nodes: [NodeKey], edges: [Edge]) {
         var outgoingEdges: [NodeKey:[Edge]] = [:]
         var incomingEdges: [NodeKey:[Edge]] = [:]

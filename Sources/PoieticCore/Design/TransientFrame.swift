@@ -205,7 +205,6 @@ public final class TransientFrame: Frame {
     ///
     public func accept() {
         precondition(state == .transient)
-        design.identityManager.useReservations(Array(_reservations))
         self.state = .accepted
     }
     
@@ -218,7 +217,6 @@ public final class TransientFrame: Frame {
     ///
     public func discard() {
         precondition(state == .transient)
-        design.identityManager.releaseReservations(Array(_reservations))
         self.state = .discarded
     }
     
@@ -239,8 +237,8 @@ public final class TransientFrame: Frame {
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
     ///     - components: List of components to be set for the newly created object.
-    ///     - structure: Structural component of the new object that must match
-    ///       the object type.
+    ///     - structure: Structural component of the new object. If not provided,
+    ///       then unstructured is used.
     ///
     /// - Note: Attributes are not checked according to the object type during
     ///   object creation. The object is not yet required to satisfy any
@@ -252,7 +250,6 @@ public final class TransientFrame: Frame {
     ///
     /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
     ///   in the frame.
-    /// - Precondition: `structure` must match ``ObjectType/structuralType``.
     ///
     @discardableResult
     public func create(_ type: ObjectType,
@@ -264,7 +261,6 @@ public final class TransientFrame: Frame {
                        attributes: [String:Variant]=[:],
                        components: [any Component]=[]) -> MutableObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
-        // TODO: Consider moving this to Design (as well as its RawDesignLoader counterpart)
         // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
@@ -282,7 +278,7 @@ public final class TransientFrame: Frame {
         let actualID: ObjectID
         if let id = objectID {
             let success = design.identityManager.reserveIfNeeded(id, type: .object)
-            precondition(success, "Type mismatch for ID \(id)")
+            precondition(success, "Entity type mismatch for ID \(id)")
             precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
@@ -291,37 +287,10 @@ public final class TransientFrame: Frame {
         }
         _reservations.insert(actualID)
 
-        let actualStructure: Structure
-        switch type.structuralType {
-        case .unstructured:
-            precondition(structure == nil || structure == .unstructured,
-                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
-            actualStructure = .unstructured
-        case .node:
-            precondition(structure == nil || structure == .node,
-                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
-            actualStructure = .node
-        case .edge:
-            guard let structure else {
-                fatalError("Structural component of type `edge` is required to be provided for type \(type.name)")
-            }
-            
-            precondition(structure.type == .edge,
-                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
-            
-            actualStructure = structure
-        case .orderedSet:
-            guard let structure else {
-                fatalError("Structural component of type `orderedSet` is required to be provided for type \(type.name)")
-            }
-            precondition(structure.type == .orderedSet,
-                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
-            actualStructure = structure
-        }
+        let actualStructure = structure ?? .unstructured
         var actualAttributes = attributes
         
-        // Add required components as described by the object type.
-        //
+        // FIXME: [WIP] Is this the right place to add default attributes?
         for attribute in type.attributes {
             if actualAttributes[attribute.name] == nil {
                 actualAttributes[attribute.name] = attribute.defaultValue
@@ -367,6 +336,7 @@ public final class TransientFrame: Frame {
     public func insert(_ snapshot: ObjectSnapshot) {
         // TODO: Make insert() function throwing (StructuralIntegrityError)
         // Check for referential integrity
+        // TODO: Validate structure vs. type
         do {
             try validateStructure(snapshot)
         }

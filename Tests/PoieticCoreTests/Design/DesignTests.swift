@@ -8,6 +8,9 @@
 import Testing
 @testable import PoieticCore
 
+// TODO: Test remove frame current frame
+// TODO: Test remove frame undo/redo list
+
 @Suite struct DesignTests {
     let metamodel: Metamodel
     let design: Design

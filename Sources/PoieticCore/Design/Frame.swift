@@ -307,6 +307,7 @@ extension Frame {
     }
     
     // FIXME: [WIP] See what filters are used, consider adding "type" edges, maybe index later
+    @available(*, deprecated, message: "Use edges(...) -> [Edge]")
     public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
         return snapshots.compactMap {
             if let edge = Edge($0, in: self), block(edge) {
@@ -328,79 +329,13 @@ extension Frame {
         ids.filter { contains($0) }
     }
 
-}
-
-// MARK: - Graph Implementations
-
-extension Frame {
-    /// Get a node by ID.
-    ///
-    /// - Precondition: The object must exist and must be a node.
-    ///
-    public func node(_ id: ObjectID) -> ObjectSnapshot {
-        let object = self[id]
-        guard object.structure.type == .node else {
-            preconditionFailure("Not a node: \(id)")
-        }
-        return object
-    }
-    
-    /// Get an edge by ID.
-    ///
-    /// - Precondition: The object must exist and must be an edge.
-    ///
-    public func edge(_ id: ObjectID) -> Edge {
-        if let edge = Edge(self[id], in: self) {
-            return edge
-        }
-        else {
-            preconditionFailure("Not an edge: \(id)")
-        }
-    }
-    
-    public func contains(node nodeID: ObjectID) -> Bool {
-        if contains(nodeID) {
-            let obj = self[nodeID]
-            return obj.structure.type == .node
-        }
-        else {
-            return false
-        }
-    }
-    
-    public func contains(edge edgeID: ObjectID) -> Bool {
-        if contains(edgeID) {
-            let obj = self[edgeID]
-            return obj.structure.type == .edge
-        }
-        else {
-            return false
-        }
-    }
-    
-    public var nodeKeys: [ObjectID] {
-        return self.snapshots.filter { $0.structure.type == .node }.map { $0.objectID }
-    }
-    
-    public var edgeKeys: [ObjectID] {
-        return self.snapshots.filter { $0.structure.type == .edge }.map { $0.objectID }
-    }
-
-//    public var nodes: [Node] {
-//        return self.snapshots.filter { $0.structure.type == .node }
-//    }
-    
-    public var edges: [EdgeObject] {
-        return self.snapshots.compactMap {
-            EdgeObject($0, in: self)
-        }
-    }
-
     /// Get list of objects that have no parent.
     public func top() -> [ObjectSnapshot] {
         self.filter { $0.parent == nil }
     }
 }
+
+// MARK: - Graph Implementations
 
 
 extension Frame {

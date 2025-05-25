@@ -100,7 +100,12 @@ public struct ConstraintChecker {
                 errors[snapshot.objectID, default: []].append(error)
                 continue
             }
+            if snapshot.type.structuralType != snapshot.structure.type {
+                let error = ObjectTypeError.structureMismatch(snapshot.type.structuralType)
+                errors[snapshot.objectID, default: []].append(error)
+            }
             
+            // FIXME: [WIP] [IMPORTANT] Check structure and type match
             for trait in type.traits {
                 do {
                     try check(snapshot, conformsTo: trait)

@@ -251,14 +251,16 @@ public class DesignLoader {
         let snapshots = try create(snapshots: rawSnapshots, reservation: reservation)
 
         for snapshot in snapshots {
-            do {
-                try frame.validateStructure(snapshot)
-            }
-            catch {
-                throw .brokenStructuralIntegrity(error)
-            }
             frame.unsafeInsert(snapshot)
         }
+
+        do {
+            try frame.validateStructure()
+        }
+        catch {
+            throw .brokenStructuralIntegrity(error)
+        }
+
     }
 
     /// Loads current frame of the design into a transient frame.
@@ -273,6 +275,7 @@ public class DesignLoader {
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     public func load(_ design: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
+        // FIXME: [WIP] [IMPORTANT] Use this instead of load(_ rawSnapshots:,into:)
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = design.currentFrameID {
@@ -519,8 +522,9 @@ public class DesignLoader {
             frames.append(frame)
         }
         for frame in frames {
-            design._unsafeInsert(frame)
+            design.unsafeInsert(frame)
         }
+        // FIXME: [WIP] Test reservations
         
     }
     // TODO: Add validation (validateStructure())

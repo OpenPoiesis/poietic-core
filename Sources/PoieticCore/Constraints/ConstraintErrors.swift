@@ -14,6 +14,8 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
     /// Object type is not known in the metamodel.
     case unknownType(String)
 
+    case structureMismatch(StructuralType)
+    
     /// Object is missing a required attribute from a trait.
     case missingTraitAttribute(Attribute, String)
     
@@ -29,6 +31,8 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
         switch self {
         case let .unknownType(name):
             "Unknown object type: \(name)"
+        case let .structureMismatch(type):
+            "Structure mismatch. Expected \(type)"
         case let .missingTraitAttribute(attribute, trait):
             "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, actualType):
@@ -66,6 +70,15 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
                         message: description,
                         hint: nil,
                         details: ["type": Variant(type)])
+        case let .structureMismatch(type):
+            DesignIssue(domain: .validation,
+                        severity: .error,
+                        identifier: "structure_mismatch",
+                        message: description,
+                        hint: nil,
+                        details: [
+                            "expected_structure": Variant(type.rawValue)
+                        ])
         }
     }
 }

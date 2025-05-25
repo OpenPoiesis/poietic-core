@@ -26,7 +26,7 @@ struct RawDesignExpoerterTest {
         let design = Design(metamodel: TestMetamodel)
 
         let first = StableFrame(design: design, id: 1000, snapshots: [])
-        design._unsafeInsert(first)
+        design.unsafeInsert(first)
         let _ = design.createFrame(deriving: first)
         let unstructured = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10)
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 101, objectID: 11)
@@ -34,7 +34,7 @@ struct RawDesignExpoerterTest {
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 103, objectID: 13, structure: .edge(node1.objectID, node2.objectID))
         let frame = StableFrame(design: design, id: 1001,
                                 snapshots: [unstructured, node1, node2, edge ])
-        design._unsafeInsert(frame)
+        design.unsafeInsert(frame)
         design.currentFrameID = frame.id
         design.undoableFrames = [first.id]
 
@@ -77,7 +77,7 @@ struct RawDesignExpoerterTest {
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 104, objectID: 14, structure: .edge(node1.objectID, node2.objectID))
         let frame = StableFrame(design: design, id: 1001,
                                 snapshots: [parent, child, node1, node2, edge ])
-        design._unsafeInsert(frame)
+        design.unsafeInsert(frame)
 
         let extractor = DesignExtractor()
 

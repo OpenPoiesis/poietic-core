@@ -48,7 +48,7 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
             actualAttributes["name"] = Variant(name)
         }
         
-        let snapshot = create(type, attributes: actualAttributes)
+        let snapshot = create(type, structure: .node, attributes: actualAttributes)
 
         return snapshot
     }
