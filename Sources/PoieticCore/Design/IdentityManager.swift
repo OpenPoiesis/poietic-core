@@ -27,7 +27,7 @@ public class IdentityManager {
     var used: [ObjectID:IdentityType] = [:]
     @usableFromInline
     var reserved: [ObjectID:IdentityType] = [:]
-    
+   
     @inlinable
     func contains(_ id: ObjectID) -> Bool {
         used[id] != nil || reserved[id] != nil

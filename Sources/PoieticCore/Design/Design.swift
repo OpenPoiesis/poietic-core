@@ -338,7 +338,6 @@ public class Design {
         undoableFrames.removeAll { $0 == id }
         redoableFrames.removeAll { $0 == id }
 
-        // FIXME: [WIP][TEST] Test current frame removal
         if currentFrameID == id {
             if undoableFrames.isEmpty {
                 currentFrameID = nil
@@ -375,7 +374,6 @@ public class Design {
         guard let snapshot = _snapshots[id] else {
             preconditionFailure("Unknown snapshot ID \(id)")
         }
-        // TODO: [WIP][TEST] Test ID release of snapshot and object
         if _snapshots.release(id) {
             identityManager.free(id)
             if _objects.release(snapshot.objectID) {
@@ -493,8 +491,6 @@ public class Design {
         unsafeInsert(stableFrame)
         identityManager.use(reserved: frame.id)
         identityManager.use(reserved: frame._reservations)
-        // FIXME: [WIP][TEST] Used reservations
-        // FIXME: [WIP][TEST] Used reservations without removed
         frame.accept()
         return stableFrame
     }
@@ -526,7 +522,6 @@ public class Design {
                 _objects.retain(snapshot.objectID)
             }
             else {
-                // TODO: [WIP][TEST] Test creation/removal of logical object
                 _objects.insert(LogicalObject(id: snapshot.objectID))
             }
             _snapshots.insertOrRetain(snapshot)

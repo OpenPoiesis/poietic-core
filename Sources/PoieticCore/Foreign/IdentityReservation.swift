@@ -47,7 +47,14 @@ public struct IdentityReservation: ~Copyable {
     public func contains(_ id: ObjectID) -> Bool {
         reserved.contains(id)
     }
-    
+   
+    /// Remove all reservations.
+    public mutating func removeAll() {
+        reserved.removeAll()
+        rawMap.removeAll()
+        snapshots.removeAll()
+        frames.removeAll()
+    }
     /// Get object ID and its type for given raw object ID, if it exists in the reservation.
     public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
         if let actualID = ObjectID(rawID), reserved.contains(actualID),

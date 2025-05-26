@@ -8,8 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-// TODO: Test remove frame current frame
-// TODO: Test remove frame undo/redo list
+// TODO: Test remove frame removed from undo/redo list
 
 @Suite struct DesignTests {
     let metamodel: Metamodel
@@ -61,7 +60,16 @@ import Testing
         #expect(design.snapshot(a.snapshotID) != nil)
         #expect(design.snapshot(b.snapshotID) != nil)
     }
-    
+    @Test func acceptUseReservations() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        try design.accept(trans)
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(ObjectID(20)))
+        #expect(design.identityManager.isUsed(ObjectID(1000)))
+        #expect(design.identityManager.used.count == 3)
+        #expect(design.identityManager.reserved.count == 0)
+    }
     @Test func discard() throws {
         let frame = design.createFrame()
         let _ = frame.create(TestType)
@@ -83,7 +91,53 @@ import Testing
         #expect(!design.containsFrame(frame.id))
         #expect(design.snapshot(a.snapshotID) == nil)
     }
-    
+    @Test func removeFrameReleaseID() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        try design.accept(trans)
+        #expect(design.identityManager.isUsed(ObjectID(1000)))
+        design.removeFrame(ObjectID(1000))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(1000)))
+    }
+    @Test func removeFrameRetainNeededIDs() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        let original = try design.accept(trans)
+        let trans2 = design.createFrame(deriving: original, id: ObjectID(2000))
+        let mut = trans2.mutate(ObjectID(10))
+        mut["text"] = "text"
+        try design.accept(trans2)
+        design.removeFrame(ObjectID(1000))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(1000)))
+        
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(mut.snapshotID))
+        #expect(design.identityManager.isUsed(ObjectID(2000)))
+
+        design.removeFrame(ObjectID(2000))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(mut.snapshotID))
+        #expect(!design.identityManager.isUsed(ObjectID(2000)))
+    }
+
+    @Test func removeCurrentFrame() throws {
+        let f1 = try design.accept(design.createFrame())
+        let f2 = try design.accept(design.createFrame())
+
+        #expect(design.currentFrameID == f2.id)
+        #expect(design.undoableFrames == [f1.id])
+
+        design.removeFrame(f2.id)
+        #expect(design.currentFrameID == f1.id)
+        #expect(design.undoableFrames == [])
+
+        design.removeFrame(f1.id)
+        #expect(design.currentFrameID == nil)
+    }
+
     @Test func removeObjectInOrderedSet() throws {
         let originalFrame = design.createFrame()
         

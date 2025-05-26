@@ -118,6 +118,26 @@ struct RawDesignLoaderTest {
         #expect(o4.parent == ObjectID(10))
         #expect(o4.children.isEmpty == true)
     }
+    @Test func useReservations() async throws {
+        let raw = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
+            ],
+            frames: [
+                RawFrame(id: .int(1000), snapshots: [.int(100)])
+            ]
+        )
+        let design = try loader.load(raw)
+        let frame = try #require(design.frames.first)
+        let obj = try #require(design.snapshot(ObjectID(100)))
+
+        #expect(design.identityManager.isUsed(frame.id))
+        #expect(design.identityManager.isUsed(obj.id))
+        #expect(design.identityManager.isUsed(obj.objectID))
+        #expect(design.identityManager.used.count == 3)
+        #expect(design.identityManager.reserved.count == 0)
+    }
+
     @Test func loadMissingObjectType() async throws {
         let raw = RawDesign(
             snapshots: [

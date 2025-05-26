@@ -214,7 +214,7 @@ public class DesignLoader {
         try load(into: design,
                  frames: rawDesign.frames,
                  snapshots: snapshots,
-                 reservation: reservation)
+                 reservation: &reservation)
         
         // 5. Post-process
         design.undoableFrames = systemLists["undo"]?.ids ?? []
@@ -490,7 +490,7 @@ public class DesignLoader {
     func load(into design: Design,
               frames rawFrames: [RawFrame],
               snapshots: SnapshotStorage,
-              reservation: borrowing IdentityReservation) throws (DesignLoaderError) {
+              reservation: inout IdentityReservation) throws (DesignLoaderError) {
         var frames: [StableFrame] = []
         let usedSnapshots = SnapshotStorage()
         
@@ -524,8 +524,8 @@ public class DesignLoader {
         for frame in frames {
             design.unsafeInsert(frame)
         }
-        // FIXME: [WIP] Test reservations
-        
+        design.identityManager.use(reserved: reservation.reserved)
+        reservation.removeAll()
     }
     // TODO: Add validation (validateStructure())
     func create(frame rawFrame: RawFrame,
