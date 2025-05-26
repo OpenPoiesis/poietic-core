@@ -13,9 +13,6 @@
 //  (expert) users can do without access to the development environment.
 //
 
-// TODO: [WIP]: Rename DesignObject to StableSnapshot, DesignFrame to StableFrame
-//
-
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
@@ -209,8 +206,7 @@ public class Design {
 
     /// Get a snapshot by snapshot ID.
     ///
-    // TODO: Used only in tests
-    public func snapshot(_ objectID: ObjectID) -> ObjectSnapshot? {
+    func snapshot(_ objectID: ObjectID) -> ObjectSnapshot? {
         return _snapshots[objectID]
     }
 
@@ -218,8 +214,7 @@ public class Design {
         return _snapshots.contains(snapshotID)
     }
     
-    // TODO: [WIP] Used only in tests
-    public func referenceCount(_ snapshotID: ObjectID) -> Int? {
+    func referenceCount(_ snapshotID: ObjectID) -> Int? {
         return _snapshots.referenceCount(snapshotID)
     }
     
@@ -446,7 +441,7 @@ public class Design {
     /// ```swift
     /// let original = design.frame(name: "settings")
     /// let trans = design.createFrame(deriving: original)
-    /// let settings: MutableObject
+    /// let settings: TransientObject
     ///
     /// if let obj = trans.first(type: .DiagramSettings) {
     ///    settings = trans.mutate(obj.id)

@@ -329,7 +329,7 @@ public class DesignLoader {
         for (i, rawSnapshot) in rawSnapshots.enumerated() {
             do {
                 try reservation.reserve(snapshotID: rawSnapshot.snapshotID,
-                                        objectID: rawSnapshot.id)
+                                        objectID: rawSnapshot.objectID)
             }
             catch {
                 throw .snapshotError(i, .identityError(error))
@@ -345,7 +345,7 @@ public class DesignLoader {
                                  with reservation: inout IdentityReservation)
     throws (DesignLoaderError) {
         for rawSnapshot in rawSnapshots {
-            reservation.create(snapshotID: rawSnapshot.snapshotID, objectID: rawSnapshot.id)
+            reservation.create(snapshotID: rawSnapshot.snapshotID, objectID: rawSnapshot.objectID)
         }
     }
 
@@ -463,7 +463,7 @@ public class DesignLoader {
         var attributes: [String:Variant] = rawSnapshot.attributes
         if compatibilityVersion == Self.MakeshiftJSONLoaderVersion
             || (options.contains(.useIDAsNameAttribute)) {
-            if let id = rawSnapshot.id,
+            if let id = rawSnapshot.objectID,
                case let .string(name) = id,
                attributes["name"] == nil {
                 attributes["name"] = Variant(name)

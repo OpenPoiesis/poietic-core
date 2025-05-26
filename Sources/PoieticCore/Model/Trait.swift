@@ -47,7 +47,7 @@ public final class Trait: Sendable {
     ///   undeterminable.
     ///
     /// - SeeAlso: ``ObjectSnapshotProtocol/subscript(_:)-59fi3``,
-    ///   ``MutableObject/subscript(_:)-2wuh9``
+    ///   ``TransientObject/subscript(_:)-2wuh9``
     ///
     public let attributes: [Attribute]
     

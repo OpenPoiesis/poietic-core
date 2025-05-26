@@ -78,7 +78,7 @@ extension ObjectProtocol {
     }
 }
 
-extension MutableObject {
+extension TransientObject {
     /// Get or set position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is

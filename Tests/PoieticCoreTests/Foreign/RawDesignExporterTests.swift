@@ -82,13 +82,13 @@ struct RawDesignExpoerterTest {
         let extractor = DesignExtractor()
 
         let extract1 = extractor.extractPruning(snapshots: [node1.objectID, node2.objectID, edge.objectID], frame: frame)
-        #expect(extract1.map { $0.id } == [.id(node1.objectID), .id(node2.objectID), .id(edge.objectID)])
+        #expect(extract1.map { $0.objectID } == [.id(node1.objectID), .id(node2.objectID), .id(edge.objectID)])
 
         let extract2 = extractor.extractPruning(snapshots: [node1.objectID, edge.objectID], frame: frame)
-        #expect(extract2.map { $0.id } == [.id(node1.objectID)])
+        #expect(extract2.map { $0.objectID } == [.id(node1.objectID)])
 
         let extract3 = extractor.extractPruning(snapshots: [edge.objectID], frame: frame)
-        #expect(extract3.map { $0.id } == [])
+        #expect(extract3.map { $0.objectID } == [])
 
         // Parent-child
         let extract4 = extractor.extractPruning(snapshots: [parent.objectID, child.objectID], frame: frame)

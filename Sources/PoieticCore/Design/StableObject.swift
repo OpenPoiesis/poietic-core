@@ -89,7 +89,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///     - parent: ID of parent object in the object hierarchy.
     ///     - components: List of components to be added to the object.
     ///
-    /// - SeeAlso: ``MutableObject``
+    /// - SeeAlso: ``TransientObject``
     /// - Precondition: Attributes must not contain any reserved attribute
     ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
     ///

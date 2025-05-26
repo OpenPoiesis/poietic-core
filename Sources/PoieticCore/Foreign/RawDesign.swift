@@ -393,8 +393,7 @@ public class RawSnapshot: Codable {
     /// loader, if the ID is a string and if the attributes do not contain `name` key,
     /// then the string ID value will be also used as the `name` attribute.
     ///
-    // FIXME: [WIP] Rename to "ObjectID" or sometehing
-    public var id: RawObjectID?
+    public var objectID: RawObjectID?
     
     /// Raw structure representation.
     ///
@@ -416,7 +415,7 @@ public class RawSnapshot: Codable {
     enum CodingKeys: String, CodingKey {
         case typeName = "type"
         case structure
-        case id
+        case objectID = "id"
         case snapshotID = "snapshot_id"
         case parent
         case attributes
@@ -437,7 +436,7 @@ public class RawSnapshot: Codable {
                   attributes: [String:Variant] = [:]) {
         self.typeName = typeName
         self.snapshotID = snapshotID
-        self.id = id
+        self.objectID = id
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
@@ -448,7 +447,7 @@ public class RawSnapshot: Codable {
     public init(_ snapshot: ObjectSnapshot) {
         self.typeName = snapshot.type.name
         self.snapshotID = .id(snapshot.snapshotID)
-        self.id = .id(snapshot.objectID)
+        self.objectID = .id(snapshot.objectID)
         self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
         switch snapshot.structure {
@@ -468,7 +467,7 @@ public class RawSnapshot: Codable {
         let container = try decoder.container(keyedBy: Self.CodingKeys)
         
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
-        self.id = try container.decodeIfPresent(RawObjectID.self, forKey: .id)
+        self.objectID = try container.decodeIfPresent(RawObjectID.self, forKey: .objectID)
         self.snapshotID = try container.decodeIfPresent(RawObjectID.self, forKey: .snapshotID)
         self.parent = try container.decodeIfPresent(RawObjectID.self, forKey: .parent)
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
@@ -505,7 +504,7 @@ public class RawSnapshot: Codable {
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: Self.CodingKeys)
         try container.encodeIfPresent(typeName, forKey: .typeName)
-        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(objectID, forKey: .objectID)
         try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
         try container.encodeIfPresent(parent, forKey: .parent)
         try container.encodeIfPresent(attributes, forKey: .attributes)

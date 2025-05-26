@@ -102,9 +102,9 @@ public final class TransientFrame: Frame {
     var _reservations: Set<ObjectID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
-    public var mutableObjects: [MutableObject] {
+    public var mutableObjects: [TransientObject] {
         _snapshots.compactMap {
-            guard case let .mutable(snapshot) = $0.content else {
+            guard case let .mutable(_, snapshot) = $0.content else {
                 return nil
             }
             return snapshot
@@ -154,7 +154,7 @@ public final class TransientFrame: Frame {
     
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
-        return !(removedObjects.isEmpty && _snapshots.allSatisfy { !$0.hasChanges })
+        return !removedObjects.isEmpty || _snapshots.contains { $0.hasChanges }
     }
     
     /// Create a new mutable frame.
@@ -259,9 +259,9 @@ public final class TransientFrame: Frame {
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
                        attributes: [String:Variant]=[:],
-                       components: [any Component]=[]) -> MutableObject {
+                       components: [any Component]=[]) -> TransientObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
-        // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
+        // TODO: Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
         let actualSnapshotID: ObjectID
@@ -297,7 +297,7 @@ public final class TransientFrame: Frame {
             }
         }
         
-        let snapshot = MutableObject(type: type,
+        let snapshot = TransientObject(type: type,
                                      snapshotID: actualSnapshotID,
                                      objectID: actualID,
                                      structure: actualStructure,
@@ -305,7 +305,7 @@ public final class TransientFrame: Frame {
                                      children: children,
                                      attributes: actualAttributes,
                                      components: components)
-        let box = _TransientSnapshotBox(snapshot)
+        let box = _TransientSnapshotBox(snapshot, isNew: true)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)
         self._removedObjects.remove(actualID)
@@ -390,7 +390,7 @@ public final class TransientFrame: Frame {
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
     public func unsafeInsert(_ snapshot: ObjectSnapshot) {
-        // FIXME: [WIP] [IMPORTANT] Check for snapshot ID existence
+        // TODO: [IMPORTANT] Check for snapshot ID existence
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
                      "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
@@ -500,19 +500,19 @@ public final class TransientFrame: Frame {
     /// - Precondition: The frame must contain an object with given ID.
     /// - Precondition: The frame state must be ``State/transient``.
     ///
-    public func mutate(_ id: ObjectID) -> MutableObject {
+    public func mutate(_ id: ObjectID) -> TransientObject {
         precondition(state == .transient)
         
         guard let current = _snapshots[id] else {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
         switch current.content {
-        case .mutable(let snapshot):
+        case .mutable(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
             let derivedSnapshotID = design.identityManager.createAndReserve(type: .snapshot)
-            let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
-            let box = _TransientSnapshotBox(derived)
+            let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
+            let box = _TransientSnapshotBox(derived, isNew: false)
             _snapshots.replace(box)
             _reservations.insert(derivedSnapshotID)
             _snapshotIDs.remove(original.snapshotID)

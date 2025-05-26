@@ -93,7 +93,7 @@ public typealias AttributeKey = String
 ///
 /// - ``ObjectSnapshot``: Object that has been validated and can not be modified.
 ///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
-/// - ``MutableObject``: Object of a temporary nature, that can be modified. The
+/// - ``TransientObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
 /// Each object object has an unique identity, collection of attributes

@@ -16,7 +16,7 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
                            target: ObjectID,
-                           attributes: [String:Variant] = [:]) -> MutableObject {
+                           attributes: [String:Variant] = [:]) -> TransientObject {
         precondition(type.structuralType == .edge, "Structural type mismatch")
         precondition(contains(origin), "Missing edge origin")
         precondition(contains(target), "Missing edge target")
@@ -39,7 +39,7 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
     @discardableResult
     public func createNode(_ type: ObjectType,
                            name: String? = nil,
-                           attributes: [String:Variant] = [:]) -> MutableObject {
+                           attributes: [String:Variant] = [:]) -> TransientObject {
             precondition(type.structuralType == .node, "Structural type mismatch")
 
         var actualAttributes = attributes

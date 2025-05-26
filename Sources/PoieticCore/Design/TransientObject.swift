@@ -6,13 +6,6 @@
 //
 
 
-// FIXME: Remove this
-/// List of attribute names that are reserved and should not be used.
-///
-public let ReservedAttributeNames = [
-    "id", "snapshot_id", "origin", "target", "type", "parent", "structure",
-]
-
 @usableFromInline
 class _TransientSnapshotBox: Identifiable {
     // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
@@ -23,7 +16,7 @@ class _TransientSnapshotBox: Identifiable {
     
     enum Content {
         case stable(isOriginal: Bool, object: ObjectSnapshot)
-        case mutable(MutableObject)
+        case mutable(isNew: Bool, object: TransientObject)
     }
     
     var content: Content
@@ -32,28 +25,28 @@ class _TransientSnapshotBox: Identifiable {
         self.id = snapshot.objectID
         content = .stable(isOriginal: isOriginal, object: snapshot)
     }
-    init(_ mutable: MutableObject) {
+    init(_ mutable: TransientObject, isNew: Bool) {
         self.id = mutable.objectID
-        content = .mutable(mutable)
+        content = .mutable(isNew: isNew, object: mutable)
     }
     
     var isOriginal: Bool {
         switch content {
         case .stable(let flag, _): flag
-        case .mutable(_): false
+        case .mutable(_, _): false
         }
     }
     
     var isMutable: Bool {
         switch content {
         case .stable(_, _): false
-        case .mutable(_): true
+        case .mutable(_, _): true
         }
     }
     
     var hasChanges: Bool {
         switch content {
-        case let .mutable(snapshot): snapshot.original == nil || snapshot.hasChanges
+        case let .mutable(isNew: newFlag, object: object): newFlag || object.hasChanges
         case let .stable(isOriginal: isOriginalFlag, object: _): !isOriginalFlag
         }
     }
@@ -61,42 +54,42 @@ class _TransientSnapshotBox: Identifiable {
     var objectID: ObjectID {
         switch content {
         case let .stable(_, snapshot): snapshot.objectID
-        case let .mutable(object): object.objectID
+        case let .mutable(_, object): object.objectID
         }
     }
 
     var snapshotID: EntityID {
         switch content {
         case let .stable(_, snapshot): snapshot.snapshotID
-        case let .mutable(object): object.snapshotID
+        case let .mutable(_, object): object.snapshotID
         }
     }
     
     var parent: ObjectID? {
         switch content {
         case let .stable(_, snapshot): snapshot.parent
-        case let .mutable(object): object.parent
+        case let .mutable(_, object): object.parent
         }
     }
     
     var children: ChildrenSet {
         switch content {
         case let .stable(_, snapshot): snapshot.children
-        case let .mutable(object): object.children
+        case let .mutable(_, object): object.children
         }
     }
     
     var structure: Structure {
         switch content {
         case let .stable(_,snapshot): snapshot.structure
-        case let .mutable(object): object.structure
+        case let .mutable(_, object): object.structure
         }
     }
     
     func asSnapshot() -> ObjectSnapshot {
         switch content {
         case let .stable(_, object): object
-        case let .mutable(snapshot):
+        case let .mutable(_, snapshot):
             ObjectSnapshot(id: snapshot.snapshotID,
                            body: snapshot._body,
                            components: snapshot.components)
@@ -104,30 +97,37 @@ class _TransientSnapshotBox: Identifiable {
     }
 }
 
-/// Transient object that can be modified.
+/// An object that can be modified before being inserted into a frame.
 ///
-/// Mutable objects are temporary and typically exist only during a change
-/// transaction. New objects are created within a ``TransientFrame`` by ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
+/// Transient objects have short life time and should exist only for the purpose of constructing
+/// a transaction for a change. New objects are created within a ``TransientFrame`` using
+/// ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
 /// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
 ///
-/// Mutable objects are converted to stable objects with ``Design/accept(_:appendHistory:)``.
+/// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
 ///
 /// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
-public class MutableObject: ObjectProtocol {
+public class TransientObject: ObjectProtocol {
     
-    // TODO: [WIP] Rename to "TransientSnapshot" or "MutableSnapshot"
     @usableFromInline
     package var snapshotID: ObjectID
     @usableFromInline
     package var _body: ObjectBody
     public var components: ComponentSet
     
+    /// Flag to denote whether the object's parent-child hierarchy has been modified,
     public private(set) var hierarchyChanged: Bool
-    public private(set) var changedAttributes: Set<String>
-    public private(set) var original: ObjectSnapshot?
+    public private(set) var componentsChanged: Bool
 
-    var hasChanges: Bool { !changedAttributes.isEmpty && hierarchyChanged }
+    /// Set of changed attributes.
+    ///
+    /// Any attempt to set an attribute is considered a change, despite the new value might be the
+    /// same as the original value.
+    ///
+    public private(set) var changedAttributes: Set<String>
+
+    var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged || componentsChanged }
     
     public init(type: ObjectType,
                 snapshotID: EntityID,
@@ -137,9 +137,6 @@ public class MutableObject: ObjectProtocol {
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
-        
-        precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
-                     "The attributes must not contain any reserved attribute")
         
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
@@ -151,6 +148,7 @@ public class MutableObject: ObjectProtocol {
         self.components = ComponentSet(components)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
+        self.componentsChanged = false
     }
 
     init(original: ObjectSnapshot, snapshotID: EntityID) {
@@ -159,6 +157,7 @@ public class MutableObject: ObjectProtocol {
         self.components = original.components
         self.changedAttributes = Set()
         self.hierarchyChanged = false
+        self.componentsChanged = false
     }
    
     @inlinable public var objectID: ObjectID { _body.id }
@@ -211,8 +210,6 @@ public class MutableObject: ObjectProtocol {
     /// - Precondition: The attribute must not be a reserved attribute (``ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
-        precondition(ReservedAttributeNames.firstIndex(of: "key") == nil,
-                     "Trying to set a reserved read-only attribute '\(key)'")
         _body.attributes[key] = value
         changedAttributes.insert(key)
     }
@@ -227,6 +224,7 @@ public class MutableObject: ObjectProtocol {
         }
         set(component) {
             components[componentType] = component
+            componentsChanged = true
         }
     }
     public func removeChild(_ child: ObjectID) {

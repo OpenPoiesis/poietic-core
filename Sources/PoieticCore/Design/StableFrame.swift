@@ -81,10 +81,6 @@ public final class StableFrame: Frame, Identifiable {
     public func contains(_ id: ObjectID) -> Bool {
         return _lookup[id] != nil
     }
-    // FIXME: [WIP] is this used?
-    public func contains(_ snapshot: ObjectSnapshot) -> Bool {
-        return _lookup[snapshot.objectID] === snapshot
-    }
 
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
