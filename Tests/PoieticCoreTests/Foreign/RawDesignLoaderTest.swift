@@ -70,8 +70,12 @@ struct RawDesignLoaderTest {
     }
     
     // TODO: [WIP] [IMPORTANT] Fix parent-child hierarchy
-    
-    //    @Test
+    /*
+     Need: (frame -> (id -> parent id))
+     Have: ()
+     
+     */
+    // @Test
     func loadEverything() async throws {
         let raw = RawDesign(
             snapshots: [

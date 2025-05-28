@@ -15,7 +15,6 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
     public var description: String { "object(\(id)" }
 }
 
-// FIXME: [WIP] Update documentation
 /// Version snapshot of a design object.
 ///
 /// Immutable, point-in-time capture of an object's state.

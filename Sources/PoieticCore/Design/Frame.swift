@@ -23,6 +23,9 @@ public protocol Frame:
     ///
     var snapshots: [ObjectSnapshot] { get }
     
+    /// Get a list of object IDs in the frame.
+    var objectIDs: [ObjectID] { get }
+
     /// Check whether the frame contains an object with given ID.
     ///
     /// - Returns: `true` if the frame contains the object, otherwise `false`.
@@ -304,19 +307,6 @@ extension Frame {
     ///
     public func first(trait: Trait) -> ObjectSnapshot? {
         return snapshots.first { $0.type.hasTrait(trait) }
-    }
-    
-    // FIXME: [WIP] See what filters are used, consider adding "type" edges, maybe index later
-    @available(*, deprecated, message: "Use edges(...) -> [Edge]")
-    public func filterEdges(_ block: (Edge) -> Bool) -> [Edge] {
-        return snapshots.compactMap {
-            if let edge = Edge($0, in: self), block(edge) {
-                return edge
-            }
-            else {
-                return nil
-            }
-        }
     }
     
     public func filter(_ predicate: Predicate) -> [ObjectSnapshot] {

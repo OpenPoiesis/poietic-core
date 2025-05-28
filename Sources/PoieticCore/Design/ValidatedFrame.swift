@@ -27,7 +27,10 @@ public struct ValidatedFrame: Frame {
     
     @inlinable
     public var snapshots: [ObjectSnapshot] { wrapped.snapshots }
-    
+
+    @inlinable
+    public var objectIDs: [ObjectID] { wrapped.objectIDs }
+
     @inlinable
     public func contains(_ id: ObjectID) -> Bool {
         wrapped.contains(id)

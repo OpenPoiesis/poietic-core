@@ -111,6 +111,10 @@ public final class TransientFrame: Frame {
         }
     }
     
+    public var objectIDs: [ObjectID] {
+        _snapshots.map { $0.objectID }
+    }
+
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.

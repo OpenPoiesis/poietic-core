@@ -75,6 +75,10 @@ public final class StableFrame: Frame, Identifiable {
         return _snapshots
     }
     
+    public var objectIDs: [ObjectID] {
+        _snapshots.map { $0.objectID }
+    }
+
     /// Returns `true` if the frame contains an object with given object
     /// identity.
     ///

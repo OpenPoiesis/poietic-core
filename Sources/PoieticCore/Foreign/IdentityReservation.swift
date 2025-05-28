@@ -19,6 +19,7 @@ public enum RawIdentityError: Error, Equatable {
 /// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
 ///
 public struct IdentityReservation: ~Copyable {
+    // TODO: [WIP] Rename to ReferenceContext, ResolvedReferences
     /// Design that the identity reservation is bound to.
     public let design: Design
 

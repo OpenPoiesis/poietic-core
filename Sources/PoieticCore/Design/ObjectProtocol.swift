@@ -217,9 +217,9 @@ public protocol ObjectProtocol: Identifiable {
     ///
     subscript(attributeKey: String) -> Variant? { get }
     
-    /// Get a runtime component.
-    ///
-    // FIXME: [WIP] Re-introduce this
+    // Get a runtime component.
+    //
+    // TODO: Reconsider re-introducing
     //    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 }
 
