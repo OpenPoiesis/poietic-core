@@ -18,10 +18,78 @@ public enum RawIdentityError: Error, Equatable {
 ///
 /// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
 ///
-public struct IdentityReservation: ~Copyable {
-    // TODO: [WIP] Rename to ReferenceContext, ResolvedReferences
-    /// Design that the identity reservation is bound to.
-    public let design: Design
+public class LoadingContext {
+    var state: State = .empty
+    enum State: Int {
+        case empty
+        case initialized
+        case identitiesReserved
+        case referencesResolved
+        case snapshotsCreated
+        case closed
+    }
+    
+    struct ResolvedSnapshot {
+        let snapshotID: ObjectID
+        let objectID: ObjectID
+
+        let parent: ObjectID?
+        
+        /// List of resolved children IDs.
+        ///
+        /// If the property is `nil`, then it means that the children were not yet resolved.
+        /// If the property is not `nil`, then any subsequent resolution of children must match
+        /// the existing list of children, otherwise it means that the foreign data do not have
+        /// referential integrity.
+        let children: [ObjectID]?
+
+        internal init(snapshotID: ObjectID, objectID: ObjectID, parent: ObjectID? = nil, children: [ObjectID]? = nil) {
+            self.snapshotID = snapshotID
+            self.objectID = objectID
+            self.parent = parent
+            self.children = children
+        }
+        
+        func copy(parent: ObjectID?=nil, children: [ObjectID]?=nil) -> ResolvedSnapshot {
+            ResolvedSnapshot(
+                snapshotID: self.snapshotID,
+                objectID: self.objectID,
+                parent: self.parent ?? parent,
+                children: self.children ?? children
+            )
+        }
+    }
+    
+    struct ResolvedFrame {
+        let frameID: ObjectID
+        let snapshotIndices: [Int]?
+
+        internal init(frameID: ObjectID, snapshotIndices: [Int]? = nil) {
+            self.frameID = frameID
+            self.snapshotIndices = snapshotIndices
+        }
+        internal func copy(snapshotIndices: [Int]? = nil) -> ResolvedFrame{
+            ResolvedFrame(frameID: self.frameID,
+                          snapshotIndices: snapshotIndices)
+        }
+    }
+
+    /// Design that the loading context is bound to.
+    let design: Design
+   
+    let rawSnapshots: [RawSnapshot]
+    /// Snapshot ID to snapshot index.
+    var snapshotIndex: [ObjectID:Int]
+    /// Allocated identities of snapshots, in order of their occurrence.
+    var resolvedSnapshots: [ResolvedSnapshot]
+
+    var stableSnapshots: [ObjectSnapshot]
+    
+    let rawFrames: [RawFrame]
+    /// Allocated identities of frames, in order of their occurrence.
+    ///
+    /// - SeeAlso: ``frameSnapshots``.
+    var resolvedFrames: [ResolvedFrame]
 
     /// All IDs reserved using this reservation.
     var reserved: Set<ObjectID>
@@ -29,33 +97,33 @@ public struct IdentityReservation: ~Copyable {
     /// Mapping between raw object IDs and allocated IDs
     var rawMap: [RawObjectID:ObjectID]
 
-    /// Allocated identities of snapshots, in order of their occurrence.
-    var snapshots: [(ObjectID, ObjectID)]
 
-    /// Allocated identities of frames, in order of their occurrence.
-    var frames: [ObjectID]
-    
     /// Create a new Identity reservation that is bound to a design.
     ///
-    init(design: Design) {
+    init(design: Design, rawDesign: RawDesign? = nil) {
         self.design = design
-        self.snapshots = []
-        self.frames = []
-        self.rawMap = [:]
+        if let rawDesign {
+            self.rawSnapshots = rawDesign.snapshots
+            self.rawFrames = rawDesign.frames
+        }
+        else {
+            self.rawSnapshots = []
+            self.rawFrames = []
+        }
+
         self.reserved = Set()
+        self.rawMap = [:]
+
+        self.resolvedSnapshots = []
+        self.resolvedFrames = []
+        self.snapshotIndex = [:]
+        self.stableSnapshots = []
     }
     
     public func contains(_ id: ObjectID) -> Bool {
         reserved.contains(id)
     }
    
-    /// Remove all reservations.
-    public mutating func removeAll() {
-        reserved.removeAll()
-        rawMap.removeAll()
-        snapshots.removeAll()
-        frames.removeAll()
-    }
     /// Get object ID and its type for given raw object ID, if it exists in the reservation.
     public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
         if let actualID = ObjectID(rawID), reserved.contains(actualID),
@@ -72,21 +140,16 @@ public struct IdentityReservation: ~Copyable {
         }
     }
     
-    mutating func reserve(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) throws (RawIdentityError) {
+    internal func reserve(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) throws (RawIdentityError) {
         let snapshotID = try reserveUnique(id: rawSnapshotID, type: .snapshot)
         let objectID = try reserveIfNeeded(id: rawObjectID, type: .object)
-        snapshots.append((snapshotID, objectID))
+        snapshotIndex[snapshotID] = resolvedSnapshots.count
+        resolvedSnapshots.append(ResolvedSnapshot(snapshotID: snapshotID, objectID: objectID))
     }
 
-    mutating func create(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) {
-        let snapshotID = create(id: rawSnapshotID, type: .snapshot)
-        let objectID = createIfNeeded(id: rawObjectID, type: .object)
-        snapshots.append((snapshotID, objectID))
-    }
-
-    mutating func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
+    internal func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
         let id = try reserveUnique(id: rawSnapshotID, type: .frame)
-        frames.append(id)
+        resolvedFrames.append(ResolvedFrame(frameID: id))
     }
 
     /// Reserve an ID for entity of given type.
@@ -100,7 +163,7 @@ public struct IdentityReservation: ~Copyable {
     ///   in the map. Otherwise ``RawIdentityError/duplicateID(_:)`` is thrown.
     ///
     @discardableResult
-    mutating func reserveUnique(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
+    internal func reserveUnique(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
         let reservedID: ObjectID
         if let rawID {
             if let id = ObjectID(rawID) {
@@ -124,7 +187,7 @@ public struct IdentityReservation: ~Copyable {
         return reservedID
     }
     @discardableResult
-    mutating func create(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
+    internal func create(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
         let reservedID: ObjectID
         if let rawID {
             reservedID = design.identityManager.createAndReserve(type: type)
@@ -138,7 +201,7 @@ public struct IdentityReservation: ~Copyable {
     }
 
     @discardableResult
-    mutating func createIfNeeded(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
+    internal func createIfNeeded(id rawID: RawObjectID?, type: IdentityType) -> ObjectID {
         let reservedID: ObjectID
         if let rawID {
             if let id = rawMap[rawID] {
@@ -167,7 +230,7 @@ public struct IdentityReservation: ~Copyable {
     /// - Throws: ``RawIdentityError``
     ///
     @discardableResult
-    mutating func reserveIfNeeded(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
+    internal func reserveIfNeeded(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
         let reservedID: ObjectID
         if let rawID {
             if let id = rawMap[rawID] {
@@ -193,6 +256,4 @@ public struct IdentityReservation: ~Copyable {
         reserved.insert(reservedID)
         return reservedID
     }
-
-    
 }

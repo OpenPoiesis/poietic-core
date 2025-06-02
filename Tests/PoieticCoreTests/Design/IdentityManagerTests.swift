@@ -70,13 +70,13 @@ struct TestIdentityReservation {
         self.design = Design()
     }
     @Test func reserveUniqueNew() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         let id1 = try reservation.reserveUnique(id: nil, type: .snapshot)
         let id2 = try reservation.reserveUnique(id: nil, type: .snapshot)
         #expect(id1 != id2)
     }
     @Test func reserveUniqueProvided() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         try reservation.reserveUnique(id: .int(10), type: .snapshot)
         #expect(reservation.contains(ObjectID(10)) == true)
         #expect(reservation.contains(ObjectID(20)) == false)
@@ -91,7 +91,7 @@ struct TestIdentityReservation {
         }
     }
     @Test func reserveUniqueProvidedName() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         let id = try reservation.reserveUnique(id: .string("thing"), type: .snapshot)
         #expect(reservation.contains(id) == true)
         #expect(throws: RawIdentityError.duplicateID(.string("thing"))) {
@@ -102,14 +102,14 @@ struct TestIdentityReservation {
         }
     }
     @Test func reserveIfNeeded() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         let id1 = try reservation.reserveIfNeeded(id: .int(10), type: .snapshot)
         let id2 = try reservation.reserveIfNeeded(id: .int(10), type: .snapshot)
         #expect(id1 == id2)
         #expect(reservation.contains(id1) == true)
     }
     @Test func reserveIfNeededTypeMismatch() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         try reservation.reserveIfNeeded(id: .int(10), type: .snapshot)
         #expect(throws: RawIdentityError.typeMismatch(.int(10))) {
             try reservation.reserveIfNeeded(id: .int(10), type: .object)
@@ -123,7 +123,7 @@ struct TestIdentityReservation {
         }
     }
     @Test func getActualFromRaw() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         design.identityManager.use(new: ObjectID(10), type: .object)
         #expect(reservation[.id(ObjectID(10))] == nil)
 
@@ -135,23 +135,23 @@ struct TestIdentityReservation {
 
     }
     @Test func reserveSnapshot() async throws {
-        var reservation = IdentityReservation(design: design)
+        let reservation = LoadingContext(design: design)
         try reservation.reserve(snapshotID: nil, objectID: nil)
-        #expect(reservation.snapshots.count == 1)
+        #expect(reservation.resolvedSnapshots.count == 1)
         try reservation.reserve(snapshotID: .int(100), objectID: .int(10))
-        let last = try #require(reservation.snapshots.last)
-        #expect(last == (ObjectID(100), ObjectID(10)))
+        let last = try #require(reservation.resolvedSnapshots.last)
+        #expect(last == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(100), objectID: ObjectID(10)))
         try reservation.reserve(snapshotID: .int(101), objectID: .int(10))
-        let last2 = try #require(reservation.snapshots.last)
-        #expect(last2 == (ObjectID(101), ObjectID(10)))
+        let last2 = try #require(reservation.resolvedSnapshots.last)
+        #expect(last2 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(101), objectID: ObjectID(10)))
 
         try reservation.reserve(snapshotID: .int(102), objectID: .string("thing"))
-        let last3 = try #require(reservation.snapshots.last)
-        #expect(last3 == (ObjectID(102), last3.1))
+        let last3 = try #require(reservation.resolvedSnapshots.last)
+        #expect(last3 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(102), objectID: last3.objectID))
         try reservation.reserve(snapshotID: .int(103), objectID: .string("thing"))
-        let last4 = try #require(reservation.snapshots.last)
-        #expect(last4 == (ObjectID(103), last3.1))
+        let last4 = try #require(reservation.resolvedSnapshots.last)
+        #expect(last4 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(103), objectID: last3.objectID))
 
-        #expect(try reservation.reserveIfNeeded(id: .id(last3.1), type: .object) == last3.1)
+        #expect(try reservation.reserveIfNeeded(id: .id(last3.objectID), type: .object) == last3.objectID)
     }
 }
