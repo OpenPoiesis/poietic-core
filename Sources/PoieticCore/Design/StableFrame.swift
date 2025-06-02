@@ -45,7 +45,7 @@ public final class StableFrame: Frame, Identifiable {
     /// - Precondition: Snapshots must have referential integrity.
     ///
     init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
-        // FIXME: [WIP] Rename to init(design:id:unsafeSnapshots:)
+        // TODO: [IMPORTANT] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
         self._snapshots = snapshots
@@ -65,7 +65,7 @@ public final class StableFrame: Frame, Identifiable {
         }
         self._graph = Graph(nodes: nodeKeys, edges: edges)
         self._lookup = lookup
-        // FIXME: [WIP] Enable this
+        // TODO: [IMPORTANT] Enable this
 //        try! self.validateStructure()
     }
     

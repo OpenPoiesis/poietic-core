@@ -89,14 +89,12 @@ public final class TransientFrame: Frame {
     ///
     var state: State = .transient
     
-    // FIXME: Order is not preserved, use SnapshotStorage or something similar
     // validate also snapshot IDs
     @usableFromInline
     var _snapshots: EntityTable<_TransientSnapshotBox>
     @usableFromInline
     var _snapshotIDs: Set<ObjectID>
     
-//    var _snapshots: TransientSnapshotStorage
     @usableFromInline
     var _removedObjects: Set<ObjectID>
     var _reservations: Set<ObjectID>
@@ -120,7 +118,7 @@ public final class TransientFrame: Frame {
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
     ///
     public var snapshots: [ObjectSnapshot] {
-        // FIXME: [WIP] Review necessity of this.
+        // TODO: [DEPRECATE] Review necessity of this, seems like used in tests only.
         _snapshots.map { $0.asSnapshot() }
     }
     
@@ -143,7 +141,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: Frame must contain object with given ID.
     ///
     public func object(_ id: ObjectID) -> ObjectSnapshot {
-        // FIXME: [WIP] Review necessity of this.
+        // TODO: [DEPRECATE] Review necessity of this.
         guard let box = _snapshots[id] else {
             preconditionFailure("Unknown object \(id)")
         }
@@ -440,7 +438,7 @@ public final class TransientFrame: Frame {
             _remove(snapshotID: garbage.snapshotID, objectID: garbage.objectID)
             
             if garbage.isOriginal {
-                // FIXME: [WIP] !!!IMPORTANT NOT IMPLEMENTED!!!
+                // FIXME: [WIP] [IMPORTANT] Implement this
                 fatalError("Should add removed ")
                 // _removedObjects[garbageID] = garbage
             }

@@ -273,7 +273,7 @@ public class Design {
     @discardableResult
     public func createFrame(deriving original: StableFrame? = nil,
                             id: FrameID? = nil) -> TransientFrame {
-        // TODO: [WIP] Throw some identity error here
+        // TODO: Throw some identity error here
         let actualID: ObjectID
         if let id {
             let success = identityManager.reserve(id, type: .frame)

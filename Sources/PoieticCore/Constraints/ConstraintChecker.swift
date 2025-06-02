@@ -105,7 +105,6 @@ public struct ConstraintChecker {
                 errors[snapshot.objectID, default: []].append(error)
             }
             
-            // FIXME: [WIP] [IMPORTANT] Check structure and type match
             for trait in type.traits {
                 do {
                     try check(snapshot, conformsTo: trait)
