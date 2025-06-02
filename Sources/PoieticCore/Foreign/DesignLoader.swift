@@ -5,21 +5,6 @@
 //  Created by Stefan Urbanek on 04/05/2025.
 //
 
-/**
- Edge cases
- 
- - snapshot ID:
- - snapshot ID is provided but different type
- - snapshot ID not provided
- - snapshot ID is not convertible
- - snapshot ID is already taken
- - object ID:
- - object ID not provided
- - object ID is provided but different type
- - object ID  is not convertible
- 
- */
-
 /// Error thrown by the design loader.
 ///
 /// - SeeAlso: ``DesignLoader/load(_:into:)-6m9va``, ``DesignLoader/load(_:into:)-1o6qf``
@@ -166,8 +151,6 @@ public enum RawFrameError: Error, Equatable {
 /// - Reservation of object identities.
 /// -
 public class DesignLoader {
-    // TODO: Rename just to DesignLoader, "raw" is assumed
-    
     public let metamodel: Metamodel
     let compatibilityVersion: SemanticVersion?
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
@@ -195,16 +178,6 @@ public class DesignLoader {
         self.compatibilityVersion = version
         self.options = options
     }
-    
-    internal func prepareContext(_ rawDesign: RawDesign) throws (DesignLoaderError) -> LoadingContext {
-        let design: Design = Design(metamodel: metamodel)
-        let context = LoadingContext(design: design, rawDesign: rawDesign)
-
-        try prepareSnapshotIdentities(context: context)
-        try prepareFrameIdentities(context: context)
-
-        return context
-    }
 
     /// Loads a raw design and creates new design.
     ///
@@ -216,8 +189,11 @@ public class DesignLoader {
     ///
     public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
         let design: Design = Design(metamodel: metamodel)
-        
-        let context = try prepareContext(rawDesign)
+        let context = LoadingContext(design: design, rawDesign: rawDesign)
+
+        try prepareSnapshotIdentities(context: context)
+        try prepareFrameIdentities(context: context)
+
         try resolveParents(context: context)
         try resolveFrames(context: context)
         try resolveChildren(context: context)
@@ -247,14 +223,12 @@ public class DesignLoader {
 
         for (name, ref) in userReferences {
             if ref.type == "frame" {
-                design._namedFrames[name] = design.frame(ref.id)
+                context.design._namedFrames[name] = design.frame(ref.id)
             }
         }
-
-        context.state = .closed
         design.identityManager.use(reserved: context.reserved)
 
-        return design
+        return context.design
     }
 
     /// Loads current frame of the design into a transient frame.
@@ -269,7 +243,6 @@ public class DesignLoader {
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     public func load(_ design: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
-        // FIXME: [WIP] [IMPORTANT] Use this instead of load(_ rawSnapshots:,into:)
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = design.currentFrameID {
@@ -305,8 +278,11 @@ public class DesignLoader {
     ///
     public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (DesignLoaderError) {
         let rawDesign = RawDesign(snapshots: rawSnapshots)
-        let context: LoadingContext = try prepareContext(rawDesign)
+        let context = LoadingContext(design: frame.design, rawDesign: rawDesign)
+
+        try prepareSnapshotIdentities(context: context)
         try resolveParents(context: context)
+
         let indices = Array<Int>(context.resolvedSnapshots.indices)
         
         do {
@@ -399,6 +375,7 @@ public class DesignLoader {
     
     internal func resolveChildren(context: LoadingContext)
     throws (DesignLoaderError) {
+        print("RESOLVING CHILDREN")
         for (i, frame) in context.resolvedFrames.enumerated() {
             guard let indices = frame.snapshotIndices else {
                 fatalError("Frame snapshots not resolved")
@@ -429,9 +406,6 @@ public class DesignLoader {
     internal func resolveChildren(snapshotIndices: [Int],
                                   context: LoadingContext)
     throws (RawFrameError) {
-        // TODO: [TEST] F1=[10] F2=[10,20(parent=10)] -> error // + test the opposite
-        // In:
-        // Snapshot ID -> [Object ID]
         var snapshotChildren: [Int:[ObjectID]] = [:]
         var objectToSnapshotIndex: [ObjectID:Int] = [:]
         
@@ -440,7 +414,7 @@ public class DesignLoader {
             assert(objectToSnapshotIndex[objectID] == nil)
             objectToSnapshotIndex[objectID] = index
         }
-        
+
         for childIndex in snapshotIndices {
             guard let parentObjectID = context.resolvedSnapshots[childIndex].parent else {
                 continue
@@ -455,27 +429,26 @@ public class DesignLoader {
 
         // Validate and update resolved snapshots.
         //
-        for (parentIndex, children) in snapshotChildren {
+        for snapshotIndex in snapshotIndices {
+            let children: [ObjectID] = snapshotChildren[snapshotIndex] ?? []
+            
             // Validate parents. Check whether previously resolved parent-children is the same
             // as the this one. It must be the same.
             // This error might happen when two raw frames have the same snapshot but the
             // children differ. Since the raw frame has only parent reference, this error is possible.
             //
-            let parent = context.resolvedSnapshots[parentIndex]
-            if let existingChildren = parent.children {
+            let existing = context.resolvedSnapshots[snapshotIndex]
+            if let existingChildren = existing.children {
                 if existingChildren != children {
-                    throw .childrenMismatch(parentIndex)
+                    throw .childrenMismatch(snapshotIndex)
                 }
             }
             else {
-                let resolved = parent.copy(
-                    children: children
-                )
-                context.resolvedSnapshots[parentIndex] = resolved
+                let resolved = existing.copy(children: children)
+                context.resolvedSnapshots[snapshotIndex] = resolved
             }
         }
     }
-    
 
     /// Method that reserves identities for snapshots.
     ///
@@ -562,7 +535,7 @@ public class DesignLoader {
     ///
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
-    public func create(_ rawSnapshot: RawSnapshot,
+    internal func create(_ rawSnapshot: RawSnapshot,
                        snapshotID: ObjectID,
                        objectID: ObjectID,
                        parent: ObjectID?=nil,

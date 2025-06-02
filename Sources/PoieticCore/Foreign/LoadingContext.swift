@@ -19,16 +19,6 @@ public enum RawIdentityError: Error, Equatable {
 /// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
 ///
 public class LoadingContext {
-    var state: State = .empty
-    enum State: Int {
-        case empty
-        case initialized
-        case identitiesReserved
-        case referencesResolved
-        case snapshotsCreated
-        case closed
-    }
-    
     struct ResolvedSnapshot {
         let snapshotID: ObjectID
         let objectID: ObjectID
@@ -102,6 +92,7 @@ public class LoadingContext {
     ///
     init(design: Design, rawDesign: RawDesign? = nil) {
         self.design = design
+
         if let rawDesign {
             self.rawSnapshots = rawDesign.snapshots
             self.rawFrames = rawDesign.frames

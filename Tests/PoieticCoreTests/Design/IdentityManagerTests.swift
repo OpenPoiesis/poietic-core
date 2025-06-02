@@ -134,23 +134,29 @@ struct TestIdentityReservation {
         #expect(reservation[.string("thing")]?.id == thingID)
 
     }
+    
     @Test func reserveSnapshot() async throws {
         let reservation = LoadingContext(design: design)
         try reservation.reserve(snapshotID: nil, objectID: nil)
         #expect(reservation.resolvedSnapshots.count == 1)
         try reservation.reserve(snapshotID: .int(100), objectID: .int(10))
         let last = try #require(reservation.resolvedSnapshots.last)
-        #expect(last == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(100), objectID: ObjectID(10)))
+        #expect(last.snapshotID == ObjectID(100))
+        #expect(last.objectID == ObjectID(10))
+
         try reservation.reserve(snapshotID: .int(101), objectID: .int(10))
         let last2 = try #require(reservation.resolvedSnapshots.last)
-        #expect(last2 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(101), objectID: ObjectID(10)))
+        #expect(last2.snapshotID == ObjectID(101))
+        #expect(last2.objectID == ObjectID(10))
 
         try reservation.reserve(snapshotID: .int(102), objectID: .string("thing"))
         let last3 = try #require(reservation.resolvedSnapshots.last)
-        #expect(last3 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(102), objectID: last3.objectID))
+        #expect(last3.snapshotID == ObjectID(102))
+
         try reservation.reserve(snapshotID: .int(103), objectID: .string("thing"))
         let last4 = try #require(reservation.resolvedSnapshots.last)
-        #expect(last4 == LoadingContext.SnapshotIdentity(snapshotID: ObjectID(103), objectID: last3.objectID))
+        #expect(last4.snapshotID == ObjectID(103))
+        #expect(last4.objectID == last3.objectID)
 
         #expect(try reservation.reserveIfNeeded(id: .id(last3.objectID), type: .object) == last3.objectID)
     }

@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 05/05/2025.
 //
 
-public enum IdentityType: Sendable {
+public enum IdentityType: Sendable, CustomStringConvertible {
     /// Unique within design.
     case snapshot
     /// Unique within design.
@@ -13,6 +13,14 @@ public enum IdentityType: Sendable {
     /// Unique within frame, can be multiple within design. Used in references.
     case object
     // case track
+    
+    public var description: String {
+        switch self {
+        case .snapshot: "snapshot"
+        case .frame: "frame"
+        case .object: "object"
+        }
+    }
 }
 
 /// Thread-safe identity management.
