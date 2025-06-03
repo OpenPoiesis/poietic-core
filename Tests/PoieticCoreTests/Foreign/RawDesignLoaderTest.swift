@@ -304,8 +304,7 @@ struct RawDesignLoaderTest {
     
     @Test func createSnapshotInvalidEdgeType() async throws {
         let context = LoadingContext(design: self.design)
-        try context.reserve(snapshotID: .id(100), objectID: .id(10))
-        
+        try context.reserve(snapshotID: .int(100), objectID: .int(10))
         let rawNoRefs = RawSnapshot(typeName: "TestEdge",
                                     structure: RawStructure("edge", references: []))
         let rawInvalidOrigin = RawSnapshot(typeName: "TestEdge",
@@ -325,7 +324,6 @@ struct RawDesignLoaderTest {
     }
     
     @Test func createSnapshotUnknownParent() async throws {
-        let context = LoadingContext(design: self.design)
         let raw = RawSnapshot(typeName: "TestPlain", parent: .int(99))
         let trans = design.createFrame()
         
@@ -488,6 +486,56 @@ struct RawDesignLoaderTest {
         #expect(throws: DesignLoaderError.frameError(1, .childrenMismatch(0))) {
             try loader.load(rawDesign)
         }
+    }
+
+    @Test func loadCreateIdentity() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(100), id: .int(10)),
+            ],
+        )
+        let trans = design.createFrame()
+        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
+        try design.accept(trans)
+        #expect(design.identityManager.reserved.isEmpty)
+
+        let snapshot = try #require(design.snapshots.first)
+        #expect(snapshot.snapshotID != ObjectID(100))
+        #expect(snapshot.objectID != ObjectID(10))
+    }
+
+    @Test func paste() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), attributes: ["name": "node"]),
+                RawSnapshot(typeName: "TestEdge", snapshotID: .int(102), id: .int(12),
+                            structure: RawStructure(origin: .int(11), target: .int(11)), attributes: ["name": "edge"]),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(103), id: .int(13), parent: .int(11), attributes: ["name": "child"]),
+            ],
+        )
+        let trans = design.createFrame()
+        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
+        let frame = try design.accept(trans)
+        #expect(design.identityManager.reserved.isEmpty)
+        
+        let node1 = try #require(frame.first(where: { $0["name"] == "node"}))
+        let edge1 = try #require(frame.first(where: { $0["name"] == "edge"}))
+        let child1 = try #require(frame.first(where: { $0["name"] == "child"}))
+        #expect(edge1.structure == .edge(node1.objectID, node1.objectID))
+        #expect(child1.parent == node1.objectID)
+        #expect(node1.children == [child1.objectID])
+
+        let trans2 = design.createFrame(deriving: frame)
+        try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .createNew)
+
+        let frame2 = try design.accept(trans2)
+        let node2 = try #require(frame2.first(where: { $0["name"] == "node" && $0.objectID != node1.objectID }))
+        let edge2 = try #require(frame2.first(where: { $0["name"] == "edge" && $0.objectID != edge1.objectID }))
+        let child2 = try #require(frame2.first(where: { $0["name"] == "child" && $0.objectID != child1.objectID }))
+
+        #expect(edge2.structure == .edge(node2.objectID, node2.objectID))
+        #expect(child2.parent == node2.objectID)
+        #expect(node2.children == [child2.objectID])
     }
 
 }

@@ -121,11 +121,10 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///
     public var description: String {
         let structuralName: String = self.structure.type.rawValue
-        let attrs = self.type.attributes.map {
-            ($0.name, self[$0.name] ?? "nil")
-        }.map { "\($0.0)=\($0.1)"}
-        .joined(separator: ",")
-        return "\(structuralName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs)"
+        let attrs = self.attributes.map { (name, value) in
+            "\(name)=\(value)"
+        }.joined(separator: ",")
+        return "\(structuralName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs))"
     }
     
     /// Prettier description of the object.

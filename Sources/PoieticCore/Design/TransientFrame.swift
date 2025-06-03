@@ -391,7 +391,7 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
-    public func unsafeInsert(_ snapshot: ObjectSnapshot) {
+    internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
         // TODO: [IMPORTANT] Check for snapshot ID existence
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
@@ -404,6 +404,18 @@ public final class TransientFrame: Frame {
         let box = _TransientSnapshotBox(snapshot, isOriginal: false)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)
+    }
+    
+    /// Insert snapshots into the transient frame together with reservations.
+    ///
+    /// This method is used by the loader. It consumes the reservations from the loader and takes
+    /// responsibility for using them or releasing them.
+    ///
+    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<ObjectID>) {
+        for snapshot in snapshots {
+            unsafeInsert(snapshot)
+        }
+        _reservations.formUnion(reservations)
     }
     
     /// Remove an object from the frame and all its dependants.

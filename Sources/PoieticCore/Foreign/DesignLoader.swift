@@ -156,6 +156,18 @@ public class DesignLoader {
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
     public let options: Options
     
+    public enum IdentityStrategy {
+        /// Loading operation requires that all provided identities are preserved.
+        case requireProvided
+        
+        // Identities are preserved, if they are available. Otherwise new identities will be
+        // created.
+        // case preserveIfPossible
+        
+        /// All identities will be created as new.
+        case createNew
+    }
+    
     /// Options of the loading process.
     ///
     public struct Options: OptionSet, Sendable {
@@ -276,9 +288,10 @@ public class DesignLoader {
     /// 1. Reserve snapshot identities.
     /// 2. Validate structural integrity of the snapshots within the context of the frame.
     ///
-    public func load(_ rawSnapshots: [RawSnapshot], into frame: TransientFrame) throws (DesignLoaderError) {
+    public func load(_ rawSnapshots: [RawSnapshot],
+                     into frame: TransientFrame, identityStrategy: IdentityStrategy = .requireProvided) throws (DesignLoaderError) {
         let rawDesign = RawDesign(snapshots: rawSnapshots)
-        let context = LoadingContext(design: frame.design, rawDesign: rawDesign)
+        let context = LoadingContext(design: frame.design, rawDesign: rawDesign, identityStrategy: identityStrategy)
 
         try prepareSnapshotIdentities(context: context)
         try resolveParents(context: context)
@@ -300,10 +313,7 @@ public class DesignLoader {
 
         try createSnapshots(context: context)
 
-        
-        for snapshot in context.stableSnapshots {
-            frame.unsafeInsert(snapshot)
-        }
+        frame.unsafeInsert(context.stableSnapshots, reservations: context.reserved)
 
         do {
             // TODO: [WIP] Is this needed?
@@ -375,7 +385,6 @@ public class DesignLoader {
     
     internal func resolveChildren(context: LoadingContext)
     throws (DesignLoaderError) {
-        print("RESOLVING CHILDREN")
         for (i, frame) in context.resolvedFrames.enumerated() {
             guard let indices = frame.snapshotIndices else {
                 fatalError("Frame snapshots not resolved")

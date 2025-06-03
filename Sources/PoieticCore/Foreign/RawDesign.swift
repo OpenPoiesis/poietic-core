@@ -24,7 +24,12 @@ enum RawLoadingResult {
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
 /// as an int, as a string or an explicit ``ObjectID``.
 ///
-public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, Hashable {
+public enum RawObjectID:
+    Hashable,
+    Codable,
+    Sendable,
+    CustomStringConvertible,
+    CustomDebugStringConvertible {
     /// Native Object ID representation
     case id(ObjectID)
     /// Representation as an integer.
@@ -46,7 +51,13 @@ public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, 
         case .string(let value): value
         }
     }
-    
+    public var debugDescription: String {
+        switch self {
+        case .id(let value): "RawObjectID.id(\(value.stringValue))"
+        case .int(let value): "RawObjectID.int(\(value))"
+        case .string(let value): "RawObjectID.string(\(value))"
+        }
+    }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let value = try? container.decode(ObjectID.self) {
