@@ -162,7 +162,7 @@ public class DesignLoader {
         
         // Identities are preserved, if they are available. Otherwise new identities will be
         // created.
-        // case preserveIfPossible
+         case preserveOrCreate
         
         /// All identities will be created as new.
         case createNew
