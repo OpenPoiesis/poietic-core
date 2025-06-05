@@ -8,6 +8,8 @@
 import Testing
 @testable import PoieticCore
 
+// TODO: Test remove frame removed from undo/redo list
+
 @Suite struct DesignTests {
     let metamodel: Metamodel
     let design: Design
@@ -51,13 +53,23 @@ import Testing
         
         #expect(design.versionHistory == [frame.id])
         #expect(design.currentFrame?.id == frame.id)
-        #expect(design.currentFrame!.contains(a.id))
-        #expect(design.currentFrame!.contains(b.id))
+        let currentFrame = try #require(design.currentFrame)
+        #expect(currentFrame.contains(a.objectID))
+        #expect(currentFrame.contains(b.objectID))
         
         #expect(design.snapshot(a.snapshotID) != nil)
         #expect(design.snapshot(b.snapshotID) != nil)
     }
-    
+    @Test func acceptUseReservations() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        try design.accept(trans)
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(ObjectID(20)))
+        #expect(design.identityManager.isUsed(ObjectID(1000)))
+        #expect(design.identityManager.used.count == 3)
+        #expect(design.identityManager.reserved.count == 0)
+    }
     @Test func discard() throws {
         let frame = design.createFrame()
         let _ = frame.create(TestType)
@@ -79,7 +91,53 @@ import Testing
         #expect(!design.containsFrame(frame.id))
         #expect(design.snapshot(a.snapshotID) == nil)
     }
-    
+    @Test func removeFrameReleaseID() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        try design.accept(trans)
+        #expect(design.identityManager.isUsed(ObjectID(1000)))
+        design.removeFrame(ObjectID(1000))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(1000)))
+    }
+    @Test func removeFrameRetainNeededIDs() throws {
+        let trans = design.createFrame(id: ObjectID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        let original = try design.accept(trans)
+        let trans2 = design.createFrame(deriving: original, id: ObjectID(2000))
+        let mut = trans2.mutate(ObjectID(10))
+        mut["text"] = "text"
+        try design.accept(trans2)
+        design.removeFrame(ObjectID(1000))
+        #expect(!design.identityManager.isUsed(ObjectID(20)))
+        #expect(!design.identityManager.isUsed(ObjectID(1000)))
+        
+        #expect(design.identityManager.isUsed(ObjectID(10)))
+        #expect(design.identityManager.isUsed(mut.snapshotID))
+        #expect(design.identityManager.isUsed(ObjectID(2000)))
+
+        design.removeFrame(ObjectID(2000))
+        #expect(!design.identityManager.isUsed(ObjectID(10)))
+        #expect(!design.identityManager.isUsed(mut.snapshotID))
+        #expect(!design.identityManager.isUsed(ObjectID(2000)))
+    }
+
+    @Test func removeCurrentFrame() throws {
+        let f1 = try design.accept(design.createFrame())
+        let f2 = try design.accept(design.createFrame())
+
+        #expect(design.currentFrameID == f2.id)
+        #expect(design.undoableFrames == [f1.id])
+
+        design.removeFrame(f2.id)
+        #expect(design.currentFrameID == f1.id)
+        #expect(design.undoableFrames == [])
+
+        design.removeFrame(f1.id)
+        #expect(design.currentFrameID == nil)
+    }
+
     @Test func removeObjectInOrderedSet() throws {
         let originalFrame = design.createFrame()
         
@@ -87,31 +145,31 @@ import Testing
         let b = originalFrame.create(TestType)
         let c = originalFrame.create(TestType)
         let order1 = originalFrame.create(TestOrderType,
-                                         structure: .orderedSet(a.id, []))
+                                         structure: .orderedSet(a.objectID, []))
         let order2 = originalFrame.create(TestOrderType,
-                                          structure: .orderedSet(b.id, [c.id]))
-        let original = try design.accept(originalFrame)
+                                          structure: .orderedSet(b.objectID, [c.objectID]))
+        try design.accept(originalFrame)
         
         let trans = design.createFrame(deriving: design.currentFrame)
         
-        trans.removeCascading(a.id)
-        trans.removeCascading(c.id)
+        trans.removeCascading(a.objectID)
+        trans.removeCascading(c.objectID)
 
         let result = try design.accept(trans)
 
-        #expect(!result.contains(a.id))
-        #expect(!result.contains(order1.id))
+        #expect(!result.contains(a.objectID))
+        #expect(!result.contains(order1.objectID))
 
-        #expect(!result.contains(c.id))
-        #expect(result.contains(b.id))
-        #expect(result.contains(order2.id))
+        #expect(!result.contains(c.objectID))
+        #expect(result.contains(b.objectID))
+        #expect(result.contains(order2.objectID))
 
-        let obj = result[order2.id]
+        let obj = result[order2.objectID]
         guard case let .orderedSet(owner, items) = obj.structure else {
             Issue.record("Structure is not ordered set")
             return
         }
-        #expect(owner == b.id)
+        #expect(owner == b.objectID)
         #expect(items == [])
     }
     
@@ -124,20 +182,20 @@ import Testing
         let originalVersion = design.currentFrameID
         
         let removalFrame = design.createFrame(deriving: design.currentFrame)
-        #expect(design.currentFrame!.contains(a.id))
+        #expect(design.currentFrame!.contains(a.objectID))
         
-        removalFrame.removeCascading(a.id)
+        removalFrame.removeCascading(a.objectID)
         #expect(removalFrame.hasChanges)
-        #expect(!removalFrame.contains(a.id))
+        #expect(!removalFrame.contains(a.objectID))
         
         try design.accept(removalFrame)
         #expect(design.currentFrame!.id == removalFrame.id)
-        #expect(!design.currentFrame!.contains(a.id))
+        #expect(!design.currentFrame!.contains(a.objectID))
         
         #expect(design.snapshot(a.snapshotID) != nil)
         
         let original2 = design.frame(originalVersion!)!
-        #expect(original2.contains(a.id))
+        #expect(original2.contains(a.objectID))
     }
 
     @Test func refCountAndGarbageCollect() throws {
@@ -163,11 +221,11 @@ import Testing
         let a = trans.create(TestType)
         let b = trans.create(TestType)
 
-        let frame = try design.accept(trans)
+        try design.accept(trans)
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.contains(snapshot: b.snapshotID))
         
-        let snapshots: [DesignObject] = Array(design.snapshots)
+        let snapshots: [ObjectSnapshot] = Array(design.snapshots)
         #expect(snapshots.count == 2)
     }
 
@@ -183,8 +241,8 @@ import Testing
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        #expect(design.currentFrame!.contains(a.id))
-        #expect(design.currentFrame!.contains(b.id))
+        #expect(design.currentFrame!.contains(a.objectID))
+        #expect(design.currentFrame!.contains(b.objectID))
         #expect(design.versionHistory == [v0, frame1.id, frame2.id])
         
         design.undo(to: frame1.id)
@@ -199,8 +257,8 @@ import Testing
         #expect(design.undoableFrames == [])
         #expect(design.redoableFrames == [frame1.id, frame2.id])
         
-        #expect(!design.currentFrame!.contains(a.id))
-        #expect(!design.currentFrame!.contains(b.id))
+        #expect(!design.currentFrame!.contains(a.objectID))
+        #expect(!design.currentFrame!.contains(b.objectID))
     }
     
     @Test func redo() throws {
@@ -218,8 +276,8 @@ import Testing
         design.undo(to: frame1.id)
         design.redo(to: frame2.id)
         
-        #expect(design.currentFrame!.contains(a.id))
-        #expect(design.currentFrame!.contains(b.id))
+        #expect(design.currentFrame!.contains(a.objectID))
+        #expect(design.currentFrame!.contains(b.objectID))
         
         #expect(design.currentFrameID == frame2.id)
         #expect(design.undoableFrames == [v0, frame1.id])
@@ -242,8 +300,8 @@ import Testing
         #expect(design.redoableFrames == [frame2.id])
         #expect(design.canRedo)
         
-        #expect(design.currentFrame!.contains(a.id))
-        #expect(!design.currentFrame!.contains(b.id))
+        #expect(design.currentFrame!.contains(a.objectID))
+        #expect(!design.currentFrame!.contains(b.objectID))
     }
     
     @Test func undoRedoNoArgument() throws {
@@ -297,8 +355,8 @@ import Testing
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        #expect(!design.currentFrame!.contains(discardedObject.id))
-        #expect(design.currentFrame!.contains(b.id))
+        #expect(!design.currentFrame!.contains(discardedObject.objectID))
+        #expect(design.currentFrame!.contains(b.objectID))
         
         #expect(design.currentFrameID == frame2.id)
         #expect(design.versionHistory == [v0, frame2.id])
@@ -329,8 +387,8 @@ import Testing
             
             return error.violations.count == 1
             && violation.objects.count == 2
-            && violation.objects.contains(a.id)
-            && violation.objects.contains(b.id)
+            && violation.objects.contains(a.objectID)
+            && violation.objects.contains(b.objectID)
         }
     }
     

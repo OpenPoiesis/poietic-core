@@ -23,8 +23,8 @@ import Testing
         let a = frame.create(TestType)
         let b = frame.create(TestType)
         
-        #expect(frame.contains(a.id))
-        #expect(frame.contains(b.id))
+        #expect(frame.contains(a.objectID))
+        #expect(frame.contains(b.objectID))
         #expect(frame.hasChanges)
     }
 
@@ -47,7 +47,7 @@ import Testing
                 Issue.record("Expected FrameValidationError")
                 return false
             }
-            guard let objErrors = error.objectErrors[a.id] else {
+            guard let objErrors = error.objectErrors[a.objectID] else {
                 Issue.record("Expected errors for object 'a'")
                 return false
             }
@@ -56,7 +56,7 @@ import Testing
             return error.violations.count == 0
                     && error.objectErrors.count == 1
                     && objErrors.first == .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test")
-                    && error.objectErrors[b.id] == nil
+                    && error.objectErrors[b.objectID] == nil
         }
     }
 
@@ -65,7 +65,7 @@ import Testing
         let originalFrame = try design.accept(frame)
         
         let derivedFrame = design.createFrame(deriving: originalFrame)
-        let derived = derivedFrame.mutate(original.id)
+        let derived = derivedFrame.mutate(original.objectID)
 
         #expect(original.structure == derived.structure)
     }
@@ -86,16 +86,16 @@ import Testing
     
     @Test func mutateBasicBehavior() throws {
         let obj = frame.create(TestType)
-        let originalSnap = frame[obj.id]
+        let originalSnap = frame[obj.objectID]
         try design.accept(frame)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(obj.id)
+        let derivedSnap = derived.mutate(obj.objectID)
         
-        #expect(derivedSnap.id == originalSnap.id)
+        #expect(derivedSnap.objectID == originalSnap.objectID)
         #expect(derivedSnap.snapshotID != originalSnap.snapshotID)
         
-        let derivedSnap2 = derived.mutate(obj.id)
+        let derivedSnap2 = derived.mutate(obj.objectID)
         #expect(derivedSnap === derivedSnap2)
     }
 
@@ -104,7 +104,7 @@ import Testing
         try design.accept(frame)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(obj.id)
+        let derivedSnap = derived.mutate(obj.objectID)
         
         #expect(derivedSnap["text"] == "hello")
     }
@@ -115,16 +115,16 @@ import Testing
         let original = try design.accept(frame)
         
         let frame2 = design.createFrame(deriving: original)
-        let changedObject = frame2.mutate(object.id)
+        let changedObject = frame2.mutate(object.objectID)
         changedObject["text"] = "after"
         
         #expect(frame2.hasChanges)
 
         let changedFrame = try design.accept(frame2)
         
-        #expect(changedFrame[object.id]["text"] == "after")
+        #expect(changedFrame[object.objectID]["text"] == "after")
         
-        let originalObject = design.frame(original.id)![object.id]
+        let originalObject = design.frame(original.id)![object.objectID]
         #expect(originalObject["text"] == "before")
     }
     
@@ -134,16 +134,16 @@ import Testing
         let original = try design.accept(frame)
         
         let frame2 = design.createFrame(deriving: original)
-        let changedObject = frame2.mutate(object.id)
+        let changedObject = frame2.mutate(object.objectID)
         changedObject[TestComponent.self] = TestComponent(text: "after")
         
         #expect(frame2.hasChanges)
 
         let changedFrame = try design.accept(frame2)
-        let comp: TestComponent = changedFrame[object.id][TestComponent.self]!
+        let comp: TestComponent = changedFrame[object.objectID][TestComponent.self]!
         #expect(comp.text == "after")
         
-        let originalObject = design.frame(original.id)![object.id]
+        let originalObject = design.frame(original.id)![object.objectID]
         let compOrignal: TestComponent = originalObject[TestComponent.self]!
         #expect(compOrignal.text == "before")
     }
@@ -151,16 +151,16 @@ import Testing
     @Test func removeObjectCascading() throws {
         let node1 = frame.create(TestNodeType)
         let node2 = frame.create(TestNodeType)
-        let edge = frame.create(TestEdgeType, structure: .edge(node1.id, node2.id))
+        let edge = frame.create(TestEdgeType, structure: .edge(node1.objectID, node2.objectID))
         
-        let removed = frame.removeCascading(node1.id)
+        let removed = frame.removeCascading(node1.objectID)
         #expect(removed.count == 2)
-        #expect(removed.contains(edge.id))
-        #expect(removed.contains(node1.id))
+        #expect(removed.contains(edge.objectID))
+        #expect(removed.contains(node1.objectID))
 
-        #expect(!frame.contains(node1.id))
-        #expect(!frame.contains(edge.id))
-        #expect(frame.contains(node2.id))
+        #expect(!frame.contains(node1.objectID))
+        #expect(!frame.contains(edge.objectID))
+        #expect(frame.contains(node2.objectID))
     }
 
     @Test func onlyOriginalsRemoved() throws {
@@ -169,17 +169,18 @@ import Testing
         
         let trans = design.createFrame(deriving: original)
         #expect(trans.contains(snapshotID: originalNode.snapshotID))
-        trans.removeCascading(originalNode.id)
+        trans.removeCascading(originalNode.objectID)
+        #expect(trans.snapshots.isEmpty)
         #expect(!trans.contains(snapshotID: originalNode.snapshotID))
 
         let newNode = trans.create(TestNodeType)
 
         #expect(trans.removedObjects.count == 1)
-        #expect(!trans.removedObjects.contains(newNode.id))
-        #expect(trans.removedObjects.contains(originalNode.id))
+        #expect(!trans.removedObjects.contains(newNode.objectID))
+        #expect(trans.removedObjects.contains(originalNode.objectID))
 
-        #expect(!trans.contains(originalNode.id))
-        #expect(trans.contains(newNode.id))
+        #expect(!trans.contains(originalNode.objectID))
+        #expect(trans.contains(newNode.objectID))
     }
 
     @Test func replaceObject() throws {
@@ -188,15 +189,15 @@ import Testing
 
         let trans = design.createFrame(deriving: original)
 
-        trans.removeCascading(originalNode.id)
+        trans.removeCascading(originalNode.objectID)
         #expect(trans.removedObjects.count == 1)
-        #expect(trans.removedObjects.contains(originalNode.id))
+        #expect(trans.removedObjects.contains(originalNode.objectID))
 
-        let newNode = trans.create(TestNodeType, id: originalNode.id)
+        let newNode = trans.create(TestNodeType, objectID: originalNode.objectID)
 
         #expect(trans.contains(snapshotID: newNode.snapshotID))
         #expect(trans.removedObjects.count == 0)
-        #expect(trans.contains(newNode.id))
+        #expect(trans.contains(newNode.objectID))
     }
 
     @Test func mutableObjectRemovesPreviousSnapshot() throws {
@@ -205,7 +206,10 @@ import Testing
         try design.accept(original)
         
         let derived = design.createFrame(deriving: design.currentFrame)
-        let derivedSnap = derived.mutate(originalSnap.id)
+
+        #expect(derived.contains(snapshotID: originalSnap.snapshotID))
+
+        let derivedSnap = derived.mutate(originalSnap.objectID)
         #expect(derived.snapshots.count == 1)
 
         #expect(!derived.snapshots.contains(where: { $0.snapshotID == originalSnap.snapshotID }))
@@ -221,12 +225,12 @@ import Testing
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b.id, to: a.id)
-        frame.addChild(c.id, to: a.id)
+        frame.addChild(b.objectID, to: a.objectID)
+        frame.addChild(c.objectID, to: a.objectID)
         
-        #expect(a.children == [b.id, c.id])
-        #expect(b.parent == a.id)
-        #expect(c.parent == a.id)
+        #expect(a.children == [b.objectID, c.objectID])
+        #expect(b.parent == a.objectID)
+        #expect(c.parent == a.objectID)
     }
     
 
@@ -235,14 +239,14 @@ import Testing
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b.id, to: a.id)
-        frame.addChild(c.id, to: a.id)
+        frame.addChild(b.objectID, to: a.objectID)
+        frame.addChild(c.objectID, to: a.objectID)
         
-        frame.removeChild(c.id, from: a.id)
+        frame.removeChild(c.objectID, from: a.objectID)
         
-        #expect(a.children == [b.id])
+        #expect(a.children == [b.objectID])
         #expect(c.parent == nil)
-        #expect(b.parent == a.id)
+        #expect(b.parent == a.objectID)
         #expect(c.parent == nil)
     }
     
@@ -251,19 +255,19 @@ import Testing
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b.id, to: a.id)
-        frame.setParent(c.id, to: a.id)
+        frame.addChild(b.objectID, to: a.objectID)
+        frame.setParent(c.objectID, to: a.objectID)
         
-        #expect(a.children == [b.id, c.id])
-        #expect(b.parent == a.id)
-        #expect(c.parent == a.id)
+        #expect(a.children == [b.objectID, c.objectID])
+        #expect(b.parent == a.objectID)
+        #expect(c.parent == a.objectID)
         
-        frame.setParent(c.id, to: b.id)
+        frame.setParent(c.objectID, to: b.objectID)
         
-        #expect(a.children == [b.id])
-        #expect(b.children == [c.id])
-        #expect(b.parent == a.id)
-        #expect(c.parent == b.id)
+        #expect(a.children == [b.objectID])
+        #expect(b.children == [c.objectID])
+        #expect(b.parent == a.objectID)
+        #expect(c.parent == b.objectID)
     }
     
     @Test func removeFromParent() throws {
@@ -271,14 +275,14 @@ import Testing
         let b = frame.create(TestType)
         let c = frame.create(TestType)
         
-        frame.addChild(b.id, to: a.id)
-        frame.addChild(c.id, to: a.id)
+        frame.addChild(b.objectID, to: a.objectID)
+        frame.addChild(c.objectID, to: a.objectID)
 
-        frame.removeFromParent(b.id)
+        frame.removeFromParent(b.objectID)
         #expect(b.parent == nil)
-        #expect(a.children == [c.id])
+        #expect(a.children == [c.objectID])
 
-        frame.removeFromParent(c.id)
+        frame.removeFromParent(c.objectID)
         #expect(c.parent == nil)
         #expect(a.children == [])
     }
@@ -288,14 +292,14 @@ import Testing
         let c1 = frame.create(TestType)
         let c2 = frame.create(TestType)
         
-        frame.addChild(c1.id, to: p.id)
-        frame.addChild(c2.id, to: p.id)
+        frame.addChild(c1.objectID, to: p.objectID)
+        frame.addChild(c2.objectID, to: p.objectID)
 
         let accepted = try design.accept(frame)
         let derived = design.createFrame(deriving: accepted)
-        derived.removeFromParent(c1.id)
+        derived.removeFromParent(c1.objectID)
 
-        let derivedP = derived[p.id]
+        let derivedP = derived[p.objectID]
         #expect(derivedP.snapshotID != p.snapshotID)
     }
     
@@ -310,41 +314,41 @@ import Testing
         let e = frame.create(TestType)
         let f = frame.create(TestType)
 
-        frame.addChild(b.id, to: a.id)
-        frame.addChild(c.id, to: b.id)
-        frame.addChild(e.id, to: d.id)
-        frame.addChild(f.id, to: e.id)
+        frame.addChild(b.objectID, to: a.objectID)
+        frame.addChild(c.objectID, to: b.objectID)
+        frame.addChild(e.objectID, to: d.objectID)
+        frame.addChild(f.objectID, to: e.objectID)
 
-        frame.removeCascading(b.id)
-        #expect(!frame.contains(b.id))
-        #expect(!frame.contains(c.id))
-        #expect(!frame[a.id].children.contains(b.id))
+        frame.removeCascading(b.objectID)
+        #expect(!frame.contains(b.objectID))
+        #expect(!frame.contains(c.objectID))
+        #expect(!frame[a.objectID].children.contains(b.objectID))
 
-        frame.removeCascading(d.id)
-        #expect(!frame.contains(d.id))
-        #expect(!frame.contains(e.id))
-        #expect(!frame.contains(f.id))
+        frame.removeCascading(d.objectID)
+        #expect(!frame.contains(d.objectID))
+        #expect(!frame.contains(e.objectID))
+        #expect(!frame.contains(f.objectID))
     }
     
     @Test func deriveObjectPreservesParentChild() throws {
         let obj = frame.create(TestNodeType)
         let parent = frame.create(TestNodeType)
         let child = frame.create(TestNodeType)
-        frame.setParent(obj.id, to: parent.id)
-        frame.setParent(child.id, to: obj.id)
+        frame.setParent(obj.objectID, to: parent.objectID)
+        frame.setParent(child.objectID, to: obj.objectID)
         
         let derivedFrame = design.createFrame(deriving: try design.accept(frame))
-        let derivedObj = derivedFrame.mutate(obj.id)
+        let derivedObj = derivedFrame.mutate(obj.objectID)
 
-        #expect(derivedObj.parent == parent.id)
-        #expect(derivedObj.children == [child.id])
+        #expect(derivedObj.parent == parent.objectID)
+        #expect(derivedObj.children == [child.objectID])
 
-        let derivedParent = derivedFrame.mutate(parent.id)
+        let derivedParent = derivedFrame.mutate(parent.objectID)
         #expect(derivedParent.parent == nil)
-        #expect(derivedParent.children == [obj.id])
+        #expect(derivedParent.children == [obj.objectID])
 
-        let derivedChild = derivedFrame.mutate(child.id)
-        #expect(derivedChild.parent == obj.id)
+        let derivedChild = derivedFrame.mutate(child.objectID)
+        #expect(derivedChild.parent == obj.objectID)
         #expect(derivedChild.children == [])
     }
     
@@ -353,19 +357,20 @@ import Testing
         let parent = frame.create(TestNodeType)
         let child = frame.create(TestNodeType)
 
-        frame.setParent(obj.id, to: parent.id)
-        frame.setParent(child.id, to: obj.id)
+        frame.setParent(obj.objectID, to: parent.objectID)
+        frame.setParent(child.objectID, to: obj.objectID)
         
         let accepted = try design.accept(frame)
 
-        #expect(accepted[obj.id].children == obj.children)
-        #expect(accepted[obj.id].parent == obj.parent)
+        #expect(accepted[obj.objectID].children == obj.children)
+        #expect(accepted[obj.objectID].parent == obj.parent)
     }
 
     // MARK: References and Referential Integrity
     
     @Test func brokenReferences() throws {
-        frame.create(TestEdgeType, id: 5,
+        frame.create(TestEdgeType,
+                     objectID: 5,
                      structure: .edge(30, 40),
                      parent: 10,
                      children: [20])
@@ -380,7 +385,7 @@ import Testing
     }
     
     @Test func rejectBrokenEdgeEndpoint() throws {
-        frame.create(TestEdgeType, id: 10, structure: .edge(900, 901))
+        frame.create(TestEdgeType, objectID: 10, structure: .edge(900, 901))
 
         #expect(frame.brokenReferences().count == 2)
         #expect(frame.brokenReferences().contains(ObjectID(900)))
@@ -392,7 +397,7 @@ import Testing
     }
 
     @Test func rejectMissingParent() throws {
-        frame.create(TestType, id: 20, parent: 902)
+        frame.create(TestType, objectID: 20, parent: 902)
 
         #expect(frame.brokenReferences().count == 1)
         #expect(frame.brokenReferences().contains(ObjectID(902)))
@@ -402,7 +407,7 @@ import Testing
     }
 
     @Test func rejectMissingChild() throws {
-        frame.create(TestType, id: 20, children: [903])
+        frame.create(TestType, objectID: 20, children: [903])
 
         #expect(frame.brokenReferences().count == 1)
         #expect(frame.brokenReferences().contains(903))
@@ -412,9 +417,9 @@ import Testing
     }
 
     @Test func rejectBrokenParentChild() throws {
-        frame.create(TestType, id: 10, children: [20])
-        frame.create(TestType, id: 20, parent: 30)
-        frame.create(TestType, id: 30)
+        frame.create(TestType, objectID: 10, children: [20])
+        frame.create(TestType, objectID: 20, parent: 30)
+        frame.create(TestType, objectID: 30)
 
         #expect {
             try frame.validateStructure()
@@ -427,8 +432,8 @@ import Testing
     }
     
     @Test func rejectBrokenParentNoChild() throws {
-        frame.create(TestType, id: 10, parent: 30)
-        frame.create(TestType, id: 30)
+        frame.create(TestType, objectID: 10, parent: 30)
+        frame.create(TestType, objectID: 30)
 
         #expect {
             try frame.validateStructure()
@@ -441,8 +446,8 @@ import Testing
     }
 
     @Test func rejectBrokenParentChildCycle() throws {
-        frame.create(TestType, id: 10, parent: 30, children: [30])
-        frame.create(TestType, id: 30, parent: 10, children: [10])
+        frame.create(TestType, objectID: 10, parent: 30, children: [30])
+        frame.create(TestType, objectID: 30, parent: 10, children: [10])
 
         #expect{
             try frame.validateStructure()
@@ -456,8 +461,8 @@ import Testing
     }
     
     @Test func rejectEdgeEndpointNotANode() throws {
-        frame.create(TestEdgeType, id: 10, structure: .edge(20, 20))
-        frame.create(TestType, id: 20)
+        frame.create(TestEdgeType, objectID: 10, structure: .edge(20, 20))
+        frame.create(TestType, objectID: 20)
 
         #expect {
             try frame.validateStructure()
@@ -474,7 +479,7 @@ import Testing
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
-        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
         #expect(design.identityManager.isReserved(ObjectID(10)))
         #expect(design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
@@ -482,8 +487,8 @@ import Testing
     }
 
     @Test func reserveAndAccept() throws {
-        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
-        frame.accept()
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        try design.accept(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(design.identityManager.isUsed(ObjectID(10)))
@@ -491,8 +496,8 @@ import Testing
     }
 
     @Test func reserveAndDiscard() throws {
-        frame.create(TestType, id: ObjectID(20), snapshotID: ObjectID(10))
-        frame.discard()
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        design.discard(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))

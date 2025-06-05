@@ -18,8 +18,8 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class DesignFrame: Frame {
-    public typealias Snapshot = DesignObject
+public final class StableFrame: Frame, Identifiable {
+    public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
     public unowned let design: Design
@@ -28,109 +28,77 @@ public final class DesignFrame: Frame {
     ///
     /// ID is unique within the design.
     ///
-    public let id: FrameID
+    public let id: EntityID
     
     /// Version snapshots contained in the frame.
     ///
     /// Snapshots might be shared between frames.
     ///
-    private let _snapshots: [DesignObject]
-    internal let _index: _FrameIndex
+    internal let _snapshots: [ObjectSnapshot]
+    @usableFromInline
+    internal let _lookup: [ObjectID:ObjectSnapshot]
+    @usableFromInline
+    internal let _graph: Graph<ObjectID, EdgeObject>
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
-    init(design: Design, id: FrameID, snapshots: [DesignObject] = []) {
-        // FIXME: [WIP] Rename to init(design:id:unsafeSnapshots:)
+    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
+        // TODO: [IMPORTANT] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
-        self._index = _FrameIndex(snapshots)
         self._snapshots = snapshots
-        // FIXME: [WIP] Enable this
+        let lookup = Dictionary(uniqueKeysWithValues: snapshots.map { ($0.objectID, $0 ) })
+        let nodeKeys = snapshots.compactMap {
+            if $0.structure == .node { $0.objectID }
+            else { nil }
+        }
+        let edges: [EdgeObject] = snapshots.compactMap {
+            guard case let .edge(originID, targetID) = $0.structure else {
+                return nil
+            }
+            guard let origin = lookup[originID], let target = lookup[targetID] else {
+                return nil
+            }
+            return EdgeObject($0, origin: origin, target: target)
+        }
+        self._graph = Graph(nodes: nodeKeys, edges: edges)
+        self._lookup = lookup
+        // TODO: [IMPORTANT] Enable this
 //        try! self.validateStructure()
     }
     
     /// Get a list of snapshots.
     ///
-    public var snapshots: [DesignObject] {
+    public var snapshots: [ObjectSnapshot] {
         return _snapshots
     }
     
+    public var objectIDs: [ObjectID] {
+        _snapshots.map { $0.objectID }
+    }
+
     /// Returns `true` if the frame contains an object with given object
     /// identity.
     ///
     public func contains(_ id: ObjectID) -> Bool {
-        return _index.idMap[id] != nil
-    }
-
-    public func contains(_ snapshot: DesignObject) -> Bool {
-        return _index.idMap[snapshot.id] === snapshot
+        return _lookup[id] != nil
     }
 
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
-        ids.filter { _index.idMap[$0] != nil }
+        ids.filter { _lookup[$0] != nil }
     }
 
     /// Return an object snapshots with given object ID.
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> DesignObject {
-        guard let snapshot = _index.idMap[id] else {
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
+        guard let snapshot = _lookup[id] else {
             preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
         }
         return snapshot
-    }
-    
-    // MARK: - Graph Protocol
-    public var nodeIDs: [ObjectID] {
-        _index.nodeIDs
-    }
-    public var nodes: [Node] {
-        return _index.nodes
-    }
-    public var edges: [Edge] {
-        return _index.edges
-    }
-
-    public var edgeIDs: [ObjectID] {
-        _index.edgeIDs
-    }
-
-    public func contains(node: NodeID) -> Bool {
-        return _index.nodeIDs.contains(node)
-    }
-
-    public func node(_ oid: NodeID) -> Node {
-        guard let snapshot = _index.idMap[id] else {
-            fatalError("Missing node: \(oid)")
-        }
-        guard snapshot.structure == .node else {
-            fatalError("Not a node: \(oid)")
-        }
-        return snapshot
-    }
-
-    public func contains(edge: ObjectID) -> Bool {
-        return _index.edgeIDs.contains(edge)
-    }
-
-    public func edge(_ oid: EdgeID) -> Edge {
-        guard let snapshot = _index.idMap[oid] else {
-            fatalError("Missing edge: \(oid)")
-        }
-        guard let edge = EdgeObject(snapshot, in: self) else {
-            fatalError("Not an edge: \(oid)")
-        }
-        return edge
-    }
-    public func outgoing(_ origin: NodeID) -> [Edge] {
-        return _index.outgoingEdges[origin] ?? []
-    }
-    
-    public func incoming(_ target: NodeID) -> [Edge] {
-        return _index.incomingEdges[target] ?? []
     }
 }
 

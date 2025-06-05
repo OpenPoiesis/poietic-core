@@ -22,7 +22,7 @@
 public protocol Predicate: Sendable, CustomStringConvertible {
     /// Check whether an object matches the predicate condition.
     ///
-    func match(_ object: DesignObject, in frame: some Frame) -> Bool
+    func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool
 
     /// Creates a compound predicate with the other predicate using a logical ∧ – `and` connective.
     func and(_ predicate: Predicate) -> Predicate
@@ -63,7 +63,7 @@ public struct OrPredicate: Predicate, CustomStringConvertible {
         self.predicates = predicates
     }
     
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         predicates.contains{ $0.match(object, in: frame) }
     }
 
@@ -90,7 +90,7 @@ public struct AndPredicate: Predicate, CustomStringConvertible {
         self.predicates = predicates
     }
     
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         predicates.allSatisfy{ $0.match(object, in: frame) }
     }
 
@@ -105,7 +105,7 @@ public struct NegationPredicate: Predicate, CustomStringConvertible {
     public init(_ predicate: any Predicate) {
         self.predicate = predicate
     }
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         return !predicate.match(object, in: frame)
     }
 
@@ -118,7 +118,7 @@ public struct AnyPredicate: Predicate, CustomStringConvertible{
     
     /// Matches any node – always returns `true`.
     ///
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         return true
     }
 
@@ -136,7 +136,7 @@ public struct HasComponentPredicate: Predicate {
         self.type = type
     }
 
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         return object.components.has(self.type)
     }
     public var description: String { "component(\(type)" }
@@ -154,7 +154,7 @@ public struct HasTraitPredicate: Predicate, CustomStringConvertible {
         self.trait = trait
     }
 
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         object.type.traits.contains { $0 === trait }
     }
     public var description: String { "HAS(\(trait.name))" }
@@ -172,7 +172,7 @@ public struct IsTypePredicate: Predicate, CustomStringConvertible {
         self.type = type
     }
     
-    public func match(_ object: DesignObject, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
         object.type === type
     }
     

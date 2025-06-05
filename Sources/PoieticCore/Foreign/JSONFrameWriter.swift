@@ -23,7 +23,7 @@ public class JSONDesignWriter {
     }
     
     public func write(_ design: RawDesign, toURL url: URL) throws (RawDesignWriterError) {
-        let data = write(design)
+        let data: Data = write(design)
         do {
             try data.write(to: url)
         }
@@ -45,6 +45,14 @@ public class JSONDesignWriter {
             fatalError("Unable to encode raw design. Underlying error: \(error)")
         }
         return data
+    }
+
+    public func write(_ design: RawDesign) -> String? {
+        let encoder = JSONEncoder()
+        encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        let data: Data = write(design)
+        let text = String(data: data, encoding: .utf8)
+        return text
     }
 
 }

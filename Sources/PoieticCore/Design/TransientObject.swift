@@ -6,49 +6,140 @@
 //
 
 
-// FIXME: Remove this
-/// List of attribute names that are reserved and should not be used.
-///
-public let ReservedAttributeNames = [
-    "id", "snapshot_id", "origin", "target", "type", "parent", "structure",
-]
+@usableFromInline
+class _TransientSnapshotBox: Identifiable {
+    // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
+    /// Object ID
+    ///
+    @usableFromInline
+    var id: ObjectID
+    
+    enum Content {
+        case stable(isOriginal: Bool, object: ObjectSnapshot)
+        case mutable(isNew: Bool, object: TransientObject)
+    }
+    
+    var content: Content
+    
+    init(_ snapshot: ObjectSnapshot, isOriginal: Bool) {
+        self.id = snapshot.objectID
+        content = .stable(isOriginal: isOriginal, object: snapshot)
+    }
+    init(_ mutable: TransientObject, isNew: Bool) {
+        self.id = mutable.objectID
+        content = .mutable(isNew: isNew, object: mutable)
+    }
+    
+    var isOriginal: Bool {
+        switch content {
+        case .stable(let flag, _): flag
+        case .mutable(_, _): false
+        }
+    }
+    
+    var isMutable: Bool {
+        switch content {
+        case .stable(_, _): false
+        case .mutable(_, _): true
+        }
+    }
+    
+    var hasChanges: Bool {
+        switch content {
+        case let .mutable(isNew: newFlag, object: object): newFlag || object.hasChanges
+        case let .stable(isOriginal: isOriginalFlag, object: _): !isOriginalFlag
+        }
+    }
+    
+    var objectID: ObjectID {
+        switch content {
+        case let .stable(_, snapshot): snapshot.objectID
+        case let .mutable(_, object): object.objectID
+        }
+    }
 
+    var snapshotID: EntityID {
+        switch content {
+        case let .stable(_, snapshot): snapshot.snapshotID
+        case let .mutable(_, object): object.snapshotID
+        }
+    }
+    
+    var parent: ObjectID? {
+        switch content {
+        case let .stable(_, snapshot): snapshot.parent
+        case let .mutable(_, object): object.parent
+        }
+    }
+    
+    var children: ChildrenSet {
+        switch content {
+        case let .stable(_, snapshot): snapshot.children
+        case let .mutable(_, object): object.children
+        }
+    }
+    
+    var structure: Structure {
+        switch content {
+        case let .stable(_,snapshot): snapshot.structure
+        case let .mutable(_, object): object.structure
+        }
+    }
+    
+    func asSnapshot() -> ObjectSnapshot {
+        switch content {
+        case let .stable(_, object): object
+        case let .mutable(_, snapshot):
+            ObjectSnapshot(id: snapshot.snapshotID,
+                           body: snapshot._body,
+                           components: snapshot.components)
+        }
+    }
+}
 
-/// Transient object that can be modified.
+/// An object that can be modified before being inserted into a frame.
 ///
-/// Mutable objects are temporary and typically exist only during a change
-/// transaction. New objects are created within a ``TransientFrame`` by ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
+/// Transient objects have short life time and should exist only for the purpose of constructing
+/// a transaction for a change. New objects are created within a ``TransientFrame`` using
+/// ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
 /// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
 ///
-/// Mutable objects are converted to stable objects with ``Design/accept(_:appendHistory:)``.
+/// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
 ///
 /// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
 ///
-public class MutableObject: ObjectSnapshot {
+public class TransientObject: ObjectProtocol {
+    
     @usableFromInline
-    package var _body: _ObjectBody
+    package var snapshotID: ObjectID
+    @usableFromInline
+    package var _body: ObjectBody
     public var components: ComponentSet
     
+    /// Flag to denote whether the object's parent-child hierarchy has been modified,
     public private(set) var hierarchyChanged: Bool
-    public private(set) var changedAttributes: Set<String>
-    public private(set) var original: DesignObject?
+    public private(set) var componentsChanged: Bool
 
-    var hasChanges: Bool { !changedAttributes.isEmpty && hierarchyChanged }
+    /// Set of changed attributes.
+    ///
+    /// Any attempt to set an attribute is considered a change, despite the new value might be the
+    /// same as the original value.
+    ///
+    public private(set) var changedAttributes: Set<String>
+
+    var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged || componentsChanged }
     
-    public init(id: ObjectID,
-                snapshotID: SnapshotID,
-                type: ObjectType,
+    public init(type: ObjectType,
+                snapshotID: EntityID,
+                objectID: ObjectID,
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
         
-        precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
-                     "The attributes must not contain any reserved attribute")
-        
-        self._body = _ObjectBody(id: id,
-                                 snapshotID: snapshotID,
+        self.snapshotID = snapshotID
+        self._body = ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
                                  parent: parent,
@@ -57,23 +148,19 @@ public class MutableObject: ObjectSnapshot {
         self.components = ComponentSet(components)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
+        self.componentsChanged = false
     }
 
-    init(original: DesignObject, snapshotID: SnapshotID) {
-        self._body = _ObjectBody(id: original.id,
-                                 snapshotID: snapshotID,
-                                 type: original.type,
-                                 structure: original.structure,
-                                 parent: original.parent,
-                                 children: Array(original.children),
-                                 attributes: original.attributes)
+    init(original: ObjectSnapshot, snapshotID: EntityID) {
+        self.snapshotID = snapshotID
+        self._body = original._body
         self.components = original.components
         self.changedAttributes = Set()
         self.hierarchyChanged = false
+        self.componentsChanged = false
     }
    
-    @inlinable public var id: ObjectID { _body.id }
-    @inlinable public var snapshotID: ObjectID { _body.snapshotID }
+    @inlinable public var objectID: ObjectID { _body.id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure {
         get { _body.structure }
@@ -94,27 +181,9 @@ public class MutableObject: ObjectSnapshot {
 
     /// Get a value for an attribute.
     ///
-    /// The function returns a foreign value for a given attribute from
-    /// the components or for a special snapshot attribute.
-    ///
-    /// The special snapshot attributes are:
-    /// - `"id"` – object ID of the snapshot
-    /// - `"snapshot_id"` – ID of object version snapshot
-    /// - `"type"` – name of the object type, see ``ObjectType/name``
-    /// - `"structure"` – name of the structural type of the object
-    ///
-    /// Other keys are searched in the list of object's components. The
-    /// first value found in the list of the components is returned.
-    ///
     @inlinable
     public func attribute(forKey key: String) -> Variant? {
-        switch key {
-        case "id": Variant(id.stringValue)
-        case "snapshot_id": Variant(snapshotID.stringValue)
-        case "type": Variant(type.name)
-        case "structure": Variant(structure.type.rawValue)
-        default: attributes[key]
-        }
+        attributes[key]
     }
     
     public var attributeKeys: [AttributeKey] {
@@ -141,8 +210,6 @@ public class MutableObject: ObjectSnapshot {
     /// - Precondition: The attribute must not be a reserved attribute (``ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
-        precondition(ReservedAttributeNames.firstIndex(of: "key") == nil,
-                     "Trying to set a reserved read-only attribute '\(key)'")
         _body.attributes[key] = value
         changedAttributes.insert(key)
     }
@@ -157,6 +224,7 @@ public class MutableObject: ObjectSnapshot {
         }
         set(component) {
             components[componentType] = component
+            componentsChanged = true
         }
     }
     public func removeChild(_ child: ObjectID) {

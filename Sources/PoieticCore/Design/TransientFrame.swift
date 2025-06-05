@@ -22,221 +22,6 @@ public enum StructuralIntegrityError: Error {
     case edgeEndpointNotANode // TODO: Rename to invalidStructureReferenceTargetType (or simpler)
 }
 
-/// Reference counted storage of object snapshots.
-///
-/// Features of the snapshot storage:
-/// - Reference counting with ``insertOrRetain(_:)`` and ``release(_:)``.
-/// - Fast lookup by snapshot ID ``snapshot(_:)`` and ``contains(_:)``.
-///
-/// Generally the snapshot storage tries to preserve relative order of objects after insertion.
-/// Exception is insertion after object removal, when an object might be inserted in between
-/// existing objects, disrupting local order of the neighbours. Note that the general order of
-/// insertion is not preserved.
-///
-class TransientSnapshotStorage {
-    enum Cell {
-        case stable(isOriginal: Bool, object: DesignObject)
-        case mutable(MutableObject)
-        
-        var isOriginal: Bool {
-            switch self {
-            case .stable(let flag, _): flag
-            case .mutable(_): false
-            }
-        }
-        
-        var isMutable: Bool {
-            switch self {
-            case .stable(_, _): false
-            case .mutable(_): true
-            }
-        }
-        
-        var id: ObjectID {
-            switch self {
-            case let .stable(_, object): object.id
-            case let .mutable(object): object.id
-            }
-        }
-
-        var snapshotID: SnapshotID {
-            switch self {
-            case let .stable(_, object): object.snapshotID
-            case let .mutable(object): object.snapshotID
-            }
-        }
-        
-        var parent: ObjectID? {
-            switch self {
-            case let .stable(_, object): object.parent
-            case let .mutable(object): object.parent
-            }
-        }
-        
-        var children: ChildrenSet {
-            switch self {
-            case let .stable(_, object): object.children
-            case let .mutable(object): object.children
-            }
-        }
-        
-        var structure: Structure {
-            switch self {
-            case let .stable(_,object): object.structure
-            case let .mutable(object): object.structure
-            }
-        }
-    }
-
-    @usableFromInline
-    var _snapshots: GenerationalArray<Cell>
-
-    @usableFromInline
-    var _lookup: [ObjectID:GenerationalArray<Cell>.Index]
-    
-    var _snapshotIDs: Set<ObjectID>
-    
-    /// Create an empty snapshot storage.
-    ///
-    init() {
-        self._snapshots = []
-        self._lookup = [:]
-        self._snapshotIDs = Set()
-    }
-    
-    /// Get a list of contained snapshots.
-    ///
-    var cells: some Collection<Cell> {
-        return _snapshots
-    }
-    
-    public var originals: [ObjectID] {
-        _snapshots.compactMap {
-            switch $0 {
-            case .mutable(_): nil
-            case let .stable(isOriginal: flag, object: object):
-                if flag { object.id } else { nil }
-            }
-        }
-    }
-    
-    var changed: [ObjectID] {
-        _snapshots.compactMap {
-            switch $0 {
-            case let .mutable(object):
-                if object.original == nil || object.hasChanges {
-                    object.id
-                }
-                else {
-                    nil
-                }
-            case let .stable(isOriginal: original, object: object):
-                if original { nil } else { object.id }
-            }
-        }
-    }
-
-    var mutableObjects: [MutableObject] {
-        _snapshots.compactMap {
-            switch $0 {
-            case let .mutable(object): object
-            case .stable(_, _): nil
-            }
-        }
-    }
-
-    
-    /// Returns `true` if the storage contains a snapshot with given ID.
-    ///
-    func contains(_ id: ObjectID) -> Bool {
-        _lookup[id] != nil
-    }
-    public func contains(snapshotID: ObjectID) -> Bool {
-        _snapshotIDs.contains(snapshotID)
-    }
-
-    /// Get a snapshot by snapshot ID, if it exists.
-    ///
-    @inlinable
-    func cell(_ id: ObjectID) -> Cell? {
-        guard let index = _lookup[id] else {
-            return nil
-        }
-        return _snapshots[index]
-    }
-    
-    @inlinable
-    subscript(_ id: ObjectID) -> Cell? {
-        return cell(id)
-    }
-
-    /// Inserts a snapshot into the store, if it does not already exist or increases reference
-    /// count of a snapshot.
-    ///
-    /// - Precondition: If the store already contains snapshot with given ID it must be the same
-    ///   snapshot.
-    public func append(_ snapshot: DesignObject, isOriginal: Bool) {
-        precondition(_lookup[snapshot.id] == nil)
-        precondition(!_snapshotIDs.contains(snapshot.snapshotID))
-        let index = _snapshots.append(Cell.stable(isOriginal: isOriginal, object: snapshot))
-        _lookup[snapshot.id] = index
-        _snapshotIDs.insert(snapshot.snapshotID)
-    }
-
-    func append(_ snapshot: MutableObject) {
-        precondition(_lookup[snapshot.id] == nil)
-        precondition(!_snapshotIDs.contains(snapshot.snapshotID))
-        let index = _snapshots.append(Cell.mutable(snapshot))
-        _lookup[snapshot.id] = index
-        _snapshotIDs.insert(snapshot.snapshotID)
-    }
-    
-    func replace(_ newSnapshot: MutableObject) {
-        guard let index = _lookup[newSnapshot.id] else {
-            preconditionFailure("No object with id '\(newSnapshot.id)' to be replaced")
-        }
-        let existing = _snapshots[index]
-        _snapshotIDs.remove(existing.snapshotID)
-        _snapshots[index] = Cell.mutable(newSnapshot)
-        _snapshotIDs.insert(newSnapshot.snapshotID)
-    }
-
-
-    /// Reduce reference count of an object. If the reference count reaches zero, the object is
-    /// removed from the store.
-    ///
-    func remove(_ id: ObjectID) {
-        guard let index = _lookup[id] else {
-            preconditionFailure("Missing snapshot \(id)")
-        }
-        let snapshotID = _snapshots[index].snapshotID
-        _snapshots.remove(at: index)
-        _lookup[id] = nil
-        _snapshotIDs.remove(snapshotID)
-    }
-}
-
-extension TransientSnapshotStorage: Collection {
-    public typealias Index = GenerationalArray<Cell>.Index
-    public typealias Element = Cell
-    
-    public var startIndex: Index {
-        return _snapshots.startIndex
-    }
-    
-    public var endIndex: Index {
-        return _snapshots.endIndex
-    }
-    
-    public func index(after i: Index) -> Index {
-        return _snapshots.index(after: i)
-    }
-    
-    public subscript(position: Index) -> Cell {
-        return _snapshots[position]
-    }
-}
-
 /// Transient frame that represents a change transaction.
 ///
 /// Designated way of creating transient frames is with ``Design/createFrame(deriving:id:)``.
@@ -304,38 +89,46 @@ public final class TransientFrame: Frame {
     ///
     var state: State = .transient
     
-    // FIXME: Order is not preserved, use SnapshotStorage or something similar
-    var _snapshots: TransientSnapshotStorage
+    // validate also snapshot IDs
+    @usableFromInline
+    var _snapshots: EntityTable<_TransientSnapshotBox>
+    @usableFromInline
+    var _snapshotIDs: Set<ObjectID>
+    
+    @usableFromInline
     var _removedObjects: Set<ObjectID>
     var _reservations: Set<ObjectID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
-    public var mutableObjects: [MutableObject] {
-        _snapshots.mutableObjects
+    public var mutableObjects: [TransientObject] {
+        _snapshots.compactMap {
+            guard case let .mutable(_, snapshot) = $0.content else {
+                return nil
+            }
+            return snapshot
+        }
     }
     
+    public var objectIDs: [ObjectID] {
+        _snapshots.map { $0.objectID }
+    }
+
     /// List of snapshots in the frame.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
     ///
-    public var snapshots: [DesignObject] {
-        // FIXME: [WIP] Review necessity of this.
-        _snapshots.map {
-            switch $0 {
-            case let .mutable(object): DesignObject(body: object._body, components: object.components)
-            case let .stable(_, object): object
-            }
-
-        }
+    public var snapshots: [ObjectSnapshot] {
+        // TODO: [DEPRECATE] Review necessity of this, seems like used in tests only.
+        _snapshots.map { $0.asSnapshot() }
     }
     
     /// Returns `true` if the frame contains an object with given object ID.
     ///
-    public func contains(_ id: ObjectID) -> Bool {
-        _snapshots[id] != nil
+    public func contains(_ objectID: ObjectID) -> Bool {
+        _snapshots[objectID] != nil
     }
     public func contains(snapshotID: ObjectID) -> Bool {
-        return _snapshots.contains(snapshotID: snapshotID)
+        _snapshotIDs.contains(snapshotID)
     }
     /// Get an object with identity `id`.
     ///
@@ -347,26 +140,23 @@ public final class TransientFrame: Frame {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> DesignObject {
-        // FIXME: [WIP] Review necessity of this.
-        guard let cell = _snapshots[id] else {
+    public func object(_ id: ObjectID) -> ObjectSnapshot {
+        // TODO: [DEPRECATE] Review necessity of this.
+        guard let box = _snapshots[id] else {
             preconditionFailure("Unknown object \(id)")
         }
-        switch cell {
-        case let .mutable(object): return DesignObject(body: object._body, components: object.components)
-        case let .stable(_, object): return object
-        }
+        return box.asSnapshot()
     }
     
     /// Get an object version of object with identity `id`.
     ///
-    public subscript(id: ObjectID) -> DesignObject {
+    public subscript(id: ObjectID) -> ObjectSnapshot {
         get { object(id) }
     }
     
     /// Flag whether the mutable frame has any changes.
     public var hasChanges: Bool {
-        return !(removedObjects.isEmpty && _snapshots.changed.isEmpty)
+        return !removedObjects.isEmpty || _snapshots.contains { $0.hasChanges }
     }
     
     /// Create a new mutable frame.
@@ -386,21 +176,24 @@ public final class TransientFrame: Frame {
     /// Snapshots removed from the mutable frame are only disassociated with the
     /// frame, not removed from the design or any other frame.
     ///
-    /// - Precondition: Snapshots must have structural integrity.
+    /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
     public init(design: Design,
                 id: FrameID,
-                snapshots: [DesignObject]? = nil) {
+                snapshots: [ObjectSnapshot]? = nil) {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
         self.id = id
-        self._snapshots = TransientSnapshotStorage()
+        self._snapshots = EntityTable()
         self._removedObjects = Set()
         self._reservations = []
+        self._snapshotIDs = Set()
         
         if let snapshots {
             for snapshot in snapshots {
-                _snapshots.append(snapshot, isOriginal: false)
+                let box = _TransientSnapshotBox(snapshot, isOriginal: false)
+                _snapshots.insert(box)
+                _snapshotIDs.insert(snapshot.snapshotID)
             }
         }
     }
@@ -414,7 +207,6 @@ public final class TransientFrame: Frame {
     ///
     public func accept() {
         precondition(state == .transient)
-        design.identityManager.useReservations(Array(_reservations))
         self.state = .accepted
     }
     
@@ -427,7 +219,6 @@ public final class TransientFrame: Frame {
     ///
     public func discard() {
         precondition(state == .transient)
-        design.identityManager.releaseReservations(Array(_reservations))
         self.state = .discarded
     }
     
@@ -448,8 +239,8 @@ public final class TransientFrame: Frame {
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
     ///     - components: List of components to be set for the newly created object.
-    ///     - structure: Structural component of the new object that must match
-    ///       the object type.
+    ///     - structure: Structural component of the new object. If not provided,
+    ///       then unstructured is used.
     ///
     /// - Note: Attributes are not checked according to the object type during
     ///   object creation. The object is not yet required to satisfy any
@@ -461,20 +252,18 @@ public final class TransientFrame: Frame {
     ///
     /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
     ///   in the frame.
-    /// - Precondition: `structure` must match ``ObjectType/structuralType``.
     ///
     @discardableResult
     public func create(_ type: ObjectType,
-                       id: ObjectID? = nil,
-                       snapshotID: SnapshotID? = nil,
+                       objectID: ObjectID? = nil,
+                       snapshotID: EntityID? = nil,
                        structure: Structure? = nil,
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
                        attributes: [String:Variant]=[:],
-                       components: [any Component]=[]) -> MutableObject {
+                       components: [any Component]=[]) -> TransientObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
-        // TODO: Consider moving this to Design (as well as its RawDesignLoader counterpart)
-        // FIXME: [WIP] Consider throwing an exception instead of having runtime errors
+        // TODO: Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
         let actualSnapshotID: ObjectID
@@ -489,9 +278,9 @@ public final class TransientFrame: Frame {
         _reservations.insert(actualSnapshotID)
 
         let actualID: ObjectID
-        if let id {
+        if let id = objectID {
             let success = design.identityManager.reserveIfNeeded(id, type: .object)
-            precondition(success, "Type mismatch for ID \(id)")
+            precondition(success, "Entity type mismatch for ID \(id)")
             precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
@@ -500,53 +289,27 @@ public final class TransientFrame: Frame {
         }
         _reservations.insert(actualID)
 
-        let actualStructure: Structure
-        switch type.structuralType {
-        case .unstructured:
-            precondition(structure == nil || structure == .unstructured,
-                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
-            actualStructure = .unstructured
-        case .node:
-            precondition(structure == nil || structure == .node,
-                         "Structural component mismatch for type \(type.name). Got: \(structure!.type) expected: \(type.structuralType)")
-            actualStructure = .node
-        case .edge:
-            guard let structure else {
-                fatalError("Structural component of type `edge` is required to be provided for type \(type.name)")
-            }
-            
-            precondition(structure.type == .edge,
-                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
-            
-            actualStructure = structure
-        case .orderedSet:
-            guard let structure else {
-                fatalError("Structural component of type `orderedSet` is required to be provided for type \(type.name)")
-            }
-            precondition(structure.type == .orderedSet,
-                         "Structural component mismatch for type \(type.name). Got: \(structure.type) expected: \(type.structuralType)")
-            actualStructure = structure
-        }
+        let actualStructure = structure ?? .unstructured
         var actualAttributes = attributes
         
-        // Add required components as described by the object type.
-        //
+        // FIXME: [WIP] Is this the right place to add default attributes?
         for attribute in type.attributes {
             if actualAttributes[attribute.name] == nil {
                 actualAttributes[attribute.name] = attribute.defaultValue
             }
         }
         
-        let snapshot = MutableObject(id: actualID,
+        let snapshot = TransientObject(type: type,
                                      snapshotID: actualSnapshotID,
-                                     type: type,
+                                     objectID: actualID,
                                      structure: actualStructure,
                                      parent: parent,
                                      children: children,
                                      attributes: actualAttributes,
                                      components: components)
-        
-        _snapshots.append(snapshot)
+        let box = _TransientSnapshotBox(snapshot, isNew: true)
+        _snapshots.insert(box)
+        _snapshotIDs.insert(snapshot.snapshotID)
         self._removedObjects.remove(actualID)
         
         return snapshot
@@ -572,9 +335,10 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
     ///
-    public func insert(_ snapshot: DesignObject) {
+    public func insert(_ snapshot: ObjectSnapshot) {
         // TODO: Make insert() function throwing (StructuralIntegrityError)
         // Check for referential integrity
+        // TODO: Validate structure vs. type
         do {
             try validateStructure(snapshot)
         }
@@ -584,7 +348,7 @@ public final class TransientFrame: Frame {
         
         unsafeInsert(snapshot)
     }
-    public func validateStructure(_ snapshot: DesignObject) throws (StructuralIntegrityError) {
+    public func validateStructure(_ snapshot: ObjectSnapshot) throws (StructuralIntegrityError) {
         switch snapshot.structure {
         case .node, .unstructured: break
         case let .edge(origin, target):
@@ -627,15 +391,31 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
-    public func unsafeInsert(_ snapshot: DesignObject) {
-        // FIXME: [WIP] [IMPORTANT] Check for snapshot ID existence
+    internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
+        // TODO: [IMPORTANT] Check for snapshot ID existence
         precondition(state == .transient)
-        precondition(_snapshots[snapshot.id] == nil,
-                     "Inserting duplicate object ID \(snapshot.id) to frame \(id)")
+        precondition(!_snapshots.contains(snapshot.objectID),
+                     "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
+        precondition(!_snapshotIDs.contains(snapshot.snapshotID),
+                     "Inserting duplicate snapshot ID \(snapshot.snapshotID) to frame \(id)")
         precondition(_snapshots.allSatisfy { $0.snapshotID != snapshot.snapshotID },
-                     "Inserting duplicate snapshot ID \(snapshot.id) to frame \(id)")
+                     "Inserting duplicate snapshot ID \(snapshot.objectID) to frame \(id)")
         
-        _snapshots.append(snapshot, isOriginal: false)
+        let box = _TransientSnapshotBox(snapshot, isOriginal: false)
+        _snapshots.insert(box)
+        _snapshotIDs.insert(snapshot.snapshotID)
+    }
+    
+    /// Insert snapshots into the transient frame together with reservations.
+    ///
+    /// This method is used by the loader. It consumes the reservations from the loader and takes
+    /// responsibility for using them or releasing them.
+    ///
+    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<ObjectID>) {
+        for snapshot in snapshots {
+            unsafeInsert(snapshot)
+        }
+        _reservations.formUnion(reservations)
     }
     
     /// Remove an object from the frame and all its dependants.
@@ -657,22 +437,20 @@ public final class TransientFrame: Frame {
     /// - Precondition: The frame state must be ``State/transient``.
     ///
     @discardableResult
-    public func removeCascading(_ id: ObjectID) -> Set<ObjectID> {
+    public func removeCascading(_ objectID: ObjectID) -> Set<ObjectID> {
         precondition(state == .transient)
-        precondition(contains(id), "Unknown object ID \(id) in frame \(self.id)")
+        precondition(contains(objectID), "Unknown object ID \(objectID) in frame \(self.id)")
         
         var removed: Set<ObjectID> = Set()
-        var scheduled: Set<ObjectID> = [id]
+        var scheduled: Set<ObjectID> = [objectID]
         
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
-            // FIXME: We should do it without asStable()
             let garbage = _snapshots[garbageID]!
-            _snapshots.remove(garbageID)
-            _removedObjects.insert(garbageID)
+            _remove(snapshotID: garbage.snapshotID, objectID: garbage.objectID)
             
             if garbage.isOriginal {
-                // FIXME: [WIP] !!!IMPORTANT NOT IMPLEMENTED!!!
+                // FIXME: [WIP] [IMPORTANT] Implement this
                 fatalError("Should add removed ")
                 // _removedObjects[garbageID] = garbage
             }
@@ -689,18 +467,18 @@ public final class TransientFrame: Frame {
             
             // Check for dependants (edges)
             //
-            for dependant in snapshots where !removed.contains(dependant.id) {
+            for dependant in snapshots where !removed.contains(dependant.objectID) {
                 switch dependant.structure {
                 case let .edge(origin, target):
                     if origin == garbageID || target == garbageID {
-                        scheduled.insert(dependant.id)
+                        scheduled.insert(dependant.objectID)
                     }
                 case .orderedSet(let owner, var items):
                     if owner == garbageID {
-                        scheduled.insert(dependant.id)
+                        scheduled.insert(dependant.objectID)
                     }
                     else if items.contains(garbageID) {
-                        let update = mutate(dependant.id)
+                        let update = mutate(dependant.objectID)
                         items.remove(garbageID)
                         update.structure = .orderedSet(owner, items)
                     }
@@ -713,7 +491,12 @@ public final class TransientFrame: Frame {
         }
         return removed
     }
-    
+    @inlinable
+    func _remove(snapshotID: ObjectID, objectID: ObjectID) {
+        _snapshots.remove(objectID)
+        _snapshotIDs.remove(snapshotID)
+        _removedObjects.insert(objectID)
+    }
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is
@@ -731,20 +514,23 @@ public final class TransientFrame: Frame {
     /// - Precondition: The frame must contain an object with given ID.
     /// - Precondition: The frame state must be ``State/transient``.
     ///
-    public func mutate(_ id: ObjectID) -> MutableObject {
+    public func mutate(_ id: ObjectID) -> TransientObject {
         precondition(state == .transient)
         
         guard let current = _snapshots[id] else {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
-        switch current {
-        case .mutable(let snapshot):
+        switch current.content {
+        case .mutable(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID: SnapshotID = design.identityManager.createAndReserve(type: .snapshot)
-            let derived = MutableObject(original: original, snapshotID: derivedSnapshotID)
-            _snapshots.replace(derived)
+            let derivedSnapshotID = design.identityManager.createAndReserve(type: .snapshot)
+            let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
+            let box = _TransientSnapshotBox(derived, isNew: false)
+            _snapshots.replace(box)
             _reservations.insert(derivedSnapshotID)
+            _snapshotIDs.remove(original.snapshotID)
+            _snapshotIDs.insert(derivedSnapshotID)
             return derived
         }
     }
@@ -771,7 +557,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: The child object must not have a parent.
     /// - ToDo: Check for cycles.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -796,7 +582,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -821,7 +607,7 @@ public final class TransientFrame: Frame {
     /// a child. Mutable version of the old parent will be created, if
     /// necessary.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
@@ -849,7 +635,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshot/children``, ``ObjectSnapshot/parent``,
+    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeCascading(_:)``.

@@ -108,7 +108,6 @@ import Testing
         #expect(design.snapshots.count == 1)
         #expect(design.frames.count == 1)
         let frame = try #require(design.frames.first)
-        let snapshot = try #require(design.snapshots.first)
         #expect(frame.id == .id(1000))
         #expect(frame.snapshots == [.string("first")])
     }
@@ -135,7 +134,7 @@ import Testing
         let snapshot = try #require(design.snapshots.first)
         #expect(snapshot.typeName == "Some")
         #expect(snapshot.structure == RawStructure("node", references: []))
-        #expect(snapshot.id == .string("first"))
+        #expect(snapshot.objectID == .string("first"))
         #expect(snapshot.snapshotID == .id(10))
         #expect(snapshot.parent == .id(20))
     }
@@ -156,19 +155,19 @@ import Testing
 
         #expect(design.snapshots.count == 5)
 
-        #expect(design.snapshots[0].id == .string("i"))
+        #expect(design.snapshots[0].objectID == .string("i"))
         #expect(design.snapshots[0].structure == RawStructure(nil, references: []))
 
-        #expect(design.snapshots[1].id == .string("u"))
+        #expect(design.snapshots[1].objectID == .string("u"))
         #expect(design.snapshots[1].structure == RawStructure("unstructured", references: []))
 
-        #expect(design.snapshots[2].id == .string("n"))
+        #expect(design.snapshots[2].objectID == .string("n"))
         #expect(design.snapshots[2].structure == RawStructure("node", references: []))
 
-        #expect(design.snapshots[3].id == .string("e"))
+        #expect(design.snapshots[3].objectID == .string("e"))
         #expect(design.snapshots[3].structure == RawStructure("edge", references: [.id(10), .id(20)]))
 
-        #expect(design.snapshots[4].id == .string("ie"))
+        #expect(design.snapshots[4].objectID == .string("ie"))
         #expect(design.snapshots[4].structure == RawStructure("edge", references: [.id(30), .id(40)]))
 
     }

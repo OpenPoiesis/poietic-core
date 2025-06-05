@@ -1,43 +1,23 @@
 //
-//  DesignObject.swift
+//  ObjectSnapshot.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 11/11/2024.
 //
 
-
-@usableFromInline
-package struct _ObjectBody {
-    // Identity
-    public let snapshotID: SnapshotID
-    public let id: ObjectID
-    public let type: ObjectType
+public final class LogicalObject: CustomStringConvertible, Identifiable {
+    public let id: EntityID
     
-    // State
-    public var structure: Structure
-    public var parent: ObjectID?
-    public var children: ChildrenSet
-    public var attributes: [String:Variant]
-    
-    public init(id: ObjectID,
-                snapshotID: SnapshotID,
-                type: ObjectType,
-                structure: Structure,
-                parent: ObjectID?,
-                children: [ObjectID],
-                attributes: [String:Variant]) {
+    public init(id: EntityID) {
         self.id = id
-        self.snapshotID = snapshotID
-        self.type = type
-        self.structure = structure
-        self.parent = parent
-
-        self.attributes = attributes
-        self.children = ChildrenSet(children)
     }
+    
+    public var description: String { "object(\(id)" }
 }
 
 /// Version snapshot of a design object.
+///
+/// Immutable, point-in-time capture of an object's state.
 ///
 /// This is the primary design entity. Stable objects can be shared between
 /// multiple frames.
@@ -65,9 +45,35 @@ package struct _ObjectBody {
 /// ```
 /// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
-public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
+public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol {
+    /// Unique identifier of the object version snapshot within the design.
+    ///
+    /// The ``snapshotID`` represents a concrete version of an object. An
+    /// object can have multiple versions, which all share the same identity
+    /// of object ``id``.
+    ///
+    /// Typically when working with the design and design frames, one does not
+    /// need to use the ``snapshotID``. It is used only when considering
+    /// different versions of objects.
+    ///
+    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
+    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
+    ///
+    /// - SeeAlso: ``id``,
+    ///    ``TransientFrame/mutate(_:)``
+    ///
+    public let id: EntityID
+
     @usableFromInline
-    let _body: _ObjectBody
+    let _body: ObjectBody
+    @inlinable public var objectID: ObjectID { _body.id }
+    @inlinable public var snapshotID: EntityID { self.id }
+    @inlinable public var type: ObjectType { _body.type }
+    @inlinable public var structure: Structure { _body.structure }
+    @inlinable public var parent: ObjectID? { _body.parent }
+    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var attributes: [String:Variant] { _body.attributes }
+
     public var components: ComponentSet
 
     /// Create a stable object.
@@ -82,23 +88,21 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
     ///     - parent: ID of parent object in the object hierarchy.
     ///     - components: List of components to be added to the object.
     ///
-    /// - SeeAlso: ``MutableObject``
+    /// - SeeAlso: ``TransientObject``
     /// - Precondition: Attributes must not contain any reserved attribute
     ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
     ///
-    public init(id: ObjectID,
-                snapshotID: SnapshotID,
-                type: ObjectType,
+    public init(type: ObjectType,
+                snapshotID: EntityID,
+                objectID: ObjectID,
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:],
                 components: [any Component] = []) {
-        precondition(ReservedAttributeNames.allSatisfy({ attributes[$0] == nil}),
-                     "The attributes must not contain any reserved attribute")
-        
-        self._body = _ObjectBody(id: id,
-                                 snapshotID: snapshotID,
+
+        self.id = snapshotID
+        self._body = ObjectBody(id: objectID,
                                  type: type,
                                  structure: structure,
                                  parent: parent,
@@ -107,41 +111,32 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
         self.components = ComponentSet(components)
     }
     
-    init(body: _ObjectBody, components: ComponentSet) {
+    init(id: EntityID, body: ObjectBody, components: ComponentSet) {
+        self.id = id
         self._body = body
         self.components = components
     }
     
-    @inlinable public var id: ObjectID { _body.id }
-    @inlinable public var snapshotID: ObjectID { _body.snapshotID }
-    @inlinable public var type: ObjectType { _body.type }
-    @inlinable public var structure: Structure { _body.structure }
-    @inlinable public var parent: ObjectID? { _body.parent }
-    @inlinable public var children: ChildrenSet { _body.children }
-    @inlinable public var attributes: [String:Variant] { _body.attributes }
-
     /// Textual description of the object.
     ///
     public var description: String {
         let structuralName: String = self.structure.type.rawValue
-        let attrs = self.type.attributes.map {
-            ($0.name, self[$0.name] ?? "nil")
-        }.map { "\($0.0)=\($0.1)"}
-        .joined(separator: ",")
-        return "\(structuralName)(id:\(id), sid:\(snapshotID), type:\(type.name), attrs:\(attrs)"
+        let attrs = self.attributes.map { (name, value) in
+            "\(name)=\(value)"
+        }.joined(separator: ",")
+        return "\(structuralName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs))"
     }
     
     /// Prettier description of the object.
     ///
     public var prettyDescription: String {
-        let name: String = self.name ?? "(unnamed)"
-        return "\(id) {\(type.name), \(structure.description), \(name))}"
+        let name: String = name ?? "(unnamed)"
+        return "\(_body.id) {\(type.name), \(structure.description), \(name))}"
     }
     
-
     @inlinable
     public subscript(attributeName: String) -> (Variant)? {
-        return attribute(forKey: attributeName)
+        _body.attributes[attributeName]
     }
     
     /// Get or set a component of given type, if present.
@@ -158,37 +153,5 @@ public final class DesignObject: ObjectSnapshot, CustomStringConvertible {
         set(component) {
             components[componentType] = component
         }
-    }
-    
-    
-    /// Get a value for an attribute.
-    ///
-    /// The function returns a foreign value for a given attribute from
-    /// the components or for a special snapshot attribute.
-    ///
-    /// The special snapshot attributes are:
-    ///
-    /// - `"id"` – object ID of the snapshot
-    /// - `"snapshotID"` – ID of object version snapshot
-    /// - `"type"` – name of the object type, see ``ObjectType/name``
-    /// - `"structure"` – name of the structural type of the object
-    ///
-    /// Other keys are searched in the list of object's components. The
-    /// first value found in the list of the components is returned.
-    ///
-    @inlinable
-    public func attribute(forKey key: String) -> Variant? {
-        switch key {
-        case "id": Variant(id.stringValue)
-        case "snapshot_id": Variant(snapshotID.stringValue)
-        case "type": Variant(type.name)
-        case "structure": Variant(structure.type.rawValue)
-        default: _body.attributes[key]
-        }
-    }
-    
-    @inlinable
-    public var attributeKeys: [AttributeKey] {
-        return _body.attributes.keys.map { $0 }
     }
 }

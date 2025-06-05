@@ -1,5 +1,5 @@
 //
-//  ObjectSnapshot.swift
+//  ObjectSnapshotProtocol.swift
 //
 //
 //  Created by Stefan Urbanek on 2021/10/10.
@@ -11,7 +11,7 @@
 /// There might be multiple object snapshots representing the same object
 /// and therefore have the same object ID.
 ///
-/// - SeeAlso: ``ObjectSnapshot``, ``Design``, ``RawObjectID``.
+/// - SeeAlso: ``ObjectSnapshotProtocol``, ``Design``, ``RawObjectID``.
 ///
 public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral, CustomStringConvertible {
     public typealias IntegerLiteralType = UInt64
@@ -66,9 +66,9 @@ public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral
 ///
 /// The snapshot ID is unique within a design containing the snapshot.
 ///
-/// SeeAlso: ``ObjectSnapshot``, ``Design``.
+/// SeeAlso: ``ObjectSnapshotProtocol``, ``Design``.
 ///
-public typealias SnapshotID = ObjectID
+public typealias EntityID = ObjectID
 
 /// Identifier of a version frame.
 ///
@@ -86,15 +86,15 @@ public typealias AttributeKey = String
 /// Design objects are the main entities of the design. Each object can have
 /// multiple versions and each version is called an _object snapshot_. In the
 /// design process the object might exist in different states, based on its
-/// mutability and validity. The ``ObjectSnapshot`` protocol provides unified
+/// mutability and validity. The ``ObjectSnapshotProtocol`` protocol provides unified
 /// interface for all of those state representations.
 ///
 /// The different representations that the object might be in are:
 ///
-/// - ``DesignObject``: Object that has been validated and can not be modified.
+/// - ``ObjectSnapshot``: Object that has been validated and can not be modified.
 ///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
-/// - ``MutableObject``: Object of a temporary nature, that can be modified. The
-///   Mutable object is then turned into a ``DesignObject`` when valid.
+/// - ``TransientObject``: Object of a temporary nature, that can be modified. The
+///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
 /// Each object object has an unique identity, collection of attributes
 /// and might have structural properties. Identity serves as a handle of an
@@ -107,7 +107,7 @@ public typealias AttributeKey = String
 /// ``structure`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
-public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
+public protocol ObjectProtocol: Identifiable {
     /// Primary object identity.
     ///
     /// The object ID defines the main identity of an object within a design.
@@ -127,25 +127,7 @@ public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     ///    ``Frame/object(_:)``,
     ///    ``Frame/contains(_:)``,
     ///
-    var id: ObjectID { get }
-    
-    /// Unique identifier of the object version snapshot within the design.
-    ///
-    /// The ``snapshotID`` represents a concrete version of an object. An
-    /// object can have multiple versions, which all share the same identity
-    /// of object ``id``.
-    ///
-    /// Typically when working with the design and design frames, one does not
-    /// need to use the ``snapshotID``. It is used only when considering
-    /// different versions of objects.
-    ///
-    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
-    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
-    ///
-    /// - SeeAlso: ``id``,
-    ///    ``TransientFrame/mutate(_:)``
-    ///
-    var snapshotID: SnapshotID { get }
+    var objectID: ObjectID { get }
     
     
     /// Object type from the problem domain described by a metamodel.
@@ -214,7 +196,7 @@ public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     /// - Note: The components are not persisted. They are also not passed
     ///   through foreign interfaces unless a custom functionality is provided.
     ///
-    var components: ComponentSet { get }
+//    var components: ComponentSet { get }
     
     /// Name of an object.
     ///
@@ -235,12 +217,13 @@ public protocol ObjectSnapshot: Identifiable where ID == ObjectID {
     ///
     subscript(attributeKey: String) -> Variant? { get }
     
-    /// Get a runtime component.
-    ///
-    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
+    // Get a runtime component.
+    //
+    // TODO: Reconsider re-introducing
+    //    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 }
 
-extension ObjectSnapshot {
+extension ObjectProtocol {
     /// Get object name if the object has an attribute `name`.
     ///
     /// This is provided for convenience.
@@ -249,10 +232,7 @@ extension ObjectSnapshot {
     ///   otherwise `nil` is returned.
     ///
     public var name: String? {
-        guard let value = self["name"] else {
-            return nil
-        }
-        guard case .atom(let atom) = value else {
+        guard let value = self["name"], case .atom(let atom) = value else {
             return nil
         }
 
@@ -262,26 +242,4 @@ extension ObjectSnapshot {
         default: return nil
         }
     }
-    
-    package var unsafeOrigin: ObjectID {
-        guard case .edge(let origin, _) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return origin
-    }
-
-    package var unsafeTarget: ObjectID {
-        guard case .edge(_, let target) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return target
-    }
-
-    package var unsafeEdgeEndpoints: (ObjectID, ObjectID) {
-        guard case .edge(let origin, let target) = structure else {
-            preconditionFailure("Unwrapping non-edge object")
-        }
-        return (origin, target)
-    }
 }
-

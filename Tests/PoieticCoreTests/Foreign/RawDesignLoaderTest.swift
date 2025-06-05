@@ -59,19 +59,23 @@ struct RawDesignLoaderTest {
         )
         let design = try loader.load(raw)
         let o1 = try #require(design.snapshot(ObjectID(100)))
-        #expect(o1.id == ObjectID(10))
+        #expect(o1.objectID == ObjectID(10))
         #expect(o1.snapshotID == ObjectID(100))
         #expect(o1.structure == .unstructured)
         
         let o2 = try #require(design.snapshot(ObjectID(101)))
-        #expect(o2.id == ObjectID(11))
+        #expect(o2.objectID == ObjectID(11))
         #expect(o2.snapshotID == ObjectID(101))
         #expect(o2.structure == .node)
     }
     
     // TODO: [WIP] [IMPORTANT] Fix parent-child hierarchy
-    
-    //    @Test
+    /*
+     Need: (frame -> (id -> parent id))
+     Have: ()
+     
+     */
+    @Test
     func loadEverything() async throws {
         let raw = RawDesign(
             snapshots: [
@@ -88,36 +92,56 @@ struct RawDesignLoaderTest {
         )
         let design = try loader.load(raw)
         let o0 = try #require(design.snapshot(ObjectID(100)))
-        #expect(o0.id == ObjectID(10))
+        #expect(o0.objectID == ObjectID(10))
         #expect(o0.snapshotID == ObjectID(100))
         #expect(o0.structure == .unstructured)
         #expect(o0.parent == nil)
         #expect(o0.children == [ObjectID(14)])
         let o1 = try #require(design.snapshot(ObjectID(101)))
-        #expect(o1.id == ObjectID(11))
+        #expect(o1.objectID == ObjectID(11))
         #expect(o1.snapshotID == ObjectID(101))
         #expect(o1.structure == .node)
-        #expect(o0.parent == nil)
-        #expect(o0.children.isEmpty == true)
+        #expect(o1.parent == nil)
+        #expect(o1.children.isEmpty == true)
         let o2 = try #require(design.snapshot(ObjectID(102)))
-        #expect(o2.id == ObjectID(12))
+        #expect(o2.objectID == ObjectID(12))
         #expect(o2.snapshotID == ObjectID(102))
         #expect(o2.structure == .node)
-        #expect(o0.parent == nil)
-        #expect(o0.children.isEmpty == true)
+        #expect(o2.parent == nil)
+        #expect(o2.children.isEmpty == true)
         let o3 = try #require(design.snapshot(ObjectID(103)))
-        #expect(o3.id == ObjectID(13))
+        #expect(o3.objectID == ObjectID(13))
         #expect(o3.snapshotID == ObjectID(103))
         #expect(o3.structure == .edge(ObjectID(11), ObjectID(12)))
-        #expect(o0.parent == nil)
-        #expect(o0.children.isEmpty == true)
+        #expect(o3.parent == nil)
+        #expect(o3.children.isEmpty == true)
         let o4 = try #require(design.snapshot(ObjectID(104)))
-        #expect(o4.id == ObjectID(14))
+        #expect(o4.objectID == ObjectID(14))
         #expect(o4.snapshotID == ObjectID(104))
-        #expect(o4.structure == .node)
+        #expect(o4.structure == .unstructured)
         #expect(o4.parent == ObjectID(10))
         #expect(o4.children.isEmpty == true)
     }
+    @Test func usecontexts() async throws {
+        let raw = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
+            ],
+            frames: [
+                RawFrame(id: .int(1000), snapshots: [.int(100)])
+            ]
+        )
+        let design = try loader.load(raw)
+        let frame = try #require(design.frames.first)
+        let obj = try #require(design.snapshot(ObjectID(100)))
+
+        #expect(design.identityManager.isUsed(frame.id))
+        #expect(design.identityManager.isUsed(obj.id))
+        #expect(design.identityManager.isUsed(obj.objectID))
+        #expect(design.identityManager.used.count == 3)
+        #expect(design.identityManager.reserved.count == 0)
+    }
+
     @Test func loadMissingObjectType() async throws {
         let raw = RawDesign(
             snapshots: [
@@ -213,75 +237,74 @@ struct RawDesignLoaderTest {
     // MARK: - Snapshot creation -
     
     @Test func createSnapshot() async throws {
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let raw = RawSnapshot(typeName: "TestPlain")
         let raw2 = RawSnapshot(typeName: "TestPlain", attributes: ["number": 5])
         
-        let snapshot = try loader.create(raw, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+        let snapshot = try loader.create(raw, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         
-        #expect(snapshot.id == ObjectID(10))
+        #expect(snapshot.objectID == ObjectID(10))
         #expect(snapshot.snapshotID == ObjectID(100))
         #expect(snapshot.structure == .unstructured)
         #expect(snapshot.parent == nil)
         #expect(snapshot.attributes.isEmpty)
         
-        let snapshot2 = try loader.create(raw2, id: ObjectID(11), snapshotID: ObjectID(101), reservation: reservation)
-        #expect(snapshot2.id == ObjectID(11))
+        let snapshot2 = try loader.create(raw2, snapshotID: ObjectID(101), objectID: ObjectID(11), context: context)
+        #expect(snapshot2.objectID == ObjectID(11))
         #expect(snapshot2.snapshotID == ObjectID(101))
         #expect(snapshot2.attributes["number"] == Variant(5))
     }
     @Test func createSnapshotDefaultStructure() async throws {
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let rawUnstructured = RawSnapshot(typeName: "TestPlain")
         let rawNode = RawSnapshot(typeName: "TestNode")
         
-        let unstructured = try loader.create(rawUnstructured, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+        let unstructured = try loader.create(rawUnstructured, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         #expect(unstructured.structure == .unstructured)
         
-        let node = try loader.create(rawNode, id: ObjectID(11), snapshotID: ObjectID(101), reservation: reservation)
+        let node = try loader.create(rawNode, snapshotID: ObjectID(101), objectID: ObjectID(11), context: context)
         #expect(node.structure == .node)
     }
     
     @Test func createSnapshotNoType() async throws {
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let raw = RawSnapshot()
         
         #expect(throws: RawSnapshotError.missingObjectType) {
-            _ = try loader.create(raw, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(raw, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
             
         }
     }
     
     @Test func createSnapshotUnknownStructuralType() async throws {
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let raw = RawSnapshot(typeName: "TestPlain", structure: RawStructure("INVALID"))
         
         #expect(throws: RawSnapshotError.invalidStructuralType) {
-            _ = try loader.create(raw, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(raw, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
     }
     
     @Test func createSnapshotStructureMismatch() async throws {
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let rawU = RawSnapshot(typeName: "TestPlain", structure: RawStructure("node"))
         let rawN = RawSnapshot(typeName: "TestNode", structure: RawStructure("unstructured"))
         let rawE = RawSnapshot(typeName: "TestEdge", structure: RawStructure("node"))
         
         #expect(throws: RawSnapshotError.structuralTypeMismatch(.unstructured)) {
-            _ = try loader.create(rawU, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawU, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
         #expect(throws: RawSnapshotError.structuralTypeMismatch(.node)) {
-            _ = try loader.create(rawN, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawN, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
         #expect(throws: RawSnapshotError.structuralTypeMismatch(.edge)) {
-            _ = try loader.create(rawE, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawE, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
     }
     
     @Test func createSnapshotInvalidEdgeType() async throws {
-        var reservation = IdentityReservation(design: self.design)
-        try reservation.reserve(snapshotID: .id(100), objectID: .id(10))
-        
+        let context = LoadingContext(design: self.design)
+        try context.reserve(snapshotID: .int(100), objectID: .int(10))
         let rawNoRefs = RawSnapshot(typeName: "TestEdge",
                                     structure: RawStructure("edge", references: []))
         let rawInvalidOrigin = RawSnapshot(typeName: "TestEdge",
@@ -290,22 +313,22 @@ struct RawDesignLoaderTest {
                                            structure: RawStructure("edge", references: [.int(10), .int(88)]))
         
         #expect(throws: RawSnapshotError.invalidStructuralType) {
-            _ = try loader.create(rawNoRefs, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawNoRefs, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
         #expect(throws: RawSnapshotError.unknownObjectID(.int(99))) {
-            _ = try loader.create(rawInvalidOrigin, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawInvalidOrigin, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
         #expect(throws: RawSnapshotError.unknownObjectID(.int(88))) {
-            _ = try loader.create(rawInvalidTarget, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+            _ = try loader.create(rawInvalidTarget, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         }
     }
     
     @Test func createSnapshotUnknownParent() async throws {
-        let reservation = IdentityReservation(design: self.design)
         let raw = RawSnapshot(typeName: "TestPlain", parent: .int(99))
+        let trans = design.createFrame()
         
-        #expect(throws: RawSnapshotError.unknownObjectID(.int(99))) {
-            _ = try loader.create(raw, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+        #expect(throws: DesignLoaderError.snapshotError(0, .unknownObjectID(.int(99)))) {
+            _ = try loader.load([raw], into: trans)
         }
     }
     
@@ -313,14 +336,14 @@ struct RawDesignLoaderTest {
         // Compatibility feature
         let loader = DesignLoader(metamodel: TestMetamodel, options: .useIDAsNameAttribute)
         
-        let reservation = IdentityReservation(design: self.design)
+        let context = LoadingContext(design: self.design)
         let rawNamed = RawSnapshot(typeName: "TestPlain", id: .string("thing"))
         let rawNotNamed = RawSnapshot(typeName: "TestPlain", id: .int(20))
         
-        let snapshot = try loader.create(rawNamed, id: ObjectID(10), snapshotID: ObjectID(100), reservation: reservation)
+        let snapshot = try loader.create(rawNamed, snapshotID: ObjectID(100), objectID: ObjectID(10), context: context)
         #expect(try snapshot.attributes["name"]?.stringValue() == "thing")
-        let snapshotNot = try loader.create(rawNotNamed, id: ObjectID(20), snapshotID: ObjectID(101), reservation: reservation)
-        #expect(try snapshotNot.attributes["name"] == nil)
+        let snapshotNot = try loader.create(rawNotNamed, snapshotID: ObjectID(101), objectID: ObjectID(20), context: context)
+        #expect(snapshotNot.attributes["name"] == nil)
     }
     
     // MARK: - Load Into -
@@ -428,5 +451,123 @@ struct RawDesignLoaderTest {
         #expect(trans.snapshots.count == 1)
     }
 
+    @Test func childrenMismatchNoneToSome() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(10), id: .int(100)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(20), id: .int(200), parent: .int(100)),
+            ],
+            frames: [
+                RawFrame(id: .int(1000), snapshots: [.int(10)]),
+                RawFrame(id: .int(1001), snapshots: [.int(10), .int(20)]),
+            ],
+            systemReferences: [
+                RawNamedReference("current_frame", type: "frame", id: .int(1000))
+            ]
+        )
+        #expect(throws: DesignLoaderError.frameError(1, .childrenMismatch(0))) {
+            try loader.load(rawDesign)
+        }
+    }
+    @Test func childrenMismatchSomeToNone() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(10), id: .int(100)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(20), id: .int(200), parent: .int(100)),
+            ],
+            frames: [
+                RawFrame(id: .int(1000), snapshots: [.int(10), .int(20)]),
+                RawFrame(id: .int(1001), snapshots: [.int(10)]),
+            ],
+            systemReferences: [
+                RawNamedReference("current_frame", type: "frame", id: .int(1000))
+            ]
+        )
+        #expect(throws: DesignLoaderError.frameError(1, .childrenMismatch(0))) {
+            try loader.load(rawDesign)
+        }
+    }
+
+    @Test func loadCreateIdentity() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(100), id: .int(10)),
+            ],
+        )
+        let trans = design.createFrame()
+        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
+        try design.accept(trans)
+        #expect(design.identityManager.reserved.isEmpty)
+
+        let snapshot = try #require(design.snapshots.first)
+        #expect(snapshot.snapshotID != ObjectID(100))
+        #expect(snapshot.objectID != ObjectID(10))
+    }
+
+    @Test func loadTwiceWithPreserveOrCreate() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), attributes: ["name": "node"]),
+                RawSnapshot(typeName: "TestEdge", snapshotID: .int(102), id: .int(12),
+                            structure: RawStructure(origin: .int(11), target: .int(11)), attributes: ["name": "edge"]),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(103), id: .int(13), parent: .int(11), attributes: ["name": "child"]),
+            ],
+        )
+        let trans = design.createFrame()
+        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .preserveOrCreate)
+        let frame = try design.accept(trans)
+        #expect(design.identityManager.reserved.isEmpty)
+        
+        let node1 = try #require(frame.first(where: { $0["name"] == "node"}))
+        let edge1 = try #require(frame.first(where: { $0["name"] == "edge"}))
+        let child1 = try #require(frame.first(where: { $0["name"] == "child"}))
+        #expect(edge1.structure == .edge(node1.objectID, node1.objectID))
+        #expect(child1.parent == node1.objectID)
+        #expect(node1.children == [child1.objectID])
+
+        let trans2 = design.createFrame(deriving: frame)
+        try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .preserveOrCreate)
+
+        let frame2 = try design.accept(trans2)
+        let node2 = try #require(frame2.first(where: { $0["name"] == "node" && $0.objectID != node1.objectID }))
+        let edge2 = try #require(frame2.first(where: { $0["name"] == "edge" && $0.objectID != edge1.objectID }))
+        let child2 = try #require(frame2.first(where: { $0["name"] == "child" && $0.objectID != child1.objectID }))
+
+        #expect(edge2.structure == .edge(node2.objectID, node2.objectID))
+        #expect(child2.parent == node2.objectID)
+        #expect(node2.children == [child2.objectID])
+    }
+    
+    @Test func simulatedPaste() async throws {
+        let trans1 = design.createFrame()
+        let a = trans1.createNode(TestNodeType, attributes: ["name": "a"])
+        let b = trans1.createNode(TestNodeType, attributes: ["name": "b"])
+        let edge = trans1.createEdge(TestEdgeType, origin: a.objectID, target: b.objectID, attributes: ["name": "edge"])
+        let frame1 = try design.accept(trans1)
+        
+        // Copy
+        let extractor = DesignExtractor()
+        let extract = extractor.extractPruning(objects: [a.objectID, b.objectID, edge.objectID], frame: frame1)
+        let rawDesign = RawDesign(metamodelName: design.metamodel.name,
+                                  metamodelVersion: design.metamodel.version,
+                                  snapshots: extract)
+        // Paste
+        let trans2 = design.createFrame(deriving: frame1)
+        try loader.load(rawDesign.snapshots,
+                        into: trans2,
+                        identityStrategy: .preserveOrCreate)
+        let frame2 = try design.accept(trans2)
+        // Paste the same thing again
+        let trans3 = design.createFrame(deriving: frame2)
+        try loader.load(rawDesign.snapshots,
+                        into: trans3,
+                        identityStrategy: .preserveOrCreate)
+
+        let frame3 = try design.accept(trans3)
+
+        #expect(frame3.filter { $0["name"] == "a" }.count == 3)
+        #expect(frame3.filter { $0["name"] == "b" }.count == 3)
+        #expect(frame3.filter { $0["name"] == "edge" }.count == 3)
+    }
 }
 

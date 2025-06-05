@@ -24,7 +24,12 @@ enum RawLoadingResult {
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
 /// as an int, as a string or an explicit ``ObjectID``.
 ///
-public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, Hashable {
+public enum RawObjectID:
+    Hashable,
+    Codable,
+    Sendable,
+    CustomStringConvertible,
+    CustomDebugStringConvertible {
     /// Native Object ID representation
     case id(ObjectID)
     /// Representation as an integer.
@@ -46,7 +51,13 @@ public enum RawObjectID: Equatable, Codable, Sendable, CustomStringConvertible, 
         case .string(let value): value
         }
     }
-    
+    public var debugDescription: String {
+        switch self {
+        case .id(let value): "RawObjectID.id(\(value.stringValue))"
+        case .int(let value): "RawObjectID.int(\(value))"
+        case .string(let value): "RawObjectID.string(\(value))"
+        }
+    }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let value = try? container.decode(ObjectID.self) {
@@ -393,7 +404,7 @@ public class RawSnapshot: Codable {
     /// loader, if the ID is a string and if the attributes do not contain `name` key,
     /// then the string ID value will be also used as the `name` attribute.
     ///
-    public var id: RawObjectID?
+    public var objectID: RawObjectID?
     
     /// Raw structure representation.
     ///
@@ -415,7 +426,7 @@ public class RawSnapshot: Codable {
     enum CodingKeys: String, CodingKey {
         case typeName = "type"
         case structure
-        case id
+        case objectID = "id"
         case snapshotID = "snapshot_id"
         case parent
         case attributes
@@ -436,7 +447,7 @@ public class RawSnapshot: Codable {
                   attributes: [String:Variant] = [:]) {
         self.typeName = typeName
         self.snapshotID = snapshotID
-        self.id = id
+        self.objectID = id
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
@@ -444,10 +455,10 @@ public class RawSnapshot: Codable {
     
     /// Create a raw snapshot from a design object.
     ///
-    public init(_ snapshot: DesignObject) {
+    public init(_ snapshot: ObjectSnapshot) {
         self.typeName = snapshot.type.name
         self.snapshotID = .id(snapshot.snapshotID)
-        self.id = .id(snapshot.id)
+        self.objectID = .id(snapshot.objectID)
         self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
         switch snapshot.structure {
@@ -467,7 +478,7 @@ public class RawSnapshot: Codable {
         let container = try decoder.container(keyedBy: Self.CodingKeys)
         
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
-        self.id = try container.decodeIfPresent(RawObjectID.self, forKey: .id)
+        self.objectID = try container.decodeIfPresent(RawObjectID.self, forKey: .objectID)
         self.snapshotID = try container.decodeIfPresent(RawObjectID.self, forKey: .snapshotID)
         self.parent = try container.decodeIfPresent(RawObjectID.self, forKey: .parent)
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
@@ -504,7 +515,7 @@ public class RawSnapshot: Codable {
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: Self.CodingKeys)
         try container.encodeIfPresent(typeName, forKey: .typeName)
-        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(objectID, forKey: .objectID)
         try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
         try container.encodeIfPresent(parent, forKey: .parent)
         try container.encodeIfPresent(attributes, forKey: .attributes)

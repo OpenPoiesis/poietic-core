@@ -59,7 +59,7 @@ extension ObjectType {
 
 }
 
-extension ObjectSnapshot {
+extension ObjectProtocol {
     /// Get position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is
@@ -78,7 +78,7 @@ extension ObjectSnapshot {
     }
 }
 
-extension MutableObject {
+extension TransientObject {
     /// Get or set position of an object.
     ///
     /// The position is retrieved from the `position` attribute, if it is
