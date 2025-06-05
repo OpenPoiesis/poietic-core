@@ -100,6 +100,13 @@ public class LoadingContext {
     
     /// All IDs reserved using this reservation.
     var reserved: Set<ObjectID>
+
+    /// IDs that are unavailable for their use or reservation, regardless of their actual
+    /// reservation status.
+    ///
+    /// Used in `reserveIfNeeded`.
+    ///
+    var unavailable: Set<ObjectID>
     
     /// Mapping between raw object IDs and allocated IDs
     var rawMap: [RawObjectID:ObjectID]
@@ -107,7 +114,16 @@ public class LoadingContext {
     
     /// Create a new Identity reservation that is bound to a design.
     ///
-    init(design: Design, rawDesign: RawDesign? = nil, identityStrategy: DesignLoader.IdentityStrategy = .requireProvided) {
+    /// Use of `unavailable` parameter:
+    ///
+    /// - Paste: `unavailable: Set(frame.objectIDs)`
+    /// - Import avoiding specific IDs: `unavailable: Set([id1, id2, id3])`
+    /// - Complex merging scenarios: `unavailable: existingModel.allObjectIDs.union(reservedIDs)`
+    ///
+    init(design: Design,
+         rawDesign: RawDesign? = nil,
+         identityStrategy: DesignLoader.IdentityStrategy = .requireProvided,
+         unavailable: Set<ObjectID> = Set()) {
         self.identityStrategy = identityStrategy
         self.design = design
         
@@ -120,6 +136,7 @@ public class LoadingContext {
             self.rawFrames = []
         }
         
+        self.unavailable = unavailable
         self.reserved = Set()
         self.rawMap = [:]
         
@@ -182,11 +199,13 @@ public class LoadingContext {
                     throw .duplicateID(rawID)
                 }
                 reservedID = id
+                
             case (.requireProvided, .none):
                 guard rawMap[rawID] == nil else {
                     throw .duplicateID(rawID)
                 }
                 reservedID = design.identityManager.createAndReserve(type: type)
+
             case (.preserveOrCreate, .some(let id)):
                 if design.identityManager.reserve(id, type: type) {
                     reservedID = id
@@ -194,6 +213,7 @@ public class LoadingContext {
                 else {
                     reservedID = design.identityManager.createAndReserve(type: type)
                 }
+
             case (.preserveOrCreate, .none),
                  (.createNew, _):
                 reservedID = design.identityManager.createAndReserve(type: type)
@@ -230,11 +250,11 @@ public class LoadingContext {
                 }
                 reservedID = existingID
 
-            case (.requireProvided, .none, .some(let id)):
-                guard design.identityManager.reserveIfNeeded(id, type: type) else {
+            case (.requireProvided, .none, .some(let requiredID)):
+                guard design.identityManager.reserveIfNeeded(requiredID, type: type) else {
                     throw .typeMismatch(rawID)
                 }
-                reservedID = id
+                reservedID = requiredID
                 rawMap[rawID] = reservedID
 
             case (.preserveOrCreate, .some(let existingID), _):
@@ -245,9 +265,12 @@ public class LoadingContext {
                     reservedID = design.identityManager.createAndReserve(type: type)
                 }
 
-            case (.preserveOrCreate, .none, .some(let id)):
-                if design.identityManager.reserveIfNeeded(id, type: type) {
-                    reservedID = id
+            case (.preserveOrCreate, .none, .some(let requiredID)):
+                if unavailable.contains(requiredID) {
+                    reservedID = design.identityManager.createAndReserve(type: type)
+                }
+                else if design.identityManager.reserveIfNeeded(requiredID, type: type) {
+                    reservedID = requiredID
                 }
                 else {
                     reservedID = design.identityManager.createAndReserve(type: type)

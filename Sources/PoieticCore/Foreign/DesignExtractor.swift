@@ -131,12 +131,12 @@ public class DesignExtractor {
     /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the frame are ignored.
     ///
-    public func extractPruning(snapshots: [ObjectID], frame: StableFrame) -> [RawSnapshot] {
-        let knownIDs: Set<ObjectID> = Set(snapshots)
+    public func extractPruning(objects objectIDs: [ObjectID], frame: StableFrame) -> [RawSnapshot] {
+        let knownIDs: Set<ObjectID> = Set(objectIDs)
         var result: [RawSnapshot] = []
         
         
-        for id in snapshots {
+        for id in objectIDs {
             guard frame.contains(id) else {
                 continue
             }

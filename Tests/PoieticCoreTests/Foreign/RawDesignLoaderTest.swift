@@ -504,7 +504,7 @@ struct RawDesignLoaderTest {
         #expect(snapshot.objectID != ObjectID(10))
     }
 
-    @Test func paste() async throws {
+    @Test func loadTwiceWithPreserveOrCreate() async throws {
         let rawDesign = RawDesign(
             snapshots: [
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), attributes: ["name": "node"]),
@@ -514,7 +514,7 @@ struct RawDesignLoaderTest {
             ],
         )
         let trans = design.createFrame()
-        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
+        try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .preserveOrCreate)
         let frame = try design.accept(trans)
         #expect(design.identityManager.reserved.isEmpty)
         
@@ -526,7 +526,7 @@ struct RawDesignLoaderTest {
         #expect(node1.children == [child1.objectID])
 
         let trans2 = design.createFrame(deriving: frame)
-        try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .createNew)
+        try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .preserveOrCreate)
 
         let frame2 = try design.accept(trans2)
         let node2 = try #require(frame2.first(where: { $0["name"] == "node" && $0.objectID != node1.objectID }))
@@ -537,6 +537,37 @@ struct RawDesignLoaderTest {
         #expect(child2.parent == node2.objectID)
         #expect(node2.children == [child2.objectID])
     }
+    
+    @Test func simulatedPaste() async throws {
+        let trans1 = design.createFrame()
+        let a = trans1.createNode(TestNodeType, attributes: ["name": "a"])
+        let b = trans1.createNode(TestNodeType, attributes: ["name": "b"])
+        let edge = trans1.createEdge(TestEdgeType, origin: a.objectID, target: b.objectID, attributes: ["name": "edge"])
+        let frame1 = try design.accept(trans1)
+        
+        // Copy
+        let extractor = DesignExtractor()
+        let extract = extractor.extractPruning(objects: [a.objectID, b.objectID, edge.objectID], frame: frame1)
+        let rawDesign = RawDesign(metamodelName: design.metamodel.name,
+                                  metamodelVersion: design.metamodel.version,
+                                  snapshots: extract)
+        // Paste
+        let trans2 = design.createFrame(deriving: frame1)
+        try loader.load(rawDesign.snapshots,
+                        into: trans2,
+                        identityStrategy: .preserveOrCreate)
+        let frame2 = try design.accept(trans2)
+        // Paste the same thing again
+        let trans3 = design.createFrame(deriving: frame2)
+        try loader.load(rawDesign.snapshots,
+                        into: trans3,
+                        identityStrategy: .preserveOrCreate)
 
+        let frame3 = try design.accept(trans3)
+
+        #expect(frame3.filter { $0["name"] == "a" }.count == 3)
+        #expect(frame3.filter { $0["name"] == "b" }.count == 3)
+        #expect(frame3.filter { $0["name"] == "edge" }.count == 3)
+    }
 }
 

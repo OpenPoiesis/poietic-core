@@ -280,18 +280,25 @@ public class DesignLoader {
 
     /// Load raw snapshots into a transient frame.
     ///
+    /// - Parameters:
+    ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
+    ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
+    ///
+    /// - Returns: List of object IDs of inserted object.
+    ///
     /// This method is intended to be used when importing external frames or for pasting in the
     /// Copy & Paste mechanism.
     ///
-    /// Process:
-    ///
-    /// 1. Reserve snapshot identities.
-    /// 2. Validate structural integrity of the snapshots within the context of the frame.
-    ///
+    @discardableResult
     public func load(_ rawSnapshots: [RawSnapshot],
-                     into frame: TransientFrame, identityStrategy: IdentityStrategy = .requireProvided) throws (DesignLoaderError) {
+                     into frame: TransientFrame,
+                     identityStrategy: IdentityStrategy = .requireProvided)
+    throws (DesignLoaderError) -> [ObjectID] {
         let rawDesign = RawDesign(snapshots: rawSnapshots)
-        let context = LoadingContext(design: frame.design, rawDesign: rawDesign, identityStrategy: identityStrategy)
+        let context = LoadingContext(design: frame.design,
+                                     rawDesign: rawDesign,
+                                     identityStrategy: identityStrategy,
+                                     unavailable: Set(frame.objectIDs))
 
         try prepareSnapshotIdentities(context: context)
         try resolveParents(context: context)
@@ -312,7 +319,6 @@ public class DesignLoader {
         }
 
         try createSnapshots(context: context)
-
         frame.unsafeInsert(context.stableSnapshots, reservations: context.reserved)
 
         do {
@@ -322,6 +328,7 @@ public class DesignLoader {
         catch {
             throw .brokenStructuralIntegrity(error)
         }
+        return context.stableSnapshots.map { $0.objectID }
 
     }
 
