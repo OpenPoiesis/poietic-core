@@ -300,6 +300,16 @@ public class DesignLoader {
                                      identityStrategy: identityStrategy,
                                      unavailable: Set(frame.objectIDs))
 
+        // Validate duplicate object IDs. We are loading into a frame.
+        var seenIDs: Set<RawObjectID> = Set()
+        for (index, snapshot) in rawSnapshots.enumerated() {
+            guard let id = snapshot.objectID else { continue }
+            if seenIDs.contains(id) {
+                throw .snapshotError(index, .duplicateID(id))
+            }
+            seenIDs.insert(id)
+        }
+        
         try prepareSnapshotIdentities(context: context)
         try resolveParents(context: context)
 

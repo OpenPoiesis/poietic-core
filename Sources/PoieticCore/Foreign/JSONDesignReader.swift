@@ -9,7 +9,7 @@ import Foundation
 
 /// Error raised by the design readers.
 ///
-public enum RawDesignReaderError: Error, Equatable {
+public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
 
     public enum PathItem: Equatable, Sendable, CustomStringConvertible, CustomDebugStringConvertible {
         
@@ -106,6 +106,35 @@ public enum RawDesignReaderError: Error, Equatable {
     case unknownDecodingError(String)
 
     
+    public var description: String {
+        switch self {
+        case .canNotReadData: "Can not read data"
+        case let .dataCorrupted(context):
+            if context.path.isEmpty {
+                "Data corrupted"
+            }
+            else {
+                "Data corrupted at path: " + context.path.map { $0.description }.joined(separator: ".")
+            }
+        case let .propertyNotFound(name, path): "Required property '\(name)' not found at \(path)"
+        case let .typeMismatch(type, path): "Type mismatch. Expected \(type) at \(path)"
+        case let .unknownDecodingError(error): "Unknown decoding error: \(error)"
+        case let .unknownFormatVersion(version): "Unknown format version '\(version)'"
+        case let .valueNotFound(property, path): "Value for property '\(property)' not found at \(path)"
+        }
+    }
+    public var debugDescription: String {
+        switch self {
+        case .canNotReadData: "Can not read data"
+        case let .dataCorrupted(error): "Data corrupted. Underlying error: \(error)"
+        case let .propertyNotFound(name, path): "Required property '\(name)' not found at \(path)"
+        case let .typeMismatch(type, path): "Type mismatch. Expected \(type) at \(path)"
+        case let .unknownDecodingError(error): "Unknown decoding error: \(error)"
+        case let .unknownFormatVersion(version): "Unknown format version '\(version)'"
+        case let .valueNotFound(property, path): "Value for property '\(property)' not found at \(path)"
+        }
+    }
+
     init(_ error: DecodingError) {
         switch error {
             
@@ -135,6 +164,73 @@ public enum RawDesignReaderError: Error, Equatable {
 
         @unknown default:
             self = .unknownDecodingError(String(describing: error))
+        }
+    }
+}
+
+extension RawDesignReaderError: DesignIssueConvertible {
+    public func asDesignIssue() -> DesignIssue {
+        switch self {
+        case .canNotReadData:
+            DesignIssue(domain: .foreignInterface,
+                        severity: .fatal,
+                        identifier: "can_not_read_data",
+                        message: description,
+                        hint: "Report this error to the project developers",
+                        details: [:])
+        case let .dataCorrupted(context):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .error,
+                        identifier: "foreign_data_corrupted",
+                        message: description,
+                        hint: "Use a JSON validation tool",
+                        details: [
+                            "key_path": Variant(context.path.map { $0.stringValue })
+                        ])
+        case let .propertyNotFound(property, path):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .error,
+                        identifier: "foreign_property_not_found",
+                        message: description,
+                        hint: "Check the source of the foreign design or foreign design entity",
+                        details: [
+                            "property": Variant(property),
+                            "key_path": Variant(path)
+                        ])
+        case let .typeMismatch(type, path):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .error,
+                        identifier: "foreign_type_mismatch",
+                        message: description,
+                        hint: "Check the source of the foreign design or foreign design entity",
+                        details: [
+                            "expected_value_type": Variant(type),
+                            "key_path": Variant(path)
+                        ])
+        case .unknownDecodingError(_):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .fatal,
+                        identifier: "unknown_decoding_error",
+                        message: description,
+                        hint: "Report this error to the project developers",
+                        details: [:])
+        case .unknownFormatVersion(_):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .error,
+                        identifier: "unknown_foreign_format_version",
+                        message: description,
+                        hint: "Convert the format to a known version",
+                        details: [:])
+        case let .valueNotFound(property, path):
+            DesignIssue(domain: .foreignInterface,
+                        severity: .error,
+                        identifier: "foreign_value_not_found",
+                        message: description,
+                        hint: "Check the source of the foreign design or foreign design entity",
+                        details: [
+                            "property": Variant(property),
+                            "key_path": Variant(path)
+                        ])
         }
     }
 }
@@ -217,7 +313,6 @@ public enum RawDesignReaderError: Error, Equatable {
 /// | `{"type": "point_array", "items": [[10, 20], [30, 40]]}` | array of ints | `[Point(x:10, y:20), Point(x:30, y:40)]`| |
 ///
 public final class JSONDesignReader {
-    // TODO: Rename to DecodableDesignReader
     // NOTE: Update in the JSONDesignReader class documentation
     public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
     

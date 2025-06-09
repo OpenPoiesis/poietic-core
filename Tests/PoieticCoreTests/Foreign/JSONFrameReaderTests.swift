@@ -118,7 +118,7 @@ import Testing
                    "snapshots": [
                         {
                             "type": "Some",
-                            "id": "first",
+                            "object_id": "first",
                             "snapshot_id": 10,
                             "structure": "node",
                             "parent": 20
@@ -143,11 +143,11 @@ import Testing
                    {
                    "format_version": "0.1",
                    "snapshots": [
-                        { "id": "i" },
-                        { "id": "u", "structure": "unstructured"},
-                        { "id": "n", "structure": "node"},
-                        { "id": "e", "structure": "edge", "origin": 10, "target": 20 },
-                        { "id": "ie", "origin": 30, "target": 40 }
+                        { "object_id": "i" },
+                        { "object_id": "u", "structure": "unstructured"},
+                        { "object_id": "n", "structure": "node"},
+                        { "object_id": "e", "structure": "edge", "origin": 10, "target": 20 },
+                        { "object_id": "ie", "origin": 30, "target": 40 }
                    ]
                    }
                    """.data(using:.utf8)!
