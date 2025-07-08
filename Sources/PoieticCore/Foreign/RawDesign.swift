@@ -382,7 +382,7 @@ public struct RawStructure: Equatable {
 /// has to have referential integrity with other snapshots within any other raw structure, unless
 /// needed to be loaded.
 ///
-public class RawSnapshot: Codable {
+public class RawSnapshot: Codable, CustomDebugStringConvertible {
     
     /// Name of object type.
     ///
@@ -426,15 +426,16 @@ public class RawSnapshot: Codable {
     enum CodingKeys: String, CodingKey {
         case typeName = "type"
         case structure
-        case objectID = "id"
+        case objectID = "object_id"
+        case _objectID_v0_1_0 = "id"
         case snapshotID = "snapshot_id"
         case parent
         case attributes
         // Structure keys
+        case references
         case origin
         case target
         // case owner
-        // case orderedSet = "ordered_set"
     }
 
     /// Create a new raw snapshot.
@@ -451,6 +452,10 @@ public class RawSnapshot: Codable {
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
+    }
+
+    public var debugDescription: String {
+        return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), structure: \(structure), parent: \(parent), attributes: \(attributes)"
     }
     
     /// Create a raw snapshot from a design object.
@@ -479,6 +484,7 @@ public class RawSnapshot: Codable {
         
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
         self.objectID = try container.decodeIfPresent(RawObjectID.self, forKey: .objectID)
+                        ?? container.decodeIfPresent(RawObjectID.self, forKey: ._objectID_v0_1_0)
         self.snapshotID = try container.decodeIfPresent(RawObjectID.self, forKey: .snapshotID)
         self.parent = try container.decodeIfPresent(RawObjectID.self, forKey: .parent)
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
@@ -501,7 +507,8 @@ public class RawSnapshot: Codable {
             let target = try container.decode(RawObjectID.self, forKey: .target)
             self.structure = RawStructure(structureType, references: [origin, target])
         default:
-            self.structure = RawStructure(structureType)
+            let refs = try container.decodeIfPresent([RawObjectID].self, forKey: .references)
+            self.structure = RawStructure(structureType, references: refs ?? [])
         }
         
         if let attributes = try container.decodeIfPresent([String:Variant].self, forKey: .attributes) {

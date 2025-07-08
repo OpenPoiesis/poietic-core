@@ -133,15 +133,18 @@ public class IdentityManager {
     }
     /// Use reservations from the list.
     ///
-    /// The IDs in the list will be marked as used.
-    ///
-    /// - Precondition: All objects in the list must be reserved.
+    /// The IDs in the list will be marked as used, if they are reserved.
+    /// Not reserved IDs will be ignored.
     ///
     @inlinable
     public func use(reserved ids: some Collection<ObjectID>) {
+        // TODO: Rename to something that reflects the functionality more. For example: useIfReserved()
+        // To be able to fail on non-reserved IDs, the reserveIfNeeded would have to distinguish
+        // between: new reservation, existing reservation, type mismatch.
         for id in ids {
             guard let type = self.reserved.removeValue(forKey: id) else {
-                fatalError("Unknown ID reservation: \(id)")
+                return
+                // fatalError("Unknown ID reservation: \(id)")
             }
             used[id] = type
         }

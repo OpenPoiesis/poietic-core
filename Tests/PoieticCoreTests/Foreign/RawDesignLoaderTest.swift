@@ -451,6 +451,19 @@ struct RawDesignLoaderTest {
         #expect(trans.snapshots.count == 1)
     }
 
+    @Test func duplicateID() async throws {
+        let rawDesign = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", id: .string("thing")),
+                RawSnapshot(typeName: "TestPlain", id: .string("thing")),
+            ],
+        )
+        let trans = design.createFrame()
+        #expect(throws: DesignLoaderError.snapshotError(1, .duplicateID(.string("thing")))) {
+            try loader.load(rawDesign.snapshots, into: trans)
+        }
+    }
+
     @Test func childrenMismatchNoneToSome() async throws {
         let rawDesign = RawDesign(
             snapshots: [

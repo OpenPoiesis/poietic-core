@@ -39,7 +39,6 @@ public enum EdgeCardinality: Sendable, CustomStringConvertible {
     }
 }
 
-
 /// Predicate that tests the edge object itself together with its objects -
 /// origin and target.
 ///
