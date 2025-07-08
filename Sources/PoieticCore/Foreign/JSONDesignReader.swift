@@ -114,7 +114,7 @@ public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
                 "Data corrupted"
             }
             else {
-                "Data corrupted at path: " + context.path.map { $0.description }.joined(separator: ".")
+                "Data corrupted at key path: " + context.path.map { $0.description }.joined(separator: ".")
             }
         case let .propertyNotFound(name, path): "Required property '\(name)' not found at \(path)"
         case let .typeMismatch(type, path): "Type mismatch. Expected \(type) at \(path)"

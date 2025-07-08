@@ -432,10 +432,10 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         case parent
         case attributes
         // Structure keys
+        case references
         case origin
         case target
         // case owner
-        // case orderedSet = "ordered_set"
     }
 
     /// Create a new raw snapshot.
@@ -507,7 +507,8 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
             let target = try container.decode(RawObjectID.self, forKey: .target)
             self.structure = RawStructure(structureType, references: [origin, target])
         default:
-            self.structure = RawStructure(structureType)
+            let refs = try container.decodeIfPresent([RawObjectID].self, forKey: .references)
+            self.structure = RawStructure(structureType, references: refs ?? [])
         }
         
         if let attributes = try container.decodeIfPresent([String:Variant].self, forKey: .attributes) {
