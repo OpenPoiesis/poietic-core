@@ -226,10 +226,8 @@ public protocol ObjectProtocol: Identifiable {
 extension ObjectProtocol {
     /// Get object name if the object has an attribute `name`.
     ///
-    /// This is provided for convenience.
-    ///
-    /// - Note: The `name` attribute must be either a string or an integer,
-    ///   otherwise `nil` is returned.
+    /// The `name` attribute must be either a string or an integer.
+    /// If the `name` attribute is present and is of some other type then `nil` is provided.
     ///
     public var name: String? {
         guard let value = self["name"], case .atom(let atom) = value else {
@@ -242,4 +240,47 @@ extension ObjectProtocol {
         default: return nil
         }
     }
+    
+    /// User-oriented string to be displayed as primary label of the object.
+    ///
+    /// Label is meant to be displayed to the user in inspectors or visual representations of the
+    /// design.
+    ///
+    /// Label attribute can be any reasonably string convertible attribute. Default label attribute
+    /// is `name`.
+    ///
+    /// If the attribute value is not convertible to string, such as array, ``nil`` is returned.
+    ///
+    /// - SeeAlso: ``secondaryLabel``, ``ObjectType/labelAttribute``
+    ///
+    public var label: String? {
+        // TODO: Maybe rename to "displayLabel"?
+        guard let attribute = self.type.labelAttribute else {
+            return nil
+        }
+
+        return try? self[attribute]?.stringValue()
+    }
+
+    /// User-oriented string to be displayed as secondary label of the object.
+    ///
+    /// Secondary label is meant to be displayed to the user along the primary label in inspectors
+    /// or visual representations of the design.
+    ///
+    /// Example of a secondary label might be a formula, associated constant value or some other
+    /// meaningful information.
+    ///
+    /// If the attribute value is not convertible to string, such as array, ``nil`` is returned.
+    ///
+    /// - SeeAlso:  ``label``, ``ObjectType/secondaryLabelAttribute``
+    ///
+    public var secondaryLabel: String? {
+        // TODO: Maybe rename to "secondaryDisplayLabel"?
+        guard let attribute = self.type.secondaryLabelAttribute else {
+            return nil
+        }
+
+        return try? self[attribute]?.stringValue()
+    }
+
 }

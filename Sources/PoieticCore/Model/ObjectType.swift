@@ -53,6 +53,16 @@ public final class ObjectType: Sendable {
     public let attributes: [Attribute]
     
     public var attributeKeys: [AttributeKey] { attributes.map { $0.name } }
+    
+    /// Name of an attribute that is used as primary label of the object. Defaults to `name`.
+    ///
+    public let labelAttribute: String?
+    
+    /// Name of an attribute that is used as secondary label of the object.
+    ///
+    /// For example: `formula`, `delay_time`.
+    ///
+    public let secondaryLabelAttribute: String?
 
     /// Create a new object type.
     ///
@@ -78,12 +88,16 @@ public final class ObjectType: Sendable {
                 label: String? = nil,
                 structuralType: StructuralType,
                 traits: [Trait] = [],
-                abstract: String? = nil) {
+                abstract: String? = nil,
+                labelAttribute: String? = "name",
+                secondaryLabelAttribute: String? = nil) {
         self.name = name
         self.label = label ?? name.titleCase()
         self.structuralType = structuralType
         self.traits = traits
         self.abstract = abstract
+        self.labelAttribute = labelAttribute
+        self.secondaryLabelAttribute = secondaryLabelAttribute
         
         var attributeTraits: [String:Trait] = [:]
         var attributeMap: [String:Attribute] = [:]
