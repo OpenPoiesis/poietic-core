@@ -12,6 +12,8 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
     /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
     /// - SeeAlso: ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+    /// - Precondition: Frame must contain objects with given origin and target object IDs.
+    /// - Precondition: The object type must have structural type ``StructuralType/edge``.
     @discardableResult
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
