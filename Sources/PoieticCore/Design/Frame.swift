@@ -323,6 +323,36 @@ extension Frame {
     public func top() -> [ObjectSnapshot] {
         self.filter { $0.parent == nil }
     }
+    
+    /// Get a list of edges that refer to a node.
+    ///
+    /// To get edges for multiple nodes use ``dependentEdges(_:)``.
+    ///
+    public func dependentEdges(_ nodeID: ObjectID) -> [ObjectID] {
+        var result: Set<ObjectID> = Set()
+        for edge in self.edges {
+            if edge.origin == nodeID || edge.target == nodeID {
+                result.insert(edge.key)
+            }
+        }
+        return Array(result)
+    }
+    
+    /// Get a list of edges that refer to one of given nodes.
+    ///
+    /// This is a bulk version of ``dependentEdges(_:)``.
+    public func dependentEdges(_ nodeIDs: [ObjectID]) -> [ObjectID] {
+        var result: Set<ObjectID> = Set()
+        for edge in self.edges {
+            for nodeID in nodeIDs {
+                if edge.origin == nodeID || edge.target == nodeID {
+                    result.insert(edge.key)
+                }
+            }
+        }
+        return Array(result)
+    }
+
 }
 
 // MARK: - Graph Implementations

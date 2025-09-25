@@ -21,11 +21,6 @@
 public final class Selection: Collection {
     public typealias Index = [ObjectID].Index
     
-    public var startIndex: Index { ids.startIndex }
-    public var endIndex: Index { ids.endIndex }
-    public func index(after i: Index) -> Index { ids.index(after: i) }
-    public subscript(i: Index) -> ObjectID { return ids[i] }
-    
     /// List of object IDs contained in the selection.
     /// 
     /// When a selection is preserved between changes, it is recommended to sanitise the objects
@@ -33,8 +28,11 @@ public final class Selection: Collection {
     ///
     public private(set) var ids: [ObjectID] = []
     
-    /// Create a new empty selection.
-    ///
+    public var startIndex: Index { ids.startIndex }
+    public var endIndex: Index { ids.endIndex }
+    public func index(after i: Index) -> Index { ids.index(after: i) }
+    public subscript(i: Index) -> ObjectID { return ids[i] }
+    
     public init() {
         self.ids = []
     }
@@ -43,6 +41,12 @@ public final class Selection: Collection {
     ///
     public init(_ ids:[ObjectID]) {
         self.ids = ids
+    }
+    
+    
+    public func contains(_ id: ObjectID) -> Bool {
+        guard !ids.isEmpty else { return false }
+        return ids.contains(id)
     }
     
     public var isEmpty: Bool {

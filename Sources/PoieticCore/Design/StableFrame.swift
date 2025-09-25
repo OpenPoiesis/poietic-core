@@ -66,7 +66,7 @@ public final class StableFrame: Frame, Identifiable {
         self._graph = Graph(nodes: nodeKeys, edges: edges)
         self._lookup = lookup
         // TODO: [IMPORTANT] Enable this
-//        try! self.validateStructure()
+        //        try! self.validateStructure()
     }
     
     /// Get a list of snapshots.
@@ -78,18 +78,18 @@ public final class StableFrame: Frame, Identifiable {
     public var objectIDs: [ObjectID] {
         _snapshots.map { $0.objectID }
     }
-
+    
     /// Returns `true` if the frame contains an object with given object
     /// identity.
     ///
     public func contains(_ id: ObjectID) -> Bool {
         return _lookup[id] != nil
     }
-
+    
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }
-
+    
     /// Return an object snapshots with given object ID.
     ///
     /// - Precondition: Frame must contain object with given ID.

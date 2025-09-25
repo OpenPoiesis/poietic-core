@@ -214,6 +214,31 @@ public class TransientObject: ObjectProtocol {
         changedAttributes.insert(key)
     }
     
+    /// Try to set an attribute that is defined by object's type as numeric (int or float) from
+    /// a string value.
+    ///
+    /// This method is typically used to set numeric attributes in user interface from text fields.
+    ///
+    /// - Returns: `true` if the attribute was successfully converted to a number and set, otherwise
+    ///   false. Also returns `false` when the attribute is not numeric or does not exist.
+    ///
+    public func setNumericAttribute(_ attribute: String, fromString string: String) -> Bool {
+        guard let valueType = type.attribute(attribute)?.type else { return false }
+        let variant: Variant
+        switch valueType {
+        case .int:
+            guard let number = Int(string) else { return false }
+            variant = PoieticCore.Variant(number)
+        case .double:
+            guard let number = Double(string) else { return false }
+            variant = PoieticCore.Variant(number)
+        default:
+            return false
+        }
+        self[attribute] = variant
+        return true
+    }
+    
     public func removeAttribute(forKey key: String) {
         _body.attributes[key] = nil
     }

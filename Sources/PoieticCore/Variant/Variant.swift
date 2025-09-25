@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 2020/12/14.
 //
 
+// TODO: Add pointArray(default:)
+
 public enum ValueError: Error, Equatable, CustomStringConvertible {
     case atomExpected
     case arrayExpected
@@ -519,7 +521,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
             }
         }
     }
-
+    
     /// Make a single-element array from the atom
     public func makeArray() -> Variant {
         switch self {

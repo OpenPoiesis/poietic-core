@@ -16,8 +16,9 @@ extension Trait {
     ///   Higher number means top – might obscure others,
     ///   lower means bottom - might be obscured.
     ///
-    public static let DiagramNode = Trait(
-        name: "DiagramNode",
+    public static let DiagramBlock = Trait(
+        // FIXME: Rename to DiagramBlock
+        name: "DiagramBlock",
         attributes: [
             Attribute("position", type: .point, default: Variant(Point(0,0))),
             Attribute("z_index", type: .int, default: Variant(0)),
@@ -32,6 +33,7 @@ extension Trait {
             // types: default(for type), line, orthogonal, curve
              Attribute("connection_type", type: .string, optional: true),
              Attribute("midpoints", type: .points, optional: true),
+             Attribute("z_index", type: .int, default: Variant(0), optional: true),
         ]
     )
     /// Trait with view settings of a diagram.
