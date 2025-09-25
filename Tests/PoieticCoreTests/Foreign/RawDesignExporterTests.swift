@@ -25,18 +25,18 @@ struct RawDesignExpoerterTest {
     @Test func exportSomeDesign() async throws {
         let design = Design(metamodel: TestMetamodel)
 
-        let first = DesignSnapshot(design: design, id: 1000, snapshots: [])
+        let first = DesignFrame(design: design, id: 1000, snapshots: [])
         design.unsafeInsert(first)
         let _ = design.createFrame(deriving: first)
         let unstructured = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10)
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 101, objectID: 11)
         let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 103, objectID: 13, structure: .edge(node1.objectID, node2.objectID))
-        let frame = DesignSnapshot(design: design, id: 1001,
+        let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [unstructured, node1, node2, edge ])
         design.unsafeInsert(frame)
         design.currentFrameID = frame.id
-        design.undoableFrames = [first.id]
+        design.undoList = [first.id]
 
         
         let exporter = DesignExtractor()
@@ -75,7 +75,7 @@ struct RawDesignExpoerterTest {
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
         let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 103, objectID: 13)
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 104, objectID: 14, structure: .edge(node1.objectID, node2.objectID))
-        let frame = DesignSnapshot(design: design, id: 1001,
+        let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [parent, child, node1, node2, edge ])
         design.unsafeInsert(frame)
 

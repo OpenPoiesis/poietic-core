@@ -9,7 +9,7 @@ public enum IdentityType: Sendable, CustomStringConvertible {
     /// Unique within design.
     case objectSnapshot
     /// Unique within design.
-    case designSnapshot
+    case frame
     /// Unique within frame, can be multiple within design. Used in references.
     case object
     // case track
@@ -17,7 +17,7 @@ public enum IdentityType: Sendable, CustomStringConvertible {
     public var description: String {
         switch self {
         case .objectSnapshot: "objectSnapshot"
-        case .designSnapshot: "designSnapshot"
+        case .frame: "frame"
         case .object: "object"
         }
     }

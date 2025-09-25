@@ -38,12 +38,12 @@ public class DesignExtractor {
         
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
-        if !design.undoableFrames.isEmpty {
-            let undoList: [RawObjectID] = design.undoableFrames.map { .id($0.rawValue) }
+        if !design.undoList.isEmpty {
+            let undoList: [RawObjectID] = design.undoList.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
         }
-        if !design.redoableFrames.isEmpty {
-            let redoList: [RawObjectID] = design.redoableFrames.map { .id($0.rawValue) }
+        if !design.redoList.isEmpty {
+            let redoList: [RawObjectID] = design.redoList.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
         
@@ -109,7 +109,7 @@ public class DesignExtractor {
     
     /// Create a raw frame from a design frame.
     ///
-    public func extract(_ frame: DesignSnapshot) -> RawFrame {
+    public func extract(_ frame: DesignFrame) -> RawFrame {
         return RawFrame(
             id: .id(frame.id.rawValue),
             snapshots: frame.snapshots.map { .id($0.snapshotID.rawValue) }
@@ -131,16 +131,13 @@ public class DesignExtractor {
     /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the frame are ignored.
     ///
-    public func extractPruning(objects objectIDs: [ObjectID], frame: DesignSnapshot) -> [RawSnapshot] {
+    public func extractPruning(objects objectIDs: [ObjectID], frame: DesignFrame) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(objectIDs)
         var result: [RawSnapshot] = []
         
         
         for id in objectIDs {
-            guard frame.contains(id) else {
-                continue
-            }
-            let snapshot = frame[id]
+            guard let snapshot = frame[id] else { continue }
             let raw: RawSnapshot
             
             switch snapshot.structure {

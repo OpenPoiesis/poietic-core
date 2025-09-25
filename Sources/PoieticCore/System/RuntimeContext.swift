@@ -13,7 +13,7 @@
 public class RuntimeContext {
     // TODO: We have this in frame
     /// Frame that is being transformed.
-    public let frame: any DesignProtocol
+    public let frame: any Frame
 
 
     var metamodel: Metamodel { frame.design.metamodel }
@@ -46,7 +46,7 @@ public class RuntimeContext {
     
     /// Create a new context and bind it to a frame.
     ///
-    public init(frame: any DesignProtocol) {
+    public init(frame: any Frame) {
         self.frame = frame
         self.issues = [:]
         self.objectComponents = [:]

@@ -5,16 +5,16 @@
 //  Created by Stefan Urbanek on 04/03/2025.
 //
 
-public struct ValidatedFrame: DesignProtocol {
+public struct ValidatedFrame: Frame {
     public typealias Snapshot = ObjectSnapshot
 
     /// Stable frame that was validated.
-    public let wrapped: DesignSnapshot
+    public let wrapped: DesignFrame
     
     /// Metamodel according to which the frame was validated.
     public let metamodel: Metamodel
 
-    internal init(_ wrapped: DesignSnapshot, metamodel: Metamodel) {
+    internal init(_ wrapped: DesignFrame, metamodel: Metamodel) {
         self.wrapped = wrapped
         self.metamodel = metamodel
     }
@@ -23,7 +23,7 @@ public struct ValidatedFrame: DesignProtocol {
     public var design: Design { wrapped.design }
     
     @inlinable
-    public var id: DesignSnapshotID { wrapped.id }
+    public var id: FrameID { wrapped.id }
     
     @inlinable
     public var snapshots: [ObjectSnapshot] { wrapped.snapshots }
@@ -37,7 +37,7 @@ public struct ValidatedFrame: DesignProtocol {
     }
     
     @inlinable
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
+    public func object(_ id: ObjectID) -> ObjectSnapshot? {
         wrapped.object(id)
     }
     

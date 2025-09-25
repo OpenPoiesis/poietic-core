@@ -228,9 +228,9 @@ struct RawDesignLoaderTest {
             ]
         )
         let design = try loader.load(raw)
-        #expect(design.currentFrameID == DesignSnapshotID(100))
-        #expect(design.undoableFrames == [DesignSnapshotID(101), DesignSnapshotID(102)])
-        #expect(design.redoableFrames == [DesignSnapshotID(103)])
+        #expect(design.currentFrameID == FrameID(100))
+        #expect(design.undoList == [FrameID(101), FrameID(102)])
+        #expect(design.redoList == [FrameID(103)])
     }
     
     

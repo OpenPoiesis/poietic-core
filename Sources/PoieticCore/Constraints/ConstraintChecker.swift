@@ -89,7 +89,7 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshotProtocol/check(conformsTo:)``
     ///
-    public func check(_ frame: some DesignProtocol) throws (FrameValidationError) {
+    public func check(_ frame: some Frame) throws (FrameValidationError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
         // Check types
@@ -162,7 +162,7 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``
     /// - Throws: ``EdgeRuleViolation``
     
-    public func validate(edge: EdgeObject, in frame: some DesignProtocol) throws (EdgeRuleViolation) {
+    public func validate(edge: EdgeObject, in frame: some Frame) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
         let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
@@ -206,27 +206,31 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``EdgeRule/match(_:origin:target:in:)``, ``validate(edge:in:)``
     ///
-    public func canConnect(type: ObjectType, from origin: ObjectID, to target: ObjectID, in frame: some DesignProtocol) -> Bool {
+    public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in frame: some Frame) -> Bool {
         // NOTE: Changes in this function should be synced with func validate(...)
         
         let typeRules = metamodel.edgeRules.filter { type === $0.type }
         guard typeRules.count > 0 else {
             return false
         }
+        guard let origin = frame[originID],
+              let target = frame[targetID] else {
+            return false
+        }
         guard let matchingRule = typeRules.first(where: { rule in
-            rule.match(type, origin: frame[origin], target: frame[target], in: frame)
+            rule.match(type, origin: origin, target: target, in: frame)
         }) else {
             return false
         }
 
-        let outgoingCount = frame.outgoing(origin).count { $0.object.type === matchingRule.type }
+        let outgoingCount = frame.outgoing(originID).count { $0.object.type === matchingRule.type }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
             return outgoingCount == 0
         }
         
-        let incomingCount = frame.incoming(target).count { $0.object.type === matchingRule.type }
+        let incomingCount = frame.incoming(targetID).count { $0.object.type === matchingRule.type }
         switch matchingRule.incoming {
         case .many: break
         case .one:

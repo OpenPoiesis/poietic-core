@@ -66,10 +66,10 @@ public class LoadingContext {
     }
     
     struct ResolvedFrame {
-        let frameID: DesignSnapshotID
+        let frameID: FrameID
         let snapshotIndices: [Int]?
         
-        internal init(frameID: DesignSnapshotID, snapshotIndices: [Int]? = nil) {
+        internal init(frameID: FrameID, snapshotIndices: [Int]? = nil) {
             self.frameID = frameID
             self.snapshotIndices = snapshotIndices
         }
@@ -188,7 +188,7 @@ public class LoadingContext {
     }
     
     internal func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
-        let id: DesignSnapshotID = try reserveUnique(id: rawSnapshotID)
+        let id: FrameID = try reserveUnique(id: rawSnapshotID)
         resolvedFrames.append(ResolvedFrame(frameID: id))
     }
     

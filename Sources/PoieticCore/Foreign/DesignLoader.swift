@@ -24,7 +24,7 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
     case unknownFrameID(RawObjectID)
     case missingCurrentFrame
     /// Duplicate frame ID.
-    case duplicateFrame(DesignSnapshotID)
+    case duplicateFrame(FrameID)
     /// Duplicate snapshot ID.
     case duplicateSnapshot(ObjectSnapshotID)
     /// The loaded frame or collection of snapshots have broken structural integrity.
@@ -228,35 +228,35 @@ public class DesignLoader {
         try createFrames(in: design, context: context)
         // 5. Post-process
         if let list = systemLists["undo"] {
-            guard list.type == .designSnapshot else {
+            guard list.type == .frame else {
                 throw .invalidNamedReference("undo")
             }
-            let ids: [DesignSnapshotID]  = list.typedIDs()
-            design.undoableFrames = ids
+            let ids: [FrameID]  = list.typedIDs()
+            design.undoList = ids
         }
         if let list = systemLists["redo"] {
-            guard list.type == .designSnapshot else {
+            guard list.type == .frame else {
                 throw .invalidNamedReference("redo")
             }
-            let ids: [DesignSnapshotID]  = list.typedIDs()
-            design.redoableFrames = ids
+            let ids: [FrameID]  = list.typedIDs()
+            design.redoList = ids
         }
         if let ref = systemReferences["current_frame"] {
-            guard ref.type == .designSnapshot else {
+            guard ref.type == .frame else {
                 throw .invalidNamedReference("current_frame")
             }
-            design.currentFrameID = DesignSnapshotID(rawValue: ref.id)
+            design.currentFrameID = FrameID(rawValue: ref.id)
         }
 
         // CurrentFrameID must be set when there is history.
         if design.currentFrame == nil
-            && (!design.undoableFrames.isEmpty || !design.redoableFrames.isEmpty) {
+            && (!design.undoList.isEmpty || !design.redoList.isEmpty) {
             throw .missingCurrentFrame
         }
 
         for (name, ref) in userReferences {
-            if ref.type == .designSnapshot {
-                context.design._namedFrames[name] = design.frame(DesignSnapshotID(rawValue: ref.id))
+            if ref.type == .frame {
+                context.design._namedFrames[name] = design.frame(FrameID(rawValue: ref.id))
             }
         }
         design.identityManager.use(reserved: context.reserved)
@@ -275,7 +275,7 @@ public class DesignLoader {
     ///
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
-    public func load(_ design: RawDesign, into frame: TransientDesign) throws (DesignLoaderError) {
+    public func load(_ design: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = design.currentFrameID {
@@ -312,7 +312,7 @@ public class DesignLoader {
     ///
     @discardableResult
     public func load(_ rawSnapshots: [RawSnapshot],
-                     into frame: TransientDesign,
+                     into frame: TransientFrame,
                      identityStrategy: IdentityStrategy = .requireProvided)
     throws (DesignLoaderError) -> [ObjectID] {
         let rawDesign = RawDesign(snapshots: rawSnapshots)
@@ -661,10 +661,10 @@ public class DesignLoader {
     
     func createFrames(in design: Design,
                       context: LoadingContext) throws (DesignLoaderError) {
-        var frames: [DesignSnapshot] = []
+        var frames: [DesignFrame] = []
         
         for (i, resolvedFrame) in context.resolvedFrames.enumerated() {
-            let frame: DesignSnapshot
+            let frame: DesignFrame
             guard !design.containsFrame(resolvedFrame.frameID) else {
                 // FIXME: [WIP] This should be a fatal error -> we did not resolve correctly
                 throw .duplicateFrame(resolvedFrame.frameID)
@@ -694,11 +694,11 @@ public class DesignLoader {
     }
 
     // TODO: Add validation (validateStructure())
-    func createFrame(id designID: DesignSnapshotID,
+    func createFrame(id designID: FrameID,
                      snapshotIndices: [Int],
-                     context: LoadingContext) throws (RawFrameError) -> DesignSnapshot {
+                     context: LoadingContext) throws (RawFrameError) -> DesignFrame {
         let snapshots: [ObjectSnapshot] = snapshotIndices.map { context.stableSnapshots[$0] }
-        let frame = DesignSnapshot(design: context.design, id: designID, snapshots: snapshots)
+        let frame = DesignFrame(design: context.design, id: designID, snapshots: snapshots)
         return frame
     }
     
@@ -756,7 +756,7 @@ public class DesignLoader {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
-        case "frame": .designSnapshot
+        case "frame": .frame
         case "snapshot": .objectSnapshot
         default: nil
         }

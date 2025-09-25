@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class DesignSnapshot: DesignProtocol, Identifiable {
+public final class DesignFrame: Frame, Identifiable {
     public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
@@ -28,7 +28,7 @@ public final class DesignSnapshot: DesignProtocol, Identifiable {
     ///
     /// ID is unique within the design.
     ///
-    public let id: DesignSnapshotID
+    public let id: FrameID
     
     /// Version snapshots contained in the frame.
     ///
@@ -44,7 +44,7 @@ public final class DesignSnapshot: DesignProtocol, Identifiable {
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
-    init(design: Design, id: DesignSnapshotID, snapshots: [ObjectSnapshot] = []) {
+    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
         // TODO: [IMPORTANT] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
@@ -86,7 +86,7 @@ public final class DesignSnapshot: DesignProtocol, Identifiable {
         return _lookup[id] != nil
     }
     
-    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
+    public func existing(from ids: [ObjectID]) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }
     
@@ -94,11 +94,8 @@ public final class DesignSnapshot: DesignProtocol, Identifiable {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
-        guard let snapshot = _lookup[id] else {
-            preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
-        }
-        return snapshot
+    public func object(_ id: ObjectID) -> ObjectSnapshot? {
+        return _lookup[id]
     }
 }
 

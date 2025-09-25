@@ -61,7 +61,7 @@ public enum StructuralIntegrityError: Error {
 ///
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
-public final class TransientDesign: DesignProtocol {
+public final class TransientFrame: Frame {
     /// Design with which this frame is associated with.
     ///
     public unowned let design: Design
@@ -70,7 +70,7 @@ public final class TransientDesign: DesignProtocol {
     ///
     /// The ID is unique within the design.
     ///
-    public let id: DesignSnapshotID
+    public let id: FrameID
     
     
     /// State of the transient frame.
@@ -141,17 +141,17 @@ public final class TransientDesign: DesignProtocol {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
+    public func object(_ id: ObjectID) -> ObjectSnapshot? {
         // TODO: [DEPRECATE] Review necessity of this.
         guard let box = _snapshots[id] else {
-            preconditionFailure("Unknown object \(id)")
+            return nil
         }
         return box.asSnapshot()
     }
     
     /// Get an object version of object with identity `id`.
     ///
-    public subscript(id: ObjectID) -> ObjectSnapshot {
+    public subscript(id: ObjectID) -> ObjectSnapshot? {
         get { object(id) }
     }
     
@@ -180,7 +180,7 @@ public final class TransientDesign: DesignProtocol {
     /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
     public init(design: Design,
-                id: DesignSnapshotID,
+                id: FrameID,
                 snapshots: [ObjectSnapshot]? = nil) {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
@@ -640,16 +640,16 @@ public final class TransientDesign: DesignProtocol {
     /// ``TransientFrame/removeCascading(_:)``.
     ///
     public func removeFromParent(_ childID: ObjectID) {
-        let child = self[childID]
-        guard let parentID = child.parent else {
+        guard let child = self[childID],
+              let parentID = child.parent,
+              let parent = self[parentID]
+        else {
             return
         }
-        let parent = self[parentID]
-        guard parent.children.contains(childID) else {
-            return
+        if parent.children.contains(childID) {
+            mutate(parentID).removeChild(childID)
         }
         
-        mutate(parentID).removeChild(childID)
         mutate(childID).parent = nil
     }
     
@@ -668,7 +668,7 @@ public final class TransientDesign: DesignProtocol {
 }
 
 
-extension TransientDesign {
+extension TransientFrame {
     func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
         
     }
