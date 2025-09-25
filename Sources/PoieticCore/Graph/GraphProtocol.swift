@@ -43,7 +43,7 @@ public struct EdgeObject: EdgeProtocol {
     ///
     /// If the design object is not an edge, then the initialiser results in `nil`.
     ///
-    public init?(_ snapshot: ObjectSnapshot, in frame: some Frame) {
+    public init?(_ snapshot: ObjectSnapshot, in frame: some DesignProtocol) {
         guard case let .edge(origin, target) = snapshot.structure else {
             return nil
         }

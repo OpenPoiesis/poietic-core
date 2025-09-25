@@ -12,7 +12,7 @@ import Testing
 
 @Suite struct TransientFrameTest {
     let design: Design
-    let frame: TransientFrame
+    let frame: TransientDesign
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
@@ -479,15 +479,15 @@ import Testing
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
-        #expect(design.identityManager.isReserved(ObjectID(10)))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
+        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
         #expect(design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
     }
 
     @Test func reserveAndAccept() throws {
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         try design.accept(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
@@ -496,7 +496,7 @@ import Testing
     }
 
     @Test func reserveAndDiscard() throws {
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         design.discard(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))

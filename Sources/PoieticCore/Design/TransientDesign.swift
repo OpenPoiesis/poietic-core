@@ -61,7 +61,7 @@ public enum StructuralIntegrityError: Error {
 ///
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
-public final class TransientFrame: Frame {
+public final class TransientDesign: DesignProtocol {
     /// Design with which this frame is associated with.
     ///
     public unowned let design: Design
@@ -70,7 +70,7 @@ public final class TransientFrame: Frame {
     ///
     /// The ID is unique within the design.
     ///
-    public let id: FrameID
+    public let id: DesignSnapshotID
     
     
     /// State of the transient frame.
@@ -93,21 +93,22 @@ public final class TransientFrame: Frame {
     @usableFromInline
     var _snapshots: EntityTable<_TransientSnapshotBox>
     @usableFromInline
-    var _snapshotIDs: Set<ObjectID>
+    var _snapshotIDs: Set<ObjectSnapshotID>
     
     @usableFromInline
     var _removedObjects: Set<ObjectID>
-    var _reservations: Set<ObjectID>
+    var _reservations: Set<EntityID.RawValue>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
-    public var mutableObjects: [TransientObject] {
-        _snapshots.compactMap {
-            guard case let .mutable(_, snapshot) = $0.content else {
-                return nil
-            }
-            return snapshot
-        }
-    }
+    // FIXME: Needed???
+    //    public var mutableObjects: [TransientObject] {
+//        _snapshots.compactMap {
+//            guard case let .mutable(_, snapshot) = $0.content else {
+//                return nil
+//            }
+//            return snapshot
+//        }
+//    }
     
     public var objectIDs: [ObjectID] {
         _snapshots.map { $0.objectID }
@@ -127,7 +128,7 @@ public final class TransientFrame: Frame {
     public func contains(_ objectID: ObjectID) -> Bool {
         _snapshots[objectID] != nil
     }
-    public func contains(snapshotID: ObjectID) -> Bool {
+    public func contains(snapshotID: ObjectSnapshotID) -> Bool {
         _snapshotIDs.contains(snapshotID)
     }
     /// Get an object with identity `id`.
@@ -179,7 +180,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
     public init(design: Design,
-                id: FrameID,
+                id: DesignSnapshotID,
                 snapshots: [ObjectSnapshot]? = nil) {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
@@ -256,7 +257,7 @@ public final class TransientFrame: Frame {
     @discardableResult
     public func create(_ type: ObjectType,
                        objectID: ObjectID? = nil,
-                       snapshotID: EntityID? = nil,
+                       snapshotID: ObjectSnapshotID? = nil,
                        structure: Structure? = nil,
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
@@ -266,28 +267,28 @@ public final class TransientFrame: Frame {
         // TODO: Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
        
-        let actualSnapshotID: ObjectID
+        let actualSnapshotID: ObjectSnapshotID
         if let snapshotID {
-            let success = design.identityManager.reserve(snapshotID, type: .snapshot)
+            let success = design.identityManager.reserve(snapshotID)
             precondition(success, "Duplicate snapshot ID: \(snapshotID)")
             actualSnapshotID = snapshotID
         }
         else {
-            actualSnapshotID = design.identityManager.createAndReserve(type: .snapshot)
+            actualSnapshotID = design.identityManager.createAndReserve()
         }
-        _reservations.insert(actualSnapshotID)
+        _reservations.insert(actualSnapshotID.rawValue)
 
         let actualID: ObjectID
         if let id = objectID {
-            let success = design.identityManager.reserveIfNeeded(id, type: .object)
+            let success = design.identityManager.reserveIfNeeded(id)
             precondition(success, "Entity type mismatch for ID \(id)")
             precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
         else {
-            actualID = design.identityManager.createAndReserve(type: .object)
+            actualID = design.identityManager.createAndReserve()
         }
-        _reservations.insert(actualID)
+        _reservations.insert(actualID.rawValue)
 
         let actualStructure = structure ?? .unstructured
         var actualAttributes = attributes
@@ -411,7 +412,7 @@ public final class TransientFrame: Frame {
     /// This method is used by the loader. It consumes the reservations from the loader and takes
     /// responsibility for using them or releasing them.
     ///
-    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<ObjectID>) {
+    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<EntityID.RawValue>) {
         for snapshot in snapshots {
             unsafeInsert(snapshot)
         }
@@ -447,7 +448,10 @@ public final class TransientFrame: Frame {
         while !scheduled.isEmpty {
             let garbageID = scheduled.removeFirst()
             let garbage = _snapshots[garbageID]!
-            _remove(snapshotID: garbage.snapshotID, objectID: garbage.objectID)
+
+            _snapshots.remove(garbage.objectID)
+            _snapshotIDs.remove(garbage.snapshotID)
+            _removedObjects.insert(garbage.objectID)
             
             if garbage.isOriginal {
                 // FIXME: [WIP] [IMPORTANT] Implement this
@@ -491,12 +495,7 @@ public final class TransientFrame: Frame {
         }
         return removed
     }
-    @inlinable
-    func _remove(snapshotID: ObjectID, objectID: ObjectID) {
-        _snapshots.remove(objectID)
-        _snapshotIDs.remove(snapshotID)
-        _removedObjects.insert(objectID)
-    }
+
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is
@@ -521,14 +520,14 @@ public final class TransientFrame: Frame {
             preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
         }
         switch current.content {
-        case .mutable(_, let snapshot):
+        case .transient(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID = design.identityManager.createAndReserve(type: .snapshot)
+            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.createAndReserve()
             let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
             let box = _TransientSnapshotBox(derived, isNew: false)
             _snapshots.replace(box)
-            _reservations.insert(derivedSnapshotID)
+            _reservations.insert(derivedSnapshotID.rawValue)
             _snapshotIDs.remove(original.snapshotID)
             _snapshotIDs.insert(derivedSnapshotID)
             return derived
@@ -669,7 +668,7 @@ public final class TransientFrame: Frame {
 }
 
 
-extension TransientFrame {
+extension TransientDesign {
     func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
         
     }

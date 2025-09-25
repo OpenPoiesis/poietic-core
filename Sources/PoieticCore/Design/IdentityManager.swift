@@ -7,17 +7,17 @@
 
 public enum IdentityType: Sendable, CustomStringConvertible {
     /// Unique within design.
-    case snapshot
+    case objectSnapshot
     /// Unique within design.
-    case frame
+    case designSnapshot
     /// Unique within frame, can be multiple within design. Used in references.
     case object
     // case track
     
     public var description: String {
         switch self {
-        case .snapshot: "snapshot"
-        case .frame: "frame"
+        case .objectSnapshot: "objectSnapshot"
+        case .designSnapshot: "designSnapshot"
         case .object: "object"
         }
     }
@@ -30,41 +30,55 @@ public enum IdentityType: Sendable, CustomStringConvertible {
 ///
 public class IdentityManager {
     @usableFromInline
-    var sequence: UInt64 = 1
+    var sequence: EntityID.RawValue = 1
     @usableFromInline
-    var used: [ObjectID:IdentityType] = [:]
+    var used: [EntityID.RawValue:IdentityType] = [:]
     @usableFromInline
-    var reserved: [ObjectID:IdentityType] = [:]
+    var reserved: [EntityID.RawValue:IdentityType] = [:]
    
     @inlinable
-    func contains(_ id: ObjectID) -> Bool {
+    func contains(_ id: EntityID.RawValue) -> Bool {
         used[id] != nil || reserved[id] != nil
     }
+
+    @inlinable
+    func contains<T>(_ id: EntityID<T>) -> Bool {
+        used[id.rawValue] == T.identityType || reserved[id.rawValue] == T.identityType
+    }
     
     @inlinable
-    func type(_ id: ObjectID) -> IdentityType? {
-        used[id] ?? reserved[id]
+    func type<T>(_ id: EntityID<T>) -> IdentityType? {
+        used[id.rawValue] ?? reserved[id.rawValue]
     }
+    
     @inlinable
-    func next() -> ObjectID {
+    func type(_ rawID: EntityID.RawValue) -> IdentityType? {
+        used[rawID] ?? reserved[rawID]
+    }
+
+    @inlinable
+    func next() -> EntityID.RawValue {
         var nextID = sequence
-        var id = ObjectID(nextID)
-        while contains(id) {
+        while contains(nextID) {
             nextID += 1
-            id = ObjectID(nextID)
         }
         sequence = nextID + 1
-        return id
+        return nextID
     }
     
+    @inlinable
+    public func isReserved(_ rawValue: EntityID.RawValue) -> Bool {
+        reserved[rawValue] != nil
+    }
+
     /// Checks whether a given ID is reserved.
     ///
     /// - Returns: `true` when the ID is reserved, otherwise `false`. The method also returns `false`
     /// when the given ID is used, but not reserved.
     ///
     @inlinable
-    public func isReserved(_ id: ObjectID) -> Bool {
-        reserved[id] != nil
+    public func isReserved<T>(_ id: EntityID<T>) -> Bool {
+        reserved[id.rawValue] == T.identityType
     }
     
     /// Checks whether a given ID is used.
@@ -73,33 +87,33 @@ public class IdentityManager {
     /// when the given ID is reserved, but not used.
     ///
     @inlinable
-    public func isUsed(_ id: ObjectID) -> Bool {
-        used[id] != nil
+    public func isUsed<T>(_ id: EntityID<T>) -> Bool {
+        used[id.rawValue] != nil
     }
     
     @inlinable
-    func createAndUse(type: IdentityType) -> ObjectID {
+    func createAndUse<T>() -> EntityID<T> {
         let nextID = next()
-        used[nextID] = type
-        return nextID
+        used[nextID] = T.identityType
+        return EntityID(rawValue: nextID)
     }
     
     @inlinable
     @discardableResult
-    public func createAndReserve(type: IdentityType) -> ObjectID {
+    public func createAndReserve<T>() -> EntityID<T> {
         let nextID = next()
-        reserved[nextID] = type
-        return nextID
+        reserved[nextID] = T.identityType
+        return EntityID(rawValue: nextID)
     }
     
     @inlinable
     @discardableResult
-    public func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
-        if contains(id) {
+    public func reserve<T>(_ id: EntityID<T>) -> Bool {
+        if contains(id.rawValue) {
             return false
         }
         else {
-            reserved[id] = type
+            reserved[id.rawValue] = T.identityType
             return true
         }
     }
@@ -107,12 +121,12 @@ public class IdentityManager {
     ///   requested type. If the ID exists and is of different type it returns `false`.
     @inlinable
     @discardableResult
-    public func reserveIfNeeded(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
+    public func reserveIfNeeded<T>(_ id: EntityID<T>) -> Bool {
         if let existingType = type(id) {
-            return existingType == requiredType
+            return existingType == T.identityType
         }
         else {
-            reserved[id] = requiredType
+            reserved[id.rawValue] = T.identityType
             return true
         }
     }
@@ -121,14 +135,22 @@ public class IdentityManager {
     ///          `false`.
     @inlinable
     @discardableResult
-    public func freeReservation(_ id: ObjectID) -> Bool {
-        reserved.removeValue(forKey: id) != nil
+    public func freeReservation<T>(_ id: EntityID<T>) -> Bool {
+        reserved.removeValue(forKey: id.rawValue) != nil
     }
     
     @inlinable
-    public func freeReservations(_ toFree: [ObjectID]) {
+    public func freeReservations<T>(_ toFree: [EntityID<T>]) {
         for id in toFree {
-            reserved.removeValue(forKey: id)
+            reserved.removeValue(forKey: id.rawValue)
+        }
+    }
+    
+    /// Free reservations regardless of their entity type.
+    @inlinable
+    public func freeReservations(_ values: [EntityID.RawValue]) {
+        for value in values {
+            reserved.removeValue(forKey: value)
         }
     }
     /// Use reservations from the list.
@@ -137,16 +159,15 @@ public class IdentityManager {
     /// Not reserved IDs will be ignored.
     ///
     @inlinable
-    public func use(reserved ids: some Collection<ObjectID>) {
+    public func use(reserved values: some Collection<EntityID.RawValue>) {
         // TODO: Rename to something that reflects the functionality more. For example: useIfReserved()
         // To be able to fail on non-reserved IDs, the reserveIfNeeded would have to distinguish
         // between: new reservation, existing reservation, type mismatch.
-        for id in ids {
-            guard let type = self.reserved.removeValue(forKey: id) else {
+        for value in values {
+            guard let type = self.reserved.removeValue(forKey: value) else {
                 return
-                // fatalError("Unknown ID reservation: \(id)")
             }
-            used[id] = type
+            used[value] = type
         }
     }
 
@@ -157,194 +178,23 @@ public class IdentityManager {
     /// - Precondition: The ID must be reserved when calling this method.
     ///
     @inlinable
-    public func use(reserved id: ObjectID) {
-        guard let type = reserved.removeValue(forKey: id) else {
+    public func use<T>(reserved id: EntityID<T>) {
+        guard reserved.removeValue(forKey: id.rawValue) != nil else {
             fatalError("Unknown ID reservation: \(id)")
         }
-        used[id] = type
+        used[id.rawValue] = T.identityType
     }
     
     @inlinable
-    internal func use(new id: ObjectID, type: IdentityType) {
-        precondition(!contains(id))
-        used[id] = type
+    internal func use<T>(new id: EntityID<T>) {
+        precondition(!contains(id.rawValue))
+        used[id.rawValue] = T.identityType
     }
 
     @inlinable
-    public func free(_ id: ObjectID) {
-        precondition(used[id] != nil)
-        used[id] = nil
-    }
-}
-
-public class RCIdentityManager {
-    @usableFromInline
-    struct RefCountCell {
-        @usableFromInline
-        let type: IdentityType
-        
-        @usableFromInline
-        var refCount: Int
-        
-        @usableFromInline
-        internal init(_ type: IdentityType, refCount: Int = 1) {
-            self.type = type
-            self.refCount = refCount
-        }
-    }
-    
-    @usableFromInline
-    var sequence: UInt64 = 1
-    @usableFromInline
-    var used: [ObjectID:RefCountCell] = [:]
-    @usableFromInline
-    var reserved: [ObjectID:IdentityType] = [:]
-    
-    @inlinable
-    func contains(_ id: ObjectID) -> Bool {
-        used[id] != nil || reserved[id] != nil
-    }
-    
-    @inlinable
-    func type(_ id: ObjectID) -> IdentityType? {
-        used[id].map { $0.type } ?? reserved[id]
-    }
-    @inlinable
-    func next() -> ObjectID {
-        var nextID = sequence
-        var id = ObjectID(nextID)
-        while contains(id) {
-            nextID += 1
-            id = ObjectID(nextID)
-        }
-        sequence = nextID + 1
-        return id
-    }
-    
-    /// Checks whether a given ID is reserved.
-    ///
-    /// - Returns: `true` when the ID is reserved, otherwise `false`. The method also returns `false`
-    /// when the given ID is used, but not reserved.
-    ///
-    @inlinable
-    public func isReserved(_ id: ObjectID) -> Bool {
-        reserved[id] != nil
-    }
-    
-    /// Checks whether a given ID is used.
-    ///
-    /// - Returns: `true` when the ID is used, otherwise `false`. The method also returns `false`
-    /// when the given ID is reserved, but not used.
-    ///
-    @inlinable
-    public func isUsed(_ id: ObjectID) -> Bool {
-        used[id] != nil
-    }
-    
-    @inlinable
-    func createAndUse(type: IdentityType) -> ObjectID {
-        let nextID = next()
-        used[nextID] = RefCountCell(type)
-        return nextID
-    }
-    
-    @inlinable
-    func retain(_ id: ObjectID) {
-        precondition(used[id] != nil)
-        used[id]!.refCount += 1
-    }
-    
-    @inlinable
-    func release(_ id: ObjectID) {
-        precondition(used[id] != nil)
-        precondition(used[id]!.refCount > 0)
-        
-        used[id]!.refCount -= 1
-        if used[id]!.refCount <= 0 {
-            used[id] = nil
-        }
-    }
-    
-    @inlinable
-    func referenceCount(_ id: ObjectID) -> Int {
-        guard let cell = used[id] else {
-            preconditionFailure("Missing ID \(id)")
-        }
-        return cell.refCount
-    }
-    
-    @inlinable
-    @discardableResult
-    public func createAndReserve(type: IdentityType) -> ObjectID {
-        let nextID = next()
-        reserved[nextID] = type
-        return nextID
-    }
-    
-    @inlinable
-    @discardableResult
-    public func reserve(_ id: ObjectID, type: IdentityType) -> Bool {
-        if contains(id) {
-            return false
-        }
-        else {
-            reserved[id] = type
-            return true
-        }
-    }
-    /// - Returns: `true` when ID was successfully reserved or when ID already exists and is of the
-    ///   requested type. If the ID exists and is of different type it returns `false`.
-    @inlinable
-    @discardableResult
-    public func reserveIfNeeded(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
-        if let existingType = type(id) {
-            return existingType == requiredType
-        }
-        else {
-            reserved[id] = requiredType
-            return true
-        }
-    }
-    
-    /// Returns: `true` if there was a reservation for given ID and was released. Otherwise returns
-    ///          `false`.
-    @inlinable
-    @discardableResult
-    public func freeReservation(_ id: ObjectID) -> Bool {
-        reserved.removeValue(forKey: id) != nil
-    }
-    
-    @inlinable
-    public func freeReservations(_ toFree: [ObjectID]) {
-        for id in toFree {
-            reserved.removeValue(forKey: id)
-        }
-    }
-    @inlinable
-    public func useReservations(_ toUse: [ObjectID]) {
-        for id in toUse {
-            if let type = reserved.removeValue(forKey: id) {
-                used[id] = RefCountCell(type)
-            }
-        }
-    }
-    
-    @inlinable
-    @discardableResult
-    public func use(_ id: ObjectID, type requiredType: IdentityType) -> Bool {
-        guard used[id] == nil else { return false }
-        if let type = reserved[id] {
-            guard type == requiredType else { return false }
-            reserved[id] = nil
-        }
-        used[id] = RefCountCell(requiredType)
-        return true
-    }
-    
-    @inlinable
-    public func free(_ id: ObjectID) {
-        precondition(used[id] != nil)
-        used[id] = nil
+    public func free<T>(_ id: EntityID<T>) {
+        precondition(used[id.rawValue] != nil)
+        used[id.rawValue] = nil
     }
 }
 

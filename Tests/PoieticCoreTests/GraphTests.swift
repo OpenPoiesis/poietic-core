@@ -10,7 +10,7 @@ import Testing
 
 struct FrameAsGraphTests {
     let design: Design
-    let frame: TransientFrame
+    let frame: TransientDesign
     
     init() {
         design = Design()

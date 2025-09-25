@@ -17,7 +17,7 @@ import Testing
 @Suite struct JSONFrameReaderTests {
     
     let design: Design
-    let frame: TransientFrame
+    let frame: TransientDesign
     let reader: JSONDesignReader
     
     init() throws {

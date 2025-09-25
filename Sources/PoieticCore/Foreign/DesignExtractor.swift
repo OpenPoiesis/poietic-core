@@ -27,7 +27,7 @@ public class DesignExtractor {
         var userReferences: [RawNamedReference] = []
 
         // 1. Snapshots and frames
-        for snapshot in design.snapshots {
+        for snapshot in design.objectSnapshots {
             let raw = extract(snapshot)
             snapshots.append(raw)
         }
@@ -39,17 +39,17 @@ public class DesignExtractor {
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
         if !design.undoableFrames.isEmpty {
-            let undoList: [RawObjectID] = design.undoableFrames.map { .id($0) }
+            let undoList: [RawObjectID] = design.undoableFrames.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
         }
         if !design.redoableFrames.isEmpty {
-            let redoList: [RawObjectID] = design.redoableFrames.map { .id($0) }
+            let redoList: [RawObjectID] = design.redoableFrames.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
         
         if let id = design.currentFrameID {
             sysReferences = [
-                RawNamedReference("current_frame", type: "frame", id: .id(id))
+                RawNamedReference("current_frame", type: "frame", id: .id(id.rawValue))
             ]
         }
         else {
@@ -59,7 +59,7 @@ public class DesignExtractor {
         // 3. User references
         // Write all, including empty ones.
         for (name, frame) in design.namedFrames {
-            let ref = RawNamedReference(name, type: "frame", id: .id(frame.id))
+            let ref = RawNamedReference(name, type: "frame", id: .id(frame.id.rawValue))
             userReferences.append(ref)
         }
         
@@ -95,11 +95,11 @@ public class DesignExtractor {
     /// - SeeAlso: ``extract(_:)``
     ///
     public func extract(_ snapshot: ObjectSnapshot) -> RawSnapshot {
-        let rawParent: RawObjectID? = snapshot.parent.map { .id($0) }
+        let rawParent: RawObjectID? = snapshot.parent.map { .id($0.rawValue) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
-            snapshotID: .id(snapshot.snapshotID),
-            id: .id(snapshot.objectID),
+            snapshotID: .id(snapshot.snapshotID.rawValue),
+            id: .id(snapshot.objectID.rawValue),
             structure: RawStructure(snapshot.structure),
             parent: rawParent,
             attributes: snapshot.attributes
@@ -109,10 +109,10 @@ public class DesignExtractor {
     
     /// Create a raw frame from a design frame.
     ///
-    public func extract(_ frame: StableFrame) -> RawFrame {
+    public func extract(_ frame: DesignSnapshot) -> RawFrame {
         return RawFrame(
-            id: .id(frame.id),
-            snapshots: frame.snapshots.map { .id($0.snapshotID) }
+            id: .id(frame.id.rawValue),
+            snapshots: frame.snapshots.map { .id($0.snapshotID.rawValue) }
         )
     }
     
@@ -131,7 +131,7 @@ public class DesignExtractor {
     /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the frame are ignored.
     ///
-    public func extractPruning(objects objectIDs: [ObjectID], frame: StableFrame) -> [RawSnapshot] {
+    public func extractPruning(objects objectIDs: [ObjectID], frame: DesignSnapshot) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(objectIDs)
         var result: [RawSnapshot] = []
         
@@ -157,7 +157,7 @@ public class DesignExtractor {
                 }
                 let knownItems = items.filter { knownIDs.contains($0) }
                 raw = extract(snapshot)
-                raw.structure.references = knownItems.map { .id($0) }
+                raw.structure.references = knownItems.map { .id($0.rawValue) }
             }
             
             if let parent = snapshot.parent, !knownIDs.contains(parent) {

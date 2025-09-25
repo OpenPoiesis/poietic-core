@@ -1,5 +1,5 @@
 //
-//  StableFrame.swift
+//  DesignSnapshot.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 10/11/2024.
@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class StableFrame: Frame, Identifiable {
+public final class DesignSnapshot: DesignProtocol, Identifiable {
     public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
@@ -28,7 +28,7 @@ public final class StableFrame: Frame, Identifiable {
     ///
     /// ID is unique within the design.
     ///
-    public let id: EntityID
+    public let id: DesignSnapshotID
     
     /// Version snapshots contained in the frame.
     ///
@@ -44,7 +44,7 @@ public final class StableFrame: Frame, Identifiable {
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
-    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
+    init(design: Design, id: DesignSnapshotID, snapshots: [ObjectSnapshot] = []) {
         // TODO: [IMPORTANT] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id

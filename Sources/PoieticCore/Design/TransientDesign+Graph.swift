@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 21/08/2023.
 //
 
-extension TransientFrame /* MutableGraph (no longer formally present) */ {
+extension TransientDesign /* MutableGraph (no longer formally present) */ {
     /// Convenience method to create an edge.
     ///
     /// If the object name is provided, then attribute `name` of the

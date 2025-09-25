@@ -89,7 +89,7 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshotProtocol/check(conformsTo:)``
     ///
-    public func check(_ frame: some Frame) throws (FrameValidationError) {
+    public func check(_ frame: some DesignProtocol) throws (FrameValidationError) {
         var errors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
         // Check types
@@ -162,7 +162,7 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``
     /// - Throws: ``EdgeRuleViolation``
     
-    public func validate(edge: EdgeObject, in frame: some Frame) throws (EdgeRuleViolation) {
+    public func validate(edge: EdgeObject, in frame: some DesignProtocol) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
         let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
@@ -206,7 +206,7 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``EdgeRule/match(_:origin:target:in:)``, ``validate(edge:in:)``
     ///
-    public func canConnect(type: ObjectType, from origin: ObjectID, to target: ObjectID, in frame: some Frame) -> Bool {
+    public func canConnect(type: ObjectType, from origin: ObjectID, to target: ObjectID, in frame: some DesignProtocol) -> Bool {
         // NOTE: Changes in this function should be synced with func validate(...)
         
         let typeRules = metamodel.edgeRules.filter { type === $0.type }

@@ -10,14 +10,14 @@
 /// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
 /// ``DesignFrame``
 ///
-public protocol Frame:
+public protocol DesignProtocol:
     GraphProtocol where NodeKey == ObjectID,
                         EdgeKey == ObjectID,
                         Edge == EdgeObject {
     /// Design to which the frame belongs.
     var design: Design { get }
     
-    var id: FrameID { get }
+    var id: DesignSnapshotID { get }
     
     /// Get a list of all snapshots in the frame.
     ///
@@ -77,7 +77,7 @@ public protocol Frame:
 
 // MARK: - Default Implementations
 
-extension Frame {
+extension DesignProtocol {
     public subscript(id: ObjectID) -> ObjectSnapshot {
         get {
             self.object(id)
@@ -358,7 +358,7 @@ extension Frame {
 // MARK: - Graph Implementations
 
 
-extension Frame {
+extension DesignProtocol {
     /// Get object by a name, if the object contains a named component.
     ///
     /// A method that searches the frame for a first object with
@@ -402,7 +402,7 @@ extension Frame {
 
 // MARK: Distinct queries
 
-extension Frame {
+extension DesignProtocol {
     public func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant> {
         // TODO: Use ordered set here
         var values: Set<Variant> = Set()

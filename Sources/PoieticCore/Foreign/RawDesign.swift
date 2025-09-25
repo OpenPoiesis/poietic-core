@@ -19,6 +19,8 @@ enum RawLoadingResult {
     case needsUpgrade(RawDesign)
 }
 
+// FIXME: [REFACTORING] Rename to RawEntityID
+// FIXME: [REFACTORING] Remove id and replace with int/uint as utin64
 /// Object ID retrieved from a foreign interface.
 ///
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
@@ -29,9 +31,10 @@ public enum RawObjectID:
     Codable,
     Sendable,
     CustomStringConvertible,
-    CustomDebugStringConvertible {
+    CustomDebugStringConvertible
+{
     /// Native Object ID representation
-    case id(ObjectID)
+    case id(EntityID.RawValue)
     /// Representation as an integer.
     ///
     /// Known applications that use integer representation:
@@ -46,32 +49,29 @@ public enum RawObjectID:
     
     public var description: String {
         switch self {
-        case .id(let value): value.stringValue
+        case .id(let value): String(value)
         case .int(let value): String(value)
         case .string(let value): value
         }
     }
     public var debugDescription: String {
         switch self {
-        case .id(let value): "RawObjectID.id(\(value.stringValue))"
+        case .id(let value): "RawObjectID.id(\(value))"
         case .int(let value): "RawObjectID.int(\(value))"
         case .string(let value): "RawObjectID.string(\(value))"
         }
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(ObjectID.self) {
+        if let value = try? container.decode(RawEntityIDValue.self) {
             self = .id(value)
         }
         else if let value = try? container.decode(String.self) {
             self = .string(value)
         }
-        else if let value = try? container.decode(Int64.self) {
-            self = .int(value)
-        }
         else {
-            let value = try container.decode(ObjectID.self)
-            self = .id(value)
+            let value = try container.decode(Int64.self)
+            self = .int(value)
         }
     }
     public func encode(to encoder: any Encoder) throws {
@@ -84,13 +84,14 @@ public enum RawObjectID:
     }
 }
 
-extension ObjectID {
+extension EntityID {
     init?(_ raw: RawObjectID) {
         switch raw {
-        case let .id(value): self = value
-        case let .int(value):
+        case let .id(value):
+            self.init(rawValue: value)
+        case let .int(rawValue: value):
             guard let intValue = UInt64(exactly: value) else { return nil }
-            self.init(intValue)
+            self.init(rawValue: intValue)
         case let .string(stringValue):
             self.init(stringValue)
         }
@@ -358,10 +359,10 @@ public struct RawStructure: Equatable {
         case .node: self.type = "node"
         case .edge(let origin, let target):
             self.type = "edge"
-            self.references = [.id(origin), .id(target)]
+            self.references = [.id(origin.rawValue), .id(target.rawValue)]
         case .orderedSet(let owner, let items):
             self.type = "ordered_set"
-            self.references = [.id(owner)] + items.map { .id($0) }
+            self.references = [.id(owner.rawValue)] + items.map { .id($0.rawValue) }
         }
     }
     public init(_ type: String? = nil, references: [RawObjectID] = []) {
@@ -455,6 +456,10 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     }
 
     public var debugDescription: String {
+        let typeName = self.typeName ?? "(no type)"
+        let snapshotID = self.snapshotID ?? .string("(no snapshot ID)")
+        let objectID = self.snapshotID ?? .string("(no object ID)")
+        let parent = self.snapshotID ?? .string("(no parent ID)")
         return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), structure: \(structure), parent: \(parent), attributes: \(attributes)"
     }
     
@@ -462,9 +467,9 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     ///
     public init(_ snapshot: ObjectSnapshot) {
         self.typeName = snapshot.type.name
-        self.snapshotID = .id(snapshot.snapshotID)
-        self.objectID = .id(snapshot.objectID)
-        self.parent = snapshot.parent.map { .id($0) }
+        self.snapshotID = .id(snapshot.snapshotID.rawValue)
+        self.objectID = .id(snapshot.objectID.rawValue)
+        self.parent = snapshot.parent.map { .id($0.rawValue) }
         self.attributes = snapshot.attributes
         switch snapshot.structure {
         case .unstructured:
@@ -472,9 +477,9 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         case .node:
             self.structure = RawStructure("node")
         case let .edge(origin, target):
-            self.structure = RawStructure("edge", references: [.id(origin), .id(target)])
+            self.structure = RawStructure("edge", references: [.id(origin.rawValue), .id(target.rawValue)])
         case let .orderedSet(owner, ids):
-            let allRefs: [RawObjectID] = [.id(owner)] + ids.map { .id($0) }
+            let allRefs: [RawObjectID] = [.id(owner.rawValue)] + ids.map { .id($0.rawValue) }
             self.structure = RawStructure("edge", references: allRefs)
         }
     }

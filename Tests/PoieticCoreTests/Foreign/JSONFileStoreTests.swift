@@ -41,7 +41,7 @@ final class JSONFileStoreTests: XCTestCase {
         return fileURL
     }
     var db: Design!
-    var frame: TransientFrame!
+    var frame: TransientDesign!
     
     override func setUp() {
         db = Design(metamodel: TestMetamodel)

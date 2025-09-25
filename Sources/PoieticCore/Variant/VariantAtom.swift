@@ -378,7 +378,11 @@ public enum VariantAtom: Equatable, CustomStringConvertible, Hashable, Sendable 
         // Therefore the single value decoding tries double first before Int
         
         switch self {
-        case let .int(value): return ObjectID(UInt64(value))
+        case let .int(value):
+            guard let value = UInt64(exactly: value) else {
+                throw ValueError.conversionToIDFailed(.int)
+            }
+            return ObjectID(rawValue: value)
         case .double(_): throw ValueError.conversionToIDFailed(.double)
         case let .string(value):
             if let value = ObjectID(value){

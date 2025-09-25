@@ -61,11 +61,11 @@ import Testing
         #expect(design.snapshot(b.snapshotID) != nil)
     }
     @Test func acceptUseReservations() throws {
-        let trans = design.createFrame(id: ObjectID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        let trans = design.createFrame(id: DesignSnapshotID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(10)))
-        #expect(design.identityManager.isUsed(ObjectID(20)))
+        #expect(design.identityManager.isUsed(ObjectSnapshotID(20)))
         #expect(design.identityManager.isUsed(ObjectID(1000)))
         #expect(design.identityManager.used.count == 3)
         #expect(design.identityManager.reserved.count == 0)
@@ -92,24 +92,24 @@ import Testing
         #expect(design.snapshot(a.snapshotID) == nil)
     }
     @Test func removeFrameReleaseID() throws {
-        let trans = design.createFrame(id: ObjectID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        let trans = design.createFrame(id: DesignSnapshotID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(1000)))
-        design.removeFrame(ObjectID(1000))
+        design.removeFrame(DesignSnapshotID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
     }
     @Test func removeFrameRetainNeededIDs() throws {
-        let trans = design.createFrame(id: ObjectID(1000))
-        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectID(20))
+        let trans = design.createFrame(id: DesignSnapshotID(1000))
+        trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         let original = try design.accept(trans)
-        let trans2 = design.createFrame(deriving: original, id: ObjectID(2000))
+        let trans2 = design.createFrame(deriving: original, id: DesignSnapshotID(2000))
         let mut = trans2.mutate(ObjectID(10))
         mut["text"] = "text"
         try design.accept(trans2)
-        design.removeFrame(ObjectID(1000))
+        design.removeFrame(DesignSnapshotID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
         
@@ -117,7 +117,7 @@ import Testing
         #expect(design.identityManager.isUsed(mut.snapshotID))
         #expect(design.identityManager.isUsed(ObjectID(2000)))
 
-        design.removeFrame(ObjectID(2000))
+        design.removeFrame(DesignSnapshotID(2000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(mut.snapshotID))
         #expect(!design.identityManager.isUsed(ObjectID(2000)))
@@ -225,7 +225,7 @@ import Testing
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.contains(snapshot: b.snapshotID))
         
-        let snapshots: [ObjectSnapshot] = Array(design.snapshots)
+        let snapshots: [ObjectSnapshot] = Array(design.objectSnapshots)
         #expect(snapshots.count == 2)
     }
 
