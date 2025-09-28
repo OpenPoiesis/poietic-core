@@ -287,7 +287,7 @@ public class Design {
             actualID = id
         }
         else {
-            actualID = identityManager.createAndReserve()
+            actualID = identityManager.reserveNew()
         }
         
         let derived: TransientFrame

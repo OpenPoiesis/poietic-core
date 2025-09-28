@@ -211,7 +211,7 @@ public class LoadingContext {
         let reservedID: EntityID<T>
 
         guard let rawID else {
-            reservedID = design.identityManager.createAndReserve()
+            reservedID = design.identityManager.reserveNew()
             reserved.insert(reservedID.rawValue)
             return reservedID
         }
@@ -229,19 +229,19 @@ public class LoadingContext {
             guard knownIDMap[rawID] == nil else {
                 throw .duplicateID(rawID)
             }
-            reservedID = design.identityManager.createAndReserve()
+            reservedID = design.identityManager.reserveNew()
 
         case (.preserveOrCreate, .some(let id)):
             if design.identityManager.reserve(id) {
                 reservedID = id
             }
             else {
-                reservedID = design.identityManager.createAndReserve()
+                reservedID = design.identityManager.reserveNew()
             }
 
         case (.preserveOrCreate, .none),
              (.createNew, _):
-            reservedID = design.identityManager.createAndReserve()
+            reservedID = design.identityManager.reserveNew()
         }
         knownIDMap[rawID] = reservedID.rawValue
         reserved.insert(reservedID.rawValue)
@@ -267,60 +267,72 @@ public class LoadingContext {
     internal func reserveIfNeeded(id rawID: RawObjectID?) throws (RawIdentityError) -> ObjectID {
         let reservedID: ObjectID
         guard let rawID else {
-            reservedID = design.identityManager.createAndReserve()
+            reservedID = design.identityManager.reserveNew()
             reserved.insert(reservedID.rawValue)
             return reservedID
         }
         
-        if let value = knownIDMap[rawID] {
-            let knownID = ObjectID(rawValue: value)
-
-            switch identityStrategy {
-            case .requireProvided:
-                guard design.identityManager.contains(knownID) else {
-                    throw .typeMismatch(rawID)
-                }
-                reservedID = knownID
-            case .preserveOrCreate:
-                if design.identityManager.contains(knownID) {
-                    reservedID = knownID
-                }
-                else {
-                    reservedID = design.identityManager.createAndReserve()
-                    knownIDMap[rawID] = reservedID.rawValue
-                }
-            case .createNew:
-                reservedID = design.identityManager.createAndReserve()
-                knownIDMap[rawID] = reservedID.rawValue
-            }
+        if let knownID = knownIDMap[rawID] {
+            return try reserveIfNeeded(rawID: rawID, knownID: knownID)
         }
-        else if let requiredID = ObjectID(rawID) { // Unknown ID, but convertible (non-string)
-            switch identityStrategy {
-            case .requireProvided:
-                guard design.identityManager.reserveIfNeeded(requiredID) else {
-                    throw .typeMismatch(rawID)
-                }
-                reservedID = requiredID
-            case .preserveOrCreate:
-                if unavailable.contains(requiredID) {
-                    reservedID = design.identityManager.createAndReserve()
-                }
-                else if design.identityManager.reserveIfNeeded(requiredID) {
-                    reservedID = requiredID
-                }
-                else {
-                    reservedID = design.identityManager.createAndReserve()
-                }
-            case .createNew:
-                reservedID = design.identityManager.createAndReserve()
-            }
-            knownIDMap[rawID] = reservedID.rawValue
+        else if let proposedID = ObjectID(rawID) { // Unknown ID, but convertible (non-string)
+            return try reserveIfNeeded(rawID: rawID, proposedID: proposedID)
         }
         else { // rawID is not convertible to object ID
-            reservedID = design.identityManager.createAndReserve()
+            reservedID = design.identityManager.reserveNew()
             knownIDMap[rawID] = reservedID.rawValue
         }
         
+        reserved.insert(reservedID.rawValue)
+
+        return reservedID
+    }
+    internal func reserveIfNeeded(rawID: RawObjectID, knownID: EntityID.RawValue) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
+        switch identityStrategy {
+        case .requireProvided:
+            guard design.identityManager.type(knownID) == .object else {
+                throw .typeMismatch(rawID)
+            }
+            reservedID = ObjectID(rawValue: knownID)
+        case .preserveOrCreate:
+            if design.identityManager.type(knownID) == .object {
+                reservedID = ObjectID(rawValue: knownID)
+            }
+            else {
+                reservedID = design.identityManager.reserveNew()
+                knownIDMap[rawID] = reservedID.rawValue
+            }
+        case .createNew:
+            reservedID = design.identityManager.reserveNew()
+            knownIDMap[rawID] = reservedID.rawValue
+        }
+        reserved.insert(reservedID.rawValue)
+
+        return reservedID
+    }
+    internal func reserveIfNeeded(rawID: RawObjectID, proposedID: ObjectID) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
+        switch identityStrategy {
+        case .requireProvided:
+            guard design.identityManager.reserveIfNeeded(proposedID) else {
+                throw .typeMismatch(rawID)
+            }
+            reservedID = proposedID
+        case .preserveOrCreate:
+            if unavailable.contains(proposedID) {
+                reservedID = design.identityManager.reserveNew()
+            }
+            else if design.identityManager.reserveIfNeeded(proposedID) {
+                reservedID = proposedID
+            }
+            else {
+                reservedID = design.identityManager.reserveNew()
+            }
+        case .createNew:
+            reservedID = design.identityManager.reserveNew()
+        }
+        knownIDMap[rawID] = reservedID.rawValue
         reserved.insert(reservedID.rawValue)
 
         return reservedID

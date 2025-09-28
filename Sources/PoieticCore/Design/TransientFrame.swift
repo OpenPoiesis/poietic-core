@@ -274,7 +274,7 @@ public final class TransientFrame: Frame {
             actualSnapshotID = snapshotID
         }
         else {
-            actualSnapshotID = design.identityManager.createAndReserve()
+            actualSnapshotID = design.identityManager.reserveNew()
         }
         _reservations.insert(actualSnapshotID.rawValue)
 
@@ -286,7 +286,7 @@ public final class TransientFrame: Frame {
             actualID = id
         }
         else {
-            actualID = design.identityManager.createAndReserve()
+            actualID = design.identityManager.reserveNew()
         }
         _reservations.insert(actualID.rawValue)
 
@@ -523,7 +523,7 @@ public final class TransientFrame: Frame {
         case .transient(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.createAndReserve()
+            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew()
             let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
             let box = _TransientSnapshotBox(derived, isNew: false)
             _snapshots.replace(box)

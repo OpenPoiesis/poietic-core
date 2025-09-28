@@ -14,15 +14,15 @@ struct TestIdentityManager {
         let idman = IdentityManager()
         idman.reserve(ObjectID(10))
         idman.use(new: ObjectID(20))
-        #expect(idman.contains(ObjectID(10)) == true)
+        #expect(idman.contains(ObjectID(10).rawValue) == true)
         #expect(idman.isReserved(ObjectID(10)) == true)
         #expect(idman.isUsed(ObjectID(10)) == false)
 
-        #expect(idman.contains(ObjectID(20)) == true)
+        #expect(idman.contains(ObjectID(20).rawValue) == true)
         #expect(idman.isReserved(ObjectID(20)) == false)
         #expect(idman.isUsed(ObjectID(20)) == true)
 
-        #expect(idman.contains(ObjectID(30)) == false)
+        #expect(idman.contains(ObjectID(30).rawValue) == false)
         #expect(idman.isReserved(ObjectID(30)) == false)
         #expect(idman.isUsed(ObjectID(30)) == false)
     }
@@ -30,8 +30,8 @@ struct TestIdentityManager {
         let idman = IdentityManager()
         idman.reserve(ObjectID(10))
         idman.use(new: ObjectSnapshotID(20))
-        #expect(idman.type(ObjectID(10)) == .object)
-        #expect(idman.type(ObjectID(20)) == .objectSnapshot)
+        #expect(idman.type(ObjectID(10).rawValue) == .object)
+        #expect(idman.type(ObjectID(20).rawValue) == .objectSnapshot)
     }
     @Test func useRemovesReservation() async throws {
         let idman = IdentityManager()
@@ -42,7 +42,7 @@ struct TestIdentityManager {
     }
     @Test func testCreateAndReserve() async throws {
         let idman = IdentityManager()
-        let id: ObjectID = idman.createAndReserve()
+        let id: ObjectID = idman.reserveNew()
         #expect(idman.isReserved(id) == true)
         #expect(idman.isUsed(id) == false)
     }
