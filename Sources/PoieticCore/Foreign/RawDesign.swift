@@ -63,7 +63,7 @@ public enum RawObjectID:
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(RawEntityIDValue.self) {
+        if let value = try? container.decode(EntityIDValue.self) {
             self = .id(value)
         }
         else if let value = try? container.decode(String.self) {
