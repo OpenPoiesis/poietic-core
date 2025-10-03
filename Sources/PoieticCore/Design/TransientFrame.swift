@@ -100,16 +100,7 @@ public final class TransientFrame: Frame {
     var _reservations: Set<EntityID.RawValue>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
-    // FIXME: Needed???
-    //    public var mutableObjects: [TransientObject] {
-//        _snapshots.compactMap {
-//            guard case let .mutable(_, snapshot) = $0.content else {
-//                return nil
-//            }
-//            return snapshot
-//        }
-//    }
-    
+    // MARK: - Properties and Inspection
     public var objectIDs: [ObjectID] {
         _snapshots.map { $0.objectID }
     }
@@ -160,22 +151,13 @@ public final class TransientFrame: Frame {
         return !removedObjects.isEmpty || _snapshots.contains { $0.hasChanges }
     }
     
-    /// Create a new mutable frame.
-    ///
-    /// Creates a new mutable frame that will be associated with the `design`.
+    // - MARK: - Initialisation
+    /// Create a new transient frame bond to a design.
     ///
     /// - Parameters:
     ///     - design: The design the frame will be associated with.
     ///     - id: ID of the frame. Must be unique within the design.
-    ///     - snapshots: List of snapshots to be associated with the frame.
-    ///
-    /// The frame will contain all the provided snapshots, but will not own
-    /// them. The frame will own only snapshots inserted directly to the frame
-    /// using ``insert(_:)`` or by deriving an object using
-    /// ``mutate(_:)``.
-    ///
-    /// Snapshots removed from the mutable frame are only disassociated with the
-    /// frame, not removed from the design or any other frame.
+    ///     - snapshots: List of snapshots that are included in the frame.
     ///
     /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
@@ -199,6 +181,7 @@ public final class TransientFrame: Frame {
         }
     }
     
+    // MARK: - Finalisation
     /// Mark the frame as accepted and use the ID reservations in the design identity manager.
     ///
     /// You typically do not need to call this method, it is called by
@@ -222,7 +205,8 @@ public final class TransientFrame: Frame {
         precondition(state == .transient)
         self.state = .discarded
     }
-    
+   
+    // MARK: - Object Creation
     /// Create a new object within the frame.
     ///
     /// The method creates a new object and assigns default values as defined
@@ -434,13 +418,12 @@ public final class TransientFrame: Frame {
     ///
     /// - Complexity: Worst case O(n^2), typically O(n).
     ///
-    /// - Precondition: The frame must contain object with given ID.
     /// - Precondition: The frame state must be ``State/transient``.
     ///
     @discardableResult
     public func removeCascading(_ objectID: ObjectID) -> Set<ObjectID> {
         precondition(state == .transient)
-        precondition(contains(objectID), "Unknown object ID \(objectID) in frame \(self.id)")
+        guard contains(objectID) else { return Set() }
         
         var removed: Set<ObjectID> = Set()
         var scheduled: Set<ObjectID> = [objectID]
@@ -496,6 +479,7 @@ public final class TransientFrame: Frame {
         return removed
     }
 
+    // MARK: - Object Mutation
     /// Make a snapshot mutable within the frame.
     ///
     /// If the snapshot is already mutable and is owned by the frame, then it is

@@ -13,6 +13,8 @@ class _TransientSnapshotBox: Identifiable {
     ///
     @usableFromInline
     var id: ObjectID
+   
+    // original(snap), new(snapshot), newmut(snap), origmut(snap)
     
     // FIXME: Move the original/new flag from enum here, to struct
     enum Content {

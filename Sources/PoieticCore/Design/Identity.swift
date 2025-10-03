@@ -11,6 +11,25 @@ public protocol EntityTypeProtocol {
     static var identityType: IdentityType { get }
 }
 
+///
+public enum IdentityType: Sendable, CustomStringConvertible {
+    /// Unique within design.
+    case objectSnapshot
+    /// Unique within design.
+    case frame
+    /// Unique within frame, can be multiple within design. Used in references.
+    case object
+    // case track
+    
+    public var description: String {
+        switch self {
+        case .objectSnapshot: "objectSnapshot"
+        case .frame: "frame"
+        case .object: "object"
+        }
+    }
+}
+
 public enum ObjectEntityType: EntityTypeProtocol {
     public static let identityType: IdentityType = .object
 }
@@ -45,7 +64,7 @@ public struct EntityID<EntityType: EntityTypeProtocol>:
     ///
     public typealias RawValue = EntityIDValue
     public typealias IntegerLiteralType = UInt64
-    public private(set) var  rawValue: RawValue
+    public private(set) var rawValue: RawValue
     
     public init(rawValue: RawValue) {
         self.rawValue = rawValue
@@ -56,15 +75,11 @@ public struct EntityID<EntityType: EntityTypeProtocol>:
     }
     
     public init?(_ string: String) {
-        guard let value = UInt64(string) else {
-            return nil
-        }
+        guard let value = UInt64(string) else { return nil }
         self.rawValue = value
     }
     
     public var stringValue: String { String(rawValue) }
-    @available(*, deprecated, message: "Use rawValue")
-    public var intValue: UInt64 { rawValue }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
