@@ -120,7 +120,7 @@ public class Design {
     var _objectSnapshots: EntityTable<ObjectSnapshot>
     var _stableFrames: EntityTable<DesignFrame>
     var _objects: EntityTable<LogicalObject>
-    var _transientDesigns: [FrameID: TransientFrame]
+    var _transientFrames: [FrameID: TransientFrame]
 
     var _namedFrames: [String: DesignFrame]
     public var namedFrames: [String: DesignFrame] { _namedFrames }
@@ -185,7 +185,7 @@ public class Design {
         self._objectSnapshots = EntityTable()
         self._stableFrames = EntityTable()
         self._objects = EntityTable()
-        self._transientDesigns = [:]
+        self._transientFrames = [:]
         self._namedFrames = [:]
         self.undoList = []
         self.redoList = []
@@ -301,7 +301,7 @@ public class Design {
             derived = TransientFrame(design: self, id: actualID)
         }
 
-        _transientDesigns[actualID] = derived
+        _transientFrames[actualID] = derived
         return derived
     }
 
@@ -310,11 +310,11 @@ public class Design {
     public func discard(_ frame: TransientFrame) {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
-        precondition(_transientDesigns[frame.id] != nil)
+        precondition(_transientFrames[frame.id] != nil)
 
         identityManager.freeReservation(frame.id)
         identityManager.freeReservations(Array(frame._reservations))
-        _transientDesigns[frame.id] = nil
+        _transientFrames[frame.id] = nil
         frame.discard()
     }
     
@@ -470,14 +470,14 @@ public class Design {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(!_stableFrames.contains(frame.id), "Duplicate frame ID \(frame.id)")
-        precondition(_transientDesigns[frame.id] != nil, "No transient frame with ID \(frame.id)")
+        precondition(_transientFrames[frame.id] != nil, "No transient frame with ID \(frame.id)")
         
         try frame.validateStructure()
         
         let snapshots: [ObjectSnapshot] = frame.snapshots
         let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
 
-        _transientDesigns[frame.id] = nil
+        _transientFrames[frame.id] = nil
 
         unsafeInsert(stableFrame)
         identityManager.use(reserved: frame.id)
@@ -506,7 +506,7 @@ public class Design {
     public func unsafeInsert(_ frame: DesignFrame) {
         precondition(frame.design === self)
         precondition(!_stableFrames.contains(frame.id), "Duplicate frame ID \(frame.id)")
-        precondition(_transientDesigns[frame.id] == nil)
+        precondition(_transientFrames[frame.id] == nil)
 
         for snapshot in frame.snapshots {
             if _objects.contains(snapshot.objectID) {
