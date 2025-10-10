@@ -13,7 +13,7 @@ import Foundation
 ///
 struct _MakeshiftPersistentSnapshot: Codable {
     let id: ObjectID
-    let snapshotID: ObjectID
+    let snapshotID: ObjectSnapshotID
     let type: String
     let structuralType: String
     let origin: ObjectID?
@@ -46,15 +46,15 @@ struct _MakeshiftPersistentSnapshot: Codable {
                 structure = RawStructure("edge-missing-target")
                 break
             }
-            structure = RawStructure("edge", references: [.id(origin), .id(target)])
+            structure = RawStructure("edge", references: [.id(origin.rawValue), .id(target.rawValue)])
         default: structure = RawStructure(structuralType)
         }
         let snapshot = RawSnapshot(
             typeName: type,
-            snapshotID: .id(snapshotID),
-            id: .id(id),
+            snapshotID: .id(snapshotID.rawValue),
+            id: .id(id.rawValue),
             structure: structure,
-            parent: parent.map { .id($0) },
+            parent: parent.map { .id($0.rawValue) },
             attributes: attributes
         )
         return snapshot
@@ -69,8 +69,8 @@ struct _MakeshiftPersistentFrame: Codable {
     
     func asRawFrame() -> RawFrame {
         return RawFrame(
-            id: .id(id),
-            snapshots: snapshots.map { .id($0) }
+            id: .id(id.rawValue),
+            snapshots: snapshots.map { .id($0.rawValue) }
         )
     }
 }
@@ -114,20 +114,20 @@ struct _MakeshiftPersistentDesign: Codable {
         design.frames = self.frames.map { $0.asRawFrame() }
         if let currentFrame = state.currentFrame {
             design.systemReferences = [
-                RawNamedReference("current_frame", type: "frame", id: .id(currentFrame))
+                RawNamedReference("current_frame", type: "frame", id: .id(currentFrame.rawValue))
             ]
         }
         var systemLists: [RawNamedList] = []
         if !state.undoableFrames.isEmpty {
             let list = RawNamedList("undo",
                                     itemType: "frame",
-                                    ids: state.undoableFrames.map {.id($0)})
+                                    ids: state.undoableFrames.map {.id($0.rawValue)})
             systemLists.append(list)
         }
         if !state.redoableFrames.isEmpty {
             let list = RawNamedList("redo",
                                     itemType: "frame",
-                                    ids: state.redoableFrames.map {.id($0)})
+                                    ids: state.redoableFrames.map {.id($0.rawValue)})
             systemLists.append(list)
         }
         design.systemLists = systemLists
@@ -135,7 +135,7 @@ struct _MakeshiftPersistentDesign: Codable {
         var userReferences: [RawNamedReference] = []
         if let namedFrames {
             for (name, frameID) in namedFrames {
-                let ref = RawNamedReference(name, type: "frame", id: .id(frameID))
+                let ref = RawNamedReference(name, type: "frame", id: .id(frameID.rawValue))
                 userReferences.append(ref)
             }
         }

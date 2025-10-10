@@ -28,7 +28,7 @@
 
  */
 
-extension StableFrame /* : GraphProtocol */ {
+extension DesignFrame /* : GraphProtocol */ {
     @inlinable
     public var nodeKeys: [ObjectID] { _graph.nodeKeys }
     @inlinable
@@ -77,7 +77,7 @@ extension StableFrame /* : GraphProtocol */ {
     }
 
     public func node(_ oid: NodeKey) -> ObjectSnapshot {
-        guard let snapshot = _lookup[id] else {
+        guard let snapshot = _lookup[oid] else {
             fatalError("Missing node: \(oid)")
         }
         guard snapshot.structure == .node else {

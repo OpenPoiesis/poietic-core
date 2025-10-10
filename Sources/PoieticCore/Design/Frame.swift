@@ -35,11 +35,11 @@ public protocol Frame:
     /// Return an object with given ID from the frame or `nil` if the frame
     /// does not contain such object.
     ///
-    func object(_ objectID: ObjectID) -> ObjectSnapshot
+    func object(_ objectID: ObjectID) -> ObjectSnapshot?
     
     /// Get an object by an ID.
     ///
-    subscript(objectID: ObjectID) -> ObjectSnapshot { get }
+    subscript(objectID: ObjectID) -> ObjectSnapshot? { get }
     
     
     /// Get a list of broken references.
@@ -72,13 +72,13 @@ public protocol Frame:
     ///
     /// - SeeAlso: ``Selection``
     ///
-    func contained(_ ids: [ObjectID]) -> [ObjectID]
+    func existing(from ids: [ObjectID]) -> [ObjectID]
 }
 
 // MARK: - Default Implementations
 
 extension Frame {
-    public subscript(id: ObjectID) -> ObjectSnapshot {
+    public subscript(id: ObjectID) -> ObjectSnapshot? {
         get {
             self.object(id)
         }
@@ -192,10 +192,12 @@ extension Frame {
             case .unstructured: break // Nothing to validate.
             case .node: break // Nothing to validate.
             case let .edge(originID, targetID):
-                guard self.contains(originID) && self.contains(targetID) else {
+                guard let origin = self[originID],
+                      let target = self[targetID]
+                else {
                     throw .brokenStructureReference
                 }
-                guard self[originID].structure == .node && self[targetID].structure == .node else {
+                guard origin.structure == .node && target.structure == .node else {
                     throw .edgeEndpointNotANode
                 }
             case let .orderedSet(owner, ids):
@@ -205,20 +207,19 @@ extension Frame {
             }
             
             for childID in checked.children {
-                guard self.contains(childID) else {
+                guard let child = self[childID] else {
                     throw .brokenChild
                 }
-                let child = self[childID]
                 guard child.parent == checked.objectID else {
                     throw .parentChildMismatch
                 }
             }
             
             if let parentID = checked.parent {
-                guard self.contains(parentID) else {
+                guard let parent = self[parentID] else {
                     throw .brokenParent
                 }
-                let parent = self[parentID]
+                
                 guard parent.children.contains(checked.objectID) else {
                     throw .parentChildMismatch
                 }
@@ -315,7 +316,7 @@ extension Frame {
         }
     }
 
-    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
+    public func existing(from ids: [ObjectID]) -> [ObjectID] {
         ids.filter { contains($0) }
     }
 
@@ -407,7 +408,7 @@ extension Frame {
         // TODO: Use ordered set here
         var values: Set<Variant> = Set()
         for id in ids {
-            let object = self[id]
+            guard let object = self[id] else { continue }
             if let value = object[attributeName] {
                 values.insert(value)
             }
@@ -416,10 +417,13 @@ extension Frame {
     }
 
     /// Get distinct object types of a list of objects.
+    ///
+    /// IDs that do not have corresponding objects in the frame are ignored.
+    ///
     public func distinctTypes(_ ids: [ObjectID]) -> [ObjectType] {
         var types: [ObjectType] = []
         for id in ids {
-            let object = self[id]
+            guard let object = self[id] else { continue }
             if types.contains(where: { $0 === object.type}) {
                 continue
             }

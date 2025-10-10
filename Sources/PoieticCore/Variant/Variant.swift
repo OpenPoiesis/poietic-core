@@ -46,6 +46,8 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     case atom(VariantAtom)
     case array(VariantArray)
 
+    // MARK: - Initialisation
+    
     public init?(any value: Any) {
         switch value {
         case let value as Int: self = .atom(.int(value))
@@ -113,6 +115,8 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
     public init(_ values: [Point]) {
         self = .array(.point(values))
     }
+
+    // MARK: - Inspection
 
     /// Flag that indicates whether the value is a numeric value. Numeric
     /// values are only integers and doubles.
@@ -296,6 +300,7 @@ public enum Variant: Equatable, CustomStringConvertible, Hashable, Sendable {
         }
     }
 
+    // MARK: - Conversion
     
     /// Try to get an int value from the variant. Convert if necessary.
     ///

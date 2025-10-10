@@ -9,12 +9,12 @@ public struct ValidatedFrame: Frame {
     public typealias Snapshot = ObjectSnapshot
 
     /// Stable frame that was validated.
-    public let wrapped: StableFrame
+    public let wrapped: DesignFrame
     
     /// Metamodel according to which the frame was validated.
     public let metamodel: Metamodel
 
-    internal init(_ wrapped: StableFrame, metamodel: Metamodel) {
+    internal init(_ wrapped: DesignFrame, metamodel: Metamodel) {
         self.wrapped = wrapped
         self.metamodel = metamodel
     }
@@ -37,7 +37,7 @@ public struct ValidatedFrame: Frame {
     }
     
     @inlinable
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
+    public func object(_ id: ObjectID) -> ObjectSnapshot? {
         wrapped.object(id)
     }
     

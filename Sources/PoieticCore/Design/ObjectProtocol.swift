@@ -5,79 +5,6 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
-/// Identifier of a design objects.
-///
-/// The object ID is unique within the frame containing the object.
-/// There might be multiple object snapshots representing the same object
-/// and therefore have the same object ID.
-///
-/// - SeeAlso: ``ObjectSnapshotProtocol``, ``Design``, ``RawObjectID``.
-///
-public struct ObjectID: Hashable, Codable, Sendable, ExpressibleByIntegerLiteral, CustomStringConvertible {
-    public typealias IntegerLiteralType = UInt64
-    @usableFromInline
-    var _rawValue: UInt64
-    
-    // Alias for an internal value, used in allocateID(ObjectID). This is relevant only for
-    // integer based IDs and only for current ways of ID generation - sequential. Not needed
-    // if we switch to UUID.
-    var internalSequenceValue: UInt64 { _rawValue }
-    
-    public init(_ rawValue: UInt64) {
-        self._rawValue = rawValue
-    }
-    
-    public init(integerLiteral value: Self.IntegerLiteralType) {
-        self._rawValue = value
-    }
-    
-    public init?(_ string: String) {
-        guard let value = UInt64(string) else {
-            return nil
-        }
-        self._rawValue = value
-    }
-    
-    public var stringValue: String { String(_rawValue) }
-    public var intValue: UInt64 { _rawValue }
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-
-        self._rawValue = try container.decode(UInt64.self)
-    }
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(_rawValue)
-    }
-    public var description: String { stringValue }
-
-    @inlinable
-    public static func ==(lhs: ObjectID, rhs: ObjectID) -> Bool {
-        return lhs._rawValue == rhs._rawValue
-    }
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        _rawValue.hash(into: &hasher)
-    }
-}
-
-/// Identifier of a design object version.
-///
-/// The snapshot ID is unique within a design containing the snapshot.
-///
-/// SeeAlso: ``ObjectSnapshotProtocol``, ``Design``.
-///
-public typealias EntityID = ObjectID
-
-/// Identifier of a version frame.
-///
-/// Each frame in a design has an unique frame ID.
-///
-/// - SeeAlso: ``Frame``, ``Design/createFrame(deriving:id:)``
-///
-public typealias FrameID = ObjectID
-
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
@@ -233,7 +160,7 @@ extension ObjectProtocol {
         guard let value = self["name"], case .atom(let atom) = value else {
             return nil
         }
-
+        
         switch atom {
         case .string(let name): return name
         case .int(let name): return String(name)
@@ -258,10 +185,10 @@ extension ObjectProtocol {
         guard let attribute = self.type.labelAttribute else {
             return nil
         }
-
+        
         return try? self[attribute]?.stringValue()
     }
-
+    
     /// User-oriented string to be displayed as secondary label of the object.
     ///
     /// Secondary label is meant to be displayed to the user along the primary label in inspectors
@@ -279,8 +206,86 @@ extension ObjectProtocol {
         guard let attribute = self.type.secondaryLabelAttribute else {
             return nil
         }
-
+        
         return try? self[attribute]?.stringValue()
     }
-
+    
+    // MARK: - Typed Attribute Extraction
+    
+    public subscript<T>(attribute: String) -> T? where T: BinaryInteger {
+        guard let value = try? self[attribute]?.intValue() else { return nil }
+        return T(exactly: value)
+    }
+    public subscript<T>(attribute: String) -> T? where T: BinaryFloatingPoint {
+        guard let value = try? self[attribute]?.doubleValue() else { return nil }
+        return T(exactly: value)
+    }
+    public subscript<T>(attribute: String) -> T? where T: StringProtocol {
+        guard let value = try? self[attribute]?.stringValue() else { return nil }
+        return T(value)
+    }
+    public subscript(attribute: String) -> Bool? {
+        return try? self[attribute]?.boolValue()
+    }
+    public subscript(attribute: String) -> Point? {
+        return try? self[attribute]?.pointValue()
+    }
+    
+    public subscript<T>(attribute: String) -> [T]? where T: BinaryInteger {
+        guard let items = try? self[attribute]?.intArray() else { return nil }
+        let result = items.compactMap { T(exactly: ($0)) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript<T>(attribute: String) -> [T]? where T: BinaryFloatingPoint {
+        guard let items = try? self[attribute]?.doubleArray() else { return nil }
+        let result = items.compactMap { T(exactly: ($0)) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript<T>(attribute: String) -> [T]? where T: StringProtocol {
+        guard let items = try? self[attribute]?.stringArray() else { return nil }
+        let result = items.compactMap { T($0) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript(attribute: String) -> [Bool]? {
+        return try? self[attribute]?.boolArray()
+    }
+    public subscript(attribute: String) -> [Point]? {
+        return try? self[attribute]?.pointArray()
+    }
+    
+    
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: BinaryInteger {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: BinaryFloatingPoint {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: StringProtocol {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: Bool) -> Bool {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: Point) -> Point {
+        return self[attribute] ?? defaultValue
+    }
+    
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: BinaryInteger {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: BinaryFloatingPoint {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: StringProtocol {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: [Bool]) -> [Bool] {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: [Point]) -> [Point] {
+        return self[attribute] ?? defaultValue
+    }
 }

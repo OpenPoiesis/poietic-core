@@ -35,7 +35,7 @@ public class LoadingContext {
     }
     
     struct ResolvedSnapshot {
-        let snapshotID: ObjectID
+        let snapshotID: ObjectSnapshotID
         let objectID: ObjectID
         
         let parent: ObjectID?
@@ -48,7 +48,7 @@ public class LoadingContext {
         /// referential integrity.
         let children: [ObjectID]?
         
-        internal init(snapshotID: ObjectID, objectID: ObjectID, parent: ObjectID? = nil, children: [ObjectID]? = nil) {
+        internal init(snapshotID: ObjectSnapshotID, objectID: ObjectID, parent: ObjectID? = nil, children: [ObjectID]? = nil) {
             self.snapshotID = snapshotID
             self.objectID = objectID
             self.parent = parent
@@ -66,10 +66,10 @@ public class LoadingContext {
     }
     
     struct ResolvedFrame {
-        let frameID: ObjectID
+        let frameID: FrameID
         let snapshotIndices: [Int]?
         
-        internal init(frameID: ObjectID, snapshotIndices: [Int]? = nil) {
+        internal init(frameID: FrameID, snapshotIndices: [Int]? = nil) {
             self.frameID = frameID
             self.snapshotIndices = snapshotIndices
         }
@@ -86,7 +86,7 @@ public class LoadingContext {
     
     let rawSnapshots: [RawSnapshot]
     /// Snapshot ID to snapshot index.
-    var snapshotIndex: [ObjectID:Int]
+    var snapshotIndex: [ObjectSnapshotID:Int]
     /// Allocated identities of snapshots, in order of their occurrence.
     var resolvedSnapshots: [ResolvedSnapshot]
     
@@ -99,7 +99,7 @@ public class LoadingContext {
     var resolvedFrames: [ResolvedFrame]
     
     /// All IDs reserved using this reservation.
-    var reserved: Set<ObjectID>
+    var reserved: Set<EntityID.RawValue>
 
     /// IDs that are unavailable for their use or reservation, regardless of their actual
     /// reservation status.
@@ -108,8 +108,8 @@ public class LoadingContext {
     ///
     var unavailable: Set<ObjectID>
     
-    /// Mapping between raw object IDs and allocated IDs
-    var rawMap: [RawObjectID:ObjectID]
+    /// Mapping between raw IDs and allocated IDs
+    var knownIDMap: [RawObjectID:EntityID.RawValue]
     
     
     /// Create a new Identity reservation that is bound to a design.
@@ -138,7 +138,7 @@ public class LoadingContext {
         
         self.unavailable = unavailable
         self.reserved = Set()
-        self.rawMap = [:]
+        self.knownIDMap = [:]
         
         self.resolvedSnapshots = []
         self.resolvedFrames = []
@@ -146,35 +146,49 @@ public class LoadingContext {
         self.stableSnapshots = []
     }
     
-    public func contains(_ id: ObjectID) -> Bool {
-        reserved.contains(id)
+    public func contains<T>(_ id: EntityID<T>) -> Bool {
+        reserved.contains(id.rawValue)
     }
     
     /// Get object ID and its type for given raw object ID, if it exists in the reservation.
-    public subscript(_ rawID: RawObjectID) -> (id: ObjectID, type: IdentityType)? {
-        if let actualID = rawMap[rawID], let type = design.identityManager.type(actualID) {
-            return (id: actualID, type: type)
-        }
-        //        else if let actualID = ObjectID(rawID), reserved.contains(actualID),
-        //           let type = design.identityManager.type(actualID) {
-        //            return (id: actualID, type: type)
-        //        }
+//    public subscript<T>(_ rawID: RawObjectID) -> EntityID<T>? {
+//        guard let value = rawIDMap[rawID] else { return nil }
+//        let id = EntityID<T>(value)
+//        assert(reserved.contains(value))
+//        assert(design.identityManager.contains(id))
+//
+//        return id
+//    }
+
+    public func getID(_ rawID: RawObjectID, type: IdentityType) -> EntityID.RawValue? {
+        guard let value = knownIDMap[rawID],
+              design.identityManager.type(value) == type
         else {
             return nil
         }
+        return value
     }
-    
-    internal func reserve(snapshotID rawSnapshotID: RawObjectID?, objectID rawObjectID: RawObjectID?) throws (RawIdentityError) {
-        let snapshotID: ObjectID
-        let objectID: ObjectID
-        snapshotID = try reserveUnique(id: rawSnapshotID, type: .snapshot)
-        objectID = try reserveIfNeeded(id: rawObjectID, type: .object)
+
+    public func getID<T>(_ rawID: RawObjectID) -> EntityID<T>? {
+        guard let value = knownIDMap[rawID],
+              design.identityManager.type(value) == T.identityType
+        else {
+            return nil
+        }
+        return EntityID(rawValue: value)
+    }
+
+    internal func reserve(snapshotID rawSnapshotID: RawObjectID?,
+                          objectID rawObjectID: RawObjectID?) throws (RawIdentityError)
+    {
+        let snapshotID: ObjectSnapshotID = try reserveUnique(id: rawSnapshotID)
+        let objectID: ObjectID = try reserveIfNeeded(id: rawObjectID)
         snapshotIndex[snapshotID] = resolvedSnapshots.count
         resolvedSnapshots.append(ResolvedSnapshot(snapshotID: snapshotID, objectID: objectID))
     }
     
     internal func reserve(frameID rawSnapshotID: RawObjectID?) throws (RawIdentityError) {
-        let id = try reserveUnique(id: rawSnapshotID, type: .frame)
+        let id: FrameID = try reserveUnique(id: rawSnapshotID)
         resolvedFrames.append(ResolvedFrame(frameID: id))
     }
     
@@ -189,45 +203,52 @@ public class LoadingContext {
     /// - `preserveIfPossible`: if ID is free, then it will be reserved, otherwise a new one will
     ///   be created.
     ///
+    /// - Throws: ``RawIdentityError/duplicateID(_:)`` when requiring a concrete ID and the ID is
+    ///   already used or reserved.
+    ///
     @discardableResult
-    internal func reserveUnique(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
-        let reservedID: ObjectID
-        if let rawID {
-            switch (identityStrategy, ObjectID(rawID)) {
-            case (.requireProvided, .some(let id)):
-                guard design.identityManager.reserve(id, type: type) else {
-                    throw .duplicateID(rawID)
-                }
-                reservedID = id
-                
-            case (.requireProvided, .none):
-                guard rawMap[rawID] == nil else {
-                    throw .duplicateID(rawID)
-                }
-                reservedID = design.identityManager.createAndReserve(type: type)
+    internal func reserveUnique<T>(id rawID: RawObjectID?) throws (RawIdentityError) -> EntityID<T> {
+        let reservedID: EntityID<T>
 
-            case (.preserveOrCreate, .some(let id)):
-                if design.identityManager.reserve(id, type: type) {
-                    reservedID = id
-                }
-                else {
-                    reservedID = design.identityManager.createAndReserve(type: type)
-                }
-
-            case (.preserveOrCreate, .none),
-                 (.createNew, _):
-                reservedID = design.identityManager.createAndReserve(type: type)
+        guard let rawID else {
+            reservedID = design.identityManager.reserveNew()
+            reserved.insert(reservedID.rawValue)
+            return reservedID
+        }
+        
+        // Test for identity strategy and attempt to convert the raw ID into actual ID
+        switch (identityStrategy, EntityID<T>(rawID)) {
+        case (.requireProvided, .some(let id)):
+            guard design.identityManager.reserve(id) else {
+                throw .duplicateID(rawID)
             }
-            rawMap[rawID] = reservedID
+            reservedID = id
+            
+        case (.requireProvided, .none):
+            // Not directly convertible, for example a string
+            guard knownIDMap[rawID] == nil else {
+                throw .duplicateID(rawID)
+            }
+            reservedID = design.identityManager.reserveNew()
+
+        case (.preserveOrCreate, .some(let id)):
+            if design.identityManager.reserve(id) {
+                reservedID = id
+            }
+            else {
+                reservedID = design.identityManager.reserveNew()
+            }
+
+        case (.preserveOrCreate, .none),
+             (.createNew, _):
+            reservedID = design.identityManager.reserveNew()
         }
-        else {
-            reservedID = design.identityManager.createAndReserve(type: type)
-        }
-        reserved.insert(reservedID)
+        knownIDMap[rawID] = reservedID.rawValue
+        reserved.insert(reservedID.rawValue)
         return reservedID
     }
 
-    /// Reserve an ID of given type, if not already reserved.
+    /// Reserve an object ID, if not already reserved.
     ///
     /// If the raw ID is nil, then a new ID will be created and reserved. If the raw ID is provided,
     /// then the reservation is based on the ``DesignLoader/IdentityStrategy``:
@@ -239,54 +260,81 @@ public class LoadingContext {
     ///   different type, then new one will be created. If it is used and of the same type, then
     ///   nothing happens.
     ///
+    /// - Throws: ``RawIdentityError/typeMismatch(_:)`` when trying to reserve an ID that is already
+    ///   used or reserved but is of a different entity type.
+    ///
     @discardableResult
-    internal func reserveIfNeeded(id rawID: RawObjectID?, type: IdentityType) throws (RawIdentityError) -> ObjectID {
+    internal func reserveIfNeeded(id rawID: RawObjectID?) throws (RawIdentityError) -> ObjectID {
         let reservedID: ObjectID
-        if let rawID {
-            switch (identityStrategy, rawMap[rawID], ObjectID(rawID)) {
-            case (.requireProvided, .some(let existingID), _):
-                guard design.identityManager.type(existingID) == type else {
-                    throw .typeMismatch(rawID)
-                }
-                reservedID = existingID
+        guard let rawID else {
+            reservedID = design.identityManager.reserveNew()
+            reserved.insert(reservedID.rawValue)
+            return reservedID
+        }
+        
+        if let knownID = knownIDMap[rawID] {
+            return try reserveIfNeeded(rawID: rawID, knownID: knownID)
+        }
+        else if let proposedID = ObjectID(rawID) { // Unknown ID, but convertible (non-string)
+            return try reserveIfNeeded(rawID: rawID, proposedID: proposedID)
+        }
+        else { // rawID is not convertible to object ID
+            reservedID = design.identityManager.reserveNew()
+            knownIDMap[rawID] = reservedID.rawValue
+        }
+        
+        reserved.insert(reservedID.rawValue)
 
-            case (.requireProvided, .none, .some(let requiredID)):
-                guard design.identityManager.reserveIfNeeded(requiredID, type: type) else {
-                    throw .typeMismatch(rawID)
-                }
-                reservedID = requiredID
-                rawMap[rawID] = reservedID
-
-            case (.preserveOrCreate, .some(let existingID), _):
-                if design.identityManager.type(existingID) == type {
-                    reservedID = existingID
-                }
-                else {
-                    reservedID = design.identityManager.createAndReserve(type: type)
-                }
-
-            case (.preserveOrCreate, .none, .some(let requiredID)):
-                if unavailable.contains(requiredID) {
-                    reservedID = design.identityManager.createAndReserve(type: type)
-                }
-                else if design.identityManager.reserveIfNeeded(requiredID, type: type) {
-                    reservedID = requiredID
-                }
-                else {
-                    reservedID = design.identityManager.createAndReserve(type: type)
-                }
-
-            case (.requireProvided, .none, .none),
-                 (.preserveOrCreate, .none, .none),
-                 (.createNew, _, _):
-                reservedID = design.identityManager.createAndReserve(type: type)
+        return reservedID
+    }
+    internal func reserveIfNeeded(rawID: RawObjectID, knownID: EntityID.RawValue) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
+        switch identityStrategy {
+        case .requireProvided:
+            guard design.identityManager.type(knownID) == .object else {
+                throw .typeMismatch(rawID)
             }
-            rawMap[rawID] = reservedID
+            reservedID = ObjectID(rawValue: knownID)
+        case .preserveOrCreate:
+            if design.identityManager.type(knownID) == .object {
+                reservedID = ObjectID(rawValue: knownID)
+            }
+            else {
+                reservedID = design.identityManager.reserveNew()
+                knownIDMap[rawID] = reservedID.rawValue
+            }
+        case .createNew:
+            reservedID = design.identityManager.reserveNew()
+            knownIDMap[rawID] = reservedID.rawValue
         }
-        else {
-            reservedID = design.identityManager.createAndReserve(type: type)
+        reserved.insert(reservedID.rawValue)
+
+        return reservedID
+    }
+    internal func reserveIfNeeded(rawID: RawObjectID, proposedID: ObjectID) throws (RawIdentityError) -> ObjectID {
+        let reservedID: ObjectID
+        switch identityStrategy {
+        case .requireProvided:
+            guard design.identityManager.reserveIfNeeded(proposedID) else {
+                throw .typeMismatch(rawID)
+            }
+            reservedID = proposedID
+        case .preserveOrCreate:
+            if unavailable.contains(proposedID) {
+                reservedID = design.identityManager.reserveNew()
+            }
+            else if design.identityManager.reserveIfNeeded(proposedID) {
+                reservedID = proposedID
+            }
+            else {
+                reservedID = design.identityManager.reserveNew()
+            }
+        case .createNew:
+            reservedID = design.identityManager.reserveNew()
         }
-        reserved.insert(reservedID)
+        knownIDMap[rawID] = reservedID.rawValue
+        reserved.insert(reservedID.rawValue)
+
         return reservedID
     }
 }

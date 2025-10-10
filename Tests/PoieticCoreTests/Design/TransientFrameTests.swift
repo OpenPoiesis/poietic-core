@@ -86,7 +86,7 @@ import Testing
     
     @Test func mutateBasicBehavior() throws {
         let obj = frame.create(TestType)
-        let originalSnap = frame[obj.objectID]
+        let originalSnap = try #require(frame[obj.objectID])
         try design.accept(frame)
         
         let derived = design.createFrame(deriving: design.currentFrame)
@@ -121,10 +121,11 @@ import Testing
         #expect(frame2.hasChanges)
 
         let changedFrame = try design.accept(frame2)
+        let changedObject2 = try #require(changedFrame[object.objectID])
         
-        #expect(changedFrame[object.objectID]["text"] == "after")
+        #expect(changedObject2["text"] == "after")
         
-        let originalObject = design.frame(original.id)![object.objectID]
+        let originalObject = try #require(design.frame(original.id)![object.objectID])
         #expect(originalObject["text"] == "before")
     }
     
@@ -140,10 +141,10 @@ import Testing
         #expect(frame2.hasChanges)
 
         let changedFrame = try design.accept(frame2)
-        let comp: TestComponent = changedFrame[object.objectID][TestComponent.self]!
+        let comp: TestComponent = try #require(changedFrame[object.objectID]?[TestComponent.self])
         #expect(comp.text == "after")
         
-        let originalObject = design.frame(original.id)![object.objectID]
+        let originalObject = try #require(design.frame(original.id)?[object.objectID])
         let compOrignal: TestComponent = originalObject[TestComponent.self]!
         #expect(compOrignal.text == "before")
     }
@@ -299,7 +300,7 @@ import Testing
         let derived = design.createFrame(deriving: accepted)
         derived.removeFromParent(c1.objectID)
 
-        let derivedP = derived[p.objectID]
+        let derivedP = try #require(derived[p.objectID])
         #expect(derivedP.snapshotID != p.snapshotID)
     }
     
@@ -322,7 +323,7 @@ import Testing
         frame.removeCascading(b.objectID)
         #expect(!frame.contains(b.objectID))
         #expect(!frame.contains(c.objectID))
-        #expect(!frame[a.objectID].children.contains(b.objectID))
+        #expect(!frame[a.objectID]!.children.contains(b.objectID))
 
         frame.removeCascading(d.objectID)
         #expect(!frame.contains(d.objectID))
@@ -361,9 +362,10 @@ import Testing
         frame.setParent(child.objectID, to: obj.objectID)
         
         let accepted = try design.accept(frame)
-
-        #expect(accepted[obj.objectID].children == obj.children)
-        #expect(accepted[obj.objectID].parent == obj.parent)
+        let accObj = try #require(accepted[obj.objectID])
+        
+        #expect(accObj.children == obj.children)
+        #expect(accObj.parent == obj.parent)
     }
 
     // MARK: References and Referential Integrity
@@ -479,15 +481,15 @@ import Testing
         #expect(!design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
-        #expect(design.identityManager.isReserved(ObjectID(10)))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
+        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
         #expect(design.identityManager.isReserved(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
     }
 
     @Test func reserveAndAccept() throws {
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         try design.accept(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))
@@ -496,7 +498,7 @@ import Testing
     }
 
     @Test func reserveAndDiscard() throws {
-        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectID(10))
+        frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         design.discard(frame)
         #expect(!design.identityManager.isReserved(ObjectID(10)))
         #expect(!design.identityManager.isReserved(ObjectID(20)))

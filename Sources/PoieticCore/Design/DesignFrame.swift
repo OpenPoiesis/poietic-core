@@ -1,5 +1,5 @@
 //
-//  StableFrame.swift
+//  DesignFrame.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 10/11/2024.
@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientFrame``
 ///
-public final class StableFrame: Frame, Identifiable {
+public final class DesignFrame: Frame, Identifiable {
     public typealias Snapshot = ObjectSnapshot
     
     /// Design to which the frame belongs.
@@ -28,7 +28,7 @@ public final class StableFrame: Frame, Identifiable {
     ///
     /// ID is unique within the design.
     ///
-    public let id: EntityID
+    public let id: FrameID
     
     /// Version snapshots contained in the frame.
     ///
@@ -86,6 +86,7 @@ public final class StableFrame: Frame, Identifiable {
         return _lookup[id] != nil
     }
     
+    /// Filters the IDs and returns only those that are contained in the frame.
     public func contained(_ ids: [ObjectID]) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }
@@ -94,11 +95,8 @@ public final class StableFrame: Frame, Identifiable {
     ///
     /// - Precondition: Frame must contain object with given ID.
     ///
-    public func object(_ id: ObjectID) -> ObjectSnapshot {
-        guard let snapshot = _lookup[id] else {
-            preconditionFailure("Invalid object ID \(id) in frame \(self.id)")
-        }
-        return snapshot
+    public func object(_ id: ObjectID) -> ObjectSnapshot? {
+        return _lookup[id]
     }
 }
 

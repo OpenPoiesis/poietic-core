@@ -20,12 +20,13 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
     /// Referencing raw object id provided as a name (a string) is not defined as any object or
     /// other design entity ID.
     case unknownNamedReference(String, RawObjectID)
+    case invalidNamedReference(String)
     case unknownFrameID(RawObjectID)
     case missingCurrentFrame
     /// Duplicate frame ID.
-    case duplicateFrame(ObjectID)
+    case duplicateFrame(FrameID)
     /// Duplicate snapshot ID.
-    case duplicateSnapshot(ObjectID)
+    case duplicateSnapshot(ObjectSnapshotID)
     /// The loaded frame or collection of snapshots have broken structural integrity.
     ///
     /// - SeeAlso: ``Frame/validateStructure()``
@@ -40,6 +41,8 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
             "Error in frame #\(index): \(error)"
         case let .unknownNamedReference(name, id):
             "Unknown named reference \(name): \(id)"
+        case let .invalidNamedReference(name):
+            "Invalid named reference: \(name)"
         case let .duplicateFrame(id):
             "Duplicate frame ID: \(id)"
         case let .unknownFrameID(id):
@@ -224,18 +227,36 @@ public class DesignLoader {
         
         try createFrames(in: design, context: context)
         // 5. Post-process
-        design.undoableFrames = systemLists["undo"]?.ids ?? []
-        design.redoableFrames = systemLists["redo"]?.ids ?? []
-        design.currentFrameID = systemReferences["current_frame"]?.id
-        // Consistency check: currentFrameID must be set when there is history.
+        if let list = systemLists["undo"] {
+            guard list.type == .frame else {
+                throw .invalidNamedReference("undo")
+            }
+            let ids: [FrameID]  = list.typedIDs()
+            design.undoList = ids
+        }
+        if let list = systemLists["redo"] {
+            guard list.type == .frame else {
+                throw .invalidNamedReference("redo")
+            }
+            let ids: [FrameID]  = list.typedIDs()
+            design.redoList = ids
+        }
+        if let ref = systemReferences["current_frame"] {
+            guard ref.type == .frame else {
+                throw .invalidNamedReference("current_frame")
+            }
+            design.currentFrameID = FrameID(rawValue: ref.id)
+        }
+
+        // CurrentFrameID must be set when there is history.
         if design.currentFrame == nil
-            && (!design.undoableFrames.isEmpty || !design.redoableFrames.isEmpty) {
-            fatalError("currentFrameIDNotSet")
+            && (!design.undoList.isEmpty || !design.redoList.isEmpty) {
+            throw .missingCurrentFrame
         }
 
         for (name, ref) in userReferences {
-            if ref.type == "frame" {
-                context.design._namedFrames[name] = design.frame(ref.id)
+            if ref.type == .frame {
+                context.design._namedFrames[name] = design.frame(FrameID(rawValue: ref.id))
             }
         }
         design.identityManager.use(reserved: context.reserved)
@@ -363,10 +384,10 @@ public class DesignLoader {
     throws (RawFrameError) -> [Int] {
         var result: [Int] = []
         for rawSnapshotID in frame.snapshots {
-            guard let res = context[rawSnapshotID], res.type == .snapshot else {
+            guard let id: ObjectSnapshotID = context.getID(rawSnapshotID) else {
                 throw .unknownSnapshotID(rawSnapshotID)
             }
-            guard let index = context.snapshotIndex[res.id] else {
+            guard let index = context.snapshotIndex[id] else {
                 // HINT: Check whether snapshot index map reflects reservation of snapshots
                 fatalError("Broken snapshot index")
             }
@@ -380,21 +401,17 @@ public class DesignLoader {
     internal func resolveParents(context: LoadingContext)
     throws (DesignLoaderError) {
         precondition(context.rawSnapshots.count == context.resolvedSnapshots.count)
+        
         for (i, snapshot) in context.rawSnapshots.enumerated() {
-            guard let rawParent = snapshot.parent else {
-                continue
-            }
-            guard let identity = context[rawParent] else {
+            guard let rawParent = snapshot.parent else { continue }
+            guard let parentID: ObjectID = context.getID(rawParent) else {
                 throw .snapshotError(i, .unknownObjectID(rawParent))
-            }
-            guard identity.type == .object else {
-                throw .snapshotError(i, .identityError(.typeMismatch(rawParent)))
             }
             let current = context.resolvedSnapshots[i]
             let resolved = LoadingContext.ResolvedSnapshot(
                 snapshotID: current.snapshotID,
                 objectID: current.objectID,
-                parent: identity.id
+                parent: parentID
             )
             context.resolvedSnapshots[i] = resolved
         }
@@ -534,7 +551,7 @@ public class DesignLoader {
         for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
             let resolved = context.resolvedSnapshots[i]
             let snapshot: ObjectSnapshot
-            
+
             do {
                 snapshot = try create(rawSnapshot,
                                       snapshotID: resolved.snapshotID,
@@ -562,7 +579,7 @@ public class DesignLoader {
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
     internal func create(_ rawSnapshot: RawSnapshot,
-                       snapshotID: ObjectID,
+                       snapshotID: ObjectSnapshotID,
                        objectID: ObjectID,
                        parent: ObjectID?=nil,
                        children: [ObjectID] = [],
@@ -603,13 +620,13 @@ public class DesignLoader {
             guard references.count == 2 else {
                 throw .invalidStructuralType
             }
-            guard let origin = context[references[0]], origin.type == .object else {
+            guard let origin: ObjectID = context.getID(references[0]) else {
                 throw .unknownObjectID(references[0])
             }
-            guard let target = context[references[1]], target.type == .object else {
+            guard let target: ObjectID = context.getID(references[1]) else {
                 throw .unknownObjectID(references[1])
             }
-            structure = .edge(origin.id, target.id)
+            structure = .edge(origin, target)
         default:
             throw .invalidStructuralType
         }
@@ -644,10 +661,10 @@ public class DesignLoader {
     
     func createFrames(in design: Design,
                       context: LoadingContext) throws (DesignLoaderError) {
-        var frames: [StableFrame] = []
+        var frames: [DesignFrame] = []
         
         for (i, resolvedFrame) in context.resolvedFrames.enumerated() {
-            let frame: StableFrame
+            let frame: DesignFrame
             guard !design.containsFrame(resolvedFrame.frameID) else {
                 // FIXME: [WIP] This should be a fatal error -> we did not resolve correctly
                 throw .duplicateFrame(resolvedFrame.frameID)
@@ -677,49 +694,72 @@ public class DesignLoader {
     }
 
     // TODO: Add validation (validateStructure())
-    func createFrame(id frameID: ObjectID,
+    func createFrame(id designID: FrameID,
                      snapshotIndices: [Int],
-                     context: LoadingContext) throws (RawFrameError) -> StableFrame {
+                     context: LoadingContext) throws (RawFrameError) -> DesignFrame {
         let snapshots: [ObjectSnapshot] = snapshotIndices.map { context.stableSnapshots[$0] }
-        let frame = StableFrame(design: context.design, id: frameID, snapshots: snapshots)
+        let frame = DesignFrame(design: context.design, id: designID, snapshots: snapshots)
         return frame
     }
     
     struct NamedReference {
-        public let type: String
-        let id: ObjectID
+        let type: IdentityType
+        let id: EntityID.RawValue
     }
     struct NamedReferenceList {
-        let type: String
-        let ids: [ObjectID]
+        let type: IdentityType
+        let ids: [EntityID.RawValue]
+        
+        func typedIDs<T>() -> [EntityID<T>] {
+            return ids.map { EntityID(rawValue: $0) }
+        }
     }
-    func makeNamedReferences(_ refs: [RawNamedReference],
-                             with reservation: borrowing LoadingContext)
-    throws (DesignLoaderError) -> [String:NamedReference] {
+    func makeNamedReferences(_ refs: [RawNamedReference], with context: LoadingContext)
+        throws (DesignLoaderError) -> [String:NamedReference]
+    {
         var map: [String:NamedReference] = [:]
         for ref in refs {
-            guard let idRes = reservation[ref.id] else {
+            guard let type = identityType(ref.type) else {
+                throw .invalidNamedReference(ref.name)
+            }
+            guard let idValue = context.getID(ref.id, type: type) else {
                 throw .unknownNamedReference(ref.name, ref.id)
             }
-            map[ref.name] = NamedReference(type: ref.type, id: idRes.id)
+            map[ref.name] = NamedReference(type: type, id: idValue)
         }
         return map
     }
+    
     func makeNamedReferenceList(_ lists: [RawNamedList],
-                                with reservation: borrowing LoadingContext)
+                                with context: LoadingContext)
     throws (DesignLoaderError) -> [String:NamedReferenceList] {
         var result: [String:NamedReferenceList] = [:]
         for list in lists {
-            var ids: [ObjectID] = []
+            guard let type = identityType(list.itemType) else {
+                throw .invalidNamedReference(list.name)
+            }
+
+            var values: [EntityID.RawValue] = []
+
             for rawID in list.ids {
-                guard let idRes = reservation[rawID] else {
+                guard let idValue = context.getID(rawID, type: type) else {
                     throw .unknownNamedReference(list.name, rawID)
                 }
-                ids.append(idRes.id)
+                values.append(idValue)
             }
-            result[list.name] = NamedReferenceList(type: list.itemType, ids: ids)
+            result[list.name] = NamedReferenceList(type: type, ids: values)
         }
         return result
+    }
+    
+    func identityType(_ string: String) -> IdentityType? {
+        // Note: This is version-dependent. Currently 0.0.1
+        switch string {
+        case "object": .object
+        case "frame": .frame
+        case "snapshot": .objectSnapshot
+        default: nil
+        }
     }
 }
 

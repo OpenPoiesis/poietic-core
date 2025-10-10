@@ -25,18 +25,18 @@ struct RawDesignExpoerterTest {
     @Test func exportSomeDesign() async throws {
         let design = Design(metamodel: TestMetamodel)
 
-        let first = StableFrame(design: design, id: 1000, snapshots: [])
+        let first = DesignFrame(design: design, id: 1000, snapshots: [])
         design.unsafeInsert(first)
         let _ = design.createFrame(deriving: first)
         let unstructured = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10)
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 101, objectID: 11)
         let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 103, objectID: 13, structure: .edge(node1.objectID, node2.objectID))
-        let frame = StableFrame(design: design, id: 1001,
+        let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [unstructured, node1, node2, edge ])
         design.unsafeInsert(frame)
         design.currentFrameID = frame.id
-        design.undoableFrames = [first.id]
+        design.undoList = [first.id]
 
         
         let exporter = DesignExtractor()
@@ -53,19 +53,19 @@ struct RawDesignExpoerterTest {
         let currentFrameRef = try #require(raw.systemReferences.first)
         #expect(currentFrameRef.name == "current_frame")
         #expect(currentFrameRef.type == "frame")
-        #expect(currentFrameRef.id == .id(frame.id))
+        #expect(currentFrameRef.id == .id(frame.id.rawValue))
 
         #expect(raw.systemLists.count == 1)
         let undoRefList: RawNamedList = try #require(raw.systemLists.first { $0.name == "undo"} )
         #expect(undoRefList.itemType == "frame")
-        #expect(undoRefList.ids == [.id(first.id)])
+        #expect(undoRefList.ids == [.id(first.id.rawValue)])
         
-        let rawFrame = try #require(raw.frames.first {$0.id == .id(frame.id)})
+        let rawFrame = try #require(raw.frames.first {$0.id == .id(frame.id.rawValue)})
         #expect(rawFrame.snapshots.count == 4)
-        #expect(rawFrame.snapshots == [.id(unstructured.snapshotID),
-                                       .id(node1.snapshotID),
-                                       .id(node2.snapshotID),
-                                       .id(edge.snapshotID)])
+        #expect(rawFrame.snapshots == [.id(unstructured.snapshotID.rawValue),
+                                       .id(node1.snapshotID.rawValue),
+                                       .id(node2.snapshotID.rawValue),
+                                       .id(edge.snapshotID.rawValue)])
     }
     
     @Test func extractPruning() async throws {
@@ -75,24 +75,27 @@ struct RawDesignExpoerterTest {
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
         let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 103, objectID: 13)
         let edge = ObjectSnapshot(type: TestEdgeType, snapshotID: 104, objectID: 14, structure: .edge(node1.objectID, node2.objectID))
-        let frame = StableFrame(design: design, id: 1001,
+        let frame = DesignFrame(design: design, id: 1001,
                                 snapshots: [parent, child, node1, node2, edge ])
         design.unsafeInsert(frame)
 
         let extractor = DesignExtractor()
 
         let extract1 = extractor.extractPruning(objects: [node1.objectID, node2.objectID, edge.objectID], frame: frame)
-        #expect(extract1.map { $0.objectID } == [.id(node1.objectID), .id(node2.objectID), .id(edge.objectID)])
+        #expect(extract1.map { $0.objectID } == [.id(node1.objectID.rawValue),
+                                                 .id(node2.objectID.rawValue),
+                                                 .id(edge.objectID.rawValue)])
 
-        let extract2 = extractor.extractPruning(objects: [node1.objectID, edge.objectID], frame: frame)
-        #expect(extract2.map { $0.objectID } == [.id(node1.objectID)])
+        let extract2 = extractor.extractPruning(objects: [node1.objectID,
+                                                          edge.objectID], frame: frame)
+        #expect(extract2.map { $0.objectID } == [.id(node1.objectID.rawValue)])
 
         let extract3 = extractor.extractPruning(objects: [edge.objectID], frame: frame)
         #expect(extract3.map { $0.objectID } == [])
 
         // Parent-child
         let extract4 = extractor.extractPruning(objects: [parent.objectID, child.objectID], frame: frame)
-        #expect(extract4.map { $0.parent } == [nil, .id(parent.objectID)])
+        #expect(extract4.map { $0.parent } == [nil, .id(parent.objectID.rawValue)])
 
         let extract5 = extractor.extractPruning(objects: [child.objectID], frame: frame)
         #expect(extract5.map { $0.parent } == [nil])

@@ -6,9 +6,9 @@
 //
 
 public final class LogicalObject: CustomStringConvertible, Identifiable {
-    public let id: EntityID
+    public let id: ObjectID
     
-    public init(id: EntityID) {
+    public init(id: ObjectID) {
         self.id = id
     }
     
@@ -62,12 +62,12 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// - SeeAlso: ``id``,
     ///    ``TransientFrame/mutate(_:)``
     ///
-    public let id: EntityID
+    public let id: ObjectSnapshotID
 
     @usableFromInline
     let _body: ObjectBody
     @inlinable public var objectID: ObjectID { _body.id }
-    @inlinable public var snapshotID: EntityID { self.id }
+    @inlinable public var snapshotID: ObjectSnapshotID { self.id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure { _body.structure }
     @inlinable public var parent: ObjectID? { _body.parent }
@@ -93,7 +93,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
     ///
     public init(type: ObjectType,
-                snapshotID: EntityID,
+                snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
@@ -111,7 +111,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         self.components = ComponentSet(components)
     }
     
-    init(id: EntityID, body: ObjectBody, components: ComponentSet) {
+    init(id: ObjectSnapshotID, body: ObjectBody, components: ComponentSet) {
         self.id = id
         self._body = body
         self.components = components

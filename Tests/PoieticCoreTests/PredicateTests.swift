@@ -10,7 +10,7 @@ import Testing
 
 @Suite struct PredicateTest {
     let design: Design
-    let frame: StableFrame
+    let frame: DesignFrame
     let empty: ObjectSnapshot
     let textObject: ObjectSnapshot
 
@@ -18,14 +18,14 @@ import Testing
         design = Design()
         
         empty = ObjectSnapshot(type: TestType,
-                               snapshotID: design.identityManager.createAndUse(type: .snapshot),
-                               objectID: design.identityManager.createAndUse(type: .object))
+                               snapshotID: design.identityManager.createAndUse(),
+                               objectID: design.identityManager.createAndUse())
         textObject = ObjectSnapshot(type: TestTypeWithDefault,
-                                    snapshotID: design.identityManager.createAndUse(type: .object),
-                                    objectID: design.identityManager.createAndUse(type: .object))
+                                    snapshotID: design.identityManager.createAndUse(),
+                                    objectID: design.identityManager.createAndUse())
         
-        frame = StableFrame(design: design,
-                            id: design.identityManager.createAndUse(type: .frame),
+        frame = DesignFrame(design: design,
+                            id: design.identityManager.createAndUse(),
                             snapshots: [empty, textObject]
         )
     }

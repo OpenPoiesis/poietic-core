@@ -196,7 +196,7 @@ let TestFormatVersion = "0.0.4"
                    """.data(using:.utf8)!
         let store = DesignStore(data: data)
         let design = try store.load(metamodel: TestMetamodel)
-        let snapshot = try #require(design.snapshot(ObjectID(20)))
+        let snapshot = try #require(design.snapshot(ObjectSnapshotID(20)))
         #expect(design.referenceCount(snapshot.snapshotID) == 2)
     }
 

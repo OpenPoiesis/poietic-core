@@ -13,10 +13,13 @@ class _TransientSnapshotBox: Identifiable {
     ///
     @usableFromInline
     var id: ObjectID
+   
+    // original(snap), new(snapshot), newmut(snap), origmut(snap)
     
+    // FIXME: Move the original/new flag from enum here, to struct
     enum Content {
         case stable(isOriginal: Bool, object: ObjectSnapshot)
-        case mutable(isNew: Bool, object: TransientObject)
+        case transient(isNew: Bool, object: TransientObject)
     }
     
     var content: Content
@@ -27,26 +30,26 @@ class _TransientSnapshotBox: Identifiable {
     }
     init(_ mutable: TransientObject, isNew: Bool) {
         self.id = mutable.objectID
-        content = .mutable(isNew: isNew, object: mutable)
+        content = .transient(isNew: isNew, object: mutable)
     }
     
     var isOriginal: Bool {
         switch content {
         case .stable(let flag, _): flag
-        case .mutable(_, _): false
+        case .transient(_, _): false
         }
     }
     
     var isMutable: Bool {
         switch content {
         case .stable(_, _): false
-        case .mutable(_, _): true
+        case .transient(_, _): true
         }
     }
     
     var hasChanges: Bool {
         switch content {
-        case let .mutable(isNew: newFlag, object: object): newFlag || object.hasChanges
+        case let .transient(isNew: newFlag, object: object): newFlag || object.hasChanges
         case let .stable(isOriginal: isOriginalFlag, object: _): !isOriginalFlag
         }
     }
@@ -54,42 +57,42 @@ class _TransientSnapshotBox: Identifiable {
     var objectID: ObjectID {
         switch content {
         case let .stable(_, snapshot): snapshot.objectID
-        case let .mutable(_, object): object.objectID
+        case let .transient(_, object): object.objectID
         }
     }
 
-    var snapshotID: EntityID {
+    var snapshotID: ObjectSnapshotID {
         switch content {
         case let .stable(_, snapshot): snapshot.snapshotID
-        case let .mutable(_, object): object.snapshotID
+        case let .transient(_, object): object.snapshotID
         }
     }
     
     var parent: ObjectID? {
         switch content {
         case let .stable(_, snapshot): snapshot.parent
-        case let .mutable(_, object): object.parent
+        case let .transient(_, object): object.parent
         }
     }
     
     var children: ChildrenSet {
         switch content {
         case let .stable(_, snapshot): snapshot.children
-        case let .mutable(_, object): object.children
+        case let .transient(_, object): object.children
         }
     }
     
     var structure: Structure {
         switch content {
         case let .stable(_,snapshot): snapshot.structure
-        case let .mutable(_, object): object.structure
+        case let .transient(_, object): object.structure
         }
     }
     
     func asSnapshot() -> ObjectSnapshot {
         switch content {
         case let .stable(_, object): object
-        case let .mutable(_, snapshot):
+        case let .transient(_, snapshot):
             ObjectSnapshot(id: snapshot.snapshotID,
                            body: snapshot._body,
                            components: snapshot.components)
@@ -111,7 +114,7 @@ class _TransientSnapshotBox: Identifiable {
 public class TransientObject: ObjectProtocol {
     
     @usableFromInline
-    package var snapshotID: ObjectID
+    package var snapshotID: ObjectSnapshotID
     @usableFromInline
     package var _body: ObjectBody
     public var components: ComponentSet
@@ -130,7 +133,7 @@ public class TransientObject: ObjectProtocol {
     var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged || componentsChanged }
     
     public init(type: ObjectType,
-                snapshotID: EntityID,
+                snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
@@ -151,7 +154,7 @@ public class TransientObject: ObjectProtocol {
         self.componentsChanged = false
     }
 
-    init(original: ObjectSnapshot, snapshotID: EntityID) {
+    init(original: ObjectSnapshot, snapshotID: ObjectSnapshotID) {
         self.snapshotID = snapshotID
         self._body = original._body
         self.components = original.components
