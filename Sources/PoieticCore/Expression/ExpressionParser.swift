@@ -305,15 +305,34 @@ public class ExpressionParser {
 
     /// Rule:
     ///
-    ///     factor -> unary ( ( "/" | "*" ) unary )* ;
+    ///     exponent -> unary ( "^" unary )* ;
     ///
-    func factor() throws (ExpressionSyntaxError) -> ExpressionAST? {
+    func exponent() throws (ExpressionSyntaxError) -> ExpressionAST? {
         guard var left = try unary() else {
             return nil
         }
         
-        while let op = `operator`("*") ?? `operator`("/") ?? `operator`("%") {
+        while let op = `operator`("^") {
             guard let right = try unary() else {
+                throw .expressionExpected
+            }
+            left = .binaryOperator(operator: op, left: left, right: right)
+        }
+        
+        return left
+    }
+
+    /// Rule:
+    ///
+    ///     factor -> unary ( ( "/" | "*" ) unary )* ;
+    ///
+    func factor() throws (ExpressionSyntaxError) -> ExpressionAST? {
+        guard var left = try exponent() else {
+            return nil
+        }
+        
+        while let op = `operator`("*") ?? `operator`("/") ?? `operator`("%") {
+            guard let right = try exponent() else {
                 throw .expressionExpected
             }
             left = .binaryOperator(operator: op, left: left, right: right)

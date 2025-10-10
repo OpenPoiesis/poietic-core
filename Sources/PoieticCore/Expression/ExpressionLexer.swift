@@ -174,7 +174,7 @@ public struct ExpressionLexer {
                         type = .operator
                     }
                 case "_": state = .identifier
-                case "+", "*", "/", "%": type = .operator
+                case "+", "*", "/", "%", "^": type = .operator
                 case "<", ">", "!":
                     if peek() == "=" {
                         advance()
