@@ -1,5 +1,5 @@
 //
-//  DesignSnapshot.swift
+//  DesignFrame.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 10/11/2024.
