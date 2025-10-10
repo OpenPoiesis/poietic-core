@@ -160,7 +160,7 @@ extension ObjectProtocol {
         guard let value = self["name"], case .atom(let atom) = value else {
             return nil
         }
-
+        
         switch atom {
         case .string(let name): return name
         case .int(let name): return String(name)
@@ -185,10 +185,10 @@ extension ObjectProtocol {
         guard let attribute = self.type.labelAttribute else {
             return nil
         }
-
+        
         return try? self[attribute]?.stringValue()
     }
-
+    
     /// User-oriented string to be displayed as secondary label of the object.
     ///
     /// Secondary label is meant to be displayed to the user along the primary label in inspectors
@@ -206,8 +206,86 @@ extension ObjectProtocol {
         guard let attribute = self.type.secondaryLabelAttribute else {
             return nil
         }
-
+        
         return try? self[attribute]?.stringValue()
     }
-
+    
+    // MARK: - Typed Attribute Extraction
+    
+    public subscript<T>(attribute: String) -> T? where T: BinaryInteger {
+        guard let value = try? self[attribute]?.intValue() else { return nil }
+        return T(exactly: value)
+    }
+    public subscript<T>(attribute: String) -> T? where T: BinaryFloatingPoint {
+        guard let value = try? self[attribute]?.doubleValue() else { return nil }
+        return T(exactly: value)
+    }
+    public subscript<T>(attribute: String) -> T? where T: StringProtocol {
+        guard let value = try? self[attribute]?.stringValue() else { return nil }
+        return T(value)
+    }
+    public subscript(attribute: String) -> Bool? {
+        return try? self[attribute]?.boolValue()
+    }
+    public subscript(attribute: String) -> Point? {
+        return try? self[attribute]?.pointValue()
+    }
+    
+    public subscript<T>(attribute: String) -> [T]? where T: BinaryInteger {
+        guard let items = try? self[attribute]?.intArray() else { return nil }
+        let result = items.compactMap { T(exactly: ($0)) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript<T>(attribute: String) -> [T]? where T: BinaryFloatingPoint {
+        guard let items = try? self[attribute]?.doubleArray() else { return nil }
+        let result = items.compactMap { T(exactly: ($0)) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript<T>(attribute: String) -> [T]? where T: StringProtocol {
+        guard let items = try? self[attribute]?.stringArray() else { return nil }
+        let result = items.compactMap { T($0) }
+        guard result.count == items.count else { return nil }
+        return result
+    }
+    public subscript(attribute: String) -> [Bool]? {
+        return try? self[attribute]?.boolArray()
+    }
+    public subscript(attribute: String) -> [Point]? {
+        return try? self[attribute]?.pointArray()
+    }
+    
+    
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: BinaryInteger {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: BinaryFloatingPoint {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: T) -> T where T: StringProtocol {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: Bool) -> Bool {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: Point) -> Point {
+        return self[attribute] ?? defaultValue
+    }
+    
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: BinaryInteger {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: BinaryFloatingPoint {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript<T>(attribute: String, default defaultValue: [T]) -> [T] where T: StringProtocol {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: [Bool]) -> [Bool] {
+        return self[attribute] ?? defaultValue
+    }
+    public subscript(attribute: String, default defaultValue: [Point]) -> [Point] {
+        return self[attribute] ?? defaultValue
+    }
 }
