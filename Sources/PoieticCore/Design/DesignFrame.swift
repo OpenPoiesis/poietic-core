@@ -86,7 +86,8 @@ public final class DesignFrame: Frame, Identifiable {
         return _lookup[id] != nil
     }
     
-    public func existing(from ids: [ObjectID]) -> [ObjectID] {
+    /// Filters the IDs and returns only those that are contained in the frame.
+    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }
     
