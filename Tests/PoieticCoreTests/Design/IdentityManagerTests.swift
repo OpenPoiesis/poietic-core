@@ -63,7 +63,7 @@ struct TestIdentityManager {
     }
 }
 
-struct TestIdentityReservation {
+struct TestLoadingContextIdentityReservation {
     let design: Design
     
     init() {

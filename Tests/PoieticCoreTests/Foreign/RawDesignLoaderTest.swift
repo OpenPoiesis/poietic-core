@@ -37,7 +37,7 @@ struct RawDesignLoaderTest {
     @Test func loadWithSnapshotID() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: RawObjectID.int(1))
+                RawSnapshot(typeName: "TestPlain", snapshotID: ForeignEntityID.int(1))
             ],
             frames: [
                 RawFrame(snapshots: [.int(1)])
@@ -134,18 +134,18 @@ struct RawDesignLoaderTest {
         let design = try loader.load(raw)
         let frame = try #require(design.frames.first)
         let obj = try #require(design.snapshot(ObjectSnapshotID(100)))
-
+        
         #expect(design.identityManager.isUsed(frame.id))
         #expect(design.identityManager.isUsed(obj.id))
         #expect(design.identityManager.isUsed(obj.objectID))
         #expect(design.identityManager.used.count == 3)
         #expect(design.identityManager.reserved.count == 0)
     }
-
+    
     @Test func loadMissingObjectType() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: nil, snapshotID: RawObjectID.int(10)),
+                RawSnapshot(typeName: nil, snapshotID: ForeignEntityID.int(10)),
             ],
             frames: [
                 RawFrame(snapshots: [.int(10)])
@@ -158,7 +158,7 @@ struct RawDesignLoaderTest {
     @Test func loadUnknownObjectType() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "Unknown", snapshotID: RawObjectID.int(10)),
+                RawSnapshot(typeName: "Unknown", snapshotID: ForeignEntityID.int(10)),
             ],
             frames: [
                 RawFrame(snapshots: [.int(10)])
@@ -356,15 +356,15 @@ struct RawDesignLoaderTest {
         #expect(trans.snapshots.count == 1)
         #expect(trans.hasChanges)
     }
-
+    
     @Test func loadIntoMultipleTimes() async throws {
         let trans = design.createFrame()
         let raw = RawSnapshot(typeName: "TestPlain")
         try loader.load([raw], into: trans)
         try loader.load([raw], into: trans)
-
+        
         try #require(trans.snapshots.count == 2)
-
+        
         #expect(trans.snapshots[0].snapshotID != trans.snapshots[1].snapshotID)
         #expect(trans.snapshots[0].id != trans.snapshots[1].id)
     }
@@ -374,7 +374,7 @@ struct RawDesignLoaderTest {
         let node2 = RawSnapshot(typeName: "TestNode", id: .int(20))
         let edge = RawSnapshot(typeName: "TestEdge", id: .int(30), structure: RawStructure(origin: .int(10), target: .int(20)))
         try loader.load([node1, node2, edge], into: trans)
-
+        
         try #require(trans.snapshots.count == 3)
         let createdEdge = try #require(trans.snapshots.first (where: { $0.structure.type == .edge }))
         
@@ -403,7 +403,7 @@ struct RawDesignLoaderTest {
         #expect(trans.snapshots.count == 1)
         #expect(trans.hasChanges)
     }
-
+    
     @Test func importIntoInvalidCurrentID() async throws {
         let trans = design.createFrame()
         let rawDesign = RawDesign(
@@ -450,7 +450,7 @@ struct RawDesignLoaderTest {
         try loader.load(rawDesign, into: trans)
         #expect(trans.snapshots.count == 1)
     }
-
+    
     @Test func duplicateID() async throws {
         let rawDesign = RawDesign(
             snapshots: [
@@ -463,7 +463,7 @@ struct RawDesignLoaderTest {
             try loader.load(rawDesign.snapshots, into: trans)
         }
     }
-
+    
     @Test func childrenMismatchNoneToSome() async throws {
         let rawDesign = RawDesign(
             snapshots: [
@@ -500,7 +500,7 @@ struct RawDesignLoaderTest {
             try loader.load(rawDesign)
         }
     }
-
+    
     @Test func loadCreateIdentity() async throws {
         let rawDesign = RawDesign(
             snapshots: [
@@ -511,12 +511,12 @@ struct RawDesignLoaderTest {
         try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
         try design.accept(trans)
         #expect(design.identityManager.reserved.isEmpty)
-
+        
         let snapshot = try #require(design.objectSnapshots.first)
         #expect(snapshot.snapshotID != ObjectSnapshotID(100))
         #expect(snapshot.objectID != ObjectID(10))
     }
-
+    
     @Test func loadTwiceWithPreserveOrCreate() async throws {
         let rawDesign = RawDesign(
             snapshots: [
@@ -537,15 +537,15 @@ struct RawDesignLoaderTest {
         #expect(edge1.structure == .edge(node1.objectID, node1.objectID))
         #expect(child1.parent == node1.objectID)
         #expect(node1.children == [child1.objectID])
-
+        
         let trans2 = design.createFrame(deriving: frame)
         try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .preserveOrCreate)
-
+        
         let frame2 = try design.accept(trans2)
         let node2 = try #require(frame2.first(where: { $0["name"] == "node" && $0.objectID != node1.objectID }))
         let edge2 = try #require(frame2.first(where: { $0["name"] == "edge" && $0.objectID != edge1.objectID }))
         let child2 = try #require(frame2.first(where: { $0["name"] == "child" && $0.objectID != child1.objectID }))
-
+        
         #expect(edge2.structure == .edge(node2.objectID, node2.objectID))
         #expect(child2.parent == node2.objectID)
         #expect(node2.children == [child2.objectID])
@@ -575,9 +575,9 @@ struct RawDesignLoaderTest {
         try loader.load(rawDesign.snapshots,
                         into: trans3,
                         identityStrategy: .preserveOrCreate)
-
+        
         let frame3 = try design.accept(trans3)
-
+        
         #expect(frame3.filter { $0["name"] == "a" }.count == 3)
         #expect(frame3.filter { $0["name"] == "b" }.count == 3)
         #expect(frame3.filter { $0["name"] == "edge" }.count == 3)

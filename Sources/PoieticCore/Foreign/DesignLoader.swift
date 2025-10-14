@@ -19,9 +19,9 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
 
     /// Referencing raw object id provided as a name (a string) is not defined as any object or
     /// other design entity ID.
-    case unknownNamedReference(String, RawObjectID)
+    case unknownNamedReference(String, ForeignEntityID)
     case invalidNamedReference(String)
-    case unknownFrameID(RawObjectID)
+    case unknownFrameID(ForeignEntityID)
     case missingCurrentFrame
     /// Duplicate frame ID.
     case duplicateFrame(FrameID)
@@ -61,14 +61,14 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
 ///
 public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
     /// Object ID or object snapshot ID has issues.
-    case identityError(RawIdentityError)
+    case identityError(IdentityError)
     
     /// Object ID is provided, but can not be converted to internal ObjectID
-    case invalidObjectID(RawObjectID)
+    case invalidObjectID(ForeignEntityID)
     
     /// Object ID or snapshot ID is already used by another object or other design entity
     /// (such as frame).
-    case duplicateID(RawObjectID)
+    case duplicateID(ForeignEntityID)
     
     /// Object type is not provided.
     case missingObjectType
@@ -88,7 +88,7 @@ public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
     case structuralTypeMismatch(StructuralType)
 
     /// Referenced object does not exist within the reserved or required references.
-    case unknownObjectID(RawObjectID) // referenced
+    case unknownObjectID(ForeignEntityID) // referenced
     
     /// Parent of a snapshot with given index is not known within the frame.
     case unknownParent
@@ -125,10 +125,10 @@ public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
 ///
 public enum RawFrameError: Error, Equatable {
     /// Issue with frame ID.
-    case identityError(RawIdentityError)
+    case identityError(IdentityError)
     
     /// Frame contains an unknown object.
-    case unknownSnapshotID(RawObjectID)
+    case unknownSnapshotID(ForeignEntityID)
     
     /// Parent of a snapshot with given index is not known within the frame.
     case unknownParent(Int)
@@ -206,12 +206,11 @@ public class DesignLoader {
         let design: Design = Design(metamodel: metamodel)
         let context = LoadingContext(design: design, rawDesign: rawDesign)
 
-        try prepareSnapshotIdentities(context: context)
-        try prepareFrameIdentities(context: context)
-
-        try resolveParents(context: context)
-        try resolveFrames(context: context)
-        try resolveChildren(context: context)
+        try validate(context)
+        try reserveIdentities(context)
+       
+        try resolveReferences(context: Context)
+        try resolveHierarchy(context: context)
 
         // 2. Validate user and system references
         let userReferences = try makeNamedReferences(rawDesign.userReferences, with: context)
@@ -311,18 +310,20 @@ public class DesignLoader {
     /// Copy & Paste mechanism.
     ///
     @discardableResult
-    public func load(_ rawSnapshots: [RawSnapshot],
+    internal func load(_ rawSnapshots: [RawSnapshot],
                      into frame: TransientFrame,
                      identityStrategy: IdentityStrategy = .requireProvided)
     throws (DesignLoaderError) -> [ObjectID] {
+        precondition(context.phase == .identitiesReserved)
         let rawDesign = RawDesign(snapshots: rawSnapshots)
         let context = LoadingContext(design: frame.design,
                                      rawDesign: rawDesign,
                                      identityStrategy: identityStrategy,
                                      unavailable: Set(frame.objectIDs))
-
+        
+        try validate()
         // Validate duplicate object IDs. We are loading into a frame.
-        var seenIDs: Set<RawObjectID> = Set()
+        var seenIDs: Set<ForeignEntityID> = Set()
         for (index, snapshot) in rawSnapshots.enumerated() {
             guard let id = snapshot.objectID else { continue }
             if seenIDs.contains(id) {
@@ -333,7 +334,7 @@ public class DesignLoader {
         
         try prepareSnapshotIdentities(context: context)
         try resolveParents(context: context)
-
+        
         let indices = Array<Int>(context.resolvedSnapshots.indices)
         
         do {
@@ -348,10 +349,10 @@ public class DesignLoader {
         catch {
             fatalError("Unexpected error: \(error)")
         }
-
+        
         try createSnapshots(context: context)
         frame.unsafeInsert(context.stableSnapshots, reservations: context.reserved)
-
+        
         do {
             // TODO: [WIP] Is this needed?
             try frame.validateStructure()
@@ -360,40 +361,86 @@ public class DesignLoader {
             throw .brokenStructuralIntegrity(error)
         }
         return context.stableSnapshots.map { $0.objectID }
-
+        
     }
-
+    
     internal func resolveFrames(context: LoadingContext)
     throws (DesignLoaderError) {
-        precondition(context.rawFrames.count == context.resolvedFrames.count)
-        for (i, frame) in context.rawFrames.enumerated() {
+        guard let frameIDs = context.frameIDs else { preconditionFailure("No frame IDs") }
+        precondition(context.rawFrames.count == frameIDs.count)
+        precondition(context.resolvedFrames.isEmpty)
+        
+        for i in 0..<frameIDs.count {
+            let frameID = frameIDs[i]
+            let rawFrame = context.rawFrames[i]
+
             let indices: [Int]
+
             do {
-                indices = try resolveFrame(frame: frame, in: context)
+                indices = try resolveFrameSnapshots(rawFrame, in: context)
             }
             catch {
                 throw .frameError(i, error)
             }
-            let resolved = context.resolvedFrames[i].copy(snapshotIndices: indices)
-            context.resolvedFrames[i] = resolved
+            let resolved = LoadingContext.ResolvedFrame(
+                frameID: frameID,
+                snapshotIndices: indices
+            )
+            context.resolvedFrames.append(resolved)
         }
     }
+    
     /// - Returns: List of indices of object snapshots in the list of all snapshots.
     ///
-    internal func resolveFrame(frame: RawFrame, in context: LoadingContext)
+    internal func resolveFrameSnapshots(_ frame: RawFrame, in context: LoadingContext)
     throws (RawFrameError) -> [Int] {
-        var result: [Int] = []
-        for rawSnapshotID in frame.snapshots {
-            guard let id: ObjectSnapshotID = context.getID(rawSnapshotID) else {
-                throw .unknownSnapshotID(rawSnapshotID)
+        var indices: [Int] = []
+        for foreignSnapshotID in frame.snapshots {
+            guard let id: ObjectSnapshotID = context.getID(foreignSnapshotID) else {
+                throw .unknownSnapshotID(foreignSnapshotID)
             }
             guard let index = context.snapshotIndex[id] else {
-                // HINT: Check whether snapshot index map reflects reservation of snapshots
+                // HINT: See reservation (phase) of IDs if this happens.
                 fatalError("Broken snapshot index")
             }
-            result.append(index)
+            indices.append(index)
         }
-        return result
+        return indices
+    }
+    internal func resolveReferences(context: LoadingContext) throws (DesignLoaderError) {
+        precondition(context.phase == .identitiesReserved)
+        try resolveFrames(context: context)
+        try resolveSnapshotReferences(context: context)
+        context.phase = .referencesResolved
+    }
+
+    internal func resolveSnapshotReferences(context: LoadingContext) throws (DesignLoaderError) {
+        precondition(context.phase == .identitiesReserved)
+        guard let snapshotIDs = context.snapshotIDs else { preconditionFailure("No snapshot IDs") }
+        precondition(context.rawSnapshots.count == snapshotIDs.count)
+
+        for i in 0..<context.rawSnapshots.count {
+            let snapshotID = snapshotIDs[i]
+            let rawSnapshot = context.rawSnapshots[i]
+            var resolved: [ObjectID] = []
+            
+            for foreignRef in rawSnapshot.structure.references {
+                guard let id: ObjectID = context.getID(foreignRef) else {
+                    throw .snapshotError(i, .unknownObjectID(id))
+                }
+                resolved.append(id)
+            }
+            // FIXME: >>>>>>>>> CONTINUE HERE !!!!!!!! <<<<<<<<<<<<
+            // TODO: Store resolved in context
+            // TODO: Maybe consider using IntermediateObjectSnapshot
+        }
+    }
+
+    internal func resolveHierarchy(context: LoadingContext) throws (DesignLoaderError) {
+        precondition(context.phase == .referencesResolved)
+        try resolveParents(context: context)
+        try resolveChildren(context: context)
+        context.phase = .hierarchyResolved
     }
 
     /// - Precondition: Raw snapshot list must correspond to the reservation snapshot list.
@@ -408,7 +455,7 @@ public class DesignLoader {
                 throw .snapshotError(i, .unknownObjectID(rawParent))
             }
             let current = context.resolvedSnapshots[i]
-            let resolved = LoadingContext.ResolvedSnapshot(
+            let resolved = LoadingContext.IntermediateObjectSnapshot(
                 snapshotID: current.snapshotID,
                 objectID: current.objectID,
                 parent: parentID
@@ -449,11 +496,18 @@ public class DesignLoader {
     internal func resolveChildren(snapshotIndices: [Int],
                                   context: LoadingContext)
     throws (RawFrameError) {
-        var snapshotChildren: [Int:[ObjectID]] = [:]
         var objectToSnapshotIndex: [ObjectID:Int] = [:]
+        var snapshotChildren: [Int:[ObjectID]] = [:]
         
         for index in snapshotIndices {
             let objectID = context.resolvedSnapshots[index].objectID
+            if let dupeIndex = objectToSnapshotIndex[objectID] {
+                let snapshot = context.resolvedSnapshots[dupeIndex]
+                print("!!! DUPE SNAPSHOT FOR \(index)")
+                print("!!!     dupe index       : \(dupeIndex)")
+                print("!!!     dupe snapshot    : \(snapshot)")
+                print("!!!     resolved snapshot: \(context.resolvedSnapshots[index])")
+            }
             assert(objectToSnapshotIndex[objectID] == nil)
             objectToSnapshotIndex[objectID] = index
         }
@@ -492,6 +546,7 @@ public class DesignLoader {
             }
         }
     }
+    
 
     /// Method that reserves identities for snapshots.
     ///
@@ -515,7 +570,9 @@ public class DesignLoader {
     ///
     /// Orphaned snapshots will be ignored. Objects with orphaned object identity will be preserved.
     ///
+    /// - Precondition: The context must be in the initialization phase.
     internal func prepareSnapshotIdentities(context: LoadingContext) throws (DesignLoaderError) {
+        
         for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
             do {
                 try context.reserve(snapshotID: rawSnapshot.snapshotID,
@@ -529,8 +586,7 @@ public class DesignLoader {
 
     /// Reserve identities of frames.
     ///
-    internal func prepareFrameIdentities(context: LoadingContext)
-    throws (DesignLoaderError) {
+    internal func prepareFrameIdentities(context: LoadingContext) throws (DesignLoaderError) {
         for (i, rawFrame) in context.rawFrames.enumerated() {
             do {
                 try context.reserve(frameID: rawFrame.id)
