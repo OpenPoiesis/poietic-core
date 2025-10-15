@@ -65,28 +65,29 @@ public class LoadingContext {
         /// - Resolved snapshots are created and prepared without children/parent relationships.
         ///
         case identitiesReserved
-        case referencesResolved
+        case objectSnapshotsResolved
+        case framesResolved
         case hierarchyResolved
-        
         case objectsCreated
     }
     
     // TODO: Pick a better name or split to snapshot/hierarchy
-    struct IntermediateObjectSnapshot {
+    struct ResolvedObjectSnapshot {
         /// Final object snapshot ID.
         ///
         /// If the phase is `Phase/empty` then the property contains an ID that is being requested.
         /// Actual reserved ID will depend on the identity strategy.
         ///
-        var snapshotID: ObjectSnapshotID
+        let snapshotID: ObjectSnapshotID
         /// Requested or reserved object ID.
         ///
         /// If the phase is `Phase/empty` then the property contains an ID that is being requested.
         /// Actual reserved ID will depend on the identity strategy.
         ///
-        var objectID: ObjectID
+        let objectID: ObjectID
+        let structureReferences: [ObjectID]
         
-        var parent: ObjectID?
+        let parent: ObjectID?
         
         /// List of resolved children IDs.
         ///
@@ -96,21 +97,16 @@ public class LoadingContext {
         /// referential integrity.
         var children: [ObjectID]?
         
-        internal init(snapshotID: ObjectSnapshotID, objectID: ObjectID, parent: ObjectID? = nil, children: [ObjectID]? = nil) {
+        internal init(snapshotID: ObjectSnapshotID,
+                      objectID: ObjectID,
+                      structureReferences: [ObjectID] = [],
+                      parent: ObjectID? = nil,
+                      children: [ObjectID]? = nil) {
             self.snapshotID = snapshotID
             self.objectID = objectID
+            self.structureReferences = structureReferences
             self.parent = parent
             self.children = children
-        }
-        
-        @available(*, deprecated, message: "Mutate the object directly")
-        func copy(parent: ObjectID?=nil, children: [ObjectID]?=nil) -> IntermediateObjectSnapshot {
-            IntermediateObjectSnapshot(
-                snapshotID: self.snapshotID,
-                objectID: self.objectID,
-                parent: self.parent ?? parent,
-                children: self.children ?? children
-            )
         }
     }
     
@@ -167,23 +163,24 @@ public class LoadingContext {
     var frameIDs: [FrameID]?
     var snapshotIDs: [ObjectSnapshotID]?
     var objectIDs: [ObjectID]?
+
     /// Snapshot ID to snapshot index.
     var snapshotIndex: [ObjectSnapshotID:Int]
 
     // ------
     
     /// Identities of snapshots, objects and their relationships that has been resolved.
-    var resolvedSnapshots: [IntermediateObjectSnapshot]
+    var resolvedSnapshots: [ResolvedObjectSnapshot]?
 
     /// Allocated identities of frames, in order of their occurrence.
     ///
     /// - SeeAlso: ``frameSnapshots``.
-    var resolvedFrames: [ResolvedFrame]
+    var resolvedFrames: [ResolvedFrame]?
 
     // MARK: Outputs
     
     /// Snapshots created from the raw snapshots.
-    var stableSnapshots: [ObjectSnapshot]
+    var objectSnapshots: [ObjectSnapshot]?
     
     
     
@@ -232,7 +229,7 @@ public class LoadingContext {
         self.snapshotIndex = [:]
 
         // Initialise Outputs
-        self.stableSnapshots = []
+        self.objectSnapshots = []
     }
     
     public func contains<T>(_ id: EntityID<T>) -> Bool {

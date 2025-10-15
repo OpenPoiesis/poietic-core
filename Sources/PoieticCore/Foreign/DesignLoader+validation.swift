@@ -32,7 +32,7 @@ extension DesignLoader {
         for (index, frame) in context.rawFrames.enumerated() {
             guard let id = frame.id else { continue }
             if seen.contains(id) {
-                throw .frameError(index, .identityError(.duplicateID(id)))
+                throw .frameError(index, .identityError(.duplicateID))
             }
             seen.insert(id)
         }

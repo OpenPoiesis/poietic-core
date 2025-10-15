@@ -6,6 +6,32 @@
 //
 
 extension DesignLoader { // Reservation of identities
+
+    /// Reserves identities for entities in the raw design, such as snapshots, objects and frames.
+    ///
+    /// The identities are reserved according to the identity strategy
+    /// (``DesignLoader.IdentityStrategy``).
+    ///
+    /// Strategy
+    /// - Snapshot ID, Frame ID:
+    ///     - some provided: ID will be reserved if available, if not then duplicate error is thrown.
+    ///     - `nil`: New ID will be created and reserved, snapshot will be considered an orphan.
+    /// - Object ID:
+    ///     - some provided: ID will be reserved if available. If it is already used, it must be
+    ///       an object ID, otherwise type mismatch error is thrown.
+    ///     - `nil`: New ID will be created and reserved.
+    ///
+    /// You typically do not need to call this method, it is called in ``load(_:)``
+    /// and ``load(_:into:)-1o6qf``. It is provided for more customised loading.
+    ///
+    /// ## Orphans
+    ///
+    /// If ID is not provided, it will be generated. However, that object is considered an orphan
+    /// and it will not be able to refer to it from other entities.
+    ///
+    /// Orphaned snapshots will be ignored. Objects with orphaned object identity will be preserved.
+    ///
+    /// - Precondition: The context must be in the initialization phase.
     public func reserveIdentities(_ context: LoadingContext) throws (DesignLoaderError) {
         precondition(context.phase == .validated)
         // Reservation Phase 1: Reserve those IDs we can
