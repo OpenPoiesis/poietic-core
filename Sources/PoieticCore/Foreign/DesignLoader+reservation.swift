@@ -32,16 +32,21 @@ extension DesignLoader { // Reservation of identities
     /// Orphaned snapshots will be ignored. Objects with orphaned object identity will be preserved.
     ///
     /// - Precondition: The context must be in the initialization phase.
-    public func reserveIdentities(_ context: LoadingContext) throws (DesignLoaderError) {
-        precondition(context.phase == .validated)
+    internal func resolveIdentities(context: ValidatedLoadingContext,
+                                    identityStrategy: IdentityStrategy,
+                                    unavailableIDs: Set<EntityID.RawValue> = Set())
+        throws (DesignLoaderError) -> IdentityResolution
+    {
+        var reservation = ReservationContext(unavailableIDs: unavailableIDs)
+        
         // Reservation Phase 1: Reserve those IDs we can
-        switch context.identityStrategy {
+        switch identityStrategy {
         case .createNew:
             break // Nothing to create, all identities will be new
         case .preserveOrCreate:
-            try reserveIdentitiesWithAutoStrategy(context)
+            try reserveIdentitiesWithAutoStrategy(context, reservation: &reservation)
         case .requireProvided:
-            try reserveIdentitiesWithRequireStrategy(context)
+            try reserveIdentitiesWithRequireStrategy(context, reservation: &reservation)
         }
 
         // Reservation Phase 2: Create those IDs we do not have
@@ -49,60 +54,88 @@ extension DesignLoader { // Reservation of identities
         let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
 
-        context.frameIDs = finaliseReservation(context, ids: rawFrameIDs)
-        context.snapshotIDs = finaliseReservation(context, ids: rawSnapshotIDs)
-        context.objectIDs = finaliseReservation(context, ids: rawObjectIDs)
+        let frameIDs: [FrameID] = finaliseReservation(
+            ids: rawFrameIDs,
+            reservation: &reservation,
+            identityManager: context.identityManager
+        )
+        let snapshotIDs: [ObjectSnapshotID] = finaliseReservation(
+            ids: rawSnapshotIDs,
+            reservation: &reservation,
+            identityManager: context.identityManager
+        )
+        let objectIDs: [ObjectID] = finaliseReservation(
+            ids: rawObjectIDs,
+            reservation: &reservation,
+            identityManager: context.identityManager
+        )
 
-        assert(context.rawFrames.count == rawFrameIDs.count)
-        assert(context.rawSnapshots.count == rawSnapshotIDs.count)
-        assert(context.rawSnapshots.count == rawObjectIDs.count)
+        // Sanity checks
+        assert(frameIDs.count == rawFrameIDs.count)
+        assert(snapshotIDs.count == rawSnapshotIDs.count)
+        assert(objectIDs.count == rawObjectIDs.count)
 
         // Create snapshot index – used for resolving frames and hierarchy
-        var map: [ObjectSnapshotID:Int] = [:]
-        for (index, id) in context.snapshotIDs!.enumerated() {
-            assert(map[id] == nil)
-            map[id] = index
+        var snapshotIndex: [ObjectSnapshotID:Int] = [:]
+        for (index, id) in snapshotIDs.enumerated() {
+            assert(snapshotIndex[id] == nil, "Duplicate snapshot ID \(id)")
+            snapshotIndex[id] = index
         }
-        
-        context.phase == .identitiesReserved
+
+        return IdentityResolution(
+            reserved: reservation.reserved,
+            rawIDMap: reservation.rawIDMap,
+            frameIDs: frameIDs,
+            snapshotIDs: snapshotIDs,
+            objectIDs: objectIDs,
+            snapshotIndex: snapshotIndex
+        )
     }
     
-    internal func reserveIdentitiesWithAutoStrategy(_ context: LoadingContext)
+    internal func reserveIdentitiesWithAutoStrategy(_ context: ValidatedLoadingContext,
+                                                    reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        precondition(context.phase == .validated)
-        let rawFrameIDs = context.rawFrames.map { $0.id }
-        let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
-        let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
+        let frameIDs = context.rawFrames.compactMap { $0.id }
+        let snapshotIDs = context.rawSnapshots.compactMap { $0.snapshotID }
+        let objectIDs = context.rawSnapshots.compactMap { $0.objectID }
 
-        reserveAvailable(context,
-                         ids: rawFrameIDs.compactMap { $0 },
-                         type: .frame)
-        reserveAvailable(context,
-                         ids: rawSnapshotIDs.compactMap { $0 },
-                         type: .objectSnapshot)
-        reserveAvailableObjectIDs(context,
-                                  ids: rawObjectIDs.compactMap { $0 })
+        reserveAvailable(ids: frameIDs,
+                         type: .frame,
+                         reservation: &reservation,
+                         identityManager: context.identityManager)
+        reserveAvailable(ids: snapshotIDs,
+                         type: .frame,
+                         reservation: &reservation,
+                         identityManager: context.identityManager)
+        reserveAvailableObjectIDs(ids: objectIDs,
+                         type: .frame,
+                         reservation: &reservation,
+                         identityManager: context.identityManager)
     }
 
-    internal func reserveIdentitiesWithRequireStrategy(_ context: LoadingContext)
+    internal func reserveIdentitiesWithRequireStrategy(_ context: ValidatedLoadingContext,
+                                                       reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        precondition(context.phase == .validated)
         let rawFrameIDs = context.rawFrames.map { $0.id }
         let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
 
         // Reservation Phase 1: Reserve those IDs we can
-        if let failedIndex = reserveRequired(context, ids: rawSnapshotIDs, type: .objectSnapshot) {
-            throw .snapshotError(failedIndex, .identityError(.duplicateID))
-        }
-        if let failedIndex = reserveRequired(context, ids: rawFrameIDs, type: .objectSnapshot) {
-            throw .frameError(failedIndex, .identityError(.duplicateID))
-        }
-        if let failedIndex = reserveRequiredObjectIDs(context, ids: rawObjectIDs) {
-            throw .frameError(failedIndex, .identityError(.duplicateID))
-        }
+        try reserveRequired(ids: rawSnapshotIDs,
+                            type: .objectSnapshot,
+                            reservation: &reservation,
+                            identityManager: context.identityManager)
+
+        try reserveRequired(ids: rawFrameIDs,
+                            type: .frame,
+                            reservation: &reservation,
+                            identityManager: context.identityManager)
+
+        try reserveRequiredObjectIDs(ids: rawObjectIDs,
+                                     reservation: &reservation,
+                                     identityManager: context.identityManager)
     }
 
     /// Reserve IDs from the list of foreign IDs if possible.
@@ -112,35 +145,36 @@ extension DesignLoader { // Reservation of identities
     ///
     /// The reserved ID is stored in the context ID map (``LoadingContext/rawIDMap``)
     ///
-    internal func reserveAvailable(_ context: LoadingContext,
-                                   ids foreignIDs: some Collection<ForeignEntityID>,
-                                   type: IdentityType)
+    internal func reserveAvailable(
+        ids foreignIDs: some Collection<ForeignEntityID>,
+        type: IdentityType,
+        reservation: inout ReservationContext,
+        identityManager: IdentityManager)
     {
-        precondition(context.phase == .validated)
-        let identityManager = context.design.identityManager
         for foreignID in foreignIDs {
             guard let rawValue = foreignID.rawEntityIDValue else { continue }
             if identityManager.reserve(rawValue, type: type) {
-                precondition(context.rawIDMap[foreignID] == nil) // Validation failed
-                context.rawIDMap[foreignID] = rawValue
-                context.reserved.append(rawValue)
+                precondition(reservation.rawIDMap[foreignID] == nil) // Validation failed
+                reservation.rawIDMap[foreignID] = rawValue
+                reservation.reserved.append(rawValue)
             }
         }
     }
 
-    internal func reserveAvailableObjectIDs(_ context: LoadingContext,
-                                            ids foreignIDs: some Collection<ForeignEntityID>)
+    internal func reserveAvailableObjectIDs(
+        ids foreignIDs: some Collection<ForeignEntityID>,
+        type: IdentityType,
+        reservation: inout ReservationContext,
+        identityManager: IdentityManager)
     {
-        precondition(context.phase == .validated)
-        let identityManager = context.design.identityManager
         for foreignID in foreignIDs {
             guard let rawValue = foreignID.rawEntityIDValue else { continue }
-            guard !context.unavailableIDs.contains(rawValue) else { continue }
+            guard !reservation.unavailableIDs.contains(rawValue) else { continue }
             
             if identityManager.reserveIfNeeded(ObjectID(rawValue: rawValue)) {
-                precondition(context.rawIDMap[foreignID] == nil) // Validation failed
-                context.rawIDMap[foreignID] = rawValue
-                context.reserved.append(rawValue)
+                precondition(reservation.rawIDMap[foreignID] == nil) // Validation failed
+                reservation.rawIDMap[foreignID] = rawValue
+                reservation.reserved.append(rawValue)
             }
         }
     }
@@ -153,26 +187,27 @@ extension DesignLoader { // Reservation of identities
     /// - Returns: `nil` if all possible reservations went through, otherwise an index of first ID
     ///   that is convertible but can not be reserved.
     ///
-    internal func reserveRequired(_ context: LoadingContext,
-                                  ids foreignIDs: some Collection<ForeignEntityID?>,
-                                  type: IdentityType) -> Int?
+    internal func reserveRequired(
+        ids foreignIDs: some Collection<ForeignEntityID?>,
+        type: IdentityType,
+        reservation: inout ReservationContext,
+        identityManager: IdentityManager)
+    throws (DesignLoaderError)
     {
-        precondition(context.phase == .validated)
-
-        let identityManager = context.design.identityManager
-
+        // TODO: Rethink the error signalling. Returning first offensive seems a bit weird and not very intuitive.
         for (index, foreignID) in foreignIDs.enumerated() {
-            guard let foreignID else { continue }
-            precondition(context.rawIDMap[foreignID] == nil) // Validation failed
+            guard let foreignID,
+                  let rawValue = foreignID.rawEntityIDValue
+            else { continue }
+            
+            precondition(reservation.rawIDMap[foreignID] == nil, "Failed validation")
 
-            guard let rawValue = foreignID.rawEntityIDValue else { continue }
             guard identityManager.reserve(rawValue, type: type) else {
-                return index
+                throw .entityIdentityError(index, type, .duplicateID)
             }
-            context.rawIDMap[foreignID] = rawValue
-            context.reserved.append(rawValue)
+            reservation.rawIDMap[foreignID] = rawValue
+            reservation.reserved.append(rawValue)
         }
-        return nil
     }
     
     /// Reserve IDs as object IDs from the list of foreign IDs if possible.
@@ -188,26 +223,26 @@ extension DesignLoader { // Reservation of identities
     /// - Returns: `nil` if all possible reservations went through, otherwise an index of first ID
     ///   that is convertible but can not be reserved.
     ///
-    internal func reserveRequiredObjectIDs(_ context: LoadingContext,
-                                           ids foreignIDs: some Collection<ForeignEntityID?>) -> Int?
+    internal func reserveRequiredObjectIDs(
+        ids foreignIDs: some Collection<ForeignEntityID?>,
+        reservation: inout ReservationContext,
+        identityManager: IdentityManager)
+    throws (DesignLoaderError)
     {
-        precondition(context.phase == .validated)
-
-        let identityManager = context.design.identityManager
-
         for (index, foreignID) in foreignIDs.enumerated() {
-            guard let foreignID else { continue }
-            precondition(context.rawIDMap[foreignID] == nil) // Validation failed
+            guard let foreignID,
+                  let rawValue = foreignID.rawEntityIDValue
+            else { continue }
+            
+            precondition(reservation.rawIDMap[foreignID] == nil, "Failed validation")
 
-            guard let rawValue = foreignID.rawEntityIDValue else { continue }
-            guard !context.unavailableIDs.contains(rawValue),
+            guard !reservation.unavailableIDs.contains(rawValue),
                   identityManager.reserve(rawValue, type: .object) else {
-                return index
+                throw .entityIdentityError(index, .object, .duplicateID)
             }
-            context.rawIDMap[foreignID] = rawValue
-            context.reserved.append(rawValue)
+            reservation.rawIDMap[foreignID] = rawValue
+            reservation.reserved.append(rawValue)
         }
-        return nil
     }
 
     /// Reserve IDs from the list of foreign IDs if possible.
@@ -219,29 +254,29 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     @discardableResult
-    internal func finaliseReservation<T>(_ context: LoadingContext,
-                                     ids foreignIDs: some Collection<ForeignEntityID?>) -> [EntityID<T>]
+    internal func finaliseReservation<T>(
+        ids foreignIDs: some Collection<ForeignEntityID?>,
+        reservation: inout ReservationContext,
+        identityManager: IdentityManager) -> [EntityID<T>]
     {
-        precondition(context.phase == .validated)
         var result: [EntityID<T>] = []
         
-        let identityManager = context.design.identityManager
         for foreignID in foreignIDs {
             let id: EntityID<T>
             if let foreignID {
-                if let reservedID = context.rawIDMap[foreignID] {
+                if let reservedID = reservation.rawIDMap[foreignID] {
                     assert(identityManager.type(reservedID) == T.identityType)
                     id = EntityID(rawValue: reservedID)
                 }
                 else {
                     id = identityManager.reserveNew()
-                    context.rawIDMap[foreignID] = id.rawValue
-                    context.reserved.append(id.rawValue)
+                    reservation.rawIDMap[foreignID] = id.rawValue
+                    reservation.reserved.append(id.rawValue)
                 }
             }
             else {
                 id = identityManager.reserveNew()
-                context.reserved.append(id.rawValue)
+                reservation.reserved.append(id.rawValue)
             }
             result.append(id)
         }

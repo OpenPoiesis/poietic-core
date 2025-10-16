@@ -12,6 +12,9 @@ public protocol EntityTypeProtocol {
 }
 
 ///
+// FIXME: [IMPORTANT] Rename to EntityType, to be more flexible/reusable (such as in loader)
+// FIXME: Also rename all properties/functions identityType -> entityType
+
 public enum IdentityType: Sendable, CustomStringConvertible {
     /// Unique within design.
     case objectSnapshot

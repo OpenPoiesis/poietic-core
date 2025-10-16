@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 07/05/2025.
 //
 
+
 /// Error thrown when requesting reservation of an ID.
 ///
 public enum IdentityError: Error, Equatable, CustomStringConvertible {
@@ -85,6 +86,10 @@ public class LoadingContext {
         /// Actual reserved ID will depend on the identity strategy.
         ///
         let objectID: ObjectID
+        
+        let typeName: String
+        
+        let structureType: StructuralType?
         let structureReferences: [ObjectID]
         
         let parent: ObjectID?
@@ -96,17 +101,24 @@ public class LoadingContext {
         /// the existing list of children, otherwise it means that the foreign data do not have
         /// referential integrity.
         var children: [ObjectID]?
+        let attributes: [String:Variant]?
         
         internal init(snapshotID: ObjectSnapshotID,
                       objectID: ObjectID,
+                      typeName: String,
+                      structuralType: StructuralType?,
                       structureReferences: [ObjectID] = [],
                       parent: ObjectID? = nil,
-                      children: [ObjectID]? = nil) {
+                      children: [ObjectID]? = nil,
+                      attributes: [String:Variant]? = nil) {
             self.snapshotID = snapshotID
             self.objectID = objectID
+            self.typeName = typeName
+            self.structureType = structuralType
             self.structureReferences = structureReferences
             self.parent = parent
             self.children = children
+            self.attributes = attributes
         }
     }
     
@@ -127,9 +139,6 @@ public class LoadingContext {
     /// Design that the loading context is bound to.
     let design: Design
     
-    /// Frame into which the loading occurs
-    let frame: TransientFrame?
-
     // FIXME: Remove, keep in loader
     let identityStrategy: DesignLoader.IdentityStrategy
 
@@ -203,7 +212,6 @@ public class LoadingContext {
         
         self.phase = .initial
         self.design = design
-        self.frame = frame
         
         self.identityStrategy = identityStrategy
 

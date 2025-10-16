@@ -5,14 +5,28 @@
 //  Created by Stefan Urbanek on 04/05/2025.
 //
 
+/*
+
+ Loader versions:
+ 
+ 0.0.1:
+    - allow names as IDs
+ 0.1.0:
+    - do not allow names as IDs
+ 
+ */
+
 // TODO: [IMPORTANT] Split context into phases and remove all related precondition failures and fatal errors.
+
 
 /// Error thrown by the design loader.
 ///
 /// - SeeAlso: ``DesignLoader/load(_:into:)-6m9va``, ``DesignLoader/load(_:into:)-1o6qf``
 ///
 public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
-    
+    // FIXME: Review the errors and consolidate them, they are too hierarchical and there are redundancies
+    // TODO: Move snapshot error and frame error under this one
+    case entityIdentityError(Int, IdentityType, IdentityError)
     /// Error with a snapshot. First item is an index of the offending snapshot, second item is the error.
     case snapshotError(Int, RawSnapshotError)
 
@@ -38,9 +52,9 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .snapshotError(index, error):
-            "Error in snapshot #\(index): \(error)"
+            "Error in snapshot at index \(index): \(error)"
         case let .frameError(index, error):
-            "Error in frame #\(index): \(error)"
+            "Error in frame at index \(index): \(error)"
         case let .unknownNamedReference(name, id):
             "Unknown named reference \(name): \(id)"
         case let .invalidNamedReference(name):
@@ -55,6 +69,8 @@ public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
             "Duplicate snapshot ID: \(id)"
         case let .brokenStructuralIntegrity(error):
             "Broken structural integrity: \(error)"
+        case let .entityIdentityError(index, type, error):
+            "Identity error for entity \(type) at index \(index): \(error)"
         }
     }
 }
@@ -205,15 +221,31 @@ public class DesignLoader {
     /// 4. Create a new design.
     ///
     public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
+        // The loader uses something similar to a pipeline pattern.
+        // Stages are separate steps that use only relevant processing context and produce value for the next step.
         let design: Design = Design(metamodel: metamodel)
         let context = LoadingContext(design: design, rawDesign: rawDesign)
 
-        try validate(context)
-        try reserveIdentities(context)
-        try resolveObjectSnapshots(context)
+        // TODO: NEW
+        
+        let validatedContext = try validate(
+            rawDesign: rawDesign,
+            identityManager: design.identityManager
+        )
+        let identityResolution = try resolveIdentities(
+            context: validatedContext,
+            identityStrategy: .requireProvided
+        )
+        
+        let resolvedSnapshots = try resolveObjectSnapshots(
+            context: validatedContext,
+            identities: identityResolution,
+        )
         try resolveFrames(context)
         try resolveHierarchy(context: context)
 
+
+        
         // 2. Validate user and system references
         let userReferences = try makeNamedReferences(rawDesign.userReferences, with: context)
         let systemReferences = try makeNamedReferences(rawDesign.systemReferences, with: context)
@@ -357,48 +389,106 @@ public class DesignLoader {
         return objectSnapshots.map { $0.objectID }
     }
     
-    internal func resolveObjectSnapshots(_ context: LoadingContext) throws (DesignLoaderError) {
-        guard let snapshotIDs = context.snapshotIDs else { preconditionFailure("No snapshot IDs") }
-        guard let objectIDs = context.objectIDs else { preconditionFailure("No object IDs") }
-
-        precondition(context.phase == .identitiesReserved)
-        assert(snapshotIDs.count == context.rawSnapshots.count)
-        assert(snapshotIDs.count == objectIDs.count)
+    internal func resolveObjectSnapshots(
+        context: ValidatedLoadingContext,
+        identities: IdentityResolution
+    ) throws (DesignLoaderError) -> [ResolvedObjectSnapshot]
+    {
+        // Sanity check
+        assert(identities.snapshotIDs.count == context.rawSnapshots.count)
+        assert(identities.objectIDs.count == context.rawSnapshots.count)
         
-        var snapshots: [LoadingContext.ResolvedObjectSnapshot] = []
+        var snapshots: [ResolvedObjectSnapshot] = []
         
         for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
-            var refs: [ObjectID] = []
-            
-            for foreignRef in rawSnapshot.structure.references {
-                guard let id: ObjectID = context.getID(foreignRef) else {
-                    throw .snapshotError(i, .unknownObjectID(foreignRef))
-                }
-                refs.append(id)
+            let snapshot: ResolvedObjectSnapshot
+            do {
+                snapshot = try resolveObjectSnapshot(
+                    snapshotID: identities.snapshotIDs[i],
+                    objectID: identities.objectIDs[i],
+                    rawSnapshot: rawSnapshot,
+                    identities: identities)
             }
-
-            let parentID: ObjectID?
-            
-            if let foreignParent = rawSnapshot.parent {
-                guard let id: ObjectID = context.getID(foreignParent) else {
-                    throw .snapshotError(i, .unknownObjectID(foreignParent))
-                }
-                parentID = id
+            catch {
+                throw .snapshotError(i, error)
             }
-            else {
-                parentID = nil
-            }
-            
-            let snapshot = LoadingContext.ResolvedObjectSnapshot(
-                snapshotID: snapshotIDs[i],
-                objectID: objectIDs[i],
-                structureReferences: refs,
-                parent: parentID
-            )
             snapshots.append(snapshot)
         }
-        context.resolvedSnapshots = snapshots
-        context.phase = .objectSnapshotsResolved
+
+        return snapshots
+
+    }
+
+    internal func resolveObjectSnapshot(
+        snapshotID: ObjectSnapshotID,
+        objectID: ObjectID,
+        rawSnapshot: RawSnapshot,
+        identities: IdentityResolution)
+        throws (RawSnapshotError) -> ResolvedObjectSnapshot
+    {
+        var refs: [ObjectID] = []
+        
+        for foreignRef in rawSnapshot.structure.references {
+            guard let id: ObjectID = identities[foreignRef] else {
+                throw .unknownObjectID(foreignRef)
+            }
+            refs.append(id)
+        }
+
+        let parentID: ObjectID?
+        
+        if let foreignParent = rawSnapshot.parent {
+            guard let id: ObjectID = identities[foreignParent] else {
+                throw .unknownObjectID(foreignParent)
+            }
+            parentID = id
+        }
+        else {
+            parentID = nil
+        }
+                
+        guard let typeName = rawSnapshot.typeName else {
+            throw .missingObjectType
+        }
+        
+        let structuralType: StructuralType?
+        switch rawSnapshot.structure.type {
+        case .none:
+            structuralType = nil
+        case "unstructured":
+            structuralType = .unstructured
+        case "node":
+            structuralType = .node
+        case "edge":
+            structuralType = .edge
+        default:
+            throw .invalidStructuralType
+        }
+        
+        var attributes: [String:Variant] = rawSnapshot.attributes
+
+        // Version 0.0.1
+        if compatibilityVersion == SemanticVersion(0, 0, 1)
+                || (options.contains(.useIDAsNameAttribute))
+        {
+            if let id = rawSnapshot.objectID,
+               case let .string(name) = id,
+               attributes["name"] == nil
+            {
+                attributes["name"] = Variant(name)
+            }
+        }
+
+        let snapshot = ResolvedObjectSnapshot(
+            snapshotID: snapshotID,
+            objectID: objectID,
+            typeName: typeName,
+            structuralType: structuralType,
+            structureReferences: refs,
+            parent: parentID,
+            attributes: attributes
+        )
+        return snapshot
     }
 
     internal func resolveFrames(_ context: LoadingContext) throws (DesignLoaderError) {
@@ -552,17 +642,11 @@ public class DesignLoader {
         precondition(resolvedSnapshots.count == context.rawSnapshots.count)
         var result: [ObjectSnapshot] = []
         
-        for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
-            let resolved = resolvedSnapshots[i]
+        for (i, resolvedSnapshot) in resolvedSnapshots.enumerated() {
             let snapshot: ObjectSnapshot
 
             do {
-                snapshot = try create(rawSnapshot,
-                                      snapshotID: resolved.snapshotID,
-                                      objectID: resolved.objectID,
-                                      parent: resolved.parent,
-                                      children: resolved.children ?? [],
-                                      context: context)
+                snapshot = try createSnapshot(resolvedSnapshot, context: context)
             }
             catch {
                 throw .snapshotError(i, error)
@@ -583,82 +667,63 @@ public class DesignLoader {
     ///
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
-    internal func create(_ rawSnapshot: RawSnapshot,
-                       snapshotID: ObjectSnapshotID,
-                       objectID: ObjectID,
-                       parent: ObjectID?=nil,
-                       children: [ObjectID] = [],
-                       context: LoadingContext)
+    internal func createSnapshot(_ resolvedSnapshot: LoadingContext.ResolvedObjectSnapshot,
+                         context: LoadingContext)
     throws (RawSnapshotError) -> ObjectSnapshot {
         // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
         // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
-        guard let typeName = rawSnapshot.typeName else {
-            throw .missingObjectType
-        }
-        guard let type = metamodel.objectType(name: typeName) else {
-            throw .unknownObjectType(typeName)
+        guard let type = metamodel.objectType(name: resolvedSnapshot.typeName) else {
+            throw .unknownObjectType(resolvedSnapshot.typeName)
         }
         
         let structure: Structure
-        let references = rawSnapshot.structure.references
-        switch rawSnapshot.structure.type {
+        let references = resolvedSnapshot.structureReferences
+        switch resolvedSnapshot.structureType {
         case .none:
             switch type.structuralType {
             case .unstructured: structure = .unstructured
             case .node: structure = .node
             default: throw .structuralTypeMismatch(type.structuralType)
             }
-        case "unstructured":
+        case .unstructured:
             guard type.structuralType == .unstructured else {
                 throw .structuralTypeMismatch(type.structuralType)
             }
             structure = .unstructured
-        case "node":
+        case .node:
             guard type.structuralType == .node else {
                 throw .structuralTypeMismatch(type.structuralType)
             }
             structure = .node
-        case "edge":
+        case .edge:
             guard type.structuralType == .edge else {
                 throw .structuralTypeMismatch(type.structuralType)
             }
             guard references.count == 2 else {
                 throw .invalidStructuralType
             }
-            guard let origin: ObjectID = context.getID(references[0]) else {
-                throw .unknownObjectID(references[0])
-            }
-            guard let target: ObjectID = context.getID(references[1]) else {
-                throw .unknownObjectID(references[1])
-            }
-            structure = .edge(origin, target)
+            structure = .edge(references[0], references[1])
         default:
+            // Not supported type at this moment
             throw .invalidStructuralType
         }
         
-        var attributes: [String:Variant] = rawSnapshot.attributes
-        if compatibilityVersion == Self.MakeshiftJSONLoaderVersion
-            || (options.contains(.useIDAsNameAttribute)) {
-            if let id = rawSnapshot.objectID,
-               case let .string(name) = id,
-               attributes["name"] == nil {
-                attributes["name"] = Variant(name)
-            }
-        }
+
+        var attributes: [String:Variant] = resolvedSnapshot.attributes ?? [:]
         
         // Set default attributes according to the type
         // TODO: Should this be here?
         for attribute in type.attributes {
-            if attributes[attribute.name] == nil {
-                attributes[attribute.name] = attribute.defaultValue
-            }
+            guard attributes[attribute.name] == nil else { continue }
+            attributes[attribute.name] = attribute.defaultValue
         }
+        let children = resolvedSnapshot.children ?? []
         
         let snapshot = ObjectSnapshot(type: type,
-                                      snapshotID: snapshotID,
-                                      objectID: objectID,
+                                      snapshotID: resolvedSnapshot.snapshotID,
+                                      objectID: resolvedSnapshot.objectID,
                                       structure: structure,
-                                      parent: parent,
+                                      parent: resolvedSnapshot.parent,
                                       children: children,
                                       attributes: attributes)
         return snapshot
