@@ -154,7 +154,7 @@ let TestFormatVersion = "0.0.4"
                    """.data(using:.utf8)!
         let store = DesignStore(data: data)
         
-        #expect(throws: DesignStoreError.loadingError(.snapshotError(1, .identityError(.duplicateID(.id(2)))))) {
+        #expect(throws: DesignStoreError.loadingError(.snapshotError(1, .identityError(.duplicateID)))) {
             try store.load(metamodel: TestMetamodel)
         }
     }

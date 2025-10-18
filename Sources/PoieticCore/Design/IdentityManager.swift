@@ -84,6 +84,24 @@ public class IdentityManager {
         reserved[nextID] = T.identityType
         return EntityID(rawValue: nextID)
     }
+    @inlinable
+    public func reserveNew(type: IdentityType) -> EntityID.RawValue {
+        let nextID = next()
+        reserved[nextID] = type
+        return nextID
+    }
+
+    @inlinable
+    @discardableResult
+    public func reserve(_ rawValue: EntityID.RawValue, type: IdentityType) -> Bool {
+        if contains(rawValue) {
+            return false
+        }
+        else {
+            reserved[rawValue] = type
+            return true
+        }
+    }
     
     @inlinable
     @discardableResult

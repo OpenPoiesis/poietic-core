@@ -39,11 +39,11 @@ public class DesignExtractor {
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
         if !design.undoList.isEmpty {
-            let undoList: [RawObjectID] = design.undoList.map { .id($0.rawValue) }
+            let undoList: [ForeignEntityID] = design.undoList.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
         }
         if !design.redoList.isEmpty {
-            let redoList: [RawObjectID] = design.redoList.map { .id($0.rawValue) }
+            let redoList: [ForeignEntityID] = design.redoList.map { .id($0.rawValue) }
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
         
@@ -95,7 +95,7 @@ public class DesignExtractor {
     /// - SeeAlso: ``extract(_:)``
     ///
     public func extract(_ snapshot: ObjectSnapshot) -> RawSnapshot {
-        let rawParent: RawObjectID? = snapshot.parent.map { .id($0.rawValue) }
+        let rawParent: ForeignEntityID? = snapshot.parent.map { .id($0.rawValue) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
             snapshotID: .id(snapshot.snapshotID.rawValue),

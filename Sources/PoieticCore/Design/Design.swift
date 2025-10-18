@@ -465,6 +465,14 @@ public class Design {
         _namedFrames[name] = stable
         return stable
     }
+    
+    /// Unsafely create a named frame.
+    ///
+    /// Used by the design loader when finalising loading.
+    ///
+    internal func unsafeAssignName(name: String, frameID: FrameID) {
+        _namedFrames[name] = frame(frameID)
+    }
 
     internal func validateAndInsert(_ frame: TransientFrame) throws (StructuralIntegrityError) -> DesignFrame {
         precondition(frame.design === self)

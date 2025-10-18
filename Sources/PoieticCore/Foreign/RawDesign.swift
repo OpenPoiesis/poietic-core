@@ -19,14 +19,14 @@ enum RawLoadingResult {
     case needsUpgrade(RawDesign)
 }
 
-// FIXME: [REFACTORING] Rename to RawEntityID
+// FIXME: [REFACTORING] Rename to ForeignEntityID
 // FIXME: [REFACTORING] Remove id and replace with int/uint as utin64
 /// Object ID retrieved from a foreign interface.
 ///
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
 /// as an int, as a string or an explicit ``ObjectID``.
 ///
-public enum RawObjectID:
+public enum ForeignEntityID:
     Hashable,
     Codable,
     Sendable,
@@ -47,6 +47,14 @@ public enum RawObjectID:
     ///
     case string(String)
     
+    public var rawEntityIDValue: EntityIDValue? {
+        switch self {
+        case .id(let value): value
+        case .int(let value): EntityIDValue(exactly: value)
+        case .string(let value): EntityIDValue(value)
+        }
+    }
+    
     public var description: String {
         switch self {
         case .id(let value): String(value)
@@ -54,6 +62,7 @@ public enum RawObjectID:
         case .string(let value): value
         }
     }
+    
     public var debugDescription: String {
         switch self {
         case .id(let value): "RawObjectID.id(\(value))"
@@ -85,7 +94,7 @@ public enum RawObjectID:
 }
 
 extension EntityID {
-    init?(_ raw: RawObjectID) {
+    init?(_ raw: ForeignEntityID) {
         switch raw {
         case let .id(value):
             self.init(rawValue: value)
@@ -102,9 +111,9 @@ public struct RawNamedReference: Equatable, Codable {
     public let name: String
     /// Known types: `frame`, `object`
     public let type: String
-    public let id: RawObjectID
+    public let id: ForeignEntityID
 
-    public init(_ name: String, type: String, id: RawObjectID) {
+    public init(_ name: String, type: String, id: ForeignEntityID) {
         self.name = name
         self.type = type
         self.id = id
@@ -115,7 +124,7 @@ public struct RawNamedList: Equatable, Codable {
     public let name: String
     /// Known types: `frame`
     public let itemType: String
-    public let ids: [RawObjectID]
+    public let ids: [ForeignEntityID]
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -123,7 +132,7 @@ public struct RawNamedList: Equatable, Codable {
         case ids
     }
 
-    public init(_ name: String, itemType: String, ids: [RawObjectID]) {
+    public init(_ name: String, itemType: String, ids: [ForeignEntityID]) {
         self.name = name
         self.itemType = itemType
         self.ids = ids
@@ -340,18 +349,18 @@ public class RawDesign: Codable {
         }
     }
     
-    var currentFrameID: RawObjectID? {
+    var currentFrameID: ForeignEntityID? {
         return systemReferences.first { $0.name == "current_frame" }.map { $0.id }
     }
     
-    func first(snapshotWithID id: RawObjectID) -> RawSnapshot? {
+    func first(snapshotWithID id: ForeignEntityID) -> RawSnapshot? {
         return snapshots.first { $0.snapshotID == id }
     }
 }
 
 public struct RawStructure: Equatable {
     public var type: String? = nil
-    public var references: [RawObjectID] = []
+    public var references: [ForeignEntityID] = []
 
     public init(_ structure: Structure) {
         switch structure {
@@ -365,13 +374,13 @@ public struct RawStructure: Equatable {
             self.references = [.id(owner.rawValue)] + items.map { .id($0.rawValue) }
         }
     }
-    public init(_ type: String? = nil, references: [RawObjectID] = []) {
+    public init(_ type: String? = nil, references: [ForeignEntityID] = []) {
         self.type = type
         self.references = references
     }
     
     /// Create a raw structure representing an edge.
-    public init(origin: RawObjectID, target: RawObjectID) {
+    public init(origin: ForeignEntityID, target: ForeignEntityID) {
         self.type = "edge"
         self.references = [origin, target]
     }
@@ -395,7 +404,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     ///
     /// If not provided, it will be typically generated.
     ///
-    public var snapshotID: RawObjectID?
+    public var snapshotID: ForeignEntityID?
 
     /// Raw representation of snapshot ID.
     ///
@@ -405,7 +414,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     /// loader, if the ID is a string and if the attributes do not contain `name` key,
     /// then the string ID value will be also used as the `name` attribute.
     ///
-    public var objectID: RawObjectID?
+    public var objectID: ForeignEntityID?
     
     /// Raw structure representation.
     ///
@@ -416,7 +425,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     // Must be ObjectID convertible
 
     /// Parent object ID.
-    public var parent: RawObjectID?
+    public var parent: ForeignEntityID?
 
     /// Dictionary of object attributes.
     ///
@@ -442,10 +451,10 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     /// Create a new raw snapshot.
     ///
     public init(typeName: String? = nil,
-                  snapshotID: RawObjectID? = nil,
-                  id: RawObjectID? = nil,
+                  snapshotID: ForeignEntityID? = nil,
+                  id: ForeignEntityID? = nil,
                   structure: RawStructure = RawStructure(nil, references: []),
-                  parent: RawObjectID? = nil,
+                  parent: ForeignEntityID? = nil,
                   attributes: [String:Variant] = [:]) {
         self.typeName = typeName
         self.snapshotID = snapshotID
@@ -479,7 +488,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         case let .edge(origin, target):
             self.structure = RawStructure("edge", references: [.id(origin.rawValue), .id(target.rawValue)])
         case let .orderedSet(owner, ids):
-            let allRefs: [RawObjectID] = [.id(owner.rawValue)] + ids.map { .id($0.rawValue) }
+            let allRefs: [ForeignEntityID] = [.id(owner.rawValue)] + ids.map { .id($0.rawValue) }
             self.structure = RawStructure("edge", references: allRefs)
         }
     }
@@ -488,18 +497,18 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         let container = try decoder.container(keyedBy: Self.CodingKeys)
         
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
-        self.objectID = try container.decodeIfPresent(RawObjectID.self, forKey: .objectID)
-                        ?? container.decodeIfPresent(RawObjectID.self, forKey: ._objectID_v0_1_0)
-        self.snapshotID = try container.decodeIfPresent(RawObjectID.self, forKey: .snapshotID)
-        self.parent = try container.decodeIfPresent(RawObjectID.self, forKey: .parent)
+        self.objectID = try container.decodeIfPresent(ForeignEntityID.self, forKey: .objectID)
+                        ?? container.decodeIfPresent(ForeignEntityID.self, forKey: ._objectID_v0_1_0)
+        self.snapshotID = try container.decodeIfPresent(ForeignEntityID.self, forKey: .snapshotID)
+        self.parent = try container.decodeIfPresent(ForeignEntityID.self, forKey: .parent)
         let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
         
         switch structureType {
         case .none:
             // Compatibility/legacy
             // Otherwise: Do not use origin/target without structure key.
-            if let origin = try container.decodeIfPresent(RawObjectID.self, forKey: .origin),
-               let target = try container.decodeIfPresent(RawObjectID.self, forKey: .target) {
+            if let origin = try container.decodeIfPresent(ForeignEntityID.self, forKey: .origin),
+               let target = try container.decodeIfPresent(ForeignEntityID.self, forKey: .target) {
                 self.structure = RawStructure("edge", references: [origin, target])
             }
             else {
@@ -508,11 +517,11 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         case "unstructured": self.structure = RawStructure(structureType)
         case "node": self.structure = RawStructure(structureType)
         case "edge":
-            let origin = try container.decode(RawObjectID.self, forKey: .origin)
-            let target = try container.decode(RawObjectID.self, forKey: .target)
+            let origin = try container.decode(ForeignEntityID.self, forKey: .origin)
+            let target = try container.decode(ForeignEntityID.self, forKey: .target)
             self.structure = RawStructure(structureType, references: [origin, target])
         default:
-            let refs = try container.decodeIfPresent([RawObjectID].self, forKey: .references)
+            let refs = try container.decodeIfPresent([ForeignEntityID].self, forKey: .references)
             self.structure = RawStructure(structureType, references: refs ?? [])
         }
         
@@ -550,10 +559,10 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
 }
 
 public class RawFrame: Codable {
-    public var id: RawObjectID? = nil
+    public var id: ForeignEntityID? = nil
     // TODO: Rename to snapshots
-    public var snapshots: [RawObjectID] = []
-    public init(id: RawObjectID? = nil, snapshots: [RawObjectID] = []) {
+    public var snapshots: [ForeignEntityID] = []
+    public init(id: ForeignEntityID? = nil, snapshots: [ForeignEntityID] = []) {
         self.id = id
         self.snapshots = snapshots
     }
