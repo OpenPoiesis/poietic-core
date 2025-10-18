@@ -10,15 +10,21 @@
 ///
 public enum IdentityError: Error, Equatable, CustomStringConvertible {
     // TODO: Move to identity manager
-    /// Requested ID is already registered, regardless of type.
+    /// Requested ID is not known.
+    case unknownID
+    /// Requested ID is already registered or used.
     case duplicateID
-    /// Requested ID is already registered and its type is different type.
+    /// Requested ID is known (registered or used), however its type is of different entity type.
     case typeMismatch
-    
+    /// Entity type of requested ID is unknown or invalid. This can happen during loading.
+    case unknownType
+
     public var description: String {
         switch self {
+        case .unknownID: "Unknown ID"
         case .duplicateID: "Duplicate ID"
         case .typeMismatch: "Entity ID type mismatch"
+        case .unknownType: "Unknown entity type"
         }
     }
 }
@@ -39,7 +45,7 @@ public struct IdentityCollectionError: Error, Equatable, CustomStringConvertible
 ///
 /// The identity reservation is bound to a design and uses its ``IdentityManager`` for reservations.
 ///
-public class LoadingContext {
+public class DEPRECATED_LoadingContext {
     
     // TODO: Use phases and include them in the Loader.
     public enum Phase {

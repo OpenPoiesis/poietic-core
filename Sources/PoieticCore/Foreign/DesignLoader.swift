@@ -16,145 +16,6 @@
  
  */
 
-// TODO: [IMPORTANT] Split context into phases and remove all related precondition failures and fatal errors.
-
-
-/// Error thrown by the design loader.
-///
-/// - SeeAlso: ``DesignLoader/load(_:into:)-6m9va``, ``DesignLoader/load(_:into:)-1o6qf``
-///
-public enum DesignLoaderError: Error, Equatable, CustomStringConvertible {
-    // FIXME: Review the errors and consolidate them, they are too hierarchical and there are redundancies
-    // TODO: Move snapshot error and frame error under this one
-    case entityIdentityError(Int, IdentityType, IdentityError)
-    /// Error with a snapshot. First item is an index of the offending snapshot, second item is the error.
-    case snapshotError(Int, RawSnapshotError)
-
-    /// Error with a frame. First item is an index of the offending frame, second item is the error.
-    case frameError(Int, RawFrameError)
-
-    /// Referencing raw object id provided as a name (a string) is not defined as any object or
-    /// other design entity ID.
-    case unknownNamedReference(String, ForeignEntityID)
-    case invalidNamedReference(String)
-    case unknownFrameID(ForeignEntityID)
-    case missingCurrentFrame
-    /// Duplicate frame ID.
-    case duplicateFrame(FrameID)
-    /// Duplicate snapshot ID.
-    case duplicateSnapshot(ObjectSnapshotID)
-    /// The loaded frame or collection of snapshots have broken structural integrity.
-    ///
-    /// - SeeAlso: ``Frame/validateStructure()``
-    ///
-    case brokenStructuralIntegrity(StructuralIntegrityError)
-    
-    public var description: String {
-        switch self {
-        case let .snapshotError(index, error):
-            "Error in snapshot at index \(index): \(error)"
-        case let .frameError(index, error):
-            "Error in frame at index \(index): \(error)"
-        case let .unknownNamedReference(name, id):
-            "Unknown named reference \(name): \(id)"
-        case let .invalidNamedReference(name):
-            "Invalid named reference: \(name)"
-        case let .duplicateFrame(id):
-            "Duplicate frame ID: \(id)"
-        case let .unknownFrameID(id):
-            "Unknown frame ID: \(id)"
-        case .missingCurrentFrame:
-            "Missing current frame reference"
-        case let .duplicateSnapshot(id):
-            "Duplicate snapshot ID: \(id)"
-        case let .brokenStructuralIntegrity(error):
-            "Broken structural integrity: \(error)"
-        case let .entityIdentityError(index, type, error):
-            "Identity error for entity \(type) at index \(index): \(error)"
-        }
-    }
-}
-
-/// Error thrown by the design loader when there is an issue with an object snapshot.
-///
-public enum RawSnapshotError: Error, Equatable, CustomStringConvertible {
-    /// Object ID or object snapshot ID has issues.
-    case identityError(IdentityError)
-    
-    /// Object ID is provided, but can not be converted to internal ObjectID
-    case invalidObjectID(ForeignEntityID)
-    
-    /// Object ID or snapshot ID is already used by another object or other design entity
-    /// (such as frame).
-    case duplicateID(ForeignEntityID)
-    
-    /// Object type is not provided.
-    case missingObjectType
-    
-    /// There is no such object type in the associated metamodel.
-    ///
-    /// See: ``DesignLoader/metamodel``
-    case unknownObjectType(String)
-    
-    /// Structural type is unknown or malformed.
-    ///
-    /// For example, an edge does not contain endpoint references.
-    ///
-    case invalidStructuralType
-    
-    /// Structural type of the raw object and the type object does not match.
-    case structuralTypeMismatch(StructuralType)
-
-    /// Referenced object does not exist within the reserved or required references.
-    case unknownObjectID(ForeignEntityID) // referenced
-    
-    /// Parent of a snapshot with given index is not known within the frame.
-    case unknownParent
-    /// Children of a snapshot do not match previously resolved children of the same snapshot.
-    case childrenMismatch
-
-    public var description: String {
-        switch self {
-        case let .identityError(error):
-            "Identity error: \(error)"
-        case let .invalidObjectID(id):
-            "Invalid object ID: '\(id)'"
-        case let .duplicateID(id):
-            "Duplicate ID: '\(id)'"
-        case .missingObjectType:
-            "Missing object type"
-        case let .unknownObjectType(typeName):
-            "Unknown object type name: '\(typeName)'"
-        case .invalidStructuralType:
-            "Invalid structural type"
-        case let .structuralTypeMismatch(type):
-            "Structural type mismatch. Expected: \(type)"
-        case let .unknownObjectID(id):
-            "Unknown object ID: '\(id)'"
-        case .unknownParent:
-            "Unknown parent"
-        case .childrenMismatch:
-            "Children do not match children of the snapshot in another frame"
-        }
-    }
-}
-
-/// Error thrown by the design loader when there is an issue with a raw frame.
-///
-public enum RawFrameError: Error, Equatable {
-    /// Issue with frame ID.
-    case identityError(IdentityError)
-    
-    /// Frame contains an unknown object.
-    case unknownSnapshotID(ForeignEntityID)
-    
-    /// Parent of a snapshot with given index is not known within the frame.
-    case unknownParent(Int)
-    /// Children of a snapshot do not match previously resolved children of the same snapshot.
-    case childrenMismatch(Int)
-}
-
-
 /// Object that loads raw representation of design or design entities into a design.
 ///
 /// The design loader is the primary way of constructing whole design or its components from
@@ -224,37 +85,45 @@ public class DesignLoader {
         // The loader uses something similar to a pipeline pattern.
         // Stages are separate steps that use only relevant processing context and produce value for the next step.
         let design: Design = Design(metamodel: metamodel)
-        let context = LoadingContext(design: design, rawDesign: rawDesign)
 
-        // TODO: NEW
-        
-        let validatedContext = try validate(
+        let loadingContext = try validate(
             rawDesign: rawDesign,
             identityManager: design.identityManager
         )
         let identityResolution = try resolveIdentities(
-            context: validatedContext,
+            context: loadingContext,
             identityStrategy: .requireProvided
         )
         
         let resolvedSnapshots = try resolveObjectSnapshots(
-            context: validatedContext,
+            context: loadingContext,
             identities: identityResolution,
         )
-        try resolveFrames(context)
-        try resolveHierarchy(context: context)
-
+        // We have:
+        // - no duplicate snapshot IDs
+        // - well-formed snapshot data
+        
+        let resolvedFrames = try resolveFrames(
+            context: loadingContext,
+            identities: identityResolution,
+        )
+        // We have:
+        // - referenced snapshots exist
+        // - there are no duplicate object IDs within frame
+        let resolvedHierarchy  = try resolveHierarchy(
+            frames: resolvedFrames,
+            objectSnapshots: resolvedSnapshots,
+            identities: identityResolution
+        )
+        // Parent reference (if present) points to objectID that exists in same frame
+        // All children references point to objectIDs that exist in same frame
+        // Bidirectional consistency: if A has child B, then B has parent A
 
         
-        // 2. Validate user and system references
-        let userReferences = try makeNamedReferences(rawDesign.userReferences, with: context)
-        let systemReferences = try makeNamedReferences(rawDesign.systemReferences, with: context)
-        // let userLists = try makeNamedReferenceList(rawDesign.userLists, with: reservation)
-        let systemLists = try makeNamedReferenceList(rawDesign.systemLists, with: context)
-
         // 3. Create Snapshots
         // ----------------------------------------------------------------------
-        try createSnapshots(context: context)
+        try createSnapshots(resolvedSnapshots: resolvedSnapshots,
+                            children: resolvedHierarchy)
 
         // 4. Load (commit)
         
@@ -389,148 +258,44 @@ public class DesignLoader {
         return objectSnapshots.map { $0.objectID }
     }
     
-    internal func resolveObjectSnapshots(
-        context: ValidatedLoadingContext,
-        identities: IdentityResolution
-    ) throws (DesignLoaderError) -> [ResolvedObjectSnapshot]
+
+    internal func resolveFrames(context: ValidatedLoadingContext,
+                                identities: IdentityResolution)
+        throws (DesignLoaderError) -> [ResolvedFrame]
     {
-        // Sanity check
-        assert(identities.snapshotIDs.count == context.rawSnapshots.count)
-        assert(identities.objectIDs.count == context.rawSnapshots.count)
+        precondition(context.rawFrames.count == identities.frameIDs.count)
+
+        var resolvedFrames: [ResolvedFrame] = []
         
-        var snapshots: [ResolvedObjectSnapshot] = []
-        
-        for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
-            let snapshot: ResolvedObjectSnapshot
-            do {
-                snapshot = try resolveObjectSnapshot(
-                    snapshotID: identities.snapshotIDs[i],
-                    objectID: identities.objectIDs[i],
-                    rawSnapshot: rawSnapshot,
-                    identities: identities)
-            }
-            catch {
-                throw .snapshotError(i, error)
-            }
-            snapshots.append(snapshot)
-        }
-
-        return snapshots
-
-    }
-
-    internal func resolveObjectSnapshot(
-        snapshotID: ObjectSnapshotID,
-        objectID: ObjectID,
-        rawSnapshot: RawSnapshot,
-        identities: IdentityResolution)
-        throws (RawSnapshotError) -> ResolvedObjectSnapshot
-    {
-        var refs: [ObjectID] = []
-        
-        for foreignRef in rawSnapshot.structure.references {
-            guard let id: ObjectID = identities[foreignRef] else {
-                throw .unknownObjectID(foreignRef)
-            }
-            refs.append(id)
-        }
-
-        let parentID: ObjectID?
-        
-        if let foreignParent = rawSnapshot.parent {
-            guard let id: ObjectID = identities[foreignParent] else {
-                throw .unknownObjectID(foreignParent)
-            }
-            parentID = id
-        }
-        else {
-            parentID = nil
-        }
-                
-        guard let typeName = rawSnapshot.typeName else {
-            throw .missingObjectType
-        }
-        
-        let structuralType: StructuralType?
-        switch rawSnapshot.structure.type {
-        case .none:
-            structuralType = nil
-        case "unstructured":
-            structuralType = .unstructured
-        case "node":
-            structuralType = .node
-        case "edge":
-            structuralType = .edge
-        default:
-            throw .invalidStructuralType
-        }
-        
-        var attributes: [String:Variant] = rawSnapshot.attributes
-
-        // Version 0.0.1
-        if compatibilityVersion == SemanticVersion(0, 0, 1)
-                || (options.contains(.useIDAsNameAttribute))
-        {
-            if let id = rawSnapshot.objectID,
-               case let .string(name) = id,
-               attributes["name"] == nil
-            {
-                attributes["name"] = Variant(name)
-            }
-        }
-
-        let snapshot = ResolvedObjectSnapshot(
-            snapshotID: snapshotID,
-            objectID: objectID,
-            typeName: typeName,
-            structuralType: structuralType,
-            structureReferences: refs,
-            parent: parentID,
-            attributes: attributes
-        )
-        return snapshot
-    }
-
-    internal func resolveFrames(_ context: LoadingContext) throws (DesignLoaderError) {
-        precondition(context.phase == .objectSnapshotsResolved)
-
-        guard let frameIDs = context.frameIDs else { preconditionFailure("No frame IDs") }
-        precondition(context.rawFrames.count == frameIDs.count)
-        precondition(context.resolvedFrames == nil)
-        
-        var resolvedFrames: [LoadingContext.ResolvedFrame] = []
-        for i in 0..<frameIDs.count {
-            let frameID = frameIDs[i]
-            let rawFrame = context.rawFrames[i]
-
+        var frameIndex = 0
+        for (frameID, rawFrame) in zip(identities.frameIDs, context.rawFrames) {
             let indices: [Int]
 
             do {
-                indices = try resolveFrame(rawFrame, in: context)
+                indices = try resolveFrame(rawFrame, identities: identities)
             }
             catch {
-                throw .frameError(i, error)
+                throw .item(.frames, frameIndex, error)
             }
-            let resolved = LoadingContext.ResolvedFrame(
-                frameID: frameID,
-                snapshotIndices: indices
-            )
+            let resolved = ResolvedFrame(frameID: frameID, snapshotIndices: indices)
             resolvedFrames.append(resolved)
+            frameIndex += 1
         }
-        context.resolvedFrames = resolvedFrames
-        context.phase = .framesResolved
+        
+        return resolvedFrames
     }
     
     /// - Returns: List of indices of object snapshots in the list of all snapshots.
     ///
-    internal func resolveFrame(_ frame: RawFrame, in context: LoadingContext)
-    throws (RawFrameError) -> [Int] {
+    internal func resolveFrame(_ frame: RawFrame, identities: IdentityResolution)
+    throws (DesignLoaderError.ItemError) -> [Int]
+    {
         var indices: [Int] = []
         for foreignSnapshotID in frame.snapshots {
-            guard let id: ObjectSnapshotID = context.getID(foreignSnapshotID) else {
+            guard let id: ObjectSnapshotID = identities[foreignSnapshotID] else {
                 throw .unknownSnapshotID(foreignSnapshotID)
             }
-            guard let index = context.snapshotIndex[id] else {
+            guard let index = identities.snapshotIndex[id] else {
                 // HINT: See reservation (phase) of IDs if this happens.
                 fatalError("Broken snapshot index")
             }
@@ -542,21 +307,39 @@ public class DesignLoader {
     /// Resolve parent-child hierarchy of object snapshots.
     ///
     /// The method requires the frames to be resolved.
-    internal func resolveHierarchy(context: LoadingContext) throws (DesignLoaderError) {
-        precondition(context.phase == .framesResolved)
-        guard let resolvedFrames = context.resolvedFrames
-            else { preconditionFailure("Frames not resolved") }
-
-        for (i, frame) in resolvedFrames.enumerated() {
-            let indices = frame.snapshotIndices
+    internal func resolveHierarchy(frames: [ResolvedFrame],
+                                   objectSnapshots: [ResolvedObjectSnapshot],
+                                   identities: IdentityResolution)
+    throws (DesignLoaderError) -> [Int:[ObjectID]]
+    {
+        var allChildrenMap: [Int:[ObjectID]] = [:] // All children resolved
+        
+        for (frameIndex, frame) in frames.enumerated() {
+            let resolvedMap: [Int:[ObjectID]] // Children resolved within frame
+            
             do {
-                try resolveChildren(snapshotIndices: indices, context: context)
+                resolvedMap = try resolveChildren(
+                    snapshotIndices: frame.snapshotIndices,
+                    objectSnapshots: objectSnapshots)
             }
             catch {
-                throw .frameError(i, error)
+                throw .item(.objectSnapshots, error.index, error.error)
+            }
+            
+            // Integrity check: validate created children lists whether they match
+            // existing children list.
+            for (index, resolved) in resolvedMap {
+                if let existing = allChildrenMap[index] {
+                    guard existing == resolved else {
+                        throw .item(.frames, frameIndex, .childrenMismatch)
+                    }
+                }
+                else {
+                    allChildrenMap[index] = resolved
+                }
             }
         }
-        context.phase = .hierarchyResolved
+        return allChildrenMap
     }
 
     /// Resolve children references within a group of objects.
@@ -568,169 +351,44 @@ public class DesignLoader {
     /// - Parameters:
     ///     - snapshotIndices: Indices of snapshots within a frame (or some other similar
     ///         collection) to the list of all snapshots. See: ``RawDesign/snapshots``.
+    ///     - objectSnapshots: All object snapshots.
     ///
-    /// - Precondition: Parent object ID must exist within the snapshots referred to by ``snapshotIndices``.
-    /// - Precondition: The snapshots must have unique both snapshot ID
-    /// and object ID.
+    /// - Throws an error with offending snapshot index.
     ///
     internal func resolveChildren(snapshotIndices: [Int],
-                                  context: LoadingContext)
-    throws (RawFrameError) {
-        precondition(context.phase == .objectSnapshotsResolved || context.phase == .framesResolved)
-        guard let resolvedSnapshots = context.resolvedSnapshots
-            else { preconditionFailure("Snapshots not resolved") }
-        
+                                  objectSnapshots: [ResolvedObjectSnapshot])
+    throws (DesignLoaderError.IndexedItemError) -> [Int:[ObjectID]]
+    {
+        // TODO: Consider using SnapshotIDs instead of indices
+        // TODO: Reconsider this needed to be in the loader. Move to the transient frame.
         var objectToSnapshotIndex: [ObjectID:Int] = [:]
-        var snapshotChildren: [Int:[ObjectID]] = [:]
+        var resolvedMap: [Int:[ObjectID]] = [:]
         
         for index in snapshotIndices {
-            let objectID = resolvedSnapshots[index].objectID
-            if let dupeIndex = objectToSnapshotIndex[objectID] {
-                let snapshot = resolvedSnapshots[dupeIndex]
-                print("!!! DUPE SNAPSHOT FOR \(index)")
-                print("!!!     dupe index       : \(dupeIndex)")
-                print("!!!     dupe snapshot    : \(snapshot)")
-                print("!!!     resolved snapshot: \(resolvedSnapshots[index])")
-            }
-            assert(objectToSnapshotIndex[objectID] == nil)
-            objectToSnapshotIndex[objectID] = index
+            let snapshot = objectSnapshots[index]
+            assert(objectToSnapshotIndex[snapshot.objectID] == nil)
+            objectToSnapshotIndex[snapshot.objectID] = index
         }
 
         for childIndex in snapshotIndices {
-            guard let parentObjectID = resolvedSnapshots[childIndex].parent else {
+            guard let parentObjectID = objectSnapshots[childIndex].parent else {
                 continue
             }
             guard let parentIndex = objectToSnapshotIndex[parentObjectID] else {
-                throw .unknownParent(childIndex)
+                throw DesignLoaderError.IndexedItemError(childIndex, .unknownParent)
             }
-            let childObjectID = resolvedSnapshots[childIndex].objectID
+            let childObjectID = objectSnapshots[childIndex].objectID
 
-            snapshotChildren[parentIndex, default: []].append(childObjectID)
+            resolvedMap[parentIndex, default: []].append(childObjectID)
         }
 
-        // Validate and update resolved snapshots.
-        //
-        for snapshotIndex in snapshotIndices {
-            let children: [ObjectID] = snapshotChildren[snapshotIndex] ?? []
-            
-            // Validate parents. Check whether previously resolved parent-children is the same
-            // as the this one. It must be the same.
-            // This error might happen when two raw frames have the same snapshot but the
-            // children differ. Since the raw frame has only parent reference, this error is possible.
-            //
-            var copy = resolvedSnapshots[snapshotIndex]
-            if let existingChildren = copy.children {
-                guard existingChildren == children else {
-                    throw .childrenMismatch(snapshotIndex)
-                }
-            }
-            else {
-                copy.children = children
-                context.resolvedSnapshots?[snapshotIndex] = copy
-            }
-        }
+        return resolvedMap
     }
     
-    /// Create snapshots from raw snapshots.
-    ///
-    /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
-    ///
-    internal func createSnapshots(context: LoadingContext) throws (DesignLoaderError) {
-        precondition(context.phase == .hierarchyResolved)
-        
-        guard let resolvedSnapshots = context.resolvedSnapshots else { preconditionFailure() }
-        precondition(resolvedSnapshots.count == context.rawSnapshots.count)
-        var result: [ObjectSnapshot] = []
-        
-        for (i, resolvedSnapshot) in resolvedSnapshots.enumerated() {
-            let snapshot: ObjectSnapshot
-
-            do {
-                snapshot = try createSnapshot(resolvedSnapshot, context: context)
-            }
-            catch {
-                throw .snapshotError(i, error)
-            }
-            
-            result.append(snapshot)
-        }
-        context.objectSnapshots = result
-        context.phase = .objectsCreated
-    }
-
-    /// Create a snapshot from its raw representation.
-    ///
-    /// Requirements:
-    /// - Snapshot object type must exist in the metamodel.
-    /// - Snapshot structural type must be valid and must match the object type.
-    /// - All references must exist within the reservations.
-    ///
-    /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
-    ///
-    internal func createSnapshot(_ resolvedSnapshot: LoadingContext.ResolvedObjectSnapshot,
-                         context: LoadingContext)
-    throws (RawSnapshotError) -> ObjectSnapshot {
-        // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
-        // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
-        guard let type = metamodel.objectType(name: resolvedSnapshot.typeName) else {
-            throw .unknownObjectType(resolvedSnapshot.typeName)
-        }
-        
-        let structure: Structure
-        let references = resolvedSnapshot.structureReferences
-        switch resolvedSnapshot.structureType {
-        case .none:
-            switch type.structuralType {
-            case .unstructured: structure = .unstructured
-            case .node: structure = .node
-            default: throw .structuralTypeMismatch(type.structuralType)
-            }
-        case .unstructured:
-            guard type.structuralType == .unstructured else {
-                throw .structuralTypeMismatch(type.structuralType)
-            }
-            structure = .unstructured
-        case .node:
-            guard type.structuralType == .node else {
-                throw .structuralTypeMismatch(type.structuralType)
-            }
-            structure = .node
-        case .edge:
-            guard type.structuralType == .edge else {
-                throw .structuralTypeMismatch(type.structuralType)
-            }
-            guard references.count == 2 else {
-                throw .invalidStructuralType
-            }
-            structure = .edge(references[0], references[1])
-        default:
-            // Not supported type at this moment
-            throw .invalidStructuralType
-        }
-        
-
-        var attributes: [String:Variant] = resolvedSnapshot.attributes ?? [:]
-        
-        // Set default attributes according to the type
-        // TODO: Should this be here?
-        for attribute in type.attributes {
-            guard attributes[attribute.name] == nil else { continue }
-            attributes[attribute.name] = attribute.defaultValue
-        }
-        let children = resolvedSnapshot.children ?? []
-        
-        let snapshot = ObjectSnapshot(type: type,
-                                      snapshotID: resolvedSnapshot.snapshotID,
-                                      objectID: resolvedSnapshot.objectID,
-                                      structure: structure,
-                                      parent: resolvedSnapshot.parent,
-                                      children: children,
-                                      attributes: attributes)
-        return snapshot
-    }
     
     func createFrames(in design: Design,
-                      context: LoadingContext) throws (DesignLoaderError) {
+                      context: LoadingContext)
+    throws (DesignLoaderError) {
         guard let resolvedFrames = context.resolvedFrames else { preconditionFailure() }
         var frames: [DesignFrame] = []
         
@@ -784,16 +442,67 @@ public class DesignLoader {
             return ids.map { EntityID(rawValue: $0) }
         }
     }
-    func makeNamedReferences(_ refs: [RawNamedReference], with context: LoadingContext)
-        throws (DesignLoaderError) -> [String:NamedReference]
+    func resolveNamedReferences(
+        // FIXME: [IMPORTANT] We need guarantee that the raw design corresponds to the identity reservations
+        rawDesign: RawDesign,
+        identities: IdentityResolution
+    )
+        throws (DesignLoaderError) -> ResolvedNamedReferences
+    {
+        let systemReferences: [String:NamedReference]
+        let userReferences: [String:NamedReference]
+        let systemLists: [String:NamedReferenceList]
+        let userLists: [String:NamedReferenceList]
+
+        do {
+            try systemReferences = makeNamedReferences(rawDesign.systemReferences,
+                                                       identities: identities)
+        }
+        catch {
+            throw .item(.systemReferences, error.index, error.error)
+        }
+        
+            
+        do {
+            try userReferences = makeNamedReferences(rawDesign.userReferences,
+                                                     identities: identities)
+        }
+        catch {
+            throw .item(.userReferences, error.index, error.error)
+        }
+
+        do {
+            try systemLists = makeNamedReferenceList(rawDesign.systemLists,
+                                                     identities: identities)
+        }
+        catch {
+            throw .item(.systemLists, error.index, error.error)
+        }
+        do {
+            try userLists = makeNamedReferenceList(rawDesign.userLists,
+                                                     identities: identities)
+        }
+        catch {
+            throw .item(.userLists, error.index, error.error)
+        }
+        
+        return ResolvedNamedReferences(
+            systemLists: systemLists,
+            systemReferences: systemReferences,
+            userLists: userLists,
+            userReferences: userReferences
+        )
+    }
+    
+    internal func makeNamedReferences(_ refs: [RawNamedReference],
+                                      identities: IdentityResolution)
+    throws (DesignLoaderError.IndexedItemError) -> [String:NamedReference]
     {
         var map: [String:NamedReference] = [:]
-        for ref in refs {
-            guard let type = identityType(ref.type) else {
-                throw .invalidNamedReference(ref.name)
-            }
-            guard let idValue = context.getID(ref.id, type: type) else {
-                throw .unknownNamedReference(ref.name, ref.id)
+        for (index, ref) in refs.enumerated() {
+            guard let type = entityType(ref.type) else { preconditionFailure("Validation failed") }
+            guard let idValue = identities[ref.id] else {
+                throw DesignLoaderError.IndexedItemError(index, .unknownID(ref.id))
             }
             map[ref.name] = NamedReference(type: type, id: idValue)
         }
@@ -801,19 +510,21 @@ public class DesignLoader {
     }
     
     func makeNamedReferenceList(_ lists: [RawNamedList],
-                                with context: LoadingContext)
-    throws (DesignLoaderError) -> [String:NamedReferenceList] {
+                                identities: IdentityResolution)
+    throws (DesignLoaderError.IndexedItemError) -> [String:NamedReferenceList]
+    {
         var result: [String:NamedReferenceList] = [:]
-        for list in lists {
-            guard let type = identityType(list.itemType) else {
-                throw .invalidNamedReference(list.name)
+
+        for (listIndex, list) in lists.enumerated() {
+            guard let type = entityType(list.itemType) else {
+                throw DesignLoaderError.IndexedItemError(listIndex, .unknownEntityType(list.itemType))
             }
 
             var values: [EntityID.RawValue] = []
 
             for rawID in list.ids {
-                guard let idValue = context.getID(rawID, type: type) else {
-                    throw .unknownNamedReference(list.name, rawID)
+                guard let idValue = identities[rawID] else {
+                    throw DesignLoaderError.IndexedItemError(listIndex, .unknownID(rawID))
                 }
                 values.append(idValue)
             }
@@ -821,8 +532,8 @@ public class DesignLoader {
         }
         return result
     }
-    
-    func identityType(_ string: String) -> IdentityType? {
+
+    func entityType(_ string: String) -> IdentityType? {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
@@ -832,5 +543,3 @@ public class DesignLoader {
         }
     }
 }
-
-

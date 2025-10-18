@@ -6,40 +6,6 @@
 //
 
 extension DesignLoader {
-    
-    /// Validates identities that are to be created and that must be unique within the loading
-    /// context.
-    ///
-    /// After successful validation, the context phase will be changed to
-    /// ``LoadingContext/Phase/validated``.
-    ///
-    /// - Precondition: The context phase must be ``LoadingContext/Phase/initial``.
-    ///
-    public func validate(_ context: LoadingContext) throws (DesignLoaderError) {
-        precondition(context.phase == .initial)
-        
-        // Validate duplicate IDs.
-        var seen: Set<ForeignEntityID> = Set()
-        
-        for (index, snapshot) in context.rawSnapshots.enumerated() {
-            guard let id = snapshot.snapshotID else { continue }
-            if seen.contains(id) {
-                throw .snapshotError(index, .duplicateID(id))
-            }
-            seen.insert(id)
-        }
-        
-        for (index, frame) in context.rawFrames.enumerated() {
-            guard let id = frame.id else { continue }
-            if seen.contains(id) {
-                throw .frameError(index, .identityError(.duplicateID))
-            }
-            seen.insert(id)
-        }
-        
-        context.phase = .validated
-    }
-    
     /// Initial validation of the raw design.
     ///
     /// The method validates:
@@ -55,13 +21,13 @@ extension DesignLoader {
     internal func validate(rawDesign: RawDesign, identityManager: IdentityManager)
         throws (DesignLoaderError) -> ValidatedLoadingContext
     {
-        // Validate duplicate IDs.
+        // 1. Validate duplicate IDs.
         var seen: Set<ForeignEntityID> = Set()
         
         for (index, snapshot) in rawDesign.snapshots.enumerated() {
             guard let id = snapshot.snapshotID else { continue }
             if seen.contains(id) {
-                throw .snapshotError(index, .duplicateID(id))
+                throw .item(.objectSnapshots, index, .duplicateForeignID(id))
             }
             seen.insert(id)
         }
@@ -69,11 +35,57 @@ extension DesignLoader {
         for (index, frame) in rawDesign.frames.enumerated() {
             guard let id = frame.id else { continue }
             if seen.contains(id) {
-                throw .frameError(index, .identityError(.duplicateID))
+                throw .item(.frames, index, .duplicateForeignID(id))
             }
             seen.insert(id)
         }
         
+        // 2. Validate Named References and Lists
+        var seenNames: Set<String> = Set()
+        
+        for (index, ref) in rawDesign.systemReferences.enumerated() {
+            guard self.entityType(ref.type) != nil else {
+                throw .item(.userReferences, index, .unknownEntityType(ref.type))
+            }
+            guard seenNames.contains(ref.name) else {
+                throw .item(.systemReferences, index, .duplicateName(ref.name))
+            }
+        }
+        
+        seenNames.removeAll()
+        
+        for (index, ref) in rawDesign.userReferences.enumerated() {
+            guard self.entityType(ref.type) != nil  else {
+                throw .item(.userReferences, index, .unknownEntityType(ref.type))
+            }
+            guard seenNames.contains(ref.name) else {
+                throw .item(.userReferences, index, .duplicateName(ref.name))
+            }
+        }
+
+        seenNames.removeAll()
+
+        for (listIndex, list) in rawDesign.systemLists.enumerated() {
+            guard self.entityType(list.itemType) != nil  else {
+                throw .item(.systemLists, listIndex, .unknownEntityType(list.itemType))
+            }
+            guard seenNames.contains(list.name) else {
+                throw .item(.systemLists, listIndex, .duplicateName(list.name))
+            }
+        }
+
+        seenNames.removeAll()
+
+        for (listIndex, list) in rawDesign.userLists.enumerated() {
+            guard self.entityType(list.itemType) != nil  else {
+                throw .item(.userLists, listIndex, .unknownEntityType(list.itemType))
+            }
+            guard seenNames.contains(list.name) else {
+                throw .item(.userLists, listIndex, .duplicateName(list.name))
+            }
+        }
+
+
         return ValidatedLoadingContext(identityManager: identityManager,
                                        rawSnapshots: rawDesign.snapshots,
                                        rawFrames: rawDesign.frames)

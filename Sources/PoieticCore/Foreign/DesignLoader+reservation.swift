@@ -123,19 +123,40 @@ extension DesignLoader { // Reservation of identities
         let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
 
         // Reservation Phase 1: Reserve those IDs we can
-        try reserveRequired(ids: rawSnapshotIDs,
-                            type: .objectSnapshot,
-                            reservation: &reservation,
-                            identityManager: context.identityManager)
+        do {
+            try reserveRequired(
+                ids: rawSnapshotIDs,
+                type: .objectSnapshot,
+                reservation: &reservation,
+                identityManager: context.identityManager
+            )
+        }
+        catch {
+            throw .item(.objectSnapshots, error.index, error.error)
+        }
 
-        try reserveRequired(ids: rawFrameIDs,
-                            type: .frame,
-                            reservation: &reservation,
-                            identityManager: context.identityManager)
+        do {
+            try reserveRequired(
+                ids: rawFrameIDs,
+                type: .frame,
+                reservation: &reservation,
+                identityManager: context.identityManager
+            )
+        }
+        catch {
+            throw .item(.frames, error.index, error.error)
+        }
 
-        try reserveRequiredObjectIDs(ids: rawObjectIDs,
-                                     reservation: &reservation,
-                                     identityManager: context.identityManager)
+        do {
+            try reserveRequiredObjectIDs(
+                ids: rawObjectIDs,
+                reservation: &reservation,
+                identityManager: context.identityManager
+            )
+        }
+        catch {
+            throw .item(.objectSnapshots, error.index, error.error)
+        }
     }
 
     /// Reserve IDs from the list of foreign IDs if possible.
@@ -192,7 +213,7 @@ extension DesignLoader { // Reservation of identities
         type: IdentityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
-    throws (DesignLoaderError)
+    throws (DesignLoaderError.IndexedItemError)
     {
         // TODO: Rethink the error signalling. Returning first offensive seems a bit weird and not very intuitive.
         for (index, foreignID) in foreignIDs.enumerated() {
@@ -203,7 +224,7 @@ extension DesignLoader { // Reservation of identities
             precondition(reservation.rawIDMap[foreignID] == nil, "Failed validation")
 
             guard identityManager.reserve(rawValue, type: type) else {
-                throw .entityIdentityError(index, type, .duplicateID)
+                throw DesignLoaderError.IndexedItemError(index, .reservationConflict(type, foreignID))
             }
             reservation.rawIDMap[foreignID] = rawValue
             reservation.reserved.append(rawValue)
@@ -227,7 +248,7 @@ extension DesignLoader { // Reservation of identities
         ids foreignIDs: some Collection<ForeignEntityID?>,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
-    throws (DesignLoaderError)
+    throws (DesignLoaderError.IndexedItemError)
     {
         for (index, foreignID) in foreignIDs.enumerated() {
             guard let foreignID,
@@ -238,7 +259,7 @@ extension DesignLoader { // Reservation of identities
 
             guard !reservation.unavailableIDs.contains(rawValue),
                   identityManager.reserve(rawValue, type: .object) else {
-                throw .entityIdentityError(index, .object, .duplicateID)
+                throw DesignLoaderError.IndexedItemError(index, .reservationConflict(.object, foreignID))
             }
             reservation.rawIDMap[foreignID] = rawValue
             reservation.reserved.append(rawValue)
