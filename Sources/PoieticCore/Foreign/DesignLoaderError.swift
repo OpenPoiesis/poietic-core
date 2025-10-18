@@ -43,6 +43,8 @@ public enum DesignLoaderError: Error, Equatable, Sendable {
         // Identity
         /// Unable to reserve requested foreign ID as given type.
         case reservationConflict(IdentityType, ForeignEntityID)
+        case duplicateEntityID(IdentityType, EntityID.RawValue)
+
         case unknownID(ForeignEntityID)
         case duplicateForeignID(ForeignEntityID)
         case IDTypeMismatch
@@ -56,18 +58,20 @@ public enum DesignLoaderError: Error, Equatable, Sendable {
         // Frame-specific
         case unknownSnapshotID(ForeignEntityID)
         case duplicateObject(ForeignEntityID)
-        
+        case brokenStructuralIntegrity(StructuralIntegrityError)
+
         // Hierarchy
         case unknownParent
         case childrenMismatch
 
         // Other
         case duplicateName(String)
+
     }
     
     public enum DesignError: Error, Equatable, Sendable {
         case missingCurrentFrame
-        case brokenStructuralIntegrity(StructuralIntegrityError)
+        case namedReferenceTypeMismatch(String)
         case unknownFrameID(ForeignEntityID)
     }
 }

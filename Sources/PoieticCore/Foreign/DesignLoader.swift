@@ -122,48 +122,30 @@ public class DesignLoader {
         
         // 3. Create Snapshots
         // ----------------------------------------------------------------------
-        try createSnapshots(resolvedSnapshots: resolvedSnapshots,
-                            children: resolvedHierarchy)
+        let snapshots = try createSnapshots(
+            resolvedSnapshots: resolvedSnapshots,
+            children: resolvedHierarchy
+        )
 
         // 4. Load (commit)
         
-        try createFrames(in: design, context: context)
-        // 5. Post-process
-        if let list = systemLists["undo"] {
-            guard list.type == .frame else {
-                throw .invalidNamedReference("undo")
-            }
-            let ids: [FrameID]  = list.typedIDs()
-            design.undoList = ids
-        }
-        if let list = systemLists["redo"] {
-            guard list.type == .frame else {
-                throw .invalidNamedReference("redo")
-            }
-            let ids: [FrameID]  = list.typedIDs()
-            design.redoList = ids
-        }
-        if let ref = systemReferences["current_frame"] {
-            guard ref.type == .frame else {
-                throw .invalidNamedReference("current_frame")
-            }
-            design.currentFrameID = FrameID(rawValue: ref.id)
-        }
+        try createFrames(
+            resolvedFrames: resolvedFrames,
+            snapshots: snapshots,
+            in: design
+        )
 
-        // CurrentFrameID must be set when there is history.
-        if design.currentFrame == nil
-            && (!design.undoList.isEmpty || !design.redoList.isEmpty) {
-            throw .missingCurrentFrame
-        }
+        // FIXME: [IMPORTANT] We need guarantee that the raw design corresponds to the identity reservations
+        let namedReferences = try resolveNamedReferences(
+            rawDesign: rawDesign,
+            identities: identityResolution
+        )
+        
+        try finaliseDesign(design: design, namedReferences: namedReferences)
 
-        for (name, ref) in userReferences {
-            if ref.type == .frame {
-                context.design._namedFrames[name] = design.frame(FrameID(rawValue: ref.id))
-            }
-        }
-        design.identityManager.use(reserved: context.reserved)
+        design.identityManager.use(reserved: identityResolution.reserved)
 
-        return context.design
+        return design
     }
 
     /// Loads current frame of the design into a transient frame.
@@ -304,6 +286,47 @@ public class DesignLoader {
         return indices
     }
 
+    internal func finaliseDesign(design: Design,
+                                 namedReferences: ResolvedNamedReferences)
+    throws (DesignLoaderError)
+    {
+        // Precondition: IDs must be validated
+        if let list = namedReferences.systemLists["undo"] {
+            guard list.type == .frame else {
+                throw .design(.namedReferenceTypeMismatch("undo"))
+            }
+            let ids: [FrameID]  = list.typedIDs()
+            design.undoList = ids
+        }
+        if let list = namedReferences.systemLists["redo"] {
+            guard list.type == .frame else {
+                throw .design(.namedReferenceTypeMismatch("redo"))
+            }
+            let ids: [FrameID]  = list.typedIDs()
+            design.redoList = ids
+        }
+        if let ref = namedReferences.systemReferences["current_frame"] {
+            guard ref.type == .frame else {
+                throw .design(.namedReferenceTypeMismatch("current_frame"))
+            }
+            design.currentFrameID = FrameID(rawValue: ref.id)
+        }
+
+        // CurrentFrameID must be set when there is history.
+        if design.currentFrame == nil
+            && (!design.undoList.isEmpty || !design.redoList.isEmpty)
+        {
+            throw .design(.missingCurrentFrame)
+        }
+
+        for (name, ref) in namedReferences.userReferences {
+            if ref.type == .frame {
+                design.unsafeAssignName(name: name, frameID: FrameID(rawValue: ref.id))
+            }
+        }
+
+    }
+    
     /// Resolve parent-child hierarchy of object snapshots.
     ///
     /// The method requires the frames to be resolved.
@@ -386,31 +409,27 @@ public class DesignLoader {
     }
     
     
-    func createFrames(in design: Design,
-                      context: LoadingContext)
-    throws (DesignLoaderError) {
-        guard let resolvedFrames = context.resolvedFrames else { preconditionFailure() }
+    func createFrames(resolvedFrames: [ResolvedFrame],
+                      snapshots: [ObjectSnapshot],
+                      in design: Design)
+    throws (DesignLoaderError)
+    {
         var frames: [DesignFrame] = []
         
         for (i, resolvedFrame) in resolvedFrames.enumerated() {
-            let frame: DesignFrame
             guard !design.containsFrame(resolvedFrame.frameID) else {
                 // FIXME: [WIP] This should be a fatal error -> we did not resolve correctly
-                throw .duplicateFrame(resolvedFrame.frameID)
+                throw .item(.frames, i, .duplicateEntityID(.frame, resolvedFrame.frameID.rawValue))
             }
-            do {
-                frame = try createFrame(id: resolvedFrame.frameID,
-                                        snapshotIndices: resolvedFrame.snapshotIndices,
-                                        context: context)
-            }
-            catch {
-                throw .frameError(i, error)
-            }
+
+            let frameSnapshots = resolvedFrame.snapshotIndices.map { snapshots[$0] }
+            let frame = DesignFrame(design: design, id: resolvedFrame.frameID, snapshots: frameSnapshots)
+
             do {
                 try frame.validateStructure()
             }
             catch {
-                throw .brokenStructuralIntegrity(error)
+                throw .item(.frames, i, .brokenStructuralIntegrity(error))
             }
             frames.append(frame)
         }
@@ -419,17 +438,6 @@ public class DesignLoader {
         }
     }
 
-    // TODO: Add validation (validateStructure())
-    func createFrame(id designID: FrameID,
-                     snapshotIndices: [Int],
-                     context: LoadingContext) throws (RawFrameError) -> DesignFrame {
-        guard let allSnapshots = context.objectSnapshots else { preconditionFailure() }
-
-        let frameSnapshots = snapshotIndices.map { allSnapshots[$0] }
-        let frame = DesignFrame(design: context.design, id: designID, snapshots: frameSnapshots)
-        return frame
-    }
-    
     struct NamedReference {
         let type: IdentityType
         let id: EntityID.RawValue
