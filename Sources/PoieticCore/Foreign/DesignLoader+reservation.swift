@@ -5,6 +5,9 @@
 //  Created by Stefan Urbanek on 14/10/2025.
 //
 
+// TODO: Rename to +identity
+// TODO: [IMPORTANT] Remove possibility to have empty IDs in the raw design
+
 extension DesignLoader { // Reservation of identities
 
     /// Reserves identities for entities in the raw design, such as snapshots, objects and frames.
@@ -32,7 +35,7 @@ extension DesignLoader { // Reservation of identities
     /// Orphaned snapshots will be ignored. Objects with orphaned object identity will be preserved.
     ///
     /// - Precondition: The context must be in the initialization phase.
-    internal func resolveIdentities(context: ValidatedLoadingContext,
+    internal func resolveIdentities(resolution: ValidationResolution,
                                     identityStrategy: IdentityStrategy,
                                     unavailableIDs: Set<EntityID.RawValue> = Set())
         throws (DesignLoaderError) -> IdentityResolution
@@ -44,30 +47,30 @@ extension DesignLoader { // Reservation of identities
         case .createNew:
             break // Nothing to create, all identities will be new
         case .preserveOrCreate:
-            try reserveIdentitiesWithAutoStrategy(context, reservation: &reservation)
+            try reserveIdentitiesWithAutoStrategy(resolution, reservation: &reservation)
         case .requireProvided:
-            try reserveIdentitiesWithRequireStrategy(context, reservation: &reservation)
+            try reserveIdentitiesWithRequireStrategy(resolution, reservation: &reservation)
         }
 
         // Reservation Phase 2: Create those IDs we do not have
-        let rawFrameIDs = context.rawFrames.map { $0.id }
-        let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
-        let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
+        let rawFrameIDs = resolution.rawFrames.map { $0.id }
+        let rawSnapshotIDs = resolution.rawSnapshots.map { $0.snapshotID }
+        let rawObjectIDs = resolution.rawSnapshots.map { $0.objectID }
 
         let frameIDs: [FrameID] = finaliseReservation(
             ids: rawFrameIDs,
             reservation: &reservation,
-            identityManager: context.identityManager
+            identityManager: resolution.identityManager
         )
         let snapshotIDs: [ObjectSnapshotID] = finaliseReservation(
             ids: rawSnapshotIDs,
             reservation: &reservation,
-            identityManager: context.identityManager
+            identityManager: resolution.identityManager
         )
         let objectIDs: [ObjectID] = finaliseReservation(
             ids: rawObjectIDs,
             reservation: &reservation,
-            identityManager: context.identityManager
+            identityManager: resolution.identityManager
         )
 
         // Sanity checks
@@ -92,7 +95,7 @@ extension DesignLoader { // Reservation of identities
         )
     }
     
-    internal func reserveIdentitiesWithAutoStrategy(_ context: ValidatedLoadingContext,
+    internal func reserveIdentitiesWithAutoStrategy(_ context: ValidationResolution,
                                                     reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
@@ -114,7 +117,7 @@ extension DesignLoader { // Reservation of identities
                          identityManager: context.identityManager)
     }
 
-    internal func reserveIdentitiesWithRequireStrategy(_ context: ValidatedLoadingContext,
+    internal func reserveIdentitiesWithRequireStrategy(_ context: ValidationResolution,
                                                        reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {

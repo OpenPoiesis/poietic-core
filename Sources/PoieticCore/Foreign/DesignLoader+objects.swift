@@ -7,17 +7,17 @@
 
 extension DesignLoader { // Object snapshots
     internal func resolveObjectSnapshots(
-        context: ValidatedLoadingContext,
+        resolution: ValidationResolution,
         identities: IdentityResolution
-    ) throws (DesignLoaderError) -> [ResolvedObjectSnapshot]
+    ) throws (DesignLoaderError) -> PartialSnapshotResolution
     {
         // Sanity check
-        assert(identities.snapshotIDs.count == context.rawSnapshots.count)
-        assert(identities.objectIDs.count == context.rawSnapshots.count)
+        assert(identities.snapshotIDs.count == resolution.rawSnapshots.count)
+        assert(identities.objectIDs.count == resolution.rawSnapshots.count)
         
         var snapshots: [ResolvedObjectSnapshot] = []
         
-        for (i, rawSnapshot) in context.rawSnapshots.enumerated() {
+        for (i, rawSnapshot) in resolution.rawSnapshots.enumerated() {
             let snapshot: ResolvedObjectSnapshot
             do {
                 snapshot = try resolveObjectSnapshot(
@@ -32,8 +32,7 @@ extension DesignLoader { // Object snapshots
             snapshots.append(snapshot)
         }
 
-        return snapshots
-
+        return PartialSnapshotResolution(objectSnapshots: snapshots, identities: identities)
     }
 
     internal func resolveObjectSnapshot(
@@ -112,18 +111,19 @@ extension DesignLoader { // Object snapshots
     ///
     /// Reservation is created using ``reserveIdentities(snapshots:with:)``.
     ///
-    internal func createSnapshots(
-        resolvedSnapshots: [ResolvedObjectSnapshot],
-        children: [Int:[ObjectID]]
-    ) throws (DesignLoaderError) -> [ObjectSnapshot]
+    internal func createSnapshots(resolution: SnapshotHierarchyResolution)
+    throws (DesignLoaderError) -> [ObjectSnapshot]
     {
         var result: [ObjectSnapshot] = []
         
-        for (i, resolvedSnapshot) in resolvedSnapshots.enumerated() {
+        for (i, resolvedSnapshot) in resolution.objectSnapshots.enumerated() {
             let snapshot: ObjectSnapshot
 
             do {
-                snapshot = try createSnapshot(resolvedSnapshot, children: children[i])
+                snapshot = try createSnapshot(
+                    resolvedSnapshot,
+                    children: resolution.children[resolvedSnapshot.snapshotID]
+                )
             }
             catch {
                 throw .item(.objectSnapshots, i, error)

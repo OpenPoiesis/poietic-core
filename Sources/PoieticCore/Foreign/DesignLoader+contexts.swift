@@ -12,8 +12,7 @@ extension DesignLoader {
     ///
     /// Next stage: ``ReservationContext``.
     ///
-    struct ValidatedLoadingContext {
-        // TODO: Rename to ValidatedRawDesign
+    struct ValidationResolution {
         // TODO: Include translated object types for named references and lists
         let identityManager: IdentityManager
         /// Validated raw snapshots, no duplicate IDs.
@@ -41,7 +40,7 @@ extension DesignLoader {
     
     /// Stage 3 context.
     ///
-    struct IdentityResolution {
+    class IdentityResolution {
         /// All reserved IDs regardless of their type. This collection is used to accept or release
         /// the reservations.
         ///
@@ -72,7 +71,16 @@ extension DesignLoader {
         /// This is used for frame content resolution and for error reporting.
         ///
         let snapshotIndex: [ObjectSnapshotID:Int]
-        
+
+        internal init(reserved: [UInt64], rawIDMap: [ForeignEntityID : UInt64], frameIDs: [FrameID], snapshotIDs: [ObjectSnapshotID], objectIDs: [ObjectID], snapshotIndex: [ObjectSnapshotID : Int]) {
+            self.reserved = reserved
+            self.rawIDMap = rawIDMap
+            self.frameIDs = frameIDs
+            self.snapshotIDs = snapshotIDs
+            self.objectIDs = objectIDs
+            self.snapshotIndex = snapshotIndex
+        }
+
         subscript<T>(foreignID: ForeignEntityID) -> EntityID<T>? {
             guard let value = rawIDMap[foreignID] else { return nil }
             return EntityID<T>(rawValue: value)
@@ -85,7 +93,12 @@ extension DesignLoader {
     }
 
     // TODO: Pick a better name or split to snapshot/hierarchy
-    struct ResolvedObjectSnapshot {
+    class ResolvedObjectSnapshot {
+
+        /// Index of the raw snapshot from which the resolved snapshot was created.
+        /// Used for error reporting.
+//        let rawSnapshotIndex: Int
+        
         /// Final object snapshot ID.
         ///
         /// If the phase is `Phase/empty` then the property contains an ID that is being requested.
@@ -114,7 +127,6 @@ extension DesignLoader {
                       structuralType: StructuralType?,
                       structureReferences: [ObjectID] = [],
                       parent: ObjectID? = nil,
-                      children: [ObjectID]? = nil,
                       attributes: [String:Variant]? = nil) {
             self.snapshotID = snapshotID
             self.objectID = objectID
@@ -128,17 +140,55 @@ extension DesignLoader {
     struct ObjectResolution {
         let resolvedSnapshots: [ResolvedObjectSnapshot]
     }
+    
     struct ResolvedFrame {
         let frameID: FrameID
-        /// Index of the snapshot in the ``IdentityResolution`` or to list of resolved snapshots.
-        // TODO: Reconsider necessity of the index, maybe just have snapshot ID -> (objectID) map
-        let snapshotIndices: [Int]
+        let snapshots: [ObjectSnapshotID]
     }
     
-    /// Mutable context using during hierarchy resolution of multiple frames.
-    struct HierarchyResolutionContext {
+    struct FrameResolution {
+        let frames: [ResolvedFrame]
+    }
+    
+    struct PartialSnapshotResolution {
         /// Mapping between snapshot index and children list.
-        var children: [Int:[ObjectID]]
+        let objectSnapshots: [ResolvedObjectSnapshot]
+        let identities: IdentityResolution
+        
+        subscript(id: ObjectSnapshotID) -> ResolvedObjectSnapshot? {
+            guard let index = identities.snapshotIndex[id] else { return nil }
+            return objectSnapshots[index]
+        }
+    }
+
+    /// Mutable context using during hierarchy resolution of multiple frames.
+    struct SnapshotHierarchyResolution {
+        /// Mapping between snapshot index and children list.
+        let objectSnapshots: [ResolvedObjectSnapshot]
+        let children: [ObjectSnapshotID:[ObjectID]]
+        let identities: IdentityResolution
+        
+        subscript(id: ObjectSnapshotID) -> ResolvedObjectSnapshot? {
+            guard let index = identities.snapshotIndex[id] else { return nil }
+            return objectSnapshots[index]
+        }
+    }
+
+    struct FrameLoadingResolution {
+        // TODO: Find a better name
+        /// Mapping between snapshot index and children list.
+        let resolvedFrames: [ResolvedFrame]
+        let objectSnapshots: [ObjectSnapshot]
+        let snapshotMap: [ObjectSnapshotID:ObjectSnapshot]
+
+        subscript(id: ObjectSnapshotID) -> ObjectSnapshot? {
+            return snapshotMap[id]
+        }
+    }
+
+    struct LoadingResolution {
+        let frames: [ResolvedFrame]
+        let snapshots: [ObjectSnapshot]
     }
     
     struct ResolvedNamedReferences {

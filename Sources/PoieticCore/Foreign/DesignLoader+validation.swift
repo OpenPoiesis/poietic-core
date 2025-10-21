@@ -19,7 +19,7 @@ extension DesignLoader {
     ///         references.
     ///
     internal func validate(rawDesign: RawDesign, identityManager: IdentityManager)
-        throws (DesignLoaderError) -> ValidatedLoadingContext
+        throws (DesignLoaderError) -> ValidationResolution
     {
         // 1. Validate duplicate IDs.
         var seen: Set<ForeignEntityID> = Set()
@@ -86,7 +86,7 @@ extension DesignLoader {
         }
 
 
-        return ValidatedLoadingContext(identityManager: identityManager,
+        return ValidationResolution(identityManager: identityManager,
                                        rawSnapshots: rawDesign.snapshots,
                                        rawFrames: rawDesign.frames)
         

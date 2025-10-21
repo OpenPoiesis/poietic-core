@@ -12,7 +12,11 @@
 public enum DesignLoaderError: Error, Equatable, Sendable {
     // TODO: Add CustomStringConvertible
     case design(DesignError)
+    /// Error with a collection as a whole
     case collection(CollectionType, CollectionError)
+    /// Error with a particular item in a collection of raw (foreign) objetcs.
+    ///
+    /// Elements of the case: collection type, index of the offending item, concrete item error.
     case item(CollectionType, Int, ItemError)
     
     /// Error of unspecified type that should be caught and wrapped as .item error by the caller.
