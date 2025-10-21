@@ -18,7 +18,7 @@
 import Testing
 @testable import PoieticCore
 
-@Suite
+@Suite("Design Loader: raw design validation")
 struct DesignLoaderValidationTest {
     let strayIdentityManager: IdentityManager
     let loader: DesignLoader
@@ -140,7 +140,7 @@ struct DesignLoaderValidationTest {
 
 }
 
-@Suite
+@Suite("Design Loader: identity reservation")
 struct DesignLoaderReservationTests {
     let strayIdentityManager: IdentityManager
     let loader: DesignLoader
@@ -374,6 +374,190 @@ struct DesignLoaderReservationTests {
     }
 }
 
+@Suite("Design Loader: snapshot resolution")
+struct DesignLoaderSnapshotResolutionTests {
+    let strayIdentityManager: IdentityManager
+    let loader: DesignLoader
+    
+    init() {
+        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.strayIdentityManager = IdentityManager()
+    }
+    
+    @Test func empty() async throws {
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [],
+            rawFrames: []
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .preserveOrCreate)
+        let snapshots = try loader.resolveObjectSnapshots(resolution: validation, identities: identities)
+        #expect(snapshots.objectSnapshots.isEmpty)
+    }
+    
+    // TEST: .unknownID for snapshot reference
+
+    @Test("Unknown ID in object snapshot structure")
+    func unknownIDinStructure() async throws {
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [
+                RawSnapshot(snapshotID: .int(10), id: .int(20),
+                            structure: RawStructure("edge", references: [.int(999), .int(999)]))
+            ],
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .requireProvided)
+        
+        #expect(throws: DesignLoaderError.item(.objectSnapshots, 0, .unknownID(.int(999)))) {
+            _ = try loader.resolveObjectSnapshots(resolution: validation,
+                                                  identities: identities)
+        }
+    }
+
+    @Test("Invalid structural type")
+    func invalidStructure() async throws {
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [
+                RawSnapshot(typeName: "Test",
+                            snapshotID: .int(10), id: .int(20),
+                            structure: RawStructure("carrot", references: []))
+            ],
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .requireProvided)
+        
+        #expect(throws: DesignLoaderError.item(.objectSnapshots, 0, .invalidStructuralType)) {
+            _ = try loader.resolveObjectSnapshots(resolution: validation,
+                                                  identities: identities)
+        }
+    }
+    @Test("Missing object type name")
+    func missingTypeName() async throws {
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [
+                RawSnapshot(typeName: nil,
+                            snapshotID: .int(10), id: .int(20))
+            ],
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .requireProvided)
+        
+        #expect(throws: DesignLoaderError.item(.objectSnapshots, 0, .missingObjectType)) {
+            _ = try loader.resolveObjectSnapshots(resolution: validation,
+                                                  identities: identities)
+        }
+    }
+    @Test("Name from Object ID (compatibility)")
+    func nameFromObjectID() async throws {
+        let loader = DesignLoader(metamodel: TestMetamodel, options: .useIDAsNameAttribute)
+
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [
+                RawSnapshot(typeName: "Test",
+                            snapshotID: .int(10), id: .string("rabbit"))
+            ],
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .requireProvided)
+        
+        let snapshots = try loader.resolveObjectSnapshots(resolution: validation,
+                                                          identities: identities)
+        #expect(snapshots.objectSnapshots[0].typeName == "Test")
+        #expect(snapshots.objectSnapshots[0].snapshotID == ObjectSnapshotID(10))
+        #expect(snapshots.objectSnapshots[0].attributes?["name"] == Variant("rabbit"))
+    }
+
+    @Test("Correct Resolve")
+    func correctResolve() async throws {
+        let validation = DesignLoader.ValidationResolution(
+            identityManager: strayIdentityManager,
+            rawSnapshots: [
+                RawSnapshot(typeName: "Test",
+                            snapshotID: .int(100), id: .int(10),
+                            structure: RawStructure("node"),
+                            parent: .int(20),
+                            attributes: ["name": Variant("rabbit")]),
+                RawSnapshot(typeName: "Test",
+                            snapshotID: .int(200), id: .int(20),
+                            structure: RawStructure("edge", references: [.int(20), .int(20)])),
+                RawSnapshot(typeName: "Test",
+                            snapshotID: .int(300), id: .int(30),
+                            structure: RawStructure("unstructured")),
+            ],
+        )
+        let identities = try loader.resolveIdentities(resolution: validation,
+                                                      identityStrategy: .requireProvided)
+        
+        let result = try loader.resolveObjectSnapshots(resolution: validation,
+                                                       identities: identities)
+        let snapshots = result.objectSnapshots
+        #expect(snapshots.count == 3)
+        #expect(snapshots[0].typeName == "Test")
+        #expect(snapshots[0].snapshotID == ObjectSnapshotID(100))
+        #expect(snapshots[0].objectID == ObjectID(10))
+        #expect(snapshots[0].structureType == .node)
+        #expect(snapshots[0].structureReferences == [])
+        #expect(snapshots[0].parent == ObjectID(20))
+        #expect(snapshots[0].attributes == ["name": Variant("rabbit")])
+        
+        #expect(snapshots[1].snapshotID == ObjectSnapshotID(200))
+        #expect(snapshots[1].objectID == ObjectID(20))
+        #expect(snapshots[1].structureType == .edge)
+        #expect(snapshots[1].structureReferences == [ObjectID(20), ObjectID(20)])
+
+        #expect(snapshots[2].snapshotID == ObjectSnapshotID(300))
+        #expect(snapshots[2].objectID == ObjectID(30))
+        #expect(snapshots[2].structureType == .unstructured)
+        #expect(snapshots[2].structureReferences == [])
+    }
+
+
+    // TODO: [TEST] .unknownID for snapshot parent
+    
+}
+
+@Suite("Design Loader: hierarchy")
+struct DesignLoaderHierarchyTests {
+    let strayIdentityManager: IdentityManager
+    let loader: DesignLoader
+    
+    init() {
+        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.strayIdentityManager = IdentityManager()
+    }
+    
+    // TODO: ---> Continue HERE <---
+    // TODO: [TEST] OK: default structural type from object type (unstruct + node)
+    // TODO: [TEST] ERR: Unknown parent
+    // TODO: [TEST] ERR: Children mismatch
+
+}
+
+@Suite("Design Loader: snapshot resolution")
+struct DesignLoaderSnapshotCreationTests {
+    let strayIdentityManager: IdentityManager
+    let loader: DesignLoader
+    
+    init() {
+        self.loader = DesignLoader(metamodel: TestMetamodel)
+        self.strayIdentityManager = IdentityManager()
+    }
+    
+    // TODO: ---> Continue HERE <---
+    // TODO: [TEST] OK: default structural type from object type (unstruct + node)
+    // TODO: [TEST] ERR: Invalid structure type
+    // TODO: [TEST] ERR: mismatch given str type and object struct type
+    // TODO: [TEST] ERR: mismatch of argument number (node/unstr = 0, edge = 2)
+    // TODO: [TEST] ERR: unknown object type
+
+}
+
+
 struct RawDesignLoaderTest {
 //    let design: Design
 //    let loader: DesignLoader
@@ -381,50 +565,6 @@ struct RawDesignLoaderTest {
 //        self.loader = DesignLoader(metamodel: TestMetamodel)
 //        self.design = Design(metamodel: TestMetamodel)
 //        
-//    }
-//    
-//    @Test func loadNoID() async throws {
-//        let raw = RawDesign(
-//            snapshots: [
-//                RawSnapshot(typeName: "TestPlain")
-//            ]
-//        )
-//        let design = try loader.load(raw)
-//        #expect(design.objectSnapshots.isEmpty == true)
-//    }
-//    @Test func loadWithSnapshotID() async throws {
-//        let raw = RawDesign(
-//            snapshots: [
-//                RawSnapshot(typeName: "TestPlain", snapshotID: ForeignEntityID.int(1))
-//            ],
-//            frames: [
-//                RawFrame(snapshots: [.int(1)])
-//            ]
-//        )
-//        let design = try loader.load(raw)
-//        let object = try #require(design.objectSnapshots.first)
-//        #expect(object.snapshotID == ObjectSnapshotID(1))
-//    }
-//    @Test func structuralType() async throws {
-//        let raw = RawDesign(
-//            snapshots: [
-//                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10), structure: RawStructure("unstructured")),
-//                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), structure: RawStructure("node")),
-//            ],
-//            frames: [
-//                RawFrame(snapshots: [.int(100), .int(101)])
-//            ]
-//        )
-//        let design = try loader.load(raw)
-//        let o1 = try #require(design.snapshot(ObjectSnapshotID(100)))
-//        #expect(o1.objectID == ObjectID(10))
-//        #expect(o1.snapshotID == ObjectSnapshotID(100))
-//        #expect(o1.structure == .unstructured)
-//        
-//        let o2 = try #require(design.snapshot(ObjectSnapshotID(101)))
-//        #expect(o2.objectID == ObjectID(11))
-//        #expect(o2.snapshotID == ObjectSnapshotID(101))
-//        #expect(o2.structure == .node)
 //    }
 //    
 //    // TODO: [WIP] [IMPORTANT] Fix parent-child hierarchy
