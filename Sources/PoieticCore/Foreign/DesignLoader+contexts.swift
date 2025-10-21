@@ -20,6 +20,14 @@ extension DesignLoader {
         /// Validated raw frames, no duplicate IDs.
         let rawFrames: [RawFrame]
 //        let unavailableIDs: Set<EntityID.RawValue>
+
+        internal init(identityManager: IdentityManager,
+                      rawSnapshots: [RawSnapshot] = [],
+                      rawFrames: [RawFrame] = []) {
+            self.identityManager = identityManager
+            self.rawSnapshots = rawSnapshots
+            self.rawFrames = rawFrames
+        }
     }
   
     // Used in: resolve identities

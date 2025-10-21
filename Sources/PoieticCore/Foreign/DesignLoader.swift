@@ -192,35 +192,35 @@ public class DesignLoader {
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
-        fatalError("Not refactored")
+
         // 1. If there is current frame:
         //    1.1. Find all snapshots with given ID
         //    1.2. throw error if not found
         // 2. Make sure all snapshot IDs are unique
         
-        // Alternative: Use some kind of "resolved raw design"
+        var snapshots: [RawSnapshot] = []
         
-//        var snapshots: [RawSnapshot] = []
-//        
-//        if let currentFrameID = rawDesign.currentFrameID {
-//            guard let currentFrame = rawDesign.frames.first(where: { $0.id == currentFrameID }) else {
-//                throw .design(.unknownFrameID(currentFrameID))
-//            }
-//            
-//            for (i, snapshotID) in currentFrame.snapshots.enumerated() {
-//                guard let snapshot = rawDesign.first(snapshotWithID: snapshotID) else {
-//                    throw .snapshotError(i, .unknownObjectID(snapshotID))
-//                }
-//                snapshots.append(snapshot)
-//            }
-//        }
-//        else {
-//            guard rawDesign.frames.isEmpty else {
-//                throw .missingCurrentFrame
-//            }
-//            snapshots = design.snapshots
-//        }
-//        try load(snapshots, into: frame)
+        if let currentFrameID = rawDesign.currentFrameID {
+            guard let frameIndex = rawDesign.frames.firstIndex(where: { $0.id == currentFrameID }) else {
+                throw .design(.unknownFrameID(currentFrameID))
+            }
+            
+            let currentFrame = rawDesign.frames[frameIndex]
+            
+            for snapshotID in currentFrame.snapshots {
+                guard let snapshot = rawDesign.first(snapshotWithID: snapshotID) else {
+                    throw .item(.frames, frameIndex, .unknownID(snapshotID))
+                }
+                snapshots.append(snapshot)
+            }
+        }
+        else {
+            guard rawDesign.frames.isEmpty else {
+                throw .design(.missingCurrentFrame)
+            }
+            snapshots = rawDesign.snapshots
+        }
+        try load(snapshots, into: frame)
     }
     
     /// Load raw snapshots into a transient frame.

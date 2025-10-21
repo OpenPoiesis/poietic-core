@@ -108,11 +108,10 @@ extension DesignLoader { // Reservation of identities
                          reservation: &reservation,
                          identityManager: context.identityManager)
         reserveAvailable(ids: snapshotIDs,
-                         type: .frame,
+                         type: .objectSnapshot,
                          reservation: &reservation,
                          identityManager: context.identityManager)
         reserveAvailableObjectIDs(ids: objectIDs,
-                         type: .frame,
                          reservation: &reservation,
                          identityManager: context.identityManager)
     }
@@ -187,14 +186,12 @@ extension DesignLoader { // Reservation of identities
 
     internal func reserveAvailableObjectIDs(
         ids foreignIDs: some Collection<ForeignEntityID>,
-        type: IdentityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     {
         for foreignID in foreignIDs {
             guard let rawValue = foreignID.rawEntityIDValue else { continue }
             guard !reservation.unavailableIDs.contains(rawValue) else { continue }
-            
             if identityManager.reserveIfNeeded(ObjectID(rawValue: rawValue)) {
                 precondition(reservation.rawIDMap[foreignID] == nil) // Validation failed
                 reservation.rawIDMap[foreignID] = rawValue
@@ -258,10 +255,16 @@ extension DesignLoader { // Reservation of identities
                   let rawValue = foreignID.rawEntityIDValue
             else { continue }
             
-            precondition(reservation.rawIDMap[foreignID] == nil, "Failed validation")
-
-            guard !reservation.unavailableIDs.contains(rawValue),
-                  identityManager.reserve(rawValue, type: .object) else {
+            if let existing = reservation.rawIDMap[foreignID],
+               identityManager.type(existing) == .object
+            {
+                continue
+            }
+            
+            else if !reservation.unavailableIDs.contains(rawValue),
+                    identityManager.reserve(rawValue, type: .object) {
+            }
+            else {
                 throw DesignLoaderError.IndexedItemError(index, .reservationConflict(.object, foreignID))
             }
             reservation.rawIDMap[foreignID] = rawValue

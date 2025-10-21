@@ -45,7 +45,7 @@ extension DesignLoader {
         
         for (index, ref) in rawDesign.systemReferences.enumerated() {
             guard self.entityType(ref.type) != nil else {
-                throw .item(.userReferences, index, .unknownEntityType(ref.type))
+                throw .item(.systemReferences, index, .unknownEntityType(ref.type))
             }
             guard seenNames.contains(ref.name) else {
                 throw .item(.systemReferences, index, .duplicateName(ref.name))

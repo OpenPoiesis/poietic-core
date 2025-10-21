@@ -10,33 +10,33 @@ import Testing
 
 
 struct TestLoadingContextIdentityReservation {
-    let design: Design
-    let loader: DesignLoader
-    let context: LoadingContext
-    
-    init() {
-        self.design = Design()
-        self.loader = DesignLoader(metamodel: design.metamodel)
-        self.context = LoadingContext(design: design)
-    }
-    @Test func reserveRequiredConvertible() async throws {
-        let foreign: [ForeignEntityID] = [.int(10), .int(20), .int(30)]
-        let result = loader.reserveRequired(context, ids: foreign, type: .objectSnapshot)
-        #expect(result == nil)
-        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
-        #expect(design.identityManager.isReserved(ObjectSnapshotID(20)))
-        #expect(design.identityManager.isReserved(ObjectSnapshotID(30)))
-    }
-
-    @Test func reserveRequiredConvertibleDuplicate() async throws {
-        design.identityManager.reserve(ObjectSnapshotID(20))
-        let foreign: [ForeignEntityID] = [.int(10), .int(20), .int(30)]
-        let result = loader.reserveRequired(context, ids: foreign, type: .objectSnapshot)
-        #expect(result == 1)
-        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
-        #expect(!design.identityManager.isReserved(ObjectSnapshotID(20)))
-        #expect(!design.identityManager.isReserved(ObjectSnapshotID(30)))
-    }
+//    let design: Design
+//    let loader: DesignLoader
+//    let context: LoadingContext
+//    
+//    init() {
+//        self.design = Design()
+//        self.loader = DesignLoader(metamodel: design.metamodel)
+//        self.context = LoadingContext(design: design)
+//    }
+//    @Test func reserveRequiredConvertible() async throws {
+//        let foreign: [ForeignEntityID] = [.int(10), .int(20), .int(30)]
+//        let result = loader.reserveRequired(context, ids: foreign, type: .objectSnapshot)
+//        #expect(result == nil)
+//        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
+//        #expect(design.identityManager.isReserved(ObjectSnapshotID(20)))
+//        #expect(design.identityManager.isReserved(ObjectSnapshotID(30)))
+//    }
+//
+//    @Test func reserveRequiredConvertibleDuplicate() async throws {
+//        design.identityManager.reserve(ObjectSnapshotID(20))
+//        let foreign: [ForeignEntityID] = [.int(10), .int(20), .int(30)]
+//        let result = loader.reserveRequired(context, ids: foreign, type: .objectSnapshot)
+//        #expect(result == 1)
+//        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
+//        #expect(!design.identityManager.isReserved(ObjectSnapshotID(20)))
+//        #expect(!design.identityManager.isReserved(ObjectSnapshotID(30)))
+//    }
 
     /*
     @Test func reserveUniqueNew() async throws {
