@@ -50,6 +50,7 @@ extension DesignLoader {
             guard !seenNames.contains(ref.name) else {
                 throw .item(.systemReferences, index, .duplicateName(ref.name))
             }
+            seenNames.insert(ref.name)
         }
         
         seenNames.removeAll()
@@ -61,6 +62,7 @@ extension DesignLoader {
             guard !seenNames.contains(ref.name) else {
                 throw .item(.userReferences, index, .duplicateName(ref.name))
             }
+            seenNames.insert(ref.name)
         }
 
         seenNames.removeAll()
@@ -72,6 +74,7 @@ extension DesignLoader {
             guard !seenNames.contains(list.name) else {
                 throw .item(.systemLists, listIndex, .duplicateName(list.name))
             }
+            seenNames.insert(list.name)
         }
 
         seenNames.removeAll()
@@ -83,6 +86,7 @@ extension DesignLoader {
             guard !seenNames.contains(list.name) else {
                 throw .item(.userLists, listIndex, .duplicateName(list.name))
             }
+            seenNames.insert(list.name)
         }
 
 

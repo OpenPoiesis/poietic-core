@@ -103,7 +103,7 @@ struct DesignLoaderValidationTest {
             RawNamedReference("ref", type: "object", id: .int(1)),
         ])
         
-        #expect(throws: DesignLoaderError.item(.userReferences, 0, .duplicateName("ref"))) {
+        #expect(throws: DesignLoaderError.item(.userReferences, 1, .duplicateName("ref"))) {
             _ = try loader.validate(rawDesign: rawDesign1,
                                     identityManager: strayIdentityManager)
         }
@@ -112,7 +112,7 @@ struct DesignLoaderValidationTest {
             RawNamedReference("ref", type: "object", id: .int(1)),
         ])
         
-        #expect(throws: DesignLoaderError.item(.systemReferences, 0, .duplicateName("ref"))) {
+        #expect(throws: DesignLoaderError.item(.systemReferences, 1, .duplicateName("ref"))) {
             _ = try loader.validate(rawDesign: rawDesign2,
                                     identityManager: strayIdentityManager)
         }
@@ -122,7 +122,7 @@ struct DesignLoaderValidationTest {
             RawNamedList("list", itemType: "object", ids: [])
         ])
         
-        #expect(throws: DesignLoaderError.item(.userLists, 0, .duplicateName("list"))) {
+        #expect(throws: DesignLoaderError.item(.userLists, 1, .duplicateName("list"))) {
             _ = try loader.validate(rawDesign: rawDesign3,
                                     identityManager: strayIdentityManager)
         }
@@ -132,7 +132,7 @@ struct DesignLoaderValidationTest {
             RawNamedList("list", itemType: "object", ids: [])
         ])
         
-        #expect(throws: DesignLoaderError.item(.systemLists, 0, .duplicateName("list"))) {
+        #expect(throws: DesignLoaderError.item(.systemLists, 1, .duplicateName("list"))) {
             _ = try loader.validate(rawDesign: rawDesign4,
                                     identityManager: strayIdentityManager)
         }
