@@ -47,7 +47,7 @@ extension DesignLoader {
             guard self.entityType(ref.type) != nil else {
                 throw .item(.systemReferences, index, .unknownEntityType(ref.type))
             }
-            guard seenNames.contains(ref.name) else {
+            guard !seenNames.contains(ref.name) else {
                 throw .item(.systemReferences, index, .duplicateName(ref.name))
             }
         }
@@ -58,7 +58,7 @@ extension DesignLoader {
             guard self.entityType(ref.type) != nil  else {
                 throw .item(.userReferences, index, .unknownEntityType(ref.type))
             }
-            guard seenNames.contains(ref.name) else {
+            guard !seenNames.contains(ref.name) else {
                 throw .item(.userReferences, index, .duplicateName(ref.name))
             }
         }
@@ -69,7 +69,7 @@ extension DesignLoader {
             guard self.entityType(list.itemType) != nil  else {
                 throw .item(.systemLists, listIndex, .unknownEntityType(list.itemType))
             }
-            guard seenNames.contains(list.name) else {
+            guard !seenNames.contains(list.name) else {
                 throw .item(.systemLists, listIndex, .duplicateName(list.name))
             }
         }
@@ -80,7 +80,7 @@ extension DesignLoader {
             guard self.entityType(list.itemType) != nil  else {
                 throw .item(.userLists, listIndex, .unknownEntityType(list.itemType))
             }
-            guard seenNames.contains(list.name) else {
+            guard !seenNames.contains(list.name) else {
                 throw .item(.userLists, listIndex, .duplicateName(list.name))
             }
         }

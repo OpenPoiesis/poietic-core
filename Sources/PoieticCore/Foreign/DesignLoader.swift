@@ -313,11 +313,26 @@ public class DesignLoader {
     throws (DesignLoaderError.ItemError) -> [ObjectSnapshotID]
     {
         var ids: [ObjectSnapshotID] = []
+        var seenObjects: Set<ObjectID> = []
+
         for foreignSnapshotID in frame.snapshots {
-            guard let id: ObjectSnapshotID = identities[foreignSnapshotID] else {
+            guard let snapshotID: ObjectSnapshotID = identities[foreignSnapshotID] else {
                 throw .unknownSnapshotID(foreignSnapshotID)
             }
-            ids.append(id)
+
+            // Check for duplicate objects (same object with different snapshots in one frame)
+            // Get objectID using the snapshot index
+            guard let index = identities.snapshotIndex[snapshotID] else {
+                preconditionFailure("Snapshot ID must be in index")
+            }
+            let objectID = identities.objectIDs[index]
+
+            if seenObjects.contains(objectID) {
+                throw .duplicateObject(foreignSnapshotID)
+            }
+            seenObjects.insert(objectID)
+
+            ids.append(snapshotID)
         }
         return ids
     }
@@ -330,40 +345,41 @@ public class DesignLoader {
                                    snapshotResolution: PartialSnapshotResolution)
     throws (DesignLoaderError) -> SnapshotHierarchyResolution
     {
-        var finalChildrenMap: [ObjectSnapshotID:[ObjectID]] = [:] // All children resolved
+        // Map of all snapshots in all frames. `nil` means "Snapshot was considered but has
+        // no children". Empty array should not happen.
+        var allChildrenMap: [ObjectSnapshotID:[ObjectID]?] = [:]
         
         for (frameIndex, frame) in frameResolution.frames.enumerated() {
-            let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
-            var snapshots: [ResolvedObjectSnapshot] = []
-            for id in frame.snapshots {
-                guard let snapshot = snapshotResolution[id] else {
-                    preconditionFailure("Bad snapshot resolution")
-                }
-                snapshots.append(snapshot)
+            let frameChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
+            let snapshots: [ResolvedObjectSnapshot] = frame.snapshots.compactMap {
+                snapshotResolution[$0]
             }
+            precondition(snapshots.count == frame.snapshots.count, "Broken snapshot resolution")
             
             do {
-                childrenMap = try resolveChildren(snapshots: snapshots,
-                                                  snapshotResolution: snapshotResolution)
+                frameChildrenMap = try resolveChildren(
+                    snapshots: snapshots,
+                    snapshotResolution: snapshotResolution
+                )
             }
             catch {
                 throw .item(.objectSnapshots, error.index, error.error)
             }
             
-            // Integrity check: validate created children lists whether they match
-            // existing children list.
-            for (index, resolved) in childrenMap {
-                if let existing = finalChildrenMap[index], resolved != existing {
+            
+            for snapshotID in frame.snapshots {
+                let children = frameChildrenMap[snapshotID]
+                if let seen = allChildrenMap[snapshotID], seen != children {
                     throw .item(.frames, frameIndex, .childrenMismatch)
                 }
-                else {
-                    finalChildrenMap[index] = resolved
-                }
+                allChildrenMap[snapshotID] = children
             }
         }
+        
+        
         return SnapshotHierarchyResolution(
             objectSnapshots: snapshotResolution.objectSnapshots,
-            children: finalChildrenMap,
+            children: allChildrenMap.compactMapValues { $0 },
             identities: snapshotResolution.identities
         )
     }
@@ -426,7 +442,7 @@ public class DesignLoader {
             let childObjectID = snapshot.objectID
             childrenMap[parentSnapshotID, default: []].append(childObjectID)
         }
-        
+        assert(childrenMap.values.allSatisfy { !$0.isEmpty })
         return childrenMap
     }
     
