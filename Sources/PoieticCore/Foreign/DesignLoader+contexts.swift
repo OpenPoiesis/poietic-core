@@ -30,10 +30,10 @@ extension DesignLoader {
         }
     }
   
-    // Used in: resolve identities
-    /// Stage 2 context: Reser
+    /// Context used during identity reservation.
     ///
-    /// Input for identity resolution.
+    /// Result will be finalised as ``IdentityResolution``.
+    ///
     struct ReservationContext {
         let unavailableIDs: Set<EntityID.RawValue>
         /// All reserved IDs regardless of their type. This collection is used to accept or release
@@ -46,7 +46,7 @@ extension DesignLoader {
         var rawIDMap: [ForeignEntityID:EntityID.RawValue] = [:]
     }
     
-    /// Stage 3 context.
+    /// Gathered and reserved identities that will be used through the loading process.
     ///
     class IdentityResolution {
         /// All reserved IDs regardless of their type. This collection is used to accept or release
@@ -100,13 +100,18 @@ extension DesignLoader {
 
     }
 
-    // TODO: Pick a better name or split to snapshot/hierarchy
+    /// Data of an object snapshot where the references, structure type, structure references,
+    /// parent are resolved. Attributes are prepared.
+    ///
+    /// Only thing that is missing is list of children, that require context of a frame to be
+    /// resolved, because use object IDs.
+    ///
+    /// - Note: If the loader has option ``DesignLoader/Options/useIDAsNameAttribute``, and if the
+    ///   corresponding raw object snapshot snapshot ID is defined as string, then the string ID
+    ///   will be used as an attribute `name`, if it is not provided explicitly. This is a backward
+    ///   compatibility feature that will be removed in the future.
+    ///
     class ResolvedObjectSnapshot {
-
-        /// Index of the raw snapshot from which the resolved snapshot was created.
-        /// Used for error reporting.
-//        let rawSnapshotIndex: Int
-        
         /// Final object snapshot ID.
         ///
         /// If the phase is `Phase/empty` then the property contains an ID that is being requested.
@@ -145,10 +150,9 @@ extension DesignLoader {
             self.attributes = attributes
         }
     }
-    struct ObjectResolution {
-        let resolvedSnapshots: [ResolvedObjectSnapshot]
-    }
     
+    /// Frame with assigned object snapshot IDs, so that the frame can be constructed.
+    ///
     struct ResolvedFrame {
         let frameID: FrameID
         let snapshots: [ObjectSnapshotID]
@@ -158,6 +162,11 @@ extension DesignLoader {
         let frames: [ResolvedFrame]
     }
     
+    /// All snapshots in the loading batch (from raw design or list of raw snapshots) that have
+    /// all references resolved except children.
+    ///
+    /// - SeeAlso: ``SnapshotHierarchyResolution`` as a next step.
+    ///
     struct PartialSnapshotResolution {
         /// Mapping between snapshot index and children list.
         let objectSnapshots: [ResolvedObjectSnapshot]
@@ -182,23 +191,6 @@ extension DesignLoader {
         }
     }
 
-    struct FrameLoadingResolution {
-        // TODO: Find a better name
-        /// Mapping between snapshot index and children list.
-        let resolvedFrames: [ResolvedFrame]
-        let objectSnapshots: [ObjectSnapshot]
-        let snapshotMap: [ObjectSnapshotID:ObjectSnapshot]
-
-        subscript(id: ObjectSnapshotID) -> ObjectSnapshot? {
-            return snapshotMap[id]
-        }
-    }
-
-    struct LoadingResolution {
-        let frames: [ResolvedFrame]
-        let snapshots: [ObjectSnapshot]
-    }
-    
     struct ResolvedNamedReferences {
         let systemLists: [String:NamedReferenceList]
         let systemReferences: [String:NamedReference]

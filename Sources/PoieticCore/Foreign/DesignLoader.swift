@@ -13,9 +13,6 @@
  
  0.0.1:
     - allow names as IDs
- 0.1.0:
-    - do not allow names as IDs
- 
  */
 
 
@@ -46,13 +43,14 @@ finaliseDesign
  */
 
 
-/// Object that loads raw representation of design or design entities into a design.
+/// Object that loads raw representation of design or raw object snapshots into a design.
 ///
 /// The design loader is the primary way of constructing whole design or its components from
 /// foreign representations that were converted into raw design entities
 /// (``RawSnapshot``, ``RawFrame``, ``RawDesign``, ...).
 ///
 /// The typical application use-cases for the design loader are:
+///
 /// - Create a design from an external representation such as a file. See ``JSONDesignReader`` and
 ///   ``load(_:)``.
 /// - Import from another design. See ``load(_:into:)-(RawDesign,_)``.
@@ -60,20 +58,50 @@ finaliseDesign
 ///   and ``JSONDesignWriter``.
 ///
 /// The main responsibilities of the deign loader are:
+///
+/// - Validation of raw design
 /// - Reservation of object identities.
-/// -
+/// - Resolution of entity references
+/// - Creation of entities (object snapshots, frames, ...)
+///
 public class DesignLoader {
+    /// Metamodel that is used for lookup and validation during loading process.
+    ///
+    /// Main uses of metamodel in the design loader:
+    ///
+    /// - Assigning object types to object snapshots based on object type name.
+    /// - Providing default attribute values.
+    /// - Determining default structural type
+    ///
     public let metamodel: Metamodel
+    
     let compatibilityVersion: SemanticVersion?
     static let MakeshiftJSONLoaderVersion = SemanticVersion(0, 0, 1)
+    
+    /// Options to control the loading process.
     public let options: Options
     
+    /// Strategy how identities are reserved when loading the raw design.
+    ///
+    /// For example, when pasting from a pasteboard, we want to preserve if possible and
+    /// create new so we do not cause conflicts.
+    ///
+    /// ```swift
+    /// let rawDesign: RawDesign  // Raw design we decoded from pasteboard
+    /// let trans: TransientFrame // Transaction into which we "paste"
+    /// let loader = DesignLoader(metamodel: StockFlowMetamodel)
+    ///
+    /// try loader.load(rawDesign, identityStrategy: .preserveOrCreate)
+    /// ```
+    ///
     public enum IdentityStrategy {
         /// Loading operation requires that all provided identities are preserved.
+        ///
+        /// Typical use-case is restoration of a whole design.
         case requireProvided
         
         // Identities are preserved, if they are available. Otherwise new identities will be
-        // created.
+        // created. Typical use case is pasting from a pasteboard or importing into existing frame.
         case preserveOrCreate
         
         /// All identities will be created as new.
@@ -97,6 +125,8 @@ public class DesignLoader {
         public static let useIDAsNameAttribute = Options(rawValue: 1 << 0)
     }
     
+    /// Create a design loader for design that conform to given metamodel.
+    ///
     public init(metamodel: Metamodel, options: Options = Options(), compatibilityVersion version: SemanticVersion? = nil) {
         self.metamodel = metamodel
         self.compatibilityVersion = version
@@ -107,10 +137,11 @@ public class DesignLoader {
     
     /// Loads a raw design and creates new design.
     ///
-    /// The loading procedure is as follows:
-    /// 1. Reserve identities for snapshots and frames.
+    /// The loader goes through following process:
+    ///
+    /// 1. Validate the raw design for duplicates.
+    /// 2. Reserve identities.
     /// 2. Create snapshots and frames.
-    /// 3. Validate frames.
     /// 4. Create a new design.
     ///
     public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
@@ -122,6 +153,7 @@ public class DesignLoader {
             rawDesign: rawDesign,
             identityManager: design.identityManager
         )
+
         let identityResolution = try resolveIdentities(
             resolution: validationResolution,
             identityStrategy: .requireProvided
@@ -137,28 +169,17 @@ public class DesignLoader {
             identities: identityResolution,
         )
         
-        // We have:
-        // - referenced snapshots exist
-        // - there are no duplicate object IDs within frame
         let hierarchicalSnapshots  = try resolveHierarchy(
             frameResolution: frameResolution,
             snapshotResolution: partialSnapshotResolution
         )
-        // Parent reference (if present) points to objectID that exists in same frame
-        // All children references point to objectIDs that exist in same frame
-        // Bidirectional consistency: if A has child B, then B has parent A
         
-        
-        // 3. Create Snapshots
-        // ----------------------------------------------------------------------
         let snapshots = try createSnapshots(resolution: hierarchicalSnapshots)
 
         var snapshotMap: [ObjectSnapshotID:ObjectSnapshot] = [:]
         for snapshot in snapshots {
             snapshotMap[snapshot.snapshotID] = snapshot
         }
-        
-        // 4. Load (commit)
         
         try insertFrames(
             resolvedFrames: frameResolution.frames,
@@ -182,22 +203,17 @@ public class DesignLoader {
     
     /// Loads current frame of the design into a transient frame.
     ///
-    /// This is used for foreign design imports.
+    /// This is used for foreign design imports and for performing paste from a pasteboard
+    /// (clipboard).
     ///
-    /// Requirements:
+    /// Requirements for the raw design:
     ///
-    /// - With current frame: the first frame in the frame list with current frame ID is loaded.
-    /// - Without current frame: All snapshots will be used, but must not have any frames defined.
+    /// - If the raw design has one or more frames, then current frame must be set and that frame will be loaded.
+    /// - If the raw design has no frames: All snapshots will be treated as snapshot of a single frame.
     ///
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
-
-        // 1. If there is current frame:
-        //    1.1. Find all snapshots with given ID
-        //    1.2. throw error if not found
-        // 2. Make sure all snapshot IDs are unique
-        
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = rawDesign.currentFrameID {
@@ -225,14 +241,32 @@ public class DesignLoader {
     
     /// Load raw snapshots into a transient frame.
     ///
-    /// - Parameters:
-    ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
-    ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
-    ///
-    /// - Returns: List of object IDs of inserted object.
-    ///
     /// This method is intended to be used when importing external frames or for pasting in the
     /// Copy & Paste mechanism.
+    ///
+    /// - Parameters:
+    ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
+    ///     - frame: Frame into which the object snapshots will be loaded.
+    ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
+    ///       Recommended to use ``IdentityStrategy/preserveOrCreate`` strategy.
+    ///
+    /// - Returns: List of object IDs of inserted object snapshots. Caller might do adjustments
+    ///   to the imported snapshots, for example offset their location on consecutive paste
+    ///   operation.
+    ///
+    /// Loading process:
+    ///
+    /// 1. Validate snapshots for duplicate IDs.
+    /// 2. Reserve identities according to provided ``IdentityStrategy``.
+    /// 3. Resolve snapshot references.
+    /// 4. Resolve snapshot hierarchy.
+    /// 5. Create object snapshot instances.
+    /// 6. Insert snapshots into frame.
+    ///
+    /// - Note: The references of ``rawSnapshots`` are resolved _only_ within the provided object
+    ///  snapshots. Any references from ``rawSnapshots`` that are not contained in the input
+    ///  parameter are considered invalid. As a consequence, there can not be references to existing
+    ///  objects in the ``frame``.
     ///
     @discardableResult
     internal func load(_ rawSnapshots: [RawSnapshot],
@@ -241,7 +275,6 @@ public class DesignLoader {
     throws (DesignLoaderError) -> [ObjectID] {
         let identityResolution: DesignLoader.IdentityResolution
         
-        // FIXME: [IMPORTANT] Release reservations!!!
         let rawDesign = RawDesign(snapshots: rawSnapshots)
 
         let validationResolution = try validate(
@@ -249,9 +282,10 @@ public class DesignLoader {
             identityManager: frame.design.identityManager
         )
         
+        // FIXME: [IMPORTANT] Release reservations from here:
         identityResolution = try resolveIdentities(
             resolution: validationResolution,
-            identityStrategy: .requireProvided
+            identityStrategy: identityStrategy
         )
         
         let snapshotResolution = try resolveObjectSnapshots(
@@ -267,10 +301,12 @@ public class DesignLoader {
             resolution: completeSnapshots
         )
         
+        // FIXME: [IMPORTANT] Release reservations above ^^ to here.
+
         frame.unsafeInsert(snapshots, reservations: completeSnapshots.identities.reserved)
         
         do {
-            // TODO: [WIP] Is this needed?
+            // TODO: [WIP] Is this needed? The caller is validating the frame anyway before accept().
             try frame.validateStructure()
         }
         catch {
@@ -455,7 +491,6 @@ public class DesignLoader {
         var frames: [DesignFrame] = []
         
         for (i, resolvedFrame) in resolvedFrames.enumerated() {
-            // TODO: Can we get rid of force unwraps here? (both)
             precondition(!design.containsFrame(resolvedFrame.frameID))
             let frameSnapshots = resolvedFrame.snapshots.compactMap { snapshotMap[$0] }
             
@@ -492,12 +527,12 @@ public class DesignLoader {
         }
     }
     func resolveNamedReferences(
-        // FIXME: [IMPORTANT] We need guarantee that the raw design corresponds to the identity reservations
         rawDesign: RawDesign,
         identities: IdentityResolution
     )
     throws (DesignLoaderError) -> ResolvedNamedReferences
     {
+        // FIXME: [IMPORTANT] We need guarantee that the raw design corresponds to the identity reservations
         let systemReferences: [String:NamedReference]
         let userReferences: [String:NamedReference]
         let systemLists: [String:NamedReferenceList]

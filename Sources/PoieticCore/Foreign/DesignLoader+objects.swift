@@ -69,14 +69,10 @@ extension DesignLoader { // Object snapshots
         
         let structuralType: StructuralType?
         switch rawSnapshot.structure.type {
-        case .none:
-            structuralType = nil
-        case "unstructured":
-            structuralType = .unstructured
-        case "node":
-            structuralType = .node
-        case "edge":
-            structuralType = .edge
+        case .none: structuralType = nil
+        case "unstructured": structuralType = .unstructured
+        case "node": structuralType = .node
+        case "edge": structuralType = .edge
         default:
             throw .invalidStructuralType
         }
@@ -84,6 +80,7 @@ extension DesignLoader { // Object snapshots
         var attributes: [String:Variant] = rawSnapshot.attributes
 
         // Version 0.0.1
+        // TODO: Move this somewhere earlier, maybe even to reader. This is here only historically.
         if compatibilityVersion == SemanticVersion(0, 0, 1)
                 || (options.contains(.useIDAsNameAttribute))
         {
