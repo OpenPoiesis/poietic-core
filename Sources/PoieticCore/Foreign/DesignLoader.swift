@@ -285,7 +285,8 @@ public class DesignLoader {
         // FIXME: [IMPORTANT] Release reservations from here:
         identityResolution = try resolveIdentities(
             resolution: validationResolution,
-            identityStrategy: identityStrategy
+            identityStrategy: identityStrategy,
+            unavailableIDs: Set(frame.objectIDs.map { $0.rawValue })
         )
         
         let snapshotResolution = try resolveObjectSnapshots(
