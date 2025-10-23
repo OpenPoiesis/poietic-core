@@ -748,7 +748,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 0, .duplicateObject(.int(200)))) {
+        #expect(throws: DesignLoaderError.item(.frames, 0, .duplicateObject(1))) {
             _ = try loader.load(raw)
         }
     }

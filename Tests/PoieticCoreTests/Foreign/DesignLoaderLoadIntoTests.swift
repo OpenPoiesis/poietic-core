@@ -125,6 +125,19 @@ struct DesignLoaderLoadIntoTests {
         }
     }
 
+    @Test("Error: duplicate object ID")
+    func loadIntoDuplicsteObjectID() async throws {
+        let trans = design.createFrame()
+        let rawSnapshots: [RawSnapshot] = [
+            RawSnapshot(typeName: "TestNode", id: .string("consumption_inner")),
+            RawSnapshot(typeName: "TestNode", id: .string("consumption_inner")),
+        ]
+
+        #expect(throws: DesignLoaderError.item(.objectSnapshots, 1, .duplicateObject(1))) {
+            try loader.load(rawSnapshots, into: trans)
+        }
+    }
+
     @Test("Error: invalid current frame ID in RawDesign")
     func importIntoInvalidCurrentID() async throws {
         let trans = design.createFrame()

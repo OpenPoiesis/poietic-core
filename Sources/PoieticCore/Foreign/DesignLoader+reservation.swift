@@ -72,7 +72,6 @@ extension DesignLoader { // Reservation of identities
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
-
         // Sanity checks
         assert(frameIDs.count == rawFrameIDs.count)
         assert(snapshotIDs.count == rawSnapshotIDs.count)

@@ -90,12 +90,13 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         
         // Frame-specific
         case unknownSnapshotID(ForeignEntityID)
-        case duplicateObject(ForeignEntityID)
+        case duplicateObject(Int) // Index of object within frame/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
 
         // Hierarchy
         case unknownParent
         case childrenMismatch
+//        case duplicateObject(ForeignEntityID)
 
         // Other
         case duplicateName(String)
@@ -117,7 +118,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
 
             // Frame-specific
             case let .unknownSnapshotID(id): "Unknown snapshot ID '\(id)'"
-            case let .duplicateObject(id): "Duplicate object '\(id)'"
+            case let .duplicateObject(id): "Duplicate object at index \(id)"
             case let .brokenStructuralIntegrity(error): "Broken structural integrity: \(error)"
 
             // Hierarchy
@@ -145,7 +146,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
 
             // Frame-specific
             case .unknownSnapshotID(_): "Make sure all references are valid within the loaded raw design/snapshots"
-            case .duplicateObject(_): "Object ID must be unique in the frame"
+            case .duplicateObject(_): "Object ID must be unique in a frame or a loading batch"
             case .brokenStructuralIntegrity(_): "The loaded batch is either of a different version, different metamodel or it is corrupted"
 
             // Hierarchy

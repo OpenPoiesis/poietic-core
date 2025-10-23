@@ -213,7 +213,7 @@ public class DesignLoader {
     ///
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
-    public func load(_ rawDesign: RawDesign, into frame: TransientFrame) throws (DesignLoaderError) {
+    public func load(_ rawDesign: RawDesign, into frame: TransientFrame, identityStrategy: IdentityStrategy = .preserveOrCreate) throws (DesignLoaderError) {
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = rawDesign.currentFrameID {
@@ -236,7 +236,7 @@ public class DesignLoader {
             }
             snapshots = rawDesign.snapshots
         }
-        try load(snapshots, into: frame)
+        try load(snapshots, into: frame, identityStrategy: identityStrategy)
     }
     
     /// Load raw snapshots into a transient frame.
@@ -352,20 +352,20 @@ public class DesignLoader {
         var ids: [ObjectSnapshotID] = []
         var seenObjects: Set<ObjectID> = []
 
-        for foreignSnapshotID in frame.snapshots {
+        for (objectIndex, foreignSnapshotID) in frame.snapshots.enumerated() {
             guard let snapshotID: ObjectSnapshotID = identities[foreignSnapshotID] else {
                 throw .unknownSnapshotID(foreignSnapshotID)
             }
 
             // Check for duplicate objects (same object with different snapshots in one frame)
             // Get objectID using the snapshot index
-            guard let index = identities.snapshotIndex[snapshotID] else {
+            guard let snapshotIndex = identities.snapshotIndex[snapshotID] else {
                 preconditionFailure("Snapshot ID must be in index")
             }
-            let objectID = identities.objectIDs[index]
+            let objectID = identities.objectIDs[snapshotIndex]
 
             if seenObjects.contains(objectID) {
-                throw .duplicateObject(foreignSnapshotID)
+                throw .duplicateObject(objectIndex)
             }
             seenObjects.insert(objectID)
 
@@ -461,8 +461,12 @@ public class DesignLoader {
         var objectToSnapshot: [ObjectID:ObjectSnapshotID] = [:]
         var childrenMap: [ObjectSnapshotID:[ObjectID]] = [:]
         
-        for snapshot in snapshots {
-            assert(objectToSnapshot[snapshot.objectID] == nil)
+        for (index, snapshot) in snapshots.enumerated() {
+            // FIXME: [IMPORTANT] Fix this exception - add new dupe with oid
+            guard objectToSnapshot[snapshot.objectID] == nil else {
+                throw DesignLoaderError.IndexedItemError(index, .duplicateObject(index))
+            }
+//            assert(objectToSnapshot[snapshot.objectID] == nil)
             objectToSnapshot[snapshot.objectID] = snapshot.snapshotID
         }
         
