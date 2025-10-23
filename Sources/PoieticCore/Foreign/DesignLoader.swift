@@ -213,7 +213,12 @@ public class DesignLoader {
     ///
     /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
-    public func load(_ rawDesign: RawDesign, into frame: TransientFrame, identityStrategy: IdentityStrategy = .preserveOrCreate) throws (DesignLoaderError) {
+    @discardableResult
+    public func load(_ rawDesign: RawDesign,
+                     into frame: TransientFrame,
+                     identityStrategy: IdentityStrategy = .preserveOrCreate)
+    throws (DesignLoaderError) -> [ObjectID]
+    {
         var snapshots: [RawSnapshot] = []
         
         if let currentFrameID = rawDesign.currentFrameID {
@@ -236,7 +241,7 @@ public class DesignLoader {
             }
             snapshots = rawDesign.snapshots
         }
-        try load(snapshots, into: frame, identityStrategy: identityStrategy)
+        return try load(snapshots, into: frame, identityStrategy: identityStrategy)
     }
     
     /// Load raw snapshots into a transient frame.
