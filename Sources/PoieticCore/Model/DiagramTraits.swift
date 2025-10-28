@@ -47,6 +47,26 @@ extension Trait {
             Attribute("view_zoom", type: .double, optional: true),
         ]
     )
+    
+    /// Trait for objects that have colour.
+    ///
+    /// The colour name should be one of the adaptable colour names, unless specified otherwise.
+    ///
+    /// Adaptable colour names names are:
+    /// `purple`, `red`, `pink`, `brown`, `orange`, `yellow`,
+    /// `lime`, `green`, `cyan`, `teal`, `blue` and `indigo`.
+    ///
+    /// User interface should adapt the colour to fit media the object is displayed at.
+    ///
+    public static let Color = Trait (
+        name: "Color",
+        attributes: [
+            Attribute("color",
+                      type: .string,
+                      optional: true,
+                      abstract: "Colour name"),
+        ]
+    )
 }
 
 
