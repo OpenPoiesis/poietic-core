@@ -1,5 +1,5 @@
 //
-//  DiagramTraits.swift
+//  DiagramDomain.swift
 //
 //
 //  Created by Stefan Urbanek on 06/06/2023.
@@ -61,9 +61,7 @@ extension Trait {
     public static let Color = Trait (
         name: "Color",
         attributes: [
-            Attribute("color",
-                      type: .string,
-                      optional: true,
+            Attribute("color", type: .string, optional: true,
                       abstract: "Colour name"),
         ]
     )
