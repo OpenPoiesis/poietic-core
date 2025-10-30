@@ -44,32 +44,12 @@ let TestTraitWithDefault = Trait(
 )
 
 
-// TODO: Repurpose for testing RuntimeFrame
-struct TestComponent:Component {
-    init(text: String) {
-        self.text = text
-    }
-    
-    init() {
-        text = "__test__"
-    }
-    
+// Test component for RuntimeFrame tests
+struct TestComponent: Component, Equatable {
     var text: String
-    
-    public func attribute(forKey key: AttributeKey) -> Variant? {
-        switch key {
-        case "text": return Variant(text)
-        default: return nil
-        }
-    }
-    
-    public mutating func setAttribute(value: Variant,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "text": self.text = try value.stringValue()
-        default:
-            fatalError("Unknown attribute")
-        }
+
+    init(text: String = "__test__") {
+        self.text = text
     }
 }
 
@@ -80,31 +60,12 @@ let IntegerTrait = Trait(
     ]
 )
 
+// Test component for RuntimeFrame tests
 struct IntegerComponent: Component, Equatable {
     var value: Int
-    
-    init() {
-        self.value = 0
-    }
-    
-    init(value: Int) {
+
+    init(value: Int = 0) {
         self.value = value
-    }
-    
-    public func attribute(forKey key: AttributeKey) -> Variant? {
-        switch key {
-        case "value": return Variant(value)
-        default: return nil
-        }
-    }
-    
-    public mutating func setAttribute(value: Variant,
-                                      forKey key: AttributeKey) throws {
-        switch key {
-        case "value": self.value = try value.intValue()
-        default:
-            fatalError("Unknown attribute")
-        }
     }
 }
 

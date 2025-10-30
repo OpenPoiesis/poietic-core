@@ -61,6 +61,19 @@ public final class SystemScheduler {
         systems[id] = system
         _executionOrder = Self.dependencyOrder(Array(systems.values))
     }
+    
+    /// Register multiple systems at once.
+    ///
+    /// - SeeAlso: ``register()``
+    ///
+    public func register(_ systems: [any System]) {
+        for system in systems {
+            let id = type(of: system)._systemTypeIdentifier
+            self.systems[id] = system
+        }
+        _executionOrder = Self.dependencyOrder(Array(self.systems.values))
+    }
+
 
     /// Execute all systems in dependency order
     ///
@@ -106,12 +119,12 @@ public final class SystemScheduler {
                 switch dep {
                 case .after(let other):
                     let otherID = other._systemTypeIdentifier
-                    assert(systemMap[otherID] != nil,
+                    precondition(systemMap[otherID] != nil,
                            "Error sorting system \(system): Missing system: \(other)")
                     edges.append((origin: systemID, target: otherID))
                 case .before(let other):
                     let otherID = other._systemTypeIdentifier
-                    assert(systemMap[otherID] != nil,
+                    precondition(systemMap[otherID] != nil,
                            "Error sorting system \(system): Missing system: \(other)")
                     edges.append((origin: otherID, target: systemID))
                 }
