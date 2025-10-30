@@ -49,16 +49,13 @@ final class JSONFileStoreTests: XCTestCase {
 
         let flow = frame.create(TestMetamodel["FlowRate"]!,
                                 structure: .node,
-                                attributes: [:],
-                                components: [IntegerComponent(value: 10)])
+                                attributes: [:])
         let source = frame.create(TestMetamodel["Stock"]!,
                                   structure: .node,
-                                  attributes: [:],
-                                  components: [IntegerComponent(value: 20)])
+                                  attributes: [:])
         let sink = frame.create(TestMetamodel["Stock"]!,
                                 structure: .node,
-                                attributes: [:],
-                                components: [IntegerComponent(value: 30)])
+                                attributes: [:])
         
         frame.createEdge(TestMetamodel["Arrow"]!, origin: source.objectID, target: flow.objectID)
         frame.createEdge(TestMetamodel["Arrow"]!, origin: flow.objectID, target: sink.objectID)

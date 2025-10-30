@@ -130,25 +130,6 @@ import Testing
     }
     
 
-    @Test func originalComponentPreservedOnMutate() throws {
-        let object = frame.create(TestType, components: [TestComponent(text: "before")])
-        let original = try design.accept(frame)
-        
-        let frame2 = design.createFrame(deriving: original)
-        let changedObject = frame2.mutate(object.objectID)
-        changedObject[TestComponent.self] = TestComponent(text: "after")
-        
-        #expect(frame2.hasChanges)
-
-        let changedFrame = try design.accept(frame2)
-        let comp: TestComponent = try #require(changedFrame[object.objectID]?[TestComponent.self])
-        #expect(comp.text == "after")
-        
-        let originalObject = try #require(design.frame(original.id)?[object.objectID])
-        let compOrignal: TestComponent = originalObject[TestComponent.self]!
-        #expect(compOrignal.text == "before")
-    }
-    
     @Test func removeObjectCascading() throws {
         let node1 = frame.create(TestNodeType)
         let node2 = frame.create(TestNodeType)

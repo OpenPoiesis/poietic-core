@@ -127,24 +127,6 @@ public struct AnyPredicate: Predicate, CustomStringConvertible{
 
 /// Predicate to test whether an object has a given trait.
 ///
-public struct HasComponentPredicate: Predicate {
-    /// Component to be tested for.
-    let type: Component.Type
-    
-    /// Create a new predicate to test for a component.
-    public init(_ type: Component.Type) {
-        self.type = type
-    }
-
-    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
-        return object.components.has(self.type)
-    }
-    public var description: String { "component(\(type)" }
-
-}
-
-/// Predicate to test whether an object has a given trait.
-///
 public struct HasTraitPredicate: Predicate, CustomStringConvertible {
     /// Trait to be tested for.
     let trait: Trait

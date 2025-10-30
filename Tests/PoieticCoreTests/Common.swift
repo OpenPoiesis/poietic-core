@@ -44,6 +44,7 @@ let TestTraitWithDefault = Trait(
 )
 
 
+// TODO: Repurpose for testing RuntimeFrame
 struct TestComponent:Component {
     init(text: String) {
         self.text = text

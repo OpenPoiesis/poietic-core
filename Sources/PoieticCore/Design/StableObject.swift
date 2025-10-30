@@ -74,8 +74,6 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     @inlinable public var children: ChildrenSet { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
-    public var components: ComponentSet
-
     /// Create a stable object.
     ///
     /// - Parameters:
@@ -98,8 +96,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
-                attributes: [String:Variant] = [:],
-                components: [any Component] = []) {
+                attributes: [String:Variant] = [:]) {
 
         self.id = snapshotID
         self._body = ObjectBody(id: objectID,
@@ -108,13 +105,11 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
                                  parent: parent,
                                  children: children,
                                  attributes: attributes)
-        self.components = ComponentSet(components)
     }
     
-    init(id: ObjectSnapshotID, body: ObjectBody, components: ComponentSet) {
+    init(id: ObjectSnapshotID, body: ObjectBody) {
         self.id = id
         self._body = body
-        self.components = components
     }
     
     /// Textual description of the object.
@@ -137,21 +132,5 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     @inlinable
     public subscript(attributeName: String) -> (Variant)? {
         _body.attributes[attributeName]
-    }
-    
-    /// Get or set a component of given type, if present.
-    ///
-    /// Setting a component that already exists in the list of components will
-    /// replace the existing component.
-    ///
-    /// - SeeAlso: ``ComponentSet``
-    ///
-    public subscript<T>(componentType: T.Type) -> T? where T : Component {
-        get {
-            return components[componentType]
-        }
-        set(component) {
-            components[componentType] = component
-        }
     }
 }

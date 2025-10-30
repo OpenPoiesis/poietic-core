@@ -245,8 +245,7 @@ public final class TransientFrame: Frame {
                        structure: Structure? = nil,
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
-                       attributes: [String:Variant]=[:],
-                       components: [any Component]=[]) -> TransientObject {
+                       attributes: [String:Variant]=[:]) -> TransientObject {
         // IMPORTANT: Sync the logic (especially preconditions) as in RawDesignLoader.create(...)
         // TODO: Consider throwing an exception instead of having runtime errors
         precondition(state == .transient)
@@ -290,8 +289,7 @@ public final class TransientFrame: Frame {
                                      structure: actualStructure,
                                      parent: parent,
                                      children: children,
-                                     attributes: actualAttributes,
-                                     components: components)
+                                     attributes: actualAttributes)
         let box = _TransientSnapshotBox(snapshot, isNew: true)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)

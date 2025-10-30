@@ -94,8 +94,7 @@ class _TransientSnapshotBox: Identifiable {
         case let .stable(_, object): object
         case let .transient(_, snapshot):
             ObjectSnapshot(id: snapshot.snapshotID,
-                           body: snapshot._body,
-                           components: snapshot.components)
+                           body: snapshot._body)
         }
     }
 }
@@ -117,7 +116,6 @@ public class TransientObject: ObjectProtocol {
     package var snapshotID: ObjectSnapshotID
     @usableFromInline
     package var _body: ObjectBody
-    public var components: ComponentSet
     
     /// Flag to denote whether the object's parent-child hierarchy has been modified,
     public private(set) var hierarchyChanged: Bool
@@ -138,8 +136,7 @@ public class TransientObject: ObjectProtocol {
                 structure: Structure = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
-                attributes: [String:Variant] = [:],
-                components: [any Component] = []) {
+                attributes: [String:Variant] = [:]) {
         
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
@@ -148,7 +145,6 @@ public class TransientObject: ObjectProtocol {
                                  parent: parent,
                                  children: children,
                                  attributes: attributes)
-        self.components = ComponentSet(components)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
         self.componentsChanged = false
@@ -157,7 +153,6 @@ public class TransientObject: ObjectProtocol {
     init(original: ObjectSnapshot, snapshotID: ObjectSnapshotID) {
         self.snapshotID = snapshotID
         self._body = original._body
-        self.components = original.components
         self.changedAttributes = Set()
         self.hierarchyChanged = false
         self.componentsChanged = false
@@ -246,15 +241,6 @@ public class TransientObject: ObjectProtocol {
         _body.attributes[key] = nil
     }
 
-    public subscript<T>(componentType: T.Type) -> T? where T : Component {
-        get {
-            return components[componentType]
-        }
-        set(component) {
-            components[componentType] = component
-            componentsChanged = true
-        }
-    }
     public func removeChild(_ child: ObjectID) {
         hierarchyChanged = true
         _body.children.remove(child)
