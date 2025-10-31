@@ -83,9 +83,9 @@ public final class SystemScheduler {
     /// - Parameter frame: The runtime frame to process
     /// - Throws: Errors from system execution
     ///
-    public func execute(_ frame: RuntimeFrame) {
+    public func execute(_ frame: RuntimeFrame) throws (InternalSystemError) {
         for system in _executionOrder {
-            system.update(frame)
+            try system.update(frame)
         }
     }
 

@@ -65,10 +65,27 @@ public protocol System {
     ///
     /// - Parameter frame: The runtime frame to process
     ///
-    func update(_ frame: RuntimeFrame)
+    func update(_ frame: RuntimeFrame) throws (InternalSystemError)
 }
 
 extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
 }
+
+/// Error thrown by systems that has not been caused by the user, but that is recoverable in
+/// runtime context.
+///
+/// When receiving this error, an application should provide a visual notification to the user,
+/// however should continue functioning.
+///
+/// Preferably, it might be suggested to the user that developers are to be contacted with this
+/// error.
+///
+public enum InternalSystemError: Error {
+    case compilationError
+//    case invalidValue(ObjectID, String, Variant?)
+//    case invalidStructure(ObjectID)
+//    case objectNotFound(ObjectID)
+}
+
