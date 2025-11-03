@@ -16,7 +16,18 @@
 ///   contents can be reconstructed from other information present in the
 ///   design.
 ///
+/// This is just an annotation protocol, has no requirements.
+///
 public protocol Component {
+    // Empty, just an annotation.
+}
+
+/// Component that is associated with the whole frame, not with particular object.
+///
+/// This is just an annotation protocol, has no requirements.
+///
+public protocol FrameComponent: Component {
+    // Empty, just an annotation.
 }
 
 /// Collection of components of an object.

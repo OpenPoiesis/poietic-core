@@ -82,10 +82,41 @@ extension System {
 /// Preferably, it might be suggested to the user that developers are to be contacted with this
 /// error.
 ///
-public enum InternalSystemError: Error {
-    case compilationError
-//    case invalidValue(ObjectID, String, Variant?)
-//    case invalidStructure(ObjectID)
-//    case objectNotFound(ObjectID)
-}
+public struct InternalSystemError: Error, Equatable {
+    public enum Context: Sendable, Equatable {
+        case none
+        case frame
+        case frameComponent(String)
 
+        case object(ObjectID)
+        case component(ObjectID, String)
+        case attribute(ObjectID, String)
+        
+        public init(frameComponent: some Component) {
+            let typeName = String(describing: type(of: frameComponent))
+            self = .frameComponent(typeName)
+        }
+        public init(id: ObjectID, component: some Component) {
+            let typeName = String(describing: type(of: component))
+            self = .component(id, typeName)
+        }
+
+    }
+
+    public let system: String
+    public let message: String
+    public let context: Context
+    
+    public init(_ system: String, message: String, context: Context = .none) {
+        self.system = system
+        self.message = message
+        self.context = context
+    }
+
+    public init(_ system: some System, message: String, context: Context = .none) {
+        let typeName = String(describing: type(of: system))
+        self.system = typeName
+        self.message = message
+        self.context = context
+    }
+}

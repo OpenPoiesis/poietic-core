@@ -151,6 +151,16 @@ public final class RuntimeFrame: Frame {
             components.has(type) ? objectID : nil
         }
     }
+    // MARK: - Filter
+    
+    /// Get a list of objects with given component.
+    ///
+    public func filter<T: Component>(_ componentType: T.Type) -> some Collection<(ObjectID, T)> {
+        return self.objectIDs.compactMap { objectID in
+            guard let comp: T = self.component(for: objectID) else { return nil }
+            return (objectID, comp)
+        }
+    }
 
     // MARK: - Frame Components
 

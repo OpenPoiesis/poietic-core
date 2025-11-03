@@ -39,11 +39,16 @@
 ///
 public final class SystemScheduler {
     /// Registered systems indexed by type name
-    private var systems: [ObjectIdentifier: any System] = [:]
+    private var systems: [ObjectIdentifier: any System]
 
     /// Computed execution order
-    private var _executionOrder: [any System] = []
+    private var _executionOrder: [any System]
 
+    public init() {
+        self.systems = [:]
+        self._executionOrder = []
+    }
+    
     /// Register a system
     ///
     /// After registration, execution order is recomputed based on all
