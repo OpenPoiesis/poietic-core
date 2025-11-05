@@ -142,6 +142,7 @@ public struct FrameValidationError: Error {
     /// This method is used when the errors are to be presented by an application. For example
     /// in an error browser or by an object error inspector.
     ///
+    @available(*, deprecated, message: "Use [ObjectID:[Issue]]")
     public func asDesignIssueCollection() -> DesignIssueCollection {
         var result: DesignIssueCollection = DesignIssueCollection()
         // TODO: Use object-less design issues
@@ -170,8 +171,9 @@ public struct FrameValidationError: Error {
                 result.append(error.asDesignIssue(), for: id)
             }
         }
-
+        
         return result
     }
+
 }
 

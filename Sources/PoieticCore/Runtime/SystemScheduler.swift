@@ -90,6 +90,8 @@ public final class SystemScheduler {
     ///
     public func execute(_ frame: RuntimeFrame) throws (InternalSystemError) {
         for system in _executionOrder {
+            let typeName = String(describing: type(of: system))
+            debugPrint("=== Executing system: \(typeName)")
             try system.update(frame)
         }
     }
@@ -122,12 +124,12 @@ public final class SystemScheduler {
             let systemID = type(of: system)._systemTypeIdentifier
             for dep in type(of: system).dependencies {
                 switch dep {
-                case .after(let other):
+                case .before(let other):
                     let otherID = other._systemTypeIdentifier
                     precondition(systemMap[otherID] != nil,
                            "Error sorting system \(system): Missing system: \(other)")
                     edges.append((origin: systemID, target: otherID))
-                case .before(let other):
+                case .after(let other):
                     let otherID = other._systemTypeIdentifier
                     precondition(systemMap[otherID] != nil,
                            "Error sorting system \(system): Missing system: \(other)")

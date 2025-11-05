@@ -54,7 +54,7 @@ public final class RuntimeFrame: Frame {
     /// Issue list is analogous to a list of syntax errors that were encountered during a
     /// programming language source code compilation.
     ///
-    public private(set) var issues: [ObjectID: [Error]]
+    public private(set) var issues: [ObjectID: [Issue]]
 
     /// Create a runtime frame wrapping a validated frame.
     ///
@@ -206,6 +206,17 @@ public final class RuntimeFrame: Frame {
     /// Flag indicating whether any issues were collected
     public var hasIssues: Bool { !issues.isEmpty }
 
+    public func objectHasIssues(_ objectID: ObjectID) -> Bool {
+        guard let issues = self.issues[objectID] else { return false }
+        return issues.isEmpty
+    }
+
+    public func objectIssues(_ objectID: ObjectID) -> [Issue]? {
+        guard let issues = self.issues[objectID], !issues.isEmpty else { return nil }
+        return issues
+        
+    }
+    
     /// Append a user-facing issue for a specific object
     ///
     /// Issues are non-fatal problems with user data. Systems should append
@@ -216,7 +227,21 @@ public final class RuntimeFrame: Frame {
     ///   - issue: The error/issue to append
     ///   - objectID: The object ID associated with the issue
     ///
-    public func appendIssue(_ issue: Error, for objectID: ObjectID) {
+    public func appendIssue(_ issue: Issue, for objectID: ObjectID) {
         issues[objectID, default: []].append(issue)
+    }
+}
+
+// Testing convenience methods
+extension RuntimeFrame {
+    func objectHasError<T:IssueProtocol>(_ objectID: ObjectID, error: T) -> Bool {
+        guard let issues = objectIssues(objectID) else { return false }
+
+        for issue in issues {
+            if let objectError = issue.error as? T, objectError == error {
+                return true
+            }
+        }
+        return false
     }
 }

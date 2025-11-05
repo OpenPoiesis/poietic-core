@@ -82,8 +82,8 @@ extension System {
 /// Preferably, it might be suggested to the user that developers are to be contacted with this
 /// error.
 ///
-public struct InternalSystemError: Error, Equatable {
-    public enum Context: Sendable, Equatable {
+public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
+    public enum Context: Sendable, Equatable, CustomStringConvertible {
         case none
         case frame
         case frameComponent(String)
@@ -91,6 +91,17 @@ public struct InternalSystemError: Error, Equatable {
         case object(ObjectID)
         case component(ObjectID, String)
         case attribute(ObjectID, String)
+        
+        public var description: String {
+            switch self {
+            case .none: "no context"
+            case let .object(id): "object ID \(id)"
+            case let .attribute(id, name): "attribute '\(name)' in ID \(id)"
+            case let .component(id, name): "component \(name) in ID \(id)"
+            case     .frame: "frame"
+            case let .frameComponent(name): "frame component \(name)"
+            }
+        }
         
         public init(frameComponent: some Component) {
             let typeName = String(describing: type(of: frameComponent))
@@ -107,6 +118,9 @@ public struct InternalSystemError: Error, Equatable {
     public let message: String
     public let context: Context
     
+    public var description: String {
+        "Internal System Error (\(system)): \(message). Context: \(context)"
+    }
     public init(_ system: String, message: String, context: Context = .none) {
         self.system = system
         self.message = message

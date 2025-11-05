@@ -27,6 +27,12 @@ public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
     }
 }
 
+extension ExpressionSyntaxError: IssueProtocol {
+    public var message: String { "Formula error: " + self.description }
+    public var hints: [String] { ["Check the formula syntax"] }
+}
+
+
 /// Abstract syntax tree of arithmetic expression.
 ///
 public indirect enum ExpressionAST {

@@ -47,6 +47,7 @@ public struct DesignIssueCollection: Sendable {
 public struct DesignIssue: Sendable, CustomStringConvertible {
     // TODO: Add priority/weight (to know which display first, or if only one is to be displayed)
 
+    // FIXME: Replace with: system: String or action: String
     public enum Domain: Sendable, CustomStringConvertible {
         /// Issue occurred during validation.
         ///
@@ -125,6 +126,7 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
     ///
     /// - `attribute`: Name of an attribute that caused the issue.
     /// - `trait`: Name of a trait.
+    /// - `formula`: Arithmetic expression. See ``ExpressionSyntaxError``.
     ///
     /// - Note: The meaning of keys and values are not formalised yet.
     public let details: [String:Variant]
@@ -163,4 +165,95 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
 /// Protocol for errors that can be converted to a design issue.
 public protocol DesignIssueConvertible: Error {
     func asDesignIssue() -> DesignIssue
+}
+
+// TODO: Rename to ObjectIssue (once we get rid of old object)
+public protocol IssueProtocol: Error, Sendable, Equatable {
+    var message: String { get }
+    var hints: [String] { get }
+    
+}
+
+/// Representation of an issue in the design caused by the user.
+///
+public struct Issue: Sendable, CustomStringConvertible {
+    public enum Severity: Sendable, CustomStringConvertible {
+        /// Type of an issue that prevents further processing of the design.
+        case error
+        /// type of an issue that allows further processing of the design, although the result
+        /// quality or correctness is not guaranteed.
+        case warning
+        case fatal
+        
+        public var description: String {
+            switch self {
+            case .error: "error"
+            case .warning: "warning"
+            case .fatal: "fatal"
+            }
+        }
+    }
+    
+    /// Identifier of the issue.
+    ///
+    /// Used to look-up the issue in a documentation or for localisation purposes.
+    ///
+    public let identifier: String
+
+    /// Severity of the issue.
+    ///
+    /// Typical issue severity is ``Severity/fatal`` which means that the design can not be used
+    /// in a meaningful way, neither it can be processed further.
+    ///
+    public let severity: Severity
+
+    /// Name of a system that caused the issue
+    ///
+    public let system: String
+
+    public let error: any IssueProtocol
+
+    public var message: String { error.message }
+    public var hints: [String] { error.hints }
+    public var relatedObjects: [ObjectID]
+
+    /// Details about the issue that applications can present or use.
+    ///
+    /// Known keys:
+    ///
+    /// - `attribute`: Name of an attribute that caused the issue.
+    /// - `trait`: Name of a trait.
+    ///
+    /// - Note: The meaning of keys and values are not formalised yet.
+    public let details: [String:Variant]
+    
+    /// Create a new design issue.
+    ///
+    /// - Parameters:
+    ///     - domain: Domain where the issue occurred.
+    ///     - severity: Indicator noting how processable the design is.
+    ///     - identifier: Error code.
+    ///     - message: User-oriented error description. Use ordinary user language here, not
+    ///       developer's language.
+    ///     - hint: Information about how the issue can be corrected or where to investigate further.
+    ///     - details: dictionary of details that might be presented by the application to the user.
+    ///
+    public init(identifier: String,
+                severity: Severity = .error,
+                system: any System,
+                error: any IssueProtocol,
+                relatedObjects: [ObjectID] = [],
+                details: [String : Variant] = [:]) {
+        self.identifier = identifier
+        self.severity = severity
+        self.system = String(describing: type(of: system))
+        self.error = error
+        self.relatedObjects = relatedObjects
+        self.details = details
+    }
+
+    public var description: String {
+        return "\(severity)[\(system),\(identifier)]: \(message)"
+    }
+
 }
