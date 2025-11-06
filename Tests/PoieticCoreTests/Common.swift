@@ -33,13 +33,13 @@ let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
 let TestTraitNoDefault = Trait(
     name: "Test",
     attributes: [
-        Attribute("text", type: .string)
+        Attribute("text", type: .string, optional: false)
     ]
 )
 let TestTraitWithDefault = Trait(
     name: "Test",
     attributes: [
-        Attribute("text", type: .string, default: "default")
+        Attribute("text", type: .string, default: "default", optional: false)
     ]
 )
 

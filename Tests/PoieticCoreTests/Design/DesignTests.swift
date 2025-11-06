@@ -370,7 +370,8 @@ import Testing
         let constraint = Constraint(name: "test",
                                     match: AnyPredicate(),
                                     requirement: RejectAll())
-        let metamodel = Metamodel(constraints: [constraint])
+        let metamodel = Metamodel(merging: TestMetamodel,
+                                  Metamodel(constraints: [constraint]))
         let design = Design(metamodel: metamodel)
         
         let frame = design.createFrame()
@@ -381,7 +382,7 @@ import Testing
             try design.accept(frame)
         } throws: {
             let error = try #require($0 as? FrameValidationError,
-                                     "Error is not a FrameConstraintError")
+                                     "Error is not a FrameValidationError")
             guard case .constraintViolation(let violation) = error else {
                 return false
             }

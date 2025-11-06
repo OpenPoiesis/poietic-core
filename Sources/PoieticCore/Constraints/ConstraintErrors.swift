@@ -110,7 +110,7 @@ public enum FrameValidationError: Error {
     
     /// Flag whether the caller can diagnose details about constraint violations using
     /// ``ConstraintChecker/diagnose(_:)`` after this error.
-    /// 
+    ///
     public var canDiagnoseConstraints: Bool {
         switch self {
         case .brokenStructuralIntegrity: false

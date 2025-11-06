@@ -76,7 +76,7 @@ public final class Metamodel: Sendable {
         self.edgeRules = edgeRules
         self.constraints = constraints
     }
-    
+   
     /// Create a metamodel by merging multiple metamodels.
     ///
     /// If traits, constraints and types have duplicate name, then the later
@@ -127,7 +127,7 @@ public final class Metamodel: Sendable {
         self.constraints = constraints
         self.edgeRules = edgeRules
     }
-   
+    
     /// Selection of node object types.
     ///
     public var nodeTypes: [ObjectType] {

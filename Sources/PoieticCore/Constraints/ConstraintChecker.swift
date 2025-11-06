@@ -102,10 +102,10 @@ public struct ConstraintChecker {
         var errors:[ObjectTypeError] = []
         
         for attr in trait.attributes {
-            if let value = object[attr.name],
-               !value.isRepresentable(as: attr.type)
-            {
-                errors.append(.typeMismatch(attr, value.valueType))
+            if let value = object[attr.name] {
+                if !value.isRepresentable(as: attr.type) {
+                    errors.append(.typeMismatch(attr, value.valueType))
+                }
             }
             else if attr.optional {
                 continue
@@ -134,17 +134,20 @@ public struct ConstraintChecker {
     ///
     public func diagnose(_ frame: some Frame) -> FrameValidationResult {
         // IMPORTANT: Keep in sync with validate(...) version of this method
-        var errors: [ObjectID: [ObjectTypeError]] = [:]
+        var objectErrors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
 
         // Check types
         //
         for object in frame.snapshots {
             guard metamodel.hasType(object.type) else {
-                errors[object.objectID, default: []].append(.unknownType(object.type.name))
+                objectErrors[object.objectID, default: []].append(.unknownType(object.type.name))
                 continue // Nothing to validate, the object is not known to metamodel
             }
-            errors[object.objectID, default: []] += diagnose(object, conformsTo: object.type)
+            let errors = diagnose(object, conformsTo: object.type)
+            if !errors.isEmpty {
+                objectErrors[object.objectID, default: []] += errors
+            }
             
             if let edge = EdgeObject(object, in: frame) {
                 do {
@@ -169,7 +172,7 @@ public struct ConstraintChecker {
 
         return FrameValidationResult(
             violations: violations,
-            objectErrors: errors,
+            objectErrors: objectErrors,
             edgeRuleViolations: edgeViolations
         )
     }

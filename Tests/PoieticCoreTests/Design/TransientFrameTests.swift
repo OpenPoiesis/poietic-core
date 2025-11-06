@@ -8,7 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-// TODO: [WIP] Test reservation release on transient frame
+// TODO: [IMPORTANT] Test reservation release on transient frame
 
 @Suite struct TransientFrameTest {
     let design: Design
@@ -44,7 +44,6 @@ import Testing
         let checker = ConstraintChecker(frame.design.metamodel)
         let result = checker.diagnose(frame)
         let objErrors = try #require(result.objectErrors[a.objectID])
-
         #expect(result.violations.count == 0)
         #expect(result.objectErrors.count == 1)
         #expect(objErrors.first == .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
