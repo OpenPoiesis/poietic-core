@@ -34,7 +34,7 @@
 public final class RuntimeFrame: Frame {
     // TODO: We can "wrap the unwrapped" here, we trust the validated frame, so we can refer directly to design frame and remove one level of indirection.
     /// The validated frame which the runtime context is associated with.
-    public let wrapped: ValidatedFrame
+    public let wrapped: DesignFrame
 
     /// Components of particular objects.
     ///
@@ -60,7 +60,7 @@ public final class RuntimeFrame: Frame {
     ///
     /// - Parameter validated: The validated frame to wrap
     ///
-    public init(_ validated: ValidatedFrame) {
+    public init(_ validated: DesignFrame) {
         self.wrapped = validated
         self.objectComponents = [:]
         self.frameComponents = ComponentSet()

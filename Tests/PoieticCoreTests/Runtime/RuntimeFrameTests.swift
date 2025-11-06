@@ -19,7 +19,7 @@ struct TestFrameComponent: Component, Equatable {
 
 @Suite struct RuntimeFrameTests {
     let design: Design
-    let validatedFrame: ValidatedFrame
+    let validatedFrame: DesignFrame
     let objectIDs: [ObjectID]  // IDs of created objects for easy reference
 
     init() throws {

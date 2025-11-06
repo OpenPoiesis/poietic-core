@@ -149,10 +149,10 @@ public class Design {
     /// - Note: It is a programming error to get current frame when there is no
     ///         history.
     ///
-    public var currentFrame: ValidatedFrame? {
+    public var currentFrame: DesignFrame? {
         guard let currentFrameID,
               let frame = _validatedFrames[currentFrameID] else { return nil }
-        return ValidatedFrame(frame, metamodel: self.metamodel)
+        return frame
     }
 
     /// List of IDs of frames that can undone.
@@ -229,8 +229,8 @@ public class Design {
     
     /// List of all stable frames in the design.
     ///
-    public var frames: some Collection<ValidatedFrame> {
-        return _validatedFrames.items.map { ValidatedFrame($0, metamodel: metamodel)}
+    public var frames: some Collection<DesignFrame> {
+        return _validatedFrames.items
     }
     
     /// Get a stable frame with given ID.
@@ -238,9 +238,9 @@ public class Design {
     /// - Returns: A stable frame, if it is contained in the design and is stable (not transient),
     ///   otherwise `nil`.
     ///
-    public func frame(_ id: FrameID) -> ValidatedFrame? {
+    public func frame(_ id: FrameID) -> DesignFrame? {
         guard let frame = _validatedFrames[id] else { return nil }
-        return ValidatedFrame(frame, metamodel: self.metamodel)
+        return frame
     }
 
     /// Test whether the design contains a stable frame with given ID.
@@ -255,9 +255,9 @@ public class Design {
     ///
     /// - SeeAlso: ``accept(_:replacingName:)``
     ///
-    public func frame(name: String) -> ValidatedFrame? {
+    public func frame(name: String) -> DesignFrame? {
         guard let frame = _namedFrames[name] else { return nil }
-        return ValidatedFrame(frame, metamodel: self.metamodel)
+        return frame
     }
 
     /// Create a new empty frame.
@@ -439,8 +439,8 @@ public class Design {
     ///
     @discardableResult
     public func accept(_ frame: TransientFrame, appendHistory: Bool = true)
-    throws (FrameValidationError) -> ValidatedFrame {
-        let stable = try validateAndInsert(frame)
+    throws (FrameValidationError) -> DesignFrame {
+        let validated = try validateAndInsert(frame)
 
         if appendHistory {
             if let currentFrameID {
@@ -451,9 +451,9 @@ public class Design {
             }
             redoList.removeAll()
         }
-        currentFrameID = stable.id
+        currentFrameID = validated.id
 
-        return ValidatedFrame(stable, metamodel: metamodel)
+        return validated
     }
 
     /// Accept a frame as a named frame, replacing the previous frame with the same name.
@@ -482,7 +482,7 @@ public class Design {
     ///
     @discardableResult
     public func accept(_ frame: TransientFrame, replacingName name: String)
-    throws (FrameValidationError) -> ValidatedFrame {
+    throws (FrameValidationError) -> DesignFrame {
         let old = _namedFrames[name]
         let stable = try validateAndInsert(frame)
 
@@ -490,7 +490,7 @@ public class Design {
             removeFrame(old.id)
         }
         _namedFrames[name] = stable
-        return ValidatedFrame(stable, metamodel: metamodel)
+        return stable
     }
     
     /// Unsafely create a named frame.
@@ -498,7 +498,7 @@ public class Design {
     /// Used by the design loader when finalising loading.
     ///
     internal func unsafeAssignName(name: String, frameID: FrameID) {
-        _namedFrames[name] = frame(frameID)?.wrapped
+        _namedFrames[name] = frame(frameID)
     }
 
     internal func validateAndInsert(_ frame: TransientFrame) throws (FrameValidationError) -> DesignFrame {

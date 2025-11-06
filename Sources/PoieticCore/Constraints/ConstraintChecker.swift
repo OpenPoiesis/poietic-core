@@ -339,3 +339,16 @@ public struct ConstraintChecker {
 
 }
 
+// TODO: A sketch, not yet used
+public struct MetamodelValidationMode: OptionSet, Sendable {
+    public let rawValue: Int8
+    public init(rawValue: RawValue) {
+        self.rawValue = rawValue
+    }
+    public static let allowUnknownTypes = MetamodelValidationMode(rawValue: 1 << 0)
+    public static let allowUnknownEdges = MetamodelValidationMode(rawValue: 1 << 1)
+    public static let ignoreConstraints = MetamodelValidationMode(rawValue: 1 << 2)
+                                                                                                                                                    
+    public static let strict: MetamodelValidationMode = []
+    public static let permissive: MetamodelValidationMode = [.allowUnknownTypes, .allowUnknownEdges, .ignoreConstraints]
+}
