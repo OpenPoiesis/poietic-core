@@ -56,7 +56,7 @@ public protocol System {
     /// specify ordering constraints.
     ///
     static var dependencies: [SystemDependency] { get }
-
+    
     /// Execute the system that reads and updates a runtime frame.
     ///
     /// Systems can:
@@ -66,11 +66,19 @@ public protocol System {
     /// - Parameter frame: The runtime frame to process
     ///
     func update(_ frame: RuntimeFrame) throws (InternalSystemError)
+    
+    // TODO: Pass Design or application context in the future. Not needed now.
+    /// Initialise the system.
+    init()
 }
 
 extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
+    public init() {
+        self.init()
+        // Do nothing
+    }
 }
 
 /// Error thrown by systems that has not been caused by the user, but that is recoverable in

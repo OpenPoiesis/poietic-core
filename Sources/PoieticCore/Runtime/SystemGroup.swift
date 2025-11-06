@@ -1,5 +1,5 @@
 //
-//  SystemScheduler.swift
+//  SystemGroup.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 29/10/2024.
@@ -13,40 +13,41 @@
  
  */
 
-/// System scheduler is responsible for system registration, dependency ordering and running.
+/// System group is a collection of systems that run in order of their dependency.
 ///
 /// ## Use
 ///
-/// Typically there is one scheduler per problem domain and even per application. For example,
+/// Typically there is one group per problem domain and even per application. For example,
 /// a Stock and Flow simulation application would have just one system scheduler with systems
 /// for expression parsing, flow dependency graph and computational model creation.
 ///
 /// ## Example
 ///
 /// ```swift
-/// let scheduler = SystemScheduler()
+/// let systems = SystemGroup()
 ///
-/// scheduler.register(ExpressionParserSystem())
-/// scheduler.register(ParametereDependecySystem())
-/// scheduler.register(StockFlowAnalysisSystem())
+/// systems.register(ExpressionParserSystem())
+/// systems.register(ParametereDependecySystem())
+/// systems.register(StockFlowAnalysisSystem())
 ///
 /// let runtimeFrame = RuntimeFrame(validatedFrame)
-/// try scheduler.execute(runtimeFrame)
+/// try systems.update(runtimeFrame)
 /// ```
 ///
 /// - Note: The concept of Systems in this library is for modelling and separation of concerns,
 ///         not for performance reasons.
 ///
-public final class SystemScheduler {
+public final class SystemGroup {
     /// Registered systems indexed by type name
-    private var systems: [ObjectIdentifier: any System]
+    private var systems: [ObjectIdentifier: System.Type]
 
     /// Computed execution order
-    private var _executionOrder: [any System]
+    private var _executionOrder: [System.Type]
 
-    public init() {
+    public init(_ systems: System.Type ...) {
         self.systems = [:]
         self._executionOrder = []
+        self.register(systems)
     }
     
     /// Register a system
@@ -60,20 +61,20 @@ public final class SystemScheduler {
     /// - Parameter system: The system to register
     /// - Precondition: The system dependencies must not contain a cycle and references must exist.
     ///
-    public func register(_ system: any System) {
-        let id = type(of: system)._systemTypeIdentifier
+    public func register(_ system: System.Type) {
+        let id = system._systemTypeIdentifier
 
         systems[id] = system
         _executionOrder = Self.dependencyOrder(Array(systems.values))
     }
-    
+
     /// Register multiple systems at once.
     ///
     /// - SeeAlso: ``register()``
     ///
-    public func register(_ systems: [any System]) {
+    public func register(_ systems: [System.Type]) {
         for system in systems {
-            let id = type(of: system)._systemTypeIdentifier
+            let id = system._systemTypeIdentifier
             self.systems[id] = system
         }
         _executionOrder = Self.dependencyOrder(Array(self.systems.values))
@@ -88,10 +89,9 @@ public final class SystemScheduler {
     /// - Parameter frame: The runtime frame to process
     /// - Throws: Errors from system execution
     ///
-    public func execute(_ frame: RuntimeFrame) throws (InternalSystemError) {
-        for system in _executionOrder {
-            let typeName = String(describing: type(of: system))
-            debugPrint("=== Executing system: \(typeName)")
+    public func update(_ frame: RuntimeFrame) throws (InternalSystemError) {
+        for systemType in _executionOrder {
+            let system = systemType.init()
             try system.update(frame)
         }
     }
@@ -111,18 +111,18 @@ public final class SystemScheduler {
     /// - Precondition: Systems in the dependency references must be known and there must be no
     ///   cycle.
     ///
-    public static func dependencyOrder(_ systems: [any System]) -> [any System]
+    public static func dependencyOrder(_ systems: [System.Type]) -> [System.Type]
     {
-        var systemMap: [ObjectIdentifier: any System] = [:]
+        var systemMap: [ObjectIdentifier: System.Type] = [:]
         var edges: [(ObjectIdentifier, ObjectIdentifier)] = []
 
         for system in systems {
-            let id = type(of: system)._systemTypeIdentifier
+            let id = system._systemTypeIdentifier
             systemMap[id] = system
         }
         for system in systems {
-            let systemID = type(of: system)._systemTypeIdentifier
-            for dep in type(of: system).dependencies {
+            let systemID = system._systemTypeIdentifier
+            for dep in system.dependencies {
                 switch dep {
                 case .before(let other):
                     let otherID = other._systemTypeIdentifier
