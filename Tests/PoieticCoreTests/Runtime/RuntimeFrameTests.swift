@@ -35,8 +35,7 @@ struct TestFrameComponent: Component, Equatable {
         self.objectIDs = [obj1.objectID, obj2.objectID, obj3.objectID]
 
         // Accept and validate
-        try design.accept(frame)
-        self.validatedFrame = try design.validate(design.currentFrame!)
+        self.validatedFrame = try design.accept(frame)
     }
 
     // MARK: - Basics

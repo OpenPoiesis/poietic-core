@@ -186,7 +186,7 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     public func match(_ edge: EdgeObject, in frame: some Frame) -> Bool {
         return match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: frame)
     }
-    
+
     /// Validates whether the given edge type with given origin and target matches the rule.
     ///
     /// The edge matches the rule if all of the following is satisfied:

@@ -97,11 +97,33 @@ public struct ObjectTypeErrorCollection: Error {
     }
 }
 
+public enum FrameValidationError: Error {
+    /// Structural references such as edge endpoints, parent-child are invalid.
+    ///
+    /// When this error happens, it is not possible to do further diagnostics. It usually means
+    /// a programming error.
+    /// s
+    case brokenStructuralIntegrity(StructuralIntegrityError)
+    case objectTypeError(ObjectID, ObjectTypeError)
+    case edgeRuleViolation(ObjectID, EdgeRuleViolation)
+    case constraintViolation(ConstraintViolation)
+    
+    /// Flag whether the caller can diagnose details about constraint violations using
+    /// ``ConstraintChecker/diagnose(_:)`` after this error.
+    /// 
+    public var canDiagnoseConstraints: Bool {
+        switch self {
+        case .brokenStructuralIntegrity: false
+        default: true
+        }
+    }
+}
+
 /// Error generated when a frame is checked for constraints and object types.
 ///
 /// This error is produced by the ``ConstraintChecker/check(_:)``.
 ///
-public struct FrameValidationError: Error {
+public struct FrameValidationResult: Sendable {
     /// List of constraint violations.
     ///
     /// - SeeAlso: ``Metamodel/constraints``, ``Constraint``.
@@ -135,6 +157,11 @@ public struct FrameValidationError: Error {
         self.violations = violations
         self.objectErrors = objectErrors
         self.edgeRuleViolations = edgeRuleViolations
+    }
+
+    /// True if there are no violations.
+    public var isValid: Bool {
+        violations.isEmpty && objectErrors.isEmpty && edgeRuleViolations.isEmpty
     }
     
     /// Converts the validation error into an application oriented design issue.

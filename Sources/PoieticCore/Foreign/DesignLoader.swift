@@ -313,7 +313,7 @@ public class DesignLoader {
         
         do {
             // TODO: [WIP] Is this needed? The caller is validating the frame anyway before accept().
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: snapshots, in: frame)
         }
         catch {
             throw .item(.frames, 0, .brokenStructuralIntegrity(error))
@@ -509,7 +509,7 @@ public class DesignLoader {
                                     snapshots: frameSnapshots)
             
             do {
-                try frame.validateStructure()
+                try StructuralValidator.validate(snapshots: snapshots, in: frame)
             }
             catch {
                 throw .item(.frames, i, .brokenStructuralIntegrity(error))

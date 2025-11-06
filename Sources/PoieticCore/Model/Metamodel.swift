@@ -173,6 +173,12 @@ public final class Metamodel: Sendable {
     public func objectType(name: String) -> ObjectType? {
         return types.first { $0.name == name}
     }
+    public func hasType(name: String) -> Bool {
+        return types.contains { $0.name == name}
+    }
+    public func hasType(_ type: ObjectType) -> Bool {
+        return types.contains { $0 === type}
+    }
     public func trait(name: String) -> Trait? {
         return traits.first { $0.name == name}
     }

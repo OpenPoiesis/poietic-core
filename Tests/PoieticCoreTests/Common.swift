@@ -119,6 +119,7 @@ public let TestMetamodel = Metamodel(
         TestEdgeType,
         TestTypeNoDefault,
         TestTypeWithDefault,
+        TestOrderType,
 
         ObjectType.Unstructured,
         ObjectType.Stock,
@@ -130,6 +131,7 @@ public let TestMetamodel = Metamodel(
     ],
     edgeRules: [
         EdgeRule(type: .Arrow),
+        EdgeRule(type: TestEdgeType),
         EdgeRule(type: .Flow,
                  origin: IsTypePredicate(.FlowRate),
                  outgoing: .one,
