@@ -207,14 +207,15 @@ public struct Issue: Sendable, CustomStringConvertible {
     ///
     public let severity: Severity
 
+    // TODO: Rename to context
     /// Name of a system that caused the issue
     ///
     public let system: String
 
-    public let error: any IssueProtocol
+    public let error: (any IssueProtocol)?
 
-    public var message: String { error.message }
-    public var hints: [String] { error.hints }
+    public var message: String
+    public var hints: [String]
     public var relatedObjects: [ObjectID]
 
     /// Details about the issue that applications can present or use.
@@ -248,6 +249,24 @@ public struct Issue: Sendable, CustomStringConvertible {
         self.severity = severity
         self.system = String(describing: type(of: system))
         self.error = error
+        self.message = error.message
+        self.hints = error.hints
+        self.relatedObjects = relatedObjects
+        self.details = details
+    }
+    public init(identifier: String,
+                severity: Severity = .error,
+                system: String,
+                message: String,
+                hints: [String] = [],
+                relatedObjects: [ObjectID] = [],
+                details: [String : Variant] = [:]) {
+        self.identifier = identifier
+        self.severity = severity
+        self.system = system
+        self.error = nil
+        self.message = message
+        self.hints = hints
         self.relatedObjects = relatedObjects
         self.details = details
     }

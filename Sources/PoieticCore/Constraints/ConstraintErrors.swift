@@ -83,6 +83,52 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
     }
 }
 
+extension ObjectTypeError /*: IssueProtocol */ {
+    public var message: String { description }
+    public var hints: [String] { ["Consult the metamodel"] }
+    
+    public func asObjectIssue() -> Issue {
+        switch self {
+        case let .missingTraitAttribute(attribute, trait):
+            Issue(
+                identifier: "missing_trait_attribute",
+                severity: .fatal,
+                system: "Validation",
+                message: self.description,
+                details: [
+                    "attribute": Variant(attribute.name),
+                    "trait": Variant(trait)
+                ])
+        case let .typeMismatch(attribute, _):
+            Issue(
+                identifier: "attribute_type_mismatch",
+                severity: .fatal,
+                system: "Validation",
+                message: self.description,
+                details: [
+                    "attribute": Variant(attribute.name),
+                    "expected_type": Variant(attribute.type.description)
+                ])
+        case let .unknownType(type):
+            Issue(
+                identifier: "unknown_type",
+                severity: .fatal,
+                system: "Validation",
+                message: self.description,
+                details: ["type": Variant(type)])
+        case let .structureMismatch(type):
+            Issue(
+                identifier: "structure_mismatch",
+                severity: .fatal,
+                system: "Validation",
+                message: self.description,
+                details: [
+                    "expected_structure": Variant(type.rawValue)
+                ])
+        }
+    }
+}
+
 
 /// Collection of object type violation errors produced when checking object
 /// types.
@@ -164,43 +210,48 @@ public struct FrameValidationResult: Sendable {
         violations.isEmpty && objectErrors.isEmpty && edgeRuleViolations.isEmpty
     }
     
-    /// Converts the validation error into an application oriented design issue.
+    
+    /// Convert violations to object issues.
     ///
-    /// This method is used when the errors are to be presented by an application. For example
-    /// in an error browser or by an object error inspector.
+    /// This method is used for unified error output.
     ///
-    @available(*, deprecated, message: "Use [ObjectID:[Issue]]")
-    public func asDesignIssueCollection() -> DesignIssueCollection {
-        var result: DesignIssueCollection = DesignIssueCollection()
-        // TODO: Use object-less design issues
+    public func violationsAsIssues() -> [Issue] {
+        var result: [Issue] = []
         for violation in violations {
-            for object in violation.objects {
-                let issue = DesignIssue(
-                    domain: .validation,
-                    severity: .error,
-                    identifier: "constraint_violation",
-                    message: violation.constraint.abstract ?? "Constraint violation",
-                    details: [
-                        "constraint": Variant(violation.constraint.name)
-                    ]
+            let constraint = violation.constraint
+            let message = constraint.name
+                            + (constraint.abstract.map { ": " + $0 }  ?? "")
+            let issue = Issue(
+                identifier: "constraint_violation:",
+                severity: .error,
+                system: "Validation",
+                message: message,
+                relatedObjects: violation.objects
                 )
-                result.append(issue, for: object)
-            }
+            result.append(issue)
         }
-        
+        return result
+    }
+    
+    /// Convert object errors and edge rule violations to object issues.
+    ///
+    /// This method is used for unified error output.
+    ///
+    public func objectIssues() -> [ObjectID:[Issue]] {
+        var result: [ObjectID:[Issue]] = [:]
         for (id, errors) in objectErrors {
             for error in errors {
-                result.append(error.asDesignIssue(), for: id)
+                let issue = error.asObjectIssue()
+                result[id, default: []].append(issue)
             }
         }
         for (id, errors) in edgeRuleViolations {
             for error in errors {
-                result.append(error.asDesignIssue(), for: id)
+                let issue = error.asObjectIssue()
+                result[id, default: []].append(issue)
             }
         }
-        
         return result
     }
-
 }
 

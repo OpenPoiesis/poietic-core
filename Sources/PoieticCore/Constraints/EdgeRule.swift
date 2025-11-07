@@ -31,7 +31,7 @@ public enum EdgeDirection: Sendable, CustomStringConvertible {
     }
 }
 
-public enum EdgeRuleViolation: Error, CustomStringConvertible, DesignIssueConvertible {
+public enum EdgeRuleViolation: Error, CustomStringConvertible {
     case edgeNotAllowed
     case noRuleSatisfied
     case cardinalityViolation(EdgeRule, EdgeDirection)
@@ -43,35 +43,42 @@ public enum EdgeRuleViolation: Error, CustomStringConvertible, DesignIssueConver
         case let .cardinalityViolation(rule, direction): "Cardinality violation for rule \(rule) direction \(direction)"
         }
     }
+}
+extension EdgeRuleViolation /*: IssueProtocol */ {
+    public var message: String { description }
+    public var hints: [String] { ["Consult the metamodel"] }
     
-    public func asDesignIssue() -> DesignIssue {
+    public func asObjectIssue() -> Issue {
         switch self {
         case .edgeNotAllowed:
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "edge_not_allowed",
-                        message: description,
-                        hint: nil,
-                        details: [:])
+            Issue(
+                identifier: "edge_not_allowed",
+                severity: .error,
+                system: "EdgeRule",
+                message: self.description,
+                hints: self.hints
+                )
         case .noRuleSatisfied:
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "no_edge_rule_satisfied",
-                        message: description,
-                        hint: nil,
-                        details: [:])
+            Issue(
+                identifier: "no_edge_rule_satisfied",
+                severity: .error,
+                system: "EdgeRule",
+                message: self.description,
+                hints: self.hints
+                )
         case let .cardinalityViolation(rule, direction):
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "edge_cardinality_violated",
-                        message: description,
-                        hint: nil,
-                        details: [
-                            "incoming_predicate": Variant(rule.incoming.description),
-                            "outgoing_predicate": Variant(rule.outgoing.description),
-                            "direction": Variant(direction.description)
-                            ]
-                        )
+            Issue(
+                identifier: "edge_cardinality_violated",
+                severity: .error,
+                system: "EdgeRule",
+                message: self.description,
+                hints: self.hints,
+                details: [
+                    "incoming_predicate": Variant(rule.incoming.description),
+                    "outgoing_predicate": Variant(rule.outgoing.description),
+                    "direction": Variant(direction.description)
+                    ]
+                )
         }
     }
 }
