@@ -123,6 +123,12 @@ public class DesignLoader {
         
         /// When snapshot ID is a string, use it as a name attribute, if not present.
         public static let useIDAsNameAttribute = Options(rawValue: 1 << 0)
+        /// Collect orphaned snapshots into a single frame. The orphaned snapshots must satisfy
+        /// structural integrity requirements.
+        ///
+        /// This option is used only when loading whole design. Has no effect on loading into a
+        /// frame.
+        public static let collectOrphans = Options(rawValue: 2 << 0)
     }
     
     /// Create a design loader for design that conform to given metamodel.
@@ -164,11 +170,20 @@ public class DesignLoader {
             identities: identityResolution,
         )
         
-        let frameResolution = try resolveFrames(
-            resolution: validationResolution,
-            identities: identityResolution,
-        )
         
+        let frameResolution: FrameResolution
+        if options == .collectOrphans && validationResolution.rawFrames.count == 0 {
+            frameResolution = try resolveOrphansFrame(
+                resolution: validationResolution,
+                identities: identityResolution,
+            )
+        }
+        else {
+            frameResolution = try resolveFrames(
+                resolution: validationResolution,
+                identities: identityResolution,
+            )
+        }
         let hierarchicalSnapshots  = try resolveHierarchy(
             frameResolution: frameResolution,
             snapshotResolution: partialSnapshotResolution
@@ -348,6 +363,20 @@ public class DesignLoader {
         
         return FrameResolution(frames: resolvedFrames)
     }
+
+    internal func resolveOrphansFrame(resolution: ValidationResolution,
+                                      identities: IdentityResolution)
+    throws (DesignLoaderError) -> FrameResolution
+    {
+        precondition(resolution.rawFrames.count == 0) // We have no frames requested ...
+        precondition(identities.frameIDs.count == 1) // ... yet we reserved one ID for us here.
+
+        let resolved = ResolvedFrame(frameID: identities.frameIDs[0],
+                                     snapshots: identities.snapshotIDs)
+        
+        return FrameResolution(frames: [resolved])
+    }
+
     
     /// - Returns: List of indices of object snapshots in the list of all snapshots.
     ///
@@ -656,7 +685,12 @@ public class DesignLoader {
             let ids: [FrameID]  = list.typedIDs()
             design.redoList = ids
         }
-        if let ref = namedReferences.systemReferences["current_frame"] {
+        if options == .collectOrphans && design.frames.count == 1,
+           let onlyFrameID = design.frames.first?.id
+        {
+            design.currentFrameID = onlyFrameID
+        }
+        else if let ref = namedReferences.systemReferences["current_frame"] {
             guard ref.type == .frame else {
                 throw .design(.namedReferenceTypeMismatch("current_frame"))
             }
