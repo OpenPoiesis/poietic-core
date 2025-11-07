@@ -49,7 +49,13 @@ public final class SystemGroup {
         self._executionOrder = []
         self.register(systems)
     }
-    
+
+    public init(_ systems: [System.Type]) {
+        self.systems = [:]
+        self._executionOrder = []
+        self.register(systems)
+    }
+
     /// Register a system
     ///
     /// After registration, execution order is recomputed based on all
