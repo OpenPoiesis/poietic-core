@@ -126,7 +126,7 @@ public final class SystemGroup {
             let id = system._systemTypeIdentifier
             systemMap[id] = system
         }
-        for system in systems {
+        for system in systemMap.values {
             let systemID = system._systemTypeIdentifier
             for dep in system.dependencies {
                 switch dep {
@@ -143,13 +143,18 @@ public final class SystemGroup {
                 }
             }
         }
-
         guard let sorted = topologicalSort(edges) else {
             fatalError("Circular dependency in Systems")
         }
         
-        let result = sorted.compactMap { systemMap[$0] }
-        
+        var independent: [ObjectIdentifier] = []
+        for system in systems where system.dependencies.count == 0 {
+            let id = ObjectIdentifier(system)
+            guard !independent.contains(id) && !sorted.contains(id) else { continue }
+            independent.append(id)
+        }
+        let result = (independent + sorted).compactMap { systemMap[$0] }
+
         return result
     }
 }
