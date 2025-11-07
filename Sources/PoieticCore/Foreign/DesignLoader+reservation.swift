@@ -54,7 +54,7 @@ extension DesignLoader { // Reservation of identities
 
         // Reservation Phase 2: Create those IDs we do not have
         let rawFrameIDs: [ForeignEntityID?]
-        if options == .collectOrphans {
+        if options == .collectOrphans && resolution.rawFrames.isEmpty {
             rawFrameIDs = [nil] // Request one new ID for the orphan's frame
         }
         else {
