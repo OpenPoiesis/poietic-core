@@ -38,7 +38,7 @@ public struct ParsedExpressionComponent: Component {
 ///
 public struct ExpressionParserSystem: System {
     public init() {}
-    public func update(_ frame: RuntimeFrame) {
+    public func update(_ frame: AugmentedFrame) {
         for object in frame.filter(trait: .Formula) {
             guard let formula: String = object["formula"] else { continue }
             
@@ -72,7 +72,7 @@ public struct ExpressionParserSystem: System {
                 )
             }
 
-            frame.setComponent(component, for: object.objectID)
+            frame.setComponent(component, for: .object(object.objectID))
         }
     }
 }

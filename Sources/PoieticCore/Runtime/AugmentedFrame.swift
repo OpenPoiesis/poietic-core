@@ -1,48 +1,44 @@
 //
-//  RuntimeFrame.swift
+//  AugmentedFrame.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 29/10/2024.
 //
 
-/// Runtime frame is a frame wrapper that adds runtime information in form of components.
+/// Augmented frame is a frame wrapper that adds derived, aggregate or other temporary information
+/// to the design frame in form of components.
 ///
 /// Runtime enriches a regular frame with derived information and a list of issues. The derived
 /// information is stored in form of components, which are typically created by systems.
 /// (see ``System``). Example of a component might be visual representation of a node, or
 /// "inflows-outflows" of a node based on surrounding edges.
 ///
-/// Information in the runtime frame is not persisted with the design.
-///
+/// Information in the augmented frame is not persisted with the design.
 ///
 /// ## Usage
 ///
 /// ```swift
-/// let validatedFrame = try design.validate(design.currentFrame!)
-/// let runtimeFrame = RuntimeFrame(validatedFrame)
+/// let frame: DesignFrame    // Assuming this is given
+/// let augmented = AugmentedFrame(validatedFrame)
 ///
 /// // Use as a regular frame
-/// let stocks = runtimeFrame.filter(type: .Stock)
+/// let stocks = augmented.filter(type: .Stock)
 ///
 /// // Access components
-/// let expr = runtimeFrame.component(UnboundExpression.self, for: objectID)
+/// let expr = augmented.component(UnboundExpression.self, for: objectID)
 ///
 /// // Set components (typically done by systems)
-/// runtimeFrame.setComponent(expr, for: objectID)
+/// augmented.setComponent(expr, for: objectID)
 /// ```
 ///
-public final class RuntimeFrame: Frame {
+public final class AugmentedFrame: Frame {
     // TODO: We can "wrap the unwrapped" here, we trust the validated frame, so we can refer directly to design frame and remove one level of indirection.
     /// The validated frame which the runtime context is associated with.
     public let wrapped: DesignFrame
 
     /// Components of particular objects.
     ///
-    private var objectComponents: [ObjectID: ComponentSet]
-
-    /// Components related to the frame as a whole.
-    ///
-    private var frameComponents: ComponentSet
+    private var components: [RuntimeEntityID: ComponentSet]
 
     // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
     /// User-facing issues collected during frame processing.
@@ -62,8 +58,7 @@ public final class RuntimeFrame: Frame {
     ///
     public init(_ validated: DesignFrame) {
         self.wrapped = validated
-        self.objectComponents = [:]
-        self.frameComponents = ComponentSet()
+        self.components = [:]
         self.issues = [:]
     }
 
@@ -97,14 +92,24 @@ public final class RuntimeFrame: Frame {
 
     // MARK: - Object Components
 
-    /// Get a component for a specific object
+    /// Get a component for a runtime object
+    ///
+    /// - Parameters:
+    ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
+    /// - Returns: The component if it exists, otherwise nil
+    ///
+    public func component<T: Component>(for runtimeID: RuntimeEntityID) -> T? {
+        components[runtimeID]?[T.self]
+    }
+
+    /// Get a component for a runtime object
     ///
     /// - Parameters:
     ///   - objectID: The object ID
     /// - Returns: The component if it exists, otherwise nil
     ///
     public func component<T: Component>(for objectID: ObjectID) -> T? {
-        objectComponents[objectID]?[T.self]
+        components[.object(objectID)]?[T.self]
     }
 
     /// Set a component for a specific object
@@ -116,8 +121,9 @@ public final class RuntimeFrame: Frame {
     ///   - component: The component to set
     ///   - objectID: The object ID
     ///
-    public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
-        objectComponents[objectID, default: ComponentSet()].set(component)
+    public func setComponent<T: Component>(_ component: T, for runtimeID: RuntimeEntityID) {
+        // TODO: Check whether the object exists
+        components[runtimeID, default: ComponentSet()].set(component)
     }
 
     /// Check if an object has a specific component type
@@ -127,8 +133,8 @@ public final class RuntimeFrame: Frame {
     ///   - objectID: The object ID
     /// - Returns: True if the object has the component, otherwise false
     ///
-    public func hasComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) -> Bool {
-        objectComponents[objectID]?.has(type) ?? false
+    public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeEntityID) -> Bool {
+        components[runtimeID]?.has(type) ?? false
     }
 
     /// Remove a component from an object
@@ -137,8 +143,12 @@ public final class RuntimeFrame: Frame {
     ///   - type: The component type to remove
     ///   - objectID: The object ID
     ///
+    public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeEntityID) {
+        // TODO: Check whether the object exists
+        components[runtimeID]?.remove(type)
+    }
     public func removeComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) {
-        objectComponents[objectID]?.remove(type)
+        removeComponent(type, for: .object(objectID))
     }
 
     /// Get all object IDs that have a specific component type
@@ -147,8 +157,13 @@ public final class RuntimeFrame: Frame {
     /// - Returns: Array of object IDs that have this component
     ///
     public func objectIDs<T: Component>(with type: T.Type) -> [ObjectID] {
-        objectComponents.compactMap { objectID, components in
-            components.has(type) ? objectID : nil
+        components.compactMap { runtimeID, components in
+            switch runtimeID {
+            case .object(let objectID):
+                components.has(type) ? objectID : nil
+            case .ephemeral(_):
+                nil
+            }
         }
     }
     // MARK: - Filter
@@ -156,51 +171,18 @@ public final class RuntimeFrame: Frame {
     /// Get a list of objects with given component.
     ///
     public func filter<T: Component>(_ componentType: T.Type) -> some Collection<(ObjectID, T)> {
-        return self.objectIDs.compactMap { objectID in
-            guard let comp: T = self.component(for: objectID) else { return nil }
-            return (objectID, comp)
+        components.compactMap { runtimeID, components in
+            switch runtimeID {
+            case .object(let objectID):
+                guard let comp: T = components[T.self] else {
+                    return nil
+                }
+                return (objectID, comp)
+            case .ephemeral(_):
+                return nil
+            }
         }
     }
-
-    // MARK: - Frame Components
-
-    /// Get a frame-level metadata component
-    ///
-    /// Frame-level components store metadata that applies to the entire frame,
-    /// such as computation order or dependency graphs.
-    ///
-    /// - Parameter type: The component type to retrieve
-    /// - Returns: The component if it exists, otherwise nil
-    ///
-    public func frameComponent<T: Component>(_ type: T.Type) -> T? {
-        frameComponents[type]
-    }
-
-    /// Set a frame-level metadata component
-    ///
-    /// - Parameter component: The component to set
-    ///
-    public func setFrameComponent<T: Component>(_ component: T) {
-        frameComponents.set(component)
-    }
-
-    /// Check if a frame-level component exists
-    ///
-    /// - Parameter type: The component type to check
-    /// - Returns: True if the component exists, otherwise false
-    ///
-    public func hasFrameComponent<T: Component>(_ type: T.Type) -> Bool {
-        frameComponents.has(type)
-    }
-
-    /// Remove a frame-level component
-    ///
-    /// - Parameter type: The component type to remove
-    ///
-    public func removeFrameComponent<T: Component>(_ type: T.Type) {
-        frameComponents.remove(type)
-    }
-
     // MARK: - Issues
 
     /// Flag indicating whether any issues were collected
@@ -233,7 +215,7 @@ public final class RuntimeFrame: Frame {
 }
 
 // Testing convenience methods
-extension RuntimeFrame {
+extension AugmentedFrame {
     func objectHasError<T:IssueProtocol>(_ objectID: ObjectID, error: T) -> Bool {
         guard let issues = objectIssues(objectID) else { return false }
 

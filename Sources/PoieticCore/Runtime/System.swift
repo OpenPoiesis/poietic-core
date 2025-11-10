@@ -65,7 +65,7 @@ public protocol System {
     ///
     /// - Parameter frame: The runtime frame to process
     ///
-    func update(_ frame: RuntimeFrame) throws (InternalSystemError)
+    func update(_ frame: AugmentedFrame) throws (InternalSystemError)
     
     // TODO: Pass Design or application context in the future. Not needed now.
     /// Initialise the system.

@@ -86,6 +86,13 @@ Further reading:
 - [Technical Debt](DevelopmentNotes/TechnicalDebt.md) document in the
   DevelopmentNotes folder.
 
+## Note on LLM Use
+
+This package is LLM free with exception of some unit tests.
+
+If you want to contribute to this package, please do not use LLMs to write code. Only exception is
+unit tests, which require to be reviewed thoroughly by a human.
+
 ## Author
 
 - [Stefan Urbanek](mailto:stefan.urbanek@gmail.com)

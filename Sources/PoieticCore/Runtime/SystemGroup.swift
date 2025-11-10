@@ -95,7 +95,7 @@ public final class SystemGroup {
     /// - Parameter frame: The runtime frame to process
     /// - Throws: Errors from system execution
     ///
-    public func update(_ frame: RuntimeFrame) throws (InternalSystemError) {
+    public func update(_ frame: AugmentedFrame) throws (InternalSystemError) {
         for systemType in _executionOrder {
             let system = systemType.init()
             try system.update(frame)

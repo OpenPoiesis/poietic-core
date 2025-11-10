@@ -116,6 +116,9 @@ public class Design {
     /// Generator of entity IDs.
     ///
     public let identityManager: IdentityManager
+    
+    /// Sequence for ephemeral entities
+    internal var ephemeralSequence: UInt64
 
     var _objectSnapshots: EntityTable<ObjectSnapshot>
 
@@ -183,6 +186,7 @@ public class Design {
     /// - SeeAlso: ``createFrame(deriving:id:)``
     ///
     public init(metamodel: Metamodel = Metamodel()) {
+        self.ephemeralSequence = RuntimeEntityID.FirstEphemeralIDValue
         self._objectSnapshots = EntityTable()
         self._validatedFrames = EntityTable()
         self._objects = EntityTable()
@@ -192,6 +196,15 @@ public class Design {
         self.redoList = []
         self.metamodel = metamodel
         self.identityManager = IdentityManager()
+    }
+    
+    // MARK: - Identity
+    
+    internal func reserveRuntimeID() -> RuntimeEntityID {
+        // TODO: Use lock once we are multi-thread ready (we are not)
+        let value = ephemeralSequence
+        ephemeralSequence += 1
+        return .ephemeral(EphemeralID(rawValue: value))
     }
    
     // MARK: - Snapshots
@@ -272,7 +285,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(id: FrameID? = nil) -> TransientFrame {
+    public func _createFrame(id: FrameID? = nil) -> TransientFrame {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {
@@ -310,7 +323,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(deriving original: some Frame,
+    public func createFrame(deriving original: (any Frame)? = nil,
                             id: FrameID? = nil) -> TransientFrame {
         // TODO: Throw some identity error here
         let actualID: FrameID
@@ -323,8 +336,14 @@ public class Design {
             actualID = identityManager.reserveNew()
         }
         
-        precondition(original.design === self, "Trying to clone a frame from different design")
-        let derived = TransientFrame(design: self, id: actualID, snapshots: original.snapshots)
+        let derived: TransientFrame
+        if let original {
+            precondition(original.design === self, "Trying to clone a frame from different design")
+            derived = TransientFrame(design: self, id: actualID, snapshots: original.snapshots)
+        }
+        else {
+            derived = TransientFrame(design: self, id: actualID)
+        }
 
         _transientFrames[actualID] = derived
         return derived
