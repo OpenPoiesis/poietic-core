@@ -76,7 +76,7 @@ public final class Metamodel: Sendable {
         self.edgeRules = edgeRules
         self.constraints = constraints
     }
-    
+   
     /// Create a metamodel by merging multiple metamodels.
     ///
     /// If traits, constraints and types have duplicate name, then the later
@@ -127,7 +127,7 @@ public final class Metamodel: Sendable {
         self.constraints = constraints
         self.edgeRules = edgeRules
     }
-   
+    
     /// Selection of node object types.
     ///
     public var nodeTypes: [ObjectType] {
@@ -172,6 +172,12 @@ public final class Metamodel: Sendable {
     /// ```
     public func objectType(name: String) -> ObjectType? {
         return types.first { $0.name == name}
+    }
+    public func hasType(name: String) -> Bool {
+        return types.contains { $0.name == name}
+    }
+    public func hasType(_ type: ObjectType) -> Bool {
+        return types.contains { $0 === type}
     }
     public func trait(name: String) -> Trait? {
         return traits.first { $0.name == name}

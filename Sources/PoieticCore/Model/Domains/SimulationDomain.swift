@@ -7,6 +7,7 @@
 
 // Simulation related traits
 
+// TODO: Add SimulationObject trait
 // TODO: Add TimeSeries trait
 // TODO: Add NumericValue trait
 
