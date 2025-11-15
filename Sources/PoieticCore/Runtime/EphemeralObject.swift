@@ -44,10 +44,17 @@ public enum RuntimeEntityID:
     // NOTE: Update this constant based on the known list of reserved values
     internal static let FirstEphemeralIDValue: UInt64 = 10
 
+    public var objectID: ObjectID? {
+        switch self {
+        case .object(let id): id
+        case .ephemeral(_): nil
+        }
+    }
+    
     public var description: String {
         switch self {
-        case .object(let id): "O-\(id)"
-        case .ephemeral(let id): "E-\(id)"
+        case .object(let id): "\(id)"
+        case .ephemeral(let id): "e\(id)"
         }
     }
 }

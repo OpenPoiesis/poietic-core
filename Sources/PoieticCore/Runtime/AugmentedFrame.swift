@@ -32,7 +32,6 @@
 /// ```
 ///
 public final class AugmentedFrame: Frame {
-    // TODO: We can "wrap the unwrapped" here, we trust the validated frame, so we can refer directly to design frame and remove one level of indirection.
     /// The validated frame which the runtime context is associated with.
     public let wrapped: DesignFrame
 
@@ -125,6 +124,9 @@ public final class AugmentedFrame: Frame {
         // TODO: Check whether the object exists
         components[runtimeID, default: ComponentSet()].set(component)
     }
+    public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
+        setComponent(component, for: .object(objectID))
+    }
 
     /// Check if an object has a specific component type
     ///
@@ -181,6 +183,15 @@ public final class AugmentedFrame: Frame {
             case .ephemeral(_):
                 return nil
             }
+        }
+    }
+    // TODO: Is this a good name?
+    public func runtimeFilter<T: Component>(_ componentType: T.Type) -> some Collection<(RuntimeEntityID, T)> {
+        components.compactMap { runtimeID, components in
+            guard let comp: T = components[T.self] else {
+                return nil
+            }
+            return (runtimeID, comp)
         }
     }
     // MARK: - Issues

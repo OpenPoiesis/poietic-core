@@ -26,6 +26,8 @@ public protocol Component {
 ///
 /// This is just an annotation protocol, has no requirements.
 ///
+/// - SeeAlso: ``RuntimeEntityID/Frame``
+/// 
 public protocol FrameComponent: Component {
     // Empty, just an annotation.
 }
