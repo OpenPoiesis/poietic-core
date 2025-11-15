@@ -154,7 +154,6 @@ public class DesignLoader {
         // The loader uses something similar to a pipeline pattern.
         // Stages are separate steps that use only relevant processing context and produce value for the next step.
         let design: Design = Design(metamodel: metamodel)
-        
         let validationResolution = try validate(
             rawDesign: rawDesign,
             identityManager: design.identityManager
@@ -164,13 +163,13 @@ public class DesignLoader {
             resolution: validationResolution,
             identityStrategy: .requireProvided
         )
-        
+
         let partialSnapshotResolution = try resolveObjectSnapshots(
             resolution: validationResolution,
             identities: identityResolution,
         )
         
-        
+
         let frameResolution: FrameResolution
         if options == .collectOrphans && validationResolution.rawFrames.count == 0 {
             frameResolution = try resolveOrphansFrame(
@@ -195,14 +194,13 @@ public class DesignLoader {
         for snapshot in snapshots {
             snapshotMap[snapshot.snapshotID] = snapshot
         }
-        
+
         try insertFrames(
             resolvedFrames: frameResolution.frames,
-            snapshots: snapshots,
             snapshotMap: snapshotMap,
             into: design
         )
-        
+
         // FIXME: [IMPORTANT] We need guarantee that the raw design corresponds to the identity reservations
         let namedReferences = try resolveNamedReferences(
             rawDesign: rawDesign,
@@ -522,7 +520,6 @@ public class DesignLoader {
     }
     
     internal func insertFrames(resolvedFrames: [ResolvedFrame],
-                               snapshots: [ObjectSnapshot],
                                snapshotMap: [ObjectSnapshotID:ObjectSnapshot],
                                into design: Design)
     throws (DesignLoaderError)
@@ -537,8 +534,9 @@ public class DesignLoader {
                                     id: resolvedFrame.frameID,
                                     snapshots: frameSnapshots)
             
+            let debugIDs = frameSnapshots.map { $0.snapshotID }
             do {
-                try StructuralValidator.validate(snapshots: snapshots, in: frame)
+                try StructuralValidator.validate(snapshots: frameSnapshots, in: frame)
             }
             catch {
                 throw .item(.frames, i, .brokenStructuralIntegrity(error))
