@@ -8,8 +8,8 @@
 /*
  Development Notes:
  
- - A system processes all entities that match its component query, and ignores those that don't.
- 
+ - This is an early sketch of Systems and SystemGroups
+ - TODO: Have a central per-app or per-design system registry
  
  */
 
@@ -43,17 +43,18 @@ public final class SystemGroup {
 
     /// Computed execution order
     private var _executionOrder: [System.Type]
+    private var _instances: [any System]
+    
 
-    public init(_ systems: System.Type ...) {
-        self.systems = [:]
-        self._executionOrder = []
-        self.register(systems)
+    convenience public init(_ systems: System.Type ...) {
+        self.init(systems)
     }
 
-    public init(_ systems: [System.Type]) {
+    public init(_ systems: [System.Type], strict: Bool = true) {
         self.systems = [:]
         self._executionOrder = []
-        self.register(systems)
+        self._instances = []
+        self.register(systems, strict: strict)
     }
 
     /// Register a system
@@ -78,12 +79,12 @@ public final class SystemGroup {
     ///
     /// - SeeAlso: ``register()``
     ///
-    public func register(_ systems: [System.Type]) {
+    public func register(_ systems: [System.Type], strict: Bool = true) {
         for system in systems {
             let id = system._systemTypeIdentifier
             self.systems[id] = system
         }
-        _executionOrder = Self.dependencyOrder(Array(self.systems.values))
+        _executionOrder = Self.dependencyOrder(Array(self.systems.values), strict: strict)
     }
 
 
@@ -96,12 +97,21 @@ public final class SystemGroup {
     /// - Throws: Errors from system execution
     ///
     public func update(_ frame: AugmentedFrame) throws (InternalSystemError) {
-        for systemType in _executionOrder {
-            let system = systemType.init()
+        if _instances.isEmpty {
+            self.instantiate()
+        }
+        for system in _instances {
             try system.update(frame)
         }
     }
 
+    internal func instantiate() {
+        // TODO: Add frame or some initialisation context
+        for systemType in _executionOrder {
+            let system = systemType.init()
+            _instances.append(system)
+        }
+    }
     /// Get names of the systems in the the computed execution order
     ///
     public func debugDependencyOrder() -> [String] {
@@ -113,11 +123,16 @@ public final class SystemGroup {
     /// Uses topological sort to order systems respecting `.before()` and
     /// `.after()` constraints.
     ///
-    /// - Returns: Sorted array of systems
-    /// - Precondition: Systems in the dependency references must be known and there must be no
-    ///   cycle.
+    /// - Parameters:
+    ///     - systems: List of systems to be ordered.
+    ///     - strict: Flag whether dependencies are strictly required.
     ///
-    public static func dependencyOrder(_ systems: [System.Type]) -> [System.Type]
+    /// - Returns: Sorted array of systems.
+    /// - Precondition: There must be no dependency cycle within systems.
+    /// - Precondition: If `strict` is `true` then all systems listed in dependencies must be
+    ///   present in the list. If `strict` is `false` then systems not present are ignored.
+    ///
+    public static func dependencyOrder(_ systems: [System.Type], strict: Bool = true) -> [System.Type]
     {
         var systemMap: [ObjectIdentifier: System.Type] = [:]
         var edges: [(ObjectIdentifier, ObjectIdentifier)] = []
@@ -132,13 +147,17 @@ public final class SystemGroup {
                 switch dep {
                 case .before(let other):
                     let otherID = other._systemTypeIdentifier
-                    precondition(systemMap[otherID] != nil,
-                           "Error sorting system \(system): Missing system: \(other)")
+                    guard systemMap[otherID] != nil else {
+                        assert(!strict, "Error sorting system \(system): Missing system: \(other)")
+                        continue
+                    }
                     edges.append((origin: systemID, target: otherID))
                 case .after(let other):
                     let otherID = other._systemTypeIdentifier
-                    precondition(systemMap[otherID] != nil,
-                           "Error sorting system \(system): Missing system: \(other)")
+                    guard systemMap[otherID] != nil else {
+                        assert(!strict, "Error sorting system \(system): Missing system: \(other)")
+                        continue
+                    }
                     edges.append((origin: otherID, target: systemID))
                 }
             }

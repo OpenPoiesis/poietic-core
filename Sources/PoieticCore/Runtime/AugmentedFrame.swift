@@ -152,6 +152,13 @@ public final class AugmentedFrame: Frame {
     public func removeComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) {
         removeComponent(type, for: .object(objectID))
     }
+    
+    // TODO: Rename to "removeForAll"
+    public func removeComponentForAll<T: Component>(_ type: T.Type) {
+        for id in components.keys {
+            components[id]?.remove(type)
+        }
+    }
 
     /// Get all object IDs that have a specific component type
     ///
@@ -185,6 +192,20 @@ public final class AugmentedFrame: Frame {
             }
         }
     }
+    
+    public func first<T: Component>(withComponent componentType: T.Type)
+        -> (id: RuntimeEntityID, component: T)?
+    {
+        let result = components.first { id, components in components.has(componentType) }
+        if let result {
+            return (id: result.key, component: result.value[componentType]!)
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
     // TODO: Is this a good name?
     public func runtimeFilter<T: Component>(_ componentType: T.Type) -> some Collection<(RuntimeEntityID, T)> {
         components.compactMap { runtimeID, components in
