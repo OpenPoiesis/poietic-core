@@ -32,6 +32,8 @@
 /// ```
 ///
 public final class AugmentedFrame: Frame {
+    // TODO: Turn this into a World that wraps a replace-able DesignFrame as a source of truth
+    
     /// The validated frame which the runtime context is associated with.
     public let wrapped: DesignFrame
 
@@ -39,6 +41,7 @@ public final class AugmentedFrame: Frame {
     ///
     private var components: [RuntimeEntityID: ComponentSet]
 
+    // TODO: [IMPORTANT] Make issues a component, to unify the interface.
     // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
     /// User-facing issues collected during frame processing.
     ///
@@ -68,6 +71,8 @@ public final class AugmentedFrame: Frame {
     @inlinable public var id: FrameID { wrapped.id }
     @inlinable public var snapshots: [ObjectSnapshot] { wrapped.snapshots }
     @inlinable public var objectIDs: [ObjectID] { wrapped.objectIDs }
+    
+    public var isEmpty: Bool { wrapped.isEmpty && components.isEmpty }
 
     @inlinable public func contains(_ id: ObjectID) -> Bool {
         wrapped.contains(id)

@@ -10,10 +10,16 @@
 /// Systems can specify execution order constraints relative to other systems.
 ///
 public enum SystemDependency {
-    /// This system must run before the specified system
+    /// This system must run after the specified system and the other system must exist in the
+    /// system group.
+    case requires(any System.Type)
+    
+    /// This system must run before the specified system, if the other system is present
+    /// in a system group.
     case before(any System.Type)
 
-    /// This system must run after the specified system
+    /// This system must run after the specified system, if the other system is present
+    /// in a system group.
     case after(any System.Type)
 }
 

@@ -10,7 +10,8 @@
  
  - This is an early sketch of Systems and SystemGroups
  - TODO: Have a central per-app or per-design system registry
- 
+ - TODO: ^^ see poietic-godot and DesignController and RuntimePhase for seed of the above TODO
+ - TODO: Remove mutability of System-group
  */
 
 /// System group is a collection of systems that run in order of their dependency.
@@ -38,6 +39,7 @@
 ///         not for performance reasons.
 ///
 public final class SystemGroup {
+    // TODO: Make immutable through public interface
     /// Registered systems indexed by type name
     private var systems: [ObjectIdentifier: System.Type]
 
@@ -50,11 +52,11 @@ public final class SystemGroup {
         self.init(systems)
     }
 
-    public init(_ systems: [System.Type], strict: Bool = true) {
+    public init(_ systems: [System.Type]) {
         self.systems = [:]
         self._executionOrder = []
         self._instances = []
-        self.register(systems, strict: strict)
+        self.register(systems)
     }
 
     /// Register a system
@@ -69,7 +71,7 @@ public final class SystemGroup {
     /// - Precondition: The system dependencies must not contain a cycle and references must exist.
     ///
     public func register(_ system: System.Type) {
-        let id = system._systemTypeIdentifier
+        let id = ObjectIdentifier(system)
 
         systems[id] = system
         _executionOrder = Self.dependencyOrder(Array(systems.values))
@@ -79,12 +81,12 @@ public final class SystemGroup {
     ///
     /// - SeeAlso: ``register()``
     ///
-    public func register(_ systems: [System.Type], strict: Bool = true) {
+    public func register(_ systems: [System.Type]) {
         for system in systems {
-            let id = system._systemTypeIdentifier
+            let id = ObjectIdentifier(system)
             self.systems[id] = system
         }
-        _executionOrder = Self.dependencyOrder(Array(self.systems.values), strict: strict)
+        _executionOrder = Self.dependencyOrder(Array(self.systems.values))
     }
 
 
@@ -105,7 +107,22 @@ public final class SystemGroup {
         }
     }
 
-    internal func instantiate() {
+    public func debugUpdate(_ frame: AugmentedFrame,
+                            before: ((any System, AugmentedFrame) -> Void),
+                            after: ((any System, AugmentedFrame) -> Void))
+    throws (InternalSystemError) {
+        if _instances.isEmpty {
+            self.instantiate()
+        }
+        for system in _instances {
+            before(system, frame)
+            try system.update(frame)
+            after(system, frame)
+        }
+    }
+
+    
+    public func instantiate() {
         // TODO: Add frame or some initialisation context
         for systemType in _executionOrder {
             let system = systemType.init()
@@ -132,54 +149,63 @@ public final class SystemGroup {
     /// - Precondition: If `strict` is `true` then all systems listed in dependencies must be
     ///   present in the list. If `strict` is `false` then systems not present are ignored.
     ///
-    public static func dependencyOrder(_ systems: [System.Type], strict: Bool = true) -> [System.Type]
-    {
-        var systemMap: [ObjectIdentifier: System.Type] = [:]
-        var edges: [(ObjectIdentifier, ObjectIdentifier)] = []
-
-        for system in systems {
-            let id = system._systemTypeIdentifier
-            systemMap[id] = system
-        }
-        for system in systemMap.values {
-            let systemID = system._systemTypeIdentifier
-            for dep in system.dependencies {
-                switch dep {
-                case .before(let other):
-                    let otherID = other._systemTypeIdentifier
-                    guard systemMap[otherID] != nil else {
-                        assert(!strict, "Error sorting system \(system): Missing system: \(other)")
-                        continue
-                    }
-                    edges.append((origin: systemID, target: otherID))
-                case .after(let other):
-                    let otherID = other._systemTypeIdentifier
-                    guard systemMap[otherID] != nil else {
-                        assert(!strict, "Error sorting system \(system): Missing system: \(other)")
-                        continue
-                    }
-                    edges.append((origin: otherID, target: systemID))
-                }
-            }
-        }
-        guard let sorted = topologicalSort(edges) else {
-            fatalError("Circular dependency in Systems")
+    public static func dependencyOrder(_ systems: [System.Type]) -> [System.Type] {
+        let systemMap = systems.reduce(into: [ObjectIdentifier: System.Type]()) {
+            (result, system) in
+            result[ObjectIdentifier(system)] = system
         }
         
-        var independent: [ObjectIdentifier] = []
-        for system in systems where system.dependencies.count == 0 {
-            let id = ObjectIdentifier(system)
-            guard !independent.contains(id) && !sorted.contains(id) else { continue }
-            independent.append(id)
+        var edges: [(origin: ObjectIdentifier, target: ObjectIdentifier)] = []
+        var maybeIndependent: Set<ObjectIdentifier> = []
+        
+        // First pass: validate hard dependencies and collect soft ones
+        for system in systems {
+            let systemID = ObjectIdentifier(system)
+            guard !system.dependencies.isEmpty else {
+                maybeIndependent.insert(systemID)
+                continue
+            }
+            
+            for dependency in system.dependencies {
+                let origin: ObjectIdentifier
+                let target: ObjectIdentifier
+                let otherID: ObjectIdentifier
+                let required: Bool
+                switch dependency {
+                case let .requires(id):
+                    otherID = ObjectIdentifier(id)
+                    (origin, target) = (systemID, otherID)
+                    required = true
+                case let .before(id):
+                    otherID = ObjectIdentifier(id)
+                    (origin, target) = (systemID, otherID)
+                    required = false
+                case let .after(id):
+                    otherID = ObjectIdentifier(id)
+                    (origin, target) = (otherID, systemID)
+                    required = false
+                }
+                
+                guard systemMap[otherID] != nil else {
+                    if required {
+                        fatalError("System \(system) requires missing system: \(otherID)")
+                    }
+                    else {
+                        maybeIndependent.insert(systemID)
+                    }
+                    continue
+                }
+                
+                edges.append((origin: origin, target: target))
+            }
         }
-        let result = (independent + sorted).compactMap { systemMap[$0] }
+        
+        guard let sorted = topologicalSort(edges) else {
+            fatalError("Circular dependency detected in systems")
+        }
 
-        return result
-    }
-}
+        let independent = maybeIndependent.filter { !sorted.contains($0) }
 
-extension System {
-    internal static var _systemTypeIdentifier: ObjectIdentifier {
-        return ObjectIdentifier(self)
+        return (independent + sorted).compactMap { systemMap[$0] }
     }
 }
