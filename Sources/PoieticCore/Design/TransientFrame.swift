@@ -320,38 +320,14 @@ public final class TransientFrame: Frame {
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // TODO: Make insert() function throwing (StructuralIntegrityError)
-        // Check for referential integrity
-        // TODO: Validate structure vs. type
         do {
-            try validateStructure(snapshot)
+            try StructuralValidator.validate(snapshot, in: self)
         }
         catch {
             preconditionFailure("Structural integrity error")
         }
         
         unsafeInsert(snapshot)
-    }
-    public func validateStructure(_ snapshot: ObjectSnapshot) throws (StructuralIntegrityError) {
-        switch snapshot.structure {
-        case .node, .unstructured: break
-        case let .edge(origin, target):
-            guard contains(origin) && contains(target) else {
-                throw .brokenStructureReference
-            }
-        case let .orderedSet(owner, items):
-            guard contains(owner) && items.allSatisfy({ contains($0) }) else {
-                throw .brokenStructureReference
-            }
-        }
-        guard snapshot.children.allSatisfy({ contains($0) }) else {
-            throw .brokenChild
-            
-        }
-        if let parent = snapshot.parent {
-            guard contains(parent) else {
-                throw .brokenParent
-            }
-        }
     }
 
     /// Unsafely insert a snapshot to the frame, not checking for structural

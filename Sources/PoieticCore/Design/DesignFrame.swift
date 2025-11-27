@@ -39,6 +39,8 @@ public final class DesignFrame: Frame, Identifiable {
     internal let _lookup: [ObjectID:ObjectSnapshot]
     @usableFromInline
     internal let _graph: Graph<ObjectID, EdgeObject>
+   
+    public var isEmpty: Bool { _snapshots.isEmpty }
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///

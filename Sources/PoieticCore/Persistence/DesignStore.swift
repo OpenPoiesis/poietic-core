@@ -96,8 +96,8 @@ public class DesignStore {
         catch {
             throw .readingError(error)
         }
-
-        let loader = DesignLoader(metamodel: metamodel)
+        
+        let loader = DesignLoader(metamodel: metamodel, options: .collectOrphans)
         do {
             design = try loader.load(rawDesign)
         }

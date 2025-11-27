@@ -589,6 +589,32 @@ struct DesignLoaderIntegrationTests {
         #expect(o4.children.isEmpty == true)
     }
 
+    @Test("Load without frames - orphaned snapshots")
+    func loadOrphanedSnapshots() async throws {
+        let raw = RawDesign(
+            snapshots: [
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), structure: RawStructure("node")),
+            ],
+            frames: [ /* MUST be empty for this test */ ]
+        )
+        let loader = DesignLoader(metamodel: TestMetamodel, options: .collectOrphans)
+        let design = try loader.load(raw)
+        
+        #expect(design.frames.count == 1)
+        let frame = try #require(design.frames.first)
+        #expect(design.currentFrameID == frame.id)
+        
+        let o0 = try #require(design.snapshot(ObjectSnapshotID(100)))
+        #expect(o0.objectID == ObjectID(10))
+        #expect(o0.snapshotID == ObjectSnapshotID(100))
+
+        let o1 = try #require(design.snapshot(ObjectSnapshotID(101)))
+        #expect(o1.objectID == ObjectID(11))
+        #expect(o1.snapshotID == ObjectSnapshotID(101))
+
+    }
+
     @Test("Identity manager uses loaded IDs")
     func identityManagerUsesLoadedIDs() async throws {
         let raw = RawDesign(
