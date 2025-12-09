@@ -26,7 +26,7 @@ import Testing
         let edge = frame.createEdge(.Arrow, origin: stock.objectID, target: flow.objectID)
         let frozen = try design.accept(frame)
         
-        try checker.validate(edge: frozen.edge(edge.objectID), in: frozen)
+        try checker.validate(edge: frozen.edge(edge.objectID)!, in: frozen)
     }
     
     @Test func noRuleForEdge() throws {
@@ -34,17 +34,19 @@ import Testing
         let a = frame.createNode(.Stock)
         let b = frame.createNode(.Stock)
         let e = frame.createEdge(.IllegalEdge, origin: a.objectID, target: b.objectID)
-        let frozen = try design.accept(frame)
         
         #expect {
-            try checker.validate(edge: frozen.edge(e.objectID), in: frozen)
+            try design.accept(frame)
+            // try checker.validate(edge: frozen.edge(e.objectID)!, in: frozen)
         }
         throws: {
-            guard let error = $0 as? EdgeRuleViolation else {
+            guard let error = $0 as? FrameValidationError,
+                  case let .edgeRuleViolation(objectID, violation) = error
+            else {
                 return false
             }
-            switch error {
-            case .edgeNotAllowed: return true
+            switch violation {
+            case .edgeNotAllowed: return objectID == e.objectID
             default: return false
             }
         }
@@ -55,13 +57,13 @@ import Testing
         let a = frame.createNode(.Stock)
         let b = frame.createNode(.Stock)
         let e = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
-        let frozen = try design.accept(frame)
         
         #expect {
-            try checker.validate(edge: frozen.edge(e.objectID), in: frozen)
+            try checker.validate(edge: frame.edge(e.objectID)!, in: frame)
         }
         throws: {
             guard let error = $0 as? EdgeRuleViolation else {
+                Issue.record("Invalid error thrown")
                 return false
             }
             switch error {
@@ -77,10 +79,9 @@ import Testing
         let b = frame.createNode(.FlowRate)
         let e1 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
         let e2 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
-        let frozen = try design.accept(frame)
         
         #expect {
-            try checker.validate(edge: frozen.edge(e1.objectID), in: frozen)
+            try checker.validate(edge: frame.edge(e1.objectID)!, in: frame)
         }
         throws: {
             guard let error = $0 as? EdgeRuleViolation else {
@@ -94,7 +95,7 @@ import Testing
 
         // Both edges should have the same error
         #expect {
-            try checker.validate(edge: frozen.edge(e2.objectID), in: frozen)
+            try checker.validate(edge: frame.edge(e2.objectID)!, in: frame)
         }
         throws: {
             guard let error = $0 as? EdgeRuleViolation else {
@@ -112,10 +113,9 @@ import Testing
         let b = frame.createNode(.Stock)
         let e1 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
         let e2 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
-        let frozen = try design.accept(frame)
         
         #expect {
-            try checker.validate(edge: frozen.edge(e1.objectID), in: frozen)
+            try checker.validate(edge: frame.edge(e1.objectID)!, in: frame)
         }
         throws: {
             guard let error = $0 as? EdgeRuleViolation else {
@@ -129,7 +129,7 @@ import Testing
 
         // Both edges should have the same error
         #expect {
-            try checker.validate(edge: frozen.edge(e2.objectID), in: frozen)
+            try checker.validate(edge: frame.edge(e2.objectID)!, in: frame)
         }
         throws: {
             guard let error = $0 as? EdgeRuleViolation else {

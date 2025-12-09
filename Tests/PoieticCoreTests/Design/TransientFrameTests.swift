@@ -8,7 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-// TODO: [WIP] Test reservation release on transient frame
+// TODO: [IMPORTANT] Test reservation release on transient frame
 
 @Suite struct TransientFrameTest {
     let design: Design
@@ -36,32 +36,22 @@ import Testing
         #expect(b["text"] == "default")
     }
     
-    @Test func defaultValueTraitError() {
+    @Test func defaultValueTraitError() throws {
+        // FIXME: [REFACTORING] Move to constraint checker tests
         let a = frame.create(TestTypeNoDefault)
         let b = frame.create(TestTypeWithDefault)
 
-        #expect {
-            try design.validate(try design.accept(frame))
-        } throws: {
-            guard let error = $0 as? FrameValidationError else {
-                Issue.record("Expected FrameValidationError")
-                return false
-            }
-            guard let objErrors = error.objectErrors[a.objectID] else {
-                Issue.record("Expected errors for object 'a'")
-                return false
-            }
-            
-
-            return error.violations.count == 0
-                    && error.objectErrors.count == 1
-                    && objErrors.first == .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test")
-                    && error.objectErrors[b.objectID] == nil
-        }
+        let checker = ConstraintChecker(frame.design.metamodel)
+        let result = checker.diagnose(frame)
+        let objErrors = try #require(result.objectErrors[a.objectID])
+        #expect(result.violations.count == 0)
+        #expect(result.objectErrors.count == 1)
+        #expect(objErrors.first == .missingTraitAttribute(TestTraitNoDefault.attributes[0], "Test"))
+        #expect(result.objectErrors[b.objectID] == nil)
     }
 
     @Test func derivedStructureIsPreserved() throws {
-        let original = frame.create(TestNodeType)
+        let original = frame.create(TestNodeType, structure: .node)
         let originalFrame = try design.accept(frame)
         
         let derivedFrame = design.createFrame(deriving: originalFrame)
@@ -89,7 +79,7 @@ import Testing
         let originalSnap = try #require(frame[obj.objectID])
         try design.accept(frame)
         
-        let derived = design.createFrame(deriving: design.currentFrame)
+        let derived = design.createFrame(deriving: design.currentFrame!)
         let derivedSnap = derived.mutate(obj.objectID)
         
         #expect(derivedSnap.objectID == originalSnap.objectID)
@@ -103,7 +93,7 @@ import Testing
         let obj = frame.create(TestType, attributes: ["text": "hello"])
         try design.accept(frame)
         
-        let derived = design.createFrame(deriving: design.currentFrame)
+        let derived = design.createFrame(deriving: design.currentFrame!)
         let derivedSnap = derived.mutate(obj.objectID)
         
         #expect(derivedSnap["text"] == "hello")
@@ -146,7 +136,7 @@ import Testing
     }
 
     @Test func onlyOriginalsRemoved() throws {
-        let originalNode = frame.create(TestNodeType)
+        let originalNode = frame.create(TestNodeType, structure: .node)
         let original = try design.accept(frame)
         
         let trans = design.createFrame(deriving: original)
@@ -166,7 +156,7 @@ import Testing
     }
 
     @Test func replaceObject() throws {
-        let originalNode = frame.create(TestNodeType)
+        let originalNode = frame.create(TestNodeType, structure: .node)
         let original = try design.accept(frame)
 
         let trans = design.createFrame(deriving: original)
@@ -187,7 +177,7 @@ import Testing
         let originalSnap = original.create(TestType)
         try design.accept(original)
         
-        let derived = design.createFrame(deriving: design.currentFrame)
+        let derived = design.createFrame(deriving: design.currentFrame!)
 
         #expect(derived.contains(snapshotID: originalSnap.snapshotID))
 
@@ -313,9 +303,9 @@ import Testing
     }
     
     @Test func deriveObjectPreservesParentChild() throws {
-        let obj = frame.create(TestNodeType)
-        let parent = frame.create(TestNodeType)
-        let child = frame.create(TestNodeType)
+        let obj = frame.create(TestNodeType, structure: .node)
+        let parent = frame.create(TestNodeType, structure: .node)
+        let child = frame.create(TestNodeType, structure: .node)
         frame.setParent(obj.objectID, to: parent.objectID)
         frame.setParent(child.objectID, to: obj.objectID)
         
@@ -335,9 +325,9 @@ import Testing
     }
     
     @Test func parentChildIsPreservedOnAccept() throws {
-        let obj = frame.create(TestNodeType)
-        let parent = frame.create(TestNodeType)
-        let child = frame.create(TestNodeType)
+        let obj = frame.create(TestNodeType, structure: .node)
+        let parent = frame.create(TestNodeType, structure: .node)
+        let child = frame.create(TestNodeType, structure: .node)
 
         frame.setParent(obj.objectID, to: parent.objectID)
         frame.setParent(child.objectID, to: obj.objectID)
@@ -352,13 +342,13 @@ import Testing
     // MARK: References and Referential Integrity
     
     @Test func brokenReferences() throws {
-        frame.create(TestEdgeType,
-                     objectID: 5,
-                     structure: .edge(30, 40),
-                     parent: 10,
-                     children: [20])
+        let object = frame.create(TestEdgeType,
+                                  objectID: 5,
+                                  structure: .edge(30, 40),
+                                  parent: 10,
+                                  children: [20])
 
-        let refs = frame.brokenReferences()
+        let refs = StructuralValidator.brokenReferences(object,in: frame)
         
         #expect(refs.count == 4)
         #expect(refs.contains(10))
@@ -368,34 +358,36 @@ import Testing
     }
     
     @Test func rejectBrokenEdgeEndpoint() throws {
-        frame.create(TestEdgeType, objectID: 10, structure: .edge(900, 901))
-
-        #expect(frame.brokenReferences().count == 2)
-        #expect(frame.brokenReferences().contains(ObjectID(900)))
-        #expect(frame.brokenReferences().contains(ObjectID(901)))
+        let object = frame.create(TestEdgeType, objectID: 10, structure: .edge(900, 901))
+        let refs = StructuralValidator.brokenReferences(object, in: frame)
+        #expect(refs.count == 2)
+        #expect(refs.contains(ObjectID(900)))
+        #expect(refs.contains(ObjectID(901)))
         #expect(throws: StructuralIntegrityError.brokenStructureReference) {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         }
 
     }
 
     @Test func rejectMissingParent() throws {
-        frame.create(TestType, objectID: 20, parent: 902)
+        let object = frame.create(TestType, objectID: 20, parent: 902)
+        let refs = StructuralValidator.brokenReferences(object, in: frame)
 
-        #expect(frame.brokenReferences().count == 1)
-        #expect(frame.brokenReferences().contains(ObjectID(902)))
+        #expect(refs.count == 1)
+        #expect(refs.contains(ObjectID(902)))
         #expect(throws: StructuralIntegrityError.brokenParent) {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         }
     }
 
     @Test func rejectMissingChild() throws {
-        frame.create(TestType, objectID: 20, children: [903])
+        let object = frame.create(TestType, objectID: 20, children: [903])
+        let refs = StructuralValidator.brokenReferences(object, in: frame)
 
-        #expect(frame.brokenReferences().count == 1)
-        #expect(frame.brokenReferences().contains(903))
+        #expect(refs.count == 1)
+        #expect(refs.contains(903))
         #expect(throws: StructuralIntegrityError.brokenChild) {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         }
     }
 
@@ -405,7 +397,7 @@ import Testing
         frame.create(TestType, objectID: 30)
 
         #expect {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         } throws: {
             guard let error = $0 as? StructuralIntegrityError else {
                 return false
@@ -419,7 +411,7 @@ import Testing
         frame.create(TestType, objectID: 30)
 
         #expect {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         } throws: {
             guard let error = $0 as? StructuralIntegrityError else {
                 return false
@@ -433,7 +425,7 @@ import Testing
         frame.create(TestType, objectID: 30, parent: 10, children: [10])
 
         #expect{
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         } throws: {
             guard let error = $0 as? StructuralIntegrityError else {
                 return false
@@ -448,7 +440,7 @@ import Testing
         frame.create(TestType, objectID: 20)
 
         #expect {
-            try frame.validateStructure()
+            try StructuralValidator.validate(snapshots: frame.snapshots, in: frame)
         } throws: {
             guard let error = $0 as? StructuralIntegrityError else {
                 return false

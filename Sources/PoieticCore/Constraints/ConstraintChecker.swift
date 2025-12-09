@@ -13,7 +13,8 @@
 /// owning a frame.
 ///
 public struct ConstraintChecker {
-    // NOTE: This object could have been a function, but I like the steps to be separated.
+    // IMPORTANT: Maintain validate(...) and diagnose(...) function pairs in sync.
+    // =========
     
     /// Metamodel associated with the constraint checker. Frames and objects
     /// will be validated using the constraints and object types defined
@@ -29,8 +30,28 @@ public struct ConstraintChecker {
     public init(_ metamodel: Metamodel) {
         self.metamodel = metamodel
     }
-    
-    /// Checks object's conformance to a trait.
+    public func validate(_ object: some ObjectProtocol, conformsTo type: ObjectType) throws (ObjectTypeError) {
+        if object.structure.type != type.structuralType  {
+            throw .structureMismatch(object.type.structuralType)
+        }
+        
+        for trait in type.traits {
+            try validate(object, conformsTo: trait)
+        }
+
+    }
+    public func diagnose(_ object: some ObjectProtocol, conformsTo type: ObjectType) -> [ObjectTypeError] {
+        var errors:[ObjectTypeError] = []
+        if object.structure.type != type.structuralType  {
+            errors.append(.structureMismatch(object.type.structuralType))
+        }
+        
+        for trait in type.traits {
+            errors += diagnose(object, conformsTo: trait)
+        }
+        return errors
+    }
+    /// Validate object's conformance to a trait.
     ///
     /// The object conforms to a trait if the following is true:
     ///
@@ -38,40 +59,62 @@ public struct ConstraintChecker {
     /// - All attributes from the trait that are present in the object
     ///   must be convertible to the type of the corresponding trait attribute.
     ///
-    /// For each non-met requirement an error is included in the result.
-    ///
     /// - Parameters:
     ///     - `trait`: Trait to be used for checking
     ///
-    /// - Throws: ``ObjectTypeErrorCollection`` when the object does not conform
-    ///   to the trait.
+    /// - Throws: ``ObjectTypeError`` for first violation detected.
+    /// - SeeAlso: ``diagnose(_:conformsTo:)`` for collecting all issues with an object.
     ///
-    public func check(_ snapshot: ObjectSnapshot, conformsTo trait: Trait) throws (ObjectTypeErrorCollection) {
-        var errors:[ObjectTypeError] = []
-        
+    public func validate(_ object: some ObjectProtocol, conformsTo trait: Trait) throws (ObjectTypeError) {
         for attr in trait.attributes {
-            if let value = snapshot[attr.name] {
-
+            if let value = object[attr.name] {
                 // For type validation to work correctly we must make sure that
                 // the types are persisted and restored.
                 //
-                if !value.isRepresentable(as: attr.type) {
-                    let error = ObjectTypeError.typeMismatch(attr, value.valueType)
-                    errors.append(error)
+                guard value.isRepresentable(as: attr.type) else {
+                    throw .typeMismatch(attr, value.valueType)
                 }
             }
             else if attr.optional {
                 continue
             }
             else {
-                let error = ObjectTypeError.missingTraitAttribute(attr, trait.name)
-                errors.append(error)
+                throw .missingTraitAttribute(attr, trait.name)
             }
         }
+    }
+
+    /// Validate object's conformance to a trait and collect all issues.
+    ///
+    /// The object conforms to a trait if the following is true:
+    ///
+    /// - Object has values for all traits required attributes
+    /// - All attributes from the trait that are present in the object
+    ///   must be convertible to the type of the corresponding trait attribute.
+    ///
+    /// - Parameters:
+    ///     - `trait`: Trait to be used for checking
+    ///
+    /// - Returns: A collection of detected issues.
+    /// - SeeAlso: ``validate(_:conformsTo:)`` for failing fast on first error.
+    ///
+    public func diagnose(_ object: some ObjectProtocol, conformsTo trait: Trait) -> [ObjectTypeError] {
+        var errors:[ObjectTypeError] = []
         
-        guard errors.isEmpty else {
-            throw ObjectTypeErrorCollection(errors)
+        for attr in trait.attributes {
+            if let value = object[attr.name] {
+                if !value.isRepresentable(as: attr.type) {
+                    errors.append(.typeMismatch(attr, value.valueType))
+                }
+            }
+            else if attr.optional {
+                continue
+            }
+            else {
+                errors.append(.missingTraitAttribute(attr, trait.name))
+            }
         }
+        return errors
     }
 
     /// Check a frame for constraints violations and object type conformance.
@@ -89,43 +132,35 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshotProtocol/check(conformsTo:)``
     ///
-    public func check(_ frame: some Frame) throws (FrameValidationError) {
-        var errors: [ObjectID: [ObjectTypeError]] = [:]
+    public func diagnose(_ frame: some Frame) -> FrameValidationResult {
+        // IMPORTANT: Keep in sync with validate(...) version of this method
+        var objectErrors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
+
         // Check types
-        // ------------------------------------------------------------
-        for snapshot in frame.snapshots {
-            guard let type = metamodel.objectType(name: snapshot.type.name) else {
-                let error = ObjectTypeError.unknownType(snapshot.type.name)
-                errors[snapshot.objectID, default: []].append(error)
-                continue
+        //
+        for object in frame.snapshots {
+            guard metamodel.hasType(object.type) else {
+                objectErrors[object.objectID, default: []].append(.unknownType(object.type.name))
+                continue // Nothing to validate, the object is not known to metamodel
             }
-            if snapshot.type.structuralType != snapshot.structure.type {
-                let error = ObjectTypeError.structureMismatch(snapshot.type.structuralType)
-                errors[snapshot.objectID, default: []].append(error)
-            }
-            
-            for trait in type.traits {
-                do {
-                    try check(snapshot, conformsTo: trait)
-                }
-                catch {
-                    errors[snapshot.objectID, default: []].append(contentsOf: error.errors)
-                }
+            let errors = diagnose(object, conformsTo: object.type)
+            if !errors.isEmpty {
+                objectErrors[object.objectID, default: []] += errors
             }
             
-            if let edge = EdgeObject(snapshot, in: frame) {
+            if let edge = EdgeObject(object, in: frame) {
                 do {
                     try validate(edge: edge, in: frame)
                 }
                 catch {
-                    edgeViolations[snapshot.objectID, default: []].append(error)
+                    edgeViolations[object.objectID, default: []].append(error)
                 }
             }
         }
 
         // Check constraints
-        // ------------------------------------------------------------
+        //
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
             let violators = constraint.check(frame)
@@ -135,17 +170,46 @@ public struct ConstraintChecker {
             }
         }
 
-        // Throw an error if there are any violations or errors
-        
-        guard violations.isEmpty
-                && errors.isEmpty
-                && edgeViolations.isEmpty else {
-            throw FrameValidationError(violations: violations,
-                                       objectErrors: errors,
-                                       edgeRuleViolations: edgeViolations)
-        }
+        return FrameValidationResult(
+            violations: violations,
+            objectErrors: objectErrors,
+            edgeRuleViolations: edgeViolations
+        )
     }
     
+    public func validate(_ frame: some Frame) throws (FrameValidationError) {
+        // IMPORTANT: Keep in sync with diagnose(...) version of this method
+
+        for object in frame.snapshots {
+            guard metamodel.hasType(object.type) else {
+                throw .objectTypeError(object.objectID, .unknownType(object.type.name))
+            }
+            do {
+                try validate(object, conformsTo: object.type)
+            }
+            catch {
+                throw .objectTypeError(object.objectID, error)
+            }
+            
+            if let edge = EdgeObject(object, in: frame) {
+                do {
+                    try validate(edge: edge, in: frame)
+                }
+                catch {
+                    throw .edgeRuleViolation(edge.key, error)
+                }
+            }
+        }
+
+        for constraint in metamodel.constraints {
+            let violators = constraint.check(frame)
+            guard violators.isEmpty else {
+                throw .constraintViolation(ConstraintViolation(constraint: constraint,
+                                                               objects: violators))
+            }
+        }
+    }
+
     /// Validates the edge whether it matches the metamodel's edge rules.
     ///
     /// The validation process is as follows:
@@ -162,6 +226,40 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``
     /// - Throws: ``EdgeRuleViolation``
     
+    public func validate(edgeType: ObjectType, origin: ObjectID, target: ObjectID, in frame: some Frame) throws (EdgeRuleViolation) {
+        // NOTE: Changes in this function should be synced with func canConnect(...)
+        let originObject = frame[origin]!
+        let targetObject = frame[target]!
+        
+        let typeRules = metamodel.edgeRules.filter { edgeType === $0.type }
+        if typeRules.count == 0 {
+            throw .edgeNotAllowed
+        }
+        guard let matchingRule = typeRules.first(where: { rule in
+            rule.match(edgeType, origin: originObject, target: targetObject, in: frame)
+        })
+        else {
+            throw .noRuleSatisfied
+        }
+
+        let outgoingCount = frame.outgoing(origin).count { $0.object.type === matchingRule.type }
+        switch matchingRule.outgoing {
+        case .many: break
+        case .one:
+            if outgoingCount != 1 {
+                throw .cardinalityViolation(matchingRule, .outgoing)
+            }
+        }
+        
+        let incomingCount = frame.incoming(target).count { $0.object.type === matchingRule.type }
+        switch matchingRule.incoming {
+        case .many: break
+        case .one:
+            if incomingCount != 1 {
+                throw .cardinalityViolation(matchingRule, .incoming)
+            }
+        }
+    }
     public func validate(edge: EdgeObject, in frame: some Frame) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
@@ -241,3 +339,16 @@ public struct ConstraintChecker {
 
 }
 
+// TODO: A sketch, not yet used
+public struct MetamodelValidationMode: OptionSet, Sendable {
+    public let rawValue: Int8
+    public init(rawValue: RawValue) {
+        self.rawValue = rawValue
+    }
+    public static let allowUnknownTypes = MetamodelValidationMode(rawValue: 1 << 0)
+    public static let allowUnknownEdges = MetamodelValidationMode(rawValue: 1 << 1)
+    public static let ignoreConstraints = MetamodelValidationMode(rawValue: 1 << 2)
+                                                                                                                                                    
+    public static let strict: MetamodelValidationMode = []
+    public static let permissive: MetamodelValidationMode = [.allowUnknownTypes, .allowUnknownEdges, .ignoreConstraints]
+}

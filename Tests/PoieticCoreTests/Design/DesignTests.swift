@@ -150,7 +150,7 @@ import Testing
                                           structure: .orderedSet(b.objectID, [c.objectID]))
         try design.accept(originalFrame)
         
-        let trans = design.createFrame(deriving: design.currentFrame)
+        let trans = design.createFrame(deriving: originalFrame)
         
         trans.removeCascading(a.objectID)
         trans.removeCascading(c.objectID)
@@ -181,7 +181,7 @@ import Testing
         
         let originalVersion = design.currentFrameID
         
-        let removalFrame = design.createFrame(deriving: design.currentFrame)
+        let removalFrame = design.createFrame(deriving: originalFrame)
         #expect(design.currentFrame!.contains(a.objectID))
         
         removalFrame.removeCascading(a.objectID)
@@ -206,7 +206,7 @@ import Testing
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.referenceCount(a.snapshotID) == 1)
         
-        let trans2 = design.createFrame(deriving: design.currentFrame)
+        let trans2 = design.createFrame(deriving: frame1)
         let frame2 = try design.accept(trans2)
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.referenceCount(a.snapshotID) == 2)
@@ -233,11 +233,11 @@ import Testing
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(deriving: design.currentFrame)
+        let frame1 = design.createFrame(deriving: design.currentFrame!)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -265,11 +265,11 @@ import Testing
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let frame1 = design.createFrame(deriving: design.currentFrame)
+        let frame1 = design.createFrame(deriving: design.currentFrame!)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -320,7 +320,7 @@ import Testing
         try #require(design.currentFrameID != nil)
         
         let originalID = design.currentFrameID!
-        let f1 = design.createFrame(deriving: design.currentFrame)
+        let f1 = design.createFrame(deriving: design.currentFrame!)
         try design.accept(f1)
         
         #expect(design.canUndo)
@@ -345,13 +345,13 @@ import Testing
         try design.accept(design.createFrame())
         let v0 = design.currentFrameID!
         
-        let discardedFrame = design.createFrame(deriving: design.currentFrame)
+        let discardedFrame = design.createFrame(deriving: design.currentFrame!)
         let discardedObject = discardedFrame.create(TestType)
         try design.accept(discardedFrame)
         
         design.undo(to: v0)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame)
+        let frame2 = design.createFrame(deriving: design.currentFrame!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
@@ -370,7 +370,8 @@ import Testing
         let constraint = Constraint(name: "test",
                                     match: AnyPredicate(),
                                     requirement: RejectAll())
-        let metamodel = Metamodel(constraints: [constraint])
+        let metamodel = Metamodel(merging: TestMetamodel,
+                                  Metamodel(constraints: [constraint]))
         let design = Design(metamodel: metamodel)
         
         let frame = design.createFrame()
@@ -378,15 +379,14 @@ import Testing
         let b = frame.createNode(TestNodeType)
         
         #expect {
-            try design.validate(try design.accept(frame))
+            try design.accept(frame)
         } throws: {
             let error = try #require($0 as? FrameValidationError,
-                                     "Error is not a FrameConstraintError")
-            let violation = try #require(error.violations.first,
-                                         "No constraint violation found")
-            
-            return error.violations.count == 1
-            && violation.objects.count == 2
+                                     "Error is not a FrameValidationError")
+            guard case .constraintViolation(let violation) = error else {
+                return false
+            }
+            return violation.objects.count == 2
             && violation.objects.contains(a.objectID)
             && violation.objects.contains(b.objectID)
         }

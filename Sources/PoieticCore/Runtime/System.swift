@@ -10,10 +10,16 @@
 /// Systems can specify execution order constraints relative to other systems.
 ///
 public enum SystemDependency {
-    /// This system must run before the specified system
+    /// This system must run after the specified system and the other system must exist in the
+    /// system group.
+    case requires(any System.Type)
+    
+    /// This system must run before the specified system, if the other system is present
+    /// in a system group.
     case before(any System.Type)
 
-    /// This system must run after the specified system
+    /// This system must run after the specified system, if the other system is present
+    /// in a system group.
     case after(any System.Type)
 }
 
@@ -56,7 +62,7 @@ public protocol System {
     /// specify ordering constraints.
     ///
     static var dependencies: [SystemDependency] { get }
-
+    
     /// Execute the system that reads and updates a runtime frame.
     ///
     /// Systems can:
@@ -65,12 +71,20 @@ public protocol System {
     ///
     /// - Parameter frame: The runtime frame to process
     ///
-    func update(_ frame: RuntimeFrame) throws (InternalSystemError)
+    func update(_ frame: AugmentedFrame) throws (InternalSystemError)
+    
+    // TODO: Pass Design or application context in the future. Not needed now.
+    /// Initialise the system.
+    init()
 }
 
 extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
+    public init() {
+        self.init()
+        // Do nothing
+    }
 }
 
 /// Error thrown by systems that has not been caused by the user, but that is recoverable in
@@ -82,10 +96,55 @@ extension System {
 /// Preferably, it might be suggested to the user that developers are to be contacted with this
 /// error.
 ///
-public enum InternalSystemError: Error {
-    case compilationError
-//    case invalidValue(ObjectID, String, Variant?)
-//    case invalidStructure(ObjectID)
-//    case objectNotFound(ObjectID)
-}
+public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
+    public enum Context: Sendable, Equatable, CustomStringConvertible {
+        case none
+        case frame
+        case frameComponent(String)
 
+        case object(ObjectID)
+        case component(ObjectID, String)
+        case attribute(ObjectID, String)
+        
+        public var description: String {
+            switch self {
+            case .none: "no context"
+            case let .object(id): "object ID \(id)"
+            case let .attribute(id, name): "attribute '\(name)' in ID \(id)"
+            case let .component(id, name): "component \(name) in ID \(id)"
+            case     .frame: "frame"
+            case let .frameComponent(name): "frame component \(name)"
+            }
+        }
+        
+        public init(frameComponent: some Component) {
+            let typeName = String(describing: type(of: frameComponent))
+            self = .frameComponent(typeName)
+        }
+        public init(id: ObjectID, component: some Component) {
+            let typeName = String(describing: type(of: component))
+            self = .component(id, typeName)
+        }
+
+    }
+
+    public let system: String
+    public let message: String
+    public let context: Context
+    
+    public var description: String {
+        "Internal System Error (\(system)): \(message). Context: \(context)"
+    }
+    public init(_ system: String, message: String, context: Context = .none) {
+        self.system = system
+        self.message = message
+        self.context = context
+    }
+
+    public init(_ system: some System, message: String, context: Context = .none) {
+        let typeName = String(describing: type(of: system))
+        self.system = typeName
+        self.message = message
+        self.context = context
+    }
+}

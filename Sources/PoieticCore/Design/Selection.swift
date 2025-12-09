@@ -18,7 +18,7 @@
 /// When a selection is preserved between changes, it is recommended to sanitise the objects
 /// in the selection using the ``Frame/contained(_:)`` function.
 ///
-public final class Selection: Collection {
+public final class Selection: Collection, Component {
     public typealias Index = [ObjectID].Index
     
     /// List of object IDs contained in the selection.

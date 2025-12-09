@@ -41,17 +41,6 @@ public protocol Frame:
     ///
     subscript(objectID: ObjectID) -> ObjectSnapshot? { get }
     
-    
-    /// Get a list of broken references.
-    ///
-    /// The list contains IDs from edges and parent-child relationships that are not present in the
-    /// frame.
-    ///
-    /// This convenience method is used for debugging.
-    ///
-    func brokenReferences() -> [ObjectID]
-    
-    
     /// Get objects of given type.
     ///
     func filter(type: ObjectType) -> [ObjectSnapshot]
@@ -83,175 +72,6 @@ extension Frame {
             self.object(id)
         }
     }
-    /// Get a list of missing IDs from the list of IDs
-    public func missing(_ ids: [ObjectID]) -> [ObjectID] {
-        return ids.filter { !contains($0) }
-    }
-    
-    
-    /// Get a list of object IDs that are referenced within the frame
-    /// but do not exist in the frame.
-    ///
-    /// Frame with broken references can not be made stable and accepted
-    /// by the design.
-    ///
-    /// The following references from the snapshot are being considered:
-    ///
-    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
-    ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshotProtocol/children``.
-    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
-    ///
-    /// - Note: This is semi-internal function to validate correct workings
-    ///   of the system. You should rarely use it. Typical scenario when you
-    ///   want to use this function is when you are constructing a frame
-    ///   in an unsafe way.
-    ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``
-    ///
-    public func brokenReferences() -> [ObjectID] {
-        // NOTE: Sync with brokenReferences(snapshot:)
-        //
-        var broken: Set<ObjectID> = []
-        
-        for snapshot in snapshots {
-            if case let .edge(origin, target) = snapshot.structure {
-                if !contains(origin) {
-                    broken.insert(origin)
-                }
-                if !contains(target) {
-                    broken.insert(target)
-                }
-            }
-            broken.formUnion(snapshot.children.filter { !contains($0) })
-            if let parent = snapshot.parent, !contains(parent) {
-                broken.insert(parent)
-            }
-        }
-        
-        return Array(broken)
-    }
-    
-    /// Return a list of objects that the provided object refers to and
-    /// that do not exist within the frame.
-    ///
-    /// Frame with broken references can not be made stable and accepted
-    /// by the design.
-    ///
-    /// The following references from the snapshot are being considered:
-    ///
-    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
-    ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshotProtocol/children``.
-    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
-    ///
-    /// - SeeAlso: ``Frame/brokenReferences()``
-    ///
-    public func brokenReferences(snapshot: ObjectSnapshot) -> [ObjectID] {
-        // NOTE: Sync with brokenReferences() for all snapshots within the frame
-        //
-        var broken: Set<ObjectID> = []
-        
-        if case let .edge(origin, target) = snapshot.structure {
-            if !contains(origin) {
-                broken.insert(origin)
-            }
-            if !contains(target) {
-                broken.insert(target)
-            }
-        }
-        broken.formUnion(snapshot.children.filter { !contains($0) })
-        if let parent = snapshot.parent, !contains(parent) {
-            broken.insert(parent)
-        }
-        
-        return Array(broken)
-    }
-
-    /// Validate structural references.
-    ///
-    /// The method validates structural integrity of objects:
-    ///
-    /// - Edge endpoints must exist within the frame.
-    /// - Children-parent relationship must be mutual.
-    /// - There must be no parent-child cycle.
-    ///
-    /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
-    /// method.
-    ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
-    /// - Precondition: The frame must be in transient state – must not be
-    ///   previously accepted or discarded.
-    ///
-    public func validateStructure() throws (StructuralIntegrityError) {
-        var parents: [(parent: ObjectID, child: ObjectID)] = []
-        
-        // Integrity checks
-        for checked in self.snapshots {
-            switch checked.structure {
-            case .unstructured: break // Nothing to validate.
-            case .node: break // Nothing to validate.
-            case let .edge(originID, targetID):
-                guard let origin = self[originID],
-                      let target = self[targetID]
-                else {
-                    throw .brokenStructureReference
-                }
-                guard origin.structure == .node && target.structure == .node else {
-                    throw .edgeEndpointNotANode
-                }
-            case let .orderedSet(owner, ids):
-                guard self.contains(owner) && ids.allSatisfy({contains($0)}) else {
-                    throw .brokenStructureReference
-                }
-            }
-            
-            for childID in checked.children {
-                guard let child = self[childID] else {
-                    throw .brokenChild
-                }
-                guard child.parent == checked.objectID else {
-                    throw .parentChildMismatch
-                }
-            }
-            
-            if let parentID = checked.parent {
-                guard let parent = self[parentID] else {
-                    throw .brokenParent
-                }
-                
-                guard parent.children.contains(checked.objectID) else {
-                    throw .parentChildMismatch
-                }
-                parents.append((parent: parentID, child: checked.objectID))
-            }
-        }
-        
-        // Map: child -> parent
-        
-        let children = Set(parents.map { $0.child })
-        var tops: [ObjectID] = parents.compactMap {
-            if children.contains($0.parent) {
-                nil
-            }
-            else {
-                $0.parent
-            }
-        }
-        
-        while !tops.isEmpty {
-            let topParent = tops.removeFirst()
-            for (_, child) in parents.filter({ $0.parent == topParent }) {
-                tops.append(child)
-            }
-            parents.removeAll { $0.parent == topParent }
-        }
-        
-        if !parents.isEmpty {
-            throw .parentChildCycle
-        }
-    }
-
     /// Get first object of given type.
     ///
     /// This method is used to find singleton objects, for example
@@ -357,7 +177,6 @@ extension Frame {
 }
 
 // MARK: - Graph Implementations
-
 
 extension Frame {
     /// Get object by a name, if the object contains a named component.

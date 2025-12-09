@@ -39,6 +39,8 @@ public final class DesignFrame: Frame, Identifiable {
     internal let _lookup: [ObjectID:ObjectSnapshot]
     @usableFromInline
     internal let _graph: Graph<ObjectID, EdgeObject>
+   
+    public var isEmpty: Bool { _snapshots.isEmpty }
     
     /// Create a new stable frame with given ID and with list of snapshots.
     ///
@@ -87,7 +89,7 @@ public final class DesignFrame: Frame, Identifiable {
     }
     
     /// Filters the IDs and returns only those that are contained in the frame.
-    public func contained(_ ids: [ObjectID]) -> [ObjectID] {
+    public func contained(_ ids: some Collection<ObjectID>) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }
     

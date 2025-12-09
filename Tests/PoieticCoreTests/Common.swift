@@ -33,13 +33,13 @@ let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
 let TestTraitNoDefault = Trait(
     name: "Test",
     attributes: [
-        Attribute("text", type: .string)
+        Attribute("text", type: .string, optional: false)
     ]
 )
 let TestTraitWithDefault = Trait(
     name: "Test",
     attributes: [
-        Attribute("text", type: .string, default: "default")
+        Attribute("text", type: .string, default: "default", optional: false)
     ]
 )
 
@@ -119,6 +119,7 @@ public let TestMetamodel = Metamodel(
         TestEdgeType,
         TestTypeNoDefault,
         TestTypeWithDefault,
+        TestOrderType,
 
         ObjectType.Unstructured,
         ObjectType.Stock,
@@ -130,6 +131,7 @@ public let TestMetamodel = Metamodel(
     ],
     edgeRules: [
         EdgeRule(type: .Arrow),
+        EdgeRule(type: TestEdgeType),
         EdgeRule(type: .Flow,
                  origin: IsTypePredicate(.FlowRate),
                  outgoing: .one,

@@ -21,6 +21,7 @@ public typealias UnboundExpression = ArithmeticExpression<String, String>
 /// - SeeAlso: ``ExpressionParser``, ``UnboundExpression``
 ///
 public indirect enum ArithmeticExpression<V, F> {
+    // TODO: Use operator table for operators
     public typealias LiteralValue = Variant
 
     /// Type of a reference to a variable.
