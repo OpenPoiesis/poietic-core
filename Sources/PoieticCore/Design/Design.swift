@@ -120,11 +120,11 @@ public class Design {
     /// Sequence for ephemeral entities
     internal var ephemeralSequence: UInt64
 
-    var _objectSnapshots: EntityTable<ObjectSnapshot>
+    var _objectSnapshots: RCTable<ObjectSnapshot>
 
     /// Frames that have been accepted and are in fact validated with the metamodel.
-    var _validatedFrames: EntityTable<DesignFrame>
-    var _objects: EntityTable<LogicalObject>
+    var _validatedFrames: RCTable<DesignFrame>
+    var _objects: RCTable<LogicalObject>
     var _transientFrames: [FrameID: TransientFrame]
 
     var _namedFrames: [String: DesignFrame]
@@ -187,9 +187,9 @@ public class Design {
     ///
     public init(metamodel: Metamodel = Metamodel()) {
         self.ephemeralSequence = RuntimeEntityID.FirstEphemeralIDValue
-        self._objectSnapshots = EntityTable()
-        self._validatedFrames = EntityTable()
-        self._objects = EntityTable()
+        self._objectSnapshots = RCTable()
+        self._validatedFrames = RCTable()
+        self._objects = RCTable()
         self._transientFrames = [:]
         self._namedFrames = [:]
         self.undoList = []

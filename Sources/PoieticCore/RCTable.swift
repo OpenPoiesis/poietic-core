@@ -14,19 +14,19 @@
 /// - Entities are removed only when ref-count reaches zero.
 /// - Internal (backend) use only.
 ///
-public class EntityTable<E> where E:Identifiable {
+public class RCTable<E> where E:Identifiable {
     public typealias Element = E
-    public struct RefCountCell {
+    public struct RCCell {
         public let element: Element
         public var refCount: Int
     }
 
-    public typealias RefcountedObjectArray = GenerationalArray<RefCountCell>
+    public typealias RCArray = GenerationalArray<RCCell>
 
     @usableFromInline
-    var _items: RefcountedObjectArray
+    var _items: RCArray
     @usableFromInline
-    var _lookup: [E.ID:RefcountedObjectArray.Index]
+    var _lookup: [E.ID:RCArray.Index]
     
     /// Create an empty snapshot storage.
     ///
@@ -75,7 +75,7 @@ public class EntityTable<E> where E:Identifiable {
             _items[index].refCount = count + 1
         }
         else {
-            let index = _items.append(RefCountCell(element: item, refCount: 1))
+            let index = _items.append(RCCell(element: item, refCount: 1))
             _lookup[item.id] = index
         }
     }
@@ -97,7 +97,7 @@ public class EntityTable<E> where E:Identifiable {
     public func insert(_ newItem: Element) {
         precondition(_lookup[newItem.id] == nil, "Duplicate item \(newItem.id). Did you mean insertOrRetain?")
 
-        let index = _items.append(RefCountCell(element: newItem, refCount: 1))
+        let index = _items.append(RCCell(element: newItem, refCount: 1))
         _lookup[newItem.id] = index
     }
 
@@ -105,7 +105,7 @@ public class EntityTable<E> where E:Identifiable {
         guard let index = _lookup[newItem.id] else {
             preconditionFailure("Unknown ID \(newItem.id)")
         }
-        _items[index] = RefCountCell(element: newItem, refCount: 1)
+        _items[index] = RCCell(element: newItem, refCount: 1)
         _lookup[newItem.id] = index
     }
 
@@ -149,8 +149,8 @@ public class EntityTable<E> where E:Identifiable {
     }
 }
 
-extension EntityTable: Collection {
-    public typealias Index = RefcountedObjectArray.Index
+extension RCTable: Collection {
+    public typealias Index = RCArray.Index
     
     public var startIndex: Index {
         return _items.startIndex

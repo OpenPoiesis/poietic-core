@@ -91,7 +91,7 @@ public final class TransientFrame: Frame {
     
     // validate also snapshot IDs
     @usableFromInline
-    var _snapshots: EntityTable<_TransientSnapshotBox>
+    var _snapshots: RCTable<_TransientSnapshotBox>
     @usableFromInline
     var _snapshotIDs: Set<ObjectSnapshotID>
     
@@ -167,7 +167,7 @@ public final class TransientFrame: Frame {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
         self.id = id
-        self._snapshots = EntityTable()
+        self._snapshots = RCTable()
         self._removedObjects = Set()
         self._reservations = []
         self._snapshotIDs = Set()
