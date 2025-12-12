@@ -12,17 +12,17 @@
 ///
 public class IdentityManager {
     @usableFromInline
-    var sequence: EntityID.RawValue = 1
+    var sequence: EntityIDValue = 1
     @usableFromInline
-    var used: [EntityID.RawValue:IdentityType] = [:]
+    var used: [DesignEntityID:DesignEntityType] = [:]
     @usableFromInline
-    var reserved: [EntityID.RawValue:IdentityType] = [:]
+    var reserved: [DesignEntityID:DesignEntityType] = [:]
    
     /// Check whether the identity manager contains given ID regardless of its type.
     ///
     /// The identity manager contains the ID if it is either used or reserved.
     @inlinable
-    func contains(_ id: EntityID.RawValue) -> Bool {
+    func contains(_ id: DesignEntityID) -> Bool {
         used[id] != nil || reserved[id] != nil
     }
 
@@ -36,18 +36,18 @@ public class IdentityManager {
 //    }
     
     @inlinable
-    func type(_ rawID: EntityID.RawValue) -> IdentityType? {
-        used[rawID] ?? reserved[rawID]
+    func type(_ id: DesignEntityID) -> DesignEntityType? {
+        used[id] ?? reserved[id]
     }
 
     @inlinable
-    internal func next() -> EntityID.RawValue {
+    internal func next() -> DesignEntityID {
         var nextValue = sequence
-        while contains(nextValue) {
+        while contains(DesignEntityID(rawValue: nextValue)) {
             nextValue += 1
         }
         sequence = nextValue + 1
-        return nextValue
+        return DesignEntityID(rawValue: nextValue)
     }
     
     /// Checks whether a given ID is reserved.
@@ -56,8 +56,8 @@ public class IdentityManager {
     /// when the given ID is used, but not reserved.
     ///
     @inlinable
-    public func isReserved<T>(_ id: EntityID<T>) -> Bool {
-        reserved[id.rawValue] == T.identityType
+    public func isReserved(_ id: DesignEntityID, type: DesignEntityType) -> Bool {
+        reserved[id] == type
     }
     
     /// Checks whether a given ID is used.
@@ -66,26 +66,12 @@ public class IdentityManager {
     /// when the given ID is reserved, but not used.
     ///
     @inlinable
-    public func isUsed<T>(_ id: EntityID<T>) -> Bool {
-        used[id.rawValue] != nil
-    }
-    
-    // TODO: Remove this
-    @inlinable
-    func createAndUse<T>() -> EntityID<T> {
-        let nextID = next()
-        used[nextID] = T.identityType
-        return EntityID(rawValue: nextID)
+    public func isUsed(_ id: DesignEntityID) -> Bool {
+        used[id] != nil
     }
     
     @inlinable
-    public func reserveNew<T>() -> EntityID<T> {
-        let nextID = next()
-        reserved[nextID] = T.identityType
-        return EntityID(rawValue: nextID)
-    }
-    @inlinable
-    public func reserveNew(type: IdentityType) -> EntityID.RawValue {
+    public func reserveNew(type: DesignEntityType) -> DesignEntityID {
         let nextID = next()
         reserved[nextID] = type
         return nextID
@@ -93,42 +79,26 @@ public class IdentityManager {
 
     @inlinable
     @discardableResult
-    public func reserve(_ rawValue: EntityID.RawValue, type: IdentityType) -> Bool {
-        if contains(rawValue) {
+    public func reserve(_ id: DesignEntityID, type: DesignEntityType) -> Bool {
+        if contains(id) {
             return false
         }
         else {
-            reserved[rawValue] = type
+            reserved[id] = type
             return true
         }
     }
     
-    @inlinable
-    @discardableResult
-    public func reserve<T>(_ id: EntityID<T>) -> Bool {
-        if contains(id.rawValue) {
-            return false
-        }
-        else {
-            reserved[id.rawValue] = T.identityType
-            return true
-        }
-    }
     /// - Returns: `true` when ID was successfully reserved or when ID already exists and is of the
     ///   requested type. If the ID exists and is of different type it returns `false`.
     @inlinable
     @discardableResult
-    public func reserveIfNeeded<T>(_ id: EntityID<T>) -> Bool {
-        if let type = self.type(id.rawValue) {
-            if type == T.identityType {
-                return true
-            }
-            else {
-                return false // We have the ID but is of different type
-            }
+    public func reserveIfNeeded(_ id: DesignEntityID, type: DesignEntityType) -> Bool {
+        if let existingType = self.type(id) {
+            return existingType == type
         }
         else { // we do not have the ID
-            reserved[id.rawValue] = T.identityType
+            reserved[id] = type
             return true
         }
     }
@@ -137,37 +107,30 @@ public class IdentityManager {
     ///          `false`.
     @inlinable
     @discardableResult
-    public func freeReservation<T>(_ id: EntityID<T>) -> Bool {
-        reserved.removeValue(forKey: id.rawValue) != nil
-    }
-    
-    @inlinable
-    public func freeReservations<T>(_ toFree: [EntityID<T>]) {
-        for id in toFree {
-            reserved.removeValue(forKey: id.rawValue)
-        }
+    public func freeReservation(_ id: DesignEntityID) -> Bool {
+        reserved.removeValue(forKey: id) != nil
     }
     
     /// Free reservations regardless of their entity type.
     @inlinable
-    public func freeReservations(_ values: [EntityID.RawValue]) {
-        for value in values {
-            reserved.removeValue(forKey: value)
+    public func freeReservations(_ toFree: [DesignEntityID]) {
+        for id in toFree {
+            reserved.removeValue(forKey: id)
         }
     }
+    
     /// Use reservations from the list.
     ///
     /// The IDs in the list will be marked as used, if they are reserved.
     /// Not reserved IDs will be ignored.
     ///
     @inlinable
-    public func use(reserved values: some Collection<EntityID.RawValue>) {
-        // TODO: Rename to something that reflects the functionality more. For example: useIfReserved()
+    public func use(reserved values: some Collection<DesignEntityID>) {
         // To be able to fail on non-reserved IDs, the reserveIfNeeded would have to distinguish
         // between: new reservation, existing reservation, type mismatch.
         for value in values {
             guard let type = self.reserved.removeValue(forKey: value) else {
-                return
+                continue
             }
             used[value] = type
         }
@@ -180,23 +143,24 @@ public class IdentityManager {
     /// - Precondition: The ID must be reserved when calling this method.
     ///
     @inlinable
-    public func use<T>(reserved id: EntityID<T>) {
-        guard reserved.removeValue(forKey: id.rawValue) != nil else {
+    public func use(reserved id: DesignEntityID) {
+        guard let type = reserved[id] else {
             fatalError("Unknown ID reservation: \(id)")
         }
-        used[id.rawValue] = T.identityType
+        reserved[id] = nil
+        used[id] = type
     }
     
     @inlinable
-    internal func use<T>(new id: EntityID<T>) {
-        precondition(!contains(id.rawValue))
-        used[id.rawValue] = T.identityType
+    internal func use(new id: DesignEntityID, type: DesignEntityType) {
+        precondition(!contains(id))
+        used[id] = type
     }
 
     @inlinable
-    public func free<T>(_ id: EntityID<T>) {
-        precondition(used[id.rawValue] != nil)
-        used[id.rawValue] = nil
+    public func free(_ id: DesignEntityID) {
+        precondition(used[id] != nil)
+        used[id] = nil
     }
 }
 

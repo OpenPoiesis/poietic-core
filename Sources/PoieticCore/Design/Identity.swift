@@ -5,17 +5,7 @@
 //  Created by Stefan Urbanek on 25/09/2025.
 //
 
-/// Protocol for entity identity types. Provides information about the concrete type.
-///
-public protocol EntityTypeProtocol {
-    static var identityType: IdentityType { get }
-}
-
-///
-// FIXME: [IMPORTANT] Rename to EntityType, to be more flexible/reusable (such as in loader)
-// FIXME: Also rename all properties/functions identityType -> entityType
-
-public enum IdentityType: Sendable, CustomStringConvertible {
+public enum DesignEntityType: Sendable, CustomStringConvertible {
     /// Unique within design.
     case objectSnapshot
     /// Unique within design.
@@ -33,16 +23,6 @@ public enum IdentityType: Sendable, CustomStringConvertible {
     }
 }
 
-public enum ObjectEntityType: EntityTypeProtocol {
-    public static let identityType: IdentityType = .object
-}
-public enum ObjectSnapshotEntityType: EntityTypeProtocol {
-    public static let identityType: IdentityType = .objectSnapshot
-}
-public enum FrameEntityType: EntityTypeProtocol {
-    public static let identityType: IdentityType = .frame
-}
-
 public typealias EntityIDValue = UInt64
 /// Generic for entity identities.
 ///
@@ -51,7 +31,7 @@ public typealias EntityIDValue = UInt64
 ///
 /// See concrete types: ``ObjectID``, ``ObjectSnapshotID`` and ``DesignSnapshotID``.
 ///
-public struct EntityID<EntityType: EntityTypeProtocol>:
+public struct DesignEntityID:
     Hashable,
     Codable,
     Sendable,
@@ -72,7 +52,7 @@ public struct EntityID<EntityType: EntityTypeProtocol>:
     public init(rawValue: RawValue) {
         self.rawValue = rawValue
     }
-    
+
     public init(integerLiteral value: Self.IntegerLiteralType) {
         self.rawValue = value
     }
@@ -94,15 +74,6 @@ public struct EntityID<EntityType: EntityTypeProtocol>:
         try container.encode(rawValue)
     }
     public var description: String { stringValue }
-
-    @inlinable
-    public static func ==(lhs: EntityID<EntityType>, rhs: EntityID<EntityType>) -> Bool {
-        return lhs.rawValue == rhs.rawValue
-    }
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        rawValue.hash(into: &hasher)
-    }
 }
 
 /// Identity of a design object.
@@ -110,16 +81,16 @@ public struct EntityID<EntityType: EntityTypeProtocol>:
 /// Design object identity is unique within design snapshot. One design object might have multiple
 /// objet snapshots.
 ///
-public typealias ObjectID = EntityID<ObjectEntityType>
+public typealias ObjectID = DesignEntityID
 
 /// Identity of a design object snapshot - a version of a design object.
 ///
 /// Design object snapshot is unique within design and within a design snapshot.
 ///
-public typealias FrameID = EntityID<FrameEntityType>
+public typealias FrameID = DesignEntityID
 
 /// Identity of a design snapshot - version of a design.
 ///
 /// Design snapshot ID is unique within design.
 ///
-public typealias ObjectSnapshotID = EntityID<ObjectSnapshotEntityType>
+public typealias ObjectSnapshotID = DesignEntityID

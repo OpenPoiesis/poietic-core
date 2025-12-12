@@ -239,7 +239,7 @@ struct DesignLoaderReservationTests {
     
     @Test("ID conflict when requiring already reserved (require)")
     func requireProvidedStrategyConflict() async throws {
-        strayIdentityManager.reserve(ObjectSnapshotID(10))
+        strayIdentityManager.reserve(ObjectSnapshotID(10), type: .objectSnapshot)
         
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
@@ -292,9 +292,9 @@ struct DesignLoaderReservationTests {
 
     @Test("Strategy: preserve or create if reserved")
     func preserveOrCreateStrategy() async throws {
-        strayIdentityManager.reserve(ObjectID(999))
-        strayIdentityManager.reserve(ObjectID(99))
-        strayIdentityManager.reserve(ObjectID(888))
+        strayIdentityManager.reserve(ObjectID(999), type: .object)
+        strayIdentityManager.reserve(ObjectID(99), type: .object)
+        strayIdentityManager.reserve(ObjectID(888), type: .object)
 
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,

@@ -79,7 +79,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         
         // Identity
         /// Unable to reserve requested foreign ID as given type.
-        case reservationConflict(IdentityType, ForeignEntityID)
+        case reservationConflict(DesignEntityType, ForeignEntityID)
         case duplicateForeignID(ForeignEntityID)
         
         // Snapshot-specific

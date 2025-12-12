@@ -304,7 +304,7 @@ public class DesignLoader {
         identityResolution = try resolveIdentities(
             resolution: validationResolution,
             identityStrategy: identityStrategy,
-            unavailableIDs: Set(frame.objectIDs.map { $0.rawValue })
+            unavailableIDs: Set(frame.objectIDs)
         )
         
         let snapshotResolution = try resolveObjectSnapshots(
@@ -534,7 +534,6 @@ public class DesignLoader {
                                     id: resolvedFrame.frameID,
                                     snapshots: frameSnapshots)
             
-            let debugIDs = frameSnapshots.map { $0.snapshotID }
             do {
                 try StructuralValidator.validate(snapshots: frameSnapshots, in: frame)
             }
@@ -552,16 +551,12 @@ public class DesignLoader {
     // MARK: - Finalise
     
     struct NamedReference {
-        let type: IdentityType
-        let id: EntityID.RawValue
+        let type: DesignEntityType
+        let id: DesignEntityID
     }
     struct NamedReferenceList {
-        let type: IdentityType
-        let ids: [EntityID.RawValue]
-        
-        func typedIDs<T>() -> [EntityID<T>] {
-            return ids.map { EntityID(rawValue: $0) }
-        }
+        let type: DesignEntityType
+        let ids: [DesignEntityID]
     }
     func resolveNamedReferences(
         rawDesign: RawDesign,
@@ -641,7 +636,7 @@ public class DesignLoader {
                 throw DesignLoaderError.IndexedItemError(listIndex, .unknownEntityType(list.itemType))
             }
             
-            var values: [EntityID.RawValue] = []
+            var values: [DesignEntityID] = []
             
             for rawID in list.ids {
                 guard let idValue = identities[rawID] else {
@@ -654,7 +649,7 @@ public class DesignLoader {
         return result
     }
     
-    func entityType(_ string: String) -> IdentityType? {
+    func entityType(_ string: String) -> DesignEntityType? {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
@@ -673,15 +668,13 @@ public class DesignLoader {
             guard list.type == .frame else {
                 throw .design(.namedReferenceTypeMismatch("undo"))
             }
-            let ids: [FrameID]  = list.typedIDs()
-            design.undoList = ids
+            design.undoList = list.ids
         }
         if let list = namedReferences.systemLists["redo"] {
             guard list.type == .frame else {
                 throw .design(.namedReferenceTypeMismatch("redo"))
             }
-            let ids: [FrameID]  = list.typedIDs()
-            design.redoList = ids
+            design.redoList = list.ids
         }
         if options == .collectOrphans && design.frames.count == 1,
            let onlyFrameID = design.frames.first?.id
@@ -692,7 +685,7 @@ public class DesignLoader {
             guard ref.type == .frame else {
                 throw .design(.namedReferenceTypeMismatch("current_frame"))
             }
-            design.currentFrameID = FrameID(rawValue: ref.id)
+            design.currentFrameID = ref.id
         }
 
         // CurrentFrameID must be set when there is history.
@@ -704,7 +697,7 @@ public class DesignLoader {
 
         for (name, ref) in namedReferences.userReferences {
             if ref.type == .frame {
-                design.unsafeAssignName(name: name, frameID: FrameID(rawValue: ref.id))
+                design.unsafeAssignName(name: name, frameID: ref.id)
             }
         }
 

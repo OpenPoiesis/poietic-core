@@ -289,12 +289,12 @@ public class Design {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {
-            let success = identityManager.reserve(id)
+            let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = identityManager.reserveNew()
+            actualID = identityManager.reserveNew(type:. frame)
         }
         
         let trans = TransientFrame(design: self, id: actualID)
@@ -328,12 +328,12 @@ public class Design {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {
-            let success = identityManager.reserve(id)
+            let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = identityManager.reserveNew()
+            actualID = identityManager.reserveNew(type: .frame)
         }
         
         let derived: TransientFrame

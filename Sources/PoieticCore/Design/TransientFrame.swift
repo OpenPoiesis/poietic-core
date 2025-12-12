@@ -97,7 +97,7 @@ public final class TransientFrame: Frame {
     
     @usableFromInline
     var _removedObjects: Set<ObjectID>
-    var _reservations: Set<EntityID.RawValue>
+    var _reservations: Set<DesignEntityID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
     // MARK: - Properties and Inspection
@@ -252,26 +252,26 @@ public final class TransientFrame: Frame {
        
         let actualSnapshotID: ObjectSnapshotID
         if let snapshotID {
-            let success = design.identityManager.reserve(snapshotID)
+            let success = design.identityManager.reserve(snapshotID, type: .objectSnapshot)
             precondition(success, "Duplicate snapshot ID: \(snapshotID)")
             actualSnapshotID = snapshotID
         }
         else {
-            actualSnapshotID = design.identityManager.reserveNew()
+            actualSnapshotID = design.identityManager.reserveNew(type: .objectSnapshot)
         }
-        _reservations.insert(actualSnapshotID.rawValue)
+        _reservations.insert(actualSnapshotID)
 
         let actualID: ObjectID
         if let id = objectID {
-            let success = design.identityManager.reserveIfNeeded(id)
+            let success = design.identityManager.reserveIfNeeded(id, type: .object)
             precondition(success, "Entity type mismatch for ID \(id)")
             precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
         else {
-            actualID = design.identityManager.reserveNew()
+            actualID = design.identityManager.reserveNew(type: .object)
         }
-        _reservations.insert(actualID.rawValue)
+        _reservations.insert(actualID)
 
         let actualStructure = structure ?? .unstructured
         var actualAttributes = attributes
@@ -370,7 +370,7 @@ public final class TransientFrame: Frame {
     /// This method is used by the loader. It consumes the reservations from the loader and takes
     /// responsibility for using them or releasing them.
     ///
-    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<EntityID.RawValue>) {
+    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<DesignEntityID>) {
         for snapshot in snapshots {
             unsafeInsert(snapshot)
         }
@@ -481,11 +481,11 @@ public final class TransientFrame: Frame {
         case .transient(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew()
+            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew(type: .objectSnapshot)
             let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
             let box = _TransientSnapshotBox(derived, isNew: false)
             _snapshots.replace(box)
-            _reservations.insert(derivedSnapshotID.rawValue)
+            _reservations.insert(derivedSnapshotID)
             _snapshotIDs.remove(original.snapshotID)
             _snapshotIDs.insert(derivedSnapshotID)
             return derived

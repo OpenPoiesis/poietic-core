@@ -39,17 +39,17 @@ public class DesignExtractor {
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
         if !design.undoList.isEmpty {
-            let undoList: [ForeignEntityID] = design.undoList.map { .id($0.rawValue) }
+            let undoList: [ForeignEntityID] = design.undoList.map { .id($0) }
             sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
         }
         if !design.redoList.isEmpty {
-            let redoList: [ForeignEntityID] = design.redoList.map { .id($0.rawValue) }
+            let redoList: [ForeignEntityID] = design.redoList.map { .id($0) }
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
         
         if let id = design.currentFrameID {
             sysReferences = [
-                RawNamedReference("current_frame", type: "frame", id: .id(id.rawValue))
+                RawNamedReference("current_frame", type: "frame", id: .id(id))
             ]
         }
         else {
@@ -59,7 +59,7 @@ public class DesignExtractor {
         // 3. User references
         // Write all, including empty ones.
         for (name, frame) in design.namedFrames {
-            let ref = RawNamedReference(name, type: "frame", id: .id(frame.id.rawValue))
+            let ref = RawNamedReference(name, type: "frame", id: .id(frame.id))
             userReferences.append(ref)
         }
         
@@ -95,11 +95,11 @@ public class DesignExtractor {
     /// - SeeAlso: ``extract(_:)``
     ///
     public func extract(_ snapshot: ObjectSnapshot) -> RawSnapshot {
-        let rawParent: ForeignEntityID? = snapshot.parent.map { .id($0.rawValue) }
+        let rawParent: ForeignEntityID? = snapshot.parent.map { .id($0) }
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
-            snapshotID: .id(snapshot.snapshotID.rawValue),
-            id: .id(snapshot.objectID.rawValue),
+            snapshotID: .id(snapshot.snapshotID),
+            id: .id(snapshot.objectID),
             structure: RawStructure(snapshot.structure),
             parent: rawParent,
             attributes: snapshot.attributes
@@ -111,8 +111,8 @@ public class DesignExtractor {
     ///
     public func extract(_ frame: some Frame) -> RawFrame {
         return RawFrame(
-            id: .id(frame.id.rawValue),
-            snapshots: frame.snapshots.map { .id($0.snapshotID.rawValue) }
+            id: .id(frame.id),
+            snapshots: frame.snapshots.map { .id($0.snapshotID) }
         )
     }
     
@@ -154,7 +154,7 @@ public class DesignExtractor {
                 }
                 let knownItems = items.filter { knownIDs.contains($0) }
                 raw = extract(snapshot)
-                raw.structure.references = knownItems.map { .id($0.rawValue) }
+                raw.structure.references = knownItems.map { .id($0) }
             }
             
             if let parent = snapshot.parent, !knownIDs.contains(parent) {
