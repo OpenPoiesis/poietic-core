@@ -149,7 +149,7 @@ public struct ConstraintChecker {
                 objectErrors[object.objectID, default: []] += errors
             }
             
-            if let edge = EdgeObject(object, in: frame) {
+            if let edge = DesignObjectEdge(object, in: frame) {
                 do {
                     try validate(edge: edge, in: frame)
                 }
@@ -191,12 +191,12 @@ public struct ConstraintChecker {
                 throw .objectTypeError(object.objectID, error)
             }
             
-            if let edge = EdgeObject(object, in: frame) {
+            if let edge = DesignObjectEdge(object, in: frame) {
                 do {
                     try validate(edge: edge, in: frame)
                 }
                 catch {
-                    throw .edgeRuleViolation(edge.key, error)
+                    throw .edgeRuleViolation(edge.id, error)
                 }
             }
         }
@@ -260,7 +260,7 @@ public struct ConstraintChecker {
             }
         }
     }
-    public func validate(edge: EdgeObject, in frame: some Frame) throws (EdgeRuleViolation) {
+    public func validate(edge: DesignObjectEdge, in frame: some Frame) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
         let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
@@ -268,7 +268,7 @@ public struct ConstraintChecker {
             throw .edgeNotAllowed
         }
         guard let matchingRule = typeRules.first(where: { rule in
-            rule.match(edge, in: frame)
+            rule.match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: frame)
         }) else {
             throw .noRuleSatisfied
         }

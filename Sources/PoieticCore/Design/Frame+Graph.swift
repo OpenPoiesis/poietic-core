@@ -14,9 +14,9 @@ extension Frame {
         return self.snapshots.filter { $0.structure.type == .edge }.map { $0.objectID }
     }
 
-    public var edges: [EdgeObject] {
+    public var edges: [DesignObjectEdge] {
         return self.snapshots.compactMap {
-            EdgeObject($0, in: self)
+            DesignObjectEdge($0, in: self)
         }
     }
 }

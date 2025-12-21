@@ -26,7 +26,7 @@ extension GraphProtocol {
             for edge in outgoing {
                 let m: NodeKey = edge.target
                 
-                edges.removeAll { $0.key == edge.key }
+                edges.removeAll { $0.id == edge.id }
                 
                 if edges.allSatisfy({$0.target != m}) {
                     sources.append(m)
@@ -59,7 +59,7 @@ extension GraphProtocol {
             for edge in outgoing {
                 let m: NodeKey = edge.target
                 
-                edges.removeAll { $0.key == edge.key }
+                edges.removeAll { $0.id == edge.id }
                 
                 if edges.allSatisfy({$0.target != m}) {
                     sources.append(m)

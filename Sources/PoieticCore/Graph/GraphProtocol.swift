@@ -11,7 +11,7 @@
 /// The edge object is relevant only within the context of a frame that was used during
 /// initialisation.
 ///
-public struct EdgeObject: EdgeProtocol {
+public struct DesignObjectEdge: EdgeProtocol {
     public typealias NodeKey = ObjectID
     public typealias EdgeKey = ObjectID
 
@@ -19,7 +19,7 @@ public struct EdgeObject: EdgeProtocol {
     public let object: ObjectSnapshot
     
     /// ID of the edge design object.
-    public var key: ObjectID { object.objectID }
+    public var id: ObjectID { object.objectID }
     
     /// Reference to the edge origin object extracted from a frame during initialisation.
     public let originObject: ObjectSnapshot
@@ -55,9 +55,8 @@ public struct EdgeObject: EdgeProtocol {
         self.originObject = origin
         self.targetObject = target
     }
-    init(_ snapshot: ObjectSnapshot, origin: ObjectSnapshot, target: ObjectSnapshot) {
+    internal init(_ snapshot: ObjectSnapshot, origin: ObjectSnapshot, target: ObjectSnapshot) {
         precondition(snapshot.structure == .edge(origin.objectID, target.objectID))
-        
         
         self.object = snapshot
         self.originObject = origin
@@ -74,7 +73,7 @@ public protocol EdgeProtocol {
 
     associatedtype EdgeKey: Hashable
     associatedtype NodeKey: Hashable
-    var key: EdgeKey { get }
+    var id: EdgeKey { get }
     /// Origin of the edge.
     var origin: NodeKey { get }
     /// Target of the edge.
@@ -153,7 +152,7 @@ extension GraphProtocol {
     }
 
     public func edge(_ key: EdgeKey) -> Edge? {
-        return edges.first { $0.key == key }
+        return edges.first { $0.id == key }
     }
 
     public func outgoing(_ origin: NodeKey) -> [Edge] {

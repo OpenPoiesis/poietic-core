@@ -11,7 +11,7 @@ public struct OrderedSet<T: Equatable>: Equatable {
     public typealias Item = T
     public typealias Index = Array<Item>.Index
     var items: [Item]
-    
+        
     public init() {
         self.items = []
     }

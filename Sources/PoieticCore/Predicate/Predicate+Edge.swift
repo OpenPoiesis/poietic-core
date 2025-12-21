@@ -73,7 +73,7 @@ public struct EdgePredicate: Predicate, CustomStringConvertible {
     }
     
     public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
-        guard let edge = EdgeObject(object, in: frame) else {
+        guard let edge = DesignObjectEdge(object, in: frame) else {
             return false
         }
         if let predicate = edgePredicate {

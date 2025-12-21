@@ -84,7 +84,7 @@ public final class AugmentedFrame: Frame {
 
     @inlinable public var nodeKeys: [ObjectID] { wrapped.nodeKeys }
     @inlinable public var edgeKeys: [ObjectID] { wrapped.edgeKeys }
-    @inlinable public var edges: [EdgeObject] { wrapped.edges }
+    @inlinable public var edges: [DesignObjectEdge] { wrapped.edges }
 
     @inlinable public func outgoing(_ origin: NodeKey) -> [Edge] {
         wrapped.outgoing(origin)

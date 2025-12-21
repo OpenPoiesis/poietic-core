@@ -13,7 +13,7 @@
 public protocol Frame:
     GraphProtocol where NodeKey == ObjectID,
                         EdgeKey == ObjectID,
-                        Edge == EdgeObject {
+                        Edge == DesignObjectEdge {
     /// Design to which the frame belongs.
     var design: Design { get }
     
@@ -153,7 +153,7 @@ extension Frame {
         var result: Set<ObjectID> = Set()
         for edge in self.edges {
             if edge.origin == nodeID || edge.target == nodeID {
-                result.insert(edge.key)
+                result.insert(edge.id)
             }
         }
         return Array(result)
@@ -167,7 +167,7 @@ extension Frame {
         for edge in self.edges {
             for nodeID in nodeIDs {
                 if edge.origin == nodeID || edge.target == nodeID {
-                    result.insert(edge.key)
+                    result.insert(edge.id)
                 }
             }
         }

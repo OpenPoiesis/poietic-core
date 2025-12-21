@@ -94,7 +94,7 @@ extension DesignFrame /* : GraphProtocol */ {
         guard let snapshot = _lookup[oid] else {
             fatalError("Missing edge: \(oid)")
         }
-        guard let edge = EdgeObject(snapshot, in: self) else {
+        guard let edge = DesignObjectEdge(snapshot, in: self) else {
             fatalError("Not an edge: \(oid)")
         }
         return edge
