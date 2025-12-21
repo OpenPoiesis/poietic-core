@@ -1,0 +1,363 @@
+//
+//  World.swift
+//  poietic-core
+//
+//  Created by Stefan Urbanek on 09/12/2025.
+//
+
+/*
+ 
+ Component lifetime:
+ 
+ - entity lifetime
+ - frame lifetime
+ - schedule lifetime
+ -
+ 
+ */
+
+extension SystemGroup {
+    func update(_ world: World) {}
+}
+
+enum Lifetime {
+    /// Entity lasts until explicitly requested to be removed.
+    case infinite
+    /// Entity will be removed on frame change.
+    case frame
+    /// Entity will be removed when either the current schedule finishes.
+    case schedule
+}
+
+
+/// A container for storing and working with run-time entities and components.
+///
+/// Functionality:
+///
+/// - storage and management of components
+/// - management of systems schedules
+/// - design issue management
+///
+public class World {
+    var design: Design
+    public private(set) var frame: DesignFrame?
+    
+    // Identity
+    /// Sequence for generating world entities IDs.
+    ///
+    /// The IDs exist only during runtime. They should not be persisted.
+    ///
+    internal var entitySequence: UInt64
+
+    var systems: [ObjectIdentifier:SystemGroup]
+    var schedules: [ObjectIdentifier:String]
+    
+    // TODO: [IMPORTANT] Make issues a component, to unify the interface.
+    // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
+    /// Issues collected during frame processing.
+    ///
+    /// These are non-fatal issues that indicate problems with the design - with the user data.
+    /// The issues are intended to be displayed to the user, preferably
+    /// within a context of the object which the issue is associated with.
+    ///
+    /// Issue list is analogous to a list of syntax errors that were encountered during a
+    /// programming language source code compilation.
+    ///
+    /// Only design objects can have issues associated with it. Non-design objects can not be
+    /// created by the users, therefore associating issues with them is not only unhelpful but
+    /// also meaningless. Users can act only on objects they created.
+    ///
+    public private(set) var issues: [ObjectID: [Issue]]
+    
+    internal var objectToEntityMap: [ObjectID:EphemeralID]
+    internal var entityToObjectMap: [EphemeralID:ObjectID]
+    /// Entity ID representing current frame.
+    ///
+    internal var entities: [EphemeralID]
+    private var components: [EphemeralID: ComponentSet]
+
+    /// Entity representing the current frame, if the `frame` is set.
+    public private(set) var frameEntity: EphemeralID?
+
+    /// Existential dependencies between entities.
+    ///
+    /// Keys are entities that other entities depend on, values are sets of dependants.
+    /// When an entity is de-spawned from the world all its dependants are de-spawned cascadingly.
+    ///
+    var dependencies: [EphemeralID:Set<EphemeralID>]
+
+    init(design: Design) {
+        self.design = design
+        self.entitySequence = 1
+        self.systems = [:]
+        self.schedules = [:]
+        self.dependencies = [:]
+        self.components = [:]
+        self.issues = [:]
+        self.entities = []
+        
+        self.objectToEntityMap = [:]
+        self.entityToObjectMap = [:]
+        self.frame = nil
+    }
+    
+    convenience init(frame: DesignFrame) {
+        self.init(design: frame.design)
+        setFrame(frame)
+    }
+    
+    func entityToObject(_ ephemeralID: EphemeralID) -> ObjectID? {
+        entityToObjectMap[ephemeralID]
+    }
+    func objectToEntity(_ objectID: ObjectID) -> EphemeralID? {
+        objectToEntityMap[objectID]
+    }
+
+    /// Test whether the world contains an entity with given ID.
+    ///
+    func contains(_ id: EphemeralID) -> Bool {
+        self.entities.contains(id)
+    }
+    
+    func setSystems(phase: ScheduleLabel.Type, systems: SystemGroup) {
+        let id = ObjectIdentifier(phase)
+        self.systems[id] = systems
+        self.schedules[id] = String(describing: phase)
+    }
+    
+    public func run(schedule: ScheduleLabel.Type) {
+        guard let group = self.systems[ObjectIdentifier(schedule)] else {
+            preconditionFailure("Unknown phase \(String(describing: schedule))")
+        }
+        group.update(self)
+    }
+
+    /// Set a design frame to be world's current design frame.
+    ///
+    /// When a new frame is set, the following happens:
+    ///
+    /// 1. Entity representing the previously set frame and its objects are despawned.
+    ///    See ``despawn(_:)-(EphemeralID)``.
+    /// 2. New entity for the frame is spawned.
+    /// 3. New entities are spawned for design objects from the new frame. The entities are set
+    ///    as dependants on the frame.
+    /// 4. All issues are cleared.
+    ///
+    /// - Note: Each time ``setFrame(_:)`` is called a new frame entity is created and the old one
+    ///   is despawned, even if the frame has been set in the past. The frame entity is not stored
+    ///   and therefore not reused.
+    ///
+    public func setFrame(_ newFrame: DesignFrame) {
+        precondition(newFrame.design === self.design)
+        precondition(self.design.containsFrame(newFrame.id))
+        
+        if let id = frameEntity {
+            self.despawn(id) // This will despawn all the frame objects as well.
+        }
+        removeFrameObjectEntities()
+
+        self.frame = newFrame
+        self.frameEntity = spawn()
+
+        spawnFrameObjectEntities()
+
+        self.issues.removeAll()
+    }
+    
+    internal func removeFrameObjectEntities() {
+        objectToEntityMap.removeAll()
+        entityToObjectMap.removeAll()
+    }
+    
+    internal func spawnFrameObjectEntities() {
+        guard let frame,
+              let frameEntity
+        else { return }
+        
+        for objectID in frame.objectIDs {
+            let entityID = spawn()
+            setDependency(of: entityID, on: frameEntity)
+            objectToEntityMap[objectID] = entityID
+            entityToObjectMap[entityID] = objectID
+        }
+    }
+
+    /// Spawn an ephemeral entity.
+    ///
+    /// - Returns: Entity ID of the spawned entity.
+    ///
+    public func spawn(_ components: any Component...) -> EphemeralID {
+        // TODO: Use lock once we are multi-thread ready (we are not)
+        let value = entitySequence
+        entitySequence += 1
+        let id = EphemeralID(rawValue: value)
+        self.components[id] = ComponentSet(components)
+        self.entities.append(id)
+        return id
+    }
+    
+    /// Removes the entity from the world and all entities that depend on it.
+    ///
+    /// Only ephemeral entities can be de-spawned. Persistent design objects can not be de-spawned
+    /// from the world.
+    ///
+    public func despawn(_ id: EphemeralID) {
+        self.despawn([id])
+    }
+    public func despawn(_ ids: some Sequence<EphemeralID>) {
+        var trash: Set<EphemeralID> = Set(ids)
+        var removed: Set<EphemeralID> = Set()
+        
+        while !trash.isEmpty {
+            let id = trash.removeFirst()
+            
+            if let objectID = entityToObjectMap.removeValue(forKey: id) {
+                objectToEntityMap[objectID] = nil
+            }
+            
+            removed.insert(id)
+            if let dependants = dependencies.removeValue(forKey: id) {
+                let remaining = dependants.subtracting(removed)
+                trash.formUnion(remaining)
+            }
+            components[id] = nil
+            entities.removeAll { $0 == id }
+        }
+    }
+    // MARK: - Dependencies
+    /// Make existence of an entity `dependant` dependent on entity `master`.
+    ///
+    /// When entity `master` is removed from the world, all its dependants are removed as well.
+    ///
+    /// - Precondition: `dependant` and `master` must exist as world entities.
+    ///
+    public func setDependency(of dependant: EphemeralID, on master: EphemeralID) {
+        precondition(entities.contains(dependant))
+        precondition(entities.contains(master))
+        dependencies[master, default: Set()].insert(dependant)
+    }
+    
+    // MARK: - Objects
+    // MARK: - Graph
+    // MARK: - Components
+    /// Get a component for a runtime object
+    ///
+    /// - Parameters:
+    ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
+    /// - Returns: The component if it exists, otherwise nil
+    ///
+    public func component<T: Component>(for runtimeID: EphemeralID) -> T? {
+        components[runtimeID]?[T.self]
+    }
+
+    /// Get a component for a runtime object
+    ///
+    /// - Parameters:
+    ///   - objectID: The object ID
+    /// - Returns: The component if it exists, otherwise nil
+    ///
+    public func component<T: Component>(for objectID: ObjectID) -> T? {
+        guard let entityID = objectToEntityMap[objectID] else { return nil }
+        return components[entityID]?[T.self]
+    }
+
+    /// Set a component for a specific object
+    ///
+    /// If a component of the same type already exists for this object,
+    /// it will be replaced.
+    ///
+    /// - Parameters:
+    ///   - component: The component to set
+    ///   - objectID: The object ID
+    ///
+    /// - Precondition: Entity must exist in the world.
+    ///
+    public func setComponent<T: Component>(_ component: T, for runtimeID: EphemeralID) {
+        precondition(entities.contains(runtimeID))
+        // TODO: Check whether the object exists
+        components[runtimeID, default: ComponentSet()].set(component)
+    }
+    public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
+        guard let entityID = objectToEntityMap[objectID] else {
+            preconditionFailure("Object without entity")
+        }
+        setComponent(component, for: entityID)
+    }
+
+    /// Check if an object has a specific component type
+    ///
+    /// - Parameters:
+    ///   - type: The component type to check
+    ///   - objectID: The object ID
+    /// - Returns: True if the object has the component, otherwise false
+    ///
+    public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: EphemeralID) -> Bool {
+        components[runtimeID]?.has(type) ?? false
+    }
+
+    /// Remove a component from an object
+    ///
+    /// - Parameters:
+    ///   - type: The component type to remove
+    ///   - objectID: The object ID
+    ///
+    public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: EphemeralID) {
+        // TODO: Check whether the object exists
+        components[runtimeID]?.remove(type)
+    }
+    public func removeComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) {
+        guard let entityID = objectToEntityMap[objectID] else { return }
+        removeComponent(type, for: entityID)
+    }
+    
+    // TODO: Rename to "removeForAll"
+    public func removeComponentForAll<T: Component>(_ type: T.Type) {
+        for id in components.keys {
+            components[id]?.remove(type)
+        }
+    }
+
+    // MARK: - Filter
+    
+    /// Get a list of objects with given component.
+    ///
+    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
+        let result: [(EphemeralID, T)] = components.compactMap { id, components in
+            guard let comp: T = components[T.self] else {
+                return nil
+            }
+            return (id, comp)
+        }
+        return QueryResult(result)
+    }
+    
+    // MARK: - Issues
+
+    /// Flag indicating whether any issues were collected
+    public var hasIssues: Bool { !issues.isEmpty }
+
+    public func objectHasIssues(_ objectID: ObjectID) -> Bool {
+        guard let issues = self.issues[objectID] else { return false }
+        return issues.isEmpty
+    }
+
+    public func objectIssues(_ objectID: ObjectID) -> [Issue]? {
+        guard let issues = self.issues[objectID], !issues.isEmpty else { return nil }
+        return issues
+        
+    }
+    
+    /// Append a user-facing issue for a specific object
+    ///
+    /// Issues are non-fatal problems with user data. Systems should append
+    /// issues here rather than throwing errors, allowing processing to continue
+    /// and collect multiple issues.
+    ///
+    /// - Parameters:
+    ///   - issue: The error/issue to append
+    ///   - objectID: The object ID associated with the issue
+    ///
+    public func appendIssue(_ issue: Issue, for objectID: ObjectID) {
+        issues[objectID, default: []].append(issue)
+    }
+}
