@@ -90,38 +90,23 @@ public final class SystemGroup {
     }
 
 
-    /// Execute all systems in dependency order
+    /// Run all systems in dependency order
     ///
-    /// Systems are executed sequentially in topological order based on
+    /// Systems are run sequentially in topological order based on
     /// their declared dependencies.
     ///
     /// - Parameter frame: The runtime frame to process
     /// - Throws: Errors from system execution
     ///
-    public func update(_ frame: AugmentedFrame) throws (InternalSystemError) {
+    public func update(_ world: World) throws (InternalSystemError) {
         if _instances.isEmpty {
             self.instantiate()
         }
         for system in _instances {
-            try system.update(frame)
+            try system.update(world)
         }
     }
 
-    public func debugUpdate(_ frame: AugmentedFrame,
-                            before: ((any System, AugmentedFrame) -> Void),
-                            after: ((any System, AugmentedFrame) -> Void))
-    throws (InternalSystemError) {
-        if _instances.isEmpty {
-            self.instantiate()
-        }
-        for system in _instances {
-            before(system, frame)
-            try system.update(frame)
-            after(system, frame)
-        }
-    }
-
-    
     public func instantiate() {
         // TODO: Add frame or some initialisation context
         for systemType in _executionOrder {

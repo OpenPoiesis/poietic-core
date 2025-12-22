@@ -16,20 +16,6 @@
  
  */
 
-extension SystemGroup {
-    func update(_ world: World) {}
-}
-
-enum Lifetime {
-    /// Entity lasts until explicitly requested to be removed.
-    case infinite
-    /// Entity will be removed on frame change.
-    case frame
-    /// Entity will be removed when either the current schedule finishes.
-    case schedule
-}
-
-
 /// A container for storing and working with run-time entities and components.
 ///
 /// Functionality:
@@ -76,8 +62,11 @@ public class World {
     internal var entities: [EphemeralID]
     private var components: [EphemeralID: ComponentSet]
 
-    /// Entity representing the current frame, if the `frame` is set.
-    public private(set) var frameEntity: EphemeralID?
+    /// Components without an entity.
+    ///
+    /// Only one component of given type might exist in the world as a singleton.
+    ///
+    public private(set) var singletons: ComponentSet
 
     /// Existential dependencies between entities.
     ///
@@ -99,6 +88,7 @@ public class World {
         self.objectToEntityMap = [:]
         self.entityToObjectMap = [:]
         self.frame = nil
+        self.singletons = ComponentSet()
     }
     
     convenience init(frame: DesignFrame) {
@@ -106,30 +96,39 @@ public class World {
         setFrame(frame)
     }
     
-    func entityToObject(_ ephemeralID: EphemeralID) -> ObjectID? {
+    /// Get an object ID for an object the entity represents, if the object exists in the current
+    /// world frame.
+    ///
+    /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
+    ///
+    public func entityToObject(_ ephemeralID: EphemeralID) -> ObjectID? {
         entityToObjectMap[ephemeralID]
     }
+    /// Get an entity that represents an object with given ID, if such entity exists.
+    ///
+    /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
+    ///
     func objectToEntity(_ objectID: ObjectID) -> EphemeralID? {
         objectToEntityMap[objectID]
     }
 
     /// Test whether the world contains an entity with given ID.
     ///
-    func contains(_ id: EphemeralID) -> Bool {
+    public func contains(_ id: EphemeralID) -> Bool {
         self.entities.contains(id)
     }
     
-    func setSystems(phase: ScheduleLabel.Type, systems: SystemGroup) {
-        let id = ObjectIdentifier(phase)
+    func setSystems(schedule: ScheduleLabel.Type, systems: SystemGroup) {
+        let id = ObjectIdentifier(schedule)
         self.systems[id] = systems
-        self.schedules[id] = String(describing: phase)
+        self.schedules[id] = String(describing: schedule)
     }
     
-    public func run(schedule: ScheduleLabel.Type) {
+    public func run(schedule: ScheduleLabel.Type) throws (InternalSystemError) {
         guard let group = self.systems[ObjectIdentifier(schedule)] else {
-            preconditionFailure("Unknown phase \(String(describing: schedule))")
+            preconditionFailure("Unknown schedule \(String(describing: schedule))")
         }
-        group.update(self)
+        try group.update(self)
     }
 
     /// Set a design frame to be world's current design frame.
@@ -151,32 +150,24 @@ public class World {
         precondition(newFrame.design === self.design)
         precondition(self.design.containsFrame(newFrame.id))
         
-        if let id = frameEntity {
-            self.despawn(id) // This will despawn all the frame objects as well.
-        }
         removeFrameObjectEntities()
-
         self.frame = newFrame
-        self.frameEntity = spawn()
-
         spawnFrameObjectEntities()
-
         self.issues.removeAll()
     }
     
     internal func removeFrameObjectEntities() {
+        despawn(entityToObjectMap.keys)
         objectToEntityMap.removeAll()
         entityToObjectMap.removeAll()
     }
     
     internal func spawnFrameObjectEntities() {
-        guard let frame,
-              let frameEntity
+        guard let frame
         else { return }
         
         for objectID in frame.objectIDs {
             let entityID = spawn()
-            setDependency(of: entityID, on: frameEntity)
             objectToEntityMap[objectID] = entityID
             entityToObjectMap[entityID] = objectID
         }
@@ -237,8 +228,6 @@ public class World {
         dependencies[master, default: Set()].insert(dependant)
     }
     
-    // MARK: - Objects
-    // MARK: - Graph
     // MARK: - Components
     /// Get a component for a runtime object
     ///
@@ -261,7 +250,7 @@ public class World {
         return components[entityID]?[T.self]
     }
 
-    /// Set a component for a specific object
+    /// Set a component for an entity.
     ///
     /// If a component of the same type already exists for this object,
     /// it will be replaced.
@@ -272,11 +261,32 @@ public class World {
     ///
     /// - Precondition: Entity must exist in the world.
     ///
-    public func setComponent<T: Component>(_ component: T, for runtimeID: EphemeralID) {
-        precondition(entities.contains(runtimeID))
+    public func setComponent<T: Component>(_ component: T, for entityID: EphemeralID) {
+        precondition(entities.contains(entityID))
         // TODO: Check whether the object exists
-        components[runtimeID, default: ComponentSet()].set(component)
+        components[entityID, default: ComponentSet()].set(component)
     }
+    
+    /// Set singleton component – a component without an entity.
+    ///
+    public func setSingleton<T: Component>(_ component: T) {
+        // TODO: Check whether the object exists
+        singletons.set(component)
+    }
+
+    /// Get a singleton component - a component without an entity.
+    public func singleton<T: Component>() -> T? {
+        return singletons[T.self]
+    }
+    
+    
+    /// Set a component for an entity representing an object.
+    ///
+    /// This is a convenience method.
+    ///
+    /// - SeeAlso: ``setComponent(_:for:)-(_,EphemeralID)``
+    /// - Precondition: Entity representing the object must exist.
+    ///
     public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
         guard let entityID = objectToEntityMap[objectID] else {
             preconditionFailure("Object without entity")
@@ -310,7 +320,6 @@ public class World {
         removeComponent(type, for: entityID)
     }
     
-    // TODO: Rename to "removeForAll"
     public func removeComponentForAll<T: Component>(_ type: T.Type) {
         for id in components.keys {
             components[id]?.remove(type)

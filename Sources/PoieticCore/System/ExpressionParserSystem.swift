@@ -7,27 +7,8 @@
 
 /// Parsed arithmetic expression (frame-independent)
 public struct ParsedExpressionComponent: Component {
-    // Note: We do not need to store error here, we store it in the list of all issues. It is not
-    // relevant to be in the component.
-    public enum Content {
-        case expression(UnboundExpression)
-        case error
-    }
-    public let content: Content
+    public let expression: UnboundExpression
     public let variables: Set<String>
-
-    public var isError: Bool {
-        switch content {
-        case .expression(_): false
-        case .error: true
-        }
-    }
-    public var expression: UnboundExpression? {
-        switch content {
-        case .expression(let expr): expr
-        case .error: nil
-        }
-    }
 }
 
 /// System that parses formulas into unbound expressions.
@@ -38,41 +19,41 @@ public struct ParsedExpressionComponent: Component {
 ///
 public struct ExpressionParserSystem: System {
     public init() {}
-    public func update(_ frame: AugmentedFrame) {
+    public func update(_ world: World) {
+        guard let frame = world.frame else { return }
+        
         for object in frame.filter(trait: .Formula) {
             guard let formula: String = object["formula"] else { continue }
+            parseExpression(formula, object: object, in: world)
             
+        }
+    }
+    func parseExpression(_ formula: String, object: ObjectSnapshot, in world: World) {
+        do {
             let expr: UnboundExpression
             let component: ParsedExpressionComponent
-            
-            do {
-                let parser = ExpressionParser(string: formula)
-                expr = try parser.parse()
-                component = ParsedExpressionComponent(
-                    content: .expression(expr),
-                    variables: Set(expr.allVariables)
-                )
-            }
-            catch {
-                let issue = Issue(
-                    identifier: "syntax_error",
-                    severity: .error,
-                    system: self,
-                    error: error,
-                    details: [
-                        "attribute": "formula",
-                        "underlying_error": Variant(error.description),
-                    ]
-                )
-
-                frame.appendIssue(issue, for: object.objectID)
-                component = ParsedExpressionComponent(
-                    content: .error,
-                    variables: Set()
-                )
-            }
-
-            frame.setComponent(component, for: .object(object.objectID))
+            let parser = ExpressionParser(string: formula)
+            expr = try parser.parse()
+            component = ParsedExpressionComponent(
+                expression: expr,
+                variables: Set(expr.allVariables)
+            )
+            world.setComponent(component, for: object.objectID)
         }
+        catch {
+            let issue = Issue(
+                identifier: "syntax_error",
+                severity: .error,
+                system: self,
+                error: error,
+                details: [
+                    "attribute": "formula",
+                    "underlying_error": Variant(error.description),
+                ]
+            )
+
+            world.appendIssue(issue, for: object.objectID)
+        }
+
     }
 }

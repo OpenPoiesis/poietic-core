@@ -63,7 +63,7 @@ public protocol System {
     ///
     static var dependencies: [SystemDependency] { get }
     
-    /// Execute the system that reads and updates a runtime frame.
+    /// Run the system that reads and updates a world.
     ///
     /// Systems can:
     /// - Create and add new components using ``RuntimeFrame/setComponent(_:for:)``
@@ -71,8 +71,8 @@ public protocol System {
     ///
     /// - Parameter frame: The runtime frame to process
     ///
-    func update(_ frame: AugmentedFrame) throws (InternalSystemError)
-    
+    func update(_ world: World) throws (InternalSystemError)
+
     // TODO: Pass Design or application context in the future. Not needed now.
     /// Initialise the system.
     init()

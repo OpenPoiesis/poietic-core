@@ -36,10 +36,7 @@ import Testing
     @Test func createWorld() throws {
         let world = World(frame: emptyFrame)
 
-        #expect(world.entities.count == 1)
-        let frameEnt = try #require(world.frameEntity)
-        #expect(world.entities.contains(frameEnt))
-
+        #expect(world.entities.count == 0)
         #expect(!world.hasIssues)
     }
     
@@ -75,7 +72,7 @@ import Testing
         let ent = world.spawn(TestComponent(text: "test"))
         world.despawn(ent)
         
-        #expect(world.entities.count == 1)
+        #expect(world.entities.count == 0)
         #expect(!world.contains(ent))
         let component: TestComponent? = world.component(for: ent)
         #expect(component == nil)
