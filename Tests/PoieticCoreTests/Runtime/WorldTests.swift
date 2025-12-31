@@ -61,7 +61,7 @@ import Testing
         let world = World(frame: self.emptyFrame)
         let ent = world.spawn(TestComponent(text: "test"))
         
-        #expect(world.entities.count == 2)
+        #expect(world.entities.count == 1)
         #expect(world.contains(ent))
     
         let component: TestComponent = try #require(world.component(for: ent))
@@ -230,7 +230,7 @@ import Testing
     @Test func frameRemovedObjects() throws {
         let world = World(frame: self.testFrame)
         world.setFrame(self.emptyFrame)
-        #expect(world.entities.count == 1)
+        #expect(world.entities.count == 0)
         
         #expect(world.objectToEntity(objectIDs[0]) == nil)
         #expect(world.objectToEntity(objectIDs[1]) == nil)
@@ -239,92 +239,75 @@ import Testing
     @Test func frameAddedObjects() throws {
         let world = World(frame: self.emptyFrame)
         world.setFrame(self.testFrame)
-        #expect(world.entities.count == 4)
+        #expect(world.entities.count == 3)
         
         #expect(world.objectToEntity(objectIDs[0]) != nil)
         #expect(world.objectToEntity(objectIDs[1]) != nil)
         #expect(world.objectToEntity(objectIDs[2]) != nil)
     }
-#if false
-    @Test func setAndGetFrameComponent() throws {
-        let world = World(frame: self.frame)
+    // MARK: - Singleton
+    @Test func setAndGetSingletonComponent() throws {
+        let world = World(frame: self.emptyFrame)
 
         let component = TestFrameComponent(orderedIDs: objectIDs)
-        augmented.setComponent(component, for: .Frame)
+        world.setSingleton(component)
 
-        let retrieved: TestFrameComponent = try #require(augmented.component(for: .Frame))
+        let retrieved: TestFrameComponent = try #require(world.singleton())
         #expect(retrieved.orderedIDs == objectIDs)
     }
 
     @Test func getFrameComponentReturnsNilWhenNotSet() throws {
-        let world = World(frame: self.frame)
+        let world = World(frame: self.emptyFrame)
 
-        let component: TestFrameComponent? = augmented.component(for: .Frame)
+        let component: TestFrameComponent? = world.singleton()
         #expect(component == nil)
     }
 
     @Test func replaceFrameComponent() throws {
-        let world = World(frame: self.frame)
+        let world = World(frame: self.emptyFrame)
 
-        augmented.setComponent(TestFrameComponent(orderedIDs: [objectIDs[0]]), for: .Frame)
-        augmented.setComponent(TestFrameComponent(orderedIDs: objectIDs), for: .Frame)
+        world.setSingleton(TestFrameComponent(orderedIDs: [objectIDs[0]]))
+        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
 
-        let retrieved: TestFrameComponent = try #require(augmented.component(for: .Frame))
+        let retrieved: TestFrameComponent = try #require(world.singleton())
         #expect(retrieved.orderedIDs.count == 3)
     }
 
     @Test func hasFrameComponent() throws {
-        let augmented = AugmentedFrame(frame)
+        let world = World(frame: emptyFrame)
 
-        #expect(!augmented.hasComponent(TestFrameComponent.self, for: .Frame))
+        #expect(!world.hasSingleton(TestFrameComponent.self))
 
-        augmented.setComponent(TestFrameComponent(orderedIDs: objectIDs), for: .Frame)
+        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
 
-        #expect(augmented.hasComponent(TestFrameComponent.self, for: .Frame))
+        #expect(world.hasSingleton(TestFrameComponent.self))
     }
 
     @Test func removeFrameComponent() throws {
-        let augmented = AugmentedFrame(frame)
+        let world = World(frame: emptyFrame)
 
         // Set frame component
-        augmented.setComponent(TestFrameComponent(orderedIDs: objectIDs), for: .Frame)
-        #expect(augmented.hasComponent(TestFrameComponent.self, for: .Frame))
+        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
+        #expect(world.hasSingleton(TestFrameComponent.self))
 
         // Remove it
-        augmented.removeComponent(TestFrameComponent.self, for: .Frame)
+        world.removeSingleton(TestFrameComponent.self)
 
-        #expect(!augmented.hasComponent(TestFrameComponent.self, for: .Frame))
-        let retrieved: TestFrameComponent? = augmented.component(for: .Frame)
+        #expect(!world.hasSingleton(TestFrameComponent.self))
+        let retrieved: TestFrameComponent? = world.singleton()
         #expect(retrieved == nil)
     }
 
     @Test func multipleFrameComponents() throws {
-        let augmented = AugmentedFrame(frame)
+        let world = World(frame: emptyFrame)
 
-        augmented.setComponent(TestFrameComponent(orderedIDs: objectIDs), for: .Frame)
-        augmented.setComponent(IntegerComponent(value: 100), for: .Frame)
+        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
+        world.setSingleton(IntegerComponent(value: 100))
 
-        let orderComp: TestFrameComponent = try #require(augmented.component(for: .Frame))
-        let intComp: IntegerComponent = try #require(augmented.component(for: .Frame))
+        let orderComp: TestFrameComponent = try #require(world.singleton())
+        let intComp: IntegerComponent = try #require(world.singleton())
 
         #expect(orderComp.orderedIDs.count == 3)
         #expect(intComp.value == 100)
     }
-
-    // MARK: - Object vs Frame Components
-
-    @Test func objectAndFrameComponentsAreIndependent() throws {
-        let augmented = AugmentedFrame(frame)
-        let objectID = objectIDs[0]
-
-        augmented.setComponent(IntegerComponent(value: 8), for: .object(objectID))
-        augmented.setComponent(IntegerComponent(value: 100), for: .Frame)
-
-        let objectComp: IntegerComponent = try #require(augmented.component(for: .object(objectID)))
-        let frameComp: IntegerComponent = try #require(augmented.component(for: .Frame))
-
-        #expect(objectComp.value == 8)
-        #expect(frameComp.value == 100)
-    }
-#endif
 }

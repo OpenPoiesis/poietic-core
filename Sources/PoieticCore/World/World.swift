@@ -75,7 +75,7 @@ public class World {
     ///
     var dependencies: [EphemeralID:Set<EphemeralID>]
 
-    init(design: Design) {
+    public init(design: Design) {
         self.design = design
         self.entitySequence = 1
         self.systems = [:]
@@ -91,7 +91,7 @@ public class World {
         self.singletons = ComponentSet()
     }
     
-    convenience init(frame: DesignFrame) {
+    public convenience init(frame: DesignFrame) {
         self.init(design: frame.design)
         setFrame(frame)
     }
@@ -108,7 +108,7 @@ public class World {
     ///
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
-    func objectToEntity(_ objectID: ObjectID) -> EphemeralID? {
+    public func objectToEntity(_ objectID: ObjectID) -> EphemeralID? {
         objectToEntityMap[objectID]
     }
 
@@ -118,7 +118,7 @@ public class World {
         self.entities.contains(id)
     }
     
-    func setSystems(schedule: ScheduleLabel.Type, systems: SystemGroup) {
+    public func setSystems(schedule: ScheduleLabel.Type, systems: SystemGroup) {
         let id = ObjectIdentifier(schedule)
         self.systems[id] = systems
         self.schedules[id] = String(describing: schedule)
@@ -274,12 +274,22 @@ public class World {
         singletons.set(component)
     }
 
+    public func removeSingleton<T: Component>(_ component: T.Type) {
+        // TODO: Check whether the object exists
+        singletons.remove(component)
+    }
+
     /// Get a singleton component - a component without an entity.
     public func singleton<T: Component>() -> T? {
         return singletons[T.self]
     }
     
-    
+    /// Check whether the world contains a singleton.
+    ///
+    public func hasSingleton<T: Component>(_ component: T.Type) -> Bool{
+        singletons.has(component)
+    }
+
     /// Set a component for an entity representing an object.
     ///
     /// This is a convenience method.

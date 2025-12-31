@@ -99,9 +99,9 @@ extension System {
 public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
     public enum Context: Sendable, Equatable, CustomStringConvertible {
         case none
-        case frame
-        case frameComponent(String)
+        case singleton(String)
 
+        case entity(EphemeralID)
         case object(ObjectID)
         case component(ObjectID, String)
         case attribute(ObjectID, String)
@@ -109,17 +109,17 @@ public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
         public var description: String {
             switch self {
             case .none: "no context"
-            case let .object(id): "object ID \(id)"
-            case let .attribute(id, name): "attribute '\(name)' in ID \(id)"
-            case let .component(id, name): "component \(name) in ID \(id)"
-            case     .frame: "frame"
-            case let .frameComponent(name): "frame component \(name)"
+            case let .entity(id): "entity \(id)"
+            case let .object(id): "object \(id)"
+            case let .attribute(id, name): "attribute '\(name)' in object \(id)"
+            case let .component(id, name): "component \(name) in object \(id)"
+            case let .singleton(name): "singleton component \(name)"
             }
         }
         
-        public init(frameComponent: some Component) {
-            let typeName = String(describing: type(of: frameComponent))
-            self = .frameComponent(typeName)
+        public init(singleton: some Component) {
+            let typeName = String(describing: type(of: singleton))
+            self = .singleton(typeName)
         }
         public init(id: ObjectID, component: some Component) {
             let typeName = String(describing: type(of: component))
