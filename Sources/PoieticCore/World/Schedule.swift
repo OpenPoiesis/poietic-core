@@ -18,7 +18,7 @@ public protocol ScheduleLabel {
 /// Schedule label for systems that are run when frame did change.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
-public enum FrameChange: ScheduleLabel {}
+public enum FrameChangeSchedule: ScheduleLabel {}
 
 /// Schedule label for systems that are run during interactive session, for example
 /// a dragging or an object placement session.
@@ -26,5 +26,11 @@ public enum FrameChange: ScheduleLabel {}
 /// For example, while dragging session, the systems are run on each move event.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
-public enum InteractivePreview: ScheduleLabel {}
+public enum InteractivePreviewSchedule: ScheduleLabel {}
 
+/// Schedule label for systems that run a simulation.
+///
+/// The schedule is typically run after ``FrameChangeSchedule``.
+///
+/// - SeeAlso: ``World/run(schedule:)``
+public enum SimulationSchedule: ScheduleLabel {}

@@ -41,7 +41,7 @@ public final class AugmentedFrame: Frame {
     ///
     private var components: [RuntimeEntityID: ComponentSet]
 
-    // TODO: [IMPORTANT] Make issues a component, to unify the interface.
+    // TODO: Make issues a component, to unify the interface.
     // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
     /// User-facing issues collected during frame processing.
     ///

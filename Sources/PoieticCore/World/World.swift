@@ -38,7 +38,7 @@ public class World {
     var systems: [ObjectIdentifier:SystemGroup]
     var schedules: [ObjectIdentifier:String]
     
-    // TODO: [IMPORTANT] Make issues a component, to unify the interface.
+    // TODO: Make issues a component, to unify the interface.
     // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
     /// Issues collected during frame processing.
     ///

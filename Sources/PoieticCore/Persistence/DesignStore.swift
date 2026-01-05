@@ -12,11 +12,7 @@
 // 0.4.0:
 //   - Changed to use RawDesign
 
-// TODO: [IMPORTANT] Remove dictionaries from storage and replace with arrays (we want to preserve order)
-
 import Foundation
-
-
 
 /// A makeshift persistent store.
 ///

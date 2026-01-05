@@ -37,7 +37,7 @@ import Testing
     }
     
     @Test func defaultValueTraitError() throws {
-        // FIXME: [REFACTORING] Move to constraint checker tests
+        // FIXME: Move to constraint checker tests
         let a = frame.create(TestTypeNoDefault)
         let b = frame.create(TestTypeWithDefault)
 

@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 01/05/2025.
 //
 
-// TODO: [IMPORTANT] [WIP] Parent loading is not implemented
-
 enum ForeignDesignCompatibility {
     case incompatible
     case needsUpgrade
@@ -19,8 +17,6 @@ enum RawLoadingResult {
     case needsUpgrade(RawDesign)
 }
 
-// FIXME: [REFACTORING] Rename to ForeignEntityID
-// FIXME: [REFACTORING] Remove id and replace with int/uint as utin64
 /// Object ID retrieved from a foreign interface.
 ///
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:

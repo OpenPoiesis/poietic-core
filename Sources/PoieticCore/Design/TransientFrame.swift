@@ -351,7 +351,6 @@ public final class TransientFrame: Frame {
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
     internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
-        // TODO: [IMPORTANT] Check for snapshot ID existence
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
                      "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
