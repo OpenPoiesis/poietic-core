@@ -5,17 +5,6 @@
 //  Created by Stefan Urbanek on 09/12/2025.
 //
 
-/*
- 
- Component lifetime:
- 
- - entity lifetime
- - frame lifetime
- - schedule lifetime
- -
- 
- */
-
 /// A container for storing and working with run-time entities and components.
 ///
 /// Functionality:
@@ -25,7 +14,8 @@
 /// - design issue management
 ///
 public class World {
-    var design: Design
+    let design: Design
+    // FIXME: Rename to currentFrame
     public private(set) var frame: DesignFrame?
     
     // Identity
@@ -39,7 +29,7 @@ public class World {
     var schedules: [ObjectIdentifier:String]
     
     // TODO: Make issues a component, to unify the interface.
-    // TODO: Make a special error protocol confirming to custom str convertible and having property 'hint:String'
+    // TODO: Make a special error protocol conforming to custom str convertible and having property 'hint:String'
     /// Issues collected during frame processing.
     ///
     /// These are non-fatal issues that indicate problems with the design - with the user data.
@@ -55,12 +45,12 @@ public class World {
     ///
     public private(set) var issues: [ObjectID: [Issue]]
     
-    internal var objectToEntityMap: [ObjectID:EphemeralID]
-    internal var entityToObjectMap: [EphemeralID:ObjectID]
+    internal var objectToEntityMap: [ObjectID:RuntimeID]
+    internal var entityToObjectMap: [RuntimeID:ObjectID]
     /// Entity ID representing current frame.
     ///
-    internal var entities: [EphemeralID]
-    private var components: [EphemeralID: ComponentSet]
+    internal var entities: [RuntimeID]
+    private var components: [RuntimeID: ComponentSet]
 
     /// Components without an entity.
     ///
@@ -73,7 +63,7 @@ public class World {
     /// Keys are entities that other entities depend on, values are sets of dependants.
     /// When an entity is de-spawned from the world all its dependants are de-spawned cascadingly.
     ///
-    var dependencies: [EphemeralID:Set<EphemeralID>]
+    var dependencies: [RuntimeID:Set<RuntimeID>]
 
     public init(design: Design) {
         self.design = design
@@ -101,20 +91,20 @@ public class World {
     ///
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
-    public func entityToObject(_ ephemeralID: EphemeralID) -> ObjectID? {
+    public func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
         entityToObjectMap[ephemeralID]
     }
     /// Get an entity that represents an object with given ID, if such entity exists.
     ///
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
-    public func objectToEntity(_ objectID: ObjectID) -> EphemeralID? {
+    public func objectToEntity(_ objectID: ObjectID) -> RuntimeID? {
         objectToEntityMap[objectID]
     }
 
     /// Test whether the world contains an entity with given ID.
     ///
-    public func contains(_ id: EphemeralID) -> Bool {
+    public func contains(_ id: RuntimeID) -> Bool {
         self.entities.contains(id)
     }
     
@@ -177,11 +167,11 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: any Component...) -> EphemeralID {
+    public func spawn(_ components: any Component...) -> RuntimeID {
         // TODO: Use lock once we are multi-thread ready (we are not)
         let value = entitySequence
         entitySequence += 1
-        let id = EphemeralID(rawValue: value)
+        let id = RuntimeID(intValue: value)
         self.components[id] = ComponentSet(components)
         self.entities.append(id)
         return id
@@ -192,12 +182,12 @@ public class World {
     /// Only ephemeral entities can be de-spawned. Persistent design objects can not be de-spawned
     /// from the world.
     ///
-    public func despawn(_ id: EphemeralID) {
+    public func despawn(_ id: RuntimeID) {
         self.despawn([id])
     }
-    public func despawn(_ ids: some Sequence<EphemeralID>) {
-        var trash: Set<EphemeralID> = Set(ids)
-        var removed: Set<EphemeralID> = Set()
+    public func despawn(_ ids: some Sequence<RuntimeID>) {
+        var trash: Set<RuntimeID> = Set(ids)
+        var removed: Set<RuntimeID> = Set()
         
         while !trash.isEmpty {
             let id = trash.removeFirst()
@@ -222,7 +212,7 @@ public class World {
     ///
     /// - Precondition: `dependant` and `master` must exist as world entities.
     ///
-    public func setDependency(of dependant: EphemeralID, on master: EphemeralID) {
+    public func setDependency(of dependant: RuntimeID, on master: RuntimeID) {
         precondition(entities.contains(dependant))
         precondition(entities.contains(master))
         dependencies[master, default: Set()].insert(dependant)
@@ -235,7 +225,7 @@ public class World {
     ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
     /// - Returns: The component if it exists, otherwise nil
     ///
-    public func component<T: Component>(for runtimeID: EphemeralID) -> T? {
+    public func component<T: Component>(for runtimeID: RuntimeID) -> T? {
         components[runtimeID]?[T.self]
     }
 
@@ -261,7 +251,7 @@ public class World {
     ///
     /// - Precondition: Entity must exist in the world.
     ///
-    public func setComponent<T: Component>(_ component: T, for entityID: EphemeralID) {
+    public func setComponent<T: Component>(_ component: T, for entityID: RuntimeID) {
         precondition(entities.contains(entityID))
         // TODO: Check whether the object exists
         components[entityID, default: ComponentSet()].set(component)
@@ -311,7 +301,7 @@ public class World {
     ///   - objectID: The object ID
     /// - Returns: True if the object has the component, otherwise false
     ///
-    public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: EphemeralID) -> Bool {
+    public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> Bool {
         components[runtimeID]?.has(type) ?? false
     }
 
@@ -321,7 +311,7 @@ public class World {
     ///   - type: The component type to remove
     ///   - objectID: The object ID
     ///
-    public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: EphemeralID) {
+    public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
         // TODO: Check whether the object exists
         components[runtimeID]?.remove(type)
     }
@@ -341,7 +331,7 @@ public class World {
     /// Get a list of objects with given component.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
-        let result: [(EphemeralID, T)] = components.compactMap { id, components in
+        let result: [(RuntimeID, T)] = components.compactMap { id, components in
             guard let comp: T = components[T.self] else {
                 return nil
             }

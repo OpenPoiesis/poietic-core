@@ -8,6 +8,14 @@
 import Testing
 @testable import PoieticCore
 
+struct TestFrameComponent: Component, Equatable {
+    var orderedIDs: [ObjectID]
+
+    init(orderedIDs: [ObjectID] = []) {
+        self.orderedIDs = orderedIDs
+    }
+}
+
 @Suite struct WorldTests {
     let design: Design
     let emptyFrame: DesignFrame

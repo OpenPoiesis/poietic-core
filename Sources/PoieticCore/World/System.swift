@@ -101,7 +101,7 @@ public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
         case none
         case singleton(String)
 
-        case entity(EphemeralID)
+        case entity(RuntimeID)
         case object(ObjectID)
         case component(ObjectID, String)
         case attribute(ObjectID, String)

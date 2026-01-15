@@ -117,9 +117,6 @@ public class Design {
     ///
     public let identityManager: IdentityManager
     
-    /// Sequence for ephemeral entities
-    internal var ephemeralSequence: UInt64
-
     var _objectSnapshots: RCTable<ObjectSnapshot>
 
     /// Frames that have been accepted and are in fact validated with the metamodel.
@@ -186,7 +183,6 @@ public class Design {
     /// - SeeAlso: ``createFrame(deriving:id:)``
     ///
     public init(metamodel: Metamodel = Metamodel()) {
-        self.ephemeralSequence = RuntimeEntityID.FirstEphemeralIDValue
         self._objectSnapshots = RCTable()
         self._validatedFrames = RCTable()
         self._objects = RCTable()
@@ -198,15 +194,6 @@ public class Design {
         self.identityManager = IdentityManager()
     }
     
-    // MARK: - Identity
-    
-    internal func reserveRuntimeID() -> RuntimeEntityID {
-        // TODO: Use lock once we are multi-thread ready (we are not)
-        let value = ephemeralSequence
-        ephemeralSequence += 1
-        return .ephemeral(EphemeralID(rawValue: value))
-    }
-   
     // MARK: - Snapshots
     /// True if the design does not contain any stable frames nor object snapshots.
     ///

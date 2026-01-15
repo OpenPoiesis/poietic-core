@@ -9,9 +9,6 @@
  Development Notes:
  
  - This is an early sketch of Systems and SystemGroups
- - TODO: Have a central per-app or per-design system registry
- - TODO: ^^ see poietic-godot and DesignController and RuntimePhase for seed of the above TODO
- - TODO: Remove mutability of System-group
  */
 
 /// System group is a collection of systems that run in order of their dependency.
@@ -41,7 +38,7 @@
 public final class SystemGroup {
     // TODO: Make immutable through public interface
     /// Registered systems indexed by type name
-    private var systems: [ObjectIdentifier: System.Type]
+    private let systems: [ObjectIdentifier: System.Type]
 
     /// Computed execution order
     private var _executionOrder: [System.Type]

@@ -46,7 +46,7 @@ public enum ForeignEntityID:
     public func designEntityID() -> DesignEntityID? {
         switch self {
         case .id(let value): value
-        case .int(let value): DesignEntityID(rawValue: EntityIDValue(bitPattern: value))
+        case .int(let value): DesignEntityID(intValue: UInt64(bitPattern: value))
         case .string(let value): DesignEntityID(value)
         }
     }
@@ -95,8 +95,7 @@ extension DesignEntityID {
         case let .id(value):
             self = value
         case let .int(rawValue: value):
-            guard let intValue = UInt64(exactly: value) else { return nil }
-            self.init(rawValue: intValue)
+            self.init(intValue: UInt64(bitPattern: value))
         case let .string(stringValue):
             self.init(stringValue)
         }

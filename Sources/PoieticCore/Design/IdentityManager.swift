@@ -11,8 +11,10 @@
 /// are responsible for reservations, consuming used or releasing unused reservations.
 ///
 public class IdentityManager {
+    // IMPORTANT Development note: Keep this in sync with DesignEntityID
+    
     @usableFromInline
-    var sequence: EntityIDValue = 1
+    var sequence: UInt64 = 1
     @usableFromInline
     var used: [DesignEntityID:DesignEntityType] = [:]
     @usableFromInline
@@ -43,11 +45,11 @@ public class IdentityManager {
     @inlinable
     internal func next() -> DesignEntityID {
         var nextValue = sequence
-        while contains(DesignEntityID(rawValue: nextValue)) {
+        while contains(DesignEntityID(intValue: nextValue)) {
             nextValue += 1
         }
         sequence = nextValue + 1
-        return DesignEntityID(rawValue: nextValue)
+        return DesignEntityID(intValue: nextValue)
     }
     
     /// Checks whether a given ID is reserved.
