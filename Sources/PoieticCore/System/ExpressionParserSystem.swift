@@ -18,7 +18,7 @@ public struct ParsedExpressionComponent: Component {
 /// - **Forgiveness:** Objects with missing or invalid `formula` attribute will be ignored.
 ///
 public struct ExpressionParserSystem: System {
-    public init() {}
+    public init(_ world: World) { }
     public func update(_ world: World) {
         guard let frame = world.frame else { return }
         

@@ -25,8 +25,8 @@ public class World {
     ///
     internal var entitySequence: UInt64
 
-    var systems: [ObjectIdentifier:SystemGroup]
-    var schedules: [ObjectIdentifier:String]
+    var schedules: [ObjectIdentifier:Schedule]
+    var scheduleLabels: [ObjectIdentifier:String]
     
     // TODO: Make issues a component, to unify the interface.
     // TODO: Make a special error protocol conforming to custom str convertible and having property 'hint:String'
@@ -68,8 +68,8 @@ public class World {
     public init(design: Design) {
         self.design = design
         self.entitySequence = 1
-        self.systems = [:]
         self.schedules = [:]
+        self.scheduleLabels = [:]
         self.dependencies = [:]
         self.components = [:]
         self.issues = [:]
@@ -108,17 +108,17 @@ public class World {
         self.entities.contains(id)
     }
     
-    public func setSystems(schedule: ScheduleLabel.Type, systems: SystemGroup) {
-        let id = ObjectIdentifier(schedule)
-        self.systems[id] = systems
-        self.schedules[id] = String(describing: schedule)
+    public func addSchedule(_ schedule: Schedule) {
+        let id = ObjectIdentifier(schedule.label)
+        self.schedules[id] = schedule
+        self.scheduleLabels[id] = String(describing: schedule.label)
     }
     
     public func run(schedule: ScheduleLabel.Type) throws (InternalSystemError) {
-        guard let group = self.systems[ObjectIdentifier(schedule)] else {
+        guard let schedule = self.schedules[ObjectIdentifier(schedule)] else {
             preconditionFailure("Unknown schedule \(String(describing: schedule))")
         }
-        try group.update(self)
+        try schedule.update(self)
     }
 
     /// Set a design frame to be world's current design frame.

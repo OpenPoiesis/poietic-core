@@ -73,18 +73,13 @@ public protocol System {
     ///
     func update(_ world: World) throws (InternalSystemError)
 
-    // TODO: Pass Design or application context in the future. Not needed now.
     /// Initialise the system.
-    init()
+    init(_ world: World)
 }
 
 extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
-    public init() {
-        self.init()
-        // Do nothing
-    }
 }
 
 /// Error thrown by systems that has not been caused by the user, but that is recoverable in
