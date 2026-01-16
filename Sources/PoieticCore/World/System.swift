@@ -66,14 +66,16 @@ public protocol System {
     /// Run the system that reads and updates a world.
     ///
     /// Systems can:
-    /// - Create and add new components using ``RuntimeFrame/setComponent(_:for:)``
-    /// - Append user-facing issues using ``RuntimeFrame/appendIssue(_:for:)``
+    /// - Create and add new components using ``World/setComponent(_:for:)-(_,ObjectID)`` and ``World/setSingleton(_:)``.
+    /// - Append user-facing issues using ``World/appendIssue(_:for:)``
     ///
-    /// - Parameter frame: The runtime frame to process
+    /// - Parameters:
+    ///     - world: The runtime world the system can read and modify.
     ///
     func update(_ world: World) throws (InternalSystemError)
 
-    /// Initialise the system.
+    /// Initialise the system within the context of the provided world.
+    ///
     init(_ world: World)
 }
 

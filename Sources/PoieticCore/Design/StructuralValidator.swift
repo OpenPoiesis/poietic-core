@@ -7,10 +7,11 @@
 
 /// Namespace for snapshot and frame validation methods.
 ///
+
 public struct StructuralValidator {
     /// Validates that snapshot's structural references within a context of a frame.
     ///
-    /// Can be used to check whether the snapshot can be added to a frame.
+    /// Intended use is to check whether the snapshot can be added to a frame.
     ///
     /// What is validated:
     ///
@@ -19,6 +20,11 @@ public struct StructuralValidator {
     /// - If it is an edge: whether origin and target exist in the frame and are of type
     ///   ``StructuralType/node``.
     /// - If it is an ordered set: whether the owner and all IDs exist in the frame.
+    ///
+    /// The validator does not check anything related to metamodel. This is a low-level structural
+    /// validation, without any model semantic checks.
+    ///
+    /// - SeeAlso: Use ``ConstraintChecker`` to validate design semantics through ``Metamodel``.
     ///
     public static func validate(_ object: some ObjectProtocol, in frame: some Frame)
     throws (StructuralIntegrityError) {
@@ -70,10 +76,8 @@ public struct StructuralValidator {
     ///
     /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshotProtocol/children``.
-    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
-    ///
-    /// - SeeAlso: ``Frame/brokenReferences()``
+    /// - All children – ``ObjectProtocol/children``.
+    /// - The object's parent – ``ObjectProtocol/parent``.
     ///
     public static func brokenReferences(_ object: some ObjectProtocol,in frame: some Frame) -> Set<ObjectID> {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame
@@ -126,10 +130,14 @@ public struct StructuralValidator {
     /// If the validation fails, detailed information can be provided by the ``brokenReferences()``
     /// method.
     ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
+    /// The validator does not check anything related to metamodel. This is a low-level structural
+    /// validation, without any model semantic checks.
+    ///
     /// - Precondition: The frame must be in transient state – must not be
     ///   previously accepted or discarded.
     ///
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
+    /// - SeeAlso: Use ``ConstraintChecker`` to validate design semantics through ``Metamodel``.
     static func validate(snapshots: [ObjectSnapshot], in frame: some Frame)
     throws (StructuralIntegrityError) {
         // TODO: This is not quite correct, we should be validating within snapshots themselves as well, or not?
@@ -177,15 +185,15 @@ public struct StructuralValidator {
     ///
     /// - If the structure type is an edge (``Structure/edge(_:_:)``)
     ///   then the origin and target is considered.
-    /// - All children – ``ObjectSnapshotProtocol/children``.
-    /// - The object's parent – ``ObjectSnapshotProtocol/parent``.
+    /// - All children – ``ObjectProtocol/children``.
+    /// - The object's parent – ``ObjectProtocol/parent``.
     ///
     /// - Note: This is semi-internal function to validate correct workings
     ///   of the system. You should rarely use it. Typical scenario when you
     ///   want to use this function is when you are constructing a frame
     ///   in an unsafe way.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``
+    /// - SeeAlso: ``StructuralValidator/validate(_:in:)``
     ///
     public func brokenReferences(_ snapshots: [ObjectSnapshot], in frame: some Frame) -> Set<ObjectID> {
         // NOTE: Sync with brokenReferences(snapshot:)

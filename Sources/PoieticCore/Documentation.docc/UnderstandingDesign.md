@@ -25,11 +25,11 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 ### Object
 
 - ``ObjectSnapshot``
-- ``DesignObject``
+- ``ObjectProtocol``
 - ``ObjectID``
+- ``ObjectSnapshotID``
 - ``Structure``
 - ``StructuralType``
-- ``SnapshotID``
 - ``ChildrenSet``
 - ``Selection``
 
@@ -37,7 +37,6 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 
 - ``Frame``
 - ``DesignFrame``
-- ``ValidatedFrame``
 - ``FrameID``
 - ``FrameValidationError``
 - ``StructuralIntegrityError``
@@ -45,7 +44,7 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 ### Changes and Versions
 
 - ``TransientFrame``
-- ``MutableObject``
+- ``TransientObject``
 
 ### Value and Variant
 
@@ -56,9 +55,3 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 - ``ValueError``
 - ``AtomType``
 - ``Point``
-
-
-### Component
-
-- ``Component``
-

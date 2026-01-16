@@ -53,9 +53,8 @@ finaliseDesign
 ///
 /// - Create a design from an external representation such as a file. See ``JSONDesignReader`` and
 ///   ``load(_:)``.
-/// - Import from another design. See ``load(_:into:)-(RawDesign,_)``.
-/// - Paste from a pasteboard during Copy & Paste operation. See ``load(_:into:)-([RawSnapshot],_)``,
-///   and ``JSONDesignWriter``.
+/// - Import from another design or paste from a pasteboard during Copy & Paste operation:
+///   ``load(_:into:identityStrategy:)``.
 ///
 /// The main responsibilities of the deign loader are:
 ///
@@ -63,6 +62,8 @@ finaliseDesign
 /// - Reservation of object identities.
 /// - Resolution of entity references
 /// - Creation of entities (object snapshots, frames, ...)
+///
+/// - SeeAlso: ``JSONDesignReader``, ``JSONDesignWriter``
 ///
 public class DesignLoader {
     /// Metamodel that is used for lookup and validation during loading process.
@@ -223,8 +224,6 @@ public class DesignLoader {
     ///
     /// - If the raw design has one or more frames, then current frame must be set and that frame will be loaded.
     /// - If the raw design has no frames: All snapshots will be treated as snapshot of a single frame.
-    ///
-    /// - SeeAlso: ``load(_:into:)-1o6qf``
     ///
     @discardableResult
     public func load(_ rawDesign: RawDesign,

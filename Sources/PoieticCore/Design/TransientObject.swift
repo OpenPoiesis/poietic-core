@@ -103,7 +103,7 @@ class _TransientSnapshotBox: Identifiable {
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
 /// a transaction for a change. New objects are created within a ``TransientFrame`` using
-/// ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
+/// ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
 /// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
@@ -204,8 +204,6 @@ public class TransientObject: ObjectProtocol {
     }
     
     /// Set an attribute value for given key.
-    ///
-    /// - Precondition: The attribute must not be a reserved attribute (``ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
         _body.attributes[key] = value

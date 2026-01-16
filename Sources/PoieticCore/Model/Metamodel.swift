@@ -59,9 +59,7 @@ public final class Metamodel: Sendable {
     ///   - edgeRules: List of edge rules used for validation.
     ///   - constraints: List of constraints that are used for design validation.
     ///
-    /// Design is validated according to metamodel with ``Design/validate(_:metamodel:)``.
-    ///
-    ///  - SeeAlso: ``ConstraintChecker/check(_:)``, ``EdgeRule``.
+    ///  - SeeAlso: ``ConstraintChecker``, ``EdgeRule``.
     ///
     public init(name: String? = nil,
                 version: SemanticVersion? = nil,

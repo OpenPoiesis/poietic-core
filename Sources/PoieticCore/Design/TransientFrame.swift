@@ -7,12 +7,12 @@
 
 /// Error thrown when validating and accepting a frame.
 ///
-/// - SeeAlso: ``TransientFrame/validateStructure()``
-/// 
+/// - SeeAlso: ``StructuralValidator/validate(_:in:)``
+///
 public enum StructuralIntegrityError: Error {
     /// The frame contains references to objects that are not present in the frame.
     ///
-    /// Use ``TransientFrame/brokenReferences()`` to investigate.
+    /// Use ``StructuralValidator/brokenReferences(_:in:)-method`` to investigate.
     ///
     case brokenStructureReference
     case brokenChild
@@ -55,7 +55,7 @@ public enum StructuralIntegrityError: Error {
 ///
 /// - Mutate existing objects in the frame using
 ///   ``TransientFrame/mutate(_:)``.
-/// - Add objects with ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+/// - Add objects with ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
 ///    or ``TransientFrame/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
@@ -217,13 +217,12 @@ public final class TransientFrame: Frame {
     ///
     /// - Parameters:
     ///     - type: Object type.
-    ///     - id: Proposed object ID. If not provided, one will be generated.
+    ///     - objectID: Proposed object ID. If not provided, one will be generated.
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
     ///     - children: Children of the new object.
     ///     - attributes: Attribute dictionary to be used for object
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
-    ///     - components: List of components to be set for the newly created object.
     ///     - structure: Structural component of the new object. If not provided,
     ///       then unstructured is used.
     ///
@@ -316,7 +315,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: References such as edge endpoints, parent, children
     ///   must be valid within the frame.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
+    /// - SeeAlso: ``StructuralValidator/validate(_:in:)``,
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // TODO: Make insert() function throwing (StructuralIntegrityError)
@@ -513,7 +512,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: The child object must not have a parent.
     /// - ToDo: Check for cycles.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -538,7 +537,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -563,7 +562,7 @@ public final class TransientFrame: Frame {
     /// a child. Mutable version of the old parent will be created, if
     /// necessary.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
@@ -591,7 +590,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeCascading(_:)``.

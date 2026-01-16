@@ -18,6 +18,10 @@
 ///
 /// - SeeAlso: ``DesignEntityID``, ``World/spawn(_:)``
 ///
+/// - Note: The `RuntimeID` type is semantically equivalent to `EntityID` types in other
+///   Entity-Component-System libraries. We are calling it `RuntimeID` to prevent naming
+///   ambiguity with ``DesignEntityID``.
+///   
 public struct RuntimeID:
     Hashable,
     CustomStringConvertible,

@@ -1,5 +1,5 @@
 //
-//  ObjectSnapshotProtocol.swift
+//  ObjectProtocol.swift
 //
 //
 //  Created by Stefan Urbanek on 2021/10/10.
@@ -8,12 +8,12 @@
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
-/// A version of a design object.
+/// Protocol for design objects.
 ///
 /// Design objects are the main entities of the design. Each object can have
 /// multiple versions and each version is called an _object snapshot_. In the
 /// design process the object might exist in different states, based on its
-/// mutability and validity. The ``ObjectSnapshotProtocol`` protocol provides unified
+/// mutability and validity. The ``ObjectProtocol`` protocol provides unified
 /// interface for all of those state representations.
 ///
 /// The different representations that the object might be in are:
@@ -39,10 +39,10 @@ public protocol ObjectProtocol: Identifiable {
     ///
     /// The object ID defines the main identity of an object within a design.
     /// One object can share multiple snapshots, which are identified by their
-    /// ``snapshotID``.
+    /// ``ObjectSnapshot/snapshotID``.
     ///
-    /// Objects within a ``Frame`` have unique object ``id``, however there
-    /// might be multiple snapshots with the same ``id`` within the design.
+    /// Objects within a ``Frame`` have unique ``objectID``, however there
+    /// might be multiple snapshots with the same ``objectID`` within the design.
     ///
     /// The ID is generated using internal identity manager and is
     /// guaranteed to be unique within the design. If an object is coming from
@@ -50,9 +50,10 @@ public protocol ObjectProtocol: Identifiable {
     /// requested, however the programmer is responsible for checking its
     /// uniqueness within given context.
     ///
-    /// - SeeAlso: ``snapshotID``,
+    /// - SeeAlso: ``ObjectSnapshot``,
     ///    ``Frame/object(_:)``,
     ///    ``Frame/contains(_:)``,
+    ///    ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``
     ///
     var objectID: ObjectID { get }
     
@@ -176,7 +177,7 @@ extension ObjectProtocol {
     /// Label attribute can be any reasonably string convertible attribute. Default label attribute
     /// is `name`.
     ///
-    /// If the attribute value is not convertible to string, such as array, ``nil`` is returned.
+    /// If the attribute value is not convertible to string, such as array, `nil` is returned.
     ///
     /// - SeeAlso: ``secondaryLabel``, ``ObjectType/labelAttribute``
     ///
@@ -197,7 +198,7 @@ extension ObjectProtocol {
     /// Example of a secondary label might be a formula, associated constant value or some other
     /// meaningful information.
     ///
-    /// If the attribute value is not convertible to string, such as array, ``nil`` is returned.
+    /// If the attribute value is not convertible to string, such as array, `nil` is returned.
     ///
     /// - SeeAlso:  ``label``, ``ObjectType/secondaryLabelAttribute``
     ///

@@ -126,7 +126,7 @@ public class World {
     /// When a new frame is set, the following happens:
     ///
     /// 1. Entity representing the previously set frame and its objects are despawned.
-    ///    See ``despawn(_:)-(EphemeralID)``.
+    ///    See ``despawn(_:)-(RuntimeID)``.
     /// 2. New entity for the frame is spawned.
     /// 3. New entities are spawned for design objects from the new frame. The entities are set
     ///    as dependants on the frame.
@@ -157,9 +157,9 @@ public class World {
         else { return }
         
         for objectID in frame.objectIDs {
-            let entityID = spawn()
-            objectToEntityMap[objectID] = entityID
-            entityToObjectMap[entityID] = objectID
+            let runtimeID = spawn()
+            objectToEntityMap[objectID] = runtimeID
+            entityToObjectMap[runtimeID] = objectID
         }
     }
 
@@ -236,8 +236,8 @@ public class World {
     /// - Returns: The component if it exists, otherwise nil
     ///
     public func component<T: Component>(for objectID: ObjectID) -> T? {
-        guard let entityID = objectToEntityMap[objectID] else { return nil }
-        return components[entityID]?[T.self]
+        guard let runtimeID = objectToEntityMap[objectID] else { return nil }
+        return components[runtimeID]?[T.self]
     }
 
     /// Set a component for an entity.
@@ -247,14 +247,14 @@ public class World {
     ///
     /// - Parameters:
     ///   - component: The component to set
-    ///   - objectID: The object ID
+    ///   - runtimeID: The object ID
     ///
     /// - Precondition: Entity must exist in the world.
     ///
-    public func setComponent<T: Component>(_ component: T, for entityID: RuntimeID) {
-        precondition(entities.contains(entityID))
+    public func setComponent<T: Component>(_ component: T, for runtimeID: RuntimeID) {
+        precondition(entities.contains(runtimeID))
         // TODO: Check whether the object exists
-        components[entityID, default: ComponentSet()].set(component)
+        components[runtimeID, default: ComponentSet()].set(component)
     }
     
     /// Set singleton component – a component without an entity.
@@ -284,21 +284,21 @@ public class World {
     ///
     /// This is a convenience method.
     ///
-    /// - SeeAlso: ``setComponent(_:for:)-(_,EphemeralID)``
+    /// - SeeAlso: ``setComponent(_:for:)-(_,RuntimeID)``
     /// - Precondition: Entity representing the object must exist.
     ///
     public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
-        guard let entityID = objectToEntityMap[objectID] else {
+        guard let runtimeID = objectToEntityMap[objectID] else {
             preconditionFailure("Object without entity")
         }
-        setComponent(component, for: entityID)
+        setComponent(component, for: runtimeID)
     }
 
     /// Check if an object has a specific component type
     ///
     /// - Parameters:
     ///   - type: The component type to check
-    ///   - objectID: The object ID
+    ///   - runtimeID: The object ID
     /// - Returns: True if the object has the component, otherwise false
     ///
     public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> Bool {
@@ -309,15 +309,15 @@ public class World {
     ///
     /// - Parameters:
     ///   - type: The component type to remove
-    ///   - objectID: The object ID
+    ///   - runtimeID: The object ID
     ///
     public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
         // TODO: Check whether the object exists
         components[runtimeID]?.remove(type)
     }
     public func removeComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) {
-        guard let entityID = objectToEntityMap[objectID] else { return }
-        removeComponent(type, for: entityID)
+        guard let runtimeID = objectToEntityMap[objectID] else { return }
+        removeComponent(type, for: runtimeID)
     }
     
     public func removeComponentForAll<T: Component>(_ type: T.Type) {

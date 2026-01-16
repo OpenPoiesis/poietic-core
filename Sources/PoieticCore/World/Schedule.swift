@@ -9,7 +9,7 @@
 ///
 /// Schedule labels are compile-time tags of system schedules.
 ///
-/// - SeeAlso: ``FrameChange``, ``InteractivePreview``.
+/// - SeeAlso: ``FrameChangeSchedule``, ``InteractivePreviewSchedule``.
 ///
 public protocol ScheduleLabel {
     // Empty protocol, just a tag
@@ -104,7 +104,7 @@ public final class Schedule {
 
     /// Register multiple systems at once.
     ///
-    /// - SeeAlso: ``register()``
+    /// - SeeAlso: ``add(_:)``
     ///
     public func add(_ systems: [System.Type]) {
         for system in systems {
@@ -159,7 +159,6 @@ public final class Schedule {
     ///
     /// - Parameters:
     ///     - systems: List of systems to be ordered.
-    ///     - strict: Flag whether dependencies are strictly required.
     ///
     /// - Returns: Sorted array of systems.
     /// - Precondition: There must be no dependency cycle within systems.

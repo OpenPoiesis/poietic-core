@@ -14,7 +14,7 @@ See also: <doc:Persistence>
 - ``RawStructure``
 - ``RawNamedList``
 - ``RawNamedReference``
-- ``RawObjectID``
+- ``ForeignEntityID``
 
 - ``SemanticVersion``
 
@@ -23,9 +23,6 @@ See also: <doc:Persistence>
 - ``JSONDesignReader``
 - ``DesignLoader``
 - ``DesignLoaderError``
-- ``RawFrameError``
-- ``RawSnapshotError``
-- ``RawIdentityError``
 - ``RawDesignReaderError``
 
 ### Extracting and Writing

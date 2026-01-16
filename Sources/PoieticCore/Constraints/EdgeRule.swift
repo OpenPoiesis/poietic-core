@@ -187,9 +187,9 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     /// - Returns `true` when the edge matches, `false` when the edge does not match the rule.
     ///
     /// This method is typically used for potential new edges, to check whether they can or can not
-    /// be created. For existing edges see ``match(_:in:)``.
+    /// be created. For validating existing edges see ``ConstraintChecker/validate(edge:in:)``.
     ///
-    /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``, ``match(_:in:)``
+    /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``
     ///
     @inlinable
     public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in frame: some Frame) -> Bool {

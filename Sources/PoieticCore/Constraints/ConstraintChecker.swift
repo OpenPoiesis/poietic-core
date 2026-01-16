@@ -5,12 +5,23 @@
 //  Created by Stefan Urbanek on 18/09/2024.
 //
 
-/// An object that checks constraints, including object types, of a frame.
+/// An object that validates frame against a metamodel and checks constraints, object types and
+/// edge rules.
 ///
-/// Constraint checker is used to validate a frame whether it conforms to a given metamodel.
+/// There are two primary functions:
 ///
-/// One can validate a frame against different metamodels which are not associated with the design
-/// owning a frame.
+/// - ``validate(_:)``: Validates the frame and throws ``FrameValidationError`` on first validation
+///   issue detected.
+/// - ``diagnose(_:)``: Collects all the validation issues and returns them in
+///   ``FrameValidationResult``.
+///
+/// The primary information used for validation is the ``Metamodel``:
+///
+/// - ``ObjectType`` from ``Metamodel/types``
+/// - ``Constraint`` from ``Metamodel/constraints``
+/// - ``EdgeRule`` from ``Metamodel/edgeRules``
+///
+/// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``StructuralValidator``.
 ///
 public struct ConstraintChecker {
     // IMPORTANT: Maintain validate(...) and diagnose(...) function pairs in sync.
@@ -30,6 +41,7 @@ public struct ConstraintChecker {
     public init(_ metamodel: Metamodel) {
         self.metamodel = metamodel
     }
+    
     public func validate(_ object: some ObjectProtocol, conformsTo type: ObjectType) throws (ObjectTypeError) {
         if object.structure.type != type.structuralType  {
             throw .structureMismatch(object.type.structuralType)
@@ -63,7 +75,7 @@ public struct ConstraintChecker {
     ///     - `trait`: Trait to be used for checking
     ///
     /// - Throws: ``ObjectTypeError`` for first violation detected.
-    /// - SeeAlso: ``diagnose(_:conformsTo:)`` for collecting all issues with an object.
+    /// - SeeAlso: ``diagnose(_:conformsTo:)-(_,Trait)`` for collecting all issues with an object.
     ///
     public func validate(_ object: some ObjectProtocol, conformsTo trait: Trait) throws (ObjectTypeError) {
         for attr in trait.attributes {
@@ -96,7 +108,7 @@ public struct ConstraintChecker {
     ///     - `trait`: Trait to be used for checking
     ///
     /// - Returns: A collection of detected issues.
-    /// - SeeAlso: ``validate(_:conformsTo:)`` for failing fast on first error.
+    /// - SeeAlso: ``validate(_:conformsTo:)-(_,Trait)`` for failing fast on first error.
     ///
     public func diagnose(_ object: some ObjectProtocol, conformsTo trait: Trait) -> [ObjectTypeError] {
         var errors:[ObjectTypeError] = []
@@ -123,22 +135,24 @@ public struct ConstraintChecker {
     ///
     /// - All objects have a type from the metamodel.
     /// - Object conforms to traits of the object's type.
-    ///   See ``ObjectSnapshotProtocol/check(conformsTo:)``) for more information.
     /// - Objects must conform to all the constraints specified in the
     ///   metamodel.
     ///
-    /// - Throws: ``FrameValidationError`` if a constraint violation or a
-    ///   type error is found, otherwise returns nil.
+    /// The method collects all the errors. To only make sure that the frame is valid, see
+    /// ``validate(_:)``, which throws on first error validation detected.
     ///
-    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``ObjectSnapshotProtocol/check(conformsTo:)``
+    /// - Returns: ``FrameValidationResult`` with collected validation diagnostic information.
+    ///   Whether the frame is valid is indicated in the ``FrameValidationResult/isValid`` flag.
+    ///
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
+    ///   ``validate(edge:in:)``
     ///
     public func diagnose(_ frame: some Frame) -> FrameValidationResult {
         // IMPORTANT: Keep in sync with validate(...) version of this method
         var objectErrors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
 
-        // Check types
-        //
+        // 1. Check types
         for object in frame.snapshots {
             guard metamodel.hasType(object.type) else {
                 objectErrors[object.objectID, default: []].append(.unknownType(object.type.name))
@@ -159,8 +173,7 @@ public struct ConstraintChecker {
             }
         }
 
-        // Check constraints
-        //
+        // 2. Check constraints
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
             let violators = constraint.check(frame)
@@ -177,6 +190,23 @@ public struct ConstraintChecker {
         )
     }
     
+    /// Check a frame for constraints violations and object type conformance.
+    ///
+    /// The function first checks that:
+    ///
+    /// - All objects have a type from the metamodel.
+    /// - Object conforms to traits of the object's type.
+    /// - Objects must conform to all the constraints specified in the
+    ///   metamodel.
+    ///
+    /// The method throws at first error detected. To collect all the errors, see ``diagnose(_:)``.
+    ///
+    /// - Throws: ``FrameValidationError`` if the frame violates constraints or does not satisfy
+    ///   type requirements.
+    ///
+    /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
+    ///   ``validate(edge:in:)``
+    ///
     public func validate(_ frame: some Frame) throws (FrameValidationError) {
         // IMPORTANT: Keep in sync with diagnose(...) version of this method
 
@@ -216,7 +246,7 @@ public struct ConstraintChecker {
     ///
     /// 1. Find all rules for given edge type. There must be at least one for the edge to be valid.
     ///    If no rules are found, then throws ``EdgeRuleViolation/edgeNotAllowed``.
-    /// 2. Find first rule that matches the edge with ``EdgeRule/match(_:in:)``.
+    /// 2. Find first rule that matches the edge with ``ConstraintChecker/validate(edge:in:)``.
     ///    If no rule matches, then throws ``EdgeRuleViolation/noRuleSatisfied``.
     /// 3. Validates cardinality of the object type.
     ///

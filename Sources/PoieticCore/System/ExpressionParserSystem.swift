@@ -14,7 +14,7 @@ public struct ParsedExpressionComponent: Component {
 /// System that parses formulas into unbound expressions.
 ///
 /// - **Input:** Objects with trait ``Trait/Formula``.
-/// - **Output:** ``ParsedExpression`` component.
+/// - **Output:** ``ParsedExpressionComponent`` component.
 /// - **Forgiveness:** Objects with missing or invalid `formula` attribute will be ignored.
 ///
 public struct ExpressionParserSystem: System {

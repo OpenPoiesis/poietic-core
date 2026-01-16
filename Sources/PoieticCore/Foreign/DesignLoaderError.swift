@@ -7,7 +7,7 @@
 
 /// Error thrown by the design loader.
 ///
-/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:)``
+/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:identityStrategy:)``
 ///
 public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertible {
     // TODO: Add CustomStringConvertible

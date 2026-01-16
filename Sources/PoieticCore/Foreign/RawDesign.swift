@@ -201,8 +201,8 @@ public class RawDesign: Codable {
     ///
     /// | Name | Item Type | Description |
     /// | ---- | --------- | ----------- |
-    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoableFrames`` |
-    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoableFrames`` |
+    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoList`` |
+    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoList`` |
     ///
     public var systemLists: [RawNamedList] = []
     
@@ -424,7 +424,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
 
     /// Dictionary of object attributes.
     ///
-    /// See also note about `name` in ``id`` property description.
+    /// See also note about `name` in the ``objectID`` property description.
     ///
     public var attributes: [String:Variant]
     

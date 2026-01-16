@@ -32,7 +32,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// needs to be assured. It can be either provided by the design, taken
 /// from an external source or created in a custom way.
 ///
-/// To create a new object, use the ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+/// To create a new object, use the ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)
 /// method:
 ///
 /// ```swift
@@ -77,14 +77,13 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// Create a stable object.
     ///
     /// - Parameters:
-    ///     - id: Object identity - typical object reference, unique in a frame
+    ///     - objectID: Object identity - typical object reference, unique in a frame
     ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
     ///     - structure: Structural component of the object.
     ///     - children: Children of the object.
     ///     - attributes: Initial attributes of the newly created object.
     ///     - parent: ID of parent object in the object hierarchy.
-    ///     - components: List of components to be added to the object.
     ///
     /// - SeeAlso: ``TransientObject``
     /// - Precondition: Attributes must not contain any reserved attribute

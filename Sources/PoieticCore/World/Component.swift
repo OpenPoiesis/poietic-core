@@ -22,16 +22,6 @@ public protocol Component {
     // Empty, just an annotation.
 }
 
-/// Component that is associated with the whole frame, not with particular object.
-///
-/// This is just an annotation protocol, has no requirements.
-///
-/// - SeeAlso: ``RuntimeEntityID/Frame``
-/// 
-public protocol FrameComponent: Component {
-    // Empty, just an annotation.
-}
-
 /// Component where some or all of its attributes can be inspected as ``Variant``s.
 ///
 public protocol InspectableComponent: Component {

@@ -27,7 +27,7 @@ The philosophy for applications on top of the library is:
 - Assure sustainability, evolvability and repairability of the design data.
 
 The core class of the model is the ``Design`` which contains and manages
-all the design objects – ``DesignObject`` – and their changes in form of
+all the design objects – ``ObjectSnapshot`` – and their changes in form of
 design frames ``DesignFrame``.
 
 Designs are typically a part of a problem domain, or follow a methodology. The
@@ -40,17 +40,20 @@ package for a concrete domain use-case of the core package.
 
 ## Topics
 
-### Essentials
+### Model Essentials
 
 - <doc:UnderstandingDesign>
 - ``Design``
 - ``DesignFrame``
-- ``DesignObject``
-
-### Problem Domain
-
+- ``ObjectSnapshot``
 - <doc:MetamodelAndTypes>
 - <doc:Predicates>
+
+### Simulation Essentials
+
+- ``World``
+- ``System``
+- ``Component``
 
 ### Persistence, Import and Export
 
