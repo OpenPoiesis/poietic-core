@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 04/09/2023.
 //
 
+import Collections
+
 /// Structural type of an object.
 ///
 /// Structural type denotes how the object can relate to other objects in

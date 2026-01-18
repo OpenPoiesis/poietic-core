@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
+import Collections
 
 @usableFromInline
 class _TransientSnapshotBox: Identifiable {
@@ -75,7 +76,7 @@ class _TransientSnapshotBox: Identifiable {
         }
     }
     
-    var children: ChildrenSet {
+    var children: OrderedSet<ObjectID> {
         switch content {
         case let .stable(_, snapshot): snapshot.children
         case let .transient(_, object): object.children
@@ -174,7 +175,7 @@ public class TransientObject: ObjectProtocol {
         }
     }
     
-    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Get a value for an attribute.
@@ -245,7 +246,7 @@ public class TransientObject: ObjectProtocol {
     }
     public func addChild(_ child: ObjectID) {
         hierarchyChanged = true
-        _body.children.add(child)
+        _body.children.append(child)
     }
 
 

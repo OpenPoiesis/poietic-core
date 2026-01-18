@@ -4,7 +4,7 @@
 //
 //  Created by Stefan Urbanek on 04/09/2023.
 //
-
+#if false
 /// Set of unique objects that maintains their order.
 ///
 public struct OrderedSet<T: Equatable>: Equatable {
@@ -79,5 +79,5 @@ extension OrderedSet: ExpressibleByArrayLiteral {
     
     
 }
+#endif
 
-public typealias ChildrenSet = OrderedSet<ObjectID>

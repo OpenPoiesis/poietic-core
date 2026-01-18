@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 2021/10/10.
 //
 
+import Collections
+
 /// Type for object attribute key.
 public typealias AttributeKey = String
 
@@ -117,7 +119,7 @@ public protocol ObjectProtocol: Identifiable {
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
     ///
-    var children: ChildrenSet { get }
+    var children: OrderedSet<ObjectID> { get }
     
     /// Runtime components of an object.
     ///

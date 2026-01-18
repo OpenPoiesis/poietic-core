@@ -5,6 +5,8 @@
 //  Created by Stefan Urbanek on 11/11/2024.
 //
 
+import Collections
+
 public final class LogicalObject: CustomStringConvertible, Identifiable {
     public let id: ObjectID
     
@@ -71,7 +73,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var structure: Structure { _body.structure }
     @inlinable public var parent: ObjectID? { _body.parent }
-    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Create a stable object.

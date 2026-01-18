@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 19/05/2025.
 //
 
+import Collections
 
 public struct ObjectBody {
     // Identity
@@ -14,7 +15,7 @@ public struct ObjectBody {
     // State
     public var structure: Structure
     public var parent: ObjectID?
-    public var children: ChildrenSet
+    public var children: OrderedSet<ObjectID>
     public var attributes: [String:Variant]
     
     public subscript(attributeKey: String) -> Variant? {
@@ -32,7 +33,7 @@ public struct ObjectBody {
         self.structure = structure
         self.parent = parent
         self.attributes = attributes
-        self.children = ChildrenSet(children)
+        self.children = OrderedSet(children)
     }
     
 }
