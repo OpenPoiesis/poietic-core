@@ -7,7 +7,7 @@
 
 /// Error thrown by the design loader.
 ///
-/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:)``
+/// - SeeAlso: ``DesignLoader/load(_:)``, ``DesignLoader/load(_:into:identityStrategy:)``
 ///
 public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertible {
     // TODO: Add CustomStringConvertible
@@ -79,7 +79,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         
         // Identity
         /// Unable to reserve requested foreign ID as given type.
-        case reservationConflict(IdentityType, ForeignEntityID)
+        case reservationConflict(DesignEntityType, ForeignEntityID)
         case duplicateForeignID(ForeignEntityID)
         
         // Snapshot-specific

@@ -74,6 +74,10 @@ public final class ObjectType: Sendable {
     ///       other objects in the design.
     ///     - traits: List of traits associated with the object type.
     ///     - abstract: User oriented object type details.
+    ///     - labelAttribute: Name of an attribute used as a primary label in user-facing
+    ///       application.
+    ///     - secondaryLabelAttribute: Name of an attribute used as a secondary label in user-facing
+    ///       application.
     ///
     /// - Note: The attributes in traits share the same name-space within an
     ///         object type. In other words, there must not be two traits with

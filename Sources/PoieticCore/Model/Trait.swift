@@ -46,9 +46,6 @@ public final class Trait: Sendable {
     ///   model validation in place, then which `name` will be used is
     ///   undeterminable.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/subscript(_:)-59fi3``,
-    ///   ``TransientObject/subscript(_:)-2wuh9``
-    ///
     public let attributes: [Attribute]
     
     /// Human-readable short description of the component.

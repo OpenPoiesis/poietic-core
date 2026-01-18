@@ -175,25 +175,6 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
         self.incoming = incoming
     }
     
-    /// Validates whether the given edge matches the rule.
-    ///
-    /// The edge matches the rule if all of the following is satisfied:
-    /// - edge type is the same as the type defined in the rule
-    /// - if the origin predicate is defined, then the edge's origin must match the origin predicate
-    /// - if the origin predicate is not defined, then any edge's origin matches
-    /// - if the target predicate is defined, then the edge's target must match the target predicate
-    /// - if the target predicate is not defined, then any edge's target matches
-    ///
-    /// - Returns `true` when the edge matches, `false` when the edge does not match the rule.
-    ///
-    /// This method is used for existing edges. To use for a potential new edge see ``match(_:origin:target:in:)``.
-    ///
-    /// - SeeAlso: ``ConstraintChecker/validate(edge:in:)``, ``ConstraintChecker/canConnect(type:from:to:in:)``
-    ///
-    public func match(_ edge: EdgeObject, in frame: some Frame) -> Bool {
-        return match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: frame)
-    }
-
     /// Validates whether the given edge type with given origin and target matches the rule.
     ///
     /// The edge matches the rule if all of the following is satisfied:
@@ -206,9 +187,9 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     /// - Returns `true` when the edge matches, `false` when the edge does not match the rule.
     ///
     /// This method is typically used for potential new edges, to check whether they can or can not
-    /// be created. For existing edges see ``match(_:in:)``.
+    /// be created. For validating existing edges see ``ConstraintChecker/validate(edge:in:)``.
     ///
-    /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``, ``match(_:in:)``
+    /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``
     ///
     @inlinable
     public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in frame: some Frame) -> Bool {

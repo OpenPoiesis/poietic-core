@@ -7,12 +7,12 @@
 
 /// Error thrown when validating and accepting a frame.
 ///
-/// - SeeAlso: ``TransientFrame/validateStructure()``
-/// 
+/// - SeeAlso: ``StructuralValidator/validate(_:in:)``
+///
 public enum StructuralIntegrityError: Error {
     /// The frame contains references to objects that are not present in the frame.
     ///
-    /// Use ``TransientFrame/brokenReferences()`` to investigate.
+    /// Use ``StructuralValidator/brokenReferences(_:in:)-method`` to investigate.
     ///
     case brokenStructureReference
     case brokenChild
@@ -55,7 +55,7 @@ public enum StructuralIntegrityError: Error {
 ///
 /// - Mutate existing objects in the frame using
 ///   ``TransientFrame/mutate(_:)``.
-/// - Add objects with ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+/// - Add objects with ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
 ///    or ``TransientFrame/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
@@ -91,13 +91,13 @@ public final class TransientFrame: Frame {
     
     // validate also snapshot IDs
     @usableFromInline
-    var _snapshots: EntityTable<_TransientSnapshotBox>
+    var _snapshots: RCTable<_TransientSnapshotBox>
     @usableFromInline
     var _snapshotIDs: Set<ObjectSnapshotID>
     
     @usableFromInline
     var _removedObjects: Set<ObjectID>
-    var _reservations: Set<EntityID.RawValue>
+    var _reservations: Set<DesignEntityID>
     public var removedObjects: [ObjectID] { Array(_removedObjects) }
     
     // MARK: - Properties and Inspection
@@ -167,7 +167,7 @@ public final class TransientFrame: Frame {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
         self.id = id
-        self._snapshots = EntityTable()
+        self._snapshots = RCTable()
         self._removedObjects = Set()
         self._reservations = []
         self._snapshotIDs = Set()
@@ -217,13 +217,12 @@ public final class TransientFrame: Frame {
     ///
     /// - Parameters:
     ///     - type: Object type.
-    ///     - id: Proposed object ID. If not provided, one will be generated.
+    ///     - objectID: Proposed object ID. If not provided, one will be generated.
     ///     - snapshotID: Proposed snapshot ID. If not provided, one will be generated.
     ///     - children: Children of the new object.
     ///     - attributes: Attribute dictionary to be used for object
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
-    ///     - components: List of components to be set for the newly created object.
     ///     - structure: Structural component of the new object. If not provided,
     ///       then unstructured is used.
     ///
@@ -252,26 +251,26 @@ public final class TransientFrame: Frame {
        
         let actualSnapshotID: ObjectSnapshotID
         if let snapshotID {
-            let success = design.identityManager.reserve(snapshotID)
+            let success = design.identityManager.reserve(snapshotID, type: .objectSnapshot)
             precondition(success, "Duplicate snapshot ID: \(snapshotID)")
             actualSnapshotID = snapshotID
         }
         else {
-            actualSnapshotID = design.identityManager.reserveNew()
+            actualSnapshotID = design.identityManager.reserveNew(type: .objectSnapshot)
         }
-        _reservations.insert(actualSnapshotID.rawValue)
+        _reservations.insert(actualSnapshotID)
 
         let actualID: ObjectID
         if let id = objectID {
-            let success = design.identityManager.reserveIfNeeded(id)
+            let success = design.identityManager.reserveIfNeeded(id, type: .object)
             precondition(success, "Entity type mismatch for ID \(id)")
             precondition(!self.contains(id), "Duplicate ID \(id)")
             actualID = id
         }
         else {
-            actualID = design.identityManager.reserveNew()
+            actualID = design.identityManager.reserveNew(type: .object)
         }
-        _reservations.insert(actualID.rawValue)
+        _reservations.insert(actualID)
 
         let actualStructure = structure ?? .unstructured
         var actualAttributes = attributes
@@ -316,7 +315,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: References such as edge endpoints, parent, children
     ///   must be valid within the frame.
     ///
-    /// - SeeAlso: ``Frame/brokenReferences(snapshot:)``,
+    /// - SeeAlso: ``StructuralValidator/validate(_:in:)``,
     ///
     public func insert(_ snapshot: ObjectSnapshot) {
         // TODO: Make insert() function throwing (StructuralIntegrityError)
@@ -351,7 +350,6 @@ public final class TransientFrame: Frame {
     /// - SeeAlso: ``TransientFrame/insert(_:)``
     ///
     internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
-        // TODO: [IMPORTANT] Check for snapshot ID existence
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
                      "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
@@ -370,7 +368,7 @@ public final class TransientFrame: Frame {
     /// This method is used by the loader. It consumes the reservations from the loader and takes
     /// responsibility for using them or releasing them.
     ///
-    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<EntityID.RawValue>) {
+    internal func unsafeInsert(_ snapshots: [ObjectSnapshot], reservations: some Collection<DesignEntityID>) {
         for snapshot in snapshots {
             unsafeInsert(snapshot)
         }
@@ -481,11 +479,11 @@ public final class TransientFrame: Frame {
         case .transient(_, let snapshot):
             return snapshot
         case .stable(_ , let original):
-            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew()
+            let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew(type: .objectSnapshot)
             let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
             let box = _TransientSnapshotBox(derived, isNew: false)
             _snapshots.replace(box)
-            _reservations.insert(derivedSnapshotID.rawValue)
+            _reservations.insert(derivedSnapshotID)
             _snapshotIDs.remove(original.snapshotID)
             _snapshotIDs.insert(derivedSnapshotID)
             return derived
@@ -514,7 +512,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: The child object must not have a parent.
     /// - ToDo: Check for cycles.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -539,7 +537,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -564,7 +562,7 @@ public final class TransientFrame: Frame {
     /// a child. Mutable version of the old parent will be created, if
     /// necessary.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeFromParent(_:)``,
@@ -592,7 +590,7 @@ public final class TransientFrame: Frame {
     ///
     /// The object will remain in the frame, will not be deleted.
     ///
-    /// - SeeAlso: ``ObjectSnapshotProtocol/children``, ``ObjectSnapshotProtocol/parent``,
+    /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientFrame/addChild(_:to:)``,
     /// ``TransientFrame/removeChild(_:from:)``,
     /// ``TransientFrame/removeCascading(_:)``.
@@ -625,9 +623,8 @@ public final class TransientFrame: Frame {
     }
 }
 
-
 extension TransientFrame {
     func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
-        
+        fatalError("\(#function) not implemented")
     }
 }

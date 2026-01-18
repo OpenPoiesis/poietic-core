@@ -37,7 +37,7 @@ import Testing
     }
     
     @Test func defaultValueTraitError() throws {
-        // FIXME: [REFACTORING] Move to constraint checker tests
+        // FIXME: Move to constraint checker tests
         let a = frame.create(TestTypeNoDefault)
         let b = frame.create(TestTypeWithDefault)
 
@@ -450,13 +450,13 @@ import Testing
     }
     
     @Test func reserveIdentities() throws {
-        #expect(!design.identityManager.isReserved(ObjectID(10)))
-        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isReserved(ObjectID(10), type: .object))
+        #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
-        #expect(design.identityManager.isReserved(ObjectSnapshotID(10)))
-        #expect(design.identityManager.isReserved(ObjectID(20)))
+        #expect(design.identityManager.isReserved(ObjectSnapshotID(10), type: .objectSnapshot))
+        #expect(design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
     }
@@ -464,8 +464,8 @@ import Testing
     @Test func reserveAndAccept() throws {
         frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         try design.accept(frame)
-        #expect(!design.identityManager.isReserved(ObjectID(10)))
-        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isReserved(ObjectID(10), type: .object))
+        #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(design.identityManager.isUsed(ObjectID(10)))
         #expect(design.identityManager.isUsed(ObjectID(20)))
     }
@@ -473,8 +473,8 @@ import Testing
     @Test func reserveAndDiscard() throws {
         frame.create(TestType, objectID: ObjectID(20), snapshotID: ObjectSnapshotID(10))
         design.discard(frame)
-        #expect(!design.identityManager.isReserved(ObjectID(10)))
-        #expect(!design.identityManager.isReserved(ObjectID(20)))
+        #expect(!design.identityManager.isReserved(ObjectID(10), type: .object))
+        #expect(!design.identityManager.isReserved(ObjectID(20), type: .object))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
     }

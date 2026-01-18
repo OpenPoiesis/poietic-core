@@ -36,7 +36,7 @@ extension Trait {
 
 Secondly we define object types which also specify structural type – whether
 it is an edge or a node type. Some common traits are provided, such as
-``Trait/Name`` for objects that are named or ``Trait/DiagramNode`` for objects
+``Trait/Name`` for objects that are named or ``Trait/DiagramBlock`` for objects
 that can be represented diagrammatically.
 
 ```swift

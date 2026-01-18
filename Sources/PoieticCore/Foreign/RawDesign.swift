@@ -5,8 +5,6 @@
 //  Created by Stefan Urbanek on 01/05/2025.
 //
 
-// TODO: [IMPORTANT] [WIP] Parent loading is not implemented
-
 enum ForeignDesignCompatibility {
     case incompatible
     case needsUpgrade
@@ -19,8 +17,6 @@ enum RawLoadingResult {
     case needsUpgrade(RawDesign)
 }
 
-// FIXME: [REFACTORING] Rename to ForeignEntityID
-// FIXME: [REFACTORING] Remove id and replace with int/uint as utin64
 /// Object ID retrieved from a foreign interface.
 ///
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
@@ -34,7 +30,7 @@ public enum ForeignEntityID:
     CustomDebugStringConvertible
 {
     /// Native Object ID representation
-    case id(EntityID.RawValue)
+    case id(DesignEntityID)
     /// Representation as an integer.
     ///
     /// Known applications that use integer representation:
@@ -47,17 +43,17 @@ public enum ForeignEntityID:
     ///
     case string(String)
     
-    public var rawEntityIDValue: EntityIDValue? {
+    public func designEntityID() -> DesignEntityID? {
         switch self {
         case .id(let value): value
-        case .int(let value): EntityIDValue(exactly: value)
-        case .string(let value): EntityIDValue(value)
+        case .int(let value): DesignEntityID(intValue: UInt64(bitPattern: value))
+        case .string(let value): DesignEntityID(value)
         }
     }
     
     public var description: String {
         switch self {
-        case .id(let value): String(value)
+        case .id(let value): value.stringValue
         case .int(let value): String(value)
         case .string(let value): value
         }
@@ -72,7 +68,7 @@ public enum ForeignEntityID:
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = try? container.decode(EntityIDValue.self) {
+        if let value = try? container.decode(DesignEntityID.self) {
             self = .id(value)
         }
         else if let value = try? container.decode(String.self) {
@@ -93,14 +89,13 @@ public enum ForeignEntityID:
     }
 }
 
-extension EntityID {
+extension DesignEntityID {
     init?(_ raw: ForeignEntityID) {
         switch raw {
         case let .id(value):
-            self.init(rawValue: value)
+            self = value
         case let .int(rawValue: value):
-            guard let intValue = UInt64(exactly: value) else { return nil }
-            self.init(rawValue: intValue)
+            self.init(intValue: UInt64(bitPattern: value))
         case let .string(stringValue):
             self.init(stringValue)
         }
@@ -206,8 +201,8 @@ public class RawDesign: Codable {
     ///
     /// | Name | Item Type | Description |
     /// | ---- | --------- | ----------- |
-    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoableFrames`` |
-    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoableFrames`` |
+    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoList`` |
+    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoList`` |
     ///
     public var systemLists: [RawNamedList] = []
     
@@ -368,10 +363,10 @@ public struct RawStructure: Equatable {
         case .node: self.type = "node"
         case .edge(let origin, let target):
             self.type = "edge"
-            self.references = [.id(origin.rawValue), .id(target.rawValue)]
+            self.references = [.id(origin), .id(target)]
         case .orderedSet(let owner, let items):
             self.type = "ordered_set"
-            self.references = [.id(owner.rawValue)] + items.map { .id($0.rawValue) }
+            self.references = [.id(owner)] + items.map { .id($0) }
         }
     }
     public init(_ type: String? = nil, references: [ForeignEntityID] = []) {
@@ -429,7 +424,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
 
     /// Dictionary of object attributes.
     ///
-    /// See also note about `name` in ``id`` property description.
+    /// See also note about `name` in the ``objectID`` property description.
     ///
     public var attributes: [String:Variant]
     
@@ -476,9 +471,9 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     ///
     public init(_ snapshot: ObjectSnapshot) {
         self.typeName = snapshot.type.name
-        self.snapshotID = .id(snapshot.snapshotID.rawValue)
-        self.objectID = .id(snapshot.objectID.rawValue)
-        self.parent = snapshot.parent.map { .id($0.rawValue) }
+        self.snapshotID = .id(snapshot.snapshotID)
+        self.objectID = .id(snapshot.objectID)
+        self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
         switch snapshot.structure {
         case .unstructured:
@@ -486,9 +481,9 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         case .node:
             self.structure = RawStructure("node")
         case let .edge(origin, target):
-            self.structure = RawStructure("edge", references: [.id(origin.rawValue), .id(target.rawValue)])
+            self.structure = RawStructure("edge", references: [.id(origin), .id(target)])
         case let .orderedSet(owner, ids):
-            let allRefs: [ForeignEntityID] = [.id(owner.rawValue)] + ids.map { .id($0.rawValue) }
+            let allRefs: [ForeignEntityID] = [.id(owner)] + ids.map { .id($0) }
             self.structure = RawStructure("edge", references: allRefs)
         }
     }

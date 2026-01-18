@@ -41,10 +41,10 @@ where E.NodeKey == NK {
         self._nodeKeys = Set(nodes)
 
         for edge in edges {
-            edgeKeys.insert(edge.key)
+            edgeKeys.insert(edge.id)
             outgoingEdges[edge.origin, default: []].append(edge)
             incomingEdges[edge.target, default: []].append(edge)
-            edgeMap[edge.key] = edge
+            edgeMap[edge.id] = edge
         }
         
         self._edgeKeys = edgeKeys

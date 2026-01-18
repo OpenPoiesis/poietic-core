@@ -17,4 +17,3 @@ state.
 - ``Component``
 - ``ComponentSet``
 - ``IssueListComponent``
-- ``OrderedSet``

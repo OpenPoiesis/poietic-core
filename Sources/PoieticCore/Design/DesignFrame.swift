@@ -38,7 +38,7 @@ public final class DesignFrame: Frame, Identifiable {
     @usableFromInline
     internal let _lookup: [ObjectID:ObjectSnapshot]
     @usableFromInline
-    internal let _graph: Graph<ObjectID, EdgeObject>
+    internal let _graph: Graph<ObjectID, DesignObjectEdge>
    
     public var isEmpty: Bool { _snapshots.isEmpty }
     
@@ -56,14 +56,14 @@ public final class DesignFrame: Frame, Identifiable {
             if $0.structure == .node { $0.objectID }
             else { nil }
         }
-        let edges: [EdgeObject] = snapshots.compactMap {
+        let edges: [DesignObjectEdge] = snapshots.compactMap {
             guard case let .edge(originID, targetID) = $0.structure else {
                 return nil
             }
             guard let origin = lookup[originID], let target = lookup[targetID] else {
                 return nil
             }
-            return EdgeObject($0, origin: origin, target: target)
+            return DesignObjectEdge($0, origin: origin, target: target)
         }
         self._graph = Graph(nodes: nodeKeys, edges: edges)
         self._lookup = lookup

@@ -22,14 +22,49 @@ public protocol Component {
     // Empty, just an annotation.
 }
 
-/// Component that is associated with the whole frame, not with particular object.
+/// Component where some or all of its attributes can be inspected as ``Variant``s.
 ///
-/// This is just an annotation protocol, has no requirements.
-///
-/// - SeeAlso: ``RuntimeEntityID/Frame``
-/// 
-public protocol FrameComponent: Component {
-    // Empty, just an annotation.
+public protocol InspectableComponent: Component {
+    static var attributeKeys: [String] { get }
+    func attribute(forKey key: String) -> Variant?
+
+    static var toOneEntityReferenceKeys: [String] { get }
+    static var toOneDesignReferenceKeys: [String] { get }
+    func entityReference(forKey key: String) -> RuntimeID?
+    func designReference(forKey key: String) -> DesignEntityID?
+
+    static var toManyEntityReferenceKeys: [String] { get }
+    static var toManyDesignReferenceKeys: [String] { get }
+    func entityReferences(forKey key: String) -> [RuntimeID]
+    func designReferences(forKey key: String) -> [DesignEntityID]
+}
+
+extension InspectableComponent {
+    public static var toOneEntityReferenceKeys: [String] { [] }
+    public static var toOneDesignReferenceKeys: [String] { [] }
+    public static var toManyEntityReferenceKeys: [String] { [] }
+    public static var toManyDesignReferenceKeys: [String] { [] }
+
+    public func attributeDictionary() -> [String:Variant] {
+        var result: [String:Variant] = [:]
+        for key in Self.attributeKeys {
+            guard let value = attribute(forKey: key) else { continue }
+            result[key] = value
+        }
+        return result
+    }
+    public func entityReference(forKey key: String) -> RuntimeID? {
+        return nil
+    }
+    public func designReference(forKey key: String) -> DesignEntityID? {
+        return nil
+    }
+    public func entityReferences(forKey key: String) -> [RuntimeID] {
+        return []
+    }
+    public func designReferences(forKey key: String) -> [DesignEntityID] {
+        return []
+    }
 }
 
 /// Collection of components of an object.

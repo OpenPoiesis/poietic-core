@@ -208,15 +208,22 @@ public struct Issue: Sendable, CustomStringConvertible {
     public let severity: Severity
 
     // TODO: Rename to context
-    /// Name of a system that caused the issue
+    /// Name of a system that detected the issue
     ///
     public let system: String
 
+    /// Concrete error that has been identified with an object.
     public let error: (any IssueProtocol)?
 
-    public var message: String
-    public var hints: [String]
-    public var relatedObjects: [ObjectID]
+    /// User-oriented error description. Use ordinary user language here, not
+    public let message: String
+
+    /// Collection of hints how to try to correct the issue or where to investigate
+    /// further.
+    public let hints: [String]
+
+    /// List of objects that might be be related in the cause of the issue.
+    public let relatedObjects: [ObjectID]
 
     /// Details about the issue that applications can present or use.
     ///
@@ -231,12 +238,12 @@ public struct Issue: Sendable, CustomStringConvertible {
     /// Create a new design issue.
     ///
     /// - Parameters:
-    ///     - domain: Domain where the issue occurred.
-    ///     - severity: Indicator noting how processable the design is.
     ///     - identifier: Error code.
-    ///     - message: User-oriented error description. Use ordinary user language here, not
+    ///     - severity: Indicator noting how processable the design is.
+    ///     - system: System that detected the issue.
+    ///     - error: Concrete error.
     ///       developer's language.
-    ///     - hint: Information about how the issue can be corrected or where to investigate further.
+    ///     - relatedObjects: List of objects that might be be related in the cause of the issue.
     ///     - details: dictionary of details that might be presented by the application to the user.
     ///
     public init(identifier: String,

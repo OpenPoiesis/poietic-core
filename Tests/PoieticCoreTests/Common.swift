@@ -143,3 +143,10 @@ public let TestMetamodel = Metamodel(
     ]
     
 )
+
+extension DesignEntityID: ExpressibleByIntegerLiteral {
+    public typealias IntegerLiteralType = UInt64
+    public init(integerLiteral value: Self.IntegerLiteralType) {
+        self.init(intValue: value)
+    }
+}

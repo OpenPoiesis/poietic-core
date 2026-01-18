@@ -63,28 +63,25 @@ public protocol System {
     ///
     static var dependencies: [SystemDependency] { get }
     
-    /// Execute the system that reads and updates a runtime frame.
+    /// Run the system that reads and updates a world.
     ///
     /// Systems can:
-    /// - Create and add new components using ``RuntimeFrame/setComponent(_:for:)``
-    /// - Append user-facing issues using ``RuntimeFrame/appendIssue(_:for:)``
+    /// - Create and add new components using ``World/setComponent(_:for:)-(_,ObjectID)`` and ``World/setSingleton(_:)``.
+    /// - Append user-facing issues using ``World/appendIssue(_:for:)``
     ///
-    /// - Parameter frame: The runtime frame to process
+    /// - Parameters:
+    ///     - world: The runtime world the system can read and modify.
     ///
-    func update(_ frame: AugmentedFrame) throws (InternalSystemError)
-    
-    // TODO: Pass Design or application context in the future. Not needed now.
-    /// Initialise the system.
-    init()
+    func update(_ world: World) throws (InternalSystemError)
+
+    /// Initialise the system within the context of the provided world.
+    ///
+    init(_ world: World)
 }
 
 extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
-    public init() {
-        self.init()
-        // Do nothing
-    }
 }
 
 /// Error thrown by systems that has not been caused by the user, but that is recoverable in
@@ -99,9 +96,9 @@ extension System {
 public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
     public enum Context: Sendable, Equatable, CustomStringConvertible {
         case none
-        case frame
-        case frameComponent(String)
+        case singleton(String)
 
+        case entity(RuntimeID)
         case object(ObjectID)
         case component(ObjectID, String)
         case attribute(ObjectID, String)
@@ -109,17 +106,17 @@ public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
         public var description: String {
             switch self {
             case .none: "no context"
-            case let .object(id): "object ID \(id)"
-            case let .attribute(id, name): "attribute '\(name)' in ID \(id)"
-            case let .component(id, name): "component \(name) in ID \(id)"
-            case     .frame: "frame"
-            case let .frameComponent(name): "frame component \(name)"
+            case let .entity(id): "entity \(id)"
+            case let .object(id): "object \(id)"
+            case let .attribute(id, name): "attribute '\(name)' in object \(id)"
+            case let .component(id, name): "component \(name) in object \(id)"
+            case let .singleton(name): "singleton component \(name)"
             }
         }
         
-        public init(frameComponent: some Component) {
-            let typeName = String(describing: type(of: frameComponent))
-            self = .frameComponent(typeName)
+        public init(singleton: some Component) {
+            let typeName = String(describing: type(of: singleton))
+            self = .singleton(typeName)
         }
         public init(id: ObjectID, component: some Component) {
             let typeName = String(describing: type(of: component))

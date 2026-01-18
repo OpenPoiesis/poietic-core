@@ -26,20 +26,18 @@
 /// or as an alternative. When organised as time-related changes, one can think
 /// of a frame of it as a "movie frame".
 ///
-/// Each design object has a unique identity within the whole design referred to as
-/// ``ObjectSnapshotProtocol/id-swift.property``. The _id_ refers to an object including
-/// all its versions – snapshots. Within a frame, the object ID is unique.
+/// Each design object, as a logical entity, has a unique identity within the whole design:
+/// ``ObjectProtocol/objectID``. The _objectID_ refers to an object including
+/// all its versions – object snapshots. Within a frame, the object ID is unique.
 ///
 /// The design distinguishes between two states of a version frame:
 /// ``DesignFrame`` – immutable version snapshot of a frame, that is guaranteed
 /// to be valid and follow all required constraints. The ``TransientFrame``
-/// represents a transactional frame, which is "under construction" and does
-/// not have yet to maintain integrity. The integrity is enforced once the
+/// represents a transaction of frame. The integrity is enforced once the
 /// frame is accepted using ``Design/accept(_:appendHistory:)``.
 ///
-/// ``DesignFrame``s can not be mutated, neither any of the object snapshots
-/// associated with the frame. They are guaranteed to follow requirements of
-/// the metamodel. They are persisted.
+/// Design frames are immutable and they are persisted. They are guaranteed to follow requirements
+/// of the metamodel.
 ///
 /// ``TransientFrame``s can be changed, they do not have to follow requirements
 /// of the metamodel. They are _not_ persisted. See _Archiving_ below.
@@ -60,7 +58,7 @@
 ///
 /// 1. Derive a new frame from an existing one or create a new frame using
 ///   ``createFrame(deriving:id:)``.
-/// 2. Add objects to the derived frame using ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``
+/// 2. Add objects to the derived frame using ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
 ///    or ``TransientFrame/insert(_:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
 ///    snapshot of the object using ``TransientFrame/mutate(_:)`` and
@@ -113,18 +111,18 @@ public class Design {
     ///
     public let metamodel: Metamodel
     
-    /// Generator of entity IDs.
+    /// Manager of entity identities that generates and reserves IDs.
+    ///
+    /// - Important: This is to be used by low-level functionality, such as loading. Typically
+    ///   there is no need to directly use the identity manager.
     ///
     public let identityManager: IdentityManager
     
-    /// Sequence for ephemeral entities
-    internal var ephemeralSequence: UInt64
-
-    var _objectSnapshots: EntityTable<ObjectSnapshot>
+    var _objectSnapshots: RCTable<ObjectSnapshot>
 
     /// Frames that have been accepted and are in fact validated with the metamodel.
-    var _validatedFrames: EntityTable<DesignFrame>
-    var _objects: EntityTable<LogicalObject>
+    var _validatedFrames: RCTable<DesignFrame>
+    var _objects: RCTable<LogicalObject>
     var _transientFrames: [FrameID: TransientFrame]
 
     var _namedFrames: [String: DesignFrame]
@@ -132,6 +130,8 @@ public class Design {
     
     
     /// Chronological list of design snapshots.
+    ///
+    /// - SeeAlso: ``accept(_:appendHistory:)``,``redoList``, ``undo(to:)``, ``redo(to:)``
     ///
     public var versionHistory: [FrameID] {
         guard let currentFrameID else {
@@ -158,7 +158,10 @@ public class Design {
         return frame
     }
 
-    /// List of IDs of frames that can undone.
+    /// List of IDs of frames in chronological order of acceptance, that can be removed from
+    /// history.
+    ///
+    /// - SeeAlso: ``redoList``, ``undo(to:)``, ``redo(to:)``
     ///
     public internal(set) var undoList: [FrameID] = []
 
@@ -166,6 +169,8 @@ public class Design {
     ///
     /// When a new frame is appended to the version history, the list
     /// of re-doable frames is emptied.
+    ///
+    /// - SeeAlso: ``undoList``, ``undo(to:)``, ``redo(to:)``
     ///
     public internal(set) var redoList: [FrameID] = []
 
@@ -186,10 +191,9 @@ public class Design {
     /// - SeeAlso: ``createFrame(deriving:id:)``
     ///
     public init(metamodel: Metamodel = Metamodel()) {
-        self.ephemeralSequence = RuntimeEntityID.FirstEphemeralIDValue
-        self._objectSnapshots = EntityTable()
-        self._validatedFrames = EntityTable()
-        self._objects = EntityTable()
+        self._objectSnapshots = RCTable()
+        self._validatedFrames = RCTable()
+        self._objects = RCTable()
         self._transientFrames = [:]
         self._namedFrames = [:]
         self.undoList = []
@@ -198,15 +202,6 @@ public class Design {
         self.identityManager = IdentityManager()
     }
     
-    // MARK: - Identity
-    
-    internal func reserveRuntimeID() -> RuntimeEntityID {
-        // TODO: Use lock once we are multi-thread ready (we are not)
-        let value = ephemeralSequence
-        ephemeralSequence += 1
-        return .ephemeral(EphemeralID(rawValue: value))
-    }
-   
     // MARK: - Snapshots
     /// True if the design does not contain any stable frames nor object snapshots.
     ///
@@ -289,12 +284,12 @@ public class Design {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {
-            let success = identityManager.reserve(id)
+            let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = identityManager.reserveNew()
+            actualID = identityManager.reserveNew(type:. frame)
         }
         
         let trans = TransientFrame(design: self, id: actualID)
@@ -328,12 +323,12 @@ public class Design {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {
-            let success = identityManager.reserve(id)
+            let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = identityManager.reserveNew()
+            actualID = identityManager.reserveNew(type: .frame)
         }
         
         let derived: TransientFrame
@@ -427,12 +422,12 @@ public class Design {
         }
     }
     
-    /// Accepts a frame and make it a stable frame.
+    /// Accepts a transient frame if valid, make it a stable frame.
     ///
     /// Accepting a frame is analogous to a transaction commit in a database.
     ///
     /// Before the frame is accepted it is validated using
-    /// ``ConstraintChecker/check(_:)``.
+    /// ``ConstraintChecker/validate(_:)``.
     /// If the frame does not violate any constraints and has referential
     /// integrity, then it is frozen: all owned objects in the frame are
     /// frozen.
@@ -445,11 +440,11 @@ public class Design {
     /// removed.
     ///
     /// - Returns: The newly created stable frame.
-    /// - Throws: `ConstraintViolationError` when the frame contents violates
+    /// - Throws: `FrameValidationError` when the frame contents violates
     ///   constraints of the design.
     ///
-    /// - SeeAlso: ``ConstraintChecker/check(_:)``,
-    ///     ``TransientFrame/validateStructure()``
+    /// - SeeAlso: ``ConstraintChecker/validate(_:)``,
+    ///     ``StructuralValidator/validate(_:in:)``
     ///
     /// - Precondition: Frame must belong to the design.
     /// - Precondition: Frame must be in transient state.
@@ -554,10 +549,10 @@ public class Design {
     ///
     /// The caller is responsible for:
     ///
-    /// 1. Validating the frame for structural integrity. See ``Frame/validateStructure()``.
-    /// 2. Marking frame ID as used. See ``IdentityManager/use(reserved:)``.
-    /// 3. Marking other related reserved identities (snapshot ID, object ID) as used.
-    ///    See ``IdentityManager/use(reserved:)-2c5c0``.
+    /// 1. Validating the frame for structural integrity. See ``StructuralValidator/validate(_:in:)``.
+    /// 2. Validating constraints with ``ConstraintChecker/validate(_:)``.
+    /// 3. Making sure that the identities are properly marked as used with the
+    ///    ``Design/identityManager``.
     ///
     /// - Parameters:
     ///   - frame: Frame to be inserted.

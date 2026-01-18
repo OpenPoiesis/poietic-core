@@ -35,15 +35,15 @@ extension DesignLoader {
     /// Result will be finalised as ``IdentityResolution``.
     ///
     struct ReservationContext {
-        let unavailableIDs: Set<EntityID.RawValue>
+        let unavailableIDs: Set<DesignEntityID>
         /// All reserved IDs regardless of their type. This collection is used to accept or release
         /// the reservations.
         ///
-        var reserved: [EntityID.RawValue] = []
+        var reserved: [DesignEntityID] = []
         
         /// Mapping between raw model references and their actual identities.
         ///
-        var rawIDMap: [ForeignEntityID:EntityID.RawValue] = [:]
+        var rawIDMap: [ForeignEntityID:DesignEntityID] = [:]
     }
     
     /// Gathered and reserved identities that will be used through the loading process.
@@ -52,10 +52,10 @@ extension DesignLoader {
         /// All reserved IDs regardless of their type. This collection is used to accept or release
         /// the reservations.
         ///
-        let reserved: [EntityID.RawValue]
+        let reserved: [DesignEntityID]
         /// Mapping between raw model references and their actual identities.
         ///
-        let rawIDMap: [ForeignEntityID:EntityID.RawValue]
+        let rawIDMap: [ForeignEntityID:DesignEntityID]
         /// Reserved identities for raw frames.
         ///
         /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
@@ -80,7 +80,13 @@ extension DesignLoader {
         ///
         let snapshotIndex: [ObjectSnapshotID:Int]
 
-        internal init(reserved: [UInt64], rawIDMap: [ForeignEntityID : UInt64], frameIDs: [FrameID], snapshotIDs: [ObjectSnapshotID], objectIDs: [ObjectID], snapshotIndex: [ObjectSnapshotID : Int]) {
+        internal init(reserved: [DesignEntityID],
+                      rawIDMap: [ForeignEntityID : DesignEntityID],
+                      frameIDs: [FrameID],
+                      snapshotIDs: [ObjectSnapshotID],
+                      objectIDs: [ObjectID],
+                      snapshotIndex: [ObjectSnapshotID : Int])
+        {
             self.reserved = reserved
             self.rawIDMap = rawIDMap
             self.frameIDs = frameIDs
@@ -89,15 +95,9 @@ extension DesignLoader {
             self.snapshotIndex = snapshotIndex
         }
 
-        subscript<T>(foreignID: ForeignEntityID) -> EntityID<T>? {
-            guard let value = rawIDMap[foreignID] else { return nil }
-            return EntityID<T>(rawValue: value)
-        }
-
-        subscript(foreignID: ForeignEntityID) -> EntityID.RawValue? {
+        subscript(foreignID: ForeignEntityID) -> DesignEntityID? {
             return rawIDMap[foreignID]
         }
-
     }
 
     /// Data of an object snapshot where the references, structure type, structure references,

@@ -37,7 +37,7 @@ extension DesignLoader { // Reservation of identities
     /// - Precondition: The context must be in the initialization phase.
     internal func resolveIdentities(resolution: ValidationResolution,
                                     identityStrategy: IdentityStrategy,
-                                    unavailableIDs: Set<EntityID.RawValue> = Set())
+                                    unavailableIDs: Set<DesignEntityID> = Set())
         throws (DesignLoaderError) -> IdentityResolution
     {
         var reservation = ReservationContext(unavailableIDs: unavailableIDs)
@@ -65,16 +65,19 @@ extension DesignLoader { // Reservation of identities
 
         let frameIDs: [FrameID] = finaliseReservation(
             ids: rawFrameIDs,
+            type: .frame,
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
         let snapshotIDs: [ObjectSnapshotID] = finaliseReservation(
             ids: rawSnapshotIDs,
+            type: .objectSnapshot,
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
         let objectIDs: [ObjectID] = finaliseReservation(
             ids: rawObjectIDs,
+            type: .object,
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
@@ -175,16 +178,16 @@ extension DesignLoader { // Reservation of identities
     ///
     internal func reserveAvailable(
         ids foreignIDs: some Collection<ForeignEntityID>,
-        type: IdentityType,
+        type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     {
         for foreignID in foreignIDs {
-            guard let rawValue = foreignID.rawEntityIDValue else { continue }
-            if identityManager.reserve(rawValue, type: type) {
+            guard let entityID = foreignID.designEntityID() else { continue }
+            if identityManager.reserve(entityID, type: type) {
                 precondition(reservation.rawIDMap[foreignID] == nil) // Validation failed
-                reservation.rawIDMap[foreignID] = rawValue
-                reservation.reserved.append(rawValue)
+                reservation.rawIDMap[foreignID] = entityID
+                reservation.reserved.append(entityID)
             }
         }
     }
@@ -195,12 +198,12 @@ extension DesignLoader { // Reservation of identities
         identityManager: IdentityManager)
     {
         for foreignID in foreignIDs {
-            guard let rawValue = foreignID.rawEntityIDValue else { continue }
-            guard !reservation.unavailableIDs.contains(rawValue) else { continue }
-            if identityManager.reserveIfNeeded(ObjectID(rawValue: rawValue)) {
+            guard let objectID = foreignID.designEntityID() else { continue }
+            guard !reservation.unavailableIDs.contains(objectID) else { continue }
+            if identityManager.reserveIfNeeded(objectID, type: .object) {
                 precondition(reservation.rawIDMap[foreignID] == nil) // Validation failed
-                reservation.rawIDMap[foreignID] = rawValue
-                reservation.reserved.append(rawValue)
+                reservation.rawIDMap[foreignID] = objectID
+                reservation.reserved.append(objectID)
             }
         }
     }
@@ -215,7 +218,7 @@ extension DesignLoader { // Reservation of identities
     ///
     internal func reserveRequired(
         ids foreignIDs: some Collection<ForeignEntityID?>,
-        type: IdentityType,
+        type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     throws (DesignLoaderError.IndexedItemError)
@@ -223,16 +226,16 @@ extension DesignLoader { // Reservation of identities
         // TODO: Rethink the error signalling. Returning first offensive seems a bit weird and not very intuitive.
         for (index, foreignID) in foreignIDs.enumerated() {
             guard let foreignID,
-                  let rawValue = foreignID.rawEntityIDValue
+                  let entityID = foreignID.designEntityID()
             else { continue }
             
             precondition(reservation.rawIDMap[foreignID] == nil, "Failed validation")
 
-            guard identityManager.reserve(rawValue, type: type) else {
+            guard identityManager.reserve(entityID, type: type) else {
                 throw DesignLoaderError.IndexedItemError(index, .reservationConflict(type, foreignID))
             }
-            reservation.rawIDMap[foreignID] = rawValue
-            reservation.reserved.append(rawValue)
+            reservation.rawIDMap[foreignID] = entityID
+            reservation.reserved.append(entityID)
         }
     }
     
@@ -257,7 +260,7 @@ extension DesignLoader { // Reservation of identities
     {
         for (index, foreignID) in foreignIDs.enumerated() {
             guard let foreignID,
-                  let rawValue = foreignID.rawEntityIDValue
+                  let objectID = foreignID.designEntityID()
             else { continue }
             
             if let existing = reservation.rawIDMap[foreignID],
@@ -266,14 +269,14 @@ extension DesignLoader { // Reservation of identities
                 continue
             }
             
-            else if !reservation.unavailableIDs.contains(rawValue),
-                    identityManager.reserve(rawValue, type: .object) {
+            else if !reservation.unavailableIDs.contains(objectID),
+                    identityManager.reserve(objectID, type: .object) {
             }
             else {
                 throw DesignLoaderError.IndexedItemError(index, .reservationConflict(.object, foreignID))
             }
-            reservation.rawIDMap[foreignID] = rawValue
-            reservation.reserved.append(rawValue)
+            reservation.rawIDMap[foreignID] = objectID
+            reservation.reserved.append(objectID)
         }
     }
 
@@ -286,29 +289,30 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     @discardableResult
-    internal func finaliseReservation<T>(
+    internal func finaliseReservation(
         ids foreignIDs: some Collection<ForeignEntityID?>,
+        type: DesignEntityType,
         reservation: inout ReservationContext,
-        identityManager: IdentityManager) -> [EntityID<T>]
+        identityManager: IdentityManager) -> [DesignEntityID]
     {
-        var result: [EntityID<T>] = []
+        var result: [DesignEntityID] = []
         
         for foreignID in foreignIDs {
-            let id: EntityID<T>
+            let id: DesignEntityID
             if let foreignID {
                 if let reservedID = reservation.rawIDMap[foreignID] {
-                    assert(identityManager.type(reservedID) == T.identityType)
-                    id = EntityID(rawValue: reservedID)
+                    assert(identityManager.type(reservedID) == type)
+                    id = reservedID
                 }
                 else {
-                    id = identityManager.reserveNew()
-                    reservation.rawIDMap[foreignID] = id.rawValue
-                    reservation.reserved.append(id.rawValue)
+                    id = identityManager.reserveNew(type: type)
+                    reservation.rawIDMap[foreignID] = id
+                    reservation.reserved.append(id)
                 }
             }
             else {
-                id = identityManager.reserveNew()
-                reservation.reserved.append(id.rawValue)
+                id = identityManager.reserveNew(type: type)
+                reservation.reserved.append(id)
             }
             result.append(id)
         }

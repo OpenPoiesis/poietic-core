@@ -5,6 +5,7 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
+import Collections
 
 @usableFromInline
 class _TransientSnapshotBox: Identifiable {
@@ -75,7 +76,7 @@ class _TransientSnapshotBox: Identifiable {
         }
     }
     
-    var children: ChildrenSet {
+    var children: OrderedSet<ObjectID> {
         switch content {
         case let .stable(_, snapshot): snapshot.children
         case let .transient(_, object): object.children
@@ -103,7 +104,7 @@ class _TransientSnapshotBox: Identifiable {
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
 /// a transaction for a change. New objects are created within a ``TransientFrame`` using
-/// ``TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)``.
+/// ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
 /// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
@@ -174,7 +175,7 @@ public class TransientObject: ObjectProtocol {
         }
     }
     
-    @inlinable public var children: ChildrenSet { _body.children }
+    @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
 
     /// Get a value for an attribute.
@@ -204,8 +205,6 @@ public class TransientObject: ObjectProtocol {
     }
     
     /// Set an attribute value for given key.
-    ///
-    /// - Precondition: The attribute must not be a reserved attribute (``ReservedAttributeNames``).
     ///
     public func setAttribute(value: Variant, forKey key: String) {
         _body.attributes[key] = value
@@ -247,8 +246,6 @@ public class TransientObject: ObjectProtocol {
     }
     public func addChild(_ child: ObjectID) {
         hierarchyChanged = true
-        _body.children.add(child)
+        _body.children.append(child)
     }
-
-
 }

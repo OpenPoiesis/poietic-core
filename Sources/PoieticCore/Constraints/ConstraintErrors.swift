@@ -7,24 +7,34 @@
 
 /// Type error detail produced when checking object types against a metamodel.
 ///
-/// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``
+/// - SeeAlso: ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``
 ///
 public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
     
     /// Object type is not known in the metamodel.
+    ///
+    /// - SeeAlso: ``ObjectProtocol/type``, ``Metamodel/types``
+    ///
     case unknownType(String)
 
+    /// Object structure does not match required type structure.
+    ///
+    /// - SeeAlso: ``ObjectType/structuralType``, ``ObjectProtocol/structure``
+    ///
     case structureMismatch(StructuralType)
     
     /// Object is missing a required attribute from a trait.
+    ///
+    /// - SeeAlso: ``Trait/attributes``
+    ///
     case missingTraitAttribute(Attribute, String)
     
     /// Value for an attribute is not convertible to a required type as
     /// specified in the trait owning the attribute.
     /// 
-    /// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``,
-    ///     ``Variant/isConvertible(to:)``, ``Variant/isRepresentable(as:)``
-    ///     
+    /// - SeeAlso: ``Attribute/type``, ``VariableType/isConvertible(to:)``,
+    ///   ``Variant/isConvertible(to:)``, ``Variant/isRepresentable(as:)``
+    ///
     case typeMismatch(Attribute, ValueType)
     
     public var description: String {
@@ -130,28 +140,32 @@ extension ObjectTypeError /*: IssueProtocol */ {
 }
 
 
-/// Collection of object type violation errors produced when checking object
-/// types.
+/// Error thrown by constraint checker when there are issues with a frame.
 ///
-/// - SeeAlso: ``ObjectSnapshotProtocol/check(conformsTo:)``
+/// - SeeAlso: ``ConstraintChecker/validate(_:)``
 ///
-public struct ObjectTypeErrorCollection: Error {
-    public let errors: [ObjectTypeError]
-    
-    public init(_ underlyingErrors: [ObjectTypeError]) {
-        self.errors = underlyingErrors
-    }
-}
-
 public enum FrameValidationError: Error {
     /// Structural references such as edge endpoints, parent-child are invalid.
     ///
     /// When this error happens, it is not possible to do further diagnostics. It usually means
     /// a programming error.
-    /// s
     case brokenStructuralIntegrity(StructuralIntegrityError)
+    
+    /// Thrown when an object does not match its type.
+    ///
+    /// - See: ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``, ``Metamodel/types``,
+    ///   ``ObjectType``
+    ///
     case objectTypeError(ObjectID, ObjectTypeError)
+    
+    /// Thrown when an edge violates edge rules.
+    /// - SeeAlso: ``ConstraintChecker/validate(edge:in:)``, ``Metamodel/edgeRules``
+    ///
     case edgeRuleViolation(ObjectID, EdgeRuleViolation)
+
+    /// Thrown when any of the objects violate a metamodel constraint.
+    ///
+    /// - SeeAlso: ``Metamodel/constraints``
     case constraintViolation(ConstraintViolation)
     
     /// Flag whether the caller can diagnose details about constraint violations using
@@ -165,9 +179,11 @@ public enum FrameValidationError: Error {
     }
 }
 
-/// Error generated when a frame is checked for constraints and object types.
+/// Collection of frame validation issues.
 ///
-/// This error is produced by the ``ConstraintChecker/check(_:)``.
+/// This collection is produced by ``ConstraintChecker/diagnose(_:)``.
+///
+/// - SeeAlso: ``FrameValidationError`` for an exception complement.
 ///
 public struct FrameValidationResult: Sendable {
     /// List of constraint violations.

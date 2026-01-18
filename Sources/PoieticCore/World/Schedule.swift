@@ -1,20 +1,41 @@
 //
-//  SystemGroup.swift
+//  Schedule.swift
 //  poietic-core
 //
-//  Created by Stefan Urbanek on 29/10/2024.
+//  Created by Stefan Urbanek on 21/12/2025.
 //
 
-/*
- Development Notes:
- 
- - This is an early sketch of Systems and SystemGroups
- - TODO: Have a central per-app or per-design system registry
- - TODO: ^^ see poietic-godot and DesignController and RuntimePhase for seed of the above TODO
- - TODO: Remove mutability of System-group
- */
+/// Tag protocol for system schedule labels.
+///
+/// Schedule labels are compile-time tags of system schedules.
+///
+/// - SeeAlso: ``FrameChangeSchedule``, ``InteractivePreviewSchedule``.
+///
+public protocol ScheduleLabel {
+    // Empty protocol, just a tag
+}
 
-/// System group is a collection of systems that run in order of their dependency.
+/// Schedule label for systems that are run when frame did change.
+///
+/// - SeeAlso: ``World/run(schedule:)``
+public enum FrameChangeSchedule: ScheduleLabel {}
+
+/// Schedule label for systems that are run during interactive session, for example
+/// a dragging or an object placement session.
+///
+/// For example, while dragging session, the systems are run on each move event.
+///
+/// - SeeAlso: ``World/run(schedule:)``
+public enum InteractivePreviewSchedule: ScheduleLabel {}
+
+/// Schedule label for systems that run a simulation.
+///
+/// The schedule is typically run after ``FrameChangeSchedule``.
+///
+/// - SeeAlso: ``World/run(schedule:)``
+public enum SimulationSchedule: ScheduleLabel {}
+
+/// System schedule is a collection of systems that run in order of their dependency.
 ///
 /// ## Use
 ///
@@ -25,20 +46,23 @@
 /// ## Example
 ///
 /// ```swift
-/// let systems = SystemGroup()
+/// let frame: DesignFrame // Assume we have this.
+/// let schedule = Schedule()
 ///
-/// systems.register(ExpressionParserSystem())
-/// systems.register(ParametereDependecySystem())
-/// systems.register(StockFlowAnalysisSystem())
+/// schedule.add(ExpressionParserSystem.self)
+/// schedule.add(ParametereDependecySystem.self)
+/// schedule.add(StockFlowAnalysisSystem.self)
 ///
-/// let runtimeFrame = RuntimeFrame(validatedFrame)
-/// try systems.update(runtimeFrame)
+/// let world = World(frame: frame)
+/// world.set
+/// try world.run(schedule)
 /// ```
 ///
 /// - Note: The concept of Systems in this library is for modelling and separation of concerns,
 ///         not for performance reasons.
 ///
-public final class SystemGroup {
+public final class Schedule {
+    public let label: ScheduleLabel.Type
     // TODO: Make immutable through public interface
     /// Registered systems indexed by type name
     private var systems: [ObjectIdentifier: System.Type]
@@ -48,15 +72,16 @@ public final class SystemGroup {
     private var _instances: [any System]
     
 
-    convenience public init(_ systems: System.Type ...) {
-        self.init(systems)
+    convenience public init(label: ScheduleLabel.Type, systems: System.Type ...) {
+        self.init(label: label, systems: systems)
     }
 
-    public init(_ systems: [System.Type]) {
+    public init(label: ScheduleLabel.Type, systems: [System.Type]) {
         self.systems = [:]
         self._executionOrder = []
         self._instances = []
-        self.register(systems)
+        self.label = label
+        self.add(systems)
     }
 
     /// Register a system
@@ -70,7 +95,7 @@ public final class SystemGroup {
     /// - Parameter system: The system to register
     /// - Precondition: The system dependencies must not contain a cycle and references must exist.
     ///
-    public func register(_ system: System.Type) {
+    public func add(_ system: System.Type) {
         let id = ObjectIdentifier(system)
 
         systems[id] = system
@@ -79,9 +104,9 @@ public final class SystemGroup {
 
     /// Register multiple systems at once.
     ///
-    /// - SeeAlso: ``register()``
+    /// - SeeAlso: ``add(_:)``
     ///
-    public func register(_ systems: [System.Type]) {
+    public func add(_ systems: [System.Type]) {
         for system in systems {
             let id = ObjectIdentifier(system)
             self.systems[id] = system
@@ -89,46 +114,38 @@ public final class SystemGroup {
         _executionOrder = Self.dependencyOrder(Array(self.systems.values))
     }
 
-
-    /// Execute all systems in dependency order
+    /// Creates instances of the systems and initialises them with the world.
     ///
-    /// Systems are executed sequentially in topological order based on
-    /// their declared dependencies.
-    ///
-    /// - Parameter frame: The runtime frame to process
-    /// - Throws: Errors from system execution
-    ///
-    public func update(_ frame: AugmentedFrame) throws (InternalSystemError) {
-        if _instances.isEmpty {
-            self.instantiate()
-        }
-        for system in _instances {
-            try system.update(frame)
-        }
-    }
-
-    public func debugUpdate(_ frame: AugmentedFrame,
-                            before: ((any System, AugmentedFrame) -> Void),
-                            after: ((any System, AugmentedFrame) -> Void))
-    throws (InternalSystemError) {
-        if _instances.isEmpty {
-            self.instantiate()
-        }
-        for system in _instances {
-            before(system, frame)
-            try system.update(frame)
-            after(system, frame)
-        }
-    }
-
-    
-    public func instantiate() {
+    public func initialize(with world: World) throws (InternalSystemError) {
         // TODO: Add frame or some initialisation context
         for systemType in _executionOrder {
-            let system = systemType.init()
+            let system = systemType.init(world)
             _instances.append(system)
         }
     }
+    
+    /// Run all systems in dependency order
+    ///
+    /// Systems are run sequentially in topological order based on
+    /// their declared dependencies.
+    ///
+    /// If the systems were not yet initialised they will be initialised with ``initialize(with:)``
+    /// before running the ``System/update(_:)``method.
+    ///
+    /// - Parameters:
+    ///     - world: World to run the systems with.
+    ///
+    /// - Throws: Errors from system execution
+    ///
+    public func update(_ world: World) throws (InternalSystemError) {
+        if _instances.isEmpty {
+            try self.initialize(with: world)
+        }
+        for system in _instances {
+            try system.update(world)
+        }
+    }
+
     /// Get names of the systems in the the computed execution order
     ///
     public func debugDependencyOrder() -> [String] {
@@ -142,7 +159,6 @@ public final class SystemGroup {
     ///
     /// - Parameters:
     ///     - systems: List of systems to be ordered.
-    ///     - strict: Flag whether dependencies are strictly required.
     ///
     /// - Returns: Sorted array of systems.
     /// - Precondition: There must be no dependency cycle within systems.
