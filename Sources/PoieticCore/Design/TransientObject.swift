@@ -248,6 +248,4 @@ public class TransientObject: ObjectProtocol {
         hierarchyChanged = true
         _body.children.append(child)
     }
-
-
 }

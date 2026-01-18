@@ -623,9 +623,8 @@ public final class TransientFrame: Frame {
     }
 }
 
-
 extension TransientFrame {
     func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
-        
+        fatalError("\(#function) not implemented")
     }
 }
