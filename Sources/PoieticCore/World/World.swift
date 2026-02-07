@@ -92,6 +92,7 @@ public class World {
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
     public func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
+        // TODO: [REFACTORING] Rename to runtimeToObject
         entityToObjectMap[ephemeralID]
     }
     /// Get an entity that represents an object with given ID, if such entity exists.
@@ -99,6 +100,7 @@ public class World {
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
     public func objectToEntity(_ objectID: ObjectID) -> RuntimeID? {
+        // TODO: [REFACTORING] Rename to objectToRuntime
         objectToEntityMap[objectID]
     }
 
