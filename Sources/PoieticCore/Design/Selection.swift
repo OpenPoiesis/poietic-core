@@ -5,6 +5,26 @@
 //  Created by Stefan Urbanek on 18/01/2025.
 //
 
+import Collections
+
+/// Component denoting a selection change.
+///
+/// Example use-cases of this component:
+///
+/// - Selection tool in an application on a mouse interaction.
+/// - Search feature in an application
+///
+/// - SeeAlso: ``Selection/apply(_:)``
+///
+public enum SelectionChange: Component {
+    case appendOne(ObjectID)
+    case append([ObjectID])
+    case replaceAllWithOne(ObjectID)
+    case replaceAll([ObjectID])
+    case removeAll
+    case toggle(ObjectID)
+}
+
 /// Collection of selected objects.
 ///
 /// An ordered set of object identifiers with convenience methods to support typical user
@@ -26,13 +46,14 @@ public final class Selection: Collection, Component {
     /// When a selection is preserved between changes, it is recommended to sanitise the objects
     /// in the selection using the ``Frame/existing(from:)`` function.
     ///
-    public private(set) var ids: [ObjectID] = []
+    public private(set) var ids: OrderedSet<ObjectID> = []
     
     public var startIndex: Index { ids.startIndex }
     public var endIndex: Index { ids.endIndex }
     public func index(after i: Index) -> Index { ids.index(after: i) }
     public subscript(i: Index) -> ObjectID { return ids[i] }
-    
+   
+    /// Create an empty selection.
     public init() {
         self.ids = []
     }
@@ -40,12 +61,15 @@ public final class Selection: Collection, Component {
     /// Create a selection of given IDs
     ///
     public init(_ ids:[ObjectID]) {
+        self.ids = OrderedSet(ids)
+    }
+    public init(_ ids:OrderedSet<ObjectID>) {
         self.ids = ids
     }
     
-    
+
+    /// Returns `true` if the selection contains a given ID.
     public func contains(_ id: ObjectID) -> Bool {
-        guard !ids.isEmpty else { return false }
         return ids.contains(id)
     }
     
@@ -53,30 +77,38 @@ public final class Selection: Collection, Component {
         return ids.isEmpty
     }
     
+    /// Apply a selection change.
+    ///
+    /// Use this function in a selection system that is typically triggered by an user interaction
+    /// such as tool use.
+    ///
+    public func apply(_ change: SelectionChange) {
+        switch change {
+        case .appendOne(let id): self.append([id])
+        case .append(let ids): self.append(ids)
+        case .replaceAllWithOne(let id): self.replaceAll([id])
+        case .replaceAll(let ids): self.replaceAll(ids)
+        case .removeAll: self.removeAll()
+        case .toggle(let id): self.toggle(id)
+        }
+    }
+    
     /// Append the ID if it is not already present in the selection.
     public func append(_ id: ObjectID) {
-        guard !contains(id) else {
-            return
-        }
         ids.append(id)
     }
     
     /// Append IDs to the selection, if they are not already present in the selection.
     ///
     public func append(_ ids: [ObjectID]) {
-        for id in ids {
-            guard !contains(id) else {
-                return
-            }
-            self.ids.append(id)
-        }
+        self.ids.append(contentsOf: ids)
     }
 
     /// Replace all objects in the selection.
     ///
     public func replaceAll(_ ids: [ObjectID]) {
         self.ids.removeAll()
-        self.ids += ids
+        self.ids.append(contentsOf: ids)
     }
 
     
@@ -90,8 +122,8 @@ public final class Selection: Collection, Component {
     /// selection.
     ///
     public func toggle(_ id: ObjectID) {
-        if let index = ids.firstIndex(of: id) {
-            ids.remove(at: index)
+        if ids.contains(id) {
+            ids.remove(id)
         }
         else {
             ids.append(id)
@@ -99,67 +131,29 @@ public final class Selection: Collection, Component {
     }
 }
 
-extension Selection: SetAlgebra {
+extension Selection /* : SetAlgebra */ {
     public func union(_ other: __owned Selection) -> Self {
-        var result: [ObjectID] = []
-        for item in other {
-            if !result.contains(item) {
-                result.append(item)
-            }
-        }
-        return Self(result)
+        return Self(self.ids.union(other.ids))
     }
     
     public func intersection(_ other: Selection) -> Self {
-        var result: [ObjectID] = []
-        for item in other {
-            if ids.contains(item) {
-                result.append(item)
-            }
-        }
-        return Self(result)
+        return Self(self.ids.intersection(other.ids))
     }
     
     public func symmetricDifference(_ other: __owned Selection) -> Self {
-        fatalError("NOT IMPLEMENTED")
-    }
-    
-    public func insert(_ newMember: __owned ObjectID) -> (inserted: Bool, memberAfterInsert: ObjectID) {
-        if !ids.contains(newMember) {
-            ids.append(newMember)
-            return (true, newMember)
-        }
-        else {
-            return (false, newMember)
-        }
-    }
-    
-    public func remove(_ member: ObjectID) -> ObjectID? {
-        if let index = ids.firstIndex(of: member) {
-            let obj = ids[index]
-            ids.remove(at: index)
-            return obj
-        }
-        else {
-            return nil
-        }
-    }
-    
-    public func update(with newMember: __owned ObjectID) -> ObjectID? {
-        // do nothing
-        return newMember
+        return Self(self.ids.symmetricDifference(other.ids))
     }
     
     public func formUnion(_ other: __owned Selection) {
-        fatalError("NOT IMPLEMENTED")
+        self.ids.formUnion(other.ids)
     }
     
     public func formIntersection(_ other: Selection) {
-        fatalError("NOT IMPLEMENTED")
+        self.ids.formIntersection(other.ids)
     }
     
     public func formSymmetricDifference(_ other: __owned Selection) {
-        fatalError("NOT IMPLEMENTED")
+        self.ids.formSymmetricDifference(other.ids)
     }
     
     public static func == (lhs: Selection, rhs: Selection) -> Bool {
