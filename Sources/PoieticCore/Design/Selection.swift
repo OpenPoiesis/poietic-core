@@ -77,6 +77,16 @@ public final class Selection: Collection, Component {
         return ids.isEmpty
     }
     
+    /// Returns an object ID if it is the only object in the selection, otherwise `nil`.
+    public func selectionOfOne() -> ObjectID? {
+        if ids.count == 1 {
+            return ids.first!
+        }
+        else {
+            return nil
+        }
+    }
+    
     /// Apply a selection change.
     ///
     /// Use this function in a selection system that is typically triggered by an user interaction

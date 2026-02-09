@@ -14,8 +14,9 @@
 /// - design issue management
 ///
 public class World {
-    let design: Design
+    public let design: Design
     // FIXME: Rename to currentFrame
+    
     public private(set) var frame: DesignFrame?
     
     // Identity
