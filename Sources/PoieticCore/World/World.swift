@@ -51,7 +51,7 @@ public class World {
     /// Entity ID representing current frame.
     ///
     internal var entities: [RuntimeID]
-    private var components: [RuntimeID: ComponentSet]
+    internal var components: [RuntimeID: ComponentSet]
 
     /// Components without an entity.
     ///
@@ -111,6 +111,17 @@ public class World {
         self.entities.contains(id)
     }
     
+    
+    public func entity(_ runtimeID: RuntimeID) -> RuntimeEntity? {
+        guard self.entities.contains(runtimeID) else { return nil }
+        return RuntimeEntity(runtimeID: runtimeID, world: self)
+    }
+
+    public func entity(_ objectID: ObjectID) -> RuntimeEntity? {
+        guard let runtimeID = objectToEntityMap[objectID] else { return nil }
+        return RuntimeEntity(runtimeID: runtimeID, world: self)
+    }
+
     public func addSchedule(_ schedule: Schedule) {
         let id = ObjectIdentifier(schedule.label)
         self.schedules[id] = schedule
@@ -160,7 +171,7 @@ public class World {
         else { return }
         
         for objectID in frame.objectIDs {
-            let runtimeID = spawn()
+            let runtimeID: RuntimeID = spawn()
             objectToEntityMap[objectID] = runtimeID
             entityToObjectMap[runtimeID] = objectID
         }
@@ -179,6 +190,17 @@ public class World {
         self.entities.append(id)
         return id
     }
+    
+    public func spawn(_ components: any Component...) -> RuntimeEntity {
+        // TODO: Use lock once we are multi-thread ready (we are not)
+        let value = entitySequence
+        entitySequence += 1
+        let id = RuntimeID(intValue: value)
+        self.components[id] = ComponentSet(components)
+        self.entities.append(id)
+        return RuntimeEntity(runtimeID: id, world: self)
+    }
+
     
     /// Removes the entity from the world and all entities that depend on it.
     ///

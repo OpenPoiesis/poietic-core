@@ -347,14 +347,20 @@ public class Design {
     /// Discards the mutable frame that is associated with the design.
     ///
     public func discard(_ frame: TransientFrame) {
-        precondition(frame.design === self)
-        precondition(frame.state == .transient)
-        precondition(_transientFrames[frame.id] != nil)
+        precondition(isPending(frame))
 
         identityManager.freeReservation(frame.id)
         identityManager.freeReservations(Array(frame._reservations))
         _transientFrames[frame.id] = nil
         frame.discard()
+    }
+    
+    /// Return `true` if the transient frame is owned by the design and is in transient state.
+    /// 
+    public func isPending(_ trans: TransientFrame) -> Bool {
+        return trans.design === self
+                && trans.state == .transient
+                && _transientFrames[trans.id] != nil
     }
     
     /// Remove a frame from the design.
