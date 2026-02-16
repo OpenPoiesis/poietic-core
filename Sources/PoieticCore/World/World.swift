@@ -110,6 +110,11 @@ public class World {
     public func contains(_ id: RuntimeID) -> Bool {
         self.entities.contains(id)
     }
+    /// Test whether the world contains an entity.
+    ///
+    public func contains(_ entity: RuntimeEntity) -> Bool {
+        self.entities.contains(entity.runtimeID)
+    }
     
     
     public func entity(_ runtimeID: RuntimeID) -> RuntimeEntity? {
@@ -209,6 +214,9 @@ public class World {
     ///
     public func despawn(_ id: RuntimeID) {
         self.despawn([id])
+    }
+    public func despawn(_ entity: RuntimeEntity) {
+        self.despawn([entity.runtimeID])
     }
     public func despawn(_ ids: some Sequence<RuntimeID>) {
         var trash: Set<RuntimeID> = Set(ids)
