@@ -67,42 +67,42 @@ struct TestFrameComponent: Component, Equatable {
     // MARK: - Spawn/Despawn
     @Test func spawn() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn(TestComponent(text: "test"))
+        let ent: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         
         #expect(world.entities.count == 1)
         #expect(world.contains(ent))
     
-        let component: TestComponent = try #require(world.component(for: ent))
+        let component: TestComponent = try #require(ent.component())
         #expect(component.text == "test")
     }
     @Test func despawn() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn(TestComponent(text: "test"))
+        let ent: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         world.despawn(ent)
         
         #expect(world.entities.count == 0)
         #expect(!world.contains(ent))
-        let component: TestComponent? = world.component(for: ent)
+        let component: TestComponent? = ent.component()
         #expect(component == nil)
     }
 
     // MARK: - Dependencies
     @Test func setDependency() throws {
         let world = World(frame: self.emptyFrame)
-        let parent = world.spawn()
-        let child = world.spawn()
-        world.setDependency(of: child, on: parent)
+        let parent: RuntimeEntity = world.spawn()
+        let child: RuntimeEntity = world.spawn()
+        world.setDependency(of: child.runtimeID, on: parent.runtimeID)
         world.despawn(parent)
         #expect(!world.contains(parent))
         #expect(!world.contains(child))
     }
     @Test func setIndirectDependency() throws {
         let world = World(frame: self.emptyFrame)
-        let a = world.spawn()
-        let b = world.spawn()
-        let c = world.spawn()
-        world.setDependency(of: b, on: a)
-        world.setDependency(of: c, on: b)
+        let a: RuntimeEntity = world.spawn()
+        let b: RuntimeEntity = world.spawn()
+        let c: RuntimeEntity = world.spawn()
+        world.setDependency(of: b.runtimeID, on: a.runtimeID)
+        world.setDependency(of: c.runtimeID, on: b.runtimeID)
         world.despawn(a)
         #expect(!world.contains(a))
         #expect(!world.contains(b))
@@ -112,53 +112,53 @@ struct TestFrameComponent: Component, Equatable {
     // MARK: - Components
     @Test func setAndGetComponent() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn()
+        let ent: RuntimeEntity = world.spawn()
 
-        #expect(!world.hasComponent(TestComponent.self, for: ent))
-        let empty: TestComponent? = world.component(for: ent)
+        #expect(!ent.contains(TestComponent.self))
+        let empty: TestComponent? = ent.component()
         #expect(empty == nil)
 
-        world.setComponent(TestComponent(text: "test"), for: ent)
-        #expect(world.hasComponent(TestComponent.self, for: ent))
+        ent.setComponent(TestComponent(text: "test"))
+        #expect(ent.contains(TestComponent.self))
 
-        let retrieved: TestComponent = try #require(world.component(for: ent))
+        let retrieved: TestComponent = try #require(ent.component())
         #expect(retrieved.text == "test")
 
     }
     
     @Test func replaceComponent() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn()
+        let ent: RuntimeEntity = world.spawn()
 
-        world.setComponent(TestComponent(text: "first"), for: ent)
-        world.setComponent(TestComponent(text: "second"), for: ent)
+        ent.setComponent(TestComponent(text: "first"))
+        ent.setComponent(TestComponent(text: "second"))
 
-        let retrieved: TestComponent = try #require(world.component(for: ent))
+        let retrieved: TestComponent = try #require(ent.component())
         #expect(retrieved.text == "second")
     }
 
     @Test func removeComponent() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn()
+        let ent: RuntimeEntity = world.spawn()
 
-        world.setComponent(TestComponent(text: "test"), for: ent)
-        #expect(world.hasComponent(TestComponent.self, for: ent))
-        world.removeComponent(TestComponent.self, for: ent)
-        #expect(!world.hasComponent(TestComponent.self, for: ent))
+        ent.setComponent(TestComponent(text: "test"))
+        #expect(ent.contains(TestComponent.self))
+        ent.removeComponent(TestComponent.self)
+        #expect(!ent.contains(TestComponent.self))
 
-        let empty: TestComponent? = world.component(for: ent)
+        let empty: TestComponent? = ent.component()
         #expect(empty == nil)
     }
 
     @Test func multipleComponentsPerEntity() throws {
         let world = World(frame: self.emptyFrame)
-        let ent = world.spawn()
+        let ent: RuntimeEntity = world.spawn()
 
-        world.setComponent(TestComponent(text: "test"), for: ent)
-        world.setComponent(IntegerComponent(value: 1024), for: ent)
+        ent.setComponent(TestComponent(text: "test"))
+        ent.setComponent(IntegerComponent(value: 1024))
 
-        let testComp: TestComponent = try #require(world.component(for: ent))
-        let intComp: IntegerComponent = try #require(world.component(for: ent))
+        let testComp: TestComponent = try #require(ent.component())
+        let intComp: IntegerComponent = try #require(ent.component())
 
         #expect(testComp.text == "test")
         #expect(intComp.value == 1024)
@@ -166,14 +166,14 @@ struct TestFrameComponent: Component, Equatable {
 
     @Test func componentsIsolatedPerEntity() throws {
         let world = World(frame: self.emptyFrame)
-        let ent1 = world.spawn()
-        let ent2 = world.spawn()
+        let ent1: RuntimeEntity = world.spawn()
+        let ent2: RuntimeEntity = world.spawn()
 
-        world.setComponent(TestComponent(text: "obj1"), for: ent1)
-        world.setComponent(TestComponent(text: "obj2"), for: ent2)
+        ent1.setComponent(TestComponent(text: "obj1"))
+        ent2.setComponent(TestComponent(text: "obj2"))
 
-        let comp1: TestComponent = try #require(world.component(for: ent1))
-        let comp2: TestComponent = try #require(world.component(for: ent2))
+        let comp1: TestComponent = try #require(ent1.component())
+        let comp2: TestComponent = try #require(ent2.component())
 
         #expect(comp1.text == "obj1")
         #expect(comp2.text == "obj2")
@@ -183,42 +183,42 @@ struct TestFrameComponent: Component, Equatable {
 
     @Test func queryComponent() throws {
         let world = World(frame: self.emptyFrame)
-        let ent1 = world.spawn()
-        let ent2 = world.spawn()
-        let ent3 = world.spawn()
+        let ent1: RuntimeEntity = world.spawn()
+        let ent2: RuntimeEntity = world.spawn()
+        let ent3: RuntimeEntity = world.spawn()
 
         let empty = world.query(TestComponent.self)
         #expect(empty.isEmpty)
         
-        world.setComponent(TestComponent(text: "test1"), for: ent1)
-        world.setComponent(TestComponent(text: "test2"), for: ent2)
+        ent1.setComponent(TestComponent(text: "test1"))
+        ent2.setComponent(TestComponent(text: "test2"))
         
         let some = world.query(TestComponent.self)
         let ids = some.map { $0.0 }
         #expect(some.count == 2)
-        #expect(ids.contains(ent1))
-        #expect(ids.contains(ent2))
-        #expect(!ids.contains(ent3))
+        #expect(ids.contains(ent1.runtimeID))
+        #expect(ids.contains(ent2.runtimeID))
+        #expect(!ids.contains(ent3.runtimeID))
     }
 
     @Test func queryDifferentComponents() throws {
         let world = World(frame: self.emptyFrame)
-        let ent1 = world.spawn()
-        let ent2 = world.spawn()
-        let ent3 = world.spawn()
+        let ent1: RuntimeEntity = world.spawn()
+        let ent2: RuntimeEntity = world.spawn()
+        let ent3: RuntimeEntity = world.spawn()
 
-        world.setComponent(TestComponent(text: "test"), for: ent1)
-        world.setComponent(IntegerComponent(value: 42), for: ent2)
-        world.setComponent(TestComponent(text: "test2"), for: ent3)
+        ent1.setComponent(TestComponent(text: "test"))
+        ent2.setComponent(IntegerComponent(value: 42))
+        ent3.setComponent(TestComponent(text: "test2"))
 
         let withText = world.query(TestComponent.self)
         let withInt = world.query(IntegerComponent.self)
 
         #expect(withText.count == 2)
         #expect(withInt.count == 1)
-        #expect(withText.contains(ent1))
-        #expect(withText.contains(ent3))
-        #expect(withInt.contains(ent2))
+        #expect(withText.contains(ent1.runtimeID))
+        #expect(withText.contains(ent3.runtimeID))
+        #expect(withInt.contains(ent2.runtimeID))
     }
     
     // MARK: - Frame

@@ -19,8 +19,6 @@
 /// - SeeAlso: ``TransientFrame``
 ///
 public final class DesignFrame: Frame, Identifiable {
-    public typealias Snapshot = ObjectSnapshot
-    
     /// Design to which the frame belongs.
     public unowned let design: Design
     
