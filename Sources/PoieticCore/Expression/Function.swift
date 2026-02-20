@@ -19,10 +19,6 @@ public struct FunctionArgument: Sendable {
     ///
     public let type: VariableType
     
-    /// Flag whether the argument is a constant.
-    ///
-    public let isConstant: Bool
-    
     /// Create a new function argument.
     ///
     /// - Parameters:
@@ -30,10 +26,9 @@ public struct FunctionArgument: Sendable {
     ///     - type: Argument type. Default is ``VariableType/any``.
     ///     - isConstant: Flag whether the function argument is a constant.
     ///
-    public init(_ name: String, type: VariableType = .any, isConstant: Bool = false) {
+    public init(_ name: String, type: VariableType = .any) {
         self.name = name
         self.type = type
-        self.isConstant = isConstant
     }
 }
 
@@ -112,6 +107,35 @@ public final class Signature: CustomStringConvertible, Sendable {
         ],
         returns: .double
     )
+    public static let NumericBinaryOperator = Signature(
+        [
+            FunctionArgument("left", type: .union([.int, .double])),
+            FunctionArgument("right", type: .union([.int, .double]))
+        ],
+        returns: .double
+    )
+    public static let EquatableOperator = Signature(
+        [
+            FunctionArgument("left", type: .any),
+            FunctionArgument("right", type: .any)
+        ],
+        returns: .bool
+    )
+    public static let ComparisonOperator = Signature(
+        [
+            FunctionArgument("left", type: .union([.int, .double])),
+            FunctionArgument("right", type: .union([.int, .double]))
+        ],
+        returns: .bool
+    )
+    public static let LogicalBinaryOperator = Signature(
+        [
+            FunctionArgument("left", type: .union([.bool])),
+            FunctionArgument("right", type: .union([.bool]))
+        ],
+        returns: .bool
+    )
+
     /// Convenience signature representing a numeric function with many
     /// numeric arguments.
     ///
