@@ -22,27 +22,36 @@ public protocol Component {
     // Empty, just an annotation.
 }
 
-/// Component where some or all of its attributes can be inspected as ``Variant``s.
+/// Component where some attributes and relationships can be reflected and inspected. Attributes
+/// are provided as variants and relationships as IDs.
+///
+/// - Note: It is recommended that the keys used for attributes and references are unique within
+///   the whole component. Some foreign interfaces, for which this protocol is intended, might
+///   combine all inspectable properties into one dictionary.
 ///
 public protocol InspectableComponent: Component {
+    /// Get keys of all inspectable attributes.
+    ///
+    /// Typically attributes that relevant for foreign interfaces and that are convertible to
+    /// ``Variant`` are advertised here.
     static var attributeKeys: [String] { get }
     func attribute(forKey key: String) -> Variant?
 
-    static var toOneEntityReferenceKeys: [String] { get }
+    static var toOneRuntimeReferenceKeys: [String] { get }
     static var toOneDesignReferenceKeys: [String] { get }
-    func entityReference(forKey key: String) -> RuntimeID?
+    func runtimeReference(forKey key: String) -> RuntimeID?
     func designReference(forKey key: String) -> DesignEntityID?
 
-    static var toManyEntityReferenceKeys: [String] { get }
+    static var toManyRuntimeReferenceKeys: [String] { get }
     static var toManyDesignReferenceKeys: [String] { get }
-    func entityReferences(forKey key: String) -> [RuntimeID]
+    func runtimeReferences(forKey key: String) -> [RuntimeID]
     func designReferences(forKey key: String) -> [DesignEntityID]
 }
 
 extension InspectableComponent {
-    public static var toOneEntityReferenceKeys: [String] { [] }
+    public static var toOneRuntimeReferenceKeys: [String] { [] }
     public static var toOneDesignReferenceKeys: [String] { [] }
-    public static var toManyEntityReferenceKeys: [String] { [] }
+    public static var toManyRuntimeReferenceKeys: [String] { [] }
     public static var toManyDesignReferenceKeys: [String] { [] }
 
     public func attributeDictionary() -> [String:Variant] {
@@ -53,13 +62,13 @@ extension InspectableComponent {
         }
         return result
     }
-    public func entityReference(forKey key: String) -> RuntimeID? {
+    public func runtimeReference(forKey key: String) -> RuntimeID? {
         return nil
     }
     public func designReference(forKey key: String) -> DesignEntityID? {
         return nil
     }
-    public func entityReferences(forKey key: String) -> [RuntimeID] {
+    public func runtimeReferences(forKey key: String) -> [RuntimeID] {
         return []
     }
     public func designReferences(forKey key: String) -> [DesignEntityID] {

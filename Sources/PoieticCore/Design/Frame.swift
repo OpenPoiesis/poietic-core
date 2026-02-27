@@ -46,13 +46,13 @@ public protocol Frame:
     func filter(type: ObjectType) -> [ObjectSnapshot]
     
     /// Get distinct values of an attribute.
-    func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant>
+    func distinctAttribute(_ attributeName: String, ids: some Collection<ObjectID>) -> Set<Variant>
 
     /// Get distinct object types of a list of objects.
-    func distinctTypes(_ ids: [ObjectID]) -> [ObjectType]
+    func distinctTypes(_ ids: some Collection<ObjectID>) -> [ObjectType]
 
     /// Get shared traits of a list of objects.
-    func sharedTraits(_ ids: [ObjectID]) -> [Trait]
+    func sharedTraits(_ ids: some Collection<ObjectID>) -> [Trait]
     
     /// Filter IDs and keep only those that are contained in the frame.
     ///
@@ -223,7 +223,7 @@ extension Frame {
 // MARK: Distinct queries
 
 extension Frame {
-    public func distinctAttribute(_ attributeName: String, ids: [ObjectID]) -> Set<Variant> {
+    public func distinctAttribute(_ attributeName: String, ids: some Collection<ObjectID>) -> Set<Variant> {
         // TODO: Use ordered set here
         var values: Set<Variant> = Set()
         for id in ids {
@@ -239,7 +239,7 @@ extension Frame {
     ///
     /// IDs that do not have corresponding objects in the frame are ignored.
     ///
-    public func distinctTypes(_ ids: [ObjectID]) -> [ObjectType] {
+    public func distinctTypes(_ ids: some Collection<ObjectID>) -> [ObjectType] {
         var types: [ObjectType] = []
         for id in ids {
             guard let object = self[id] else { continue }
@@ -254,13 +254,13 @@ extension Frame {
     }
 
     /// Get shared traits of a list of objects.
-    public func sharedTraits(_ ids: [ObjectID]) -> [Trait] {
+    public func sharedTraits(_ ids: some Collection<ObjectID>) -> [Trait] {
         // TODO: Move this method to metamodel as sharedTraits(_ types: [ObjectType])
-        guard ids.count > 0 else {
-            return []
-        }
+        guard ids.count > 0 else { return [] }
         
         let types = self.distinctTypes(ids)
+        
+        guard !types.isEmpty else { return [] }
         
         var traits = types.first!.traits
         
