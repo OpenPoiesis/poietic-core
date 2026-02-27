@@ -128,6 +128,36 @@ public struct RuntimeEntity {
         return result
     }
 
+    /// Append a user-facing issue for the entity representing a design object.
+    ///
+    /// Issues are non-fatal problems with user data. Systems should append
+    /// issues here rather than throwing errors, allowing processing to continue
+    /// and collect multiple issues.
+    ///
+    /// - Parameters:
+    ///   - issue: The error/issue to append
+    ///   - objectID: The object ID associated with the issue
+    ///
+    ///- Returns: `true` if the entity represents a design object, otherwise false.
+    ///
+    @discardableResult
+    public func appendIssue(_ issue: Issue) -> Bool {
+        guard let objectID = self.objectID else { return false }
+        world.issues[objectID, default: []].append(issue)
+        return false
+    }
+    
+    public var issues: [Issue]? {
+        guard let objectID = self.objectID else { return nil }
+        return world.issues[objectID]
+    }
+
+    public var hasIssues: Bool {
+        guard let objectID = self.objectID else { return false }
+        if let issues = world.issues[objectID] { return !issues.isEmpty }
+        else { return false }
+    }
+    
     /// Access components via subscript syntax.
     ///
     /// ```swift

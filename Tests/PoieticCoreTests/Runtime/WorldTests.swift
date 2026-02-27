@@ -187,38 +187,58 @@ struct TestFrameComponent: Component, Equatable {
         let ent2: RuntimeEntity = world.spawn()
         let ent3: RuntimeEntity = world.spawn()
 
-        let empty = world.query(TestComponent.self)
-        #expect(empty.isEmpty)
+        var empty: QueryResult<RuntimeEntity> = world.query(TestComponent.self)
+        #expect(empty.next() == nil)
         
         ent1.setComponent(TestComponent(text: "test1"))
         ent2.setComponent(TestComponent(text: "test2"))
         
-        let some = world.query(TestComponent.self)
-        let ids = some.map { $0.0 }
-        #expect(some.count == 2)
+        let some: QueryResult<RuntimeEntity> = world.query(TestComponent.self)
+        let ids: [RuntimeID] = some.map { $0.runtimeID }
+        #expect(ids.count == 2)
         #expect(ids.contains(ent1.runtimeID))
         #expect(ids.contains(ent2.runtimeID))
         #expect(!ids.contains(ent3.runtimeID))
     }
 
+    @Test func querySkipsNonMatchingEntities() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let ent1: RuntimeEntity = world.spawn(TestComponent(text: "first"))
+        let ent2: RuntimeEntity = world.spawn(IntegerComponent(value: 10))
+        let ent3: RuntimeEntity = world.spawn(IntegerComponent(value: 20))
+        let ent4: RuntimeEntity = world.spawn(TestComponent(text: "second"))
+        let ent5: RuntimeEntity = world.spawn(IntegerComponent(value: 30))
+        let ent6: RuntimeEntity = world.spawn(TestComponent(text: "third"))
+        
+        let results: Array<RuntimeEntity> = Array(world.query(TestComponent.self))
+        
+        #expect(results.count == 3)
+        // Matches
+        #expect(results.contains(where: { $0.runtimeID == ent1.runtimeID }))
+        #expect(results.contains(where: { $0.runtimeID == ent4.runtimeID }))
+        #expect(results.contains(where: { $0.runtimeID == ent6.runtimeID }))
+        
+        // Non-matches
+        #expect(!results.contains(where: { $0.runtimeID == ent2.runtimeID }))
+        #expect(!results.contains(where: { $0.runtimeID == ent3.runtimeID }))
+        #expect(!results.contains(where: { $0.runtimeID == ent5.runtimeID }))
+    }
+    
     @Test func queryDifferentComponents() throws {
         let world = World(frame: self.emptyFrame)
-        let ent1: RuntimeEntity = world.spawn()
-        let ent2: RuntimeEntity = world.spawn()
-        let ent3: RuntimeEntity = world.spawn()
+        let entT1: RuntimeEntity = world.spawn(TestComponent(text: "test"))
+        let entT2: RuntimeEntity = world.spawn(TestComponent(text: "test2"))
+        let entI: RuntimeEntity = world.spawn(IntegerComponent(value: 42))
 
-        ent1.setComponent(TestComponent(text: "test"))
-        ent2.setComponent(IntegerComponent(value: 42))
-        ent3.setComponent(TestComponent(text: "test2"))
-
-        let withText = world.query(TestComponent.self)
-        let withInt = world.query(IntegerComponent.self)
-
+        let withText: Array<RuntimeEntity> = Array(world.query(TestComponent.self))
         #expect(withText.count == 2)
+        #expect(withText.contains(where: {$0.runtimeID == entT1.runtimeID}))
+        #expect(withText.contains(where: {$0.runtimeID == entT2.runtimeID}))
+       
+        let withInt: Array<RuntimeEntity> = Array(world.query(IntegerComponent.self))
         #expect(withInt.count == 1)
-        #expect(withText.contains(ent1.runtimeID))
-        #expect(withText.contains(ent3.runtimeID))
-        #expect(withInt.contains(ent2.runtimeID))
+        #expect(withInt.contains(where: {$0.runtimeID == entI.runtimeID}))
     }
     
     // MARK: - Frame

@@ -44,7 +44,7 @@ public class World {
     /// created by the users, therefore associating issues with them is not only unhelpful but
     /// also meaningless. Users can act only on objects they created.
     ///
-    public private(set) var issues: [ObjectID: [Issue]]
+    public internal(set) var issues: [ObjectID: [Issue]]
     
     internal var objectToEntityMap: [ObjectID:RuntimeID]
     internal var entityToObjectMap: [RuntimeID:ObjectID]
@@ -258,6 +258,7 @@ public class World {
     ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
     /// - Returns: The component if it exists, otherwise nil
     ///
+    @available(*, deprecated, message: "Use entity")
     public func component<T: Component>(for runtimeID: RuntimeID) -> T? {
         components[runtimeID]?[T.self]
     }
@@ -268,6 +269,7 @@ public class World {
     ///   - objectID: The object ID
     /// - Returns: The component if it exists, otherwise nil
     ///
+    @available(*, deprecated, message: "Use entity")
     public func component<T: Component>(for objectID: ObjectID) -> T? {
         guard let runtimeID = objectToEntityMap[objectID] else { return nil }
         return components[runtimeID]?[T.self]
@@ -284,6 +286,7 @@ public class World {
     ///
     /// - Precondition: Entity must exist in the world.
     ///
+    @available(*, deprecated, message: "Use entity")
     public func setComponent<T: Component>(_ component: T, for runtimeID: RuntimeID) {
         precondition(entities.contains(runtimeID))
         // TODO: Check whether the object exists
@@ -320,6 +323,7 @@ public class World {
     /// - SeeAlso: ``setComponent(_:for:)-(_,RuntimeID)``
     /// - Precondition: Entity representing the object must exist.
     ///
+    @available(*, deprecated, message: "Use entity")
     public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
         guard let runtimeID = objectToEntityMap[objectID] else {
             preconditionFailure("Object without entity")
@@ -359,30 +363,66 @@ public class World {
         }
     }
 
-    // MARK: - Filter
+    // MARK: - Query
+
+    /// Get a list of entities which represent objects from the list.
+    ///
+    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    ///
+    public func query(_ ids: some Sequence<ObjectID>) -> QueryResult<RuntimeEntity> {
+        let runtimeIDs = ids.compactMap { objectToEntityMap[$0] }
+        return QueryResult(world: self, iterator: runtimeIDs.makeIterator()) { entity in
+            guard entity.objectID != nil else { return nil }
+            return entity
+        }
+    }
+
     
     /// Get a list of objects with given component.
     ///
-    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
-        let result: [(RuntimeID, T)] = components.compactMap { id, components in
-            guard let comp: T = components[T.self] else {
-                return nil
-            }
-            return (id, comp)
+    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    ///
+    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<RuntimeEntity> {
+        return QueryResult(world: self) { entity in
+            guard entity.contains(T.self) else { return nil }
+            return entity
         }
-        return QueryResult(result)
     }
     
+    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    ///
+    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<(RuntimeEntity, T)> {
+        return QueryResult(world: self) { entity in
+            guard let comp: T = entity[T.self] else {
+                return nil
+            }
+            return (entity, comp)
+        }
+    }
+
+    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    ///
+    public func query<C1: Component, C2: Component>(_ componentType1: C1.Type, _ componentType2: C2.Type) -> QueryResult<(RuntimeEntity, C1, C2)> {
+        return QueryResult(world: self) { entity in
+            guard let comp1: C1 = entity[C1.self],
+                  let comp2: C2 = entity[C2.self]
+            else { return nil }
+            return (entity, comp1, comp2)
+        }
+    }
+
     // MARK: - Issues
 
     /// Flag indicating whether any issues were collected
     public var hasIssues: Bool { !issues.isEmpty }
 
+    @available(*, deprecated, message: "Use entity")
     public func objectHasIssues(_ objectID: ObjectID) -> Bool {
         guard let issues = self.issues[objectID] else { return false }
         return issues.isEmpty
     }
 
+    @available(*, deprecated, message: "Use entity")
     public func objectIssues(_ objectID: ObjectID) -> [Issue]? {
         guard let issues = self.issues[objectID], !issues.isEmpty else { return nil }
         return issues
@@ -399,6 +439,7 @@ public class World {
     ///   - issue: The error/issue to append
     ///   - objectID: The object ID associated with the issue
     ///
+    @available(*, deprecated, message: "Use entity")
     public func appendIssue(_ issue: Issue, for objectID: ObjectID) {
         issues[objectID, default: []].append(issue)
     }
