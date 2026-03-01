@@ -76,7 +76,7 @@ public struct RuntimeEntity {
     /// - Returns: True if the object has the component, otherwise false
     ///
     public func contains<T: Component>(_ type: T.Type) -> Bool {
-        world.components[runtimeID]?.has(type) ?? false
+        return world._containsComponent(type, for: self.runtimeID)
     }
 
     /// Get a component for a runtime object
@@ -86,7 +86,7 @@ public struct RuntimeEntity {
     /// - Returns: The component if it exists, otherwise nil
     ///
     public func component<T: Component>() -> T? {
-        world.components[runtimeID]?[T.self]
+        return world._getComponent(T.self, for: self.runtimeID)
     }
 
     /// Set a component for an entity.
@@ -102,8 +102,7 @@ public struct RuntimeEntity {
     ///
     public func setComponent<T: Component>(_ component: T) {
         precondition(world.entities.contains(runtimeID))
-        // TODO: Check whether the object exists
-        world.components[runtimeID, default: ComponentSet()].set(component)
+        world._setComponent(component, for: self.runtimeID)
     }
     
     /// Remove a component from an object
@@ -113,8 +112,7 @@ public struct RuntimeEntity {
     ///   - runtimeID: The object ID
     ///
     public func removeComponent<T: Component>(_ type: T.Type) {
-        // TODO: Check whether the object exists
-        world.components[runtimeID]?.remove(type)
+        world._removeComponent(type, for: runtimeID)
     }
     
     public func modify<T: Component, Result>(

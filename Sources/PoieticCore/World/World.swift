@@ -51,20 +51,31 @@ public class World {
     /// Entity ID representing current frame.
     ///
     internal var entities: [RuntimeID]
-    internal var components: [RuntimeID: ComponentSet]
 
     /// Components without an entity.
     ///
     /// Only one component of given type might exist in the world as a singleton.
     ///
     public private(set) var singletons: ComponentSet
+    private var storages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
 
-    /// Existential dependencies between entities.
+    struct Dependant: Hashable {
+        /// Who is pointing at the target?
+        let sourceID: RuntimeID
+        /// Component that is pointing to the source
+        let componentTypeID: ObjectIdentifier
+        let removalPolicy: RemovalPolicy
+    }
+    
+    /// Dependencies between entities based on relationships.
     ///
     /// Keys are entities that other entities depend on, values are sets of dependants.
     /// When an entity is de-spawned from the world all its dependants are de-spawned cascadingly.
     ///
-    var dependencies: [RuntimeID:Set<RuntimeID>]
+    /// - SeeAlso: ``Relationship``, ``ChildOf``, ``OwnedBy``
+    ///
+    var dependencies: [RuntimeID:Set<Dependant>]
+//    var dependencies: [RuntimeID:[RuntimeID:(ObjectIdentifier, RemovalPolicy)]]
 
     public init(design: Design) {
         self.design = design
@@ -72,7 +83,6 @@ public class World {
         self.schedules = [:]
         self.scheduleLabels = [:]
         self.dependencies = [:]
-        self.components = [:]
         self.issues = [:]
         self.entities = []
         
@@ -186,26 +196,26 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: any Component...) -> RuntimeID {
-        // TODO: Use lock once we are multi-thread ready (we are not)
+    public func spawn(_ components: [any Component]) -> RuntimeID {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
-        self.components[id] = ComponentSet(components)
         self.entities.append(id)
+        for component in components {
+            self._setComponent(component, for: id)
+        }
         return id
     }
-    
-    public func spawn(_ components: any Component...) -> RuntimeEntity {
+
+    public func spawn(_ components: any Component...) -> RuntimeID {
         // TODO: Use lock once we are multi-thread ready (we are not)
-        let value = entitySequence
-        entitySequence += 1
-        let id = RuntimeID(intValue: value)
-        self.components[id] = ComponentSet(components)
-        self.entities.append(id)
-        return RuntimeEntity(runtimeID: id, world: self)
+        return self.spawn(components)
     }
 
+    public func spawn(_ components: any Component...) -> RuntimeEntity {
+        let id = self.spawn(components)
+        return RuntimeEntity(runtimeID: id, world: self)
+    }
     
     /// Removes the entity from the world and all entities that depend on it.
     ///
@@ -218,63 +228,40 @@ public class World {
     public func despawn(_ entity: RuntimeEntity) {
         self.despawn([entity.runtimeID])
     }
+
     public func despawn(_ ids: some Sequence<RuntimeID>) {
         var trash: Set<RuntimeID> = Set(ids)
-        var removed: Set<RuntimeID> = Set()
+        guard !trash.isEmpty else { return }
+        
+        var removed: Set<RuntimeID> = []
         
         while !trash.isEmpty {
             let id = trash.removeFirst()
-            
-            if let objectID = entityToObjectMap.removeValue(forKey: id) {
-                objectToEntityMap[objectID] = nil
-            }
-            
             removed.insert(id)
-            if let dependants = dependencies.removeValue(forKey: id) {
-                let remaining = dependants.subtracting(removed)
-                trash.formUnion(remaining)
+            defer {
+                _removeAllComponents(for: id)
             }
-            components[id] = nil
-            entities.removeAll { $0 == id }
+            
+            guard let dependants = self.dependencies[id] else { continue }
+            
+            for dependant in dependants {
+                guard !removed.contains(dependant.sourceID) && !trash.contains(dependant.sourceID)
+                else { continue }
+                
+                switch dependant.removalPolicy {
+                case .removeSelf:
+                    trash.insert(dependant.sourceID)
+                case .removeRelationship:
+                    self._removeComponent(dependant.componentTypeID, for: dependant.sourceID)
+                case .none:
+                    break
+                }
+            }
         }
-    }
-    // MARK: - Dependencies
-    /// Make existence of an entity `dependant` dependent on entity `master`.
-    ///
-    /// When entity `master` is removed from the world, all its dependants are removed as well.
-    ///
-    /// - Precondition: `dependant` and `master` must exist as world entities.
-    ///
-    public func setDependency(of dependant: RuntimeID, on master: RuntimeID) {
-        precondition(entities.contains(dependant))
-        precondition(entities.contains(master))
-        dependencies[master, default: Set()].insert(dependant)
+        entities.removeAll { removed.contains($0) }
     }
     
     // MARK: - Components
-    /// Get a component for a runtime object
-    ///
-    /// - Parameters:
-    ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
-    /// - Returns: The component if it exists, otherwise nil
-    ///
-    @available(*, deprecated, message: "Use entity")
-    public func component<T: Component>(for runtimeID: RuntimeID) -> T? {
-        components[runtimeID]?[T.self]
-    }
-
-    /// Get a component for a runtime object
-    ///
-    /// - Parameters:
-    ///   - objectID: The object ID
-    /// - Returns: The component if it exists, otherwise nil
-    ///
-    @available(*, deprecated, message: "Use entity")
-    public func component<T: Component>(for objectID: ObjectID) -> T? {
-        guard let runtimeID = objectToEntityMap[objectID] else { return nil }
-        return components[runtimeID]?[T.self]
-    }
-
     /// Set a component for an entity.
     ///
     /// If a component of the same type already exists for this object,
@@ -286,22 +273,88 @@ public class World {
     ///
     /// - Precondition: Entity must exist in the world.
     ///
-    @available(*, deprecated, message: "Use entity")
-    public func setComponent<T: Component>(_ component: T, for runtimeID: RuntimeID) {
+    internal func _setComponent<T: Component>(_ component: T, for runtimeID: RuntimeID) {
         precondition(entities.contains(runtimeID))
-        // TODO: Check whether the object exists
-        components[runtimeID, default: ComponentSet()].set(component)
+
+        let storage = componentStorage(for: T.self)
+        storage.setComponent(component, for: runtimeID)
+
+        if let rship = component as? Relationship {
+            let type = type(of: rship)
+            let dep = Dependant(sourceID: runtimeID,
+                                componentTypeID: ObjectIdentifier(type),
+                                removalPolicy: type.removalPolicy)
+            dependencies[rship.target, default: Set()].insert(dep)
+        }
     }
     
+    internal func _containsComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> Bool {
+        let storage = componentStorage(for: T.self)
+        return storage.hasComponent(for: runtimeID)
+    }
+    internal func _getComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> T? {
+        let storage = componentStorage(for: T.self)
+        return storage.component(for: runtimeID)
+    }
+
+    private func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
+        let id = ObjectIdentifier(T.self)
+        
+        if let existing = storages[id] as? ComponentStorage<T> {
+            return existing
+        }
+        
+        let newStorage = ComponentStorage<T>()
+        storages[id] = newStorage
+        return newStorage
+    }
+
+    /// Remove a component from an object
+    ///
+    /// - Parameters:
+    ///   - type: The component type to remove
+    ///   - runtimeID: The object ID
+    ///
+    public func _removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
+        let componentTypeID = ObjectIdentifier(T.self)
+        _removeComponent(componentTypeID, for: runtimeID)
+    }
+    
+    public func _removeComponent(_ componentTypeID: ObjectIdentifier, for runtimeID: RuntimeID) {
+        guard let storage = storages[componentTypeID] else { return }
+
+        if let relationship = storage.relationship(for: runtimeID)
+        {
+            let removalPolicy = type(of: relationship).removalPolicy
+            let item = Dependant(sourceID: runtimeID,
+                                 componentTypeID: componentTypeID,
+                                 removalPolicy: removalPolicy)
+            dependencies[relationship.target, default: Set()].remove(item)
+        }
+
+        storage.removeComponent(for: runtimeID)
+    }
+
+    public func removeComponentForAll<T: Component>(_ type: T.Type) {
+        let storageTypeID = ObjectIdentifier(type)
+        guard let storage = storages[storageTypeID] else { return }
+        storage.removeAll()
+    }
+
+    /// Remove all components from an entity.
+    func _removeAllComponents(for runtimeID: RuntimeID) {
+        for storage in storages.values {
+            storage.removeComponent(for: runtimeID)
+        }
+    }
+
     /// Set singleton component – a component without an entity.
     ///
     public func setSingleton<T: Component>(_ component: T) {
-        // TODO: Check whether the object exists
         singletons.set(component)
     }
 
     public func removeSingleton<T: Component>(_ component: T.Type) {
-        // TODO: Check whether the object exists
         singletons.remove(component)
     }
 
@@ -316,55 +369,7 @@ public class World {
         singletons.has(component)
     }
 
-    /// Set a component for an entity representing an object.
-    ///
-    /// This is a convenience method.
-    ///
-    /// - SeeAlso: ``setComponent(_:for:)-(_,RuntimeID)``
-    /// - Precondition: Entity representing the object must exist.
-    ///
-    @available(*, deprecated, message: "Use entity")
-    public func setComponent<T: Component>(_ component: T, for objectID: ObjectID) {
-        guard let runtimeID = objectToEntityMap[objectID] else {
-            preconditionFailure("Object without entity")
-        }
-        setComponent(component, for: runtimeID)
-    }
-
-    /// Check if an object has a specific component type
-    ///
-    /// - Parameters:
-    ///   - type: The component type to check
-    ///   - runtimeID: The object ID
-    /// - Returns: True if the object has the component, otherwise false
-    ///
-    public func hasComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> Bool {
-        components[runtimeID]?.has(type) ?? false
-    }
-
-    /// Remove a component from an object
-    ///
-    /// - Parameters:
-    ///   - type: The component type to remove
-    ///   - runtimeID: The object ID
-    ///
-    public func removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
-        // TODO: Check whether the object exists
-        components[runtimeID]?.remove(type)
-    }
-    public func removeComponent<T: Component>(_ type: T.Type, for objectID: ObjectID) {
-        guard let runtimeID = objectToEntityMap[objectID] else { return }
-        removeComponent(type, for: runtimeID)
-    }
-    
-    public func removeComponentForAll<T: Component>(_ type: T.Type) {
-        for id in components.keys {
-            components[id]?.remove(type)
-        }
-    }
-
     // MARK: - Query
-
     /// Get a list of entities which represent objects from the list.
     ///
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
@@ -377,7 +382,7 @@ public class World {
         }
     }
 
-    
+    // FIXME: Make the query(...) methods use the ComponentStorage. Current implementation is a historical remnant.
     /// Get a list of objects with given component.
     ///
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
@@ -389,6 +394,14 @@ public class World {
         }
     }
     
+    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    ///
+    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
+        return QueryResult(world: self) { entity in
+            return entity[T.self]
+        }
+    }
+
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<(RuntimeEntity, T)> {

@@ -8,7 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-struct TestFrameComponent: Component, Equatable {
+struct TestSingletonComponent: Component, Equatable {
     var orderedIDs: [ObjectID]
 
     init(orderedIDs: [ObjectID] = []) {
@@ -16,21 +16,27 @@ struct TestFrameComponent: Component, Equatable {
     }
 }
 
+struct WeakRelationship: Relationship, Sendable {
+    var target: RuntimeID
+    
+    static let removalPolicy: RemovalPolicy = .removeRelationship
+}
+
 @Suite struct WorldTests {
     let design: Design
     let emptyFrame: DesignFrame
     let testFrame: DesignFrame
     let objectIDs: [ObjectID]  // IDs of created objects for easy reference
-
+    
     init() throws {
         // Create a test design with a few objects
         self.design = Design(metamodel: TestMetamodel)
         let trans1 = design.createFrame()
-
+        
         self.emptyFrame = try design.accept(trans1)
         
         let trans2 = design.createFrame()
-
+        
         // Create some test objects with proper structure
         let obj1 = trans2.create(.Stock, structure: .node)
         let obj2 = trans2.create(.FlowRate, structure: .node)
@@ -38,31 +44,31 @@ struct TestFrameComponent: Component, Equatable {
         self.objectIDs = [obj1.objectID, obj2.objectID, obj3.objectID]
         self.testFrame = try design.accept(trans2)
     }
-
+    
     // MARK: - Basics
-
+    
     @Test func createWorld() throws {
         let world = World(frame: emptyFrame)
-
+        
         #expect(world.entities.count == 0)
         #expect(!world.hasIssues)
     }
     
-//    @Test func setFrame() throws {
-//        let world = World(frame: self.frame)
-//        let trans = design.createFrame()
-//        for id in self.frame.objectIDs {
-//            trans.removeCascading(id)
-//        }
-//        let obj = trans.create(.Stock, structure: .node)
-//        let newFrame = try self.design.accept(trans)
-//        world.setFrame(newFrame.id)
-//        
-//        #expect(world.entities.count == 1)
-//        let ent = try #require(world.entities.first)
-//        #expect(ent == world.objectToEntity(obj.objectID))
-//    }
-//
+    //    @Test func setFrame() throws {
+    //        let world = World(frame: self.frame)
+    //        let trans = design.createFrame()
+    //        for id in self.frame.objectIDs {
+    //            trans.removeCascading(id)
+    //        }
+    //        let obj = trans.create(.Stock, structure: .node)
+    //        let newFrame = try self.design.accept(trans)
+    //        world.setFrame(newFrame.id)
+    //
+    //        #expect(world.entities.count == 1)
+    //        let ent = try #require(world.entities.first)
+    //        #expect(ent == world.objectToEntity(obj.objectID))
+    //    }
+    //
     
     // MARK: - Spawn/Despawn
     @Test func spawn() throws {
@@ -71,7 +77,7 @@ struct TestFrameComponent: Component, Equatable {
         
         #expect(world.entities.count == 1)
         #expect(world.contains(ent))
-    
+        
         let component: TestComponent = try #require(ent.component())
         #expect(component.text == "test")
     }
@@ -85,108 +91,85 @@ struct TestFrameComponent: Component, Equatable {
         let component: TestComponent? = ent.component()
         #expect(component == nil)
     }
-
-    // MARK: - Dependencies
-    @Test func setDependency() throws {
-        let world = World(frame: self.emptyFrame)
-        let parent: RuntimeEntity = world.spawn()
-        let child: RuntimeEntity = world.spawn()
-        world.setDependency(of: child.runtimeID, on: parent.runtimeID)
-        world.despawn(parent)
-        #expect(!world.contains(parent))
-        #expect(!world.contains(child))
-    }
-    @Test func setIndirectDependency() throws {
-        let world = World(frame: self.emptyFrame)
-        let a: RuntimeEntity = world.spawn()
-        let b: RuntimeEntity = world.spawn()
-        let c: RuntimeEntity = world.spawn()
-        world.setDependency(of: b.runtimeID, on: a.runtimeID)
-        world.setDependency(of: c.runtimeID, on: b.runtimeID)
-        world.despawn(a)
-        #expect(!world.contains(a))
-        #expect(!world.contains(b))
-        #expect(!world.contains(c))
-    }
-
+    
     // MARK: - Components
     @Test func setAndGetComponent() throws {
         let world = World(frame: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
-
+        
         #expect(!ent.contains(TestComponent.self))
         let empty: TestComponent? = ent.component()
         #expect(empty == nil)
-
+        
         ent.setComponent(TestComponent(text: "test"))
         #expect(ent.contains(TestComponent.self))
-
+        
         let retrieved: TestComponent = try #require(ent.component())
         #expect(retrieved.text == "test")
-
+        
     }
     
     @Test func replaceComponent() throws {
         let world = World(frame: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
-
+        
         ent.setComponent(TestComponent(text: "first"))
         ent.setComponent(TestComponent(text: "second"))
-
+        
         let retrieved: TestComponent = try #require(ent.component())
         #expect(retrieved.text == "second")
     }
-
+    
     @Test func removeComponent() throws {
         let world = World(frame: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
-
+        
         ent.setComponent(TestComponent(text: "test"))
         #expect(ent.contains(TestComponent.self))
         ent.removeComponent(TestComponent.self)
         #expect(!ent.contains(TestComponent.self))
-
+        
         let empty: TestComponent? = ent.component()
         #expect(empty == nil)
     }
-
+    
     @Test func multipleComponentsPerEntity() throws {
         let world = World(frame: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
-
+        
         ent.setComponent(TestComponent(text: "test"))
         ent.setComponent(IntegerComponent(value: 1024))
-
+        
         let testComp: TestComponent = try #require(ent.component())
         let intComp: IntegerComponent = try #require(ent.component())
-
+        
         #expect(testComp.text == "test")
         #expect(intComp.value == 1024)
     }
-
+    
     @Test func componentsIsolatedPerEntity() throws {
         let world = World(frame: self.emptyFrame)
         let ent1: RuntimeEntity = world.spawn()
         let ent2: RuntimeEntity = world.spawn()
-
+        
         ent1.setComponent(TestComponent(text: "obj1"))
         ent2.setComponent(TestComponent(text: "obj2"))
-
+        
         let comp1: TestComponent = try #require(ent1.component())
         let comp2: TestComponent = try #require(ent2.component())
-
+        
         #expect(comp1.text == "obj1")
         #expect(comp2.text == "obj2")
     }
-
+    
     // MARK: - Query
-
+    
     @Test func queryComponent() throws {
         let world = World(frame: self.emptyFrame)
         let ent1: RuntimeEntity = world.spawn()
         let ent2: RuntimeEntity = world.spawn()
         let ent3: RuntimeEntity = world.spawn()
-
+        
         var empty: QueryResult<RuntimeEntity> = world.query(TestComponent.self)
         #expect(empty.next() == nil)
         
@@ -200,7 +183,7 @@ struct TestFrameComponent: Component, Equatable {
         #expect(ids.contains(ent2.runtimeID))
         #expect(!ids.contains(ent3.runtimeID))
     }
-
+    
     @Test func querySkipsNonMatchingEntities() throws {
         let world = World(frame: self.emptyFrame)
         
@@ -230,12 +213,12 @@ struct TestFrameComponent: Component, Equatable {
         let entT1: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         let entT2: RuntimeEntity = world.spawn(TestComponent(text: "test2"))
         let entI: RuntimeEntity = world.spawn(IntegerComponent(value: 42))
-
+        
         let withText: Array<RuntimeEntity> = Array(world.query(TestComponent.self))
         #expect(withText.count == 2)
         #expect(withText.contains(where: {$0.runtimeID == entT1.runtimeID}))
         #expect(withText.contains(where: {$0.runtimeID == entT2.runtimeID}))
-       
+        
         let withInt: Array<RuntimeEntity> = Array(world.query(IntegerComponent.self))
         #expect(withInt.count == 1)
         #expect(withInt.contains(where: {$0.runtimeID == entI.runtimeID}))
@@ -276,66 +259,156 @@ struct TestFrameComponent: Component, Equatable {
     // MARK: - Singleton
     @Test func setAndGetSingletonComponent() throws {
         let world = World(frame: self.emptyFrame)
-
-        let component = TestFrameComponent(orderedIDs: objectIDs)
+        
+        let component = TestSingletonComponent(orderedIDs: objectIDs)
         world.setSingleton(component)
-
-        let retrieved: TestFrameComponent = try #require(world.singleton())
+        
+        let retrieved: TestSingletonComponent = try #require(world.singleton())
         #expect(retrieved.orderedIDs == objectIDs)
     }
-
-    @Test func getFrameComponentReturnsNilWhenNotSet() throws {
+    
+    @Test func getSingletonReturnsNilWhenNotSet() throws {
         let world = World(frame: self.emptyFrame)
-
-        let component: TestFrameComponent? = world.singleton()
+        
+        let component: TestSingletonComponent? = world.singleton()
         #expect(component == nil)
     }
-
-    @Test func replaceFrameComponent() throws {
+    
+    @Test func replaceSingleton() throws {
         let world = World(frame: self.emptyFrame)
-
-        world.setSingleton(TestFrameComponent(orderedIDs: [objectIDs[0]]))
-        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
-
-        let retrieved: TestFrameComponent = try #require(world.singleton())
+        
+        world.setSingleton(TestSingletonComponent(orderedIDs: [objectIDs[0]]))
+        world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
+        
+        let retrieved: TestSingletonComponent = try #require(world.singleton())
         #expect(retrieved.orderedIDs.count == 3)
     }
-
-    @Test func hasFrameComponent() throws {
+    
+    @Test func hasSingleton() throws {
         let world = World(frame: emptyFrame)
-
-        #expect(!world.hasSingleton(TestFrameComponent.self))
-
-        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
-
-        #expect(world.hasSingleton(TestFrameComponent.self))
+        
+        #expect(!world.hasSingleton(TestSingletonComponent.self))
+        
+        world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
+        
+        #expect(world.hasSingleton(TestSingletonComponent.self))
     }
-
-    @Test func removeFrameComponent() throws {
+    
+    @Test func removeSingleton() throws {
         let world = World(frame: emptyFrame)
-
+        
         // Set frame component
-        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
-        #expect(world.hasSingleton(TestFrameComponent.self))
-
+        world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
+        #expect(world.hasSingleton(TestSingletonComponent.self))
+        
         // Remove it
-        world.removeSingleton(TestFrameComponent.self)
-
-        #expect(!world.hasSingleton(TestFrameComponent.self))
-        let retrieved: TestFrameComponent? = world.singleton()
+        world.removeSingleton(TestSingletonComponent.self)
+        
+        #expect(!world.hasSingleton(TestSingletonComponent.self))
+        let retrieved: TestSingletonComponent? = world.singleton()
         #expect(retrieved == nil)
     }
-
-    @Test func multipleFrameComponents() throws {
+    
+    @Test func multipleSingletons() throws {
         let world = World(frame: emptyFrame)
-
-        world.setSingleton(TestFrameComponent(orderedIDs: objectIDs))
+        
+        world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
         world.setSingleton(IntegerComponent(value: 100))
-
-        let orderComp: TestFrameComponent = try #require(world.singleton())
+        
+        let orderComp: TestSingletonComponent = try #require(world.singleton())
         let intComp: IntegerComponent = try #require(world.singleton())
-
+        
         #expect(orderComp.orderedIDs.count == 3)
         #expect(intComp.value == 100)
+    }
+    
+    // MARK: - Relationships and Dependencies
+    
+    @Test func removeDependency() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let parent: RuntimeEntity = world.spawn()
+        let child: RuntimeEntity = world.spawn()
+        let unrelated: RuntimeEntity = world.spawn()
+        
+        child.setComponent(ChildOf(parent.runtimeID))
+        
+        world.despawn(parent)
+        
+        #expect(!world.contains(parent))
+        #expect(!world.contains(child))
+        #expect(world.contains(unrelated))
+    }
+    
+    @Test func removeCycledDependency() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let left: RuntimeEntity = world.spawn()
+        let right: RuntimeEntity = world.spawn()
+        
+        left.setComponent(ChildOf(right.runtimeID))
+        right.setComponent(ChildOf(left.runtimeID))
+
+        world.despawn(left)
+        
+        #expect(!world.contains(left))
+        #expect(!world.contains(right))
+    }
+
+    @Test func cascadingEntityRelationshipRemoval() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let grandparent: RuntimeEntity = world.spawn()
+        let parent: RuntimeEntity = world.spawn()
+        let child: RuntimeEntity = world.spawn()
+        
+        parent.setComponent(ChildOf(grandparent.runtimeID))
+        child.setComponent(ChildOf(parent.runtimeID))
+        
+        #expect(world.contains(grandparent))
+        #expect(world.contains(parent))
+        #expect(world.contains(child))
+        
+        world.despawn(grandparent)
+        
+        #expect(!world.contains(grandparent))
+        #expect(!world.contains(parent))
+        #expect(!world.contains(child))
+    }
+    
+    @Test func removeWeakRelationshipComponent() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let target: RuntimeEntity = world.spawn()
+        let source: RuntimeEntity = world.spawn()
+
+        source.setComponent(WeakRelationship(target: target.runtimeID))
+        #expect(source.contains(WeakRelationship.self))
+        
+        world.despawn(target)
+        
+        #expect(!world.contains(target))
+        #expect(world.contains(source))
+        #expect(!source.contains(WeakRelationship.self))
+    }
+    
+    @Test func keepUnrelatedWeakRelationshipComponent() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let target: RuntimeEntity = world.spawn()
+        let source: RuntimeEntity = world.spawn()
+        let unrelated: RuntimeEntity = world.spawn()
+
+        source.setComponent(WeakRelationship(target: target.runtimeID))
+        unrelated.setComponent(WeakRelationship(target: source.runtimeID))
+        #expect(source.contains(WeakRelationship.self))
+        #expect(unrelated.contains(WeakRelationship.self))
+
+        world.despawn(target)
+        
+        #expect(!world.contains(target))
+        #expect(world.contains(source))
+        #expect(!source.contains(WeakRelationship.self))
+        #expect(unrelated.contains(WeakRelationship.self))
     }
 }
