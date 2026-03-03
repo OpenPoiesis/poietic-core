@@ -23,22 +23,19 @@ public struct ExpressionParserSystem: System {
         guard let frame = world.frame else { return }
         
         for object in frame.filter(trait: .Formula) {
-            guard let formula: String = object["formula"] else { continue }
-            parseExpression(formula, object: object, in: world)
+            guard let formula: String = object["formula"],
+                  let entity = world.entity(object.objectID)
+            else { continue }
+            parseExpression(formula, object: object, entity: entity)
             
         }
     }
-    func parseExpression(_ formula: String, object: ObjectSnapshot, in world: World) {
+    func parseExpression(_ formula: String, object: ObjectSnapshot, entity: RuntimeEntity) {
+        let expr: UnboundExpression
+        let component: ParsedExpressionComponent
+        let parser = ExpressionParser(string: formula)
         do {
-            let expr: UnboundExpression
-            let component: ParsedExpressionComponent
-            let parser = ExpressionParser(string: formula)
             expr = try parser.parse()
-            component = ParsedExpressionComponent(
-                expression: expr,
-                variables: Set(expr.allVariables)
-            )
-            world.setComponent(component, for: object.objectID)
         }
         catch {
             let issue = Issue(
@@ -52,8 +49,11 @@ public struct ExpressionParserSystem: System {
                 ]
             )
 
-            world.appendIssue(issue, for: object.objectID)
+            entity.appendIssue(issue)
+            return
         }
-
+        let vars = Set(expr.allVariables)
+        component = ParsedExpressionComponent(expression: expr, variables: vars)
+        entity.setComponent(component)
     }
 }

@@ -7,6 +7,7 @@
 
 import Collections
 
+// FIXME: Remove id and Identifiable (historical remnant that causes confusion)
 @usableFromInline
 class _TransientSnapshotBox: Identifiable {
     // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
@@ -120,7 +121,6 @@ public class TransientObject: ObjectProtocol {
     
     /// Flag to denote whether the object's parent-child hierarchy has been modified,
     public private(set) var hierarchyChanged: Bool
-    public private(set) var componentsChanged: Bool
 
     /// Set of changed attributes.
     ///
@@ -129,7 +129,7 @@ public class TransientObject: ObjectProtocol {
     ///
     public private(set) var changedAttributes: Set<String>
 
-    var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged || componentsChanged }
+    var hasChanges: Bool { !changedAttributes.isEmpty || hierarchyChanged }
     
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
@@ -148,7 +148,6 @@ public class TransientObject: ObjectProtocol {
                                  attributes: attributes)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
-        self.componentsChanged = false
     }
 
     init(original: ObjectSnapshot, snapshotID: ObjectSnapshotID) {
@@ -156,7 +155,6 @@ public class TransientObject: ObjectProtocol {
         self._body = original._body
         self.changedAttributes = Set()
         self.hierarchyChanged = false
-        self.componentsChanged = false
     }
    
     @inlinable public var objectID: ObjectID { _body.id }
