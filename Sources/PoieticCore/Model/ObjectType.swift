@@ -5,10 +5,57 @@
 //  Created by Stefan Urbanek on 31/05/2023.
 //
 
-/// Object defining a type of a design object.
+/// Defines the type specification for design objects within a metamodel.
 ///
-/// ObjectType describes instances of an object – what are their attributes or traits,
-/// what is their structural role within the design graph.
+/// An `ObjectType` specifies:
+///
+/// - Which traits (and their attributes) objects of this type possess
+/// - How objects can relate to other objects in the design graph (via ``structuralType``)
+/// - Display properties for user interfaces (labels, primary/secondary attributes)
+///
+/// Object types are defined within a ``Metamodel`` and validated by the ``ConstraintChecker``.
+/// Every object in a design must have a type defined in the design's metamodel.
+///
+/// ## Structural Types
+///
+/// The ``structuralType`` property determines the object's role as a graph component:
+/// - ``StructuralType/node``: Objects that can be connected via edges
+/// - ``StructuralType/edge``: Objects that connect two nodes (requires an ``EdgeRule``)
+/// - ``StructuralType/unstructured``: Objects with no graph relationships
+///
+/// ## Traits and Attributes
+///
+/// Traits define groups of attributes that objects possess. All attributes from all traits
+/// associated with an object type share the same namespace - no two traits in an object type
+/// can define attributes with the same name. See ``Trait`` for more information.
+///
+/// ## Example
+///
+/// ```swift
+/// let Stock = ObjectType(
+///     name: "Stock",
+///     structuralType: .node,
+///     traits: [
+///         Trait.Name,
+///         Trait.Formula,
+///         Trait.Stock,
+///     ],
+///     abstract: "A reservoir that accumulates quantities over time",
+///     secondaryLabelAttribute: "formula"
+/// )
+///
+/// let Flow = ObjectType(
+///     name: "Flow",
+///     structuralType: .edge,
+///     abstract: "Connection between a stock and a flow rate"
+/// )
+/// ```
+///
+/// - Note: For edge object types (``structuralType`` is ``StructuralType/edge``),
+///         you must define a corresponding ``EdgeRule`` in the metamodel, otherwise
+///         edges of this type will fail validation.
+///
+/// - SeeAlso: ``Metamodel``, ``Trait``, ``EdgeRule``, ``StructuralType``
 ///
 public final class ObjectType: Sendable {
     /// Name of the object type.
@@ -21,20 +68,28 @@ public final class ObjectType: Sendable {
     ///
     public let label: String
     
-    /// Structural type of the object – how the object can relate to other
-    /// objects in the design.
+    /// Structural role of the object in the design graph.
     ///
-    /// - SeeAlso: ``EdgeRule``, ``Metamodel/edgeRules``
+    /// Determines how the object can relate to other objects:
+    /// - `.node`: Can be referenced by edge objects
+    /// - `.edge`: Connects two node objects (origin and target)
+    /// - `.unstructured`: Cannot participate in graph relationships
+    ///
+    /// - Note: Edge types require a corresponding ``EdgeRule`` in the metamodel.
+    /// - SeeAlso: ``EdgeRule``, ``Metamodel/edgeRules``, ``Structure``
     ///
     public let structuralType: StructuralType
     
-    /// List of traits for objects of this type.
+    /// Traits associated with this object type.
     ///
-    /// - Note: Trait attributes share the same namespace. Two traits associated with an object can
-    ///         not have the same attribute name.
+    /// Each trait provides a set of attributes that objects of this type will possess.
+    /// Attributes from all traits share a single namespace - duplicate attribute names
+    /// across traits are not allowed.
+    ///
+    /// - SeeAlso: ``Trait``, ``attributes``, ``hasAttribute(_:)``
     ///
     public let traits: [Trait]
-    
+
     /// Short description and the purpose of the object type.
     ///
     /// It is recommended that metamodel creators provide this attribute.
@@ -54,13 +109,28 @@ public final class ObjectType: Sendable {
     
     public var attributeKeys: [AttributeKey] { attributes.map { $0.name } }
     
-    /// Name of an attribute that is used as primary label of the object. Defaults to `name`.
+    /// Name of an attribute used as the primary display label for objects of this type.
+    ///
+    /// Defaults to `"name"`. Set to `nil` if the object type has no primary label attribute.
+    ///
+    /// User-facing applications typically display this attribute prominently (e.g., as node labels
+    /// in diagram editors).
+    ///
+    /// Example: For a Stock object with `name: "Population"`, the name attribute serves as the label.
+    ///
+    /// - SeeAlso: ``secondaryLabelAttribute``
     ///
     public let labelAttribute: String?
     
-    /// Name of an attribute that is used as secondary label of the object.
+    /// Name of an attribute used as a secondary display label for objects of this type.
     ///
-    /// For example: `formula`, `delay_time`.
+    /// User-facing applications may display this attribute as supplementary information
+    /// (e.g., below the primary label in diagram nodes).
+    ///
+    /// Example: For objects with formulas, setting this to `"formula"` displays the formula
+    /// beneath the object name.
+    ///
+    /// - SeeAlso: ``labelAttribute``
     ///
     public let secondaryLabelAttribute: String?
 
@@ -86,7 +156,7 @@ public final class ObjectType: Sendable {
     ///         make sure that you have a corresponding ``EdgeRule`` for a metamodel. Otherwise
     ///         the edge will not pass validation.
     /// - Precondition: There must be no duplicate attribute names in the
-    ///   components.
+    ///   traits.
     ///
     public init(name: String,
                 label: String? = nil,
