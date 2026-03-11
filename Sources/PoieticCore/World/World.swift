@@ -169,13 +169,13 @@ public class World {
         precondition(newFrame.design === self.design)
         precondition(self.design.containsFrame(newFrame.id))
         
-        removeFrameObjectEntities()
+        removeFrame()
         self.frame = newFrame
         spawnFrameObjectEntities()
         self.issues.removeAll()
     }
     
-    internal func removeFrameObjectEntities() {
+    internal func removeFrame() {
         despawn(entityToObjectMap.keys)
         objectToEntityMap.removeAll()
         entityToObjectMap.removeAll()

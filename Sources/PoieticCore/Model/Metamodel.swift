@@ -5,34 +5,102 @@
 //  Created by Stefan Urbanek on 07/06/2023.
 //
 
-/// Object describing a model.
+/// Defines the structural and semantic rules that a ``Design`` must conform to.
 ///
-/// The metamodel is formed by a collection of object types, traits and
-/// constraints that together define a domain to which the design conforms.
+/// The Metamodel serves as the contract between the Modelling Domain (``Design``) and the
+/// Simulation Domain (``World``). It defines:
 ///
-/// The design can contain only types and traits that are present in the
-/// metamodel. The design must comply with all constraints in the
-/// metamodel.
+/// ## Validation Levels
 ///
-///  - SeeAlso: ``ConstraintChecker``, ``Design/accept(_:appendHistory:)``
+/// The design has two levels of design validity:
+///
+/// - **Constraint Validity**: Structural conformance defined by the Metamodel and checked by
+///   ``ConstraintChecker``.
+///   - All object types used in the design must be defined in the metamodel
+///   - All objects must conform to their type's trait requirements
+///   - All edges must satisfy edge rules
+///   - All constraints must be satisfied
+///
+/// - **Semantic Validity**: Content domain-specific correctness, validated by modelling domain
+///   systems.
+///   - Examples: formula syntax, variable references, circular dependencies
+///   - These may produce warnings/errors but don't prevent design editing and other usage by the
+///     user.
+///   - Metamodel is tangential to semantic validity.
+///
+/// An application is responsible for constraint validity of the design and should prevent further
+/// manipulation of an invalid design.
+///
+/// ## Design Frame Acceptance
+///
+/// Before a ``DesignFrame`` is accepted into a ``Design``, it must pass constraint validation.
+/// Frames that violate the metamodel are considered structurally invalid and should not be
+/// persisted without repair. See ``Design/accept(_:appendHistory:)`` and ``ConstraintChecker``.
+///
+/// ## Metamodel Composition
+///
+/// Metamodels can be composed from multiple domain-specific metamodels using the
+/// ``init(name:version:merging:)`` initialiser. When merging, later definitions override
+/// earlier ones for traits, types, and constraints with the same name.
+///
+/// ## Example
+///
+/// ```swift
+/// let metamodel = Metamodel(
+///     name: "MyDomain",
+///     version: SemanticVersion(1, 0, 0),
+///     traits: [
+///         Trait.Name,
+///         Trait.Formula,
+///         Trait.Position
+///     ],
+///     types: [
+///         ObjectType.Stock,
+///         ObjectType.Flow,
+///         ObjectType.Parameter
+///     ],
+///     edgeRules: [
+///         EdgeRule(type: ObjectType.Parameter, incoming: .many, outgoing: .many),
+///         EdgeRule(type: ObjectType.Flow,
+///                  origin: IsTypePredicate(ObjectType.Stock),
+///                  target: IsTypePredicate(ObjectType.FlowRate),
+///                  outgoing: .one,
+///                  incoming: .one)
+///     ],
+///     constraints: [
+///         Constraint(
+///             name: "unique_names",
+///             match: HasTraitPredicate("Name"),
+///             requirement: UniqueProperty("name")
+///         )
+///     ]
+/// )
+/// ```
+///
+/// - SeeAlso: ``ConstraintChecker``, ``Design/accept(_:appendHistory:)``,
+///   ``ObjectType``, ``Trait``, ``EdgeRule``, ``Constraint``
 ///
 public final class Metamodel: Sendable {
     /// Name of the metamodel, for debug purposes.
     public let name: String?
     public let version: SemanticVersion?
 
-    /// List of components that are available within the metamodel.
+    /// List of traits that are available within the metamodel.
+    ///
+    /// Object types can use only traits from this list.
     ///
     public let traits: [Trait]
 
     /// List of object types allowed in the model.
+    ///
+    /// Design objects conforming to this metamodel can be only of the types in this list.
     ///
     public let types: [ObjectType]
     
     /// List of constraints.
     ///
     /// Constraints are validated before a frame is accepted to the design.
-    /// Design must not contain stable frames that violate any of the
+    /// Design must not contain design frames that violate any of the
     /// constraints.
     ///
     public let constraints: [Constraint]
@@ -49,6 +117,7 @@ public final class Metamodel: Sendable {
         self.constraints = []
         self.edgeRules = []
     }
+    
     /// Create a new metamodel.
     ///
     /// - Parameters:
@@ -77,8 +146,8 @@ public final class Metamodel: Sendable {
    
     /// Create a metamodel by merging multiple metamodels.
     ///
-    /// If traits, constraints and types have duplicate name, then the later
-    /// will be used.
+    /// If multiple traits, constraints and object types have the same name, then the later
+    /// in the list will replace the former.
     ///
     public init(name: String? = nil, version: SemanticVersion? = nil, merging metamodels: Metamodel ...) {
         var traits: [Trait] = []

@@ -85,27 +85,70 @@ extension EdgeRuleViolation /*: IssueProtocol */ {
 
 // TODO: Rename to ConnectionRule
 
-/// Rule for edges that are allowed in the design.
+/// Defines which edges are allowed in the design graph and how they can be connected.
 ///
-/// Each edge in the design must conform to the connection rules defined by this object.
+/// Edge rules are part of the design's **Constraint Validity** defined by design's ``Metamodel``.
+/// Each edge in a design must match at least one edge rule, and the matched rule's cardinality
+/// constraints must be satisfied.
 ///
-/// For example, to allow any kind of connection of a given edge type, say `Cause`, we can use
-/// the following:
+/// There are two validation use-cases using ``ConstraintChecker``:
+///
+/// - **Pre-validation** (``ConstraintChecker/canConnect(type:from:to:in:)``): Checks if a new
+///   edge *could* be created. Used in interactive UIs before creating the edge.
+/// - **Validation** (``ConstraintChecker/validate(edge:in:)``): Checks existing edges in a frame.
+///   Used when accepting frames into the design.
+///
+/// To collect all issues with edges (and other constraints) within a design you can use
+/// ``ConstraintChecker/diagnose(_:)``.
+///
+/// ## Rule Matching Process
+///
+/// An edge matches a rule when ALL of the following conditions are met:
+///
+/// 1. The edge's ``ObjectType`` matches the rule's ``type``
+/// 2. If ``originPredicate`` is specified, the edge's origin node must satisfy it
+/// 3. If ``targetPredicate`` is specified, the edge's target node must satisfy it
+/// 4. The number of matching edges at the origin satisfies ``outgoing`` cardinality
+/// 5. The number of matching edges at the target satisfies ``incoming`` cardinality
+///
+/// ## Examples
+///
+/// **Example 1: Unrestricted connections**
 ///
 /// ```swift
-/// let Cause = ObjectType(name: "Cause", structuralType: .edge)
-/// let metamodel = Metamodel(
-///     types: [
-///         Cause,
-///         // more types ...
-///     ],
-///     edgeRules: [
-///         EdgeRule(Cause)
-///     ]
+/// // Allow any node to connect to any node via Parameter edge
+/// let parameterRule = EdgeRule(
+///     type: ObjectType.Parameter,
+///     // No predicates = any node matches
+///     outgoing: .many,  // Multiple parameters can originate from same node
+///     incoming: .many   // Multiple parameters can target same node
 /// )
 /// ```
 ///
-/// - SeeAlso: ``Metamodel/edgeRules``, ``ConstraintChecker/validate(edge:in:)``
+/// **Example 2: Restricted connections with cardinality**
+///
+/// ```swift
+/// // Flow edge must connect Stock (origin) to FlowRate (target)
+/// // Each flow has exactly one source and one drain
+/// let flowRule = EdgeRule(
+///     type: ObjectType.Flow,
+///     origin: IsTypePredicate(ObjectType.Stock),
+///     outgoing: .many,  // Stock can have many outgoing flows
+///     target: IsTypePredicate(ObjectType.FlowRate),
+///     incoming: .one    // FlowRate has exactly one incoming flow
+/// )
+/// ```
+/// 
+/// ## Rule Ordering and Precedence
+///
+/// When multiple rules exist for the same edge type, the first matching rule is used.
+/// More specific rules (with predicates) should be listed before general rules.
+///
+/// - Important: There must be at least one rule for each edge type defined in the metamodel.
+///   Edges without any matching rule will fail validation with ``EdgeRuleViolation/edgeNotAllowed``.
+///
+/// - SeeAlso: ``Metamodel/edgeRules``, ``ConstraintChecker``, ``EdgeCardinality``,
+///   ``Predicate``, ``EdgeDirection``
 ///
 public struct EdgeRule: Sendable, CustomStringConvertible {
     // NOTE: When changing/adding edge rule properties, make sure we can validate

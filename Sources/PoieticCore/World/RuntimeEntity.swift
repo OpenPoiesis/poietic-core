@@ -188,3 +188,15 @@ public struct RuntimeEntity {
     }
 
 }
+
+// MARK: Hierarchy
+
+let ChildOfComponentID = ObjectIdentifier(ChildOf.self)
+
+extension RuntimeEntity {
+    public var children: [RuntimeEntity] {
+        guard let deps = world.dependencies[self.runtimeID] else { return [] }
+        return deps.filter { $0.componentTypeID == ChildOfComponentID }
+                .map { RuntimeEntity(runtimeID: $0.sourceID, world: world) }
+    }
+}

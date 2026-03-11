@@ -30,43 +30,15 @@ public struct ConstraintViolation: Error, CustomDebugStringConvertible {
     }
 }
 
-/// An object representing a constraint rule for checking whether a design
-/// is valid within a given problem domain.
+
+/// Defines validation rules that objects in a design must satisfy.
 ///
-/// Constraints have a _match_ predicate and a _requirement_. The match
-/// predicate selects objects that will be checked together
-/// against the constraint requirement.
+/// Constraints are part of the design's **Constraint Validity** and are checked before
+/// a ``DesignFrame`` is accepted into a ``Design``.
 ///
-/// ## Examples
+/// A constraint have two parts: First is the ``match`` predicate which selects which objects to
+/// check. Second is the ``requirement`` predicate that validates the matched objects
 ///
-/// Constraint "Flow must drain (from) a stock, no other kind of node":
-///
-/// ```swift
-/// let constraint = Constraint(
-///     name: "flow_fill_is_stock",
-///     match: EdgePredicate(IsTypePredicate(ObjectType.Fills)),
-///     requirement: AllSatisfy(
-///         EdgePredicate(
-///             origin: IsTypePredicate(ObjectType.Flow),
-///             target: IsTypePredicate(ObjectType.Stock)
-///         )
-///     )
-/// )
-/// ```
-///
-/// Constraint "Graphical function must not have more than one incoming parameters":
-///
-/// ```swift
-/// let constraint = Constraint(
-///     name: "one_parameter_for_graphical_function",
-///     match: IsTypePredicate(ObjectType.GraphicalFunction),
-///     requirement: UniqueNeighbourRequirement(
-///         IsTypePredicate(ObjectType.Parameter),
-///         direction: .incoming,
-///         required: false
-///     )
-/// )
-/// ```
 public final class Constraint: Sendable {
     /// Identifier of the constraint.
     ///

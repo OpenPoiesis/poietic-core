@@ -22,7 +22,7 @@ extension ComponentStorageProtocol {
 
 extension ComponentStorageProtocol where ComponentType: Relationship {
     func relationship(for runtimeID: RuntimeID) -> (any Relationship)? {
-        return component(for: runtimeID) as? Relationship
+        return component(for: runtimeID)
     }
 }
 
