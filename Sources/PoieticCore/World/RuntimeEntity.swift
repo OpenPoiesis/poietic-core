@@ -194,6 +194,8 @@ public struct RuntimeEntity {
 let ChildOfComponentID = ObjectIdentifier(ChildOf.self)
 
 extension RuntimeEntity {
+    /// List of entity children – entities with ``ChildOf`` relationship component pointing
+    /// to this entity.
     public var children: [RuntimeEntity] {
         guard let deps = world.dependencies[self.runtimeID] else { return [] }
         return deps.filter { $0.componentTypeID == ChildOfComponentID }

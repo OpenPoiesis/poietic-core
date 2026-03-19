@@ -315,12 +315,12 @@ public class World {
     ///   - type: The component type to remove
     ///   - runtimeID: The object ID
     ///
-    public func _removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
+    internal func _removeComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) {
         let componentTypeID = ObjectIdentifier(T.self)
         _removeComponent(componentTypeID, for: runtimeID)
     }
     
-    public func _removeComponent(_ componentTypeID: ObjectIdentifier, for runtimeID: RuntimeID) {
+    internal func _removeComponent(_ componentTypeID: ObjectIdentifier, for runtimeID: RuntimeID) {
         guard let storage = storages[componentTypeID] else { return }
 
         if let relationship = storage.relationship(for: runtimeID)
