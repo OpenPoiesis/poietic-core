@@ -5,43 +5,6 @@
 //  Created by Stefan Urbanek on 02/03/2025.
 //
 
-/// Collection of design issues.
-///
-public struct DesignIssueCollection: Sendable {
-    /// Issues of the design as a whole.
-    public var designIssues: [DesignIssue]
-    /// Issues specific to particular object.
-    public var objectIssues: [ObjectID:[DesignIssue]]
-    
-    /// Create an empty design issue collection.
-    public init() {
-        self.designIssues = []
-        self.objectIssues = [:]
-    }
-    
-    public var isEmpty: Bool {
-        designIssues.isEmpty && objectIssues.isEmpty
-    }
-    
-    public subscript(id: ObjectID) -> [DesignIssue]? {
-        return objectIssues[id]
-    }
-    
-    /// Append a design-wide issue.
-    ///
-    public mutating func append(_ issue: DesignIssue) {
-        designIssues.append(issue)
-    }
-    
-    /// Append an issue for a specific object.
-    public mutating func append(_ issue: DesignIssue, for id: ObjectID) {
-        objectIssues[id, default: []].append(issue)
-    }
-    public mutating func append(_ issues: [DesignIssue], for id: ObjectID) {
-        objectIssues[id, default: []] += issues
-    }
-}
-
 /// Representation of an issue in the design caused by the user.
 ///
 public struct DesignIssue: Sendable, CustomStringConvertible {
@@ -159,7 +122,6 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
     public var description: String {
         return "\(severity)[\(domain),\(identifier)]: \(message)"
     }
-
 }
 
 /// Protocol for errors that can be converted to a design issue.
@@ -171,7 +133,6 @@ public protocol DesignIssueConvertible: Error {
 public protocol IssueProtocol: Error, Sendable, Equatable {
     var message: String { get }
     var hints: [String] { get }
-    
 }
 
 /// Representation of an issue in the design caused by the user.
@@ -261,6 +222,7 @@ public struct Issue: Sendable, CustomStringConvertible {
         self.relatedObjects = relatedObjects
         self.details = details
     }
+    
     public init(identifier: String,
                 severity: Severity = .error,
                 system: String,
@@ -281,5 +243,4 @@ public struct Issue: Sendable, CustomStringConvertible {
     public var description: String {
         return "\(severity)[\(system),\(identifier)]: \(message)"
     }
-
 }

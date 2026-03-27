@@ -5,11 +5,7 @@
 //  Created by Stefan Urbanek on 29/10/2025.
 //
 
-// Simulation related traits
-
-// TODO: Add SimulationObject trait
-// TODO: Add TimeSeries trait
-// TODO: Add NumericValue trait
+// TODO: Add SimulationSettings trait (from Trait.Simulation in Flows)
 
 extension Trait {
     /// Trait of simulation nodes that are computed using an arithmetic formula.
@@ -31,5 +27,22 @@ extension Trait {
                       abstract: "Arithmetic formula or a constant value represented by the node"
                      ),
         ]
+    )
+    
+    /// Trait for objects that can be represented by a numeric value.
+    ///
+    public static let NumericValue = Trait(
+        name: "NumericValue",
+        attributes: [
+            Attribute("display_value_min", type: .double, optional: true,
+                      abstract: "Typically expected minimum value"),
+            Attribute("display_value_max", type: .double, optional: true,
+                      abstract: "Typically expected maxim value"),
+            Attribute("display_value_baseline", type: .double, optional: true,
+                      abstract: "Typically expected middle value for differentiating positive and negative relative to the mid-value"),
+            Attribute("display_value_auto_scale", type: .bool, optional: true,
+                      abstract: "Scale the min/max display value bounds based on the data"),
+        ],
+        abstract: "Trait for objects that might have a visual numeric indicator"
     )
 }

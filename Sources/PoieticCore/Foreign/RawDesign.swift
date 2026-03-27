@@ -251,7 +251,7 @@ public class RawDesign: Codable {
     }
 
     public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: Self.CodingKeys)
+        var container = encoder.container(keyedBy: Self.CodingKeys.self)
         try container.encode(JSONDesignReader.CurrentFormatVersion.description, forKey: .formatVersion)
         try container.encodeIfPresent(metamodelName, forKey: .metamodelName)
         try container.encodeIfPresent(metamodelVersion?.description, forKey: .metamodelVersion)
@@ -276,7 +276,7 @@ public class RawDesign: Codable {
     }
     
     public required init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: Self.CodingKeys)
+        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
         let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
         
         if let versionString {
@@ -489,7 +489,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     }
 
     public required init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: Self.CodingKeys)
+        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
         
         self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
         self.objectID = try container.decodeIfPresent(ForeignEntityID.self, forKey: .objectID)
@@ -529,7 +529,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     }
     
     public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: Self.CodingKeys)
+        var container = encoder.container(keyedBy: Self.CodingKeys.self)
         try container.encodeIfPresent(typeName, forKey: .typeName)
         try container.encodeIfPresent(objectID, forKey: .objectID)
         try container.encodeIfPresent(snapshotID, forKey: .snapshotID)

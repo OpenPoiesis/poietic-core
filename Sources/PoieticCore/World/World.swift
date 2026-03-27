@@ -102,7 +102,7 @@ public class World {
     ///
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
-    public func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
+    internal func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
         // TODO: [REFACTORING] Rename to runtimeToObject
         entityToObjectMap[ephemeralID]
     }
@@ -110,7 +110,7 @@ public class World {
     ///
     /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
     ///
-    public func objectToEntity(_ objectID: ObjectID) -> RuntimeID? {
+    internal func objectToEntity(_ objectID: ObjectID) -> RuntimeID? {
         // TODO: [REFACTORING] Rename to objectToRuntime
         objectToEntityMap[objectID]
     }

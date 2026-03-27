@@ -12,7 +12,6 @@ state.
 
 ### Types
 
-- ``RuntimeContext``
 - ``RuntimeSystem``
 - ``Component``
 - ``ComponentSet``

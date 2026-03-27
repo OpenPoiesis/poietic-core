@@ -102,7 +102,6 @@ examples see ``Constraint``.
 - ``ConstraintChecker``
 - ``Constraint``
 - ``DesignIssue``
-- ``DesignIssueCollection``
 - ``DesignIssueConvertible``
 - ``ObjectTypeError``
 - ``RejectAll``
