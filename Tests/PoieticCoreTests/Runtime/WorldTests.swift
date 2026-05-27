@@ -17,7 +17,7 @@ struct TestSingletonComponent: Component, Equatable {
 }
 
 struct WeakRelationship: Relationship, Sendable {
-    var target: RuntimeID
+    var other: RuntimeID
     
     static let removalPolicy: RemovalPolicy = .removeRelationship
 }
@@ -382,7 +382,7 @@ struct WeakRelationship: Relationship, Sendable {
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
 
-        source.setComponent(WeakRelationship(target: target.runtimeID))
+        source.setComponent(WeakRelationship(other: target.runtimeID))
         #expect(source.contains(WeakRelationship.self))
         
         world.despawn(target)
@@ -399,8 +399,8 @@ struct WeakRelationship: Relationship, Sendable {
         let source: RuntimeEntity = world.spawn()
         let unrelated: RuntimeEntity = world.spawn()
 
-        source.setComponent(WeakRelationship(target: target.runtimeID))
-        unrelated.setComponent(WeakRelationship(target: source.runtimeID))
+        source.setComponent(WeakRelationship(other: target.runtimeID))
+        unrelated.setComponent(WeakRelationship(other: source.runtimeID))
         #expect(source.contains(WeakRelationship.self))
         #expect(unrelated.contains(WeakRelationship.self))
 

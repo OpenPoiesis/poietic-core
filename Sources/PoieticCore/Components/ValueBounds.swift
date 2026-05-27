@@ -123,6 +123,7 @@ public struct ValueBounds {
     /// - Parameter value: The value to check
     /// - Returns: The ``Status`` indicating where the value lies
     public func state(of value: Double) -> State {
+        // TODO: Rename to "check(value:)
         if value > max { .overflow }
         else if value < min { .underflow }
         else if value >= baseline { .positive }

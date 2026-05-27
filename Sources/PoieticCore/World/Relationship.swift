@@ -13,9 +13,6 @@ public enum RemovalPolicy: Sendable, Equatable {
     /// Remove just this relationship component from the source
     case removeRelationship
     
-    // Remove the target entity
-    // case removeTarget
-    
     /// Do nothing automatically (manual cleanup required)
     case none
 }
@@ -25,7 +22,8 @@ public enum RemovalPolicy: Sendable, Equatable {
 public protocol Relationship: Component {
     
     /// The target entity this relationship points to
-    var target: RuntimeID { get }
+    // TODO: Rename back to 'target'
+    var other: RuntimeID { get }
     
     /// Defines what happens when the target entity is removed
     static var removalPolicy: RemovalPolicy { get }
@@ -37,24 +35,35 @@ public protocol Relationship: Component {
 
 /// Indicates that an entity is a child of another entity
 public struct ChildOf: Relationship {
-    public let target: RuntimeID
+    public let other: RuntimeID
     
     /// When parent is removed, remove the child
     public static let removalPolicy: RemovalPolicy = .removeSelf
     
     public init(_ parent: RuntimeID) {
-        self.target = parent
+        self.other = parent
     }
 }
 
 /// Indicates ownership - when owner is removed, remove the owned entity
 public struct OwnedBy: Relationship {
-    public let target: RuntimeID
+    public let other: RuntimeID
     
     /// When owner is removed, remove the owned entity
     public static let removalPolicy: RemovalPolicy = .removeSelf
     
     public init(_ owner: RuntimeID) {
-        self.target = owner
+        self.other = owner
+    }
+}
+
+/// Indicates representation - when the original is removed, the representation entity is removed.
+public struct RepresentationOf: Relationship {
+    public let other: RuntimeID
+    
+    public static let removalPolicy: RemovalPolicy = .removeSelf
+    
+    public init(_ original: RuntimeID) {
+        self.other = original
     }
 }

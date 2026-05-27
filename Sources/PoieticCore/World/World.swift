@@ -60,7 +60,7 @@ public class World {
     private var storages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
 
     struct Dependant: Hashable {
-        /// Who is pointing at the target?
+        /// Who is pointing at the other?
         let sourceID: RuntimeID
         /// Component that is pointing to the source
         let componentTypeID: ObjectIdentifier
@@ -284,7 +284,7 @@ public class World {
             let dep = Dependant(sourceID: runtimeID,
                                 componentTypeID: ObjectIdentifier(type),
                                 removalPolicy: type.removalPolicy)
-            dependencies[rship.target, default: Set()].insert(dep)
+            dependencies[rship.other, default: Set()].insert(dep)
         }
     }
     
@@ -329,7 +329,7 @@ public class World {
             let item = Dependant(sourceID: runtimeID,
                                  componentTypeID: componentTypeID,
                                  removalPolicy: removalPolicy)
-            dependencies[relationship.target, default: Set()].remove(item)
+            dependencies[relationship.other, default: Set()].remove(item)
         }
 
         storage.removeComponent(for: runtimeID)
