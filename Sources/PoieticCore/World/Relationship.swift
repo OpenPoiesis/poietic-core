@@ -6,64 +6,59 @@
 //
 
 /// Defines cleanup behaviour when the target of a relationship is removed
-public enum RemovalPolicy: Sendable, Equatable {
-    /// Remove the entity holding this relationship component
-    case removeSelf
+public enum RelationshipRemovalPolicy: Sendable, Equatable {
+    /// Remove the relationship from the source entity
+    case remove
     
-    /// Remove just this relationship component from the source
-    case removeRelationship
+    /// Despawn the entity that is the origin of the relationship.
+    ///
+    /// Used for ``ChildOf`` relationships to despawn children together with the parent.
+    ///
+    case despawn
     
-    /// Do nothing automatically (manual cleanup required)
-    case none
+    /// Cause fatal error and crash the application
+    case fatalError
 }
 
 
+public enum Cardinality: Sendable, Equatable {
+    case one
+    case many
+}
+
 /// A component that represents a relationship between two entities
 public protocol Relationship: Component {
-    
-    /// The target entity this relationship points to
-    // TODO: Rename back to 'target'
-    var other: RuntimeID { get }
-    
     /// Defines what happens when the target entity is removed
-    static var removalPolicy: RemovalPolicy { get }
-    
+    static var targetRemovalPolicy: RelationshipRemovalPolicy { get }
+    static var outgoingCardinality: Cardinality { get }
+//    static var incomingCardinality: Cardinality { get }
+    // TODO: Cardinality
     // TODO: insert/removal hooks
+}
+
+extension Relationship {
+    public static var outgoingCardinality: Cardinality { .one }
+//    public static var incomingCardinality: Cardinality { .many }
 }
 
 // MARK: - Relationship Components
 
 /// Indicates that an entity is a child of another entity
 public struct ChildOf: Relationship {
-    public let other: RuntimeID
-    
     /// When parent is removed, remove the child
-    public static let removalPolicy: RemovalPolicy = .removeSelf
-    
-    public init(_ parent: RuntimeID) {
-        self.other = parent
-    }
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
+    public static var outgoingCardinality: Cardinality { .one }
 }
 
 /// Indicates ownership - when owner is removed, remove the owned entity
 public struct OwnedBy: Relationship {
-    public let other: RuntimeID
-    
     /// When owner is removed, remove the owned entity
-    public static let removalPolicy: RemovalPolicy = .removeSelf
-    
-    public init(_ owner: RuntimeID) {
-        self.other = owner
-    }
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
+    public static var outgoingCardinality: Cardinality { .one }
 }
 
 /// Indicates representation - when the original is removed, the representation entity is removed.
 public struct RepresentationOf: Relationship {
-    public let other: RuntimeID
-    
-    public static let removalPolicy: RemovalPolicy = .removeSelf
-    
-    public init(_ original: RuntimeID) {
-        self.other = original
-    }
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
+    public static var outgoingCardinality: Cardinality { .one }
 }
