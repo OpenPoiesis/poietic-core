@@ -18,6 +18,8 @@ protocol RelationshipStorageProtocol {
     func removeAll()
     func relationship(from origin: RuntimeID, to target: RuntimeID) -> ComponentType?
     func removeRelationships(with runtimeID: RuntimeID)
+    
+    func firstOutgoing(from origin: RuntimeID) -> RuntimeID?
 }
 
 /// Storage for relationship components.
@@ -117,6 +119,11 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
         }
         return result
     }
+    
+    func firstOutgoing(from origin: RuntimeID) -> RuntimeID? {
+        return outgoingIndex[origin]?.first
+    }
+
 }
 
 extension World {
@@ -147,7 +154,14 @@ extension World {
                             removalPolicy: T.targetRemovalPolicy)
         relationshipOrigins[targetID, default: Set()].insert(dep)
     }
-    
+    internal func _getFirstTarget<T: Relationship>(_ componentType: T.Type,
+                                                    from originID: RuntimeID) -> RuntimeID?
+    {
+        precondition(entities.contains(originID))
+
+        let storage = relationshipStorage(for: T.self)
+        return storage.firstOutgoing(from: originID)
+    }
     internal func _removeRelationship<T: Relationship>(_ type: T.Type,
                                                        from origin: RuntimeID,
                                                        to target: RuntimeID)
@@ -223,10 +237,25 @@ extension World {
 
 extension RuntimeEntity {
     
-    public func setRelationship<T: Relationship>(_ component: T, to targetID: RuntimeID) {
+    // TODO: Rename to relate(as:to:)
+    public func relate<T: Relationship>(_ component: T, to targetID: RuntimeID) {
         world._setRelationship(component, from: self.runtimeID, to: targetID)
     }
-   
+    public func relate<T: Relationship>(_ component: T, to target: RuntimeEntity) {
+        world._setRelationship(component, from: self.runtimeID, to: target.runtimeID)
+    }
+
+    public func target<T: Relationship>(_ componentType: T.Type) -> RuntimeID? {
+        world._getFirstTarget(T.self, from: self.runtimeID)
+    }
+    public func target<T: Relationship>(_ componentType: T.Type) -> RuntimeEntity? {
+        if let target = world._getFirstTarget(T.self, from: self.runtimeID) {
+            return RuntimeEntity(runtimeID: target, world: self.world)
+        }
+        else {
+            return nil
+        }
+    }
     public func containsRelationship<T: Relationship>(_ type: T.Type) -> Bool {
         world._containsRelationship(type, from: self.runtimeID)
     }
@@ -249,19 +278,12 @@ extension RuntimeEntity {
     /// This is a convenience property that uses outgoing relationships of the entity.
     ///
     public var parent: RuntimeEntity? {
-        return world.outgoing(ChildOf.self, from: self.runtimeID).first.map { $0.0 }
+        guard let target = world._getFirstTarget(ChildOf.self, from: self.runtimeID)
+        else { return nil }
+        
+        return RuntimeEntity(runtimeID: target, world: self.world)
     }
-    
-    /// Get first target of given relationship type
-    public func firstTarget<T: Relationship>(_ type: T.Type) -> RuntimeEntity? {
-        if let outgoing = world.outgoing(T.self, from: self.runtimeID).first {
-            return outgoing.0
-        }
-        else {
-            return nil
-        }
-    }
-    
+        
     /// Get origin entities of given relationships where the target is this entity.
     ///
     /// Example:
@@ -279,5 +301,10 @@ extension RuntimeEntity {
     /// Get origin entities of given relationships where the target is this entity.
     public func outgoing<T: Relationship>(_ type: T.Type) -> [RuntimeEntity] {
         return world.outgoing(T.self, from: self.runtimeID).map { $0.0 }
+    }
+    
+    public func firstOutgoing<T: Relationship>(_ type: T.Type) -> RuntimeEntity? {
+        let outgoings = world.outgoing(T.self, from: self.runtimeID)
+        return outgoings.first.map { $0.0 }
     }
 }

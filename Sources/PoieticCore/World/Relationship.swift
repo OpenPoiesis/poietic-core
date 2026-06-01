@@ -48,6 +48,7 @@ public struct ChildOf: Relationship {
     /// When parent is removed, remove the child
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }
+    public init() { /* Empty */ }
 }
 
 /// Indicates ownership - when owner is removed, remove the owned entity
@@ -55,10 +56,12 @@ public struct OwnedBy: Relationship {
     /// When owner is removed, remove the owned entity
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }
+    public init() { /* Empty */ }
 }
 
 /// Indicates representation - when the original is removed, the representation entity is removed.
 public struct RepresentationOf: Relationship {
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
     public static var outgoingCardinality: Cardinality { .one }
+    public init() { /* Empty */ }
 }

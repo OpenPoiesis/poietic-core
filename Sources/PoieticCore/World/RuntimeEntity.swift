@@ -68,6 +68,11 @@ public struct RuntimeEntity {
         self.world = world
     }
     
+    /// Remove the entity from the world.
+    public func despawn() {
+        self.world.despawn(self.runtimeID)
+    }
+    
     /// Check if an object has a specific component type
     ///
     /// - Parameters:

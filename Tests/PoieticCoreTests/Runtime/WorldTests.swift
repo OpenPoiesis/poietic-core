@@ -334,7 +334,7 @@ struct ManyRelationship: Relationship, Sendable {
         let child: RuntimeEntity = world.spawn()
         let unrelated: RuntimeEntity = world.spawn()
         
-        child.setRelationship(ChildOf(), to: parent.runtimeID)
+        child.relate(ChildOf(), to: parent.runtimeID)
         
         world.despawn(parent)
         
@@ -349,8 +349,8 @@ struct ManyRelationship: Relationship, Sendable {
         let left: RuntimeEntity = world.spawn()
         let right: RuntimeEntity = world.spawn()
         
-        left.setRelationship(ChildOf(), to: right.runtimeID)
-        right.setRelationship(ChildOf(), to: left.runtimeID)
+        left.relate(ChildOf(), to: right.runtimeID)
+        right.relate(ChildOf(), to: left.runtimeID)
         
         world.despawn(left)
         
@@ -365,8 +365,8 @@ struct ManyRelationship: Relationship, Sendable {
         let parent: RuntimeEntity = world.spawn()
         let child: RuntimeEntity = world.spawn()
         
-        parent.setRelationship(ChildOf(), to: grandparent.runtimeID)
-        child.setRelationship(ChildOf(), to: parent.runtimeID)
+        parent.relate(ChildOf(), to: grandparent.runtimeID)
+        child.relate(ChildOf(), to: parent.runtimeID)
         
         #expect(world.contains(grandparent))
         #expect(world.contains(parent))
@@ -385,7 +385,7 @@ struct ManyRelationship: Relationship, Sendable {
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
         
-        source.setRelationship(WeakRelationship(), to: target.runtimeID)
+        source.relate(WeakRelationship(), to: target.runtimeID)
         #expect(source.containsRelationship(WeakRelationship.self))
         
         world.despawn(target)
@@ -402,8 +402,8 @@ struct ManyRelationship: Relationship, Sendable {
         let source: RuntimeEntity = world.spawn()
         let unrelated: RuntimeEntity = world.spawn()
         
-        source.setRelationship(WeakRelationship(), to: target.runtimeID)
-        unrelated.setRelationship(WeakRelationship(), to: source.runtimeID)
+        source.relate(WeakRelationship(), to: target.runtimeID)
+        unrelated.relate(WeakRelationship(), to: source.runtimeID)
         #expect(source.containsRelationship(WeakRelationship.self))
         #expect(unrelated.containsRelationship(WeakRelationship.self))
         
@@ -421,11 +421,11 @@ struct ManyRelationship: Relationship, Sendable {
         let parent: RuntimeEntity = world.spawn()
         let other: RuntimeEntity = world.spawn()
 
-        child.setRelationship(ChildOf(), to: parent.runtimeID)
+        child.relate(ChildOf(), to: parent.runtimeID)
         #expect(child.containsRelationship(ChildOf.self, to: parent.runtimeID))
         #expect(!child.containsRelationship(ChildOf.self, to: other.runtimeID))
 
-        child.setRelationship(ChildOf(), to: other.runtimeID)
+        child.relate(ChildOf(), to: other.runtimeID)
         #expect(!child.containsRelationship(ChildOf.self, to: parent.runtimeID))
         #expect(child.containsRelationship(ChildOf.self, to: other.runtimeID))
     }
@@ -436,11 +436,11 @@ struct ManyRelationship: Relationship, Sendable {
         let other1: RuntimeEntity = world.spawn()
         let other2: RuntimeEntity = world.spawn()
 
-        origin.setRelationship(ManyRelationship(), to: other1.runtimeID)
+        origin.relate(ManyRelationship(), to: other1.runtimeID)
         #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
         #expect(!origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
 
-        origin.setRelationship(ManyRelationship(), to: other2.runtimeID)
+        origin.relate(ManyRelationship(), to: other2.runtimeID)
         #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
         #expect(origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
     }

@@ -237,6 +237,7 @@ public class World {
     }
 
     public func despawn(_ ids: some Sequence<RuntimeID>) {
+        // TODO: Check for existence
         var trash: Set<RuntimeID> = Set(ids)
         guard !trash.isEmpty else { return }
         
