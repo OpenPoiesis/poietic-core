@@ -299,7 +299,7 @@ public class World {
         return storage.component(for: runtimeID)
     }
 
-    private func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
+    internal func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
         let id = ObjectIdentifier(T.self)
         
         if let existing = componentStorages[id] as? ComponentStorage<T> {
@@ -309,6 +309,16 @@ public class World {
         let newStorage = ComponentStorage<T>()
         componentStorages[id] = newStorage
         return newStorage
+    }
+    
+    internal func _debugComponents(for runtimeID: RuntimeID) -> ComponentSet {
+        var components = ComponentSet()
+        for storage in componentStorages.values {
+            guard let component: any Component = storage.component(for: runtimeID)
+            else { continue }
+            components.set(component)
+        }
+        return components
     }
 
     /// Remove a component from an object
