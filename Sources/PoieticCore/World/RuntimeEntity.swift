@@ -48,7 +48,7 @@ public struct RuntimeID:
 ///
 /// Entities are identified by ``RuntimeID``.
 ///
-public struct RuntimeEntity {
+public struct RuntimeEntity: CustomDebugStringConvertible {
     public let runtimeID: RuntimeID
     public unowned let world: World
     
@@ -188,6 +188,11 @@ public struct RuntimeEntity {
                 removeComponent(type)
             }
         }
+    }
+    
+    public var debugDescription: String {
+        let compList = self.debugComponentNames().joined(separator: ",")
+        return "E\(self.runtimeID)[\(compList)][ch:\(self.children.count)]"
     }
 
 }

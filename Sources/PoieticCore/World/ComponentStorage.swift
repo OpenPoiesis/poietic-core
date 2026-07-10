@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 28/02/2026.
 //
 
-protocol ComponentStorageProtocol {
+public protocol ComponentStorageProtocol: Collection where Element == (RuntimeID, ComponentType) {
     associatedtype ComponentType: Component
     func removeComponent(for entity: RuntimeID)
     func hasComponent(for entity: RuntimeID) -> Bool
@@ -27,6 +27,7 @@ extension ComponentStorageProtocol where ComponentType: Relationship {
 }
 
 final class ComponentStorage<C: Component>: ComponentStorageProtocol {
+    
     typealias ComponentType = C
     private var components: [RuntimeID: ComponentType] = [:]
     
@@ -55,4 +56,25 @@ final class ComponentStorage<C: Component>: ComponentStorageProtocol {
 //    var allEntities: Dictionary<RuntimeID, ComponentType>.Keys {
 //        return components.keys
 //    }
+}
+
+extension ComponentStorage: Collection {
+    typealias Element = (RuntimeID, ComponentType)
+    typealias Index = [RuntimeID: ComponentType].Index
+
+    var startIndex: Index {
+        components.startIndex
+    }
+    
+    var endIndex: Index {
+        components.endIndex
+    }
+    
+    subscript(position: Index) -> Element {
+        return components[position]
+    }
+    
+    func index(after i: Index) -> Index {
+        components.index(after: i)
+    }
 }

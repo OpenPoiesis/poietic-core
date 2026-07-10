@@ -30,9 +30,20 @@ public enum Cardinality: Sendable, Equatable {
 public protocol Relationship: Component {
     /// Defines what happens when the target entity is removed
     static var targetRemovalPolicy: RelationshipRemovalPolicy { get }
+
+    /// Cardinality of relationship targets.
+    ///
+    /// ``Cardinality/one`` – entity that owns relationship can have at most one relationship
+    /// of given type. For example, there can be only one relationship of type ``ChildOf`` per
+    /// relationship owning entity.
+    ///
+    /// ``Cardinality/many`` – entity that owns relationship can have any number of relationships
+    /// of given type.
     static var outgoingCardinality: Cardinality { get }
-//    static var incomingCardinality: Cardinality { get }
-    // TODO: Cardinality
+
+    // No use for incoming cardinality yet.
+    //    static var incomingCardinality: Cardinality { get }
+
     // TODO: insert/removal hooks
 }
 
@@ -61,7 +72,7 @@ public struct OwnedBy: Relationship {
 
 /// Indicates representation - when the original is removed, the representation entity is removed.
 public struct RepresentationOf: Relationship {
-    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }
     public init() { /* Empty */ }
 }
