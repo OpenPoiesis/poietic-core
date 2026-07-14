@@ -306,7 +306,15 @@ extension RuntimeEntity {
         return world.outgoing(T.self, from: self.runtimeID).map { $0.0 }
     }
     
+    /// Get first outgoing relationship of given type.
+    ///
+    /// - Precondition: The relationship type cardinality ``Relationship/outgoingCardinality`` must
+    /// be to-one (``Cardinality/one``). It is considered a programming error to call this
+    /// function on to-many relationship.
+    ///
     public func firstOutgoing<T: Relationship>(_ type: T.Type) -> RuntimeEntity? {
+        precondition(type.outgoingCardinality == .one)
+        
         let outgoings = world.outgoing(T.self, from: self.runtimeID)
         return outgoings.first.map { $0.0 }
     }
