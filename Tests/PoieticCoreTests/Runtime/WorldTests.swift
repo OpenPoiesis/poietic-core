@@ -445,4 +445,55 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
     }
 
+    // MARK: - Unrelate
+
+    @Test func unrelateAllOfType() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let origin: RuntimeEntity = world.spawn()
+        let target1: RuntimeEntity = world.spawn()
+        let target2: RuntimeEntity = world.spawn()
+
+        origin.relate(ManyRelationship(), to: target1.runtimeID)
+        origin.relate(ManyRelationship(), to: target2.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+
+        origin.unrelate(ManyRelationship.self)
+
+        #expect(!origin.containsRelationship(ManyRelationship.self))
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+    }
+
+    @Test func unrelateSpecificTarget() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let origin: RuntimeEntity = world.spawn()
+        let target1: RuntimeEntity = world.spawn()
+        let target2: RuntimeEntity = world.spawn()
+
+        origin.relate(ManyRelationship(), to: target1.runtimeID)
+        origin.relate(ManyRelationship(), to: target2.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+
+        origin.unrelate(ManyRelationship.self, to: target1)
+
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+    }
+
+    @Test func unrelateSpecificWhenNoneExist() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let entity: RuntimeEntity = world.spawn()
+        let other: RuntimeEntity = world.spawn()
+
+        // Should not crash
+        entity.unrelate(ChildOf.self)
+        entity.unrelate(ChildOf.self, to: other)
+
+        #expect(!entity.containsRelationship(ChildOf.self))
+    }
 }

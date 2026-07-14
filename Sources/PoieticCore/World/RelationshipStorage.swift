@@ -43,6 +43,9 @@ protocol RelationshipStorageProtocol {
     /// Called when an entity is despawned to clean up all relationship edges involving it.
     func removeRelationships(with runtimeID: RuntimeID)
 
+    /// Remove all outgoing relationships of this type from `origin`.
+    func removeOutgoing(from origin: RuntimeID)
+
     /// Get the first outgoing target from `origin`.
     ///
     /// - Precondition: The relationship type must have to-one cardinality
@@ -113,6 +116,12 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
         }
         for origin in incomingIndex[runtimeID] ?? [] {
             removeRelationship(from: origin, to: runtimeID)
+        }
+    }
+
+    func removeOutgoing(from origin: RuntimeID) {
+        for target in outgoingIndex[origin] ?? [] {
+            removeRelationship(from: origin, to: target)
         }
     }
 
@@ -227,6 +236,12 @@ extension World {
 
         storage.removeRelationship(from: origin, to: target)
     }
+    
+    internal func _removeAllRelationships<T: Relationship>(_ type: T.Type,
+                                                            from origin: RuntimeID) {
+        guard let storage = relationshipStorages[ObjectIdentifier(T.self)] else { return }
+        storage.removeOutgoing(from: origin)
+    }
 
     /// Remove all relationships where the ``runtimeID`` is either origin or a target.
     func _removeAllRelationships(with runtimeID: RuntimeID) {
@@ -284,13 +299,16 @@ extension RuntimeEntity {
         world._setRelationship(component, from: self.runtimeID, to: target.runtimeID)
     }
 
-//    public func unrelate<T: Relationship>(_ type: T.Type, from: RuntimeEntity) {
-//        world._removeRelationship(type, from: self.runtimeID, to: target.runtimeID)
-//    }
-//
-//    public func unrelate<T: Relationship>(_ type: T.Type) {
-//        world._removeRelationship(type, from: self.runtimeID)
-//    }
+    /// Remove all outgoing relationships of the given type from this entity.
+    public func unrelate<T: Relationship>(_ type: T.Type) {
+        world._removeAllRelationships(T.self, from: runtimeID)
+    }
+
+    /// Remove a specific relationship to a target entity.
+    public func unrelate<T: Relationship>(_ type: T.Type, to target: RuntimeEntity) {
+        world._removeRelationship(T.self, from: runtimeID, to: target.runtimeID)
+    }
+
     public func target<T: Relationship>(_ componentType: T.Type) -> RuntimeID? {
         world._getFirstTarget(T.self, from: self.runtimeID)
     }
