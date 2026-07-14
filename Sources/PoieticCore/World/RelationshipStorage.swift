@@ -7,19 +7,66 @@
 
 typealias ComponentID = ObjectIdentifier
 
+/// Protocol for storage of relationships of a specific ``Relationship`` subtype.
+///
+/// Each storage instance manages all relationships of a single relationship type (e.g. all
+/// ``ChildOf`` relationships in the world). The storage maintains bidirectional indices so that
+/// both outgoing queries ("what does entity A point to?") and incoming queries ("who points to
+/// entity B?") are O(1).
+///
 protocol RelationshipStorageProtocol {
-    associatedtype ComponentType: Relationship
-    func setRelationship(from origin: RuntimeID, to target: RuntimeID, component: ComponentType)
+    associatedtype RelationshipType: Relationship
+
+    /// Create or replace a relationship from `origin` to `target`.
+    ///
+    /// If the relationship type has ``Relationship/outgoingCardinality`` of ``Cardinality/one``,
+    /// any existing outgoing relationship of this type from `origin` is removed first.
+    func setRelationship(from origin: RuntimeID, to target: RuntimeID, component: RelationshipType)
+
+    /// Remove a specific relationship between two entities.
     func removeRelationship(from origin: RuntimeID, to target: RuntimeID)
-    /// Has at least one relationship originating from an entity.
+
+    /// Returns `true` if the entity has at least one outgoing relationship of this type.
     func hasRelationship(from origin: RuntimeID) -> Bool
-    /// Has a relationship originating from an entity and ending in target entity.
+
+    /// Returns `true` if a relationship of this type exists from `origin` to `target`.
     func hasRelationship(from origin: RuntimeID, to target: RuntimeID) -> Bool
+
+    /// Remove all relationships of this type from the storage.
     func removeAll()
-    func relationship(from origin: RuntimeID, to target: RuntimeID) -> ComponentType?
+
+    /// Get the relationship component for a specific origin-target pair, if it exists.
+    func relationship(from origin: RuntimeID, to target: RuntimeID) -> RelationshipType?
+
+    /// Remove all relationships of this type where `runtimeID` is either the origin or the target.
+    ///
+    /// Called when an entity is despawned to clean up all relationship edges involving it.
     func removeRelationships(with runtimeID: RuntimeID)
-    
+
+    /// Get the first outgoing target from `origin`.
+    ///
+    /// - Precondition: The relationship type must have to-one cardinality
+    ///   (``Relationship/outgoingCardinality`` is ``Cardinality/one``). Calling this on a
+    ///   to-many relationship is a programming error — the result is non-deterministic.
     func firstOutgoing(from origin: RuntimeID) -> RuntimeID?
+
+    /// The cleanup behaviour for this relationship type when the target entity is removed.
+    ///
+    /// Derived from ``RelationshipType/targetRemovalPolicy``.
+    var targetRemovalPolicy: RelationshipRemovalPolicy { get }
+
+    /// Get IDs of entities that have an incoming relationship of this type to `target`.
+    ///
+    /// These entities depend on `target`'s existence: when `target` is despawned, each
+    /// dependant is handled according to ``targetRemovalPolicy`` (despawned, cleaned up,
+    /// or triggers a fatal error).
+    ///
+    /// - Returns: Origin IDs of all incoming relationships to `target` of this type.
+    func dependants(of target: RuntimeID) -> [RuntimeID]
+}
+
+extension RelationshipStorageProtocol {
+    var targetRemovalPolicy: RelationshipRemovalPolicy { RelationshipType.targetRemovalPolicy }
 }
 
 /// Storage for relationship components.
@@ -27,21 +74,21 @@ protocol RelationshipStorageProtocol {
 /// Relationships are owned by the origin entity. When origin entity is despawned, all its
 /// relationships are removed.
 final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
-    typealias ComponentType = C
+    typealias RelationshipType = C
 
     struct RelationshipKey: Hashable {
         let origin: RuntimeID
         let target: RuntimeID
     }
     
-    private var components: [RelationshipKey: ComponentType] = [:]
+    private var components: [RelationshipKey: RelationshipType] = [:]
     private var outgoingIndex: [RuntimeID: Set<RuntimeID>] = [:]
     private var incomingIndex: [RuntimeID: Set<RuntimeID>] = [:]
     
-    func setRelationship(from origin: RuntimeID, to target: RuntimeID, component: ComponentType) {
+    func setRelationship(from origin: RuntimeID, to target: RuntimeID, component: RelationshipType) {
         let key = RelationshipKey(origin: origin, target: target)
 
-        if ComponentType.outgoingCardinality == .one {
+        if RelationshipType.outgoingCardinality == .one {
             for target in outgoingIndex[origin] ?? [] {
                 removeRelationship(from: origin, to: target)
             }
@@ -93,13 +140,13 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
         incomingIndex.removeAll()
     }
 
-    func relationship(from origin: RuntimeID, to target: RuntimeID) -> ComponentType? {
+    func relationship(from origin: RuntimeID, to target: RuntimeID) -> RelationshipType? {
         let key = RelationshipKey(origin: origin, target: target)
         return components[key]
     }
     
-    func incoming(to target: RuntimeID) -> [(RuntimeID, ComponentType)] {
-        var result: [(RuntimeID, ComponentType)] = []
+    func incoming(to target: RuntimeID) -> [(RuntimeID, RelationshipType)] {
+        var result: [(RuntimeID, RelationshipType)] = []
         for origin in incomingIndex[target, default: []] {
             let key = RelationshipKey(origin: origin, target: target)
             if let component = components[key] {
@@ -109,8 +156,8 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
         return result
     }
 
-    func outgoing(from origin: RuntimeID) -> [(RuntimeID, ComponentType)] {
-        var result: [(RuntimeID, ComponentType)] = []
+    func outgoing(from origin: RuntimeID) -> [(RuntimeID, RelationshipType)] {
+        var result: [(RuntimeID, RelationshipType)] = []
         for target in outgoingIndex[origin, default: []] {
             let key = RelationshipKey(origin: origin, target: target)
             if let component = components[key] {
@@ -125,6 +172,10 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
 
     func firstOutgoing(from origin: RuntimeID) -> RuntimeID? {
         return outgoingIndex[origin]?.first
+    }
+
+    func dependants(of target: RuntimeID) -> [RuntimeID] {
+        return Array(incomingIndex[target, default: []])
     }
 
 }
@@ -151,11 +202,6 @@ extension World {
 
         let storage = relationshipStorage(for: T.self)
         storage.setRelationship(from: originID, to: targetID, component: component)
-
-        let dep = RelationshipOrigin(originID: originID,
-                            typeID: ObjectIdentifier(T.self),
-                            removalPolicy: T.targetRemovalPolicy)
-        relationshipOrigins[targetID, default: Set()].insert(dep)
     }
     internal func _getFirstTarget<T: Relationship>(_ componentType: T.Type,
                                                     from originID: RuntimeID) -> RuntimeID?
@@ -179,15 +225,6 @@ extension World {
     {
         guard let storage = relationshipStorages[typeID] else { return }
 
-        if let relationship = storage.relationship(from: origin, to: target)
-        {
-            let removalPolicy = type(of: relationship).targetRemovalPolicy
-            let item = RelationshipOrigin(originID: origin,
-                                 typeID: typeID,
-                                 removalPolicy: removalPolicy)
-            relationshipOrigins[target, default: Set()].remove(item)
-        }
-
         storage.removeRelationship(from: origin, to: target)
     }
 
@@ -196,7 +233,6 @@ extension World {
         for storage in relationshipStorages.values {
             storage.removeRelationships(with: runtimeID)
         }
-        // FIXME: Remove dependencies
     }
 
     public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
@@ -248,6 +284,13 @@ extension RuntimeEntity {
         world._setRelationship(component, from: self.runtimeID, to: target.runtimeID)
     }
 
+//    public func unrelate<T: Relationship>(_ type: T.Type, from: RuntimeEntity) {
+//        world._removeRelationship(type, from: self.runtimeID, to: target.runtimeID)
+//    }
+//
+//    public func unrelate<T: Relationship>(_ type: T.Type) {
+//        world._removeRelationship(type, from: self.runtimeID)
+//    }
     public func target<T: Relationship>(_ componentType: T.Type) -> RuntimeID? {
         world._getFirstTarget(T.self, from: self.runtimeID)
     }
@@ -301,7 +344,7 @@ extension RuntimeEntity {
         return world.incoming(T.self, to: self.runtimeID).map { $0.0 }
     }
 
-    /// Get origin entities of given relationships where the target is this entity.
+    /// Get target entities of given relationships where the origin is this entity.
     public func outgoing<T: Relationship>(_ type: T.Type) -> [RuntimeEntity] {
         return world.outgoing(T.self, from: self.runtimeID).map { $0.0 }
     }

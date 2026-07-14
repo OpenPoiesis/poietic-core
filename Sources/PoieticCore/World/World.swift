@@ -5,13 +5,18 @@
 //  Created by Stefan Urbanek on 09/12/2025.
 //
 
-/// A container for storing and working with run-time entities and components.
+/// A container for storing and working with run-time entities, components and relationships.
 ///
 /// Functionality:
 ///
-/// - storage and management of components
-/// - management of systems schedules
-/// - design issue management
+/// - Storage of entities: ``spawn(_:)-([anyComponent])``, ``despawn(_:)-(RuntimeEntity)``.
+/// - Storage and management of components, used through ``RuntimeEntity/setComponent(_:)``,
+///   ``RuntimeEntity/component()``
+/// - Storage and management of entity relationships, used through ``RuntimeEntity/relate(_:to:)-(_,RuntimeID)``.
+/// - Management of systems schedules
+/// - Design issue management
+///
+/// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
 public class World {
     public let design: Design
@@ -48,7 +53,8 @@ public class World {
     
     internal var objectToEntityMap: [ObjectID:RuntimeID]
     internal var entityToObjectMap: [RuntimeID:ObjectID]
-    /// Entity ID representing current frame.
+
+    /// List of entities contained in this world.
     ///
     internal var entities: [RuntimeID]
 
@@ -60,31 +66,11 @@ public class World {
     private var componentStorages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
     internal var relationshipStorages: [ObjectIdentifier: any RelationshipStorageProtocol] = [:]
 
-    struct RelationshipOrigin: Hashable {
-        /// Entity owning the relationship component.
-        let originID: RuntimeID
-        /// Relationship component type.
-        let typeID: ObjectIdentifier
-        let removalPolicy: RelationshipRemovalPolicy
-    }
-    
-    /// Dependencies between entities based on relationships.
-    ///
-    /// Keys are entities that other entities point to through relationships. Values are sets of
-    /// relationship origins with removal policy information.
-    /// When an entity is de-spawned from the world, the origin is treated as specified
-    /// in the ``RemovalPolicy``.
-    ///
-    /// - SeeAlso: ``Relationship``, ``ChildOf``, ``OwnedBy``
-    ///
-    var relationshipOrigins: [RuntimeID:Set<RelationshipOrigin>]
-
     public init(design: Design) {
         self.design = design
         self.entitySequence = 1
         self.schedules = [:]
         self.scheduleLabels = [:]
-        self.relationshipOrigins = [:]
         self.issues = [:]
         self.entities = []
         
@@ -221,8 +207,9 @@ public class World {
     
     /// Removes the entity from the world and all entities that depend on it.
     ///
-    /// Only ephemeral entities can be de-spawned. Persistent design objects can not be de-spawned
-    /// from the world.
+    /// The dependants are entities with relationships towards the removed entities where the
+    /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
+    /// ``RelationshipRemovalPolicy/despawn``.
     ///
     public func despawn(_ id: RuntimeID) {
         self.despawn([id])
@@ -236,6 +223,12 @@ public class World {
         self.despawn([entity.runtimeID])
     }
 
+    /// Despawn in a cascading manner a list of entities from the world, including their dependants.
+    ///
+    /// The dependants are entities with relationships towards the removed entities where the
+    /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
+    /// ``RelationshipRemovalPolicy/despawn``.
+    ///
     public func despawn(_ ids: some Sequence<RuntimeID>) {
         // TODO: Check for existence
         var trash: Set<RuntimeID> = Set(ids)
@@ -251,20 +244,20 @@ public class World {
                 _removeAllRelationships(with: id)
             }
             
-            guard let dependants = self.relationshipOrigins[id] else { continue }
-            
-            for dependant in dependants {
-                guard !removed.contains(dependant.originID) && !trash.contains(dependant.originID)
-                else { continue }
-                
-                switch dependant.removalPolicy {
-                case .despawn:
-                    trash.insert(dependant.originID)
-                case .remove:
-                    // No need to do anything, will be removed in defer block.
-                    break
-                case .fatalError:
-                    fatalError("Dangling relationship")
+            for storage in relationshipStorages.values {
+                let policy = storage.targetRemovalPolicy
+                for originID in storage.dependants(of: id) {
+                    guard !removed.contains(originID) && !trash.contains(originID)
+                    else { continue }
+                    switch policy {
+                    case .despawn:
+                        trash.insert(originID)
+                    case .remove:
+                        // No need to do anything, will be removed in defer block.
+                        break
+                    case .fatalError:
+                        fatalError("Dangling relationship")
+                    }
                 }
             }
         }

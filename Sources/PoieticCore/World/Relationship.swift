@@ -21,24 +21,58 @@ public enum RelationshipRemovalPolicy: Sendable, Equatable {
 }
 
 
+/// Specifies how many relationships of a given type an entity can have.
+///
+/// Used by ``Relationship/outgoingCardinality`` to constrain the number of outgoing
+/// relationships from a single origin entity.
 public enum Cardinality: Sendable, Equatable {
+    /// The entity can have at most one outgoing relationship of this type.
+    /// Setting a new relationship replaces any existing one.
     case one
+    /// The entity can have any number of outgoing relationships of this type.
     case many
 }
 
-/// A component that represents a relationship between two entities
+/// A component that represents a directed relationship between two entities.
+///
+/// Relationships connect an *origin* entity to a *target* entity. Unlike regular components
+/// which are attached to a single entity, relationships are edges stored in a separate
+/// storage (``RelationshipStorageProtocol`` per type), indexed bidirectionally for efficient
+/// traversal in both directions.
+///
+/// Each relationship type declares:
+/// - ``targetRemovalPolicy`` — what happens to the origin when the target is despawned
+/// - ``outgoingCardinality`` — how many targets a single origin can point to
+///
+/// Relationships are created via ``RuntimeEntity/relate(_:to:)`` and can be navigated through
+/// ``RuntimeEntity/incoming(_:)``, ``RuntimeEntity/outgoing(_:)``,
+/// ``RuntimeEntity/firstOutgoing(_:)``, ``RuntimeEntity/parent``, and
+/// ``RuntimeEntity/children``.
+///
+/// ## Built-in relationship types
+///
+/// - ``ChildOf`` – parent-child hierarchy, despawned with target
+/// - ``OwnedBy`` – non-hierarchical ownership dependency, despawned with target
+/// - ``RepresentationOf`` – Visual/semantic representation, despawned with target
+///
 public protocol Relationship: Component {
-    /// Defines what happens when the target entity is removed
+    /// Defines what happens to the origin entity when the target entity is despawned.
+    ///
+    /// - ``RelationshipRemovalPolicy/despawn``: The origin is despawned together with the target.
+    /// - ``RelationshipRemovalPolicy/remove``: Only the relationship edge is removed; the origin survives.
+    /// - ``RelationshipRemovalPolicy/fatalError``: The application crashes — used when a dangling
+    ///   relationship indicates a programming error.
     static var targetRemovalPolicy: RelationshipRemovalPolicy { get }
 
-    /// Cardinality of relationship targets.
+    /// How many outgoing relationships of this type a single origin entity can have.
     ///
-    /// ``Cardinality/one`` – entity that owns relationship can have at most one relationship
-    /// of given type. For example, there can be only one relationship of type ``ChildOf`` per
-    /// relationship owning entity.
+    /// ``Cardinality/one`` – at most one. Setting a new relationship replaces any previous one.
+    /// Useful for singular references such as a ``ChildOf`` parent.
     ///
-    /// ``Cardinality/many`` – entity that owns relationship can have any number of relationships
-    /// of given type.
+    /// ``Cardinality/many`` – unlimited. Useful for collections such as ``Depicts`` where a
+    /// diagram references many blocks.
+    ///
+    /// Defaults to ``Cardinality/one``.
     static var outgoingCardinality: Cardinality { get }
 
     // No use for incoming cardinality yet.
@@ -63,6 +97,9 @@ public struct ChildOf: Relationship {
 }
 
 /// Indicates ownership - when owner is removed, remove the owned entity
+///
+/// This is a dependency relationship unrelated to parent-child hierarchy. It denotes that the
+/// owned object is despawned when the owner is despawned. It is orthogonal to ``ChildOf``.
 public struct OwnedBy: Relationship {
     /// When owner is removed, remove the owned entity
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn

@@ -44,19 +44,27 @@ public struct RuntimeID:
     public var description: String { String(value) }
 }
 
-/// Structure representing a runtime, in-memory non-persistent entity that lives in a ``World``.
+/// Light-weight handle referencing a runtime entity in a world.
 ///
-/// Entities are identified by ``RuntimeID``.
+/// Runtime entities are identified by ``RuntimeID``, they are ephemeral, not persisted.
 ///
 public struct RuntimeEntity: CustomDebugStringConvertible {
+    /// Primary identifier of the entity within a world the entity belongs to.
     public let runtimeID: RuntimeID
+    
+    /// World owning the entity.
     public unowned let world: World
     
-    /// Get
+    /// Design object ID of the entity, if the entity represents a design object.
+    ///
+    /// - SeeAlso: ``designObject``
+    ///
     public var objectID: ObjectID? { world.entityToObjectMap[runtimeID] }
     
     /// Get corresponding design object that is being represented by the runtime entity, if it
     /// exists in the world's current frame.
+    ///
+    /// - SeeAlso: ``objectID``
     ///
     public var designObject: ObjectSnapshot? {
         guard let objectID = world.entityToObjectMap[runtimeID] else { return nil }
@@ -68,7 +76,10 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         self.world = world
     }
     
-    /// Remove the entity from the world.
+    /// Remove the entity from the world, including its dependants.
+    ///
+    /// - SeeAlso: ``World/despawn(_:)-(Sequence<RuntimeID>)``
+    ///
     public func despawn() {
         self.world.despawn(self.runtimeID)
     }
@@ -77,7 +88,7 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     ///
     /// - Parameters:
     ///   - type: The component type to check
-    ///   - runtimeID: The object ID
+    ///
     /// - Returns: True if the object has the component, otherwise false
     ///
     public func contains<T: Component>(_ type: T.Type) -> Bool {
@@ -86,8 +97,6 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
 
     /// Get a component for a runtime object
     ///
-    /// - Parameters:
-    ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
     /// - Returns: The component if it exists, otherwise nil
     ///
     public func component<T: Component>() -> T? {
@@ -101,7 +110,6 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     ///
     /// - Parameters:
     ///   - component: The component to set
-    ///   - runtimeID: The object ID
     ///
     /// - Precondition: Entity must exist in the world.
     ///
@@ -114,7 +122,6 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     ///
     /// - Parameters:
     ///   - type: The component type to remove
-    ///   - runtimeID: The object ID
     ///
     public func removeComponent<T: Component>(_ type: T.Type) {
         world._removeComponent(type, for: runtimeID)
@@ -139,7 +146,6 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     ///
     /// - Parameters:
     ///   - issue: The error/issue to append
-    ///   - objectID: The object ID associated with the issue
     ///
     ///- Returns: `true` if the entity represents a design object, otherwise false.
     ///
@@ -196,5 +202,3 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     }
 
 }
-
-// MARK: Relationships
