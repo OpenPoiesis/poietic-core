@@ -125,7 +125,7 @@ public class World {
     /// Test whether the world contains an entity.
     ///
     public func contains(_ entity: RuntimeEntity) -> Bool {
-        self.entities.contains(entity.runtimeID)
+        entity.world === self && self.entities.contains(entity.runtimeID)
     }
     
     
@@ -390,6 +390,7 @@ public class World {
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<RuntimeEntity> {
+        // FIXME: This is pre-component storage query
         return QueryResult(world: self) { entity in
             guard entity.contains(T.self) else { return nil }
             return entity
