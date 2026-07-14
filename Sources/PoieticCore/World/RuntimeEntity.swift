@@ -147,7 +147,7 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     public func appendIssue(_ issue: Issue) -> Bool {
         guard let objectID = self.objectID else { return false }
         world.issues[objectID, default: []].append(issue)
-        return false
+        return true
     }
     
     public var issues: [Issue]? {
