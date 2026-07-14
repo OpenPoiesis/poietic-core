@@ -23,3 +23,14 @@ public protocol Component {
 }
 
 
+/// Component that can be inspected for debugging.
+///
+public protocol InspectableComponent {
+    // Protocol member names are intentionally longer not to conflict with custom members.
+    
+    /// List of inspectable attribute names.
+    var inspectableAttributes: [String] { get }
+    
+    /// Get a value for inspectable attribute as variant.
+    func inspectableAttribute(_ name: String) -> Variant
+}
