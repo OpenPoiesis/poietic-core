@@ -184,7 +184,7 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: [any Component]) -> RuntimeID {
+    public func spawn(_ components: [any Component] = []) -> RuntimeID {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
@@ -193,11 +193,6 @@ public class World {
             self._setComponent(component, for: id)
         }
         return id
-    }
-
-    public func spawn(_ components: any Component...) -> RuntimeID {
-        // TODO: Use lock once we are multi-thread ready (we are not)
-        return self.spawn(components)
     }
 
     public func spawn(_ components: any Component...) -> RuntimeEntity {
@@ -422,34 +417,9 @@ public class World {
 
     // MARK: - Issues
 
-    /// Flag indicating whether any issues were collected
+    /// Flag indicating whether any design issues were registered.
+    ///
+    /// - SeeAlso: ``RuntimeEntity/appendIssue(_:)``, ``RuntimeEntity/issues``
+    ///
     public var hasIssues: Bool { !issues.isEmpty }
-
-    @available(*, deprecated, message: "Use entity")
-    public func objectHasIssues(_ objectID: ObjectID) -> Bool {
-        guard let issues = self.issues[objectID] else { return false }
-        return issues.isEmpty
-    }
-
-    @available(*, deprecated, message: "Use entity")
-    public func objectIssues(_ objectID: ObjectID) -> [Issue]? {
-        guard let issues = self.issues[objectID], !issues.isEmpty else { return nil }
-        return issues
-        
-    }
-    
-    /// Append a user-facing issue for a specific object
-    ///
-    /// Issues are non-fatal problems with user data. Systems should append
-    /// issues here rather than throwing errors, allowing processing to continue
-    /// and collect multiple issues.
-    ///
-    /// - Parameters:
-    ///   - issue: The error/issue to append
-    ///   - objectID: The object ID associated with the issue
-    ///
-    @available(*, deprecated, message: "Use entity")
-    public func appendIssue(_ issue: Issue, for objectID: ObjectID) {
-        issues[objectID, default: []].append(issue)
-    }
 }
