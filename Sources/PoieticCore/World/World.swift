@@ -163,7 +163,8 @@ public class World {
         self.issues.removeAll()
     }
     
-    internal func removeFrame() {
+    public func removeFrame() {
+        self.frame = nil
         despawn(entityToObjectMap.keys)
         objectToEntityMap.removeAll()
         entityToObjectMap.removeAll()
