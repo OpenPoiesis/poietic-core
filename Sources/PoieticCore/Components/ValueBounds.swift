@@ -83,20 +83,20 @@ public struct ValueBounds {
     /// - Parameters:
     ///   - min: Lower bound
     ///   - max: Upper bound
-    ///   - baseline: Reference point (defaults to midpoint if nil)
+    ///   - baseline: Reference point (defaults to min if nil)
     ///   - limit: Limit the bounds to specific values, if provided.
     /// - Precondition: ``max`` must be greater or equal than ``min``.
-    public init(min: Double, max: Double, baseline: Double, limit: DisplayValueBounds? = nil) {
+    public init(min: Double, max: Double, baseline: Double? = nil, limit: DisplayValueBounds? = nil) {
         precondition(max >= min)
         if let limit {
             self.min = limit.min ?? min
             self.max = limit.max ?? max
-            self.baseline = limit.baseline ?? baseline
+            self.baseline = limit.baseline ?? baseline ?? self.min
         }
         else {
             self.min = min
             self.max = max
-            self.baseline = baseline
+            self.baseline = baseline ?? self.min
         }
     }
     
@@ -123,6 +123,7 @@ public struct ValueBounds {
     /// - Parameter value: The value to check
     /// - Returns: The ``Status`` indicating where the value lies
     public func state(of value: Double) -> State {
+        // TODO: Rename to "check(value:)
         if value > max { .overflow }
         else if value < min { .underflow }
         else if value >= baseline { .positive }

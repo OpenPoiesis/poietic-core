@@ -5,13 +5,18 @@
 //  Created by Stefan Urbanek on 09/12/2025.
 //
 
-/// A container for storing and working with run-time entities and components.
+/// A container for storing and working with run-time entities, components and relationships.
 ///
 /// Functionality:
 ///
-/// - storage and management of components
-/// - management of systems schedules
-/// - design issue management
+/// - Storage of entities: ``spawn(_:)-([anyComponent])``, ``despawn(_:)-(RuntimeEntity)``.
+/// - Storage and management of components, used through ``RuntimeEntity/setComponent(_:)``,
+///   ``RuntimeEntity/component()``
+/// - Storage and management of entity relationships, used through ``RuntimeEntity/relate(_:to:)-(_,RuntimeID)``.
+/// - Management of systems schedules
+/// - Design issue management
+///
+/// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
 public class World {
     public let design: Design
@@ -48,7 +53,8 @@ public class World {
     
     internal var objectToEntityMap: [ObjectID:RuntimeID]
     internal var entityToObjectMap: [RuntimeID:ObjectID]
-    /// Entity ID representing current frame.
+
+    /// List of entities contained in this world.
     ///
     internal var entities: [RuntimeID]
 
@@ -57,32 +63,14 @@ public class World {
     /// Only one component of given type might exist in the world as a singleton.
     ///
     public private(set) var singletons: ComponentSet
-    private var storages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
-
-    struct Dependant: Hashable {
-        /// Who is pointing at the target?
-        let sourceID: RuntimeID
-        /// Component that is pointing to the source
-        let componentTypeID: ObjectIdentifier
-        let removalPolicy: RemovalPolicy
-    }
-    
-    /// Dependencies between entities based on relationships.
-    ///
-    /// Keys are entities that other entities depend on, values are sets of dependants.
-    /// When an entity is de-spawned from the world all its dependants are de-spawned cascadingly.
-    ///
-    /// - SeeAlso: ``Relationship``, ``ChildOf``, ``OwnedBy``
-    ///
-    var dependencies: [RuntimeID:Set<Dependant>]
-//    var dependencies: [RuntimeID:[RuntimeID:(ObjectIdentifier, RemovalPolicy)]]
+    private var componentStorages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
+    internal var relationshipStorages: [ObjectIdentifier: any RelationshipStorageProtocol] = [:]
 
     public init(design: Design) {
         self.design = design
         self.entitySequence = 1
         self.schedules = [:]
         self.scheduleLabels = [:]
-        self.dependencies = [:]
         self.issues = [:]
         self.entities = []
         
@@ -123,7 +111,7 @@ public class World {
     /// Test whether the world contains an entity.
     ///
     public func contains(_ entity: RuntimeEntity) -> Bool {
-        self.entities.contains(entity.runtimeID)
+        entity.world === self && self.entities.contains(entity.runtimeID)
     }
     
     
@@ -175,7 +163,8 @@ public class World {
         self.issues.removeAll()
     }
     
-    internal func removeFrame() {
+    public func removeFrame() {
+        self.frame = nil
         despawn(entityToObjectMap.keys)
         objectToEntityMap.removeAll()
         entityToObjectMap.removeAll()
@@ -196,7 +185,7 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: [any Component]) -> RuntimeID {
+    public func spawn(_ components: [any Component] = []) -> RuntimeID {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
@@ -207,11 +196,6 @@ public class World {
         return id
     }
 
-    public func spawn(_ components: any Component...) -> RuntimeID {
-        // TODO: Use lock once we are multi-thread ready (we are not)
-        return self.spawn(components)
-    }
-
     public func spawn(_ components: any Component...) -> RuntimeEntity {
         let id = self.spawn(components)
         return RuntimeEntity(runtimeID: id, world: self)
@@ -219,17 +203,30 @@ public class World {
     
     /// Removes the entity from the world and all entities that depend on it.
     ///
-    /// Only ephemeral entities can be de-spawned. Persistent design objects can not be de-spawned
-    /// from the world.
+    /// The dependants are entities with relationships towards the removed entities where the
+    /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
+    /// ``RelationshipRemovalPolicy/despawn``.
     ///
     public func despawn(_ id: RuntimeID) {
         self.despawn([id])
     }
+    
+    /// Despawn a runtime entity.
+    ///
+    /// Convenience method. See ``despawn(_:)-(RuntimeID)``
+    ///
     public func despawn(_ entity: RuntimeEntity) {
         self.despawn([entity.runtimeID])
     }
 
+    /// Despawn in a cascading manner a list of entities from the world, including their dependants.
+    ///
+    /// The dependants are entities with relationships towards the removed entities where the
+    /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
+    /// ``RelationshipRemovalPolicy/despawn``.
+    ///
     public func despawn(_ ids: some Sequence<RuntimeID>) {
+        // TODO: Check for existence
         var trash: Set<RuntimeID> = Set(ids)
         guard !trash.isEmpty else { return }
         
@@ -240,21 +237,23 @@ public class World {
             removed.insert(id)
             defer {
                 _removeAllComponents(for: id)
+                _removeAllRelationships(with: id)
             }
             
-            guard let dependants = self.dependencies[id] else { continue }
-            
-            for dependant in dependants {
-                guard !removed.contains(dependant.sourceID) && !trash.contains(dependant.sourceID)
-                else { continue }
-                
-                switch dependant.removalPolicy {
-                case .removeSelf:
-                    trash.insert(dependant.sourceID)
-                case .removeRelationship:
-                    self._removeComponent(dependant.componentTypeID, for: dependant.sourceID)
-                case .none:
-                    break
+            for storage in relationshipStorages.values {
+                let policy = storage.targetRemovalPolicy
+                for originID in storage.dependants(of: id) {
+                    guard !removed.contains(originID) && !trash.contains(originID)
+                    else { continue }
+                    switch policy {
+                    case .despawn:
+                        trash.insert(originID)
+                    case .remove:
+                        // No need to do anything, will be removed in defer block.
+                        break
+                    case .fatalError:
+                        fatalError("Dangling relationship")
+                    }
                 }
             }
         }
@@ -278,14 +277,6 @@ public class World {
 
         let storage = componentStorage(for: T.self)
         storage.setComponent(component, for: runtimeID)
-
-        if let rship = component as? Relationship {
-            let type = type(of: rship)
-            let dep = Dependant(sourceID: runtimeID,
-                                componentTypeID: ObjectIdentifier(type),
-                                removalPolicy: type.removalPolicy)
-            dependencies[rship.target, default: Set()].insert(dep)
-        }
     }
     
     internal func _containsComponent<T: Component>(_ type: T.Type, for runtimeID: RuntimeID) -> Bool {
@@ -297,16 +288,26 @@ public class World {
         return storage.component(for: runtimeID)
     }
 
-    private func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
+    internal func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
         let id = ObjectIdentifier(T.self)
         
-        if let existing = storages[id] as? ComponentStorage<T> {
+        if let existing = componentStorages[id] as? ComponentStorage<T> {
             return existing
         }
         
         let newStorage = ComponentStorage<T>()
-        storages[id] = newStorage
+        componentStorages[id] = newStorage
         return newStorage
+    }
+    
+    internal func _debugComponents(for runtimeID: RuntimeID) -> ComponentSet {
+        var components = ComponentSet()
+        for storage in componentStorages.values {
+            guard let component: any Component = storage.component(for: runtimeID)
+            else { continue }
+            components.set(component)
+        }
+        return components
     }
 
     /// Remove a component from an object
@@ -321,29 +322,19 @@ public class World {
     }
     
     internal func _removeComponent(_ componentTypeID: ObjectIdentifier, for runtimeID: RuntimeID) {
-        guard let storage = storages[componentTypeID] else { return }
-
-        if let relationship = storage.relationship(for: runtimeID)
-        {
-            let removalPolicy = type(of: relationship).removalPolicy
-            let item = Dependant(sourceID: runtimeID,
-                                 componentTypeID: componentTypeID,
-                                 removalPolicy: removalPolicy)
-            dependencies[relationship.target, default: Set()].remove(item)
-        }
-
+        guard let storage = componentStorages[componentTypeID] else { return }
         storage.removeComponent(for: runtimeID)
     }
 
     public func removeComponentForAll<T: Component>(_ type: T.Type) {
         let storageTypeID = ObjectIdentifier(type)
-        guard let storage = storages[storageTypeID] else { return }
+        guard let storage = componentStorages[storageTypeID] else { return }
         storage.removeAll()
     }
 
     /// Remove all components from an entity.
     func _removeAllComponents(for runtimeID: RuntimeID) {
-        for storage in storages.values {
+        for storage in componentStorages.values {
             storage.removeComponent(for: runtimeID)
         }
     }
@@ -388,6 +379,7 @@ public class World {
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<RuntimeEntity> {
+        // FIXME: This is pre-component storage query
         return QueryResult(world: self) { entity in
             guard entity.contains(T.self) else { return nil }
             return entity
@@ -426,34 +418,9 @@ public class World {
 
     // MARK: - Issues
 
-    /// Flag indicating whether any issues were collected
+    /// Flag indicating whether any design issues were registered.
+    ///
+    /// - SeeAlso: ``RuntimeEntity/appendIssue(_:)``, ``RuntimeEntity/issues``
+    ///
     public var hasIssues: Bool { !issues.isEmpty }
-
-    @available(*, deprecated, message: "Use entity")
-    public func objectHasIssues(_ objectID: ObjectID) -> Bool {
-        guard let issues = self.issues[objectID] else { return false }
-        return issues.isEmpty
-    }
-
-    @available(*, deprecated, message: "Use entity")
-    public func objectIssues(_ objectID: ObjectID) -> [Issue]? {
-        guard let issues = self.issues[objectID], !issues.isEmpty else { return nil }
-        return issues
-        
-    }
-    
-    /// Append a user-facing issue for a specific object
-    ///
-    /// Issues are non-fatal problems with user data. Systems should append
-    /// issues here rather than throwing errors, allowing processing to continue
-    /// and collect multiple issues.
-    ///
-    /// - Parameters:
-    ///   - issue: The error/issue to append
-    ///   - objectID: The object ID associated with the issue
-    ///
-    @available(*, deprecated, message: "Use entity")
-    public func appendIssue(_ issue: Issue, for objectID: ObjectID) {
-        issues[objectID, default: []].append(issue)
-    }
 }

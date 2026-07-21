@@ -67,6 +67,8 @@ public final class Schedule {
     /// Registered systems indexed by type name
     private var systems: [ObjectIdentifier: System.Type]
 
+    private var explicitEdges: [(origin: ObjectIdentifier, target: ObjectIdentifier)] = []
+
     /// Computed execution order
     private var _executionOrder: [System.Type]
     private var _instances: [any System]
@@ -76,11 +78,23 @@ public final class Schedule {
         self.init(label: label, systems: systems)
     }
 
-    public init(label: ScheduleLabel.Type, systems: [System.Type]) {
+    /// Create a new schedule.
+    ///
+    /// - Parameters:
+    ///     - label: Schedule label.
+    ///     - systems: List of systems in the schedule.
+    ///     - order: Explicit order of system execution, in addition to the intrinsic order
+    ///         defined by ``System/dependencies``.
+    ///
+    /// - Precondition: The systems in the ``order`` list must exist in the ``systems`` list.
+    /// - Precondition: The system order must not form a loop.
+    ///
+    public init(label: ScheduleLabel.Type, systems: [System.Type], order: [(System.Type, before: System.Type)] = []) {
         self.systems = [:]
         self._executionOrder = []
         self._instances = []
         self.label = label
+        self.explicitEdges = order.map { (ObjectIdentifier($0.0), ObjectIdentifier($0.1)) }
         self.add(systems)
     }
 
@@ -99,7 +113,7 @@ public final class Schedule {
         let id = ObjectIdentifier(system)
 
         systems[id] = system
-        _executionOrder = Self.dependencyOrder(Array(systems.values))
+        _updateDependencyOrder()
     }
 
     /// Register multiple systems at once.
@@ -111,7 +125,43 @@ public final class Schedule {
             let id = ObjectIdentifier(system)
             self.systems[id] = system
         }
-        _executionOrder = Self.dependencyOrder(Array(self.systems.values))
+        _updateDependencyOrder()
+    }
+    
+    /// Define execution order of two systems, in addition to the intrinsic execution order defined
+    /// by the systems through ``System/dependencies``.
+    ///
+    /// The system ``system`` will be run before the ``other``.
+    ///
+    /// The new order must not create a loop.
+    ///
+    /// - Precondition: Both systems must be present in the schedule.
+    ///
+    /// - SeeAlso: ``add(_:)-(System)``.
+    ///
+    public func order(_ system: System.Type, before other: System.Type) {
+        precondition(self.systems[ObjectIdentifier(system)] != nil)
+        precondition(self.systems[ObjectIdentifier(other)] != nil)
+        explicitEdges.append((ObjectIdentifier(system),ObjectIdentifier(other)))
+        _updateDependencyOrder()
+    }
+
+    /// Define execution order of two systems, in addition to the intrinsic execution order defined
+    /// by the systems through ``System/dependencies``.
+    ///
+    /// The system ``system`` will be run after the ``other``.
+    ///
+    /// The new order must not create a loop.
+    ///
+    /// - Precondition: Both systems must be present in the schedule.
+    ///
+    /// - SeeAlso: ``add(_:)-(System)``.
+    ///
+    public func order(_ system: System.Type, after other: System.Type) {
+        precondition(self.systems[ObjectIdentifier(system)] != nil)
+        precondition(self.systems[ObjectIdentifier(other)] != nil)
+        explicitEdges.append((ObjectIdentifier(other),ObjectIdentifier(system)))
+        _updateDependencyOrder()
     }
 
     /// Creates instances of the systems and initialises them with the world.
@@ -149,7 +199,7 @@ public final class Schedule {
     /// Get names of the systems in the the computed execution order
     ///
     public func debugDependencyOrder() -> [String] {
-        _executionOrder.map { String(describing: type(of: $0)) }
+        _executionOrder.map { String(describing: $0) }
     }
 
     /// Compute execution order based on system dependencies
@@ -165,17 +215,17 @@ public final class Schedule {
     /// - Precondition: If `strict` is `true` then all systems listed in dependencies must be
     ///   present in the list. If `strict` is `false` then systems not present are ignored.
     ///
-    public static func dependencyOrder(_ systems: [System.Type]) -> [System.Type] {
-        let systemMap = systems.reduce(into: [ObjectIdentifier: System.Type]()) {
-            (result, system) in
-            result[ObjectIdentifier(system)] = system
+    internal func _updateDependencyOrder() {
+        var edges: [(origin: ObjectIdentifier, target: ObjectIdentifier)] = self.explicitEdges
+
+        var systemMap: [ObjectIdentifier: System.Type] = [:]
+        for system in self.systems.values {
+            systemMap[ObjectIdentifier(system)] = system
         }
-        
-        var edges: [(origin: ObjectIdentifier, target: ObjectIdentifier)] = []
         var maybeIndependent: Set<ObjectIdentifier> = []
         
         // First pass: validate hard dependencies and collect soft ones
-        for system in systems {
+        for system in self.systems.values {
             let systemID = ObjectIdentifier(system)
             guard !system.dependencies.isEmpty else {
                 maybeIndependent.insert(systemID)
@@ -221,7 +271,7 @@ public final class Schedule {
         }
 
         let independent = maybeIndependent.filter { !sorted.contains($0) }
-
-        return (independent + sorted).compactMap { systemMap[$0] }
+        let all = independent + sorted
+        self._executionOrder = all.compactMap { systemMap[$0] }
     }
 }

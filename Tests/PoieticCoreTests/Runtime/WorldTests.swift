@@ -17,9 +17,12 @@ struct TestSingletonComponent: Component, Equatable {
 }
 
 struct WeakRelationship: Relationship, Sendable {
-    var target: RuntimeID
-    
-    static let removalPolicy: RemovalPolicy = .removeRelationship
+    static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
+}
+
+struct ManyRelationship: Relationship, Sendable {
+    static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
+    static let outgoingCardinality: Cardinality = .many
 }
 
 @Suite struct WorldTests {
@@ -331,7 +334,7 @@ struct WeakRelationship: Relationship, Sendable {
         let child: RuntimeEntity = world.spawn()
         let unrelated: RuntimeEntity = world.spawn()
         
-        child.setComponent(ChildOf(parent.runtimeID))
+        child.relate(ChildOf(), to: parent.runtimeID)
         
         world.despawn(parent)
         
@@ -346,15 +349,15 @@ struct WeakRelationship: Relationship, Sendable {
         let left: RuntimeEntity = world.spawn()
         let right: RuntimeEntity = world.spawn()
         
-        left.setComponent(ChildOf(right.runtimeID))
-        right.setComponent(ChildOf(left.runtimeID))
-
+        left.relate(ChildOf(), to: right.runtimeID)
+        right.relate(ChildOf(), to: left.runtimeID)
+        
         world.despawn(left)
         
         #expect(!world.contains(left))
         #expect(!world.contains(right))
     }
-
+    
     @Test func cascadingEntityRelationshipRemoval() throws {
         let world = World(frame: self.emptyFrame)
         
@@ -362,8 +365,8 @@ struct WeakRelationship: Relationship, Sendable {
         let parent: RuntimeEntity = world.spawn()
         let child: RuntimeEntity = world.spawn()
         
-        parent.setComponent(ChildOf(grandparent.runtimeID))
-        child.setComponent(ChildOf(parent.runtimeID))
+        parent.relate(ChildOf(), to: grandparent.runtimeID)
+        child.relate(ChildOf(), to: parent.runtimeID)
         
         #expect(world.contains(grandparent))
         #expect(world.contains(parent))
@@ -381,15 +384,15 @@ struct WeakRelationship: Relationship, Sendable {
         
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
-
-        source.setComponent(WeakRelationship(target: target.runtimeID))
-        #expect(source.contains(WeakRelationship.self))
+        
+        source.relate(WeakRelationship(), to: target.runtimeID)
+        #expect(source.containsRelationship(WeakRelationship.self))
         
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.contains(WeakRelationship.self))
+        #expect(!source.containsRelationship(WeakRelationship.self))
     }
     
     @Test func keepUnrelatedWeakRelationshipComponent() throws {
@@ -398,17 +401,99 @@ struct WeakRelationship: Relationship, Sendable {
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
         let unrelated: RuntimeEntity = world.spawn()
-
-        source.setComponent(WeakRelationship(target: target.runtimeID))
-        unrelated.setComponent(WeakRelationship(target: source.runtimeID))
-        #expect(source.contains(WeakRelationship.self))
-        #expect(unrelated.contains(WeakRelationship.self))
-
+        
+        source.relate(WeakRelationship(), to: target.runtimeID)
+        unrelated.relate(WeakRelationship(), to: source.runtimeID)
+        #expect(source.containsRelationship(WeakRelationship.self))
+        #expect(unrelated.containsRelationship(WeakRelationship.self))
+        
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.contains(WeakRelationship.self))
-        #expect(unrelated.contains(WeakRelationship.self))
+        #expect(!source.containsRelationship(WeakRelationship.self))
+        #expect(unrelated.containsRelationship(WeakRelationship.self))
+    }
+    @Test func relationshipCardinalityOne() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let child: RuntimeEntity = world.spawn()
+        let parent: RuntimeEntity = world.spawn()
+        let other: RuntimeEntity = world.spawn()
+
+        child.relate(ChildOf(), to: parent.runtimeID)
+        #expect(child.containsRelationship(ChildOf.self, to: parent.runtimeID))
+        #expect(!child.containsRelationship(ChildOf.self, to: other.runtimeID))
+
+        child.relate(ChildOf(), to: other.runtimeID)
+        #expect(!child.containsRelationship(ChildOf.self, to: parent.runtimeID))
+        #expect(child.containsRelationship(ChildOf.self, to: other.runtimeID))
+    }
+    @Test func relationshipCardinalityMany() throws {
+        let world = World(frame: self.emptyFrame)
+        
+        let origin: RuntimeEntity = world.spawn()
+        let other1: RuntimeEntity = world.spawn()
+        let other2: RuntimeEntity = world.spawn()
+
+        origin.relate(ManyRelationship(), to: other1.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+
+        origin.relate(ManyRelationship(), to: other2.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+    }
+
+    // MARK: - Unrelate
+
+    @Test func unrelateAllOfType() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let origin: RuntimeEntity = world.spawn()
+        let target1: RuntimeEntity = world.spawn()
+        let target2: RuntimeEntity = world.spawn()
+
+        origin.relate(ManyRelationship(), to: target1.runtimeID)
+        origin.relate(ManyRelationship(), to: target2.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+
+        origin.unrelate(ManyRelationship.self)
+
+        #expect(!origin.containsRelationship(ManyRelationship.self))
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+    }
+
+    @Test func unrelateSpecificTarget() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let origin: RuntimeEntity = world.spawn()
+        let target1: RuntimeEntity = world.spawn()
+        let target2: RuntimeEntity = world.spawn()
+
+        origin.relate(ManyRelationship(), to: target1.runtimeID)
+        origin.relate(ManyRelationship(), to: target2.runtimeID)
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+
+        origin.unrelate(ManyRelationship.self, to: target1)
+
+        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+    }
+
+    @Test func unrelateSpecificWhenNoneExist() throws {
+        let world = World(frame: self.emptyFrame)
+
+        let entity: RuntimeEntity = world.spawn()
+        let other: RuntimeEntity = world.spawn()
+
+        // Should not crash
+        entity.unrelate(ChildOf.self)
+        entity.unrelate(ChildOf.self, to: other)
+
+        #expect(!entity.containsRelationship(ChildOf.self))
     }
 }

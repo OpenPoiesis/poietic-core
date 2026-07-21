@@ -44,19 +44,27 @@ public struct RuntimeID:
     public var description: String { String(value) }
 }
 
-/// Structure representing a runtime, in-memory non-persistent entity that lives in a ``World``.
+/// Light-weight handle referencing a runtime entity in a world.
 ///
-/// Entities are identified by ``RuntimeID``.
+/// Runtime entities are identified by ``RuntimeID``, they are ephemeral, not persisted.
 ///
-public struct RuntimeEntity {
+public struct RuntimeEntity: CustomDebugStringConvertible {
+    /// Primary identifier of the entity within a world the entity belongs to.
     public let runtimeID: RuntimeID
+    
+    /// World owning the entity.
     public unowned let world: World
     
-    /// Get
+    /// Design object ID of the entity, if the entity represents a design object.
+    ///
+    /// - SeeAlso: ``designObject``
+    ///
     public var objectID: ObjectID? { world.entityToObjectMap[runtimeID] }
     
     /// Get corresponding design object that is being represented by the runtime entity, if it
     /// exists in the world's current frame.
+    ///
+    /// - SeeAlso: ``objectID``
     ///
     public var designObject: ObjectSnapshot? {
         guard let objectID = world.entityToObjectMap[runtimeID] else { return nil }
@@ -68,11 +76,19 @@ public struct RuntimeEntity {
         self.world = world
     }
     
+    /// Remove the entity from the world, including its dependants.
+    ///
+    /// - SeeAlso: ``World/despawn(_:)-(Sequence<RuntimeID>)``
+    ///
+    public func despawn() {
+        self.world.despawn(self.runtimeID)
+    }
+    
     /// Check if an object has a specific component type
     ///
     /// - Parameters:
     ///   - type: The component type to check
-    ///   - runtimeID: The object ID
+    ///
     /// - Returns: True if the object has the component, otherwise false
     ///
     public func contains<T: Component>(_ type: T.Type) -> Bool {
@@ -81,8 +97,6 @@ public struct RuntimeEntity {
 
     /// Get a component for a runtime object
     ///
-    /// - Parameters:
-    ///   - runtimeID: Runtime ID of an object or an ephemeral entity.
     /// - Returns: The component if it exists, otherwise nil
     ///
     public func component<T: Component>() -> T? {
@@ -96,7 +110,6 @@ public struct RuntimeEntity {
     ///
     /// - Parameters:
     ///   - component: The component to set
-    ///   - runtimeID: The object ID
     ///
     /// - Precondition: Entity must exist in the world.
     ///
@@ -109,7 +122,6 @@ public struct RuntimeEntity {
     ///
     /// - Parameters:
     ///   - type: The component type to remove
-    ///   - runtimeID: The object ID
     ///
     public func removeComponent<T: Component>(_ type: T.Type) {
         world._removeComponent(type, for: runtimeID)
@@ -134,7 +146,6 @@ public struct RuntimeEntity {
     ///
     /// - Parameters:
     ///   - issue: The error/issue to append
-    ///   - objectID: The object ID associated with the issue
     ///
     ///- Returns: `true` if the entity represents a design object, otherwise false.
     ///
@@ -142,7 +153,7 @@ public struct RuntimeEntity {
     public func appendIssue(_ issue: Issue) -> Bool {
         guard let objectID = self.objectID else { return false }
         world.issues[objectID, default: []].append(issue)
-        return false
+        return true
     }
     
     public var issues: [Issue]? {
@@ -170,8 +181,6 @@ public struct RuntimeEntity {
     /// // Remove a component (by setting to nil)
     /// entity[Position.self] = nil
     ///
-    /// // Mutate in place (for value types, creates copy, mutates, sets back)
-    /// entity[Position.self]?.x += 10  // Works but creates copy!
     /// ```
     ///
     public subscript<T: Component>(_ type: T.Type) -> T? {
@@ -186,19 +195,10 @@ public struct RuntimeEntity {
             }
         }
     }
-
-}
-
-// MARK: Hierarchy
-
-let ChildOfComponentID = ObjectIdentifier(ChildOf.self)
-
-extension RuntimeEntity {
-    /// List of entity children – entities with ``ChildOf`` relationship component pointing
-    /// to this entity.
-    public var children: [RuntimeEntity] {
-        guard let deps = world.dependencies[self.runtimeID] else { return [] }
-        return deps.filter { $0.componentTypeID == ChildOfComponentID }
-                .map { RuntimeEntity(runtimeID: $0.sourceID, world: world) }
+    
+    public var debugDescription: String {
+        let compList = self.debugComponentNames().joined(separator: ",")
+        return "E\(self.runtimeID)[\(compList)][ch:\(self.children.count)]"
     }
+
 }
