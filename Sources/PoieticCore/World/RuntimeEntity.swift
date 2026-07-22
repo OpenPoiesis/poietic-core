@@ -127,15 +127,17 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         world._removeComponent(type, for: runtimeID)
     }
     
-    public func modify<T: Component, Result>(
-        _ modification: (inout T) -> Result
-    ) -> Result? {
-        guard var component: T = component() else {
-            return nil
+    public func mutateOrSet<T: Component>(
+        default component: T,
+        _ mutation: (inout T) -> Void)
+    {
+        if var existing: T = self.component() {
+            mutation(&existing)
+            setComponent(existing)
         }
-        let result = modification(&component)
-        setComponent(component)
-        return result
+        else {
+            setComponent(component)
+        }
     }
 
     /// Append a user-facing issue for the entity representing a design object.
