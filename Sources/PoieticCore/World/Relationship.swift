@@ -107,8 +107,39 @@ public struct OwnedBy: Relationship {
     public init() { /* Empty */ }
 }
 
-/// Indicates representation - when the original is removed, the representation entity is removed.
+/// Relationship indicating that an entity is a representation of another – represented entity.
+/// For example a visual canvas object with a pictogram represents a design block entity.
+///
+/// When the represented object is removed, the representation entity is removed as well.
+///
 public struct RepresentationOf: Relationship {
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
+    public static var outgoingCardinality: Cardinality { .one }
+    public init() { /* Empty */ }
+}
+
+/// Relationship indicating that an entity – controller controls a target – controlled entity.
+/// For example a visual slider controls a value of a simulation property.
+///
+/// When the target is removed, the relationship is removed, keeping the component owning entity.
+///
+/// For a similar relationship where the controller is removed with the controlled see ``Handles``.
+public struct Controls: Relationship {
+    public static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
+    public static var outgoingCardinality: Cardinality { .one }
+    public init() { /* Empty */ }
+}
+
+/// Relationship indicating that an entity – a handle controls a property of a target
+/// – handled entity.
+///
+/// For example a visual canvas handle controls a position of another object or a midpoint of a
+/// connector.
+///
+/// When the target is removed, the handler entity is removed, keeping the component owning entity.
+///
+public struct Handles: Relationship {
+    // TODO: Maybe pick a better name for the relationship component. Maybe "Manipulates"?
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }
     public init() { /* Empty */ }

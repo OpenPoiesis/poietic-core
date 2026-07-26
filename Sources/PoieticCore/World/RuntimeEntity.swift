@@ -127,7 +127,7 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         world._removeComponent(type, for: runtimeID)
     }
     
-    public func mutateOrSet<T: Component>(
+    public func modifyOrSet<T: Component>(
         default component: T,
         _ mutation: (inout T) -> Void)
     {
@@ -137,6 +137,14 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         }
         else {
             setComponent(component)
+        }
+    }
+    
+    /// Modify a given component if present. If component is not present nothing happens.
+    public func modify<T: Component>(_ type: T.Type, _ mutation: (inout T) -> Void) {
+        if var existing: T = self.component() {
+            mutation(&existing)
+            setComponent(existing)
         }
     }
 

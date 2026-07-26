@@ -320,10 +320,23 @@ extension RuntimeEntity {
             return nil
         }
     }
+    public func relates<T: Relationship>(_ type: T.Type) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID)
+    }
+
+    public func relates<T: Relationship>(_ type: T.Type, to targetID: RuntimeID) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID, to: targetID)
+    }
+    public func relates<T: Relationship>(_ type: T.Type, to entity: RuntimeEntity) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID, to: entity.runtimeID)
+    }
+
+    @available(*, deprecated, renamed: "relates")
     public func containsRelationship<T: Relationship>(_ type: T.Type) -> Bool {
         world._containsRelationship(type, from: self.runtimeID)
     }
 
+    @available(*, deprecated, renamed: "relates")
     public func containsRelationship<T: Relationship>(_ type: T.Type, to targetID: RuntimeID) -> Bool {
         world._containsRelationship(type, from: self.runtimeID, to: targetID)
     }
