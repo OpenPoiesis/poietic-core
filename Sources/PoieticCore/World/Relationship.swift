@@ -96,11 +96,13 @@ public struct ChildOf: Relationship {
     public init() { /* Empty */ }
 }
 
-/// Indicates ownership - when owner is removed, remove the owned entity
+/// Indicates ownership-membership. Target is the owner of the member. When the owner is removed,
+/// the member entity is removed with it.
 ///
-/// This is a dependency relationship unrelated to parent-child hierarchy. It denotes that the
-/// owned object is despawned when the owner is despawned. It is orthogonal to ``ChildOf``.
-public struct OwnedBy: Relationship {
+/// This is a dependency relationship unrelated to parent-child hierarchy. It might be used
+/// for skipping hierarchy directly to root of hierachy.
+///
+public struct MemberOf: Relationship {
     /// When owner is removed, remove the owned entity
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .despawn
     public static var outgoingCardinality: Cardinality { .one }

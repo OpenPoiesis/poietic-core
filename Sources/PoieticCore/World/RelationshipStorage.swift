@@ -350,6 +350,15 @@ extension RuntimeEntity {
         return world.incoming(ChildOf.self, to: self.runtimeID).map { $0.0 }
     }
 
+    /// Visit children recursively and call function on each child before descending.
+    ///
+    public func withChildrenRecursively(_ visit: ((RuntimeEntity) -> Void)) {
+        for child in children {
+            visit(child)
+            child.withChildrenRecursively(visit)
+        }
+    }
+    
     /// Get a parent of an entity. Parent is defined by the target of the ``ChildOf`` relationship.
     ///
     /// This is a convenience property that uses outgoing relationships of the entity.

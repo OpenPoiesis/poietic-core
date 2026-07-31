@@ -206,6 +206,12 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         }
     }
     
+    public subscript<T: Component>(_ type: T.Type, default defaultComponent: T) -> T {
+        get {
+            return component() ?? defaultComponent
+        }
+    }
+
     public var debugDescription: String {
         let compList = self.debugComponentNames().joined(separator: ",")
         return "E\(self.runtimeID)[\(compList)][ch:\(self.children.count)]"

@@ -130,7 +130,7 @@ public class World {
         self.schedules[id] = schedule
         self.scheduleLabels[id] = String(describing: schedule.label)
     }
-    
+
     public func run(schedule: ScheduleLabel.Type) throws (InternalSystemError) {
         guard let schedule = self.schedules[ObjectIdentifier(schedule)] else {
             preconditionFailure("Unknown schedule \(String(describing: schedule))")
