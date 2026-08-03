@@ -353,7 +353,13 @@ public class World {
         componentStorages[id] = newStorage
         return newStorage
     }
-    
+
+    /// Count entities with given component.
+    public func count<T: Component>(_ type: T.Type) -> Int {
+        let storage = componentStorage(for: T.self)
+        return storage.count
+    }
+
     internal func _debugComponents(for runtimeID: RuntimeID) -> ComponentSet {
         var components = ComponentSet()
         for storage in componentStorages.values {
@@ -515,6 +521,7 @@ public class World {
 //    }
 
     // MARK: - Query
+    
     /// Get a list of entities which represent objects from the list.
     ///
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
