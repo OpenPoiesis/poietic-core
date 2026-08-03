@@ -57,22 +57,6 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(!world.hasIssues)
     }
     
-    //    @Test func setFrame() throws {
-    //        let world = World(frame: self.frame)
-    //        let trans = design.createFrame()
-    //        for id in self.frame.objectIDs {
-    //            trans.removeCascading(id)
-    //        }
-    //        let obj = trans.create(.Stock, structure: .node)
-    //        let newFrame = try self.design.accept(trans)
-    //        world.setFrame(newFrame.id)
-    //
-    //        #expect(world.entities.count == 1)
-    //        let ent = try #require(world.entities.first)
-    //        #expect(ent == world.objectToEntity(obj.objectID))
-    //    }
-    //
-    
     // MARK: - Spawn/Despawn
     @Test func spawn() throws {
         let world = World(frame: self.emptyFrame)
@@ -495,5 +479,32 @@ struct ManyRelationship: Relationship, Sendable {
         entity.unrelate(ChildOf.self, to: other)
 
         #expect(!entity.containsRelationship(ChildOf.self))
+    }
+    
+    // MARK: - Frame change
+    
+    @Test func setFrame() throws {
+        let world = World(frame: self.emptyFrame)
+        #expect(world.entities.count == 0)
+        
+        world.setFrame(self.testFrame)
+        #expect(world.entities.count == 3)
+
+        for runtimeID in world.entities {
+            let entity = try #require(world.entity(runtimeID))
+            let objectID = try #require(entity.objectID)
+            #expect(self.testFrame.contains(objectID))
+        }
+    }
+    @Test func setEmptyFrame() throws {
+        let world = World(frame: self.testFrame)
+        
+        let survivor: RuntimeEntity = world.spawn()
+        #expect(world.entities.count == 4)
+
+        world.setFrame(self.emptyFrame)
+
+        #expect(world.entities.count == 1)
+        #expect(world.contains(survivor.runtimeID))
     }
 }
