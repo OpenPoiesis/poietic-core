@@ -25,7 +25,7 @@ public enum SelectionChange: Component {
     case toggle(ObjectID)
 }
 
-/// Collection of selected objects.
+/// Ordered collection of selected objects.
 ///
 /// An ordered set of object identifiers with convenience methods to support typical user
 /// application actions. For example toggling a selected object using `Shift` key can be done
@@ -169,4 +169,8 @@ extension Selection /* : SetAlgebra */ {
     public static func == (lhs: Selection, rhs: Selection) -> Bool {
         lhs.ids == rhs.ids
     }
+}
+
+public struct IsSelected: Component {
+    public init() {}
 }
