@@ -314,6 +314,7 @@ public class World {
         _removeAllRelationships(with: runtimeID)
     }
     // MARK: - Components
+    
     /// Set a component for an entity.
     ///
     /// If a component of the same type already exists for this object,
@@ -412,6 +413,106 @@ public class World {
     public func hasSingleton<T: Component>(_ component: T.Type) -> Bool{
         singletons.has(component)
     }
+    
+    // MARK: - Relationships
+
+    private func relationshipStorage<T: Relationship>(for type: T.Type) -> RelationshipStorage<T> {
+        let id = ObjectIdentifier(T.self)
+        
+        if let existing = relationshipStorages[id] as? RelationshipStorage<T> {
+            return existing
+        }
+        
+        let newStorage = RelationshipStorage<T>()
+        relationshipStorages[id] = newStorage
+        return newStorage
+    }
+
+    internal func _setRelationship<T: Relationship>(_ component: T,
+                                                    from originID: RuntimeID,
+                                                    to targetID: RuntimeID)
+    {
+        precondition(entities.contains(originID))
+        precondition(entities.contains(targetID))
+
+        let storage = relationshipStorage(for: T.self)
+        storage.setRelationship(from: originID, to: targetID, component: component)
+    }
+    internal func _getFirstTarget<T: Relationship>(_ componentType: T.Type,
+                                                    from originID: RuntimeID) -> RuntimeID?
+    {
+        precondition(entities.contains(originID))
+
+        let storage = relationshipStorage(for: T.self)
+        return storage.firstOutgoing(from: originID)
+    }
+    internal func _removeRelationship<T: Relationship>(_ type: T.Type,
+                                                       from origin: RuntimeID,
+                                                       to target: RuntimeID)
+    {
+        let typeID = ObjectIdentifier(T.self)
+        _removeRelationship(typeID, from: origin, to: target)
+    }
+
+    internal func _removeRelationship(_ typeID: ObjectIdentifier,
+                                      from origin: RuntimeID,
+                                      to target: RuntimeID)
+    {
+        guard let storage = relationshipStorages[typeID] else { return }
+
+        storage.removeRelationship(from: origin, to: target)
+    }
+    
+    internal func _removeAllRelationships<T: Relationship>(_ type: T.Type,
+                                                            from origin: RuntimeID) {
+        guard let storage = relationshipStorages[ObjectIdentifier(T.self)] else { return }
+        storage.removeOutgoing(from: origin)
+    }
+
+    /// Remove all relationships where the ``runtimeID`` is either origin or a target.
+    func _removeAllRelationships(with runtimeID: RuntimeID) {
+        for storage in relationshipStorages.values {
+            storage.removeRelationships(with: runtimeID)
+        }
+    }
+
+    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
+        let storageTypeID = ObjectIdentifier(type)
+        guard let storage = relationshipStorages[storageTypeID] else { return false }
+        return storage.hasRelationship(from: origin)
+    }
+    
+    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID, to target: RuntimeID) -> Bool {
+        let storageTypeID = ObjectIdentifier(type)
+        guard let storage = relationshipStorages[storageTypeID] else { return false }
+        return storage.hasRelationship(from: origin, to: target)
+    }
+
+    public func removeRelationshipForAll<T: Relationship>(_ type: T.Type) {
+        let storageTypeID = ObjectIdentifier(type)
+        guard let storage = relationshipStorages[storageTypeID] else { return }
+        storage.removeAll()
+    }
+
+    internal func incoming<T: Relationship>(_ componentType: T.Type, to target: RuntimeID) -> [(RuntimeEntity, T)] {
+        let storage = relationshipStorage(for: T.self)
+        return storage.incoming(to: target).map { (id, component) in
+            (RuntimeEntity(runtimeID: id, world: self), component)
+        }
+    }
+    internal func outgoing<T: Relationship>(_ componentType: T.Type, from origin: RuntimeID) -> [(RuntimeEntity, T)] {
+        let storage = relationshipStorage(for: T.self)
+        return storage.outgoing(from: origin).map { (id, component) in
+            (RuntimeEntity(runtimeID: id, world: self), component)
+        }
+    }
+//    internal func _containsRelationship<T: Relationship>(_ component: T,
+//                                                         from originID: RuntimeID,
+//                                                         to targetID: RuntimeID) -> Bool
+//    {
+//        let storage = componentStorage(for: T.self)
+//        return storage.hasComponent(for: runtimeID)
+//    }
 
     // MARK: - Query
     /// Get a list of entities which represent objects from the list.

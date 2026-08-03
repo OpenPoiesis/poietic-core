@@ -84,6 +84,8 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         self.world.despawn(self.runtimeID)
     }
     
+    // MARK: - Components
+    
     /// Check if an object has a specific component type
     ///
     /// - Parameters:
@@ -147,7 +149,118 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
             setComponent(existing)
         }
     }
+    // MARK: - Relationships
+    
+    // TODO: Rename to relate(as:to:)
+    public func relate<T: Relationship>(_ component: T, to targetID: RuntimeID) {
+        world._setRelationship(component, from: self.runtimeID, to: targetID)
+    }
+    public func relate<T: Relationship>(_ component: T, to target: RuntimeEntity) {
+        world._setRelationship(component, from: self.runtimeID, to: target.runtimeID)
+    }
 
+    /// Remove all outgoing relationships of the given type from this entity.
+    public func unrelate<T: Relationship>(_ type: T.Type) {
+        world._removeAllRelationships(T.self, from: runtimeID)
+    }
+
+    /// Remove a specific relationship to a target entity.
+    public func unrelate<T: Relationship>(_ type: T.Type, to target: RuntimeEntity) {
+        world._removeRelationship(T.self, from: runtimeID, to: target.runtimeID)
+    }
+
+    public func target<T: Relationship>(_ componentType: T.Type) -> RuntimeEntity? {
+        if let target = world._getFirstTarget(T.self, from: self.runtimeID) {
+            return RuntimeEntity(runtimeID: target, world: self.world)
+        }
+        else {
+            return nil
+        }
+    }
+    public func relates<T: Relationship>(_ type: T.Type) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID)
+    }
+
+    public func relates<T: Relationship>(_ type: T.Type, to targetID: RuntimeID) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID, to: targetID)
+    }
+    public func relates<T: Relationship>(_ type: T.Type, to entity: RuntimeEntity) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID, to: entity.runtimeID)
+    }
+
+    @available(*, deprecated, renamed: "relates")
+    public func containsRelationship<T: Relationship>(_ type: T.Type) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID)
+    }
+
+    @available(*, deprecated, renamed: "relates")
+    public func containsRelationship<T: Relationship>(_ type: T.Type, to targetID: RuntimeID) -> Bool {
+        world._containsRelationship(type, from: self.runtimeID, to: targetID)
+    }
+
+    /// List of entity children – entities with ``ChildOf`` relationship component pointing
+    /// to this entity.
+    ///
+    /// This is a convenience property that uses incoming relationships of the entity.
+    ///
+    public var children: [RuntimeEntity] {
+        return world.incoming(ChildOf.self, to: self.runtimeID).map { $0.0 }
+    }
+
+    /// Visit children recursively and call function on each child before descending.
+    ///
+    public func withChildrenRecursively(_ visit: ((RuntimeEntity) -> Void)) {
+        for child in children {
+            visit(child)
+            child.withChildrenRecursively(visit)
+        }
+    }
+    
+    /// Get a parent of an entity. Parent is defined by the target of the ``ChildOf`` relationship.
+    ///
+    /// This is a convenience property that uses outgoing relationships of the entity.
+    ///
+    public var parent: RuntimeEntity? {
+        guard let target = world._getFirstTarget(ChildOf.self, from: self.runtimeID)
+        else { return nil }
+        
+        return RuntimeEntity(runtimeID: target, world: self.world)
+    }
+        
+    /// Get origin entities of given relationships where the target is this entity.
+    ///
+    /// Example:
+    ///
+    /// ```
+    /// let node: RuntimeEntity // Assuming this exists
+    /// let children: [RuntimeEntity] = node.incoming(ChildOf.self)
+    /// let representations: [RuntimeEntity] = node.incoming(RepresentationOf.self)
+    /// ```
+    ///
+    public func incoming<T: Relationship>(_ type: T.Type) -> [RuntimeEntity] {
+        return world.incoming(T.self, to: self.runtimeID).map { $0.0 }
+    }
+
+    /// Get target entities of given relationships where the origin is this entity.
+    public func outgoing<T: Relationship>(_ type: T.Type) -> [RuntimeEntity] {
+        return world.outgoing(T.self, from: self.runtimeID).map { $0.0 }
+    }
+    
+    /// Get first outgoing relationship of given type.
+    ///
+    /// - Precondition: The relationship type cardinality ``Relationship/outgoingCardinality`` must
+    /// be to-one (``Cardinality/one``). It is considered a programming error to call this
+    /// function on to-many relationship.
+    ///
+    public func firstOutgoing<T: Relationship>(_ type: T.Type) -> RuntimeEntity? {
+        precondition(type.outgoingCardinality == .one)
+        
+        let outgoings = world.outgoing(T.self, from: self.runtimeID)
+        return outgoings.first.map { $0.0 }
+    }
+
+    // MARK: - Issues
+    
     /// Append a user-facing issue for the entity representing a design object.
     ///
     /// Issues are non-fatal problems with user data. Systems should append
@@ -216,5 +329,6 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         let compList = self.debugComponentNames().joined(separator: ",")
         return "E\(self.runtimeID)[\(compList)][ch:\(self.children.count)]"
     }
+
 
 }
