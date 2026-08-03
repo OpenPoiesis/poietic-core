@@ -5,6 +5,22 @@
 //  Created by Stefan Urbanek on 09/12/2025.
 //
 
+/// Component set to changed or new entities on ``World/setFrame(_:)``
+public struct ObjectTouched: Component {
+    // TODO: Documentation
+    public init() {}
+}
+
+/// Reference to an object snapshot by ID.
+public struct ObjectSnapshotRef: Component {
+    let snapshotID: ObjectSnapshotID
+    // TODO: Documentation
+    public init(_ snapshotID: ObjectSnapshotID) {
+        self.snapshotID = snapshotID
+    }
+}
+
+// TODO: Document that entities represent logical object, not snapshot
 /// A container for storing and working with run-time entities, components and relationships.
 ///
 /// Functionality:
@@ -15,6 +31,10 @@
 /// - Storage and management of entity relationships, used through ``RuntimeEntity/relate(_:to:)-(_,RuntimeID)``.
 /// - Management of systems schedules
 /// - Design issue management
+///
+/// ## World and Design relationship
+///
+/// World is primarily a runtime instance of a design, specifically of a design frame.
 ///
 /// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
@@ -142,27 +162,61 @@ public class World {
     ///
     /// When a new frame is set, the following happens:
     ///
-    /// 1. Entity representing the previously set frame and its objects are despawned.
+    /// 1. Despawn removed design object – entities representing objects that are not present in
+    ///    the new frame.
     ///    See ``despawn(_:)-(RuntimeID)``.
-    /// 2. New entity for the frame is spawned.
-    /// 3. New entities are spawned for design objects from the new frame. The entities are set
-    ///    as dependants on the frame.
-    /// 4. All issues are cleared.
+    /// 2. Spawn new entities for new design objects. New design objects are objects with ObjectID
+    ///    that are not present in the world.
+    /// 3. Set ``ObjectTouched`` tag on changed design object entities – entities that were
+    ///    representing objects (by `ObjectID`) in previous and in the new frame, but their
+    ///    version snapshot (`ObjectSnapshotID`) has changed.
+    /// 4. Clear ``ObjectTouched`` tag on design object entities that remained the same.
     ///
-    /// - Note: Each time ``setFrame(_:)`` is called a new frame entity is created and the old one
-    ///   is despawned, even if the frame has been set in the past. The frame entity is not stored
-    ///   and therefore not reused.
+    /// - Note: Incoming relationships such as `RepresentationOf` survive frame changes
+    ///   for unchanged and mutated objects.
     ///
     public func setFrame(_ newFrame: DesignFrame) {
         precondition(newFrame.design === self.design)
         precondition(self.design.containsFrame(newFrame.id))
         
-        removeFrame()
+        self.removeComponentForAll(ObjectTouched.self)
+        var trash: [RuntimeID] = []
+        for (objectID, runtimeID) in objectToEntityMap {
+            if !newFrame.contains(objectID) {
+                trash.append(runtimeID)
+            }
+        }
+        despawn(trash)
+        
+        for snapshot in newFrame.snapshots {
+            if let existing = self.entity(snapshot.objectID) {
+                guard let existingRef = _getComponent(ObjectSnapshotRef.self, for: existing.runtimeID)
+                else {
+                    preconditionFailure("Object snapshot has no ObjectSnapshotRef component")
+                }
+                if existingRef.snapshotID != snapshot.snapshotID {
+                    _setComponent(ObjectTouched(), for: existing.runtimeID)
+                    _setComponent(ObjectSnapshotRef(snapshot.snapshotID), for: existing.runtimeID)
+                }
+            }
+            else {
+                _spawnDesignObjectEntity(snapshot)
+            }
+        }
+        
         self.frame = newFrame
-        spawnFrameObjectEntities()
         self.issues.removeAll()
     }
     
+    private func _spawnDesignObjectEntity(_ snapshot: ObjectSnapshot) {
+        let entity: RuntimeEntity = spawn(
+            ObjectSnapshotRef(snapshot.snapshotID),
+            ObjectTouched(),
+        )
+        objectToEntityMap[snapshot.objectID] = entity.runtimeID
+        entityToObjectMap[entity.runtimeID] = snapshot.objectID
+    }
+
     public func removeFrame() {
         self.frame = nil
         despawn(entityToObjectMap.keys)
@@ -170,16 +224,6 @@ public class World {
         entityToObjectMap.removeAll()
     }
     
-    internal func spawnFrameObjectEntities() {
-        guard let frame
-        else { return }
-        
-        for objectID in frame.objectIDs {
-            let runtimeID: RuntimeID = spawn()
-            objectToEntityMap[objectID] = runtimeID
-            entityToObjectMap[runtimeID] = objectID
-        }
-    }
 
     /// Spawn an ephemeral entity.
     ///
@@ -235,11 +279,13 @@ public class World {
         while !trash.isEmpty {
             let id = trash.removeFirst()
             removed.insert(id)
+
             defer {
-                _removeAllComponents(for: id)
-                _removeAllRelationships(with: id)
+                // Must run after the for-loop below — relationships must still
+                // exist during cascade discovery via dependants(of:).
+                _remove(id)
             }
-            
+
             for storage in relationshipStorages.values {
                 let policy = storage.targetRemovalPolicy
                 for originID in storage.dependants(of: id) {
@@ -259,7 +305,14 @@ public class World {
         }
         entities.removeAll { removed.contains($0) }
     }
-    
+
+    private func _remove(_ runtimeID: RuntimeID) {
+        if let objectID = entityToObjectMap.removeValue(forKey: runtimeID) {
+            objectToEntityMap.removeValue(forKey: objectID)
+        }
+        _removeAllComponents(for: runtimeID)
+        _removeAllRelationships(with: runtimeID)
+    }
     // MARK: - Components
     /// Set a component for an entity.
     ///
