@@ -89,8 +89,15 @@ public struct ValueBounds {
     public init(min: Double, max: Double, baseline: Double? = nil, limit: DisplayValueBounds? = nil) {
         precondition(max >= min)
         if let limit {
-            self.min = limit.min ?? min
-            self.max = limit.max ?? max
+            var limitedMin = limit.min ?? min
+            let limitedMax = limit.max ?? max
+            
+            if limitedMin > limitedMax {
+                limitedMin = limitedMax
+            }
+            
+            self.min = limitedMin
+            self.max = limitedMax
             self.baseline = limit.baseline ?? baseline ?? self.min
         }
         else {
