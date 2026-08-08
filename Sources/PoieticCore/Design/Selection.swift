@@ -171,6 +171,9 @@ extension Selection /* : SetAlgebra */ {
     }
 }
 
+// TODO: Unify selection. Now it is not very clear whether to use Selection singleton or IsSelected (singleton can't refer to selected runtime entities).
+/// Component placed on entities that need explicitly to be marked as selected.
+///
 public struct IsSelected: Component {
     public init() {}
 }
