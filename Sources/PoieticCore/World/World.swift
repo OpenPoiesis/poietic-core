@@ -6,7 +6,8 @@
 //
 
 /// Component set to changed or new entities on ``World/setFrame(_:)``
-public struct ObjectTouched: Component {
+public struct ObjectTouched: TagComponent {
+    public typealias Storage = TagComponentStorage<Self>
     // TODO: Documentation
     public init() {}
 }
@@ -313,6 +314,26 @@ public class World {
     }
     // MARK: - Components
     
+    internal func componentStorage<T: Component>(for type: T.Type) -> T.Storage {
+        let id = ObjectIdentifier(T.self)
+        
+        if let existing = componentStorages[id] as? T.Storage {
+            return existing
+        }
+        
+        guard let newStorage = T.makeStorage() as? T.Storage else {
+            fatalError("Invalid storage for component \(String(describing: T.self))")
+        }
+        componentStorages[id] = newStorage
+        return newStorage
+    }
+    
+    /// Count entities with given component.
+    public func count<T: Component>(_ type: T.Type) -> Int {
+        let storage = componentStorage(for: T.self)
+        return storage.count
+    }
+
     /// Set a component for an entity.
     ///
     /// If a component of the same type already exists for this object,
@@ -340,23 +361,6 @@ public class World {
         return storage.component(for: runtimeID)
     }
 
-    internal func componentStorage<T: Component>(for type: T.Type) -> ComponentStorage<T> {
-        let id = ObjectIdentifier(T.self)
-        
-        if let existing = componentStorages[id] as? ComponentStorage<T> {
-            return existing
-        }
-        
-        let newStorage = ComponentStorage<T>()
-        componentStorages[id] = newStorage
-        return newStorage
-    }
-
-    /// Count entities with given component.
-    public func count<T: Component>(_ type: T.Type) -> Int {
-        let storage = componentStorage(for: T.self)
-        return storage.count
-    }
 
     internal func _debugComponents(for runtimeID: RuntimeID) -> ComponentSet {
         var components = ComponentSet()

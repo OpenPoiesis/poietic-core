@@ -19,9 +19,29 @@
 /// This is just an annotation protocol, has no requirements.
 ///
 public protocol Component {
-    // Empty, just an annotation.
+    associatedtype Storage: ComponentStorageProtocol where Storage.ComponentType == Self
+    static func makeStorage() -> any ComponentStorageProtocol
 }
 
+extension Component {
+    public typealias Storage = DictionaryComponentStorage<Self>
+    public static func makeStorage() -> any ComponentStorageProtocol {
+        return DictionaryComponentStorage<Self>()
+    }
+
+}
+
+/// Component without data.
+///
+public protocol TagComponent: Component {
+    init()
+}
+
+extension Component where Self: TagComponent {
+    public static func makeStorage() -> any ComponentStorageProtocol {
+        return TagComponentStorage<Self>(factory: { Self() })
+    }
+}
 
 /// Component that can be inspected for debugging.
 ///

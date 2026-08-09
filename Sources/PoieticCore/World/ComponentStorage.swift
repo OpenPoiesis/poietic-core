@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 28/02/2026.
 //
 
-public protocol ComponentStorageProtocol {
+public protocol ComponentStorageProtocol<ComponentType> {
     associatedtype ComponentType: Component
     associatedtype IDCollection: Collection<RuntimeID>
 
@@ -18,15 +18,17 @@ public protocol ComponentStorageProtocol {
     ///
     var ids: IDCollection { get }
 
-    func removeComponent(for entity: RuntimeID)
     func hasComponent(for entity: RuntimeID) -> Bool
-    func removeAll()
     func component(for runtimeID: RuntimeID) -> ComponentType?
+    func setComponent(_ component: ComponentType, for runtimeID: RuntimeID)
+
+    func removeComponent(for entity: RuntimeID)
+    func removeAll()
     func relationship(for runtimeID: RuntimeID) -> (any Relationship)?
 }
 
 extension ComponentStorageProtocol {
-    func relationship(for runtimeID: RuntimeID) -> (any Relationship)? {
+    public func relationship(for runtimeID: RuntimeID) -> (any Relationship)? {
         return nil
     }
 }
@@ -37,36 +39,88 @@ extension ComponentStorageProtocol where ComponentType: Relationship {
     }
 }
 
-final class ComponentStorage<C: Component>: ComponentStorageProtocol {
+public final class DictionaryComponentStorage<C: Component>: ComponentStorageProtocol {
     
-    typealias ComponentType = C
-    typealias IDCollection = [RuntimeID: ComponentType].Keys
+    public typealias ComponentType = C
+    public typealias IDCollection = [RuntimeID: ComponentType].Keys
     private var components: [RuntimeID: ComponentType] = [:]
 
-    var count: Int { components.count }
+    public var count: Int { components.count }
     
-    var ids: IDCollection {
+    public var ids: IDCollection {
         return components.keys
     }
     
-    func setComponent(_ component: ComponentType, for runtimeID: RuntimeID)
+    public func setComponent(_ component: ComponentType, for runtimeID: RuntimeID)
     {
         components[runtimeID] = component
     }
     
-    func component(for runtimeID: RuntimeID) -> ComponentType? {
+    public func component(for runtimeID: RuntimeID) -> ComponentType? {
         return components[runtimeID]
     }
     
-    func removeComponent(for runtimeID: RuntimeID) {
+    public func removeComponent(for runtimeID: RuntimeID) {
         components.removeValue(forKey: runtimeID)
     }
 
-    func removeAll() {
+    public func removeAll() {
         components.removeAll()
     }
 
-    func hasComponent(for runtimeID: RuntimeID) -> Bool {
+    public func hasComponent(for runtimeID: RuntimeID) -> Bool {
         return components[runtimeID] != nil
+    }
+}
+
+public final class TagComponentStorage<C: Component>: ComponentStorageProtocol {
+    
+    public typealias ComponentType = C
+    public typealias IDCollection = Set<RuntimeID>
+    private var entities: Set<RuntimeID> = Set()
+
+    // To not to have circular reference (C: TagComponent)
+    
+    private let factory: () -> C
+    init(factory: @escaping () -> C ) {
+        self.factory = factory
+    }
+    
+    public var count: Int { entities.count }
+    
+    public var ids: IDCollection {
+        return entities
+    }
+    
+    public func setComponent(_ component: ComponentType, for runtimeID: RuntimeID)
+    {
+        entities.insert(runtimeID)
+    }
+    
+    public func component(for runtimeID: RuntimeID) -> ComponentType? {
+        if entities.contains(runtimeID) {
+            return factory()
+        }
+        else {
+            return nil
+        }
+    }
+    
+    public func removeComponent(for runtimeID: RuntimeID) {
+        entities.remove(runtimeID)
+    }
+
+    public func removeAll() {
+        entities.removeAll()
+    }
+
+    public func hasComponent(for runtimeID: RuntimeID) -> Bool {
+        return entities.contains(runtimeID)
+    }
+}
+
+extension TagComponentStorage where C: TagComponent {
+    public convenience init() {
+        self.init(factory: { C() })
     }
 }
