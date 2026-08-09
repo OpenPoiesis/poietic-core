@@ -31,6 +31,20 @@ public enum EdgeDirection: Sendable, CustomStringConvertible {
     }
 }
 
+public enum EdgeCardinality: Sendable, CustomStringConvertible {
+    // case oneOrZero
+    // case exactlyOne
+    case one
+    case many
+    
+    public var description: String {
+        switch self {
+        case .one: "one"
+        case .many: "many"
+        }
+    }
+}
+
 public enum EdgeRuleViolation: Error, CustomStringConvertible {
     case edgeNotAllowed
     case noRuleSatisfied
@@ -132,9 +146,9 @@ extension EdgeRuleViolation /*: IssueProtocol */ {
 /// // Each flow has exactly one source and one drain
 /// let flowRule = EdgeRule(
 ///     type: ObjectType.Flow,
-///     origin: IsTypePredicate(ObjectType.Stock),
+///     origin: .isType(ObjectType.Stock),
 ///     outgoing: .many,  // Stock can have many outgoing flows
-///     target: IsTypePredicate(ObjectType.FlowRate),
+///     target: .isType(ObjectType.FlowRate),
 ///     incoming: .one    // FlowRate has exactly one incoming flow
 /// )
 /// ```

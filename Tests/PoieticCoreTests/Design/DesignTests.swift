@@ -368,7 +368,7 @@ import Testing
     
     @Test func constraintViolationAccept() throws {
         let constraint = Constraint(name: "test",
-                                    match: AnyPredicate(),
+                                    match: .any,
                                     requirement: RejectAll())
         let metamodel = Metamodel(merging: TestMetamodel,
                                   Metamodel(constraints: [constraint]))

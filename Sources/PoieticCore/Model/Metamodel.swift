@@ -62,15 +62,15 @@
 ///     edgeRules: [
 ///         EdgeRule(type: ObjectType.Parameter, incoming: .many, outgoing: .many),
 ///         EdgeRule(type: ObjectType.Flow,
-///                  origin: IsTypePredicate(ObjectType.Stock),
-///                  target: IsTypePredicate(ObjectType.FlowRate),
+///                  origin: .isType(ObjectType.Stock),
+///                  target: .isType(ObjectType.FlowRate),
 ///                  outgoing: .one,
 ///                  incoming: .one)
 ///     ],
 ///     constraints: [
 ///         Constraint(
 ///             name: "unique_names",
-///             match: HasTraitPredicate("Name"),
+///             match: .hasTrait("Name"),
 ///             requirement: UniqueProperty("name")
 ///         )
 ///     ]

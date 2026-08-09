@@ -32,20 +32,20 @@ import Testing
 
     
     @Test func anyPredicate() throws {
-        #expect(AnyPredicate().match(empty, in: frame))
+        #expect(Predicate.any.match(empty, in: frame))
     }
 
     @Test func notPredicate() throws {
-        let predicate = NegationPredicate(AnyPredicate())
+        let predicate = Predicate.not(.any)
         #expect(!predicate.match(empty, in: frame))
     }
     @Test func typePredicate() throws {
-        #expect(IsTypePredicate(TestType).match(empty, in: frame))
-        #expect(!IsTypePredicate(TestEdgeType).match(empty, in: frame))
+        #expect(Predicate.isType(TestType).match(empty, in: frame))
+        #expect(!Predicate.isType(TestEdgeType).match(empty, in: frame))
     }
     @Test func traitPredicate() throws {
-        #expect(HasTraitPredicate(TestTraitWithDefault).match(textObject, in: frame))
-        #expect(!HasTraitPredicate(TestTraitNoDefault).match(textObject, in: frame))
+        #expect(Predicate.hasTrait(TestTraitWithDefault).match(textObject, in: frame))
+        #expect(!Predicate.hasTrait(TestTraitNoDefault).match(textObject, in: frame))
     }
 
 }

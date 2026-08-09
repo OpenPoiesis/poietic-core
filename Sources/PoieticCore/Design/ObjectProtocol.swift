@@ -72,7 +72,7 @@ public protocol ObjectProtocol: Identifiable {
     /// - SeeAlso:
     ///     ``ObjectType``, ``Metamodel``
     ///     ``Frame/filter(type:)``,
-    ///     ``IsTypePredicate``
+    ///     ``Predicate/isType(_:)``
     ///
     var type: ObjectType { get }
 

@@ -133,12 +133,12 @@ public let TestMetamodel = Metamodel(
         EdgeRule(type: .Arrow),
         EdgeRule(type: TestEdgeType),
         EdgeRule(type: .Flow,
-                 origin: IsTypePredicate(.FlowRate),
+                 origin: .isType(.FlowRate),
                  outgoing: .one,
-                 target: IsTypePredicate(.Stock)),
+                 target: .isType(.Stock)),
         EdgeRule(type: .Flow,
-                 origin: IsTypePredicate(.Stock),
-                 target: IsTypePredicate(.FlowRate),
+                 origin: .isType(.Stock),
+                 target: .isType(.FlowRate),
                  incoming: .one)
     ]
     
