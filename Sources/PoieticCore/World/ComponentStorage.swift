@@ -7,6 +7,14 @@
 
 public protocol ComponentStorageProtocol: Collection where Element == (RuntimeID, ComponentType) {
     associatedtype ComponentType: Component
+    associatedtype IDCollection: Collection<RuntimeID>
+
+    /// Snapshot collection of IDs that is to be consumed immediately.
+    ///
+    /// - Important: Do not store the values.
+    ///
+    var ids: IDCollection { get }
+
     func removeComponent(for entity: RuntimeID)
     func hasComponent(for entity: RuntimeID) -> Bool
     func removeAll()
@@ -29,7 +37,12 @@ extension ComponentStorageProtocol where ComponentType: Relationship {
 final class ComponentStorage<C: Component>: ComponentStorageProtocol {
     
     typealias ComponentType = C
+    typealias IDCollection = [RuntimeID: ComponentType].Keys
     private var components: [RuntimeID: ComponentType] = [:]
+
+    var ids: IDCollection {
+        return components.keys
+    }
     
     func setComponent(_ component: ComponentType, for runtimeID: RuntimeID)
     {
@@ -51,11 +64,6 @@ final class ComponentStorage<C: Component>: ComponentStorageProtocol {
     func hasComponent(for runtimeID: RuntimeID) -> Bool {
         return components[runtimeID] != nil
     }
-
-    // For iteration over all entities with this component
-//    var allEntities: Dictionary<RuntimeID, ComponentType>.Keys {
-//        return components.keys
-//    }
 }
 
 extension ComponentStorage: Collection {

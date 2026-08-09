@@ -157,8 +157,8 @@ struct ManyRelationship: Relationship, Sendable {
         let ent2: RuntimeEntity = world.spawn()
         let ent3: RuntimeEntity = world.spawn()
         
-        var empty: QueryResult<RuntimeEntity> = world.query(TestComponent.self)
-        #expect(empty.next() == nil)
+        let empty: QueryResult<RuntimeEntity> = world.query(TestComponent.self)
+        #expect(Array(empty).isEmpty)
         
         ent1.setComponent(TestComponent(text: "test1"))
         ent2.setComponent(TestComponent(text: "test2"))

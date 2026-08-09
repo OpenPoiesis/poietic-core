@@ -526,53 +526,65 @@ public class World {
     ///
     public func query(_ ids: some Sequence<ObjectID>) -> QueryResult<RuntimeEntity> {
         let runtimeIDs = ids.compactMap { objectToEntityMap[$0] }
-        return QueryResult(world: self, iterator: runtimeIDs.makeIterator()) { entity in
-            guard entity.objectID != nil else { return nil }
-            return entity
+        let result = QueryResult(world: self, ids: runtimeIDs) {
+            RuntimeEntity(runtimeID: $1, world: self)
         }
+        return result
     }
 
-    // FIXME: Make the query(...) methods use the ComponentStorage. Current implementation is a historical remnant.
     /// Get a list of objects with given component.
     ///
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<RuntimeEntity> {
-        // FIXME: This is pre-component storage query
-        return QueryResult(world: self) { entity in
-            guard entity.contains(T.self) else { return nil }
-            return entity
+        let storage = self.componentStorage(for: componentType)
+
+        let result = QueryResult(world: self, ids: storage.ids)  {
+            RuntimeEntity(runtimeID: $1, world: self)
         }
+        return result
     }
-    
+
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
-        return QueryResult(world: self) { entity in
-            return entity[T.self]
+        let storage = self.componentStorage(for: componentType)
+        let result = QueryResult(world: self, ids: storage.ids)  {
+            storage.component(for: $1)
         }
+        return result
     }
 
     /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
     ///
     public func query<T: Component>(_ componentType: T.Type) -> QueryResult<(RuntimeEntity, T)> {
-        return QueryResult(world: self) { entity in
-            guard let comp: T = entity[T.self] else {
-                return nil
-            }
-            return (entity, comp)
+        let storage = self.componentStorage(for: componentType)
+
+        let result = QueryResult(world: self, ids: storage.ids)  {
+            // We can force unwrap, because we are iterating over existing components
+            (RuntimeEntity(runtimeID: $1, world: self), storage.component(for: $1)!)
         }
+        return result
     }
 
-    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
+    /// Queries the world and filters entities which have both specified components.
+    ///
+    /// - Complexity: O(n) where n is number of entities with `componentType1`.
+    /// - Note: It is recommended to use have `componentType1` as a component with small or smaller
+    ///   number of entities compared to `componentType2`.
     ///
     public func query<C1: Component, C2: Component>(_ componentType1: C1.Type, _ componentType2: C2.Type) -> QueryResult<(RuntimeEntity, C1, C2)> {
-        return QueryResult(world: self) { entity in
-            guard let comp1: C1 = entity[C1.self],
-                  let comp2: C2 = entity[C2.self]
+        let storage1 = self.componentStorage(for: componentType1)
+        let storage2 = self.componentStorage(for: componentType2)
+
+        let result: QueryResult<(RuntimeEntity, C1, C2)> =
+        QueryResult(world: self, ids: storage1.ids) {
+            guard let component1 = storage1.component(for: $1),
+                  let component2 = storage2.component(for: $1)
             else { return nil }
-            return (entity, comp1, comp2)
+            return (RuntimeEntity(runtimeID: $1, world: self), component1, component2)
         }
+        return result
     }
 
     // MARK: - Issues

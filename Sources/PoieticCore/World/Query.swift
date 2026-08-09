@@ -7,33 +7,37 @@
 
 /// Query result.
 ///
-/// _Development note:_ It is a wrapped compact map over all world entities.
-///
-/// - Complexity: O(n). For now.
-/// - Note: This is a makeshift world query structure and it is not cheap.
-///
-public struct QueryResult<T>: Sequence, IteratorProtocol {
-    public typealias Element = T
+public struct QueryResult<T>: Sequence {
+    private let world: World
+    private let ids: [RuntimeID]         // pre-computed matching entity IDs
+    private let transform: (World, RuntimeID) -> T?  // transform
     
-    typealias WrappedIterator = [RuntimeID].Iterator
-    var wrapped: WrappedIterator
-    let predicate: ((RuntimeEntity) -> T?)
-    let world: World
-
-    init(world: World, iterator: WrappedIterator? = nil, predicate: @escaping ((RuntimeEntity) -> T?)) {
+    init(world: World, ids: some Collection<RuntimeID>, transform: @escaping (World, RuntimeID) -> T?) {
         self.world = world
-        self.wrapped = iterator ?? world.entities.makeIterator()
-        self.predicate = predicate
+        self.ids = Array(ids)
+        self.transform = transform
     }
-    
-    public mutating func next() -> Element? {
-        while let value = wrapped.next() {
-            let entity = RuntimeEntity(runtimeID: value, world: world)
-            if let result = predicate(entity) {
+
+    public func makeIterator() -> QueryIterator<T> {
+        QueryIterator(world: world, ids: ids, transform: transform)
+    }
+}
+
+public struct QueryIterator<T>: IteratorProtocol {
+    private var wrapped: [RuntimeID].Iterator
+    private let world: World
+    private let transform: (World, RuntimeID) -> T?
+    init(world: World, ids: [RuntimeID], transform: @escaping (World, RuntimeID) -> T?){
+        self.world = world
+        self.wrapped = ids.makeIterator()
+        self.transform = transform
+    }
+    public mutating func next() -> T? {
+        while let id = wrapped.next() {
+            if let result = transform(world, id) {
                 return result
             }
         }
         return nil
     }
 }
-
