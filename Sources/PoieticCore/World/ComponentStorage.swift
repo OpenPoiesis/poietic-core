@@ -5,10 +5,13 @@
 //  Created by Stefan Urbanek on 28/02/2026.
 //
 
-public protocol ComponentStorageProtocol: Collection where Element == (RuntimeID, ComponentType) {
+public protocol ComponentStorageProtocol {
     associatedtype ComponentType: Component
     associatedtype IDCollection: Collection<RuntimeID>
 
+    /// Number of entities with given component in the storage
+    var count: Int { get }
+    
     /// Snapshot collection of IDs that is to be consumed immediately.
     ///
     /// - Important: Do not store the values.
@@ -40,6 +43,8 @@ final class ComponentStorage<C: Component>: ComponentStorageProtocol {
     typealias IDCollection = [RuntimeID: ComponentType].Keys
     private var components: [RuntimeID: ComponentType] = [:]
 
+    var count: Int { components.count }
+    
     var ids: IDCollection {
         return components.keys
     }
@@ -63,26 +68,5 @@ final class ComponentStorage<C: Component>: ComponentStorageProtocol {
 
     func hasComponent(for runtimeID: RuntimeID) -> Bool {
         return components[runtimeID] != nil
-    }
-}
-
-extension ComponentStorage: Collection {
-    typealias Element = (RuntimeID, ComponentType)
-    typealias Index = [RuntimeID: ComponentType].Index
-
-    var startIndex: Index {
-        components.startIndex
-    }
-    
-    var endIndex: Index {
-        components.endIndex
-    }
-    
-    subscript(position: Index) -> Element {
-        return components[position]
-    }
-    
-    func index(after i: Index) -> Index {
-        components.index(after: i)
     }
 }
