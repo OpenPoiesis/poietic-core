@@ -11,7 +11,17 @@ import Glibc
 import Darwin
 #endif
 
-public enum BuiltinFunction: Hashable, CustomStringConvertible {
+/// Error thrown when a function body is called.
+///
+/// - SeeAlso: ``Function/apply``
+///
+public enum FunctionError: Error {
+    case invalidArgument(Int, ValueError)
+    case invalidNumberOfArguments(Int)
+    case notComparableTypes(ValueType, ValueType)
+}
+
+public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
     // Comparison - equality
     case isEqual
     case notEqual
@@ -23,16 +33,46 @@ public enum BuiltinFunction: Hashable, CustomStringConvertible {
     case greaterOrEqual
     
     // Boolean
+    /// Logical negation of a boolean value.
+    ///
     case not
+    /// Logical _AND_ for two or more arguments.
+    ///
     case and
+    /// Logical _OR_ for two or more arguments.
+    ///
     case or
+
+    /// Boolean conditional function.
+    ///
+    /// Arguments:
+    /// - `condition`: a boolean value
+    /// - `if_true`: a value used when the `condition` is _true_
+    /// - `if_false`: a value used when the `condition` is _false_
+    ///
     case `if`
 
     // Unary numeric
     case negate
+    /// Function for computing absolute (numeric) value.
+    ///
+    /// Expression: `abs(number)`
+    ///
     case abs
+    /// Function for computing rounded down, floor value.
+    ///
+    /// Expression: `floor(number)`
+    ///
     case floor
+    /// Function for computing rounded up, ceiling value.
+    ///
+    /// Expression: `ceiling(number)`
+    ///
     case ceiling
+    /// Function for computing rounded numeric value.
+    ///
+    /// Expression: `round(number)`
+    ///
     case round
     case exp
     
@@ -42,11 +82,25 @@ public enum BuiltinFunction: Hashable, CustomStringConvertible {
     case multiply
     case divide
     case modulo
+    
+    /// Function for computing power.
+    ///
+    /// Expression: `power(value, exponent)`
+    ///
     case power
     
     // Variadic numeric
+    /// Function for finding a minimum of one or more values.
+    ///
+    /// Use: `min(number, ...)` min out of of multiple values
     case min
+    /// Function for finding a maximum of one or more values.
+    ///
+    /// Use: `max(number, ...)` max out of of multiple values
     case max
+    /// Function for computing a sum of one or more values.
+    ///
+    /// Expression: `sum(number, ...)`
     case sum
     
 
