@@ -1,5 +1,5 @@
 //
-//  BuildinFunctions2.swift
+//  BuildinFunction.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 20/02/2026.
@@ -13,7 +13,7 @@ import Darwin
 
 /// Error thrown when a function body is called.
 ///
-/// - SeeAlso: ``Function/apply``
+/// - SeeAlso: ``BuiltinFunction/apply``
 ///
 public enum FunctionError: Error {
     case invalidArgument(Int, ValueError)
@@ -126,6 +126,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         case binaryNumeric
         case variadicNumeric
         case variadicNumericNonEmpty
+        case variadicBoolean // Two or more
         case unaryBoolean
         case binaryBoolean
         case binaryComparable
@@ -138,6 +139,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
             case .binaryNumeric: ValueType.double
             case .variadicNumeric: ValueType.double
             case .variadicNumericNonEmpty: ValueType.double
+            case .variadicBoolean: ValueType.bool
             case .unaryBoolean: ValueType.bool
             case .binaryBoolean: ValueType.bool
             case .binaryComparable: ValueType.bool
@@ -151,6 +153,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
             case .binaryNumeric: 2
             case .variadicNumeric: 0
             case .variadicNumericNonEmpty: 1
+            case .variadicBoolean: 2
             case .unaryBoolean: 1
             case .binaryBoolean: 2
             case .binaryComparable: 2
@@ -189,6 +192,15 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
                 var mismatch: [Int] = []
                 for (index, type) in types.enumerated() {
                     if !type.isConvertible(to: .numeric) {
+                        mismatch.append(index)
+                    }
+                }
+                guard mismatch.isEmpty else { return .typeMismatch(mismatch) }
+            case .variadicBoolean: // (bool, bool, ...)
+                guard types.count >= 2 else { return .invalidNumberOfArguments }
+                var mismatch: [Int] = []
+                for (index, type) in types.enumerated() {
+                    if !type.isConvertible(to: ValueType.bool) {
                         mismatch.append(index)
                     }
                 }
@@ -355,8 +367,8 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         // Unary logical
         case .not: .unaryBoolean
         // Binary logical
-        case .and: .binaryBoolean
-        case .or: .binaryBoolean
+        case .and: .variadicBoolean
+        case .or: .variadicBoolean
             
         // Variadic numeric
         case .min: .variadicNumericNonEmpty
@@ -399,11 +411,21 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
             let arg: Bool = try castArguments(arguments)
             result = Variant(!arg)
         case .and:
-            let (lhs, rhs): (Bool, Bool) = try castArguments(arguments)
-            result = Variant(lhs && rhs)
+            guard arguments.count >= 2 else { throw .invalidNumberOfArguments(1) }
+            let args: [Bool] = try castArguments(arguments)
+            var value = true
+            for arg in args {
+                value = value && arg
+            }
+            result = Variant(value)
         case .or:
-            let (lhs, rhs): (Bool, Bool) = try castArguments(arguments)
-            result = Variant(lhs || rhs)
+            guard arguments.count >= 2 else { throw .invalidNumberOfArguments(1) }
+            let args: [Bool] = try castArguments(arguments)
+            var value = false
+            for arg in args {
+                value = value || arg
+            }
+            result = Variant(value)
         case .`if`:
             let (condition, trueValue, falseValue): (Bool, Variant, Variant) = try castArguments(arguments)
             result = condition ? trueValue : falseValue
@@ -534,6 +556,14 @@ func castArguments(_ arguments: [Variant]) throws (FunctionError) -> [Double] {
     var result: [Double] = Array(repeating: 0, count: arguments.count)
     for (i, arg) in arguments.enumerated() {
         do { result[i] = try arg.doubleValue() }
+        catch { throw .invalidArgument(i, error) }
+    }
+    return result
+}
+func castArguments(_ arguments: [Variant]) throws (FunctionError) -> [Bool] {
+    var result: [Bool] = Array(repeating: false, count: arguments.count)
+    for (i, arg) in arguments.enumerated() {
+        do { result[i] = try arg.boolValue() }
         catch { throw .invalidArgument(i, error) }
     }
     return result
