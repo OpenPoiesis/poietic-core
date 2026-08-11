@@ -4,11 +4,6 @@
 //
 //  Created by Stefan Urbanek on 10/08/2026.
 //
-#if os(Linux)
-import Glibc
-#else
-import Darwin
-#endif
 
 /// Result of function argument validation.
 ///

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Variable.swift
 //  
 //
 //  Created by Stefan Urbanek on 13/09/2023.
