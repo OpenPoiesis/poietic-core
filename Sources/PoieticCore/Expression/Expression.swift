@@ -13,43 +13,49 @@
 ///
 public typealias UnboundExpression = ArithmeticExpression<String, String>
 
+// TODO: Add full example.
 /// Arithmetic expression.
 ///
 /// Represents components of an arithmetic expression: values, variables,
 /// operators and functions.
 ///
-/// - SeeAlso: ``ExpressionParser``, ``UnboundExpression``
+/// - SeeAlso: ``ExpressionParser``, ``UnboundExpression``.
 ///
 public indirect enum ArithmeticExpression<V, F> {
-    // TODO: Use operator table for operators
-    public typealias LiteralValue = Variant
-
     /// Type of a reference to a variable.
+    ///
+    /// Unbound expressions produced by ``ExpressionParser/parse()`` have variable references
+    /// as strings.
+    ///
+    /// - SeeAlso: ``VariableNameLookup``, ``VariableValueLookup``, ``bindExpression(_:variables:)``
     ///
     public typealias VariableReference = V
 
-    /// Type of a reference to a function, including functions representing
-    /// operators.
+    /// Type of a reference to a function.
+    ///
+    /// Unbound expressions produced by ``ExpressionParser/parse()`` have function references
+    /// as strings.
+    ///
+    /// - SeeAlso: ``BuiltinFunction``, ``bindExpression(_:variables:)``
     ///
     public typealias FunctionReference = F
 
     /// Literal value.
-    case value(LiteralValue)
+    case value(Variant)
 
     /// Variable reference.
     case variable(VariableReference)
 
     /// Unary operator.
-    case unary(FunctionReference, Self)
+    case unary(UnaryOperator, Self)
 
     /// Binary operator.
-    case binary(FunctionReference, Self, Self)
+    case binary(BinaryOperator, Self, Self)
     
-    /// Function with multiple expressions as arguments
+    /// Function with multiple expressions as arguments.
     case function(FunctionReference, [Self])
 
-    /// List of children from which the expression is composed. Does not go
-    /// to underlying table expressions.
+    /// List of direct children from which the expression is composed.
     ///
     public var children: [ArithmeticExpression] {
         switch self {
@@ -60,7 +66,8 @@ public indirect enum ArithmeticExpression<V, F> {
         }
     }
 
-    /// List of all variables that the expression and its children reference
+    /// List of all variables that the expression and its children reference.
+    ///
     public var allVariables: [VariableReference] {
         // TODO: Remove duplicities.
         switch self {

@@ -55,32 +55,40 @@ public indirect enum ExpressionAST {
         case let .intLiteral(token):
             var sanitizedNumber = token.text
             sanitizedNumber.removeAll { $0 == "_" }
-            guard let value = Int(sanitizedNumber) else {
-                fatalError("Lexer error: invalid int token")
-            }
-            return .value(Variant(value))
 
+            // TODO: [IMPORTANT] Check whether the number is convertible, do not crash.
+            guard let value = Int(sanitizedNumber)
+            else { fatalError("Lexer error: invalid int token") }
+            
+            return .value(Variant(value))
+            
         case let .doubleLiteral(token):
             var sanitizedNumber = token.text
             sanitizedNumber.removeAll { $0 == "_" }
-            guard let value = Double(sanitizedNumber) else {
-                fatalError("Lexer error: invalid double token")
-            }
-            return .value(Variant(value))
 
+            // TODO: [IMPORTANT] Check whether the number is convertible, do not crash.
+            guard let value = Double(sanitizedNumber)
+            else { fatalError("Lexer error: invalid double token") }
+
+            return .value(Variant(value))
+            
         case let .variable(token):
             return .variable(String(token.text))
+            
+        case let .unaryOperator(opSymbol, operand):
+            guard let op = UnaryOperator(symbol: opSymbol.text)
+            else { fatalError("Unknown unary operator symbol '\(opSymbol.text)'") }
+            
+            return .unary(op, operand.toExpression())
 
-        case let .unaryOperator(op, operand):
-            return .unary(String(op.text), operand.toExpression())
+        case let .binaryOperator(operator: opSymbol, left: left, right: right):
+            guard let op = BinaryOperator(symbol: opSymbol.text)
+            else { fatalError("Unknown binary operator symbol '\(opSymbol.text)'") }
 
-        case let .binaryOperator(operator: op, left: left, right: right):
-            return .binary(String(op.text), left.toExpression(), right.toExpression())
+            return .binary(op, left.toExpression(), right.toExpression())
 
         case let .functionCall(name: name, arguments: args, _, _):
-            let expressions = args.map {
-                $0.toExpression()
-            }
+            let expressions = args.map { $0.toExpression() }
             return .function(String(name.text), expressions)
 
         case let .parenthesis(expression: expr, _, _):
@@ -144,6 +152,13 @@ public class ExpressionParser {
     var lexer: ExpressionLexer
     var currentToken: ExpressionToken?
     
+    public static func parse(string: String) throws (ExpressionSyntaxError) -> UnboundExpression {
+        let lexer = ExpressionLexer(string: string)
+        let parser = ExpressionParser(lexer: lexer)
+        return try parser.parse()
+    }
+
+    
     // TODO: Add: public static parsing(string:) throws -> UnboundExpression
     /// Creates a new parser using an expression lexer.
     ///
@@ -186,9 +201,8 @@ public class ExpressionParser {
     
     /// Parse an operator.
     func `operator`(_ op: String) -> ExpressionToken? {
-        guard let token = currentToken else {
-            return nil
-        }
+        guard let token = currentToken else { return nil }
+        
         if token.type == .operator && token.text == op {
             advance()
             return token
@@ -196,18 +210,13 @@ public class ExpressionParser {
         else {
             return nil
         }
-
     }
     
     /// Parse an identifier - a variable name or a function name.
     ///
     func identifier() -> ExpressionToken? {
-        if let token = accept(.identifier) {
-            return token
-        }
-        else {
-            return nil
-        }
+        guard let token = accept(.identifier) else { return nil }
+        return token
     }
 
     /// Parse an integer or a float.
@@ -229,16 +238,12 @@ public class ExpressionParser {
     ///     variable_call -> IDENTIFIER ["(" ARGUMENTS ")"]
     ///
     func variable_or_call() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        guard let ident = identifier() else {
-            return nil
-        }
+        guard let ident = identifier() else { return nil }
 
         if let lparen = accept(.leftParen) {
             var arguments: [ExpressionAST] = []
             repeat {
-                guard let expr = try expression() else {
-                    break
-                }
+                guard let expr = try expression() else { break }
                 
                 if let comma = accept(.comma) {
                     let arg: ExpressionAST = .functionArgument(argument:expr, comma: comma)
@@ -251,9 +256,7 @@ public class ExpressionParser {
                 }
             } while true
 
-            guard let rparen = accept(.rightParen) else {
-                throw .missingRightParenthesis
-            }
+            guard let rparen = accept(.rightParen) else { throw .missingRightParenthesis }
 
             return .functionCall(name: ident,
                                  arguments: arguments,
@@ -280,9 +283,7 @@ public class ExpressionParser {
 
         else if let lparen = accept(.leftParen) {
             if let expr = try expression() {
-                guard let rparen = accept(.rightParen) else {
-                    throw .missingRightParenthesis
-                }
+                guard let rparen = accept(.rightParen) else { throw .missingRightParenthesis }
                 return .parenthesis(expression: expr,
                                     openParen: lparen,
                                     closeParen: rparen)
@@ -298,15 +299,12 @@ public class ExpressionParser {
     func unary() throws (ExpressionSyntaxError) -> ExpressionAST? {
         // TODO: Add '!'
         if let op = `operator`("-") {
-            guard let operand = try unary() else {
-                throw .expressionExpected
-            }
+            guard let operand = try unary() else { throw .expressionExpected }
             return .unaryOperator(operator: op, operand: operand)
         }
         else {
             return try primary()
         }
-        
     }
 
     /// Rule:
@@ -319,9 +317,7 @@ public class ExpressionParser {
         }
         
         while let op = `operator`("^") {
-            guard let right = try unary() else {
-                throw .expressionExpected
-            }
+            guard let right = try unary() else { throw .expressionExpected }
             left = .binaryOperator(operator: op, left: left, right: right)
         }
         
@@ -333,14 +329,10 @@ public class ExpressionParser {
     ///     factor -> unary ( ( "/" | "*" ) unary )* ;
     ///
     func factor() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        guard var left = try exponent() else {
-            return nil
-        }
+        guard var left = try exponent() else { return nil }
         
         while let op = `operator`("*") ?? `operator`("/") ?? `operator`("%") {
-            guard let right = try exponent() else {
-                throw .expressionExpected
-            }
+            guard let right = try exponent() else { throw .expressionExpected }
             left = .binaryOperator(operator: op, left: left, right: right)
         }
         
@@ -352,14 +344,10 @@ public class ExpressionParser {
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
     func term() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        guard var left = try factor() else {
-            return nil
-        }
+        guard var left = try factor() else { return nil }
         
         while let op = `operator`("+") ?? `operator`("-") {
-            guard let right = try factor() else {
-                throw .expressionExpected
-            }
+            guard let right = try factor() else { throw .expressionExpected }
             left = .binaryOperator(operator: op, left: left, right: right)
         }
         
@@ -371,17 +359,14 @@ public class ExpressionParser {
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
     func comparison_expression() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        guard var left = try term() else {
-            return nil
-        }
+        guard var left = try term() else { return nil }
         
         while let op = `operator`("<")
                 ?? `operator`("<=")
                 ?? `operator`(">")
-                ?? `operator`(">="){
-            guard let right = try term() else {
-                throw .expressionExpected
-            }
+                ?? `operator`(">=")
+        {
+            guard let right = try term() else { throw .expressionExpected }
             left = .binaryOperator(operator: op, left: left, right: right)
         }
         
@@ -393,9 +378,7 @@ public class ExpressionParser {
     ///     term -> factor ( ( "-" | "+" ) factor )* ;
     ///
     func equality_expression() throws (ExpressionSyntaxError) -> ExpressionAST? {
-        guard var left = try comparison_expression() else {
-            return nil
-        }
+        guard var left = try comparison_expression() else { return nil }
         
         while let op = `operator`("==") ?? `operator`("!=") {
             guard let right = try comparison_expression() else {
@@ -425,5 +408,4 @@ public class ExpressionParser {
         }
         return expr.toExpression()
     }
-    
 }

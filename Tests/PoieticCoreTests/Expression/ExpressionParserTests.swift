@@ -30,28 +30,30 @@ import Testing
     }
 
     @Test func parseBinary() throws {
-        let expr = UnboundExpression.binary( "+", .variable("a"), .value(1) )
+        let expr = UnboundExpression.binary( .add, .variable("a"), .value(1) )
         #expect(try ExpressionParser(string: "a + 1").parse() == expr)
         #expect(try ExpressionParser(string: "a+1").parse() == expr)
     }
 
     @Test func binaryComparison() throws {
-        let expr = UnboundExpression.binary( "<=", .value(1), .value(2) )
-        #expect(try ExpressionParser(string: "1 <= 2").parse() == expr)
-        #expect(try ExpressionParser(string: "1<=2").parse() == expr)
+        let expr = UnboundExpression.binary( .lessOrEqual, .value(1), .value(2) )
+        let result1 = try ExpressionParser(string: "1 <= 2").parse()
+        #expect(result1 == expr)
+        let result2 = try ExpressionParser(string: "1<=2").parse()
+        #expect(result2 == expr)
     }
 
     @Test func factorAndTermRepetition() throws {
         let expr = UnboundExpression.binary(
-            "*",
-            .binary( "*", .variable("a"), .variable("b") ),
+            .multiply,
+            .binary( .multiply, .variable("a"), .variable("b") ),
             .variable("c")
         )
         #expect(try ExpressionParser(string: "a * b * c").parse() == expr)
 
         let expr2 = UnboundExpression.binary(
-            "+",
-            .binary( "+", .variable("a"), .variable("b") ),
+            .add,
+            .binary( .add, .variable("a"), .variable("b") ),
             .variable("c")
         )
         #expect(try ExpressionParser(string: "a + b + c").parse() == expr2)
@@ -59,16 +61,16 @@ import Testing
     
     @Test func precedence() throws {
         let expr = UnboundExpression.binary(
-            "+",
+            .add,
             .variable("a"),
-            .binary( "*", .variable("b"), .variable("c") )
+            .binary( .multiply, .variable("b"), .variable("c") )
         )
         #expect(try ExpressionParser(string: "a + b * c").parse() == expr)
         #expect(try ExpressionParser(string: "a + (b * c)").parse() == expr)
 
         let expr2 = UnboundExpression.binary(
-            "+",
-            .binary( "*", .variable("a"), .variable("b") ),
+            .add,
+            .binary( .multiply, .variable("a"), .variable("b") ),
             .variable("c")
         )
         #expect(try ExpressionParser(string: "a * b + c").parse() == expr2)
@@ -76,13 +78,13 @@ import Testing
     }
     
     @Test func unaryExpression() throws {
-        let expr = UnboundExpression.unary("-", .variable("x"))
+        let expr = UnboundExpression.unary(.negate, .variable("x"))
         #expect(try ExpressionParser(string: "-x").parse() == expr)
 
         let expr2 = UnboundExpression.binary(
-            "-",
+            .subtract,
             .variable("x"),
-            .unary( "-", .variable("y") )
+            .unary(.negate, .variable("y") )
         )
         #expect(try ExpressionParser(string: "x - -y").parse() == expr2)
     }
