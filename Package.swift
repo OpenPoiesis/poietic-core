@@ -13,14 +13,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-collections", from: "1.3.0"),
-        .package(url: "https://github.com/apple/swift-system", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0"),
     ],
     targets: [
         .target(
             name: "PoieticCore",
             dependencies: [
-                .product(name: "SystemPackage", package: "swift-system"),
                 .product(name: "Collections", package: "swift-collections"),
             ]
         ),

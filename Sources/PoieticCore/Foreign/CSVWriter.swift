@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 11/07/2023.
 //
 
-import SystemPackage
+import Foundation
 
 /// Formats a list of string values into a string that represents a
 /// CSV record.
@@ -78,23 +78,30 @@ public class CSVFormatter {
     }
 }
 
+public enum CSVWriterError: Error {
+    case unableToOpenFile
+}
+
 /// A sketch of a CSVWriter.
 ///
 /// - Important: This class is just a sketch. The interface will very likely
 ///   be changed.
 public class CSVWriter {
-    let file: FileDescriptor
+    let file: FileHandle
     let formatter: CSVFormatter
     var fieldCount: Int?
     
-    public convenience init(path: String, formatter: CSVFormatter = CSVFormatter()) throws {
-        let file = try FileDescriptor.open(path, .writeOnly,
-                                           options: [.truncate, .create],
-                                           permissions: .ownerReadWrite)
-        try self.init(file, formatter: formatter)
+    public convenience init(path: String, formatter: CSVFormatter = CSVFormatter()) throws (CSVWriterError) {
+        guard FileManager.default.createFile(atPath: path, contents: nil, attributes: nil) else {
+            throw .unableToOpenFile
+        }
+        guard let file: FileHandle = FileHandle(forWritingAtPath: path) else {
+            throw .unableToOpenFile
+        }
+        self.init(file, formatter: formatter)
     }
 
-    public init(_ descriptor: FileDescriptor, formatter: CSVFormatter = CSVFormatter()) throws {
+    public init(_ descriptor: FileHandle, formatter: CSVFormatter = CSVFormatter()) {
         self.file = descriptor
         self.formatter = formatter
         self.fieldCount = nil
@@ -109,12 +116,13 @@ public class CSVWriter {
         if let fieldCount {
             precondition(row.count == fieldCount,
                          "The CSV record must have the same number of items as the very first record. It has \(row.count), expected \(fieldCount)")
-            try file.writeAll(formatter.options.recordDelimiter.utf8)
+            let data = String(formatter.options.recordDelimiter).data(using: .utf8)!
+            try file.write(contentsOf: data)
         }
         else {
             self.fieldCount = row.count
         }
-        try file.writeAll(output.utf8)
+        try file.write(contentsOf: output.data(using: .utf8)!)
     }
     public func close() throws {
         try file.close()
