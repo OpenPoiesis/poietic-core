@@ -86,12 +86,24 @@ Further reading:
 - [Technical Debt](DevelopmentNotes/TechnicalDebt.md) document in the
   DevelopmentNotes folder.
 
-## Note on LLM Use
+## Contributing
 
-This package is LLM free with exception of some unit tests.
+_All humans are more than welcome to contribute to the project._
 
-If you want to contribute to this package, please do not use LLMs to write code. Only exception is
-unit tests, which require to be reviewed thoroughly by a human.
+**Contributions that are substantially generative AI/LLM-generated (such as code or issues)**,
+without substantive human authorship, verification and understanding, will be rejected
+without further review, regardless of content.
+
+**Generative AI/LLM-assisted human contribution might be allowed** with prior discussion
+and disclosure. The disclosure must confirm that:
+
+- You fully understand every part of the contribution, and can answer questions about it
+  without using AI assistance.
+- You have personally tested and verified it.
+- You clearly indicate which parts of the content is AI generated.
+
+The human contributor takes full responsibility for all code, including its correctness
+and licensing compliance.
 
 ## Author
 
