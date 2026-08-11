@@ -1,5 +1,5 @@
 //
-//  BuildinFunction.swift
+//  BuiltinFunction.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 20/02/2026.

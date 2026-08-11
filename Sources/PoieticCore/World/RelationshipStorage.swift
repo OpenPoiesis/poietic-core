@@ -137,12 +137,7 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
             return false
         }
     }
-//    func hasAnyRelationship(from origin: RuntimeID) -> Bool {
-//        return outgoingIndex[origin] != nil
-//    }
-//    func hasAnyRelationship(to target: RuntimeID) -> Bool {
-//        return incomingIndex[target] != nil
-//    }
+    
     func removeAll() {
         components.removeAll()
         outgoingIndex.removeAll()
@@ -186,6 +181,4 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
     func dependants(of target: RuntimeID) -> [RuntimeID] {
         return Array(incomingIndex[target, default: []])
     }
-
 }
-

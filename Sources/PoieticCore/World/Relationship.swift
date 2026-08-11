@@ -83,7 +83,7 @@ public protocol Relationship: Component {
 
 extension Relationship {
     public static var outgoingCardinality: Cardinality { .one }
-//    public static var incomingCardinality: Cardinality { .many }
+    // TODO: Add incomingCardinality following once needed
 }
 
 // MARK: - Relationship Components

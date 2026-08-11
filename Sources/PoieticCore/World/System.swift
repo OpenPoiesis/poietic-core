@@ -32,26 +32,6 @@ public enum SystemDependency {
 /// and require, allowing the system registry to compute execution order
 /// automatically.
 ///
-/// ## Example
-///
-/// ```swift
-/// struct ExpressionParserSystem: System {
-///     static let dependencies: [SystemDependency] = []
-///
-///     func update(_ frame: RuntimeFrame) {
-///         for object in frame.filter(trait: .Formula) {
-///             guard let formula = object["formula"]?.stringValue() else {
-///                 continue
-///             }
-///
-///             let expr = try parseExpression(formula)
-///             frame.setComponent(UnboundExpression(expression: expr),
-///                               for: object.objectID)
-///         }
-///     }
-/// }
-/// ```
-///
 /// - Note: The concept of Systems in this library is for modelling and separation of concerns,
 ///         not for performance reasons.
 ///

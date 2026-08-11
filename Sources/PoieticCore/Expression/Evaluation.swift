@@ -1,5 +1,5 @@
 //
-//  Evaluator.swift
+//  Evaluation.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 10/08/2026.
@@ -368,7 +368,6 @@ public enum Evaluator {
 
 }
 
-// TODO: Make ExpressionError DesignIssueConvertible
 public enum ExpressionError: Error, CustomStringConvertible, Equatable {
     case unknownVariable(String)
     case unknownFunction(String)

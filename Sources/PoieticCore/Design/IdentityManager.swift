@@ -28,15 +28,6 @@ public class IdentityManager {
         used[id] != nil || reserved[id] != nil
     }
 
-//    /// Check whether the identity manager contains given ID and wether the contained ID
-//    /// is of the given type.
-//    ///
-//    /// The identity manager contains the ID if it is either used or reserved.
-//    @inlinable
-//    func contains<T>(_ id: EntityID<T>) -> Bool {
-//        used[id.rawValue] == T.identityType || reserved[id.rawValue] == T.identityType
-//    }
-    
     @inlinable
     func type(_ id: DesignEntityID) -> DesignEntityType? {
         used[id] ?? reserved[id]

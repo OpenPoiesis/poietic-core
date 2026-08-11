@@ -514,13 +514,6 @@ public class World {
             (RuntimeEntity(runtimeID: id, world: self), component)
         }
     }
-//    internal func _containsRelationship<T: Relationship>(_ component: T,
-//                                                         from originID: RuntimeID,
-//                                                         to targetID: RuntimeID) -> Bool
-//    {
-//        let storage = componentStorage(for: T.self)
-//        return storage.hasComponent(for: runtimeID)
-//    }
 
     // MARK: - Query
     

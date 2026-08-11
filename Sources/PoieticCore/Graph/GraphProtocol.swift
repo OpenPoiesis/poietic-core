@@ -181,12 +181,3 @@ public protocol PropertyGraphProtocol: GraphProtocol {
     ///
     func edgeProperty(_ id: EdgeKey) -> EdgeProperty
 }
-
-//extension PropertyGraphProtocol {
-//    public func node(_ oid: NodeID) -> Node {
-//        guard let first: Node = nodes.first(where: { $0.id == oid }) else {
-//            fatalError("Missing node")
-//        }
-//        return first
-//    }
-//}
