@@ -316,13 +316,9 @@ public final class JSONDesignReader {
     // NOTE: Update in the JSONDesignReader class documentation
     public static let CurrentFormatVersion = SemanticVersion(0, 2, 0)
     
-    // TODO: let forceFormatVersion: SemanticVersion
-    public let variantCoding: Variant.CodingType
-    
     /// Create a plane reader.
     ///
-    public init(variantCoding: Variant.CodingType = .dictionary) {
-        self.variantCoding = variantCoding
+    public init() {
         // Nothing here for now
     }
     
@@ -357,8 +353,8 @@ public final class JSONDesignReader {
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error
         let decoder = JSONDecoder()
-        decoder.userInfo[Variant.CodingTypeKey] = self.variantCoding
         
+        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
         if let raw = try? decoder.decode(RawDesignV0_2.self, from: data) {
             return raw.asRawDesign()
         }
@@ -370,33 +366,5 @@ public final class JSONDesignReader {
         }
         let ctx = RawDesignReaderError.Context(path: [], underlyingError: nil)
         throw RawDesignReaderError.dataCorrupted(ctx)
-    }
-
-    /// Read a raw design from JSON data using an adapter for a non-current version.
-    ///
-    /// This method is called by the ``read(data:)`` when the format version is incompatible
-    /// with the current version reader.
-    ///
-    /// See the class documentation for more information about the format.
-    ///
-    public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
-        switch version {
-        case "makeshift_store":
-            let makeshiftDesign: _MakeshiftPersistentDesign
-            let decoder = JSONDecoder()
-            decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
-            do {
-                makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
-            }
-            catch let error as DecodingError {
-                throw RawDesignReaderError(error)
-            }
-            catch {
-                throw .canNotReadData
-            }
-            return makeshiftDesign.asRawDesign()
-        default:
-            throw RawDesignReaderError.unknownFormatVersion(version)
-        }
     }
 }
