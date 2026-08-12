@@ -478,7 +478,7 @@ public class DesignLoader {
     /// This method requires that the ``LoadingContext/parents`` has been populated.
     ///
     /// - Parameters:
-    ///     - snapshotIndices: Indices of snapshots within a frame (or some other similar
+    ///     - snapshotIndices: Indices of snapshots within a plane (or some other similar
     ///         collection) to the list of all snapshots. See: ``RawDesign/snapshots``.
     ///     - objectSnapshots: All object snapshots.
     ///

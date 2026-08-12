@@ -11,7 +11,7 @@
 /// lifetime of the World.
 ///
 /// Design entities are given a runtime ID when presented in a world, for example through
-/// ``World/setFrame(_:)``.
+/// ``World/setPlane(_:)``.
 ///
 /// Runtime IDs are not persisted within the library and it is not recommended to store them.
 ///
@@ -68,7 +68,7 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     ///
     public var designObject: ObjectSnapshot? {
         guard let objectID = world.entityToObjectMap[runtimeID] else { return nil }
-        return world.frame?[objectID]
+        return world.plane?[objectID]
     }
     
     internal init(runtimeID: RuntimeID, world: World) {

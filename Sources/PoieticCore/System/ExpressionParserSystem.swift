@@ -20,7 +20,7 @@ public struct ParsedExpressionComponent: Component {
 public struct ExpressionParserSystem: System {
     public init(_ world: World) { }
     public func update(_ world: World) {
-        guard let frame = world.frame else { return }
+        guard let frame = world.plane else { return }
         
         for object in frame.filter(trait: .Formula) {
             guard let formula: String = object["formula"],

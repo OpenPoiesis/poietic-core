@@ -15,7 +15,7 @@
 public struct VisualMetadataSystem: System {
     public init(_ world: World) { }
     public func update(_ world: World) throws(InternalSystemError) {
-        guard let frame = world.frame else { return }
+        guard let frame = world.plane else { return }
         
         for object in frame.filter(trait: .NumericValue) {
             guard let entity = world.entity(object.objectID) else { continue }

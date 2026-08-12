@@ -193,7 +193,7 @@ public class RawDesign: Codable {
     ///
     /// | Name | Type | Description |
     /// | ---- | ---- | ----------- |
-    /// | `current_frame` |  `plane` | ID of current frame (see ``Design/currentPlaneID``) |
+    /// | `current_frame` |  `plane` | ID of current plane (see ``Design/currentPlaneID``) |
     /// | `application_settings` | `plane` | ID of plane containing application settings. A non-versioned plane. |
     public var systemReferences: [RawNamedReference] = []
 

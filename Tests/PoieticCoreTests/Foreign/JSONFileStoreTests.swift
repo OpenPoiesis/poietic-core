@@ -83,7 +83,7 @@ final class JSONFileStoreTests: XCTestCase {
 //        self.assertEqual(len(list(self.db.snapshots)),
 //                         len(list(restored.snapshots)))
 //
-//        other_frame = restored.frame(self.plane.version)
+//        other_frame = restored.plane(self.plane.version)
 //
 //        for snapshot in self.plane.snapshots:
 //            other = other_frame.object(snapshot.id)
