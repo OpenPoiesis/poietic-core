@@ -169,7 +169,7 @@ extension Variant: Codable {
     
     /// Read a variant from a decoder.
     ///
-    /// Reading a foreign frame produced by the library:
+    /// Reading a foreign plane produced by the library:
     ///
     /// ```swift
     /// let decoder = JSONDecoder()

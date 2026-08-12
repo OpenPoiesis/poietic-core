@@ -8,7 +8,7 @@
 
 /// System that prepares basic visual metadata.
 ///
-/// - **Input:** Design objects from current frame with trait ``Trait/NumericValue``.
+/// - **Input:** Design objects from current plane with trait ``Trait/NumericValue``.
 /// - **Output:** Add ``DisplayValueBounds`` component to the design object entity.
 /// - **Forgiveness:** Nothing to be forgiven.
 ///

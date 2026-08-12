@@ -5,32 +5,32 @@
 //  Created by Stefan Urbanek on 10/11/2024.
 //
 
-/// Design frame that has been accepted and can not be changed.
+/// Design plane that has been accepted and can not be changed.
 ///
-/// The stable frame is a collection of object versions that together represent
-/// a version snapshot of a design. The frame is immutable.
+/// The stable plane is a collection of object versions that together represent
+/// a version snapshot of a design. The plane is immutable.
 ///
-/// Stable frames can not be created directly. They can be created only from
-/// mutable frames through validation using ``Design/accept(_:appendHistory:)``.
+/// Stable planes can not be created directly. They can be created only from
+/// mutable planes through validation using ``Design/accept(_:appendHistory:)``.
 ///
-/// To create a derivative frame from a stable frame use
-/// ``Design/createFrame(deriving:id:)``.
+/// To create a derivative plane from a stable plane use
+/// ``Design/createPlane(deriving:id:)``.
 ///
 /// - SeeAlso: ``TransientPlane``
 ///
 public final class DesignPlane: Plane, Identifiable {
-    /// Design to which the frame belongs.
+    /// Design to which the plane belongs.
     public unowned let design: Design
     
-    /// ID of the frame.
+    /// ID of the plane.
     ///
     /// ID is unique within the design.
     ///
     public let id: PlaneID
     
-    /// Version snapshots contained in the frame.
+    /// Version snapshots contained in the plane.
     ///
-    /// Snapshots might be shared between frames.
+    /// Snapshots might be shared between planes.
     ///
     internal let _snapshots: [ObjectSnapshot]
     @usableFromInline
@@ -40,7 +40,7 @@ public final class DesignPlane: Plane, Identifiable {
    
     public var isEmpty: Bool { _snapshots.isEmpty }
     
-    /// Create a new stable frame with given ID and with list of snapshots.
+    /// Create a new stable plane with given ID and with list of snapshots.
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
@@ -79,7 +79,7 @@ public final class DesignPlane: Plane, Identifiable {
         _snapshots.map { $0.objectID }
     }
     
-    /// Returns `true` if the frame contains an object with given object
+    /// Returns `true` if the plane contains an object with given object
     /// identity.
     ///
     public func contains(_ id: ObjectID) -> Bool {

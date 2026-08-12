@@ -26,12 +26,12 @@ public class DesignExtractor {
         let sysReferences: [RawNamedReference]
         var userReferences: [RawNamedReference] = []
 
-        // 1. Snapshots and frames
+        // 1. Snapshots and planes
         for snapshot in design.objectSnapshots {
             let raw = extract(snapshot)
             snapshots.append(raw)
         }
-        for frame in design.frames {
+        for frame in design.planes {
             let raw = extract(frame)
             frames.append(raw)
         }
@@ -47,7 +47,7 @@ public class DesignExtractor {
             sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
         }
         
-        if let id = design.currentFrameID {
+        if let id = design.currentPlaneID {
             sysReferences = [
                 RawNamedReference("current_frame", type: "frame", id: .id(id))
             ]
@@ -58,7 +58,7 @@ public class DesignExtractor {
 
         // 3. User references
         // Write all, including empty ones.
-        for (name, frame) in design.namedFrames {
+        for (name, frame) in design.namedPlanes {
             let ref = RawNamedReference(name, type: "frame", id: .id(frame.id))
             userReferences.append(ref)
         }
@@ -107,7 +107,7 @@ public class DesignExtractor {
         return raw
     }
     
-    /// Create a raw frame from a design frame.
+    /// Create a raw plane from a design plane.
     ///
     public func extract(_ frame: some Plane) -> RawFrame {
         return RawFrame(
@@ -116,7 +116,7 @@ public class DesignExtractor {
         )
     }
     
-    /// Extract snapshots from a frame while maintaining referential integrity.
+    /// Extract snapshots from a plane while maintaining referential integrity.
     ///
     /// This method is intended primarily for the "copy" part of the Copy&Paste functionality. Can
     /// be used for safely exporting portions of designs.
@@ -129,7 +129,7 @@ public class DesignExtractor {
     /// - Only ordered set (structural type) with the owner in the provided set of snapshots are kept.
     /// - Invalid references in the ordered set structural type are removed, but the ordered set is kept.
     /// - Missing parent is set to `nil`.
-    /// - Snapshots not present in the frame are ignored.
+    /// - Snapshots not present in the plane are ignored.
     ///
     public func extractPruning(objects objectIDs: [ObjectID], frame: some Plane) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(objectIDs)

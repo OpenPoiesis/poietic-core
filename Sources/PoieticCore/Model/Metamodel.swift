@@ -99,8 +99,8 @@ public final class Metamodel: Sendable {
     
     /// List of constraints.
     ///
-    /// Constraints are validated before a frame is accepted to the design.
-    /// Design must not contain design frames that violate any of the
+    /// Constraints are validated before a plane is accepted to the design.
+    /// Design must not contain design planes that violate any of the
     /// constraints.
     ///
     public let constraints: [Constraint]

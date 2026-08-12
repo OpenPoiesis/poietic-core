@@ -10,7 +10,7 @@ extension DesignLoader {
     ///
     /// The method validates:
     ///
-    /// - Whether the object snapshot IDs and frame IDs, if provided, are unique
+    /// - Whether the object snapshot IDs and plane IDs, if provided, are unique
     ///
     /// - Returns: Validated context that is meant to be used as an input for identity resolution.
     /// - Note: This is just preliminary validation required for identity resolution, it does not

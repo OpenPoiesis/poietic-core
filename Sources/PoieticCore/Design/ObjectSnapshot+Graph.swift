@@ -13,11 +13,11 @@
  edges type == parameter && target trait formula
  node type == chart
  node on edge == chart series
- frame first: trait simulation
+ plane first: trait simulation
  view simulation nodes (custom filter)
  view incoming parameter nodes (incoming + type)
  view drains/fills (incoming/outgoing + type)
- frame type stock
+ plane type stock
  
  incoming/outgoing + type
  edge of type

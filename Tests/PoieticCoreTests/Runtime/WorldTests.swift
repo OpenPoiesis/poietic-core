@@ -34,11 +34,11 @@ struct ManyRelationship: Relationship, Sendable {
     init() throws {
         // Create a test design with a few objects
         self.design = Design(metamodel: TestMetamodel)
-        let trans1 = design.createFrame()
+        let trans1 = design.createPlane()
         
         self.emptyFrame = try design.accept(trans1)
         
-        let trans2 = design.createFrame()
+        let trans2 = design.createPlane()
         
         // Create some test objects with proper structure
         let obj1 = trans2.create(.Stock, structure: .node)
@@ -284,7 +284,7 @@ struct ManyRelationship: Relationship, Sendable {
     @Test func removeSingleton() throws {
         let world = World(frame: emptyFrame)
         
-        // Set frame component
+        // Set plane component
         world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
         #expect(world.hasSingleton(TestSingletonComponent.self))
         

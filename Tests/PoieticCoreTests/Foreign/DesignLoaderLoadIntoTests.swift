@@ -20,9 +20,9 @@ struct DesignLoaderLoadIntoTests {
 
     // MARK: - Core Functionality Tests
 
-    @Test("Load into transient frame marks it as changed")
+    @Test("Load into transient plane marks it as changed")
     func loadIntoHasChanges() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let raw = RawSnapshot(typeName: "TestPlain")
         try loader.load([raw], into: trans)
 
@@ -32,7 +32,7 @@ struct DesignLoaderLoadIntoTests {
 
     @Test("Loading same snapshot multiple times creates different objects")
     func loadIntoMultipleTimes() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let raw = RawSnapshot(typeName: "TestPlain")
 
         // Load the same snapshot twice
@@ -48,7 +48,7 @@ struct DesignLoaderLoadIntoTests {
 
     @Test("Edge references are resolved correctly")
     func loadIntoReferences() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let node1 = RawSnapshot(typeName: "TestNode", id: .int(10))
         let node2 = RawSnapshot(typeName: "TestNode", id: .int(20))
         let edge = RawSnapshot(
@@ -72,9 +72,9 @@ struct DesignLoaderLoadIntoTests {
         }
     }
 
-    @Test("Load RawDesign with no current frame and no frames")
+    @Test("Load RawDesign with no current plane and no planes")
     func importIntoNoCurrentID() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [
                 RawSnapshot(typeName: "TestPlain")
@@ -86,9 +86,9 @@ struct DesignLoaderLoadIntoTests {
         #expect(trans.hasChanges)
     }
 
-    @Test("Load from current frame in multi-frame RawDesign")
+    @Test("Load from current plane in multi-plane RawDesign")
     func importFromCurrentFrame() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [
                 RawSnapshot(typeName: "TestPlain", snapshotID: .int(10)),
@@ -100,7 +100,7 @@ struct DesignLoaderLoadIntoTests {
                 RawFrame(id: .int(1001), snapshots: [.int(10), .int(20)]),
             ],
             systemReferences: [
-                RawNamedReference("current_frame", type: "frame", id: .int(1000))
+                RawNamedReference("current_frame", type: "plane", id: .int(1000))
             ]
         )
         try loader.load(rawDesign, into: trans)
@@ -113,7 +113,7 @@ struct DesignLoaderLoadIntoTests {
 
     @Test("Error: broken edge reference")
     func loadIntoBrokenReference() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let edge = RawSnapshot(
             typeName: "TestEdge",
             id: .int(30),
@@ -127,7 +127,7 @@ struct DesignLoaderLoadIntoTests {
 
     @Test("Error: duplicate object ID")
     func loadIntoDuplicsteObjectID() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let rawSnapshots: [RawSnapshot] = [
             RawSnapshot(typeName: "TestNode", id: .string("consumption_inner")),
             RawSnapshot(typeName: "TestNode", id: .string("consumption_inner")),
@@ -138,13 +138,13 @@ struct DesignLoaderLoadIntoTests {
         }
     }
 
-    @Test("Error: invalid current frame ID in RawDesign")
+    @Test("Error: invalid current plane ID in RawDesign")
     func importIntoInvalidCurrentID() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [],
             systemReferences: [
-                RawNamedReference("current_frame", type: "frame", id: .int(99))
+                RawNamedReference("current_frame", type: "plane", id: .int(99))
             ]
         )
 
@@ -153,9 +153,9 @@ struct DesignLoaderLoadIntoTests {
         }
     }
 
-    @Test("Error: multiple frames without current frame")
+    @Test("Error: multiple planes without current plane")
     func importIntoNoCurrentIDWithMultipleFrames() async throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let rawDesign = RawDesign(
             snapshots: [],
             frames: [
@@ -178,7 +178,7 @@ struct DesignLoaderLoadIntoTests {
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(100), id: .int(10)),
             ]
         )
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .createNew)
         try design.accept(trans)
         #expect(design.identityManager.reserved.isEmpty)
@@ -198,7 +198,7 @@ struct DesignLoaderLoadIntoTests {
                 RawSnapshot(typeName: "TestNode", snapshotID: .int(103), id: .int(13), parent: .int(11), attributes: ["name": "child"]),
             ]
         )
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         try loader.load(rawDesign.snapshots, into: trans, identityStrategy: .preserveOrCreate)
         let frame = try design.accept(trans)
         #expect(design.identityManager.reserved.isEmpty)
@@ -210,9 +210,9 @@ struct DesignLoaderLoadIntoTests {
         #expect(child1.parent == node1.objectID)
         #expect(Array(node1.children) == [child1.objectID])
 
-        // Load same raw snapshots again into a derived frame
-        // The IDs already exist in the target frame, so .preserveOrCreate should create new IDs
-        let trans2 = design.createFrame(deriving: frame)
+        // Load same raw snapshots again into a derived plane
+        // The IDs already exist in the target plane, so .preserveOrCreate should create new IDs
+        let trans2 = design.createPlane(deriving: frame)
         try loader.load(rawDesign.snapshots, into: trans2, identityStrategy: .preserveOrCreate)
 
         let frame2 = try design.accept(trans2)
@@ -227,7 +227,7 @@ struct DesignLoaderLoadIntoTests {
 
     @Test("Simulated copy-paste workflow")
     func simulatedPaste() async throws {
-        let trans1 = design.createFrame()
+        let trans1 = design.createPlane()
         let a = trans1.createNode(TestNodeType, attributes: ["name": "a"])
         let b = trans1.createNode(TestNodeType, attributes: ["name": "b"])
         let edge = trans1.createEdge(TestEdgeType, origin: a.objectID, target: b.objectID, attributes: ["name": "edge"])
@@ -240,13 +240,13 @@ struct DesignLoaderLoadIntoTests {
                                   metamodelVersion: design.metamodel.version,
                                   snapshots: extract)
         // Paste
-        let trans2 = design.createFrame(deriving: frame1)
+        let trans2 = design.createPlane(deriving: frame1)
         try loader.load(rawDesign.snapshots,
                         into: trans2,
                         identityStrategy: .preserveOrCreate)
         let frame2 = try design.accept(trans2)
         // Paste the same thing again
-        let trans3 = design.createFrame(deriving: frame2)
+        let trans3 = design.createPlane(deriving: frame2)
         try loader.load(rawDesign.snapshots,
                         into: trans3,
                         identityStrategy: .preserveOrCreate)

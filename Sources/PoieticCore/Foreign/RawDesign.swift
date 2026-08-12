@@ -104,7 +104,7 @@ extension DesignEntityID {
 
 public struct RawNamedReference: Equatable, Codable {
     public let name: String
-    /// Known types: `frame`, `object`
+    /// Known types: `plane`, `object`
     public let type: String
     public let id: ForeignEntityID
 
@@ -117,7 +117,7 @@ public struct RawNamedReference: Equatable, Codable {
 
 public struct RawNamedList: Equatable, Codable {
     public let name: String
-    /// Known types: `frame`
+    /// Known types: `plane`
     public let itemType: String
     public let ids: [ForeignEntityID]
 
@@ -165,18 +165,18 @@ public class RawDesign: Codable {
 
     /// List of snapshots contained in the raw design.
     ///
-    /// Snapshots are expected to be used by the frames. Any snapshot not used by a frame within the
+    /// Snapshots are expected to be used by the planes. Any snapshot not used by a plane within the
     /// raw design should be discarded during loading process.
     ///
     public var snapshots: [RawSnapshot] = []
 
-    /// List of frames.
+    /// List of planes.
     ///
     public var frames: [RawFrame] = []
 
     /// References to metamodel entities created by an user, typically through an application.
     ///
-    /// For example, ``Design/namedFrames`` are stored here as named references of type `"frame"`.
+    /// For example, ``Design/namedPlanes`` are stored here as named references of type `"plane"`.
     ///
     public var userReferences: [RawNamedReference] = []
 
@@ -193,16 +193,16 @@ public class RawDesign: Codable {
     ///
     /// | Name | Type | Description |
     /// | ---- | ---- | ----------- |
-    /// | `current_frame` |  `frame` | ID of current frame (see ``Design/currentFrameID``) |
-    /// | `application_settings` | `frame` | ID of frame containing application settings. A non-versioned frame. |
+    /// | `current_frame` |  `plane` | ID of current frame (see ``Design/currentPlaneID``) |
+    /// | `application_settings` | `plane` | ID of plane containing application settings. A non-versioned plane. |
     public var systemReferences: [RawNamedReference] = []
 
     /// Named lists of references created by and managed by the system.
     ///
     /// | Name | Item Type | Description |
     /// | ---- | --------- | ----------- |
-    /// | `undo` | `frame` | List of undoable frames. See ``Design/undoList`` |
-    /// | `redo` | `frame` | List of re-doable frames. See ``Design/redoList`` |
+    /// | `undo` | `plane` | List of undoable planes. See ``Design/undoList`` |
+    /// | `redo` | `plane` | List of re-doable planes. See ``Design/redoList`` |
     ///
     public var systemLists: [RawNamedList] = []
     

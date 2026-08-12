@@ -237,7 +237,7 @@ extension RawDesignReaderError: DesignIssueConvertible {
 
 /// Object for reading foreign designs represented as JSON.
 ///
-/// - Note: Hand-writing foreign frames in JSON is discouraged, as they might become
+/// - Note: Hand-writing foreign planes in JSON is discouraged, as they might become
 ///   complex very quickly. It is not the purpose of this toolkit to
 ///   process and maintain raw human-written textual representation of designs.
 ///
@@ -251,13 +251,13 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///     always preferred to include the metamodel name.
 /// - `metamodel_version`: Version of the metamodel. If not provided, then the latest version
 ///     should be assumed by the application/tool.
-/// - `snapshots`: All object version snapshots, referenced by frames. See ``RawSnapshot``.
-/// - `frames`: Design frames contained within. See ``RawFrame``.
+/// - `snapshots`: All object version snapshots, referenced by planes. See ``RawSnapshot``.
+/// - `planes`: Design planes contained within. See ``RawFrame``.
 /// - `user_references`: User defined references to any identifiable entity within the design.
 ///         See ``RawNamedReference``.
-///         Named frames (``Design/frame(name:)``) are stored in the user references as well.
+///         Named planes (``Design/plane(name:)``) are stored in the user references as well.
 /// - `system_references`: References used by the system (same structure as `user_references`).
-///         For example the current design frame is stored as a system reference.
+///         For example the current design plane is stored as a system reference.
 /// - `user_lists`: User defined lists of references to any identifiable entity within the design. See ``RawNamedList``.
 /// - `system_lists`: Reference lists used by the system (same structure as `user_references`).
 ///         For example undo and redo history is stored in the system lists.
@@ -319,7 +319,7 @@ public final class JSONDesignReader {
     // TODO: let forceFormatVersion: SemanticVersion
     public let variantCoding: Variant.CodingType
     
-    /// Create a frame reader.
+    /// Create a plane reader.
     ///
     public init(variantCoding: Variant.CodingType = .dictionary) {
         self.variantCoding = variantCoding

@@ -8,7 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-// TODO: [IMPORTANT] Test reservation release on transient frame
+// TODO: [IMPORTANT] Test reservation release on transient plane
 
 @Suite struct TransientFrameTest {
     let design: Design
@@ -16,7 +16,7 @@ import Testing
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
-        frame = design.createFrame()
+        frame = design.createPlane()
     }
    
     @Test func create() throws {
@@ -54,7 +54,7 @@ import Testing
         let original = frame.create(TestNodeType, structure: .node)
         let originalFrame = try design.accept(frame)
         
-        let derivedFrame = design.createFrame(deriving: originalFrame)
+        let derivedFrame = design.createPlane(deriving: originalFrame)
         let derived = derivedFrame.mutate(original.objectID)
 
         #expect(original.structure == derived.structure)
@@ -79,7 +79,7 @@ import Testing
         let originalSnap = try #require(frame[obj.objectID])
         try design.accept(frame)
         
-        let derived = design.createFrame(deriving: design.currentFrame!)
+        let derived = design.createPlane(deriving: design.currentPlane!)
         let derivedSnap = derived.mutate(obj.objectID)
         
         #expect(derivedSnap.objectID == originalSnap.objectID)
@@ -93,7 +93,7 @@ import Testing
         let obj = frame.create(TestType, attributes: ["text": "hello"])
         try design.accept(frame)
         
-        let derived = design.createFrame(deriving: design.currentFrame!)
+        let derived = design.createPlane(deriving: design.currentPlane!)
         let derivedSnap = derived.mutate(obj.objectID)
         
         #expect(derivedSnap["text"] == "hello")
@@ -104,7 +104,7 @@ import Testing
         let object = frame.create(TestType, attributes: ["text": Variant("before")])
         let original = try design.accept(frame)
         
-        let frame2 = design.createFrame(deriving: original)
+        let frame2 = design.createPlane(deriving: original)
         let changedObject = frame2.mutate(object.objectID)
         changedObject["text"] = "after"
         
@@ -139,7 +139,7 @@ import Testing
         let originalNode = frame.create(TestNodeType, structure: .node)
         let original = try design.accept(frame)
         
-        let trans = design.createFrame(deriving: original)
+        let trans = design.createPlane(deriving: original)
         #expect(trans.contains(snapshotID: originalNode.snapshotID))
         trans.removeCascading(originalNode.objectID)
         #expect(trans.snapshots.isEmpty)
@@ -159,7 +159,7 @@ import Testing
         let originalNode = frame.create(TestNodeType, structure: .node)
         let original = try design.accept(frame)
 
-        let trans = design.createFrame(deriving: original)
+        let trans = design.createPlane(deriving: original)
 
         trans.removeCascading(originalNode.objectID)
         #expect(trans.removedObjects.count == 1)
@@ -173,11 +173,11 @@ import Testing
     }
 
     @Test func mutableObjectRemovesPreviousSnapshot() throws {
-        let original = design.createFrame()
+        let original = design.createPlane()
         let originalSnap = original.create(TestType)
         try design.accept(original)
         
-        let derived = design.createFrame(deriving: design.currentFrame!)
+        let derived = design.createPlane(deriving: design.currentPlane!)
 
         #expect(derived.contains(snapshotID: originalSnap.snapshotID))
 
@@ -268,7 +268,7 @@ import Testing
         frame.addChild(c2.objectID, to: p.objectID)
 
         let accepted = try design.accept(frame)
-        let derived = design.createFrame(deriving: accepted)
+        let derived = design.createPlane(deriving: accepted)
         derived.removeFromParent(c1.objectID)
 
         let derivedP = try #require(derived[p.objectID])
@@ -309,7 +309,7 @@ import Testing
         frame.setParent(obj.objectID, to: parent.objectID)
         frame.setParent(child.objectID, to: obj.objectID)
         
-        let derivedFrame = design.createFrame(deriving: try design.accept(frame))
+        let derivedFrame = design.createPlane(deriving: try design.accept(frame))
         let derivedObj = derivedFrame.mutate(obj.objectID)
 
         #expect(derivedObj.parent == parent.objectID)

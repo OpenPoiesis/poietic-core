@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 02/11/2025.
 //
 
-/// Parsed arithmetic expression (frame-independent)
+/// Parsed arithmetic expression (plane-independent)
 public struct ParsedExpressionComponent: Component {
     public let expression: UnboundExpression
     public let variables: Set<String>

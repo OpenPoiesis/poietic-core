@@ -2,7 +2,7 @@
 //  WorldFrameChangeTests.swift
 //  poietic-core
 //
-//  Tests for World.setFrame(_:) behaviour — entity lifecycle across frame changes,
+//  Tests for World.setFrame(_:) behaviour — entity lifecycle across plane changes,
 //  relationship cascading, and ObjectID→RuntimeID mapping.
 //
 import Testing
@@ -27,11 +27,11 @@ import Testing
         self.design = Design(metamodel: TestMetamodel)
 
         // --- emptyFrame ---
-        let t0 = design.createFrame()
+        let t0 = design.createPlane()
         self.emptyFrame = try design.accept(t0)
 
         // --- frameWithTwo ---
-        let t1 = design.createFrame()
+        let t1 = design.createPlane()
         let obj1 = t1.create(.Stock, structure: .node, attributes: ["text": "A"])
         let obj2 = t1.create(.FlowRate, structure: .node, attributes: ["text": "B"])
         self.firstObjectID = obj1.objectID
@@ -39,18 +39,18 @@ import Testing
         self.frameWithTwo = try design.accept(t1)
 
         // --- frameWithMutation: first object text changed ---
-        let t2 = design.createFrame(deriving: frameWithTwo)
+        let t2 = design.createPlane(deriving: frameWithTwo)
         let mutated = t2.mutate(firstObjectID)
         mutated["text"] = "Changed"
         self.frameWithMutation = try design.accept(t2)
 
         // --- frameWithRemoval: second object removed ---
-        let t3 = design.createFrame(deriving: frameWithTwo)
+        let t3 = design.createPlane(deriving: frameWithTwo)
         t3.removeCascading(secondObjectID)
         self.frameWithRemoval = try design.accept(t3)
     }
 
-    // MARK: - Survival of non-frame entities
+    // MARK: - Survival of non-plane entities
 
     @Test func setEmptyToEmptyPreservesNonFrameEntities() throws {
         let world = World(frame: emptyFrame)
@@ -134,7 +134,7 @@ import Testing
         let e1Before = try #require(world.entity(firstObjectID))
         let e2Before = try #require(world.entity(secondObjectID))
 
-        world.setFrame(frameWithTwo)  // same frame again
+        world.setFrame(frameWithTwo)  // same plane again
         let e1After = try #require(world.entity(firstObjectID))
         let e2After = try #require(world.entity(secondObjectID))
 

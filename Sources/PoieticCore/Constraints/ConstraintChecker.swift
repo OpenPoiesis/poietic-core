@@ -5,12 +5,12 @@
 //  Created by Stefan Urbanek on 18/09/2024.
 //
 
-/// An object that validates frame against a metamodel and checks constraints, object types and
+/// An object that validates plane against a metamodel and checks constraints, object types and
 /// edge rules.
 ///
 /// There are two primary functions:
 ///
-/// - ``validate(_:)``: Validates the frame and throws ``PlaneValidationError`` on first validation
+/// - ``validate(_:)``: Validates the plane and throws ``PlaneValidationError`` on first validation
 ///   issue detected.
 /// - ``diagnose(_:)``: Collects all the validation issues and returns them in
 ///   ``FrameValidationResult``.
@@ -35,7 +35,7 @@ public struct ConstraintChecker {
     
     /// Create a new constraint checker and associate it with a metamodel.
     ///
-    /// The objects and frames will be validated against constraints and
+    /// The objects and planes will be validated against constraints and
     /// object types in the metamodel.
     ///
     public init(_ metamodel: Metamodel) {
@@ -129,7 +129,7 @@ public struct ConstraintChecker {
         return errors
     }
 
-    /// Check a frame for constraints violations and object type conformance.
+    /// Check a plane for constraints violations and object type conformance.
     ///
     /// The function first checks that:
     ///
@@ -138,11 +138,11 @@ public struct ConstraintChecker {
     /// - Objects must conform to all the constraints specified in the
     ///   metamodel.
     ///
-    /// The method collects all the errors. To only make sure that the frame is valid, see
+    /// The method collects all the errors. To only make sure that the plane is valid, see
     /// ``validate(_:)``, which throws on first error validation detected.
     ///
     /// - Returns: ``FrameValidationResult`` with collected validation diagnostic information.
-    ///   Whether the frame is valid is indicated in the ``FrameValidationResult/isValid`` flag.
+    ///   Whether the plane is valid is indicated in the ``FrameValidationResult/isValid`` flag.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
     ///   ``validate(edge:in:)``
@@ -190,7 +190,7 @@ public struct ConstraintChecker {
         )
     }
     
-    /// Check a frame for constraints violations and object type conformance.
+    /// Check a plane for constraints violations and object type conformance.
     ///
     /// The function first checks that:
     ///
@@ -201,7 +201,7 @@ public struct ConstraintChecker {
     ///
     /// The method throws at first error detected. To collect all the errors, see ``diagnose(_:)``.
     ///
-    /// - Throws: ``PlaneValidationError`` if the frame violates constraints or does not satisfy
+    /// - Throws: ``PlaneValidationError`` if the plane violates constraints or does not satisfy
     ///   type requirements.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,

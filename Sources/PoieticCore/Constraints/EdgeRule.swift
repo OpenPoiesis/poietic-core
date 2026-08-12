@@ -109,8 +109,8 @@ extension EdgeRuleViolation /*: IssueProtocol */ {
 ///
 /// - **Pre-validation** (``ConstraintChecker/canConnect(type:from:to:in:)``): Checks if a new
 ///   edge *could* be created. Used in interactive UIs before creating the edge.
-/// - **Validation** (``ConstraintChecker/validate(edge:in:)``): Checks existing edges in a frame.
-///   Used when accepting frames into the design.
+/// - **Validation** (``ConstraintChecker/validate(edge:in:)``): Checks existing edges in a plane.
+///   Used when accepting planes into the design.
 ///
 /// To collect all issues with edges (and other constraints) within a design you can use
 /// ``ConstraintChecker/diagnose(_:)``.

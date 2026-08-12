@@ -5,12 +5,12 @@
 //  Created by Stefan Urbanek on 23/03/2023.
 //
 
-/// Error thrown when validating and accepting a frame.
+/// Error thrown when validating and accepting a plane.
 ///
 /// - SeeAlso: ``StructuralValidator/validate(_:in:)``
 ///
 public enum StructuralIntegrityError: Error {
-    /// The frame contains references to objects that are not present in the frame.
+    /// The plane contains references to objects that are not present in the plane.
     ///
     /// Use ``StructuralValidator/brokenReferences(_:in:)-method`` to investigate.
     ///
@@ -22,68 +22,68 @@ public enum StructuralIntegrityError: Error {
     case edgeEndpointNotANode // TODO: Rename to invalidStructureReferenceTargetType (or simpler)
 }
 
-/// Transient frame that represents a change transaction.
+/// Transient plane that represents a change transaction.
 ///
-/// Designated way of creating transient frames is with ``Design/createFrame(deriving:id:)``.
-/// The frame needs to be accepted to the design to be considered valid and to be used
+/// Designated way of creating transient planes is with ``Design/createPlane(deriving:id:)``.
+/// The plane needs to be accepted to the design to be considered valid and to be used
 /// by other parts of the library.
 ///
 /// ```swift
 /// let design: Design
 ///
-/// let frame = design.createFrame()
+/// let plane = design.createPlane()
 ///
-/// let note = frame.create(ObjectType.Note)
+/// let note = plane.create(ObjectType.Note)
 /// note["text"] = "Important note"
 ///
 /// do {
-///     try design.accept(frame)
+///     try design.accept(plane)
 /// }
 /// catch { // Handle error
-///     design.discard(frame)
+///     design.discard(plane)
 /// }
 /// ```
 ///
-/// Multiple changes are applied to a transient frame, which can be then
-/// validated and turned into a stable frame using ``Design/accept(_:appendHistory:)``.
+/// Multiple changes are applied to a transient plane, which can be then
+/// validated and turned into a stable plane using ``Design/accept(_:appendHistory:)``.
 /// If the changes can not be validated or for any other reason the changes
-/// are not to be accepted, the frame can be discarded by ``Design/discard(_:)``.
+/// are not to be accepted, the plane can be discarded by ``Design/discard(_:)``.
 ///
-/// Transient frames are not persisted, they exist only during runtime.
+/// Transient planes are not persisted, they exist only during runtime.
 ///
-/// The changes that can be performed with the transient frame:
+/// The changes that can be performed with the transient plane:
 ///
-/// - Mutate existing objects in the frame using
+/// - Mutate existing objects in the plane using
 ///   ``TransientFrame/mutate(_:)``.
 /// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
 ///    or ``TransientPlane/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
-/// Once a transient frame is accepted or discarded, it can no longer be modified.
+/// Once a transient plane is accepted or discarded, it can no longer be modified.
 ///
 public final class TransientPlane: Plane {
-    /// Design with which this frame is associated with.
+    /// Design with which this plane is associated with.
     ///
     public unowned let design: Design
     
-    /// ID of the frame.
+    /// ID of the plane.
     ///
     /// The ID is unique within the design.
     ///
     public let id: PlaneID
     
     
-    /// State of the transient frame.
+    /// State of the transient plane.
     ///
     public enum State {
-        /// The frame is transient and can be modified.
+        /// The plane is transient and can be modified.
         case transient
-        /// The frame has been accepted and can not be modified any more.
+        /// The plane has been accepted and can not be modified any more.
         case accepted
-        /// The frame has been discarded and can not be modified any more.
+        /// The plane has been discarded and can not be modified any more.
         case discarded
     }
-    /// Current state of the transient frame.
+    /// Current state of the transient plane.
     ///
     /// Plane can be modified if it is in ``State/transient``.
     ///
@@ -105,7 +105,7 @@ public final class TransientPlane: Plane {
         _snapshots.map { $0.objectID }
     }
 
-    /// List of snapshots in the frame.
+    /// List of snapshots in the plane.
     ///
     /// - Note: The order of the snapshots is arbitrary. Do not rely on it.
     ///
@@ -114,7 +114,7 @@ public final class TransientPlane: Plane {
         _snapshots.map { $0.asSnapshot() }
     }
     
-    /// Returns `true` if the frame contains an object with given object ID.
+    /// Returns `true` if the plane contains an object with given object ID.
     ///
     public func contains(_ objectID: ObjectID) -> Bool {
         _snapshots[objectID] != nil
@@ -146,18 +146,18 @@ public final class TransientPlane: Plane {
         get { object(id) }
     }
     
-    /// Flag whether the mutable frame has any changes.
+    /// Flag whether the mutable plane has any changes.
     public var hasChanges: Bool {
         return !removedObjects.isEmpty || _snapshots.contains { $0.hasChanges }
     }
     
     // - MARK: - Initialisation
-    /// Create a new transient frame bond to a design.
+    /// Create a new transient plane bond to a design.
     ///
     /// - Parameters:
-    ///     - design: The design the frame will be associated with.
-    ///     - id: ID of the frame. Must be unique within the design.
-    ///     - snapshots: List of snapshots that are included in the frame.
+    ///     - design: The design the plane will be associated with.
+    ///     - id: ID of the plane. Must be unique within the design.
+    ///     - snapshots: List of snapshots that are included in the plane.
     ///
     /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
@@ -182,7 +182,7 @@ public final class TransientPlane: Plane {
     }
     
     // MARK: - Finalisation
-    /// Mark the frame as accepted and use the ID reservations in the design identity manager.
+    /// Mark the plane as accepted and use the ID reservations in the design identity manager.
     ///
     /// You typically do not need to call this method, it is called by
     /// ``Design/accept(_:appendHistory:)``.
@@ -194,7 +194,7 @@ public final class TransientPlane: Plane {
         self.state = .accepted
     }
     
-    /// Mark the frame as accepted and release ID reservations in the design identity manager.
+    /// Mark the plane as accepted and release ID reservations in the design identity manager.
     ///
     /// You typically do not need to call this method, it is called by
     /// ``Design/discard(_:)``.
@@ -207,7 +207,7 @@ public final class TransientPlane: Plane {
     }
    
     // MARK: - Object Creation
-    /// Create a new object within the frame.
+    /// Create a new object within the plane.
     ///
     /// The method creates a new object and assigns default values as defined
     /// in the type.
@@ -230,12 +230,12 @@ public final class TransientPlane: Plane {
     ///   object creation. The object is not yet required to satisfy any
     ///   constraints.
     /// - Note: Existence of the parent is not verified, it will be during the
-    ///   frame insertion.
+    ///   plane insertion.
     ///
     /// - SeeAlso: ``TransientPlane/insert(_:)``
     ///
     /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
-    ///   in the frame.
+    ///   in the plane.
     ///
     @discardableResult
     public func create(_ type: ObjectType,
@@ -297,7 +297,7 @@ public final class TransientPlane: Plane {
         return snapshot
     }
     
-    /// Insert an object snapshot to a frame while maintaining referential
+    /// Insert an object snapshot to a plane while maintaining referential
     /// integrity.
     ///
     /// - Parameters:
@@ -305,7 +305,7 @@ public final class TransientPlane: Plane {
     ///
     /// Requirements for the snapshot:
     ///
-    /// - ID and snapshot ID must not be present in the frame
+    /// - ID and snapshot ID must not be present in the plane
     /// - mutable must be owned, immutable must not be owned
     /// - structural dependencies must be satisfied
     ///
@@ -313,7 +313,7 @@ public final class TransientPlane: Plane {
     /// error.
     ///
     /// - Precondition: References such as edge endpoints, parent, children
-    ///   must be valid within the frame.
+    ///   must be valid within the plane.
     ///
     /// - SeeAlso: ``StructuralValidator/validate(_:in:)``,
     ///
@@ -329,11 +329,11 @@ public final class TransientPlane: Plane {
         unsafeInsert(snapshot)
     }
 
-    /// Unsafely insert a snapshot to the frame, not checking for structural
+    /// Unsafely insert a snapshot to the plane, not checking for structural
     /// references.
     ///
     /// This method is intended to be used by batch-loading of objects
-    /// into the frame where the caller adds objects in an order when
+    /// into the plane where the caller adds objects in an order when
     /// referential integrity might not be assured unless the whole
     /// batch is loaded. Plane with broken referential integrity can not
     /// be accepted by the object design (``Design/accept(_:appendHistory:)``.
@@ -352,18 +352,18 @@ public final class TransientPlane: Plane {
     internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
         precondition(state == .transient)
         precondition(!_snapshots.contains(snapshot.objectID),
-                     "Inserting duplicate object ID \(snapshot.objectID) to frame \(id)")
+                     "Inserting duplicate object ID \(snapshot.objectID) to plane \(id)")
         precondition(!_snapshotIDs.contains(snapshot.snapshotID),
-                     "Inserting duplicate snapshot ID \(snapshot.snapshotID) to frame \(id)")
+                     "Inserting duplicate snapshot ID \(snapshot.snapshotID) to plane \(id)")
         precondition(_snapshots.allSatisfy { $0.snapshotID != snapshot.snapshotID },
-                     "Inserting duplicate snapshot ID \(snapshot.objectID) to frame \(id)")
+                     "Inserting duplicate snapshot ID \(snapshot.objectID) to plane \(id)")
         
         let box = _TransientSnapshotBox(snapshot, isOriginal: false)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)
     }
     
-    /// Insert snapshots into the transient frame together with reservations.
+    /// Insert snapshots into the transient plane together with reservations.
     ///
     /// This method is used by the loader. It consumes the reservations from the loader and takes
     /// responsibility for using them or releasing them.
@@ -375,7 +375,7 @@ public final class TransientPlane: Plane {
         _reservations.formUnion(reservations)
     }
     
-    /// Remove an object from the frame and all its dependants.
+    /// Remove an object from the plane and all its dependants.
     ///
     /// The method removes the object with given object ID. Then traverses
     /// and removes all the objects that depend on the removed object.
@@ -385,12 +385,12 @@ public final class TransientPlane: Plane {
     /// All parents from which an object is removed will be mutated using
     /// ``mutate(_:)``.
     ///
-    /// - Returns: A list of objects removed from the frame except the object
+    /// - Returns: A list of objects removed from the plane except the object
     ///   asked to be removed.
     ///
     /// - Complexity: Worst case O(n^2), typically O(n).
     ///
-    /// - Precondition: The frame state must be ``State/transient``.
+    /// - Precondition: The plane state must be ``State/transient``.
     ///
     @discardableResult
     public func removeCascading(_ objectID: ObjectID) -> Set<ObjectID> {
@@ -452,10 +452,10 @@ public final class TransientPlane: Plane {
     }
 
     // MARK: - Object Mutation
-    /// Make a snapshot mutable within the frame.
+    /// Make a snapshot mutable within the plane.
     ///
-    /// If the snapshot is already mutable and is owned by the frame, then it is
-    /// returned as is. If the snapshot is not owned by the frame, then it is
+    /// If the snapshot is already mutable and is owned by the plane, then it is
+    /// returned as is. If the snapshot is not owned by the plane, then it is
     /// derived first and the derived snapshot is returned.
     ///
     /// - Parameters:
@@ -466,14 +466,14 @@ public final class TransientPlane: Plane {
     ///
     /// - Returns: Newly derived object snapshot.
     ///
-    /// - Precondition: The frame must contain an object with given ID.
-    /// - Precondition: The frame state must be ``State/transient``.
+    /// - Precondition: The plane must contain an object with given ID.
+    /// - Precondition: The plane state must be ``State/transient``.
     ///
     public func mutate(_ id: ObjectID) -> TransientObject {
         precondition(state == .transient)
         
         guard let current = _snapshots[id] else {
-            preconditionFailure("No object with ID \(id) in frame ID \(self.id)")
+            preconditionFailure("No object with ID \(id) in plane ID \(self.id)")
         }
         switch current.content {
         case .transient(_, let snapshot):
@@ -535,7 +535,7 @@ public final class TransientPlane: Plane {
     /// This is a mutating function – it creates a mutable version of
     /// both parent and a child.
     ///
-    /// The object will remain in the frame, will not be deleted.
+    /// The object will remain in the plane, will not be deleted.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientPlane/addChild(_:to:)``,
@@ -588,7 +588,7 @@ public final class TransientPlane: Plane {
     /// a child. Mutable version of the old parent will be created, if
     /// necessary.
     ///
-    /// The object will remain in the frame, will not be deleted.
+    /// The object will remain in the plane, will not be deleted.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
     /// ``TransientPlane/addChild(_:to:)``,

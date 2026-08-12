@@ -31,7 +31,7 @@ public enum SelectionChange: Component {
 /// application actions. For example toggling a selected object using `Shift` key can be done
 /// with the ``toggle(_:)`` method.
 ///
-/// Design frame has several methods related to application use of selection for inspection
+/// Design plane has several methods related to application use of selection for inspection
 /// of selected objects, such as ``Plane/distinctAttribute(_:ids:)``, ``Plane/distinctTypes(_:)``,
 /// ``Plane/sharedTraits(_:)``.
 ///

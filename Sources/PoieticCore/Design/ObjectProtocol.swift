@@ -21,7 +21,7 @@ public typealias AttributeKey = String
 /// The different representations that the object might be in are:
 ///
 /// - ``ObjectSnapshot``: Object that has been validated and can not be modified.
-///   They are the items of a``DesignPlane`` and can be shared by multiple frames.
+///   They are the items of a``DesignPlane`` and can be shared by multiple planes.
 /// - ``TransientObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
@@ -110,7 +110,7 @@ public protocol ObjectProtocol: Identifiable {
     /// Children of an object in a hierarchical structure.
     ///
     /// Children are part of the hierarchical structure of objects. When
-    /// an object is removed from a frame, all its children are removed
+    /// an object is removed from a plane, all its children are removed
     /// with it, together with all dependencies.
     ///
     /// - SeeAlso: ``parent``,

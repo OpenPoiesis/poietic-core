@@ -145,7 +145,7 @@ struct DesignLoaderHierarchyTests {
         }
     }
 
-    @Test("Hierarchy with frames - consistent children")
+    @Test("Hierarchy with planes - consistent children")
     func hierarchyWithFramesConsistent() async throws {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
@@ -184,9 +184,9 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - none to some")
     func childrenMismatchNoneToSome() async throws {
-        // Plane 1000: parent has no children (child not in frame)
+        // Plane 1000: parent has no children (child not in plane)
         // Plane 1001: parent has one child
-        // This MUST throw error because the same snapshot ID (100) appears in both frames
+        // This MUST throw error because the same snapshot ID (100) appears in both planes
         // with different children (nil vs [20]). When a parent gains a child, it should be
         // a new snapshot with a new snapshot ID.
         let validation = DesignLoader.ValidationResolution(
@@ -224,8 +224,8 @@ struct DesignLoaderHierarchyTests {
     @Test("Children mismatch error - some to none")
     func childrenMismatchSomeToNone() async throws {
         // Plane 1000: parent has one child
-        // Frame 1001: parent has no children (child not in frame)
-        // This MUST throw error because the same snapshot ID (100) appears in both frames
+        // Frame 1001: parent has no children (child not in plane)
+        // This MUST throw error because the same snapshot ID (100) appears in both planes
         // with different children ([20] vs nil). When a parent loses a child, it should be
         // a new snapshot with a new snapshot ID.
         let validation = DesignLoader.ValidationResolution(
@@ -298,12 +298,12 @@ struct DesignLoaderHierarchyTests {
         }
     }
 
-    @Test("Complex multi-frame hierarchy - all frames consistent")
+    @Test("Complex multi-plane hierarchy - all planes consistent")
     func complexMultiFrameHierarchy() async throws {
-        // Three frames with consistent parent-child relationships
+        // Three planes with consistent parent-child relationships
         // Important:
-        // - Same snapshot ID must have same children across all frames
-        // - If a child is in a frame, its parent must also be in that frame
+        // - Same snapshot ID must have same children across all planes
+        // - If a child is in a plane, its parent must also be in that plane
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [

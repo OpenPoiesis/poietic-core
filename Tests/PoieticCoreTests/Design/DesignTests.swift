@@ -8,7 +8,7 @@
 import Testing
 @testable import PoieticCore
 
-// TODO: Test remove frame removed from undo/redo list
+// TODO: Test remove plane removed from undo/redo list
 
 @Suite struct DesignTests {
     let metamodel: Metamodel
@@ -21,7 +21,7 @@ import Testing
     
     @Test func empty() throws {
         #expect(design.isEmpty)
-        #expect(design.currentFrameID == nil)
+        #expect(design.currentPlaneID == nil)
         #expect(!design.canUndo)
         #expect(!design.canRedo)
         #expect(design.undoList.isEmpty)
@@ -29,13 +29,13 @@ import Testing
     }
     
     @Test func firstAndOnlyFrameNoHistory() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         
         try design.accept(frame)
         
         #expect(frame.state == .accepted)
-        #expect(design.containsFrame(frame.id))
-        #expect(design.currentFrameID == frame.id)
+        #expect(design.containsPlane(frame.id))
+        #expect(design.currentPlaneID == frame.id)
         #expect(!design.canUndo)
         #expect(!design.isEmpty)
         #expect(design.undoList.isEmpty)
@@ -43,7 +43,7 @@ import Testing
     }
     
     @Test func simpleAccept() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.create(TestType)
         let b = frame.create(TestType)
         
@@ -52,8 +52,8 @@ import Testing
         try design.accept(frame)
         
         #expect(design.versionHistory == [frame.id])
-        #expect(design.currentFrame?.id == frame.id)
-        let currentFrame = try #require(design.currentFrame)
+        #expect(design.currentPlane?.id == frame.id)
+        let currentFrame = try #require(design.currentPlane)
         #expect(currentFrame.contains(a.objectID))
         #expect(currentFrame.contains(b.objectID))
         
@@ -61,7 +61,7 @@ import Testing
         #expect(design.snapshot(b.snapshotID) != nil)
     }
     @Test func acceptUseReservations() throws {
-        let trans = design.createFrame(id: PlaneID(1000))
+        let trans = design.createPlane(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(10)))
@@ -71,7 +71,7 @@ import Testing
         #expect(design.identityManager.reserved.count == 0)
     }
     @Test func discard() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let _ = frame.create(TestType)
         
         design.discard(frame)
@@ -81,35 +81,35 @@ import Testing
     }
     
     @Test func removeFrame() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.create(TestType)
         
         try design.accept(frame)
         #expect(design.snapshot(a.snapshotID) != nil)
         
-        design.removeFrame(frame.id)
-        #expect(!design.containsFrame(frame.id))
+        design.removePlane(frame.id)
+        #expect(!design.containsPlane(frame.id))
         #expect(design.snapshot(a.snapshotID) == nil)
     }
     @Test func removeFrameReleaseID() throws {
-        let trans = design.createFrame(id: PlaneID(1000))
+        let trans = design.createPlane(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(1000)))
-        design.removeFrame(PlaneID(1000))
+        design.removePlane(PlaneID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
     }
     @Test func removeFrameRetainNeededIDs() throws {
-        let trans = design.createFrame(id: PlaneID(1000))
+        let trans = design.createPlane(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         let original = try design.accept(trans)
-        let trans2 = design.createFrame(deriving: original, id: PlaneID(2000))
+        let trans2 = design.createPlane(deriving: original, id: PlaneID(2000))
         let mut = trans2.mutate(ObjectID(10))
         mut["text"] = "text"
         try design.accept(trans2)
-        design.removeFrame(PlaneID(1000))
+        design.removePlane(PlaneID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
         
@@ -117,29 +117,29 @@ import Testing
         #expect(design.identityManager.isUsed(mut.snapshotID))
         #expect(design.identityManager.isUsed(ObjectID(2000)))
 
-        design.removeFrame(PlaneID(2000))
+        design.removePlane(PlaneID(2000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(mut.snapshotID))
         #expect(!design.identityManager.isUsed(ObjectID(2000)))
     }
 
     @Test func removeCurrentFrame() throws {
-        let f1 = try design.accept(design.createFrame())
-        let f2 = try design.accept(design.createFrame())
+        let f1 = try design.accept(design.createPlane())
+        let f2 = try design.accept(design.createPlane())
 
-        #expect(design.currentFrameID == f2.id)
+        #expect(design.currentPlaneID == f2.id)
         #expect(design.undoList == [f1.id])
 
-        design.removeFrame(f2.id)
-        #expect(design.currentFrameID == f1.id)
+        design.removePlane(f2.id)
+        #expect(design.currentPlaneID == f1.id)
         #expect(design.undoList == [])
 
-        design.removeFrame(f1.id)
-        #expect(design.currentFrameID == nil)
+        design.removePlane(f1.id)
+        #expect(design.currentPlaneID == nil)
     }
 
     @Test func removeObjectInOrderedSet() throws {
-        let originalFrame = design.createFrame()
+        let originalFrame = design.createPlane()
         
         let a = originalFrame.create(TestType)
         let b = originalFrame.create(TestType)
@@ -150,7 +150,7 @@ import Testing
                                           structure: .orderedSet(b.objectID, [c.objectID]))
         try design.accept(originalFrame)
         
-        let trans = design.createFrame(deriving: originalFrame)
+        let trans = design.createPlane(deriving: originalFrame)
         
         trans.removeCascading(a.objectID)
         trans.removeCascading(c.objectID)
@@ -174,23 +174,23 @@ import Testing
     }
     
     @Test func removeObject() throws {
-        let originalFrame = design.createFrame()
+        let originalFrame = design.createPlane()
         
         let a = originalFrame.create(TestType)
         try design.accept(originalFrame)
         
-        let originalVersion = design.currentFrameID
+        let originalVersion = design.currentPlaneID
         
-        let removalFrame = design.createFrame(deriving: originalFrame)
-        #expect(design.currentFrame!.contains(a.objectID))
+        let removalFrame = design.createPlane(deriving: originalFrame)
+        #expect(design.currentPlane!.contains(a.objectID))
         
         removalFrame.removeCascading(a.objectID)
         #expect(removalFrame.hasChanges)
         #expect(!removalFrame.contains(a.objectID))
         
         try design.accept(removalFrame)
-        #expect(design.currentFrame!.id == removalFrame.id)
-        #expect(!design.currentFrame!.contains(a.objectID))
+        #expect(design.currentPlane!.id == removalFrame.id)
+        #expect(!design.currentPlane!.contains(a.objectID))
         
         #expect(design.snapshot(a.snapshotID) != nil)
         
@@ -199,25 +199,25 @@ import Testing
     }
 
     @Test func refCountAndGarbageCollect() throws {
-        let trans1 = design.createFrame()
+        let trans1 = design.createPlane()
         let a = trans1.create(TestType)
         
         let frame1 = try design.accept(trans1)
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.referenceCount(a.snapshotID) == 1)
         
-        let trans2 = design.createFrame(deriving: frame1)
+        let trans2 = design.createPlane(deriving: frame1)
         let frame2 = try design.accept(trans2)
         #expect(design.contains(snapshot: a.snapshotID))
         #expect(design.referenceCount(a.snapshotID) == 2)
 
-        design.removeFrame(frame1.id)
-        design.removeFrame(frame2.id)
+        design.removePlane(frame1.id)
+        design.removePlane(frame2.id)
         #expect(!design.contains(snapshot: a.snapshotID))
     }
 
     @Test func iterateAllDesignSnapshots() throws {
-        let trans = design.createFrame()
+        let trans = design.createPlane()
         let a = trans.create(TestType)
         let b = trans.create(TestType)
 
@@ -230,56 +230,56 @@ import Testing
     }
 
     @Test func undo() throws {
-        try design.accept(design.createFrame())
-        let v0 = design.currentFrameID!
+        try design.accept(design.createPlane())
+        let v0 = design.currentPlaneID!
         
-        let frame1 = design.createFrame(deriving: design.currentFrame!)
+        let frame1 = design.createPlane(deriving: design.currentPlane!)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame!)
+        let frame2 = design.createPlane(deriving: design.currentPlane!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        #expect(design.currentFrame!.contains(a.objectID))
-        #expect(design.currentFrame!.contains(b.objectID))
+        #expect(design.currentPlane!.contains(a.objectID))
+        #expect(design.currentPlane!.contains(b.objectID))
         #expect(design.versionHistory == [v0, frame1.id, frame2.id])
         
         design.undo(to: frame1.id)
         
-        #expect(design.currentFrameID == frame1.id)
+        #expect(design.currentPlaneID == frame1.id)
         #expect(design.undoList == [v0])
         #expect(design.redoList == [frame2.id])
         
         design.undo(to: v0)
         
-        #expect(design.currentFrameID == v0)
+        #expect(design.currentPlaneID == v0)
         #expect(design.undoList == [])
         #expect(design.redoList == [frame1.id, frame2.id])
         
-        #expect(!design.currentFrame!.contains(a.objectID))
-        #expect(!design.currentFrame!.contains(b.objectID))
+        #expect(!design.currentPlane!.contains(a.objectID))
+        #expect(!design.currentPlane!.contains(b.objectID))
     }
     
     @Test func redo() throws {
-        try design.accept(design.createFrame())
-        let v0 = design.currentFrameID!
+        try design.accept(design.createPlane())
+        let v0 = design.currentPlaneID!
         
-        let frame1 = design.createFrame(deriving: design.currentFrame!)
+        let frame1 = design.createPlane(deriving: design.currentPlane!)
         let a = frame1.create(TestType)
         try design.accept(frame1)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame!)
+        let frame2 = design.createPlane(deriving: design.currentPlane!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
         design.undo(to: frame1.id)
         design.redo(to: frame2.id)
         
-        #expect(design.currentFrame!.contains(a.objectID))
-        #expect(design.currentFrame!.contains(b.objectID))
+        #expect(design.currentPlane!.contains(a.objectID))
+        #expect(design.currentPlane!.contains(b.objectID))
         
-        #expect(design.currentFrameID == frame2.id)
+        #expect(design.currentPlaneID == frame2.id)
         #expect(design.undoList == [v0, frame1.id])
         #expect(design.redoList == [])
         #expect(!design.canRedo)
@@ -287,7 +287,7 @@ import Testing
         design.undo(to: v0)
         design.redo(to: frame2.id)
         
-        #expect(design.currentFrameID == frame2.id)
+        #expect(design.currentPlaneID == frame2.id)
         #expect(design.undoList == [v0, frame1.id])
         #expect(design.redoList == [])
         #expect(!design.canRedo)
@@ -295,13 +295,13 @@ import Testing
         design.undo(to: v0)
         design.redo(to: frame1.id)
         
-        #expect(design.currentFrameID == frame1.id)
+        #expect(design.currentPlaneID == frame1.id)
         #expect(design.undoList == [v0])
         #expect(design.redoList == [frame2.id])
         #expect(design.canRedo)
         
-        #expect(design.currentFrame!.contains(a.objectID))
-        #expect(!design.currentFrame!.contains(b.objectID))
+        #expect(design.currentPlane!.contains(a.objectID))
+        #expect(!design.currentPlane!.contains(b.objectID))
     }
     
     @Test func undoRedoNoArgument() throws {
@@ -309,18 +309,18 @@ import Testing
         #expect(!design.canRedo)
         #expect(!design.undo())
         #expect(!design.redo())
-        try design.accept(design.createFrame())
+        try design.accept(design.createPlane())
         
-        // Still can not undo, we have only one frame.
+        // Still can not undo, we have only one plane.
         #expect(!design.canUndo)
         #expect(!design.canRedo)
         #expect(!design.undo())
         #expect(!design.redo())
         
-        try #require(design.currentFrameID != nil)
+        try #require(design.currentPlaneID != nil)
         
-        let originalID = design.currentFrameID!
-        let f1 = design.createFrame(deriving: design.currentFrame!)
+        let originalID = design.currentPlaneID!
+        let f1 = design.createPlane(deriving: design.currentPlane!)
         try design.accept(f1)
         
         #expect(design.canUndo)
@@ -329,7 +329,7 @@ import Testing
         #expect(design.undo())
         #expect(!design.undo())
         
-        #expect(design.currentFrameID == originalID)
+        #expect(design.currentPlaneID == originalID)
         
         #expect(!design.canUndo)
         #expect(design.canRedo)
@@ -342,27 +342,27 @@ import Testing
     }
     
     @Test func redoReset() throws {
-        try design.accept(design.createFrame())
-        let v0 = design.currentFrameID!
+        try design.accept(design.createPlane())
+        let v0 = design.currentPlaneID!
         
-        let discardedFrame = design.createFrame(deriving: design.currentFrame!)
+        let discardedFrame = design.createPlane(deriving: design.currentPlane!)
         let discardedObject = discardedFrame.create(TestType)
         try design.accept(discardedFrame)
         
         design.undo(to: v0)
         
-        let frame2 = design.createFrame(deriving: design.currentFrame!)
+        let frame2 = design.createPlane(deriving: design.currentPlane!)
         let b = frame2.create(TestType)
         try design.accept(frame2)
         
-        #expect(!design.currentFrame!.contains(discardedObject.objectID))
-        #expect(design.currentFrame!.contains(b.objectID))
+        #expect(!design.currentPlane!.contains(discardedObject.objectID))
+        #expect(design.currentPlane!.contains(b.objectID))
         
-        #expect(design.currentFrameID == frame2.id)
+        #expect(design.currentPlaneID == frame2.id)
         #expect(design.versionHistory == [v0, frame2.id])
         #expect(design.undoList == [v0])
         #expect(design.redoList == [])
-        #expect(!design.containsFrame(discardedFrame.id))
+        #expect(!design.containsPlane(discardedFrame.id))
         #expect(design.snapshot(discardedObject.snapshotID) == nil)
     }
     
@@ -374,7 +374,7 @@ import Testing
                                   Metamodel(constraints: [constraint]))
         let design = Design(metamodel: metamodel)
         
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.createNode(TestNodeType)
         let b = frame.createNode(TestNodeType)
         
@@ -393,46 +393,46 @@ import Testing
     }
     
     @Test func removeFrameRemovesFromHistory() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         try design.accept(frame)
-        try design.accept(design.createFrame())
-        try design.accept(design.createFrame())
+        try design.accept(design.createPlane())
+        try design.accept(design.createPlane())
         
         // Sanity first
         #expect(design.undoList.count == 2)
         #expect(design.undoList.contains(frame.id))
         
-        design.removeFrame(frame.id)
+        design.removePlane(frame.id)
         #expect(design.undoList.count == 1)
         #expect(!design.undoList.contains(frame.id))
     }
     
     @Test func acceptNamedFrame() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         try design.accept(frame, replacingName: "app")
 
-        #expect(design.containsFrame(frame.id))
+        #expect(design.containsPlane(frame.id))
         #expect(!design.redoList.contains(frame.id))
         #expect(!design.undoList.contains(frame.id))
-        #expect(design.frame(name: "app")?.id == frame.id)
+        #expect(design.plane(name: "app")?.id == frame.id)
     }
     @Test func acceptAndReplaceNamedFrame() throws {
-        let frameOld = design.createFrame()
+        let frameOld = design.createPlane()
         try design.accept(frameOld, replacingName: "app")
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         try design.accept(frame, replacingName: "app")
 
-        #expect(!design.containsFrame(frameOld.id))
-        #expect(design.containsFrame(frame.id))
-        #expect(design.frame(name: "app")?.id == frame.id)
+        #expect(!design.containsPlane(frameOld.id))
+        #expect(design.containsPlane(frame.id))
+        #expect(design.plane(name: "app")?.id == frame.id)
     }
     
     @Test func removeNamedFrame() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         try design.accept(frame, replacingName: "app")
-        design.removeFrame(frame.id)
+        design.removePlane(frame.id)
         
-        #expect(design.frame(name: "app")?.id == nil)
+        #expect(design.plane(name: "app")?.id == nil)
     }
 
 }

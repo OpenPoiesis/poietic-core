@@ -140,7 +140,7 @@ extension ObjectTypeError /*: IssueProtocol */ {
 }
 
 
-/// Error thrown by constraint checker when there are issues with a frame.
+/// Error thrown by constraint checker when there are issues with a plane.
 ///
 /// - SeeAlso: ``ConstraintChecker/validate(_:)``
 ///
@@ -179,7 +179,7 @@ public enum PlaneValidationError: Error {
     }
 }
 
-/// Collection of frame validation issues.
+/// Collection of plane validation issues.
 ///
 /// This collection is produced by ``ConstraintChecker/diagnose(_:)``.
 ///

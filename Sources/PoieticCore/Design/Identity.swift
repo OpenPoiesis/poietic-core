@@ -10,14 +10,14 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
     case objectSnapshot
     /// Unique within design.
     case frame
-    /// Unique within frame, can be multiple within design. Used in references.
+    /// Unique within plane, can be multiple within design. Used in references.
     case object
     // case track
     
     public var description: String {
         switch self {
         case .objectSnapshot: "objectSnapshot"
-        case .frame: "frame"
+        case .frame: "plane"
         case .object: "object"
         }
     }
@@ -25,7 +25,7 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
 
 /// Persistent identity of Design entities.
 ///
-/// The ID uniquely identifies all design entities such as objects, object snapshots, frames etc.
+/// The ID uniquely identifies all design entities such as objects, object snapshots, planes etc.
 /// The identity is persisted with the design and is valid between runtime sessions.
 ///
 /// When design entities are included in the ``World``, they are represented by ephemeral

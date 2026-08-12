@@ -10,7 +10,7 @@
 
 extension DesignLoader { // Reservation of identities
 
-    /// Reserves identities for entities in the raw design, such as snapshots, objects and frames.
+    /// Reserves identities for entities in the raw design, such as snapshots, objects and planes.
     ///
     /// The identities are reserved according to the identity strategy
     /// (``DesignLoader.IdentityStrategy``).
@@ -55,7 +55,7 @@ extension DesignLoader { // Reservation of identities
         // Reservation Phase 2: Create those IDs we do not have
         let rawFrameIDs: [ForeignEntityID?]
         if options == .collectOrphans && resolution.rawFrames.isEmpty {
-            rawFrameIDs = [nil] // Request one new ID for the orphan's frame
+            rawFrameIDs = [nil] // Request one new ID for the orphan's plane
         }
         else {
             rawFrameIDs = resolution.rawFrames.map { $0.id }
@@ -86,7 +86,7 @@ extension DesignLoader { // Reservation of identities
         assert(snapshotIDs.count == rawSnapshotIDs.count)
         assert(objectIDs.count == rawObjectIDs.count)
 
-        // Create snapshot index – used for resolving frames and hierarchy
+        // Create snapshot index – used for resolving planes and hierarchy
         var snapshotIndex: [ObjectSnapshotID:Int] = [:]
         for (index, id) in snapshotIDs.enumerated() {
             assert(snapshotIndex[id] == nil, "Duplicate snapshot ID \(id)")

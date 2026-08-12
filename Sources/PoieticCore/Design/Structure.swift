@@ -48,7 +48,7 @@ public enum Structure: Equatable, CustomStringConvertible {
     ///
     /// Node objects can be referenced by objects of type edge.
     ///
-    /// When a node is removed from a frame, all objects with structural
+    /// When a node is removed from a plane, all objects with structural
     /// component ``edge(_:_:)`` that refer to the removed node are removed
     /// as well. See ``TransientPlane/removeCascading(_:)`` for more information.
     ///
@@ -60,7 +60,7 @@ public enum Structure: Equatable, CustomStringConvertible {
     /// edge - a link between two nodes.
     ///
     /// When one of the objects referenced by the edge component is removed
-    /// from a frame, then the object with the edge component is removed
+    /// from a plane, then the object with the edge component is removed
     /// as well. See ``TransientPlane/removeCascading(_:)`` for more information.
     ///
     /// - SeeAlso: ``node``

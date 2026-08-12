@@ -34,7 +34,7 @@ resolveFrames          resolveObjectSnapshots
                   ↓
      ┌────────────┴────────────┐
      ↓                         ↓
-insertFrames          frame.unsafeInsert
+insertFrames          plane.unsafeInsert
      ↓
 resolveNamedReferences
      ↓
@@ -61,7 +61,7 @@ finaliseDesign
 /// - Validation of raw design
 /// - Reservation of object identities.
 /// - Resolution of entity references
-/// - Creation of entities (object snapshots, frames, ...)
+/// - Creation of entities (object snapshots, planes, ...)
 ///
 /// - SeeAlso: ``JSONDesignReader``, ``JSONDesignWriter``
 ///
@@ -102,7 +102,7 @@ public class DesignLoader {
         case requireProvided
         
         // Identities are preserved, if they are available. Otherwise new identities will be
-        // created. Typical use case is pasting from a pasteboard or importing into existing frame.
+        // created. Typical use case is pasting from a pasteboard or importing into existing plane.
         case preserveOrCreate
         
         /// All identities will be created as new.
@@ -124,11 +124,11 @@ public class DesignLoader {
         
         /// When snapshot ID is a string, use it as a name attribute, if not present.
         public static let useIDAsNameAttribute = Options(rawValue: 1 << 0)
-        /// Collect orphaned snapshots into a single frame. The orphaned snapshots must satisfy
+        /// Collect orphaned snapshots into a single plane. The orphaned snapshots must satisfy
         /// structural integrity requirements.
         ///
         /// This option is used only when loading whole design. Has no effect on loading into a
-        /// frame.
+        /// plane.
         public static let collectOrphans = Options(rawValue: 2 << 0)
     }
     
@@ -148,7 +148,7 @@ public class DesignLoader {
     ///
     /// 1. Validate the raw design for duplicates.
     /// 2. Reserve identities.
-    /// 2. Create snapshots and frames.
+    /// 2. Create snapshots and planes.
     /// 4. Create a new design.
     ///
     public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
@@ -215,15 +215,15 @@ public class DesignLoader {
         return design
     }
     
-    /// Loads current frame of the design into a transient frame.
+    /// Loads current plane of the design into a transient plane.
     ///
     /// This is used for foreign design imports and for performing paste from a pasteboard
     /// (clipboard).
     ///
     /// Requirements for the raw design:
     ///
-    /// - If the raw design has one or more frames, then current frame must be set and that frame will be loaded.
-    /// - If the raw design has no frames: All snapshots will be treated as snapshot of a single frame.
+    /// - If the raw design has one or more planes, then current plane must be set and that plane will be loaded.
+    /// - If the raw design has no planes: All snapshots will be treated as snapshot of a single plane.
     ///
     @discardableResult
     public func load(_ rawDesign: RawDesign,
@@ -256,14 +256,14 @@ public class DesignLoader {
         return try load(snapshots, into: frame, identityStrategy: identityStrategy)
     }
     
-    /// Load raw snapshots into a transient frame.
+    /// Load raw snapshots into a transient plane.
     ///
-    /// This method is intended to be used when importing external frames or for pasting in the
+    /// This method is intended to be used when importing external planes or for pasting in the
     /// Copy & Paste mechanism.
     ///
     /// - Parameters:
-    ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
-    ///     - frame: Plane into which the object snapshots will be loaded.
+    ///     - rawSnapshots: List of raw snapshots to be loaded into the plane.
+    ///     - plane: Plane into which the object snapshots will be loaded.
     ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
     ///       Recommended to use ``IdentityStrategy/preserveOrCreate`` strategy.
     ///
@@ -278,12 +278,12 @@ public class DesignLoader {
     /// 3. Resolve snapshot references.
     /// 4. Resolve snapshot hierarchy.
     /// 5. Create object snapshot instances.
-    /// 6. Insert snapshots into frame.
+    /// 6. Insert snapshots into plane.
     ///
     /// - Note: The references of ``rawSnapshots`` are resolved _only_ within the provided object
     ///  snapshots. Any references from ``rawSnapshots`` that are not contained in the input
     ///  parameter are considered invalid. As a consequence, there can not be references to existing
-    ///  objects in the ``frame``.
+    ///  objects in the ``plane``.
     ///
     @discardableResult
     internal func load(_ rawSnapshots: [RawSnapshot],
@@ -324,7 +324,7 @@ public class DesignLoader {
         frame.unsafeInsert(snapshots, reservations: completeSnapshots.identities.reserved)
         
         do {
-            // TODO: [WIP] Is this needed? The caller is validating the frame anyway before accept().
+            // TODO: [WIP] Is this needed? The caller is validating the plane anyway before accept().
             try StructuralValidator.validate(snapshots: snapshots, in: frame)
         }
         catch {
@@ -365,7 +365,7 @@ public class DesignLoader {
                                       identities: IdentityResolution)
     throws (DesignLoaderError) -> FrameResolution
     {
-        precondition(resolution.rawFrames.count == 0) // We have no frames requested ...
+        precondition(resolution.rawFrames.count == 0) // We have no planes requested ...
         precondition(identities.frameIDs.count == 1) // ... yet we reserved one ID for us here.
 
         let resolved = ResolvedFrame(frameID: identities.frameIDs[0],
@@ -388,7 +388,7 @@ public class DesignLoader {
                 throw .unknownSnapshotID(foreignSnapshotID)
             }
 
-            // Check for duplicate objects (same object with different snapshots in one frame)
+            // Check for duplicate objects (same object with different snapshots in one plane)
             // Get objectID using the snapshot index
             guard let snapshotIndex = identities.snapshotIndex[snapshotID] else {
                 preconditionFailure("Snapshot ID must be in index")
@@ -408,17 +408,17 @@ public class DesignLoader {
     // MARK: - Hierarchy
     /// Resolve parent-child hierarchy of object snapshots.
     ///
-    /// The method requires the frames to be resolved.
+    /// The method requires the planes to be resolved.
     internal func resolveHierarchy(frameResolution: FrameResolution,
                                    snapshotResolution: PartialSnapshotResolution)
     throws (DesignLoaderError) -> SnapshotHierarchyResolution
     {
-        // Map of all snapshots in all frames. `nil` means "Snapshot was considered but has
+        // Map of all snapshots in all planes. `nil` means "Snapshot was considered but has
         // no children". Empty array should not happen.
         var allChildrenMap: [ObjectSnapshotID:[ObjectID]?] = [:]
         
         for (frameIndex, frame) in frameResolution.frames.enumerated() {
-            let frameChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
+            let frameChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
             let snapshots: [ResolvedObjectSnapshot] = frame.snapshots.compactMap {
                 snapshotResolution[$0]
             }
@@ -452,11 +452,11 @@ public class DesignLoader {
         )
     }
     
-    // Resolve all children in the resolution without frames.
+    // Resolve all children in the resolution without planes.
     internal func resolveHierarchy(resolution: PartialSnapshotResolution)
     throws (DesignLoaderError) -> SnapshotHierarchyResolution
     {
-        let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
+        let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
         do {
             childrenMap = try resolveChildren(snapshots: resolution.objectSnapshots,
                                               snapshotResolution: resolution)
@@ -473,7 +473,7 @@ public class DesignLoader {
     
     /// Resolve children references within a group of objects.
     ///
-    /// The group of objects is typically a frame.
+    /// The group of objects is typically a plane.
     ///
     /// This method requires that the ``LoadingContext/parents`` has been populated.
     ///
@@ -526,7 +526,7 @@ public class DesignLoader {
         var frames: [DesignPlane] = []
         
         for (i, resolvedFrame) in resolvedFrames.enumerated() {
-            precondition(!design.containsFrame(resolvedFrame.frameID))
+            precondition(!design.containsPlane(resolvedFrame.frameID))
             let frameSnapshots = resolvedFrame.snapshots.compactMap { snapshotMap[$0] }
             
             let frame = DesignPlane(design: design,
@@ -675,20 +675,20 @@ public class DesignLoader {
             }
             design.redoList = list.ids
         }
-        if options == .collectOrphans && design.frames.count == 1,
-           let onlyFrameID = design.frames.first?.id
+        if options == .collectOrphans && design.planes.count == 1,
+           let onlyFrameID = design.planes.first?.id
         {
-            design.currentFrameID = onlyFrameID
+            design.currentPlaneID = onlyFrameID
         }
         else if let ref = namedReferences.systemReferences["current_frame"] {
             guard ref.type == .frame else {
                 throw .design(.namedReferenceTypeMismatch("current_frame"))
             }
-            design.currentFrameID = ref.id
+            design.currentPlaneID = ref.id
         }
 
         // CurrentFrameID must be set when there is history.
-        if design.currentFrame == nil
+        if design.currentPlane == nil
             && (!design.undoList.isEmpty || !design.redoList.isEmpty)
         {
             throw .design(.missingCurrentFrame)

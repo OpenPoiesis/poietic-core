@@ -22,7 +22,7 @@ import Testing
     
     init() throws {
         design = Design(metamodel: TestMetamodel)
-        frame = design.createFrame()
+        frame = design.createPlane()
 //        reader = JSONDesignReader()
         reader = JSONDesignReader(variantCoding: .dictionaryWithFallback)
     }

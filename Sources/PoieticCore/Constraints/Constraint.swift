@@ -87,7 +87,7 @@ public final class Constraint: Sendable {
         self.requirement = requirement
     }
 
-    /// Check the frame for the constraint and return a list of nodes that
+    /// Check the plane for the constraint and return a list of nodes that
     /// violate the constraint
     ///
     public func check(_ frame: some Plane) -> [ObjectID] {

@@ -22,7 +22,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// Immutable, point-in-time capture of an object's state.
 ///
 /// This is the primary design entity. Stable objects can be shared between
-/// multiple frames.
+/// multiple planes.
 ///
 /// Once created, stable object's design properties (attributes and structure)
 /// can not be changed. Only changes that can be made to an object is to
@@ -39,7 +39,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 ///
 /// ```swift
 /// let design: Design // Let's assume we have this
-/// let trans = design.createFrame()
+/// let trans = design.createPlane()
 /// let object = trans.create(MyObjectType)
 /// // ... Modify the object here ...
 /// // ... Add more objects...
@@ -54,7 +54,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// object can have multiple versions, which all share the same identity
     /// of object ``id``.
     ///
-    /// Typically when working with the design and design frames, one does not
+    /// Typically when working with the design and design planes, one does not
     /// need to use the ``snapshotID``. It is used only when considering
     /// different versions of objects.
     ///
@@ -79,7 +79,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// Create a stable object.
     ///
     /// - Parameters:
-    ///     - objectID: Object identity - typical object reference, unique in a frame
+    ///     - objectID: Object identity - typical object reference, unique in a plane
     ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
     ///     - structure: Structural component of the object.

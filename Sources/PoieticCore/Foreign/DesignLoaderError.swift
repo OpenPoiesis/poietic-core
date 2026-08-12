@@ -90,7 +90,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         
         // Plane-specific
         case unknownSnapshotID(ForeignEntityID)
-        case duplicateObject(Int) // Index of object within frame/batch
+        case duplicateObject(Int) // Index of object within plane/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
 
         // Hierarchy
@@ -146,7 +146,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
 
             // Plane-specific
             case .unknownSnapshotID(_): "Make sure all references are valid within the loaded raw design/snapshots"
-            case .duplicateObject(_): "Object ID must be unique in a frame or a loading batch"
+            case .duplicateObject(_): "Object ID must be unique in a plane or a loading batch"
             case .brokenStructuralIntegrity(_): "The loaded batch is either of a different version, different metamodel or it is corrupted"
 
             // Hierarchy
@@ -167,9 +167,9 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         
         public var description: String {
             switch self {
-            case .missingCurrentFrame: "Current frame property is not specified in the raw design"
+            case .missingCurrentFrame: "Current plane property is not specified in the raw design"
             case .namedReferenceTypeMismatch(let name): "Named reference '\(name)' is of different type than existing ID"
-            case .unknownFrameID(let id): "Unknown frame ID '\(id)'"
+            case .unknownFrameID(let id): "Unknown plane ID '\(id)'"
             }
         }
         

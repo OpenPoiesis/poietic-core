@@ -14,7 +14,7 @@ struct FrameAsGraphTests {
     
     init() {
         design = Design()
-        frame = design.createFrame()
+        frame = design.createPlane()
     }
     
     @Test func basic() throws {

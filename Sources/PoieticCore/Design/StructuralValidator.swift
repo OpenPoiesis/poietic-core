@@ -5,21 +5,21 @@
 //  Created by Stefan Urbanek on 06/11/2025.
 //
 
-/// Namespace for snapshot and frame validation methods.
+/// Namespace for snapshot and plane validation methods.
 ///
 
 public struct StructuralValidator {
-    /// Validates that snapshot's structural references within a context of a frame.
+    /// Validates that snapshot's structural references within a context of a plane.
     ///
-    /// Intended use is to check whether the snapshot can be added to a frame.
+    /// Intended use is to check whether the snapshot can be added to a plane.
     ///
     /// What is validated:
     ///
-    /// - Parent exist in the frame.
-    /// - Children exist in the frame.
-    /// - If it is an edge: whether origin and target exist in the frame and are of type
+    /// - Parent exist in the plane.
+    /// - Children exist in the plane.
+    /// - If it is an edge: whether origin and target exist in the plane and are of type
     ///   ``StructuralType/node``.
-    /// - If it is an ordered set: whether the owner and all IDs exist in the frame.
+    /// - If it is an ordered set: whether the owner and all IDs exist in the plane.
     ///
     /// The validator does not check anything related to metamodel. This is a low-level structural
     /// validation, without any model semantic checks.
@@ -67,7 +67,7 @@ public struct StructuralValidator {
     }
 
     /// Return a list of objects that the provided object refers to and
-    /// that do not exist within the frame.
+    /// that do not exist within the plane.
     ///
     /// Frame with broken references can not be made stable and accepted
     /// by the design.
@@ -80,7 +80,7 @@ public struct StructuralValidator {
     /// - The object's parent – ``ObjectProtocol/parent``.
     ///
     public static func brokenReferences(_ object: some ObjectProtocol,in frame: some Plane) -> Set<ObjectID> {
-        // NOTE: Sync with brokenReferences() for all snapshots within the frame
+        // NOTE: Sync with brokenReferences() for all snapshots within the plane
         //
         var broken: Set<ObjectID> = []
         
@@ -122,8 +122,8 @@ public struct StructuralValidator {
     ///
     /// The method validates structural integrity of objects:
     ///
-    /// - Edge endpoints must exist within the frame and must be nodes.
-    /// - Ordered set owner and references must exist in the frame.
+    /// - Edge endpoints must exist within the plane and must be nodes.
+    /// - Ordered set owner and references must exist in the plane.
     /// - Children-parent relationship must be mutual.
     /// - There must be no parent-child cycle.
     ///
@@ -133,7 +133,7 @@ public struct StructuralValidator {
     /// The validator does not check anything related to metamodel. This is a low-level structural
     /// validation, without any model semantic checks.
     ///
-    /// - Precondition: The frame must be in transient state – must not be
+    /// - Precondition: The plane must be in transient state – must not be
     ///   previously accepted or discarded.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
@@ -175,8 +175,8 @@ public struct StructuralValidator {
         }
     }
     
-    /// Get a list of object IDs that are referenced within the frame
-    /// but do not exist in the frame.
+    /// Get a list of object IDs that are referenced within the plane
+    /// but do not exist in the plane.
     ///
     /// Frame with broken references can not be made stable and accepted
     /// by the design.
@@ -190,7 +190,7 @@ public struct StructuralValidator {
     ///
     /// - Note: This is semi-internal function to validate correct workings
     ///   of the system. You should rarely use it. Typical scenario when you
-    ///   want to use this function is when you are constructing a frame
+    ///   want to use this function is when you are constructing a plane
     ///   in an unsafe way.
     ///
     /// - SeeAlso: ``StructuralValidator/validate(_:in:)``

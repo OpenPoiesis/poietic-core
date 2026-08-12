@@ -17,7 +17,7 @@ extension DesignLoader {
         let identityManager: IdentityManager
         /// Validated raw snapshots, no duplicate IDs.
         let rawSnapshots: [RawSnapshot]
-        /// Validated raw frames, no duplicate IDs.
+        /// Validated raw planes, no duplicate IDs.
         let rawFrames: [RawFrame]
 //        let unavailableIDs: Set<EntityID.RawValue>
 
@@ -56,7 +56,7 @@ extension DesignLoader {
         /// Mapping between raw model references and their actual identities.
         ///
         let rawIDMap: [ForeignEntityID:DesignEntityID]
-        /// Reserved identities for raw frames.
+        /// Reserved identities for raw planes.
         ///
         /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
         ///
@@ -76,7 +76,7 @@ extension DesignLoader {
         
         /// Mapping between snapshot ID and its index in the list of snapshots.
         ///
-        /// This is used for frame content resolution and for error reporting.
+        /// This is used for plane content resolution and for error reporting.
         ///
         let snapshotIndex: [ObjectSnapshotID:Int]
 
@@ -103,7 +103,7 @@ extension DesignLoader {
     /// Data of an object snapshot where the references, structure type, structure references,
     /// parent are resolved. Attributes are prepared.
     ///
-    /// Only thing that is missing is list of children, that require context of a frame to be
+    /// Only thing that is missing is list of children, that require context of a plane to be
     /// resolved, because use object IDs.
     ///
     /// - Note: If the loader has option ``DesignLoader/Options/useIDAsNameAttribute``, and if the
@@ -151,7 +151,7 @@ extension DesignLoader {
         }
     }
     
-    /// Plane with assigned object snapshot IDs, so that the frame can be constructed.
+    /// Plane with assigned object snapshot IDs, so that the plane can be constructed.
     ///
     struct ResolvedFrame {
         let frameID: PlaneID
@@ -178,7 +178,7 @@ extension DesignLoader {
         }
     }
 
-    /// Mutable context using during hierarchy resolution of multiple frames.
+    /// Mutable context using during hierarchy resolution of multiple planes.
     struct SnapshotHierarchyResolution {
         /// Mapping between snapshot index and children list.
         let objectSnapshots: [ResolvedObjectSnapshot]

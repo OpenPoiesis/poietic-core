@@ -5,10 +5,10 @@
 //  Created by Stefan Urbanek on 04/05/2025.
 //
 
-// TODO: Test createFrame when ID is reserved
+// TODO: Test createPlane when ID is reserved
 // TODO: Test create object when both IDs are reserved
-// TODO: Validate undo/redo is frame list
-// TODO: Validate current_frame is frame
+// TODO: Validate undo/redo is plane list
+// TODO: Validate current_frame is plane
 
 import Testing
 @testable import PoieticCore
@@ -180,7 +180,7 @@ struct DesignLoaderReservationTests {
         // .createNew strategy should never raise
         let result = try loader.resolveIdentities(resolution: resolution,
                                                   identityStrategy: .createNew)
-        #expect(result.reserved.count == 4 + 4 + 4) // frames + snapshots * 2 (for objects)
+        #expect(result.reserved.count == 4 + 4 + 4) // planes + snapshots * 2 (for objects)
 
         #expect(result.rawIDMap.count == 6)
         #expect(result.rawIDMap[.int(10)] != nil)
@@ -589,7 +589,7 @@ struct DesignLoaderIntegrationTests {
         #expect(o4.children.isEmpty == true)
     }
 
-    @Test("Load without frames - orphaned snapshots")
+    @Test("Load without planes - orphaned snapshots")
     func loadOrphanedSnapshots() async throws {
         let raw = RawDesign(
             snapshots: [
@@ -601,9 +601,9 @@ struct DesignLoaderIntegrationTests {
         let loader = DesignLoader(metamodel: TestMetamodel, options: .collectOrphans)
         let design = try loader.load(raw)
         
-        #expect(design.frames.count == 1)
-        let frame = try #require(design.frames.first)
-        #expect(design.currentFrameID == frame.id)
+        #expect(design.planes.count == 1)
+        let frame = try #require(design.planes.first)
+        #expect(design.currentPlaneID == frame.id)
         
         let o0 = try #require(design.snapshot(ObjectSnapshotID(100)))
         #expect(o0.objectID == ObjectID(10))
@@ -626,7 +626,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
         let design = try loader.load(raw)
-        let frame = try #require(design.frames.first)
+        let frame = try #require(design.planes.first)
         let obj = try #require(design.snapshot(ObjectSnapshotID(100)))
 
         #expect(design.identityManager.isUsed(frame.id))
@@ -659,7 +659,7 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        #expect(design.currentFrameID == PlaneID(100))
+        #expect(design.currentPlaneID == PlaneID(100))
         #expect(design.undoList == [PlaneID(101), PlaneID(102)])
         #expect(design.redoList == [PlaneID(103)])
     }
@@ -675,12 +675,12 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        #expect(design.currentFrameID == nil)
+        #expect(design.currentPlaneID == nil)
         #expect(design.undoList.isEmpty)
         #expect(design.redoList.isEmpty)
     }
 
-    @Test("Load design with user named frame")
+    @Test("Load design with user named plane")
     func loadUserReferenceNamedFrame() async throws {
         let raw = RawDesign(
             snapshots: [],
@@ -694,7 +694,7 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        let namedFrame = design.frame(name: "my_special_frame")
+        let namedFrame = design.plane(name: "my_special_frame")
         #expect(namedFrame?.id == PlaneID(101))
     }
 
@@ -703,13 +703,13 @@ struct DesignLoaderIntegrationTests {
         let raw = RawDesign()
         let design = try loader.load(raw)
 
-        #expect(design.frames.isEmpty)
-        #expect(design.currentFrameID == nil)
+        #expect(design.planes.isEmpty)
+        #expect(design.currentPlaneID == nil)
         #expect(design.undoList.isEmpty)
         #expect(design.redoList.isEmpty)
     }
 
-    @Test("Load design with snapshots but no frames")
+    @Test("Load design with snapshots but no planes")
     func loadSnapshotsWithoutFrames() async throws {
         let raw = RawDesign(
             snapshots: [
@@ -719,9 +719,9 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        // Snapshots without frames are not actually loaded into the design
+        // Snapshots without planes are not actually loaded into the design
         // (they go through resolution pipeline but aren't inserted)
-        #expect(design.frames.isEmpty)
+        #expect(design.planes.isEmpty)
         #expect(design.snapshot(ObjectSnapshotID(100)) == nil)
         #expect(design.snapshot(ObjectSnapshotID(101)) == nil)
     }
@@ -761,7 +761,7 @@ struct DesignLoaderIntegrationTests {
         }
     }
 
-    @Test("Error: duplicate object in frame")
+    @Test("Error: duplicate object in plane")
     func errorDuplicateObjectInFrame() async throws {
         // Plane contains two snapshots of the same object (ID 10)
         let raw = RawDesign(
@@ -779,9 +779,9 @@ struct DesignLoaderIntegrationTests {
         }
     }
 
-    @Test("Error: missing current frame when history exists")
+    @Test("Error: missing current plane when history exists")
     func errorMissingCurrentFrameWithHistory() async throws {
-        // Invalid: has undo list but no current frame
+        // Invalid: has undo list but no current plane
         let raw = RawDesign(
             snapshots: [],
             frames: [

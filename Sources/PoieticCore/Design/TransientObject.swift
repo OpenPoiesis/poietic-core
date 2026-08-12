@@ -101,7 +101,7 @@ class _TransientSnapshotBox: Identifiable {
     }
 }
 
-/// An object that can be modified before being inserted into a frame.
+/// An object that can be modified before being inserted into a plane.
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
 /// a transaction for a change. New objects are created within a ``TransientPlane`` using

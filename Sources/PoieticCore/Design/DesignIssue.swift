@@ -25,7 +25,7 @@ public struct DesignIssue: Sendable, CustomStringConvertible {
         case simulation
         
         /// Issue occurred when trying to import or export the design through a foreign interface.
-        /// For example reading a foreign frame.
+        /// For example reading a foreign plane.
         ///
         /// - SeeAlso: ``JSONDesignReader``
         ///

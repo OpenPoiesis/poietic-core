@@ -62,7 +62,7 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     public var objectID: ObjectID? { world.entityToObjectMap[runtimeID] }
     
     /// Get corresponding design object that is being represented by the runtime entity, if it
-    /// exists in the world's current frame.
+    /// exists in the world's current plane.
     ///
     /// - SeeAlso: ``objectID``
     ///

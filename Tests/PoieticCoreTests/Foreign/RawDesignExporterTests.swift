@@ -27,7 +27,7 @@ struct RawDesignExpoerterTest {
 
         let first = DesignPlane(design: design, id: 1000, snapshots: [])
         design.unsafeInsert(first)
-        let _ = design.createFrame(deriving: first)
+        let _ = design.createPlane(deriving: first)
         let unstructured = ObjectSnapshot(type: TestType, snapshotID: 100, objectID: 10)
         let node1 = ObjectSnapshot(type: TestNodeType, snapshotID: 101, objectID: 11)
         let node2 = ObjectSnapshot(type: TestNodeType, snapshotID: 102, objectID: 12)
@@ -35,7 +35,7 @@ struct RawDesignExpoerterTest {
         let frame = DesignPlane(design: design, id: 1001,
                                 snapshots: [unstructured, node1, node2, edge ])
         design.unsafeInsert(frame)
-        design.currentFrameID = frame.id
+        design.currentPlaneID = frame.id
         design.undoList = [first.id]
 
         

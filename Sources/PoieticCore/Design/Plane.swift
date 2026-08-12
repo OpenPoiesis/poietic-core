@@ -5,34 +5,34 @@
 //  Created by Stefan Urbanek on 13/02/2023.
 //
 
-/// Protocol for version frames.
+/// Protocol for version planes.
 ///
-/// Fame Base is a protocol for all version frame types: ``TransientPlane`` and
+/// Fame Base is a protocol for all version plane types: ``TransientPlane`` and
 /// ``DesignPlane``
 ///
 public protocol Plane:
     GraphProtocol where NodeKey == ObjectID,
                         EdgeKey == ObjectID,
                         Edge == DesignObjectEdge {
-    /// Design to which the frame belongs.
+    /// Design to which the plane belongs.
     var design: Design { get }
     
     var id: PlaneID { get }
     
-    /// Get a list of all snapshots in the frame.
+    /// Get a list of all snapshots in the plane.
     ///
     var snapshots: [ObjectSnapshot] { get }
     
-    /// Get a list of object IDs in the frame.
+    /// Get a list of object IDs in the plane.
     var objectIDs: [ObjectID] { get }
 
-    /// Check whether the frame contains an object with given ID.
+    /// Check whether the plane contains an object with given ID.
     ///
-    /// - Returns: `true` if the frame contains the object, otherwise `false`.
+    /// - Returns: `true` if the plane contains the object, otherwise `false`.
     ///
     func contains(_ objectID: ObjectID) -> Bool
     
-    /// Return an object with given ID from the frame or `nil` if the frame
+    /// Return an object with given ID from the plane or `nil` if the plane
     /// does not contain such object.
     ///
     func object(_ objectID: ObjectID) -> ObjectSnapshot?
@@ -54,9 +54,9 @@ public protocol Plane:
     /// Get shared traits of a list of objects.
     func sharedTraits(_ ids: some Collection<ObjectID>) -> [Trait]
     
-    /// Filter IDs and keep only those that are contained in the frame.
+    /// Filter IDs and keep only those that are contained in the plane.
     ///
-    /// Use this function to sanitise a selection between frame changes, if you want to preserve
+    /// Use this function to sanitise a selection between plane changes, if you want to preserve
     /// the selection between edits.
     ///
     /// - SeeAlso: ``Selection``
@@ -181,10 +181,10 @@ extension Plane {
 extension Plane {
     /// Get object by a name, if the object contains a named component.
     ///
-    /// A method that searches the frame for a first object with
+    /// A method that searches the plane for a first object with
     /// a name component and with the given name.
     ///
-    /// If the frame contains multiple objects with the same name,
+    /// If the plane contains multiple objects with the same name,
     /// then one is returned arbitrarily. Subsequent calls of the method
     /// with the same name does not guarantee that the same object will
     /// be returned.
@@ -237,7 +237,7 @@ extension Plane {
 
     /// Get distinct object types of a list of objects.
     ///
-    /// IDs that do not have corresponding objects in the frame are ignored.
+    /// IDs that do not have corresponding objects in the plane are ignored.
     ///
     public func distinctTypes(_ ids: some Collection<ObjectID>) -> [ObjectType] {
         var types: [ObjectType] = []
