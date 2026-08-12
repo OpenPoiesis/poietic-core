@@ -189,7 +189,7 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``discard()``
     ///
-    public func accept() {
+    internal func accept() {
         precondition(state == .transient)
         self.state = .accepted
     }
@@ -201,7 +201,7 @@ public final class TransientFrame: Frame {
     ///
     /// - SeeAlso: ``accept()``
     ///
-    public func discard() {
+    internal func discard() {
         precondition(state == .transient)
         self.state = .discarded
     }

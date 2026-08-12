@@ -1,5 +1,5 @@
 //
-//  StructuralComponent.swift
+//  Structure.swift
 //  
 //
 //  Created by Stefan Urbanek on 04/09/2023.

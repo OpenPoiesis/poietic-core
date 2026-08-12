@@ -280,7 +280,7 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func _createFrame(id: FrameID? = nil) -> TransientFrame {
+    internal func _createFrame(id: FrameID? = nil) -> TransientFrame {
         // TODO: Throw some identity error here
         let actualID: FrameID
         if let id {

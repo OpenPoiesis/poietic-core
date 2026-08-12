@@ -121,13 +121,6 @@ public protocol ObjectProtocol: Identifiable {
     ///
     var children: OrderedSet<ObjectID> { get }
     
-    /// Runtime components of an object.
-    ///
-    /// - Note: The components are not persisted. They are also not passed
-    ///   through foreign interfaces unless a custom functionality is provided.
-    ///
-//    var components: ComponentSet { get }
-    
     /// Name of an object.
     ///
     /// Object name is a user-facing property. Use of an object's name depends
@@ -146,11 +139,6 @@ public protocol ObjectProtocol: Identifiable {
     ///   attribute.
     ///
     subscript(attributeKey: String) -> Variant? { get }
-    
-    // Get a runtime component.
-    //
-    // TODO: Reconsider re-introducing
-    //    subscript<T>(componentType: T.Type) -> T? where T : Component { get }
 }
 
 extension ObjectProtocol {
