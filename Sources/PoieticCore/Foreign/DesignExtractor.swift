@@ -1,5 +1,5 @@
 //
-//  RawDesignExporter.swift
+//  DesignExtractor.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 09/05/2025.
@@ -10,18 +10,17 @@
 /// unsafe structural surgeries.
 ///
 public class DesignExtractor {
-    
     public init() {
         // Nothing for now
     }
-   // FIXME: Rename to RawDesignExtractor
+
     /// Create a raw design from a design.
     ///
     /// - SeeAlso: ``extract(_:)``, ``RawDesign``, ``RawSnapshot``
     ///
     public func extract(_ design: Design) -> RawDesign {
         var snapshots: [RawSnapshot] = []
-        var frames: [RawFrame] = []
+        var planes: [RawPlane] = []
         var sysLists: [RawNamedList] = []
         let sysReferences: [RawNamedReference]
         var userReferences: [RawNamedReference] = []
@@ -31,25 +30,25 @@ public class DesignExtractor {
             let raw = extract(snapshot)
             snapshots.append(raw)
         }
-        for frame in design.planes {
-            let raw = extract(frame)
-            frames.append(raw)
+        for plane in design.planes {
+            let raw = extract(plane)
+            planes.append(raw)
         }
         
         // 2. System named lists and system named references
         // Write only non-empty ones and non-nil ones (can't write nil ref anyway).
         if !design.undoList.isEmpty {
             let undoList: [RawEntityID] = design.undoList.map { .id($0) }
-            sysLists.append(RawNamedList("undo", itemType: "frame", ids: undoList))
+            sysLists.append(RawNamedList("undo", itemType: "plane", ids: undoList))
         }
         if !design.redoList.isEmpty {
             let redoList: [RawEntityID] = design.redoList.map { .id($0) }
-            sysLists.append(RawNamedList("redo", itemType: "frame", ids: redoList))
+            sysLists.append(RawNamedList("redo", itemType: "plane", ids: redoList))
         }
         
         if let id = design.currentPlaneID {
             sysReferences = [
-                RawNamedReference("current_frame", type: "frame", id: .id(id))
+                RawNamedReference("current_plane", type: "plane", id: .id(id))
             ]
         }
         else {
@@ -58,8 +57,8 @@ public class DesignExtractor {
 
         // 3. User references
         // Write all, including empty ones.
-        for (name, frame) in design.namedPlanes {
-            let ref = RawNamedReference(name, type: "frame", id: .id(frame.id))
+        for (name, plane) in design.namedPlanes {
+            let ref = RawNamedReference(name, type: "plane", id: .id(plane.id))
             userReferences.append(ref)
         }
         
@@ -67,7 +66,7 @@ public class DesignExtractor {
             metamodelName: design.metamodel.name,
             metamodelVersion: design.metamodel.version,
             snapshots: snapshots,
-            frames: frames,
+            planes: planes,
             userReferences: userReferences,
             systemReferences: sysReferences,
             systemLists: sysLists
@@ -99,8 +98,8 @@ public class DesignExtractor {
         let raw = RawSnapshot(
             typeName: snapshot.type.name,
             snapshotID: .id(snapshot.snapshotID),
-            id: .id(snapshot.objectID),
-            structure: RawStructure(snapshot.structure),
+            objectID: .id(snapshot.objectID),
+            topology: RawTopology(snapshot.structure),
             parent: rawParent,
             attributes: snapshot.attributes
         )
@@ -109,10 +108,10 @@ public class DesignExtractor {
     
     /// Create a raw plane from a design plane.
     ///
-    public func extract(_ frame: some Plane) -> RawFrame {
-        return RawFrame(
-            id: .id(frame.id),
-            snapshots: frame.snapshots.map { .id($0.snapshotID) }
+    public func extract(_ plane: some Plane) -> RawPlane {
+        return RawPlane(
+            id: .id(plane.id),
+            snapshots: plane.snapshots.map { .id($0.snapshotID) }
         )
     }
     
@@ -126,18 +125,18 @@ public class DesignExtractor {
     /// - All nodes and unstructured objects are kept.
     /// - Only edges with endpoints within the provided set of snapshots are kept, others
     ///   are not included in the result.
-    /// - Only ordered set (structural type) with the owner in the provided set of snapshots are kept.
-    /// - Invalid references in the ordered set structural type are removed, but the ordered set is kept.
+    /// - Only ordered set (topology type) with the owner in the provided set of snapshots are kept.
+    /// - Invalid references in the ordered set topology type are removed, but the ordered set is kept.
     /// - Missing parent is set to `nil`.
     /// - Snapshots not present in the plane are ignored.
     ///
-    public func extractPruning(objects objectIDs: [ObjectID], frame: some Plane) -> [RawSnapshot] {
+    public func extractPruning(objects objectIDs: [ObjectID], plane: some Plane) -> [RawSnapshot] {
         let knownIDs: Set<ObjectID> = Set(objectIDs)
         var result: [RawSnapshot] = []
         
         
         for id in objectIDs {
-            guard let snapshot = frame[id] else { continue }
+            guard let snapshot = plane[id] else { continue }
             let raw: RawSnapshot
             
             switch snapshot.structure {
@@ -154,7 +153,7 @@ public class DesignExtractor {
                 }
                 let knownItems = items.filter { knownIDs.contains($0) }
                 raw = extract(snapshot)
-                raw.structure.references = knownItems.map { .id($0) }
+                raw.topology.references = [.id(owner)] + knownItems.map { .id($0) }
             }
             
             if let parent = snapshot.parent, !knownIDs.contains(parent) {

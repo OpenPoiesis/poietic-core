@@ -276,11 +276,12 @@ public class RawSnapshot: CustomDebugStringConvertible {
     /// Create a new raw snapshot.
     ///
     public init(typeName: String? = nil,
-                  snapshotID: RawEntityID? = nil,
-                  objectID: RawEntityID? = nil,
-                  topology: RawTopology = RawTopology(nil, references: []),
-                  parent: RawEntityID? = nil,
-                  attributes: [String:Variant] = [:]) {
+                snapshotID: RawEntityID? = nil,
+                objectID: RawEntityID? = nil,
+                topology: RawTopology = RawTopology(nil, references: []),
+                parent: RawEntityID? = nil,
+                attributes: [String:Variant] = [:])
+    {
         self.typeName = typeName
         self.snapshotID = snapshotID
         self.objectID = objectID
