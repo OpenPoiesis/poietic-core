@@ -68,7 +68,7 @@ struct DesignLoaderLoadIntoTests {
             #expect(trans.contains(origin))
             #expect(trans.contains(target))
         } else {
-            Issue.record("Expected edge structure")
+            Issue.record("Expected edge topology")
         }
     }
 

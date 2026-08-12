@@ -55,7 +55,7 @@ public enum StructuralIntegrityError: Error {
 ///
 /// - Mutate existing objects in the plane using
 ///   ``TransientPlane/mutate(_:)``.
-/// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
+/// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
 ///    or ``TransientPlane/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
@@ -223,7 +223,7 @@ public final class TransientPlane: Plane {
     ///     - attributes: Attribute dictionary to be used for object
     ///       initialisation.
     ///     - parent: Optional parent object in the hierarchy of objects.
-    ///     - structure: Structural component of the new object. If not provided,
+    ///     - topology: Structural component of the new object. If not provided,
     ///       then unstructured is used.
     ///
     /// - Note: Attributes are not checked according to the object type during
@@ -241,7 +241,7 @@ public final class TransientPlane: Plane {
     public func create(_ type: ObjectType,
                        objectID: ObjectID? = nil,
                        snapshotID: ObjectSnapshotID? = nil,
-                       structure: Structure? = nil,
+                       topology: Topology? = nil,
                        parent: ObjectID? = nil,
                        children: [ObjectID] = [],
                        attributes: [String:Variant]=[:]) -> TransientObject {
@@ -272,7 +272,7 @@ public final class TransientPlane: Plane {
         }
         _reservations.insert(actualID)
 
-        let actualStructure = structure ?? .unstructured
+        let actualTopology = topology ?? .unstructured
         var actualAttributes = attributes
         
         // FIXME: [WIP] Is this the right place to add default attributes?
@@ -283,12 +283,12 @@ public final class TransientPlane: Plane {
         }
         
         let snapshot = TransientObject(type: type,
-                                     snapshotID: actualSnapshotID,
-                                     objectID: actualID,
-                                     structure: actualStructure,
-                                     parent: parent,
-                                     children: children,
-                                     attributes: actualAttributes)
+                                       snapshotID: actualSnapshotID,
+                                       objectID: actualID,
+                                       topology: actualTopology,
+                                       parent: parent,
+                                       children: children,
+                                       attributes: actualAttributes)
         let box = _TransientSnapshotBox(snapshot, isNew: true)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)
@@ -427,7 +427,7 @@ public final class TransientPlane: Plane {
             // Check for dependants (edges)
             //
             for dependant in snapshots where !removed.contains(dependant.objectID) {
-                switch dependant.structure {
+                switch dependant.topology {
                 case let .edge(origin, target):
                     if origin == garbageID || target == garbageID {
                         scheduled.insert(dependant.objectID)
@@ -439,7 +439,7 @@ public final class TransientPlane: Plane {
                     else if items.contains(garbageID) {
                         let update = mutate(dependant.objectID)
                         items.remove(garbageID)
-                        update.structure = .orderedSet(owner, items)
+                        update.topology = .orderedSet(owner, items)
                     }
                 case .unstructured:
                     break

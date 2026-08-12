@@ -517,7 +517,7 @@ public class Design {
         return stablePlane
     }
 
-    /// Insert a plane without structural or snapshot reference validation.
+    /// Insert a plane without topological or snapshot reference validation.
     ///
     /// This method is used internally by transactions and by the loader.
     ///

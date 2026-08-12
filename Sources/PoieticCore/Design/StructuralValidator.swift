@@ -18,7 +18,7 @@ public struct StructuralValidator {
     /// - Parent exist in the plane.
     /// - Children exist in the plane.
     /// - If it is an edge: whether origin and target exist in the plane and are of type
-    ///   ``StructuralType/node``.
+    ///   ``TopologyType/node``.
     /// - If it is an ordered set: whether the owner and all IDs exist in the plane.
     ///
     /// The validator does not check anything related to metamodel. This is a low-level structural
@@ -28,7 +28,7 @@ public struct StructuralValidator {
     ///
     public static func validate(_ object: some ObjectProtocol, in plane: some Plane)
     throws (StructuralIntegrityError) {
-        switch object.structure {
+        switch object.topology {
         case .unstructured: break // Nothing to validate.
         case .node: break // Nothing to validate.
         case let .edge(originID, targetID):
@@ -37,7 +37,7 @@ public struct StructuralValidator {
             else {
                 throw .brokenStructureReference
             }
-            guard origin.structure == .node && target.structure == .node else {
+            guard origin.topology == .node && target.topology == .node else {
                 throw .edgeEndpointNotANode
             }
         case let .orderedSet(owner, ids):
@@ -74,7 +74,7 @@ public struct StructuralValidator {
     ///
     /// The following references from the snapshot are being considered:
     ///
-    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
+    /// - If the topology type is an edge (``Topology/edge(_:_:)``)
     ///   then the origin and target is considered.
     /// - All children – ``ObjectProtocol/children``.
     /// - The object's parent – ``ObjectProtocol/parent``.
@@ -84,7 +84,7 @@ public struct StructuralValidator {
         //
         var broken: Set<ObjectID> = []
         
-        switch object.structure {
+        switch object.topology {
         case .unstructured: break // Nothing broken.
         case .node: break // Nothing broken.
         case let .edge(originID, targetID):
@@ -183,7 +183,7 @@ public struct StructuralValidator {
     ///
     /// The following references from the snapshot are being considered:
     ///
-    /// - If the structure type is an edge (``Structure/edge(_:_:)``)
+    /// - If the topology type is an edge (``Topology/edge(_:_:)``)
     ///   then the origin and target is considered.
     /// - All children – ``ObjectProtocol/children``.
     /// - The object's parent – ``ObjectProtocol/parent``.

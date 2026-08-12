@@ -198,19 +198,19 @@ public final class Metamodel: Sendable {
     /// Selection of node object types.
     ///
     public var nodeTypes: [ObjectType] {
-        types.filter { $0.structuralType == .node }
+        types.filter { $0.topologyType == .node }
     }
 
     /// Selection of edge object types.
     ///
     public var edgeTypes: [ObjectType] {
-        types.filter { $0.structuralType == .edge }
+        types.filter { $0.topologyType == .edge }
     }
 
     /// Selection of unstructured object types.
     ///
     public var unstructuredTypes: [ObjectType] {
-        types.filter { $0.structuralType == .unstructured }
+        types.filter { $0.topologyType == .unstructured }
     }
 
     /// Get an object type by its name.

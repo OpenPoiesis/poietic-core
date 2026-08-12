@@ -7,11 +7,11 @@
 
 extension Plane {
     public var nodeKeys: [ObjectID] {
-        return self.snapshots.filter { $0.structure.type == .node }.map { $0.objectID }
+        return self.snapshots.filter { $0.topology.type == .node }.map { $0.objectID }
     }
     
     public var edgeKeys: [ObjectID] {
-        return self.snapshots.filter { $0.structure.type == .edge }.map { $0.objectID }
+        return self.snapshots.filter { $0.topology.type == .edge }.map { $0.objectID }
     }
 
     public var edges: [DesignObjectEdge] {

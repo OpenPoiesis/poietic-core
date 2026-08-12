@@ -400,7 +400,7 @@ struct DesignLoaderSnapshotResolutionTests {
     
     // TEST: .unknownID for snapshot reference
 
-    @Test("Unknown ID in object snapshot structure")
+    @Test("Unknown ID in object snapshot topology")
     func unknownIDinStructure() async throws {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,

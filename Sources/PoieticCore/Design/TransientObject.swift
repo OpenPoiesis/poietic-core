@@ -84,10 +84,10 @@ class _TransientSnapshotBox: Identifiable {
         }
     }
     
-    var structure: Structure {
+    var structure: Topology {
         switch content {
-        case let .stable(_,snapshot): snapshot.structure
-        case let .transient(_, object): object.structure
+        case let .stable(_,snapshot): snapshot.topology
+        case let .transient(_, object): object.topology
         }
     }
     
@@ -105,7 +105,7 @@ class _TransientSnapshotBox: Identifiable {
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
 /// a transaction for a change. New objects are created within a ``TransientPlane`` using
-/// ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
+/// ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``.
 /// Mutable versions of existing stable objects are created with``TransientPlane/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
@@ -134,18 +134,18 @@ public class TransientObject: ObjectProtocol {
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
-                structure: Structure = .unstructured,
+                topology: Topology = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:]) {
         
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
-                                 type: type,
-                                 structure: structure,
-                                 parent: parent,
-                                 children: children,
-                                 attributes: attributes)
+                                type: type,
+                                topology: topology,
+                                parent: parent,
+                                children: children,
+                                attributes: attributes)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
     }
@@ -159,9 +159,9 @@ public class TransientObject: ObjectProtocol {
    
     @inlinable public var objectID: ObjectID { _body.id }
     @inlinable public var type: ObjectType { _body.type }
-    @inlinable public var structure: Structure {
-        get { _body.structure }
-        set(structure) { _body.structure = structure }
+    @inlinable public var topology: Topology {
+        get { _body.topology }
+        set(structure) { _body.topology = structure }
         
     }
     

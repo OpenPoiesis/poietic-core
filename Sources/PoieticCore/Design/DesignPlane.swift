@@ -51,11 +51,11 @@ public final class DesignPlane: Plane, Identifiable {
         self._snapshots = snapshots
         let lookup = Dictionary(uniqueKeysWithValues: snapshots.map { ($0.objectID, $0 ) })
         let nodeKeys = snapshots.compactMap {
-            if $0.structure == .node { $0.objectID }
+            if $0.topology == .node { $0.objectID }
             else { nil }
         }
         let edges: [DesignObjectEdge] = snapshots.compactMap {
-            guard case let .edge(originID, targetID) = $0.structure else {
+            guard case let .edge(originID, targetID) = $0.topology else {
                 return nil
             }
             guard let origin = lookup[originID], let target = lookup[targetID] else {

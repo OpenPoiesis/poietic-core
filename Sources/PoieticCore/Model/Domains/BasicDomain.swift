@@ -151,7 +151,7 @@ extension Trait {
 extension ObjectType {
     public static let DesignInfo = ObjectType(
         name: "DesignInfo",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.DesignInfo,
             // TODO: Add name, but make it optional.
@@ -163,14 +163,14 @@ extension ObjectType {
     
     public static let BibliographicalReference = ObjectType(
         name: "BibliographicalReference",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.BibliographicalReference,
         ])
 
     public static let Group = ObjectType(
         name: "Group",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.Name,
         ])

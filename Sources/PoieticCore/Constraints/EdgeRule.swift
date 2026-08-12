@@ -224,7 +224,7 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
                 outgoing: EdgeCardinality = .many,
                 target: Predicate? = nil,
                 incoming: EdgeCardinality = .many) {
-        assert(type.structuralType == .edge)
+        assert(type.topologyType == .edge)
         self.type = type
         self.originPredicate = origin
         self.targetPredicate = target

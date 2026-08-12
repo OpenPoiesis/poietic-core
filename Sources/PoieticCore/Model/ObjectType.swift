@@ -10,18 +10,18 @@
 /// An `ObjectType` specifies:
 ///
 /// - Which traits (and their attributes) objects of this type possess
-/// - How objects can relate to other objects in the design graph (via ``structuralType``)
+/// - How objects can relate to other objects in the design graph (via ``topologyType``)
 /// - Display properties for user interfaces (labels, primary/secondary attributes)
 ///
 /// Object types are defined within a ``Metamodel`` and validated by the ``ConstraintChecker``.
 /// Every object in a design must have a type defined in the design's metamodel.
 ///
-/// ## Structural Types
+/// ## Topology Types
 ///
-/// The ``structuralType`` property determines the object's role as a graph component:
-/// - ``StructuralType/node``: Objects that can be connected via edges
-/// - ``StructuralType/edge``: Objects that connect two nodes (requires an ``EdgeRule``)
-/// - ``StructuralType/unstructured``: Objects with no graph relationships
+/// The ``topologyType`` property determines the object's role as a graph component:
+/// - ``TopologyType/node``: Objects that can be connected via edges
+/// - ``TopologyType/edge``: Objects that connect two nodes (requires an ``EdgeRule``)
+/// - ``TopologyType/unstructured``: Objects with no graph relationships
 ///
 /// ## Traits and Attributes
 ///
@@ -34,7 +34,7 @@
 /// ```swift
 /// let Stock = ObjectType(
 ///     name: "Stock",
-///     structuralType: .node,
+///     topologyType: .node,
 ///     traits: [
 ///         Trait.Name,
 ///         Trait.Formula,
@@ -46,16 +46,16 @@
 ///
 /// let Flow = ObjectType(
 ///     name: "Flow",
-///     structuralType: .edge,
+///     topologyType: .edge,
 ///     abstract: "Connection between a stock and a flow rate"
 /// )
 /// ```
 ///
-/// - Note: For edge object types (``structuralType`` is ``StructuralType/edge``),
+/// - Note: For edge object types (``topologyType`` is ``TopologyType/edge``),
 ///         you must define a corresponding ``EdgeRule`` in the metamodel, otherwise
 ///         edges of this type will fail validation.
 ///
-/// - SeeAlso: ``Metamodel``, ``Trait``, ``EdgeRule``, ``StructuralType``
+/// - SeeAlso: ``Metamodel``, ``Trait``, ``EdgeRule``, ``TopologyType``
 ///
 public final class ObjectType: Sendable {
     /// Name of the object type.
@@ -68,7 +68,7 @@ public final class ObjectType: Sendable {
     ///
     public let label: String
     
-    /// Structural role of the object in the design graph.
+    /// Topological role of the object in the design graph.
     ///
     /// Determines how the object can relate to other objects:
     /// - `.node`: Can be referenced by edge objects
@@ -76,9 +76,9 @@ public final class ObjectType: Sendable {
     /// - `.unstructured`: Cannot participate in graph relationships
     ///
     /// - Note: Edge types require a corresponding ``EdgeRule`` in the metamodel.
-    /// - SeeAlso: ``EdgeRule``, ``Metamodel/edgeRules``, ``Structure``
+    /// - SeeAlso: ``EdgeRule``, ``Metamodel/edgeRules``, ``Topology``
     ///
-    public let structuralType: StructuralType
+    public let topologyType: TopologyType
     
     /// Traits associated with this object type.
     ///
@@ -140,7 +140,7 @@ public final class ObjectType: Sendable {
     ///     - name: Name of the object type.
     ///     - label: Label of the object type. If not provided, then the
     ///       name is used.
-    ///     - structuralType: Specification how the object can be related to
+    ///     - topologyType: Specification how the object can be related to
     ///       other objects in the design.
     ///     - traits: List of traits associated with the object type.
     ///     - abstract: User oriented object type details.
@@ -152,7 +152,7 @@ public final class ObjectType: Sendable {
     /// - Note: The attributes in traits share the same name-space within an
     ///         object type. In other words, there must not be two traits with
     ///         the same attribute in an object type.
-    /// - Note: For edge object types (where ``structuralType`` is ``StructuralType/edge``),
+    /// - Note: For edge object types (where ``topologyType`` is ``TopologyType/edge``),
     ///         make sure that you have a corresponding ``EdgeRule`` for a metamodel. Otherwise
     ///         the edge will not pass validation.
     /// - Precondition: There must be no duplicate attribute names in the
@@ -160,14 +160,14 @@ public final class ObjectType: Sendable {
     ///
     public init(name: String,
                 label: String? = nil,
-                structuralType: StructuralType,
+                topologyType: TopologyType,
                 traits: [Trait] = [],
                 abstract: String? = nil,
                 labelAttribute: String? = "name",
                 secondaryLabelAttribute: String? = nil) {
         self.name = name
         self.label = label ?? name.titleCase()
-        self.structuralType = structuralType
+        self.topologyType = topologyType
         self.traits = traits
         self.abstract = abstract
         self.labelAttribute = labelAttribute

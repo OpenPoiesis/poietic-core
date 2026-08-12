@@ -80,7 +80,7 @@ extension DesignPlane /* : GraphProtocol */ {
         guard let snapshot = _lookup[oid] else {
             fatalError("Missing node: \(oid)")
         }
-        guard snapshot.structure == .node else {
+        guard snapshot.topology == .node else {
             fatalError("Not a node: \(oid)")
         }
         return snapshot

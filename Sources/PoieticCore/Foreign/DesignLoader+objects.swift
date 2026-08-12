@@ -67,7 +67,7 @@ extension DesignLoader { // Object snapshots
             throw .missingObjectType
         }
         
-        let structuralType: StructuralType?
+        let structuralType: TopologyType?
         switch rawSnapshot.structure.type {
         case .none: structuralType = nil
         case "unstructured": structuralType = .unstructured
@@ -151,28 +151,28 @@ extension DesignLoader { // Object snapshots
             throw .unknownObjectType(resolvedSnapshot.typeName)
         }
         
-        let structure: Structure
+        let structure: Topology
         let references = resolvedSnapshot.structureReferences
         switch resolvedSnapshot.structureType {
         case .none:
-            switch type.structuralType {
+            switch type.topologyType {
             case .unstructured: structure = .unstructured
             case .node: structure = .node
-            default: throw .structuralTypeMismatch(type.structuralType)
+            default: throw .structuralTypeMismatch(type.topologyType)
             }
         case .unstructured:
-            guard type.structuralType == .unstructured else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .unstructured else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
             structure = .unstructured
         case .node:
-            guard type.structuralType == .node else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .node else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
             structure = .node
         case .edge:
-            guard type.structuralType == .edge else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .edge else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
             guard references.count == 2 else {
                 throw .invalidStructuralType

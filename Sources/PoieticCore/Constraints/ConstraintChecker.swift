@@ -43,8 +43,8 @@ public struct ConstraintChecker {
     }
     
     public func validate(_ object: some ObjectProtocol, conformsTo type: ObjectType) throws (ObjectTypeError) {
-        if object.structure.type != type.structuralType  {
-            throw .structureMismatch(object.type.structuralType)
+        if object.topology.type != type.topologyType  {
+            throw .topologyMismatch(object.type.topologyType)
         }
         
         for trait in type.traits {
@@ -54,8 +54,8 @@ public struct ConstraintChecker {
     }
     public func diagnose(_ object: some ObjectProtocol, conformsTo type: ObjectType) -> [ObjectTypeError] {
         var errors:[ObjectTypeError] = []
-        if object.structure.type != type.structuralType  {
-            errors.append(.structureMismatch(object.type.structuralType))
+        if object.topology.type != type.topologyType  {
+            errors.append(.topologyMismatch(object.type.topologyType))
         }
         
         for trait in type.traits {

@@ -40,7 +40,7 @@ struct ManyRelationship: Relationship, Sendable {
         
         let trans2 = design.createPlane()
         
-        // Create some test objects with proper structure
+        // Create some test objects with proper topology
         let obj1 = trans2.create(.Stock, structure: .node)
         let obj2 = trans2.create(.FlowRate, structure: .node)
         let obj3 = trans2.create(.Stock, structure: .node)

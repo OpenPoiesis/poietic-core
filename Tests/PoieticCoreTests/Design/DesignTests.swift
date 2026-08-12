@@ -165,8 +165,8 @@ import Testing
         #expect(result.contains(order2.objectID))
 
         let obj = try #require(result[order2.objectID])
-        guard case let .orderedSet(owner, items) = obj.structure else {
-            Issue.record("Structure is not ordered set")
+        guard case let .orderedSet(owner, items) = obj.topology else {
+            Issue.record("Topology is not ordered set")
             return
         }
         #expect(owner == b.objectID)

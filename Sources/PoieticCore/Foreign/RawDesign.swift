@@ -202,7 +202,7 @@ public struct RawTopology: Equatable {
     public var type: String? = nil
     public var references: [RawEntityID] = []
 
-    public init(_ topology: Structure) {
+    public init(_ topology: Topology) {
         switch topology {
         case .unstructured: self.type = "unstructured"
         case .node: self.type = "node"
@@ -306,7 +306,7 @@ public class RawSnapshot: CustomDebugStringConvertible {
         self.objectID = .id(snapshot.objectID)
         self.parent = snapshot.parent.map { .id($0) }
         self.attributes = snapshot.attributes
-        switch snapshot.structure {
+        switch snapshot.topology {
         case .unstructured:
             self.topology = RawTopology("unstructured")
         case .node:

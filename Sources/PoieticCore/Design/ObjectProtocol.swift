@@ -26,14 +26,13 @@ public typealias AttributeKey = String
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
 /// Each object object has an unique identity, collection of attributes
-/// and might have structural properties. Identity serves as a handle of an
-/// object. Attributes define a state of an object. The structural properties
-/// define state of the whole design.
+/// and might have topological relationships. Identity serves as a handle of an
+/// object. Attributes define a state of an object.
 ///
 /// ## Attributes and Object-to-Object References
 ///
 /// All object-to-object references are explicitly managed through either
-/// ``structure`` or parent/child relationships. Object attributes can hold any
+/// ``topology`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
 public protocol ObjectProtocol: Identifiable {
@@ -76,7 +75,7 @@ public protocol ObjectProtocol: Identifiable {
     ///
     var type: ObjectType { get }
 
-    /// Structural role of the object within a design.
+    /// Topological role of the object within a design.
     ///
     /// This property is the only other property to the parent/child hierarchy,
     /// where an object can have references to other objects.
@@ -86,13 +85,13 @@ public protocol ObjectProtocol: Identifiable {
     /// are all objects with only difference, that the edge can refer to
     /// other objects.
     ///
-    /// Structural component also denotes which objects depend on the object.
-    /// For example, if objects is an edge and any of it's ``Structure/edge(_:_:)``
+    /// Topology also denotes which objects depend on the object.
+    /// For example, if objects is an edge and any of it's ``Topology/edge(_:_:)``
     /// elements is removed from a design, then the edge is removed as well.
     ///
     /// - SeeAlso: ``TransientPlane/removeCascading(_:)``, ``Graph``
     ///
-    var structure: Structure { get }
+    var topology: Topology { get }
     
     /// Parent of an object in a hierarchical structure.
     ///

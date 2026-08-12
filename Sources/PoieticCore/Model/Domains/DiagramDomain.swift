@@ -71,7 +71,7 @@ extension Trait {
 extension ObjectType {
     public static let DiagramSettings = ObjectType(
         name: "DiagramSettings",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             .DiagramView,
         ]

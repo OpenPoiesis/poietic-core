@@ -24,7 +24,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// This is the primary design entity. Stable objects can be shared between
 /// multiple planes.
 ///
-/// Once created, stable object's design properties (attributes and structure)
+/// Once created, stable object's design properties (attributes and topology)
 /// can not be changed. Only changes that can be made to an object is to
 /// add or remove runtime components.
 ///
@@ -34,7 +34,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// needs to be assured. It can be either provided by the design, taken
 /// from an external source or created in a custom way.
 ///
-/// To create a new object, use the ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)
+/// To create a new object, use the ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)
 /// method:
 ///
 /// ```swift
@@ -71,7 +71,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     @inlinable public var objectID: ObjectID { _body.id }
     @inlinable public var snapshotID: ObjectSnapshotID { self.id }
     @inlinable public var type: ObjectType { _body.type }
-    @inlinable public var structure: Structure { _body.structure }
+    @inlinable public var topology: Topology { _body.topology }
     @inlinable public var parent: ObjectID? { _body.parent }
     @inlinable public var children: OrderedSet<ObjectID> { _body.children }
     @inlinable public var attributes: [String:Variant] { _body.attributes }
@@ -82,7 +82,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///     - objectID: Object identity - typical object reference, unique in a plane
     ///     - snapshotID: ID of this object version snapshot – unique in design
     ///     - type: Type of the object. Will be used to initialise components, see below.
-    ///     - structure: Structural component of the object.
+    ///     - topology: Topological property of the object which might refer to other objects.
     ///     - children: Children of the object.
     ///     - attributes: Initial attributes of the newly created object.
     ///     - parent: ID of parent object in the object hierarchy.
@@ -94,7 +94,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
-                structure: Structure = .unstructured,
+                topology: Topology = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:]) {
@@ -102,7 +102,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         self.id = snapshotID
         self._body = ObjectBody(id: objectID,
                                  type: type,
-                                 structure: structure,
+                                 topology: topology,
                                  parent: parent,
                                  children: children,
                                  attributes: attributes)
@@ -116,7 +116,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// Textual description of the object.
     ///
     public var description: String {
-        let structuralName: String = self.structure.type.rawValue
+        let structuralName: String = self.topology.type.rawValue
         let attrs = self.attributes.map { (name, value) in
             "\(name)=\(value)"
         }.joined(separator: ",")
@@ -127,7 +127,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///
     public var prettyDescription: String {
         let name: String = name ?? "(unnamed)"
-        return "\(_body.id) {\(type.name), \(structure.description), \(name))}"
+        return "\(_body.id) {\(type.name), \(topology.description), \(name))}"
     }
     
     @inlinable

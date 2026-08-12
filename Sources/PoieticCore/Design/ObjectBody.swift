@@ -13,7 +13,7 @@ public struct ObjectBody {
     public let type: ObjectType
     
     // State
-    public var structure: Structure
+    public var topology: Topology
     public var parent: ObjectID?
     public var children: OrderedSet<ObjectID>
     public var attributes: [String:Variant]
@@ -24,17 +24,16 @@ public struct ObjectBody {
     
     public init(id: ObjectID,
                 type: ObjectType,
-                structure: Structure,
+                topology: Topology,
                 parent: ObjectID?,
                 children: [ObjectID],
                 attributes: [String:Variant]) {
         self.id = id
         self.type = type
-        self.structure = structure
+        self.topology = topology
         self.parent = parent
         self.attributes = attributes
         self.children = OrderedSet(children)
     }
-    
 }
 

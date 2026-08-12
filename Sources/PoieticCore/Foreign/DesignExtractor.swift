@@ -99,7 +99,7 @@ public class DesignExtractor {
             typeName: snapshot.type.name,
             snapshotID: .id(snapshot.snapshotID),
             objectID: .id(snapshot.objectID),
-            topology: RawTopology(snapshot.structure),
+            topology: RawTopology(snapshot.topology),
             parent: rawParent,
             attributes: snapshot.attributes
         )
@@ -139,7 +139,7 @@ public class DesignExtractor {
             guard let snapshot = plane[id] else { continue }
             let raw: RawSnapshot
             
-            switch snapshot.structure {
+            switch snapshot.topology {
             case .unstructured, .node:
                 raw = extract(snapshot)
             case let .edge(origin, target):

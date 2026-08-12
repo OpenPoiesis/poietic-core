@@ -52,13 +52,13 @@
 /// // Use the trait in multiple object types
 /// let Stock = ObjectType(
 ///     name: "Stock",
-///     structuralType: .node,
+///     topologyType: .node,
 ///     traits: [Trait.Name, Formula, Trait.Stock]
 /// )
 ///
 /// let Auxiliary = ObjectType(
 ///     name: "Auxiliary",
-///     structuralType: .node,
+///     topologyType: .node,
 ///     traits: [Trait.Name, Formula, Trait.Auxiliary]
 /// )
 /// ```

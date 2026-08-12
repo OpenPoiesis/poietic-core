@@ -1,5 +1,5 @@
 //
-//  Structure.swift
+//  Topology.swift
 //
 //
 //  Created by Stefan Urbanek on 04/09/2023.
@@ -7,12 +7,12 @@
 
 import Collections
 
-/// Structural type of an object.
+/// Topology type of an object.
 ///
-/// Structural type denotes how the object can relate to other objects in
+/// Topology type denotes how the object can relate to other objects in
 /// the design.
 ///
-public enum StructuralType: String, Equatable, Codable, Sendable {
+public enum TopologyType: String, Equatable, Codable, Sendable {
     /// Plain object without any relationships with other objects,
     /// has no dependencies and no objects depend on it.
     case unstructured
@@ -26,14 +26,14 @@ public enum StructuralType: String, Equatable, Codable, Sendable {
     case orderedSet
 }
 
-/// Structure defines relationship of an object with other objects.
+/// Topology defines relationship of an object with other objects.
 ///
-/// - Note: There are other structure types considered that have not been
+/// - Note: There are other topology types considered that have not been
 ///   implemented but might be in the future, such as _proxy_ or a _port_.
 ///
 /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``
 ///
-public enum Structure: Equatable, CustomStringConvertible {
+public enum Topology: Equatable, CustomStringConvertible {
     /// The object has no relationships with other objects,
     /// has no structural dependencies and no objects depend on it.
     ///
@@ -48,8 +48,8 @@ public enum Structure: Equatable, CustomStringConvertible {
     ///
     /// Node objects can be referenced by objects of type edge.
     ///
-    /// When a node is removed from a plane, all objects with structural
-    /// component ``edge(_:_:)`` that refer to the removed node are removed
+    /// When a node is removed from a plane, all objects of topology type
+    /// ``edge(_:_:)`` that refer to the removed node are removed
     /// as well. See ``TransientPlane/removeCascading(_:)`` for more information.
     ///
     /// - SeeAlso: ``edge(_:_:)``
@@ -69,7 +69,7 @@ public enum Structure: Equatable, CustomStringConvertible {
     
     /// Set of object references owned by an object.
     ///
-    /// Ordered set structural type is a special case of a hyper-edge, where one
+    /// Ordered set topology type is a special case of a hyper-edge, where one
     /// object can point to other objects.
     ///
     /// Requirements and constraints:
@@ -82,9 +82,9 @@ public enum Structure: Equatable, CustomStringConvertible {
     // Should be interpreted as another object.
     // case proxy(ObjectID)
     
-    /// A structural type of the component.
+    /// A topology type.
     ///
-    public var type: StructuralType {
+    public var type: TopologyType {
         switch self {
         case .unstructured: .unstructured
         case .node: .node
@@ -93,7 +93,6 @@ public enum Structure: Equatable, CustomStringConvertible {
         }
     }
     
-    /// Short description of the structural component.
     public var description: String {
         switch self {
         case .unstructured: "unstructured"

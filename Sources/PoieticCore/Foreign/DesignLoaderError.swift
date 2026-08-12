@@ -86,7 +86,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         case missingObjectType
         case unknownObjectType(String)
         case invalidStructuralType
-        case structuralTypeMismatch(StructuralType)
+        case structuralTypeMismatch(TopologyType)
         
         // Plane-specific
         case unknownSnapshotID(RawEntityID)

@@ -229,7 +229,7 @@ class RawSnapshotV0_1: Codable, CustomDebugStringConvertible {
         switch structureType {
         case .none:
             // Compatibility/legacy
-            // Otherwise: Do not use origin/target without structure key.
+            // Otherwise: Do not use origin/target without topology key.
             if let origin = try container.decodeIfPresent(RawEntityID.self, forKey: .origin),
                let target = try container.decodeIfPresent(RawEntityID.self, forKey: .target) {
                 self.structure = RawStructureV0_1("edge", references: [origin, target])

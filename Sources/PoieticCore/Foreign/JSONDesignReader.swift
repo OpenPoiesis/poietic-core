@@ -276,9 +276,9 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///   (edges, parent/child). Can be an int or a string.
 /// - `snapshot_id` _(recommended)_: snapshot ID, if not provided, one will be
 ///   generated during loading. Can be an int or a string.
-/// - `structure`_(recommended)_: Structure type: `node`, `edge`, `unstructured`. See ``RawStructure``.
-/// - `origin` (structural): If the structure is an edge, the property references its origin object ID.
-/// - `target` (structural): If the structure is an edge, the property references its target object ID.
+/// - `topology`_(recommended)_: Topology type: `node`, `edge`, `unstructured`. See ``RawStructure``.
+/// - `origin` (structural): If the topology is an edge, the property references its origin object ID.
+/// - `target` (structural): If the topology is an edge, the property references its target object ID.
 /// - `parent` (optional): reference to object's parent object ID.
 /// - `attributes`: a dictionary where keys are attribute names and values are
 ///    variants. See below how variants are encoded.

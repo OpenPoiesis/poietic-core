@@ -100,7 +100,7 @@ extension DesignLoader {
         }
     }
 
-    /// Data of an object snapshot where the references, structure type, structure references,
+    /// Data of an object snapshot where the references, topology type, topology references,
     /// parent are resolved. Attributes are prepared.
     ///
     /// Only thing that is missing is list of children, that require context of a plane to be
@@ -127,7 +127,7 @@ extension DesignLoader {
         
         let typeName: String
         
-        let structureType: StructuralType?
+        let structureType: TopologyType?
         let structureReferences: [ObjectID]
         
         let parent: ObjectID?
@@ -137,7 +137,7 @@ extension DesignLoader {
         internal init(snapshotID: ObjectSnapshotID,
                       objectID: ObjectID,
                       typeName: String,
-                      structuralType: StructuralType?,
+                      structuralType: TopologyType?,
                       structureReferences: [ObjectID] = [],
                       parent: ObjectID? = nil,
                       attributes: [String:Variant]? = nil) {
