@@ -32,8 +32,8 @@ extension DesignLoader {
             seen.insert(id)
         }
 
-        for (index, frame) in rawDesign.frames.enumerated() {
-            guard let id = frame.id else { continue }
+        for (index, plane) in rawDesign.planes.enumerated() {
+            guard let id = plane.id else { continue }
             if seen.contains(id) {
                 throw .item(.planes, index, .duplicateForeignID(id))
             }
@@ -91,8 +91,8 @@ extension DesignLoader {
 
 
         return ValidationResolution(identityManager: identityManager,
-                                       rawSnapshots: rawDesign.snapshots,
-                                       rawFrames: rawDesign.frames)
+                                    rawSnapshots: rawDesign.snapshots,
+                                    rawPlanes: rawDesign.planes)
         
     }
 

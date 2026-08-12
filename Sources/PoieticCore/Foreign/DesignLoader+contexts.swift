@@ -18,15 +18,15 @@ extension DesignLoader {
         /// Validated raw snapshots, no duplicate IDs.
         let rawSnapshots: [RawSnapshot]
         /// Validated raw planes, no duplicate IDs.
-        let rawPlanes: [RawFrame]
+        let rawPlanes: [RawPlane]
 //        let unavailableIDs: Set<EntityID.RawValue>
 
         internal init(identityManager: IdentityManager,
                       rawSnapshots: [RawSnapshot] = [],
-                      rawFrames: [RawFrame] = []) {
+                      rawPlanes: [RawPlane] = []) {
             self.identityManager = identityManager
             self.rawSnapshots = rawSnapshots
-            self.rawPlanes = rawFrames
+            self.rawPlanes = rawPlanes
         }
     }
   
@@ -58,9 +58,9 @@ extension DesignLoader {
         let rawIDMap: [RawEntityID:DesignEntityID]
         /// Reserved identities for raw planes.
         ///
-        /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
+        /// The items correspond to ``ValidatedLoadingContext/rawPlanes``.
         ///
-        let frameIDs: [PlaneID]
+        let planeIDs: [PlaneID]
 
         /// Reserved identities for all snapshots to be loaded.
         ///
@@ -89,7 +89,7 @@ extension DesignLoader {
         {
             self.reserved = reserved
             self.rawIDMap = rawIDMap
-            self.frameIDs = planeIDs
+            self.planeIDs = planeIDs
             self.snapshotIDs = snapshotIDs
             self.objectIDs = objectIDs
             self.snapshotIndex = snapshotIndex
@@ -153,13 +153,13 @@ extension DesignLoader {
     
     /// Plane with assigned object snapshot IDs, so that the plane can be constructed.
     ///
-    struct ResolvedFrame {
-        let frameID: PlaneID
+    struct ResolvedPlane {
+        let planeID: PlaneID
         let snapshots: [ObjectSnapshotID]
     }
     
-    struct FrameResolution {
-        let frames: [ResolvedFrame]
+    struct PlaneResolution {
+        let planes: [ResolvedPlane]
     }
     
     /// All snapshots in the loading batch (from raw design or list of raw snapshots) that have

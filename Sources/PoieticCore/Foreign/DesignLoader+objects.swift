@@ -44,7 +44,7 @@ extension DesignLoader { // Object snapshots
     {
         var refs: [ObjectID] = []
         
-        for foreignRef in rawSnapshot.structure.references {
+        for foreignRef in rawSnapshot.topology.references {
             guard let id: ObjectID = identities[foreignRef] else {
                 throw .unknownID(foreignRef)
             }
@@ -68,7 +68,7 @@ extension DesignLoader { // Object snapshots
         }
         
         let structuralType: TopologyType?
-        switch rawSnapshot.structure.type {
+        switch rawSnapshot.topology.type {
         case .none: structuralType = nil
         case "unstructured": structuralType = .unstructured
         case "node": structuralType = .node
@@ -151,25 +151,25 @@ extension DesignLoader { // Object snapshots
             throw .unknownObjectType(resolvedSnapshot.typeName)
         }
         
-        let structure: Topology
+        let topology: Topology
         let references = resolvedSnapshot.structureReferences
         switch resolvedSnapshot.structureType {
         case .none:
             switch type.topologyType {
-            case .unstructured: structure = .unstructured
-            case .node: structure = .node
+            case .unstructured: topology = .unstructured
+            case .node: topology = .node
             default: throw .structuralTypeMismatch(type.topologyType)
             }
         case .unstructured:
             guard type.topologyType == .unstructured else {
                 throw .structuralTypeMismatch(type.topologyType)
             }
-            structure = .unstructured
+            topology = .unstructured
         case .node:
             guard type.topologyType == .node else {
                 throw .structuralTypeMismatch(type.topologyType)
             }
-            structure = .node
+            topology = .node
         case .edge:
             guard type.topologyType == .edge else {
                 throw .structuralTypeMismatch(type.topologyType)
@@ -177,7 +177,7 @@ extension DesignLoader { // Object snapshots
             guard references.count == 2 else {
                 throw .invalidStructuralType
             }
-            structure = .edge(references[0], references[1])
+            topology = .edge(references[0], references[1])
         default:
             // Not supported type at this moment
             throw .invalidStructuralType
@@ -197,7 +197,7 @@ extension DesignLoader { // Object snapshots
         let snapshot = ObjectSnapshot(type: type,
                                       snapshotID: resolvedSnapshot.snapshotID,
                                       objectID: resolvedSnapshot.objectID,
-                                      structure: structure,
+                                      topology: topology,
                                       parent: resolvedSnapshot.parent,
                                       children: children,
                                       attributes: attributes)

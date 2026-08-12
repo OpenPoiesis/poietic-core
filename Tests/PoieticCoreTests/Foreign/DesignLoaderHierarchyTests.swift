@@ -167,7 +167,7 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let frameResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
@@ -208,7 +208,7 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let frameResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
@@ -247,7 +247,7 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let frameResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
@@ -285,7 +285,7 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let frameResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
@@ -327,7 +327,7 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let frameResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
