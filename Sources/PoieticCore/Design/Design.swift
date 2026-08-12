@@ -291,12 +291,12 @@ public class Design {
         // TODO: Throw some identity error here
         let actualID: PlaneID
         if let id {
-            let success = identityManager.reserve(id, type: .frame)
+            let success = identityManager.reserve(id, type: .plane)
             precondition(success, "ID already used (\(id)")
             actualID = id
         }
         else {
-            actualID = identityManager.reserveNew(type: .frame)
+            actualID = identityManager.reserveNew(type: .plane)
         }
         
         let derived: TransientPlane

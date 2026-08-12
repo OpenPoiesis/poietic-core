@@ -47,7 +47,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     
     public enum CollectionType: Sendable, Equatable, CustomStringConvertible {
         case objectSnapshots
-        case frames
+        case planes
         case userReferences
         case userLists
         case systemReferences
@@ -56,7 +56,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         public var description: String {
              switch self {
              case .objectSnapshots: "object snapshots"
-             case .frames: "frames"
+             case .planes: "planes"
              case .userLists: "user lists"
              case .userReferences: "user references"
              case .systemLists: "system lists"
@@ -161,15 +161,15 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     }
     
     public enum DesignError: Error, Equatable, Sendable, CustomStringConvertible {
-        case missingCurrentFrame
+        case missingCurrentPlane
         case namedReferenceTypeMismatch(String)
-        case unknownFrameID(ForeignEntityID)
+        case unknownPlaneID(ForeignEntityID)
         
         public var description: String {
             switch self {
-            case .missingCurrentFrame: "Current plane property is not specified in the raw design"
+            case .missingCurrentPlane: "Current plane property is not specified in the raw design"
             case .namedReferenceTypeMismatch(let name): "Named reference '\(name)' is of different type than existing ID"
-            case .unknownFrameID(let id): "Unknown plane ID '\(id)'"
+            case .unknownPlaneID(let id): "Unknown plane ID '\(id)'"
             }
         }
         

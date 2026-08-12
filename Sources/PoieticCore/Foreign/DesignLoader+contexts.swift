@@ -18,7 +18,7 @@ extension DesignLoader {
         /// Validated raw snapshots, no duplicate IDs.
         let rawSnapshots: [RawSnapshot]
         /// Validated raw planes, no duplicate IDs.
-        let rawFrames: [RawFrame]
+        let rawPlanes: [RawFrame]
 //        let unavailableIDs: Set<EntityID.RawValue>
 
         internal init(identityManager: IdentityManager,
@@ -26,7 +26,7 @@ extension DesignLoader {
                       rawFrames: [RawFrame] = []) {
             self.identityManager = identityManager
             self.rawSnapshots = rawSnapshots
-            self.rawFrames = rawFrames
+            self.rawPlanes = rawFrames
         }
     }
   
@@ -82,14 +82,14 @@ extension DesignLoader {
 
         internal init(reserved: [DesignEntityID],
                       rawIDMap: [ForeignEntityID : DesignEntityID],
-                      frameIDs: [PlaneID],
+                      planeIDs: [PlaneID],
                       snapshotIDs: [ObjectSnapshotID],
                       objectIDs: [ObjectID],
                       snapshotIndex: [ObjectSnapshotID : Int])
         {
             self.reserved = reserved
             self.rawIDMap = rawIDMap
-            self.frameIDs = frameIDs
+            self.frameIDs = planeIDs
             self.snapshotIDs = snapshotIDs
             self.objectIDs = objectIDs
             self.snapshotIndex = snapshotIndex

@@ -9,7 +9,7 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
     /// Unique within design.
     case objectSnapshot
     /// Unique within design.
-    case frame
+    case plane
     /// Unique within plane, can be multiple within design. Used in references.
     case object
     // case track
@@ -17,7 +17,7 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
     public var description: String {
         switch self {
         case .objectSnapshot: "objectSnapshot"
-        case .frame: "plane"
+        case .plane: "plane"
         case .object: "object"
         }
     }

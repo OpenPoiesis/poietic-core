@@ -25,7 +25,7 @@ import Testing
                                     objectID: design.identityManager.reserveNew(type: .object))
         
         frame = DesignPlane(design: design,
-                            id: design.identityManager.reserveNew(type: .frame),
+                            id: design.identityManager.reserveNew(type: .plane),
                             snapshots: [empty, textObject]
         )
     }

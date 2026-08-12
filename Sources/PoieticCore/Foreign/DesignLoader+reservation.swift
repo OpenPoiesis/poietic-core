@@ -53,19 +53,19 @@ extension DesignLoader { // Reservation of identities
         }
 
         // Reservation Phase 2: Create those IDs we do not have
-        let rawFrameIDs: [ForeignEntityID?]
-        if options == .collectOrphans && resolution.rawFrames.isEmpty {
-            rawFrameIDs = [nil] // Request one new ID for the orphan's plane
+        let rawPlaneIDs: [ForeignEntityID?]
+        if options == .collectOrphans && resolution.rawPlanes.isEmpty {
+            rawPlaneIDs = [nil] // Request one new ID for the orphan's plane
         }
         else {
-            rawFrameIDs = resolution.rawFrames.map { $0.id }
+            rawPlaneIDs = resolution.rawPlanes.map { $0.id }
         }
         let rawSnapshotIDs = resolution.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = resolution.rawSnapshots.map { $0.objectID }
 
-        let frameIDs: [PlaneID] = finaliseReservation(
-            ids: rawFrameIDs,
-            type: .frame,
+        let planeIDs: [PlaneID] = finaliseReservation(
+            ids: rawPlaneIDs,
+            type: .plane,
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
@@ -82,7 +82,7 @@ extension DesignLoader { // Reservation of identities
             identityManager: resolution.identityManager
         )
         // Sanity checks
-        assert(frameIDs.count == rawFrameIDs.count)
+        assert(planeIDs.count == rawPlaneIDs.count)
         assert(snapshotIDs.count == rawSnapshotIDs.count)
         assert(objectIDs.count == rawObjectIDs.count)
 
@@ -96,7 +96,7 @@ extension DesignLoader { // Reservation of identities
         return IdentityResolution(
             reserved: reservation.reserved,
             rawIDMap: reservation.rawIDMap,
-            frameIDs: frameIDs,
+            planeIDs: planeIDs,
             snapshotIDs: snapshotIDs,
             objectIDs: objectIDs,
             snapshotIndex: snapshotIndex
@@ -107,12 +107,12 @@ extension DesignLoader { // Reservation of identities
                                                     reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        let frameIDs = context.rawFrames.compactMap { $0.id }
+        let planeIDs = context.rawPlanes.compactMap { $0.id }
         let snapshotIDs = context.rawSnapshots.compactMap { $0.snapshotID }
         let objectIDs = context.rawSnapshots.compactMap { $0.objectID }
 
-        reserveAvailable(ids: frameIDs,
-                         type: .frame,
+        reserveAvailable(ids: planeIDs,
+                         type: .plane,
                          reservation: &reservation,
                          identityManager: context.identityManager)
         reserveAvailable(ids: snapshotIDs,
@@ -128,7 +128,7 @@ extension DesignLoader { // Reservation of identities
                                                        reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        let rawFrameIDs = context.rawFrames.map { $0.id }
+        let rawPlaneIDs = context.rawPlanes.map { $0.id }
         let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
 
@@ -147,14 +147,14 @@ extension DesignLoader { // Reservation of identities
 
         do {
             try reserveRequired(
-                ids: rawFrameIDs,
-                type: .frame,
+                ids: rawPlaneIDs,
+                type: .plane,
                 reservation: &reservation,
                 identityManager: context.identityManager
             )
         }
         catch {
-            throw .item(.frames, error.index, error.error)
+            throw .item(.planes, error.index, error.error)
         }
 
         do {

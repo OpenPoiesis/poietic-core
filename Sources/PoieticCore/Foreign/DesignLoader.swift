@@ -172,7 +172,7 @@ public class DesignLoader {
         
 
         let frameResolution: FrameResolution
-        if options == .collectOrphans && validationResolution.rawFrames.count == 0 {
+        if options == .collectOrphans && validationResolution.rawPlanes.count == 0 {
             frameResolution = try resolveOrphansFrame(
                 resolution: validationResolution,
                 identities: identityResolution,
@@ -235,21 +235,21 @@ public class DesignLoader {
         
         if let currentFrameID = rawDesign.currentFrameID {
             guard let frameIndex = rawDesign.frames.firstIndex(where: { $0.id == currentFrameID }) else {
-                throw .design(.unknownFrameID(currentFrameID))
+                throw .design(.unknownPlaneID(currentFrameID))
             }
             
             let currentFrame = rawDesign.frames[frameIndex]
             
             for snapshotID in currentFrame.snapshots {
                 guard let snapshot = rawDesign.first(snapshotWithID: snapshotID) else {
-                    throw .item(.frames, frameIndex, .unknownID(snapshotID))
+                    throw .item(.planes, frameIndex, .unknownID(snapshotID))
                 }
                 snapshots.append(snapshot)
             }
         }
         else {
             guard rawDesign.frames.isEmpty else {
-                throw .design(.missingCurrentFrame)
+                throw .design(.missingCurrentPlane)
             }
             snapshots = rawDesign.snapshots
         }
@@ -328,7 +328,7 @@ public class DesignLoader {
             try StructuralValidator.validate(snapshots: snapshots, in: frame)
         }
         catch {
-            throw .item(.frames, 0, .brokenStructuralIntegrity(error))
+            throw .item(.planes, 0, .brokenStructuralIntegrity(error))
         }
         return snapshots.map { $0.objectID }
     }
@@ -339,19 +339,19 @@ public class DesignLoader {
                                 identities: IdentityResolution)
     throws (DesignLoaderError) -> FrameResolution
     {
-        precondition(resolution.rawFrames.count == identities.frameIDs.count)
+        precondition(resolution.rawPlanes.count == identities.frameIDs.count)
         
         var resolvedFrames: [ResolvedFrame] = []
         
         var frameIndex = 0
-        for (frameID, rawFrame) in zip(identities.frameIDs, resolution.rawFrames) {
+        for (frameID, rawFrame) in zip(identities.frameIDs, resolution.rawPlanes) {
             let ids: [ObjectSnapshotID]
             
             do {
                 ids = try resolveFrame(rawFrame, identities: identities)
             }
             catch {
-                throw .item(.frames, frameIndex, error)
+                throw .item(.planes, frameIndex, error)
             }
             let resolved = ResolvedFrame(frameID: frameID, snapshots: ids)
             resolvedFrames.append(resolved)
@@ -365,7 +365,7 @@ public class DesignLoader {
                                       identities: IdentityResolution)
     throws (DesignLoaderError) -> FrameResolution
     {
-        precondition(resolution.rawFrames.count == 0) // We have no planes requested ...
+        precondition(resolution.rawPlanes.count == 0) // We have no planes requested ...
         precondition(identities.frameIDs.count == 1) // ... yet we reserved one ID for us here.
 
         let resolved = ResolvedFrame(frameID: identities.frameIDs[0],
@@ -438,7 +438,7 @@ public class DesignLoader {
             for snapshotID in frame.snapshots {
                 let children = frameChildrenMap[snapshotID]
                 if let seen = allChildrenMap[snapshotID], seen != children {
-                    throw .item(.frames, frameIndex, .childrenMismatch)
+                    throw .item(.planes, frameIndex, .childrenMismatch)
                 }
                 allChildrenMap[snapshotID] = children
             }
@@ -537,7 +537,7 @@ public class DesignLoader {
                 try StructuralValidator.validate(snapshots: frameSnapshots, in: frame)
             }
             catch {
-                throw .item(.frames, i, .brokenStructuralIntegrity(error))
+                throw .item(.planes, i, .brokenStructuralIntegrity(error))
             }
             frames.append(frame)
         }
@@ -652,7 +652,7 @@ public class DesignLoader {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
-        case "frame": .frame
+        case "frame": .plane
         case "snapshot": .objectSnapshot
         default: nil
         }
@@ -664,13 +664,13 @@ public class DesignLoader {
     {
         // Precondition: IDs must be validated
         if let list = namedReferences.systemLists["undo"] {
-            guard list.type == .frame else {
+            guard list.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("undo"))
             }
             design.undoList = list.ids
         }
         if let list = namedReferences.systemLists["redo"] {
-            guard list.type == .frame else {
+            guard list.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("redo"))
             }
             design.redoList = list.ids
@@ -681,7 +681,7 @@ public class DesignLoader {
             design.currentPlaneID = onlyFrameID
         }
         else if let ref = namedReferences.systemReferences["current_frame"] {
-            guard ref.type == .frame else {
+            guard ref.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("current_frame"))
             }
             design.currentPlaneID = ref.id
@@ -691,11 +691,11 @@ public class DesignLoader {
         if design.currentPlane == nil
             && (!design.undoList.isEmpty || !design.redoList.isEmpty)
         {
-            throw .design(.missingCurrentFrame)
+            throw .design(.missingCurrentPlane)
         }
 
         for (name, ref) in namedReferences.userReferences {
-            if ref.type == .frame {
+            if ref.type == .plane {
                 design.unsafeAssignName(name: name, planeID: ref.id)
             }
         }

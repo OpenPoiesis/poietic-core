@@ -28,7 +28,7 @@ struct DesignLoaderValidationTest {
         let result = try loader.validate(rawDesign: rawDesign,
                                          identityManager: strayIdentityManager)
         #expect(result.rawSnapshots.isEmpty)
-        #expect(result.rawFrames.isEmpty)
+        #expect(result.rawPlanes.isEmpty)
     }
     
     @Test func duplicateSnapshotID() async throws {
@@ -50,7 +50,7 @@ struct DesignLoaderValidationTest {
             RawFrame(id: .int(11)),
         ])
         
-        #expect(throws: DesignLoaderError.item(.frames, 2, .duplicateForeignID(.int(11)))) {
+        #expect(throws: DesignLoaderError.item(.planes, 2, .duplicateForeignID(.int(11)))) {
             _ = try loader.validate(rawDesign: rawDesign,
                                     identityManager: strayIdentityManager)
         }
@@ -270,7 +270,7 @@ struct DesignLoaderReservationTests {
             ]
         )
         // .createNew strategy should never raise
-        #expect(throws: DesignLoaderError.item(.frames, 0, .reservationConflict(.frame, .int(10)))) {
+        #expect(throws: DesignLoaderError.item(.planes, 0, .reservationConflict(.plane, .int(10)))) {
             _ = try loader.resolveIdentities(resolution: resolution3,
                                              identityStrategy: .requireProvided)
         }
@@ -739,7 +739,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
+        #expect(throws: DesignLoaderError.item(.planes, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
             _ = try loader.load(raw)
         }
     }
@@ -756,7 +756,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
+        #expect(throws: DesignLoaderError.item(.planes, 0, .brokenStructuralIntegrity(.parentChildCycle))) {
             _ = try loader.load(raw)
         }
     }
@@ -774,7 +774,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 0, .duplicateObject(1))) {
+        #expect(throws: DesignLoaderError.item(.planes, 0, .duplicateObject(1))) {
             _ = try loader.load(raw)
         }
     }
@@ -793,7 +793,7 @@ struct DesignLoaderIntegrationTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.design(.missingCurrentFrame)) {
+        #expect(throws: DesignLoaderError.design(.missingCurrentPlane)) {
             _ = try loader.load(raw)
         }
     }

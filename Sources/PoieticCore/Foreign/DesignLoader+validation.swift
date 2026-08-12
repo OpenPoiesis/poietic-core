@@ -35,7 +35,7 @@ extension DesignLoader {
         for (index, frame) in rawDesign.frames.enumerated() {
             guard let id = frame.id else { continue }
             if seen.contains(id) {
-                throw .item(.frames, index, .duplicateForeignID(id))
+                throw .item(.planes, index, .duplicateForeignID(id))
             }
             seen.insert(id)
         }

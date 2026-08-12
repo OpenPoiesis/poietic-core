@@ -213,7 +213,7 @@ struct DesignLoaderHierarchyTests {
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
                 frameResolution: frameResolution,
                 snapshotResolution: partialSnapshots
@@ -252,7 +252,7 @@ struct DesignLoaderHierarchyTests {
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
                 frameResolution: frameResolution,
                 snapshotResolution: partialSnapshots
@@ -290,7 +290,7 @@ struct DesignLoaderHierarchyTests {
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
                 frameResolution: frameResolution,
                 snapshotResolution: partialSnapshots

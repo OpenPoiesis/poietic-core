@@ -148,7 +148,7 @@ struct DesignLoaderLoadIntoTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.design(.unknownFrameID(.int(99)))) {
+        #expect(throws: DesignLoaderError.design(.unknownPlaneID(.int(99)))) {
             try loader.load(rawDesign, into: trans)
         }
     }
@@ -164,7 +164,7 @@ struct DesignLoaderLoadIntoTests {
             ]
         )
 
-        #expect(throws: DesignLoaderError.design(.missingCurrentFrame)) {
+        #expect(throws: DesignLoaderError.design(.missingCurrentPlane)) {
             try loader.load(rawDesign, into: trans)
         }
     }
