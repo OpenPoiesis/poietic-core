@@ -12,16 +12,16 @@ import Testing
     // MARK: - Fixture Frames
 
     let design: Design
-    let emptyFrame: DesignFrame
-    /// Frame with two node objects: first → Stock("A"), second → FlowRate("B").
-    let frameWithTwo: DesignFrame
+    let emptyFrame: DesignPlane
+    /// Plane with two node objects: first → Stock("A"), second → FlowRate("B").
+    let frameWithTwo: DesignPlane
     let firstObjectID: ObjectID
     let secondObjectID: ObjectID
-    /// Frame derived from `frameWithTwo` where the first object was mutated
+    /// Plane derived from `frameWithTwo` where the first object was mutated
     /// (text changed from "A" → "Changed"). Same ObjectIDs, different snapshots.
-    let frameWithMutation: DesignFrame
-    /// Frame derived from `frameWithTwo` where the second object was removed.
-    let frameWithRemoval: DesignFrame
+    let frameWithMutation: DesignPlane
+    /// Plane derived from `frameWithTwo` where the second object was removed.
+    let frameWithRemoval: DesignPlane
 
     init() throws {
         self.design = Design(metamodel: TestMetamodel)

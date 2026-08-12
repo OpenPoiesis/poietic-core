@@ -16,7 +16,7 @@ extension DesignLoader { // Reservation of identities
     /// (``DesignLoader.IdentityStrategy``).
     ///
     /// Strategy
-    /// - Snapshot ID, Frame ID:
+    /// - Snapshot ID, Plane ID:
     ///     - some provided: ID will be reserved if available, if not then duplicate error is thrown.
     ///     - `nil`: New ID will be created and reserved, snapshot will be considered an orphan.
     /// - Object ID:
@@ -63,7 +63,7 @@ extension DesignLoader { // Reservation of identities
         let rawSnapshotIDs = resolution.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = resolution.rawSnapshots.map { $0.objectID }
 
-        let frameIDs: [FrameID] = finaliseReservation(
+        let frameIDs: [PlaneID] = finaliseReservation(
             ids: rawFrameIDs,
             type: .frame,
             reservation: &reservation,

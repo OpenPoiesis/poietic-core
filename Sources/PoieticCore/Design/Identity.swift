@@ -31,7 +31,7 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
 /// When design entities are included in the ``World``, they are represented by ephemeral
 /// ``RuntimeID``s which are valid only during the runtime.
 ///
-/// - SeeAlso ``RuntimeID``, ``IdentityManager``, ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
+/// - SeeAlso ``RuntimeID``, ``IdentityManager``, ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
 ///
 public struct DesignEntityID:
     Hashable,
@@ -80,7 +80,7 @@ public typealias ObjectID = DesignEntityID
 ///
 /// Design object snapshot is unique within design and within a design snapshot.
 ///
-public typealias FrameID = DesignEntityID
+public typealias PlaneID = DesignEntityID
 
 /// Identity of a design snapshot - version of a design.
 ///

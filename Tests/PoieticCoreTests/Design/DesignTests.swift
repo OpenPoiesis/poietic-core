@@ -61,7 +61,7 @@ import Testing
         #expect(design.snapshot(b.snapshotID) != nil)
     }
     @Test func acceptUseReservations() throws {
-        let trans = design.createFrame(id: FrameID(1000))
+        let trans = design.createFrame(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(10)))
@@ -92,24 +92,24 @@ import Testing
         #expect(design.snapshot(a.snapshotID) == nil)
     }
     @Test func removeFrameReleaseID() throws {
-        let trans = design.createFrame(id: FrameID(1000))
+        let trans = design.createFrame(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         try design.accept(trans)
         #expect(design.identityManager.isUsed(ObjectID(1000)))
-        design.removeFrame(FrameID(1000))
+        design.removeFrame(PlaneID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
     }
     @Test func removeFrameRetainNeededIDs() throws {
-        let trans = design.createFrame(id: FrameID(1000))
+        let trans = design.createFrame(id: PlaneID(1000))
         trans.create(TestType, objectID: ObjectID(10), snapshotID: ObjectSnapshotID(20))
         let original = try design.accept(trans)
-        let trans2 = design.createFrame(deriving: original, id: FrameID(2000))
+        let trans2 = design.createFrame(deriving: original, id: PlaneID(2000))
         let mut = trans2.mutate(ObjectID(10))
         mut["text"] = "text"
         try design.accept(trans2)
-        design.removeFrame(FrameID(1000))
+        design.removeFrame(PlaneID(1000))
         #expect(!design.identityManager.isUsed(ObjectID(20)))
         #expect(!design.identityManager.isUsed(ObjectID(1000)))
         
@@ -117,7 +117,7 @@ import Testing
         #expect(design.identityManager.isUsed(mut.snapshotID))
         #expect(design.identityManager.isUsed(ObjectID(2000)))
 
-        design.removeFrame(FrameID(2000))
+        design.removeFrame(PlaneID(2000))
         #expect(!design.identityManager.isUsed(ObjectID(10)))
         #expect(!design.identityManager.isUsed(mut.snapshotID))
         #expect(!design.identityManager.isUsed(ObjectID(2000)))
@@ -381,7 +381,7 @@ import Testing
         #expect {
             try design.accept(frame)
         } throws: {
-            let error = try #require($0 as? FrameValidationError,
+            let error = try #require($0 as? PlaneValidationError,
                                      "Error is not a FrameValidationError")
             guard case .constraintViolation(let violation) = error else {
                 return false

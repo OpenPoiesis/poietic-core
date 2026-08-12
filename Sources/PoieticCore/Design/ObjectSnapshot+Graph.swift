@@ -28,7 +28,7 @@
 
  */
 
-extension DesignFrame /* : GraphProtocol */ {
+extension DesignPlane /* : GraphProtocol */ {
     @inlinable
     public var nodeKeys: [ObjectID] { _graph.nodeKeys }
     @inlinable

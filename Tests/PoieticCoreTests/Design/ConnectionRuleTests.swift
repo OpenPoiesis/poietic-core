@@ -40,7 +40,7 @@ import Testing
             // try checker.validate(edge: frozen.edge(e.objectID)!, in: frozen)
         }
         throws: {
-            guard let error = $0 as? FrameValidationError,
+            guard let error = $0 as? PlaneValidationError,
                   case let .edgeRuleViolation(objectID, violation) = error
             else {
                 return false

@@ -1,5 +1,5 @@
 //
-//  TransientFrame.swift
+//  TransientPlane.swift
 //  
 //
 //  Created by Stefan Urbanek on 23/03/2023.
@@ -55,13 +55,13 @@ public enum StructuralIntegrityError: Error {
 ///
 /// - Mutate existing objects in the frame using
 ///   ``TransientFrame/mutate(_:)``.
-/// - Add objects with ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
-///    or ``TransientFrame/insert(_:)``.
+/// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
+///    or ``TransientPlane/insert(_:)``.
 /// - Change parent/child hierarchy.
 ///
 /// Once a transient frame is accepted or discarded, it can no longer be modified.
 ///
-public final class TransientFrame: Frame {
+public final class TransientPlane: Plane {
     /// Design with which this frame is associated with.
     ///
     public unowned let design: Design
@@ -70,7 +70,7 @@ public final class TransientFrame: Frame {
     ///
     /// The ID is unique within the design.
     ///
-    public let id: FrameID
+    public let id: PlaneID
     
     
     /// State of the transient frame.
@@ -85,7 +85,7 @@ public final class TransientFrame: Frame {
     }
     /// Current state of the transient frame.
     ///
-    /// Frame can be modified if it is in ``State/transient``.
+    /// Plane can be modified if it is in ``State/transient``.
     ///
     var state: State = .transient
     
@@ -130,7 +130,7 @@ public final class TransientFrame: Frame {
     ///
     /// - Returns: Transient object in a state at the time of the call.
     ///
-    /// - Precondition: Frame must contain object with given ID.
+    /// - Precondition: Plane must contain object with given ID.
     ///
     public func object(_ id: ObjectID) -> ObjectSnapshot? {
         // TODO: [DEPRECATE] Review necessity of this.
@@ -162,7 +162,7 @@ public final class TransientFrame: Frame {
     /// - Precondition: Snapshots must have structural integrity and IDs must be unique.
     ///
     public init(design: Design,
-                id: FrameID,
+                id: PlaneID,
                 snapshots: [ObjectSnapshot]? = nil) {
         // TODO: Either validate after init or rename argument snapshots: to unsafeSnapshots:
         self.design = design
@@ -232,7 +232,7 @@ public final class TransientFrame: Frame {
     /// - Note: Existence of the parent is not verified, it will be during the
     ///   frame insertion.
     ///
-    /// - SeeAlso: ``TransientFrame/insert(_:)``
+    /// - SeeAlso: ``TransientPlane/insert(_:)``
     ///
     /// - Precondition: If `id` or `snapshotID` is provided, it must not exist
     ///   in the frame.
@@ -335,7 +335,7 @@ public final class TransientFrame: Frame {
     /// This method is intended to be used by batch-loading of objects
     /// into the frame where the caller adds objects in an order when
     /// referential integrity might not be assured unless the whole
-    /// batch is loaded. Frame with broken referential integrity can not
+    /// batch is loaded. Plane with broken referential integrity can not
     /// be accepted by the object design (``Design/accept(_:appendHistory:)``.
     ///
     /// It is rather rare to use this method. Typically one would
@@ -344,10 +344,10 @@ public final class TransientFrame: Frame {
     /// - Parameters:
     ///     - snapshot: Snapshot to be inserted.
     ///
-    /// - Precondition: Frame must be transient, must not contain snapshot with
+    /// - Precondition: Plane must be transient, must not contain snapshot with
     ///   the same ID or with the same snapshot ID.
     ///
-    /// - SeeAlso: ``TransientFrame/insert(_:)``
+    /// - SeeAlso: ``TransientPlane/insert(_:)``
     ///
     internal func unsafeInsert(_ snapshot: ObjectSnapshot) {
         precondition(state == .transient)
@@ -496,7 +496,7 @@ public final class TransientFrame: Frame {
     ///
     public func isMutable(_ id: ObjectID) -> Bool {
         guard let cell = _snapshots[id] else {
-            preconditionFailure("Frame \(self.id) has no object \(id)")
+            preconditionFailure("Plane \(self.id) has no object \(id)")
         }
         return cell.isMutable
     }
@@ -513,9 +513,9 @@ public final class TransientFrame: Frame {
     /// - ToDo: Check for cycles.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     public func addChild(_ childID: ObjectID, to parentID: ObjectID) {
         let parent = self.mutate(parentID)
@@ -538,9 +538,9 @@ public final class TransientFrame: Frame {
     /// The object will remain in the frame, will not be deleted.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     public func removeChild(_ childID: ObjectID, from parentID: ObjectID) {
         let parent = self.mutate(parentID)
@@ -563,10 +563,10 @@ public final class TransientFrame: Frame {
     /// necessary.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     public func setParent(_ childID: ObjectID, to parentID: ObjectID?) {
         let child = mutate(childID)
@@ -591,9 +591,9 @@ public final class TransientFrame: Frame {
     /// The object will remain in the frame, will not be deleted.
     ///
     /// - SeeAlso: ``ObjectProtocol/children``, ``ObjectProtocol/parent``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     public func removeFromParent(_ childID: ObjectID) {
         guard let child = self[childID],
@@ -623,7 +623,7 @@ public final class TransientFrame: Frame {
     }
 }
 
-extension TransientFrame {
+extension TransientPlane {
     func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
         fatalError("\(#function) not implemented")
     }

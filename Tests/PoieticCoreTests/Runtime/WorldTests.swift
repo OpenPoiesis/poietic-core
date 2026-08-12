@@ -27,8 +27,8 @@ struct ManyRelationship: Relationship, Sendable {
 
 @Suite struct WorldTests {
     let design: Design
-    let emptyFrame: DesignFrame
-    let testFrame: DesignFrame
+    let emptyFrame: DesignPlane
+    let testFrame: DesignPlane
     let objectIDs: [ObjectID]  // IDs of created objects for easy reference
     
     init() throws {
@@ -211,7 +211,7 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(withInt.contains(where: {$0.runtimeID == entI.runtimeID}))
     }
     
-    // MARK: - Frame
+    // MARK: - Plane
     @Test func frameObjectEntities() throws {
         let world = World(frame: self.testFrame)
         
@@ -481,7 +481,7 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(!entity.containsRelationship(ChildOf.self))
     }
     
-    // MARK: - Frame change
+    // MARK: - Plane change
     
     @Test func setFrame() throws {
         let world = World(frame: self.emptyFrame)

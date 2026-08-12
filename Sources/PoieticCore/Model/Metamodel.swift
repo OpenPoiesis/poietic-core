@@ -31,9 +31,9 @@
 /// An application is responsible for constraint validity of the design and should prevent further
 /// manipulation of an invalid design.
 ///
-/// ## Design Frame Acceptance
+/// ## Design Plane Acceptance
 ///
-/// Before a ``DesignFrame`` is accepted into a ``Design``, it must pass constraint validation.
+/// Before a ``DesignPlane`` is accepted into a ``Design``, it must pass constraint validation.
 /// Frames that violate the metamodel are considered structurally invalid and should not be
 /// persisted without repair. See ``Design/accept(_:appendHistory:)`` and ``ConstraintChecker``.
 ///

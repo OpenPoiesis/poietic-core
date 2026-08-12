@@ -12,7 +12,7 @@ import Testing
 
 @Suite struct TransientFrameTest {
     let design: Design
-    let frame: TransientFrame
+    let frame: TransientPlane
     
     init() throws {
         design = Design(metamodel: TestMetamodel)

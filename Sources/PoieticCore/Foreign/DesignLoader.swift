@@ -89,7 +89,7 @@ public class DesignLoader {
     ///
     /// ```swift
     /// let rawDesign: RawDesign  // Raw design we decoded from pasteboard
-    /// let trans: TransientFrame // Transaction into which we "paste"
+    /// let trans: TransientPlane // Transaction into which we "paste"
     /// let loader = DesignLoader(metamodel: StockFlowMetamodel)
     ///
     /// try loader.load(rawDesign, identityStrategy: .preserveOrCreate)
@@ -227,7 +227,7 @@ public class DesignLoader {
     ///
     @discardableResult
     public func load(_ rawDesign: RawDesign,
-                     into frame: TransientFrame,
+                     into frame: TransientPlane,
                      identityStrategy: IdentityStrategy = .preserveOrCreate)
     throws (DesignLoaderError) -> [ObjectID]
     {
@@ -263,7 +263,7 @@ public class DesignLoader {
     ///
     /// - Parameters:
     ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
-    ///     - frame: Frame into which the object snapshots will be loaded.
+    ///     - frame: Plane into which the object snapshots will be loaded.
     ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
     ///       Recommended to use ``IdentityStrategy/preserveOrCreate`` strategy.
     ///
@@ -287,7 +287,7 @@ public class DesignLoader {
     ///
     @discardableResult
     internal func load(_ rawSnapshots: [RawSnapshot],
-                       into frame: TransientFrame,
+                       into frame: TransientPlane,
                        identityStrategy: IdentityStrategy = .requireProvided)
     throws (DesignLoaderError) -> [ObjectID] {
         let identityResolution: DesignLoader.IdentityResolution
@@ -523,13 +523,13 @@ public class DesignLoader {
                                into design: Design)
     throws (DesignLoaderError)
     {
-        var frames: [DesignFrame] = []
+        var frames: [DesignPlane] = []
         
         for (i, resolvedFrame) in resolvedFrames.enumerated() {
             precondition(!design.containsFrame(resolvedFrame.frameID))
             let frameSnapshots = resolvedFrame.snapshots.compactMap { snapshotMap[$0] }
             
-            let frame = DesignFrame(design: design,
+            let frame = DesignPlane(design: design,
                                     id: resolvedFrame.frameID,
                                     snapshots: frameSnapshots)
             

@@ -659,9 +659,9 @@ struct DesignLoaderIntegrationTests {
         )
         let design = try loader.load(raw)
 
-        #expect(design.currentFrameID == FrameID(100))
-        #expect(design.undoList == [FrameID(101), FrameID(102)])
-        #expect(design.redoList == [FrameID(103)])
+        #expect(design.currentFrameID == PlaneID(100))
+        #expect(design.undoList == [PlaneID(101), PlaneID(102)])
+        #expect(design.redoList == [PlaneID(103)])
     }
 
     @Test("Load design without system references")
@@ -695,7 +695,7 @@ struct DesignLoaderIntegrationTests {
         let design = try loader.load(raw)
 
         let namedFrame = design.frame(name: "my_special_frame")
-        #expect(namedFrame?.id == FrameID(101))
+        #expect(namedFrame?.id == PlaneID(101))
     }
 
     @Test("Load empty design")
@@ -763,7 +763,7 @@ struct DesignLoaderIntegrationTests {
 
     @Test("Error: duplicate object in frame")
     func errorDuplicateObjectInFrame() async throws {
-        // Frame contains two snapshots of the same object (ID 10)
+        // Plane contains two snapshots of the same object (ID 10)
         let raw = RawDesign(
             snapshots: [
                 RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),

@@ -1,6 +1,6 @@
 //
 //  Structure.swift
-//  
+//
 //
 //  Created by Stefan Urbanek on 04/09/2023.
 //
@@ -50,7 +50,7 @@ public enum Structure: Equatable, CustomStringConvertible {
     ///
     /// When a node is removed from a frame, all objects with structural
     /// component ``edge(_:_:)`` that refer to the removed node are removed
-    /// as well. See ``TransientFrame/removeCascading(_:)`` for more information.
+    /// as well. See ``TransientPlane/removeCascading(_:)`` for more information.
     ///
     /// - SeeAlso: ``edge(_:_:)``
     ///
@@ -61,7 +61,7 @@ public enum Structure: Equatable, CustomStringConvertible {
     ///
     /// When one of the objects referenced by the edge component is removed
     /// from a frame, then the object with the edge component is removed
-    /// as well. See ``TransientFrame/removeCascading(_:)`` for more information.
+    /// as well. See ``TransientPlane/removeCascading(_:)`` for more information.
     ///
     /// - SeeAlso: ``node``
     ///

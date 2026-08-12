@@ -104,13 +104,13 @@ class _TransientSnapshotBox: Identifiable {
 /// An object that can be modified before being inserted into a frame.
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
-/// a transaction for a change. New objects are created within a ``TransientFrame`` using
-/// ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
-/// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
+/// a transaction for a change. New objects are created within a ``TransientPlane`` using
+/// ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
+/// Mutable versions of existing stable objects are created with``TransientPlane/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
 ///
-/// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
+/// - SeeAlso: ``TransientPlane``, ``Design/accept(_:appendHistory:)``
 ///
 public class TransientObject: ObjectProtocol {
     

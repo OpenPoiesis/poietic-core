@@ -184,8 +184,8 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - none to some")
     func childrenMismatchNoneToSome() async throws {
-        // Frame 1000: parent has no children (child not in frame)
-        // Frame 1001: parent has one child
+        // Plane 1000: parent has no children (child not in frame)
+        // Plane 1001: parent has one child
         // This MUST throw error because the same snapshot ID (100) appears in both frames
         // with different children (nil vs [20]). When a parent gains a child, it should be
         // a new snapshot with a new snapshot ID.
@@ -223,7 +223,7 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - some to none")
     func childrenMismatchSomeToNone() async throws {
-        // Frame 1000: parent has one child
+        // Plane 1000: parent has one child
         // Frame 1001: parent has no children (child not in frame)
         // This MUST throw error because the same snapshot ID (100) appears in both frames
         // with different children ([20] vs nil). When a parent loses a child, it should be
@@ -262,8 +262,8 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - different children")
     func childrenMismatchDifferentChildren() async throws {
-        // Frame 1000: parent has child 20
-        // Frame 1001: parent has child 30
+        // Plane 1000: parent has child 20
+        // Plane 1001: parent has child 30
         // This should fail because children lists don't match
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,

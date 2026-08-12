@@ -5,14 +5,14 @@
 //  Created by Stefan Urbanek on 21/08/2023.
 //
 
-extension TransientFrame /* MutableGraph (no longer formally present) */ {
+extension TransientPlane /* MutableGraph (no longer formally present) */ {
     /// Convenience method to create an edge.
     ///
     /// If the object name is provided, then attribute `name` of the
     /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
-    /// - SeeAlso: ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
-    /// - Precondition: Frame must contain objects with given origin and target object IDs.
+    /// - SeeAlso: ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
+    /// - Precondition: Plane must contain objects with given origin and target object IDs.
     /// - Precondition: The object type must have structural type ``StructuralType/edge``.
     @discardableResult
     public func createEdge(_ type: ObjectType,

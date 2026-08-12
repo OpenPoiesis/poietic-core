@@ -20,7 +20,7 @@ extension Trait {
     /// For some types of models, the name might be unique within the whole
     /// model.
     ///
-    /// - SeeAlso: ``Frame/object(named:)``, ``ObjectProtocol/name``
+    /// - SeeAlso: ``Plane/object(named:)``, ``ObjectProtocol/name``
     ///
     public static let Name = Trait(
         name: "Name",

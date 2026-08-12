@@ -30,7 +30,7 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
 
     /// Check whether an object matches the predicate condition.
     ///
-    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in frame: some Plane) -> Bool {
         switch self {
         case .any:
             return true

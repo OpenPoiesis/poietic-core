@@ -1,5 +1,5 @@
 //
-//  DesignFrame.swift
+//  DesignPlane.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 10/11/2024.
@@ -16,9 +16,9 @@
 /// To create a derivative frame from a stable frame use
 /// ``Design/createFrame(deriving:id:)``.
 ///
-/// - SeeAlso: ``TransientFrame``
+/// - SeeAlso: ``TransientPlane``
 ///
-public final class DesignFrame: Frame, Identifiable {
+public final class DesignPlane: Plane, Identifiable {
     /// Design to which the frame belongs.
     public unowned let design: Design
     
@@ -26,7 +26,7 @@ public final class DesignFrame: Frame, Identifiable {
     ///
     /// ID is unique within the design.
     ///
-    public let id: FrameID
+    public let id: PlaneID
     
     /// Version snapshots contained in the frame.
     ///
@@ -44,7 +44,7 @@ public final class DesignFrame: Frame, Identifiable {
     ///
     /// - Precondition: Snapshots must have referential integrity.
     ///
-    init(design: Design, id: FrameID, snapshots: [ObjectSnapshot] = []) {
+    init(design: Design, id: PlaneID, snapshots: [ObjectSnapshot] = []) {
         // TODO: [IMPORTANT] Rename to init(design:id:unsafeSnapshots:)
         self.design = design
         self.id = id
@@ -93,7 +93,7 @@ public final class DesignFrame: Frame, Identifiable {
     
     /// Return an object snapshots with given object ID.
     ///
-    /// - Precondition: Frame must contain object with given ID.
+    /// - Precondition: Plane must contain object with given ID.
     ///
     public func object(_ id: ObjectID) -> ObjectSnapshot? {
         return _lookup[id]

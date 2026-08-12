@@ -10,7 +10,7 @@ import Testing
 
 @Suite struct PredicateTest {
     let design: Design
-    let frame: DesignFrame
+    let frame: DesignPlane
     let empty: ObjectSnapshot
     let textObject: ObjectSnapshot
 
@@ -24,7 +24,7 @@ import Testing
                                     snapshotID: design.identityManager.reserveNew(type: .objectSnapshot),
                                     objectID: design.identityManager.reserveNew(type: .object))
         
-        frame = DesignFrame(design: design,
+        frame = DesignPlane(design: design,
                             id: design.identityManager.reserveNew(type: .frame),
                             snapshots: [empty, textObject]
         )

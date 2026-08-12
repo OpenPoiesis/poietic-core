@@ -43,7 +43,7 @@ public class World {
     public let design: Design
     // FIXME: Rename to currentFrame
     
-    public private(set) var frame: DesignFrame?
+    public private(set) var frame: DesignPlane?
     
     // Identity
     /// Sequence for generating world entities IDs.
@@ -101,7 +101,7 @@ public class World {
         self.singletons = ComponentSet()
     }
     
-    public convenience init(frame: DesignFrame) {
+    public convenience init(frame: DesignPlane) {
         self.init(design: frame.design)
         setFrame(frame)
     }
@@ -174,7 +174,7 @@ public class World {
     /// - Note: Incoming relationships such as `RepresentationOf` survive frame changes
     ///   for unchanged and mutated objects.
     ///
-    public func setFrame(_ newFrame: DesignFrame) {
+    public func setFrame(_ newFrame: DesignPlane) {
         precondition(newFrame.design === self.design)
         precondition(self.design.containsFrame(newFrame.id))
         

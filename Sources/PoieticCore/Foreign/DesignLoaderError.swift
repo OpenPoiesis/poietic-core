@@ -88,7 +88,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         case invalidStructuralType
         case structuralTypeMismatch(StructuralType)
         
-        // Frame-specific
+        // Plane-specific
         case unknownSnapshotID(ForeignEntityID)
         case duplicateObject(Int) // Index of object within frame/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
@@ -116,7 +116,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case .invalidStructuralType: "Invalid structural type"
             case let .structuralTypeMismatch(type): "Structural type mismatch for type '\(type)'"
 
-            // Frame-specific
+            // Plane-specific
             case let .unknownSnapshotID(id): "Unknown snapshot ID '\(id)'"
             case let .duplicateObject(id): "Duplicate object at index \(id)"
             case let .brokenStructuralIntegrity(error): "Broken structural integrity: \(error)"
@@ -144,7 +144,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case .invalidStructuralType,
                  .structuralTypeMismatch(_):  "Check foreign/raw design format documentation"
 
-            // Frame-specific
+            // Plane-specific
             case .unknownSnapshotID(_): "Make sure all references are valid within the loaded raw design/snapshots"
             case .duplicateObject(_): "Object ID must be unique in a frame or a loading batch"
             case .brokenStructuralIntegrity(_): "The loaded batch is either of a different version, different metamodel or it is corrupted"

@@ -145,8 +145,8 @@ extension DesignLoader { // Object snapshots
         children: [ObjectID]?
     ) throws (DesignLoaderError.ItemError) -> ObjectSnapshot
     {
-        // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
-        // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
+        // IMPORTANT: Sync the logic (especially preconditions) as in TransientPlane.create(...)
+        // TODO: Consider moving this to Design (as well as its TransientPlane counterpart)
         guard let type = metamodel.objectType(name: resolvedSnapshot.typeName) else {
             throw .unknownObjectType(resolvedSnapshot.typeName)
         }

@@ -26,7 +26,7 @@ public struct StructuralValidator {
     ///
     /// - SeeAlso: Use ``ConstraintChecker`` to validate design semantics through ``Metamodel``.
     ///
-    public static func validate(_ object: some ObjectProtocol, in frame: some Frame)
+    public static func validate(_ object: some ObjectProtocol, in frame: some Plane)
     throws (StructuralIntegrityError) {
         switch object.structure {
         case .unstructured: break // Nothing to validate.
@@ -79,7 +79,7 @@ public struct StructuralValidator {
     /// - All children – ``ObjectProtocol/children``.
     /// - The object's parent – ``ObjectProtocol/parent``.
     ///
-    public static func brokenReferences(_ object: some ObjectProtocol,in frame: some Frame) -> Set<ObjectID> {
+    public static func brokenReferences(_ object: some ObjectProtocol,in frame: some Plane) -> Set<ObjectID> {
         // NOTE: Sync with brokenReferences() for all snapshots within the frame
         //
         var broken: Set<ObjectID> = []
@@ -138,7 +138,7 @@ public struct StructuralValidator {
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``Design/validate(_:metamodel:)``
     /// - SeeAlso: Use ``ConstraintChecker`` to validate design semantics through ``Metamodel``.
-    static func validate(snapshots: [ObjectSnapshot], in frame: some Frame)
+    static func validate(snapshots: [ObjectSnapshot], in frame: some Plane)
     throws (StructuralIntegrityError) {
         // TODO: This is not quite correct, we should be validating within snapshots themselves as well, or not?
         // Check for parent-child cycles using topological traversal
@@ -195,7 +195,7 @@ public struct StructuralValidator {
     ///
     /// - SeeAlso: ``StructuralValidator/validate(_:in:)``
     ///
-    public func brokenReferences(_ snapshots: [ObjectSnapshot], in frame: some Frame) -> Set<ObjectID> {
+    public func brokenReferences(_ snapshots: [ObjectSnapshot], in frame: some Plane) -> Set<ObjectID> {
         // NOTE: Sync with brokenReferences(snapshot:)
         //
         var broken: Set<ObjectID> = []

@@ -1,11 +1,11 @@
 //
-//  Frame+Graph.swift
+//  Plane+Graph.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 20/05/2025.
 //
 
-extension Frame {
+extension Plane {
     public var nodeKeys: [ObjectID] {
         return self.snapshots.filter { $0.structure.type == .node }.map { $0.objectID }
     }

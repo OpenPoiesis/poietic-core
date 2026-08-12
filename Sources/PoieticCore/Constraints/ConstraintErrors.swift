@@ -144,7 +144,7 @@ extension ObjectTypeError /*: IssueProtocol */ {
 ///
 /// - SeeAlso: ``ConstraintChecker/validate(_:)``
 ///
-public enum FrameValidationError: Error {
+public enum PlaneValidationError: Error {
     /// Structural references such as edge endpoints, parent-child are invalid.
     ///
     /// When this error happens, it is not possible to do further diagnostics. It usually means
@@ -183,7 +183,7 @@ public enum FrameValidationError: Error {
 ///
 /// This collection is produced by ``ConstraintChecker/diagnose(_:)``.
 ///
-/// - SeeAlso: ``FrameValidationError`` for an exception complement.
+/// - SeeAlso: ``PlaneValidationError`` for an exception complement.
 ///
 public struct FrameValidationResult: Sendable {
     /// List of constraint violations.

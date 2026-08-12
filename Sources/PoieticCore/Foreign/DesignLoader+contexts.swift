@@ -60,7 +60,7 @@ extension DesignLoader {
         ///
         /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
         ///
-        let frameIDs: [FrameID]
+        let frameIDs: [PlaneID]
 
         /// Reserved identities for all snapshots to be loaded.
         ///
@@ -82,7 +82,7 @@ extension DesignLoader {
 
         internal init(reserved: [DesignEntityID],
                       rawIDMap: [ForeignEntityID : DesignEntityID],
-                      frameIDs: [FrameID],
+                      frameIDs: [PlaneID],
                       snapshotIDs: [ObjectSnapshotID],
                       objectIDs: [ObjectID],
                       snapshotIndex: [ObjectSnapshotID : Int])
@@ -151,10 +151,10 @@ extension DesignLoader {
         }
     }
     
-    /// Frame with assigned object snapshot IDs, so that the frame can be constructed.
+    /// Plane with assigned object snapshot IDs, so that the frame can be constructed.
     ///
     struct ResolvedFrame {
-        let frameID: FrameID
+        let frameID: PlaneID
         let snapshots: [ObjectSnapshotID]
     }
     

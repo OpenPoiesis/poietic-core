@@ -1,5 +1,5 @@
 //
-//  Frame.swift
+//  Plane.swift
 //
 //
 //  Created by Stefan Urbanek on 13/02/2023.
@@ -7,17 +7,17 @@
 
 /// Protocol for version frames.
 ///
-/// Fame Base is a protocol for all version frame types: ``TransientFrame`` and
-/// ``DesignFrame``
+/// Fame Base is a protocol for all version frame types: ``TransientPlane`` and
+/// ``DesignPlane``
 ///
-public protocol Frame:
+public protocol Plane:
     GraphProtocol where NodeKey == ObjectID,
                         EdgeKey == ObjectID,
                         Edge == DesignObjectEdge {
     /// Design to which the frame belongs.
     var design: Design { get }
     
-    var id: FrameID { get }
+    var id: PlaneID { get }
     
     /// Get a list of all snapshots in the frame.
     ///
@@ -66,7 +66,7 @@ public protocol Frame:
 
 // MARK: - Default Implementations
 
-extension Frame {
+extension Plane {
     public subscript(id: ObjectID) -> ObjectSnapshot? {
         get {
             self.object(id)
@@ -178,7 +178,7 @@ extension Frame {
 
 // MARK: - Graph Implementations
 
-extension Frame {
+extension Plane {
     /// Get object by a name, if the object contains a named component.
     ///
     /// A method that searches the frame for a first object with
@@ -222,7 +222,7 @@ extension Frame {
 
 // MARK: Distinct queries
 
-extension Frame {
+extension Plane {
     public func distinctAttribute(_ attributeName: String, ids: some Collection<ObjectID>) -> Set<Variant> {
         // TODO: Use ordered set here
         var values: Set<Variant> = Set()

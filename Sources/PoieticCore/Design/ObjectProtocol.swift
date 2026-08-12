@@ -21,7 +21,7 @@ public typealias AttributeKey = String
 /// The different representations that the object might be in are:
 ///
 /// - ``ObjectSnapshot``: Object that has been validated and can not be modified.
-///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
+///   They are the items of a``DesignPlane`` and can be shared by multiple frames.
 /// - ``TransientObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
@@ -43,7 +43,7 @@ public protocol ObjectProtocol: Identifiable {
     /// One object can share multiple snapshots, which are identified by their
     /// ``ObjectSnapshot/snapshotID``.
     ///
-    /// Objects within a ``Frame`` have unique ``objectID``, however there
+    /// Objects within a ``Plane`` have unique ``objectID``, however there
     /// might be multiple snapshots with the same ``objectID`` within the design.
     ///
     /// The ID is generated using internal identity manager and is
@@ -53,8 +53,8 @@ public protocol ObjectProtocol: Identifiable {
     /// uniqueness within given context.
     ///
     /// - SeeAlso: ``ObjectSnapshot``,
-    ///    ``Frame/object(_:)``,
-    ///    ``Frame/contains(_:)``,
+    ///    ``Plane/object(_:)``,
+    ///    ``Plane/contains(_:)``,
     ///    ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``
     ///
     var objectID: ObjectID { get }
@@ -71,7 +71,7 @@ public protocol ObjectProtocol: Identifiable {
     ///
     /// - SeeAlso:
     ///     ``ObjectType``, ``Metamodel``
-    ///     ``Frame/filter(type:)``,
+    ///     ``Plane/filter(type:)``,
     ///     ``Predicate/isType(_:)``
     ///
     var type: ObjectType { get }
@@ -90,7 +90,7 @@ public protocol ObjectProtocol: Identifiable {
     /// For example, if objects is an edge and any of it's ``Structure/edge(_:_:)``
     /// elements is removed from a design, then the edge is removed as well.
     ///
-    /// - SeeAlso: ``TransientFrame/removeCascading(_:)``, ``Graph``
+    /// - SeeAlso: ``TransientPlane/removeCascading(_:)``, ``Graph``
     ///
     var structure: Structure { get }
     
@@ -100,10 +100,10 @@ public protocol ObjectProtocol: Identifiable {
     /// are removed with it, including their dependencies.
     ///
     /// - SeeAlso: ``children``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``
     ///
     var parent: ObjectID? { get }
 
@@ -114,10 +114,10 @@ public protocol ObjectProtocol: Identifiable {
     /// with it, together with all dependencies.
     ///
     /// - SeeAlso: ``parent``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     var children: OrderedSet<ObjectID> { get }
     

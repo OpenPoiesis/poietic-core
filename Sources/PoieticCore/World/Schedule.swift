@@ -9,7 +9,7 @@
 ///
 /// Schedule labels are compile-time tags of system schedules.
 ///
-/// - SeeAlso: ``FrameChangeSchedule``, ``InteractivePreviewSchedule``.
+/// - SeeAlso: ``PlaneChangeSchedule``, ``InteractivePreviewSchedule``.
 ///
 public protocol ScheduleLabel {
     // Empty protocol, just a tag
@@ -18,7 +18,7 @@ public protocol ScheduleLabel {
 /// Schedule label for systems that are run when frame did change.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
-public enum FrameChangeSchedule: ScheduleLabel {}
+public enum PlaneChangeSchedule: ScheduleLabel {}
 
 /// Schedule label for systems that are run during interactive session, for example
 /// a dragging or an object placement session.
@@ -30,7 +30,7 @@ public enum InteractivePreviewSchedule: ScheduleLabel {}
 
 /// Schedule label for systems that run a simulation.
 ///
-/// The schedule is typically run after ``FrameChangeSchedule``.
+/// The schedule is typically run after ``PlaneChangeSchedule``.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
 public enum SimulationSchedule: ScheduleLabel {}

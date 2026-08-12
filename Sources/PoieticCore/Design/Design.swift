@@ -31,15 +31,15 @@
 /// all its versions – object snapshots. Within a frame, the object ID is unique.
 ///
 /// The design distinguishes between two states of a version frame:
-/// ``DesignFrame`` – immutable version snapshot of a frame, that is guaranteed
-/// to be valid and follow all required constraints. The ``TransientFrame``
+/// ``DesignPlane`` – immutable version snapshot of a frame, that is guaranteed
+/// to be valid and follow all required constraints. The ``TransientPlane``
 /// represents a transaction of frame. The integrity is enforced once the
 /// frame is accepted using ``Design/accept(_:appendHistory:)``.
 ///
 /// Design frames are immutable and they are persisted. They are guaranteed to follow requirements
 /// of the metamodel.
 ///
-/// ``TransientFrame``s can be changed, they do not have to follow requirements
+/// ``TransientPlane``s can be changed, they do not have to follow requirements
 /// of the metamodel. They are _not_ persisted. See _Archiving_ below.
 ///
 /// The concept of frames allows us to have functionality like undo/redo,
@@ -58,14 +58,14 @@
 ///
 /// 1. Derive a new frame from an existing one or create a new frame using
 ///   ``createFrame(deriving:id:)``.
-/// 2. Add objects to the derived frame using ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
-///    or ``TransientFrame/insert(_:)``.
+/// 2. Add objects to the derived frame using ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
+///    or ``TransientPlane/insert(_:)``.
 /// 3. To mutate existing objects in the frame, first derive an new mutable
-///    snapshot of the object using ``TransientFrame/mutate(_:)`` and
+///    snapshot of the object using ``TransientPlane/mutate(_:)`` and
 ///    make changes using the returned new snapshot.
 /// 4. Conclude all the changes by accepting the frame ``accept(_:appendHistory:)``.
 ///
-/// Frame can be accepted only if the constraints are satisfied. When the frame
+/// Plane can be accepted only if the constraints are satisfied. When the frame
 /// violates ant of the constraints the `accept()` method throws a
 /// ``ConstraintViolation`` with more details about which objects violated
 /// which constraints.
@@ -121,19 +121,19 @@ public class Design {
     var _objectSnapshots: RCTable<ObjectSnapshot>
 
     /// Frames that have been accepted and are in fact validated with the metamodel.
-    var _validatedFrames: RCTable<DesignFrame>
+    var _validatedFrames: RCTable<DesignPlane>
     var _objects: RCTable<LogicalObject>
-    var _transientFrames: [FrameID: TransientFrame]
+    var _transientFrames: [PlaneID: TransientPlane]
 
-    var _namedFrames: [String: DesignFrame]
-    public var namedFrames: [String: DesignFrame] { _namedFrames }
+    var _namedFrames: [String: DesignPlane]
+    public var namedFrames: [String: DesignPlane] { _namedFrames }
     
     
     /// Chronological list of design snapshots.
     ///
     /// - SeeAlso: ``accept(_:appendHistory:)``,``redoList``, ``undo(to:)``, ``redo(to:)``
     ///
-    public var versionHistory: [FrameID] {
+    public var versionHistory: [PlaneID] {
         guard let currentFrameID else {
             return []
         }
@@ -145,14 +145,14 @@ public class Design {
     /// - Note: `currentFrameID` is guaranteed not to be `nil` when there is
     ///   a history.
     ///
-    public internal(set) var currentFrameID: FrameID?
+    public internal(set) var currentFrameID: PlaneID?
 
     /// Get the current stable frame.
     ///
     /// - Note: It is a programming error to get current frame when there is no
     ///         history.
     ///
-    public var currentFrame: DesignFrame? {
+    public var currentFrame: DesignPlane? {
         guard let currentFrameID,
               let frame = _validatedFrames[currentFrameID] else { return nil }
         return frame
@@ -163,7 +163,7 @@ public class Design {
     ///
     /// - SeeAlso: ``redoList``, ``undo(to:)``, ``redo(to:)``
     ///
-    public internal(set) var undoList: [FrameID] = []
+    public internal(set) var undoList: [PlaneID] = []
 
     /// List of IDs of undone frames can be re-done.
     ///
@@ -172,7 +172,7 @@ public class Design {
     ///
     /// - SeeAlso: ``undoList``, ``undo(to:)``, ``redo(to:)``
     ///
-    public internal(set) var redoList: [FrameID] = []
+    public internal(set) var redoList: [PlaneID] = []
 
     // MARK: - Creation
     /// Create a new design that conforms to the given metamodel.
@@ -237,7 +237,7 @@ public class Design {
     
     /// List of all stable frames in the design.
     ///
-    public var frames: some Collection<DesignFrame> {
+    public var frames: some Collection<DesignPlane> {
         return _validatedFrames.items
     }
     
@@ -246,14 +246,14 @@ public class Design {
     /// - Returns: A stable frame, if it is contained in the design and is stable (not transient),
     ///   otherwise `nil`.
     ///
-    public func frame(_ id: FrameID) -> DesignFrame? {
+    public func frame(_ id: PlaneID) -> DesignPlane? {
         guard let frame = _validatedFrames[id] else { return nil }
         return frame
     }
 
     /// Test whether the design contains a stable frame with given ID.
     ///
-    public func containsFrame(_ id: FrameID) -> Bool {
+    public func containsFrame(_ id: PlaneID) -> Bool {
         return _validatedFrames[id] != nil
     }
     
@@ -263,7 +263,7 @@ public class Design {
     ///
     /// - SeeAlso: ``accept(_:replacingName:)``
     ///
-    public func frame(name: String) -> DesignFrame? {
+    public func frame(name: String) -> DesignPlane? {
         guard let frame = _namedFrames[name] else { return nil }
         return frame
     }
@@ -280,9 +280,9 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    internal func _createFrame(id: FrameID? = nil) -> TransientFrame {
+    internal func _createFrame(id: PlaneID? = nil) -> TransientPlane {
         // TODO: Throw some identity error here
-        let actualID: FrameID
+        let actualID: PlaneID
         if let id {
             let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
@@ -292,7 +292,7 @@ public class Design {
             actualID = identityManager.reserveNew(type:. frame)
         }
         
-        let trans = TransientFrame(design: self, id: actualID)
+        let trans = TransientPlane(design: self, id: actualID)
         _transientFrames[actualID] = trans
         return trans
     }
@@ -309,7 +309,7 @@ public class Design {
     ///
     /// The newly derived frame will not own any of the objects from the
     /// original frame.
-    /// See ``TransientFrame/init(design:id:snapshots:)`` for more information
+    /// See ``TransientPlane/init(design:id:snapshots:)`` for more information
     /// about how the objects from the original frame are going to be treated.
     ///
     /// - Precondition: The `original` frame must exist in the design.
@@ -318,10 +318,10 @@ public class Design {
     /// - SeeAlso: ``accept(_:appendHistory:)``, ``discard(_:)``
     ///
     @discardableResult
-    public func createFrame(deriving original: (any Frame)? = nil,
-                            id: FrameID? = nil) -> TransientFrame {
+    public func createFrame(deriving original: (any Plane)? = nil,
+                            id: PlaneID? = nil) -> TransientPlane {
         // TODO: Throw some identity error here
-        let actualID: FrameID
+        let actualID: PlaneID
         if let id {
             let success = identityManager.reserve(id, type: .frame)
             precondition(success, "ID already used (\(id)")
@@ -331,13 +331,13 @@ public class Design {
             actualID = identityManager.reserveNew(type: .frame)
         }
         
-        let derived: TransientFrame
+        let derived: TransientPlane
         if let original {
             precondition(original.design === self, "Trying to clone a frame from different design")
-            derived = TransientFrame(design: self, id: actualID, snapshots: original.snapshots)
+            derived = TransientPlane(design: self, id: actualID, snapshots: original.snapshots)
         }
         else {
-            derived = TransientFrame(design: self, id: actualID)
+            derived = TransientPlane(design: self, id: actualID)
         }
 
         _transientFrames[actualID] = derived
@@ -346,7 +346,7 @@ public class Design {
 
     /// Discards the mutable frame that is associated with the design.
     ///
-    public func discard(_ frame: TransientFrame) {
+    public func discard(_ frame: TransientPlane) {
         precondition(isPending(frame))
 
         identityManager.freeReservation(frame.id)
@@ -357,7 +357,7 @@ public class Design {
     
     /// Return `true` if the transient frame is owned by the design and is in transient state.
     /// 
-    public func isPending(_ trans: TransientFrame) -> Bool {
+    public func isPending(_ trans: TransientPlane) -> Bool {
         return trans.design === self
                 && trans.state == .transient
                 && _transientFrames[trans.id] != nil
@@ -374,7 +374,7 @@ public class Design {
     ///
     /// - Precondition: The frame with given ID must exist in the design.
     ///
-    public func removeFrame(_ id: FrameID) {
+    public func removeFrame(_ id: PlaneID) {
         guard let frame = _validatedFrames[id] else {
             preconditionFailure("Unknown frame ID \(id)")
         }
@@ -446,20 +446,20 @@ public class Design {
     /// removed.
     ///
     /// - Returns: The newly created stable frame.
-    /// - Throws: `FrameValidationError` when the frame contents violates
+    /// - Throws: `PlaneValidationError` when the frame contents violates
     ///   constraints of the design.
     ///
     /// - SeeAlso: ``ConstraintChecker/validate(_:)``,
     ///     ``StructuralValidator/validate(_:in:)``
     ///
-    /// - Precondition: Frame must belong to the design.
-    /// - Precondition: Frame must be in transient state.
-    /// - Precondition: Frame with give ID must not be already accepted and must
+    /// - Precondition: Plane must belong to the design.
+    /// - Precondition: Plane must be in transient state.
+    /// - Precondition: Plane with give ID must not be already accepted and must
     ///   exist as a transient frame in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, appendHistory: Bool = true)
-    throws (FrameValidationError) -> DesignFrame {
+    public func accept(_ frame: TransientPlane, appendHistory: Bool = true)
+    throws (PlaneValidationError) -> DesignPlane {
         let validated = try validateAndInsert(frame)
 
         if appendHistory {
@@ -501,8 +501,8 @@ public class Design {
     /// - SeeAlso: ``frame(name:)``
     ///
     @discardableResult
-    public func accept(_ frame: TransientFrame, replacingName name: String)
-    throws (FrameValidationError) -> DesignFrame {
+    public func accept(_ frame: TransientPlane, replacingName name: String)
+    throws (PlaneValidationError) -> DesignPlane {
         let old = _namedFrames[name]
         let stable = try validateAndInsert(frame)
 
@@ -517,11 +517,11 @@ public class Design {
     ///
     /// Used by the design loader when finalising loading.
     ///
-    internal func unsafeAssignName(name: String, frameID: FrameID) {
+    internal func unsafeAssignName(name: String, frameID: PlaneID) {
         _namedFrames[name] = frame(frameID)
     }
 
-    internal func validateAndInsert(_ frame: TransientFrame) throws (FrameValidationError) -> DesignFrame {
+    internal func validateAndInsert(_ frame: TransientPlane) throws (PlaneValidationError) -> DesignPlane {
         precondition(frame.design === self)
         precondition(frame.state == .transient)
         precondition(!_validatedFrames.contains(frame.id), "Duplicate frame ID \(frame.id)")
@@ -535,7 +535,7 @@ public class Design {
             throw .brokenStructuralIntegrity(error)
         }
         
-        let stableFrame = DesignFrame(design: self, id: frame.id, snapshots: snapshots)
+        let stableFrame = DesignPlane(design: self, id: frame.id, snapshots: snapshots)
 
         let checker = ConstraintChecker(metamodel)
         try checker.validate(stableFrame)
@@ -561,12 +561,12 @@ public class Design {
     ///    ``Design/identityManager``.
     ///
     /// - Parameters:
-    ///   - frame: Frame to be inserted.
+    ///   - frame: Plane to be inserted.
     ///
     /// - Precondition: The frame ID must be reserved.
     /// - Precondition: The design must not contain a frame with given ID.
     ///
-    public func unsafeInsert(_ frame: DesignFrame) {
+    public func unsafeInsert(_ frame: DesignPlane) {
         precondition(frame.design === self)
         precondition(!_validatedFrames.contains(frame.id), "Duplicate frame ID \(frame.id)")
         precondition(_transientFrames[frame.id] == nil)
@@ -611,7 +611,7 @@ public class Design {
     /// - SeeAlso: ``redo(to:)``, ``canUndo``, ``canRedo``
     ///
     @discardableResult
-    public func undo(to frameID: FrameID? = nil) -> Bool {
+    public func undo(to frameID: PlaneID? = nil) -> Bool {
         guard !undoList.isEmpty else {
             return false
         }
@@ -646,7 +646,7 @@ public class Design {
     /// - SeeAlso: ``undo(to:)``, ``canUndo``, ``canRedo``
     ///
     @discardableResult
-    public func redo(to frameID: FrameID? = nil) -> Bool {
+    public func redo(to frameID: PlaneID? = nil) -> Bool {
         guard !redoList.isEmpty else {
             return false
         }
@@ -670,7 +670,7 @@ public class Design {
     ///
     /// - Returns: List of constraint violations.
     /// 
-    public func checkConstraints(_ frame: some Frame) -> [ConstraintViolation] {
+    public func checkConstraints(_ frame: some Plane) -> [ConstraintViolation] {
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
             let violators = constraint.check(frame)

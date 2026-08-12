@@ -34,7 +34,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// needs to be assured. It can be either provided by the design, taken
 /// from an external source or created in a custom way.
 ///
-/// To create a new object, use the ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)
+/// To create a new object, use the ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)
 /// method:
 ///
 /// ```swift
@@ -45,7 +45,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// // ... Add more objects...
 /// try design.accept(trans)
 /// ```
-/// - SeeAlso: ``DesignFrame``, ``TransientFrame``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
+/// - SeeAlso: ``DesignPlane``, ``TransientPlane``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
 public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol {
     /// Unique identifier of the object version snapshot within the design.
@@ -58,11 +58,11 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// need to use the ``snapshotID``. It is used only when considering
     /// different versions of objects.
     ///
-    /// When an object is mutated with ``TransientFrame/mutate(_:)``, the object
+    /// When an object is mutated with ``TransientPlane/mutate(_:)``, the object
     /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
     ///
     /// - SeeAlso: ``id``,
-    ///    ``TransientFrame/mutate(_:)``
+    ///    ``TransientPlane/mutate(_:)``
     ///
     public let id: ObjectSnapshotID
 

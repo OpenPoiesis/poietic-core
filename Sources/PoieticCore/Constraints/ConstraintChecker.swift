@@ -10,7 +10,7 @@
 ///
 /// There are two primary functions:
 ///
-/// - ``validate(_:)``: Validates the frame and throws ``FrameValidationError`` on first validation
+/// - ``validate(_:)``: Validates the frame and throws ``PlaneValidationError`` on first validation
 ///   issue detected.
 /// - ``diagnose(_:)``: Collects all the validation issues and returns them in
 ///   ``FrameValidationResult``.
@@ -147,7 +147,7 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
     ///   ``validate(edge:in:)``
     ///
-    public func diagnose(_ frame: some Frame) -> FrameValidationResult {
+    public func diagnose(_ frame: some Plane) -> FrameValidationResult {
         // IMPORTANT: Keep in sync with validate(...) version of this method
         var objectErrors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
@@ -201,13 +201,13 @@ public struct ConstraintChecker {
     ///
     /// The method throws at first error detected. To collect all the errors, see ``diagnose(_:)``.
     ///
-    /// - Throws: ``FrameValidationError`` if the frame violates constraints or does not satisfy
+    /// - Throws: ``PlaneValidationError`` if the frame violates constraints or does not satisfy
     ///   type requirements.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
     ///   ``validate(edge:in:)``
     ///
-    public func validate(_ frame: some Frame) throws (FrameValidationError) {
+    public func validate(_ frame: some Plane) throws (PlaneValidationError) {
         // IMPORTANT: Keep in sync with diagnose(...) version of this method
 
         for object in frame.snapshots {
@@ -256,7 +256,7 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``
     /// - Throws: ``EdgeRuleViolation``
     
-    public func validate(edgeType: ObjectType, origin: ObjectID, target: ObjectID, in frame: some Frame) throws (EdgeRuleViolation) {
+    public func validate(edgeType: ObjectType, origin: ObjectID, target: ObjectID, in frame: some Plane) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
         let originObject = frame[origin]!
         let targetObject = frame[target]!
@@ -290,7 +290,7 @@ public struct ConstraintChecker {
             }
         }
     }
-    public func validate(edge: DesignObjectEdge, in frame: some Frame) throws (EdgeRuleViolation) {
+    public func validate(edge: DesignObjectEdge, in frame: some Plane) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
         let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
@@ -334,7 +334,7 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``EdgeRule/match(_:origin:target:in:)``, ``validate(edge:in:)``
     ///
-    public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in frame: some Frame) -> Bool {
+    public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in frame: some Plane) -> Bool {
         // NOTE: Changes in this function should be synced with func validate(...)
         
         let typeRules = metamodel.edgeRules.filter { type === $0.type }
