@@ -18,10 +18,10 @@ struct FrameAsGraphTests {
     }
     
     @Test func basic() throws {
-        let n1 = frame.create(TestNodeType, structure: .node)
-        let n2 = frame.create(TestNodeType, structure: .node)
-        let _ = frame.create(TestType, structure: .unstructured)
-        let e1 = frame.create(TestEdgeType, structure: .edge(n1.objectID, n2.objectID))
+        let n1 = frame.create(TestNodeType, topology: .node)
+        let n2 = frame.create(TestNodeType, topology: .node)
+        let _ = frame.create(TestType, topology: .unstructured)
+        let e1 = frame.create(TestEdgeType, topology: .edge(n1.objectID, n2.objectID))
 
         #expect(frame.nodeKeys.count == 2)
         #expect(frame.nodeKeys.contains(n1.objectID))

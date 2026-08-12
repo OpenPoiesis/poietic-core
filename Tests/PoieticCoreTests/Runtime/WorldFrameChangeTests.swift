@@ -32,8 +32,8 @@ import Testing
 
         // --- frameWithTwo ---
         let t1 = design.createPlane()
-        let obj1 = t1.create(.Stock, structure: .node, attributes: ["text": "A"])
-        let obj2 = t1.create(.FlowRate, structure: .node, attributes: ["text": "B"])
+        let obj1 = t1.create(.Stock, topology: .node, attributes: ["text": "A"])
+        let obj2 = t1.create(.FlowRate, topology: .node, attributes: ["text": "B"])
         self.firstObjectID = obj1.objectID
         self.secondObjectID = obj2.objectID
         self.frameWithTwo = try design.accept(t1)

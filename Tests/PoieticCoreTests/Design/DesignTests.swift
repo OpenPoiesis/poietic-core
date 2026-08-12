@@ -145,9 +145,9 @@ import Testing
         let b = originalFrame.create(TestType)
         let c = originalFrame.create(TestType)
         let order1 = originalFrame.create(TestOrderType,
-                                         structure: .orderedSet(a.objectID, []))
+                                          topology: .orderedSet(a.objectID, []))
         let order2 = originalFrame.create(TestOrderType,
-                                          structure: .orderedSet(b.objectID, [c.objectID]))
+                                          topology: .orderedSet(b.objectID, [c.objectID]))
         try design.accept(originalFrame)
         
         let trans = design.createPlane(deriving: originalFrame)

@@ -24,7 +24,7 @@ import Testing
         design = Design(metamodel: TestMetamodel)
         frame = design.createPlane()
 //        reader = JSONDesignReader()
-        reader = JSONDesignReader(variantCoding: .dictionaryWithFallback)
+        reader = JSONDesignReader()
     }
    
     @Test func notADict() throws {
@@ -106,10 +106,10 @@ import Testing
         let design = try reader.read(data: data)
         
         #expect(design.snapshots.count == 1)
-        #expect(design.frames.count == 1)
-        let frame = try #require(design.frames.first)
-        #expect(frame.id == .id(1000))
-        #expect(frame.snapshots == [.string("first")])
+        #expect(design.planes.count == 1)
+        let plane = try #require(design.planes.first)
+        #expect(plane.id == .id(1000))
+        #expect(plane.snapshots == [.string("first")])
     }
     @Test func readSnapshotBasic() throws {
         let data = """
@@ -133,7 +133,7 @@ import Testing
         
         let snapshot = try #require(design.snapshots.first)
         #expect(snapshot.typeName == "Some")
-        #expect(snapshot.structure == RawStructure("node", references: []))
+        #expect(snapshot.topology == RawTopology("node", references: []))
         #expect(snapshot.objectID == .string("first"))
         #expect(snapshot.snapshotID == .id(10))
         #expect(snapshot.parent == .id(20))
@@ -156,19 +156,19 @@ import Testing
         #expect(design.snapshots.count == 5)
 
         #expect(design.snapshots[0].objectID == .string("i"))
-        #expect(design.snapshots[0].structure == RawStructure(nil, references: []))
+        #expect(design.snapshots[0].topology == RawTopology(nil, references: []))
 
         #expect(design.snapshots[1].objectID == .string("u"))
-        #expect(design.snapshots[1].structure == RawStructure("unstructured", references: []))
+        #expect(design.snapshots[1].topology == RawTopology("unstructured", references: []))
 
         #expect(design.snapshots[2].objectID == .string("n"))
-        #expect(design.snapshots[2].structure == RawStructure("node", references: []))
+        #expect(design.snapshots[2].topology == RawTopology("node", references: []))
 
         #expect(design.snapshots[3].objectID == .string("e"))
-        #expect(design.snapshots[3].structure == RawStructure("edge", references: [.id(10), .id(20)]))
+        #expect(design.snapshots[3].topology == RawTopology("edge", references: [.id(10), .id(20)]))
 
         #expect(design.snapshots[4].objectID == .string("ie"))
-        #expect(design.snapshots[4].structure == RawStructure("edge", references: [.id(30), .id(40)]))
+        #expect(design.snapshots[4].topology == RawTopology("edge", references: [.id(30), .id(40)]))
 
     }
 

@@ -48,13 +48,13 @@ final class JSONFileStoreTests: XCTestCase {
         frame = db.createPlane()
 
         let flow = frame.create(TestMetamodel["FlowRate"]!,
-                                structure: .node,
+                                topology: .node,
                                 attributes: [:])
         let source = frame.create(TestMetamodel["Stock"]!,
-                                  structure: .node,
+                                  topology: .node,
                                   attributes: [:])
         let sink = frame.create(TestMetamodel["Stock"]!,
-                                structure: .node,
+                                topology: .node,
                                 attributes: [:])
         
         frame.createEdge(TestMetamodel["Arrow"]!, origin: source.objectID, target: flow.objectID)

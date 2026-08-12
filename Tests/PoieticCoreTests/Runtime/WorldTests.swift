@@ -41,9 +41,9 @@ struct ManyRelationship: Relationship, Sendable {
         let trans2 = design.createPlane()
         
         // Create some test objects with proper topology
-        let obj1 = trans2.create(.Stock, structure: .node)
-        let obj2 = trans2.create(.FlowRate, structure: .node)
-        let obj3 = trans2.create(.Stock, structure: .node)
+        let obj1 = trans2.create(.Stock, topology: .node)
+        let obj2 = trans2.create(.FlowRate, topology: .node)
+        let obj3 = trans2.create(.Stock, topology: .node)
         self.objectIDs = [obj1.objectID, obj2.objectID, obj3.objectID]
         self.testFrame = try design.accept(trans2)
     }
@@ -370,13 +370,13 @@ struct ManyRelationship: Relationship, Sendable {
         let source: RuntimeEntity = world.spawn()
         
         source.relate(WeakRelationship(), to: target.runtimeID)
-        #expect(source.containsRelationship(WeakRelationship.self))
+        #expect(source.relates(WeakRelationship.self))
         
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.containsRelationship(WeakRelationship.self))
+        #expect(!source.relates(WeakRelationship.self))
     }
     
     @Test func keepUnrelatedWeakRelationshipComponent() throws {
@@ -388,15 +388,15 @@ struct ManyRelationship: Relationship, Sendable {
         
         source.relate(WeakRelationship(), to: target.runtimeID)
         unrelated.relate(WeakRelationship(), to: source.runtimeID)
-        #expect(source.containsRelationship(WeakRelationship.self))
-        #expect(unrelated.containsRelationship(WeakRelationship.self))
+        #expect(source.relates(WeakRelationship.self))
+        #expect(unrelated.relates(WeakRelationship.self))
         
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.containsRelationship(WeakRelationship.self))
-        #expect(unrelated.containsRelationship(WeakRelationship.self))
+        #expect(!source.relates(WeakRelationship.self))
+        #expect(unrelated.relates(WeakRelationship.self))
     }
     @Test func relationshipCardinalityOne() throws {
         let world = World(plane: self.emptyFrame)
@@ -406,12 +406,12 @@ struct ManyRelationship: Relationship, Sendable {
         let other: RuntimeEntity = world.spawn()
 
         child.relate(ChildOf(), to: parent.runtimeID)
-        #expect(child.containsRelationship(ChildOf.self, to: parent.runtimeID))
-        #expect(!child.containsRelationship(ChildOf.self, to: other.runtimeID))
+        #expect(child.relates(ChildOf.self, to: parent.runtimeID))
+        #expect(!child.relates(ChildOf.self, to: other.runtimeID))
 
         child.relate(ChildOf(), to: other.runtimeID)
-        #expect(!child.containsRelationship(ChildOf.self, to: parent.runtimeID))
-        #expect(child.containsRelationship(ChildOf.self, to: other.runtimeID))
+        #expect(!child.relates(ChildOf.self, to: parent.runtimeID))
+        #expect(child.relates(ChildOf.self, to: other.runtimeID))
     }
     @Test func relationshipCardinalityMany() throws {
         let world = World(plane: self.emptyFrame)
@@ -421,12 +421,12 @@ struct ManyRelationship: Relationship, Sendable {
         let other2: RuntimeEntity = world.spawn()
 
         origin.relate(ManyRelationship(), to: other1.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other1.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: other2.runtimeID))
 
         origin.relate(ManyRelationship(), to: other2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other2.runtimeID))
     }
 
     // MARK: - Unrelate
@@ -440,14 +440,14 @@ struct ManyRelationship: Relationship, Sendable {
 
         origin.relate(ManyRelationship(), to: target1.runtimeID)
         origin.relate(ManyRelationship(), to: target2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
 
         origin.unrelate(ManyRelationship.self)
 
-        #expect(!origin.containsRelationship(ManyRelationship.self))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self))
+        #expect(!origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: target2.runtimeID))
     }
 
     @Test func unrelateSpecificTarget() throws {
@@ -459,13 +459,13 @@ struct ManyRelationship: Relationship, Sendable {
 
         origin.relate(ManyRelationship(), to: target1.runtimeID)
         origin.relate(ManyRelationship(), to: target2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
 
         origin.unrelate(ManyRelationship.self, to: target1)
 
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
     }
 
     @Test func unrelateSpecificWhenNoneExist() throws {
@@ -478,7 +478,7 @@ struct ManyRelationship: Relationship, Sendable {
         entity.unrelate(ChildOf.self)
         entity.unrelate(ChildOf.self, to: other)
 
-        #expect(!entity.containsRelationship(ChildOf.self))
+        #expect(!entity.relates(ChildOf.self))
     }
     
     // MARK: - Plane change

@@ -44,10 +44,10 @@ struct DesignLoaderValidationTest {
         }
     }
     @Test func duplicateFrameID() async throws {
-        let rawDesign = RawDesign(frames: [
-            RawFrame(id: .int(11)),
-            RawFrame(id: .int(21)),
-            RawFrame(id: .int(11)),
+        let rawDesign = RawDesign(planes: [
+            RawPlane(id: .int(11)),
+            RawPlane(id: .int(21)),
+            RawPlane(id: .int(11)),
         ])
         
         #expect(throws: DesignLoaderError.item(.planes, 2, .duplicateForeignID(.int(11)))) {
@@ -149,13 +149,13 @@ struct DesignLoaderReservationTests {
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [],
-            rawFrames: []
+            rawPlanes: []
         )
         let result = try loader.resolveIdentities(resolution: resolution,
                                                   identityStrategy: .createNew)
         #expect(result.reserved.isEmpty)
         #expect(result.rawIDMap.isEmpty)
-        #expect(result.frameIDs.isEmpty)
+        #expect(result.planeIDs.isEmpty)
         #expect(result.snapshotIDs.isEmpty)
         #expect(result.objectIDs.isEmpty)
         #expect(result.snapshotIndex.isEmpty)
@@ -170,11 +170,11 @@ struct DesignLoaderReservationTests {
                 RawSnapshot(snapshotID: .string("thing")),
                 RawSnapshot(snapshotID: .id(20)),
             ],
-            rawFrames: [
-                RawFrame(),
-                RawFrame(id: .int(110)),
-                RawFrame(id: .string("frame")),
-                RawFrame(id: .id(210)),
+            rawPlanes: [
+                RawPlane(),
+                RawPlane(id: .int(110)),
+                RawPlane(id: .string("frame")),
+                RawPlane(id: .id(210)),
             ]
         )
         // .createNew strategy should never raise
@@ -190,7 +190,7 @@ struct DesignLoaderReservationTests {
         #expect(result.rawIDMap[.string("frame")] != nil)
         #expect(result.rawIDMap[.id(210)] != nil)
         
-        #expect(result.frameIDs.count == 4)
+        #expect(result.planeIDs.count == 4)
         #expect(result.snapshotIDs.count == 4)
         #expect(result.objectIDs.count == 4)
         #expect(result.snapshotIndex.count == 4)
@@ -202,13 +202,13 @@ struct DesignLoaderReservationTests {
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(snapshotID: .int(110), id: .int(10)),
-                RawSnapshot(snapshotID: .int(120), id: .int(10)),
-                RawSnapshot(snapshotID: .string("snap"), id: .string("object")),
+                RawSnapshot(snapshotID: .int(110), objectID: .int(10)),
+                RawSnapshot(snapshotID: .int(120), objectID: .int(10)),
+                RawSnapshot(snapshotID: .string("snap"), objectID: .string("object")),
             ],
-            rawFrames: [
-                RawFrame(id: .int(200)),
-                RawFrame(id: .string("frame")),
+            rawPlanes: [
+                RawPlane(id: .int(200)),
+                RawPlane(id: .string("frame")),
             ]
         )
         // .createNew strategy should never raise
@@ -233,8 +233,8 @@ struct DesignLoaderReservationTests {
         #expect(result.snapshotIDs[0] == 110)
         #expect(result.snapshotIDs[1] == 120)
 
-        #expect(result.frameIDs.count == 2)
-        #expect(result.frameIDs[0] == 200)
+        #expect(result.planeIDs.count == 2)
+        #expect(result.planeIDs[0] == 200)
     }
     
     @Test("ID conflict when requiring already reserved (require)")
@@ -255,7 +255,7 @@ struct DesignLoaderReservationTests {
         let resolution2 = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(snapshotID: .int(110), id: .int(10)),
+                RawSnapshot(snapshotID: .int(110), objectID: .int(10)),
             ]
         )
         #expect(throws: DesignLoaderError.item(.objectSnapshots, 0, .reservationConflict(.object, .int(10)))) {
@@ -265,8 +265,8 @@ struct DesignLoaderReservationTests {
 
         let resolution3 = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
-            rawFrames: [
-                RawFrame(id: .int(10)),
+            rawPlanes: [
+                RawPlane(id: .int(10)),
             ]
         )
         // .createNew strategy should never raise
@@ -280,7 +280,7 @@ struct DesignLoaderReservationTests {
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(id: .int(10)),
+                RawSnapshot(objectID: .int(10)),
             ]
         )
         #expect(throws: DesignLoaderError.item(.objectSnapshots, 0, .reservationConflict(.object, .int(10)))) {
@@ -299,14 +299,14 @@ struct DesignLoaderReservationTests {
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(snapshotID: .int(110), id: .int(10)), // Preserve both
-                RawSnapshot(snapshotID: .int(999), id: .int(99)), // Create both
-                RawSnapshot(snapshotID: .string("snap"), id: .string("object")),
+                RawSnapshot(snapshotID: .int(110), objectID: .int(10)), // Preserve both
+                RawSnapshot(snapshotID: .int(999), objectID: .int(99)), // Create both
+                RawSnapshot(snapshotID: .string("snap"), objectID: .string("object")),
             ],
-            rawFrames: [
-                RawFrame(id: .int(200)), // Preserve
-                RawFrame(id: .int(888)), // Create
-                RawFrame(id: .string("frame")),
+            rawPlanes: [
+                RawPlane(id: .int(200)), // Preserve
+                RawPlane(id: .int(888)), // Create
+                RawPlane(id: .string("frame")),
             ]
         )
         // .createNew strategy should never raise
@@ -334,16 +334,16 @@ struct DesignLoaderReservationTests {
         #expect(result.snapshotIDs[0] == 110)
         #expect(result.snapshotIDs[1] != 999)
 
-        #expect(result.frameIDs.count == 3)
-        #expect(result.frameIDs[0] == 200)
-        #expect(result.frameIDs[1] != 888)
+        #expect(result.planeIDs.count == 3)
+        #expect(result.planeIDs[0] == 200)
+        #expect(result.planeIDs[1] != 888)
     }
     @Test("ID Conflict when not available (preserve or create)")
     func preserveOrCreateWithUnavailableObjectID() async throws {
         let resolution = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(id: .int(10)),
+                RawSnapshot(objectID: .int(10)),
             ]
         )
         let result = try loader.resolveIdentities(resolution: resolution,
@@ -390,7 +390,7 @@ struct DesignLoaderSnapshotResolutionTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [],
-            rawFrames: []
+            rawPlanes: []
         )
         let identities = try loader.resolveIdentities(resolution: validation,
                                                       identityStrategy: .preserveOrCreate)
@@ -405,8 +405,8 @@ struct DesignLoaderSnapshotResolutionTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(snapshotID: .int(10), id: .int(20),
-                            structure: RawStructure("edge", references: [.int(999), .int(999)]))
+                RawSnapshot(snapshotID: .int(10), objectID: .int(20),
+                            topology: RawTopology("edge", references: [.int(999), .int(999)]))
             ],
         )
         let identities = try loader.resolveIdentities(resolution: validation,
@@ -424,8 +424,8 @@ struct DesignLoaderSnapshotResolutionTests {
             identityManager: strayIdentityManager,
             rawSnapshots: [
                 RawSnapshot(typeName: "Test",
-                            snapshotID: .int(10), id: .int(20),
-                            structure: RawStructure("carrot", references: []))
+                            snapshotID: .int(10), objectID: .int(20),
+                            topology: RawTopology("carrot", references: []))
             ],
         )
         let identities = try loader.resolveIdentities(resolution: validation,
@@ -442,7 +442,7 @@ struct DesignLoaderSnapshotResolutionTests {
             identityManager: strayIdentityManager,
             rawSnapshots: [
                 RawSnapshot(typeName: nil,
-                            snapshotID: .int(10), id: .int(20))
+                            snapshotID: .int(10), objectID: .int(20))
             ],
         )
         let identities = try loader.resolveIdentities(resolution: validation,
@@ -461,11 +461,12 @@ struct DesignLoaderSnapshotResolutionTests {
             identityManager: strayIdentityManager,
             rawSnapshots: [
                 RawSnapshot(typeName: "Test",
-                            snapshotID: .int(10), id: .string("rabbit"))
+                            snapshotID: .int(10), objectID: .string("rabbit"))
             ],
         )
-        let identities = try loader.resolveIdentities(resolution: validation,
-                                                      identityStrategy: .requireProvided)
+        let identities: DesignLoader.IdentityResolution =
+            try loader.resolveIdentities(resolution: validation,
+                                         identityStrategy: DesignLoader.IdentityStrategy.requireProvided)
         
         let snapshots = try loader.resolveObjectSnapshots(resolution: validation,
                                                           identities: identities)
@@ -480,16 +481,16 @@ struct DesignLoaderSnapshotResolutionTests {
             identityManager: strayIdentityManager,
             rawSnapshots: [
                 RawSnapshot(typeName: "Test",
-                            snapshotID: .int(100), id: .int(10),
-                            structure: RawStructure("node"),
+                            snapshotID: .int(100), objectID: .int(10),
+                            topology: RawTopology("node"),
                             parent: .int(20),
                             attributes: ["name": Variant("rabbit")]),
                 RawSnapshot(typeName: "Test",
-                            snapshotID: .int(200), id: .int(20),
-                            structure: RawStructure("edge", references: [.int(20), .int(20)])),
+                            snapshotID: .int(200), objectID: .int(20),
+                            topology: RawTopology("edge", references: [.int(20), .int(20)])),
                 RawSnapshot(typeName: "Test",
-                            snapshotID: .int(300), id: .int(30),
-                            structure: RawStructure("unstructured")),
+                            snapshotID: .int(300), objectID: .int(30),
+                            topology: RawTopology("unstructured")),
             ],
         )
         let identities = try loader.resolveIdentities(resolution: validation,
@@ -535,15 +536,15 @@ struct DesignLoaderIntegrationTests {
     func loadCompleteDesign() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), structure: RawStructure("node")),
-                RawSnapshot(typeName: "TestNode", snapshotID: .int(102), id: .int(12), structure: RawStructure("node")),
-                RawSnapshot(typeName: "TestEdge", snapshotID: .int(103), id: .int(13),
-                            structure: RawStructure("edge", references: [.int(11), .int(12)])),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(104), id: .int(14), parent: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11), topology: RawTopology("node")),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(102), objectID: .int(12), topology: RawTopology("node")),
+                RawSnapshot(typeName: "TestEdge", snapshotID: .int(103), objectID: .int(13),
+                            topology: RawTopology("edge", references: [.int(11), .int(12)])),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(104), objectID: .int(14), parent: .int(10)),
             ],
-            frames: [
-                RawFrame(snapshots: [.int(100), .int(101), .int(102), .int(103), .int(104)])
+            planes: [
+                RawPlane(snapshots: [.int(100), .int(101), .int(102), .int(103), .int(104)])
             ]
         )
         let design = try loader.load(raw)
@@ -552,7 +553,7 @@ struct DesignLoaderIntegrationTests {
         let o0 = try #require(design.snapshot(ObjectSnapshotID(100)))
         #expect(o0.objectID == ObjectID(10))
         #expect(o0.snapshotID == ObjectSnapshotID(100))
-        #expect(o0.structure == .unstructured)
+        #expect(o0.topology == .unstructured)
         #expect(o0.parent == nil)
         #expect(Array(o0.children) == [ObjectID(14)])
 
@@ -560,7 +561,7 @@ struct DesignLoaderIntegrationTests {
         let o1 = try #require(design.snapshot(ObjectSnapshotID(101)))
         #expect(o1.objectID == ObjectID(11))
         #expect(o1.snapshotID == ObjectSnapshotID(101))
-        #expect(o1.structure == .node)
+        #expect(o1.topology == .node)
         #expect(o1.parent == nil)
         #expect(o1.children.isEmpty == true)
 
@@ -568,7 +569,7 @@ struct DesignLoaderIntegrationTests {
         let o2 = try #require(design.snapshot(ObjectSnapshotID(102)))
         #expect(o2.objectID == ObjectID(12))
         #expect(o2.snapshotID == ObjectSnapshotID(102))
-        #expect(o2.structure == .node)
+        #expect(o2.topology == .node)
         #expect(o2.parent == nil)
         #expect(o2.children.isEmpty == true)
 
@@ -576,7 +577,7 @@ struct DesignLoaderIntegrationTests {
         let o3 = try #require(design.snapshot(ObjectSnapshotID(103)))
         #expect(o3.objectID == ObjectID(13))
         #expect(o3.snapshotID == ObjectSnapshotID(103))
-        #expect(o3.structure == .edge(ObjectID(11), ObjectID(12)))
+        #expect(o3.topology == .edge(ObjectID(11), ObjectID(12)))
         #expect(o3.parent == nil)
         #expect(o3.children.isEmpty == true)
 
@@ -584,7 +585,7 @@ struct DesignLoaderIntegrationTests {
         let o4 = try #require(design.snapshot(ObjectSnapshotID(104)))
         #expect(o4.objectID == ObjectID(14))
         #expect(o4.snapshotID == ObjectSnapshotID(104))
-        #expect(o4.structure == .unstructured)
+        #expect(o4.topology == .unstructured)
         #expect(o4.parent == ObjectID(10))
         #expect(o4.children.isEmpty == true)
     }
@@ -593,17 +594,17 @@ struct DesignLoaderIntegrationTests {
     func loadOrphanedSnapshots() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11), structure: RawStructure("node")),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11), topology: RawTopology("node")),
             ],
-            frames: [ /* MUST be empty for this test */ ]
+            planes: [ /* MUST be empty for this test */ ]
         )
         let loader = DesignLoader(metamodel: TestMetamodel, options: .collectOrphans)
         let design = try loader.load(raw)
         
         #expect(design.planes.count == 1)
-        let frame = try #require(design.planes.first)
-        #expect(design.currentPlaneID == frame.id)
+        let plane = try #require(design.planes.first)
+        #expect(design.currentPlaneID == plane.id)
         
         let o0 = try #require(design.snapshot(ObjectSnapshotID(100)))
         #expect(o0.objectID == ObjectID(10))
@@ -619,10 +620,10 @@ struct DesignLoaderIntegrationTests {
     func identityManagerUsesLoadedIDs() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
             ],
-            frames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100)])
+            planes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100)])
             ]
         )
         let design = try loader.load(raw)
@@ -643,11 +644,11 @@ struct DesignLoaderIntegrationTests {
     func loadSystemRefsAndListsUndoRedo() async throws {
         let raw = RawDesign(
             snapshots: [],
-            frames: [
-                RawFrame(id: .int(100), snapshots: []), // current frame
-                RawFrame(id: .int(101), snapshots: []), // undo 1
-                RawFrame(id: .int(102), snapshots: []), // undo 2
-                RawFrame(id: .int(103), snapshots: []), // redo 1
+            planes: [
+                RawPlane(id: .int(100), snapshots: []), // current frame
+                RawPlane(id: .int(101), snapshots: []), // undo 1
+                RawPlane(id: .int(102), snapshots: []), // undo 2
+                RawPlane(id: .int(103), snapshots: []), // redo 1
             ],
             systemReferences: [
                 RawNamedReference("current_frame", type: "frame", id: .int(100))
@@ -669,8 +670,8 @@ struct DesignLoaderIntegrationTests {
         // Valid: no current frame and no history lists
         let raw = RawDesign(
             snapshots: [],
-            frames: [
-                RawFrame(id: .int(100), snapshots: []),
+            planes: [
+                RawPlane(id: .int(100), snapshots: []),
             ]
         )
         let design = try loader.load(raw)
@@ -684,9 +685,9 @@ struct DesignLoaderIntegrationTests {
     func loadUserReferenceNamedFrame() async throws {
         let raw = RawDesign(
             snapshots: [],
-            frames: [
-                RawFrame(id: .int(100), snapshots: []),
-                RawFrame(id: .int(101), snapshots: []),
+            planes: [
+                RawPlane(id: .int(100), snapshots: []),
+                RawPlane(id: .int(101), snapshots: []),
             ],
             userReferences: [
                 RawNamedReference("my_special_frame", type: "frame", id: .int(101))
@@ -713,8 +714,8 @@ struct DesignLoaderIntegrationTests {
     func loadSnapshotsWithoutFrames() async throws {
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), id: .int(11)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestNode", snapshotID: .int(101), objectID: .int(11)),
             ]
         )
         let design = try loader.load(raw)
@@ -731,11 +732,11 @@ struct DesignLoaderIntegrationTests {
         // Snapshot 10 is parent of 20, and 20 is parent of 10 - circular!
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10), parent: .int(20)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), id: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10), parent: .int(20)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
             ],
-            frames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200)])
+            planes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)])
             ]
         )
 
@@ -749,10 +750,10 @@ struct DesignLoaderIntegrationTests {
         // Snapshot 10 is its own parent
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10), parent: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10), parent: .int(10)),
             ],
-            frames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100)])
+            planes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100)])
             ]
         )
 
@@ -766,11 +767,11 @@ struct DesignLoaderIntegrationTests {
         // Plane contains two snapshots of the same object (ID 10)
         let raw = RawDesign(
             snapshots: [
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), id: .int(10)), // same object ID!
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "TestPlain", snapshotID: .int(200), objectID: .int(10)), // same object ID!
             ],
-            frames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200)])
+            planes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)])
             ]
         )
 
@@ -784,9 +785,9 @@ struct DesignLoaderIntegrationTests {
         // Invalid: has undo list but no current plane
         let raw = RawDesign(
             snapshots: [],
-            frames: [
-                RawFrame(id: .int(100), snapshots: []),
-                RawFrame(id: .int(101), snapshots: []),
+            planes: [
+                RawPlane(id: .int(100), snapshots: []),
+                RawPlane(id: .int(101), snapshots: []),
             ],
             systemLists: [
                 RawNamedList("undo", itemType: "frame", ids: [.int(101)]),
