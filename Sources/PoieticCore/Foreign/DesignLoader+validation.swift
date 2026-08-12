@@ -22,7 +22,7 @@ extension DesignLoader {
         throws (DesignLoaderError) -> ValidationResolution
     {
         // 1. Validate duplicate IDs.
-        var seen: Set<ForeignEntityID> = Set()
+        var seen: Set<RawEntityID> = Set()
         
         for (index, snapshot) in rawDesign.snapshots.enumerated() {
             guard let id = snapshot.snapshotID else { continue }

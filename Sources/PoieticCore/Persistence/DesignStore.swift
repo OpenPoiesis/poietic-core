@@ -5,13 +5,6 @@
 //  Created by Stefan Urbanek on 20/10/2023.
 //
 
-// Versions:
-// 0.3.1:
-//   - Changed metamodel name to lowercase `default`
-//   - Order of snapshots is preserved
-// 0.4.0:
-//   - Changed to use RawDesign
-
 import Foundation
 
 /// A makeshift persistent store.
@@ -25,10 +18,11 @@ import Foundation
 /// adapt for potential version changes of the file being read and for
 /// better error reporting.
 /// 
-/// - Note: This is a solution before we get a proper store design.
+/// - Note: This is a thin ``JSONDesignReader``/``JSONDesignWriter`` for separation.
+///
 ///
 public class DesignStore {
-    public let data: Data?
+    let data: Data?
     public let url: URL?
 
     /// Create a new makeshift store from data containing a JSON structure.
@@ -61,33 +55,18 @@ public class DesignStore {
                 throw DesignStoreError.cannotOpenStore(url)
             }
         }
-        
-        do {
-            design = try load(currentVersion: data, metamodel: metamodel)
-        }
-        catch .unsupportedFormatVersion(let versionString) {
-            if let version = SemanticVersion(versionString) {
-                switch version {
-                default:
-                    throw .unsupportedFormatVersion(versionString)
-                }
-            }
-            else {
-                throw .unsupportedFormatVersion(versionString)
-            }
-        }
+       
+        design = try load(data: data, metamodel: metamodel)
+
         return design
     }
     
-    public func load(currentVersion data: Data, metamodel: Metamodel = Metamodel()) throws (DesignStoreError) -> Design {
+    public func load(data: Data, metamodel: Metamodel = Metamodel()) throws (DesignStoreError) -> Design {
         let reader = JSONDesignReader()
         var rawDesign: RawDesign
         var design: Design
         do {
             rawDesign = try reader.read(data: data)
-        }
-        catch RawDesignReaderError.unknownFormatVersion(let version) {
-            throw .unsupportedFormatVersion(version)
         }
         catch {
             throw .readingError(error)
@@ -114,24 +93,15 @@ public class DesignStore {
 
         let extractor = DesignExtractor()
         let rawDesign = extractor.extract(design)
-        let encoder = JSONEncoder()
-        encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
-
-        let data: Data
+        let writer = JSONDesignWriter()
 
         do {
-            data = try encoder.encode(rawDesign)
+            try writer.write(rawDesign, toURL: url)
         }
         catch {
-            // Not user's fault, it is ours.
-            fatalError("Unable to encode design for persistent store. Underlying error: \(error)")
-        }
-
-        do {
-            try data.write(to: url)
-        }
-        catch {
-            throw .unableToWrite(url)
+            switch error {
+            case .unableToWrite(let url): throw .unableToWrite(url)
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ extension DesignLoader { // Reservation of identities
         }
 
         // Reservation Phase 2: Create those IDs we do not have
-        let rawPlaneIDs: [ForeignEntityID?]
+        let rawPlaneIDs: [RawEntityID?]
         if options == .collectOrphans && resolution.rawPlanes.isEmpty {
             rawPlaneIDs = [nil] // Request one new ID for the orphan's plane
         }
@@ -177,7 +177,7 @@ extension DesignLoader { // Reservation of identities
     /// The reserved ID is stored in the context ID map (``LoadingContext/rawIDMap``)
     ///
     internal func reserveAvailable(
-        ids foreignIDs: some Collection<ForeignEntityID>,
+        ids foreignIDs: some Collection<RawEntityID>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
@@ -193,7 +193,7 @@ extension DesignLoader { // Reservation of identities
     }
 
     internal func reserveAvailableObjectIDs(
-        ids foreignIDs: some Collection<ForeignEntityID>,
+        ids foreignIDs: some Collection<RawEntityID>,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     {
@@ -217,7 +217,7 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     internal func reserveRequired(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
@@ -253,7 +253,7 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     internal func reserveRequiredObjectIDs(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     throws (DesignLoaderError.IndexedItemError)
@@ -290,7 +290,7 @@ extension DesignLoader { // Reservation of identities
     ///
     @discardableResult
     internal func finaliseReservation(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager) -> [DesignEntityID]

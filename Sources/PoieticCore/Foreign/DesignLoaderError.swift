@@ -75,12 +75,12 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     
     public enum ItemError: Error, Equatable, Sendable, CustomStringConvertible {
         case unknownEntityType(String)
-        case unknownID(ForeignEntityID)
+        case unknownID(RawEntityID)
         
         // Identity
         /// Unable to reserve requested foreign ID as given type.
-        case reservationConflict(DesignEntityType, ForeignEntityID)
-        case duplicateForeignID(ForeignEntityID)
+        case reservationConflict(DesignEntityType, RawEntityID)
+        case duplicateForeignID(RawEntityID)
         
         // Snapshot-specific
         case missingObjectType
@@ -89,7 +89,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         case structuralTypeMismatch(StructuralType)
         
         // Plane-specific
-        case unknownSnapshotID(ForeignEntityID)
+        case unknownSnapshotID(RawEntityID)
         case duplicateObject(Int) // Index of object within plane/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
 
@@ -163,7 +163,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     public enum DesignError: Error, Equatable, Sendable, CustomStringConvertible {
         case missingCurrentPlane
         case namedReferenceTypeMismatch(String)
-        case unknownPlaneID(ForeignEntityID)
+        case unknownPlaneID(RawEntityID)
         
         public var description: String {
             switch self {

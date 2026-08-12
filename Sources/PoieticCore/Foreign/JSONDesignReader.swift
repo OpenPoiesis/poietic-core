@@ -244,7 +244,7 @@ extension RawDesignReaderError: DesignIssueConvertible {
 /// The top-level structure of the design is a dictionary with the following keys:
 ///
 /// - `format_version` _(recommended, string)_: Version of the JSON encoding format. Currently
-///    `"0.4.0"`.
+///    `"0.2.0"`.
 ///    See ``JSONDesignReader/CurrentFormatVersion``.
 /// - `metamodel`: Name of the metamodel the design contents conforms to. See ``Metamodel``.
 ///     If not present, the default metamodel by the tool/application at hand is assumed. It is
@@ -314,7 +314,7 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///
 public final class JSONDesignReader {
     // NOTE: Update in the JSONDesignReader class documentation
-    public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
+    public static let CurrentFormatVersion = SemanticVersion(0, 2, 0)
     
     // TODO: let forceFormatVersion: SemanticVersion
     public let variantCoding: Variant.CodingType
@@ -355,25 +355,21 @@ public final class JSONDesignReader {
     /// in the error.
     ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
+        // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error
         let decoder = JSONDecoder()
         decoder.userInfo[Variant.CodingTypeKey] = self.variantCoding
         
-        let rawDesign: RawDesign
-        do {
-            rawDesign = try decoder.decode(RawDesign.self, from: data)
+        if let raw = try? decoder.decode(RawDesignV0_2.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch let error as DecodingError {
-            throw RawDesignReaderError(error)
+        if let raw = try? decoder.decode(RawDesignV0_1.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch RawDesignReaderError.unknownFormatVersion(let version) {
-            rawDesign = try read(data: data, version: version)
+        if let raw = try? decoder.decode(_MakeshiftPersistentDesign.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch {
-            // TODO: What other errors can happen here? Custom decoding errors?
-            fatalError("Unhandled reader error \(type(of:error)): \(error)")
-        }
-        
-        return rawDesign
+        let ctx = RawDesignReaderError.Context(path: [], underlyingError: nil)
+        throw RawDesignReaderError.dataCorrupted(ctx)
     }
 
     /// Read a raw design from JSON data using an adapter for a non-current version.

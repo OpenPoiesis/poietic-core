@@ -43,7 +43,7 @@ extension DesignLoader {
         
         /// Mapping between raw model references and their actual identities.
         ///
-        var rawIDMap: [ForeignEntityID:DesignEntityID] = [:]
+        var rawIDMap: [RawEntityID:DesignEntityID] = [:]
     }
     
     /// Gathered and reserved identities that will be used through the loading process.
@@ -55,7 +55,7 @@ extension DesignLoader {
         let reserved: [DesignEntityID]
         /// Mapping between raw model references and their actual identities.
         ///
-        let rawIDMap: [ForeignEntityID:DesignEntityID]
+        let rawIDMap: [RawEntityID:DesignEntityID]
         /// Reserved identities for raw planes.
         ///
         /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
@@ -81,7 +81,7 @@ extension DesignLoader {
         let snapshotIndex: [ObjectSnapshotID:Int]
 
         internal init(reserved: [DesignEntityID],
-                      rawIDMap: [ForeignEntityID : DesignEntityID],
+                      rawIDMap: [RawEntityID : DesignEntityID],
                       planeIDs: [PlaneID],
                       snapshotIDs: [ObjectSnapshotID],
                       objectIDs: [ObjectID],
@@ -95,7 +95,7 @@ extension DesignLoader {
             self.snapshotIndex = snapshotIndex
         }
 
-        subscript(foreignID: ForeignEntityID) -> DesignEntityID? {
+        subscript(foreignID: RawEntityID) -> DesignEntityID? {
             return rawIDMap[foreignID]
         }
     }

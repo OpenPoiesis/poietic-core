@@ -5,16 +5,12 @@
 //  Created by Stefan Urbanek on 01/05/2025.
 //
 
-enum ForeignDesignCompatibility {
-    case incompatible
-    case needsUpgrade
-    case compatible
-}
-
-enum RawLoadingResult {
-    case ok(Design)
-    case error(Error)
-    case needsUpgrade(RawDesign)
+protocol RawDesignConvertible {
+    /// Convert this version-specific representation to a raw design.
+    func asRawDesign() -> RawDesign
+    
+    /// Create a version-specific representation from a raw design.
+    init(rawDesign: RawDesign)
 }
 
 /// Object ID retrieved from a foreign interface.
@@ -22,7 +18,7 @@ enum RawLoadingResult {
 /// Raw object ID is a foreign representation of Object ID that can be in one of three forms:
 /// as an int, as a string or an explicit ``ObjectID``.
 ///
-public enum ForeignEntityID:
+public enum RawEntityID:
     Hashable,
     Codable,
     Sendable,
@@ -90,7 +86,7 @@ public enum ForeignEntityID:
 }
 
 extension DesignEntityID {
-    init?(_ raw: ForeignEntityID) {
+    init?(_ raw: RawEntityID) {
         switch raw {
         case let .id(value):
             self = value
@@ -102,45 +98,13 @@ extension DesignEntityID {
     }
 }
 
-public struct RawNamedReference: Equatable, Codable {
-    public let name: String
-    /// Known types: `plane`, `object`
-    public let type: String
-    public let id: ForeignEntityID
-
-    public init(_ name: String, type: String, id: ForeignEntityID) {
-        self.name = name
-        self.type = type
-        self.id = id
-    }
-}
-
-public struct RawNamedList: Equatable, Codable {
-    public let name: String
-    /// Known types: `plane`
-    public let itemType: String
-    public let ids: [ForeignEntityID]
-
-    enum CodingKeys: String, CodingKey {
-        case name
-        case itemType = "item_type"
-        case ids
-    }
-
-    public init(_ name: String, itemType: String, ids: [ForeignEntityID]) {
-        self.name = name
-        self.itemType = itemType
-        self.ids = ids
-    }
-}
-
 /// Raw representation of a design.
 ///
 /// Raw design representation contains all entities from which a design can be constructed.
 /// Raw design does not have to conform to metamodel. The structural integrity is not guaranteed
 /// neither checked.
 ///
-public class RawDesign: Codable {
+public class RawDesign {
     /// Name of the metamodel the raw design represents.
     ///
     /// When loading, the metamodel of the raw design must match metamodel expected by the
@@ -172,7 +136,7 @@ public class RawDesign: Codable {
 
     /// List of planes.
     ///
-    public var frames: [RawFrame] = []
+    public var planes: [RawPlane] = []
 
     /// References to metamodel entities created by an user, typically through an application.
     ///
@@ -193,7 +157,7 @@ public class RawDesign: Codable {
     ///
     /// | Name | Type | Description |
     /// | ---- | ---- | ----------- |
-    /// | `current_frame` |  `plane` | ID of current plane (see ``Design/currentPlaneID``) |
+    /// | `current_plane` |  `plane` | ID of current plane (see ``Design/currentPlaneID``) |
     /// | `application_settings` | `plane` | ID of plane containing application settings. A non-versioned plane. |
     public var systemReferences: [RawNamedReference] = []
 
@@ -206,18 +170,11 @@ public class RawDesign: Codable {
     ///
     public var systemLists: [RawNamedList] = []
     
-    /// Dictionary to capture properties of older versions.
-    ///
-    /// Known properties:
-    ///
-    /// - `collections: [String]`
-    public var _compatibility: [String:Any] = [:]
-    
     /// Create a new raw design.
     public init(metamodelName: String? = nil,
                   metamodelVersion: SemanticVersion? = nil,
                   snapshots: [RawSnapshot] = [],
-                  frames: [RawFrame] = [],
+                  planes: [RawPlane] = [],
                   userReferences: [RawNamedReference] = [],
                   userLists: [RawNamedList] = [],
                   systemReferences: [RawNamedReference] = [],
@@ -225,140 +182,28 @@ public class RawDesign: Codable {
         self.metamodelName = metamodelName
         self.metamodelVersion = metamodelVersion
         self.snapshots = snapshots
-        self.frames = frames
+        self.planes = planes
         self.userReferences = userReferences
         self.userLists = userLists
         self.systemReferences = systemReferences
         self.systemLists = systemLists
     }
     
-    enum CodingKeys: String, CodingKey {
-        case formatVersion = "format_version"
-
-        case metamodelName = "metamodel"
-        case metamodelVersion = "metamodel_version"
-        case snapshots
-        case frames
-        case userReferences = "user_references"
-        case systemReferences = "system_references"
-        case userLists = "user_lists"
-        case systemLists = "system_lists"
-        
-        // TODO: Remove these. Used during prototyping.
-        case _makeshiftStoreFormatVersion = "store_format_version"
-        case _collections = "collections"
-        case _objects = "objects"
-    }
-
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: Self.CodingKeys.self)
-        try container.encode(JSONDesignReader.CurrentFormatVersion.description, forKey: .formatVersion)
-        try container.encodeIfPresent(metamodelName, forKey: .metamodelName)
-        try container.encodeIfPresent(metamodelVersion?.description, forKey: .metamodelVersion)
-        if !snapshots.isEmpty {
-            try container.encode(snapshots, forKey: .snapshots)
-        }
-        if !frames.isEmpty {
-            try container.encode(frames, forKey: .frames)
-        }
-        if !userReferences.isEmpty {
-            try container.encode(userReferences, forKey: .userReferences)
-        }
-        if !systemReferences.isEmpty {
-            try container.encode(systemReferences, forKey: .systemReferences)
-        }
-        if !userLists.isEmpty {
-            try container.encode(userLists, forKey: .userLists)
-        }
-        if !systemLists.isEmpty {
-            try container.encode(systemLists, forKey: .systemLists)
-        }
+    var currentPlaneID: RawEntityID? {
+        return systemReferences.first { $0.name == "current_plane" }.map { $0.id }
     }
     
-    public required init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
-        let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
-        
-        if let versionString {
-            guard let version = SemanticVersion(versionString) else {
-                throw RawDesignReaderError.unknownFormatVersion(versionString)
-            }
-            guard version == SemanticVersion(0,1,0) else {
-                // TODO: Remove backward compatibility with makeshift (not public)
-                throw RawDesignReaderError.unknownFormatVersion(versionString)
-            }
-        }
-        if let _ = try container.decodeIfPresent(String.self, forKey: ._makeshiftStoreFormatVersion) {
-            throw RawDesignReaderError.unknownFormatVersion("makeshift_store")
-        }
-        
-        self.metamodelName = try container.decodeIfPresent(String.self, forKey: .metamodelName)
-        let metamodelVersionString = try container.decodeIfPresent(String.self, forKey: .metamodelVersion)
-        if let metamodelVersionString, let version = SemanticVersion(metamodelVersionString) {
-            self.metamodelVersion = version
-        }
-        if let snapshots = try container.decodeIfPresent([RawSnapshot].self, forKey: .snapshots) {
-            self.snapshots = snapshots
-        }
-        else if let snapshots = try container.decodeIfPresent([RawSnapshot].self, forKey: ._objects) {
-            self.snapshots = snapshots
-        }
-        else {
-            self.snapshots = []
-        }
-        if let frames = try container.decodeIfPresent([RawFrame].self, forKey: .frames) {
-            self.frames = frames
-        }
-        else {
-            self.frames = []
-        }
-        if let refs = try container.decodeIfPresent([RawNamedReference].self, forKey: .userReferences) {
-            self.userReferences = refs
-        }
-        else {
-            self.userReferences = []
-        }
-        if let refs = try container.decodeIfPresent([RawNamedReference].self, forKey: .systemReferences) {
-            self.systemReferences = refs
-        }
-        else {
-            self.systemReferences = []
-        }
-        if let lists = try container.decodeIfPresent([RawNamedList].self, forKey: .userLists) {
-            self.userLists = lists
-        }
-        else {
-            self.userLists = []
-        }
-        if let lists = try container.decodeIfPresent([RawNamedList].self, forKey: .systemLists) {
-            self.systemLists = lists
-        }
-        else {
-            self.systemLists = []
-        }
-
-        // Old versions/Compatibility
-        // --------------------------------
-        if let collections = try container.decodeIfPresent([String].self, forKey: ._collections) {
-            self._compatibility["collections"] = collections
-        }
-    }
-    
-    var currentFrameID: ForeignEntityID? {
-        return systemReferences.first { $0.name == "current_frame" }.map { $0.id }
-    }
-    
-    func first(snapshotWithID id: ForeignEntityID) -> RawSnapshot? {
+    func first(snapshotWithID id: RawEntityID) -> RawSnapshot? {
         return snapshots.first { $0.snapshotID == id }
     }
 }
 
-public struct RawStructure: Equatable {
+public struct RawTopology: Equatable {
     public var type: String? = nil
-    public var references: [ForeignEntityID] = []
+    public var references: [RawEntityID] = []
 
-    public init(_ structure: Structure) {
-        switch structure {
+    public init(_ topology: Structure) {
+        switch topology {
         case .unstructured: self.type = "unstructured"
         case .node: self.type = "node"
         case .edge(let origin, let target):
@@ -369,13 +214,13 @@ public struct RawStructure: Equatable {
             self.references = [.id(owner)] + items.map { .id($0) }
         }
     }
-    public init(_ type: String? = nil, references: [ForeignEntityID] = []) {
+    public init(_ type: String? = nil, references: [RawEntityID] = []) {
         self.type = type
         self.references = references
     }
     
     /// Create a raw structure representing an edge.
-    public init(origin: ForeignEntityID, target: ForeignEntityID) {
+    public init(origin: RawEntityID, target: RawEntityID) {
         self.type = "edge"
         self.references = [origin, target]
     }
@@ -387,7 +232,7 @@ public struct RawStructure: Equatable {
 /// has to have referential integrity with other snapshots within any other raw structure, unless
 /// needed to be loaded.
 ///
-public class RawSnapshot: Codable, CustomDebugStringConvertible {
+public class RawSnapshot: CustomDebugStringConvertible {
     
     /// Name of object type.
     ///
@@ -399,7 +244,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     ///
     /// If not provided, it will be typically generated.
     ///
-    public var snapshotID: ForeignEntityID?
+    public var snapshotID: RawEntityID?
 
     /// Raw representation of snapshot ID.
     ///
@@ -409,18 +254,18 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     /// loader, if the ID is a string and if the attributes do not contain `name` key,
     /// then the string ID value will be also used as the `name` attribute.
     ///
-    public var objectID: ForeignEntityID?
+    public var objectID: RawEntityID?
     
-    /// Raw structure representation.
+    /// Raw topology representation.
     ///
-    /// - Note: When raw snapshot is encoded, then the `edge` structure type will result in two
-    ///   additional keys `origin` and `target` that are part of the raw structure references.
+    /// - Note: When raw snapshot is encoded, then the `edge` topology type will result in two
+    ///   additional keys `origin` and `target` that are part of the raw topology references.
     ///
-    public var structure: RawStructure
+    public var topology: RawTopology
     // Must be ObjectID convertible
 
     /// Parent object ID.
-    public var parent: ForeignEntityID?
+    public var parent: RawEntityID?
 
     /// Dictionary of object attributes.
     ///
@@ -428,33 +273,18 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     ///
     public var attributes: [String:Variant]
     
-    enum CodingKeys: String, CodingKey {
-        case typeName = "type"
-        case structure
-        case objectID = "object_id"
-        case _objectID_v0_1_0 = "id"
-        case snapshotID = "snapshot_id"
-        case parent
-        case attributes
-        // Structure keys
-        case references
-        case origin
-        case target
-        // case owner
-    }
-
     /// Create a new raw snapshot.
     ///
     public init(typeName: String? = nil,
-                  snapshotID: ForeignEntityID? = nil,
-                  id: ForeignEntityID? = nil,
-                  structure: RawStructure = RawStructure(nil, references: []),
-                  parent: ForeignEntityID? = nil,
+                  snapshotID: RawEntityID? = nil,
+                  objectID: RawEntityID? = nil,
+                  topology: RawTopology = RawTopology(nil, references: []),
+                  parent: RawEntityID? = nil,
                   attributes: [String:Variant] = [:]) {
         self.typeName = typeName
         self.snapshotID = snapshotID
-        self.objectID = id
-        self.structure = structure
+        self.objectID = objectID
+        self.topology = topology
         self.parent = parent
         self.attributes = attributes
     }
@@ -464,7 +294,7 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         let snapshotID = self.snapshotID ?? .string("(no snapshot ID)")
         let objectID = self.snapshotID ?? .string("(no object ID)")
         let parent = self.snapshotID ?? .string("(no parent ID)")
-        return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), structure: \(structure), parent: \(parent), attributes: \(attributes)"
+        return "RawSnapshot(typeName: \(typeName), snapshotID: \(snapshotID), objectID: \(objectID), topology: \(topology), parent: \(parent), attributes: \(attributes)"
     }
     
     /// Create a raw snapshot from a design object.
@@ -477,74 +307,14 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
         self.attributes = snapshot.attributes
         switch snapshot.structure {
         case .unstructured:
-            self.structure = RawStructure("unstructured")
+            self.topology = RawTopology("unstructured")
         case .node:
-            self.structure = RawStructure("node")
+            self.topology = RawTopology("node")
         case let .edge(origin, target):
-            self.structure = RawStructure("edge", references: [.id(origin), .id(target)])
+            self.topology = RawTopology("edge", references: [.id(origin), .id(target)])
         case let .orderedSet(owner, ids):
-            let allRefs: [ForeignEntityID] = [.id(owner)] + ids.map { .id($0) }
-            self.structure = RawStructure("edge", references: allRefs)
-        }
-    }
-
-    public required init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: Self.CodingKeys.self)
-        
-        self.typeName = try container.decodeIfPresent(String.self, forKey: .typeName)
-        self.objectID = try container.decodeIfPresent(ForeignEntityID.self, forKey: .objectID)
-                        ?? container.decodeIfPresent(ForeignEntityID.self, forKey: ._objectID_v0_1_0)
-        self.snapshotID = try container.decodeIfPresent(ForeignEntityID.self, forKey: .snapshotID)
-        self.parent = try container.decodeIfPresent(ForeignEntityID.self, forKey: .parent)
-        let structureType = try container.decodeIfPresent(String.self, forKey: .structure)
-        
-        switch structureType {
-        case .none:
-            // Compatibility/legacy
-            // Otherwise: Do not use origin/target without structure key.
-            if let origin = try container.decodeIfPresent(ForeignEntityID.self, forKey: .origin),
-               let target = try container.decodeIfPresent(ForeignEntityID.self, forKey: .target) {
-                self.structure = RawStructure("edge", references: [origin, target])
-            }
-            else {
-                self.structure = RawStructure(nil)
-            }
-        case "unstructured": self.structure = RawStructure(structureType)
-        case "node": self.structure = RawStructure(structureType)
-        case "edge":
-            let origin = try container.decode(ForeignEntityID.self, forKey: .origin)
-            let target = try container.decode(ForeignEntityID.self, forKey: .target)
-            self.structure = RawStructure(structureType, references: [origin, target])
-        default:
-            let refs = try container.decodeIfPresent([ForeignEntityID].self, forKey: .references)
-            self.structure = RawStructure(structureType, references: refs ?? [])
-        }
-        
-        if let attributes = try container.decodeIfPresent([String:Variant].self, forKey: .attributes) {
-            self.attributes = attributes
-        }
-        else {
-            self.attributes = [:]
-        }
-    }
-    
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: Self.CodingKeys.self)
-        try container.encodeIfPresent(typeName, forKey: .typeName)
-        try container.encodeIfPresent(objectID, forKey: .objectID)
-        try container.encodeIfPresent(snapshotID, forKey: .snapshotID)
-        try container.encodeIfPresent(parent, forKey: .parent)
-        try container.encodeIfPresent(attributes, forKey: .attributes)
-        try container.encodeIfPresent(structure.type, forKey: .structure)
-        switch structure.type {
-        case "edge":
-            guard structure.references.count == 2 else {
-                break
-            }
-            try container.encodeIfPresent(structure.references[0], forKey: .origin)
-            try container.encodeIfPresent(structure.references[1], forKey: .target)
-        default:
-            break
+            let allRefs: [RawEntityID] = [.id(owner)] + ids.map { .id($0) }
+            self.topology = RawTopology("edge", references: allRefs)
         }
     }
 
@@ -553,13 +323,38 @@ public class RawSnapshot: Codable, CustomDebugStringConvertible {
     }
 }
 
-public class RawFrame: Codable {
-    public var id: ForeignEntityID? = nil
-    // TODO: Rename to snapshots
-    public var snapshots: [ForeignEntityID] = []
-    public init(id: ForeignEntityID? = nil, snapshots: [ForeignEntityID] = []) {
+public class RawPlane {
+    public var id: RawEntityID? = nil
+    public var snapshots: [RawEntityID] = []
+    public init(id: RawEntityID? = nil, snapshots: [RawEntityID] = []) {
         self.id = id
         self.snapshots = snapshots
+    }
+}
+
+public struct RawNamedReference: Equatable {
+    public let name: String
+    /// Known types: `plane`, `object`
+    public let type: String
+    public let id: RawEntityID
+
+    public init(_ name: String, type: String, id: RawEntityID) {
+        self.name = name
+        self.type = type
+        self.id = id
+    }
+}
+
+public struct RawNamedList: Equatable {
+    public let name: String
+    /// Known types: `plane`
+    public let itemType: String
+    public let ids: [RawEntityID]
+
+    public init(_ name: String, itemType: String, ids: [RawEntityID]) {
+        self.name = name
+        self.itemType = itemType
+        self.ids = ids
     }
 }
 
