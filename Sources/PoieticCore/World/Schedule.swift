@@ -46,7 +46,7 @@ public enum SimulationSchedule: ScheduleLabel {}
 /// ## Example
 ///
 /// ```swift
-/// let plane: DesignFrame // Assume we have this.
+/// let plane: DesignPlane // Assume we have this.
 /// let schedule = Schedule()
 ///
 /// schedule.add(ExpressionParserSystem.self)

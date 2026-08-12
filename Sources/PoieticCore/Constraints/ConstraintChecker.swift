@@ -13,7 +13,7 @@
 /// - ``validate(_:)``: Validates the plane and throws ``PlaneValidationError`` on first validation
 ///   issue detected.
 /// - ``diagnose(_:)``: Collects all the validation issues and returns them in
-///   ``FrameValidationResult``.
+///   ``PlaneValidationResult``.
 ///
 /// The primary information used for validation is the ``Metamodel``:
 ///
@@ -27,7 +27,7 @@ public struct ConstraintChecker {
     // IMPORTANT: Maintain validate(...) and diagnose(...) function pairs in sync.
     // =========
     
-    /// Metamodel associated with the constraint checker. Frames and objects
+    /// Metamodel associated with the constraint checker. Planes and objects
     /// will be validated using the constraints and object types defined
     /// in the metamodel.
     ///
@@ -141,19 +141,19 @@ public struct ConstraintChecker {
     /// The method collects all the errors. To only make sure that the plane is valid, see
     /// ``validate(_:)``, which throws on first error validation detected.
     ///
-    /// - Returns: ``FrameValidationResult`` with collected validation diagnostic information.
-    ///   Whether the plane is valid is indicated in the ``FrameValidationResult/isValid`` flag.
+    /// - Returns: ``PlaneValidationResult`` with collected validation diagnostic information.
+    ///   Whether the plane is valid is indicated in the ``PlaneValidationResult/isValid`` flag.
     ///
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
     ///   ``validate(edge:in:)``
     ///
-    public func diagnose(_ frame: some Plane) -> FrameValidationResult {
+    public func diagnose(_ plane: some Plane) -> PlaneValidationResult {
         // IMPORTANT: Keep in sync with validate(...) version of this method
         var objectErrors: [ObjectID: [ObjectTypeError]] = [:]
         var edgeViolations: [ObjectID: [EdgeRuleViolation]] = [:]
 
         // 1. Check types
-        for object in frame.snapshots {
+        for object in plane.snapshots {
             guard metamodel.hasType(object.type) else {
                 objectErrors[object.objectID, default: []].append(.unknownType(object.type.name))
                 continue // Nothing to validate, the object is not known to metamodel
@@ -163,9 +163,9 @@ public struct ConstraintChecker {
                 objectErrors[object.objectID, default: []] += errors
             }
             
-            if let edge = DesignObjectEdge(object, in: frame) {
+            if let edge = DesignObjectEdge(object, in: plane) {
                 do {
-                    try validate(edge: edge, in: frame)
+                    try validate(edge: edge, in: plane)
                 }
                 catch {
                     edgeViolations[object.objectID, default: []].append(error)
@@ -176,14 +176,14 @@ public struct ConstraintChecker {
         // 2. Check constraints
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
-            let violators = constraint.check(frame)
+            let violators = constraint.check(plane)
             if !violators.isEmpty {
                 violations.append(ConstraintViolation(constraint: constraint,
                                                       objects: violators))
             }
         }
 
-        return FrameValidationResult(
+        return PlaneValidationResult(
             violations: violations,
             objectErrors: objectErrors,
             edgeRuleViolations: edgeViolations
@@ -207,10 +207,10 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Design/accept(_:appendHistory:)``, ``validate(_:conformsTo:)-(_,ObjectType)``,
     ///   ``validate(edge:in:)``
     ///
-    public func validate(_ frame: some Plane) throws (PlaneValidationError) {
+    public func validate(_ plane: some Plane) throws (PlaneValidationError) {
         // IMPORTANT: Keep in sync with diagnose(...) version of this method
 
-        for object in frame.snapshots {
+        for object in plane.snapshots {
             guard metamodel.hasType(object.type) else {
                 throw .objectTypeError(object.objectID, .unknownType(object.type.name))
             }
@@ -221,9 +221,9 @@ public struct ConstraintChecker {
                 throw .objectTypeError(object.objectID, error)
             }
             
-            if let edge = DesignObjectEdge(object, in: frame) {
+            if let edge = DesignObjectEdge(object, in: plane) {
                 do {
-                    try validate(edge: edge, in: frame)
+                    try validate(edge: edge, in: plane)
                 }
                 catch {
                     throw .edgeRuleViolation(edge.id, error)
@@ -232,7 +232,7 @@ public struct ConstraintChecker {
         }
 
         for constraint in metamodel.constraints {
-            let violators = constraint.check(frame)
+            let violators = constraint.check(plane)
             guard violators.isEmpty else {
                 throw .constraintViolation(ConstraintViolation(constraint: constraint,
                                                                objects: violators))
@@ -256,23 +256,23 @@ public struct ConstraintChecker {
     /// - SeeAlso: ``Metamodel/edgeRules``, ``EdgeRule``
     /// - Throws: ``EdgeRuleViolation``
     
-    public func validate(edgeType: ObjectType, origin: ObjectID, target: ObjectID, in frame: some Plane) throws (EdgeRuleViolation) {
+    public func validate(edgeType: ObjectType, origin: ObjectID, target: ObjectID, in plane: some Plane) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
-        let originObject = frame[origin]!
-        let targetObject = frame[target]!
+        let originObject = plane[origin]!
+        let targetObject = plane[target]!
         
         let typeRules = metamodel.edgeRules.filter { edgeType === $0.type }
         if typeRules.count == 0 {
             throw .edgeNotAllowed
         }
         guard let matchingRule = typeRules.first(where: { rule in
-            rule.match(edgeType, origin: originObject, target: targetObject, in: frame)
+            rule.match(edgeType, origin: originObject, target: targetObject, in: plane)
         })
         else {
             throw .noRuleSatisfied
         }
 
-        let outgoingCount = frame.outgoing(origin).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(origin).count { $0.object.type === matchingRule.type }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
@@ -281,7 +281,7 @@ public struct ConstraintChecker {
             }
         }
         
-        let incomingCount = frame.incoming(target).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(target).count { $0.object.type === matchingRule.type }
         switch matchingRule.incoming {
         case .many: break
         case .one:
@@ -290,7 +290,7 @@ public struct ConstraintChecker {
             }
         }
     }
-    public func validate(edge: DesignObjectEdge, in frame: some Plane) throws (EdgeRuleViolation) {
+    public func validate(edge: DesignObjectEdge, in plane: some Plane) throws (EdgeRuleViolation) {
         // NOTE: Changes in this function should be synced with func canConnect(...)
 
         let typeRules = metamodel.edgeRules.filter { edge.object.type === $0.type }
@@ -298,12 +298,12 @@ public struct ConstraintChecker {
             throw .edgeNotAllowed
         }
         guard let matchingRule = typeRules.first(where: { rule in
-            rule.match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: frame)
+            rule.match(edge.object.type, origin: edge.originObject, target: edge.targetObject, in: plane)
         }) else {
             throw .noRuleSatisfied
         }
 
-        let outgoingCount = frame.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(edge.origin).count { $0.object.type === matchingRule.type }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
@@ -312,7 +312,7 @@ public struct ConstraintChecker {
             }
         }
         
-        let incomingCount = frame.incoming(edge.target).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(edge.target).count { $0.object.type === matchingRule.type }
         switch matchingRule.incoming {
         case .many: break
         case .one:
@@ -334,31 +334,31 @@ public struct ConstraintChecker {
     ///
     /// - SeeAlso: ``EdgeRule/match(_:origin:target:in:)``, ``validate(edge:in:)``
     ///
-    public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in frame: some Plane) -> Bool {
+    public func canConnect(type: ObjectType, from originID: ObjectID, to targetID: ObjectID, in plane: some Plane) -> Bool {
         // NOTE: Changes in this function should be synced with func validate(...)
         
         let typeRules = metamodel.edgeRules.filter { type === $0.type }
         guard typeRules.count > 0 else {
             return false
         }
-        guard let origin = frame[originID],
-              let target = frame[targetID] else {
+        guard let origin = plane[originID],
+              let target = plane[targetID] else {
             return false
         }
         guard let matchingRule = typeRules.first(where: { rule in
-            rule.match(type, origin: origin, target: target, in: frame)
+            rule.match(type, origin: origin, target: target, in: plane)
         }) else {
             return false
         }
 
-        let outgoingCount = frame.outgoing(originID).count { $0.object.type === matchingRule.type }
+        let outgoingCount = plane.outgoing(originID).count { $0.object.type === matchingRule.type }
         switch matchingRule.outgoing {
         case .many: break
         case .one:
             return outgoingCount == 0
         }
         
-        let incomingCount = frame.incoming(targetID).count { $0.object.type === matchingRule.type }
+        let incomingCount = plane.incoming(targetID).count { $0.object.type === matchingRule.type }
         switch matchingRule.incoming {
         case .many: break
         case .one:

@@ -86,7 +86,7 @@ public final class DesignPlane: Plane, Identifiable {
         return _lookup[id] != nil
     }
     
-    /// Filters the IDs and returns only those that are contained in the frame.
+    /// Filters the IDs and returns only those that are contained in the plane.
     public func contained(_ ids: some Collection<ObjectID>) -> [ObjectID] {
         ids.filter { _lookup[$0] != nil }
     }

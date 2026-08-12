@@ -54,7 +54,7 @@ public enum StructuralIntegrityError: Error {
 /// The changes that can be performed with the transient plane:
 ///
 /// - Mutate existing objects in the plane using
-///   ``TransientFrame/mutate(_:)``.
+///   ``TransientPlane/mutate(_:)``.
 /// - Add objects with ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
 ///    or ``TransientPlane/insert(_:)``.
 /// - Change parent/child hierarchy.

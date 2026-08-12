@@ -115,7 +115,7 @@ import Testing
         
         #expect(changedObject2["text"] == "after")
         
-        let originalObject = try #require(design.frame(original.id)![object.objectID])
+        let originalObject = try #require(design.plane(original.id)![object.objectID])
         #expect(originalObject["text"] == "before")
     }
     

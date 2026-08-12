@@ -185,7 +185,7 @@ public enum PlaneValidationError: Error {
 ///
 /// - SeeAlso: ``PlaneValidationError`` for an exception complement.
 ///
-public struct FrameValidationResult: Sendable {
+public struct PlaneValidationResult: Sendable {
     /// List of constraint violations.
     ///
     /// - SeeAlso: ``Metamodel/constraints``, ``Constraint``.

@@ -90,12 +90,12 @@ public final class Constraint: Sendable {
     /// Check the plane for the constraint and return a list of nodes that
     /// violate the constraint
     ///
-    public func check(_ frame: some Plane) -> [ObjectID] {
-        let matched = frame.snapshots.filter {
-            match.match($0, in: frame)
+    public func check(_ plane: some Plane) -> [ObjectID] {
+        let matched = plane.snapshots.filter {
+            match.match($0, in: plane)
         }
         // .map { $0.snapshot }
-        return requirement.check(frame: frame, objects: matched)
+        return requirement.check(plane: plane, objects: matched)
     }
 }
 
@@ -103,7 +103,7 @@ public final class Constraint: Sendable {
 ///
 public protocol ConstraintRequirement: Sendable {
     /// - Returns: List of IDs of objects that do not satisfy the requirement.
-    func check(frame: some Plane, objects: [ObjectSnapshot]) -> [ObjectID]
+    func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID]
 }
 
 /// Requirement that all matched objects satisfy a given predicate.
@@ -117,8 +117,8 @@ public final class AllSatisfy: ConstraintRequirement {
         self.predicate = predicate
     }
 
-    public func check(frame: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
-        objects.filter { !predicate.match($0, in: frame) }
+    public func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
+        objects.filter { !predicate.match($0, in: plane) }
             .map { $0.objectID }
     }
 }
@@ -137,7 +137,7 @@ public final class RejectAll: ConstraintRequirement {
     /// Returns all objects it is provided – meaning, that all of them are
     /// violating the constraint.
     ///
-    public func check(frame: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
         /// We reject whatever comes in
         return objects.map { $0.objectID }
     }
@@ -156,7 +156,7 @@ public final class AcceptAll: ConstraintRequirement {
     /// Returns an empty list, meaning that none of the objects are violating
     /// the constraint.
     ///
-    public func check(frame: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
         // We accept everything, therefore we do not return any violations.
         return []
     }
@@ -181,7 +181,7 @@ public final class UniqueProperty: ConstraintRequirement {
     /// value from each of the objects and returns a list of those objects
     /// that have duplicate values.
     /// 
-    public func check(frame: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
+    public func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID] {
         var seen: [Variant:[ObjectID]] = [:]
         
         for object in objects {

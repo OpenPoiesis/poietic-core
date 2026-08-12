@@ -696,7 +696,7 @@ public class DesignLoader {
 
         for (name, ref) in namedReferences.userReferences {
             if ref.type == .frame {
-                design.unsafeAssignName(name: name, frameID: ref.id)
+                design.unsafeAssignName(name: name, planeID: ref.id)
             }
         }
 

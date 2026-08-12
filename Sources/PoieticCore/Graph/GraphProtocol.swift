@@ -43,10 +43,10 @@ public struct DesignObjectEdge: EdgeProtocol {
     ///
     /// If the design object is not an edge, then the initialiser results in `nil`.
     ///
-    public init?(_ snapshot: ObjectSnapshot, in frame: some Plane) {
+    public init?(_ snapshot: ObjectSnapshot, in plane: some Plane) {
         guard case let .edge(originID, targetID) = snapshot.structure,
-                let origin = frame[originID],
-                let target = frame[targetID]
+                let origin = plane[originID],
+                let target = plane[targetID]
         else {
             return nil
         }

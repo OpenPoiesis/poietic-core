@@ -1,5 +1,5 @@
 //
-//  StableFrame+Graph.swift
+//  ObjectSnapshot+Graph.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 20/05/2025.

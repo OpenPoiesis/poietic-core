@@ -16,15 +16,13 @@
 /// Design is a container representing a model, idea or a document with their
 /// history of changes.
 ///
-/// Design comprises of objects, heir attributes and their relationships which
-/// which comprise an idea from a problem domain described by a ``Metamodel``.
+/// Design is a representation of an idea from a problem domain described by a ``Metamodel``.
+/// Design comprises of objects with attributes and with a topology – references between objects.
 /// The _Metamodel_ defines types of objects, constraints and other properties
 /// of the design, which are used to validate design's integrity.
 ///
-/// Different versions of design objects is organised in _frames_. Each plane
-/// represents a change or coupled group of changes either as a change in time
-/// or as an alternative. When organised as time-related changes, one can think
-/// of a frame of it as a "movie frame".
+/// Different versions of design objects is organised in _version planes_. Each version plane
+/// represents a change, which can be thought as a change in time or as an alternative version.
 ///
 /// Each design object, as a logical entity, has a unique identity within the whole design:
 /// ``ObjectProtocol/objectID``. The _objectID_ refers to an object including
@@ -75,7 +73,7 @@
 /// ``discard(_:)``. Discarded plane and its derived object will be removed from
 /// the design.
 ///
-/// ## Named Frames
+/// ## Named Planes
 ///
 /// Named planes are used to store design-wide, non-versioned content. For example, application
 /// state such as current view position. Named planes can not be included in the undo/redo history.
@@ -120,7 +118,7 @@ public class Design {
     
     var _objectSnapshots: RCTable<ObjectSnapshot>
 
-    /// Frames that have been accepted and are in fact validated with the metamodel.
+    /// Planes that have been accepted and are in fact validated with the metamodel.
     var _validatedPlanes: RCTable<DesignPlane>
     var _objects: RCTable<LogicalObject>
     var _transientPlanes: [PlaneID: TransientPlane]
@@ -233,7 +231,7 @@ public class Design {
         return _objectSnapshots.referenceCount(snapshotID)
     }
     
-    // MARK: - Frames
+    // MARK: - Planes
     
     /// List of all stable planes in the design.
     ///
@@ -246,9 +244,9 @@ public class Design {
     /// - Returns: A stable plane, if it is contained in the design and is stable (not transient),
     ///   otherwise `nil`.
     ///
-    public func frame(_ id: PlaneID) -> DesignPlane? {
-        guard let frame = _validatedPlanes[id] else { return nil }
-        return frame
+    public func plane(_ id: PlaneID) -> DesignPlane? {
+        guard let plane = _validatedPlanes[id] else { return nil }
+        return plane
     }
 
     /// Test whether the design contains a stable plane with given ID.
@@ -264,8 +262,8 @@ public class Design {
     /// - SeeAlso: ``accept(_:replacingName:)``
     ///
     public func plane(name: String) -> DesignPlane? {
-        guard let frame = _namedPlanes[name] else { return nil }
-        return frame
+        guard let plane = _namedPlanes[name] else { return nil }
+        return plane
     }
 
     /// Create a new plane or derive a plane from an existing plane.
@@ -316,13 +314,13 @@ public class Design {
 
     /// Discards the mutable plane that is associated with the design.
     ///
-    public func discard(_ frame: TransientPlane) {
-        precondition(isPending(frame))
+    public func discard(_ plane: TransientPlane) {
+        precondition(isPending(plane))
 
-        identityManager.freeReservation(frame.id)
-        identityManager.freeReservations(Array(frame._reservations))
-        _transientPlanes[frame.id] = nil
-        frame.discard()
+        identityManager.freeReservation(plane.id)
+        identityManager.freeReservations(Array(plane._reservations))
+        _transientPlanes[plane.id] = nil
+        plane.discard()
     }
     
     /// Return `true` if the transient plane is owned by the design and is in transient state.
@@ -345,7 +343,7 @@ public class Design {
     /// - Precondition: The plane with given ID must exist in the design.
     ///
     public func removePlane(_ id: PlaneID) {
-        guard let frame = _validatedPlanes[id] else {
+        guard let plane = _validatedPlanes[id] else {
             preconditionFailure("Unknown plane ID \(id)")
         }
         // Currently no one can retain a plane.
@@ -371,7 +369,7 @@ public class Design {
             _namedPlanes[key] = nil
         }
 
-        for snapshot in frame.snapshots {
+        for snapshot in plane.snapshots {
             _release(snapshot: snapshot.snapshotID)
         }
 
@@ -408,7 +406,7 @@ public class Design {
     /// integrity, then it is frozen: all owned objects in the plane are
     /// frozen.
     ///
-    /// A new `StableFrame` is created with all objects from the original
+    /// A new ``DesignPlane`` is created with all objects from the original
     /// plane. The new plane is added to the list of stable planes.
     ///
     /// If `appendHistory` is `true` then the plane is also added at the end
@@ -428,9 +426,9 @@ public class Design {
     ///   exist as a transient plane in the design.
     ///
     @discardableResult
-    public func accept(_ frame: TransientPlane, appendHistory: Bool = true)
+    public func accept(_ plane: TransientPlane, appendHistory: Bool = true)
     throws (PlaneValidationError) -> DesignPlane {
-        let validated = try validateAndInsert(frame)
+        let validated = try validateAndInsert(plane)
 
         if appendHistory {
             if let currentPlaneID {
@@ -471,10 +469,10 @@ public class Design {
     /// - SeeAlso: ``plane(name:)``
     ///
     @discardableResult
-    public func accept(_ frame: TransientPlane, replacingName name: String)
+    public func accept(_ plane: TransientPlane, replacingName name: String)
     throws (PlaneValidationError) -> DesignPlane {
         let old = _namedPlanes[name]
-        let stable = try validateAndInsert(frame)
+        let stable = try validateAndInsert(plane)
 
         if let old {
             removePlane(old.id)
@@ -487,36 +485,36 @@ public class Design {
     ///
     /// Used by the design loader when finalising loading.
     ///
-    internal func unsafeAssignName(name: String, frameID: PlaneID) {
-        _namedPlanes[name] = frame(frameID)
+    internal func unsafeAssignName(name: String, planeID: PlaneID) {
+        _namedPlanes[name] = plane(planeID)
     }
 
-    internal func validateAndInsert(_ frame: TransientPlane) throws (PlaneValidationError) -> DesignPlane {
-        precondition(frame.design === self)
-        precondition(frame.state == .transient)
-        precondition(!_validatedPlanes.contains(frame.id), "Duplicate plane ID \(frame.id)")
-        precondition(_transientPlanes[frame.id] != nil, "No transient plane with ID \(frame.id)")
+    internal func validateAndInsert(_ plane: TransientPlane) throws (PlaneValidationError) -> DesignPlane {
+        precondition(plane.design === self)
+        precondition(plane.state == .transient)
+        precondition(!_validatedPlanes.contains(plane.id), "Duplicate plane ID \(plane.id)")
+        precondition(_transientPlanes[plane.id] != nil, "No transient plane with ID \(plane.id)")
         
-        let snapshots: [ObjectSnapshot] = frame.snapshots
+        let snapshots: [ObjectSnapshot] = plane.snapshots
         do {
-            try StructuralValidator.validate(snapshots: snapshots, in: frame)
+            try StructuralValidator.validate(snapshots: snapshots, in: plane)
         }
         catch {
             throw .brokenStructuralIntegrity(error)
         }
         
-        let stableFrame = DesignPlane(design: self, id: frame.id, snapshots: snapshots)
+        let stablePlane = DesignPlane(design: self, id: plane.id, snapshots: snapshots)
 
         let checker = ConstraintChecker(metamodel)
-        try checker.validate(stableFrame)
+        try checker.validate(stablePlane)
 
-        _transientPlanes[frame.id] = nil
+        _transientPlanes[plane.id] = nil
 
-        unsafeInsert(stableFrame)
-        identityManager.use(reserved: frame.id)
-        identityManager.use(reserved: frame._reservations)
-        frame.accept()
-        return stableFrame
+        unsafeInsert(stablePlane)
+        identityManager.use(reserved: plane.id)
+        identityManager.use(reserved: plane._reservations)
+        plane.accept()
+        return stablePlane
     }
 
     /// Insert a plane without structural or snapshot reference validation.
@@ -536,12 +534,12 @@ public class Design {
     /// - Precondition: The plane ID must be reserved.
     /// - Precondition: The design must not contain a plane with given ID.
     ///
-    public func unsafeInsert(_ frame: DesignPlane) {
-        precondition(frame.design === self)
-        precondition(!_validatedPlanes.contains(frame.id), "Duplicate plane ID \(frame.id)")
-        precondition(_transientPlanes[frame.id] == nil)
+    public func unsafeInsert(_ plane: DesignPlane) {
+        precondition(plane.design === self)
+        precondition(!_validatedPlanes.contains(plane.id), "Duplicate plane ID \(plane.id)")
+        precondition(_transientPlanes[plane.id] == nil)
 
-        for snapshot in frame.snapshots {
+        for snapshot in plane.snapshots {
             if _objects.contains(snapshot.objectID) {
                 _objects.retain(snapshot.objectID)
             }
@@ -551,7 +549,7 @@ public class Design {
             _objectSnapshots.insertOrRetain(snapshot)
         }
 
-        _validatedPlanes.insert(frame)
+        _validatedPlanes.insert(plane)
     }
     
     /// Flag whether the design has any un-doable planes.
@@ -570,39 +568,39 @@ public class Design {
         return !redoList.isEmpty
     }
 
-    /// Change the current plane to `frameID` which is one of the previous
+    /// Change the current plane to `planeID` which is one of the previous
     /// planes in the undo history.
     ///
     /// It is up to the caller to verify whether the provided plane ID is part
     /// of undoable history.
     ///
     /// - Returns: `true` if there was anything to undo, `false` if there was nothing to undo.
-    /// - Precondition: `frameID` must exist in the undo history.
+    /// - Precondition: `planeID` must exist in the undo history.
     /// - SeeAlso: ``redo(to:)``, ``canUndo``, ``canRedo``
     ///
     @discardableResult
-    public func undo(to frameID: PlaneID? = nil) -> Bool {
+    public func undo(to planeID: PlaneID? = nil) -> Bool {
         guard !undoList.isEmpty else {
             return false
         }
         
-        let actualFrameID = frameID ?? undoList.last!
-        guard let index = undoList.firstIndex(of: actualFrameID) else {
-            fatalError("Trying to undo to plane \(actualFrameID), which does not exist in the history")
+        let actualPlaneID = planeID ?? undoList.last!
+        guard let index = undoList.firstIndex(of: actualPlaneID) else {
+            fatalError("Trying to undo to plane \(actualPlaneID), which does not exist in the history")
         }
 
         var suffix = undoList.suffix(from: index)
 
-        let newCurrentFrameID = suffix.removeFirst()
+        let newCurrentPlaneID = suffix.removeFirst()
 
         undoList = Array(undoList.prefix(upTo: index))
         redoList = suffix + [currentPlaneID!] + redoList
 
-        currentPlaneID = newCurrentFrameID
+        currentPlaneID = newCurrentPlaneID
         return true
     }
     
-    /// Change the current plane to `frameID` which is one of the previously
+    /// Change the current plane to `planeID` which is one of the previously
     /// undone planes.
     ///
     /// The redo history is emptied when a new plane is derived from the current
@@ -612,27 +610,27 @@ public class Design {
     /// of redoable history, otherwise it is a programming error.
     ///
     /// - Returns: `true` if there was anything to redo, `false` if there was nothing to redo.
-    /// - Precondition: `frameID` must exist in the redo history.
+    /// - Precondition: `planeID` must exist in the redo history.
     /// - SeeAlso: ``undo(to:)``, ``canUndo``, ``canRedo``
     ///
     @discardableResult
-    public func redo(to frameID: PlaneID? = nil) -> Bool {
+    public func redo(to planeID: PlaneID? = nil) -> Bool {
         guard !redoList.isEmpty else {
             return false
         }
         
-        let actualFrameID = frameID ?? redoList.first!
+        let actualPlaneID = planeID ?? redoList.first!
 
-        guard let index = redoList.firstIndex(of: actualFrameID) else {
-            fatalError("Trying to redo to plane \(actualFrameID), which does not exist in the history")
+        guard let index = redoList.firstIndex(of: actualPlaneID) else {
+            fatalError("Trying to redo to plane \(actualPlaneID), which does not exist in the history")
         }
         var prefix = redoList.prefix(through: index)
 
-        let newCurrentFrameID = prefix.removeLast()
+        let newCurrentPlaneID = prefix.removeLast()
         undoList = undoList + [currentPlaneID!] + prefix
         let after = redoList.index(after: index)
         redoList = Array(redoList.suffix(from: after))
-        currentPlaneID = newCurrentFrameID
+        currentPlaneID = newCurrentPlaneID
         return true
     }
     
@@ -640,10 +638,10 @@ public class Design {
     ///
     /// - Returns: List of constraint violations.
     /// 
-    public func checkConstraints(_ frame: some Plane) -> [ConstraintViolation] {
+    public func checkConstraints(_ plane: some Plane) -> [ConstraintViolation] {
         var violations: [ConstraintViolation] = []
         for constraint in metamodel.constraints {
-            let violators = constraint.check(frame)
+            let violators = constraint.check(plane)
             if violators.isEmpty {
                 continue
             }

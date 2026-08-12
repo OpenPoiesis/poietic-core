@@ -194,7 +194,7 @@ import Testing
         
         #expect(design.snapshot(a.snapshotID) != nil)
         
-        let original2 = design.frame(originalVersion!)!
+        let original2 = design.plane(originalVersion!)!
         #expect(original2.contains(a.objectID))
     }
 

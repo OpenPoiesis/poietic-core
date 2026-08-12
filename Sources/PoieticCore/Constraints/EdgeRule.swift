@@ -249,18 +249,18 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``
     ///
     @inlinable
-    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in frame: some Plane) -> Bool {
+    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in plane: some Plane) -> Bool {
         guard type === self.type else {
             return false
         }
         if let predicate = originPredicate {
-            if !predicate.match(origin, in: frame) {
+            if !predicate.match(origin, in: plane) {
                 return false
             }
         }
         
         if let predicate = targetPredicate {
-            if !predicate.match(target, in: frame) {
+            if !predicate.match(target, in: plane) {
                 return false
             }
         }

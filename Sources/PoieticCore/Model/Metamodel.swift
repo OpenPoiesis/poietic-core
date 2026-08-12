@@ -34,7 +34,7 @@
 /// ## Design Plane Acceptance
 ///
 /// Before a ``DesignPlane`` is accepted into a ``Design``, it must pass constraint validation.
-/// Frames that violate the metamodel are considered structurally invalid and should not be
+/// Planes that violate the metamodel are considered structurally invalid and should not be
 /// persisted without repair. See ``Design/accept(_:appendHistory:)`` and ``ConstraintChecker``.
 ///
 /// ## Metamodel Composition
