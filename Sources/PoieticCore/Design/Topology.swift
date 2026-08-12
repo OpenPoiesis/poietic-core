@@ -98,7 +98,7 @@ public enum Topology: Equatable, CustomStringConvertible {
         case .unstructured: "unstructured"
         case .node: "node"
         case .edge(let origin, let target): "edge(\(origin),\(target))"
-        case .orderedSet(let owner, let items): "edge(\(owner),\(items))"
+        case .orderedSet(let owner, let items): "orderedSet(\(owner),\(items))"
         }
     }
 }

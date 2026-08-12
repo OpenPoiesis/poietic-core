@@ -612,13 +612,13 @@ public final class TransientPlane: Plane {
     // Graph Protocol
     public var edgeIDs: [ObjectID] {
         _snapshots.compactMap {
-            $0.structure.type == .edge ? $0.id : nil
+            $0.topology.type == .edge ? $0.id : nil
         }
     }
 
     public var nodeIDs: [ObjectID] {
         _snapshots.compactMap {
-            $0.structure.type == .node ? $0.id : nil
+            $0.topology.type == .node ? $0.id : nil
         }
     }
 }

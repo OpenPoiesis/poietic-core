@@ -84,7 +84,7 @@ class _TransientSnapshotBox: Identifiable {
         }
     }
     
-    var structure: Topology {
+    var topology: Topology {
         switch content {
         case let .stable(_,snapshot): snapshot.topology
         case let .transient(_, object): object.topology
@@ -161,7 +161,7 @@ public class TransientObject: ObjectProtocol {
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var topology: Topology {
         get { _body.topology }
-        set(structure) { _body.topology = structure }
+        set(topology) { _body.topology = topology }
         
     }
     

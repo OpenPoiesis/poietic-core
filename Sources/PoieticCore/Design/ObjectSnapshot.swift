@@ -89,7 +89,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///
     /// - SeeAlso: ``TransientObject``
     /// - Precondition: Attributes must not contain any reserved attribute
-    ///   (_name_, _id_, _type_, _snapshot_id_, _structure_, _parent_, _children_)
+    ///   (_name_, _id_, _type_, _snapshot_id_, _topology_, _parent_, _children_)
     ///
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
@@ -116,11 +116,11 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     /// Textual description of the object.
     ///
     public var description: String {
-        let structuralName: String = self.topology.type.rawValue
+        let topologyName: String = self.topology.type.rawValue
         let attrs = self.attributes.map { (name, value) in
             "\(name)=\(value)"
         }.joined(separator: ",")
-        return "\(structuralName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs))"
+        return "\(topologyName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs))"
     }
     
     /// Prettier description of the object.
