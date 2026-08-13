@@ -352,19 +352,55 @@ public final class JSONDesignReader {
     ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error
+
+        let result: RawDesign
+        
+        if let raw = try decodeOrNext(RawDesignV0_2.self, from: data) {
+            result = raw
+        }
+        else if let raw = try decodeOrNext(RawDesignV0_1.self, from: data) {
+            result = raw
+        }
+        else if let raw = try decodeOrNext(_MakeshiftPersistentDesign.self, from: data) {
+            result = raw
+        }
+        else {
+            let context = RawDesignReaderError.Context(path: [], underlyingError: nil)
+            throw .dataCorrupted(context)
+        }
+
+        return result
+    }
+    
+    /// Tries to decode data for given raw design.
+    ///
+    /// - Returns: Decoded raw design or `nil` if it is not of version that matches the type version.
+    /// - Throws: ``RawDesignReaderError`` derived from the decoding error.
+    ///
+    /// - Note: The ``RawDesignReaderError/unknownFormatVersion`` is never thrown.
+    ///
+    func decodeOrNext<T>(_ type: T.Type, from data: Data) throws (RawDesignReaderError)
+    -> RawDesign?
+    where T: RawDesignConvertible & Decodable
+    {
         let decoder = JSONDecoder()
         
         decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
-        if let raw = try? decoder.decode(RawDesignV0_2.self, from: data) {
-            return raw.asRawDesign()
+
+        do {
+            let result = try decoder.decode(type, from: data)
+            return result.asRawDesign()
         }
-        if let raw = try? decoder.decode(RawDesignV0_1.self, from: data) {
-            return raw.asRawDesign()
+        catch RawDesignReaderError.unknownFormatVersion {
+            // Not this version — try the next
+            return nil
         }
-        if let raw = try? decoder.decode(_MakeshiftPersistentDesign.self, from: data) {
-            return raw.asRawDesign()
+        catch let error as DecodingError {
+            // This version owns it, but is corrupt -> propagate
+            throw RawDesignReaderError(error)
         }
-        let ctx = RawDesignReaderError.Context(path: [], underlyingError: nil)
-        throw RawDesignReaderError.dataCorrupted(ctx)
+        catch {
+            fatalError("Unknown decoding error: \(error)")
+        }
     }
 }

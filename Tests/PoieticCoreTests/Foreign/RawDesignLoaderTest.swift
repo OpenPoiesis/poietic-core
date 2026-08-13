@@ -651,11 +651,11 @@ struct DesignLoaderIntegrationTests {
                 RawPlane(id: .int(103), snapshots: []), // redo 1
             ],
             systemReferences: [
-                RawNamedReference("current_frame", type: "frame", id: .int(100))
+                RawNamedReference("current_plane", type: "plane", id: .int(100))
             ],
             systemLists: [
-                RawNamedList("undo", itemType: "frame", ids: [.int(101), .int(102)]),
-                RawNamedList("redo", itemType: "frame", ids: [.int(103)]),
+                RawNamedList("undo", itemType: "plane", ids: [.int(101), .int(102)]),
+                RawNamedList("redo", itemType: "plane", ids: [.int(103)]),
             ]
         )
         let design = try loader.load(raw)
@@ -690,12 +690,12 @@ struct DesignLoaderIntegrationTests {
                 RawPlane(id: .int(101), snapshots: []),
             ],
             userReferences: [
-                RawNamedReference("my_special_frame", type: "frame", id: .int(101))
+                RawNamedReference("my_special_plane", type: "plane", id: .int(101))
             ]
         )
         let design = try loader.load(raw)
 
-        let namedFrame = design.plane(name: "my_special_frame")
+        let namedFrame = design.plane(name: "my_special_plane")
         #expect(namedFrame?.id == PlaneID(101))
     }
 
@@ -790,7 +790,7 @@ struct DesignLoaderIntegrationTests {
                 RawPlane(id: .int(101), snapshots: []),
             ],
             systemLists: [
-                RawNamedList("undo", itemType: "frame", ids: [.int(101)]),
+                RawNamedList("undo", itemType: "plane", ids: [.int(101)]),
             ]
         )
 

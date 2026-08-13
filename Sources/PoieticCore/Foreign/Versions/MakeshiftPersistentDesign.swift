@@ -90,7 +90,7 @@ struct _MakeshiftPersistentDesignState: Codable {
 
 /// Root structure for makeshift persistent store.
 ///
-struct _MakeshiftPersistentDesign: Codable {
+struct _MakeshiftPersistentDesign: Codable, RawDesignConvertible {
     let storeFormatVersion: String?
     let metamodel: String
     let snapshots: [_MakeshiftPersistentSnapshot]
@@ -104,6 +104,10 @@ struct _MakeshiftPersistentDesign: Codable {
         case frames
         case state
         case namedFrames = "named_frames"
+    }
+
+    init(rawDesign: RawDesign) {
+        fatalError("Trying to create makeshift (legacy) design structure from RawDesign")
     }
     
     func asRawDesign() -> RawDesign {
