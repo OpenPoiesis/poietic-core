@@ -47,7 +47,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     
     public enum CollectionType: Sendable, Equatable, CustomStringConvertible {
         case objectSnapshots
-        case frames
+        case planes
         case userReferences
         case userLists
         case systemReferences
@@ -56,7 +56,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
         public var description: String {
              switch self {
              case .objectSnapshots: "object snapshots"
-             case .frames: "frames"
+             case .planes: "planes"
              case .userLists: "user lists"
              case .userReferences: "user references"
              case .systemLists: "system lists"
@@ -75,22 +75,22 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     
     public enum ItemError: Error, Equatable, Sendable, CustomStringConvertible {
         case unknownEntityType(String)
-        case unknownID(ForeignEntityID)
+        case unknownID(RawEntityID)
         
         // Identity
         /// Unable to reserve requested foreign ID as given type.
-        case reservationConflict(DesignEntityType, ForeignEntityID)
-        case duplicateForeignID(ForeignEntityID)
+        case reservationConflict(DesignEntityType, RawEntityID)
+        case duplicateForeignID(RawEntityID)
         
         // Snapshot-specific
         case missingObjectType
         case unknownObjectType(String)
         case invalidStructuralType
-        case structuralTypeMismatch(StructuralType)
+        case structuralTypeMismatch(TopologyType)
         
-        // Frame-specific
-        case unknownSnapshotID(ForeignEntityID)
-        case duplicateObject(Int) // Index of object within frame/batch
+        // Plane-specific
+        case unknownSnapshotID(RawEntityID)
+        case duplicateObject(Int) // Index of object within plane/batch
         case brokenStructuralIntegrity(StructuralIntegrityError)
 
         // Hierarchy
@@ -116,7 +116,7 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case .invalidStructuralType: "Invalid structural type"
             case let .structuralTypeMismatch(type): "Structural type mismatch for type '\(type)'"
 
-            // Frame-specific
+            // Plane-specific
             case let .unknownSnapshotID(id): "Unknown snapshot ID '\(id)'"
             case let .duplicateObject(id): "Duplicate object at index \(id)"
             case let .brokenStructuralIntegrity(error): "Broken structural integrity: \(error)"
@@ -144,9 +144,9 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
             case .invalidStructuralType,
                  .structuralTypeMismatch(_):  "Check foreign/raw design format documentation"
 
-            // Frame-specific
+            // Plane-specific
             case .unknownSnapshotID(_): "Make sure all references are valid within the loaded raw design/snapshots"
-            case .duplicateObject(_): "Object ID must be unique in a frame or a loading batch"
+            case .duplicateObject(_): "Object ID must be unique in a plane or a loading batch"
             case .brokenStructuralIntegrity(_): "The loaded batch is either of a different version, different metamodel or it is corrupted"
 
             // Hierarchy
@@ -161,15 +161,15 @@ public enum DesignLoaderError: Error, Equatable, Sendable, CustomStringConvertib
     }
     
     public enum DesignError: Error, Equatable, Sendable, CustomStringConvertible {
-        case missingCurrentFrame
+        case missingCurrentPlane
         case namedReferenceTypeMismatch(String)
-        case unknownFrameID(ForeignEntityID)
+        case unknownPlaneID(RawEntityID)
         
         public var description: String {
             switch self {
-            case .missingCurrentFrame: "Current frame property is not specified in the raw design"
+            case .missingCurrentPlane: "Current plane property is not specified in the raw design"
             case .namedReferenceTypeMismatch(let name): "Named reference '\(name)' is of different type than existing ID"
-            case .unknownFrameID(let id): "Unknown frame ID '\(id)'"
+            case .unknownPlaneID(let id): "Unknown plane ID '\(id)'"
             }
         }
         

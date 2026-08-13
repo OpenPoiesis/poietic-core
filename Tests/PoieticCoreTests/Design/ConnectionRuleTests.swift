@@ -20,7 +20,7 @@ import Testing
     }
     
     @Test func testAnyConnection() async throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let stock = frame.createNode(.Stock)
         let flow = frame.createNode(.FlowRate)
         let edge = frame.createEdge(.Arrow, origin: stock.objectID, target: flow.objectID)
@@ -30,7 +30,7 @@ import Testing
     }
     
     @Test func noRuleForEdge() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.createNode(.Stock)
         let b = frame.createNode(.Stock)
         let e = frame.createEdge(.IllegalEdge, origin: a.objectID, target: b.objectID)
@@ -40,7 +40,7 @@ import Testing
             // try checker.validate(edge: frozen.edge(e.objectID)!, in: frozen)
         }
         throws: {
-            guard let error = $0 as? FrameValidationError,
+            guard let error = $0 as? PlaneValidationError,
                   case let .edgeRuleViolation(objectID, violation) = error
             else {
                 return false
@@ -53,7 +53,7 @@ import Testing
     }
     
     @Test func noRuleSatisfied() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.createNode(.Stock)
         let b = frame.createNode(.Stock)
         let e = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
@@ -74,7 +74,7 @@ import Testing
     }
     
     @Test func incomingCardinalityNotSatisfied() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.createNode(.Stock)
         let b = frame.createNode(.FlowRate)
         let e1 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
@@ -108,7 +108,7 @@ import Testing
         }
     }
     @Test func outgoingCardinalityNotSatisfied() throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let a = frame.createNode(.FlowRate)
         let b = frame.createNode(.Stock)
         let e1 = frame.createEdge(.Flow, origin: a.objectID, target: b.objectID)
@@ -142,7 +142,7 @@ import Testing
         }
     }
     @Test func canConnect() async throws {
-        let frame = design.createFrame()
+        let frame = design.createPlane()
         let stock = frame.createNode(.Stock)
         let rate = frame.createNode(.FlowRate)
         let _ = frame.createEdge(.Flow, origin: stock.objectID, target: rate.objectID)

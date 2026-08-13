@@ -109,8 +109,8 @@ extension EdgeRuleViolation /*: IssueProtocol */ {
 ///
 /// - **Pre-validation** (``ConstraintChecker/canConnect(type:from:to:in:)``): Checks if a new
 ///   edge *could* be created. Used in interactive UIs before creating the edge.
-/// - **Validation** (``ConstraintChecker/validate(edge:in:)``): Checks existing edges in a frame.
-///   Used when accepting frames into the design.
+/// - **Validation** (``ConstraintChecker/validate(edge:in:)``): Checks existing edges in a plane.
+///   Used when accepting planes into the design.
 ///
 /// To collect all issues with edges (and other constraints) within a design you can use
 /// ``ConstraintChecker/diagnose(_:)``.
@@ -224,7 +224,7 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
                 outgoing: EdgeCardinality = .many,
                 target: Predicate? = nil,
                 incoming: EdgeCardinality = .many) {
-        assert(type.structuralType == .edge)
+        assert(type.topologyType == .edge)
         self.type = type
         self.originPredicate = origin
         self.targetPredicate = target
@@ -249,18 +249,18 @@ public struct EdgeRule: Sendable, CustomStringConvertible {
     /// - SeeAlso: ``ConstraintChecker/canConnect(type:from:to:in:)``, ``ConstraintChecker/validate(edge:in:)``
     ///
     @inlinable
-    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ type: ObjectType, origin: ObjectSnapshot, target: ObjectSnapshot, in plane: some Plane) -> Bool {
         guard type === self.type else {
             return false
         }
         if let predicate = originPredicate {
-            if !predicate.match(origin, in: frame) {
+            if !predicate.match(origin, in: plane) {
                 return false
             }
         }
         
         if let predicate = targetPredicate {
-            if !predicate.match(target, in: frame) {
+            if !predicate.match(target, in: plane) {
                 return false
             }
         }

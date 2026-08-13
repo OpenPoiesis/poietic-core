@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 09/12/2025.
 //
 
-/// Component set to changed or new entities on ``World/setFrame(_:)``
+/// Component set to changed or new entities on ``World/setPlane(_:)``
 public struct ObjectTouched: TagComponent {
     public typealias Storage = TagComponentStorage<Self>
     // TODO: Documentation
@@ -35,15 +35,15 @@ public struct ObjectSnapshotRef: Component {
 ///
 /// ## World and Design relationship
 ///
-/// World is primarily a runtime instance of a design, specifically of a design frame.
+/// World is primarily a runtime instance of a design, specifically of a design plane.
 ///
 /// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
 public class World {
     public let design: Design
-    // FIXME: Rename to currentFrame
+    // FIXME: Rename to currentPlane
     
-    public private(set) var frame: DesignFrame?
+    public private(set) var plane: DesignPlane?
     
     // Identity
     /// Sequence for generating world entities IDs.
@@ -57,7 +57,7 @@ public class World {
     
     // TODO: Make issues a component, to unify the interface.
     // TODO: Make a special error protocol conforming to custom str convertible and having property 'hint:String'
-    /// Issues collected during frame processing.
+    /// Issues collected during plane processing.
     ///
     /// These are non-fatal issues that indicate problems with the design - with the user data.
     /// The issues are intended to be displayed to the user, preferably
@@ -97,26 +97,26 @@ public class World {
         
         self.objectToEntityMap = [:]
         self.entityToObjectMap = [:]
-        self.frame = nil
+        self.plane = nil
         self.singletons = ComponentSet()
     }
     
-    public convenience init(frame: DesignFrame) {
-        self.init(design: frame.design)
-        setFrame(frame)
+    public convenience init(plane: DesignPlane) {
+        self.init(design: plane.design)
+        setPlane(plane)
     }
     
     /// Get an object ID for an object the entity represents, if the object exists in the current
-    /// world frame.
+    /// world plane.
     ///
-    /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
+    /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
     ///
     internal func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
         entityToObjectMap[ephemeralID]
     }
     /// Get an entity that represents an object with given ID, if such entity exists.
     ///
-    /// Objects in the ``frame`` are always guaranteed to have an entity that represents them.
+    /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
     ///
     internal func objectToEntity(_ objectID: ObjectID) -> RuntimeID? {
         objectToEntityMap[objectID]
@@ -157,37 +157,37 @@ public class World {
         try schedule.update(self)
     }
 
-    /// Set a design frame to be world's current design frame.
+    /// Set a design plane to be world's current design plane.
     ///
-    /// When a new frame is set, the following happens:
+    /// When a new plane is set, the following happens:
     ///
     /// 1. Despawn removed design object – entities representing objects that are not present in
-    ///    the new frame.
+    ///    the new plane.
     ///    See ``despawn(_:)-(RuntimeID)``.
     /// 2. Spawn new entities for new design objects. New design objects are objects with ObjectID
     ///    that are not present in the world.
     /// 3. Set ``ObjectTouched`` tag on changed design object entities – entities that were
-    ///    representing objects (by `ObjectID`) in previous and in the new frame, but their
+    ///    representing objects (by `ObjectID`) in previous and in the new plane, but their
     ///    version snapshot (`ObjectSnapshotID`) has changed.
     /// 4. Clear ``ObjectTouched`` tag on design object entities that remained the same.
     ///
-    /// - Note: Incoming relationships such as `RepresentationOf` survive frame changes
+    /// - Note: Incoming relationships such as `RepresentationOf` survive plane changes
     ///   for unchanged and mutated objects.
     ///
-    public func setFrame(_ newFrame: DesignFrame) {
-        precondition(newFrame.design === self.design)
-        precondition(self.design.containsFrame(newFrame.id))
+    public func setPlane(_ newPlane: DesignPlane) {
+        precondition(newPlane.design === self.design)
+        precondition(self.design.containsPlane(newPlane.id))
         
         self.removeComponentForAll(ObjectTouched.self)
         var trash: [RuntimeID] = []
         for (objectID, runtimeID) in objectToEntityMap {
-            if !newFrame.contains(objectID) {
+            if !newPlane.contains(objectID) {
                 trash.append(runtimeID)
             }
         }
         despawn(trash)
         
-        for snapshot in newFrame.snapshots {
+        for snapshot in newPlane.snapshots {
             if let existing = self.entity(snapshot.objectID) {
                 guard let existingRef = _getComponent(ObjectSnapshotRef.self, for: existing.runtimeID)
                 else {
@@ -203,7 +203,7 @@ public class World {
             }
         }
         
-        self.frame = newFrame
+        self.plane = newPlane
         self.issues.removeAll()
     }
     
@@ -216,8 +216,8 @@ public class World {
         entityToObjectMap[entity.runtimeID] = snapshot.objectID
     }
 
-    public func removeFrame() {
-        self.frame = nil
+    public func removePlane() {
+        self.plane = nil
         despawn(entityToObjectMap.keys)
         objectToEntityMap.removeAll()
         entityToObjectMap.removeAll()

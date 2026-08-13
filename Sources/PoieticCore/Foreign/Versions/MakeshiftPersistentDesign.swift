@@ -33,27 +33,27 @@ struct _MakeshiftPersistentSnapshot: Codable {
     }
     
     func asRawSnapshot() -> RawSnapshot {
-        var structure: RawStructure
+        var structure: RawTopology
         switch structuralType {
-        case "unstructured": structure = RawStructure("unstructured")
-        case "node": structure = RawStructure("node")
+        case "unstructured": structure = RawTopology("unstructured")
+        case "node": structure = RawTopology("node")
         case "edge":
             guard let origin = self.origin else {
-                structure = RawStructure("edge-missing-origin")
+                structure = RawTopology("edge-missing-origin")
                 break
             }
             guard let target = self.target else {
-                structure = RawStructure("edge-missing-target")
+                structure = RawTopology("edge-missing-target")
                 break
             }
-            structure = RawStructure("edge", references: [.id(origin), .id(target)])
-        default: structure = RawStructure(structuralType)
+            structure = RawTopology("edge", references: [.id(origin), .id(target)])
+        default: structure = RawTopology(structuralType)
         }
         let snapshot = RawSnapshot(
             typeName: type,
             snapshotID: .id(snapshotID),
-            id: .id(id),
-            structure: structure,
+            objectID: .id(id),
+            topology: structure,
             parent: parent.map { .id($0) },
             attributes: attributes
         )
@@ -67,8 +67,8 @@ struct _MakeshiftPersistentFrame: Codable {
     let id: ObjectID
     let snapshots: [ObjectID]
     
-    func asRawFrame() -> RawFrame {
-        return RawFrame(
+    func asRawFrame() -> RawPlane {
+        return RawPlane(
             id: .id(id),
             snapshots: snapshots.map { .id($0) }
         )
@@ -111,22 +111,22 @@ struct _MakeshiftPersistentDesign: Codable {
         
         design.metamodelName = self.metamodel
         design.snapshots = self.snapshots.map { $0.asRawSnapshot() }
-        design.frames = self.frames.map { $0.asRawFrame() }
+        design.planes = self.frames.map { $0.asRawFrame() }
         if let currentFrame = state.currentFrame {
             design.systemReferences = [
-                RawNamedReference("current_frame", type: "frame", id: .id(currentFrame))
+                RawNamedReference("current_plane", type: "plane", id: .id(currentFrame))
             ]
         }
         var systemLists: [RawNamedList] = []
         if !state.undoableFrames.isEmpty {
             let list = RawNamedList("undo",
-                                    itemType: "frame",
+                                    itemType: "plane",
                                     ids: state.undoableFrames.map {.id($0)})
             systemLists.append(list)
         }
         if !state.redoableFrames.isEmpty {
             let list = RawNamedList("redo",
-                                    itemType: "frame",
+                                    itemType: "plane",
                                     ids: state.redoableFrames.map {.id($0)})
             systemLists.append(list)
         }
@@ -135,7 +135,7 @@ struct _MakeshiftPersistentDesign: Codable {
         var userReferences: [RawNamedReference] = []
         if let namedFrames {
             for (name, frameID) in namedFrames {
-                let ref = RawNamedReference(name, type: "frame", id: .id(frameID))
+                let ref = RawNamedReference(name, type: "plane", id: .id(frameID))
                 userReferences.append(ref)
             }
         }

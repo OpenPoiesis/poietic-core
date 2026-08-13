@@ -10,13 +10,13 @@
 
 extension DesignLoader { // Reservation of identities
 
-    /// Reserves identities for entities in the raw design, such as snapshots, objects and frames.
+    /// Reserves identities for entities in the raw design, such as snapshots, objects and planes.
     ///
     /// The identities are reserved according to the identity strategy
     /// (``DesignLoader.IdentityStrategy``).
     ///
     /// Strategy
-    /// - Snapshot ID, Frame ID:
+    /// - Snapshot ID, Plane ID:
     ///     - some provided: ID will be reserved if available, if not then duplicate error is thrown.
     ///     - `nil`: New ID will be created and reserved, snapshot will be considered an orphan.
     /// - Object ID:
@@ -53,19 +53,19 @@ extension DesignLoader { // Reservation of identities
         }
 
         // Reservation Phase 2: Create those IDs we do not have
-        let rawFrameIDs: [ForeignEntityID?]
-        if options == .collectOrphans && resolution.rawFrames.isEmpty {
-            rawFrameIDs = [nil] // Request one new ID for the orphan's frame
+        let rawPlaneIDs: [RawEntityID?]
+        if options == .collectOrphans && resolution.rawPlanes.isEmpty {
+            rawPlaneIDs = [nil] // Request one new ID for the orphan's plane
         }
         else {
-            rawFrameIDs = resolution.rawFrames.map { $0.id }
+            rawPlaneIDs = resolution.rawPlanes.map { $0.id }
         }
         let rawSnapshotIDs = resolution.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = resolution.rawSnapshots.map { $0.objectID }
 
-        let frameIDs: [FrameID] = finaliseReservation(
-            ids: rawFrameIDs,
-            type: .frame,
+        let planeIDs: [PlaneID] = finaliseReservation(
+            ids: rawPlaneIDs,
+            type: .plane,
             reservation: &reservation,
             identityManager: resolution.identityManager
         )
@@ -82,11 +82,11 @@ extension DesignLoader { // Reservation of identities
             identityManager: resolution.identityManager
         )
         // Sanity checks
-        assert(frameIDs.count == rawFrameIDs.count)
+        assert(planeIDs.count == rawPlaneIDs.count)
         assert(snapshotIDs.count == rawSnapshotIDs.count)
         assert(objectIDs.count == rawObjectIDs.count)
 
-        // Create snapshot index – used for resolving frames and hierarchy
+        // Create snapshot index – used for resolving planes and hierarchy
         var snapshotIndex: [ObjectSnapshotID:Int] = [:]
         for (index, id) in snapshotIDs.enumerated() {
             assert(snapshotIndex[id] == nil, "Duplicate snapshot ID \(id)")
@@ -96,7 +96,7 @@ extension DesignLoader { // Reservation of identities
         return IdentityResolution(
             reserved: reservation.reserved,
             rawIDMap: reservation.rawIDMap,
-            frameIDs: frameIDs,
+            planeIDs: planeIDs,
             snapshotIDs: snapshotIDs,
             objectIDs: objectIDs,
             snapshotIndex: snapshotIndex
@@ -107,12 +107,12 @@ extension DesignLoader { // Reservation of identities
                                                     reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        let frameIDs = context.rawFrames.compactMap { $0.id }
+        let planeIDs = context.rawPlanes.compactMap { $0.id }
         let snapshotIDs = context.rawSnapshots.compactMap { $0.snapshotID }
         let objectIDs = context.rawSnapshots.compactMap { $0.objectID }
 
-        reserveAvailable(ids: frameIDs,
-                         type: .frame,
+        reserveAvailable(ids: planeIDs,
+                         type: .plane,
                          reservation: &reservation,
                          identityManager: context.identityManager)
         reserveAvailable(ids: snapshotIDs,
@@ -128,7 +128,7 @@ extension DesignLoader { // Reservation of identities
                                                        reservation: inout ReservationContext)
         throws (DesignLoaderError)
     {
-        let rawFrameIDs = context.rawFrames.map { $0.id }
+        let rawPlaneIDs = context.rawPlanes.map { $0.id }
         let rawSnapshotIDs = context.rawSnapshots.map { $0.snapshotID }
         let rawObjectIDs = context.rawSnapshots.map { $0.objectID }
 
@@ -147,14 +147,14 @@ extension DesignLoader { // Reservation of identities
 
         do {
             try reserveRequired(
-                ids: rawFrameIDs,
-                type: .frame,
+                ids: rawPlaneIDs,
+                type: .plane,
                 reservation: &reservation,
                 identityManager: context.identityManager
             )
         }
         catch {
-            throw .item(.frames, error.index, error.error)
+            throw .item(.planes, error.index, error.error)
         }
 
         do {
@@ -177,7 +177,7 @@ extension DesignLoader { // Reservation of identities
     /// The reserved ID is stored in the context ID map (``LoadingContext/rawIDMap``)
     ///
     internal func reserveAvailable(
-        ids foreignIDs: some Collection<ForeignEntityID>,
+        ids foreignIDs: some Collection<RawEntityID>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
@@ -193,7 +193,7 @@ extension DesignLoader { // Reservation of identities
     }
 
     internal func reserveAvailableObjectIDs(
-        ids foreignIDs: some Collection<ForeignEntityID>,
+        ids foreignIDs: some Collection<RawEntityID>,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     {
@@ -217,7 +217,7 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     internal func reserveRequired(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
@@ -253,7 +253,7 @@ extension DesignLoader { // Reservation of identities
     ///   that is convertible but can not be reserved.
     ///
     internal func reserveRequiredObjectIDs(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         reservation: inout ReservationContext,
         identityManager: IdentityManager)
     throws (DesignLoaderError.IndexedItemError)
@@ -290,7 +290,7 @@ extension DesignLoader { // Reservation of identities
     ///
     @discardableResult
     internal func finaliseReservation(
-        ids foreignIDs: some Collection<ForeignEntityID?>,
+        ids foreignIDs: some Collection<RawEntityID?>,
         type: DesignEntityType,
         reservation: inout ReservationContext,
         identityManager: IdentityManager) -> [DesignEntityID]

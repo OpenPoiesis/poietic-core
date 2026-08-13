@@ -31,10 +31,10 @@
 /// An application is responsible for constraint validity of the design and should prevent further
 /// manipulation of an invalid design.
 ///
-/// ## Design Frame Acceptance
+/// ## Design Plane Acceptance
 ///
-/// Before a ``DesignFrame`` is accepted into a ``Design``, it must pass constraint validation.
-/// Frames that violate the metamodel are considered structurally invalid and should not be
+/// Before a ``DesignPlane`` is accepted into a ``Design``, it must pass constraint validation.
+/// Planes that violate the metamodel are considered structurally invalid and should not be
 /// persisted without repair. See ``Design/accept(_:appendHistory:)`` and ``ConstraintChecker``.
 ///
 /// ## Metamodel Composition
@@ -99,8 +99,8 @@ public final class Metamodel: Sendable {
     
     /// List of constraints.
     ///
-    /// Constraints are validated before a frame is accepted to the design.
-    /// Design must not contain design frames that violate any of the
+    /// Constraints are validated before a plane is accepted to the design.
+    /// Design must not contain design planes that violate any of the
     /// constraints.
     ///
     public let constraints: [Constraint]
@@ -198,19 +198,19 @@ public final class Metamodel: Sendable {
     /// Selection of node object types.
     ///
     public var nodeTypes: [ObjectType] {
-        types.filter { $0.structuralType == .node }
+        types.filter { $0.topologyType == .node }
     }
 
     /// Selection of edge object types.
     ///
     public var edgeTypes: [ObjectType] {
-        types.filter { $0.structuralType == .edge }
+        types.filter { $0.topologyType == .edge }
     }
 
     /// Selection of unstructured object types.
     ///
     public var unstructuredTypes: [ObjectType] {
-        types.filter { $0.structuralType == .unstructured }
+        types.filter { $0.topologyType == .unstructured }
     }
 
     /// Get an object type by its name.

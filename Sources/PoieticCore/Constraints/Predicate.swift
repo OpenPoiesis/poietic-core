@@ -30,7 +30,7 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
 
     /// Check whether an object matches the predicate condition.
     ///
-    public func match(_ object: ObjectSnapshot, in frame: some Frame) -> Bool {
+    public func match(_ object: ObjectSnapshot, in plane: some Plane) -> Bool {
         switch self {
         case .any:
             return true
@@ -39,11 +39,11 @@ public indirect enum Predicate: Sendable, CustomStringConvertible {
         case .hasTrait(let trait):
             return object.type.traits.contains { $0 === trait }
         case .and(let predicates):
-            return predicates.allSatisfy{ $0.match(object, in: frame) }
+            return predicates.allSatisfy{ $0.match(object, in: plane) }
         case .or(let predicates):
-            return predicates.contains{ $0.match(object, in: frame) }
+            return predicates.contains{ $0.match(object, in: plane) }
         case .not(let predicate):
-            return !predicate.match(object, in: frame)
+            return !predicate.match(object, in: plane)
         }
     }
 

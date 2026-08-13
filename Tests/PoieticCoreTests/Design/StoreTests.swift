@@ -174,7 +174,7 @@ let TestFormatVersion = "0.0.4"
 //                   """.data(using:.utf8)!
 //        let store = DesignStore(data: data)
 //        let design = try store.load()
-//        #expect(design.frame(name: "app")?.id == 100)
+//        #expect(design.plane(name: "app")?.id == 100)
 //    }
 //    @Test func testRefCount() throws {
 //        let data = """

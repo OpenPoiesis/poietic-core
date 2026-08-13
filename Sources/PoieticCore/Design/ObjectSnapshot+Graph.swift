@@ -1,5 +1,5 @@
 //
-//  StableFrame+Graph.swift
+//  ObjectSnapshot+Graph.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 20/05/2025.
@@ -13,11 +13,11 @@
  edges type == parameter && target trait formula
  node type == chart
  node on edge == chart series
- frame first: trait simulation
+ plane first: trait simulation
  view simulation nodes (custom filter)
  view incoming parameter nodes (incoming + type)
  view drains/fills (incoming/outgoing + type)
- frame type stock
+ plane type stock
  
  incoming/outgoing + type
  edge of type
@@ -28,7 +28,7 @@
 
  */
 
-extension DesignFrame /* : GraphProtocol */ {
+extension DesignPlane /* : GraphProtocol */ {
     @inlinable
     public var nodeKeys: [ObjectID] { _graph.nodeKeys }
     @inlinable
@@ -80,7 +80,7 @@ extension DesignFrame /* : GraphProtocol */ {
         guard let snapshot = _lookup[oid] else {
             fatalError("Missing node: \(oid)")
         }
-        guard snapshot.structure == .node else {
+        guard snapshot.topology == .node else {
             fatalError("Not a node: \(oid)")
         }
         return snapshot

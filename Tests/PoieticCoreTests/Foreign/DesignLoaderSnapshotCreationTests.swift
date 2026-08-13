@@ -29,7 +29,7 @@ struct DesignLoaderSnapshotCreationTests {
 
         let snapshotUnstr = try loader.createSnapshot(resolvedUnstr, children: nil)
 
-        #expect(snapshotUnstr.structure == .unstructured)
+        #expect(snapshotUnstr.topology == .unstructured)
         #expect(snapshotUnstr.snapshotID == ObjectSnapshotID(100))
         #expect(snapshotUnstr.objectID == ObjectID(10))
         #expect(snapshotUnstr.type.name == "TestPlain")
@@ -43,7 +43,7 @@ struct DesignLoaderSnapshotCreationTests {
 
         let snapshotNode = try loader.createSnapshot(resolvedNode, children: nil)
 
-        #expect(snapshotNode.structure == .node)
+        #expect(snapshotNode.topology == .node)
     }
 
     @Test("Default structural type - edge not allowed")
@@ -63,7 +63,7 @@ struct DesignLoaderSnapshotCreationTests {
 
     // MARK: - Explicit Structural Type Matching
 
-    @Test("Explicit structure type match")
+    @Test("Explicit topology type match")
     func explicitUnstructuredMatches() async throws {
         let resolvedUnstr = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(100),
@@ -74,7 +74,7 @@ struct DesignLoaderSnapshotCreationTests {
 
         let snapshotUnstr = try loader.createSnapshot(resolvedUnstr, children: nil)
 
-        #expect(snapshotUnstr.structure == .unstructured)
+        #expect(snapshotUnstr.topology == .unstructured)
 
         let resolvedNode = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(200),
@@ -85,7 +85,7 @@ struct DesignLoaderSnapshotCreationTests {
 
         let snapshotNode = try loader.createSnapshot(resolvedNode, children: nil)
 
-        #expect(snapshotNode.structure == .node)
+        #expect(snapshotNode.topology == .node)
 
         let resolvedEdge = DesignLoader.ResolvedObjectSnapshot(
             snapshotID: ObjectSnapshotID(300),
@@ -97,7 +97,7 @@ struct DesignLoaderSnapshotCreationTests {
 
         let snapshotEdge = try loader.createSnapshot(resolvedEdge, children: nil)
 
-        #expect(snapshotEdge.structure == .edge(ObjectID(10), ObjectID(20)))
+        #expect(snapshotEdge.topology == .edge(ObjectID(10), ObjectID(20)))
     }
 
     // MARK: - Structural Type Mismatch
@@ -138,7 +138,7 @@ struct DesignLoaderSnapshotCreationTests {
         }
     }
 
-    // MARK: - Invalid Structure Type
+    // MARK: - Invalid Topology Type
 
     @Test("Invalid edge references")
     func invalidEdgeNoReferences() async throws {

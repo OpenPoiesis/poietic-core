@@ -41,20 +41,20 @@ final class JSONFileStoreTests: XCTestCase {
         return fileURL
     }
     var db: Design!
-    var frame: TransientFrame!
+    var frame: TransientPlane!
     
     override func setUp() {
         db = Design(metamodel: TestMetamodel)
-        frame = db.createFrame()
+        frame = db.createPlane()
 
         let flow = frame.create(TestMetamodel["FlowRate"]!,
-                                structure: .node,
+                                topology: .node,
                                 attributes: [:])
         let source = frame.create(TestMetamodel["Stock"]!,
-                                  structure: .node,
+                                  topology: .node,
                                   attributes: [:])
         let sink = frame.create(TestMetamodel["Stock"]!,
-                                structure: .node,
+                                topology: .node,
                                 attributes: [:])
         
         frame.createEdge(TestMetamodel["Arrow"]!, origin: source.objectID, target: flow.objectID)
@@ -63,7 +63,7 @@ final class JSONFileStoreTests: XCTestCase {
             try db.accept(frame)
         }
         catch {
-            fatalError("Failed to accept frame: \(error)")
+            fatalError("Failed to accept plane: \(error)")
         }
     }
     
@@ -83,9 +83,9 @@ final class JSONFileStoreTests: XCTestCase {
 //        self.assertEqual(len(list(self.db.snapshots)),
 //                         len(list(restored.snapshots)))
 //
-//        other_frame = restored.frame(self.frame.version)
+//        other_frame = restored.plane(self.plane.version)
 //
-//        for snapshot in self.frame.snapshots:
+//        for snapshot in self.plane.snapshots:
 //            other = other_frame.object(snapshot.id)
 //            if snapshot != other:
 //                # import pdb; pdb.set_trace()

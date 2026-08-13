@@ -9,25 +9,25 @@
 
 
 let TestType = ObjectType(name: "TestPlain",
-                          structuralType: .unstructured,
+                          topologyType: .unstructured,
                           traits: [])
 let TestNodeType = ObjectType(name: "TestNode",
-                          structuralType: .node,
+                          topologyType: .node,
                           traits: [])
 let TestEdgeType = ObjectType(name: "TestEdge",
-                          structuralType: .edge,
+                          topologyType: .edge,
                           traits: [])
 
 let TestOrderType = ObjectType(name: "TestOrder",
-                          structuralType: .orderedSet,
+                          topologyType: .orderedSet,
                           traits: [])
 
 
 let TestTypeNoDefault = ObjectType(name: "TestNoDefault",
-                          structuralType: .unstructured,
+                          topologyType: .unstructured,
                           traits: [TestTraitNoDefault])
 let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
-                          structuralType: .unstructured,
+                          topologyType: .unstructured,
                           traits: [TestTraitWithDefault])
 
 let TestTraitNoDefault = Trait(
@@ -72,19 +72,19 @@ struct IntegerComponent: Component, Equatable {
 extension ObjectType {
     static let Unstructured = ObjectType(
         name: "Unstructured",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [ IntegerTrait, ]
     )
     
     static let Stock = ObjectType(
         name: "Stock",
-        structuralType: .node,
+        topologyType: .node,
         traits: [ IntegerTrait, ]
     )
     
     static let FlowRate = ObjectType(
         name: "FlowRate",
-        structuralType: .node,
+        topologyType: .node,
         traits: [ IntegerTrait, ]
     )
     
@@ -92,20 +92,20 @@ extension ObjectType {
     
     static let Flow = ObjectType(
         name: "Flow",
-        structuralType: .edge
+        topologyType: .edge
     )
     
     static let Parameter = ObjectType(
         name: "Parameter",
-        structuralType: .edge
+        topologyType: .edge
     )
     static let Arrow = ObjectType(
         name: "Arrow",
-        structuralType: .edge
+        topologyType: .edge
     )
     static let IllegalEdge = ObjectType(
         name: "Illegal",
-        structuralType: .edge
+        topologyType: .edge
     )
 }
 

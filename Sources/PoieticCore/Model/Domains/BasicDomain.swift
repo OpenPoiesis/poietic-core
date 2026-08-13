@@ -20,7 +20,7 @@ extension Trait {
     /// For some types of models, the name might be unique within the whole
     /// model.
     ///
-    /// - SeeAlso: ``Frame/object(named:)``, ``ObjectProtocol/name``
+    /// - SeeAlso: ``Plane/object(named:)``, ``ObjectProtocol/name``
     ///
     public static let Name = Trait(
         name: "Name",
@@ -151,7 +151,7 @@ extension Trait {
 extension ObjectType {
     public static let DesignInfo = ObjectType(
         name: "DesignInfo",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.DesignInfo,
             // TODO: Add name, but make it optional.
@@ -163,14 +163,14 @@ extension ObjectType {
     
     public static let BibliographicalReference = ObjectType(
         name: "BibliographicalReference",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.BibliographicalReference,
         ])
 
     public static let Group = ObjectType(
         name: "Group",
-        structuralType: .unstructured,
+        topologyType: .unstructured,
         traits: [
             Trait.Name,
         ])

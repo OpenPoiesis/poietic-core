@@ -17,16 +17,16 @@ extension DesignLoader {
         let identityManager: IdentityManager
         /// Validated raw snapshots, no duplicate IDs.
         let rawSnapshots: [RawSnapshot]
-        /// Validated raw frames, no duplicate IDs.
-        let rawFrames: [RawFrame]
+        /// Validated raw planes, no duplicate IDs.
+        let rawPlanes: [RawPlane]
 //        let unavailableIDs: Set<EntityID.RawValue>
 
         internal init(identityManager: IdentityManager,
                       rawSnapshots: [RawSnapshot] = [],
-                      rawFrames: [RawFrame] = []) {
+                      rawPlanes: [RawPlane] = []) {
             self.identityManager = identityManager
             self.rawSnapshots = rawSnapshots
-            self.rawFrames = rawFrames
+            self.rawPlanes = rawPlanes
         }
     }
   
@@ -43,7 +43,7 @@ extension DesignLoader {
         
         /// Mapping between raw model references and their actual identities.
         ///
-        var rawIDMap: [ForeignEntityID:DesignEntityID] = [:]
+        var rawIDMap: [RawEntityID:DesignEntityID] = [:]
     }
     
     /// Gathered and reserved identities that will be used through the loading process.
@@ -55,12 +55,12 @@ extension DesignLoader {
         let reserved: [DesignEntityID]
         /// Mapping between raw model references and their actual identities.
         ///
-        let rawIDMap: [ForeignEntityID:DesignEntityID]
-        /// Reserved identities for raw frames.
+        let rawIDMap: [RawEntityID:DesignEntityID]
+        /// Reserved identities for raw planes.
         ///
-        /// The items correspond to ``ValidatedLoadingContext/rawFrames``.
+        /// The items correspond to ``ValidatedLoadingContext/rawPlanes``.
         ///
-        let frameIDs: [FrameID]
+        let planeIDs: [PlaneID]
 
         /// Reserved identities for all snapshots to be loaded.
         ///
@@ -76,34 +76,34 @@ extension DesignLoader {
         
         /// Mapping between snapshot ID and its index in the list of snapshots.
         ///
-        /// This is used for frame content resolution and for error reporting.
+        /// This is used for plane content resolution and for error reporting.
         ///
         let snapshotIndex: [ObjectSnapshotID:Int]
 
         internal init(reserved: [DesignEntityID],
-                      rawIDMap: [ForeignEntityID : DesignEntityID],
-                      frameIDs: [FrameID],
+                      rawIDMap: [RawEntityID : DesignEntityID],
+                      planeIDs: [PlaneID],
                       snapshotIDs: [ObjectSnapshotID],
                       objectIDs: [ObjectID],
                       snapshotIndex: [ObjectSnapshotID : Int])
         {
             self.reserved = reserved
             self.rawIDMap = rawIDMap
-            self.frameIDs = frameIDs
+            self.planeIDs = planeIDs
             self.snapshotIDs = snapshotIDs
             self.objectIDs = objectIDs
             self.snapshotIndex = snapshotIndex
         }
 
-        subscript(foreignID: ForeignEntityID) -> DesignEntityID? {
+        subscript(foreignID: RawEntityID) -> DesignEntityID? {
             return rawIDMap[foreignID]
         }
     }
 
-    /// Data of an object snapshot where the references, structure type, structure references,
+    /// Data of an object snapshot where the references, topology type, topology references,
     /// parent are resolved. Attributes are prepared.
     ///
-    /// Only thing that is missing is list of children, that require context of a frame to be
+    /// Only thing that is missing is list of children, that require context of a plane to be
     /// resolved, because use object IDs.
     ///
     /// - Note: If the loader has option ``DesignLoader/Options/useIDAsNameAttribute``, and if the
@@ -127,7 +127,7 @@ extension DesignLoader {
         
         let typeName: String
         
-        let structureType: StructuralType?
+        let structureType: TopologyType?
         let structureReferences: [ObjectID]
         
         let parent: ObjectID?
@@ -137,7 +137,7 @@ extension DesignLoader {
         internal init(snapshotID: ObjectSnapshotID,
                       objectID: ObjectID,
                       typeName: String,
-                      structuralType: StructuralType?,
+                      structuralType: TopologyType?,
                       structureReferences: [ObjectID] = [],
                       parent: ObjectID? = nil,
                       attributes: [String:Variant]? = nil) {
@@ -151,15 +151,15 @@ extension DesignLoader {
         }
     }
     
-    /// Frame with assigned object snapshot IDs, so that the frame can be constructed.
+    /// Plane with assigned object snapshot IDs, so that the plane can be constructed.
     ///
-    struct ResolvedFrame {
-        let frameID: FrameID
+    struct ResolvedPlane {
+        let planeID: PlaneID
         let snapshots: [ObjectSnapshotID]
     }
     
-    struct FrameResolution {
-        let frames: [ResolvedFrame]
+    struct PlaneResolution {
+        let planes: [ResolvedPlane]
     }
     
     /// All snapshots in the loading batch (from raw design or list of raw snapshots) that have
@@ -178,7 +178,7 @@ extension DesignLoader {
         }
     }
 
-    /// Mutable context using during hierarchy resolution of multiple frames.
+    /// Mutable context using during hierarchy resolution of multiple planes.
     struct SnapshotHierarchyResolution {
         /// Mapping between snapshot index and children list.
         let objectSnapshots: [ResolvedObjectSnapshot]

@@ -21,19 +21,18 @@ public typealias AttributeKey = String
 /// The different representations that the object might be in are:
 ///
 /// - ``ObjectSnapshot``: Object that has been validated and can not be modified.
-///   They are the items of a``DesignFrame`` and can be shared by multiple frames.
+///   They are the items of a``DesignPlane`` and can be shared by multiple planes.
 /// - ``TransientObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
 /// Each object object has an unique identity, collection of attributes
-/// and might have structural properties. Identity serves as a handle of an
-/// object. Attributes define a state of an object. The structural properties
-/// define state of the whole design.
+/// and might have topological relationships. Identity serves as a handle of an
+/// object. Attributes define a state of an object.
 ///
 /// ## Attributes and Object-to-Object References
 ///
 /// All object-to-object references are explicitly managed through either
-/// ``structure`` or parent/child relationships. Object attributes can hold any
+/// ``topology`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
 public protocol ObjectProtocol: Identifiable {
@@ -43,7 +42,7 @@ public protocol ObjectProtocol: Identifiable {
     /// One object can share multiple snapshots, which are identified by their
     /// ``ObjectSnapshot/snapshotID``.
     ///
-    /// Objects within a ``Frame`` have unique ``objectID``, however there
+    /// Objects within a ``Plane`` have unique ``objectID``, however there
     /// might be multiple snapshots with the same ``objectID`` within the design.
     ///
     /// The ID is generated using internal identity manager and is
@@ -53,8 +52,8 @@ public protocol ObjectProtocol: Identifiable {
     /// uniqueness within given context.
     ///
     /// - SeeAlso: ``ObjectSnapshot``,
-    ///    ``Frame/object(_:)``,
-    ///    ``Frame/contains(_:)``,
+    ///    ``Plane/object(_:)``,
+    ///    ``Plane/contains(_:)``,
     ///    ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``
     ///
     var objectID: ObjectID { get }
@@ -71,12 +70,12 @@ public protocol ObjectProtocol: Identifiable {
     ///
     /// - SeeAlso:
     ///     ``ObjectType``, ``Metamodel``
-    ///     ``Frame/filter(type:)``,
+    ///     ``Plane/filter(type:)``,
     ///     ``Predicate/isType(_:)``
     ///
     var type: ObjectType { get }
 
-    /// Structural role of the object within a design.
+    /// Topological role of the object within a design.
     ///
     /// This property is the only other property to the parent/child hierarchy,
     /// where an object can have references to other objects.
@@ -86,13 +85,13 @@ public protocol ObjectProtocol: Identifiable {
     /// are all objects with only difference, that the edge can refer to
     /// other objects.
     ///
-    /// Structural component also denotes which objects depend on the object.
-    /// For example, if objects is an edge and any of it's ``Structure/edge(_:_:)``
+    /// Topology also denotes which objects depend on the object.
+    /// For example, if objects is an edge and any of it's ``Topology/edge(_:_:)``
     /// elements is removed from a design, then the edge is removed as well.
     ///
-    /// - SeeAlso: ``TransientFrame/removeCascading(_:)``, ``Graph``
+    /// - SeeAlso: ``TransientPlane/removeCascading(_:)``, ``Graph``
     ///
-    var structure: Structure { get }
+    var topology: Topology { get }
     
     /// Parent of an object in a hierarchical structure.
     ///
@@ -100,24 +99,24 @@ public protocol ObjectProtocol: Identifiable {
     /// are removed with it, including their dependencies.
     ///
     /// - SeeAlso: ``children``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``
     ///
     var parent: ObjectID? { get }
 
     /// Children of an object in a hierarchical structure.
     ///
     /// Children are part of the hierarchical structure of objects. When
-    /// an object is removed from a frame, all its children are removed
+    /// an object is removed from a plane, all its children are removed
     /// with it, together with all dependencies.
     ///
     /// - SeeAlso: ``parent``,
-    /// ``TransientFrame/addChild(_:to:)``,
-    /// ``TransientFrame/removeChild(_:from:)``,
-    /// ``TransientFrame/removeFromParent(_:)``,
-    /// ``TransientFrame/removeCascading(_:)``.
+    /// ``TransientPlane/addChild(_:to:)``,
+    /// ``TransientPlane/removeChild(_:from:)``,
+    /// ``TransientPlane/removeFromParent(_:)``,
+    /// ``TransientPlane/removeCascading(_:)``.
     ///
     var children: OrderedSet<ObjectID> { get }
     

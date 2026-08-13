@@ -10,7 +10,7 @@ extension DesignLoader {
     ///
     /// The method validates:
     ///
-    /// - Whether the object snapshot IDs and frame IDs, if provided, are unique
+    /// - Whether the object snapshot IDs and plane IDs, if provided, are unique
     ///
     /// - Returns: Validated context that is meant to be used as an input for identity resolution.
     /// - Note: This is just preliminary validation required for identity resolution, it does not
@@ -22,7 +22,7 @@ extension DesignLoader {
         throws (DesignLoaderError) -> ValidationResolution
     {
         // 1. Validate duplicate IDs.
-        var seen: Set<ForeignEntityID> = Set()
+        var seen: Set<RawEntityID> = Set()
         
         for (index, snapshot) in rawDesign.snapshots.enumerated() {
             guard let id = snapshot.snapshotID else { continue }
@@ -32,10 +32,10 @@ extension DesignLoader {
             seen.insert(id)
         }
 
-        for (index, frame) in rawDesign.frames.enumerated() {
-            guard let id = frame.id else { continue }
+        for (index, plane) in rawDesign.planes.enumerated() {
+            guard let id = plane.id else { continue }
             if seen.contains(id) {
-                throw .item(.frames, index, .duplicateForeignID(id))
+                throw .item(.planes, index, .duplicateForeignID(id))
             }
             seen.insert(id)
         }
@@ -91,8 +91,8 @@ extension DesignLoader {
 
 
         return ValidationResolution(identityManager: identityManager,
-                                       rawSnapshots: rawDesign.snapshots,
-                                       rawFrames: rawDesign.frames)
+                                    rawSnapshots: rawDesign.snapshots,
+                                    rawPlanes: rawDesign.planes)
         
     }
 

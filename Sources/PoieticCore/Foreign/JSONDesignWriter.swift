@@ -1,5 +1,5 @@
 //
-//  JSONFrameWriter.swift
+//  JSONDesignWriter.swift
 //  PoieticCore
 //
 //  Created by Stefan Urbanek on 22/10/2024.
@@ -33,12 +33,13 @@ public class JSONDesignWriter {
     }
 
     public func write(_ design: RawDesign) -> Data {
+        let currentFormat: RawDesignV0_2 = RawDesignV0_2(rawDesign: design)
         let encoder = JSONEncoder()
         encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
         let data: Data
 
         do {
-            data = try encoder.encode(design)
+            data = try encoder.encode(currentFormat)
         }
         catch {
             // Not user's fault, it is ours.
@@ -48,11 +49,8 @@ public class JSONDesignWriter {
     }
 
     public func write(_ design: RawDesign) -> String? {
-        let encoder = JSONEncoder()
-        encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
         let data: Data = write(design)
         let text = String(data: data, encoding: .utf8)
         return text
     }
-
 }

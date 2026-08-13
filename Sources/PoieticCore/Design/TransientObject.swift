@@ -9,108 +9,100 @@ import Collections
 
 // FIXME: Remove id and Identifiable (historical remnant that causes confusion)
 @usableFromInline
-class _TransientSnapshotBox: Identifiable {
-    // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
-    /// Object ID
-    ///
-    @usableFromInline
-    var id: ObjectID
-   
-    // original(snap), new(snapshot), newmut(snap), origmut(snap)
-    
-    // FIXME: Move the original/new flag from enum here, to struct
+class _TransientSnapshotBox: Identifiable, RCTableElement {
+    var isOriginal: Bool
+
     enum Content {
-        case stable(isOriginal: Bool, object: ObjectSnapshot)
-        case transient(isNew: Bool, object: TransientObject)
+        case stable(ObjectSnapshot)
+        case transient(TransientObject)
     }
     
     var content: Content
     
-    init(_ snapshot: ObjectSnapshot, isOriginal: Bool) {
-        self.id = snapshot.objectID
-        content = .stable(isOriginal: isOriginal, object: snapshot)
-    }
-    init(_ mutable: TransientObject, isNew: Bool) {
-        self.id = mutable.objectID
-        content = .transient(isNew: isNew, object: mutable)
-    }
-    
-    var isOriginal: Bool {
+    public var storageKey: ObjectSnapshotID {
         switch content {
-        case .stable(let flag, _): flag
-        case .transient(_, _): false
+        case .stable(let obj): obj.objectID
+        case .transient(let obj): obj.objectID
         }
+    }
+
+    init(_ snapshot: ObjectSnapshot, isOriginal: Bool) {
+        self.isOriginal = isOriginal
+        self.content = .stable(snapshot)
+    }
+    init(_ mutable: TransientObject, isOriginal: Bool) {
+        self.isOriginal = isOriginal
+        self.content = .transient(mutable)
     }
     
     var isMutable: Bool {
         switch content {
-        case .stable(_, _): false
-        case .transient(_, _): true
+        case .stable(_): false
+        case .transient(_): true
         }
     }
-    
     var hasChanges: Bool {
+        guard isOriginal else { return true }
         switch content {
-        case let .transient(isNew: newFlag, object: object): newFlag || object.hasChanges
-        case let .stable(isOriginal: isOriginalFlag, object: _): !isOriginalFlag
+        case .transient(let object): return object.hasChanges
+        case .stable(_): return false
         }
     }
     
     var objectID: ObjectID {
         switch content {
-        case let .stable(_, snapshot): snapshot.objectID
-        case let .transient(_, object): object.objectID
+        case let .stable(snapshot): snapshot.objectID
+        case let .transient(object): object.objectID
         }
     }
 
     var snapshotID: ObjectSnapshotID {
         switch content {
-        case let .stable(_, snapshot): snapshot.snapshotID
-        case let .transient(_, object): object.snapshotID
+        case let .stable(snapshot): snapshot.snapshotID
+        case let .transient(object): object.snapshotID
         }
     }
     
     var parent: ObjectID? {
         switch content {
-        case let .stable(_, snapshot): snapshot.parent
-        case let .transient(_, object): object.parent
+        case let .stable(snapshot): snapshot.parent
+        case let .transient(object): object.parent
         }
     }
     
     var children: OrderedSet<ObjectID> {
         switch content {
-        case let .stable(_, snapshot): snapshot.children
-        case let .transient(_, object): object.children
+        case let .stable(snapshot): snapshot.children
+        case let .transient(object): object.children
         }
     }
     
-    var structure: Structure {
+    var topology: Topology {
         switch content {
-        case let .stable(_,snapshot): snapshot.structure
-        case let .transient(_, object): object.structure
+        case let .stable(snapshot): snapshot.topology
+        case let .transient(object): object.topology
         }
     }
-    
+    // TODO: Verify usage and usefulness of this
     func asSnapshot() -> ObjectSnapshot {
         switch content {
-        case let .stable(_, object): object
-        case let .transient(_, snapshot):
-            ObjectSnapshot(id: snapshot.snapshotID,
-                           body: snapshot._body)
+        case let .stable(object): object
+        case let .transient(snapshot):
+            ObjectSnapshot(id: snapshot.snapshotID, body: snapshot._body)
         }
     }
 }
 
-/// An object that can be modified before being inserted into a frame.
+/// An object that can be modified before being inserted into a plane.
 ///
 /// Transient objects have short life time and should exist only for the purpose of constructing
-/// a transaction for a change. New objects are created within a ``TransientFrame`` using
-/// ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
-/// Mutable versions of existing stable objects are created with``TransientFrame/mutate(_:)``.
+/// a transaction for a change. New objects are created within a ``TransientPlane`` using
+/// ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``.
+/// Mutable versions of existing stable objects are created with``TransientPlane/mutate(_:)``.
 ///
 /// Transient objects are converted to stable objects in ``Design/accept(_:appendHistory:)``.
 ///
-/// - SeeAlso: ``TransientFrame``, ``Design/accept(_:appendHistory:)``
+/// - SeeAlso: ``TransientPlane``, ``Design/accept(_:appendHistory:)``
 ///
 public class TransientObject: ObjectProtocol {
     
@@ -134,18 +126,18 @@ public class TransientObject: ObjectProtocol {
     public init(type: ObjectType,
                 snapshotID: ObjectSnapshotID,
                 objectID: ObjectID,
-                structure: Structure = .unstructured,
+                topology: Topology = .unstructured,
                 parent: ObjectID? = nil,
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:]) {
         
         self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
-                                 type: type,
-                                 structure: structure,
-                                 parent: parent,
-                                 children: children,
-                                 attributes: attributes)
+                                type: type,
+                                topology: topology,
+                                parent: parent,
+                                children: children,
+                                attributes: attributes)
         self.changedAttributes = Set()
         self.hierarchyChanged = false
     }
@@ -159,9 +151,9 @@ public class TransientObject: ObjectProtocol {
    
     @inlinable public var objectID: ObjectID { _body.id }
     @inlinable public var type: ObjectType { _body.type }
-    @inlinable public var structure: Structure {
-        get { _body.structure }
-        set(structure) { _body.structure = structure }
+    @inlinable public var topology: Topology {
+        get { _body.topology }
+        set(topology) { _body.topology = topology }
         
     }
     

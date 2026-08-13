@@ -31,12 +31,12 @@ public enum SelectionChange: Component {
 /// application actions. For example toggling a selected object using `Shift` key can be done
 /// with the ``toggle(_:)`` method.
 ///
-/// Design frame has several methods related to application use of selection for inspection
-/// of selected objects, such as ``Frame/distinctAttribute(_:ids:)``, ``Frame/distinctTypes(_:)``,
-/// ``Frame/sharedTraits(_:)``.
+/// Design plane has several methods related to application use of selection for inspection
+/// of selected objects, such as ``Plane/distinctAttribute(_:ids:)``, ``Plane/distinctTypes(_:)``,
+/// ``Plane/sharedTraits(_:)``.
 ///
 /// When a selection is preserved between changes, it is recommended to sanitise the objects
-/// in the selection using the ``Frame/existing(from:)`` function.
+/// in the selection using the ``Plane/existing(from:)`` function.
 ///
 public final class Selection: Collection, Component {
     public typealias Index = [ObjectID].Index
@@ -44,7 +44,7 @@ public final class Selection: Collection, Component {
     /// List of object IDs contained in the selection.
     /// 
     /// When a selection is preserved between changes, it is recommended to sanitise the objects
-    /// in the selection using the ``Frame/existing(from:)`` function.
+    /// in the selection using the ``Plane/existing(from:)`` function.
     ///
     public private(set) var ids: OrderedSet<ObjectID> = []
     

@@ -237,27 +237,27 @@ extension RawDesignReaderError: DesignIssueConvertible {
 
 /// Object for reading foreign designs represented as JSON.
 ///
-/// - Note: Hand-writing foreign frames in JSON is discouraged, as they might become
+/// - Note: Hand-writing foreign planes in JSON is discouraged, as they might become
 ///   complex very quickly. It is not the purpose of this toolkit to
 ///   process and maintain raw human-written textual representation of designs.
 ///
 /// The top-level structure of the design is a dictionary with the following keys:
 ///
 /// - `format_version` _(recommended, string)_: Version of the JSON encoding format. Currently
-///    `"0.4.0"`.
+///    `"0.2.0"`.
 ///    See ``JSONDesignReader/CurrentFormatVersion``.
 /// - `metamodel`: Name of the metamodel the design contents conforms to. See ``Metamodel``.
 ///     If not present, the default metamodel by the tool/application at hand is assumed. It is
 ///     always preferred to include the metamodel name.
 /// - `metamodel_version`: Version of the metamodel. If not provided, then the latest version
 ///     should be assumed by the application/tool.
-/// - `snapshots`: All object version snapshots, referenced by frames. See ``RawSnapshot``.
-/// - `frames`: Design frames contained within. See ``RawFrame``.
+/// - `snapshots`: All object version snapshots, referenced by planes. See ``RawSnapshot``.
+/// - `planes`: Design planes contained within. See ``RawFrame``.
 /// - `user_references`: User defined references to any identifiable entity within the design.
 ///         See ``RawNamedReference``.
-///         Named frames (``Design/frame(name:)``) are stored in the user references as well.
+///         Named planes (``Design/plane(name:)``) are stored in the user references as well.
 /// - `system_references`: References used by the system (same structure as `user_references`).
-///         For example the current design frame is stored as a system reference.
+///         For example the current design plane is stored as a system reference.
 /// - `user_lists`: User defined lists of references to any identifiable entity within the design. See ``RawNamedList``.
 /// - `system_lists`: Reference lists used by the system (same structure as `user_references`).
 ///         For example undo and redo history is stored in the system lists.
@@ -276,9 +276,9 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///   (edges, parent/child). Can be an int or a string.
 /// - `snapshot_id` _(recommended)_: snapshot ID, if not provided, one will be
 ///   generated during loading. Can be an int or a string.
-/// - `structure`_(recommended)_: Structure type: `node`, `edge`, `unstructured`. See ``RawStructure``.
-/// - `origin` (structural): If the structure is an edge, the property references its origin object ID.
-/// - `target` (structural): If the structure is an edge, the property references its target object ID.
+/// - `topology`_(recommended)_: Topology type: `node`, `edge`, `unstructured`. See ``RawStructure``.
+/// - `origin` (structural): If the topology is an edge, the property references its origin object ID.
+/// - `target` (structural): If the topology is an edge, the property references its target object ID.
 /// - `parent` (optional): reference to object's parent object ID.
 /// - `attributes`: a dictionary where keys are attribute names and values are
 ///    variants. See below how variants are encoded.
@@ -314,15 +314,11 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///
 public final class JSONDesignReader {
     // NOTE: Update in the JSONDesignReader class documentation
-    public static let CurrentFormatVersion = SemanticVersion(0, 1, 0)
+    public static let CurrentFormatVersion = SemanticVersion(0, 2, 0)
     
-    // TODO: let forceFormatVersion: SemanticVersion
-    public let variantCoding: Variant.CodingType
-    
-    /// Create a frame reader.
+    /// Create a plane reader.
     ///
-    public init(variantCoding: Variant.CodingType = .dictionary) {
-        self.variantCoding = variantCoding
+    public init() {
         // Nothing here for now
     }
     
@@ -355,52 +351,20 @@ public final class JSONDesignReader {
     /// in the error.
     ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
+        // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error
         let decoder = JSONDecoder()
-        decoder.userInfo[Variant.CodingTypeKey] = self.variantCoding
         
-        let rawDesign: RawDesign
-        do {
-            rawDesign = try decoder.decode(RawDesign.self, from: data)
+        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        if let raw = try? decoder.decode(RawDesignV0_2.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch let error as DecodingError {
-            throw RawDesignReaderError(error)
+        if let raw = try? decoder.decode(RawDesignV0_1.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch RawDesignReaderError.unknownFormatVersion(let version) {
-            rawDesign = try read(data: data, version: version)
+        if let raw = try? decoder.decode(_MakeshiftPersistentDesign.self, from: data) {
+            return raw.asRawDesign()
         }
-        catch {
-            // TODO: What other errors can happen here? Custom decoding errors?
-            fatalError("Unhandled reader error \(type(of:error)): \(error)")
-        }
-        
-        return rawDesign
-    }
-
-    /// Read a raw design from JSON data using an adapter for a non-current version.
-    ///
-    /// This method is called by the ``read(data:)`` when the format version is incompatible
-    /// with the current version reader.
-    ///
-    /// See the class documentation for more information about the format.
-    ///
-    public func read(data: Data, version: String) throws (RawDesignReaderError) -> RawDesign {
-        switch version {
-        case "makeshift_store":
-            let makeshiftDesign: _MakeshiftPersistentDesign
-            let decoder = JSONDecoder()
-            decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.tuple
-            do {
-                makeshiftDesign = try decoder.decode(_MakeshiftPersistentDesign.self, from: data)
-            }
-            catch let error as DecodingError {
-                throw RawDesignReaderError(error)
-            }
-            catch {
-                throw .canNotReadData
-            }
-            return makeshiftDesign.asRawDesign()
-        default:
-            throw RawDesignReaderError.unknownFormatVersion(version)
-        }
+        let ctx = RawDesignReaderError.Context(path: [], underlyingError: nil)
+        throw RawDesignReaderError.dataCorrupted(ctx)
     }
 }

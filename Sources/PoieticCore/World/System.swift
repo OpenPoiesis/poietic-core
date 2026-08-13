@@ -23,10 +23,10 @@ public enum SystemDependency {
     case after(any System.Type)
 }
 
-/// A system that processes a runtime frame and populates components.
+/// A system that processes a runtime plane and populates components.
 ///
 /// Systems are the computational units in the ECS architecture. They read
-/// from frame attributes and existing components, then write new components.
+/// from plane attributes and existing components, then write new components.
 ///
 /// Systems declare their dependencies through component types they produce
 /// and require, allowing the system registry to compute execution order

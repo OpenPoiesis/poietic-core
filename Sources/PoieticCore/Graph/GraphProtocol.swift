@@ -8,7 +8,7 @@
 /// Wrapper of an object snapshot presented as an edge.
 ///
 /// The edge object contains direct references to concrete design objects.
-/// The edge object is relevant only within the context of a frame that was used during
+/// The edge object is relevant only within the context of a plane that was used during
 /// initialisation.
 ///
 public struct DesignObjectEdge: EdgeProtocol {
@@ -21,13 +21,13 @@ public struct DesignObjectEdge: EdgeProtocol {
     /// ID of the edge design object.
     public var id: ObjectID { object.objectID }
     
-    /// Reference to the edge origin object extracted from a frame during initialisation.
+    /// Reference to the edge origin object extracted from a plane during initialisation.
     public let originObject: ObjectSnapshot
     
     /// ID of the edge origin.
     public var origin: ObjectID { originObject.objectID }
     
-    /// Reference to the edge target object extracted from a frame during initialisation.
+    /// Reference to the edge target object extracted from a plane during initialisation.
     public let targetObject: ObjectSnapshot
     
     /// ID of the edge target.
@@ -35,18 +35,18 @@ public struct DesignObjectEdge: EdgeProtocol {
     
     /// Create a new edge object for a given design object.
     ///
-    /// Extracts the edge origin and target object references from the frame based on the
+    /// Extracts the edge origin and target object references from the plane based on the
     /// edge endpoints IDs.
     ///
-    /// The edge object is relevant only within the context of the frame that was used here, during
+    /// The edge object is relevant only within the context of the plane that was used here, during
     /// the initialisation. It should not be stored or shared.
     ///
     /// If the design object is not an edge, then the initialiser results in `nil`.
     ///
-    public init?(_ snapshot: ObjectSnapshot, in frame: some Frame) {
-        guard case let .edge(originID, targetID) = snapshot.structure,
-                let origin = frame[originID],
-                let target = frame[targetID]
+    public init?(_ snapshot: ObjectSnapshot, in plane: some Plane) {
+        guard case let .edge(originID, targetID) = snapshot.topology,
+                let origin = plane[originID],
+                let target = plane[targetID]
         else {
             return nil
         }
@@ -56,7 +56,7 @@ public struct DesignObjectEdge: EdgeProtocol {
         self.targetObject = target
     }
     internal init(_ snapshot: ObjectSnapshot, origin: ObjectSnapshot, target: ObjectSnapshot) {
-        precondition(snapshot.structure == .edge(origin.objectID, target.objectID))
+        precondition(snapshot.topology == .edge(origin.objectID, target.objectID))
         
         self.object = snapshot
         self.originObject = origin
@@ -85,7 +85,7 @@ public protocol EdgeProtocol {
 
 /// Protocol for object graphs - nodes connected by edges.
 ///
-/// Graphs are used to view interconnected object structures. When you use design frames
+/// Graphs are used to view interconnected object structures. When you use design planes
 /// you will benefit from operations that find neighbourhoods or sort objects topologically.
 ///
 public protocol GraphProtocol {

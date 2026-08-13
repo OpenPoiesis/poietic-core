@@ -17,11 +17,11 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
     ///
     case unknownType(String)
 
-    /// Object structure does not match required type structure.
+    /// Object topology does not match required type topology.
     ///
-    /// - SeeAlso: ``ObjectType/structuralType``, ``ObjectProtocol/structure``
+    /// - SeeAlso: ``ObjectType/topologyType``, ``ObjectProtocol/topology``
     ///
-    case structureMismatch(StructuralType)
+    case topologyMismatch(TopologyType)
     
     /// Object is missing a required attribute from a trait.
     ///
@@ -41,8 +41,8 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
         switch self {
         case let .unknownType(name):
             "Unknown object type: \(name)"
-        case let .structureMismatch(type):
-            "Structure mismatch. Expected \(type)"
+        case let .topologyMismatch(type):
+            "Topology mismatch. Expected \(type)"
         case let .missingTraitAttribute(attribute, trait):
             "Missing attribute '\(attribute.name)' required by trait '\(trait)'"
         case let .typeMismatch(attribute, actualType):
@@ -80,14 +80,14 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
                         message: description,
                         hint: nil,
                         details: ["type": Variant(type)])
-        case let .structureMismatch(type):
+        case let .topologyMismatch(type):
             DesignIssue(domain: .validation,
                         severity: .error,
-                        identifier: "structure_mismatch",
+                        identifier: "topology_mismatch",
                         message: description,
                         hint: nil,
                         details: [
-                            "expected_structure": Variant(type.rawValue)
+                            "expected_topology": Variant(type.rawValue)
                         ])
         }
     }
@@ -126,26 +126,26 @@ extension ObjectTypeError /*: IssueProtocol */ {
                 system: "Validation",
                 message: self.description,
                 details: ["type": Variant(type)])
-        case let .structureMismatch(type):
+        case let .topologyMismatch(type):
             Issue(
-                identifier: "structure_mismatch",
+                identifier: "topology_mismatch",
                 severity: .fatal,
                 system: "Validation",
                 message: self.description,
                 details: [
-                    "expected_structure": Variant(type.rawValue)
+                    "expected_topology": Variant(type.rawValue)
                 ])
         }
     }
 }
 
 
-/// Error thrown by constraint checker when there are issues with a frame.
+/// Error thrown by constraint checker when there are issues with a plane.
 ///
 /// - SeeAlso: ``ConstraintChecker/validate(_:)``
 ///
-public enum FrameValidationError: Error {
-    /// Structural references such as edge endpoints, parent-child are invalid.
+public enum PlaneValidationError: Error {
+    /// Topological references such as edge endpoints, parent-child are invalid.
     ///
     /// When this error happens, it is not possible to do further diagnostics. It usually means
     /// a programming error.
@@ -179,13 +179,13 @@ public enum FrameValidationError: Error {
     }
 }
 
-/// Collection of frame validation issues.
+/// Collection of plane validation issues.
 ///
 /// This collection is produced by ``ConstraintChecker/diagnose(_:)``.
 ///
-/// - SeeAlso: ``FrameValidationError`` for an exception complement.
+/// - SeeAlso: ``PlaneValidationError`` for an exception complement.
 ///
-public struct FrameValidationResult: Sendable {
+public struct PlaneValidationResult: Sendable {
     /// List of constraint violations.
     ///
     /// - SeeAlso: ``Metamodel/constraints``, ``Constraint``.

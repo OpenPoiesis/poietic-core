@@ -9,16 +9,16 @@
 ///
 /// Schedule labels are compile-time tags of system schedules.
 ///
-/// - SeeAlso: ``FrameChangeSchedule``, ``InteractivePreviewSchedule``.
+/// - SeeAlso: ``PlaneChangeSchedule``, ``InteractivePreviewSchedule``.
 ///
 public protocol ScheduleLabel {
     // Empty protocol, just a tag
 }
 
-/// Schedule label for systems that are run when frame did change.
+/// Schedule label for systems that are run when plane did change.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
-public enum FrameChangeSchedule: ScheduleLabel {}
+public enum PlaneChangeSchedule: ScheduleLabel {}
 
 /// Schedule label for systems that are run during interactive session, for example
 /// a dragging or an object placement session.
@@ -30,7 +30,7 @@ public enum InteractivePreviewSchedule: ScheduleLabel {}
 
 /// Schedule label for systems that run a simulation.
 ///
-/// The schedule is typically run after ``FrameChangeSchedule``.
+/// The schedule is typically run after ``PlaneChangeSchedule``.
 ///
 /// - SeeAlso: ``World/run(schedule:)``
 public enum SimulationSchedule: ScheduleLabel {}
@@ -46,14 +46,14 @@ public enum SimulationSchedule: ScheduleLabel {}
 /// ## Example
 ///
 /// ```swift
-/// let frame: DesignFrame // Assume we have this.
+/// let plane: DesignPlane // Assume we have this.
 /// let schedule = Schedule()
 ///
 /// schedule.add(ExpressionParserSystem.self)
 /// schedule.add(ParametereDependecySystem.self)
 /// schedule.add(StockFlowAnalysisSystem.self)
 ///
-/// let world = World(frame: frame)
+/// let world = World(plane: plane)
 /// world.set
 /// try world.run(schedule)
 /// ```
@@ -167,7 +167,7 @@ public final class Schedule {
     /// Creates instances of the systems and initialises them with the world.
     ///
     public func initialize(with world: World) throws (InternalSystemError) {
-        // TODO: Add frame or some initialisation context
+        // TODO: Add plane or some initialisation context
         for systemType in _executionOrder {
             let system = systemType.init(world)
             _instances.append(system)

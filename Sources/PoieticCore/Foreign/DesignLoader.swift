@@ -34,7 +34,7 @@ resolveFrames          resolveObjectSnapshots
                   ↓
      ┌────────────┴────────────┐
      ↓                         ↓
-insertFrames          frame.unsafeInsert
+insertFrames          plane.unsafeInsert
      ↓
 resolveNamedReferences
      ↓
@@ -61,7 +61,7 @@ finaliseDesign
 /// - Validation of raw design
 /// - Reservation of object identities.
 /// - Resolution of entity references
-/// - Creation of entities (object snapshots, frames, ...)
+/// - Creation of entities (object snapshots, planes, ...)
 ///
 /// - SeeAlso: ``JSONDesignReader``, ``JSONDesignWriter``
 ///
@@ -89,7 +89,7 @@ public class DesignLoader {
     ///
     /// ```swift
     /// let rawDesign: RawDesign  // Raw design we decoded from pasteboard
-    /// let trans: TransientFrame // Transaction into which we "paste"
+    /// let trans: TransientPlane // Transaction into which we "paste"
     /// let loader = DesignLoader(metamodel: StockFlowMetamodel)
     ///
     /// try loader.load(rawDesign, identityStrategy: .preserveOrCreate)
@@ -102,7 +102,7 @@ public class DesignLoader {
         case requireProvided
         
         // Identities are preserved, if they are available. Otherwise new identities will be
-        // created. Typical use case is pasting from a pasteboard or importing into existing frame.
+        // created. Typical use case is pasting from a pasteboard or importing into existing plane.
         case preserveOrCreate
         
         /// All identities will be created as new.
@@ -124,11 +124,11 @@ public class DesignLoader {
         
         /// When snapshot ID is a string, use it as a name attribute, if not present.
         public static let useIDAsNameAttribute = Options(rawValue: 1 << 0)
-        /// Collect orphaned snapshots into a single frame. The orphaned snapshots must satisfy
+        /// Collect orphaned snapshots into a single plane. The orphaned snapshots must satisfy
         /// structural integrity requirements.
         ///
         /// This option is used only when loading whole design. Has no effect on loading into a
-        /// frame.
+        /// plane.
         public static let collectOrphans = Options(rawValue: 2 << 0)
     }
     
@@ -148,7 +148,7 @@ public class DesignLoader {
     ///
     /// 1. Validate the raw design for duplicates.
     /// 2. Reserve identities.
-    /// 2. Create snapshots and frames.
+    /// 2. Create snapshots and planes.
     /// 4. Create a new design.
     ///
     public func load(_ rawDesign: RawDesign) throws (DesignLoaderError) -> Design {
@@ -171,21 +171,21 @@ public class DesignLoader {
         )
         
 
-        let frameResolution: FrameResolution
-        if options == .collectOrphans && validationResolution.rawFrames.count == 0 {
-            frameResolution = try resolveOrphansFrame(
+        let frameResolution: PlaneResolution
+        if options == .collectOrphans && validationResolution.rawPlanes.count == 0 {
+            frameResolution = try resolveOrphansPlane(
                 resolution: validationResolution,
                 identities: identityResolution,
             )
         }
         else {
-            frameResolution = try resolveFrames(
+            frameResolution = try resolvePlanes(
                 resolution: validationResolution,
                 identities: identityResolution,
             )
         }
         let hierarchicalSnapshots  = try resolveHierarchy(
-            frameResolution: frameResolution,
+            planeResolution: frameResolution,
             snapshotResolution: partialSnapshotResolution
         )
         
@@ -196,8 +196,8 @@ public class DesignLoader {
             snapshotMap[snapshot.snapshotID] = snapshot
         }
 
-        try insertFrames(
-            resolvedFrames: frameResolution.frames,
+        try insertPlanes(
+            resolvedPlanes: frameResolution.planes,
             snapshotMap: snapshotMap,
             into: design
         )
@@ -215,55 +215,55 @@ public class DesignLoader {
         return design
     }
     
-    /// Loads current frame of the design into a transient frame.
+    /// Loads current plane of the design into a transient plane.
     ///
     /// This is used for foreign design imports and for performing paste from a pasteboard
     /// (clipboard).
     ///
     /// Requirements for the raw design:
     ///
-    /// - If the raw design has one or more frames, then current frame must be set and that frame will be loaded.
-    /// - If the raw design has no frames: All snapshots will be treated as snapshot of a single frame.
+    /// - If the raw design has one or more planes, then current plane must be set and that plane will be loaded.
+    /// - If the raw design has no planes: All snapshots will be treated as snapshot of a single plane.
     ///
     @discardableResult
     public func load(_ rawDesign: RawDesign,
-                     into frame: TransientFrame,
+                     into plane: TransientPlane,
                      identityStrategy: IdentityStrategy = .preserveOrCreate)
     throws (DesignLoaderError) -> [ObjectID]
     {
         var snapshots: [RawSnapshot] = []
         
-        if let currentFrameID = rawDesign.currentFrameID {
-            guard let frameIndex = rawDesign.frames.firstIndex(where: { $0.id == currentFrameID }) else {
-                throw .design(.unknownFrameID(currentFrameID))
+        if let currentFrameID = rawDesign.currentPlaneID {
+            guard let planeIndex = rawDesign.planes.firstIndex(where: { $0.id == currentFrameID }) else {
+                throw .design(.unknownPlaneID(currentFrameID))
             }
             
-            let currentFrame = rawDesign.frames[frameIndex]
+            let currentPlane = rawDesign.planes[planeIndex]
             
-            for snapshotID in currentFrame.snapshots {
+            for snapshotID in currentPlane.snapshots {
                 guard let snapshot = rawDesign.first(snapshotWithID: snapshotID) else {
-                    throw .item(.frames, frameIndex, .unknownID(snapshotID))
+                    throw .item(.planes, planeIndex, .unknownID(snapshotID))
                 }
                 snapshots.append(snapshot)
             }
         }
         else {
-            guard rawDesign.frames.isEmpty else {
-                throw .design(.missingCurrentFrame)
+            guard rawDesign.planes.isEmpty else {
+                throw .design(.missingCurrentPlane)
             }
             snapshots = rawDesign.snapshots
         }
-        return try load(snapshots, into: frame, identityStrategy: identityStrategy)
+        return try load(snapshots, into: plane, identityStrategy: identityStrategy)
     }
     
-    /// Load raw snapshots into a transient frame.
+    /// Load raw snapshots into a transient plane.
     ///
-    /// This method is intended to be used when importing external frames or for pasting in the
+    /// This method is intended to be used when importing external planes or for pasting in the
     /// Copy & Paste mechanism.
     ///
     /// - Parameters:
-    ///     - rawSnapshots: List of raw snapshots to be loaded into the frame.
-    ///     - frame: Frame into which the object snapshots will be loaded.
+    ///     - rawSnapshots: List of raw snapshots to be loaded into the plane.
+    ///     - plane: Plane into which the object snapshots will be loaded.
     ///     - identityStrategy: Strategy used to generate or preserve provided raw IDs.
     ///       Recommended to use ``IdentityStrategy/preserveOrCreate`` strategy.
     ///
@@ -278,16 +278,16 @@ public class DesignLoader {
     /// 3. Resolve snapshot references.
     /// 4. Resolve snapshot hierarchy.
     /// 5. Create object snapshot instances.
-    /// 6. Insert snapshots into frame.
+    /// 6. Insert snapshots into plane.
     ///
     /// - Note: The references of ``rawSnapshots`` are resolved _only_ within the provided object
     ///  snapshots. Any references from ``rawSnapshots`` that are not contained in the input
     ///  parameter are considered invalid. As a consequence, there can not be references to existing
-    ///  objects in the ``frame``.
+    ///  objects in the ``plane``.
     ///
     @discardableResult
     internal func load(_ rawSnapshots: [RawSnapshot],
-                       into frame: TransientFrame,
+                       into plane: TransientPlane,
                        identityStrategy: IdentityStrategy = .requireProvided)
     throws (DesignLoaderError) -> [ObjectID] {
         let identityResolution: DesignLoader.IdentityResolution
@@ -296,14 +296,14 @@ public class DesignLoader {
 
         let validationResolution = try validate(
             rawDesign: rawDesign,
-            identityManager: frame.design.identityManager
+            identityManager: plane.design.identityManager
         )
         
         // FIXME: [IMPORTANT] Release reservations from here:
         identityResolution = try resolveIdentities(
             resolution: validationResolution,
             identityStrategy: identityStrategy,
-            unavailableIDs: Set(frame.objectIDs)
+            unavailableIDs: Set(plane.objectIDs)
         )
         
         let snapshotResolution = try resolveObjectSnapshots(
@@ -321,74 +321,74 @@ public class DesignLoader {
         
         // FIXME: [IMPORTANT] Release reservations above ^^ to here.
 
-        frame.unsafeInsert(snapshots, reservations: completeSnapshots.identities.reserved)
+        plane.unsafeInsert(snapshots, reservations: completeSnapshots.identities.reserved)
         
         do {
-            // TODO: [WIP] Is this needed? The caller is validating the frame anyway before accept().
-            try StructuralValidator.validate(snapshots: snapshots, in: frame)
+            // TODO: [WIP] Is this needed? The caller is validating the plane anyway before accept().
+            try StructuralValidator.validate(snapshots: snapshots, in: plane)
         }
         catch {
-            throw .item(.frames, 0, .brokenStructuralIntegrity(error))
+            throw .item(.planes, 0, .brokenStructuralIntegrity(error))
         }
         return snapshots.map { $0.objectID }
     }
     
-    // MARK: - Frames
+    // MARK: - Planes
     
-    internal func resolveFrames(resolution: ValidationResolution,
+    internal func resolvePlanes(resolution: ValidationResolution,
                                 identities: IdentityResolution)
-    throws (DesignLoaderError) -> FrameResolution
+    throws (DesignLoaderError) -> PlaneResolution
     {
-        precondition(resolution.rawFrames.count == identities.frameIDs.count)
+        precondition(resolution.rawPlanes.count == identities.planeIDs.count)
         
-        var resolvedFrames: [ResolvedFrame] = []
+        var resolvedPlanes: [ResolvedPlane] = []
         
-        var frameIndex = 0
-        for (frameID, rawFrame) in zip(identities.frameIDs, resolution.rawFrames) {
+        var planeIndex = 0
+        for (planeID, rawFrame) in zip(identities.planeIDs, resolution.rawPlanes) {
             let ids: [ObjectSnapshotID]
             
             do {
-                ids = try resolveFrame(rawFrame, identities: identities)
+                ids = try resolvePlane(rawFrame, identities: identities)
             }
             catch {
-                throw .item(.frames, frameIndex, error)
+                throw .item(.planes, planeIndex, error)
             }
-            let resolved = ResolvedFrame(frameID: frameID, snapshots: ids)
-            resolvedFrames.append(resolved)
-            frameIndex += 1
+            let resolved = ResolvedPlane(planeID: planeID, snapshots: ids)
+            resolvedPlanes.append(resolved)
+            planeIndex += 1
         }
         
-        return FrameResolution(frames: resolvedFrames)
+        return PlaneResolution(planes: resolvedPlanes)
     }
 
-    internal func resolveOrphansFrame(resolution: ValidationResolution,
+    internal func resolveOrphansPlane(resolution: ValidationResolution,
                                       identities: IdentityResolution)
-    throws (DesignLoaderError) -> FrameResolution
+    throws (DesignLoaderError) -> PlaneResolution
     {
-        precondition(resolution.rawFrames.count == 0) // We have no frames requested ...
-        precondition(identities.frameIDs.count == 1) // ... yet we reserved one ID for us here.
+        precondition(resolution.rawPlanes.count == 0) // We have no planes requested ...
+        precondition(identities.planeIDs.count == 1) // ... yet we reserved one ID for us here.
 
-        let resolved = ResolvedFrame(frameID: identities.frameIDs[0],
+        let resolved = ResolvedPlane(planeID: identities.planeIDs[0],
                                      snapshots: identities.snapshotIDs)
         
-        return FrameResolution(frames: [resolved])
+        return PlaneResolution(planes: [resolved])
     }
 
     
     /// - Returns: List of indices of object snapshots in the list of all snapshots.
     ///
-    internal func resolveFrame(_ frame: RawFrame, identities: IdentityResolution)
+    internal func resolvePlane(_ plane: RawPlane, identities: IdentityResolution)
     throws (DesignLoaderError.ItemError) -> [ObjectSnapshotID]
     {
         var ids: [ObjectSnapshotID] = []
         var seenObjects: Set<ObjectID> = []
 
-        for (objectIndex, foreignSnapshotID) in frame.snapshots.enumerated() {
+        for (objectIndex, foreignSnapshotID) in plane.snapshots.enumerated() {
             guard let snapshotID: ObjectSnapshotID = identities[foreignSnapshotID] else {
                 throw .unknownSnapshotID(foreignSnapshotID)
             }
 
-            // Check for duplicate objects (same object with different snapshots in one frame)
+            // Check for duplicate objects (same object with different snapshots in one plane)
             // Get objectID using the snapshot index
             guard let snapshotIndex = identities.snapshotIndex[snapshotID] else {
                 preconditionFailure("Snapshot ID must be in index")
@@ -408,24 +408,24 @@ public class DesignLoader {
     // MARK: - Hierarchy
     /// Resolve parent-child hierarchy of object snapshots.
     ///
-    /// The method requires the frames to be resolved.
-    internal func resolveHierarchy(frameResolution: FrameResolution,
+    /// The method requires the planes to be resolved.
+    internal func resolveHierarchy(planeResolution: PlaneResolution,
                                    snapshotResolution: PartialSnapshotResolution)
     throws (DesignLoaderError) -> SnapshotHierarchyResolution
     {
-        // Map of all snapshots in all frames. `nil` means "Snapshot was considered but has
+        // Map of all snapshots in all planes. `nil` means "Snapshot was considered but has
         // no children". Empty array should not happen.
         var allChildrenMap: [ObjectSnapshotID:[ObjectID]?] = [:]
         
-        for (frameIndex, frame) in frameResolution.frames.enumerated() {
-            let frameChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
-            let snapshots: [ResolvedObjectSnapshot] = frame.snapshots.compactMap {
+        for (planeIndex, plane) in planeResolution.planes.enumerated() {
+            let planeChildrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
+            let snapshots: [ResolvedObjectSnapshot] = plane.snapshots.compactMap {
                 snapshotResolution[$0]
             }
-            precondition(snapshots.count == frame.snapshots.count, "Broken snapshot resolution")
+            precondition(snapshots.count == plane.snapshots.count, "Broken snapshot resolution")
             
             do {
-                frameChildrenMap = try resolveChildren(
+                planeChildrenMap = try resolveChildren(
                     snapshots: snapshots,
                     snapshotResolution: snapshotResolution
                 )
@@ -435,10 +435,10 @@ public class DesignLoader {
             }
             
             
-            for snapshotID in frame.snapshots {
-                let children = frameChildrenMap[snapshotID]
+            for snapshotID in plane.snapshots {
+                let children = planeChildrenMap[snapshotID]
                 if let seen = allChildrenMap[snapshotID], seen != children {
-                    throw .item(.frames, frameIndex, .childrenMismatch)
+                    throw .item(.planes, planeIndex, .childrenMismatch)
                 }
                 allChildrenMap[snapshotID] = children
             }
@@ -452,11 +452,11 @@ public class DesignLoader {
         )
     }
     
-    // Resolve all children in the resolution without frames.
+    // Resolve all children in the resolution without planes.
     internal func resolveHierarchy(resolution: PartialSnapshotResolution)
     throws (DesignLoaderError) -> SnapshotHierarchyResolution
     {
-        let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within frame
+        let childrenMap: [ObjectSnapshotID:[ObjectID]] // Children resolved within plane
         do {
             childrenMap = try resolveChildren(snapshots: resolution.objectSnapshots,
                                               snapshotResolution: resolution)
@@ -473,12 +473,12 @@ public class DesignLoader {
     
     /// Resolve children references within a group of objects.
     ///
-    /// The group of objects is typically a frame.
+    /// The group of objects is typically a plane.
     ///
     /// This method requires that the ``LoadingContext/parents`` has been populated.
     ///
     /// - Parameters:
-    ///     - snapshotIndices: Indices of snapshots within a frame (or some other similar
+    ///     - snapshotIndices: Indices of snapshots within a plane (or some other similar
     ///         collection) to the list of all snapshots. See: ``RawDesign/snapshots``.
     ///     - objectSnapshots: All object snapshots.
     ///
@@ -518,31 +518,31 @@ public class DesignLoader {
         return childrenMap
     }
     
-    internal func insertFrames(resolvedFrames: [ResolvedFrame],
+    internal func insertPlanes(resolvedPlanes: [ResolvedPlane],
                                snapshotMap: [ObjectSnapshotID:ObjectSnapshot],
                                into design: Design)
     throws (DesignLoaderError)
     {
-        var frames: [DesignFrame] = []
+        var planes: [DesignPlane] = []
         
-        for (i, resolvedFrame) in resolvedFrames.enumerated() {
-            precondition(!design.containsFrame(resolvedFrame.frameID))
-            let frameSnapshots = resolvedFrame.snapshots.compactMap { snapshotMap[$0] }
+        for (i, resolvedPlane) in resolvedPlanes.enumerated() {
+            precondition(!design.containsPlane(resolvedPlane.planeID))
+            let planeSnapshots = resolvedPlane.snapshots.compactMap { snapshotMap[$0] }
             
-            let frame = DesignFrame(design: design,
-                                    id: resolvedFrame.frameID,
-                                    snapshots: frameSnapshots)
+            let plane = DesignPlane(design: design,
+                                    id: resolvedPlane.planeID,
+                                    snapshots: planeSnapshots)
             
             do {
-                try StructuralValidator.validate(snapshots: frameSnapshots, in: frame)
+                try StructuralValidator.validate(snapshots: planeSnapshots, in: plane)
             }
             catch {
-                throw .item(.frames, i, .brokenStructuralIntegrity(error))
+                throw .item(.planes, i, .brokenStructuralIntegrity(error))
             }
-            frames.append(frame)
+            planes.append(plane)
         }
-        for frame in frames {
-            design.unsafeInsert(frame)
+        for plane in planes {
+            design.unsafeInsert(plane)
         }
     }
     
@@ -652,7 +652,7 @@ public class DesignLoader {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
-        case "frame": .frame
+        case "frame": .plane
         case "snapshot": .objectSnapshot
         default: nil
         }
@@ -664,39 +664,39 @@ public class DesignLoader {
     {
         // Precondition: IDs must be validated
         if let list = namedReferences.systemLists["undo"] {
-            guard list.type == .frame else {
+            guard list.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("undo"))
             }
             design.undoList = list.ids
         }
         if let list = namedReferences.systemLists["redo"] {
-            guard list.type == .frame else {
+            guard list.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("redo"))
             }
             design.redoList = list.ids
         }
-        if options == .collectOrphans && design.frames.count == 1,
-           let onlyFrameID = design.frames.first?.id
+        if options == .collectOrphans && design.planes.count == 1,
+           let onlyFrameID = design.planes.first?.id
         {
-            design.currentFrameID = onlyFrameID
+            design.currentPlaneID = onlyFrameID
         }
         else if let ref = namedReferences.systemReferences["current_frame"] {
-            guard ref.type == .frame else {
+            guard ref.type == .plane else {
                 throw .design(.namedReferenceTypeMismatch("current_frame"))
             }
-            design.currentFrameID = ref.id
+            design.currentPlaneID = ref.id
         }
 
         // CurrentFrameID must be set when there is history.
-        if design.currentFrame == nil
+        if design.currentPlane == nil
             && (!design.undoList.isEmpty || !design.redoList.isEmpty)
         {
-            throw .design(.missingCurrentFrame)
+            throw .design(.missingCurrentPlane)
         }
 
         for (name, ref) in namedReferences.userReferences {
-            if ref.type == .frame {
-                design.unsafeAssignName(name: name, frameID: ref.id)
+            if ref.type == .plane {
+                design.unsafeAssignName(name: name, planeID: ref.id)
             }
         }
 

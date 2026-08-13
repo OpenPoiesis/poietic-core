@@ -5,25 +5,25 @@
 //  Created by Stefan Urbanek on 21/08/2023.
 //
 
-extension TransientFrame /* MutableGraph (no longer formally present) */ {
+extension TransientPlane /* MutableGraph (no longer formally present) */ {
     /// Convenience method to create an edge.
     ///
     /// If the object name is provided, then attribute `name` of the
     /// object is set. Replaces `name` attribute in the `attributes` dictionary.
     ///
-    /// - SeeAlso: ``TransientFrame/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
-    /// - Precondition: Frame must contain objects with given origin and target object IDs.
-    /// - Precondition: The object type must have structural type ``StructuralType/edge``.
+    /// - SeeAlso: ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
+    /// - Precondition: Plane must contain objects with given origin and target object IDs.
+    /// - Precondition: The object type must have structural type ``TopologyType/edge``.
     @discardableResult
     public func createEdge(_ type: ObjectType,
                            origin: ObjectID,
                            target: ObjectID,
                            attributes: [String:Variant] = [:]) -> TransientObject {
-        precondition(type.structuralType == .edge, "Structural type mismatch")
+        precondition(type.topologyType == .edge, "Structural type mismatch")
         precondition(contains(origin), "Missing edge origin")
         precondition(contains(target), "Missing edge target")
 
-        let snapshot = create(type, structure: .edge(origin, target), attributes: attributes)
+        let snapshot = create(type, topology: .edge(origin, target), attributes: attributes)
         
         return snapshot
     }
@@ -42,7 +42,7 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
     public func createNode(_ type: ObjectType,
                            name: String? = nil,
                            attributes: [String:Variant] = [:]) -> TransientObject {
-            precondition(type.structuralType == .node, "Structural type mismatch")
+            precondition(type.topologyType == .node, "Structural type mismatch")
 
         var actualAttributes = attributes
         
@@ -50,7 +50,7 @@ extension TransientFrame /* MutableGraph (no longer formally present) */ {
             actualAttributes["name"] = Variant(name)
         }
         
-        let snapshot = create(type, structure: .node, attributes: actualAttributes)
+        let snapshot = create(type, topology: .node, attributes: actualAttributes)
 
         return snapshot
     }

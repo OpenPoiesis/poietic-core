@@ -5,7 +5,7 @@
 //  Created by Stefan Urbanek on 02/11/2025.
 //
 
-/// Parsed arithmetic expression (frame-independent)
+/// Parsed arithmetic expression (plane-independent)
 public struct ParsedExpressionComponent: Component {
     public let expression: UnboundExpression
     public let variables: Set<String>
@@ -20,9 +20,9 @@ public struct ParsedExpressionComponent: Component {
 public struct ExpressionParserSystem: System {
     public init(_ world: World) { }
     public func update(_ world: World) {
-        guard let frame = world.frame else { return }
+        guard let plane = world.plane else { return }
         
-        for object in frame.filter(trait: .Formula) {
+        for object in plane.filter(trait: .Formula) {
             guard let formula: String = object["formula"],
                   let entity = world.entity(object.objectID)
             else { continue }

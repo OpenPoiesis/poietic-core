@@ -27,23 +27,23 @@ struct ManyRelationship: Relationship, Sendable {
 
 @Suite struct WorldTests {
     let design: Design
-    let emptyFrame: DesignFrame
-    let testFrame: DesignFrame
+    let emptyFrame: DesignPlane
+    let testFrame: DesignPlane
     let objectIDs: [ObjectID]  // IDs of created objects for easy reference
     
     init() throws {
         // Create a test design with a few objects
         self.design = Design(metamodel: TestMetamodel)
-        let trans1 = design.createFrame()
+        let trans1 = design.createPlane()
         
         self.emptyFrame = try design.accept(trans1)
         
-        let trans2 = design.createFrame()
+        let trans2 = design.createPlane()
         
-        // Create some test objects with proper structure
-        let obj1 = trans2.create(.Stock, structure: .node)
-        let obj2 = trans2.create(.FlowRate, structure: .node)
-        let obj3 = trans2.create(.Stock, structure: .node)
+        // Create some test objects with proper topology
+        let obj1 = trans2.create(.Stock, topology: .node)
+        let obj2 = trans2.create(.FlowRate, topology: .node)
+        let obj3 = trans2.create(.Stock, topology: .node)
         self.objectIDs = [obj1.objectID, obj2.objectID, obj3.objectID]
         self.testFrame = try design.accept(trans2)
     }
@@ -51,7 +51,7 @@ struct ManyRelationship: Relationship, Sendable {
     // MARK: - Basics
     
     @Test func createWorld() throws {
-        let world = World(frame: emptyFrame)
+        let world = World(plane: emptyFrame)
         
         #expect(world.entities.count == 0)
         #expect(!world.hasIssues)
@@ -59,7 +59,7 @@ struct ManyRelationship: Relationship, Sendable {
     
     // MARK: - Spawn/Despawn
     @Test func spawn() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         
         #expect(world.entities.count == 1)
@@ -69,7 +69,7 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(component.text == "test")
     }
     @Test func despawn() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         world.despawn(ent)
         
@@ -81,7 +81,7 @@ struct ManyRelationship: Relationship, Sendable {
     
     // MARK: - Components
     @Test func setAndGetComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
         
         #expect(!ent.contains(TestComponent.self))
@@ -97,7 +97,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func replaceComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
         
         ent.setComponent(TestComponent(text: "first"))
@@ -108,7 +108,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func removeComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
         
         ent.setComponent(TestComponent(text: "test"))
@@ -121,7 +121,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func multipleComponentsPerEntity() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent: RuntimeEntity = world.spawn()
         
         ent.setComponent(TestComponent(text: "test"))
@@ -135,7 +135,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func componentsIsolatedPerEntity() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent1: RuntimeEntity = world.spawn()
         let ent2: RuntimeEntity = world.spawn()
         
@@ -152,7 +152,7 @@ struct ManyRelationship: Relationship, Sendable {
     // MARK: - Query
     
     @Test func queryComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let ent1: RuntimeEntity = world.spawn()
         let ent2: RuntimeEntity = world.spawn()
         let ent3: RuntimeEntity = world.spawn()
@@ -172,7 +172,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func querySkipsNonMatchingEntities() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let ent1: RuntimeEntity = world.spawn(TestComponent(text: "first"))
         let ent2: RuntimeEntity = world.spawn(IntegerComponent(value: 10))
@@ -196,7 +196,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func queryDifferentComponents() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         let entT1: RuntimeEntity = world.spawn(TestComponent(text: "test"))
         let entT2: RuntimeEntity = world.spawn(TestComponent(text: "test2"))
         let entI: RuntimeEntity = world.spawn(IntegerComponent(value: 42))
@@ -211,9 +211,9 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(withInt.contains(where: {$0.runtimeID == entI.runtimeID}))
     }
     
-    // MARK: - Frame
+    // MARK: - Plane
     @Test func frameObjectEntities() throws {
-        let world = World(frame: self.testFrame)
+        let world = World(plane: self.testFrame)
         
         let ent0 = try #require(world.objectToEntity(objectIDs[0]))
         #expect(world.entityToObject(ent0) == objectIDs[0])
@@ -226,8 +226,8 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(world.contains(ent2))
     }
     @Test func frameRemovedObjects() throws {
-        let world = World(frame: self.testFrame)
-        world.setFrame(self.emptyFrame)
+        let world = World(plane: self.testFrame)
+        world.setPlane(self.emptyFrame)
         #expect(world.entities.count == 0)
         
         #expect(world.objectToEntity(objectIDs[0]) == nil)
@@ -235,8 +235,8 @@ struct ManyRelationship: Relationship, Sendable {
         #expect(world.objectToEntity(objectIDs[2]) == nil)
     }
     @Test func frameAddedObjects() throws {
-        let world = World(frame: self.emptyFrame)
-        world.setFrame(self.testFrame)
+        let world = World(plane: self.emptyFrame)
+        world.setPlane(self.testFrame)
         #expect(world.entities.count == 3)
         
         #expect(world.objectToEntity(objectIDs[0]) != nil)
@@ -245,7 +245,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     // MARK: - Singleton
     @Test func setAndGetSingletonComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let component = TestSingletonComponent(orderedIDs: objectIDs)
         world.setSingleton(component)
@@ -255,14 +255,14 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func getSingletonReturnsNilWhenNotSet() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let component: TestSingletonComponent? = world.singleton()
         #expect(component == nil)
     }
     
     @Test func replaceSingleton() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         world.setSingleton(TestSingletonComponent(orderedIDs: [objectIDs[0]]))
         world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
@@ -272,7 +272,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func hasSingleton() throws {
-        let world = World(frame: emptyFrame)
+        let world = World(plane: emptyFrame)
         
         #expect(!world.hasSingleton(TestSingletonComponent.self))
         
@@ -282,9 +282,9 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func removeSingleton() throws {
-        let world = World(frame: emptyFrame)
+        let world = World(plane: emptyFrame)
         
-        // Set frame component
+        // Set plane component
         world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
         #expect(world.hasSingleton(TestSingletonComponent.self))
         
@@ -297,7 +297,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func multipleSingletons() throws {
-        let world = World(frame: emptyFrame)
+        let world = World(plane: emptyFrame)
         
         world.setSingleton(TestSingletonComponent(orderedIDs: objectIDs))
         world.setSingleton(IntegerComponent(value: 100))
@@ -312,7 +312,7 @@ struct ManyRelationship: Relationship, Sendable {
     // MARK: - Relationships and Dependencies
     
     @Test func removeDependency() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let parent: RuntimeEntity = world.spawn()
         let child: RuntimeEntity = world.spawn()
@@ -328,7 +328,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func removeCycledDependency() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let left: RuntimeEntity = world.spawn()
         let right: RuntimeEntity = world.spawn()
@@ -343,7 +343,7 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func cascadingEntityRelationshipRemoval() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let grandparent: RuntimeEntity = world.spawn()
         let parent: RuntimeEntity = world.spawn()
@@ -364,23 +364,23 @@ struct ManyRelationship: Relationship, Sendable {
     }
     
     @Test func removeWeakRelationshipComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
         
         source.relate(WeakRelationship(), to: target.runtimeID)
-        #expect(source.containsRelationship(WeakRelationship.self))
+        #expect(source.relates(WeakRelationship.self))
         
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.containsRelationship(WeakRelationship.self))
+        #expect(!source.relates(WeakRelationship.self))
     }
     
     @Test func keepUnrelatedWeakRelationshipComponent() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let target: RuntimeEntity = world.spawn()
         let source: RuntimeEntity = world.spawn()
@@ -388,51 +388,51 @@ struct ManyRelationship: Relationship, Sendable {
         
         source.relate(WeakRelationship(), to: target.runtimeID)
         unrelated.relate(WeakRelationship(), to: source.runtimeID)
-        #expect(source.containsRelationship(WeakRelationship.self))
-        #expect(unrelated.containsRelationship(WeakRelationship.self))
+        #expect(source.relates(WeakRelationship.self))
+        #expect(unrelated.relates(WeakRelationship.self))
         
         world.despawn(target)
         
         #expect(!world.contains(target))
         #expect(world.contains(source))
-        #expect(!source.containsRelationship(WeakRelationship.self))
-        #expect(unrelated.containsRelationship(WeakRelationship.self))
+        #expect(!source.relates(WeakRelationship.self))
+        #expect(unrelated.relates(WeakRelationship.self))
     }
     @Test func relationshipCardinalityOne() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let child: RuntimeEntity = world.spawn()
         let parent: RuntimeEntity = world.spawn()
         let other: RuntimeEntity = world.spawn()
 
         child.relate(ChildOf(), to: parent.runtimeID)
-        #expect(child.containsRelationship(ChildOf.self, to: parent.runtimeID))
-        #expect(!child.containsRelationship(ChildOf.self, to: other.runtimeID))
+        #expect(child.relates(ChildOf.self, to: parent.runtimeID))
+        #expect(!child.relates(ChildOf.self, to: other.runtimeID))
 
         child.relate(ChildOf(), to: other.runtimeID)
-        #expect(!child.containsRelationship(ChildOf.self, to: parent.runtimeID))
-        #expect(child.containsRelationship(ChildOf.self, to: other.runtimeID))
+        #expect(!child.relates(ChildOf.self, to: parent.runtimeID))
+        #expect(child.relates(ChildOf.self, to: other.runtimeID))
     }
     @Test func relationshipCardinalityMany() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         
         let origin: RuntimeEntity = world.spawn()
         let other1: RuntimeEntity = world.spawn()
         let other2: RuntimeEntity = world.spawn()
 
         origin.relate(ManyRelationship(), to: other1.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other1.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: other2.runtimeID))
 
         origin.relate(ManyRelationship(), to: other2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: other2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: other2.runtimeID))
     }
 
     // MARK: - Unrelate
 
     @Test func unrelateAllOfType() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
 
         let origin: RuntimeEntity = world.spawn()
         let target1: RuntimeEntity = world.spawn()
@@ -440,18 +440,18 @@ struct ManyRelationship: Relationship, Sendable {
 
         origin.relate(ManyRelationship(), to: target1.runtimeID)
         origin.relate(ManyRelationship(), to: target2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
 
         origin.unrelate(ManyRelationship.self)
 
-        #expect(!origin.containsRelationship(ManyRelationship.self))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self))
+        #expect(!origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: target2.runtimeID))
     }
 
     @Test func unrelateSpecificTarget() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
 
         let origin: RuntimeEntity = world.spawn()
         let target1: RuntimeEntity = world.spawn()
@@ -459,17 +459,17 @@ struct ManyRelationship: Relationship, Sendable {
 
         origin.relate(ManyRelationship(), to: target1.runtimeID)
         origin.relate(ManyRelationship(), to: target2.runtimeID)
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
 
         origin.unrelate(ManyRelationship.self, to: target1)
 
-        #expect(!origin.containsRelationship(ManyRelationship.self, to: target1.runtimeID))
-        #expect(origin.containsRelationship(ManyRelationship.self, to: target2.runtimeID))
+        #expect(!origin.relates(ManyRelationship.self, to: target1.runtimeID))
+        #expect(origin.relates(ManyRelationship.self, to: target2.runtimeID))
     }
 
     @Test func unrelateSpecificWhenNoneExist() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
 
         let entity: RuntimeEntity = world.spawn()
         let other: RuntimeEntity = world.spawn()
@@ -478,16 +478,16 @@ struct ManyRelationship: Relationship, Sendable {
         entity.unrelate(ChildOf.self)
         entity.unrelate(ChildOf.self, to: other)
 
-        #expect(!entity.containsRelationship(ChildOf.self))
+        #expect(!entity.relates(ChildOf.self))
     }
     
-    // MARK: - Frame change
+    // MARK: - Plane change
     
     @Test func setFrame() throws {
-        let world = World(frame: self.emptyFrame)
+        let world = World(plane: self.emptyFrame)
         #expect(world.entities.count == 0)
         
-        world.setFrame(self.testFrame)
+        world.setPlane(self.testFrame)
         #expect(world.entities.count == 3)
 
         for runtimeID in world.entities {
@@ -497,12 +497,12 @@ struct ManyRelationship: Relationship, Sendable {
         }
     }
     @Test func setEmptyFrame() throws {
-        let world = World(frame: self.testFrame)
+        let world = World(plane: self.testFrame)
         
         let survivor: RuntimeEntity = world.spawn()
         #expect(world.entities.count == 4)
 
-        world.setFrame(self.emptyFrame)
+        world.setPlane(self.emptyFrame)
 
         #expect(world.entities.count == 1)
         #expect(world.contains(survivor.runtimeID))

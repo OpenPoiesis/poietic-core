@@ -142,21 +142,12 @@ extension Variant: Codable {
     /// Specifier of the variant encoding method.
     ///
     public enum CodingType: Sendable {
-        /// Try to convert to/from native JSON value. Preserving the correct type is not guaranteed.
-        case coalescing  // try to convert from value
-        
         /// Encode as dictionary.
         ///
         /// - `{ "type": "int", "value": 10}`
         /// - `{ "type": "int_array", "items": [10, 20, 30]}`
         case dictionary
-        /// Try reading as dictionary, if it fails, read coalescing value.
-        ///
-        /// Use this for reading only.
-        ///
-        /// When used for encoding, it is encoded as dictionary.
-        ///
-        case dictionaryWithFallback  // try dictionary, if it fails, use coalescing
+        
         /// Legacy coding type as a tuple. Do not use.
         case tuple       // [type_name, value]
     }
@@ -167,85 +158,16 @@ extension Variant: Codable {
         case items
     }
     
-    /// Read a variant from a decoder.
-    ///
-    /// Reading a foreign frame produced by the library:
-    ///
-    /// ```swift
-    /// let decoder = JSONDecoder()
-    /// decoder.userInfo[Variant.CoalescedCodingTypeKey] = .dictionary
-    /// ```
-    ///
-    /// For reading JSON that might be hand-adjusted (more error-prone):
-    ///
-    /// ```swift
-    /// let decoder = JSONDecoder()
-    /// decoder.userInfo[Variant.CodingTypeKey] = .dictionaryWithFallback
-    /// ```
-    ///
     public init(from decoder: any Decoder) throws {
         let codingType = decoder.userInfo[Self.CodingTypeKey] as? CodingType
         switch codingType {
-        case .none, .coalescing:
-            try self.init(coalescingValueFrom: decoder)
+        case .none, .dictionary:
+            try self.init(asDictionaryFrom: decoder)
         case .tuple:
             try self.init(asTupleFrom: decoder)
-        case .dictionary:
-            try self.init(asDictionaryFrom: decoder)
-        case .dictionaryWithFallback:
-            do {
-                try self.init(asDictionaryFrom: decoder)
-            }
-            catch {
-                try self.init(coalescingValueFrom: decoder)
-            }
         }
     }
     
-    init(coalescingValueFrom decoder: any Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        
-        if let value = try? container.decode(Int.self) {
-            self = .atom(.int(value))
-        }
-        else if let value = try? container.decode(Double.self) {
-            self = .atom(.double(value))
-        }
-        else if let value = try? container.decode(String.self) {
-            self = .atom(.string(value))
-        }
-        else if let value = try? container.decode(Bool.self) {
-            self = .atom(.bool(value))
-        }
-        else if let value = try? container.decode([Int].self) {
-            self = .array(.int(value))
-        }
-        else if let value = try? container.decode([Double].self) {
-            self = .array(.double(value))
-        }
-        else if let value = try? container.decode([String].self) {
-            self = .array(.string(value))
-        }
-        else if let value = try? container.decode([Bool].self) {
-            self = .array(.bool(value))
-        }
-        else if let items = try? container.decode([[Double]].self) {
-            var points: [Point] = []
-            for item in items {
-                guard item.count == 2 else {
-                    throw VariantCodingError.invalidPointValue
-                }
-                let point = Point(x: item[0], y: item[1])
-                points.append(point)
-            }
-            self = .array(.point(points))
-        }
-        else {
-            throw DecodingError.dataCorruptedError(in: container,
-                                                   debugDescription: "Invalid variant value")
-//                throw VariantCodingError.invalidVariantValue
-        }
-    }
     init(asTupleFrom decoder: any Decoder) throws {
         var container = try decoder.unkeyedContainer()
         let type = try container.decode(ValueType.self)
@@ -346,62 +268,11 @@ extension Variant: Codable {
         }
 
     }
-    /// Encode the Variant into the encoder.
-    ///
-    /// There are two ways how the variant is encoded. One way stores the type
-    /// explicitly in addition to the data, the other tries to convert the
-    /// variant to one of the decoder's coding type.
-    ///
-    /// Default is encoding it as an array where the first element is the type
-    /// and the second element is the variant content.
-    ///
-    /// The data type is encoded as one of the ``ValueType/typeCode`` values.
-    ///
-    /// Example: An integer value `10` would be encoded in JSON as `["i", 10]`
-    /// by default. If coalesced encoding is requested then it will be encoded
-    /// just as a number `10`.
-    ///
-    /// To enable coalescing, set the ``Variant/CodingType`` to `true`:
-    ///
-    /// ```swift
-    ///     let encoder = JSONEncoder()
-    ///     encoder.userInfo[Variant.CoalescedCodingTypeKey] = true
-    /// ```
-    ///
-    /// - SeeAlso: ``init(from:)``
-    ///
+
     public func encode(to encoder: any Encoder) throws {
         let codingType = encoder.userInfo[Self.CodingTypeKey] as? CodingType
         
         switch codingType {
-        case .none, .coalescing:
-            var container = encoder.singleValueContainer()
-            switch self {
-            case let .atom(.bool(value)):
-                try container.encode(value)
-            case let .atom(.int(value)):
-                try container.encode(value)
-            case let .atom(.double(value)):
-                try container.encode(value)
-            case let .atom(.string(value)):
-                try container.encode(value)
-            case let .atom(.point(value)):
-                try container.encode([value.x, value.y])
-            case let .array(.bool(value)):
-                try container.encode(value)
-            case let .array(.int(value)):
-                try container.encode(value)
-            case let .array(.double(value)):
-                try container.encode(value)
-            case let .array(.string(value)):
-                try container.encode(value)
-            case let .array(.point(values)):
-                let points = values.map {
-                    [$0.x, $0.y]
-                }
-                
-                try container.encode(points)
-            }
         case .tuple:
             var container = encoder.unkeyedContainer()
             try container.encode(self.valueType.codingType)
@@ -431,7 +302,7 @@ extension Variant: Codable {
                 
                 try container.encode(points)
             }
-        case .dictionary, .dictionaryWithFallback:
+        case .none, .dictionary:
             var container = encoder.container(keyedBy: Self.CodingKeys.self)
             try container.encode(self.valueType.codingType, forKey: .type)
             switch self {

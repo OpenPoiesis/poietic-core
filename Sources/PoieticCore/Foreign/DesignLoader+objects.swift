@@ -44,7 +44,7 @@ extension DesignLoader { // Object snapshots
     {
         var refs: [ObjectID] = []
         
-        for foreignRef in rawSnapshot.structure.references {
+        for foreignRef in rawSnapshot.topology.references {
             guard let id: ObjectID = identities[foreignRef] else {
                 throw .unknownID(foreignRef)
             }
@@ -67,8 +67,8 @@ extension DesignLoader { // Object snapshots
             throw .missingObjectType
         }
         
-        let structuralType: StructuralType?
-        switch rawSnapshot.structure.type {
+        let structuralType: TopologyType?
+        switch rawSnapshot.topology.type {
         case .none: structuralType = nil
         case "unstructured": structuralType = .unstructured
         case "node": structuralType = .node
@@ -145,39 +145,39 @@ extension DesignLoader { // Object snapshots
         children: [ObjectID]?
     ) throws (DesignLoaderError.ItemError) -> ObjectSnapshot
     {
-        // IMPORTANT: Sync the logic (especially preconditions) as in TransientFrame.create(...)
-        // TODO: Consider moving this to Design (as well as its TransientFrame counterpart)
+        // IMPORTANT: Sync the logic (especially preconditions) as in TransientPlane.create(...)
+        // TODO: Consider moving this to Design (as well as its TransientPlane counterpart)
         guard let type = metamodel.objectType(name: resolvedSnapshot.typeName) else {
             throw .unknownObjectType(resolvedSnapshot.typeName)
         }
         
-        let structure: Structure
+        let topology: Topology
         let references = resolvedSnapshot.structureReferences
         switch resolvedSnapshot.structureType {
         case .none:
-            switch type.structuralType {
-            case .unstructured: structure = .unstructured
-            case .node: structure = .node
-            default: throw .structuralTypeMismatch(type.structuralType)
+            switch type.topologyType {
+            case .unstructured: topology = .unstructured
+            case .node: topology = .node
+            default: throw .structuralTypeMismatch(type.topologyType)
             }
         case .unstructured:
-            guard type.structuralType == .unstructured else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .unstructured else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
-            structure = .unstructured
+            topology = .unstructured
         case .node:
-            guard type.structuralType == .node else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .node else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
-            structure = .node
+            topology = .node
         case .edge:
-            guard type.structuralType == .edge else {
-                throw .structuralTypeMismatch(type.structuralType)
+            guard type.topologyType == .edge else {
+                throw .structuralTypeMismatch(type.topologyType)
             }
             guard references.count == 2 else {
                 throw .invalidStructuralType
             }
-            structure = .edge(references[0], references[1])
+            topology = .edge(references[0], references[1])
         default:
             // Not supported type at this moment
             throw .invalidStructuralType
@@ -197,7 +197,7 @@ extension DesignLoader { // Object snapshots
         let snapshot = ObjectSnapshot(type: type,
                                       snapshotID: resolvedSnapshot.snapshotID,
                                       objectID: resolvedSnapshot.objectID,
-                                      structure: structure,
+                                      topology: topology,
                                       parent: resolvedSnapshot.parent,
                                       children: children,
                                       attributes: attributes)

@@ -23,7 +23,7 @@ struct DesignLoaderHierarchyTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [],
-            rawFrames: []
+            rawPlanes: []
         )
         let identities = try loader.resolveIdentities(
             resolution: validation,
@@ -45,8 +45,8 @@ struct DesignLoaderHierarchyTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -70,10 +70,10 @@ struct DesignLoaderHierarchyTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(300), id: .int(30), parent: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(400), id: .int(40), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(300), objectID: .int(30), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(400), objectID: .int(40), parent: .int(10)),
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -101,9 +101,9 @@ struct DesignLoaderHierarchyTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(300), id: .int(30), parent: .int(20)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(300), objectID: .int(30), parent: .int(20)),
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -128,7 +128,7 @@ struct DesignLoaderHierarchyTests {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10), parent: .int(999)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10), parent: .int(999)),
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -145,18 +145,18 @@ struct DesignLoaderHierarchyTests {
         }
     }
 
-    @Test("Hierarchy with frames - consistent children")
+    @Test("Hierarchy with planes - consistent children")
     func hierarchyWithFramesConsistent() async throws {
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(300), id: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(300), objectID: .int(20), parent: .int(10)),
             ],
-            rawFrames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200)]),
-                RawFrame(id: .int(1001), snapshots: [.int(100), .int(300)]),
+            rawPlanes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)]),
+                RawPlane(id: .int(1001), snapshots: [.int(100), .int(300)]),
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -167,13 +167,13 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let planeResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
 
         let hierarchy = try loader.resolveHierarchy(
-            frameResolution: frameResolution,
+            planeResolution: planeResolution,
             snapshotResolution: partialSnapshots
         )
 
@@ -184,20 +184,20 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - none to some")
     func childrenMismatchNoneToSome() async throws {
-        // Frame 1000: parent has no children (child not in frame)
-        // Frame 1001: parent has one child
-        // This MUST throw error because the same snapshot ID (100) appears in both frames
+        // Plane 1000: parent has no children (child not in plane)
+        // Plane 1001: parent has one child
+        // This MUST throw error because the same snapshot ID (100) appears in both planes
         // with different children (nil vs [20]). When a parent gains a child, it should be
         // a new snapshot with a new snapshot ID.
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)),
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)),
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)),
             ],
-            rawFrames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100)]), // parent only
-                RawFrame(id: .int(1001), snapshots: [.int(100), .int(200)]), // parent + child
+            rawPlanes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100)]), // parent only
+                RawPlane(id: .int(1001), snapshots: [.int(100), .int(200)]), // parent + child
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -208,14 +208,14 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let planeResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
-                frameResolution: frameResolution,
+                planeResolution: planeResolution,
                 snapshotResolution: partialSnapshots
             )
         }
@@ -223,20 +223,20 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - some to none")
     func childrenMismatchSomeToNone() async throws {
-        // Frame 1000: parent has one child
-        // Frame 1001: parent has no children (child not in frame)
-        // This MUST throw error because the same snapshot ID (100) appears in both frames
+        // Plane 1000: parent has one child
+        // Frame 1001: parent has no children (child not in plane)
+        // This MUST throw error because the same snapshot ID (100) appears in both planes
         // with different children ([20] vs nil). When a parent loses a child, it should be
         // a new snapshot with a new snapshot ID.
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)), // parent
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)), // child
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)), // parent
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)), // child
             ],
-            rawFrames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200)]), // parent + child
-                RawFrame(id: .int(1001), snapshots: [.int(100)]), // parent only
+            rawPlanes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)]), // parent + child
+                RawPlane(id: .int(1001), snapshots: [.int(100)]), // parent only
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -247,14 +247,14 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let planeResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
-                frameResolution: frameResolution,
+                planeResolution: planeResolution,
                 snapshotResolution: partialSnapshots
             )
         }
@@ -262,19 +262,19 @@ struct DesignLoaderHierarchyTests {
 
     @Test("Children mismatch error - different children")
     func childrenMismatchDifferentChildren() async throws {
-        // Frame 1000: parent has child 20
-        // Frame 1001: parent has child 30
+        // Plane 1000: parent has child 20
+        // Plane 1001: parent has child 30
         // This should fail because children lists don't match
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)), // parent
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)), // child 1
-                RawSnapshot(typeName: "Test", snapshotID: .int(300), id: .int(30), parent: .int(10)), // child 2
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)), // parent
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)), // child 1
+                RawSnapshot(typeName: "Test", snapshotID: .int(300), objectID: .int(30), parent: .int(10)), // child 2
             ],
-            rawFrames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200)]), // parent + child 1
-                RawFrame(id: .int(1001), snapshots: [.int(100), .int(300)]), // parent + child 2 (different!)
+            rawPlanes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200)]), // parent + child 1
+                RawPlane(id: .int(1001), snapshots: [.int(100), .int(300)]), // parent + child 2 (different!)
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -285,38 +285,38 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let planeResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
 
-        #expect(throws: DesignLoaderError.item(.frames, 1, .childrenMismatch)) {
+        #expect(throws: DesignLoaderError.item(.planes, 1, .childrenMismatch)) {
             _ = try loader.resolveHierarchy(
-                frameResolution: frameResolution,
+                planeResolution: planeResolution,
                 snapshotResolution: partialSnapshots
             )
         }
     }
 
-    @Test("Complex multi-frame hierarchy - all frames consistent")
+    @Test("Complex multi-plane hierarchy - all planes consistent")
     func complexMultiFrameHierarchy() async throws {
-        // Three frames with consistent parent-child relationships
+        // Three planes with consistent parent-child relationships
         // Important:
-        // - Same snapshot ID must have same children across all frames
-        // - If a child is in a frame, its parent must also be in that frame
+        // - Same snapshot ID must have same children across all planes
+        // - If a child is in a plane, its parent must also be in that plane
         let validation = DesignLoader.ValidationResolution(
             identityManager: strayIdentityManager,
             rawSnapshots: [
-                RawSnapshot(typeName: "Test", snapshotID: .int(100), id: .int(10)), // root
-                RawSnapshot(typeName: "Test", snapshotID: .int(200), id: .int(20), parent: .int(10)), // child of root
-                RawSnapshot(typeName: "Test", snapshotID: .int(300), id: .int(30), parent: .int(10)), // child of root
-                RawSnapshot(typeName: "Test", snapshotID: .int(400), id: .int(40), parent: .int(20)), // grandchild
-                RawSnapshot(typeName: "Test", snapshotID: .int(500), id: .int(50)), // standalone node
+                RawSnapshot(typeName: "Test", snapshotID: .int(100), objectID: .int(10)), // root
+                RawSnapshot(typeName: "Test", snapshotID: .int(200), objectID: .int(20), parent: .int(10)), // child of root
+                RawSnapshot(typeName: "Test", snapshotID: .int(300), objectID: .int(30), parent: .int(10)), // child of root
+                RawSnapshot(typeName: "Test", snapshotID: .int(400), objectID: .int(40), parent: .int(20)), // grandchild
+                RawSnapshot(typeName: "Test", snapshotID: .int(500), objectID: .int(50)), // standalone node
             ],
-            rawFrames: [
-                RawFrame(id: .int(1000), snapshots: [.int(100), .int(200), .int(300), .int(400)]), // full tree
-                RawFrame(id: .int(1001), snapshots: [.int(100), .int(200), .int(300), .int(400)]), // full tree again
-                RawFrame(id: .int(1002), snapshots: [.int(500)]), // just standalone node
+            rawPlanes: [
+                RawPlane(id: .int(1000), snapshots: [.int(100), .int(200), .int(300), .int(400)]), // full tree
+                RawPlane(id: .int(1001), snapshots: [.int(100), .int(200), .int(300), .int(400)]), // full tree again
+                RawPlane(id: .int(1002), snapshots: [.int(500)]), // just standalone node
             ]
         )
         let identities = try loader.resolveIdentities(
@@ -327,13 +327,13 @@ struct DesignLoaderHierarchyTests {
             resolution: validation,
             identities: identities
         )
-        let frameResolution = try loader.resolveFrames(
+        let planeResolution = try loader.resolvePlanes(
             resolution: validation,
             identities: identities
         )
 
         let hierarchy = try loader.resolveHierarchy(
-            frameResolution: frameResolution,
+            planeResolution: planeResolution,
             snapshotResolution: partialSnapshots
         )
 
