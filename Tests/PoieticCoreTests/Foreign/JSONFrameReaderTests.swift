@@ -219,8 +219,8 @@ import Testing
                    """.data(using:.utf8)!
         let design = try reader.read(data: data)
         
-        #expect(design.userReferences == [RawNamedReference("config", type: "frame", id: .id(10))])
-        #expect(design.systemReferences == [RawNamedReference("current_frame", type: "frame", id: .id(20))])
+        #expect(design.userReferences == [RawNamedReference("config", type: "plane", id: .id(10))])
+        #expect(design.systemReferences == [RawNamedReference("current_plane", type: "plane", id: .id(20))])
     }
 }
 

@@ -652,7 +652,7 @@ public class DesignLoader {
         // Note: This is version-dependent. Currently 0.0.1
         switch string {
         case "object": .object
-        case "frame": .plane
+        case "plane": .plane
         case "snapshot": .objectSnapshot
         default: nil
         }
@@ -680,9 +680,9 @@ public class DesignLoader {
         {
             design.currentPlaneID = onlyFrameID
         }
-        else if let ref = namedReferences.systemReferences["current_frame"] {
+        else if let ref = namedReferences.systemReferences["current_plane"] {
             guard ref.type == .plane else {
-                throw .design(.namedReferenceTypeMismatch("current_frame"))
+                throw .design(.namedReferenceTypeMismatch("current_plane"))
             }
             design.currentPlaneID = ref.id
         }
