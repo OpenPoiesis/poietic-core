@@ -7,9 +7,8 @@
 
 import Collections
 
-// FIXME: Remove id and Identifiable (historical remnant that causes confusion)
 @usableFromInline
-class _TransientSnapshotBox: Identifiable, RCTableElement {
+class _TransientSnapshotBox:  RCTableElement {
     var isOriginal: Bool
 
     enum Content {
@@ -19,7 +18,7 @@ class _TransientSnapshotBox: Identifiable, RCTableElement {
     
     var content: Content
     
-    public var storageKey: ObjectSnapshotID {
+    public var storageKey: ObjectID {
         switch content {
         case .stable(let obj): obj.objectID
         case .transient(let obj): obj.objectID
@@ -88,7 +87,7 @@ class _TransientSnapshotBox: Identifiable, RCTableElement {
         switch content {
         case let .stable(object): object
         case let .transient(snapshot):
-            ObjectSnapshot(id: snapshot.snapshotID, body: snapshot._body)
+            ObjectSnapshot(snapshotID: snapshot.snapshotID, body: snapshot._body)
         }
     }
 }
