@@ -46,8 +46,8 @@ public protocol System {
     /// Run the system that reads and updates a world.
     ///
     /// Systems can:
-    /// - Create and add new components using ``World/setComponent(_:for:)-(_,ObjectID)`` and ``World/setSingleton(_:)``.
-    /// - Append user-facing issues using ``World/appendIssue(_:for:)``
+    /// - Create and add new components using ``RuntimeEntity/setComponent(_:)`` and ``World/setSingleton(_:)``.
+    /// - Append user-facing issues using ``RuntimeEntity/appendIssue(_:)``
     ///
     /// - Parameters:
     ///     - world: The runtime world the system can read and modify.

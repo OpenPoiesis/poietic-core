@@ -16,7 +16,7 @@
 /// Runtime IDs are not persisted within the library and it is not recommended to store them.
 ///
 ///
-/// - SeeAlso: ``DesignEntityID``, ``World/spawn(_:)``
+/// - SeeAlso: ``DesignEntityID``, ``World/spawn(_:)->RuntimeEntity``
 ///
 /// - Note: The `RuntimeID` type is semantically equivalent to `EntityID` types in other
 ///   Entity-Component-System libraries. We are calling it `RuntimeID` to prevent naming

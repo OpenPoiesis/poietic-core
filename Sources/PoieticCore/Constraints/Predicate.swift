@@ -8,7 +8,7 @@
 ///
 /// Match properties of an object with ``match(_:in:)``.
 ///
-/// Predicates can be composed using logical operations ``and(_:)`` and ``or(_:)``. For example:
+/// Predicates can be composed using logical operations ``and(_:)-method`` and ``and(_:)-method``. For example:
 ///
 /// ```swift
 /// let predicate: Predicate = .isType(ObjectType.Auxiliary).or(.isType(ObjectType.Stock))

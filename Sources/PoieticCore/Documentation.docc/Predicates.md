@@ -7,19 +7,12 @@ define requirements for a set of objects.
 
 Predicates are used for filtering specific objects from the whole design, 
 particular frame or from a graph. With predicates you can for example select 
-objects of given type using ``IsTypePredicate`` or objects containing a
-particular trait ``HasTraitPredicate``.
+objects of given type using ``Predicate/isType(_:)`` or objects containing a
+particular trait ``Predicate/hasTrait(_:)``.
 
 ## Topics
 
 ### Predicates
 
 - ``Predicate``
-- ``AndPredicate``
-- ``OrPredicate``
-- ``EdgePredicate``
-- ``AnyPredicate``
-- ``IsTypePredicate``
-- ``HasTraitPredicate``
-- ``NegationPredicate``
 - ``AllSatisfy``

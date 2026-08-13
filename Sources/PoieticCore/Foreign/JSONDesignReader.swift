@@ -252,7 +252,7 @@ extension RawDesignReaderError: DesignIssueConvertible {
 /// - `metamodel_version`: Version of the metamodel. If not provided, then the latest version
 ///     should be assumed by the application/tool.
 /// - `snapshots`: All object version snapshots, referenced by planes. See ``RawSnapshot``.
-/// - `planes`: Design planes contained within. See ``RawFrame``.
+/// - `planes`: Design planes contained within. See ``RawPlane``.
 /// - `user_references`: User defined references to any identifiable entity within the design.
 ///         See ``RawNamedReference``.
 ///         Named planes (``Design/plane(name:)``) are stored in the user references as well.
@@ -276,7 +276,7 @@ extension RawDesignReaderError: DesignIssueConvertible {
 ///   (edges, parent/child). Can be an int or a string.
 /// - `snapshot_id` _(recommended)_: snapshot ID, if not provided, one will be
 ///   generated during loading. Can be an int or a string.
-/// - `topology`_(recommended)_: Topology type: `node`, `edge`, `unstructured`. See ``RawStructure``.
+/// - `topology`_(recommended)_: Topology type: `node`, `edge`, `unstructured`. See ``RawTopology``.
 /// - `origin` (structural): If the topology is an edge, the property references its origin object ID.
 /// - `target` (structural): If the topology is an edge, the property references its target object ID.
 /// - `parent` (optional): reference to object's parent object ID.
@@ -342,13 +342,10 @@ public final class JSONDesignReader {
     
     /// Read a raw design from JSON data.
     ///
-    /// See the class documentation for more information about the format.
+    /// - Note: See the class documentation for more information about the format.
     ///
-    /// When the data does not match expected version, the method tries to delegate to
-    /// built-in adapters dispatched in ``read(data:version:)``. When even the adapters
-    /// can not successfully read the data, then ``RawDesignReaderError/unknownFormatVersion(_:)``
-    /// is thrown. Caller can then handle custom reading based on the version included
-    /// in the error.
+    /// The reader tries to read data with multiple internal readers starting from the latest
+    /// version going down to oldest known/supported version.
     ///
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error

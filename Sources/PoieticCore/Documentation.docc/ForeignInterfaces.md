@@ -9,12 +9,12 @@ See also: <doc:Persistence>
 ### Raw Entities
 
 - ``RawDesign``
-- ``RawFrame``
+- ``RawPlane``
 - ``RawSnapshot``
-- ``RawStructure``
+- ``RawTopology``
 - ``RawNamedList``
 - ``RawNamedReference``
-- ``ForeignEntityID``
+- ``RawEntityID``
 
 - ``SemanticVersion``
 

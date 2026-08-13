@@ -12,7 +12,7 @@ state.
 
 ### Types
 
-- ``RuntimeSystem``
+- ``World``
 - ``Component``
+- ``Relationship``
 - ``ComponentSet``
-- ``IssueListComponent``

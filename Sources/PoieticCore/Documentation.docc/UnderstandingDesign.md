@@ -7,8 +7,7 @@ Containment and management of design objects and their history.
 Design is a collection of objects structured as a directed graph with an
 optional explicit single parent-child hierarchy. Design represents creator's
 idea or a model and its historical evolution. Each state – version snapshot –
-of the design is represented by a ``Frame``, which is somewhat analogous
-to a movie frame.
+of the design is represented by a ``Plane``.
 
 ![Design-Frame-Object composition](design-frame-object)
 
@@ -28,22 +27,21 @@ Each design is assigned a ``Metamodel``, which defines types of objects
 - ``ObjectProtocol``
 - ``ObjectID``
 - ``ObjectSnapshotID``
-- ``Structure``
-- ``StructuralType``
-- ``ChildrenSet``
+- ``Topology``
+- ``TopologyType``
 - ``Selection``
 
 ### Design and Version Frames
 
-- ``Frame``
-- ``DesignFrame``
-- ``FrameID``
-- ``FrameValidationError``
+- ``Plane``
+- ``DesignPlane``
+- ``PlaneID``
+- ``PlaneValidationError``
 - ``StructuralIntegrityError``
 
 ### Changes and Versions
 
-- ``TransientFrame``
+- ``TransientPlane``
 - ``TransientObject``
 
 ### Value and Variant

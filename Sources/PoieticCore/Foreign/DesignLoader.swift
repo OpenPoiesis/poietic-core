@@ -47,7 +47,7 @@ finaliseDesign
 ///
 /// The design loader is the primary way of constructing whole design or its components from
 /// foreign representations that were converted into raw design entities
-/// (``RawSnapshot``, ``RawFrame``, ``RawDesign``, ...).
+/// (``RawSnapshot``, ``RawPlane``, ``RawDesign``, ...).
 ///
 /// The typical application use-cases for the design loader are:
 ///

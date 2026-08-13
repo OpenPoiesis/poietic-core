@@ -7,8 +7,8 @@
 
 /// Bounds used for value visualisation, for example in charts or value indicators.
 ///
-/// Component is derived from ``Trait/NumericIndicator``
-/// by ``DisplayMetadataProcessingSystem``.
+/// Component is derived from ``Trait/NumericValue``
+/// by ``VisualMetadataSystem``.
 ///
 public struct DisplayValueBounds: Component {
     /// Minimal value to be displayed.
@@ -128,7 +128,7 @@ public struct ValueBounds {
     
     /// Determines the status of a given value within this domain
     /// - Parameter value: The value to check
-    /// - Returns: The ``Status`` indicating where the value lies
+    /// - Returns: The state indicating where the value lies
     public func state(of value: Double) -> State {
         // TODO: Rename to "check(value:)
         if value > max { .overflow }

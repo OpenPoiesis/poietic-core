@@ -31,7 +31,7 @@ public enum DesignEntityType: Sendable, CustomStringConvertible {
 /// When design entities are included in the ``World``, they are represented by ephemeral
 /// ``RuntimeID``s which are valid only during the runtime.
 ///
-/// - SeeAlso ``RuntimeID``, ``IdentityManager``, ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``.
+/// - SeeAlso ``RuntimeID``, ``IdentityManager``, ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``.
 ///
 public struct DesignEntityID:
     Hashable,

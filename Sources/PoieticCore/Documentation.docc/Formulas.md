@@ -48,13 +48,12 @@ Built-in logical functions:
 ### Arithmetic Expression
 
 - ``ArithmeticExpression``
+- ``Evaluator``
 - ``UnboundExpression``
-
-### Functions
-
-- ``Function``
-- ``Signature``
-- ``FunctionArgument``
+- ``UnaryOperator``
+- ``BinaryOperator``
+- ``BuiltinFunction``
+- ``FunctionError``
 
 ### Parsing
 

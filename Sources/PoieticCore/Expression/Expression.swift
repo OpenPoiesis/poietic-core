@@ -27,7 +27,7 @@ public indirect enum ArithmeticExpression<V, F> {
     /// Unbound expressions produced by ``ExpressionParser/parse()`` have variable references
     /// as strings.
     ///
-    /// - SeeAlso: ``VariableNameLookup``, ``VariableValueLookup``, ``bindExpression(_:variables:)``
+    /// - SeeAlso: ``VariableNameLookup``, ``VariableValueLookup``, ``Evaluator/bind(_:variables:)``
     ///
     public typealias VariableReference = V
 
@@ -36,7 +36,7 @@ public indirect enum ArithmeticExpression<V, F> {
     /// Unbound expressions produced by ``ExpressionParser/parse()`` have function references
     /// as strings.
     ///
-    /// - SeeAlso: ``BuiltinFunction``, ``bindExpression(_:variables:)``
+    /// - SeeAlso: ``BuiltinFunction``, ``Evaluator/bind(_:variables:)``
     ///
     public typealias FunctionReference = F
 

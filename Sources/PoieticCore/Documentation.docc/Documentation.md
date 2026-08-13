@@ -28,7 +28,7 @@ The philosophy for applications on top of the library is:
 
 The core class of the model is the ``Design`` which contains and manages
 all the design objects – ``ObjectSnapshot`` – and their changes in form of
-design frames ``DesignFrame``.
+design planes ``DesignPlane``.
 
 Designs are typically a part of a problem domain, or follow a methodology. The
 concepts and rules of the problem domain or a methodology or both are described
@@ -44,7 +44,7 @@ package for a concrete domain use-case of the core package.
 
 - <doc:UnderstandingDesign>
 - ``Design``
-- ``DesignFrame``
+- ``DesignPlane``
 - ``ObjectSnapshot``
 - <doc:MetamodelAndTypes>
 - <doc:Predicates>

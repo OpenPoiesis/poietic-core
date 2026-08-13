@@ -13,7 +13,7 @@ import Darwin
 
 /// Protocol for objects that look-up variables by name. Used for expression binding.
 ///
-/// - SeeAlso: ``bindExpression(_:variables:)``, ``VariableValueLookup``
+/// - SeeAlso: ``Evaluator/bind(_:variables:)``, ``VariableValueLookup``
 ///
 public protocol VariableNameLookup<Variable> {
     associatedtype Variable
@@ -110,7 +110,7 @@ public enum Evaluator {
     /// - Parameters:
     ///     - expression: Arithmetic expression where variables are used as references to be
     ///       looked-up for the actual variable value.
-    ///     - Variable look-up where variable from the expression is mapped to an actual
+    ///     - lookup: Variable look-up where variable from the expression is mapped to an actual
     ///       variant value.
     ///
     public static func evaluate<L: VariableValueLookup>(

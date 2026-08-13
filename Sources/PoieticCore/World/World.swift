@@ -26,7 +26,7 @@ public struct ObjectSnapshotRef: Component {
 ///
 /// Functionality:
 ///
-/// - Storage of entities: ``spawn(_:)-([anyComponent])``, ``despawn(_:)-(RuntimeEntity)``.
+/// - Storage of entities: ``spawn(_:)->RuntimeEntity``, ``despawn(_:)-(RuntimeEntity)``.
 /// - Storage and management of components, used through ``RuntimeEntity/setComponent(_:)``,
 ///   ``RuntimeEntity/component()``
 /// - Storage and management of entity relationships, used through ``RuntimeEntity/relate(_:to:)-(_,RuntimeID)``.

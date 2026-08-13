@@ -37,22 +37,23 @@ public enum Cardinality: Sendable, Equatable {
 ///
 /// Relationships connect an *origin* entity to a *target* entity. Unlike regular components
 /// which are attached to a single entity, relationships are edges stored in a separate
-/// storage (``RelationshipStorageProtocol`` per type), indexed bidirectionally for efficient
-/// traversal in both directions.
+/// storage, indexed bidirectionally for efficient traversal in both directions.
 ///
 /// Each relationship type declares:
 /// - ``targetRemovalPolicy`` — what happens to the origin when the target is despawned
 /// - ``outgoingCardinality`` — how many targets a single origin can point to
 ///
-/// Relationships are created via ``RuntimeEntity/relate(_:to:)`` and can be navigated through
-/// ``RuntimeEntity/incoming(_:)``, ``RuntimeEntity/outgoing(_:)``,
-/// ``RuntimeEntity/firstOutgoing(_:)``, ``RuntimeEntity/parent``, and
-/// ``RuntimeEntity/children``.
+/// ## Usage in Entity
+///
+/// - **Creation**: ``RuntimeEntity/relates(_:to:)-(_,RuntimeEntity)``
+/// - **Navigation**:``RuntimeEntity/incoming(_:)``, ``RuntimeEntity/outgoing(_:)``,
+/// ``RuntimeEntity/firstOutgoing(_:)``.
+/// - **Hierarchy** (convenience with ``ChildOf``): ``RuntimeEntity/parent``, ``RuntimeEntity/children``.
 ///
 /// ## Built-in relationship types
 ///
 /// - ``ChildOf`` – parent-child hierarchy, despawned with target
-/// - ``OwnedBy`` – non-hierarchical ownership dependency, despawned with target
+/// - ``MemberOf`` – non-hierarchical ownership dependency, despawned with target
 /// - ``RepresentationOf`` – Visual/semantic representation, despawned with target
 ///
 public protocol Relationship: Component {
@@ -69,7 +70,7 @@ public protocol Relationship: Component {
     /// ``Cardinality/one`` – at most one. Setting a new relationship replaces any previous one.
     /// Useful for singular references such as a ``ChildOf`` parent.
     ///
-    /// ``Cardinality/many`` – unlimited. Useful for collections such as ``Depicts`` where a
+    /// ``Cardinality/many`` – unlimited. Useful for collections such as `Depicts` where a
     /// diagram references many blocks.
     ///
     /// Defaults to ``Cardinality/one``.

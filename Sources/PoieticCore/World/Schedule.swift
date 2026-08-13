@@ -86,7 +86,7 @@ public final class Schedule {
     ///     - order: Explicit order of system execution, in addition to the intrinsic order
     ///         defined by ``System/dependencies``.
     ///
-    /// - Precondition: The systems in the ``order`` list must exist in the ``systems`` list.
+    /// - Precondition: The systems in the `order` list must exist in the `systems` list.
     /// - Precondition: The system order must not form a loop.
     ///
     public init(label: ScheduleLabel.Type, systems: [System.Type], order: [(System.Type, before: System.Type)] = []) {
@@ -131,13 +131,13 @@ public final class Schedule {
     /// Define execution order of two systems, in addition to the intrinsic execution order defined
     /// by the systems through ``System/dependencies``.
     ///
-    /// The system ``system`` will be run before the ``other``.
+    /// The system `system` will be run before the `other`.
     ///
     /// The new order must not create a loop.
     ///
     /// - Precondition: Both systems must be present in the schedule.
     ///
-    /// - SeeAlso: ``add(_:)-(System)``.
+    /// - SeeAlso: ``add(_:)``.
     ///
     public func order(_ system: System.Type, before other: System.Type) {
         precondition(self.systems[ObjectIdentifier(system)] != nil)
@@ -149,13 +149,13 @@ public final class Schedule {
     /// Define execution order of two systems, in addition to the intrinsic execution order defined
     /// by the systems through ``System/dependencies``.
     ///
-    /// The system ``system`` will be run after the ``other``.
+    /// The system `system` will be run after the `other`.
     ///
     /// The new order must not create a loop.
     ///
     /// - Precondition: Both systems must be present in the schedule.
     ///
-    /// - SeeAlso: ``add(_:)-(System)``.
+    /// - SeeAlso: ``add(_:)``.
     ///
     public func order(_ system: System.Type, after other: System.Type) {
         precondition(self.systems[ObjectIdentifier(system)] != nil)

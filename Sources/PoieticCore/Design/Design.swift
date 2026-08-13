@@ -56,7 +56,7 @@
 ///
 /// 1. Derive a new plane from an existing one or create a new plane using
 ///   ``createPlane(deriving:id:)``.
-/// 2. Add objects to the derived plane using ``TransientPlane/create(_:objectID:snapshotID:structure:parent:children:attributes:)``
+/// 2. Add objects to the derived plane using ``TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)``
 ///    or ``TransientPlane/insert(_:)``.
 /// 3. To mutate existing objects in the plane, first derive an new mutable
 ///    snapshot of the object using ``TransientPlane/mutate(_:)`` and

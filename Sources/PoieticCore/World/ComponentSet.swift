@@ -11,7 +11,7 @@
 /// Used primarily to store singletons.
 ///
 public struct ComponentSet {
-    private var components: [ObjectIdentifier: Component] = [:]
+    private var components: [ObjectIdentifier: any Component] = [:]
     
     /// Create a component set from a list of components.
     ///
@@ -19,7 +19,7 @@ public struct ComponentSet {
     /// type, then the later component in the list will be considered and the
     /// previous one discarded.
     ///
-    public init(_ components: [Component]) {
+    public init(_ components: [any Component]) {
         self.set(components)
     }
     
@@ -28,7 +28,7 @@ public struct ComponentSet {
     /// If a component of the same type as `component` exists, then it is
     /// replaced by the new instance.
     ///
-    public mutating func set(_ component: Component) {
+    public mutating func set(_ component: any Component) {
         let typeID = ObjectIdentifier(type(of: component))
         components[typeID] = component
     }
@@ -42,7 +42,7 @@ public struct ComponentSet {
     /// Existing components of the same type will be replaced by the instances
     /// in the list.
     ///
-    public mutating func set(_ components: [Component]) {
+    public mutating func set(_ components: [any Component]) {
         for component in components {
             set(component)
         }
@@ -59,7 +59,7 @@ public struct ComponentSet {
     /// If the component set does not contain a component of the given type
     /// nothing happens.
     ///
-    public mutating func remove(_ componentType: Component.Type) {
+    public mutating func remove(_ componentType: any Component.Type) {
         let typeID = ObjectIdentifier(componentType)
         components[typeID] = nil
     }
@@ -67,7 +67,7 @@ public struct ComponentSet {
         components[oid] = nil
     }
 
-    public subscript(componentType: Component.Type) -> (Component)? {
+    public subscript(componentType: any Component.Type) -> (any Component)? {
         get {
             let typeID = ObjectIdentifier(componentType)
             return components[typeID]
@@ -106,14 +106,14 @@ public struct ComponentSet {
     /// - Returns: `true` if the component set contains a component of given
     ///   type.
     ///
-    public func has(_ componentType: Component.Type) -> Bool{
+    public func has(_ componentType: any Component.Type) -> Bool{
         let typeID = ObjectIdentifier(componentType)
         return components[typeID] != nil
     }
 }
 
 extension ComponentSet: ExpressibleByArrayLiteral {
-    public init(arrayLiteral elements: ArrayLiteralElement...) {
+    public init(arrayLiteral elements: any ArrayLiteralElement...) {
         self.init(elements)
     }
     
