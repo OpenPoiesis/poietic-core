@@ -7,9 +7,10 @@
 
 import Collections
 
-public final class LogicalObject: CustomStringConvertible, Identifiable {
+public final class LogicalObject: CustomStringConvertible, Identifiable, RCTableElement {
     public let id: ObjectID
-    
+    public var storageKey: ObjectSnapshotID { id }
+
     public init(id: ObjectID) {
         self.id = id
     }
@@ -47,7 +48,7 @@ public final class LogicalObject: CustomStringConvertible, Identifiable {
 /// ```
 /// - SeeAlso: ``DesignPlane``, ``TransientPlane``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
-public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol {
+public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol, RCTableElement {
     /// Unique identifier of the object version snapshot within the design.
     ///
     /// The ``snapshotID`` represents a concrete version of an object. An
@@ -66,6 +67,8 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
     ///
     public let id: ObjectSnapshotID
 
+    public var storageKey: ObjectSnapshotID { id }
+    
     @usableFromInline
     let _body: ObjectBody
     @inlinable public var objectID: ObjectID { _body.id }

@@ -9,94 +9,86 @@ import Collections
 
 // FIXME: Remove id and Identifiable (historical remnant that causes confusion)
 @usableFromInline
-class _TransientSnapshotBox: Identifiable {
-    // IMPORTANT: Make sure that the self.id is _always_ object ID, not a snapshot ID here.
-    /// Object ID
-    ///
-    @usableFromInline
-    var id: ObjectID
-   
-    // original(snap), new(snapshot), newmut(snap), origmut(snap)
-    
-    // FIXME: Move the original/new flag from enum here, to struct
+class _TransientSnapshotBox: Identifiable, RCTableElement {
+    var isOriginal: Bool
+
     enum Content {
-        case stable(isOriginal: Bool, object: ObjectSnapshot)
-        case transient(isNew: Bool, object: TransientObject)
+        case stable(ObjectSnapshot)
+        case transient(TransientObject)
     }
     
     var content: Content
     
-    init(_ snapshot: ObjectSnapshot, isOriginal: Bool) {
-        self.id = snapshot.objectID
-        content = .stable(isOriginal: isOriginal, object: snapshot)
-    }
-    init(_ mutable: TransientObject, isNew: Bool) {
-        self.id = mutable.objectID
-        content = .transient(isNew: isNew, object: mutable)
-    }
-    
-    var isOriginal: Bool {
+    public var storageKey: ObjectSnapshotID {
         switch content {
-        case .stable(let flag, _): flag
-        case .transient(_, _): false
+        case .stable(let obj): obj.objectID
+        case .transient(let obj): obj.objectID
         }
+    }
+
+    init(_ snapshot: ObjectSnapshot, isOriginal: Bool) {
+        self.isOriginal = isOriginal
+        self.content = .stable(snapshot)
+    }
+    init(_ mutable: TransientObject, isOriginal: Bool) {
+        self.isOriginal = isOriginal
+        self.content = .transient(mutable)
     }
     
     var isMutable: Bool {
         switch content {
-        case .stable(_, _): false
-        case .transient(_, _): true
+        case .stable(_): false
+        case .transient(_): true
         }
     }
-    
     var hasChanges: Bool {
+        guard isOriginal else { return true }
         switch content {
-        case let .transient(isNew: newFlag, object: object): newFlag || object.hasChanges
-        case let .stable(isOriginal: isOriginalFlag, object: _): !isOriginalFlag
+        case .transient(let object): return object.hasChanges
+        case .stable(_): return false
         }
     }
     
     var objectID: ObjectID {
         switch content {
-        case let .stable(_, snapshot): snapshot.objectID
-        case let .transient(_, object): object.objectID
+        case let .stable(snapshot): snapshot.objectID
+        case let .transient(object): object.objectID
         }
     }
 
     var snapshotID: ObjectSnapshotID {
         switch content {
-        case let .stable(_, snapshot): snapshot.snapshotID
-        case let .transient(_, object): object.snapshotID
+        case let .stable(snapshot): snapshot.snapshotID
+        case let .transient(object): object.snapshotID
         }
     }
     
     var parent: ObjectID? {
         switch content {
-        case let .stable(_, snapshot): snapshot.parent
-        case let .transient(_, object): object.parent
+        case let .stable(snapshot): snapshot.parent
+        case let .transient(object): object.parent
         }
     }
     
     var children: OrderedSet<ObjectID> {
         switch content {
-        case let .stable(_, snapshot): snapshot.children
-        case let .transient(_, object): object.children
+        case let .stable(snapshot): snapshot.children
+        case let .transient(object): object.children
         }
     }
     
     var topology: Topology {
         switch content {
-        case let .stable(_,snapshot): snapshot.topology
-        case let .transient(_, object): object.topology
+        case let .stable(snapshot): snapshot.topology
+        case let .transient(object): object.topology
         }
     }
-    
+    // TODO: Verify usage and usefulness of this
     func asSnapshot() -> ObjectSnapshot {
         switch content {
-        case let .stable(_, object): object
-        case let .transient(_, snapshot):
-            ObjectSnapshot(id: snapshot.snapshotID,
-                           body: snapshot._body)
+        case let .stable(object): object
+        case let .transient(snapshot):
+            ObjectSnapshot(id: snapshot.snapshotID, body: snapshot._body)
         }
     }
 }

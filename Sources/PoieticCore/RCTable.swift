@@ -5,6 +5,11 @@
 //  Created by Stefan Urbanek on 28/04/2025.
 //
 
+public protocol RCTableElement {
+    associatedtype StorageKey: Hashable
+    var storageKey: StorageKey { get }
+}
+
 /// A reference counted, ID-keyed storage for design entities.
 ///
 /// Manages the lifecycle and ID-based lookup of design entities, with reference counting and weak
@@ -14,7 +19,7 @@
 /// - Entities are removed only when ref-count reaches zero.
 /// - Internal (backend) use only.
 ///
-public class RCTable<E> where E:Identifiable {
+public class RCTable<E> where E: RCTableElement {
     public typealias Element = E
     public struct RCCell {
         public let element: Element
@@ -26,7 +31,7 @@ public class RCTable<E> where E:Identifiable {
     @usableFromInline
     var _items: RCArray
     @usableFromInline
-    var _lookup: [E.ID:RCArray.Index]
+    var _lookup: [E.StorageKey:RCArray.Index]
     
     /// Create an empty snapshot storage.
     ///
@@ -43,19 +48,19 @@ public class RCTable<E> where E:Identifiable {
     
     /// Returns `true` if the storage contains a snapshot with given ID.
     ///
-    public func contains(_ id: Element.ID) -> Bool {
+    public func contains(_ id: Element.StorageKey) -> Bool {
         _lookup[id] != nil
     }
     
     @inlinable
-    public subscript(_ id: Element.ID) -> Element? {
+    public subscript(_ id: Element.StorageKey) -> Element? {
         guard let index = _lookup[id] else {
             return nil
         }
         return _items[index].element
     }
 
-    public func referenceCount(_ id: Element.ID) -> Int? {
+    public func referenceCount(_ id: Element.StorageKey) -> Int? {
         guard let index = _lookup[id] else {
             return nil
         }
@@ -69,18 +74,18 @@ public class RCTable<E> where E:Identifiable {
     ///         or using ``remove(_:)``.
     ///
     public func insertOrRetain(_ item: Element) {
-        if let index = _lookup[item.id] {
+        if let index = _lookup[item.storageKey] {
             let count = _items[index].refCount
             assert(count > 0)
             _items[index].refCount = count + 1
         }
         else {
             let index = _items.append(RCCell(element: item, refCount: 1))
-            _lookup[item.id] = index
+            _lookup[item.storageKey] = index
         }
     }
 
-    public func retain(_ id: Element.ID) {
+    public func retain(_ id: Element.StorageKey) {
         guard let index = _lookup[id] else {
             preconditionFailure("Unknown ID \(id)")
         }
@@ -95,18 +100,18 @@ public class RCTable<E> where E:Identifiable {
     /// - Precondition: given ID must exist in the table.
     ///
     public func insert(_ newItem: Element) {
-        precondition(_lookup[newItem.id] == nil, "Duplicate item \(newItem.id). Did you mean insertOrRetain?")
+        precondition(_lookup[newItem.storageKey] == nil, "Duplicate item \(newItem.storageKey). Did you mean insertOrRetain?")
 
         let index = _items.append(RCCell(element: newItem, refCount: 1))
-        _lookup[newItem.id] = index
+        _lookup[newItem.storageKey] = index
     }
 
     public func replace(_ newItem: Element) {
-        guard let index = _lookup[newItem.id] else {
-            preconditionFailure("Unknown ID \(newItem.id)")
+        guard let index = _lookup[newItem.storageKey] else {
+            preconditionFailure("Unknown ID \(newItem.storageKey)")
         }
         _items[index] = RCCell(element: newItem, refCount: 1)
-        _lookup[newItem.id] = index
+        _lookup[newItem.storageKey] = index
     }
 
     /// Reduce reference count of an object. If the reference count reaches zero, the object is
@@ -116,16 +121,16 @@ public class RCTable<E> where E:Identifiable {
     /// - Precondition: given ID must exist in the table.
     ///
     @discardableResult
-    public func release(_ id: Element.ID) -> Bool {
-        guard let index = _lookup[id] else {
-            preconditionFailure("Unknown ID \(id)")
+    public func release(_ key: Element.StorageKey) -> Bool {
+        guard let index = _lookup[key] else {
+            preconditionFailure("Unknown ID \(key)")
         }
         precondition(_items[index].refCount > 0, "Release failure: zero retains")
         
         _items[index].refCount -= 1
         if _items[index].refCount == 0 {
             _items.remove(at: index)
-            _lookup[id] = nil
+            _lookup[key] = nil
             return true
         }
         else {
@@ -139,13 +144,13 @@ public class RCTable<E> where E:Identifiable {
     ///
     /// - Precondition: given ID must exist in the table.
     ///
-    public func remove(_ id: Element.ID) {
-        guard let index = _lookup[id] else {
-            preconditionFailure("Missing item \(id)")
+    public func remove(_ key: Element.StorageKey) {
+        guard let index = _lookup[key] else {
+            preconditionFailure("Missing item \(key)")
         }
         
         _items.remove(at: index)
-        _lookup[id] = nil
+        _lookup[key] = nil
     }
 }
 

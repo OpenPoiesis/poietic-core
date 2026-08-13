@@ -100,7 +100,7 @@ struct DesignLoaderLoadIntoTests {
                 RawPlane(id: .int(1001), snapshots: [.int(10), .int(20)]),
             ],
             systemReferences: [
-                RawNamedReference("current_frame", type: "plane", id: .int(1000))
+                RawNamedReference("current_plane", type: "plane", id: .int(1000))
             ]
         )
         try loader.load(rawDesign, into: trans)
@@ -144,7 +144,7 @@ struct DesignLoaderLoadIntoTests {
         let rawDesign = RawDesign(
             snapshots: [],
             systemReferences: [
-                RawNamedReference("current_frame", type: "plane", id: .int(99))
+                RawNamedReference("current_plane", type: "plane", id: .int(99))
             ]
         )
 

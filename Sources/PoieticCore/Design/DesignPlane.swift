@@ -18,7 +18,7 @@
 ///
 /// - SeeAlso: ``TransientPlane``
 ///
-public final class DesignPlane: Plane, Identifiable {
+public final class DesignPlane: Plane, Identifiable, RCTableElement {
     /// Design to which the plane belongs.
     public unowned let design: Design
     
@@ -27,7 +27,8 @@ public final class DesignPlane: Plane, Identifiable {
     /// ID is unique within the design.
     ///
     public let id: PlaneID
-    
+    public var storageKey: ObjectSnapshotID { id }
+
     /// Version snapshots contained in the plane.
     ///
     /// Snapshots might be shared between planes.

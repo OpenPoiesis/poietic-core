@@ -289,7 +289,7 @@ public final class TransientPlane: Plane {
                                        parent: parent,
                                        children: children,
                                        attributes: actualAttributes)
-        let box = _TransientSnapshotBox(snapshot, isNew: true)
+        let box = _TransientSnapshotBox(snapshot, isOriginal: false)
         _snapshots.insert(box)
         _snapshotIDs.insert(snapshot.snapshotID)
         self._removedObjects.remove(actualID)
@@ -476,12 +476,12 @@ public final class TransientPlane: Plane {
             preconditionFailure("No object with ID \(id) in plane ID \(self.id)")
         }
         switch current.content {
-        case .transient(_, let snapshot):
+        case .transient(let snapshot):
             return snapshot
-        case .stable(_ , let original):
+        case .stable(let original):
             let derivedSnapshotID: ObjectSnapshotID = design.identityManager.reserveNew(type: .objectSnapshot)
             let derived = TransientObject(original: original, snapshotID: derivedSnapshotID)
-            let box = _TransientSnapshotBox(derived, isNew: false)
+            let box = _TransientSnapshotBox(derived, isOriginal: current.isOriginal)
             _snapshots.replace(box)
             _reservations.insert(derivedSnapshotID)
             _snapshotIDs.remove(original.snapshotID)
@@ -612,19 +612,13 @@ public final class TransientPlane: Plane {
     // Graph Protocol
     public var edgeIDs: [ObjectID] {
         _snapshots.compactMap {
-            $0.topology.type == .edge ? $0.id : nil
+            $0.topology.type == .edge ? $0.objectID : nil
         }
     }
 
     public var nodeIDs: [ObjectID] {
         _snapshots.compactMap {
-            $0.topology.type == .node ? $0.id : nil
+            $0.topology.type == .node ? $0.objectID : nil
         }
-    }
-}
-
-extension TransientPlane {
-    func setOrder(ids: [ObjectID], start: Int = 0, stride: Int = 1) {
-        fatalError("\(#function) not implemented")
     }
 }

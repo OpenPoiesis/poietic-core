@@ -51,13 +51,13 @@ struct RawDesignExpoerterTest {
 
         #expect(raw.systemReferences.count == 1)
         let currentFrameRef = try #require(raw.systemReferences.first)
-        #expect(currentFrameRef.name == "current_frame")
-        #expect(currentFrameRef.type == "frame")
+        #expect(currentFrameRef.name == "current_plane")
+        #expect(currentFrameRef.type == "plane")
         #expect(currentFrameRef.id == .id(frame.id))
 
         #expect(raw.systemLists.count == 1)
         let undoRefList: RawNamedList = try #require(raw.systemLists.first { $0.name == "undo"} )
-        #expect(undoRefList.itemType == "frame")
+        #expect(undoRefList.itemType == "plane")
         #expect(undoRefList.ids == [.id(first.id)])
         
         let rawPlane: RawPlane = try #require(raw.planes.first {$0.id == .id(frame.id)})
