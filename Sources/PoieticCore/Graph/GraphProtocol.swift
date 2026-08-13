@@ -69,8 +69,6 @@ public struct DesignObjectEdge: EdgeProtocol {
 ///
 /// - SeeAlso: ``GraphProtocol``
 public protocol EdgeProtocol {
-    // TODO: Can we make add Identifiable requirement? Seems like we can.
-
     associatedtype EdgeKey: Hashable
     associatedtype NodeKey: Hashable
     var id: EdgeKey { get }

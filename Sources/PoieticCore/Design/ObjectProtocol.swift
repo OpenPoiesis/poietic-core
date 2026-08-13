@@ -35,7 +35,7 @@ public typealias AttributeKey = String
 /// ``topology`` or parent/child relationships. Object attributes can hold any
 /// ``Variant``, they can not formally store references to other objects.
 ///
-public protocol ObjectProtocol: Identifiable {
+public protocol ObjectProtocol {
     /// Primary object identity.
     ///
     /// The object ID defines the main identity of an object within a design.

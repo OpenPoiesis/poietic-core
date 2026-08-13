@@ -631,7 +631,7 @@ struct DesignLoaderIntegrationTests {
         let obj = try #require(design.snapshot(ObjectSnapshotID(100)))
 
         #expect(design.identityManager.isUsed(frame.id))
-        #expect(design.identityManager.isUsed(obj.id))
+        #expect(design.identityManager.isUsed(obj.snapshotID))
         #expect(design.identityManager.isUsed(obj.objectID))
         #expect(design.identityManager.used.count == 3)
 

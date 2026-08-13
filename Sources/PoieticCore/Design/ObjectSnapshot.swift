@@ -7,15 +7,15 @@
 
 import Collections
 
-public final class LogicalObject: CustomStringConvertible, Identifiable, RCTableElement {
-    public let id: ObjectID
-    public var storageKey: ObjectSnapshotID { id }
+public final class LogicalObject: CustomStringConvertible, RCTableElement {
+    public let objectID: ObjectID
+    public var storageKey: ObjectID { objectID }
 
     public init(id: ObjectID) {
-        self.id = id
+        self.objectID = id
     }
     
-    public var description: String { "object(\(id)" }
+    public var description: String { "object(\(objectID)" }
 }
 
 /// Version snapshot of a design object.
@@ -48,31 +48,31 @@ public final class LogicalObject: CustomStringConvertible, Identifiable, RCTable
 /// ```
 /// - SeeAlso: ``DesignPlane``, ``TransientPlane``, ``Design/accept(_:appendHistory:)``, ``Design/identityManager``
 ///
-public final class ObjectSnapshot: CustomStringConvertible, Identifiable, ObjectProtocol, RCTableElement {
+public final class ObjectSnapshot: CustomStringConvertible, ObjectProtocol, RCTableElement {
     /// Unique identifier of the object version snapshot within the design.
     ///
     /// The ``snapshotID`` represents a concrete version of an object. An
     /// object can have multiple versions, which all share the same identity
-    /// of object ``id``.
+    /// of object ``objectID``.
     ///
     /// Typically when working with the design and design planes, one does not
     /// need to use the ``snapshotID``. It is used only when considering
     /// different versions of objects.
     ///
     /// When an object is mutated with ``TransientPlane/mutate(_:)``, the object
-    /// ``id`` is preserved, but a new the ``snapshotID`` is generated.
+    /// ``objectID`` is preserved, but a new the ``snapshotID`` is generated.
     ///
-    /// - SeeAlso: ``id``,
+    /// - SeeAlso: ``objectID``,
     ///    ``TransientPlane/mutate(_:)``
     ///
-    public let id: ObjectSnapshotID
+    public let snapshotID: ObjectSnapshotID
 
-    public var storageKey: ObjectSnapshotID { id }
+    public var storageKey: ObjectSnapshotID { snapshotID }
     
     @usableFromInline
     let _body: ObjectBody
+
     @inlinable public var objectID: ObjectID { _body.id }
-    @inlinable public var snapshotID: ObjectSnapshotID { self.id }
     @inlinable public var type: ObjectType { _body.type }
     @inlinable public var topology: Topology { _body.topology }
     @inlinable public var parent: ObjectID? { _body.parent }
@@ -102,7 +102,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
                 children: [ObjectID] = [],
                 attributes: [String:Variant] = [:]) {
 
-        self.id = snapshotID
+        self.snapshotID = snapshotID
         self._body = ObjectBody(id: objectID,
                                  type: type,
                                  topology: topology,
@@ -111,8 +111,8 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
                                  attributes: attributes)
     }
     
-    init(id: ObjectSnapshotID, body: ObjectBody) {
-        self.id = id
+    init(snapshotID: ObjectSnapshotID, body: ObjectBody) {
+        self.snapshotID = snapshotID
         self._body = body
     }
     
@@ -123,7 +123,7 @@ public final class ObjectSnapshot: CustomStringConvertible, Identifiable, Object
         let attrs = self.attributes.map { (name, value) in
             "\(name)=\(value)"
         }.joined(separator: ",")
-        return "\(topologyName)(oid:\(_body.id), sid:\(self.id), type:\(type.name), attrs:\(attrs))"
+        return "\(topologyName)(oid:\(_body.id), sid:\(self.snapshotID), type:\(type.name), attrs:\(attrs))"
     }
     
     /// Prettier description of the object.
