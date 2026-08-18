@@ -151,6 +151,10 @@
                   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
                   "isActive" : true,
                   "type" : "reference"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
                 }
               ],
               "type" : "paragraph"
@@ -168,7 +172,8 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/s8CopyableP",
-        "doc:\/\/PoieticCore\/SQ"
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s9EscapableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -188,7 +193,11 @@
       "anchor" : "Arithmetic-Expression",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError"
       ],
       "title" : "Arithmetic Expression"
     }
@@ -212,7 +221,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/allVariables",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/children",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/valueType"
       ],
       "title" : "Instance Properties"
     },
@@ -221,7 +231,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/FunctionReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/VariableReference"
       ],
       "title" : "Type Aliases"
@@ -257,7 +266,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -316,15 +325,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/FunctionReference": {
   "abstract" : [
     {
-      "text" : "Type of a reference to a function, including functions representing",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "operators.",
+      "text" : "Type of a reference to a function.",
       "type" : "text"
     }
   ],
@@ -354,37 +355,6 @@
   "title" : "ArithmeticExpression.FunctionReference",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/functionreference"
-},
-"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/LiteralValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LiteralValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/LiteralValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LiteralValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ArithmeticExpression.LiteralValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/literalvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/VariableReference": {
   "abstract" : [
@@ -423,7 +393,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/allVariables": {
   "abstract" : [
     {
-      "text" : "List of all variables that the expression and its children reference",
+      "text" : "List of all variables that the expression and its children reference.",
       "type" : "text"
     }
   ],
@@ -511,32 +481,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "F"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "FunctionReference"
+      "preciseIdentifier" : "s:11PoieticCore14BinaryOperatorO",
+      "text" : "BinaryOperator"
     },
     {
       "kind" : "text",
@@ -603,15 +549,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/children": {
   "abstract" : [
     {
-      "text" : "List of children from which the expression is composed. Does not go",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "to underlying table expressions.",
+      "text" : "List of direct children from which the expression is composed.",
       "type" : "text"
     }
   ],
@@ -750,7 +688,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/function(_:_:)": {
   "abstract" : [
     {
-      "text" : "Function with multiple expressions as arguments",
+      "text" : "Function with multiple expressions as arguments.",
       "type" : "text"
     }
   ],
@@ -863,32 +801,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "F"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "FunctionReference"
+      "preciseIdentifier" : "s:11PoieticCore13UnaryOperatorO",
+      "text" : "UnaryOperator"
     },
     {
       "kind" : "text",
@@ -953,33 +867,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "F"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO12LiteralValuea",
-      "text" : "LiteralValue"
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
     },
     {
       "kind" : "text",
@@ -992,6 +881,88 @@
   "title" : "ArithmeticExpression.value(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/value(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/valueType": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "V",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "TypedVariable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "F",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "BuiltinFunction",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression\/valueType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression\/valuetype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression/variable(_:)": {
   "abstract" : [
@@ -1058,6 +1029,71 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/variable(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BinaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction": {
+  "abstract" : [
+    {
+      "text" : "Enumeration of functions that are provided for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionParser": {
   "abstract" : [
     {
@@ -1091,6 +1127,71 @@
   "title" : "ExpressionParser",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparser"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a function body is called.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unaryoperator"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
   "abstract" : [
@@ -1137,6 +1238,11 @@
 "doc://PoieticCore/s8CopyableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
   "title" : "Swift.Copyable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

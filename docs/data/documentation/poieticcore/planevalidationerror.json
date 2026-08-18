@@ -1,0 +1,795 @@
+{
+  "abstract" : [
+    {
+      "text" : "Error thrown by constraint checker when there are issues with a plane.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore20PlaneValidationErrorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "PlaneValidationError"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "PlaneValidationError"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "PlaneValidationError"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "PlaneValidationError"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s5ErrorP",
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Design-and-Version-Planes",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
+      ],
+      "title" : "Design and Version Planes"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/brokenStructuralIntegrity(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/constraintViolation(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/edgeRuleViolation(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/objectTypeError(_:_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/canDiagnoseConstraints"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/Error-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/planevalidationerror"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/diagnose(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check a plane for constraints violations and object type conformance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "diagnose"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21PlaneValidationResultV",
+      "text" : "PlaneValidationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/diagnose(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "diagnose(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/diagnose(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/validate(_:)": {
+  "abstract" : [
+    {
+      "text" : "Check a plane for constraints violations and object type conformance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/validate(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
+  "abstract" : [
+    {
+      "text" : "Design plane that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designplane"
+},
+"doc://PoieticCore/documentation/PoieticCore/Plane": {
+  "abstract" : [
+    {
+      "text" : "Protocol for version planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Plane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/plane"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneID": {
+  "abstract" : [
+    {
+      "text" : "Identity of a design object snapshot - a version of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planeid"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by constraint checker when there are issues with a plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/error-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/brokenStructuralIntegrity(_:)": {
+  "abstract" : [
+    {
+      "text" : "Topological references such as edge endpoints, parent-child are invalid.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "brokenStructuralIntegrity"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
+      "text" : "StructuralIntegrityError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/brokenStructuralIntegrity(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PlaneValidationError.brokenStructuralIntegrity(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/brokenstructuralintegrity(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/canDiagnoseConstraints": {
+  "abstract" : [
+    {
+      "text" : "Flag whether the caller can diagnose details about constraint violations using",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/diagnose(_:)",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " after this error.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canDiagnoseConstraints"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/canDiagnoseConstraints",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canDiagnoseConstraints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/candiagnoseconstraints"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/constraintViolation(_:)": {
+  "abstract" : [
+    {
+      "text" : "Thrown when any of the objects violate a metamodel constraint.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "constraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19ConstraintViolationV",
+      "text" : "ConstraintViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/constraintViolation(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PlaneValidationError.constraintViolation(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/constraintviolation(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/edgeRuleViolation(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Thrown when an edge violates edge rules.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edgeRuleViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17EdgeRuleViolationO",
+      "text" : "EdgeRuleViolation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/edgeRuleViolation(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PlaneValidationError.edgeRuleViolation(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/edgeruleviolation(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError/objectTypeError(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Thrown when an object does not match its type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectTypeError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+      "text" : "ObjectTypeError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError\/objectTypeError(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "PlaneValidationError.objectTypeError(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror\/objecttypeerror(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when validating and accepting a plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StructuralIntegrityError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StructuralIntegrityError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s5ErrorP": {
+  "identifier" : "doc:\/\/PoieticCore\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

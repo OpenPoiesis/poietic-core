@@ -114,22 +114,33 @@
   "sections" : [
 
   ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Internal-Representations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectBody"
+      ],
+      "title" : "Internal Representations"
+    }
+  ],
   "topicSections" : [
     {
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/contains(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/createAndReserve(type:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isReserved(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/free(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/freeReservation(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/freeReservations(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isReserved(_:type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isUsed(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/release(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/releaseReservations(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/reserve(_:type:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/reserveIfNeeded(_:type:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/type(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(_:type:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/useReservations(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/reserveNew(type:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(reserved:)-3bi9y",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(reserved:)-7x28t"
       ],
       "title" : "Instance Methods"
     }
@@ -151,7 +162,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -161,6 +172,71 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignEntityID": {
+  "abstract" : [
+    {
+      "text" : "Persistent identity of Design entities.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignEntityID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designentityid"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignEntityType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignEntityType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designentitytype"
 },
 "doc://PoieticCore/documentation/PoieticCore/IdentityManager": {
   "abstract" : [
@@ -196,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitymanager"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/contains(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/free(_:)": {
   "abstract" : [
 
   ],
@@ -211,7 +287,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "contains"
+      "text" : "free"
     },
     {
       "kind" : "text",
@@ -219,164 +295,22 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/contains(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/free(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "contains(_:)",
+  "title" : "free(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/contains(_:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/free(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/createAndReserve(type:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "createAndReserve"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "type"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12IdentityTypeO",
-      "text" : "IdentityType"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/createAndReserve(type:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "createAndReserve(type:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/createandreserve(type:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/isReserved(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isReserved"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isReserved(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isReserved(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/isreserved(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/isUsed(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isUsed"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isUsed(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isUsed(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/isused(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/release(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/freeReservation(_:)": {
   "abstract" : [
     {
       "text" : "Returns: ",
@@ -414,7 +348,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "release"
+      "text" : "freeReservation"
     },
     {
       "kind" : "text",
@@ -422,8 +356,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
@@ -435,16 +369,19 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/release(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/freeReservation(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "release(_:)",
+  "title" : "freeReservation(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/release(_:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/freereservation(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/releaseReservations(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/freeReservations(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Free reservations regardless of their entity type.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -457,7 +394,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "releaseReservations"
+      "text" : "freeReservations"
     },
     {
       "kind" : "text",
@@ -465,20 +402,129 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/releaseReservations(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/freeReservations(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "releaseReservations(_:)",
+  "title" : "freeReservations(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/releasereservations(_:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/freereservations(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/isReserved(_:type:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether a given ID is reserved.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isReserved"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore16DesignEntityTypeO",
+      "text" : "DesignEntityType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isReserved(_:type:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isReserved(_:type:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identitymanager\/isreserved(_:type:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/isUsed(_:)": {
+  "abstract" : [
+    {
+      "text" : "Checks whether a given ID is used.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isUsed"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/isUsed(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isUsed(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identitymanager\/isused(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/IdentityManager/reserve(_:type:)": {
   "abstract" : [
@@ -503,8 +549,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
@@ -520,8 +566,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12IdentityTypeO",
-      "text" : "IdentityType"
+      "preciseIdentifier" : "s:11PoieticCore16DesignEntityTypeO",
+      "text" : "DesignEntityType"
     },
     {
       "kind" : "text",
@@ -563,8 +609,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
@@ -580,8 +626,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12IdentityTypeO",
-      "text" : "IdentityType"
+      "preciseIdentifier" : "s:11PoieticCore16DesignEntityTypeO",
+      "text" : "DesignEntityType"
     },
     {
       "kind" : "text",
@@ -600,7 +646,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/identitymanager\/reserveifneeded(_:type:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/type(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/reserveNew(type:)": {
   "abstract" : [
 
   ],
@@ -615,16 +661,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "type"
+      "text" : "reserveNew"
     },
     {
       "kind" : "text",
       "text" : "("
     },
     {
+      "kind" : "externalParam",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore16DesignEntityTypeO",
+      "text" : "DesignEntityType"
     },
     {
       "kind" : "text",
@@ -632,24 +686,23 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12IdentityTypeO",
-      "text" : "IdentityType"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/type(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/reserveNew(type:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "type(_:)",
+  "title" : "reserveNew(type:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/type(_:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/reservenew(type:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/use(_:type:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/use(reserved:)-3bi9y": {
   "abstract" : [
-
+    {
+      "text" : "Use reservations from the list.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -669,47 +722,53 @@
       "text" : "("
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
       "kind" : "externalParam",
-      "text" : "type"
+      "text" : "reserved"
     },
     {
       "kind" : "text",
       "text" : ": "
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12IdentityTypeO",
-      "text" : "IdentityType"
+      "kind" : "keyword",
+      "text" : "some"
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : " "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:Sl",
+      "text" : "Collection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(_:type:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(reserved:)-3bi9y",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "use(_:type:)",
+  "title" : "use(reserved:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/use(_:type:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/use(reserved:)-3bi9y"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityManager/useReservations(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager/use(reserved:)-7x28t": {
   "abstract" : [
-
+    {
+      "text" : "Use previously reserved ID.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -722,28 +781,67 @@
     },
     {
       "kind" : "identifier",
-      "text" : "useReservations"
+      "text" : "use"
     },
     {
       "kind" : "text",
-      "text" : "(["
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "reserved"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+      "text" : "DesignEntityID"
     },
     {
       "kind" : "text",
-      "text" : "])"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/useReservations(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager\/use(reserved:)-7x28t",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "useReservations(_:)",
+  "title" : "use(reserved:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identitymanager\/usereservations(_:)"
+  "url" : "\/documentation\/poieticcore\/identitymanager\/use(reserved:)-7x28t"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectBody": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectBody"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectBody",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectBody"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectBody",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectbody"
 }
 }
 }

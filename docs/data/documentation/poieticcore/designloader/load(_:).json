@@ -172,7 +172,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The loading procedure is as follows:",
+              "text" : "The loader goes through following process:",
               "type" : "text"
             }
           ],
@@ -185,7 +185,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Reserve identities for snapshots and frames.",
+                      "text" : "Validate the raw design for duplicates.",
                       "type" : "text"
                     }
                   ],
@@ -198,7 +198,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Create snapshots and frames.",
+                      "text" : "Reserve identities.",
                       "type" : "text"
                     }
                   ],
@@ -211,7 +211,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Validate frames.",
+                      "text" : "Create snapshots and planes.",
                       "type" : "text"
                     }
                   ],
@@ -264,7 +264,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -320,7 +320,7 @@
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],

@@ -79,7 +79,8 @@
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/SH",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -100,12 +101,12 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedList",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID"
       ],
       "title" : "Raw Entities"
     }
@@ -181,7 +182,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -226,14 +227,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesign"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawFrame": {
+"doc://PoieticCore/documentation/PoieticCore/RawEntityID": {
   "abstract" : [
-
+    {
+      "text" : "Object ID retrieved from a foreign interface.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -241,21 +245,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawFrame"
+      "text" : "RawEntityID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawFrame"
+      "text" : "RawEntityID"
     }
   ],
   "role" : "symbol",
-  "title" : "RawFrame",
+  "title" : "RawEntityID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframe"
+  "url" : "\/documentation\/poieticcore\/rawentityid"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawNamedList": {
   "abstract" : [
@@ -319,17 +323,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawnamedreference"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/RawPlane": {
   "abstract" : [
-    {
-      "text" : "Object ID retrieved from a foreign interface.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -337,21 +338,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "RawObjectID",
+  "title" : "RawPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawobjectid"
+  "url" : "\/documentation\/poieticcore\/rawplane"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
   "abstract" : [
@@ -387,7 +388,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawStructure": {
+"doc://PoieticCore/documentation/PoieticCore/RawTopology": {
   "abstract" : [
 
   ],
@@ -402,21 +403,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
   "role" : "symbol",
-  "title" : "RawStructure",
+  "title" : "RawTopology",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawstructure"
+  "url" : "\/documentation\/poieticcore\/rawtopology"
 },
 "doc://PoieticCore/documentation/PoieticCore/SemanticVersion": {
   "abstract" : [
@@ -748,6 +749,11 @@
   "title" : "patch",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/semanticversion\/patch"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

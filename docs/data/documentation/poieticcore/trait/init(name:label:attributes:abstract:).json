@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Create a new component description.",
+      "text" : "Creates a new trait.",
       "type" : "text"
     }
   ],
@@ -209,7 +209,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Name of the component.",
+                  "text" : "Name of the trait.",
                   "type" : "text"
                 }
               ],
@@ -223,7 +223,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "User-oriented label of the component. If not provided, then",
+                  "text" : "User-oriented label of the trait. If not provided, then",
                   "type" : "text"
                 },
                 {
@@ -231,7 +231,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "attribute name is used.",
+                  "text" : "name is used.",
                   "type" : "text"
                 }
               ],
@@ -245,7 +245,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "List of descriptions of component’s public",
+                  "text" : "List of descriptions of component’s attributes. If empty, then the trait",
                   "type" : "text"
                 },
                 {
@@ -253,7 +253,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "user-oriented attributes.",
+                  "text" : "is used only as a tag.",
                   "type" : "text"
                 }
               ],
@@ -267,7 +267,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Short description of the component, usually displayed as",
+                  "text" : "Short description of the trait, usually displayed as",
                   "type" : "text"
                 },
                 {
@@ -312,7 +312,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -326,7 +326,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -360,7 +369,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -394,7 +403,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/init(name:label:attributes:abstract:)": {
   "abstract" : [
     {
-      "text" : "Create a new component description.",
+      "text" : "Creates a new trait.",
       "type" : "text"
     }
   ],

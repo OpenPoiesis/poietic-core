@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17RawNamedReferenceV2idAA0C8ObjectIDOvp",
+    "externalID" : "s:11PoieticCore17RawNamedReferenceV2idAA0C8EntityIDOvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,8 +33,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-        "text" : "RawObjectID"
+        "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+        "text" : "RawEntityID"
       }
     ],
     "modules" : [
@@ -75,10 +75,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-              "text" : "RawObjectID"
+              "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+              "text" : "RawEntityID"
             }
           ]
         }
@@ -111,7 +111,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -121,6 +121,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawEntityID": {
+  "abstract" : [
+    {
+      "text" : "Object ID retrieved from a foreign interface.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawEntityID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawEntityID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawEntityID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawentityid"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawNamedReference": {
   "abstract" : [
@@ -176,8 +210,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-      "text" : "RawObjectID"
+      "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+      "text" : "RawEntityID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedReference\/id",
@@ -186,40 +220,6 @@
   "title" : "id",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawnamedreference\/id"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
-  "abstract" : [
-    {
-      "text" : "Object ID retrieved from a foreign interface.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawObjectID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawObjectID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawObjectID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawobjectid"
 }
 }
 }

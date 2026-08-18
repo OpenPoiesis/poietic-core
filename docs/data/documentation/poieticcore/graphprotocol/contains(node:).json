@@ -9,8 +9,7 @@
     {
       "anchor" : "GraphProtocol-Implementations",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-jncq",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-63291"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-7cgpm"
       ],
       "title" : "GraphProtocol Implementations"
     }
@@ -29,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore13GraphProtocolP8contains4nodeSb6NodeIDQz_tF",
+    "externalID" : "s:11PoieticCore13GraphProtocolP8contains4nodeSb7NodeKeyQz_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -65,8 +64,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-        "text" : "NodeID"
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+        "text" : "NodeKey"
       },
       {
         "kind" : "text",
@@ -133,10 +132,10 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeKey",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-              "text" : "NodeID"
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+              "text" : "NodeKey"
             },
             {
               "kind" : "text",
@@ -206,7 +205,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -251,10 +250,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeID": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeKey": {
   "abstract" : [
     {
-      "text" : "Type of an unique identifier of a node.",
+      "text" : "Type of a unique identifier of a node.",
       "type" : "text"
     }
   ],
@@ -269,16 +268,16 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NodeID"
+      "text" : "NodeKey"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeKey",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "NodeID",
+  "title" : "NodeKey",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodeid"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodekey"
 },
 "doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)": {
   "abstract" : [
@@ -287,7 +286,7 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 2,
+  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -323,8 +322,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-      "text" : "NodeID"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+      "text" : "NodeKey"
     },
     {
       "kind" : "text",
@@ -344,58 +343,13 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)-63291": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)-7cgpm": {
   "abstract" : [
-
+    {
+      "text" : "Check whether the graph contains a node object with given ID.",
+      "type" : "text"
+    }
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Node",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Identifiable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "NodeID",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "Self.Node.ID",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -431,8 +385,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-      "text" : "NodeID"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+      "text" : "NodeKey"
     },
     {
       "kind" : "text",
@@ -444,63 +398,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-63291",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-7cgpm",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "contains(node:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)-63291"
-},
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/contains(node:)-jncq": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "contains"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "node"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/contains(node:)-jncq",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "contains(node:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)-jncq"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/contains(node:)-7cgpm"
 }
 }
 }

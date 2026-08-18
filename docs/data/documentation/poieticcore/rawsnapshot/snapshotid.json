@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore11RawSnapshotC10snapshotIDAA0c6ObjectF0OSgvp",
+    "externalID" : "s:11PoieticCore11RawSnapshotC10snapshotIDAA0c6EntityF0OSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-        "text" : "RawObjectID"
+        "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+        "text" : "RawEntityID"
       },
       {
         "kind" : "text",
@@ -85,10 +85,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-              "text" : "RawObjectID"
+              "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+              "text" : "RawEntityID"
             },
             {
               "kind" : "text",
@@ -145,7 +145,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -156,7 +156,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/RawEntityID": {
   "abstract" : [
     {
       "text" : "Object ID retrieved from a foreign interface.",
@@ -174,21 +174,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawEntityID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawEntityID"
     }
   ],
   "role" : "symbol",
-  "title" : "RawObjectID",
+  "title" : "RawEntityID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawobjectid"
+  "url" : "\/documentation\/poieticcore\/rawentityid"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
   "abstract" : [
@@ -250,8 +250,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-      "text" : "RawObjectID"
+      "preciseIdentifier" : "s:11PoieticCore11RawEntityIDO",
+      "text" : "RawEntityID"
     },
     {
       "kind" : "text",

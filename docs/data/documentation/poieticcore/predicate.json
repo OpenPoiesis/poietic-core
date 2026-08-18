@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An object predicate.",
+      "text" : "A type that defines and matches characteristics of an object.",
       "type" : "text"
     }
   ],
@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9PredicateP",
+    "externalID" : "s:11PoieticCore9PredicateO",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "enum"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
     "title" : "Predicate"
   },
   "primaryContentSections" : [
@@ -62,7 +62,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "indirect"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "enum"
             },
             {
               "kind" : "text",
@@ -71,24 +79,6 @@
             {
               "kind" : "identifier",
               "text" : "Predicate"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s23CustomStringConvertibleP",
-              "text" : "CustomStringConvertible"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s8SendableP",
-              "text" : "Sendable"
             }
           ]
         }
@@ -106,7 +96,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Predicates check properties of an object using the ",
+              "text" : "Match properties of an object with ",
               "type" : "text"
             },
             {
@@ -115,7 +105,7 @@
               "type" : "reference"
             },
             {
-              "text" : " method.",
+              "text" : ".",
               "type" : "text"
             }
           ],
@@ -128,7 +118,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.method",
               "isActive" : true,
               "type" : "reference"
             },
@@ -137,7 +127,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.method",
               "isActive" : true,
               "type" : "reference"
             },
@@ -150,35 +140,10 @@
         },
         {
           "code" : [
-            "let predicate = IsTypePredicate(ObjectType.Auxiliary)",
-            "                    .or(IsTypePredicate(ObjectType.Stock))"
+            "let predicate: Predicate = .isType(ObjectType.Auxiliary).or(.isType(ObjectType.Stock))"
           ],
           "syntax" : "swift",
           "type" : "codeListing"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "When adding a new predicate type, please consider its implementability",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "by other, foreign systems.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -188,26 +153,12 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
+      "title" : "Conforms To",
+      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -218,33 +169,37 @@
   "sections" : [
 
   ],
-  "seeAlsoSections" : [
+  "topicSections" : [
     {
-      "anchor" : "Predicates",
+      "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.enum.case",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/any",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/hasTrait(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/isType(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-swift.enum.case"
       ],
-      "title" : "Predicates"
-    }
-  ],
-  "topicSections" : [
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/children",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/description"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.method",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(_:in:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-swift.method"
       ],
       "title" : "Instance Methods"
     }
@@ -266,7 +221,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -277,328 +232,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
-  "abstract" : [
-    {
-      "text" : "Requirement that all matched objects satisfy a given predicate.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AllSatisfy"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AllSatisfy"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AllSatisfy",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/allsatisfy"
-},
-"doc://PoieticCore/documentation/PoieticCore/AndPredicate": {
-  "abstract" : [
-    {
-      "text" : "Logical conjunction of multiple predicates.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AndPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AndPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AndPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/andpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that matches any object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AnyPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AnyPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AnyPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/anypredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate that tests the edge object itself together with its objects -",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "origin and target.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate to test whether an object has a given trait.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HasComponentPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HasComponentPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HasComponentPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate to test whether an object has a given trait.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HasTraitPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HasTraitPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HasTraitPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/hastraitpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate to test whether an object is of one or multiple given types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IsTypePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NegationPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/negationpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/OrPredicate": {
-  "abstract" : [
-    {
-      "text" : "Logical disjunction of multiple predicates.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "OrPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "OrPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "OrPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orpredicate"
-},
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "An object predicate.",
+      "text" : "A type that defines and matches characteristics of an object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -622,7 +266,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicate/and(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Predicate/and(_:)-swift.enum.case": {
+  "abstract" : [
+    {
+      "text" : "Logical conjunction of multiple predicates –  all predicates must match.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "and"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.enum.case",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.and(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/and(_:)-swift.enum.case"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/and(_:)-swift.method": {
   "abstract" : [
     {
       "text" : "Creates a compound predicate with the other predicate using a logical ∧ – ",
@@ -637,7 +322,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -653,30 +337,214 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     },
     {
       "kind" : "text",
-      "text" : ") -> any "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/and(_:)-swift.method",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "and(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate\/and(_:)"
+  "url" : "\/documentation\/poieticcore\/predicate\/and(_:)-swift.method"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/any": {
+  "abstract" : [
+    {
+      "text" : "Matches any object unconditionally",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "any"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/any",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.any",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/any"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/children": {
+  "abstract" : [
+    {
+      "text" : "Get direct children predicates.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/children",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "children",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/children"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/hasTrait(_:)": {
+  "abstract" : [
+    {
+      "text" : "Matches objects which have given trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasTrait"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/hasTrait(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.hasTrait(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/hastrait(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/isType(_:)": {
+  "abstract" : [
+    {
+      "text" : "Matches objects of given object type",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isType"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/isType(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.isType(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/istype(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate/match(_:in:)": {
   "abstract" : [
@@ -704,8 +572,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -729,8 +597,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -744,7 +612,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(_:in:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "match(_:in:)",
   "type" : "topic",
@@ -757,7 +624,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -773,23 +639,104 @@
     },
     {
       "kind" : "text",
-      "text" : "() -> any "
+      "text" : "() -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not()",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "not()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/predicate\/not()"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicate/or(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Predicate/not(_:)": {
+  "abstract" : [
+    {
+      "text" : "Matches objects where the given predicate is not true.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "not"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/not(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.not(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/not(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/or(_:)-swift.enum.case": {
+  "abstract" : [
+    {
+      "text" : "Logical disjunction of multiple predicates – at least one of the predicates must match.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "or"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-swift.enum.case",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Predicate.or(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/predicate\/or(_:)-swift.enum.case"
+},
+"doc://PoieticCore/documentation/PoieticCore/Predicate/or(_:)-swift.method": {
   "abstract" : [
     {
       "text" : "Creates a compound predicate with the other predicate using a logical ⋁ – ",
@@ -804,7 +751,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -820,30 +766,34 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     },
     {
       "kind" : "text",
-      "text" : ") -> any "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/or(_:)-swift.method",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "or(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate\/or(_:)"
+  "url" : "\/documentation\/poieticcore\/predicate\/or(_:)-swift.method"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

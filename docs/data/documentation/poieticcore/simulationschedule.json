@@ -1,0 +1,545 @@
+{
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that run a simulation.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationSchedule"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore18SimulationScheduleO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SimulationSchedule"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SimulationSchedule"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "SimulationSchedule"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SimulationSchedule"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The schedule is typically run after ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneChangeSchedule",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScheduleLabel"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Systems-and-Schedules",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScheduleLabel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneChangeSchedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InteractivePreviewSchedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError"
+      ],
+      "title" : "Systems and Schedules"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/simulationschedule"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/InteractivePreviewSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that are run during interactive session, for example",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a dragging or an object placement session.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InteractivePreviewSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InteractivePreviewSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InteractivePreviewSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InteractivePreviewSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/interactivepreviewschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/InternalSystemError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by systems that has not been caused by the user, but that is recoverable in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "runtime context.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InternalSystemError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/internalsystemerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneChangeSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that are run when plane did change.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneChangeSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneChangeSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneChangeSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneChangeSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planechangeschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/Schedule": {
+  "abstract" : [
+    {
+      "text" : "System schedule is a collection of systems that run in order of their dependency.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Schedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Schedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Schedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/schedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/ScheduleLabel": {
+  "abstract" : [
+    {
+      "text" : "Tag protocol for system schedule labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScheduleLabel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScheduleLabel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScheduleLabel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScheduleLabel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/schedulelabel"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that run a simulation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/System": {
+  "abstract" : [
+    {
+      "text" : "A system that reads and writes components and entities in a world.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "System",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/system"
+},
+"doc://PoieticCore/documentation/PoieticCore/SystemDependency": {
+  "abstract" : [
+    {
+      "text" : "Dependency specification for system execution order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SystemDependency"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SystemDependency"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SystemDependency",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/systemdependency"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "run"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "schedule"
+    },
+    {
+      "kind" : "text",
+      "text" : ": any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13ScheduleLabelP",
+      "text" : "ScheduleLabel"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+      "text" : "InternalSystemError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "run(schedule:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/run(schedule:)"
+}
+}
+}

@@ -1,0 +1,601 @@
+{
+  "abstract" : [
+    {
+      "text" : "Dependency specification for system execution order.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore16SystemDependencyO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SystemDependency"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SystemDependency"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "SystemDependency"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SystemDependency"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Systems can specify execution order constraints relative to other systems.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Systems-and-Schedules",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScheduleLabel",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneChangeSchedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InteractivePreviewSchedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationSchedule",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError"
+      ],
+      "title" : "Systems and Schedules"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/after(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/before(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/requires(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/systemdependency"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/InteractivePreviewSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that are run during interactive session, for example",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a dragging or an object placement session.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InteractivePreviewSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InteractivePreviewSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InteractivePreviewSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InteractivePreviewSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/interactivepreviewschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/InternalSystemError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by systems that has not been caused by the user, but that is recoverable in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "runtime context.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InternalSystemError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/internalsystemerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneChangeSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that are run when plane did change.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneChangeSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneChangeSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneChangeSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneChangeSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planechangeschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/Schedule": {
+  "abstract" : [
+    {
+      "text" : "System schedule is a collection of systems that run in order of their dependency.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Schedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Schedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Schedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/schedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/ScheduleLabel": {
+  "abstract" : [
+    {
+      "text" : "Tag protocol for system schedule labels.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScheduleLabel"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ScheduleLabel",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScheduleLabel"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScheduleLabel",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/schedulelabel"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationSchedule": {
+  "abstract" : [
+    {
+      "text" : "Schedule label for systems that run a simulation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationSchedule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationSchedule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationSchedule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationSchedule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationschedule"
+},
+"doc://PoieticCore/documentation/PoieticCore/System": {
+  "abstract" : [
+    {
+      "text" : "A system that reads and writes components and entities in a world.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "System",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/system"
+},
+"doc://PoieticCore/documentation/PoieticCore/SystemDependency": {
+  "abstract" : [
+    {
+      "text" : "Dependency specification for system execution order.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SystemDependency"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SystemDependency"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SystemDependency",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/systemdependency"
+},
+"doc://PoieticCore/documentation/PoieticCore/SystemDependency/after(_:)": {
+  "abstract" : [
+    {
+      "text" : "This system must run after the specified system, if the other system is present",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "in a system group.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "after"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6SystemP",
+      "text" : "System"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/after(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "SystemDependency.after(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/systemdependency\/after(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/SystemDependency/before(_:)": {
+  "abstract" : [
+    {
+      "text" : "This system must run before the specified system, if the other system is present",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "in a system group.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "before"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6SystemP",
+      "text" : "System"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/before(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "SystemDependency.before(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/systemdependency\/before(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/SystemDependency/requires(_:)": {
+  "abstract" : [
+    {
+      "text" : "This system must run after the specified system and the other system must exist in the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "system group.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requires"
+    },
+    {
+      "kind" : "text",
+      "text" : "(any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6SystemP",
+      "text" : "System"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SystemDependency\/requires(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "SystemDependency.requires(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/systemdependency\/requires(_:)"
+}
+}
+}

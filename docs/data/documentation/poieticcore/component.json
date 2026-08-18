@@ -112,36 +112,13 @@
           "type" : "paragraph"
         },
         {
-          "content" : [
+          "inlineContent" : [
             {
-              "inlineContent" : [
-                {
-                  "text" : "When designing a component, design it in a way that all its",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "contents can be reconstructed from other information present in the",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "design.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
+              "text" : "This is just an annotation protocol, has no requirements.",
+              "type" : "text"
             }
           ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"
@@ -150,7 +127,30 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TagComponent"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildOf",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Controls",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasNumericIndicator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsSelected",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemberOf",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueSample",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueStats",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTouched",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParsedExpressionComponent",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RepresentationOf",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SelectionChange"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -167,16 +167,32 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Types",
+      "anchor" : "Simulation",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeWorld",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System"
       ],
-      "title" : "Types"
+      "title" : "Simulation"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Associated-Types",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/Storage"
+      ],
+      "title" : "Associated Types"
+    },
+    {
+      "anchor" : "Type-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/makeStorage()"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -196,7 +212,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -206,6 +222,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ChildOf": {
+  "abstract" : [
+    {
+      "text" : "Indicates that an entity is a child of another entity",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildOf"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ChildOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ChildOf",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/childof"
 },
 "doc://PoieticCore/documentation/PoieticCore/Component": {
   "abstract" : [
@@ -241,10 +291,98 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
 },
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
+"doc://PoieticCore/documentation/PoieticCore/Component/Storage": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Storage"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24ComponentStorageProtocolP",
+      "text" : "ComponentStorageProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/Storage",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Storage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/component\/storage"
+},
+"doc://PoieticCore/documentation/PoieticCore/Component/makeStorage()": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 2,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeStorage"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24ComponentStorageProtocolP",
+      "text" : "ComponentStorageProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component\/makeStorage()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "makeStorage()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/component\/makestorage()"
+},
+"doc://PoieticCore/documentation/PoieticCore/Controls": {
   "abstract" : [
     {
-      "text" : "Collection of components of an object.",
+      "text" : "Relationship indicating that an entity – controller controls a target – controlled entity.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "For example a visual slider controls a value of a simulation property.",
       "type" : "text"
     }
   ],
@@ -259,26 +397,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ComponentSet"
+      "text" : "Controls"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Controls",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ComponentSet"
+      "text" : "Controls"
     }
   ],
   "role" : "symbol",
-  "title" : "ComponentSet",
+  "title" : "Controls",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset"
+  "url" : "\/documentation\/poieticcore\/controls"
 },
-"doc://PoieticCore/documentation/PoieticCore/IssueListComponent": {
+"doc://PoieticCore/documentation/PoieticCore/DisplayValueBounds": {
   "abstract" : [
     {
-      "text" : "Component that holds a list of errors related to a node.",
+      "text" : "Bounds used for value visualisation, for example in charts or value indicators.",
       "type" : "text"
     }
   ],
@@ -293,26 +431,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IssueListComponent"
+      "text" : "DisplayValueBounds"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueListComponent",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "IssueListComponent"
+      "text" : "DisplayValueBounds"
     }
   ],
   "role" : "symbol",
-  "title" : "IssueListComponent",
+  "title" : "DisplayValueBounds",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issuelistcomponent"
+  "url" : "\/documentation\/poieticcore\/displayvaluebounds"
 },
-"doc://PoieticCore/documentation/PoieticCore/OrderedSet": {
+"doc://PoieticCore/documentation/PoieticCore/Handles": {
   "abstract" : [
     {
-      "text" : "Set of unique objects that maintains their order.",
+      "text" : "Relationship indicating that an entity – a handle controls a property of a target",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "– handled entity.",
       "type" : "text"
     }
   ],
@@ -327,33 +473,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "OrderedSet"
+      "text" : "Handles"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrderedSet",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "OrderedSet"
+      "text" : "Handles"
     }
   ],
   "role" : "symbol",
-  "title" : "OrderedSet",
+  "title" : "Handles",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orderedset"
+  "url" : "\/documentation\/poieticcore\/handles"
 },
-"doc://PoieticCore/documentation/PoieticCore/RuntimeContext": {
+"doc://PoieticCore/documentation/PoieticCore/HasNumericIndicator": {
   "abstract" : [
     {
-      "text" : "Context containing runtime information about the design.",
+      "text" : "Tag component to indicate whether there should be a numeric indicator displayed for the entity.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -361,26 +507,277 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RuntimeContext"
+      "text" : "HasNumericIndicator"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeContext",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasNumericIndicator",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RuntimeContext"
+      "text" : "HasNumericIndicator"
     }
   ],
   "role" : "symbol",
-  "title" : "RuntimeContext",
+  "title" : "HasNumericIndicator",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtimecontext"
+  "url" : "\/documentation\/poieticcore\/hasnumericindicator"
 },
-"doc://PoieticCore/documentation/PoieticCore/RuntimeSystem": {
+"doc://PoieticCore/documentation/PoieticCore/IsSelected": {
   "abstract" : [
     {
-      "text" : "Protocol for objects that manage runtime data.",
+      "text" : "Component placed on entities that need explicitly to be marked as selected.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IsSelected"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsSelected",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IsSelected"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IsSelected",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/isselected"
+},
+"doc://PoieticCore/documentation/PoieticCore/MemberOf": {
+  "abstract" : [
+    {
+      "text" : "Indicates ownership-membership. Target is the owner of the member. When the owner is removed,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the member entity is removed with it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MemberOf"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemberOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MemberOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MemberOf",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/memberof"
+},
+"doc://PoieticCore/documentation/PoieticCore/NumericValueSample": {
+  "abstract" : [
+    {
+      "text" : "A point-in-time reading from the time series at the playhead cursor.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NumericValueSample"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueSample",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NumericValueSample"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NumericValueSample",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/numericvaluesample"
+},
+"doc://PoieticCore/documentation/PoieticCore/NumericValueStats": {
+  "abstract" : [
+    {
+      "text" : "Simple statistics from time series associate with given entity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NumericValueStats"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueStats",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NumericValueStats"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NumericValueStats",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/numericvaluestats"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotRef": {
+  "abstract" : [
+    {
+      "text" : "Reference to an object snapshot by ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshotRef"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshotRef"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshotRef",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshotref"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTouched": {
+  "abstract" : [
+    {
+      "text" : "Component set to changed or new entities on ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTouched"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTouched",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTouched"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTouched",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttouched"
+},
+"doc://PoieticCore/documentation/PoieticCore/ParsedExpressionComponent": {
+  "abstract" : [
+    {
+      "text" : "Parsed arithmetic expression (plane-independent)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParsedExpressionComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParsedExpressionComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParsedExpressionComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParsedExpressionComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/parsedexpressioncomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/Relationship": {
+  "abstract" : [
+    {
+      "text" : "A component that represents a directed relationship between two entities.",
       "type" : "text"
     }
   ],
@@ -395,21 +792,296 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RuntimeSystem"
+      "text" : "Relationship"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeSystem",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RuntimeSystem"
+      "text" : "Relationship"
     }
   ],
   "role" : "symbol",
-  "title" : "RuntimeSystem",
+  "title" : "Relationship",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtimesystem"
+  "url" : "\/documentation\/poieticcore\/relationship"
+},
+"doc://PoieticCore/documentation/PoieticCore/RepresentationOf": {
+  "abstract" : [
+    {
+      "text" : "Relationship indicating that an entity is a representation of another – represented entity.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "For example a visual canvas object with a pictogram represents a design block entity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepresentationOf"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RepresentationOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepresentationOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RepresentationOf",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/representationof"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeWorld": {
+  "abstract" : [
+    {
+      "text" : "Types and functionality for a World – a runtime instance of a design with simulation related data,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "simulation state, visual representations and other derived data.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeWorld",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Runtime World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeworld"
+},
+"doc://PoieticCore/documentation/PoieticCore/Selection": {
+  "abstract" : [
+    {
+      "text" : "Ordered collection of selected objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Selection"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Selection",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/selection"
+},
+"doc://PoieticCore/documentation/PoieticCore/SelectionChange": {
+  "abstract" : [
+    {
+      "text" : "Component denoting a selection change.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionChange"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SelectionChange",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionChange"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionChange",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/selectionchange"
+},
+"doc://PoieticCore/documentation/PoieticCore/System": {
+  "abstract" : [
+    {
+      "text" : "A system that reads and writes components and entities in a world.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "System"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "System",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/system"
+},
+"doc://PoieticCore/documentation/PoieticCore/TagComponent": {
+  "abstract" : [
+    {
+      "text" : "Component without data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TagComponent"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TagComponent",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TagComponent"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TagComponent",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/tagcomponent"
+},
+"doc://PoieticCore/documentation/PoieticCore/World": {
+  "abstract" : [
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/setPlane(_:)": {
+  "abstract" : [
+    {
+      "text" : "Set a design plane to be world’s current design plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setPlane(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/setplane(_:)"
 }
 }
 }

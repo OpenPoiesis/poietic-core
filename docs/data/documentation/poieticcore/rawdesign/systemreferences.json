@@ -159,7 +159,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "current_frame",
+                      "code" : "current_plane",
                       "type" : "codeVoice"
                     }
                   ],
@@ -170,7 +170,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "frame",
+                      "code" : "plane",
                       "type" : "codeVoice"
                     }
                   ],
@@ -181,11 +181,11 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "ID of current frame (see ",
+                      "text" : "ID of current plane (see ",
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlaneID",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -214,7 +214,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "frame",
+                      "code" : "plane",
                       "type" : "codeVoice"
                     }
                   ],
@@ -225,7 +225,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "ID of frame containing application settings. A non-versioned frame.",
+                      "text" : "ID of plane containing application settings. A non-versioned plane.",
                       "type" : "text"
                     }
                   ],
@@ -265,7 +265,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -276,10 +276,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/currentFrameID": {
+"doc://PoieticCore/documentation/PoieticCore/Design/currentPlaneID": {
   "abstract" : [
     {
-      "text" : "ID of the current frame from the history perspective.",
+      "text" : "ID of the current plane from the history perspective.",
       "type" : "text"
     }
   ],
@@ -294,7 +294,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "currentFrameID"
+      "text" : "currentPlaneID"
     },
     {
       "kind" : "text",
@@ -302,20 +302,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlaneID",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "currentFrameID",
+  "title" : "currentPlaneID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/currentframeid"
+  "url" : "\/documentation\/poieticcore\/design\/currentplaneid"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawDesign": {
   "abstract" : [

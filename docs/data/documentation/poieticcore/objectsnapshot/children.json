@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotP8childrenAA10OrderedSetVyAA0C2IDVGvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotC8children18OrderedCollections0F3SetVyAA14DesignEntityIDVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,21 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
-        "text" : "ChildrenSet"
+        "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+        "text" : "OrderedSet"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+        "text" : "ObjectID"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -48,7 +61,6 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -82,14 +94,23 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
-              "text" : "ChildrenSet"
+              "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+              "text" : "OrderedSet"
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+              "text" : "ObjectID"
+            },
+            {
+              "kind" : "text",
+              "text" : "> { "
             },
             {
               "kind" : "keyword",
@@ -123,7 +144,7 @@
               "type" : "text"
             },
             {
-              "text" : "an object is removed from a frame, all its children are removed",
+              "text" : "an object is removed from a plane, all its children are removed",
               "type" : "text"
             },
             {
@@ -159,7 +180,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/addChild(_:to:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/addChild(_:to:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -172,7 +193,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeChild(_:from:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeChild(_:from:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -185,7 +206,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeFromParent(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeFromParent(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -198,7 +219,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeCascading(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -243,7 +264,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -254,9 +275,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
-
+    {
+      "text" : "Identity of a design object.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -269,33 +293,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ChildrenSet"
+      "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ChildrenSet"
+      "text" : "ObjectID"
     }
   ],
   "role" : "symbol",
-  "title" : "ChildrenSet",
+  "title" : "ObjectID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
+  "url" : "\/documentation\/poieticcore\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Version snapshot of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -345,13 +369,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11ChildrenSeta",
-      "text" : "ChildrenSet"
+      "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+      "text" : "OrderedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/children",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "children",
   "type" : "topic",
@@ -383,7 +419,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -393,13 +429,12 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/parent",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "parent",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/parent"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/addChild(_:to:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/addChild(_:to:)": {
   "abstract" : [
     {
       "text" : "Assign a child to a parent object.",
@@ -425,7 +460,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -442,7 +477,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -450,17 +485,17 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/addChild(_:to:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/addChild(_:to:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "addChild(_:to:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/addchild(_:to:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/addchild(_:to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeCascading(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/removeCascading(_:)": {
   "abstract" : [
     {
-      "text" : "Remove an object from the frame and all its dependants.",
+      "text" : "Remove an object from the plane and all its dependants.",
       "type" : "text"
     }
   ],
@@ -483,7 +518,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -501,7 +536,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -509,14 +544,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeCascading(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeCascading(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeCascading(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/removecascading(_:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/removecascading(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeChild(_:from:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/removeChild(_:from:)": {
   "abstract" : [
     {
       "text" : "Remove an object ",
@@ -558,7 +593,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -575,7 +610,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -583,14 +618,14 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeChild(_:from:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeChild(_:from:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeChild(_:from:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/removechild(_:from:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/removechild(_:from:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/removeFromParent(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/removeFromParent(_:)": {
   "abstract" : [
     {
       "text" : "Removes a child from its parent.",
@@ -616,7 +651,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -624,12 +659,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/removeFromParent(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeFromParent(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "removeFromParent(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/removefromparent(_:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/removefromparent(_:)"
 }
 }
 }

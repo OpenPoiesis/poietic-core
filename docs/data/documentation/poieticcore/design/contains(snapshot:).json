@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC8contains8snapshotSbAA8ObjectIDV_tF",
+    "externalID" : "s:11PoieticCore6DesignC8contains8snapshotSbAA0C8EntityIDV_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,8 +41,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-        "text" : "ObjectID"
+        "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+        "text" : "ObjectSnapshotID"
       },
       {
         "kind" : "text",
@@ -101,17 +101,17 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "snapshotID"
+              "text" : "id"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-              "text" : "ObjectID"
+              "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+              "text" : "ObjectSnapshotID"
             },
             {
               "kind" : "text",
@@ -153,7 +153,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -237,8 +237,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
     },
     {
       "kind" : "text",
@@ -257,17 +257,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/contains(snapshot:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design snapshot - version of a design.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -275,21 +275,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectID"
+      "text" : "ObjectSnapshotID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectID"
+      "text" : "ObjectSnapshotID"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectID",
+  "title" : "ObjectSnapshotID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid"
+  "url" : "\/documentation\/poieticcore\/objectsnapshotid"
 }
 }
 }

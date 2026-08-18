@@ -131,7 +131,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -145,7 +145,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Accepts a frame and make it a stable frame.",
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
       "type" : "text"
     }
   ],
@@ -168,8 +168,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     },
     {
       "kind" : "text",
@@ -202,8 +202,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-      "text" : "StructuralIntegrityError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
@@ -211,8 +211,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",

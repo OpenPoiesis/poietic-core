@@ -95,6 +95,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/Sl",
         "doc:\/\/PoieticCore\/s8CopyableP",
+        "doc:\/\/PoieticCore\/s9EscapableP",
         "doc:\/\/PoieticCore\/s25ExpressibleByArrayLiteralP",
         "doc:\/\/PoieticCore\/SM",
         "doc:\/\/PoieticCore\/ST"
@@ -193,7 +194,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -646,6 +647,11 @@
 "doc://PoieticCore/s8CopyableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
   "title" : "Swift.Copyable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

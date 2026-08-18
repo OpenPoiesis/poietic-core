@@ -94,7 +94,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -103,7 +103,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -124,7 +124,8 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/s28CustomDebugStringConvertibleP",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -147,13 +148,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
       ],
       "title" : "Constraints"
     }
@@ -203,7 +204,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -264,18 +265,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/acceptall"
 },
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
+},
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
@@ -309,7 +336,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "An object that checks constraints, including object types, of a frame.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -340,10 +375,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintchecker"
 },
-"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/check(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/validate(_:)": {
   "abstract" : [
     {
-      "text" : "Check a frame for constraints violations and object type conformance.",
+      "text" : "Check a plane for constraints violations and object type conformance.",
       "type" : "text"
     }
   ],
@@ -358,7 +393,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "check"
+      "text" : "validate"
     },
     {
       "kind" : "text",
@@ -374,8 +409,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -391,20 +426,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
-      "text" : "FrameValidationError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(_:)",
+  "title" : "validate(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)"
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/validate(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [
@@ -607,7 +642,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -648,7 +683,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -697,40 +732,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissue"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of design issues.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissuecollection"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
   "abstract" : [
     {
@@ -765,40 +766,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissueconvertible"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
-  "abstract" : [
-    {
-      "text" : "Error generated when a frame is checked for constraints and object types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FrameValidationError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FrameValidationError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framevalidationerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
     {
@@ -832,6 +799,40 @@
   "title" : "ObjectTypeError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by constraint checker when there are issues with a plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
@@ -924,6 +925,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s28CustomDebugStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s28CustomDebugStringConvertibleP",

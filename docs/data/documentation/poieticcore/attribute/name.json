@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Attribute name – an identifier.",
+      "text" : "Attribute name – a unique identifier within the object type.",
       "type" : "text"
     }
   ],
@@ -89,6 +89,50 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Must be unique across all traits associated with an object type.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Typically uses snake_case convention (e.g., ",
+              "type" : "text"
+            },
+            {
+              "code" : "\"min_value\"",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "\"formula\"",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ").",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -116,7 +160,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -130,7 +174,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -164,7 +217,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute/name": {
   "abstract" : [
     {
-      "text" : "Attribute name – an identifier.",
+      "text" : "Attribute name – a unique identifier within the object type.",
       "type" : "text"
     }
   ],
@@ -197,6 +250,40 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute\/name"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Trait defines object details, its attributes or its role in the model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
 }
 }
 }

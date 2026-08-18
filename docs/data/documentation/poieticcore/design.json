@@ -96,15 +96,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Design comprises of objects, heir attributes and their relationships which",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "which comprise an idea from a problem domain described by a ",
+              "text" : "Design is a representation of an idea from a problem domain described by a ",
               "type" : "text"
             },
             {
@@ -114,6 +106,14 @@
             },
             {
               "text" : ".",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Design comprises of objects with attributes and with a topology – references between objects.",
               "type" : "text"
             },
             {
@@ -157,14 +157,14 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "frames",
+                  "text" : "version planes",
                   "type" : "text"
                 }
               ],
               "type" : "emphasis"
             },
             {
-              "text" : ". Each frame",
+              "text" : ". Each version plane",
               "type" : "text"
             },
             {
@@ -172,23 +172,7 @@
               "type" : "text"
             },
             {
-              "text" : "represents a change or coupled group of changes either as a change in time",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "or as an alternative. When organised as time-related changes, one can think",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "of a frame of it as a “movie frame”.",
+              "text" : "represents a change, which can be thought as a change in time or as an alternative version.",
               "type" : "text"
             }
           ],
@@ -197,7 +181,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Each design object has a unique identity within the whole design referred to as",
+              "text" : "Each design object, as a logical entity, has a unique identity within the whole design:",
               "type" : "text"
             },
             {
@@ -205,7 +189,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol\/objectID",
               "isActive" : true,
               "type" : "reference"
             },
@@ -216,7 +200,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "id",
+                  "text" : "objectID",
                   "type" : "text"
                 }
               ],
@@ -231,7 +215,7 @@
               "type" : "text"
             },
             {
-              "text" : "all its versions – snapshots. Within a frame, the object ID is unique.",
+              "text" : "all its versions – object snapshots. Within a plane, the object ID is unique.",
               "type" : "text"
             }
           ],
@@ -240,7 +224,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The design distinguishes between two states of a version frame:",
+              "text" : "The design distinguishes between two states of a version plane:",
               "type" : "text"
             },
             {
@@ -248,12 +232,12 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : " – immutable version snapshot of a frame, that is guaranteed",
+              "text" : " – immutable version snapshot of a plane, that is guaranteed",
               "type" : "text"
             },
             {
@@ -265,7 +249,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
               "isActive" : true,
               "type" : "reference"
             },
@@ -274,7 +258,7 @@
               "type" : "text"
             },
             {
-              "text" : "represents a transactional frame, which is “under construction” and does",
+              "text" : "represents a transaction of plane. The integrity is enforced once the",
               "type" : "text"
             },
             {
@@ -282,15 +266,7 @@
               "type" : "text"
             },
             {
-              "text" : "not have yet to maintain integrity. The integrity is enforced once the",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "frame is accepted using ",
+              "text" : "plane is accepted using ",
               "type" : "text"
             },
             {
@@ -308,12 +284,7 @@
         {
           "inlineContent" : [
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : "s can not be mutated, neither any of the object snapshots",
+              "text" : "Design planes are immutable and they are persisted. They are guaranteed to follow requirements",
               "type" : "text"
             },
             {
@@ -321,15 +292,7 @@
               "type" : "text"
             },
             {
-              "text" : "associated with the frame. They are guaranteed to follow requirements of",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "the metamodel. They are persisted.",
+              "text" : "of the metamodel.",
               "type" : "text"
             }
           ],
@@ -338,7 +301,7 @@
         {
           "inlineContent" : [
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
               "isActive" : true,
               "type" : "reference"
             },
@@ -386,7 +349,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The concept of frames allows us to have functionality like undo\/redo,",
+              "text" : "The concept of planes allows us to have functionality like undo\/redo,",
               "type" : "text"
             },
             {
@@ -402,7 +365,7 @@
               "type" : "text"
             },
             {
-              "text" : "without disturbing the original frames, etc.",
+              "text" : "without disturbing the original planes, etc.",
               "type" : "text"
             }
           ],
@@ -425,7 +388,7 @@
               "type" : "text"
             },
             {
-              "text" : "other objects within the same frame. When a single change requires mutating",
+              "text" : "other objects within the same plane. When a single change requires mutating",
               "type" : "text"
             },
             {
@@ -441,7 +404,7 @@
               "type" : "text"
             },
             {
-              "text" : "that results in a new frame.",
+              "text" : "that results in a new plane.",
               "type" : "text"
             }
           ],
@@ -450,7 +413,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "To make a change and produce a new frame:",
+              "text" : "To make a change and produce a new plane:",
               "type" : "text"
             }
           ],
@@ -463,7 +426,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Derive a new frame from an existing one or create a new frame using",
+                      "text" : "Derive a new plane from an existing one or create a new plane using",
                       "type" : "text"
                     },
                     {
@@ -471,7 +434,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(deriving:id:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -489,11 +452,11 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Add objects to the derived frame using ",
+                      "text" : "Add objects to the derived plane using ",
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/create(_:id:snapshotID:structure:parent:children:attributes:components:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/create(_:objectID:snapshotID:topology:parent:children:attributes:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -506,7 +469,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/insert(_:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/insert(_:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -524,7 +487,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "To mutate existing objects in the frame, first derive an new mutable",
+                      "text" : "To mutate existing objects in the plane, first derive an new mutable",
                       "type" : "text"
                     },
                     {
@@ -536,7 +499,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -562,7 +525,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Conclude all the changes by accepting the frame ",
+                      "text" : "Conclude all the changes by accepting the plane ",
                       "type" : "text"
                     },
                     {
@@ -585,7 +548,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Frame can be accepted only if the constraints are satisfied. When the frame",
+              "text" : "Plane can be accepted only if the constraints are satisfied. When the plane",
               "type" : "text"
             },
             {
@@ -631,7 +594,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "If mutable frame for some reason is not going to be used further, for",
+              "text" : "If mutable plane for some reason is not going to be used further, for",
               "type" : "text"
             },
             {
@@ -652,7 +615,7 @@
               "type" : "reference"
             },
             {
-              "text" : ". Discarded frame and its derived object will be removed from",
+              "text" : ". Discarded plane and its derived object will be removed from",
               "type" : "text"
             },
             {
@@ -667,15 +630,15 @@
           "type" : "paragraph"
         },
         {
-          "anchor" : "Named-Frames",
+          "anchor" : "Named-Planes",
           "level" : 2,
-          "text" : "Named Frames",
+          "text" : "Named Planes",
           "type" : "heading"
         },
         {
           "inlineContent" : [
             {
-              "text" : "Named frames are used to store design-wide, non-versioned content. For example, application",
+              "text" : "Named planes are used to store design-wide, non-versioned content. For example, application",
               "type" : "text"
             },
             {
@@ -683,7 +646,7 @@
               "type" : "text"
             },
             {
-              "text" : "state such as current view position. Named frames can not be included in the undo\/redo history.",
+              "text" : "state such as current view position. Named planes can not be included in the undo\/redo history.",
               "type" : "text"
             }
           ],
@@ -706,7 +669,7 @@
               "type" : "text"
             },
             {
-              "text" : "to a persistent store. All stable frames are stored. Transient frames are not",
+              "text" : "to a persistent store. All stable planes are stored. Transient planes are not",
               "type" : "text"
             },
             {
@@ -722,7 +685,7 @@
               "type" : "text"
             },
             {
-              "text" : "Therefore one can rely on the archive containing only frames that maintain integrity as defined by the",
+              "text" : "Therefore one can rely on the archive containing only planes that maintain integrity as defined by the",
               "type" : "text"
             },
             {
@@ -745,7 +708,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The design keeps only those object snapshots which are contained in frames,",
+              "text" : "The design keeps only those object snapshots which are contained in planes,",
               "type" : "text"
             },
             {
@@ -753,7 +716,7 @@
               "type" : "text"
             },
             {
-              "text" : "be it a transient frame or a stable frame. If a frame is removed, all objects",
+              "text" : "be it a transient plane or a stable plane. If a plane is removed, all objects",
               "type" : "text"
             },
             {
@@ -761,7 +724,7 @@
               "type" : "text"
             },
             {
-              "text" : "that are referred to only by that frame and no other frame, are removed",
+              "text" : "that are referred to only by that plane and no other plane, are removed",
               "type" : "text"
             },
             {
@@ -780,7 +743,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The concepts of mutable frame, accept and discard are somewhat",
+                  "text" : "The concepts of mutable plane, accept and discard are somewhat",
                   "type" : "text"
                 },
                 {
@@ -796,7 +759,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "accepted frames are not immediately put into a single historical",
+                  "text" : "accepted planes are not immediately put into a single historical",
                   "type" : "text"
                 },
                 {
@@ -820,7 +783,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "we are not appending the frame to a history timeline.",
+                  "text" : "we are not appending the plane to a history timeline.",
                   "type" : "text"
                 }
               ],
@@ -845,14 +808,15 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Essentials",
+      "anchor" : "Modelling",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ],
-      "title" : "Essentials"
+      "title" : "Modelling"
     }
   ],
   "topicSections" : [
@@ -870,16 +834,16 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canRedo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/canUndo",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlaneID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/identityManager",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/isEmpty",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/metamodel",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/namedFrames",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoableFrames",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshots",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoableFrames",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/namedPlanes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/objectSnapshots",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/planes",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoList",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoList",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/versionHistory"
       ],
       "title" : "Instance Properties"
@@ -892,18 +856,16 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:replacingName:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/checkConstraints(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/contains(snapshot:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/contains(stableFrame:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsFrame(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(deriving:id:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsPlane(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/discard(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(name:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/isPending(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(name:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/referenceCount(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removeFrame(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshot(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removePlane(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/validate(_:metamodel:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/unsafeInsert(_:)"
       ],
       "title" : "Instance Methods"
     }
@@ -925,7 +887,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -1015,7 +977,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Accepts a frame and make it a stable frame.",
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
       "type" : "text"
     }
   ],
@@ -1038,8 +1000,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     },
     {
       "kind" : "text",
@@ -1072,8 +1034,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-      "text" : "StructuralIntegrityError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
@@ -1081,8 +1043,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
@@ -1095,7 +1057,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/accept(_:replacingName:)": {
   "abstract" : [
     {
-      "text" : "Accept a frame as a named frame, replacing the previous frame with the same name.",
+      "text" : "Accept a plane as a named plane, replacing the previous plane with the same name.",
       "type" : "text"
     }
   ],
@@ -1118,8 +1080,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     },
     {
       "kind" : "text",
@@ -1152,8 +1114,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-      "text" : "StructuralIntegrityError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
@@ -1161,8 +1123,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:replacingName:)",
@@ -1175,7 +1137,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/canRedo": {
   "abstract" : [
     {
-      "text" : "Flag whether the design has any re-doable frames.",
+      "text" : "Flag whether the design has any re-doable planes.",
       "type" : "text"
     }
   ],
@@ -1212,7 +1174,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/canUndo": {
   "abstract" : [
     {
-      "text" : "Flag whether the design has any un-doable frames.",
+      "text" : "Flag whether the design has any un-doable planes.",
       "type" : "text"
     }
   ],
@@ -1249,7 +1211,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/checkConstraints(_:)": {
   "abstract" : [
     {
-      "text" : "Check constraints for the given frame.",
+      "text" : "Check constraints for the given plane.",
       "type" : "text"
     }
   ],
@@ -1280,8 +1242,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -1335,8 +1297,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
     },
     {
       "kind" : "text",
@@ -1355,61 +1317,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/contains(snapshot:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/contains(stableFrame:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "contains"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "stableFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/contains(stableFrame:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "contains(stableFrame:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/contains(stableframe:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/containsFrame(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/containsPlane(_:)": {
   "abstract" : [
     {
-      "text" : "Test whether the design contains a stable frame with given ID.",
+      "text" : "Test whether the design contains a stable plane with given ID.",
       "type" : "text"
     }
   ],
@@ -1424,7 +1335,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "containsFrame"
+      "text" : "containsPlane"
     },
     {
       "kind" : "text",
@@ -1432,8 +1343,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -1445,17 +1356,17 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsFrame(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/containsPlane(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "containsFrame(_:)",
+  "title" : "containsPlane(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/containsframe(_:)"
+  "url" : "\/documentation\/poieticcore\/design\/containsplane(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/createFrame(deriving:id:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/createPlane(deriving:id:)": {
   "abstract" : [
     {
-      "text" : "Create a new frame or derive a frame from an existing frame.",
+      "text" : "Create a new plane or derive a plane from an existing plane.",
       "type" : "text"
     }
   ],
@@ -1470,7 +1381,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "createFrame"
+      "text" : "createPlane"
     },
     {
       "kind" : "text",
@@ -1482,16 +1393,16 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": (any "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
-      "text" : "?, "
+      "text" : ")?, "
     },
     {
       "kind" : "externalParam",
@@ -1503,8 +1414,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -1512,21 +1423,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createFrame(deriving:id:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "createFrame(deriving:id:)",
+  "title" : "createPlane(deriving:id:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/createframe(deriving:id:)"
+  "url" : "\/documentation\/poieticcore\/design\/createplane(deriving:id:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/currentFrame": {
+"doc://PoieticCore/documentation/PoieticCore/Design/currentPlane": {
   "abstract" : [
     {
-      "text" : "Get the current stable frame.",
+      "text" : "Get the current stable plane.",
       "type" : "text"
     }
   ],
@@ -1541,7 +1452,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "currentFrame"
+      "text" : "currentPlane"
     },
     {
       "kind" : "text",
@@ -1549,25 +1460,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlane",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "currentFrame",
+  "title" : "currentPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/currentframe"
+  "url" : "\/documentation\/poieticcore\/design\/currentplane"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/currentFrameID": {
+"doc://PoieticCore/documentation/PoieticCore/Design/currentPlaneID": {
   "abstract" : [
     {
-      "text" : "ID of the current frame from the history perspective.",
+      "text" : "ID of the current plane from the history perspective.",
       "type" : "text"
     }
   ],
@@ -1582,7 +1493,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "currentFrameID"
+      "text" : "currentPlaneID"
     },
     {
       "kind" : "text",
@@ -1590,25 +1501,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentFrameID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/currentPlaneID",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "currentFrameID",
+  "title" : "currentPlaneID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/currentframeid"
+  "url" : "\/documentation\/poieticcore\/design\/currentplaneid"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/discard(_:)": {
   "abstract" : [
     {
-      "text" : "Discards the mutable frame that is associated with the design.",
+      "text" : "Discards the mutable plane that is associated with the design.",
       "type" : "text"
     }
   ],
@@ -1631,8 +1542,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     },
     {
       "kind" : "text",
@@ -1646,159 +1557,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/discard(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/frame(_:)": {
-  "abstract" : [
-    {
-      "text" : "Get a stable frame with given ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "frame(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/frame(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/frame(name:)": {
-  "abstract" : [
-    {
-      "text" : "Get a frame from the list of named frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(name:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "frame(name:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/frame(name:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/frames": {
-  "abstract" : [
-    {
-      "text" : "List of all stable frames in the design.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "frames"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "frames",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/frames"
-},
 "doc://PoieticCore/documentation/PoieticCore/Design/identityManager": {
   "abstract" : [
     {
-      "text" : "Generator of object IDs.",
+      "text" : "Manager of entity identities that generates and reserves IDs.",
       "type" : "text"
     }
   ],
@@ -1876,15 +1638,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/isEmpty": {
   "abstract" : [
     {
-      "text" : "True if the design does not contain any stable frames. Mutable frames",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "do not count.",
+      "text" : "True if the design does not contain any stable planes nor object snapshots.",
       "type" : "text"
     }
   ],
@@ -1917,6 +1671,60 @@
   "title" : "isEmpty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/isempty"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/isPending(_:)": {
+  "abstract" : [
+    {
+      "text" : "Return ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the transient plane is owned by the design and is in transient state.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isPending"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/isPending(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isPending(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/ispending(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/metamodel": {
   "abstract" : [
@@ -1955,7 +1763,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/namedFrames": {
+"doc://PoieticCore/documentation/PoieticCore/Design/namedPlanes": {
   "abstract" : [
 
   ],
@@ -1970,7 +1778,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "namedFrames"
+      "text" : "namedPlanes"
     },
     {
       "kind" : "text",
@@ -1987,29 +1795,253 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/namedFrames",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/namedPlanes",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "namedFrames",
+  "title" : "namedPlanes",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/namedframes"
+  "url" : "\/documentation\/poieticcore\/design\/namedplanes"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/objectSnapshots": {
+  "abstract" : [
+    {
+      "text" : "Get a collection of all stable snapshots in all stable planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectSnapshots"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sl",
+      "text" : "Collection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/objectSnapshots",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objectSnapshots",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/objectsnapshots"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/plane(_:)": {
+  "abstract" : [
+    {
+      "text" : "Get a stable plane with given ID.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "plane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "plane(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/plane(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/plane(name:)": {
+  "abstract" : [
+    {
+      "text" : "Get a plane from the list of named planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "plane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "plane(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/plane(name:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/planes": {
+  "abstract" : [
+    {
+      "text" : "List of all stable planes in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "planes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sl",
+      "text" : "Collection"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/planes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "planes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/planes"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/redo(to:)": {
   "abstract" : [
     {
-      "text" : "Change the current frame to ",
+      "text" : "Change the current plane to ",
       "type" : "text"
     },
     {
-      "code" : "frameID",
+      "code" : "planeID",
       "type" : "codeVoice"
     },
     {
@@ -2021,7 +2053,7 @@
       "type" : "text"
     },
     {
-      "text" : "undone frames.",
+      "text" : "undone planes.",
       "type" : "text"
     }
   ],
@@ -2052,8 +2084,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -2072,10 +2104,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/redo(to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/redoableFrames": {
+"doc://PoieticCore/documentation/PoieticCore/Design/redoList": {
   "abstract" : [
     {
-      "text" : "List of IDs of undone frames can be re-done.",
+      "text" : "List of IDs of undone planes can be re-done.",
       "type" : "text"
     }
   ],
@@ -2090,7 +2122,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "redoableFrames"
+      "text" : "redoList"
     },
     {
       "kind" : "text",
@@ -2098,72 +2130,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoableFrames",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoList",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "redoableFrames",
+  "title" : "redoList",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/redoableframes"
+  "url" : "\/documentation\/poieticcore\/design\/redolist"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/referenceCount(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "referenceCount"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/referenceCount(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "referenceCount(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/referencecount(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/removeFrame(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/removePlane(_:)": {
   "abstract" : [
     {
-      "text" : "Remove a frame from the design.",
+      "text" : "Remove a plane from the design.",
       "type" : "text"
     }
   ],
@@ -2178,7 +2163,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "removeFrame"
+      "text" : "removePlane"
     },
     {
       "kind" : "text",
@@ -2186,137 +2171,29 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removeFrame(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removePlane(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "removeFrame(_:)",
+  "title" : "removePlane(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/removeframe(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/snapshot(_:)": {
-  "abstract" : [
-    {
-      "text" : "Get a snapshot by snapshot ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "snapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshot(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "snapshot(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/snapshot(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design/snapshots": {
-  "abstract" : [
-    {
-      "text" : "Get a sequence of all stable snapshots in all stable frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "snapshots"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sl",
-      "text" : "Collection"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/snapshots",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "snapshots",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/snapshots"
+  "url" : "\/documentation\/poieticcore\/design\/removeplane(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/undo(to:)": {
   "abstract" : [
     {
-      "text" : "Change the current frame to ",
+      "text" : "Change the current plane to ",
       "type" : "text"
     },
     {
-      "code" : "frameID",
+      "code" : "planeID",
       "type" : "codeVoice"
     },
     {
@@ -2328,7 +2205,7 @@
       "type" : "text"
     },
     {
-      "text" : "frames in the undo history.",
+      "text" : "planes in the undo history.",
       "type" : "text"
     }
   ],
@@ -2359,8 +2236,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -2379,10 +2256,18 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/undo(to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/undoableFrames": {
+"doc://PoieticCore/documentation/PoieticCore/Design/undoList": {
   "abstract" : [
     {
-      "text" : "List of IDs of frames that can undone.",
+      "text" : "List of IDs of planes in chronological order of acceptance, that can be removed from",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history.",
       "type" : "text"
     }
   ],
@@ -2397,7 +2282,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "undoableFrames"
+      "text" : "undoList"
     },
     {
       "kind" : "text",
@@ -2405,24 +2290,27 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoableFrames",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undoList",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "undoableFrames",
+  "title" : "undoList",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/undoableframes"
+  "url" : "\/documentation\/poieticcore\/design\/undolist"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/validate(_:metamodel:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design/unsafeInsert(_:)": {
   "abstract" : [
-
+    {
+      "text" : "Insert a plane without topological or snapshot reference validation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2435,7 +2323,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "validate"
+      "text" : "unsafeInsert"
     },
     {
       "kind" : "text",
@@ -2443,64 +2331,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "metamodel"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
-      "text" : "FrameValidationError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14ValidatedFrameV",
-      "text" : "ValidatedFrame"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/validate(_:metamodel:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/unsafeInsert(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validate(_:metamodel:)",
+  "title" : "unsafeInsert(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/validate(_:metamodel:)"
+  "url" : "\/documentation\/poieticcore\/design\/unsafeinsert(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design/versionHistory": {
   "abstract" : [
     {
-      "text" : "Chronological list of frame IDs.",
+      "text" : "Chronological list of design snapshots.",
       "type" : "text"
     }
   ],
@@ -2523,8 +2372,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -2538,10 +2387,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/versionhistory"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
   "abstract" : [
     {
-      "text" : "Design frame that has been accepted and can not be changed.",
+      "text" : "Design plane that has been accepted and can not be changed.",
       "type" : "text"
     }
   ],
@@ -2556,60 +2405,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignFrame"
+      "text" : "DesignPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "DesignFrame"
+      "text" : "DesignPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "DesignFrame",
+  "title" : "DesignPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
-  "abstract" : [
-    {
-      "text" : "Version snapshot of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobject"
+  "url" : "\/documentation\/poieticcore\/designplane"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -2640,7 +2464,29 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
+  "abstract" : [
+    {
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol/objectID": {
   "abstract" : [
     {
       "text" : "Primary object identity.",
@@ -2658,7 +2504,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "id"
+      "text" : "objectID"
     },
     {
       "kind" : "text",
@@ -2666,22 +2512,22 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol\/objectID",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "id",
+  "title" : "objectID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/id"
+  "url" : "\/documentation\/poieticcore\/objectprotocol\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "Transient frame that represents a change transaction.",
+      "text" : "Version snapshot of a design object.",
       "type" : "text"
     }
   ],
@@ -2696,26 +2542,60 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TransientFrame"
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TransientFrame"
+      "text" : "ObjectSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "TransientFrame",
+  "title" : "ObjectSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/create(_:id:snapshotID:structure:parent:children:attributes:components:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane": {
   "abstract" : [
     {
-      "text" : "Create a new object within the frame.",
+      "text" : "Transient plane that represents a change transaction.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientplane"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new object within the plane.",
       "type" : "text"
     }
   ],
@@ -2747,7 +2627,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "id"
+      "text" : "objectID"
     },
     {
       "kind" : "text",
@@ -2755,7 +2635,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -2772,8 +2652,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
     },
     {
       "kind" : "text",
@@ -2781,7 +2661,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "structure"
+      "text" : "topology"
     },
     {
       "kind" : "text",
@@ -2789,8 +2669,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9StructureO",
-      "text" : "Structure"
+      "preciseIdentifier" : "s:11PoieticCore8TopologyO",
+      "text" : "Topology"
     },
     {
       "kind" : "text",
@@ -2806,7 +2686,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -2823,7 +2703,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -2854,42 +2734,25 @@
     },
     {
       "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "components"
-    },
-    {
-      "kind" : "text",
-      "text" : ": [any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
       "text" : "]) -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
-      "text" : "MutableObject"
+      "preciseIdentifier" : "s:11PoieticCore15TransientObjectC",
+      "text" : "TransientObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/create(_:id:snapshotID:structure:parent:children:attributes:components:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/create(_:objectID:snapshotID:topology:parent:children:attributes:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "create(_:id:snapshotID:structure:parent:children:attributes:components:)",
+  "title" : "create(_:objectID:snapshotID:topology:parent:children:attributes:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/create(_:id:snapshotid:structure:parent:children:attributes:components:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/create(_:objectid:snapshotid:topology:parent:children:attributes:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/insert(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/insert(_:)": {
   "abstract" : [
     {
-      "text" : "Insert an object snapshot to a frame while maintaining referential",
+      "text" : "Insert an object snapshot to a plane while maintaining referential",
       "type" : "text"
     },
     {
@@ -2920,25 +2783,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/insert(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/insert(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "insert(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/insert(_:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/insert(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/mutate(_:)": {
   "abstract" : [
     {
-      "text" : "Make a snapshot mutable within the frame.",
+      "text" : "Make a snapshot mutable within the plane.",
       "type" : "text"
     }
   ],
@@ -2961,7 +2824,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -2970,28 +2833,28 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
-      "text" : "MutableObject"
+      "preciseIdentifier" : "s:11PoieticCore15TransientObjectC",
+      "text" : "TransientObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mutate(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/mutate(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
   "abstract" : [
     {
-      "text" : "Containment and management of design objects and their history.",
+      "text" : "Containment and management of design objects, changes and their history.",
       "type" : "text"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Understanding Design Objects and Frames",
+  "title" : "Understanding Design Objects and Planes",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/understandingdesign"
 }

@@ -137,7 +137,8 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)-3i09r",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)-9fjwb",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:toURL:)"
       ],
       "title" : "Instance Methods"
@@ -160,7 +161,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -271,7 +272,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignwriter\/init()"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter/write(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter/write(_:)-3i09r": {
   "abstract" : [
 
   ],
@@ -307,12 +308,59 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)-3i09r",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "write(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondesignwriter\/write(_:)"
+  "url" : "\/documentation\/poieticcore\/jsondesignwriter\/write(_:)-3i09r"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter/write(_:)-9fjwb": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "write"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9RawDesignC",
+      "text" : "RawDesign"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter\/write(_:)-9fjwb",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "write(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsondesignwriter\/write(_:)-9fjwb"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter/write(_:toURL:)": {
   "abstract" : [

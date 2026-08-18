@@ -81,9 +81,11 @@
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s9EscapableP",
         "doc:\/\/PoieticCore\/SH",
         "doc:\/\/PoieticCore\/SM",
         "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP",
         "doc:\/\/PoieticCore\/ST"
       ],
       "kind" : "relationships",
@@ -119,11 +121,7 @@
       "anchor" : "Operators",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/!=(_:_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_(_:_:)-4bk3p",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_(_:_:)-65lpi",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_=(_:_:)-5hpwk",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_=(_:_:)-8cozq"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/!=(_:_:)"
       ],
       "title" : "Operators"
     },
@@ -246,7 +244,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -454,7 +452,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/!=(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant arrays for equality.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -570,294 +571,6 @@
   "title" : "Sequence Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantarray\/sequence-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantArray/_(_:_:)-4bk3p": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "<"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_(_:_:)-4bk3p",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "<(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray\/_(_:_:)-4bk3p"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantArray/_(_:_:)-65lpi": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : ">"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_(_:_:)-65lpi",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : ">(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray\/_(_:_:)-65lpi"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantArray/_=(_:_:)-5hpwk": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "<="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_=(_:_:)-5hpwk",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "<=(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray\/_=(_:_:)-5hpwk"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantArray/_=(_:_:)-8cozq": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : ">="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12VariantArrayO",
-      "text" : "VariantArray"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantArray\/_=(_:_:)-8cozq",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : ">=(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantarray\/_=(_:_:)-8cozq"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantArray/append(_:)": {
   "abstract" : [
@@ -1950,6 +1663,11 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom"
 },
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
@@ -1963,6 +1681,11 @@
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
   "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

@@ -20,7 +20,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore14ObjectSnapshotPAAE8positions5SIMD2VySdGSgvp",
+    "externalID" : "s:11PoieticCore14ObjectProtocolPAAE8positions5SIMD2VySdGSgvp::SYNTHESIZED::s:11PoieticCore14ObjectSnapshotC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -194,7 +194,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -208,14 +208,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Version snapshot of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",

@@ -1,0 +1,518 @@
+{
+  "abstract" : [
+    {
+      "text" : "How many outgoing relationships of this type a single origin entity can have.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementationsSections" : [
+    {
+      "anchor" : "Relationship-Implementations",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship\/outgoingCardinality-x3kf"
+      ],
+      "title" : "Relationship Implementations"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship\/outgoingCardinality"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore12RelationshipP19outgoingCardinalityAA0E0OvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "outgoingCardinality"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore11CardinalityO",
+        "text" : "Cardinality"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "outgoingCardinality"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "outgoingCardinality"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore11CardinalityO",
+              "text" : "Cardinality"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality\/one",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " – at most one. Setting a new relationship replaces any previous one.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Useful for singular references such as a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildOf",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " parent.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality\/many",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " – unlimited. Useful for collections such as ",
+              "type" : "text"
+            },
+            {
+              "code" : "Depicts",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " where a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "diagram references many blocks.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Defaults to ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality\/one",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/relationship\/outgoingcardinality"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Cardinality": {
+  "abstract" : [
+    {
+      "text" : "Specifies how many relationships of a given type an entity can have.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cardinality"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cardinality"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Cardinality",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/cardinality"
+},
+"doc://PoieticCore/documentation/PoieticCore/Cardinality/many": {
+  "abstract" : [
+    {
+      "text" : "The entity can have any number of outgoing relationships of this type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "many"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality\/many",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Cardinality.many",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/cardinality\/many"
+},
+"doc://PoieticCore/documentation/PoieticCore/Cardinality/one": {
+  "abstract" : [
+    {
+      "text" : "The entity can have at most one outgoing relationship of this type.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Setting a new relationship replaces any existing one.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "one"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality\/one",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Cardinality.one",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/cardinality\/one"
+},
+"doc://PoieticCore/documentation/PoieticCore/ChildOf": {
+  "abstract" : [
+    {
+      "text" : "Indicates that an entity is a child of another entity",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildOf"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ChildOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ChildOf",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/childof"
+},
+"doc://PoieticCore/documentation/PoieticCore/Relationship": {
+  "abstract" : [
+    {
+      "text" : "A component that represents a directed relationship between two entities.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Relationship"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Relationship"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Relationship",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationship"
+},
+"doc://PoieticCore/documentation/PoieticCore/Relationship/outgoingCardinality": {
+  "abstract" : [
+    {
+      "text" : "How many outgoing relationships of this type a single origin entity can have.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "outgoingCardinality"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11CardinalityO",
+      "text" : "Cardinality"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship\/outgoingCardinality",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "outgoingCardinality",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationship\/outgoingcardinality"
+},
+"doc://PoieticCore/documentation/PoieticCore/Relationship/outgoingCardinality-x3kf": {
+  "abstract" : [
+    {
+      "text" : "How many outgoing relationships of this type a single origin entity can have.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "outgoingCardinality"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11CardinalityO",
+      "text" : "Cardinality"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship\/outgoingCardinality-x3kf",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "outgoingCardinality",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationship\/outgoingcardinality-x3kf"
+}
+}
+}

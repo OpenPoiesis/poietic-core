@@ -169,18 +169,25 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
+          "content" : [
             {
-              "text" : "See the class documentation for more information about the format.",
-              "type" : "text"
+              "inlineContent" : [
+                {
+                  "text" : "See the class documentation for more information about the format.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "paragraph"
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
         },
         {
           "inlineContent" : [
             {
-              "text" : "When the data does not match expected version, the method tries to delegate to",
+              "text" : "The reader tries to read data with multiple internal readers starting from the latest",
               "type" : "text"
             },
             {
@@ -188,45 +195,7 @@
               "type" : "text"
             },
             {
-              "text" : "built-in adapters dispatched in ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(data:version:)",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ". When even the adapters",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "can not successfully read the data, then ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/unknownFormatVersion(_:)",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "is thrown. Caller can then handle custom reading based on the version included",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "in the error.",
+              "text" : "version going down to oldest known\/supported version.",
               "type" : "text"
             }
           ],
@@ -261,7 +230,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -377,94 +346,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignreader\/read(data:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/read(data:version:)": {
-  "abstract" : [
-    {
-      "text" : "Read a raw design from JSON data using an adapter for a non-current version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "read"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "data"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "version"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20RawDesignReaderErrorO",
-      "text" : "RawDesignReaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9RawDesignC",
-      "text" : "RawDesign"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(data:version:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "read(data:version:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondesignreader\/read(data:version:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/RawDesign": {
   "abstract" : [
     {
@@ -532,47 +413,6 @@
   "title" : "RawDesignReaderError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError/unknownFormatVersion(_:)": {
-  "abstract" : [
-    {
-      "text" : "Error thrown when the reader can not read given version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "unknownFormatVersion"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/unknownFormatVersion(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "RawDesignReaderError.unknownFormatVersion(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawdesignreadererror\/unknownformatversion(_:)"
 }
 }
 }

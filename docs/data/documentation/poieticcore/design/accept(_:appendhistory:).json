@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Accepts a frame and make it a stable frame.",
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
       "type" : "text"
     }
   ],
@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA0C5FrameCAA09TransientG0C_SbtAA24StructuralIntegrityErrorOYKF",
+    "externalID" : "s:11PoieticCore6DesignC6accept_13appendHistoryAA0C5PlaneCAA09TransientG0C_SbtAA0G15ValidationErrorOYKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-        "text" : "TransientFrame"
+        "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+        "text" : "TransientPlane"
       },
       {
         "kind" : "text",
@@ -73,8 +73,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-        "text" : "StructuralIntegrityError"
+        "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+        "text" : "PlaneValidationError"
       },
       {
         "kind" : "text",
@@ -82,8 +82,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-        "text" : "DesignFrame"
+        "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+        "text" : "DesignPlane"
       }
     ],
     "modules" : [
@@ -141,17 +141,17 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "frame"
+              "text" : "plane"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-              "text" : "TransientFrame"
+              "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+              "text" : "TransientPlane"
             },
             {
               "kind" : "text",
@@ -183,20 +183,20 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-              "text" : "StructuralIntegrityError"
+              "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+              "text" : "PlaneValidationError"
             },
             {
               "kind" : "text",
               "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-              "text" : "DesignFrame"
+              "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+              "text" : "DesignPlane"
             }
           ]
         }
@@ -214,7 +214,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The newly created stable frame.",
+              "text" : "The newly created stable plane.",
               "type" : "text"
             }
           ],
@@ -234,7 +234,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Accepting a frame is analogous to a transaction commit in a database.",
+              "text" : "Accepting a plane is analogous to a transaction commit in a database.",
               "type" : "text"
             }
           ],
@@ -243,7 +243,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Before the frame is accepted it is validated using",
+              "text" : "Before the plane is accepted it is validated using",
               "type" : "text"
             },
             {
@@ -251,7 +251,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -264,7 +264,7 @@
               "type" : "text"
             },
             {
-              "text" : "If the frame does not violate any constraints and has referential",
+              "text" : "If the plane does not violate any constraints and has referential",
               "type" : "text"
             },
             {
@@ -272,7 +272,7 @@
               "type" : "text"
             },
             {
-              "text" : "integrity, then it is frozen: all owned objects in the frame are",
+              "text" : "integrity, then it is frozen: all owned objects in the plane are",
               "type" : "text"
             },
             {
@@ -293,8 +293,9 @@
               "type" : "text"
             },
             {
-              "code" : "StableFrame",
-              "type" : "codeVoice"
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+              "isActive" : true,
+              "type" : "reference"
             },
             {
               "text" : " is created with all objects from the original",
@@ -305,7 +306,7 @@
               "type" : "text"
             },
             {
-              "text" : "frame. The new frame is added to the list of stable frames.",
+              "text" : "plane. The new plane is added to the list of stable planes.",
               "type" : "text"
             }
           ],
@@ -330,7 +331,7 @@
               "type" : "codeVoice"
             },
             {
-              "text" : " then the frame is also added at the end",
+              "text" : " then the plane is also added at the end",
               "type" : "text"
             },
             {
@@ -338,7 +339,7 @@
               "type" : "text"
             },
             {
-              "text" : "of the undo list. If there are any redo-able frames, they are all",
+              "text" : "of the undo list. If there are any redo-able planes, they are all",
               "type" : "text"
             },
             {
@@ -361,11 +362,11 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "ConstraintViolationError",
+                  "code" : "PlaneValidationError",
                   "type" : "codeVoice"
                 },
                 {
-                  "text" : " when the frame contents violates",
+                  "text" : " when the plane contents violates",
                   "type" : "text"
                 },
                 {
@@ -393,7 +394,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -406,7 +407,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralValidator\/validate(_:in:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -423,7 +424,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Frame must belong to the design.",
+                  "text" : "Plane must belong to the design.",
                   "type" : "text"
                 }
               ],
@@ -439,7 +440,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Frame must be in transient state.",
+                  "text" : "Plane must be in transient state.",
                   "type" : "text"
                 }
               ],
@@ -455,7 +456,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Frame with give ID must not be already accepted and must",
+                  "text" : "Plane with give ID must not be already accepted and must",
                   "type" : "text"
                 },
                 {
@@ -463,7 +464,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "exist as a transient frame in the design.",
+                  "text" : "exist as a transient plane in the design.",
                   "type" : "text"
                 }
               ],
@@ -503,7 +504,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -514,10 +515,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/check(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/validate(_:)": {
   "abstract" : [
     {
-      "text" : "Check a frame for constraints violations and object type conformance.",
+      "text" : "Check a plane for constraints violations and object type conformance.",
       "type" : "text"
     }
   ],
@@ -532,7 +533,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "check"
+      "text" : "validate"
     },
     {
       "kind" : "text",
@@ -548,8 +549,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -565,20 +566,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20FrameValidationErrorV",
-      "text" : "FrameValidationError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/check(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(_:)",
+  "title" : "validate(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraintchecker\/check(_:)"
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/validate(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
@@ -625,7 +626,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Accepts a frame and make it a stable frame.",
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
       "type" : "text"
     }
   ],
@@ -648,8 +649,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     },
     {
       "kind" : "text",
@@ -682,8 +683,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-      "text" : "StructuralIntegrityError"
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
     },
     {
       "kind" : "text",
@@ -691,8 +692,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
@@ -702,10 +703,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
   "abstract" : [
     {
-      "text" : "Design frame that has been accepted and can not be changed.",
+      "text" : "Design plane that has been accepted and can not be changed.",
       "type" : "text"
     }
   ],
@@ -720,26 +721,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignFrame"
+      "text" : "DesignPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "DesignFrame"
+      "text" : "DesignPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "DesignFrame",
+  "title" : "DesignPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designframe"
+  "url" : "\/documentation\/poieticcore\/designplane"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError": {
   "abstract" : [
     {
-      "text" : "Error thrown when validating and accepting a frame.",
+      "text" : "Error thrown by constraint checker when there are issues with a plane.",
       "type" : "text"
     }
   ],
@@ -754,64 +755,38 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StructuralIntegrityError"
+      "text" : "PlaneValidationError"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StructuralIntegrityError"
+      "text" : "PlaneValidationError"
     }
   ],
   "role" : "symbol",
-  "title" : "StructuralIntegrityError",
+  "title" : "PlaneValidationError",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
+  "url" : "\/documentation\/poieticcore\/planevalidationerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
+"doc://PoieticCore/documentation/PoieticCore/StructuralValidator/validate(_:in:)": {
   "abstract" : [
     {
-      "text" : "Transient frame that represents a change transaction.",
+      "text" : "Validates that snapshot’s structural references within a context of a plane.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "static"
     },
     {
       "kind" : "text",
       "text" : " "
     },
-    {
-      "kind" : "identifier",
-      "text" : "TransientFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TransientFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TransientFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/validateStructure()": {
-  "abstract" : [
-    {
-      "text" : "Validate structural references.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
     {
       "kind" : "keyword",
       "text" : "func"
@@ -822,11 +797,53 @@
     },
     {
       "kind" : "identifier",
-      "text" : "validateStructure"
+      "text" : "validate"
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectProtocolP",
+      "text" : "ObjectProtocol"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "in"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -846,12 +863,46 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/validateStructure()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralValidator\/validate(_:in:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validateStructure()",
+  "title" : "validate(_:in:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/validatestructure()"
+  "url" : "\/documentation\/poieticcore\/structuralvalidator\/validate(_:in:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane": {
+  "abstract" : [
+    {
+      "text" : "Transient plane that represents a change transaction.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TransientPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TransientPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TransientPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientplane"
 }
 }
 }

@@ -145,7 +145,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -238,7 +238,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],

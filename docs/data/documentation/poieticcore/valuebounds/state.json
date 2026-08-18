@@ -1,0 +1,360 @@
+{
+  "abstract" : [
+    {
+      "text" : "The status of a value within this bounds domain",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore11ValueBoundsV5StateO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "State"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "State"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "ValueBounds.State"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "State"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/negative",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/overflow",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/positive",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/underflow"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/valuebounds\/state"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds": {
+  "abstract" : [
+    {
+      "text" : "Specifies bounds of possible values for a metric, including baseline.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Used for visual indicators, chart axes, and value normalisation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueBounds"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueBounds"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueBounds",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State": {
+  "abstract" : [
+    {
+      "text" : "The status of a value within this bounds domain",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "State"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "State"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueBounds.State",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State/negative": {
+  "abstract" : [
+    {
+      "text" : "Value < baseline and ≥ min",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "negative"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/negative",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueBounds.State.negative",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state\/negative"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State/overflow": {
+  "abstract" : [
+    {
+      "text" : "Value > max",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "overflow"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/overflow",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueBounds.State.overflow",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state\/overflow"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State/positive": {
+  "abstract" : [
+    {
+      "text" : "Value ≥ baseline and ≤ max",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "positive"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/positive",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueBounds.State.positive",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state\/positive"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State/underflow": {
+  "abstract" : [
+    {
+      "text" : "Value < min",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "underflow"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State\/underflow",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueBounds.State.underflow",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state\/underflow"
+}
+}
+}

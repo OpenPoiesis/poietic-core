@@ -98,7 +98,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Hand-writing foreign frames in JSON is discouraged, as they might become",
+                  "text" : "Hand-writing foreign planes in JSON is discouraged, as they might become",
                   "type" : "text"
                 },
                 {
@@ -166,7 +166,7 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "\"0.4.0\"",
+                      "code" : "\"0.2.0\"",
                       "type" : "codeVoice"
                     },
                     {
@@ -271,7 +271,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ": All object version snapshots, referenced by frames. See ",
+                      "text" : ": All object version snapshots, referenced by planes. See ",
                       "type" : "text"
                     },
                     {
@@ -293,15 +293,15 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "frames",
+                      "code" : "planes",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ": Design frames contained within. See ",
+                      "text" : ": Design planes contained within. See ",
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -348,11 +348,11 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "Named frames (",
+                      "text" : "Named planes (",
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(name:)",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(name:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -390,7 +390,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "For example the current design frame is stored as a system reference.",
+                      "text" : "For example the current design plane is stored as a system reference.",
                       "type" : "text"
                     }
                   ],
@@ -630,7 +630,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "structure",
+                      "code" : "topology",
                       "type" : "codeVoice"
                     },
                     {
@@ -643,7 +643,7 @@
                       "type" : "emphasis"
                     },
                     {
-                      "text" : ": Structure type: ",
+                      "text" : ": Topology type: ",
                       "type" : "text"
                     },
                     {
@@ -671,7 +671,7 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -693,7 +693,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : " (structural): If the structure is an edge, the property references its origin object ID.",
+                      "text" : " (structural): If the topology is an edge, the property references its origin object ID.",
                       "type" : "text"
                     }
                   ],
@@ -710,7 +710,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : " (structural): If the structure is an edge, the property references its target object ID.",
+                      "text" : " (structural): If the topology is an edge, the property references its target object ID.",
                       "type" : "text"
                     }
                   ],
@@ -1367,9 +1367,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError"
       ],
       "title" : "Reading and Loading"
@@ -1380,24 +1377,15 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/init(variantCoding:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/init()"
       ],
       "title" : "Initializers"
-    },
-    {
-      "anchor" : "Instance-Properties",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/variantCoding"
-      ],
-      "title" : "Instance Properties"
     },
     {
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(data:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(data:version:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(fileAtURL:)"
       ],
       "title" : "Instance Methods"
@@ -1428,7 +1416,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -1439,10 +1427,52 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Design/frame(name:)": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Get a frame from the list of named frames.",
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/plane(name:)": {
+  "abstract" : [
+    {
+      "text" : "Get a plane from the list of named planes.",
       "type" : "text"
     }
   ],
@@ -1457,7 +1487,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "frame"
+      "text" : "plane"
     },
     {
       "kind" : "text",
@@ -1482,25 +1512,25 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignFrameC",
-      "text" : "DesignFrame"
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/frame(name:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/plane(name:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "frame(name:)",
+  "title" : "plane(name:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design\/frame(name:)"
+  "url" : "\/documentation\/poieticcore\/design\/plane(name:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],
@@ -1564,40 +1594,6 @@
   "title" : "DesignLoaderError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
-  "abstract" : [
-    {
-      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityReservation",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identityreservation"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
@@ -1675,10 +1671,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignreader\/currentformatversion"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/init(variantCoding:)": {
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/init()": {
   "abstract" : [
     {
-      "text" : "Create a frame reader.",
+      "text" : "Create a plane reader.",
       "type" : "text"
     }
   ],
@@ -1689,41 +1685,15 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "variantCoding"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO10CodingTypeO",
-      "text" : "CodingType"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/init(variantCoding:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/init()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(variantCoding:)",
+  "title" : "init()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondesignreader\/init(variantcoding:)"
+  "url" : "\/documentation\/poieticcore\/jsondesignreader\/init()"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/read(data:)": {
   "abstract" : [
@@ -1796,94 +1766,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignreader\/read(data:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/read(data:version:)": {
-  "abstract" : [
-    {
-      "text" : "Read a raw design from JSON data using an adapter for a non-current version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "read"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "data"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "version"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20RawDesignReaderErrorO",
-      "text" : "RawDesignReaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9RawDesignC",
-      "text" : "RawDesign"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/read(data:version:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "read(data:version:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondesignreader\/read(data:version:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/read(fileAtURL:)": {
   "abstract" : [
     {
@@ -1955,53 +1837,19 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignreader\/read(fileaturl:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader/variantCoding": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "variantCoding"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO10CodingTypeO",
-      "text" : "CodingType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader\/variantCoding",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "variantCoding",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsondesignreader\/variantcoding"
-},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -2066,114 +1914,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawFrame": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawFrameError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with a raw frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawIdentityError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawIdentityError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawidentityerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/RawNamedList": {
   "abstract" : [
 
@@ -2236,6 +1976,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawnamedreference"
 },
+"doc://PoieticCore/documentation/PoieticCore/RawPlane": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawplane"
+},
 "doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
   "abstract" : [
     {
@@ -2270,41 +2041,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawSnapshotError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with an object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawSnapshotError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawsnapshoterror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawStructure": {
+"doc://PoieticCore/documentation/PoieticCore/RawTopology": {
   "abstract" : [
 
   ],
@@ -2319,21 +2056,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
   "role" : "symbol",
-  "title" : "RawStructure",
+  "title" : "RawTopology",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawstructure"
+  "url" : "\/documentation\/poieticcore\/rawtopology"
 }
 }
 }

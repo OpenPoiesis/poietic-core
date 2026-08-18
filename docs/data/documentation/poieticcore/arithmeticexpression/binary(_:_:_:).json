@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20ArithmeticExpressionO6binaryyACyxq_Gq__A2EtcAEmr0_lF",
+    "externalID" : "s:11PoieticCore20ArithmeticExpressionO6binaryyACyxq_GAA14BinaryOperatorO_A2EtcAEmr0_lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,32 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-        "text" : "ArithmeticExpression"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "V"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "F"
-      },
-      {
-        "kind" : "text",
-        "text" : ">."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "FunctionReference"
+        "preciseIdentifier" : "s:11PoieticCore14BinaryOperatorO",
+        "text" : "BinaryOperator"
       },
       {
         "kind" : "text",
@@ -159,34 +135,10 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-              "text" : "ArithmeticExpression"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "V"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "F"
-            },
-            {
-              "kind" : "text",
-              "text" : ">."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "FunctionReference"
+              "preciseIdentifier" : "s:11PoieticCore14BinaryOperatorO",
+              "text" : "BinaryOperator"
             },
             {
               "kind" : "text",
@@ -275,7 +227,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -346,32 +298,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "F"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "FunctionReference"
+      "preciseIdentifier" : "s:11PoieticCore14BinaryOperatorO",
+      "text" : "BinaryOperator"
     },
     {
       "kind" : "text",
@@ -434,6 +362,37 @@
   "title" : "ArithmeticExpression.binary(_:_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/binary(_:_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BinaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator"
 }
 }
 }

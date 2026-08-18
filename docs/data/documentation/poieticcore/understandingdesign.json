@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Containment and management of design objects and their history.",
+      "text" : "Containment and management of design objects, changes and their history.",
       "type" : "text"
     }
   ],
@@ -25,7 +25,7 @@
     ],
     "role" : "collectionGroup",
     "roleHeading" : "API Collection",
-    "title" : "Understanding Design Objects and Frames"
+    "title" : "Understanding Design Objects and Planes"
   },
   "primaryContentSections" : [
     {
@@ -39,7 +39,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Design is a collection of objects structured as a directed graph with an",
+              "text" : "Design represents modeller’s idea or a model and its historical evolution with multiple version",
               "type" : "text"
             },
             {
@@ -47,32 +47,31 @@
               "type" : "text"
             },
             {
-              "text" : "optional explicit single parent-child hierarchy. Design represents creator’s",
+              "text" : "snapshots. Design is a collection of objects, their attributes and relationships.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Objects",
+          "level" : 3,
+          "text" : "Objects",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Every object ",
               "type" : "text"
             },
             {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "idea or a model and its historical evolution. Each state – version snapshot –",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "of the design is represented by a ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : ", which is somewhat analogous",
+              "text" : " has a single identity – its object ID. The object ID is assigned",
               "type" : "text"
             },
             {
@@ -80,7 +79,547 @@
               "type" : "text"
             },
             {
-              "text" : "to a movie frame.",
+              "text" : "during object’s creation and stays the same for the object’s entire life, until the object is",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "removed from the design. Each change to the object produces a new snapshot, a frozen copy of the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "object at that moment,  with its own snapshot ID. The object ID (",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ")",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "tells us “which object is this?”; the snapshot ID  (",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ") tells us",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "“which version of it is this?”.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "An object can be a node, an edge, unstructured (stand-alone) or an ordered set",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "– that is its ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Topology",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". Separately objects might have a parent-child hierarchy.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Object is the main component of a model. Simulation is created from objects and their attributes.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Some of the objects might have a visual representation, for example a block with a pictogram for a",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "node or a connector arrow for an edge in a diagram.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "See:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Object creation: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/create(_:objectID:snapshotID:topology:parent:children:attributes:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Change object: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " then ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Remove object: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeCascading(_:)",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "anchor" : "Editing-and-Transactions",
+          "level" : 3,
+          "text" : "Editing and Transactions",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " represents a design version snapshot - an immutable design state at a point in the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "model’s history. You create a plane with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", then make changes",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to it and its objects, then accept it with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". When you try to",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "accept the plane, it is validated for structural integrity as required by the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/metamodel",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Users can edit a model which contains errors, and is therefore in a semantically broken state.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Models with errors can not be simulated, but the user should be aware of the errors.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Just as you can write syntactically invalid code – you can not run it, but you can keep editing.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "In your domain model implementation you translate and store user errors with",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/appendIssue(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " and retrieve them from ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/issues",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", so that",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "they can be shown to the user through the interface.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "User errors should never result in structural integrity errors.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Example (assumes existence of ",
+              "type" : "text"
+            },
+            {
+              "code" : "Stock",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "Flow",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " object types):",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "    let design: Design \/\/ Assume this exists",
+            "    let trans = design.createPlane()",
+            "    ",
+            "    \/\/ Create nodes",
+            "    ",
+            "    let kettle = trans.create(ObjectType.Stock,",
+            "                              topology: .node,",
+            "                              attributes: [\"name\": \"kettle\", \"formula\": \"100\"])",
+            "    let glass = trans.create(ObjectType.Stock,",
+            "                             topology: .node,",
+            "                             attributes: [\"name\": \"glass\", \"formula\": \"0\"])",
+            "    let pour = trans.create(ObjectType.FlowRate,",
+            "                            topology: .node,",
+            "                            attributes: [\"name\": \"pour\", \"formula\": \"10\"])",
+            "    ",
+            "    \/\/ Connect nodes: Stock --(Flow)--> FlowRate --(Flow)--> Stock",
+            "    ",
+            "    trans.create(ObjectType.Flow, topology: .edge(kettle.objectID, pour.objectID))",
+            "    trans.create(ObjectType.Flow, topology: .edge(pour.objectID, glass.objectID))",
+            "    ",
+            "    \/\/ Accept the transient plane and make a stable plane",
+            "    ",
+            "    let newPlane = try design.accept(trans)",
+            "    ",
+            "    \/\/ Now the design.currentPlane is the newly created plane",
+            "    "
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To make changes to existing objects:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "    let selectedObject: ObjectID \/\/ Assuming this exists, for example object ID of kettle from above",
+            "    ",
+            "    guard let currentPlane = design.currentPlane else { \/* fail *\/ }",
+            "    let trans = design.createPlane(deriving: currentPlane)",
+            "    let object = trans.mutate(selectedObject)",
+            "    object[\"formula\"] = \"200\"",
+            "    let changedPlane = try design.accept(trans)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Experimentation-with-History-and-Alternatives",
+          "level" : 3,
+          "text" : "Experimentation with History and Alternatives",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "One of the core principles of the library is to allow experimentation without risks. Each change",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "results in a new ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", while keeping previous planes to which the user can come back. Plane can be",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "derived (branched) from an existing plane or a new empty plane can be created. The design stores all",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the planes indefinitely, until requested to be removed (",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removePlane(_:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "There is one out-of-the-box mechanism for chronological ordering of the planes: the undo\/redo stack",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "in the design. Planes can be appended to the stack using ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " with",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "appendHistory",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " being ",
+              "type" : "text"
+            },
+            {
+              "code" : "true",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " (default). Then your application can move through the history with",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ". Planes can be added to the design out-of-history,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "with application or user specific sequence or a timeline.",
               "type" : "text"
             }
           ],
@@ -98,7 +637,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Each object is uniquely identified by an ID. Version of an object is",
+              "text" : "Your application does not have to follow the built-in timeline. The application can instantiate any",
               "type" : "text"
             },
             {
@@ -106,12 +645,16 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+              "text" : "plane in the world with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
               "isActive" : true,
               "type" : "reference"
             },
             {
-              "text" : ", which contains object’s properties. When working with",
+              "text" : ", so the users can experiment with it.",
               "type" : "text"
             },
             {
@@ -119,16 +662,46 @@
               "type" : "text"
             },
             {
-              "text" : "the design, the object ID is the primary object handle.",
+              "text" : "A user (modeller) can compare planes either by switching between them or running multiple worlds in",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "parallel.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
         },
         {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The library does not yet provide provenance of planes: which plane is derived from which.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "anchor" : "Metamodel",
+          "level" : 3,
+          "text" : "Metamodel",
+          "type" : "heading"
+        },
+        {
           "inlineContent" : [
             {
-              "text" : "Each design is assigned a ",
+              "text" : "Each design follows rules specified by a ",
               "type" : "text"
             },
             {
@@ -137,11 +710,15 @@
               "type" : "reference"
             },
             {
-              "text" : ", which defines types of objects",
+              "text" : ". The metamodel specifies which types of objects",
               "type" : "text"
             },
             {
               "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "(",
               "type" : "text"
             },
             {
@@ -150,16 +727,7 @@
               "type" : "reference"
             },
             {
-              "text" : " and constraints ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
+              "text" : ") are valid within given problem domain, and how the model is validated.",
               "type" : "text"
             }
           ],
@@ -179,51 +747,50 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Essentials",
+      "anchor" : "Modelling",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes"
       ],
-      "title" : "Essentials"
+      "title" : "Modelling"
     }
   ],
   "topicSections" : [
     {
-      "anchor" : "Object",
+      "anchor" : "Design-and-Version-Planes",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError"
       ],
-      "title" : "Object"
-    },
-    {
-      "anchor" : "Design-and-Version-Frames",
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralIntegrityError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage"
-      ],
-      "title" : "Design and Version Frames"
+      "title" : "Design and Version Planes"
     },
     {
       "anchor" : "Changes-and-Versions",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject"
       ],
       "title" : "Changes and Versions"
+    },
+    {
+      "anchor" : "Object",
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Topology",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection"
+      ],
+      "title" : "Object"
     },
     {
       "anchor" : "Value-and-Variant",
@@ -239,11 +806,14 @@
       "title" : "Value and Variant"
     },
     {
-      "anchor" : "Component",
+      "anchor" : "Internal-Representations",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectBody"
       ],
-      "title" : "Component"
+      "title" : "Internal Representations"
     }
   ],
   "variants" : [
@@ -277,7 +847,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -322,113 +892,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/atomtype"
 },
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ChildrenSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Component": {
-  "abstract" : [
-    {
-      "text" : "Protocol for runtime components of objects.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Component",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
-},
-"doc://PoieticCore/documentation/PoieticCore/Constraint": {
-  "abstract" : [
-    {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Constraint"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Constraint"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Constraint",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/constraint"
-},
 "doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
@@ -471,17 +934,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignFrame": {
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
   "abstract" : [
     {
-      "text" : "Design frame that has been accepted and can not be changed.",
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -489,33 +952,79 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "accept"
+    },
     {
-      "kind" : "identifier",
-      "text" : "DesignFrame"
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DesignFrame",
+  "title" : "accept(_:appendHistory:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designframe"
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+"doc://PoieticCore/documentation/PoieticCore/Design/createPlane(deriving:id:)": {
   "abstract" : [
     {
-      "text" : "Version snapshot of a design object.",
+      "text" : "Create a new plane or derive a plane from an existing plane.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -523,33 +1032,70 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "createPlane"
+    },
     {
-      "kind" : "identifier",
-      "text" : "DesignObject"
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "deriving"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DesignObject",
+  "title" : "createPlane(deriving:id:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobject"
+  "url" : "\/documentation\/poieticcore\/design\/createplane(deriving:id:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
+"doc://PoieticCore/documentation/PoieticCore/Design/metamodel": {
   "abstract" : [
     {
-      "text" : "Protocol for version frames.",
+      "text" : "Meta-model that the design conforms to.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -557,33 +1103,52 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "metamodel"
+    },
     {
-      "kind" : "identifier",
-      "text" : "Frame"
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
+      "text" : "Metamodel"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/metamodel",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "Frame",
+  "title" : "metamodel",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
+  "url" : "\/documentation\/poieticcore\/design\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameID": {
+"doc://PoieticCore/documentation/PoieticCore/Design/redo(to:)": {
   "abstract" : [
     {
-      "text" : "Identifier of a version frame.",
+      "text" : "Change the current plane to ",
+      "type" : "text"
+    },
+    {
+      "code" : "planeID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previously",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "undone planes.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -591,26 +1156,157 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "redo"
+    },
     {
-      "kind" : "identifier",
-      "text" : "FrameID"
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "FrameID",
+  "title" : "redo(to:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameid"
+  "url" : "\/documentation\/poieticcore\/design\/redo(to:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameValidationError": {
+"doc://PoieticCore/documentation/PoieticCore/Design/removePlane(_:)": {
   "abstract" : [
     {
-      "text" : "Error generated when a frame is checked for constraints and object types.",
+      "text" : "Remove a plane from the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removePlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/removePlane(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removePlane(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/removeplane(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/undo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current plane to ",
+      "type" : "text"
+    },
+    {
+      "code" : "planeID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previous",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "planes in the undo history.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "undo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "undo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/undo(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignEntityID": {
+  "abstract" : [
+    {
+      "text" : "Persistent identity of Design entities.",
       "type" : "text"
     }
   ],
@@ -625,26 +1321,134 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameValidationError"
+      "text" : "DesignEntityID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameValidationError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameValidationError"
+      "text" : "DesignEntityID"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameValidationError",
+  "title" : "DesignEntityID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/framevalidationerror"
+  "url" : "\/documentation\/poieticcore\/designentityid"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignEntityType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignEntityType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designentitytype"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
+  "abstract" : [
+    {
+      "text" : "Design plane that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designplane"
+},
+"doc://PoieticCore/documentation/PoieticCore/IdentityManager": {
+  "abstract" : [
+    {
+      "text" : "Thread-safe identity management.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityManager"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IdentityManager",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/identitymanager"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -675,17 +1479,36 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableObject": {
+"doc://PoieticCore/documentation/PoieticCore/MetamodelAndTypes": {
   "abstract" : [
     {
-      "text" : "Transient object that can be modified.",
+      "text" : "Metamodel defines types of the design objects and constraints that the design",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "must satisfy to be considered valid within a modelled problem domain.",
       "type" : "text"
     }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelAndTypes",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Metamodel and Types",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/metamodelandtypes"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectBody": {
+  "abstract" : [
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -693,33 +1516,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "MutableObject"
+      "text" : "ObjectBody"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectBody",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "MutableObject"
+      "text" : "ObjectBody"
     }
   ],
   "role" : "symbol",
-  "title" : "MutableObject",
+  "title" : "ObjectBody",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableobject"
+  "url" : "\/documentation\/poieticcore\/objectbody"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -743,10 +1566,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Protocol for design objects.",
       "type" : "text"
     }
   ],
@@ -754,6 +1577,40 @@
     {
       "kind" : "keyword",
       "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -777,10 +1634,118 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/objectID": {
+  "abstract" : [
+    {
+      "text" : "Primary object identity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "objectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "objectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/snapshotID": {
+  "abstract" : [
+    {
+      "text" : "Unique identifier of the object version snapshot within the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "snapshotID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/snapshotid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotID": {
+  "abstract" : [
+    {
+      "text" : "Identity of a design snapshot - version of a design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshotID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshotID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshotID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshotid"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -810,6 +1775,108 @@
   "title" : "ObjectType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Plane": {
+  "abstract" : [
+    {
+      "text" : "Protocol for version planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Plane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/plane"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneID": {
+  "abstract" : [
+    {
+      "text" : "Identity of a design object snapshot - a version of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planeid"
+},
+"doc://PoieticCore/documentation/PoieticCore/PlaneValidationError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by constraint checker when there are issues with a plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlaneValidationError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlaneValidationError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/planevalidationerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/Point": {
   "abstract" : [
@@ -845,10 +1912,94 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/point"
 },
+"doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/appendIssue(_:)": {
+  "abstract" : [
+    {
+      "text" : "Append a user-facing issue for the entity representing a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appendIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/appendIssue(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appendIssue(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeentity\/appendissue(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/issues": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "issues"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/issues",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "issues",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeentity\/issues"
+},
 "doc://PoieticCore/documentation/PoieticCore/Selection": {
   "abstract" : [
     {
-      "text" : "Collection of selected objects.",
+      "text" : "Ordered collection of selected objects.",
       "type" : "text"
     }
   ],
@@ -879,78 +2030,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selection"
 },
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
-  "abstract" : [
-    {
-      "text" : "Identifier of a design object version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SnapshotID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
-},
-"doc://PoieticCore/documentation/PoieticCore/SnapshotStorage": {
-  "abstract" : [
-    {
-      "text" : "Reference counted storage of object snapshots.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotStorage"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotStorage",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotStorage"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SnapshotStorage",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotstorage"
-},
 "doc://PoieticCore/documentation/PoieticCore/StructuralIntegrityError": {
   "abstract" : [
     {
-      "text" : "Error thrown when validating and accepting a frame.",
+      "text" : "Error thrown when validating and accepting a plane.",
       "type" : "text"
     }
   ],
@@ -981,10 +2064,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/structuralintegrityerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
+"doc://PoieticCore/documentation/PoieticCore/Topology": {
   "abstract" : [
     {
-      "text" : "Structural type of an object.",
+      "text" : "Topology defines relationship of an object with other objects.",
       "type" : "text"
     }
   ],
@@ -999,26 +2082,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StructuralType"
+      "text" : "Topology"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Topology",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StructuralType"
+      "text" : "Topology"
     }
   ],
   "role" : "symbol",
-  "title" : "StructuralType",
+  "title" : "Topology",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuraltype"
+  "url" : "\/documentation\/poieticcore\/topology"
 },
-"doc://PoieticCore/documentation/PoieticCore/Structure": {
+"doc://PoieticCore/documentation/PoieticCore/TopologyType": {
   "abstract" : [
     {
-      "text" : "Structure defines relationship of an object with other objects.",
+      "text" : "Topology type of an object.",
       "type" : "text"
     }
   ],
@@ -1033,26 +2116,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Structure"
+      "text" : "TopologyType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Structure"
+      "text" : "TopologyType"
     }
   ],
   "role" : "symbol",
-  "title" : "Structure",
+  "title" : "TopologyType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structure"
+  "url" : "\/documentation\/poieticcore\/topologytype"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame": {
+"doc://PoieticCore/documentation/PoieticCore/TransientObject": {
   "abstract" : [
     {
-      "text" : "Transient frame that represents a change transaction.",
+      "text" : "An object that can be modified before being inserted into a plane.",
       "type" : "text"
     }
   ],
@@ -1067,30 +2150,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TransientFrame"
+      "text" : "TransientObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientObject",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TransientFrame"
+      "text" : "TransientObject"
     }
   ],
   "role" : "symbol",
-  "title" : "TransientFrame",
+  "title" : "TransientObject",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe"
+  "url" : "\/documentation\/poieticcore\/transientobject"
 },
-"doc://PoieticCore/documentation/PoieticCore/ValidatedFrame": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane": {
   "abstract" : [
-
+    {
+      "text" : "Transient plane that represents a change transaction.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -1098,21 +2184,283 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ValidatedFrame"
+      "text" : "TransientPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValidatedFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ValidatedFrame"
+      "text" : "TransientPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "ValidatedFrame",
+  "title" : "TransientPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/validatedframe"
+  "url" : "\/documentation\/poieticcore\/transientplane"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/create(_:objectID:snapshotID:topology:parent:children:attributes:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new object within the plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "create"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "objectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "snapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "topology"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8TopologyO",
+      "text" : "Topology"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "attributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7VariantO",
+      "text" : "Variant"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15TransientObjectC",
+      "text" : "TransientObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/create(_:objectID:snapshotID:topology:parent:children:attributes:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "create(_:objectID:snapshotID:topology:parent:children:attributes:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientplane\/create(_:objectid:snapshotid:topology:parent:children:attributes:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/mutate(_:)": {
+  "abstract" : [
+    {
+      "text" : "Make a snapshot mutable within the plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mutate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15TransientObjectC",
+      "text" : "TransientObject"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mutate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientplane\/mutate(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/removeCascading(_:)": {
+  "abstract" : [
+    {
+      "text" : "Remove an object from the plane and all its dependants.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeCascading"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/removeCascading(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeCascading(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/transientplane\/removecascading(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError": {
   "abstract" : [
@@ -1274,6 +2622,47 @@
   "title" : "VariantAtom",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/setPlane(_:)": {
+  "abstract" : [
+    {
+      "text" : "Set a design plane to be world’s current design plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setPlane(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/setplane(_:)"
 }
 }
 }

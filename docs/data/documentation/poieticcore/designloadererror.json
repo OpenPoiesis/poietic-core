@@ -94,7 +94,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-6m9va",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -103,7 +103,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-1o6qf",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:identityStrategy:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -125,7 +125,8 @@
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -147,9 +148,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError"
       ],
       "title" : "Reading and Loading"
@@ -160,14 +158,9 @@
       "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/brokenStructuralIntegrity(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/duplicateFrame(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/duplicateSnapshot(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/frameError(_:_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/missingCurrentFrame",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/snapshotError(_:_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/unknownFrameID(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/unknownNamedReference(_:_:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/collection(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/design(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/item(_:_:_:)"
       ],
       "title" : "Enumeration Cases"
     },
@@ -175,9 +168,21 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/description"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/hint"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/CollectionError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/CollectionType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/DesignError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/ItemError"
+      ],
+      "title" : "Enumerations"
     },
     {
       "anchor" : "Default-Implementations",
@@ -211,7 +216,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -225,7 +230,7 @@
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],
@@ -256,10 +261,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloader"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:)-1o6qf": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:)": {
   "abstract" : [
     {
-      "text" : "Load raw snapshots into a transient frame.",
+      "text" : "Loads a raw design and creates new design.",
       "type" : "text"
     }
   ],
@@ -278,29 +283,12 @@
     },
     {
       "kind" : "text",
-      "text" : "(["
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "into"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore9RawDesignC",
+      "text" : "RawDesign"
     },
     {
       "kind" : "text",
@@ -321,20 +309,25 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6DesignC",
+      "text" : "Design"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-1o6qf",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(_:into:)",
+  "title" : "load(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:)-1o6qf"
+  "url" : "\/documentation\/poieticcore\/designloader\/load(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:)-6m9va": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:identityStrategy:)": {
   "abstract" : [
     {
-      "text" : "Loads current frame of the design into a transient frame.",
+      "text" : "Loads current plane of the design into a transient plane.",
       "type" : "text"
     }
   ],
@@ -374,8 +367,34 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identityStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignLoaderC",
+      "text" : "DesignLoader"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignLoaderC16IdentityStrategyO",
+      "text" : "IdentityStrategy"
     },
     {
       "kind" : "text",
@@ -396,15 +415,24 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-6m9va",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:identityStrategy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(_:into:)",
+  "title" : "load(_:into:identityStrategy:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:)-6m9va"
+  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:identitystrategy:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoaderError": {
   "abstract" : [
@@ -440,6 +468,99 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror"
 },
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/CollectionError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CollectionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/CollectionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CollectionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoaderError.CollectionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloadererror\/collectionerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/CollectionType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CollectionType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/CollectionType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CollectionType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoaderError.CollectionType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloadererror\/collectiontype"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/DesignError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/DesignError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoaderError.DesignError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloadererror\/designerror"
+},
 "doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/Equatable-Implementations": {
   "abstract" : [
 
@@ -462,10 +583,41 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/brokenStructuralIntegrity(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/ItemError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ItemError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/ItemError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ItemError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoaderError.ItemError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloadererror\/itemerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/collection(_:_:)": {
   "abstract" : [
     {
-      "text" : "The loaded frame or collection of snapshots have broken structural integrity.",
+      "text" : "Error with a collection as a whole",
       "type" : "text"
     }
   ],
@@ -480,7 +632,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "brokenStructuralIntegrity"
+      "text" : "collection"
     },
     {
       "kind" : "text",
@@ -488,20 +640,47 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore24StructuralIntegrityErrorO",
-      "text" : "StructuralIntegrityError"
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
+      "text" : "DesignLoaderError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO14CollectionTypeO",
+      "text" : "CollectionType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
+      "text" : "DesignLoaderError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO010CollectionE0O",
+      "text" : "CollectionError"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/brokenStructuralIntegrity(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/collection(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DesignLoaderError.brokenStructuralIntegrity(_:)",
+  "title" : "DesignLoaderError.collection(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/brokenstructuralintegrity(_:)"
+  "url" : "\/documentation\/poieticcore\/designloadererror\/collection(_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/description": {
   "abstract" : [
@@ -537,139 +716,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror\/description"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/duplicateFrame(_:)": {
-  "abstract" : [
-    {
-      "text" : "Duplicate frame ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "duplicateFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/duplicateFrame(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignLoaderError.duplicateFrame(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/duplicateframe(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/duplicateSnapshot(_:)": {
-  "abstract" : [
-    {
-      "text" : "Duplicate snapshot ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "duplicateSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/duplicateSnapshot(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignLoaderError.duplicateSnapshot(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/duplicatesnapshot(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/frameError(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "Error with a frame. First item is an index of the offending frame, second item is the error.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "frameError"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13RawFrameErrorO",
-      "text" : "RawFrameError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/frameError(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignLoaderError.frameError(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/frameerror(_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/missingCurrentFrame": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/design(_:)": {
   "abstract" : [
 
   ],
@@ -684,35 +731,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "missingCurrentFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/missingCurrentFrame",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignLoaderError.missingCurrentFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/missingcurrentframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/snapshotError(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "Error with a snapshot. First item is an index of the offending snapshot, second item is the error.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "snapshotError"
+      "text" : "design"
     },
     {
       "kind" : "text",
@@ -720,38 +739,38 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
+      "text" : "DesignLoaderError"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "."
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16RawSnapshotErrorO",
-      "text" : "RawSnapshotError"
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO0cE0O",
+      "text" : "DesignError"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/snapshotError(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/design(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DesignLoaderError.snapshotError(_:_:)",
+  "title" : "DesignLoaderError.design(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/snapshoterror(_:_:)"
+  "url" : "\/documentation\/poieticcore\/designloadererror\/design(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/unknownFrameID(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/hint": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -759,60 +778,11 @@
     },
     {
       "kind" : "identifier",
-      "text" : "unknownFrameID"
+      "text" : "hint"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-      "text" : "RawObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/unknownFrameID(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DesignLoaderError.unknownFrameID(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/unknownframeid(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/unknownNamedReference(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "Referencing raw object id provided as a name (a string) is not defined as any object or",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "other design entity ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "unknownNamedReference"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
@@ -821,36 +791,27 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawObjectIDO",
-      "text" : "RawObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/unknownNamedReference(_:_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/hint",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DesignLoaderError.unknownNamedReference(_:_:)",
+  "title" : "hint",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloadererror\/unknownnamedreference(_:_:)"
+  "url" : "\/documentation\/poieticcore\/designloadererror\/hint"
 },
-"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoaderError/item(_:_:_:)": {
   "abstract" : [
     {
-      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
+      "text" : "Error with a particular item in a collection of raw (foreign) objetcs.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "case"
     },
     {
       "kind" : "text",
@@ -858,21 +819,64 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "item"
+    },
     {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
+      "text" : "DesignLoaderError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO14CollectionTypeO",
+      "text" : "CollectionType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
+      "text" : "DesignLoaderError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO04ItemE0O",
+      "text" : "ItemError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError\/item(_:_:_:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "IdentityReservation",
+  "title" : "DesignLoaderError.item(_:_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identityreservation"
+  "url" : "\/documentation\/poieticcore\/designloadererror\/item(_:_:_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
@@ -942,116 +946,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawFrameError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with a raw frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawIdentityError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawIdentityError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawidentityerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawSnapshotError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with an object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawSnapshotError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawsnapshoterror"
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

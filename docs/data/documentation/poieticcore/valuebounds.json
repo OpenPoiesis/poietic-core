@@ -1,0 +1,737 @@
+{
+  "abstract" : [
+    {
+      "text" : "Specifies bounds of possible values for a metric, including baseline.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Used for visual indicators, chart axes, and value normalisation.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore11ValueBoundsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ValueBounds"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ValueBounds"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "ValueBounds"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ValueBounds"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/init(min:max:baseline:limit:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/baseline",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/max",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/min",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/normalizedBaseline",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/range"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/clamp(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/normalized(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/state(of:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/union(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State"
+      ],
+      "title" : "Enumerations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/valuebounds"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds": {
+  "abstract" : [
+    {
+      "text" : "Specifies bounds of possible values for a metric, including baseline.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Used for visual indicators, chart axes, and value normalisation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ValueBounds"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ValueBounds"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueBounds",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/State": {
+  "abstract" : [
+    {
+      "text" : "The status of a value within this bounds domain",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "State"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/State",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "State"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ValueBounds.State",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/baseline": {
+  "abstract" : [
+    {
+      "text" : "The reference point separating negative from positive values",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Defaults to midpoint between min and max if not explicitly set",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseline"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/baseline",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseline",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/baseline"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/clamp(_:)": {
+  "abstract" : [
+    {
+      "text" : "Clamps a value to the domain bounds if necessary",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clamp"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/clamp(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clamp(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/clamp(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/init(min:max:baseline:limit:)": {
+  "abstract" : [
+    {
+      "text" : "Creates value bounds with specified min, max and baseline",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "min"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "max"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "baseline"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "limit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore18DisplayValueBoundsV",
+      "text" : "DisplayValueBounds"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/init(min:max:baseline:limit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(min:max:baseline:limit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/init(min:max:baseline:limit:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/max": {
+  "abstract" : [
+    {
+      "text" : "The maximum allowable value (overflow occurs above this)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "max"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/max",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "max",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/max"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/min": {
+  "abstract" : [
+    {
+      "text" : "The minimum allowable value (underflow occurs below this)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "min"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/min",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "min",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/min"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/normalized(_:)": {
+  "abstract" : [
+    {
+      "text" : "Normalizes a value to the 0-1 range based on domain bounds",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "normalized"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/normalized(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "normalized(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/normalized(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/normalizedBaseline": {
+  "abstract" : [
+    {
+      "text" : "Convenience computed variable for normalising baseline.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "normalizedBaseline"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/normalizedBaseline",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "normalizedBaseline",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/normalizedbaseline"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/range": {
+  "abstract" : [
+    {
+      "text" : "Range of the bounds: ",
+      "type" : "text"
+    },
+    {
+      "code" : "max - min",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "range"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/range",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "range",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/range"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/state(of:)": {
+  "abstract" : [
+    {
+      "text" : "Determines the status of a given value within this domain",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "state"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ValueBoundsV",
+      "text" : "ValueBounds"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ValueBoundsV5StateO",
+      "text" : "State"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/state(of:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "state(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/state(of:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueBounds/union(_:)": {
+  "abstract" : [
+    {
+      "text" : "Create an union with other value bounds. Keep the baseline of the receiver.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "union"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ValueBoundsV",
+      "text" : "ValueBounds"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11ValueBoundsV",
+      "text" : "ValueBounds"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds\/union(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "union(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valuebounds\/union(_:)"
+}
+}
+}

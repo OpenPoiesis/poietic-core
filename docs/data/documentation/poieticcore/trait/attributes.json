@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "List of public attributes of the component.",
+      "text" : "List of trait attributes.",
       "type" : "text"
     }
   ],
@@ -108,68 +108,11 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
-            {
-              "text" : "The component must advertise all attributes that represent data entered",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "by the user. Advertising derived attributes is optional.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
           "content" : [
             {
               "inlineContent" : [
                 {
                   "text" : "Attributes names share the same namespace within an object.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "If two components provide an attribute ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "name",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " and there is no",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "model validation in place, then which ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "name",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " will be used is",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "undeterminable.",
                   "type" : "text"
                 }
               ],
@@ -178,40 +121,6 @@
           ],
           "name" : "Important",
           "style" : "important",
-          "type" : "aside"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-59fi3",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ",",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/subscript(_:)-2wuh9",
-                  "isActive" : true,
-                  "type" : "reference"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
           "type" : "aside"
         }
       ],
@@ -243,7 +152,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -257,7 +166,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -288,92 +206,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
-"doc://PoieticCore/documentation/PoieticCore/MutableObject/subscript(_:)-2wuh9": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MutableObject\/subscript(_:)-2wuh9",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/mutableobject\/subscript(_:)-2wuh9"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/subscript(_:)-59fi3": {
-  "abstract" : [
-    {
-      "text" : "Get an attribute value by their name.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/subscript(_:)-59fi3",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/subscript(_:)-59fi3"
-},
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -407,7 +243,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/attributes": {
   "abstract" : [
     {
-      "text" : "List of public attributes of the component.",
+      "text" : "List of trait attributes.",
       "type" : "text"
     }
   ],

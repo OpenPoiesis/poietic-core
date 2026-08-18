@@ -77,12 +77,12 @@
       "anchor" : "Raw-Entities",
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesign",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedList",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawNamedReference",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SemanticVersion"
       ],
       "title" : "Raw Entities"
@@ -93,9 +93,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError"
       ],
       "title" : "Reading and Loading"
@@ -154,7 +151,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -354,7 +351,7 @@
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],
@@ -452,40 +449,6 @@
   "title" : "ForeignValueError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/foreignvalueerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
-  "abstract" : [
-    {
-      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityReservation",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identityreservation"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
@@ -764,41 +727,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignwritererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawFrame": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawFrame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawFrame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawFrame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawFrameError": {
+"doc://PoieticCore/documentation/PoieticCore/RawEntityID": {
   "abstract" : [
     {
-      "text" : "Error thrown by the design loader when there is an issue with a raw frame.",
+      "text" : "Object ID retrieved from a foreign interface.",
       "type" : "text"
     }
   ],
@@ -813,64 +745,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawFrameError"
+      "text" : "RawEntityID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawEntityID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawFrameError"
+      "text" : "RawEntityID"
     }
   ],
   "role" : "symbol",
-  "title" : "RawFrameError",
+  "title" : "RawEntityID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawIdentityError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawIdentityError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawidentityerror"
+  "url" : "\/documentation\/poieticcore\/rawentityid"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawNamedList": {
   "abstract" : [
@@ -934,17 +823,14 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawnamedreference"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/RawPlane": {
   "abstract" : [
-    {
-      "text" : "Object ID retrieved from a foreign interface.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -952,21 +838,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "RawPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "RawObjectID",
+  "title" : "RawPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawobjectid"
+  "url" : "\/documentation\/poieticcore\/rawplane"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
   "abstract" : [
@@ -1002,41 +888,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawSnapshotError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with an object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawSnapshotError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawsnapshoterror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawStructure": {
+"doc://PoieticCore/documentation/PoieticCore/RawTopology": {
   "abstract" : [
 
   ],
@@ -1051,21 +903,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawStructure",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawTopology",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawStructure"
+      "text" : "RawTopology"
     }
   ],
   "role" : "symbol",
-  "title" : "RawStructure",
+  "title" : "RawTopology",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawstructure"
+  "url" : "\/documentation\/poieticcore\/rawtopology"
 },
 "doc://PoieticCore/documentation/PoieticCore/SemanticVersion": {
   "abstract" : [

@@ -380,7 +380,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError"
       ],
       "title" : "Parsing"
     }
@@ -402,6 +403,14 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser\/parse()"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Type-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser\/parse(string:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -421,7 +430,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -431,6 +440,37 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
   "abstract" : [
@@ -643,6 +683,82 @@
   "title" : "parse()",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparser\/parse()"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionParser/parse(string:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "string"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore21ExpressionSyntaxErrorO",
+      "text" : "ExpressionSyntaxError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore17UnboundExpressiona",
+      "text" : "UnboundExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser\/parse(string:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(string:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionparser\/parse(string:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError": {
   "abstract" : [

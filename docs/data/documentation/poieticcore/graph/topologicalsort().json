@@ -19,40 +19,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "conformance" : {
-      "availabilityPrefix" : [
-        {
-          "text" : "Available when",
-          "type" : "text"
-        }
-      ],
-      "conformancePrefix" : [
-        {
-          "text" : "Conforms when",
-          "type" : "text"
-        }
-      ],
-      "constraints" : [
-        {
-          "code" : "Edge",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "Identifiable",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ".",
-          "type" : "text"
-        }
-      ]
-    },
     "extendedModule" : "PoieticCore",
-    "externalID" : "s:11PoieticCore13GraphProtocolPAAs12Identifiable4EdgeRpzrlE15topologicalSortSay6NodeIDQzGSgyF::SYNTHESIZED::s:11PoieticCore5GraphV",
+    "externalID" : "s:11PoieticCore13GraphProtocolPAAE15topologicalSortSay7NodeKeyQzGSgyF::SYNTHESIZED::s:11PoieticCore5GraphC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -80,8 +48,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-        "text" : "NodeID"
+        "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+        "text" : "NodeKey"
       },
       {
         "kind" : "text",
@@ -134,10 +102,10 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeKey",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-              "text" : "NodeID"
+              "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+              "text" : "NodeKey"
             },
             {
               "kind" : "text",
@@ -194,7 +162,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -208,14 +176,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Collection of nodes connected by edges.",
+      "text" : "Immutable graph structure.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -246,38 +214,6 @@
       "type" : "text"
     }
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Edge",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Identifiable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -305,8 +241,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP6NodeIDQa",
-      "text" : "NodeID"
+      "preciseIdentifier" : "s:11PoieticCore13GraphProtocolP7NodeKeyQa",
+      "text" : "NodeKey"
     },
     {
       "kind" : "text",
@@ -320,10 +256,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graph\/topologicalsort()"
 },
-"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeID": {
+"doc://PoieticCore/documentation/PoieticCore/GraphProtocol/NodeKey": {
   "abstract" : [
     {
-      "text" : "Type of an unique identifier of a node.",
+      "text" : "Type of a unique identifier of a node.",
       "type" : "text"
     }
   ],
@@ -338,16 +274,16 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NodeID"
+      "text" : "NodeKey"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol\/NodeKey",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "NodeID",
+  "title" : "NodeKey",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodeid"
+  "url" : "\/documentation\/poieticcore\/graphprotocol\/nodekey"
 }
 }
 }

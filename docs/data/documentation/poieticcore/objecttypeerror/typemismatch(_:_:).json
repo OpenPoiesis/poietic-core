@@ -143,7 +143,16 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute\/type",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType\/isConvertible(to:)",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -206,7 +215,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -220,7 +229,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -251,17 +269,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/check(conformsTo:)": {
+"doc://PoieticCore/documentation/PoieticCore/Attribute/type": {
   "abstract" : [
     {
-      "text" : "Checks object’s conformance to a trait.",
+      "text" : "Data type of the attribute value.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -269,15 +287,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "check"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "conformsTo"
+      "text" : "type"
     },
     {
       "kind" : "text",
@@ -285,37 +295,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
-      "text" : "ObjectTypeErrorCollection"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute\/type",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(conformsTo:)",
+  "title" : "type",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/check(conformsto:)"
+  "url" : "\/documentation\/poieticcore\/attribute\/type"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
@@ -409,6 +398,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror\/typemismatch(_:_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Trait defines object details, its attributes or its role in the model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
+},
 "doc://PoieticCore/documentation/PoieticCore/ValueType": {
   "abstract" : [
 
@@ -439,6 +462,57 @@
   "title" : "ValueType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valuetype"
+},
+"doc://PoieticCore/documentation/PoieticCore/VariableType/isConvertible(to:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isConvertible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12VariableTypeO",
+      "text" : "VariableType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType\/isConvertible(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isConvertible(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variabletype\/isconvertible(to:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/isConvertible(to:)": {
   "abstract" : [

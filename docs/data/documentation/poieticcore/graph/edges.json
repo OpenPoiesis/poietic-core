@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "List of edges.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphProtocol.edges",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -19,11 +27,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore5GraphV5edgesSayq_Gvp",
+    "externalID" : "s:11PoieticCore5GraphC5edgesSayq_Gvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -36,6 +44,31 @@
       {
         "kind" : "text",
         "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5GraphC",
+        "text" : "Graph"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "NK"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "E"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
       },
       {
         "kind" : "typeIdentifier",
@@ -69,7 +102,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -82,6 +115,32 @@
             {
               "kind" : "text",
               "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5GraphC",
+              "text" : "Graph"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "NK"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "E"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
             },
             {
               "kind" : "typeIdentifier",
@@ -122,7 +181,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -136,14 +195,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Collection of nodes connected by edges.",
+      "text" : "Immutable graph structure.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -169,15 +228,12 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Graph/edges": {
   "abstract" : [
-    {
-      "text" : "List of edges.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -190,6 +246,31 @@
     {
       "kind" : "text",
       "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5GraphC",
+      "text" : "Graph"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NK"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
     },
     {
       "kind" : "typeIdentifier",

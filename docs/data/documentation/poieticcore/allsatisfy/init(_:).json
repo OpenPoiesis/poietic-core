@@ -27,7 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore10AllSatisfyCyAcA9Predicate_pcfc",
+    "externalID" : "s:11PoieticCore10AllSatisfyCyAcA9PredicateOcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -35,11 +35,11 @@
       },
       {
         "kind" : "text",
-        "text" : "(any "
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+        "preciseIdentifier" : "s:11PoieticCore9PredicateO",
         "text" : "Predicate"
       },
       {
@@ -90,12 +90,12 @@
             },
             {
               "kind" : "text",
-              "text" : ": any "
+              "text" : ": "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+              "preciseIdentifier" : "s:11PoieticCore9PredicateO",
               "text" : "Predicate"
             },
             {
@@ -133,7 +133,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -200,11 +200,11 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     },
     {
@@ -222,14 +222,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "An object predicate.",
+      "text" : "A type that defines and matches characteristics of an object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "enum"
     },
     {
       "kind" : "text",

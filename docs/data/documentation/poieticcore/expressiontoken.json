@@ -94,7 +94,8 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParser",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TextLocation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionLexer",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError"
       ],
       "title" : "Parsing"
     }
@@ -146,7 +147,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -156,6 +157,37 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ExpressionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ExpressionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionLexer": {
   "abstract" : [

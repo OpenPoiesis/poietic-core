@@ -94,7 +94,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:conformsTo:)-7fh2w",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -117,7 +117,8 @@
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -140,13 +141,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
       ],
       "title" : "Constraints"
     }
@@ -157,6 +158,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/missingTraitAttribute(_:_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/topologyMismatch(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/typeMismatch(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/unknownType(_:)"
       ],
@@ -166,7 +168,9 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/description"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/hints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/message"
       ],
       "title" : "Instance Properties"
     },
@@ -174,7 +178,8 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/asDesignIssue()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/asDesignIssue()",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/asObjectIssue()"
       ],
       "title" : "Instance Methods"
     },
@@ -210,7 +215,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -271,18 +276,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/acceptall"
 },
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
+},
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
@@ -316,7 +347,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "An object that checks constraints, including object types, of a frame.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -346,6 +385,86 @@
   "title" : "ConstraintChecker",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintchecker"
+},
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/validate(_:conformsTo:)-7fh2w": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectProtocolP",
+      "text" : "ObjectProtocol"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "conformsTo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15ObjectTypeErrorO",
+      "text" : "ObjectTypeError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker\/validate(_:conformsTo:)-7fh2w",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(_:conformsTo:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker\/validate(_:conformsto:)-7fh2w"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [
@@ -449,40 +568,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissue"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of design issues.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissuecollection"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
   "abstract" : [
     {
@@ -516,72 +601,6 @@
   "title" : "DesignIssueConvertible",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissueconvertible"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/check(conformsTo:)": {
-  "abstract" : [
-    {
-      "text" : "Checks object’s conformance to a trait.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "check"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "conformsTo"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore25ObjectTypeErrorCollectionV",
-      "text" : "ObjectTypeErrorCollection"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/check(conformsTo:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "check(conformsTo:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/check(conformsto:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
@@ -673,6 +692,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror\/asdesignissue()"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/asObjectIssue()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asObjectIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/asObjectIssue()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asObjectIssue()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror\/asobjectissue()"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/description": {
   "abstract" : [
 
@@ -706,6 +759,78 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/hints": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hints"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/hints",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror\/hints"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/message": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "message"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/message",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "message",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror\/message"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/missingTraitAttribute(_:_:)": {
   "abstract" : [
@@ -756,6 +881,47 @@
   "title" : "ObjectTypeError.missingTraitAttribute(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror\/missingtraitattribute(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/topologyMismatch(_:)": {
+  "abstract" : [
+    {
+      "text" : "Object topology does not match required type topology.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologyMismatch"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12TopologyTypeO",
+      "text" : "TopologyType"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError\/topologyMismatch(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ObjectTypeError.topologyMismatch(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror\/topologymismatch(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError/typeMismatch(_:_:)": {
   "abstract" : [
@@ -947,6 +1113,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

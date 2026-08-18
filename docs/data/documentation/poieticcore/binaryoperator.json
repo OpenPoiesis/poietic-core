@@ -1,0 +1,908 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore14BinaryOperatorO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "BinaryOperator"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "BinaryOperator"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "BinaryOperator"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "BinaryOperator"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Arithmetic-Expression",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError"
+      ],
+      "title" : "Arithmetic Expression"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/add",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/divide",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/greaterOrEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/greaterThan",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/isEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/lessOrEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/lessThan",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/modulo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/multiply",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/notEqual",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/power",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/subtract"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/init(symbol:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/resultType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/symbol"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/validate(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/binaryoperator"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
+  "abstract" : [
+    {
+      "text" : "Arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArithmeticExpression",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BinaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/add": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "add"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/add",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.add",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/add"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/divide": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "divide"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/divide",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.divide",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/divide"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/greaterOrEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "greaterOrEqual"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/greaterOrEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.greaterOrEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/greaterorequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/greaterThan": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "greaterThan"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/greaterThan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.greaterThan",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/greaterthan"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/init(symbol:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "symbol"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/init(symbol:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(symbol:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/init(symbol:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/isEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEqual"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/isEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.isEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/isequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/lessOrEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "lessOrEqual"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/lessOrEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.lessOrEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/lessorequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/lessThan": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "lessThan"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/lessThan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.lessThan",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/lessthan"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/modulo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "modulo"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/modulo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.modulo",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/modulo"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/multiply": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "multiply"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/multiply",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.multiply",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/multiply"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/notEqual": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "notEqual"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/notEqual",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.notEqual",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/notequal"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/power": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "power"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/power",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.power",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/power"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/resultType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "resultType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/resultType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "resultType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/resulttype"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/subtract": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "subtract"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/subtract",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BinaryOperator.subtract",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/subtract"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/symbol": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "symbol"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/symbol",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "symbol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/symbol"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator/validate(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24ArgumentValidationResultO",
+      "text" : "ArgumentValidationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator\/validate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator\/validate(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction": {
+  "abstract" : [
+    {
+      "text" : "Enumeration of functions that are provided for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a function body is called.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unaryoperator"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
+  "abstract" : [
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnboundExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnboundExpression"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnboundExpression",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unboundexpression"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9PredicateP5match_2inSbAA12DesignObjectC_qd__tAA5FrameRd__lF",
+    "externalID" : "s:11PoieticCore9PredicateO5match_2inSbAA14ObjectSnapshotC_xtAA5PlaneRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-        "text" : "DesignObject"
+        "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+        "text" : "ObjectSnapshot"
       },
       {
         "kind" : "text",
@@ -64,8 +64,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5FrameP",
-        "text" : "Frame"
+        "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+        "text" : "Plane"
       },
       {
         "kind" : "text",
@@ -82,7 +82,6 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -132,10 +131,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-              "text" : "DesignObject"
+              "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+              "text" : "ObjectSnapshot"
             },
             {
               "kind" : "text",
@@ -151,7 +150,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "frame"
+              "text" : "plane"
             },
             {
               "kind" : "text",
@@ -166,10 +165,10 @@
               "text" : " "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5FrameP",
-              "text" : "Frame"
+              "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+              "text" : "Plane"
             },
             {
               "kind" : "text",
@@ -211,7 +210,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -222,7 +221,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
       "text" : "Version snapshot of a design object.",
@@ -240,26 +239,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DesignObject"
+      "text" : "ObjectSnapshot"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "DesignObject"
+      "text" : "ObjectSnapshot"
     }
   ],
   "role" : "symbol",
-  "title" : "DesignObject",
+  "title" : "ObjectSnapshot",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobject"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
+"doc://PoieticCore/documentation/PoieticCore/Plane": {
   "abstract" : [
     {
-      "text" : "Protocol for version frames.",
+      "text" : "Protocol for version planes.",
       "type" : "text"
     }
   ],
@@ -274,33 +273,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Frame"
+      "text" : "Plane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Frame"
+      "text" : "Plane"
     }
   ],
   "role" : "symbol",
-  "title" : "Frame",
+  "title" : "Plane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
+  "url" : "\/documentation\/poieticcore\/plane"
 },
 "doc://PoieticCore/documentation/PoieticCore/Predicate": {
   "abstract" : [
     {
-      "text" : "An object predicate.",
+      "text" : "A type that defines and matches characteristics of an object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -350,8 +349,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -375,8 +374,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -390,7 +389,6 @@
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate\/match(_:in:)",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "match(_:in:)",
   "type" : "topic",

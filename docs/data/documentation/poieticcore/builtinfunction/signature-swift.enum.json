@@ -1,0 +1,511 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore15BuiltinFunctionO9SignatureO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Signature"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Signature"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "BuiltinFunction.Signature"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Signature"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/ternaryConditional",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/unaryBoolean",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/unaryNumeric",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicBoolean",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicNumeric",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicNumericNonEmpty"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/minimalArgumentCount",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/returnType"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/validate(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction": {
+  "abstract" : [
+    {
+      "text" : "Enumeration of functions that are provided for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/minimalArgumentCount": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "minimalArgumentCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/minimalArgumentCount",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "minimalArgumentCount",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/minimalargumentcount"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/returnType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "returnType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/returnType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "returnType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/returntype"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/ternaryConditional": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ternaryConditional"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/ternaryConditional",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.ternaryConditional",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/ternaryconditional"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/unaryBoolean": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unaryBoolean"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/unaryBoolean",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.unaryBoolean",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/unaryboolean"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/unaryNumeric": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unaryNumeric"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/unaryNumeric",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.unaryNumeric",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/unarynumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/validate(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
+      "text" : "ValueType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24ArgumentValidationResultO",
+      "text" : "ArgumentValidationResult"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/validate(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/validate(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/variadicBoolean": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variadicBoolean"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicBoolean",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.variadicBoolean",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/variadicboolean"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/variadicNumeric": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variadicNumeric"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicNumeric",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.variadicNumeric",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/variadicnumeric"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/variadicNumericNonEmpty": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "variadicNumericNonEmpty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/variadicNumericNonEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature.variadicNumericNonEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/variadicnumericnonempty"
+}
+}
+}

@@ -1,0 +1,431 @@
+{
+  "abstract" : [
+    {
+      "text" : "Defines what happens to the origin entity when the target entity is despawned.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles\/targetRemovalPolicy"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore7HandlesV19targetRemovalPolicyAA012RelationshipeF0OvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "targetRemovalPolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore25RelationshipRemovalPolicyO",
+        "text" : "RelationshipRemovalPolicy"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "targetRemovalPolicy"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "targetRemovalPolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore25RelationshipRemovalPolicyO",
+              "text" : "RelationshipRemovalPolicy"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/despawn",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": The origin is despawned together with the target.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/remove",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": Only the relationship edge is removed; the origin survives.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/fatalError",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": The application crashes — used when a dangling",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "relationship indicates a programming error.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/handles\/targetremovalpolicy"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Handles": {
+  "abstract" : [
+    {
+      "text" : "Relationship indicating that an entity – a handle controls a property of a target",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "– handled entity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Handles"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Handles"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Handles",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/handles"
+},
+"doc://PoieticCore/documentation/PoieticCore/Handles/targetRemovalPolicy": {
+  "abstract" : [
+    {
+      "text" : "Defines what happens to the origin entity when the target entity is despawned.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "targetRemovalPolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore25RelationshipRemovalPolicyO",
+      "text" : "RelationshipRemovalPolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Handles\/targetRemovalPolicy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "targetRemovalPolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/handles\/targetremovalpolicy"
+},
+"doc://PoieticCore/documentation/PoieticCore/RelationshipRemovalPolicy": {
+  "abstract" : [
+    {
+      "text" : "Defines cleanup behaviour when the target of a relationship is removed",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RelationshipRemovalPolicy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RelationshipRemovalPolicy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RelationshipRemovalPolicy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationshipremovalpolicy"
+},
+"doc://PoieticCore/documentation/PoieticCore/RelationshipRemovalPolicy/despawn": {
+  "abstract" : [
+    {
+      "text" : "Despawn the entity that is the origin of the relationship.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "despawn"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/despawn",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RelationshipRemovalPolicy.despawn",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationshipremovalpolicy\/despawn"
+},
+"doc://PoieticCore/documentation/PoieticCore/RelationshipRemovalPolicy/fatalError": {
+  "abstract" : [
+    {
+      "text" : "Cause fatal error and crash the application",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fatalError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/fatalError",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RelationshipRemovalPolicy.fatalError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationshipremovalpolicy\/fatalerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RelationshipRemovalPolicy/remove": {
+  "abstract" : [
+    {
+      "text" : "Remove the relationship from the source entity",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "remove"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy\/remove",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "RelationshipRemovalPolicy.remove",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/relationshipremovalpolicy\/remove"
+}
+}
+}

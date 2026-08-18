@@ -113,7 +113,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectEdge"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -135,7 +135,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectEdge"
       ],
       "title" : "Graph, Nodes and Edges"
     }
@@ -145,7 +145,8 @@
       "anchor" : "Associated-Types",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeID"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/EdgeKey",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeKey"
       ],
       "title" : "Associated Types"
     },
@@ -153,6 +154,7 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/id",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/origin",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/target"
       ],
@@ -176,7 +178,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -187,7 +189,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
+"doc://PoieticCore/documentation/PoieticCore/DesignObjectEdge": {
   "abstract" : [
     {
       "text" : "Wrapper of an object snapshot presented as an edge.",
@@ -205,21 +207,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EdgeObject"
+      "text" : "DesignObjectEdge"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectEdge",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "EdgeObject"
+      "text" : "DesignObjectEdge"
     }
   ],
   "role" : "symbol",
-  "title" : "EdgeObject",
+  "title" : "DesignObjectEdge",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeobject"
+  "url" : "\/documentation\/poieticcore\/designobjectedge"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
   "abstract" : [
@@ -255,7 +257,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeprotocol"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/NodeID": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/EdgeKey": {
   "abstract" : [
 
   ],
@@ -270,7 +272,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "NodeID"
+      "text" : "EdgeKey"
     },
     {
       "kind" : "text",
@@ -282,13 +284,91 @@
       "text" : "Hashable"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/EdgeKey",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "NodeID",
+  "title" : "EdgeKey",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeprotocol\/nodeid"
+  "url" : "\/documentation\/poieticcore\/edgeprotocol\/edgekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/NodeKey": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SH",
+      "text" : "Hashable"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/NodeKey",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "NodeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeprotocol\/nodekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP0C3KeyQa",
+      "text" : "EdgeKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/id",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeprotocol\/id"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeProtocol/origin": {
   "abstract" : [
@@ -324,8 +404,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP6NodeIDQa",
-      "text" : "NodeID"
+      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP7NodeKeyQa",
+      "text" : "NodeKey"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/origin",
@@ -370,8 +450,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP6NodeIDQa",
-      "text" : "NodeID"
+      "preciseIdentifier" : "s:11PoieticCore12EdgeProtocolP7NodeKeyQa",
+      "text" : "NodeKey"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol\/target",
@@ -385,14 +465,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Collection of nodes connected by edges.",
+      "text" : "Immutable graph structure.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",

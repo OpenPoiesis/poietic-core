@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -96,7 +96,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The component description object represents detailed information about the",
+              "text" : "Typically trait defines one or more attributes that together form a logical characteristics",
               "type" : "text"
             },
             {
@@ -104,16 +104,39 @@
               "type" : "text"
             },
             {
-              "text" : "component that is used for reflection and foreign interfaces.",
+              "text" : "of an object, such as formula, position, or a definition of a numeric indicator. Traits",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "can be also without attributes and just define roles of objects, such as simulation object.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
         },
         {
+          "anchor" : "Attribute-Namespaces",
+          "level" : 2,
+          "text" : "Attribute Namespaces",
+          "type" : "heading"
+        },
+        {
           "inlineContent" : [
             {
-              "text" : "Component is expected to include description of all attributes that",
+              "text" : "When multiple traits are associated with an ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ", all attributes from all traits",
               "type" : "text"
             },
             {
@@ -121,26 +144,82 @@
               "type" : "text"
             },
             {
-              "text" : "represent user-entered data so that user’s data can be extracted and used",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "in data interchange (inspection, foreign interfaces, scripting, …).",
+              "text" : "share the same namespace. This means:",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "No two traits on the same object type can define attributes with the same name",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Attributes can be queried by name on the object type, regardless of which trait defines them",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "anchor" : "Example",
+          "level" : 2,
+          "text" : "Example",
+          "type" : "heading"
+        },
+        {
+          "code" : [
+            "let Formula = Trait(",
+            "    name: \"Formula\",",
+            "    attributes: [",
+            "        Attribute(\"formula\", type: .string, default: \"0\",",
+            "                  abstract: \"Arithmetic expression or constant value\")",
+            "    ],",
+            "    abstract: \"Provides formula evaluation capability\"",
+            ")",
+            "",
+            "\/\/ Use the trait in multiple object types",
+            "let Stock = ObjectType(",
+            "    name: \"Stock\",",
+            "    topologyType: .node,",
+            "    traits: [Trait.Name, Formula, Trait.Stock]",
+            ")",
+            "",
+            "let Auxiliary = ObjectType(",
+            "    name: \"Auxiliary\",",
+            "    topologyType: .node,",
+            "    traits: [Trait.Name, Formula, Trait.Auxiliary]",
+            ")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
         },
         {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "The attributes in components share the same name-space within an",
+                  "text" : "All user-entered attributes should be included in the trait’s attribute list",
                   "type" : "text"
                 },
                 {
@@ -148,15 +227,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "object type. In other words, there must not be two components with",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "the same attribute in an object type.",
+                  "text" : "to support data interchange and foreign interfaces.",
                   "type" : "text"
                 }
               ],
@@ -176,7 +247,25 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Attribute",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -195,7 +284,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -249,14 +339,17 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/AudienceLevel",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/BibliographicalReference",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Color",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DesignInfo",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramBlock",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramConnector",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramView",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Documentation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Keywords",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Name-swift.type.property",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Note",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Orderable"
       ],
       "title" : "Type Properties"
@@ -279,7 +372,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -293,7 +386,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -324,17 +426,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Protocol for runtime components of objects.",
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -342,26 +452,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "Design"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "Design"
     }
   ],
   "role" : "symbol",
-  "title" : "Component",
+  "title" : "Design",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -395,7 +514,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -429,7 +548,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -547,6 +666,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/bibliographicalreference"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait/Color": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that have colour.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Color"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Color",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Color",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/color"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait/DesignInfo": {
   "abstract" : [
     {
@@ -592,6 +756,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/designinfo"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramBlock": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be presented diagrammatically:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramBlock",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DiagramBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/diagramblock"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait/DiagramConnector": {
   "abstract" : [
     {
@@ -636,51 +845,6 @@
   "title" : "DiagramConnector",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/diagramconnector"
-},
-"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramNode": {
-  "abstract" : [
-    {
-      "text" : "Trait for objects that can be presented diagrammatically:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DiagramNode"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "DiagramNode",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/diagramnode"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/DiagramView": {
   "abstract" : [
@@ -771,6 +935,51 @@
   "title" : "Documentation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/documentation"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/Formula": {
+  "abstract" : [
+    {
+      "text" : "Trait of simulation nodes that are computed using an arithmetic formula.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Formula"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Formula",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/formula"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Keywords": {
   "abstract" : [
@@ -907,6 +1116,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/note"
 },
+"doc://PoieticCore/documentation/PoieticCore/Trait/NumericValue": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that can be represented by a numeric value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NumericValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "NumericValue",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/numericvalue"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait/Orderable": {
   "abstract" : [
 
@@ -952,7 +1206,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/abstract": {
   "abstract" : [
     {
-      "text" : "Human-readable short description of the component.",
+      "text" : "Human-readable short description of the trait.",
       "type" : "text"
     }
   ],
@@ -993,7 +1247,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/attributes": {
   "abstract" : [
     {
-      "text" : "List of public attributes of the component.",
+      "text" : "List of trait attributes.",
       "type" : "text"
     }
   ],
@@ -1068,7 +1322,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/init(name:label:attributes:abstract:)": {
   "abstract" : [
     {
-      "text" : "Create a new component description.",
+      "text" : "Creates a new trait.",
       "type" : "text"
     }
   ],
@@ -1160,7 +1414,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/label": {
   "abstract" : [
     {
-      "text" : "Human-readable label of the component that is to be displayed to the",
+      "text" : "Human-readable label of the trait that is to be displayed to the",
       "type" : "text"
     },
     {
@@ -1205,7 +1459,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/name-swift.property": {
   "abstract" : [
     {
-      "text" : "Name of the component.",
+      "text" : "Name identifier of the trait.",
       "type" : "text"
     }
   ],
@@ -1238,6 +1492,11 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/name-swift.property"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

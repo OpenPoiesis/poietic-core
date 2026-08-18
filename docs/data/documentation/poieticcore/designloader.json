@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],
@@ -117,7 +117,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
               "isActive" : true,
               "type" : "reference"
             },
@@ -188,38 +188,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Import from another design. See ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-6m9va",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : ".",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "Paste from a pasteboard during Copy & Paste operation. See ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-1o6qf",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : ",",
+                      "text" : "Import from another design or paste from a pasteboard during Copy & Paste operation:",
                       "type" : "text"
                     },
                     {
@@ -227,11 +196,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "and ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:identityStrategy:)",
                       "isActive" : true,
                       "type" : "reference"
                     },
@@ -263,6 +228,19 @@
                 {
                   "inlineContent" : [
                     {
+                      "text" : "Validation of raw design",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
                       "text" : "Reservation of object identities.",
                       "type" : "text"
                     }
@@ -273,11 +251,62 @@
             },
             {
               "content" : [
-
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Resolution of entity references",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Creation of entities (object snapshots, planes, …)",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
               ]
             }
           ],
           "type" : "unorderedList"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -298,9 +327,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoaderError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError"
       ],
       "title" : "Reading and Loading"
@@ -336,16 +362,18 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/create(_:id:snapshotID:reservation:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/create(snapshots:reservation:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/createIdentities(snapshots:with:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-1o6qf",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-6m9va",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/reserveIdentities(frames:with:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/reserveIdentities(snapshots:with:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:identityStrategy:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy"
+      ],
+      "title" : "Enumerations"
     }
   ],
   "variants" : [
@@ -365,7 +393,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -379,7 +407,7 @@
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
     {
-      "text" : "Object that loads raw representation of design or design entities into a design.",
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
       "type" : "text"
     }
   ],
@@ -409,6 +437,40 @@
   "title" : "DesignLoader",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloader"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy": {
+  "abstract" : [
+    {
+      "text" : "Strategy how identities are reserved when loading the raw design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityStrategy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityStrategy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoader.IdentityStrategy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader/Options-swift.struct": {
   "abstract" : [
@@ -444,318 +506,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloader\/options-swift.struct"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/create(_:id:snapshotID:reservation:)": {
-  "abstract" : [
-    {
-      "text" : "Create a snapshot from its raw representation.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "create"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "id"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshotID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "reservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "borrowing"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19IdentityReservationV",
-      "text" : "IdentityReservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore16RawSnapshotErrorO",
-      "text" : "RawSnapshotError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/create(_:id:snapshotID:reservation:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "create(_:id:snapshotID:reservation:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/create(_:id:snapshotid:reservation:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/create(snapshots:reservation:)": {
-  "abstract" : [
-    {
-      "text" : "Create snapshots from raw snapshots.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "create"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshots"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "reservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "borrowing"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19IdentityReservationV",
-      "text" : "IdentityReservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
-      "text" : "DesignLoaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore15SnapshotStorageC",
-      "text" : "SnapshotStorage"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/create(snapshots:reservation:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "create(snapshots:reservation:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/create(snapshots:reservation:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/createIdentities(snapshots:with:)": {
-  "abstract" : [
-    {
-      "text" : "Create identities for a batch of snapshots.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "createIdentities"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshots"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "with"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19IdentityReservationV",
-      "text" : "IdentityReservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
-      "text" : "DesignLoaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/createIdentities(snapshots:with:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "createIdentities(snapshots:with:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/createidentities(snapshots:with:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader/init(metamodel:options:compatibilityVersion:)": {
   "abstract" : [
-
+    {
+      "text" : "Create a design loader for design that conform to given metamodel.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -897,85 +653,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloader\/load(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:)-1o6qf": {
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:identityStrategy:)": {
   "abstract" : [
     {
-      "text" : "Load raw snapshots into a transient frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "load"
-    },
-    {
-      "kind" : "text",
-      "text" : "(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "into"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
-      "text" : "DesignLoaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-1o6qf",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "load(_:into:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:)-1o6qf"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/load(_:into:)-6m9va": {
-  "abstract" : [
-    {
-      "text" : "Loads current frame of the design into a transient frame.",
+      "text" : "Loads current plane of the design into a transient plane.",
       "type" : "text"
     }
   ],
@@ -1015,8 +696,34 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14TransientFrameC",
-      "text" : "TransientFrame"
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identityStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignLoaderC",
+      "text" : "DesignLoader"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12DesignLoaderC16IdentityStrategyO",
+      "text" : "IdentityStrategy"
     },
     {
       "kind" : "text",
@@ -1037,19 +744,31 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:)-6m9va",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/load(_:into:identityStrategy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(_:into:)",
+  "title" : "load(_:into:identityStrategy:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:)-6m9va"
+  "url" : "\/documentation\/poieticcore\/designloader\/load(_:into:identitystrategy:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader/metamodel": {
   "abstract" : [
-
+    {
+      "text" : "Metamodel that is used for lookup and validation during loading process.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1083,7 +802,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader/options-swift.property": {
   "abstract" : [
-
+    {
+      "text" : "Options to control the loading process.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1124,188 +846,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloader\/options-swift.property"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/reserveIdentities(frames:with:)": {
-  "abstract" : [
-    {
-      "text" : "Reserve identities of frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "reserveIdentities"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "frames"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8RawFrameC",
-      "text" : "RawFrame"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "with"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19IdentityReservationV",
-      "text" : "IdentityReservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
-      "text" : "DesignLoaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/reserveIdentities(frames:with:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "reserveIdentities(frames:with:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/reserveidentities(frames:with:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignLoader/reserveIdentities(snapshots:with:)": {
-  "abstract" : [
-    {
-      "text" : "Method that reserves identities for snapshots.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "reserveIdentities"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "snapshots"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11RawSnapshotC",
-      "text" : "RawSnapshot"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "with"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19IdentityReservationV",
-      "text" : "IdentityReservation"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17DesignLoaderErrorO",
-      "text" : "DesignLoaderError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/reserveIdentities(snapshots:with:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "reserveIdentities(snapshots:with:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designloader\/reserveidentities(snapshots:with:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignLoaderError": {
   "abstract" : [
     {
@@ -1339,40 +879,6 @@
   "title" : "DesignLoaderError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror"
-},
-"doc://PoieticCore/documentation/PoieticCore/IdentityReservation": {
-  "abstract" : [
-    {
-      "text" : "Identity reservation provides functionality to reserve IDs within a single transaction.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IdentityReservation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IdentityReservation",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/identityreservation"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
@@ -1510,7 +1016,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawFrame": {
+"doc://PoieticCore/documentation/PoieticCore/RawPlane": {
   "abstract" : [
 
   ],
@@ -1525,98 +1031,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawFrame"
+      "text" : "RawPlane"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrame",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawPlane",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawFrame"
+      "text" : "RawPlane"
     }
   ],
   "role" : "symbol",
-  "title" : "RawFrame",
+  "title" : "RawPlane",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframe"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawFrameError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with a raw frame.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawFrameError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawFrameError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawFrameError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawframeerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawIdentityError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IdentityReservation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawIdentityError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawIdentityError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawIdentityError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawidentityerror"
+  "url" : "\/documentation\/poieticcore\/rawplane"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawSnapshot": {
   "abstract" : [
@@ -1651,40 +1080,6 @@
   "title" : "RawSnapshot",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawsnapshot"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawSnapshotError": {
-  "abstract" : [
-    {
-      "text" : "Error thrown by the design loader when there is an issue with an object snapshot.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawSnapshotError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawSnapshotError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawSnapshotError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawsnapshoterror"
 }
 }
 }

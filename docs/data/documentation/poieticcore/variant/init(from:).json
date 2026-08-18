@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Read a variant from a decoder.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable.init(from:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -114,51 +122,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Reading a foreign frame produced by the library:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "let decoder = JSONDecoder()",
-            "decoder.userInfo[Variant.CoalescedCodingTypeKey] = .dictionary"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "For reading JSON that might be hand-adjusted (more error-prone):",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "let decoder = JSONDecoder()",
-            "decoder.userInfo[Variant.CodingTypeKey] = .dictionaryWithFallback"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -186,7 +149,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -233,10 +196,7 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/init(from:)": {
   "abstract" : [
-    {
-      "text" : "Read a variant from a decoder.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

@@ -176,7 +176,25 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "This is a solution before we get a proper store design.",
+                  "text" : "This is a thin ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : "\/",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " for separation.",
                   "type" : "text"
                 }
               ],
@@ -222,7 +240,6 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/data",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/url"
       ],
       "title" : "Instance Properties"
@@ -231,7 +248,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/load(currentVersion:metamodel:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/load(data:metamodel:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/load(metamodel:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/save(design:)"
       ],
@@ -255,7 +272,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -299,44 +316,6 @@
   "title" : "DesignStore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designstore"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignStore/data": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "data"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/data",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "data",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designstore\/data"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignStore/init(data:url:)": {
   "abstract" : [
@@ -396,7 +375,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designstore\/init(data:url:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignStore/load(currentVersion:metamodel:)": {
+"doc://PoieticCore/documentation/PoieticCore/DesignStore/load(data:metamodel:)": {
   "abstract" : [
 
   ],
@@ -419,7 +398,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "currentVersion"
+      "text" : "data"
     },
     {
       "kind" : "text",
@@ -474,12 +453,12 @@
       "text" : "Design"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/load(currentVersion:metamodel:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignStore\/load(data:metamodel:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(currentVersion:metamodel:)",
+  "title" : "load(data:metamodel:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designstore\/load(currentversion:metamodel:)"
+  "url" : "\/documentation\/poieticcore\/designstore\/load(data:metamodel:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignStore/load(metamodel:)": {
   "abstract" : [
@@ -697,6 +676,74 @@
   "title" : "DesignStoreError",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designstoreerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
+  "abstract" : [
+    {
+      "text" : "Object for reading foreign designs represented as JSON.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignReader"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignReader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignReader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONDesignReader",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsondesignreader"
+},
+"doc://PoieticCore/documentation/PoieticCore/JSONDesignWriter": {
+  "abstract" : [
+    {
+      "text" : "Utility class.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignWriter"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONDesignWriter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONDesignWriter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONDesignWriter",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/jsondesignwriter"
 }
 }
 }

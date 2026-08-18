@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9SelectionC3idsSayAA8ObjectIDVGvp",
+    "externalID" : "s:11PoieticCore9SelectionC3ids18OrderedCollections0E3SetVyAA14DesignEntityIDVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -35,16 +35,25 @@
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+        "text" : "OrderedSet"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
         "text" : "ObjectID"
       },
       {
         "kind" : "text",
-        "text" : "]"
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -82,17 +91,26 @@
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+              "text" : "OrderedSet"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
               "text" : "ObjectID"
             },
             {
               "kind" : "text",
-              "text" : "] { get }"
+              "text" : "> { get }"
             }
           ]
         }
@@ -122,7 +140,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane\/existing(from:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -162,7 +180,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -173,69 +191,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame/contained(_:)": {
-  "abstract" : [
-    {
-      "text" : "Filter IDs and keep only those that are contained in the frame.",
-      "type" : "text"
-    }
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "contained"
-    },
-    {
-      "kind" : "text",
-      "text" : "(["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame\/contained(_:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "contained(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame\/contained(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -259,10 +225,70 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
+"doc://PoieticCore/documentation/PoieticCore/Plane/existing(from:)": {
+  "abstract" : [
+    {
+      "text" : "Filter IDs and keep only those that are contained in the plane.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "existing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
+      "text" : "ObjectID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane\/existing(from:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "existing(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/plane\/existing(from:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Selection": {
   "abstract" : [
     {
-      "text" : "Collection of selected objects.",
+      "text" : "Ordered collection of selected objects.",
       "type" : "text"
     }
   ],
@@ -315,16 +341,25 @@
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:18OrderedCollections0A3SetV",
+      "text" : "OrderedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : ">"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection\/ids",

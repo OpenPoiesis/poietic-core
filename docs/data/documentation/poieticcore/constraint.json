@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
@@ -104,33 +96,20 @@
         {
           "inlineContent" : [
             {
-              "text" : "Constraints have a ",
+              "text" : "Constraints are part of the design’s ",
               "type" : "text"
             },
             {
               "inlineContent" : [
                 {
-                  "text" : "match",
+                  "text" : "Constraint Validity",
                   "type" : "text"
                 }
               ],
-              "type" : "emphasis"
+              "type" : "strong"
             },
             {
-              "text" : " predicate and a ",
-              "type" : "text"
-            },
-            {
-              "inlineContent" : [
-                {
-                  "text" : "requirement",
-                  "type" : "text"
-                }
-              ],
-              "type" : "emphasis"
-            },
-            {
-              "text" : ". The match",
+              "text" : " and are checked before",
               "type" : "text"
             },
             {
@@ -138,7 +117,43 @@
               "type" : "text"
             },
             {
-              "text" : "predicate selects objects that will be checked together",
+              "text" : "a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is accepted into a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A constraint have two parts: First is the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/match",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " predicate which selects which objects to",
               "type" : "text"
             },
             {
@@ -146,66 +161,20 @@
               "type" : "text"
             },
             {
-              "text" : "against the constraint requirement.",
+              "text" : "check. Second is the ",
               "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "anchor" : "Examples",
-          "level" : 2,
-          "text" : "Examples",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
+            },
             {
-              "text" : "Constraint “Flow must drain (from) a stock, no other kind of node”:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "let constraint = Constraint(",
-            "    name: \"flow_fill_is_stock\",",
-            "    match: EdgePredicate(IsTypePredicate(ObjectType.Fills)),",
-            "    requirement: AllSatisfy(",
-            "        EdgePredicate(",
-            "            origin: IsTypePredicate(ObjectType.Flow),",
-            "            target: IsTypePredicate(ObjectType.Stock)",
-            "        )",
-            "    )",
-            ")"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
-        },
-        {
-          "inlineContent" : [
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint\/requirement",
+              "isActive" : true,
+              "type" : "reference"
+            },
             {
-              "text" : "Constraint “Graphical function must not have more than one incoming parameters”:",
+              "text" : " predicate that validates the matched objects",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "let constraint = Constraint(",
-            "    name: \"one_parameter_for_graphical_function\",",
-            "    match: IsTypePredicate(ObjectType.GraphicalFunction),",
-            "    requirement: UniqueNeighbourRequirement(",
-            "        IsTypePredicate(ObjectType.Parameter),",
-            "        direction: .incoming,",
-            "        required: false",
-            "    )",
-            ")"
-          ],
-          "syntax" : "swift",
-          "type" : "codeListing"
         }
       ],
       "kind" : "content"
@@ -214,7 +183,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -236,14 +206,14 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
       ],
       "title" : "Constraints"
     }
@@ -294,7 +264,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -355,18 +325,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/acceptall"
 },
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
+},
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
@@ -449,7 +445,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint/check(_:)": {
   "abstract" : [
     {
-      "text" : "Check the frame for the constraint and return a list of nodes that",
+      "text" : "Check the plane for the constraint and return a list of nodes that",
       "type" : "text"
     },
     {
@@ -488,8 +484,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -497,7 +493,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -568,11 +564,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     },
     {
@@ -626,11 +622,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     }
   ],
@@ -718,7 +714,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "An object that checks constraints, including object types, of a frame.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -817,6 +821,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
 "doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
   "abstract" : [
     {
@@ -851,40 +897,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissue"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of design issues.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissuecollection"
-},
 "doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
   "abstract" : [
     {
@@ -918,6 +930,40 @@
   "title" : "DesignIssueConvertible",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissueconvertible"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
+  "abstract" : [
+    {
+      "text" : "Design plane that has been accepted and can not be changed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designplane"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [
@@ -1044,6 +1090,11 @@
   "title" : "UniqueProperty",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

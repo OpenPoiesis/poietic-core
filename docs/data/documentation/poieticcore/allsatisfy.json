@@ -90,7 +90,8 @@
     {
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -107,20 +108,21 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Predicates",
+      "anchor" : "Constraints",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
       ],
-      "title" : "Predicates"
+      "title" : "Constraints"
     }
   ],
   "topicSections" : [
@@ -144,7 +146,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy\/check(frame:objects:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy\/check(plane:objects:)"
       ],
       "title" : "Instance Methods"
     }
@@ -166,7 +168,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -176,6 +178,56 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AcceptAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are required. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and accepts them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AcceptAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AcceptAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/acceptall"
 },
 "doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
   "abstract" : [
@@ -211,7 +263,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/allsatisfy"
 },
-"doc://PoieticCore/documentation/PoieticCore/AllSatisfy/check(frame:objects:)": {
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy/check(plane:objects:)": {
   "abstract" : [
 
   ],
@@ -234,7 +286,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "frame"
+      "text" : "plane"
     },
     {
       "kind" : "text",
@@ -250,8 +302,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -267,8 +319,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -276,7 +328,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -284,12 +336,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy\/check(frame:objects:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy\/check(plane:objects:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "check(frame:objects:)",
+  "title" : "check(plane:objects:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/allsatisfy\/check(frame:objects:)"
+  "url" : "\/documentation\/poieticcore\/allsatisfy\/check(plane:objects:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/AllSatisfy/init(_:)": {
   "abstract" : [
@@ -313,11 +365,11 @@
     },
     {
       "kind" : "text",
-      "text" : "(any "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     },
     {
@@ -354,11 +406,11 @@
     },
     {
       "kind" : "text",
-      "text" : ": any "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9PredicateP",
+      "preciseIdentifier" : "s:11PoieticCore9PredicateO",
       "text" : "Predicate"
     }
   ],
@@ -369,17 +421,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/allsatisfy\/predicate"
 },
-"doc://PoieticCore/documentation/PoieticCore/AndPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "Logical conjunction of multiple predicates.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -387,26 +439,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AndPredicate"
+      "text" : "Constraint"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AndPredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AndPredicate"
+      "text" : "Constraint"
     }
   ],
   "role" : "symbol",
-  "title" : "AndPredicate",
+  "title" : "Constraint",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/andpredicate"
+  "url" : "\/documentation\/poieticcore\/constraint"
 },
-"doc://PoieticCore/documentation/PoieticCore/AnyPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "Predicate that matches any object.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -421,21 +481,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AnyPredicate"
+      "text" : "ConstraintChecker"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AnyPredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AnyPredicate"
+      "text" : "ConstraintChecker"
     }
   ],
   "role" : "symbol",
-  "title" : "AnyPredicate",
+  "title" : "ConstraintChecker",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/anypredicate"
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintRequirement": {
   "abstract" : [
@@ -471,18 +531,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintrequirement"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgePredicate": {
+"doc://PoieticCore/documentation/PoieticCore/ConstraintViolation": {
   "abstract" : [
     {
-      "text" : "Predicate that tests the edge object itself together with its objects -",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "origin and target.",
+      "text" : "Error thrown when a constraint violation was found.",
       "type" : "text"
     }
   ],
@@ -497,26 +549,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EdgePredicate"
+      "text" : "ConstraintViolation"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgePredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "EdgePredicate"
+      "text" : "ConstraintViolation"
     }
   ],
   "role" : "symbol",
-  "title" : "EdgePredicate",
+  "title" : "ConstraintViolation",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgepredicate"
+  "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
-"doc://PoieticCore/documentation/PoieticCore/HasComponentPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
   "abstract" : [
     {
-      "text" : "Predicate to test whether an object has a given trait.",
+      "text" : "Representation of an issue in the design caused by the user.",
       "type" : "text"
     }
   ],
@@ -531,159 +583,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "HasComponentPredicate"
+      "text" : "DesignIssue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasComponentPredicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "HasComponentPredicate"
+      "text" : "DesignIssue"
     }
   ],
   "role" : "symbol",
-  "title" : "HasComponentPredicate",
+  "title" : "DesignIssue",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/hascomponentpredicate"
+  "url" : "\/documentation\/poieticcore\/designissue"
 },
-"doc://PoieticCore/documentation/PoieticCore/HasTraitPredicate": {
+"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
   "abstract" : [
     {
-      "text" : "Predicate to test whether an object has a given trait.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HasTraitPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasTraitPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HasTraitPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HasTraitPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/hastraitpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/IsTypePredicate": {
-  "abstract" : [
-    {
-      "text" : "Predicate to test whether an object is of one or multiple given types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsTypePredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IsTypePredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IsTypePredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/istypepredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/NegationPredicate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NegationPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NegationPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NegationPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/negationpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/OrPredicate": {
-  "abstract" : [
-    {
-      "text" : "Logical disjunction of multiple predicates.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "OrPredicate"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/OrPredicate",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "OrPredicate"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "OrPredicate",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/orpredicate"
-},
-"doc://PoieticCore/documentation/PoieticCore/Predicate": {
-  "abstract" : [
-    {
-      "text" : "An object predicate.",
+      "text" : "Protocol for errors that can be converted to a design issue.",
       "type" : "text"
     }
   ],
@@ -698,21 +617,152 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Predicate"
+      "text" : "DesignIssueConvertible"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Predicate"
+      "text" : "DesignIssueConvertible"
     }
   ],
   "role" : "symbol",
-  "title" : "Predicate",
+  "title" : "DesignIssueConvertible",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicate"
+  "url" : "\/documentation\/poieticcore\/designissueconvertible"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
+  "abstract" : [
+    {
+      "text" : "Type error detail produced when checking object types against a metamodel.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectTypeError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectTypeError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttypeerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/RejectAll": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that is used to specify object (edges or nodes)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that are prohibited. If the constraint requirement is used, then it",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "matches all objects defined by constraint predicate and rejects them all.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RejectAll"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RejectAll",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rejectall"
+},
+"doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
+  "abstract" : [
+    {
+      "text" : "A constraint requirement that a specified property of the objects must",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "be unique within the checked group of checked objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UniqueProperty"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UniqueProperty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/uniqueproperty"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

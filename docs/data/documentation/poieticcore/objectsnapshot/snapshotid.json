@@ -19,11 +19,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore14ObjectSnapshotP10snapshotIDAA0cF0Vvp",
+    "externalID" : "s:11PoieticCore14ObjectSnapshotC10snapshotIDAA012DesignEntityF0Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-        "text" : "SnapshotID"
+        "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+        "text" : "ObjectSnapshotID"
       }
     ],
     "modules" : [
@@ -48,7 +48,6 @@
         "name" : "PoieticCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
@@ -67,7 +66,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -82,22 +81,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-              "text" : "SnapshotID"
-            },
-            {
-              "kind" : "text",
-              "text" : " { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+              "text" : "ObjectSnapshotID"
             }
           ]
         }
@@ -144,7 +131,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
               "isActive" : true,
               "type" : "reference"
             },
@@ -158,7 +145,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Typically when working with the design and design frames, one does not",
+              "text" : "Typically when working with the design and design planes, one does not",
               "type" : "text"
             },
             {
@@ -196,7 +183,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
               "isActive" : true,
               "type" : "reference"
             },
@@ -209,7 +196,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
               "isActive" : true,
               "type" : "reference"
             },
@@ -238,7 +225,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -251,7 +238,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
                   "isActive" : true,
                   "type" : "reference"
                 }
@@ -292,7 +279,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -306,14 +293,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Version snapshot of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -337,7 +324,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/id": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/objectID": {
   "abstract" : [
     {
       "text" : "Primary object identity.",
@@ -355,7 +342,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "id"
+      "text" : "objectID"
     },
     {
       "kind" : "text",
@@ -363,17 +350,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/id",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/objectID",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
-  "title" : "id",
+  "title" : "objectID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshot\/id"
+  "url" : "\/documentation\/poieticcore\/objectsnapshot\/objectid"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot/snapshotID": {
   "abstract" : [
@@ -385,7 +371,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -401,22 +387,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10SnapshotIDa",
-      "text" : "SnapshotID"
+      "preciseIdentifier" : "s:11PoieticCore16ObjectSnapshotIDa",
+      "text" : "ObjectSnapshotID"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot\/snapshotID",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "snapshotID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot\/snapshotid"
 },
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design object version.",
+      "text" : "Identity of a design snapshot - version of a design.",
       "type" : "text"
     }
   ],
@@ -431,26 +416,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SnapshotID"
+      "text" : "ObjectSnapshotID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SnapshotID"
+      "text" : "ObjectSnapshotID"
     }
   ],
   "role" : "symbol",
-  "title" : "SnapshotID",
+  "title" : "ObjectSnapshotID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
+  "url" : "\/documentation\/poieticcore\/objectsnapshotid"
 },
-"doc://PoieticCore/documentation/PoieticCore/TransientFrame/mutate(_:)": {
+"doc://PoieticCore/documentation/PoieticCore/TransientPlane/mutate(_:)": {
   "abstract" : [
     {
-      "text" : "Make a snapshot mutable within the frame.",
+      "text" : "Make a snapshot mutable within the plane.",
       "type" : "text"
     }
   ],
@@ -473,7 +458,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -482,16 +467,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13MutableObjectC",
-      "text" : "MutableObject"
+      "preciseIdentifier" : "s:11PoieticCore15TransientObjectC",
+      "text" : "TransientObject"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientFrame\/mutate(_:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TransientPlane\/mutate(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "mutate(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/transientframe\/mutate(_:)"
+  "url" : "\/documentation\/poieticcore\/transientplane\/mutate(_:)"
 }
 }
 }

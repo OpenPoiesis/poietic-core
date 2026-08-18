@@ -3,7 +3,7 @@
     "paths" : [
       [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeWorld",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet"
       ]
     ]
@@ -82,10 +82,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-4rn2g",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-51wt7",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-62pt4",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-6ytl5",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-9nfo4",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-9xnhm"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-9nfo4"
       ],
       "title" : "Subscripts"
     },
@@ -115,7 +115,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -129,7 +129,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
     {
-      "text" : "Collection of components of an object.",
+      "text" : "Collection of components.",
       "type" : "text"
     }
   ],
@@ -2239,6 +2239,50 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-4rn2g"
 },
+"doc://PoieticCore/documentation/PoieticCore/ComponentSet/subscript(_:)-51wt7": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ComponentSetV",
+      "text" : "ComponentSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12ComponentSetV5Indexa",
+      "text" : "Index"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-51wt7",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-51wt7"
+},
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet/subscript(_:)-62pt4": {
   "abstract" : [
 
@@ -2441,50 +2485,6 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9nfo4"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentSet/subscript(_:)-9xnhm": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ComponentSetV",
-      "text" : "ComponentSet"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12ComponentSetV5Indexa",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentSet\/subscript(_:)-9xnhm",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentset\/subscript(_:)-9xnhm"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet/suffix(_:)": {
   "abstract" : [
@@ -2730,19 +2730,27 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentset\/underestimatedcount"
 },
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
+"doc://PoieticCore/documentation/PoieticCore/RuntimeWorld": {
   "abstract" : [
     {
-      "text" : "Types and functionality for a runtime system.",
+      "text" : "Types and functionality for a World – a runtime instance of a design with simulation related data,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "simulation state, visual representations and other derived data.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeWorld",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Runtime",
+  "title" : "Runtime World",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
+  "url" : "\/documentation\/poieticcore\/runtimeworld"
 }
 }
 }

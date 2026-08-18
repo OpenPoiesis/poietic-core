@@ -135,8 +135,10 @@
         "doc:\/\/PoieticCore\/Se",
         "doc:\/\/PoieticCore\/SE",
         "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/s9EscapableP",
         "doc:\/\/PoieticCore\/SH",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -282,7 +284,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -524,7 +526,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/!=(_:_:)": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant atoms for equality.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -610,7 +615,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/_(_:_:)-2hs9": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant atoms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -674,7 +682,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/_(_:_:)-83cj4": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant atoms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -738,7 +749,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/_=(_:_:)-24llo": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant atoms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -802,7 +816,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/_=(_:_:)-9l0yf": {
   "abstract" : [
-
+    {
+      "text" : "Compares two variant atoms.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2063,6 +2080,11 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/valuetype"
 },
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
@@ -2076,6 +2098,11 @@
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
   "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

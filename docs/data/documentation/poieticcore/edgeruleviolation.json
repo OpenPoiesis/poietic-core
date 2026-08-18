@@ -75,10 +75,10 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -119,7 +119,9 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/description"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/hints",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/message"
       ],
       "title" : "Instance Properties"
     },
@@ -127,7 +129,7 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asDesignIssue()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asObjectIssue()"
       ],
       "title" : "Instance Methods"
     },
@@ -157,7 +159,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -168,46 +170,9 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
-  "abstract" : [
-    {
-      "text" : "Protocol for errors that can be converted to a design issue.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissueconvertible"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeCardinality": {
   "abstract" : [
-    {
-      "text" : "Constraints:",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -239,7 +204,7 @@
 "doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
   "abstract" : [
     {
-      "text" : "Rule for edges that are allowed in the design.",
+      "text" : "Defines which edges are allowed in the design graph and how they can be connected.",
       "type" : "text"
     }
   ],
@@ -312,7 +277,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/asDesignIssue()": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/asObjectIssue()": {
   "abstract" : [
 
   ],
@@ -327,7 +292,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "asDesignIssue"
+      "text" : "asObjectIssue"
     },
     {
       "kind" : "text",
@@ -335,16 +300,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11DesignIssueV",
-      "text" : "DesignIssue"
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asDesignIssue()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asObjectIssue()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "asDesignIssue()",
+  "title" : "asObjectIssue()",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/asdesignissue()"
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/asobjectissue()"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/cardinalityViolation(_:_:)": {
   "abstract" : [
@@ -452,6 +417,78 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/edgenotallowed"
 },
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/hints": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hints"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/hints",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hints",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/hints"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/message": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "message"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/message",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "message",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/message"
+},
 "doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/noRuleSatisfied": {
   "abstract" : [
 
@@ -476,6 +513,11 @@
   "title" : "EdgeRuleViolation.noRuleSatisfied",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/norulesatisfied"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",

@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -96,7 +96,95 @@
         {
           "inlineContent" : [
             {
-              "text" : "ObjectType describes instances of an object – what are their attributes or traits,",
+              "text" : "An ",
+              "type" : "text"
+            },
+            {
+              "code" : "ObjectType",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " specifies:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Which traits (and their attributes) objects of this type possess",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "How objects can relate to other objects in the design graph (via ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/topologyType",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ")",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Display properties for user interfaces (labels, primary\/secondary attributes)",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Object types are defined within a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " and validated by the ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
               "type" : "text"
             },
             {
@@ -104,11 +192,279 @@
               "type" : "text"
             },
             {
-              "text" : "what is their structural role within the design graph.",
+              "text" : "Every object in a design must have a type defined in the design’s metamodel.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "anchor" : "Topology-Types",
+          "level" : 2,
+          "text" : "Topology Types",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/topologyType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " property determines the object’s role as a graph component:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/node",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": Objects that can be connected via edges",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/edge",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": Objects that connect two nodes (requires an ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ")",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/unstructured",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ": Objects with no graph relationships",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
+          "anchor" : "Traits-and-Attributes",
+          "level" : 2,
+          "text" : "Traits and Attributes",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Traits define groups of attributes that objects possess. All attributes from all traits",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "associated with an object type share the same namespace - no two traits in an object type",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "can define attributes with the same name. See ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " for more information.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Example",
+          "level" : 2,
+          "text" : "Example",
+          "type" : "heading"
+        },
+        {
+          "code" : [
+            "let Stock = ObjectType(",
+            "    name: \"Stock\",",
+            "    topologyType: .node,",
+            "    traits: [",
+            "        Trait.Name,",
+            "        Trait.Formula,",
+            "        Trait.Stock,",
+            "    ],",
+            "    abstract: \"A reservoir that accumulates quantities over time\",",
+            "    secondaryLabelAttribute: \"formula\"",
+            ")",
+            "",
+            "let Flow = ObjectType(",
+            "    name: \"Flow\",",
+            "    topologyType: .edge,",
+            "    abstract: \"Connection between a stock and a flow rate\"",
+            ")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "For edge object types (",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/topologyType",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " is ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/edge",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : "),",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "you must define a corresponding ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " in the metamodel, otherwise",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "edges of this type will fail validation.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -117,7 +473,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -149,7 +506,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:traits:abstract:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:topologyType:traits:abstract:labelAttribute:secondaryLabelAttribute:)"
       ],
       "title" : "Initializers"
     },
@@ -161,8 +518,10 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributeKeys",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/attributes",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/label",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/labelAttribute",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/name",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/secondaryLabelAttribute",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/topologyType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/traits"
       ],
       "title" : "Instance Properties"
@@ -208,7 +567,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -222,7 +581,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -253,10 +621,137 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute"
 },
+"doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
+  "abstract" : [
+    {
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConstraintChecker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ConstraintChecker",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/constraintchecker"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
+  "abstract" : [
+    {
+      "text" : "Defines which edges are allowed in the design graph and how they can be connected.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRule",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeRule"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeRule",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgerule"
+},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -290,7 +785,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -837,7 +1332,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/hastrait(_:)-7vxeu"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:structuralType:traits:abstract:)": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/init(name:label:topologyType:traits:abstract:labelAttribute:secondaryLabelAttribute:)": {
   "abstract" : [
     {
       "text" : "Create a new object type.",
@@ -889,7 +1384,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "structuralType"
+      "text" : "topologyType"
     },
     {
       "kind" : "text",
@@ -897,8 +1392,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14StructuralTypeO",
-      "text" : "StructuralType"
+      "preciseIdentifier" : "s:11PoieticCore12TopologyTypeO",
+      "text" : "TopologyType"
     },
     {
       "kind" : "text",
@@ -936,15 +1431,49 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "labelAttribute"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "secondaryLabelAttribute"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:structuralType:traits:abstract:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/init(name:label:topologyType:traits:abstract:labelAttribute:secondaryLabelAttribute:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:label:structuralType:traits:abstract:)",
+  "title" : "init(name:label:topologyType:traits:abstract:labelAttribute:secondaryLabelAttribute:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:structuraltype:traits:abstract:)"
+  "url" : "\/documentation\/poieticcore\/objecttype\/init(name:label:topologytype:traits:abstract:labelattribute:secondarylabelattribute:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/label": {
   "abstract" : [
@@ -991,6 +1520,47 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/label"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/labelAttribute": {
+  "abstract" : [
+    {
+      "text" : "Name of an attribute used as the primary display label for objects of this type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "labelAttribute"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/labelAttribute",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "labelAttribute",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/labelattribute"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/name": {
   "abstract" : [
     {
@@ -1028,18 +1598,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/name"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectType/structuralType": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/secondaryLabelAttribute": {
   "abstract" : [
     {
-      "text" : "Structural type of the object – how the object can relate to other",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "objects in the design.",
+      "text" : "Name of an attribute used as a secondary display label for objects of this type.",
       "type" : "text"
     }
   ],
@@ -1054,7 +1616,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "structuralType"
+      "text" : "secondaryLabelAttribute"
     },
     {
       "kind" : "text",
@@ -1062,16 +1624,57 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore14StructuralTypeO",
-      "text" : "StructuralType"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/structuralType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/secondaryLabelAttribute",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "structuralType",
+  "title" : "secondaryLabelAttribute",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objecttype\/structuraltype"
+  "url" : "\/documentation\/poieticcore\/objecttype\/secondarylabelattribute"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/topologyType": {
+  "abstract" : [
+    {
+      "text" : "Topological role of the object in the design graph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "topologyType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore12TopologyTypeO",
+      "text" : "TopologyType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/topologyType",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "topologyType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/topologytype"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/trait(forAttribute:)": {
   "abstract" : [
@@ -1146,7 +1749,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType/traits": {
   "abstract" : [
     {
-      "text" : "List of traits for objects of this type.",
+      "text" : "Traits associated with this object type.",
       "type" : "text"
     }
   ],
@@ -1184,10 +1787,144 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype\/traits"
 },
+"doc://PoieticCore/documentation/PoieticCore/TopologyType": {
+  "abstract" : [
+    {
+      "text" : "Topology type of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TopologyType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TopologyType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TopologyType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologytype"
+},
+"doc://PoieticCore/documentation/PoieticCore/TopologyType/edge": {
+  "abstract" : [
+    {
+      "text" : "Graph component representing a connection between two nodes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "edge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/edge",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "TopologyType.edge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologytype\/edge"
+},
+"doc://PoieticCore/documentation/PoieticCore/TopologyType/node": {
+  "abstract" : [
+    {
+      "text" : "Graph component representing a node. Can be connected to other nodes",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "through an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "node"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/node",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "TopologyType.node",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologytype\/node"
+},
+"doc://PoieticCore/documentation/PoieticCore/TopologyType/unstructured": {
+  "abstract" : [
+    {
+      "text" : "Plain object without any relationships with other objects,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "has no dependencies and no objects depend on it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unstructured"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType\/unstructured",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "TopologyType.unstructured",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/topologytype\/unstructured"
+},
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -1217,6 +1954,11 @@
   "title" : "Trait",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
 },
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",

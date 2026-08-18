@@ -110,71 +110,52 @@
         {
           "inlineContent" : [
             {
-              "text" : "Newly created design will be set-up as follows:",
+              "text" : "The new design will be empty, it will not have any design planes. Typical next step is to",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "create and populated first plane:",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
         },
         {
-          "items" : [
+          "code" : [
+            "let design = Design(metamodel: Metamodel.Basic)",
+            "let trans = design.createPlane()",
+            "let object = trans.create(ObjectType.DesignInfo)",
+            "object[\"title\"] = \"My Design\"",
+            "",
+            "try design.accept(trans)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
             {
-              "content" : [
+              "inlineContent" : [
                 {
-                  "inlineContent" : [
-                    {
-                      "text" : "The design will create a copy of the list of metamodel constraints",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "during the initialisation. The constraints of the design can be",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "changed independently from the metamodel.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
+                  "text" : "",
+                  "type" : "text"
+                },
                 {
-                  "inlineContent" : [
-                    {
-                      "text" : "A new empty frame will be created and committed as first frame.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
+                  "isActive" : true,
+                  "type" : "reference"
                 }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "The history will be initialised with the first empty frame.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "unorderedList"
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -205,7 +186,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -258,6 +239,77 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
+"doc://PoieticCore/documentation/PoieticCore/Design/createPlane(deriving:id:)": {
+  "abstract" : [
+    {
+      "text" : "Create a new plane or derive a plane from an existing plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "deriving"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/createPlane(deriving:id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createPlane(deriving:id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/createplane(deriving:id:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Design/init(metamodel:)": {
   "abstract" : [
     {
@@ -302,7 +354,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],

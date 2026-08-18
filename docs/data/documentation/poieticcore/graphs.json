@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Graphs are views that comprise of nodes and edges – connections between nodes.",
+      "text" : "Graphs are views that consist of nodes and edges – connections between nodes.",
       "type" : "text"
     }
   ],
@@ -40,8 +40,7 @@
       "anchor" : "Others",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Formulas"
       ],
       "title" : "Others"
     }
@@ -52,7 +51,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GraphProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectEdge",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol"
       ],
       "title" : "Graph, Nodes and Edges"
@@ -82,7 +81,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -92,6 +91,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignObjectEdge": {
+  "abstract" : [
+    {
+      "text" : "Wrapper of an object snapshot presented as an edge.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignObjectEdge"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObjectEdge",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignObjectEdge"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignObjectEdge",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designobjectedge"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeDirection": {
   "abstract" : [
@@ -134,40 +167,6 @@
   "title" : "EdgeDirection",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgedirection"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeObject": {
-  "abstract" : [
-    {
-      "text" : "Wrapper of an object snapshot presented as an edge.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EdgeObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EdgeObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeobject"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
   "abstract" : [
@@ -220,14 +219,14 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph": {
   "abstract" : [
     {
-      "text" : "Collection of nodes connected by edges.",
+      "text" : "Immutable graph structure.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -284,20 +283,6 @@
   "title" : "GraphProtocol",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/graphprotocol"
-},
-"doc://PoieticCore/documentation/PoieticCore/Runtime": {
-  "abstract" : [
-    {
-      "text" : "Types and functionality for a runtime system.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Runtime",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Runtime",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/runtime"
 }
 }
 }

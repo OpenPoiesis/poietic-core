@@ -1,0 +1,1086 @@
+{
+  "abstract" : [
+    {
+      "text" : "Enumeration of functions that are provided for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore15BuiltinFunctionO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "BuiltinFunction"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "BuiltinFunction"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "BuiltinFunction"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "BuiltinFunction"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Evaluator",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s12CaseIterableP",
+        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "anchor" : "Arithmetic-Expression",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError"
+      ],
+      "title" : "Arithmetic Expression"
+    }
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/abs",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/and",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/ceiling",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/exp",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/floor",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/if",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/max",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/min",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/not",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/or",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/round",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/sqrt",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/sum"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/init(name:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/name",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/signature-swift.property"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Enumerations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/builtinfunction"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ArithmeticExpression": {
+  "abstract" : [
+    {
+      "text" : "Arithmetic expression.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArithmeticExpression"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArithmeticExpression",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/arithmeticexpression"
+},
+"doc://PoieticCore/documentation/PoieticCore/BinaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BinaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BinaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BinaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/binaryoperator"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction": {
+  "abstract" : [
+    {
+      "text" : "Enumeration of functions that are provided for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BuiltinFunction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Signature"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BuiltinFunction.Signature",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/abs": {
+  "abstract" : [
+    {
+      "text" : "Function for computing absolute (numeric) value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "abs"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/abs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.abs",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/abs"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/and": {
+  "abstract" : [
+    {
+      "text" : "Logical ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "AND",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
+    },
+    {
+      "text" : " for two or more arguments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "and"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/and",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.and",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/and"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/ceiling": {
+  "abstract" : [
+    {
+      "text" : "Function for computing rounded up, ceiling value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ceiling"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/ceiling",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.ceiling",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/ceiling"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/exp": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "exp"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/exp",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.exp",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/exp"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/floor": {
+  "abstract" : [
+    {
+      "text" : "Function for computing rounded down, floor value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "floor"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/floor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.floor",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/floor"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/if": {
+  "abstract" : [
+    {
+      "text" : "Boolean conditional function.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "`if`"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/if",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.if",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/if"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/init(name:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/init(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/init(name:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/max": {
+  "abstract" : [
+    {
+      "text" : "Function for finding a maximum of one or more values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "max"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/max",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.max",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/max"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/min": {
+  "abstract" : [
+    {
+      "text" : "Function for finding a minimum of one or more values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "min"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/min",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.min",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/min"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/name": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/name"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/not": {
+  "abstract" : [
+    {
+      "text" : "Logical negation of a boolean value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "not"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/not",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.not",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/not"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/or": {
+  "abstract" : [
+    {
+      "text" : "Logical ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "OR",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
+    },
+    {
+      "text" : " for two or more arguments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "or"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/or",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.or",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/or"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/round": {
+  "abstract" : [
+    {
+      "text" : "Function for computing rounded numeric value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "round"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/round",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.round",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/round"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/signature-swift.property": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "signature"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15BuiltinFunctionO",
+      "text" : "BuiltinFunction"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore15BuiltinFunctionO9SignatureO",
+      "text" : "Signature"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/signature-swift.property",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "signature",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.property"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/sqrt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sqrt"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/sqrt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.sqrt",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/sqrt"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/sum": {
+  "abstract" : [
+    {
+      "text" : "Function for computing a sum of one or more values.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sum"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/sum",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "BuiltinFunction.sum",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/sum"
+},
+"doc://PoieticCore/documentation/PoieticCore/Evaluator": {
+  "abstract" : [
+    {
+      "text" : "Namespace for arithmetic expression evaluation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Evaluator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Evaluator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Evaluator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Evaluator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/evaluator"
+},
+"doc://PoieticCore/documentation/PoieticCore/FunctionError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown when a function body is called.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FunctionError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FunctionError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FunctionError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/functionerror"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unaryoperator"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnboundExpression": {
+  "abstract" : [
+    {
+      "text" : "Type alias for an expression where the variables and functions are",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented by a string - typically their names.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnboundExpression"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnboundExpression",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnboundExpression"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnboundExpression",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unboundexpression"
+},
+"doc://PoieticCore/s12CaseIterableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s12CaseIterableP",
+  "title" : "Swift.CaseIterable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+}
+}
+}

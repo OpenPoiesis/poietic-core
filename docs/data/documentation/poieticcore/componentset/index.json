@@ -88,12 +88,21 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sa",
-              "text" : "Array"
+              "preciseIdentifier" : "s:SD",
+              "text" : "Dictionary"
             },
             {
               "kind" : "text",
-              "text" : "<any "
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SO",
+              "text" : "ObjectIdentifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ", any "
             },
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
@@ -107,7 +116,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sa5Indexa",
+              "preciseIdentifier" : "s:SD5IndexV",
               "text" : "Index"
             }
           ]
@@ -141,7 +150,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -189,7 +198,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ComponentSet": {
   "abstract" : [
     {
-      "text" : "Collection of components of an object.",
+      "text" : "Collection of components.",
       "type" : "text"
     }
   ],

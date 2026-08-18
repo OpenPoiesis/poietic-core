@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Name of the component.",
+      "text" : "Name identifier of the trait.",
       "type" : "text"
     }
   ],
@@ -101,19 +101,51 @@
         {
           "inlineContent" : [
             {
-              "text" : "The component name is used in reflection and when a component is being",
+              "text" : "Example: ",
               "type" : "text"
             },
             {
-              "text" : " ",
+              "code" : "\"Formula\"",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
               "type" : "text"
             },
             {
-              "text" : "created by its name from a foreign data representation.",
+              "code" : "\"Stock\"",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
               "type" : "text"
+            },
+            {
+              "code" : "\"DiagramBlock\"",
+              "type" : "codeVoice"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "code" : "ObjectType\/hasTrait(_:)",
+                  "type" : "codeVoice"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -144,7 +176,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -158,7 +190,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -192,7 +224,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait/name-swift.property": {
   "abstract" : [
     {
-      "text" : "Name of the component.",
+      "text" : "Name identifier of the trait.",
       "type" : "text"
     }
   ],

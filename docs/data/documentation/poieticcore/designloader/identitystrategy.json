@@ -1,0 +1,359 @@
+{
+  "abstract" : [
+    {
+      "text" : "Strategy how identities are reserved when loading the raw design.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore12DesignLoaderC16IdentityStrategyO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "IdentityStrategy"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "IdentityStrategy"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "DesignLoader.IdentityStrategy"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "IdentityStrategy"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For example, when pasting from a pasteboard, we want to preserve if possible and",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "create new so we do not cause conflicts.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let rawDesign: RawDesign  \/\/ Raw design we decoded from pasteboard",
+            "let trans: TransientPlane \/\/ Transaction into which we \"paste\"",
+            "let loader = DesignLoader(metamodel: StockFlowMetamodel)",
+            "",
+            "try loader.load(rawDesign, identityStrategy: .preserveOrCreate)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/createNew",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/preserveOrCreate",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/requireProvided"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/designloader\/identitystrategy"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
+  "abstract" : [
+    {
+      "text" : "Object that loads raw representation of design or raw object snapshots into a design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignLoader"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignLoader"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoader",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy": {
+  "abstract" : [
+    {
+      "text" : "Strategy how identities are reserved when loading the raw design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IdentityStrategy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IdentityStrategy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignLoader.IdentityStrategy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy/createNew": {
+  "abstract" : [
+    {
+      "text" : "All identities will be created as new.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createNew"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/createNew",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignLoader.IdentityStrategy.createNew",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy\/createnew"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy/preserveOrCreate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "preserveOrCreate"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/preserveOrCreate",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignLoader.IdentityStrategy.preserveOrCreate",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy\/preserveorcreate"
+},
+"doc://PoieticCore/documentation/PoieticCore/DesignLoader/IdentityStrategy/requireProvided": {
+  "abstract" : [
+    {
+      "text" : "Loading operation requires that all provided identities are preserved.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requireProvided"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLoader\/IdentityStrategy\/requireProvided",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DesignLoader.IdentityStrategy.requireProvided",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designloader\/identitystrategy\/requireprovided"
+}
+}
+}

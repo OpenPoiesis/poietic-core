@@ -13,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9CSVWriterC4path9formatterACSS_AA12CSVFormatterCtKcfc",
+    "externalID" : "s:11PoieticCore9CSVWriterC4path9formatterACSS_AA12CSVFormatterCtAA0C5ErrorOYKcfc",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -68,6 +68,19 @@
       {
         "kind" : "keyword",
         "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore14CSVWriterErrorO",
+        "text" : "CSVWriterError"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -145,6 +158,20 @@
             {
               "kind" : "keyword",
               "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriterError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore14CSVWriterErrorO",
+              "text" : "CSVWriterError"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
@@ -177,7 +204,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -322,6 +349,19 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14CSVWriterErrorO",
+      "text" : "CSVWriterError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
   "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter\/init(path:formatter:)",
@@ -330,6 +370,37 @@
   "title" : "init(path:formatter:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/csvwriter\/init(path:formatter:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/CSVWriterError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CSVWriterError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriterError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CSVWriterError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CSVWriterError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/csvwritererror"
 }
 }
 }

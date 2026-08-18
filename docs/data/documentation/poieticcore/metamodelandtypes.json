@@ -187,7 +187,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Secondly we define object types which also specify structural type – whether",
+              "text" : "Secondly we define object types which also specify topology type – whether",
               "type" : "text"
             },
             {
@@ -212,7 +212,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramBlock",
               "isActive" : true,
               "type" : "reference"
             },
@@ -237,22 +237,22 @@
             "    \/\/ Node types",
             "    static let Stock = ObjectType(",
             "        name: \"Stock\",",
-            "        structuralType: .node,",
+            "        topologyType: .node,",
             "        traits: [.Name, .Formula, .Stock, .DiagramNode],",
             "    )",
             "    static let FlowRate = ObjectType(",
             "        name: \"FlowRate\",",
-            "        structuralType: .node,",
+            "        topologyType: .node,",
             "        traits: [.Name, .Formula, .FlowRate, .DiagramNode]",
             "    )",
             "    \/\/ Edge types",
             "    static let Flow = ObjectType(",
             "        name: \"Flow\",",
-            "        structuralType: .edge",
+            "        topologyType: .edge",
             "    )",
             "    static let Parameter = ObjectType(",
             "        name: \"Parameter\",",
-            "        structuralType: .edge,",
+            "        topologyType: .edge,",
             "    )",
             "}"
           ],
@@ -322,12 +322,15 @@
   ],
   "seeAlsoSections" : [
     {
-      "anchor" : "Problem-Domain",
+      "anchor" : "Modelling",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot"
       ],
-      "title" : "Problem Domain"
+      "title" : "Modelling"
     }
   ],
   "topicSections" : [
@@ -356,14 +359,14 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintViolation",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UniqueProperty",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintRequirement",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy"
       ],
       "title" : "Constraints"
     },
@@ -407,7 +410,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -468,10 +471,53 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/acceptall"
 },
+"doc://PoieticCore/documentation/PoieticCore/AllSatisfy": {
+  "abstract" : [
+    {
+      "text" : "Requirement that all matched objects satisfy a given predicate.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AllSatisfy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AllSatisfy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AllSatisfy",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/allsatisfy"
+},
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -536,15 +582,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Constraint": {
   "abstract" : [
     {
-      "text" : "An object representing a constraint rule for checking whether a design",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "is valid within a given problem domain.",
+      "text" : "Defines validation rules that objects in a design must satisfy.",
       "type" : "text"
     }
   ],
@@ -578,7 +616,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "An object that checks constraints, including object types, of a frame.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -677,6 +723,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
 },
+"doc://PoieticCore/documentation/PoieticCore/Design": {
+  "abstract" : [
+    {
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Design"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Design",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design"
+},
 "doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
   "abstract" : [
     {
@@ -710,40 +798,6 @@
   "title" : "DesignIssue",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissue"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueCollection": {
-  "abstract" : [
-    {
-      "text" : "Collection of design issues.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueCollection",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueCollection"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueCollection",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissuecollection"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
   "abstract" : [
@@ -779,12 +833,43 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designissueconvertible"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeCardinality": {
+"doc://PoieticCore/documentation/PoieticCore/DesignPlane": {
   "abstract" : [
     {
-      "text" : "Constraints:",
+      "text" : "Design plane that has been accepted and can not be changed.",
       "type" : "text"
     }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignPlane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignPlane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignPlane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designplane"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeCardinality": {
+  "abstract" : [
+
   ],
   "fragments" : [
     {
@@ -816,7 +901,7 @@
 "doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
   "abstract" : [
     {
-      "text" : "Rule for edges that are allowed in the design.",
+      "text" : "Defines which edges are allowed in the design graph and how they can be connected.",
       "type" : "text"
     }
   ],
@@ -881,7 +966,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -912,10 +1006,44 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectSnapshot"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectSnapshot",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectsnapshot"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -1022,28 +1150,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttypeerror"
 },
-"doc://PoieticCore/documentation/PoieticCore/Predicates": {
-  "abstract" : [
-    {
-      "text" : "Predicates specify conditions for filtering specific objects. Constraints",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "define requirements for a set of objects.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicates",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Predicates and Constraints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/predicates"
-},
 "doc://PoieticCore/documentation/PoieticCore/RejectAll": {
   "abstract" : [
     {
@@ -1097,7 +1203,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -1218,7 +1324,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/designinfo"
 },
-"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramNode": {
+"doc://PoieticCore/documentation/PoieticCore/Trait/DiagramBlock": {
   "abstract" : [
     {
       "text" : "Trait for objects that can be presented diagrammatically:",
@@ -1244,7 +1350,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DiagramNode"
+      "text" : "DiagramBlock"
     },
     {
       "kind" : "text",
@@ -1256,12 +1362,12 @@
       "text" : "Trait"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramNode",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/DiagramBlock",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "DiagramNode",
+  "title" : "DiagramBlock",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/diagramnode"
+  "url" : "\/documentation\/poieticcore\/trait\/diagramblock"
 },
 "doc://PoieticCore/documentation/PoieticCore/Trait/Documentation": {
   "abstract" : [
@@ -1442,6 +1548,20 @@
   "title" : "Note",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait\/note"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnderstandingDesign": {
+  "abstract" : [
+    {
+      "text" : "Containment and management of design objects, changes and their history.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnderstandingDesign",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Understanding Design Objects and Planes",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/understandingdesign"
 },
 "doc://PoieticCore/documentation/PoieticCore/UniqueProperty": {
   "abstract" : [

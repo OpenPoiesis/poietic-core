@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Chronological list of frame IDs.",
+      "text" : "Chronological list of design snapshots.",
       "type" : "text"
     }
   ],
@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6DesignC14versionHistorySayAA8ObjectIDVGvp",
+    "externalID" : "s:11PoieticCore6DesignC14versionHistorySayAA0C8EntityIDVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-        "text" : "FrameID"
+        "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+        "text" : "PlaneID"
       },
       {
         "kind" : "text",
@@ -85,10 +85,10 @@
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-              "text" : "FrameID"
+              "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+              "text" : "PlaneID"
             },
             {
               "kind" : "text",
@@ -106,6 +106,65 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ",",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoList",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -133,7 +192,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -186,10 +245,271 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design"
 },
+"doc://PoieticCore/documentation/PoieticCore/Design/accept(_:appendHistory:)": {
+  "abstract" : [
+    {
+      "text" : "Accepts a transient plane if valid, make it a stable plane.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14TransientPlaneC",
+      "text" : "TransientPlane"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appendHistory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore20PlaneValidationErrorO",
+      "text" : "PlaneValidationError"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore11DesignPlaneC",
+      "text" : "DesignPlane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/accept(_:appendHistory:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:appendHistory:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/redo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current plane to ",
+      "type" : "text"
+    },
+    {
+      "code" : "planeID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previously",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "undone planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "redo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "redo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/redo(to:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/redoList": {
+  "abstract" : [
+    {
+      "text" : "List of IDs of undone planes can be re-done.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "redoList"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/redoList",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "redoList",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/redolist"
+},
+"doc://PoieticCore/documentation/PoieticCore/Design/undo(to:)": {
+  "abstract" : [
+    {
+      "text" : "Change the current plane to ",
+      "type" : "text"
+    },
+    {
+      "code" : "planeID",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " which is one of the previous",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "planes in the undo history.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "undo"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design\/undo(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "undo(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/design\/undo(to:)"
+},
 "doc://PoieticCore/documentation/PoieticCore/Design/versionHistory": {
   "abstract" : [
     {
-      "text" : "Chronological list of frame IDs.",
+      "text" : "Chronological list of design snapshots.",
       "type" : "text"
     }
   ],
@@ -212,8 +532,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7FrameIDa",
-      "text" : "FrameID"
+      "preciseIdentifier" : "s:11PoieticCore7PlaneIDa",
+      "text" : "PlaneID"
     },
     {
       "kind" : "text",
@@ -227,10 +547,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/versionhistory"
 },
-"doc://PoieticCore/documentation/PoieticCore/FrameID": {
+"doc://PoieticCore/documentation/PoieticCore/PlaneID": {
   "abstract" : [
     {
-      "text" : "Identifier of a version frame.",
+      "text" : "Identity of a design object snapshot - a version of a design object.",
       "type" : "text"
     }
   ],
@@ -245,21 +565,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FrameID"
+      "text" : "PlaneID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/FrameID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FrameID"
+      "text" : "PlaneID"
     }
   ],
   "role" : "symbol",
-  "title" : "FrameID",
+  "title" : "PlaneID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frameid"
+  "url" : "\/documentation\/poieticcore\/planeid"
 }
 }
 }

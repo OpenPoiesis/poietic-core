@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore17ConstraintCheckerV10canConnect4type4from2to2inSbAA10ObjectTypeC_AA0K2IDVALxtAA5FrameRzlF",
+    "externalID" : "s:11PoieticCore17ConstraintCheckerV10canConnect4type4from2to2inSbAA10ObjectTypeC_AA14DesignEntityIDVALxtAA5PlaneRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -64,7 +64,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
         "text" : "ObjectID"
       },
       {
@@ -81,7 +81,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
         "text" : "ObjectID"
       },
       {
@@ -106,8 +106,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore5FrameP",
-        "text" : "Frame"
+        "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+        "text" : "Plane"
       },
       {
         "kind" : "text",
@@ -184,7 +184,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "origin"
+              "text" : "originID"
             },
             {
               "kind" : "text",
@@ -193,7 +193,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
               "text" : "ObjectID"
             },
             {
@@ -210,7 +210,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "target"
+              "text" : "targetID"
             },
             {
               "kind" : "text",
@@ -219,7 +219,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
               "text" : "ObjectID"
             },
             {
@@ -236,7 +236,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "frame"
+              "text" : "plane"
             },
             {
               "kind" : "text",
@@ -251,10 +251,10 @@
               "text" : " "
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore5FrameP",
-              "text" : "Frame"
+              "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+              "text" : "Plane"
             },
             {
               "kind" : "text",
@@ -403,7 +403,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -417,7 +417,15 @@
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker": {
   "abstract" : [
     {
-      "text" : "An object that checks constraints, including object types, of a frame.",
+      "text" : "An object that validates plane against a metamodel and checks constraints, object types and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "edge rules.",
       "type" : "text"
     }
   ],
@@ -499,7 +507,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -516,7 +524,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     },
     {
@@ -541,8 +549,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -563,10 +571,7 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/ConstraintChecker/validate(edge:in:)": {
   "abstract" : [
-    {
-      "text" : "Validates the edge whether it matches the metamodel’s edge rules.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -595,8 +600,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore10EdgeObjectV",
-      "text" : "EdgeObject"
+      "preciseIdentifier" : "s:11PoieticCore16DesignObjectEdgeV",
+      "text" : "DesignObjectEdge"
     },
     {
       "kind" : "text",
@@ -620,8 +625,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -695,8 +700,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -712,8 +717,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12DesignObjectC",
-      "text" : "DesignObject"
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
     },
     {
       "kind" : "text",
@@ -737,8 +742,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5FrameP",
-      "text" : "Frame"
+      "preciseIdentifier" : "s:11PoieticCore5PlaneP",
+      "text" : "Plane"
     },
     {
       "kind" : "text",
@@ -757,51 +762,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgerule\/match(_:origin:target:in:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Frame": {
-  "abstract" : [
-    {
-      "text" : "Protocol for version frames.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Frame",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Frame"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Frame",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/frame"
-},
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -828,7 +799,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -858,6 +829,40 @@
   "title" : "ObjectType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Plane": {
+  "abstract" : [
+    {
+      "text" : "Protocol for version planes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Plane",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Plane"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Plane",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/plane"
 }
 }
 }

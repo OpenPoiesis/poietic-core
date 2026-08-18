@@ -27,7 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore9SelectionCyAA8ObjectIDVSicip",
+    "externalID" : "s:11PoieticCore9SelectionCyAA14DesignEntityIDVSicip",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,7 +57,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+        "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
         "text" : "ObjectID"
       }
     ],
@@ -121,7 +121,7 @@
             {
               "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+              "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
               "text" : "ObjectID"
             },
             {
@@ -167,7 +167,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -181,14 +181,14 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectID": {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design object.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -215,7 +215,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Selection": {
   "abstract" : [
     {
-      "text" : "Collection of selected objects.",
+      "text" : "Ordered collection of selected objects.",
       "type" : "text"
     }
   ],
@@ -310,7 +310,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
+      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
       "text" : "ObjectID"
     }
   ],

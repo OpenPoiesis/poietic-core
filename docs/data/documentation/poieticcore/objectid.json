@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Identifier of a design objects.",
+      "text" : "Identity of a design object.",
       "type" : "text"
     }
   ],
@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore8ObjectIDV",
+    "externalID" : "s:11PoieticCore8ObjectIDa",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "struct"
+        "text" : "typealias"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Structure",
-    "symbolKind" : "struct",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
     "title" : "ObjectID"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "struct"
+              "text" : "typealias"
             },
             {
               "kind" : "text",
@@ -71,6 +71,16 @@
             {
               "kind" : "identifier",
               "text" : "ObjectID"
+            },
+            {
+              "kind" : "text",
+              "text" : " = "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore14DesignEntityIDV",
+              "text" : "DesignEntityID"
             }
           ]
         }
@@ -80,15 +90,15 @@
     {
       "content" : [
         {
-          "anchor" : "overview",
+          "anchor" : "discussion",
           "level" : 2,
-          "text" : "Overview",
+          "text" : "Discussion",
           "type" : "heading"
         },
         {
           "inlineContent" : [
             {
-              "text" : "The object ID is unique within the frame containing the object.",
+              "text" : "Design object identity is unique within design snapshot. One design object might have multiple",
               "type" : "text"
             },
             {
@@ -96,81 +106,14 @@
               "type" : "text"
             },
             {
-              "text" : "There might be multiple object snapshots representing the same object",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "and therefore have the same object ID.",
+              "text" : "objet snapshots.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ", ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : ".",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "See Also",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-        "doc:\/\/PoieticCore\/Se",
-        "doc:\/\/PoieticCore\/SE",
-        "doc:\/\/PoieticCore\/SQ",
-        "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
-        "doc:\/\/PoieticCore\/SH",
-        "doc:\/\/PoieticCore\/s8SendableP"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -187,70 +130,13 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshot",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Topology",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection"
       ],
       "title" : "Object"
-    }
-  ],
-  "topicSections" : [
-    {
-      "anchor" : "Operators",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/==(_:_:)"
-      ],
-      "title" : "Operators"
-    },
-    {
-      "anchor" : "Initializers",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)-5we4e",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)-7s2c7",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(from:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(integerLiteral:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "anchor" : "Instance-Properties",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/description",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/intValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/stringValue"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "anchor" : "Instance-Methods",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/encode(to:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/hash(into:)"
-      ],
-      "title" : "Instance Methods"
-    },
-    {
-      "anchor" : "Type-Aliases",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/IntegerLiteralType"
-      ],
-      "title" : "Type Aliases"
-    },
-    {
-      "anchor" : "Default-Implementations",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/Equatable-Implementations"
-      ],
-      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -267,30 +153,10 @@
   ]
 , 
 "references": {
-"doc://PoieticCore/SE": {
-  "identifier" : "doc:\/\/PoieticCore\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/SH": {
-  "identifier" : "doc:\/\/PoieticCore\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/SQ": {
-  "identifier" : "doc:\/\/PoieticCore\/SQ",
-  "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/Se": {
-  "identifier" : "doc:\/\/PoieticCore\/Se",
-  "title" : "Swift.Decodable",
-  "type" : "unresolvable"
-},
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -301,117 +167,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/ChildrenSet": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildrenSet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChildrenSet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ChildrenSet",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/childrenset"
-},
-"doc://PoieticCore/documentation/PoieticCore/Design": {
+"doc://PoieticCore/documentation/PoieticCore/DesignEntityID": {
   "abstract" : [
     {
-      "text" : "Design is a container representing a model, idea or a document with their",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "history of changes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Design"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Design"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Design",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/design"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignObject": {
-  "abstract" : [
-    {
-      "text" : "Version snapshot of a design object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignObject"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignObject",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designobject"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
-  "abstract" : [
-    {
-      "text" : "Identifier of a design objects.",
+      "text" : "Persistent identity of Design entities.",
       "type" : "text"
     }
   ],
@@ -419,6 +178,40 @@
     {
       "kind" : "keyword",
       "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignEntityID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DesignEntityID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DesignEntityID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/designentityid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identity of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -442,471 +235,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/==(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "=="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/==(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "==(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/==(_:_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/Equatable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/equatable-implementations"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/IntegerLiteralType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IntegerLiteralType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/IntegerLiteralType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IntegerLiteralType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectID.IntegerLiteralType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/integerliteraltype"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/description": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "description"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/description",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "description",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/description"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/encode(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "encode"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7EncoderP",
-      "text" : "Encoder"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/encode(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "encode(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/encode(to:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/hash(into:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hash"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "into"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6HasherV",
-      "text" : "Hasher"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/hash(into:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "hash(into:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/hash(into:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(_:)-5we4e": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6UInt64V",
-      "text" : "UInt64"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)-5we4e",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/init(_:)-5we4e"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(_:)-7s2c7": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(_:)-7s2c7",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/init(_:)-7s2c7"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(from:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7DecoderP",
-      "text" : "Decoder"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(from:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(from:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/init(from:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/init(integerLiteral:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "integerLiteral"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDV18IntegerLiteralTypea",
-      "text" : "IntegerLiteralType"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/init(integerLiteral:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(integerLiteral:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/init(integerliteral:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/intValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "intValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6UInt64V",
-      "text" : "UInt64"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/intValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "intValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/intvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectID/stringValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "stringValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID\/stringValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "stringValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectid\/stringvalue"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectProtocol": {
   "abstract" : [
     {
-      "text" : "A version of a design object.",
+      "text" : "Protocol for design objects.",
       "type" : "text"
     }
   ],
@@ -914,6 +246,40 @@
     {
       "kind" : "keyword",
       "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
+  "abstract" : [
+    {
+      "text" : "Version snapshot of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -937,17 +303,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectsnapshot"
 },
-"doc://PoieticCore/documentation/PoieticCore/RawObjectID": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotID": {
   "abstract" : [
     {
-      "text" : "Object ID retrieved from a foreign interface.",
+      "text" : "Identity of a design snapshot - version of a design.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -955,26 +321,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "ObjectSnapshotID"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawObjectID",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotID",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "RawObjectID"
+      "text" : "ObjectSnapshotID"
     }
   ],
   "role" : "symbol",
-  "title" : "RawObjectID",
+  "title" : "ObjectSnapshotID",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawobjectid"
+  "url" : "\/documentation\/poieticcore\/objectsnapshotid"
 },
 "doc://PoieticCore/documentation/PoieticCore/Selection": {
   "abstract" : [
     {
-      "text" : "Collection of selected objects.",
+      "text" : "Ordered collection of selected objects.",
       "type" : "text"
     }
   ],
@@ -1005,44 +371,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selection"
 },
-"doc://PoieticCore/documentation/PoieticCore/SnapshotID": {
+"doc://PoieticCore/documentation/PoieticCore/Topology": {
   "abstract" : [
     {
-      "text" : "Identifier of a design object version.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SnapshotID",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SnapshotID"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SnapshotID",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/snapshotid"
-},
-"doc://PoieticCore/documentation/PoieticCore/StructuralType": {
-  "abstract" : [
-    {
-      "text" : "Structural type of an object.",
+      "text" : "Topology defines relationship of an object with other objects.",
       "type" : "text"
     }
   ],
@@ -1057,26 +389,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "StructuralType"
+      "text" : "Topology"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Topology",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "StructuralType"
+      "text" : "Topology"
     }
   ],
   "role" : "symbol",
-  "title" : "StructuralType",
+  "title" : "Topology",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structuraltype"
+  "url" : "\/documentation\/poieticcore\/topology"
 },
-"doc://PoieticCore/documentation/PoieticCore/Structure": {
+"doc://PoieticCore/documentation/PoieticCore/TopologyType": {
   "abstract" : [
     {
-      "text" : "Structure defines relationship of an object with other objects.",
+      "text" : "Topology type of an object.",
       "type" : "text"
     }
   ],
@@ -1091,36 +423,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Structure"
+      "text" : "TopologyType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Structure",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TopologyType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Structure"
+      "text" : "TopologyType"
     }
   ],
   "role" : "symbol",
-  "title" : "Structure",
+  "title" : "TopologyType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/structure"
-},
-"doc://PoieticCore/s23CustomStringConvertibleP": {
-  "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
-  "title" : "Swift.CustomStringConvertible",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/s27ExpressibleByIntegerLiteralP": {
-  "identifier" : "doc:\/\/PoieticCore\/s27ExpressibleByIntegerLiteralP",
-  "title" : "Swift.ExpressibleByIntegerLiteral",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/s8SendableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
+  "url" : "\/documentation\/poieticcore\/topologytype"
 }
 }
 }

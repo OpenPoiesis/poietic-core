@@ -1,7 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -96,43 +105,93 @@
         {
           "inlineContent" : [
             {
-              "text" : "Each public user-oriented attribute of a ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " must have a",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "description. The attribute description is used in foreign interfaces,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "such as data interchange, data storage or scripting.",
+              "text" : "Attributes define the data properties that objects can possess. Each attribute specifies:",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
         },
         {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "A name and an optional human readable label",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Data type, used also for validation",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Whether the attribute is required or optional",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "A default value (for optional attributes or initialisation)",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        },
+        {
           "content" : [
             {
               "inlineContent" : [
                 {
-                  "text" : "The attributes in components share the same name-space within an",
+                  "text" : "Within an ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", all attributes from all associated ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : "s share the same",
                   "type" : "text"
                 },
                 {
@@ -140,15 +199,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "object type. In other words, there must not be two components with",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "the same attribute in an object type.",
+                  "text" : "namespace. No two traits on the same object type can define attributes with the same name.",
                   "type" : "text"
                 }
               ],
@@ -169,7 +220,9 @@
         "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
-        "doc:\/\/PoieticCore\/s8SendableP"
+        "doc:\/\/PoieticCore\/s9EscapableP",
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -250,7 +303,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -264,7 +317,16 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute": {
   "abstract" : [
     {
-      "text" : "Description of an attribute.",
+      "text" : "Description of a single attribute within a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -309,7 +371,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute/abstract": {
   "abstract" : [
     {
-      "text" : "Short description of the attribute.",
+      "text" : "Short human-readable description of the attribute.",
       "type" : "text"
     }
   ],
@@ -349,7 +411,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Attribute/defaultValue": {
   "abstract" : [
-
+    {
+      "text" : "Default value assigned to the attribute if not provided during object creation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -540,7 +605,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute/label": {
   "abstract" : [
     {
-      "text" : "User-oriented label.",
+      "text" : "User-facing label for the attribute.",
       "type" : "text"
     }
   ],
@@ -577,7 +642,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute/name": {
   "abstract" : [
     {
-      "text" : "Attribute name – an identifier.",
+      "text" : "Attribute name – a unique identifier within the object type.",
       "type" : "text"
     }
   ],
@@ -613,7 +678,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Attribute/optional": {
   "abstract" : [
-
+    {
+      "text" : "Flag whether the attribute is optional.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -648,7 +716,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Attribute/type": {
   "abstract" : [
     {
-      "text" : "Data type of the attribute.",
+      "text" : "Data type of the attribute value.",
       "type" : "text"
     }
   ],
@@ -682,17 +750,25 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attribute\/type"
 },
-"doc://PoieticCore/documentation/PoieticCore/Component": {
+"doc://PoieticCore/documentation/PoieticCore/Design": {
   "abstract" : [
     {
-      "text" : "Protocol for runtime components of objects.",
+      "text" : "Design is a container representing a model, idea or a document with their",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "history of changes.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -700,26 +776,35 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "Design"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Component"
+      "text" : "Design"
     }
   ],
   "role" : "symbol",
-  "title" : "Component",
+  "title" : "Design",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/component"
+  "url" : "\/documentation\/poieticcore\/design"
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel": {
   "abstract" : [
     {
-      "text" : "Object describing a model.",
+      "text" : "Defines the structural and semantic rules that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Design",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " must conform to.",
       "type" : "text"
     }
   ],
@@ -753,7 +838,7 @@
 "doc://PoieticCore/documentation/PoieticCore/ObjectType": {
   "abstract" : [
     {
-      "text" : "Object defining a type of a design object.",
+      "text" : "Defines the type specification for design objects within a metamodel.",
       "type" : "text"
     }
   ],
@@ -787,7 +872,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Trait": {
   "abstract" : [
     {
-      "text" : "Description of a component.",
+      "text" : "Trait defines object details, its attributes or its role in the model.",
       "type" : "text"
     }
   ],
@@ -818,6 +903,11 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
 },
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
   "title" : "Swift.CustomStringConvertible",
@@ -831,6 +921,11 @@
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
   "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

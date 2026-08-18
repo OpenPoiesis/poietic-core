@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Create a new graph with given list of nodes and edges.",
+      "text" : "Create a new graph with given node keys and edges.",
       "type" : "text"
     }
   ],
@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore5GraphV5nodes5edgesACyxq_GSayxG_Sayq_Gtcfc",
+    "externalID" : "s:11PoieticCore5GraphC5nodes5edgesACyxq_GSayxG_Sayq_Gtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -39,7 +39,32 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Node"
+        "preciseIdentifier" : "s:11PoieticCore5GraphC",
+        "text" : "Graph"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "NK"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "E"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "NodeKey"
       },
       {
         "kind" : "text",
@@ -52,6 +77,31 @@
       {
         "kind" : "text",
         "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5GraphC",
+        "text" : "Graph"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "NK"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "E"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
       },
       {
         "kind" : "typeIdentifier",
@@ -100,8 +150,34 @@
               "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
               "kind" : "typeIdentifier",
-              "text" : "Node"
+              "preciseIdentifier" : "s:11PoieticCore5GraphC",
+              "text" : "Graph"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "NK"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "E"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "NodeKey"
             },
             {
               "kind" : "text",
@@ -116,6 +192,32 @@
               "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Graph",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5GraphC",
+              "text" : "Graph"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "NK"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "E"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
               "kind" : "typeIdentifier",
               "text" : "Edge"
             },
@@ -127,6 +229,42 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -154,7 +292,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -165,17 +303,51 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
-"doc://PoieticCore/documentation/PoieticCore/Graph": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeProtocol": {
   "abstract" : [
     {
-      "text" : "Collection of nodes connected by edges.",
+      "text" : "Protocol for edges in a graph.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeProtocol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeProtocol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EdgeProtocol",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeprotocol"
+},
+"doc://PoieticCore/documentation/PoieticCore/Graph": {
+  "abstract" : [
+    {
+      "text" : "Immutable graph structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -202,7 +374,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Graph/init(nodes:edges:)": {
   "abstract" : [
     {
-      "text" : "Create a new graph with given list of nodes and edges.",
+      "text" : "Create a new graph with given node keys and edges.",
       "type" : "text"
     }
   ],
@@ -225,7 +397,32 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Node"
+      "preciseIdentifier" : "s:11PoieticCore5GraphC",
+      "text" : "Graph"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NK"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NodeKey"
     },
     {
       "kind" : "text",
@@ -238,6 +435,31 @@
     {
       "kind" : "text",
       "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5GraphC",
+      "text" : "Graph"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "NK"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "E"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
     },
     {
       "kind" : "typeIdentifier",

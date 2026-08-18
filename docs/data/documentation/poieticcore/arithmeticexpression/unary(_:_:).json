@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20ArithmeticExpressionO5unaryyACyxq_Gq__AEtcAEmr0_lF",
+    "externalID" : "s:11PoieticCore20ArithmeticExpressionO5unaryyACyxq_GAA13UnaryOperatorO_AEtcAEmr0_lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,32 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-        "text" : "ArithmeticExpression"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "V"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "F"
-      },
-      {
-        "kind" : "text",
-        "text" : ">."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "FunctionReference"
+        "preciseIdentifier" : "s:11PoieticCore13UnaryOperatorO",
+        "text" : "UnaryOperator"
       },
       {
         "kind" : "text",
@@ -134,34 +110,10 @@
               "text" : "("
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArithmeticExpression",
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-              "text" : "ArithmeticExpression"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "V"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "F"
-            },
-            {
-              "kind" : "text",
-              "text" : ">."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "FunctionReference"
+              "preciseIdentifier" : "s:11PoieticCore13UnaryOperatorO",
+              "text" : "UnaryOperator"
             },
             {
               "kind" : "text",
@@ -224,7 +176,7 @@
 "doc://PoieticCore/documentation/PoieticCore": {
   "abstract" : [
     {
-      "text" : "Core library for creating applications for systems thinking and simulation.",
+      "text" : "A core package for building virtual laboratories.",
       "type" : "text"
     }
   ],
@@ -295,32 +247,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore20ArithmeticExpressionO",
-      "text" : "ArithmeticExpression"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "V"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "F"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "FunctionReference"
+      "preciseIdentifier" : "s:11PoieticCore13UnaryOperatorO",
+      "text" : "UnaryOperator"
     },
     {
       "kind" : "text",
@@ -358,6 +286,37 @@
   "title" : "ArithmeticExpression.unary(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/arithmeticexpression\/unary(_:_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/UnaryOperator": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/UnaryOperator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnaryOperator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnaryOperator",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/unaryoperator"
 }
 }
 }
