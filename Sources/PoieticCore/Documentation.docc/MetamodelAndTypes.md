@@ -34,7 +34,7 @@ extension Trait {
 }
 ```
 
-Secondly we define object types which also specify structural type – whether
+Secondly we define object types which also specify topology type – whether
 it is an edge or a node type. Some common traits are provided, such as
 ``Trait/Name`` for objects that are named or ``Trait/DiagramBlock`` for objects
 that can be represented diagrammatically.
@@ -44,22 +44,22 @@ extension ObjectType {
     // Node types
     static let Stock = ObjectType(
         name: "Stock",
-        structuralType: .node,
+        topologyType: .node,
         traits: [.Name, .Formula, .Stock, .DiagramNode],
     )
     static let FlowRate = ObjectType(
         name: "FlowRate",
-        structuralType: .node,
+        topologyType: .node,
         traits: [.Name, .Formula, .FlowRate, .DiagramNode]
     )
     // Edge types
     static let Flow = ObjectType(
         name: "Flow",
-        structuralType: .edge
+        topologyType: .edge
     )
     static let Parameter = ObjectType(
         name: "Parameter",
-        structuralType: .edge,
+        topologyType: .edge,
     )
 }
 ```
@@ -109,6 +109,8 @@ examples see ``Constraint``.
 - ``ConstraintViolation``
 - ``UniqueProperty``
 - ``ConstraintRequirement``
+- ``AllSatisfy``
+- 
 
 ### Common Components and Types
 

@@ -129,7 +129,7 @@ public struct RepresentationOf: Relationship {
 /// For a similar relationship where the controller is removed with the controlled see ``Handles``.
 public struct Controls: Relationship {
     public static let targetRemovalPolicy: RelationshipRemovalPolicy = .remove
-    public static var outgoingCardinality: Cardinality { .one }
+    public static var outgoingCardinality: Cardinality { .many }
     public init() { /* Empty */ }
 }
 

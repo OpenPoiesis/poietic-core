@@ -15,7 +15,7 @@ final class JSONFileStoreTests: XCTestCase {
     */
     func temporaryFileURL() -> URL {
         let fm = FileManager()
-        // Create a URL for an unique file in the system's temporary directory.
+        // Create a URL for a unique file in the system's temporary directory.
         let directory = fm.temporaryDirectory.path
         let filename = UUID().uuidString
         let fileURL = URL(fileURLWithPath: directory).appendingPathComponent(filename)

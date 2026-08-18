@@ -87,6 +87,10 @@ public class World {
     private var componentStorages: [ObjectIdentifier: any ComponentStorageProtocol] = [:]
     internal var relationshipStorages: [ObjectIdentifier: any RelationshipStorageProtocol] = [:]
 
+    /// Creates a new empty world without a plane associated with it.
+    ///
+    /// - SeeAlso: ``setPlane(_:)``
+    ///
     public init(design: Design) {
         self.design = design
         self.entitySequence = 1
@@ -101,6 +105,11 @@ public class World {
         self.singletons = ComponentSet()
     }
     
+    /// Creates a new world and sets the plane. The world will be populated with entities
+    /// representing design objects in the plane.
+    ///
+    /// - SeeAlso: ``setPlane(_:)``
+    ///
     public convenience init(plane: DesignPlane) {
         self.init(design: plane.design)
         setPlane(plane)

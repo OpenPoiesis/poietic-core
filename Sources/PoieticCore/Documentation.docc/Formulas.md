@@ -8,7 +8,7 @@ The library provides a way to parse and express arithmetic expressions as
 structures that can be further transformed or directly used for computation.
 
 ```swift
-let parser = ExpressionParser(string: "a + (b * 10))")
+let parser = ExpressionParser(string: "a + (b * 10)")
 let expression: UnboundExpression = try parser.parse()
 ```
 
@@ -21,6 +21,7 @@ Binary arithmetic operators:
 | `*` | Multiplication |
 | `/` | Division |
 | `%` | Remainder after division |
+| `^` | Power |
 
 Comparison operators:
 
@@ -32,6 +33,21 @@ Comparison operators:
 | `>=` | Greater or equal than |
 | `<` | Less than |
 | `<=` | Less or equal than |
+
+Arithmetic functions:
+
+| Name | Description |
+| ---- | ---- | 
+| `abs(x)` | Absolute value |
+| `floor(x)` | Rounding downwards to the nearest integer |
+| `ceiling(x)` | Rounding upwards to the nearest integer |
+| `round(x)` | Rounding to the nearest integer |
+| `power(x,e)` | Power of _x_ to _e_ |
+| `exp(x)` | Natural exponent of _x_ |
+| `sqrt(x)` | Square root of _x_ |
+| `sum(a,...)` | Sum of multiple values |
+| `min(a,b,...)` | Minimum value from a list of values |
+| `max(a,b,...)` | Maximum value from a list of values |
 
 Built-in logical functions:
 
@@ -48,12 +64,19 @@ Built-in logical functions:
 ### Arithmetic Expression
 
 - ``ArithmeticExpression``
-- ``Evaluator``
 - ``UnboundExpression``
 - ``UnaryOperator``
 - ``BinaryOperator``
 - ``BuiltinFunction``
 - ``FunctionError``
+
+### Evaluation
+
+- ``Evaluator``
+- ``EvaluationError``
+- ``VariableNameLookup``
+- ``VariableValueLookup``
+- ``TypedVariable``
 
 ### Parsing
 
@@ -62,6 +85,7 @@ Built-in logical functions:
 - ``ExpressionLexer``
 - ``ExpressionToken``
 - ``ExpressionSyntaxError``
+- ``ExpressionError``
 
 ### Abstract Syntax Tree
 

@@ -8,7 +8,7 @@
 
 /// Collection of components.
 ///
-/// Used primarily to store singletons.
+/// Used primarily to store singletons and for debugging purposes.
 ///
 public struct ComponentSet {
     private var components: [ObjectIdentifier: any Component] = [:]

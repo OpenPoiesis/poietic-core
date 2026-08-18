@@ -12,10 +12,6 @@
 ///
 /// Runtime components are not persisted.
 ///
-/// - Note: When designing a component, design it in a way that all its
-///   contents can be reconstructed from other information present in the
-///   design.
-///
 /// This is just an annotation protocol, has no requirements.
 ///
 public protocol Component {

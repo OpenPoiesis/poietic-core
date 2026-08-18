@@ -1,109 +1,53 @@
 # Poietic Core
 
-A modelling and simulation toolkit, primarily for systems thinking.
+A foundation for building virtual laboratories – interactive modelling and simulation applications.
+An exploration of _modelling the modelling_.
 
-Function:
+> _Can you draw the model diagrammatically – as boxes and arrows, where not only the boxes but
+> also the connections between the boxes are meaningful content?_
 
-- Creation of models representable by graphs, such as systems dynamics models.
-- Validation of models based on domain-specific constraints and types.
-- History of editing changes with undo and redo functionality.
+If the answer to the above question is _yes_, then this library might be suitable for you.
 
-Focus and approach:
+The library's approach is the _"world is a graph"_ perspective, as opposed to _"world is
+a set of equations and graph is just accidental"_ perspective. Learn more from the
+[package documentation](https://openpoiesis.github.io/poietic-core/documentation/poieticcore/).
 
-- The modelling process - _modelling the modelling_ and on 
-  iterative and interactive design (once graphical user interface is available)
-- Openness, sustainability and extensibility of the model data – The model format
-  (either native or export/import) must be well documented, non-ambiguous and
-  processable by third-party tools. It must allow extensibility of the modelling
-  methodologies that are currently available.
-- Approach from the "world is a graph" perspective, as opposed to "world is
-  a set of equations and graph is just accidental" perspective. Gives us more
-  freedom for further development and invention of new methods.
+## Application Examples
 
-See the [Poietic Tool](https://github.com/OpenPoiesis/poietic-tool) for
-a command-line tool that uses this library to manipulate
-and run the models.
+- [Poietic Tool](https://github.com/OpenPoiesis/poietic-tool) – A command-line tool for editing
+  and running Stock and Flow models.
+- [Poietic Playground](https://github.com/OpenPoiesis/poietic-playground) – A CAD-like application
+  where you can visually edit, inspect and run models.
 
-## Features
+Models to be used by the applications:
 
-Current:
+- [Examples repository](https://github.com/OpenPoiesis/PoieticExamples)
 
-- Object graph with history of editing changes.
-- Metamodel with object types, traits and constraints with the purpose of:
-    - validation of model correctness according to a methodology of choice
-    - containing of different kinds of systems thinking methodologies
-    - development and evolution of the methodologies
-- Non-destructive editing with undo and redo command.
-- Simple arithmetic expressions (formulas).
+## Feature Overview
 
-See also [PoieticFlows](https://github.com/OpenPoiesis/poietic-flows)
-– Stock and Flow modelling package.
-
-Planned:
-
-- API for GUI applications.
-- Visual layout.
-- Model (package) composition and comparison.
-- Localisation/internationalisation.
-- Ability to contain/integrate other meta-models:
-    - Causal maps
-    - SGBN and SBOL (design, composition, graph analysis, no simulation)
-
-Out-of-scope:
-
-- Performance. The system must be implemented in an understandable and
-  transparent way first, before performance optimisation takes place.
-- Human-modifiable textual representation (DSL in textual form) of the design
-  and interpretation of such representation. In other words: No purely
-  human-oriented modelling language. Textual DSL is a distraction and diversion
-  from one of the main objectives, which is direct interactive experimentation
-  with the design and its simulation. Also extensibility of a DSL might get
-  too complex.
-
-## Examples
-
-Example models of of one of the methodologies can be found in the [Examples repository](https://github.com/OpenPoiesis/PoieticExamples).
-Follow instructions how to run them in the documentation contained within the
-repository.
+- **Design** is the source of truth.
+- **Planes** are snapshots of history or alternative versions of the design.
+- **World** is the running instance for experimentation. Lightweight ECS with a focus on data
+  modelling and extensibility (not performance).
+- **Metamodel** defines problem domain constraints.
+- **Foreign Interfaces** for import/export and persistence.
+- **Arithmetic expression** parsing and evaluation.
 
 ## Documentation
 
 - [PoieticCore](https://openpoiesis.github.io/poietic-core/documentation/poieticcore/)
+
+Related packages:
+
 - [PoieticFlows](https://openpoiesis.github.io/poietic-flows/documentation/poieticflows/)
-
-
-## Development
-
-This is a playful exploration.
-
-More information about the development can be found in documents in the
-[DevelopmentNotes](DevelopmentNotes) directory.
-
-Further reading:
-
-- [Requirements](DevelopmentNotes/Requirements.md) document in the
-  DevelopmentNotes folder.
-- [Technical Debt](DevelopmentNotes/TechnicalDebt.md) document in the
-  DevelopmentNotes folder.
+- [Diagramming](https://openpoiesis.github.io/poietic-diagram/documentation/diagramming/)
+  – Package for creating diagrammatic representations of models.
 
 ## Contributing
 
 _All humans are more than welcome to contribute to the project._
 
-**Contributions that are substantially generative AI/LLM-generated (such as code or issues)**,
-without substantive human authorship, verification and understanding, will be rejected
-without further review, regardless of content.
-
-**Generative AI/LLM-assisted human contribution might be allowed** with prior discussion
-and disclosure. The disclosure must confirm that:
-
-- You fully understand every part of the contribution, and can answer questions about it
-  without using AI assistance.
-- You have personally tested and verified it.
-- You clearly indicate which parts of the content is AI generated.
-
-The human contributor takes full responsibility for all code, including its correctness
-and licensing compliance.
+Read more in the [Contribution Policy](CONTRIBUTING.md) file.
 
 ## Author
 

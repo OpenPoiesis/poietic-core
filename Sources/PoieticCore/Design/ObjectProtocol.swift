@@ -25,7 +25,7 @@ public typealias AttributeKey = String
 /// - ``TransientObject``: Object of a temporary nature, that can be modified. The
 ///   Mutable object is then turned into a ``ObjectSnapshot`` when valid.
 ///
-/// Each object object has an unique identity, collection of attributes
+/// Each object object has a unique identity, collection of attributes
 /// and might have topological relationships. Identity serves as a handle of an
 /// object. Attributes define a state of an object.
 ///

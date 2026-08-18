@@ -106,6 +106,7 @@ public protocol ConstraintRequirement: Sendable {
     func check(plane: some Plane, objects: [ObjectSnapshot]) -> [ObjectID]
 }
 
+// TODO: Remove this requirement. Requirements should be externally describable.
 /// Requirement that all matched objects satisfy a given predicate.
 public final class AllSatisfy: ConstraintRequirement {
     /// Predicate to be satisfied by the requirement.

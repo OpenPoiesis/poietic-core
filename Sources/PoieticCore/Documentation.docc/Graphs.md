@@ -1,6 +1,6 @@
 # Graph
 
-Graphs are views that comprise of nodes and edges – connections between nodes.
+Graphs are views that consist of nodes and edges – connections between nodes.
 
 ## Topics
 

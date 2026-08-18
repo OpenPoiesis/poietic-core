@@ -9,6 +9,11 @@
 public struct ParsedExpressionComponent: Component {
     public let expression: UnboundExpression
     public let variables: Set<String>
+    
+    public init(expression: UnboundExpression) {
+        self.expression = expression
+        self.variables = Set(expression.allVariables)
+    }
 }
 
 /// System that parses formulas into unbound expressions.
@@ -52,8 +57,7 @@ public struct ExpressionParserSystem: System {
             entity.appendIssue(issue)
             return
         }
-        let vars = Set(expr.allVariables)
-        component = ParsedExpressionComponent(expression: expr, variables: vars)
+        component = ParsedExpressionComponent(expression: expr)
         entity.setComponent(component)
     }
 }

@@ -87,7 +87,7 @@ public protocol EdgeProtocol {
 /// you will benefit from operations that find neighbourhoods or sort objects topologically.
 ///
 public protocol GraphProtocol {
-    /// Type of an unique identifier of a node.
+    /// Type of a unique identifier of a node.
     associatedtype NodeKey: Hashable
     associatedtype EdgeKey: Hashable
     associatedtype Edge: EdgeProtocol where Edge.NodeKey == NodeKey, Edge.EdgeKey == EdgeKey
