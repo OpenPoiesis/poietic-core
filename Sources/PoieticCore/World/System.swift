@@ -23,7 +23,7 @@ public enum SystemDependency {
     case after(any System.Type)
 }
 
-/// A system that processes a runtime plane and populates components.
+/// A system that reads and writes components and entities in a world.
 ///
 /// Systems are the computational units in the ECS architecture. They read
 /// from plane attributes and existing components, then write new components.
@@ -53,7 +53,7 @@ public protocol System {
     ///     - world: The runtime world the system can read and modify.
     ///
     func update(_ world: World) throws (InternalSystemError)
-
+    
     /// Initialise the system within the context of the provided world.
     ///
     init(_ world: World)
@@ -63,6 +63,16 @@ extension System {
     /// Default to no dependencies
     public static var dependencies: [SystemDependency] { [] }
 }
+
+/// Marker for transient singletons that are needed between systems, usually within a single
+/// schedule.
+///
+/// Intermediate singletons have no meaning outside of a schedule. They might be preserved for
+/// debugging purposes.
+///
+public protocol IntermediateSingleton: Component { /* Empty */ }
+
+
 
 /// Error thrown by systems that has not been caused by the user, but that is recoverable in
 /// runtime context.

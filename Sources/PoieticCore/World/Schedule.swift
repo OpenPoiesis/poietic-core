@@ -191,6 +191,7 @@ public final class Schedule {
         if _instances.isEmpty {
             try self.initialize(with: world)
         }
+
         for system in _instances {
             try system.update(world)
         }

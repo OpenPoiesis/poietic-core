@@ -159,11 +159,45 @@ public class World {
         self.scheduleLabels[id] = String(describing: schedule.label)
     }
 
-    public func run(schedule: ScheduleLabel.Type) throws (InternalSystemError) {
+    /// Runs systems in a schedule.
+    ///
+    /// Parameters:
+    ///     - cleanIntermediates: If true, then when the schedule finishes, singletons of type
+    ///       ``IntermediateSingleton`` are removed
+    ///
+    /// The intermediaries are cleaned up only on successful schedule run.
+    ///
+    /// - Precondition: The schedule must be registered with the world.
+    ///
+    public func run(schedule: ScheduleLabel.Type, cleanIntermediates: Bool = true) throws (InternalSystemError) {
         guard let schedule = self.schedules[ObjectIdentifier(schedule)] else {
             preconditionFailure("Unknown schedule \(String(describing: schedule))")
         }
         try schedule.update(self)
+        
+        if cleanIntermediates {
+            removeIntermediateSingletons()
+        }
+    }
+    
+    /// Removes all singletons of type ``IntermediateSingleton``.
+    ///
+    /// - SeeAlso: ``run(schedule:cleanIntermediates:)``.
+    ///
+    public func removeIntermediateSingletons() {
+        // Clean-up intermediaries
+        let intermediates: [ObjectIdentifier] = self.singletons.compactMap {
+            if $0 is any IntermediateSingleton {
+                return ObjectIdentifier(type(of: $0))
+            }
+            else {
+                return nil
+            }
+        }
+        for id in intermediates {
+            self.singletons.remove(id)
+        }
+
     }
 
     /// Set a design plane to be world's current design plane.
