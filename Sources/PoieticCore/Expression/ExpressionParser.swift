@@ -29,13 +29,15 @@ public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
 
 extension ExpressionSyntaxError: IssueConvertible {
     public var issueIdentifier: String {
+        // NOTE: The 'expression.' namespace is shared with ExpressionError,
+        //       Make sure the other part of the identifier is unique within both error types.
         switch self {
-        case .invalidCharacterInNumber: "expression_syntax.invalid_character_in_number"
-        case .numberExpected: "expression_syntax.number_expected"
-        case .unexpectedCharacter: "expression_syntax.unexpected_character"
-        case .missingRightParenthesis: "expression_syntax.missing_right_parenthesis"
-        case .expressionExpected: "expression_syntax.expression_expected"
-        case .unexpectedToken: "expression_syntax.unexpected_token"
+        case .invalidCharacterInNumber: "expression.invalid_character_in_number"
+        case .numberExpected: "expression.number_expected"
+        case .unexpectedCharacter: "expression.unexpected_character"
+        case .missingRightParenthesis: "expression.missing_right_parenthesis"
+        case .expressionExpected: "expression.expression_expected"
+        case .unexpectedToken: "expression.unexpected_token"
         }
     }
     public var message: String { "Formula error: " + self.description }

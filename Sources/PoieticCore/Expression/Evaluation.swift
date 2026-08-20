@@ -397,6 +397,8 @@ extension ExpressionError: IssueConvertible {
     ] }
     
     public var issueIdentifier: String {
+        // NOTE: The 'expression.' namespace is shared with ExpressionSyntaxError,
+        //       Make sure the other part of the identifier is unique within both error types.
         switch self {
         case .unknownVariable(_): "expression.unknown_variable"
         case .unknownFunction(_): "expression.unknown_function"
@@ -411,8 +413,10 @@ extension ExpressionError: IssueConvertible {
             ["variable": Variant(name)]
         case let .unknownFunction(name):
             ["function": Variant(name)]
-        case let .invalidNumberOfArguments(function, _, expected):
-            ["function": Variant(function), "expected_arguments": Variant(expected)]
+        case let .invalidNumberOfArguments(function, given, expected):
+            ["function": Variant(function),
+             "given_arguments": Variant(given),
+             "expected_arguments": Variant(expected)]
         case let .argumentTypeMismatch(function, _):
             ["function": Variant(function)]
         }

@@ -43,16 +43,16 @@ public struct ExpressionParserSystem: System {
             expr = try parser.parse()
         }
         catch {
+            var details: [String:Variant] = error.details
+            // TODO: Add parser position and token range
+            details["attribute"] = "formula"
             let issue = Issue(
                 identifier: error.issueIdentifier,
                 severity: .error,
                 source: "ExpressionParserSystem",
                 message: error.message,
                 hints: error.hints,
-                details: [
-                    "attribute": "formula"
-                    // TODO: Add parser position and token range
-                ]
+                details: details
             )
 
             entity.appendIssue(issue)

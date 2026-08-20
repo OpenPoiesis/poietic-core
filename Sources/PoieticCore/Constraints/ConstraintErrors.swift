@@ -51,8 +51,6 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
     }
 }
 extension ObjectTypeError: IssueConvertible {
-    public static let IssueSourceName: String = "validation"
-   
     public var issueIdentifier: String {
         switch self {
         case .unknownType(_): "object_type.unknown_type"
@@ -186,9 +184,9 @@ public struct PlaneValidationResult: Sendable {
             let message = constraint.name
                             + (constraint.abstract.map { ": " + $0 }  ?? "")
             let issue = Issue(
-                identifier: "constraint_violation:",
+                identifier: "constraint_violation",
                 severity: .error,
-                source: "validation",
+                source: Self.IssueSourceName,
                 message: message,
                 relatedObjects: violation.objects
                 )
@@ -209,7 +207,7 @@ public struct PlaneValidationResult: Sendable {
             for error in errors {
                 let issue = Issue(
                     identifier: error.issueIdentifier,
-                    severity: .error,
+                    severity: .fatal,
                     source: Self.IssueSourceName,
                     message: error.message,
                     hints: error.hints,
@@ -222,7 +220,7 @@ public struct PlaneValidationResult: Sendable {
             for error in errors {
                 let issue = Issue(
                     identifier: error.issueIdentifier,
-                    severity: .error,
+                    severity: .fatal,
                     source: Self.IssueSourceName,
                     message: error.message,
                     hints: error.hints,

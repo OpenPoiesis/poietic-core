@@ -1,23 +1,28 @@
 //
-//  DesignIssue.swift
+//  Issue.swift
 //  poietic-core
 //
 //  Created by Stefan Urbanek on 02/03/2025.
 //
 
-/// Protocol for errors that can be converted to a design issue.
+/// Marker for errors that can be converted to a design issue.
+///
+/// The protocol is not used as a constraint, just as a documentation.
 public protocol IssueConvertible: Error {
     var issueIdentifier: String { get }
     var message: String { get }
     var hints: [String] { get }
     var details: [String: Variant] { get }
 }
+
 public extension IssueConvertible {
     var hints: [String] { [] }
     var details: [String: Variant] { [:] }
 }
 
 /// Representation of an issue in the design caused by the user.
+///
+/// - SeeAlso: ``RuntimeEntity/appendIssue(_:)``, ``RuntimeEntity/issues``, ``World/hasIssues``
 ///
 public struct Issue: Sendable, CustomStringConvertible {
     public enum Severity: Sendable, CustomStringConvertible {
@@ -52,8 +57,6 @@ public struct Issue: Sendable, CustomStringConvertible {
     ///
     public let severity: Severity
 
-    // TODO: Rename to context
-
     /// Origin of the issue – in which system or part of the application the issue was created.
     ///
     public let source: String
@@ -84,9 +87,8 @@ public struct Issue: Sendable, CustomStringConvertible {
     /// - Parameters:
     ///     - identifier: Error code.
     ///     - severity: Indicator noting how processable the design is.
-    ///     - system: System that detected the issue.
-    ///     - error: Concrete error.
-    ///       developer's language.
+    ///     - source: Name of a system or part of an application the issue was created in.
+    ///     - message: Human readable message to be presented to the user
     ///     - relatedObjects: List of objects that might be be related in the cause of the issue.
     ///     - details: dictionary of details that might be presented by the application to the user.
     ///
