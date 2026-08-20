@@ -58,41 +58,30 @@ public enum EdgeRuleViolation: Error, CustomStringConvertible {
         }
     }
 }
-extension EdgeRuleViolation /*: IssueProtocol */ {
-    public var message: String { description }
+extension EdgeRuleViolation: IssueConvertible {
+    public static let IssueSourceName = "edge_rule_validation"
+
     public var hints: [String] { ["Consult the metamodel"] }
     
-    public func asObjectIssue() -> Issue {
+    public var issueIdentifier: String {
         switch self {
-        case .edgeNotAllowed:
-            Issue(
-                identifier: "edge_not_allowed",
-                severity: .error,
-                system: "EdgeRule",
-                message: self.description,
-                hints: self.hints
-                )
-        case .noRuleSatisfied:
-            Issue(
-                identifier: "no_edge_rule_satisfied",
-                severity: .error,
-                system: "EdgeRule",
-                message: self.description,
-                hints: self.hints
-                )
+        case .cardinalityViolation(_, _): "edge_rule.cardinality_violation"
+        case .edgeNotAllowed: "edge_rule.edge_not_allowed"
+        case .noRuleSatisfied: "edge_rule.no_rule_satisfied"
+        }
+    }
+    public var message: String { description }
+    
+    public var details: [String:Variant] {
+        switch self {
+        case .edgeNotAllowed: [:]
+        case .noRuleSatisfied: [:]
         case let .cardinalityViolation(rule, direction):
-            Issue(
-                identifier: "edge_cardinality_violated",
-                severity: .error,
-                system: "EdgeRule",
-                message: self.description,
-                hints: self.hints,
-                details: [
-                    "incoming_predicate": Variant(rule.incoming.description),
-                    "outgoing_predicate": Variant(rule.outgoing.description),
-                    "direction": Variant(direction.description)
-                    ]
-                )
+            [
+                "incoming_predicate": Variant(rule.incoming.description),
+                "outgoing_predicate": Variant(rule.outgoing.description),
+                "direction": Variant(direction.description)
+            ]
         }
     }
 }

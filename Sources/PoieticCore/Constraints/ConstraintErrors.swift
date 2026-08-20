@@ -9,14 +9,14 @@
 ///
 /// - SeeAlso: ``ConstraintChecker/validate(_:conformsTo:)-(_,ObjectType)``
 ///
-public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIssueConvertible {
+public enum ObjectTypeError: Error, Equatable, CustomStringConvertible {
     
     /// Object type is not known in the metamodel.
     ///
     /// - SeeAlso: ``ObjectProtocol/type``, ``Metamodel/types``
     ///
     case unknownType(String)
-
+    
     /// Object topology does not match required type topology.
     ///
     /// - SeeAlso: ``ObjectType/topologyType``, ``ObjectProtocol/topology``
@@ -31,7 +31,7 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
     
     /// Value for an attribute is not convertible to a required type as
     /// specified in the trait owning the attribute.
-    /// 
+    ///
     /// - SeeAlso: ``Attribute/type``, ``VariableType/isConvertible(to:)``,
     ///   ``Variant/isConvertible(to:)``, ``Variant/isRepresentable(as:)``
     ///
@@ -49,92 +49,40 @@ public enum ObjectTypeError: Error, Equatable, CustomStringConvertible, DesignIs
             "Type mismatch of attribute '\(attribute.name)', \(actualType) is not convertible to \(attribute.type)"
         }
     }
-    
-    public func asDesignIssue() -> DesignIssue {
+}
+extension ObjectTypeError: IssueConvertible {
+    public static let IssueSourceName: String = "validation"
+   
+    public var issueIdentifier: String {
         switch self {
-            
-        case let .missingTraitAttribute(attribute, trait):
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "missing_trait_attribute",
-                        message: description,
-                        hint: nil,
-                        details: [
-                            "attribute": Variant(attribute.name),
-                            "trait": Variant(trait)
-                        ])
-        case let .typeMismatch(attribute, _):
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "attribute_type_mismatch",
-                        message: description,
-                        hint: nil,
-                        details: [
-                            "attribute": Variant(attribute.name),
-                            "expected_type": Variant(attribute.type.description)
-                        ])
-        case let .unknownType(type):
-            DesignIssue(domain: .validation,
-                        severity: .fatal,
-                        identifier: "unknown_type",
-                        message: description,
-                        hint: nil,
-                        details: ["type": Variant(type)])
-        case let .topologyMismatch(type):
-            DesignIssue(domain: .validation,
-                        severity: .error,
-                        identifier: "topology_mismatch",
-                        message: description,
-                        hint: nil,
-                        details: [
-                            "expected_topology": Variant(type.rawValue)
-                        ])
+        case .unknownType(_): "object_type.unknown_type"
+        case .topologyMismatch(_): "object_type.topology_mismatch"
+        case .missingTraitAttribute(_,_): "object_type.missing_trait_attribute"
+        case .typeMismatch(_,_): "object_type.type_mismatch"
         }
     }
-}
-
-extension ObjectTypeError /*: IssueProtocol */ {
     public var message: String { description }
-    public var hints: [String] { ["Consult the metamodel"] }
-    
-    public func asObjectIssue() -> Issue {
+
+    public var hints: [String] { [
+        "Consult the metamodel",
+    ] }
+
+    public var details: [String: Variant] {
         switch self {
-        case let .missingTraitAttribute(attribute, trait):
-            Issue(
-                identifier: "missing_trait_attribute",
-                severity: .fatal,
-                system: "Validation",
-                message: self.description,
-                details: [
-                    "attribute": Variant(attribute.name),
-                    "trait": Variant(trait)
-                ])
-        case let .typeMismatch(attribute, _):
-            Issue(
-                identifier: "attribute_type_mismatch",
-                severity: .fatal,
-                system: "Validation",
-                message: self.description,
-                details: [
-                    "attribute": Variant(attribute.name),
-                    "expected_type": Variant(attribute.type.description)
-                ])
         case let .unknownType(type):
-            Issue(
-                identifier: "unknown_type",
-                severity: .fatal,
-                system: "Validation",
-                message: self.description,
-                details: ["type": Variant(type)])
+            ["type": Variant(type)]
         case let .topologyMismatch(type):
-            Issue(
-                identifier: "topology_mismatch",
-                severity: .fatal,
-                system: "Validation",
-                message: self.description,
-                details: [
-                    "expected_topology": Variant(type.rawValue)
-                ])
+            ["expected_topology": Variant(type.rawValue)]
+        case let .missingTraitAttribute(attribute, trait):
+            [
+              "attribute": Variant(attribute.name),
+              "trait": Variant(trait)
+            ]
+        case let .typeMismatch(attribute, _):
+            [
+              "attribute": Variant(attribute.name),
+              "expected_type": Variant(attribute.type.description)
+            ]
         }
     }
 }
@@ -240,7 +188,7 @@ public struct PlaneValidationResult: Sendable {
             let issue = Issue(
                 identifier: "constraint_violation:",
                 severity: .error,
-                system: "Validation",
+                source: "validation",
                 message: message,
                 relatedObjects: violation.objects
                 )
@@ -248,6 +196,8 @@ public struct PlaneValidationResult: Sendable {
         }
         return result
     }
+    
+    public static let IssueSourceName: String = "PlaneValidation"
     
     /// Convert object errors and edge rule violations to object issues.
     ///
@@ -257,13 +207,27 @@ public struct PlaneValidationResult: Sendable {
         var result: [ObjectID:[Issue]] = [:]
         for (id, errors) in objectErrors {
             for error in errors {
-                let issue = error.asObjectIssue()
+                let issue = Issue(
+                    identifier: error.issueIdentifier,
+                    severity: .error,
+                    source: Self.IssueSourceName,
+                    message: error.message,
+                    hints: error.hints,
+                    details: error.details,
+                )
                 result[id, default: []].append(issue)
             }
         }
         for (id, errors) in edgeRuleViolations {
             for error in errors {
-                let issue = error.asObjectIssue()
+                let issue = Issue(
+                    identifier: error.issueIdentifier,
+                    severity: .error,
+                    source: Self.IssueSourceName,
+                    message: error.message,
+                    hints: error.hints,
+                    details: error.details,
+                )
                 result[id, default: []].append(issue)
             }
         }

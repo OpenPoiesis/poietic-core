@@ -9,16 +9,4 @@
 
 // Testing convenience methods
 extension World {
-    func objectHasError<T:IssueProtocol>(_ objectID: ObjectID, error: T) -> Bool {
-        guard let entity = self.entity(objectID),
-              let issues = entity.issues
-        else { return false }
-
-        for issue in issues {
-            if let objectError = issue.error as? T, objectError == error {
-                return true
-            }
-        }
-        return false
-    }
 }

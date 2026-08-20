@@ -389,9 +389,34 @@ public enum ExpressionError: Error, CustomStringConvertible, Equatable {
     }
 }
 
-extension ExpressionError: IssueProtocol {
+extension ExpressionError: IssueConvertible {
     public var message: String { "Formula error: " + description }
-    public var hints: [String] { ["Check the variables, types and functions in the formula and consult the manual for list of available variables and functions."] }
+    public var hints: [String] { [
+        "Check the variables, types and functions in the formula",
+        "Consult the manual for list of available built-in variables and functions.",
+    ] }
+    
+    public var issueIdentifier: String {
+        switch self {
+        case .unknownVariable(_): "expression.unknown_variable"
+        case .unknownFunction(_): "expression.unknown_function"
+        case .invalidNumberOfArguments(_,_,_): "expression.invalid_argument_count"
+        case .argumentTypeMismatch(_, _): "expression.argument_type_mismatch"
+        }
+    }
+    
+    public var details: [String : Variant] {
+        switch self {
+        case let .unknownVariable(name):
+            ["variable": Variant(name)]
+        case let .unknownFunction(name):
+            ["function": Variant(name)]
+        case let .invalidNumberOfArguments(function, _, expected):
+            ["function": Variant(function), "expected_arguments": Variant(expected)]
+        case let .argumentTypeMismatch(function, _):
+            ["function": Variant(function)]
+        }
+    }
     
 }
 

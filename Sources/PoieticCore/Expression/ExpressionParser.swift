@@ -27,7 +27,17 @@ public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
     }
 }
 
-extension ExpressionSyntaxError: IssueProtocol {
+extension ExpressionSyntaxError: IssueConvertible {
+    public var issueIdentifier: String {
+        switch self {
+        case .invalidCharacterInNumber: "expression_syntax.invalid_character_in_number"
+        case .numberExpected: "expression_syntax.number_expected"
+        case .unexpectedCharacter: "expression_syntax.unexpected_character"
+        case .missingRightParenthesis: "expression_syntax.missing_right_parenthesis"
+        case .expressionExpected: "expression_syntax.expression_expected"
+        case .unexpectedToken: "expression_syntax.unexpected_token"
+        }
+    }
     public var message: String { "Formula error: " + self.description }
     public var hints: [String] { ["Check the formula syntax"] }
 }

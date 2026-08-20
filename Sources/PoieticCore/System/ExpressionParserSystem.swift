@@ -44,13 +44,14 @@ public struct ExpressionParserSystem: System {
         }
         catch {
             let issue = Issue(
-                identifier: "syntax_error",
+                identifier: error.issueIdentifier,
                 severity: .error,
-                system: self,
-                error: error,
+                source: "ExpressionParserSystem",
+                message: error.message,
+                hints: error.hints,
                 details: [
-                    "attribute": "formula",
-                    "underlying_error": Variant(error.description),
+                    "attribute": "formula"
+                    // TODO: Add parser position and token range
                 ]
             )
 
