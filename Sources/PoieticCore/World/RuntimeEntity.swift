@@ -57,18 +57,31 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
     
     /// Design object ID of the entity, if the entity represents a design object.
     ///
+    /// Entities represented by a design object have ``ObjectReference`` component on them.
+    /// This is a convenience method to retrieve the object ID from the component.
+    ///
     /// - SeeAlso: ``designObject``
     ///
-    public var objectID: ObjectID? { world.entityToObjectMap[runtimeID] }
+    public var objectID: ObjectID? {
+        guard let reference = world._getComponent(ObjectReference.self, for: runtimeID)
+        else { return nil }
+
+        return reference.objectID
+    }
     
     /// Get corresponding design object that is being represented by the runtime entity, if it
     /// exists in the world's current plane.
     ///
+    /// Entities represented by a design object have ``ObjectReference`` component on them.
+    /// This is a convenience method to retrieve the object snapshot through the component.
+    ///
     /// - SeeAlso: ``objectID``
     ///
     public var designObject: ObjectSnapshot? {
-        guard let objectID = world.entityToObjectMap[runtimeID] else { return nil }
-        return world.plane?[objectID]
+        guard let reference = world._getComponent(ObjectReference.self, for: runtimeID)
+        else { return nil }
+
+        return world.plane?[reference.objectID]
     }
     
     internal init(runtimeID: RuntimeID, world: World) {

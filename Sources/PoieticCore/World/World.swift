@@ -12,12 +12,22 @@ public struct ObjectTouched: TagComponent {
     public init() {}
 }
 
-/// Reference to an object snapshot by ID.
-public struct ObjectSnapshotRef: Component {
-    let snapshotID: ObjectSnapshotID
-    // TODO: Documentation
-    public init(_ snapshotID: ObjectSnapshotID) {
+/// References an object snapshot in the design.
+///
+public struct ObjectReference: Component {
+    public let objectID: ObjectID
+    public let snapshotID: ObjectSnapshotID
+
+    /// Create anew object reference with given object identities.
+    ///
+    public init(objectID: ObjectID, snapshotID: ObjectSnapshotID) {
+        self.objectID = objectID
         self.snapshotID = snapshotID
+    }
+
+    public init(_ snapshot: ObjectSnapshot) {
+        self.objectID = snapshot.objectID
+        self.snapshotID = snapshot.snapshotID
     }
 }
 
@@ -37,12 +47,19 @@ public struct ObjectSnapshotRef: Component {
 ///
 /// World is primarily a runtime instance of a design, specifically of a design plane.
 ///
+/// Setting a design plane creates or updates entities that represent logical objects in the plane.
+/// Such entities have ``ObjectReference`` component set on them on creation. The component is
+/// updated when there is a new snapshot for given logical object.
+///
+/// - Note: Entities representing design objects live as long as the logical object
+///   (identified by ``ObjectID``) exists in the planes set by ``setPlane(_:)``. Once
+///   despawned, new design object representing entities will get new ID, despite having
+///   the same `ObjectID` as their previous instances.
+///
 /// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
 public class World {
     public let design: Design
-    // FIXME: Rename to currentPlane
-    
     public private(set) var plane: DesignPlane?
     
     // Identity
@@ -56,7 +73,6 @@ public class World {
     var scheduleLabels: [ObjectIdentifier:String]
     
     // TODO: Make issues a component, to unify the interface.
-    // TODO: Make a special error protocol conforming to custom str convertible and having property 'hint:String'
     /// Issues collected during plane processing.
     ///
     /// These are non-fatal issues that indicate problems with the design - with the user data.
@@ -73,7 +89,6 @@ public class World {
     public internal(set) var issues: [ObjectID: [Issue]]
     
     internal var objectToEntityMap: [ObjectID:RuntimeID]
-    internal var entityToObjectMap: [RuntimeID:ObjectID]
 
     /// List of entities contained in this world.
     ///
@@ -100,7 +115,6 @@ public class World {
         self.entities = []
         
         self.objectToEntityMap = [:]
-        self.entityToObjectMap = [:]
         self.plane = nil
         self.singletons = ComponentSet()
     }
@@ -115,14 +129,6 @@ public class World {
         setPlane(plane)
     }
     
-    /// Get an object ID for an object the entity represents, if the object exists in the current
-    /// world plane.
-    ///
-    /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
-    ///
-    internal func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
-        entityToObjectMap[ephemeralID]
-    }
     /// Get an entity that represents an object with given ID, if such entity exists.
     ///
     /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
@@ -232,13 +238,13 @@ public class World {
         
         for snapshot in newPlane.snapshots {
             if let existing = self.entity(snapshot.objectID) {
-                guard let existingRef = _getComponent(ObjectSnapshotRef.self, for: existing.runtimeID)
+                guard let existingRef = _getComponent(ObjectReference.self, for: existing.runtimeID)
                 else {
-                    preconditionFailure("Object snapshot has no ObjectSnapshotRef component")
+                    preconditionFailure("Object snapshot has no ObjectReference component")
                 }
                 if existingRef.snapshotID != snapshot.snapshotID {
                     _setComponent(ObjectTouched(), for: existing.runtimeID)
-                    _setComponent(ObjectSnapshotRef(snapshot.snapshotID), for: existing.runtimeID)
+                    _setComponent(ObjectReference(snapshot), for: existing.runtimeID)
                 }
             }
             else {
@@ -252,18 +258,17 @@ public class World {
     
     private func _spawnDesignObjectEntity(_ snapshot: ObjectSnapshot) {
         let entity: RuntimeEntity = spawn(
-            ObjectSnapshotRef(snapshot.snapshotID),
+            ObjectReference(snapshot),
             ObjectTouched(),
         )
         objectToEntityMap[snapshot.objectID] = entity.runtimeID
-        entityToObjectMap[entity.runtimeID] = snapshot.objectID
     }
 
     public func removePlane() {
         self.plane = nil
-        despawn(entityToObjectMap.keys)
-        objectToEntityMap.removeAll()
-        entityToObjectMap.removeAll()
+        let storage = self.componentStorage(for: ObjectReference.self)
+        let trash = Array(storage.ids)
+        despawn(trash)
     }
     
 
@@ -347,10 +352,10 @@ public class World {
         }
         entities.removeAll { removed.contains($0) }
     }
-
+    
     private func _remove(_ runtimeID: RuntimeID) {
-        if let objectID = entityToObjectMap.removeValue(forKey: runtimeID) {
-            objectToEntityMap.removeValue(forKey: objectID)
+        if let ref = _getComponent(ObjectReference.self, for: runtimeID){
+            objectToEntityMap.removeValue(forKey: ref.objectID)
         }
         _removeAllComponents(for: runtimeID)
         _removeAllRelationships(with: runtimeID)
