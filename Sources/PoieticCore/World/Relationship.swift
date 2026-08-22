@@ -55,6 +55,9 @@ public enum Cardinality: Sendable, Equatable {
 /// - ``ChildOf`` – parent-child hierarchy, despawned with target
 /// - ``MemberOf`` – non-hierarchical ownership dependency, despawned with target
 /// - ``RepresentationOf`` – Visual/semantic representation, despawned with target
+/// - ``Controls`` – relationship between an interactive control and a controlled entity,
+///    for example between a slider and a simulation parameter.
+/// - ``Handles`` – relationship between a visual handle and an entity it handles.
 ///
 public protocol Relationship: Component {
     /// Defines what happens to the origin entity when the target entity is despawned.
@@ -84,7 +87,11 @@ public protocol Relationship: Component {
 
 extension Relationship {
     public static var outgoingCardinality: Cardinality { .one }
-    // TODO: Add incomingCardinality following once needed
+    // TODO: Add incomingCardinality once needed. Currently not expressible.
+    // NOTE: The relationships in the world are orthogonal to relationships as specified in the
+    //       metamodel. Therefore if there is incoming cardinality `one` in the metamodel, it is
+    //       handled at structural integrity of a design plane through the metamodel, not here.
+    // public static var incomingCardinality: Cardinality { .many }
 }
 
 // MARK: - Relationship Components

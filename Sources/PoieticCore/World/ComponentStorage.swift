@@ -24,19 +24,6 @@ public protocol ComponentStorageProtocol<ComponentType> {
 
     func removeComponent(for entity: RuntimeID)
     func removeAll()
-    func relationship(for runtimeID: RuntimeID) -> (any Relationship)?
-}
-
-extension ComponentStorageProtocol {
-    public func relationship(for runtimeID: RuntimeID) -> (any Relationship)? {
-        return nil
-    }
-}
-
-extension ComponentStorageProtocol where ComponentType: Relationship {
-    func relationship(for runtimeID: RuntimeID) -> (any Relationship)? {
-        return component(for: runtimeID)
-    }
 }
 
 public final class DictionaryComponentStorage<C: Component>: ComponentStorageProtocol {

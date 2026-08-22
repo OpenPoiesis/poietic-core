@@ -63,7 +63,7 @@ public struct ComponentSet {
         let typeID = ObjectIdentifier(componentType)
         components[typeID] = nil
     }
-    public mutating func remove(_ oid: ObjectIdentifier) {
+    internal mutating func remove(_ oid: ObjectIdentifier) {
         components[oid] = nil
     }
 

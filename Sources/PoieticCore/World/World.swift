@@ -231,7 +231,7 @@ public class World {
                 trash.append(runtimeID)
             }
         }
-        _unsafeDespawn(trash)
+        _despawnCascading(trash)
         
         for snapshot in newPlane.snapshots {
             if let existing = self.entity(snapshot.objectID) {
@@ -265,7 +265,8 @@ public class World {
         self.plane = nil
         let storage = self.componentStorage(for: ObjectReference.self)
         let trash = Array(storage.ids)
-        despawn(trash)
+        // NOTE: objectToEntityMap is cleared per-entity in the following despawn
+        _despawnCascading(trash)
     }
     
 
@@ -273,7 +274,7 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: [any Component] = []) -> RuntimeID {
+    public func spawn(_ components: [any Component] = []) -> RuntimeEntity {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
@@ -281,12 +282,11 @@ public class World {
         for component in components {
             self._setComponent(component, for: id)
         }
-        return id
+        return RuntimeEntity(runtimeID: id, world: self)
     }
 
     public func spawn(_ components: any Component...) -> RuntimeEntity {
-        let id = self.spawn(components)
-        return RuntimeEntity(runtimeID: id, world: self)
+        return self.spawn(components)
     }
     
     /// Removes the entity from the world and all entities that depend on it.
@@ -342,7 +342,8 @@ public class World {
                         visited.insert(originID)
                         queue.append(originID)
                     case .remove:
-                        // No need to do anything, will be removed in defer block.
+                        // The relationship will be removed later in _remove(...) when the target
+                        // is despawned.
                         break
                     case .fatalError:
                         fatalError("Dangling relationship")
@@ -353,7 +354,12 @@ public class World {
         return visited
     }
     
-    /// Despawns entities without checking for dependencies.
+    internal func _despawnCascading(_ trash: some Sequence<RuntimeID>) {
+        _unsafeDespawn(_cascadingDependencies(of: Set(trash)))
+    }
+
+    /// Despawns only entities listed, without checking for dependencies cascade and without
+    /// checking for any referential integrity related preconditions.
     ///
     internal func _unsafeDespawn(_ trash: some Sequence<RuntimeID>) {
         for id in trash {
@@ -541,13 +547,13 @@ public class World {
         }
     }
 
-    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
+    internal func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
         let storageTypeID = ObjectIdentifier(type)
         guard let storage = relationshipStorages[storageTypeID] else { return false }
         return storage.hasRelationship(from: origin)
     }
     
-    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID, to target: RuntimeID) -> Bool {
+    internal func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID, to target: RuntimeID) -> Bool {
         let storageTypeID = ObjectIdentifier(type)
         guard let storage = relationshipStorages[storageTypeID] else { return false }
         return storage.hasRelationship(from: origin, to: target)
