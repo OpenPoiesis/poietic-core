@@ -70,7 +70,6 @@ public class World {
     internal var entitySequence: UInt64
 
     var schedules: [ObjectIdentifier:Schedule]
-    var scheduleLabels: [ObjectIdentifier:String]
     
     // TODO: Make issues a component, to unify the interface.
     /// Issues collected during plane processing.
@@ -92,7 +91,7 @@ public class World {
 
     /// List of entities contained in this world.
     ///
-    internal var entities: [RuntimeID]
+    internal var entities: Set<RuntimeID>
 
     /// Components without an entity.
     ///
@@ -110,9 +109,8 @@ public class World {
         self.design = design
         self.entitySequence = 1
         self.schedules = [:]
-        self.scheduleLabels = [:]
         self.issues = [:]
-        self.entities = []
+        self.entities = Set()
         
         self.objectToEntityMap = [:]
         self.plane = nil
@@ -162,7 +160,6 @@ public class World {
     public func addSchedule(_ schedule: Schedule) {
         let id = ObjectIdentifier(schedule.label)
         self.schedules[id] = schedule
-        self.scheduleLabels[id] = String(describing: schedule.label)
     }
 
     /// Runs systems in a schedule.
@@ -280,7 +277,7 @@ public class World {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
-        self.entities.append(id)
+        self.entities.insert(id)
         for component in components {
             self._setComponent(component, for: id)
         }
@@ -328,15 +325,6 @@ public class World {
         _unsafeDespawn(trash)
     }
     
-    /// Despawns entities without checking for dependencies.
-    ///
-    internal func _unsafeDespawn(_ trash: some Sequence<RuntimeID>) {
-        for id in trash {
-            _remove(id)
-        }
-        entities.removeAll { trash.contains($0) }
-    }
-    
     internal func _cascadingDependencies(of ids: Set<RuntimeID>) -> Set<RuntimeID> {
         var visited = ids
         var queue = Array(ids)
@@ -363,6 +351,15 @@ public class World {
             }
         }
         return visited
+    }
+    
+    /// Despawns entities without checking for dependencies.
+    ///
+    internal func _unsafeDespawn(_ trash: some Sequence<RuntimeID>) {
+        for id in trash {
+            _remove(id)
+        }
+        entities.subtract(trash)
     }
     
     private func _remove(_ runtimeID: RuntimeID) {
