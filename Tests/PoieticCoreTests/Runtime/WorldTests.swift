@@ -215,15 +215,20 @@ struct ManyRelationship: Relationship, Sendable {
     @Test func frameObjectEntities() throws {
         let world = World(plane: self.testFrame)
         
-        let ent0 = try #require(world.objectToEntity(objectIDs[0]))
-        #expect(world.entityToObject(ent0) == objectIDs[0])
+        let ent0 = try #require(world.entity(objectIDs[0]))
+        let ref0: ObjectReference = try #require(ent0.component())
+        #expect(ref0.objectID == objectIDs[0])
         #expect(world.contains(ent0))
-        let ent1 = try #require(world.objectToEntity(objectIDs[1]))
-        #expect(world.entityToObject(ent1) == objectIDs[1])
-        #expect(world.contains(ent1))
-        let ent2 = try #require(world.objectToEntity(objectIDs[2]))
-        #expect(world.entityToObject(ent2) == objectIDs[2])
-        #expect(world.contains(ent2))
+        
+        let ent1 = try #require(world.entity(objectIDs[1]))
+        let ref1: ObjectReference = try #require(ent1.component())
+        #expect(ref1.objectID == objectIDs[1])
+        #expect(world.contains(ent0))
+
+        let ent2 = try #require(world.entity(objectIDs[2]))
+        let ref2: ObjectReference = try #require(ent2.component())
+        #expect(ref2.objectID == objectIDs[2])
+        #expect(world.contains(ent0))
     }
     @Test func frameRemovedObjects() throws {
         let world = World(plane: self.testFrame)
@@ -506,5 +511,43 @@ struct ManyRelationship: Relationship, Sendable {
 
         #expect(world.entities.count == 1)
         #expect(world.contains(survivor.runtimeID))
+    }
+
+    // MARK: - ObjectReference & design-object entity lifecycle
+
+    @Test func queryObjectReference() throws {
+        let world = World(plane: self.testFrame)
+
+        let result: QueryResult<(RuntimeEntity, ObjectReference)> = world.query(ObjectReference.self)
+        let pairs = Array(result)
+
+        #expect(pairs.count == 3)
+        let ids = Set(pairs.map { $0.1.objectID })
+        #expect(ids == Set(objectIDs))
+    }
+
+    @Test func removePlaneDespawnsDesignEntities() throws {
+        let world = World(plane: self.testFrame)
+        #expect(world.entities.count == 3)
+
+        world.removePlane()
+
+        #expect(world.plane == nil)
+        #expect(world.entities.count == 0)
+    }
+
+    @Test func setPlaneCascadesToRepresentations() throws {
+        let world = World(plane: self.testFrame)
+        let designEntity = try #require(world.entity(objectIDs[0]))
+        let visual: RuntimeEntity = world.spawn()
+        visual.relate(RepresentationOf(), to: designEntity)
+        #expect(world.contains(visual))
+
+        // Removing the plane must also cascade-despawn the visual representation,
+        // because RepresentationOf has targetRemovalPolicy == .despawn.
+        world.setPlane(self.emptyFrame)
+
+        #expect(world.entities.count == 0)
+        #expect(!world.contains(visual))
     }
 }

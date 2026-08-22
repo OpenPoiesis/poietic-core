@@ -121,8 +121,8 @@ import Testing
         #expect(e1.contains(ObjectTouched.self))
         #expect(e2.contains(ObjectTouched.self))
 
-        let snap1: ObjectSnapshotRef = try #require(e1.component())
-        let snap2: ObjectSnapshotRef = try #require(e2.component())
+        let snap1: ObjectReference = try #require(e1.component())
+        let snap2: ObjectReference = try #require(e2.component())
         
         #expect(snap1.snapshotID == frameWithTwo[firstObjectID]?.snapshotID)
         #expect(snap2.snapshotID == frameWithTwo[secondObjectID]?.snapshotID)
@@ -195,13 +195,13 @@ import Testing
         let changed = try #require(world.entity(firstObjectID))
         let unchanged = try #require(world.entity(secondObjectID))
 
-        let changedSnapBefore: ObjectSnapshotRef = try #require(changed.component())
-        let unchangedSnapBefore: ObjectSnapshotRef = try #require(unchanged.component())
+        let changedSnapBefore: ObjectReference = try #require(changed.component())
+        let unchangedSnapBefore: ObjectReference = try #require(unchanged.component())
 
         world.setPlane(frameWithMutation)
 
-        let changedSnapAfter: ObjectSnapshotRef = try #require(changed.component())
-        let unchangedSnapAfter: ObjectSnapshotRef = try #require(unchanged.component())
+        let changedSnapAfter: ObjectReference = try #require(changed.component())
+        let unchangedSnapAfter: ObjectReference = try #require(unchanged.component())
 
         #expect(changed.objectID == firstObjectID)
         #expect(unchanged.objectID == secondObjectID)

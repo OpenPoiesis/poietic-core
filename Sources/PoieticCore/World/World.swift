@@ -12,12 +12,22 @@ public struct ObjectTouched: TagComponent {
     public init() {}
 }
 
-/// Reference to an object snapshot by ID.
-public struct ObjectSnapshotRef: Component {
-    let snapshotID: ObjectSnapshotID
-    // TODO: Documentation
-    public init(_ snapshotID: ObjectSnapshotID) {
+/// References an object snapshot in the design.
+///
+public struct ObjectReference: Component {
+    public let objectID: ObjectID
+    public let snapshotID: ObjectSnapshotID
+
+    /// Create anew object reference with given object identities.
+    ///
+    public init(objectID: ObjectID, snapshotID: ObjectSnapshotID) {
+        self.objectID = objectID
         self.snapshotID = snapshotID
+    }
+
+    public init(_ snapshot: ObjectSnapshot) {
+        self.objectID = snapshot.objectID
+        self.snapshotID = snapshot.snapshotID
     }
 }
 
@@ -37,12 +47,21 @@ public struct ObjectSnapshotRef: Component {
 ///
 /// World is primarily a runtime instance of a design, specifically of a design plane.
 ///
+/// Setting a design plane creates or updates entities that represent logical objects in the plane.
+/// Such entities have ``ObjectReference`` component set on them on creation. The component is
+/// updated when there is a new snapshot for given logical object.
+///
 /// - SeeAlso: ``RuntimeEntity``, ``Component``, ``Relationship``
 ///
+/// - Note: Entities representing design objects live as long as the logical object
+///   (identified by ``ObjectID``) exists in the planes set by ``setPlane(_:)``. Once
+///   despawned, new design object representing entities will get new ID, despite having
+///   the same `ObjectID` as their previous instances.
+///
+/// - Note: World must outlive all of its ``RuntimeEntity`` handles.
+
 public class World {
     public let design: Design
-    // FIXME: Rename to currentPlane
-    
     public private(set) var plane: DesignPlane?
     
     // Identity
@@ -53,10 +72,8 @@ public class World {
     internal var entitySequence: UInt64
 
     var schedules: [ObjectIdentifier:Schedule]
-    var scheduleLabels: [ObjectIdentifier:String]
     
     // TODO: Make issues a component, to unify the interface.
-    // TODO: Make a special error protocol conforming to custom str convertible and having property 'hint:String'
     /// Issues collected during plane processing.
     ///
     /// These are non-fatal issues that indicate problems with the design - with the user data.
@@ -73,11 +90,10 @@ public class World {
     public internal(set) var issues: [ObjectID: [Issue]]
     
     internal var objectToEntityMap: [ObjectID:RuntimeID]
-    internal var entityToObjectMap: [RuntimeID:ObjectID]
 
     /// List of entities contained in this world.
     ///
-    internal var entities: [RuntimeID]
+    internal var entities: Set<RuntimeID>
 
     /// Components without an entity.
     ///
@@ -95,12 +111,10 @@ public class World {
         self.design = design
         self.entitySequence = 1
         self.schedules = [:]
-        self.scheduleLabels = [:]
         self.issues = [:]
-        self.entities = []
+        self.entities = Set()
         
         self.objectToEntityMap = [:]
-        self.entityToObjectMap = [:]
         self.plane = nil
         self.singletons = ComponentSet()
     }
@@ -115,14 +129,6 @@ public class World {
         setPlane(plane)
     }
     
-    /// Get an object ID for an object the entity represents, if the object exists in the current
-    /// world plane.
-    ///
-    /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
-    ///
-    internal func entityToObject(_ ephemeralID: RuntimeID) -> ObjectID? {
-        entityToObjectMap[ephemeralID]
-    }
     /// Get an entity that represents an object with given ID, if such entity exists.
     ///
     /// Objects in the ``plane`` are always guaranteed to have an entity that represents them.
@@ -156,7 +162,6 @@ public class World {
     public func addSchedule(_ schedule: Schedule) {
         let id = ObjectIdentifier(schedule.label)
         self.schedules[id] = schedule
-        self.scheduleLabels[id] = String(describing: schedule.label)
     }
 
     /// Runs systems in a schedule.
@@ -228,17 +233,17 @@ public class World {
                 trash.append(runtimeID)
             }
         }
-        despawn(trash)
+        _despawnCascading(trash)
         
         for snapshot in newPlane.snapshots {
             if let existing = self.entity(snapshot.objectID) {
-                guard let existingRef = _getComponent(ObjectSnapshotRef.self, for: existing.runtimeID)
+                guard let existingRef = _getComponent(ObjectReference.self, for: existing.runtimeID)
                 else {
-                    preconditionFailure("Object snapshot has no ObjectSnapshotRef component")
+                    preconditionFailure("Object snapshot has no ObjectReference component")
                 }
                 if existingRef.snapshotID != snapshot.snapshotID {
                     _setComponent(ObjectTouched(), for: existing.runtimeID)
-                    _setComponent(ObjectSnapshotRef(snapshot.snapshotID), for: existing.runtimeID)
+                    _setComponent(ObjectReference(snapshot), for: existing.runtimeID)
                 }
             }
             else {
@@ -252,18 +257,18 @@ public class World {
     
     private func _spawnDesignObjectEntity(_ snapshot: ObjectSnapshot) {
         let entity: RuntimeEntity = spawn(
-            ObjectSnapshotRef(snapshot.snapshotID),
+            ObjectReference(snapshot),
             ObjectTouched(),
         )
         objectToEntityMap[snapshot.objectID] = entity.runtimeID
-        entityToObjectMap[entity.runtimeID] = snapshot.objectID
     }
 
     public func removePlane() {
         self.plane = nil
-        despawn(entityToObjectMap.keys)
-        objectToEntityMap.removeAll()
-        entityToObjectMap.removeAll()
+        let storage = self.componentStorage(for: ObjectReference.self)
+        let trash = Array(storage.ids)
+        // NOTE: objectToEntityMap is cleared per-entity in the following despawn
+        _despawnCascading(trash)
     }
     
 
@@ -271,20 +276,19 @@ public class World {
     ///
     /// - Returns: Entity ID of the spawned entity.
     ///
-    public func spawn(_ components: [any Component] = []) -> RuntimeID {
+    public func spawn(_ components: [any Component] = []) -> RuntimeEntity {
         let value = entitySequence
         entitySequence += 1
         let id = RuntimeID(intValue: value)
-        self.entities.append(id)
+        self.entities.insert(id)
         for component in components {
             self._setComponent(component, for: id)
         }
-        return id
+        return RuntimeEntity(runtimeID: id, world: self)
     }
 
     public func spawn(_ components: any Component...) -> RuntimeEntity {
-        let id = self.spawn(components)
-        return RuntimeEntity(runtimeID: id, world: self)
+        return self.spawn(components)
     }
     
     /// Removes the entity from the world and all entities that depend on it.
@@ -311,33 +315,37 @@ public class World {
     /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
     /// ``RelationshipRemovalPolicy/despawn``.
     ///
+    /// - Precondition: Design object entities – entities with ``ObjectReference``
+    ///   component – can not be despawned.
+    ///
     public func despawn(_ ids: some Sequence<RuntimeID>) {
-        // TODO: Check for existence
-        var trash: Set<RuntimeID> = Set(ids)
-        guard !trash.isEmpty else { return }
+        let trash = _cascadingDependencies(of: Set(ids))
+        for id in trash {
+            precondition(!_containsComponent(ObjectReference.self, for: id),
+            "Cannot despawn entity representing design object")
+        }
+        _unsafeDespawn(trash)
+    }
+    
+    internal func _cascadingDependencies(of ids: Set<RuntimeID>) -> Set<RuntimeID> {
+        var visited = ids
+        var queue = Array(ids)
         
-        var removed: Set<RuntimeID> = []
-        
-        while !trash.isEmpty {
-            let id = trash.removeFirst()
-            removed.insert(id)
-
-            defer {
-                // Must run after the for-loop below — relationships must still
-                // exist during cascade discovery via dependants(of:).
-                _remove(id)
-            }
-
+        while !queue.isEmpty {
+            let id = queue.removeLast()
+            
             for storage in relationshipStorages.values {
                 let policy = storage.targetRemovalPolicy
+
                 for originID in storage.dependants(of: id) {
-                    guard !removed.contains(originID) && !trash.contains(originID)
-                    else { continue }
+                    guard !visited.contains(originID) else { continue }
                     switch policy {
                     case .despawn:
-                        trash.insert(originID)
+                        visited.insert(originID)
+                        queue.append(originID)
                     case .remove:
-                        // No need to do anything, will be removed in defer block.
+                        // The relationship will be removed later in _remove(...) when the target
+                        // is despawned.
                         break
                     case .fatalError:
                         fatalError("Dangling relationship")
@@ -345,12 +353,26 @@ public class World {
                 }
             }
         }
-        entities.removeAll { removed.contains($0) }
+        return visited
+    }
+    
+    internal func _despawnCascading(_ trash: some Sequence<RuntimeID>) {
+        _unsafeDespawn(_cascadingDependencies(of: Set(trash)))
     }
 
+    /// Despawns only entities listed, without checking for dependencies cascade and without
+    /// checking for any referential integrity related preconditions.
+    ///
+    internal func _unsafeDespawn(_ trash: some Sequence<RuntimeID>) {
+        for id in trash {
+            _remove(id)
+        }
+        entities.subtract(trash)
+    }
+    
     private func _remove(_ runtimeID: RuntimeID) {
-        if let objectID = entityToObjectMap.removeValue(forKey: runtimeID) {
-            objectToEntityMap.removeValue(forKey: objectID)
+        if let ref = _getComponent(ObjectReference.self, for: runtimeID){
+            objectToEntityMap.removeValue(forKey: ref.objectID)
         }
         _removeAllComponents(for: runtimeID)
         _removeAllRelationships(with: runtimeID)
@@ -527,13 +549,13 @@ public class World {
         }
     }
 
-    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
+    internal func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID) -> Bool {
         let storageTypeID = ObjectIdentifier(type)
         guard let storage = relationshipStorages[storageTypeID] else { return false }
         return storage.hasRelationship(from: origin)
     }
     
-    public func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID, to target: RuntimeID) -> Bool {
+    internal func _containsRelationship<T: Relationship>(_ type: T.Type, from origin: RuntimeID, to target: RuntimeID) -> Bool {
         let storageTypeID = ObjectIdentifier(type)
         guard let storage = relationshipStorages[storageTypeID] else { return false }
         return storage.hasRelationship(from: origin, to: target)
@@ -581,16 +603,6 @@ public class World {
 
         let result = QueryResult(world: self, ids: storage.ids)  {
             RuntimeEntity(runtimeID: $1, world: self)
-        }
-        return result
-    }
-
-    /// - Complexity: O(n). For now. See ``QueryResult`` for developer comments.
-    ///
-    public func query<T: Component>(_ componentType: T.Type) -> QueryResult<T> {
-        let storage = self.componentStorage(for: componentType)
-        let result = QueryResult(world: self, ids: storage.ids)  {
-            storage.component(for: $1)
         }
         return result
     }

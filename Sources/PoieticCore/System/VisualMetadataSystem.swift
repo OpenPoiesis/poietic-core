@@ -13,8 +13,7 @@
 /// - **Forgiveness:** Nothing to be forgiven.
 ///
 public struct VisualMetadataSystem: System {
-    public init(_ world: World) { }
-    public func update(_ world: World) throws(InternalSystemError) {
+    public static func update(_ world: World) throws(InternalSystemError) {
         guard let plane = world.plane else { return }
         
         for object in plane.filter(trait: .NumericValue) {

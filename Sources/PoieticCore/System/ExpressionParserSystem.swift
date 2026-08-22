@@ -23,8 +23,7 @@ public struct ParsedExpressionComponent: Component {
 /// - **Forgiveness:** Objects with missing or invalid `formula` attribute will be ignored.
 ///
 public struct ExpressionParserSystem: System {
-    public init(_ world: World) { }
-    public func update(_ world: World) {
+    public static func update(_ world: World) throws (InternalSystemError) {
         guard let plane = world.plane else { return }
         
         for object in plane.filter(trait: .Formula) {
@@ -35,7 +34,8 @@ public struct ExpressionParserSystem: System {
             
         }
     }
-    func parseExpression(_ formula: String, object: ObjectSnapshot, entity: RuntimeEntity) {
+
+    static func parseExpression(_ formula: String, object: ObjectSnapshot, entity: RuntimeEntity) {
         let expr: UnboundExpression
         let component: ParsedExpressionComponent
         let parser = ExpressionParser(string: formula)

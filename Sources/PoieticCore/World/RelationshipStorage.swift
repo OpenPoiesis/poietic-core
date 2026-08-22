@@ -170,10 +170,6 @@ final class RelationshipStorage<C: Relationship>: RelationshipStorageProtocol {
         }
         return result
     }
-    func outgoing(from origin: RuntimeID) -> [RuntimeID] {
-        return Array(outgoingIndex[origin, default: []])
-    }
-
     func firstOutgoing(from origin: RuntimeID) -> RuntimeID? {
         return outgoingIndex[origin]?.first
     }
