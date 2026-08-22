@@ -234,7 +234,7 @@ public class World {
                 trash.append(runtimeID)
             }
         }
-        despawn(trash)
+        _unsafeDespawn(trash)
         
         for snapshot in newPlane.snapshots {
             if let existing = self.entity(snapshot.objectID) {
@@ -316,31 +316,43 @@ public class World {
     /// relationship removal policy (``Relationship/targetRemovalPolicy``) is
     /// ``RelationshipRemovalPolicy/despawn``.
     ///
+    /// - Precondition: Design object entities – entities with ``ObjectReference``
+    ///   component – can not be despawned.
+    ///
     public func despawn(_ ids: some Sequence<RuntimeID>) {
-        // TODO: Check for existence
-        var trash: Set<RuntimeID> = Set(ids)
-        guard !trash.isEmpty else { return }
+        let trash = _cascadingDependencies(of: Set(ids))
+        for id in trash {
+            precondition(!_containsComponent(ObjectReference.self, for: id),
+            "Cannot despawn entity representing design object")
+        }
+        _unsafeDespawn(trash)
+    }
+    
+    /// Despawns entities without checking for dependencies.
+    ///
+    internal func _unsafeDespawn(_ trash: some Sequence<RuntimeID>) {
+        for id in trash {
+            _remove(id)
+        }
+        entities.removeAll { trash.contains($0) }
+    }
+    
+    internal func _cascadingDependencies(of ids: Set<RuntimeID>) -> Set<RuntimeID> {
+        var visited = ids
+        var queue = Array(ids)
         
-        var removed: Set<RuntimeID> = []
-        
-        while !trash.isEmpty {
-            let id = trash.removeFirst()
-            removed.insert(id)
-
-            defer {
-                // Must run after the for-loop below — relationships must still
-                // exist during cascade discovery via dependants(of:).
-                _remove(id)
-            }
-
+        while !queue.isEmpty {
+            let id = queue.removeLast()
+            
             for storage in relationshipStorages.values {
                 let policy = storage.targetRemovalPolicy
+
                 for originID in storage.dependants(of: id) {
-                    guard !removed.contains(originID) && !trash.contains(originID)
-                    else { continue }
+                    guard !visited.contains(originID) else { continue }
                     switch policy {
                     case .despawn:
-                        trash.insert(originID)
+                        visited.insert(originID)
+                        queue.append(originID)
                     case .remove:
                         // No need to do anything, will be removed in defer block.
                         break
@@ -350,7 +362,7 @@ public class World {
                 }
             }
         }
-        entities.removeAll { removed.contains($0) }
+        return visited
     }
     
     private func _remove(_ runtimeID: RuntimeID) {
