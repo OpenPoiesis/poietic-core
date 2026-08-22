@@ -71,7 +71,6 @@ public final class Schedule {
 
     /// Computed execution order
     private var _executionOrder: [System.Type]
-    private var _instances: [any System]
     
 
     convenience public init(label: ScheduleLabel.Type, systems: System.Type ...) {
@@ -92,7 +91,6 @@ public final class Schedule {
     public init(label: ScheduleLabel.Type, systems: [System.Type], order: [(System.Type, before: System.Type)] = []) {
         self.systems = [:]
         self._executionOrder = []
-        self._instances = []
         self.label = label
         self.explicitEdges = order.map { (ObjectIdentifier($0.0), ObjectIdentifier($0.1)) }
         self.add(systems)
@@ -164,16 +162,6 @@ public final class Schedule {
         _updateDependencyOrder()
     }
 
-    /// Creates instances of the systems and initialises them with the world.
-    ///
-    public func initialize(with world: World) throws (InternalSystemError) {
-        // TODO: Add plane or some initialisation context
-        for systemType in _executionOrder {
-            let system = systemType.init(world)
-            _instances.append(system)
-        }
-    }
-    
     /// Run all systems in dependency order
     ///
     /// Systems are run sequentially in topological order based on
@@ -188,11 +176,7 @@ public final class Schedule {
     /// - Throws: Errors from system execution
     ///
     public func update(_ world: World) throws (InternalSystemError) {
-        if _instances.isEmpty {
-            try self.initialize(with: world)
-        }
-
-        for system in _instances {
+        for system in _executionOrder {
             try system.update(world)
         }
     }

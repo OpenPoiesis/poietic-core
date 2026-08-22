@@ -9,7 +9,7 @@
 ///
 /// Systems can specify execution order constraints relative to other systems.
 ///
-public enum SystemDependency {
+public enum SystemDependency: Sendable {
     /// This system must run after the specified system and the other system must exist in the
     /// system group.
     case requires(any System.Type)
@@ -23,19 +23,21 @@ public enum SystemDependency {
     case after(any System.Type)
 }
 
-/// A system that reads and writes components and entities in a world.
+/// System is a unit of computation that reads and writes a ``World``.
 ///
 /// Systems are the computational units in the ECS architecture. They read
 /// from plane attributes and existing components, then write new components.
 ///
-/// Systems declare their dependencies through component types they produce
-/// and require, allowing the system registry to compute execution order
-/// automatically.
+/// Systems declare their dependencies via ``System/dependencies`` so that a ``Schedule``
+/// can compute the run order automatically.
 ///
-/// - Note: The concept of Systems in this library is for modelling and separation of concerns,
+/// - Note: Systems in this library exist modelling and separation of concerns,
 ///         not for performance reasons.
 ///
-public protocol System {
+/// - Note: System is a type rather than just a function, so that it can carry its own metadata:
+///   name (used for registration and error reporting) and execution order dependencies.
+///
+public protocol System: Sendable {
     /// Execution order dependencies relative to other systems.
     ///
     /// Use `.before(OtherSystem.self)` or `.after(OtherSystem.self)` to
@@ -52,11 +54,7 @@ public protocol System {
     /// - Parameters:
     ///     - world: The runtime world the system can read and modify.
     ///
-    func update(_ world: World) throws (InternalSystemError)
-    
-    /// Initialise the system within the context of the provided world.
-    ///
-    init(_ world: World)
+    static func update(_ world: World) throws (InternalSystemError)
 }
 
 extension System {
@@ -128,8 +126,8 @@ public struct InternalSystemError: Error, Equatable, CustomStringConvertible {
         self.context = context
     }
 
-    public init(_ system: some System, message: String, context: Context = .none) {
-        let typeName = String(describing: type(of: system))
+    public init(_ system: System.Type, message: String, context: Context = .none) {
+        let typeName = String(describing: system)
         self.system = typeName
         self.message = message
         self.context = context
