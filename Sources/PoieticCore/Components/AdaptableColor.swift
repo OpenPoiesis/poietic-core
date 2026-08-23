@@ -20,3 +20,20 @@ public enum AdaptableColorKey: String, CaseIterable, Hashable, Sendable {
     case blue = "blue"
     case indigo = "indigo"
 }
+
+/// Dominant adaptable colour of the object's visual representation.
+///
+/// The colour is expressed as a key from the adaptable colour palette;
+/// the application resolves the key to a concrete colour suitable for its
+/// medium and theme (screen, printable output, dark/light).
+///
+/// - SeeAlso: ``AdaptableColorKey``, ``Trait/Color``
+///
+public struct AdaptableColor: Component {
+    // TODO: Consider renaming to "AccentColor"
+    public let key: AdaptableColorKey
+                                                                                                                                                                                                            
+    public init(_ key: AdaptableColorKey) {
+        self.key = key
+    }
+}

@@ -8,8 +8,12 @@
 
 /// System that prepares basic visual metadata.
 ///
-/// - **Input:** Design objects from current plane with trait ``Trait/NumericValue``.
-/// - **Output:** Add ``DisplayValueBounds`` component to the design object entity.
+/// - **Input:** Design objects from current plane with any of the following traits:
+///     - ``Trait/NumericValue``
+///     - ``Trait/Color``
+/// - **Output:**
+///     - ``DisplayValueBounds`` component for `NumericValue` trait.
+///     - ``AdaptableColor`` component for `Color` trait.
 /// - **Forgiveness:** Nothing to be forgiven.
 ///
 public struct VisualMetadataSystem: System {
@@ -19,6 +23,15 @@ public struct VisualMetadataSystem: System {
         for object in plane.filter(trait: .NumericValue) {
             guard let entity = world.entity(object.objectID) else { continue }
             entity.setComponent(DisplayValueBounds(from: object))
+        }
+
+        for object in plane.filter(trait: .Color) {
+            guard let entity = world.entity(object.objectID),
+                  let colorName: String = object["color"],
+                  let key = AdaptableColorKey(rawValue: colorName)
+            else { continue }
+            
+            entity.setComponent(AdaptableColor(key))
         }
     }
 }
