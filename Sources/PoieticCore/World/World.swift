@@ -178,6 +178,21 @@ public class World {
         guard let schedule = self.schedules[ObjectIdentifier(schedule)] else {
             preconditionFailure("Unknown schedule \(String(describing: schedule))")
         }
+        try run(schedule, cleanIntermediates: cleanIntermediates)
+    }
+   
+    enum _ImmediateScheduleLabel: ScheduleLabel {}
+    
+    /// Run a collection of systems without registration.
+    ///
+    /// - Precondition: System dependencies must be satisfied within the list.
+    ///
+    public func run(systems: [System.Type], cleanIntermediates: Bool = true) throws (InternalSystemError) {
+        let schedule = Schedule(label: _ImmediateScheduleLabel.self, systems: systems)
+        try run(schedule, cleanIntermediates: cleanIntermediates)
+    }
+    
+    private func run(_ schedule: Schedule, cleanIntermediates: Bool = true) throws (InternalSystemError) {
         try schedule.update(self)
         
         if cleanIntermediates {

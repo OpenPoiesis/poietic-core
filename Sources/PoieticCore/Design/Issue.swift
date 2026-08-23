@@ -110,6 +110,9 @@ public struct Issue: Sendable, CustomStringConvertible {
     }
     
     public var description: String {
+        "\(severity.description.uppercased()): \(identifier): \(message)"
+    }
+    public var debugDescription: String {
         "\(severity.description.uppercased())[\(source),\(identifier)]: \(message)"
     }
 }

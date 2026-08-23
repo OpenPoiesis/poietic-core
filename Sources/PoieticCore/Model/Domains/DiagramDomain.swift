@@ -59,6 +59,7 @@ extension Trait {
     /// User interface should adapt the colour to fit media the object is displayed at.
     ///
     public static let Color = Trait (
+        // TODO: Consider renaming to "AccentColor"
         name: "Color",
         attributes: [
             Attribute("color", type: .string, optional: true,
