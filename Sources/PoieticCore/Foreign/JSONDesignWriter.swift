@@ -35,7 +35,6 @@ public class JSONDesignWriter {
     public func write(_ design: RawDesign) -> Data {
         let currentFormat: RawDesignV0_2 = RawDesignV0_2(rawDesign: design)
         let encoder = JSONEncoder()
-        encoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
         let data: Data
 
         do {

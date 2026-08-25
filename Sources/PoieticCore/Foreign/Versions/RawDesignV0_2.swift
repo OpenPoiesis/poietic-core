@@ -10,7 +10,6 @@
 //       We also do not want to introduce additional library dependencies (yet).
 
 // QUESTION: should we keep origin/target as edge topology top-level for convenience?
-// QUESTION: what to do with Variant.CodingTypeKey?
 
 class RawDesignV0_2: Codable, RawDesignConvertible {
     let metamodelName: String?

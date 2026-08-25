@@ -330,7 +330,7 @@ public final class JSONDesignReader {
     {
         let decoder = JSONDecoder()
         
-        decoder.userInfo[Variant.CodingTypeKey] = Variant.CodingType.dictionary
+        decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
 
         do {
             let result = try decoder.decode(type, from: data)

@@ -34,7 +34,6 @@ See also: <doc:Persistence>
 ### Foreign Value
 
 - ``VariantCodingError``
-- ``ForeignValueError``
 
 ### CSV Reading and Writing
 
@@ -42,9 +41,3 @@ See also: <doc:Persistence>
 - ``CSVOptions``
 - ``CSVReader``
 - ``CSVWriter``
-
-### JSON
-
-- ``JSONValue``
-- ``JSONType``
-- ``JSONError``
