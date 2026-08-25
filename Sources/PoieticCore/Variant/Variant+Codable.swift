@@ -1,30 +1,9 @@
 //
-//  File.swift
-//  
+//  Variant+Codable.swift
+//  poietic-core
 //
 //  Created by Stefan Urbanek on 08/05/2024.
 //
-
-/*
- 
- Variant -> JSONValue -> Data -> JSON String -> CSV
- Variant -> Data -> JSON text
-
- Encoding methods:
- 
- - for persistent storage, type separate
- 
- ["[int]", [1,2,3]]
- ai [1,2,3]
- 
- ["int", 1234]
- i 1234
- 
- 
- ["string", "this is a string"]
- s "this is a string"
- 
- */
 
 import Foundation
 
@@ -128,21 +107,18 @@ extension ValueType: Codable {
 extension Variant: Codable {
     /// Coding key used for a flag denoting how the variants are encoded.
     ///
-    /// If the flag is `true`, then the decoder tries to decode an any type
-    /// from the decoder and then tries to convert it to the closest convertable
-    /// variant type.
+    /// The value is of ``DecodingType`` type.
     ///
-    /// If the flag is `false` (default), the decoder expects a two-value
-    /// array to be encoded where the first value is a variant
-    /// type code (``ValueType/typeCode``) and the second value is encoded
-    /// variant.
+    /// - SeeAlso: ``Variant/init(jsonWithFallback:)``
     ///
-    static let CodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "CodingTypeKey")!
+    public static let DecodingTypeKey: CodingUserInfoKey = CodingUserInfoKey(rawValue: "DecodingTypeKey")!
 
     /// Specifier of the variant encoding method.
     ///
-    public enum CodingType: Sendable {
-        /// Encode as dictionary.
+    /// - SeeAlso: ``Variant/init(jsonWithFallback:)``
+    ///
+    public enum DecodingType: Sendable {
+        /// Decode as dictionary.
         ///
         /// - `{ "type": "int", "value": 10}`
         /// - `{ "type": "int_array", "items": [10, 20, 30]}`
@@ -150,21 +126,36 @@ extension Variant: Codable {
         
         /// Legacy coding type as a tuple. Do not use.
         case tuple       // [type_name, value]
+        
+        /// Decode as dictionary first, then try to guess from simple JSON value.
+        ///
+        /// Used in the tool for user input at command-line.
+        ///
+        /// - SeeAlso: ``Variant/init(jsonWithFallback:)``
+        case dictionaryWithFallback
     }
     
     enum CodingKeys: String, CodingKey {
         case type
         case value
+        // TODO: Deprecated. Remove once happy.
         case items
     }
     
     public init(from decoder: any Decoder) throws {
-        let codingType = decoder.userInfo[Self.CodingTypeKey] as? CodingType
-        switch codingType {
+        let type = decoder.userInfo[Self.DecodingTypeKey] as? DecodingType
+        switch type {
         case .none, .dictionary:
             try self.init(asDictionaryFrom: decoder)
         case .tuple:
             try self.init(asTupleFrom: decoder)
+        case .dictionaryWithFallback:
+            do {
+                try self.init(asDictionaryFrom: decoder)
+            }
+            catch {
+                try self.init(guessingValueFrom: decoder)
+            }
         }
     }
     
@@ -243,19 +234,24 @@ extension Variant: Codable {
             self = .atom(.point(point))
             // Arrays
         case "bool_array":
-            let value = try container.decode([Bool].self, forKey: .items)
+            let value = try (try? container.decodeIfPresent([Bool].self, forKey: .items))
+                         ?? (try container.decode([Bool].self, forKey: .value))
             self = .array(.bool(value))
         case "int_array":
-            let value = try container.decode([Int].self, forKey: .items)
+            let value = try (try? container.decode([Int].self, forKey: .items))
+                        ?? (try container.decode([Int].self, forKey: .value))
             self = .array(.int(value))
         case "string_array":
-            let value = try container.decode([String].self, forKey: .items)
+            let value = try (try? container.decode([String].self, forKey: .items))
+                        ?? (try container.decode([String].self, forKey: .value))
             self = .array(.string(value))
         case "double_array":
-            let value = try container.decode([Double].self, forKey: .items)
+            let value = try (try? container.decode([Double].self, forKey: .items))
+                        ?? (try container.decode([Double].self, forKey: .value))
             self = .array(.double(value))
         case "point_array":
-            let value = try container.decode([[Double]].self, forKey: .items)
+            let value = try (try? container.decode([[Double]].self, forKey: .items))
+                        ?? (try container.decode([[Double]].self, forKey: .value))
             let points = try value.map { item in
                 guard item.count == 2 else {
                     throw VariantCodingError.invalidPointValue
@@ -269,224 +265,78 @@ extension Variant: Codable {
 
     }
 
-    public func encode(to encoder: any Encoder) throws {
-        let codingType = encoder.userInfo[Self.CodingTypeKey] as? CodingType
+    init(guessingValueFrom decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
         
-        switch codingType {
-        case .tuple:
-            var container = encoder.unkeyedContainer()
-            try container.encode(self.valueType.codingType)
-            switch self {
-            case let .atom(.bool(value)):
-                try container.encode(value)
-            case let .atom(.int(value)):
-                try container.encode(value)
-            case let .atom(.double(value)):
-                try container.encode(value)
-            case let .atom(.string(value)):
-                try container.encode(value)
-            case let .atom(.point(value)):
-                try container.encode([value.x, value.y])
-            case let .array(.bool(value)):
-                try container.encode(value)
-            case let .array(.int(value)):
-                try container.encode(value)
-            case let .array(.double(value)):
-                try container.encode(value)
-            case let .array(.string(value)):
-                try container.encode(value)
-            case let .array(.point(values)):
-                let points = values.map {
-                    [$0.x, $0.y]
-                }
-                
-                try container.encode(points)
-            }
-        case .none, .dictionary:
-            var container = encoder.container(keyedBy: Self.CodingKeys.self)
-            try container.encode(self.valueType.codingType, forKey: .type)
-            switch self {
-            case let .atom(.bool(value)):
-                try container.encode(value, forKey: .value)
-            case let .atom(.int(value)):
-                try container.encode(value, forKey: .value)
-            case let .atom(.double(value)):
-                try container.encode(value, forKey: .value)
-            case let .atom(.string(value)):
-                try container.encode(value, forKey: .value)
-            case let .atom(.point(value)):
-                try container.encode([value.x, value.y], forKey: .value)
-            case let .array(.bool(value)):
-                try container.encode(value, forKey: .items)
-            case let .array(.int(value)):
-                try container.encode(value, forKey: .items)
-            case let .array(.double(value)):
-                try container.encode(value, forKey: .items)
-            case let .array(.string(value)):
-                try container.encode(value, forKey: .items)
-            case let .array(.point(values)):
-                let points = values.map {
-                    [$0.x, $0.y]
-                }
-                
-                try container.encode(points, forKey: .items)
-            }
+        if let value = try? container.decode(Int.self) {
+            self = .atom(.int(value))
         }
-    }
-}
-
-extension JSONValue {
-    /// Get a variant value with type represented within the JSON.
-    ///
-    /// Typed variant is represented as a dictionary
-    var typedVariantValue: Variant? {
-        guard let dict = self.objectValue,
-              let type = dict["type"]?.stringValue
+        else if let value = try? container.decode(Double.self) {
+            self = .atom(.double(value))
+        }
+        else if let value = try? container.decode(String.self) {
+            self = .atom(.string(value))
+        }
+        else if let value = try? container.decode(Bool.self) {
+            self = .atom(.bool(value))
+        }
+        else if let value = try? container.decode([Int].self) {
+            self = .array(.int(value))
+        }
+        else if let value = try? container.decode([Double].self) {
+            self = .array(.double(value))
+        }
+        else if let value = try? container.decode([String].self) {
+            self = .array(.string(value))
+        }
+        else if let value = try? container.decode([Bool].self) {
+            self = .array(.bool(value))
+        }
+        else if let items = try? container.decode([[Double]].self) {
+            var points: [Point] = []
+            for item in items {
+                guard item.count == 2 else {
+                    throw VariantCodingError.invalidPointValue
+                }
+                let point = Point(x: item[0], y: item[1])
+                points.append(point)
+            }
+            self = .array(.point(points))
+        }
         else {
-            return nil
-        }
-        
-        switch type {
-        case "bool":
-            guard let value = dict["value"]?.boolValue else {
-                return nil
-            }
-            return .atom(.bool(value))
-        case "int":
-            guard let value = dict["value"]?.intValue else {
-                return nil
-            }
-            return .atom(.int(value))
-        case "float":
-            guard let value = dict["value"]?.doubleValue else {
-                return nil
-            }
-            return .atom(.double(value))
-        case "string":
-            guard let value = dict["value"]?.stringValue else {
-                return nil
-            }
-            return .atom(.string(value))
-        case "point":
-            guard let items = dict["value"]?.arrayValue,
-                  items.count == 2,
-                  let x = items[0].numericValue,
-                  let y = items[1].numericValue
-            else {
-                return nil
-            }
-            return .atom(.point(Point(x, y)))
-        case "bool_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Bool] = jsonItems.compactMap { $0.boolValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.bool(items))
-        case "int_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Int] = jsonItems.compactMap { $0.intValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.int(items))
-        case "float_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Double] = jsonItems.compactMap { $0.numericValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.double(items))
-        case "string_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [String] = jsonItems.compactMap { $0.stringValue }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.string(items))
-        case "point_array":
-            guard let jsonItems = dict["items"]?.arrayValue else {
-                return nil
-            }
-            let items: [Point] = jsonItems.compactMap {
-                guard let items = $0.arrayValue,
-                      items.count == 2,
-                      let x = items[0].numericValue,
-                      let y = items[1].numericValue
-                else {
-                    return nil
-                }
-                return Point(x, y)
-            }
-            guard items.count == jsonItems.count else {
-                return nil
-            }
-            return .array(.point(items))
-        default:
-            return nil
+            throw DecodingError.dataCorruptedError(in: container,
+                                                   debugDescription: "Invalid variant value")
         }
     }
     
-    init(typedVariant variant: Variant) {
-        switch variant {
-        case .atom(let atom):
-            let type: String
-            let outValue: JSONValue
-            switch atom {
-            case .bool(let value):
-                type = "bool"
-                outValue = JSONValue.bool(value)
-            case .int(let value):
-                type = "int"
-                outValue = JSONValue.int(value)
-            case .double(let value):
-                type = "float"
-                outValue = JSONValue.float(value)
-            case .string(let value):
-                type = "string"
-                outValue = JSONValue.string(value)
-            case .point(let value):
-                type = "point"
-                outValue = JSONValue.array([.float(value.x), .float(value.y)])
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: Self.CodingKeys.self)
+        try container.encode(self.valueType.codingType, forKey: .type)
+        switch self {
+        case let .atom(.bool(value)):
+            try container.encode(value, forKey: .value)
+        case let .atom(.int(value)):
+            try container.encode(value, forKey: .value)
+        case let .atom(.double(value)):
+            try container.encode(value, forKey: .value)
+        case let .atom(.string(value)):
+            try container.encode(value, forKey: .value)
+        case let .atom(.point(value)):
+            try container.encode([value.x, value.y], forKey: .value)
+        case let .array(.bool(value)):
+            try container.encode(value, forKey: .value)
+        case let .array(.int(value)):
+            try container.encode(value, forKey: .value)
+        case let .array(.double(value)):
+            try container.encode(value, forKey: .value)
+        case let .array(.string(value)):
+            try container.encode(value, forKey: .value)
+        case let .array(.point(values)):
+            let points = values.map {
+                [$0.x, $0.y]
             }
-            self = .object([
-                "type": .string(type),
-                "value": outValue,
-            ])
-        case .array(let array):
-            let type: String
-            let outItems: [JSONValue]
-            switch array {
-            case .bool(let items):
-                type = "bool"
-                outItems = items.map { JSONValue.bool($0) }
-            case .int(let items):
-                type = "int"
-                outItems = items.map { JSONValue.int($0) }
-            case .double(let items):
-                type = "float"
-                outItems = items.map { JSONValue.float($0) }
-            case .string(let items):
-                type = "string"
-                outItems = items.map { JSONValue.string($0) }
-            case .point(let items):
-                type = "point"
-                outItems = items.map {
-                    JSONValue.array([.float($0.x), .float($0.y)])
-                }
-            }
-            self = .object([
-                "type": .string(type),
-                "items": .array(outItems),
-            ])
+            
+            try container.encode(points, forKey: .value)
         }
     }
 }

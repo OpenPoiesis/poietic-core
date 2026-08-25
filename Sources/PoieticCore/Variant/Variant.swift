@@ -15,6 +15,10 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
 
     // Special case for internal conversions (there is no variant type for IDs)
     case conversionToIDFailed(ValueType)
+    /// Thrown on user input parsing, when the input string can not be converted
+    /// to desired variable type.
+    ///
+    case invalidUserString(String)
     
     public var description: String {
         switch self {
@@ -29,6 +33,8 @@ public enum ValueError: Error, Equatable, CustomStringConvertible {
         // Other
         case .conversionToIDFailed(let original):
             "Value of type \(original) is not convertible to Object ID type"
+        case .invalidUserString(let string):
+            "Invalid user provided string: '\(string)'"
         }
     }
 }
