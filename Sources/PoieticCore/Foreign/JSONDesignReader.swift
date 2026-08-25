@@ -185,13 +185,14 @@ public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
 
 /// Object for reading foreign designs represented as JSON.
 ///
-/// - Note: Hand-writing foreign planes in JSON is discouraged, as they might become
+/// - Important: Hand-writing foreign planes in JSON is discouraged, as they might become
 ///   complex very quickly. It is not the purpose of this toolkit to
-///   process and maintain raw human-written textual representation of designs.
+///   process and maintain raw human-written textual representation of designs. Use `poietic`
+///   command-line tool for headless design file editing.
 ///
 /// The top-level structure of the design is a dictionary with the following keys:
 ///
-/// - `format_version` _(recommended, string)_: Version of the JSON encoding format. Currently
+/// - `format_version` _(required, string)_: Version of the JSON encoding format. Currently
 ///    `"0.2.0"`.
 ///    See ``JSONDesignReader/CurrentFormatVersion``.
 /// - `metamodel`: Name of the metamodel the design contents conforms to. See ``Metamodel``.
@@ -233,12 +234,11 @@ public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
 ///
 /// ## Variants
 ///
-/// Variant values are encoded as dictionaries with two keys. Required key is `type` which
-/// denotes the variant type. The other key depends on the variant type:
+/// Variant values are encoded as dictionaries with two keys. Required are two keys:
+/// `type` – denotes the variant type and `value` denotes variant data content.
 ///
-/// - Variant atom types `bool`, `int`, `float`, `string`, `point`: value is under the `value` key.
-/// - Variant array types `bool_array`, `int_array`, `float_array`, `string_array`, `point_array`:
-///   value is under the `items` key.
+/// - Variant atom types `bool`, `int`, `float`, `string`, `point`.
+/// - Variant array types `bool_array`, `int_array`, `float_array`, `string_array`, `point_array`.
 ///
 /// Validation and requirements:
 ///
@@ -257,8 +257,8 @@ public enum RawDesignReaderError: Error, Equatable, CustomStringConvertible {
 /// | `{"type": "int", "value": 10}` | int | 10 | Any convertible JSON numeric value is allowed.|
 /// | `{"type": "float", "value": 1.5}` | float | 1.5 | Any convertible JSON numeric value is allowed. |
 /// | `{"type": "point", "value": [10, 20]}` | point | Point(x: 10.0, y: 20.0) | Must be an array of exactly two numbers. |
-/// | `{"type": "int_array", "items": [10, 20, 30]}` | array of ints | `[10, 20, 30]`| All items must be of the same type. |
-/// | `{"type": "point_array", "items": [[10, 20], [30, 40]]}` | array of ints | `[Point(x:10, y:20), Point(x:30, y:40)]`| |
+/// | `{"type": "int_array", "value": [10, 20, 30]}` | array of ints | `[10, 20, 30]`| All items must be of the same type. |
+/// | `{"type": "point_array", "value": [[10, 20], [30, 40]]}` | array of ints | `[Point(x:10, y:20), Point(x:30, y:40)]`| |
 ///
 public final class JSONDesignReader {
     // NOTE: Update in the JSONDesignReader class documentation
@@ -282,8 +282,7 @@ public final class JSONDesignReader {
             data = try Data(contentsOf: url)
         }
         catch {
-            
-            throw .dataCorrupted(RawDesignReaderError.Context(underlyingError: error))
+            throw .canNotReadData
         }
         return try read(data: data)
     }
@@ -298,40 +297,48 @@ public final class JSONDesignReader {
     public func read(data: Data) throws (RawDesignReaderError) -> RawDesign {
         // TODO: [IMPORTANT] Add diagnostics diagnose(data, version:) -> full error
 
-        let result: RawDesign
-        
-        if let raw = try decodeOrNext(RawDesignV0_2.self, from: data) {
-            result = raw
-        }
-        else if let raw = try decodeOrNext(RawDesignV0_1.self, from: data) {
-            result = raw
-        }
-        else if let raw = try decodeOrNext(_MakeshiftPersistentDesign.self, from: data) {
-            result = raw
-        }
+        // Decoding version dispatch
+
+        if let raw = try read_V0_2(data) {return raw }
+        else if let raw = try read_V0_1(data) { return raw }
+        else if let raw = try read_MakeshiftStore(data) { return raw }
         else {
             let context = RawDesignReaderError.Context(path: [], underlyingError: nil)
             throw .dataCorrupted(context)
         }
-
-        return result
     }
     
+    // Naming convention: read_XXX where XXX is version name. Keep the underscore as a
+    // visual separator for something internal. Easier to read here and we want to see it clearly.
+    
+    func read_V0_2(_ data: Data) throws (RawDesignReaderError) -> RawDesign? {
+        let decoder = JSONDecoder()
+        decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
+        return try decodeJSON(RawDesignV0_2.self, from: data, using: decoder)
+    }
+    func read_V0_1(_ data: Data) throws (RawDesignReaderError) -> RawDesign? {
+        let decoder = JSONDecoder()
+        decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionaryWithFallback
+        return try decodeJSON(RawDesignV0_1.self, from: data, using: decoder)
+    }
+    func read_MakeshiftStore(_ data: Data) throws (RawDesignReaderError) -> RawDesign? {
+        let decoder = JSONDecoder()
+        decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.tuple
+        return try decodeJSON(_MakeshiftPersistentDesign.self, from: data, using: decoder)
+    }
+
     /// Tries to decode data for given raw design.
     ///
     /// - Returns: Decoded raw design or `nil` if it is not of version that matches the type version.
     /// - Throws: ``RawDesignReaderError`` derived from the decoding error.
     ///
-    /// - Note: The ``RawDesignReaderError/unknownFormatVersion`` is never thrown.
+    /// - Note: The ``RawDesignReaderError/unknownFormatVersion`` never propagates out of this
+    ///   method, it becomes `nil` return value.
     ///
-    func decodeOrNext<T>(_ type: T.Type, from data: Data) throws (RawDesignReaderError)
+    func decodeJSON<T>(_ type: T.Type, from data: Data, using decoder: JSONDecoder) throws (RawDesignReaderError)
     -> RawDesign?
     where T: RawDesignConvertible & Decodable
     {
-        let decoder = JSONDecoder()
-        
-        decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
-
         do {
             let result = try decoder.decode(type, from: data)
             return result.asRawDesign()
@@ -345,7 +352,7 @@ public final class JSONDesignReader {
             throw RawDesignReaderError(error)
         }
         catch {
-            fatalError("Unknown decoding error: \(error)")
+            throw .unknownDecodingError(String(describing: error))
         }
     }
 }

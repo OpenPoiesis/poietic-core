@@ -60,14 +60,12 @@ class RawDesignV0_2: Codable, RawDesignConvertible {
     
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: Self.CodingKeys.self)
-        let versionString = try container.decodeIfPresent(String.self, forKey: .formatVersion)
+        let versionString = try container.decode(String.self, forKey: .formatVersion)
         
-        if let versionString {
-            guard let version = SemanticVersion(versionString),
-                  version == SemanticVersion(0,2,0)
-            else {
-                throw RawDesignReaderError.unknownFormatVersion(versionString)
-            }
+        guard let version = SemanticVersion(versionString),
+              version == SemanticVersion(0,2,0)
+        else {
+            throw RawDesignReaderError.unknownFormatVersion(versionString)
         }
         
         self.metamodelName = try container.decodeIfPresent(String.self, forKey: .metamodelName)

@@ -144,6 +144,7 @@ extension Variant: Codable {
     
     public init(from decoder: any Decoder) throws {
         let type = decoder.userInfo[Self.DecodingTypeKey] as? DecodingType
+
         switch type {
         case .none, .dictionary:
             try self.init(asDictionaryFrom: decoder)

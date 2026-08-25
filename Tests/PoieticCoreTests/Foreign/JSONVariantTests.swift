@@ -64,18 +64,18 @@ import Foundation
     }
     @Test func dictionaryIntArray() throws {
         decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
-        #expect(try decode("{\"type\": \"int_array\", \"items\": [10, 20]}") == Variant([10, 20]))
-        #expect(try decode("{\"type\": \"int_array\", \"items\": []}") == .array(.int([])))
+        #expect(try decode("{\"type\": \"int_array\", \"value\": [10, 20]}") == Variant([10, 20]))
+        #expect(try decode("{\"type\": \"int_array\", \"value\": []}") == .array(.int([])))
     }
     @Test func dictionaryDoubleArray() throws {
         decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
-        #expect(try decode("{\"type\": \"double_array\", \"items\": [10.5, 20.5]}") == Variant([10.5, 20.5]))
-        #expect(try decode("{\"type\": \"double_array\", \"items\": []}") == .array(.double([])))
+        #expect(try decode("{\"type\": \"double_array\", \"value\": [10.5, 20.5]}") == Variant([10.5, 20.5]))
+        #expect(try decode("{\"type\": \"double_array\", \"value\": []}") == .array(.double([])))
     }
     @Test func dictionaryStringArray() throws {
         decoder.userInfo[Variant.DecodingTypeKey] = Variant.DecodingType.dictionary
-        #expect(try decode("{\"type\": \"string_array\", \"items\": [\"one\", \"two\"]}") == Variant(["one", "two"]))
-        #expect(try decode("{\"type\": \"string_array\", \"items\": []}") == .array(.string([])))
+        #expect(try decode("{\"type\": \"string_array\", \"value\": [\"one\", \"two\"]}") == Variant(["one", "two"]))
+        #expect(try decode("{\"type\": \"string_array\", \"value\": []}") == .array(.string([])))
     }
     // FIXME: Implement NaN and Inf, see JSONDecoder.NonConformingFloatDecodingStrategy
 //    @Test func doubleNaNs() throws {
