@@ -112,7 +112,19 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
             case .ternaryConditional: 3
             }
         }
-
+        /// Human readable description of the arguments.
+        ///
+        public var argumentString: String {
+            return switch self {
+            case .unaryNumeric: "x"
+            case .variadicNumeric: "..."
+            case .variadicNumericNonEmpty: "a, ..."
+            case .variadicBoolean: "a, b, ..."
+            case .unaryBoolean: "a"
+            case .ternaryConditional: "condition, then, else"
+            }
+        }
+        
         public func validate(_ types: [ValueType]) -> ArgumentValidationResult {
             switch self {
             case .unaryNumeric: // (numeric)
@@ -186,8 +198,34 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
             
     }
     
-    public var description: String { self.name }
-    
+    public var abstract: String {
+        switch self {
+        // Unary numeric
+        case .abs: "Absolute value"
+        case .floor: "Rounding downwards to the nearest integer"
+        case .ceiling: "Rounding upwards to the nearest integer"
+        case .round: "Rounding to the nearest integer"
+        case .exp: "Natural exponent of x"
+        case .sqrt: "Square root of x"
+            
+        // Unary logical
+        case .not: "Negation of boolean value"
+        // Binary logical
+        case .and: "Logical AND of all the arguments – true if all arguments are true"
+        case .or: "Logical OR of all the arguments – true if at least one is true"
+            
+        // Variadic numeric
+        case .min: "Minimum value from a list of values"
+        case .max: "Maximum value from a list of values"
+        case .sum: "Sum of multiple values"
+        case .if: "If the condition is true, return second argument, otherwise third"
+        }
+            
+    }
+
+    public var description: String { name }
+    public var descriptionWithSignature: String { name + "(" + signature.argumentString + ")"}
+
     public init?(name: String) {
         switch name {
         // Unary numeric
@@ -232,7 +270,7 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
         // Variadic numeric
         case .min: .variadicNumericNonEmpty
         case .max: .variadicNumericNonEmpty
-        case .sum: .variadicNumeric
+        case .sum: .variadicNumericNonEmpty
         case .if: .ternaryConditional
         }
     }
