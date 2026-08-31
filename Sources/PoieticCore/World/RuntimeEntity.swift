@@ -305,7 +305,13 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
         if let issues = world.issues[objectID] { return !issues.isEmpty }
         else { return false }
     }
-    
+    public func hasIssue(_ identifier: String) -> Bool {
+        guard let objectID = self.objectID,
+              let issues = world.issues[objectID]
+        else { return false }
+        return issues.contains { $0.identifier == identifier }
+    }
+
     /// Access components via subscript syntax.
     ///
     /// ```swift
@@ -343,7 +349,14 @@ public struct RuntimeEntity: CustomDebugStringConvertible {
 
     public var debugDescription: String {
         let compList = self.debugComponentNames().joined(separator: ",")
-        return "E\(self.runtimeID)[\(compList)][ch:\(self.children.count)]"
+        var body = "E\(self.runtimeID)[\(compList)]"
+        
+        if let issues = self.issues, !issues.isEmpty {
+            let identifiers = issues.map { $0.identifier }.joined(separator: ",")
+            body += "[ISSUES:\(identifiers)]"
+        }
+        
+        return body
     }
 
 

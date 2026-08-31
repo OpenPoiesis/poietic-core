@@ -61,9 +61,12 @@ extension Trait {
     public static let Color = Trait (
         // TODO: Consider renaming to "AccentColor"
         name: "Color",
+        label: "Accent Color",
         attributes: [
-            Attribute("color", type: .string, optional: true,
-                      abstract: "Colour name"),
+            Attribute("color",
+                      type: .string,
+                      optional: true,
+                      abstract: "Name of object's accent colour: purple, red, pink, brown, orange, yellow, lime, green, cyan, teal, blue, indigo"),
         ]
     )
 }
@@ -125,3 +128,4 @@ extension TransientObject {
         }
     }
 }
+
