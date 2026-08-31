@@ -129,6 +129,38 @@ import Testing
         #expect(token.type == .identifier)
         #expect(token.text == "_underscore")
     }
+    // MARK: Quoted identifier
+    @Test func quotedIdentifier() throws {
+        var lexer = ExpressionLexer(string: "{birth rate}")
+        let token = lexer.next()
+        #expect(token.type == .quotedIdentifier)
+        #expect(token.text == "birth rate")
+    }
+    @Test func emptyQuoted() throws {
+        var lexer = ExpressionLexer(string: "{}")
+        let token = lexer.next()
+        #expect(token.type == .error(.emptyIdentifier))
+
+        var lexer2 = ExpressionLexer(string: "{  \t  }")
+        let token2 = lexer2.next()
+        #expect(token2.type == .error(.emptyIdentifier))
+    }
+    @Test func quotedIdentifierWithNewline() throws {
+        var lexer = ExpressionLexer(string: "{birth\nrate}")
+        let token = lexer.next()
+        #expect(token.type == .error(.invalidCharacterInIdentifier))
+    }
+    @Test func quotedIdentifierWithIdentifierQuote() throws {
+        var lexer = ExpressionLexer(string: "{birth{rate}")
+        let token = lexer.next()
+        #expect(token.type == .error(.invalidCharacterInIdentifier))
+    }
+    @Test func unfinishedQuotedIdentifier() throws {
+        var lexer = ExpressionLexer(string: "{birth")
+        let token = lexer.next()
+        #expect(token.type == .error(.unexpectedEnd))
+    }
+
     
     // MARK: Punctuation and operators
     
@@ -149,7 +181,7 @@ import Testing
     }
     
     @Test func operatorToken() throws {
-        var lexer = ExpressionLexer(string: "+ - * / %")
+        var lexer = ExpressionLexer(string: "+ - * / % ^")
         
         var token = lexer.next()
         #expect(token.type == .operator)
@@ -170,6 +202,10 @@ import Testing
         token = lexer.next()
         #expect(token.type == .operator)
         #expect(token.text == "%")
+
+        token = lexer.next()
+        #expect(token.type == .operator)
+        #expect(token.text == "^")
     }
     @Test func comparisonOperator() throws {
         var lexer = ExpressionLexer(string: "> >= < <= == != !")

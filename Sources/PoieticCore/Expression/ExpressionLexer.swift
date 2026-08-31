@@ -63,6 +63,7 @@ public struct TextLocation: CustomStringConvertible, Equatable, Sendable {
 public struct ExpressionToken {
     public enum TokenType: Equatable, Sendable {
         case identifier
+        case quotedIdentifier
         case int
         case float
         case `operator`
@@ -114,6 +115,14 @@ public struct ExpressionLexer {
     var currentIndex: String.Index
     @usableFromInline
     var endIndex: String.Index
+    @usableFromInline
+    var tokenStart: String.Index
+    // If present, use it, if not use currentIndex – used for quoted tokens.
+    @usableFromInline
+    var tokenEnd: String.Index?
+
+    // For rejection of empty quoted identifiers.
+    var wasSomethingQuoted: Bool
 
     /// Flag whether the reader is at the end of the source string.
     ///
@@ -123,7 +132,10 @@ public struct ExpressionLexer {
         self.source = string
         self.currentIndex = source.startIndex
         self.endIndex = source.endIndex
+        self.tokenStart = source.startIndex
+        self.wasSomethingQuoted = false
     }
+    
     @inlinable
     func peek(offset: Int = 0) -> Character? {
         guard !atEnd else {
@@ -146,6 +158,7 @@ public struct ExpressionLexer {
         case decimal
         case exponent
         case identifier
+        case quotedIdentifier
     }
    
     mutating func nextToken() -> ExpressionToken.TokenType {
@@ -155,6 +168,7 @@ public struct ExpressionLexer {
         if atEnd {
             return .empty
         }
+        wasSomethingQuoted = false
         
         while let char = peek(), type == nil {
             switch state {
@@ -188,6 +202,9 @@ public struct ExpressionLexer {
                     else {
                         type = .error(.unexpectedCharacter)
                     }
+                case "{":
+                    state = .quotedIdentifier
+                    tokenStart = currentIndex
                 default:
                     if char.isWholeNumber {
                         state = .int
@@ -268,6 +285,27 @@ public struct ExpressionLexer {
                 else {
                     type = .identifier
                 }
+            case .quotedIdentifier:
+                if char == "{" || char.isNewline {
+                    type = .error(.invalidCharacterInIdentifier)
+                }
+                else if char == "}" {
+                    tokenEnd = currentIndex
+                    advance()
+                    if wasSomethingQuoted {
+                        type = .quotedIdentifier
+                    }
+                    else {
+                        type = .error(.emptyIdentifier)
+                    }
+                }
+                else if char.isWhitespace {
+                    advance()
+                }
+                else {
+                    wasSomethingQuoted = true
+                    advance()
+                }
             }
         }
         if let type {
@@ -278,6 +316,7 @@ public struct ExpressionLexer {
             case .int: return .int
             case .decimal, .exponent: return .float
             case .identifier: return .identifier
+            case .quotedIdentifier: return .error(.unexpectedEnd)
             default:
                 return .error(.unexpectedCharacter)
             }
@@ -298,20 +337,22 @@ public struct ExpressionLexer {
             advance()
         }
  
-        let startIndex = currentIndex
+        tokenStart = currentIndex
+        tokenEnd = nil
         let token = nextToken()
         
-        guard token != .empty else {
+        let endIndex = tokenEnd ?? currentIndex
+        
+        if token == .empty {
             return ExpressionToken(type: .empty,
                                    source: source,
-                                   range: (startIndex..<currentIndex))
+                                   range: (tokenStart..<endIndex))
         }
-
-        let endIndex = currentIndex
-
-        return ExpressionToken(type: token,
-                               source: source,
-                               range: (startIndex..<endIndex))
+        else {
+            return ExpressionToken(type: token,
+                                   source: source,
+                                   range: (tokenStart..<endIndex))
+        }
 
     }
 }

@@ -29,10 +29,20 @@ import Testing
         }
     }
 
+    @Test func quotedIdentifier() throws {
+        let expr = UnboundExpression.variable("growth rate")
+        #expect(try ExpressionParser(string: "{growth rate}").parse() == expr)
+    }
+
     @Test func parseBinary() throws {
         let expr = UnboundExpression.binary( .add, .variable("a"), .value(1) )
         #expect(try ExpressionParser(string: "a + 1").parse() == expr)
         #expect(try ExpressionParser(string: "a+1").parse() == expr)
+    }
+
+    @Test func parseBinaryWithQuoted() throws {
+        let expr = UnboundExpression.binary( .multiply, .variable("growth rate"), .variable("x") )
+        #expect(try ExpressionParser(string: "{growth rate} * x").parse() == expr)
     }
 
     @Test func binaryComparison() throws {

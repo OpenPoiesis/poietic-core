@@ -9,20 +9,26 @@
 ///
 public enum ExpressionSyntaxError: Error, Equatable, CustomStringConvertible {
     case invalidCharacterInNumber
+    case invalidCharacterInIdentifier
+    case emptyIdentifier
     case numberExpected
     case unexpectedCharacter
     case missingRightParenthesis
     case expressionExpected
     case unexpectedToken
-    
+    case unexpectedEnd
+
     public var description: String {
         switch self {
         case .invalidCharacterInNumber: "Invalid character in a number"
+        case .invalidCharacterInIdentifier: "Invalid character in identifier"
+        case .emptyIdentifier: "Empty identifier"
         case .numberExpected: "Expected a number"
         case .unexpectedCharacter: "Unexpected character"
         case .missingRightParenthesis: "Right parenthesis ')' expected"
         case .expressionExpected: "Expected expression"
         case .unexpectedToken: "Unexpected token"
+        case .unexpectedEnd: "Unexpected end"
         }
     }
 }
@@ -33,11 +39,14 @@ extension ExpressionSyntaxError: IssueConvertible {
         //       Make sure the other part of the identifier is unique within both error types.
         switch self {
         case .invalidCharacterInNumber: "expression.invalid_character_in_number"
+        case .invalidCharacterInIdentifier: "expression.invalid_character_in_identifier"
+        case .emptyIdentifier: "Empty identifier"
         case .numberExpected: "expression.number_expected"
         case .unexpectedCharacter: "expression.unexpected_character"
         case .missingRightParenthesis: "expression.missing_right_parenthesis"
         case .expressionExpected: "expression.expression_expected"
         case .unexpectedToken: "expression.unexpected_token"
+        case .unexpectedEnd: "expression.unexpected_end"
         }
     }
     public var message: String { "Formula error: " + self.description }
@@ -153,6 +162,7 @@ public indirect enum ExpressionAST {
 /// - numeric literals: integers (for example `0`, `10`, `128`)
 ///   or floating point numbers (`1.5e10`)
 /// - variable or function identifiers
+/// - quoted identifiers with `{` and `}` (no `{` or `}` allowed inside).
 /// - arithmetic operators `+`, `-`, `*`, `/`, `%` (as modulo)
 /// - comparison operators `==`, `!=`, `<`, `>`, `<=`, `>=`
 /// - parethesis `(`, `)` for grouping sub-expressions
@@ -227,7 +237,8 @@ public class ExpressionParser {
     /// Parse an identifier - a variable name or a function name.
     ///
     func identifier() -> ExpressionToken? {
-        guard let token = accept(.identifier) else { return nil }
+        guard let token = accept(.identifier) ?? accept(.quotedIdentifier)
+        else { return nil }
         return token
     }
 
