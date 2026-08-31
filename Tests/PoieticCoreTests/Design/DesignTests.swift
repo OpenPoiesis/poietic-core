@@ -407,6 +407,8 @@ import Testing
         #expect(!design.undoList.contains(frame.id))
     }
     
+    // MARK: - Named Planes
+    
     @Test func acceptNamedFrame() throws {
         let frame = design.createPlane()
         try design.accept(frame, replacingName: "app")
@@ -435,4 +437,47 @@ import Testing
         #expect(design.plane(name: "app")?.id == nil)
     }
 
+    // MARK: Name Query
+    @Test func namedExactBeforeNormalized() throws {
+        let trans = design.createPlane()
+        trans.create(NamedNodeType, objectID: ObjectID(10), topology: .node, attributes: ["name": "long_name"])
+        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+
+        let plane = try design.accept(trans)
+
+        let exact = try #require(plane.object(named: "Long Name"))
+        #expect(exact.objectID == 20)
+
+        let exact2 = try #require(plane.object(stringReference: "Long Name"))
+        #expect(exact2.objectID == 20)
+    }
+    @Test func normalizedNameQuery() throws {
+        let trans = design.createPlane()
+        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+
+        let plane = try design.accept(trans)
+
+        #expect(plane.object(named: "Long Name")?.objectID == 20)
+        #expect(plane.object(named: "long_name")?.objectID == 20)
+        #expect(plane.object(named: "long name")?.objectID == 20)
+        #expect(plane.object(named: "20") == nil)
+    }
+    
+    @Test func namedReferenceQuery() throws {
+        let trans = design.createPlane()
+        trans.create(NamedNodeType, objectID: ObjectID(20), topology: .node, attributes: ["name": "Long Name"])
+
+        let plane = try design.accept(trans)
+
+        #expect(plane.object(stringReference: "Long Name")?.objectID == 20)
+        #expect(plane.object(stringReference: "long_name")?.objectID == 20)
+        #expect(plane.object(stringReference: "long name")?.objectID == 20)
+        #expect(plane.object(stringReference: "20")?.objectID == 20)
+
+        #expect(plane.object(stringReference: "30") == nil)
+        #expect(plane.object(stringReference: "unknown") == nil)
+    }
+
+    
+    
 }

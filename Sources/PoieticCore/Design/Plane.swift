@@ -179,7 +179,7 @@ extension Plane {
 // MARK: - Graph Implementations
 
 extension Plane {
-    /// First object that normalises to given name.
+    /// First object with exact name match or with normalised name match.
     ///
     /// If the plane contains multiple objects with the same name,
     /// then one is returned arbitrarily. Plane-level names can not assure uniqueness;
@@ -192,6 +192,14 @@ extension Plane {
     ///
     public func object(named name: String) -> ObjectSnapshot? {
         // TODO: Add a convenience map [normalised key: [ObjectID]]
+        let exactFirst = snapshots.first {
+            guard let objectName = $0.name else { return false }
+            return objectName == name
+        }
+        if let exactFirst {
+            return exactFirst
+        }
+        
         let key = NormalizedName.normalize(name)
         return snapshots.first {
             guard let objectName = $0.name else { return false }
@@ -217,10 +225,9 @@ extension Plane {
         if let id = ObjectID(stringReference), contains(id) {
             return self[id]
         }
-        if let exact = snapshots.first(where: { $0.name == stringReference }) {
-            return exact
+        else {
+            return object(named: stringReference)
         }
-        return object(named: stringReference)
     }
 }
 

@@ -10,14 +10,7 @@ import Testing
 
 // MARK: - Test model
 
-/// Node type with the standard ``Trait/Name`` trait.
-private let NamedNodeType = ObjectType(
-    name: "NamedNode",
-    topologyType: .node,
-    traits: [Trait.Name]
-)
-
-private let NameTestMetamodel = Metamodel(
+let NameTestMetamodel = Metamodel(
     traits: [Trait.Name],
     types: [
         NamedNodeType,

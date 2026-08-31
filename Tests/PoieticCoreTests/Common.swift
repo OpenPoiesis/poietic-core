@@ -30,6 +30,14 @@ let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
                           topologyType: .unstructured,
                           traits: [TestTraitWithDefault])
 
+/// Node type with the standard ``Trait/Name`` trait.
+let NamedNodeType = ObjectType(
+    name: "NamedNode",
+    topologyType: .node,
+    traits: [Trait.Name]
+)
+
+
 let TestTraitNoDefault = Trait(
     name: "Test",
     attributes: [
@@ -120,6 +128,7 @@ public let TestMetamodel = Metamodel(
         TestTypeNoDefault,
         TestTypeWithDefault,
         TestOrderType,
+        NamedNodeType,
 
         ObjectType.Unstructured,
         ObjectType.Stock,
