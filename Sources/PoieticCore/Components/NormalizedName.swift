@@ -11,8 +11,7 @@
 /// 1. Trim whitespaces on both ends: ` population growth ` matches `population growth`
 /// 2. Collapse internal whitespaces: `population  growth` matches `population growth`
 /// 3. Underscore and space are equivalent: `population_growth` matches `population growth`
-///
-/// - Note: In the future, case insensitivity will be introduced.
+/// 4. Case-insensitive: `Population Growth` matches `population growth`
 ///
 /// Presence of this component marks that the object has a name attribute
 /// that is non-empty after normalisation.
@@ -48,6 +47,14 @@ public struct NormalizedName: Component, Equatable {
         return name
     }
 
+    /// Normalise a name.
+    ///
+    /// Name normalisation:
+    /// 1. Whitespaces are trimmed on both ends.
+    /// 2. Underscores are treated as whitespaces
+    /// 3. Internal whitespaces and underscores are collapsed into one.
+    /// 4. All characters are lowercased.
+    ///
     public static func normalize(_ string: String) -> String {
         // IMPORTANT: When updating this method, keep the following rules:
         //     - Always preserve diacritics: `café` != `cafe`. No accent stripping.
@@ -62,8 +69,7 @@ public struct NormalizedName: Component, Equatable {
                 wasWhitespace = true
             }
             else {
-                // TODO: Lowercase (without locale - see the IMPORTANT note above)
-                name.append(char)
+                name.append(char.lowercased())
                 wasWhitespace = false
             }
         }

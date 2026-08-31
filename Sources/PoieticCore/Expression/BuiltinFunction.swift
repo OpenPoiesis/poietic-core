@@ -226,8 +226,9 @@ public enum BuiltinFunction: CaseIterable, Hashable, CustomStringConvertible {
     public var description: String { name }
     public var descriptionWithSignature: String { name + "(" + signature.argumentString + ")"}
 
+    /// Get a function by name, where the name is case-insensitive.
     public init?(name: String) {
-        switch name {
+        switch name.lowercased() {
         // Unary numeric
         case "abs":     self = .abs
         case "floor":   self = .floor

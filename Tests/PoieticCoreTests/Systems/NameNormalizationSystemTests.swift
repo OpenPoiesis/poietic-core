@@ -66,6 +66,10 @@ private let NameTestMetamodel = Metamodel(
         #expect(NormalizedName.normalize("café") != NormalizedName.normalize("cafe"))
     }
 
+    @Test func normalizeLowercase() {
+        #expect(NormalizedName.normalize("PoPuLaTiOn GrOwTh") == NormalizedName.normalize("population growth"))
+    }
+
     @Test func normalizePreservesHyphens() {
         #expect(NormalizedName.normalize("a-b") != NormalizedName.normalize("a b"))
     }
@@ -73,7 +77,7 @@ private let NameTestMetamodel = Metamodel(
     @Test func componentOriginalAndKey() {
         let name = NormalizedName(name: " Population _Growth ")
         #expect(name.displayName == "Population _Growth")
-        #expect(name.key == "Population_Growth")
+        #expect(name.key == "population_growth")
     }
 
     @Test func matches() {

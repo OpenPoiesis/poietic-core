@@ -179,44 +179,48 @@ extension Plane {
 // MARK: - Graph Implementations
 
 extension Plane {
-    /// Get object by a name, if the object contains a named component.
-    ///
-    /// A method that searches the plane for a first object with
-    /// a name component and with the given name.
+    /// First object that normalises to given name.
     ///
     /// If the plane contains multiple objects with the same name,
-    /// then one is returned arbitrarily. Subsequent calls of the method
-    /// with the same name does not guarantee that the same object will
-    /// be returned.
+    /// then one is returned arbitrarily. Plane-level names can not assure uniqueness;
+    /// uniqueness is a domain-level concern.
     ///
     /// - Returns: First object found with given name or `nil` if no object
     ///   with the given name exists.
     ///
+    /// - Complexity: O(n)
     ///
     public func object(named name: String) -> ObjectSnapshot? {
-        return snapshots.first { $0.name == name }
+        // TODO: Add a convenience map [normalised key: [ObjectID]]
+        let key = NormalizedName.normalize(name)
+        return snapshots.first {
+            guard let objectName = $0.name else { return false }
+            return NormalizedName.normalize(objectName) == key
+        }
     }
     
     /// Get an object by a string reference - the string might be an object name
     /// or object ID.
     ///
-    /// First the string is converted to object ID and an object with the given
-    /// ID is searched for. If not found, then all named objects are searched
-    /// and the first one with given name is returned. If multiple objects
-    /// have the same name, then one is returned arbitrarily. Subsequent
-    /// calls to the method with the same name do not guarantee that
-    /// the same object will be returned if multiple objects have the same name.
+    /// Matching order:
+    ///
+    /// 1. Try converting the reference to ID and then try to find object with that ID.
+    /// 2. Try exact name match.
+    /// 3. Normalise the reference and match to normalising object name.
+    ///
+    /// - Note: If the plane contains multiple objects with matching name, then the one is
+    ///   returned arbitrarily. Subsequent calls do not guarantee that the same object is returned.
+    ///
+    /// - Complexity: O(n)
     ///
     public func object(stringReference: String) -> ObjectSnapshot? {
         if let id = ObjectID(stringReference), contains(id) {
             return self[id]
         }
-        else if let snapshot = object(named: stringReference) {
-            return snapshot
+        if let exact = snapshots.first(where: { $0.name == stringReference }) {
+            return exact
         }
-        else {
-            return nil
-        }
+        return object(named: stringReference)
     }
 }
 
