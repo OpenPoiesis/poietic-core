@@ -8,11 +8,11 @@
 /// Parsed arithmetic expression (plane-independent)
 public struct ParsedExpressionComponent: Component {
     public let expression: UnboundExpression
-    public let variables: Set<String>
+    public let usedVariables: Set<String>
     
     public init(expression: UnboundExpression) {
         self.expression = expression
-        self.variables = Set(expression.allVariables)
+        self.usedVariables = Set(expression.allVariables)
     }
 }
 
