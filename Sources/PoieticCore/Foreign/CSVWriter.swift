@@ -125,6 +125,9 @@ public class CSVWriter {
         try file.write(contentsOf: output.data(using: .utf8)!)
     }
     public func close() throws {
+        let data = String(formatter.options.recordDelimiter).data(using: .utf8)!
+        try file.write(contentsOf: data)
+
         try file.close()
     }
 }

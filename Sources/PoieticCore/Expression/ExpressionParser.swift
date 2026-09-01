@@ -40,7 +40,7 @@ extension ExpressionSyntaxError: IssueConvertible {
         switch self {
         case .invalidCharacterInNumber: "expression.invalid_character_in_number"
         case .invalidCharacterInIdentifier: "expression.invalid_character_in_identifier"
-        case .emptyIdentifier: "Empty identifier"
+        case .emptyIdentifier: "expression.empty_identifier"
         case .numberExpected: "expression.number_expected"
         case .unexpectedCharacter: "expression.unexpected_character"
         case .missingRightParenthesis: "expression.missing_right_parenthesis"
