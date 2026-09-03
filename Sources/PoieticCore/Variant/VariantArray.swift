@@ -37,7 +37,17 @@ public enum VariantArray: Equatable, CustomStringConvertible, Hashable, Sendable
     public init(_ values: [String]) {
         self = .string(values)
     }
-   
+
+    public init(ofOne item: VariantAtom) {
+        switch item {
+        case .bool(let value): self = .bool([value])
+        case .int(let value): self = .int([value])
+        case .double(let value): self = .double([value])
+        case .string(let value): self = .string([value])
+        case .point(let value): self = .point([value])
+        }
+    }
+    
     /// Create an empty array of given type.
     public init(type: AtomType) {
         switch type {
