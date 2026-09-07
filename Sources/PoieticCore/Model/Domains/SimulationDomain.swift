@@ -8,6 +8,12 @@
 // TODO: Add SimulationSettings trait (from Trait.Simulation in Flows)
 
 extension Trait {
+    /// Tag trait denoting that an object specifies a simulation scenario.
+    public static let Scenario = Trait(
+        name: "Scenario",
+        attributes: [ /* Just a tag */ ]
+    )
+
     /// Trait of simulation nodes that are computed using an arithmetic formula.
     ///
     /// Variables used in the formula refer to other nodes by their name. Nodes
@@ -45,4 +51,35 @@ extension Trait {
         ],
         abstract: "Trait for objects that might have a visual numeric indicator"
     )
+    
+    /// Trait that specifies simulation start time, time step and final time.
+    ///
+    /// Attributes:
+    ///
+    /// - `start_time` (double) – initial time of the simulation, default is 0.0
+    /// - `time_step` (double) – time between simulation steps, default is 1.0
+    /// - `final_time` (double) – Final simulation time.
+    ///
+    public static let SimulationTime = Trait(
+        // TODO: Split to SimulationTime and SimulationConfiguration
+        name: "SimulationTime",
+        attributes: [
+            Attribute("start_time", type: .double,
+                      default: Variant(0.0),
+                      optional: true,
+                      abstract: "Initial simulation time"
+                     ),
+            Attribute("time_step", type: .double,
+                      default: Variant(1.0),
+                      optional: true,
+                      abstract: "Advancement of time for each simulation step"
+                     ),
+            Attribute("final_time", type: .double,
+                      default: Variant(10.0),
+                      optional: true,
+                      abstract: "Final simulation time"
+                     ),
+        ]
+    )
+
 }

@@ -17,7 +17,6 @@ extension Trait {
     ///   lower means bottom - might be obscured.
     ///
     public static let DiagramBlock = Trait(
-        // FIXME: Rename to DiagramBlock
         name: "DiagramBlock",
         attributes: [
             Attribute("position", type: .point, default: Variant(Point(0,0))),

@@ -7,7 +7,7 @@
 
 // TODO: Add pointArray(default:)
 
-public enum ValueError: Error, Equatable, CustomStringConvertible {
+public enum ValueError: Error, Equatable, CustomStringConvertible, Sendable {
     case atomExpected
     case arrayExpected
     case notConvertible(ValueType, ValueType)

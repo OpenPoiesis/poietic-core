@@ -166,6 +166,7 @@ extension ObjectType {
         topologyType: .unstructured,
         traits: [
             Trait.BibliographicalReference,
+            Trait.Orderable,
         ])
 
     public static let Group = ObjectType(
