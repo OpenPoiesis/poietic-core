@@ -126,7 +126,7 @@ extension Plane {
     ///
     /// Use this only for traits of singletons.
     ///
-    public func first(trait: String) -> ObjectSnapshot? {
+    public func first(trait: Trait) -> ObjectSnapshot? {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
     

@@ -34,7 +34,7 @@ let TestTypeWithDefault = ObjectType(name: "TestWithDefault",
 let NamedNodeType = ObjectType(
     name: "NamedNode",
     topologyType: .node,
-    traits: [Trait.Name]
+    traits: [BasicDomain.Traits.Name]
 )
 
 

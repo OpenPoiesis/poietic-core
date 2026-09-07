@@ -58,7 +58,7 @@ public enum DiagramDomain {
         ///
         /// User interface should adapt the colour to fit media the object is displayed at.
         ///
-        public static let Color = Trait (
+        public static let AccentColor = Trait (
             // TODO: Consider renaming to "AccentColor"
             name: "Color",
             label: "Accent Color",

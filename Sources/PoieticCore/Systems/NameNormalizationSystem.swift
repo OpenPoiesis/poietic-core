@@ -21,7 +21,7 @@ public struct NameNormalizationSystem: System {
 
     public static func update(_ world: World) throws (InternalSystemError) {
         guard let plane = world.plane else { return }
-        for object in plane.filter(trait: .Name) {
+        for object in plane.filter(trait: BasicDomain.Traits.Name) {
             guard let entity = world.entity(object.objectID) else { continue }
 
             guard let name = object.name else {

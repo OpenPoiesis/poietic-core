@@ -12,7 +12,7 @@ import Testing
 
 @Suite struct MetamodelTest {
     @Test func uniqueAttributeTamens() throws {
-        let metamodel = Metamodel.Basic
+        let metamodel = BasicDomain.BasicMetamodel
         for type in metamodel.types {
             var attributes: [String:[String]] = [:]
             
@@ -28,7 +28,7 @@ import Testing
     }
     
     @Test func metamodelTypeTraits() throws {
-        let metamodel = Metamodel.Basic
+        let metamodel = BasicDomain.BasicMetamodel
         for type in metamodel.types {
             for trait in type.traits {
                 #expect(metamodel.trait(name: trait.name) != nil, "Missing trait \(trait.name)")

@@ -11,7 +11,7 @@ import Testing
 // MARK: - Test model
 
 let NameTestMetamodel = Metamodel(
-    traits: [Trait.Name],
+    traits: [BasicDomain.Traits.Name],
     types: [
         NamedNodeType,
         TestNodeType,
