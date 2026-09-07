@@ -124,6 +124,22 @@ public final class Trait: Sendable {
         let attrStr = attributes.map { $0.description }.joined(separator: ", ")
         return "\(name)(\(attrStr))"
     }
+    
+    /// Returns `true` if the trait matches given name.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ name: String) -> Bool {
+        return self.name == name
+    }
+
+    /// Returns `true` if the trait matches name of other trait.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ other: Trait) -> Bool {
+        return self.name == other.name
+    }
 }
 
 /// Description of a single attribute within a ``Trait``.

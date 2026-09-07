@@ -5,81 +5,81 @@
 //  Created by Stefan Urbanek on 06/06/2023.
 //
 
-extension Trait {
-    /// Trait for objects that can be presented diagrammatically:
-    ///
-    /// Attributes:
-    /// - `position` (``Point``): position of the object on a canvas, typically
-    ///   a centre of the object's shape. Please refer to the particular
-    ///   domain metamodel for more details.
-    /// - `z_index` (`Int`): Order of layering of objects on top of each other.
-    ///   Higher number means top – might obscure others,
-    ///   lower means bottom - might be obscured.
-    ///
-    public static let DiagramBlock = Trait(
-        name: "DiagramBlock",
-        attributes: [
-            Attribute("position", type: .point, default: Variant(Point(0,0))),
-            Attribute("z_index", type: .int, default: Variant(0)),
-        ]
-    )
+public enum DiagramDomain {
+    public enum Traits {
+        /// Trait for objects that can be presented diagrammatically:
+        ///
+        /// Attributes:
+        /// - `position` (``Point``): position of the object on a canvas, typically
+        ///   a centre of the object's shape. Please refer to the particular
+        ///   domain metamodel for more details.
+        /// - `z_index` (`Int`): Order of layering of objects on top of each other.
+        ///   Higher number means top – might obscure others,
+        ///   lower means bottom - might be obscured.
+        ///
+        public static let DiagramBlock = Trait(
+            name: "DiagramBlock",
+            attributes: [
+                Attribute("position", type: .point, default: Variant(Point(0,0))),
+                Attribute("z_index", type: .int, default: Variant(0)),
+            ]
+        )
+        
+        /// Trait for edges that have visual representation in a diagram.
+        ///
+        public static let DiagramConnector = Trait(
+            name: "DiagramConnector",
+            attributes: [
+                // types: default(for type), line, orthogonal, curve
+                 Attribute("connection_type", type: .string, optional: true),
+                 Attribute("midpoints", type: .points, optional: true),
+                 Attribute("z_index", type: .int, default: Variant(0), optional: true),
+            ]
+        )
+        /// Trait with view settings of a diagram.
+        ///
+        /// The trait can be used for objects as view bookmarks or as application view settings.
+        ///
+        public static let DiagramView = Trait(
+            name: "DiagramView",
+            attributes: [
+                Attribute("view_position", type: .double, optional: true),
+                Attribute("view_zoom", type: .double, optional: true),
+            ]
+        )
+        
+        /// Trait for objects that have colour.
+        ///
+        /// The colour name should be one of the adaptable colour names, unless specified otherwise.
+        ///
+        /// Adaptable colour names names are:
+        /// `purple`, `red`, `pink`, `brown`, `orange`, `yellow`,
+        /// `lime`, `green`, `cyan`, `teal`, `blue` and `indigo`.
+        ///
+        /// User interface should adapt the colour to fit media the object is displayed at.
+        ///
+        public static let Color = Trait (
+            // TODO: Consider renaming to "AccentColor"
+            name: "Color",
+            label: "Accent Color",
+            attributes: [
+                Attribute("color",
+                          type: .string,
+                          optional: true,
+                          abstract: "Name of object's accent colour: purple, red, pink, brown, orange, yellow, lime, green, cyan, teal, blue, indigo"),
+            ]
+        )
+    }
     
-    /// Trait for edges that have visual representation in a diagram.
-    ///
-    public static let DiagramConnector = Trait(
-        name: "DiagramConnector",
-        attributes: [
-            // types: default(for type), line, orthogonal, curve
-             Attribute("connection_type", type: .string, optional: true),
-             Attribute("midpoints", type: .points, optional: true),
-             Attribute("z_index", type: .int, default: Variant(0), optional: true),
-        ]
-    )
-    /// Trait with view settings of a diagram.
-    ///
-    /// The trait can be used for objects as view bookmarks or as application view settings.
-    ///
-    public static let DiagramView = Trait(
-        name: "DiagramView",
-        attributes: [
-            Attribute("view_position", type: .double, optional: true),
-            Attribute("view_zoom", type: .double, optional: true),
-        ]
-    )
-    
-    /// Trait for objects that have colour.
-    ///
-    /// The colour name should be one of the adaptable colour names, unless specified otherwise.
-    ///
-    /// Adaptable colour names names are:
-    /// `purple`, `red`, `pink`, `brown`, `orange`, `yellow`,
-    /// `lime`, `green`, `cyan`, `teal`, `blue` and `indigo`.
-    ///
-    /// User interface should adapt the colour to fit media the object is displayed at.
-    ///
-    public static let Color = Trait (
-        // TODO: Consider renaming to "AccentColor"
-        name: "Color",
-        label: "Accent Color",
-        attributes: [
-            Attribute("color",
-                      type: .string,
-                      optional: true,
-                      abstract: "Name of object's accent colour: purple, red, pink, brown, orange, yellow, lime, green, cyan, teal, blue, indigo"),
-        ]
-    )
-}
-
-
-extension ObjectType {
-    public static let DiagramSettings = ObjectType(
-        name: "DiagramSettings",
-        topologyType: .unstructured,
-        traits: [
-            .DiagramView,
-        ]
-    )
-
+    public enum Types {
+        public static let DiagramSettings = ObjectType(
+            name: "DiagramSettings",
+            topologyType: .unstructured,
+            traits: [
+                Traits.DiagramView,
+            ]
+        )
+    }
 }
 
 extension ObjectProtocol {

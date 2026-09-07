@@ -126,7 +126,7 @@ extension Plane {
     ///
     /// Use this only for traits of singletons.
     ///
-    public func first(trait: Trait) -> ObjectSnapshot? {
+    public func first(trait: String) -> ObjectSnapshot? {
         return snapshots.first { $0.type.hasTrait(trait) }
     }
     
@@ -254,7 +254,7 @@ extension Plane {
         var types: [ObjectType] = []
         for id in ids {
             guard let object = self[id] else { continue }
-            if types.contains(where: { $0 === object.type}) {
+            if types.contains(where: { $0.matches(object.type)}) {
                 continue
             }
             else {

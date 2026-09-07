@@ -191,11 +191,29 @@ public final class ObjectType: Sendable {
         self.attributeByName = attributeMap
 
     }
-   
-    /// Returns `true` of the object type has a given trait.
+    /// Returns `true` if the object type matches given name.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ name: String) -> Bool {
+        return self.name == name
+    }
+
+    /// Returns `true` if the object type matches name of other object type.
+    ///
+    /// - Note: Use this method instead of name equality matching, as it will
+    ///         consider fully qualified name matching in the future.
+    public func matches(_ other: ObjectType) -> Bool {
+        return self.name == other.name
+    }
+
+    /// Returns `true` of the object type has a trait that matches the
+    /// other trait.
+    ///
+    /// - SeeAlso: ``Trait/matches(_:)-(Trait)``.
     ///
     public func hasTrait(_ trait: Trait) -> Bool {
-        traits.contains { $0 === trait }
+        traits.contains { $0.matches(trait) }
     }
 
     /// Returns `true` of the object type has a trait with given name.
