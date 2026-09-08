@@ -101,20 +101,42 @@
                       "type" : "strong"
                     },
                     {
-                      "text" : " Design objects from current plane with trait ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : ".",
+                      "text" : " Design objects from current plane with any of the following traits:",
                       "type" : "text"
                     }
                   ],
                   "type" : "paragraph"
+                },
+                {
+                  "items" : [
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "Trait\/NumericValue",
+                              "type" : "codeVoice"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "code" : "Trait\/Color",
+                              "type" : "codeVoice"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type" : "unorderedList"
                 }
               ]
             },
@@ -130,22 +152,66 @@
                         }
                       ],
                       "type" : "strong"
-                    },
-                    {
-                      "text" : " Add ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : " component to the design object entity.",
-                      "type" : "text"
                     }
                   ],
                   "type" : "paragraph"
+                },
+                {
+                  "items" : [
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
+                              "isActive" : true,
+                              "type" : "reference"
+                            },
+                            {
+                              "text" : " component for ",
+                              "type" : "text"
+                            },
+                            {
+                              "code" : "NumericValue",
+                              "type" : "codeVoice"
+                            },
+                            {
+                              "text" : " trait.",
+                              "type" : "text"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content" : [
+                        {
+                          "inlineContent" : [
+                            {
+                              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
+                              "isActive" : true,
+                              "type" : "reference"
+                            },
+                            {
+                              "text" : " component for ",
+                              "type" : "text"
+                            },
+                            {
+                              "code" : "Color",
+                              "type" : "codeVoice"
+                            },
+                            {
+                              "text" : " trait.",
+                              "type" : "text"
+                            }
+                          ],
+                          "type" : "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type" : "unorderedList"
                 }
               ]
             },
@@ -181,6 +247,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System"
       ],
       "kind" : "relationships",
@@ -198,20 +266,12 @@
   ],
   "topicSections" : [
     {
-      "anchor" : "Initializers",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VisualMetadataSystem\/init(_:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "anchor" : "Instance-Methods",
+      "anchor" : "Type-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VisualMetadataSystem\/update(_:)"
       ],
-      "title" : "Instance Methods"
+      "title" : "Type Methods"
     },
     {
       "anchor" : "Default-Implementations",
@@ -250,6 +310,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
 },
+"doc://PoieticCore/documentation/PoieticCore/AdaptableColor": {
+  "abstract" : [
+    {
+      "text" : "Dominant adaptable colour of the object’s visual representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AdaptableColor",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/adaptablecolor"
+},
 "doc://PoieticCore/documentation/PoieticCore/DisplayValueBounds": {
   "abstract" : [
     {
@@ -287,7 +381,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -317,51 +420,6 @@
   "title" : "System",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/system"
-},
-"doc://PoieticCore/documentation/PoieticCore/Trait/NumericValue": {
-  "abstract" : [
-    {
-      "text" : "Trait for objects that can be represented by a numeric value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "NumericValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/numericvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/VisualMetadataSystem": {
   "abstract" : [
@@ -408,55 +466,22 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/visualmetadatasystem\/system-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/VisualMetadataSystem/init(_:)": {
-  "abstract" : [
-    {
-      "text" : "Initialise the system within the context of the provided world.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5WorldC",
-      "text" : "World"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VisualMetadataSystem\/init(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/visualmetadatasystem\/init(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/VisualMetadataSystem/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -506,6 +531,50 @@
   "title" : "update(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/visualmetadatasystem\/update(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/World": {
+  "abstract" : [
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

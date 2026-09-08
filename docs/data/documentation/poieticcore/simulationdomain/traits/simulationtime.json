@@ -1,0 +1,366 @@
+{
+  "abstract" : [
+    {
+      "text" : "Trait that specifies simulation start time, time step and final time.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain\/Traits"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain\/Traits\/SimulationTime"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore16SimulationDomainO6TraitsO0C4TimeAA5TraitCvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SimulationTime"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5TraitC",
+        "text" : "Trait"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "SimulationTime"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SimulationTime"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5TraitC",
+              "text" : "Trait"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Attributes:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "start_time",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (double) – initial time of the simulation, default is 0.0",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "time_step",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (double) – time between simulation steps, default is 1.0",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "code" : "final_time",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (double) – Final simulation time.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/simulationdomain\/traits\/simulationtime"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationDomain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationDomain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationDomain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationDomain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationdomain"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationDomain/Traits": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Traits"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain\/Traits",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Traits"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationDomain.Traits",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationdomain\/traits"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationDomain/Traits/SimulationTime": {
+  "abstract" : [
+    {
+      "text" : "Trait that specifies simulation start time, time step and final time.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain\/Traits\/SimulationTime",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "SimulationTime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationdomain\/traits\/simulationtime"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Trait defines object details, its attributes or its role in the model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
+}
+}
+}

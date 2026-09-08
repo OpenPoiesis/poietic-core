@@ -1,0 +1,745 @@
+{
+  "abstract" : [
+    {
+      "text" : "Settings of the simulation time.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore22SimulationTimeSettingsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SimulationTimeSettings"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SimulationTimeSettings"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "SimulationTimeSettings"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SimulationTimeSettings"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "code" : "ScenarioParameters",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(fromObject:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(startTime:timeStep:finalTime:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(startTime:timeStep:steps:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/finalTime",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/startTime",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/steps",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/timeStep"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Type-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/FinalTimeAttributeName",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/StartTimeAttributeName",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/TimeStepAttributeName"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/Component-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/simulationtimesettings"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Component": {
+  "abstract" : [
+    {
+      "text" : "Protocol for runtime components of objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Component",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/component"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings": {
+  "abstract" : [
+    {
+      "text" : "Settings of the simulation time.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationTimeSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/Component-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/Component-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Component Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/component-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/FinalTimeAttributeName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FinalTimeAttributeName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/FinalTimeAttributeName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FinalTimeAttributeName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/finaltimeattributename"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/StartTimeAttributeName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StartTimeAttributeName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/StartTimeAttributeName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "StartTimeAttributeName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/starttimeattributename"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/TimeStepAttributeName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TimeStepAttributeName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/TimeStepAttributeName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "TimeStepAttributeName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/timestepattributename"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/finalTime": {
+  "abstract" : [
+    {
+      "text" : "Final time of the simulation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "finalTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/finalTime",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "finalTime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/finaltime"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/init(fromObject:)": {
+  "abstract" : [
+    {
+      "text" : "Create time settings from object attributes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fromObject"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore14ObjectSnapshotC",
+      "text" : "ObjectSnapshot"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(fromObject:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(fromObject:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/init(fromobject:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/init(startTime:timeStep:finalTime:)": {
+  "abstract" : [
+    {
+      "text" : "Create new simulation settings.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "startTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "timeStep"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "finalTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(startTime:timeStep:finalTime:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(startTime:timeStep:finalTime:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/init(starttime:timestep:finaltime:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/init(startTime:timeStep:steps:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "startTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "timeStep"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "steps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/init(startTime:timeStep:steps:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(startTime:timeStep:steps:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/init(starttime:timestep:steps:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/startTime": {
+  "abstract" : [
+    {
+      "text" : "Time of the initialisation step (step 0) of the simulation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "startTime"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/startTime",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "startTime",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/starttime"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/steps": {
+  "abstract" : [
+    {
+      "text" : "Number of steps to run.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "steps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/steps",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "steps",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/steps"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings/timeStep": {
+  "abstract" : [
+    {
+      "text" : "Advancement of time for each simulation step.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "timeStep"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings\/timeStep",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "timeStep",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings\/timestep"
+}
+}
+}

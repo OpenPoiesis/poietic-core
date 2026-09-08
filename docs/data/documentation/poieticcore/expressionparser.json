@@ -184,6 +184,51 @@
                 {
                   "inlineContent" : [
                     {
+                      "text" : "quoted identifiers with ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "{",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " and ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "}",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " (no ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "{",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " or ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "}",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " allowed inside).",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
                       "text" : "arithmetic operators ",
                       "type" : "text"
                     },

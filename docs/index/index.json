@@ -2540,13 +2540,8 @@
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/variant\/init(json:)",
-                    "title" : "init(json: JSONValue) throws(ForeignValueError)",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variant\/init(type:json:)",
-                    "title" : "init?(type: ValueType, json: JSONValue)",
+                    "path" : "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)",
+                    "title" : "init(jsonWithFallback: String) throws",
                     "type" : "init"
                   },
                   {
@@ -2606,11 +2601,6 @@
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variant\/asjson()",
-                    "title" : "func asJSON() -> JSONValue",
-                    "type" : "method"
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/variant\/boolarray()",
@@ -2688,6 +2678,15 @@
                     "type" : "method"
                   },
                   {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/variant\/decodingtypekey",
+                    "title" : "static let DecodingTypeKey: CodingUserInfoKey",
+                    "type" : "property"
+                  },
+                  {
                     "title" : "Enumerations",
                     "type" : "groupMarker"
                   },
@@ -2698,12 +2697,17 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/poieticcore\/variant\/codingtype\/dictionary",
+                        "path" : "\/documentation\/poieticcore\/variant\/decodingtype\/dictionary",
                         "title" : "case dictionary",
                         "type" : "case"
                       },
                       {
-                        "path" : "\/documentation\/poieticcore\/variant\/codingtype\/tuple",
+                        "path" : "\/documentation\/poieticcore\/variant\/decodingtype\/dictionarywithfallback",
+                        "title" : "case dictionaryWithFallback",
+                        "type" : "case"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/variant\/decodingtype\/tuple",
                         "title" : "case tuple",
                         "type" : "case"
                       },
@@ -2718,18 +2722,18 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/poieticcore\/variant\/codingtype\/!=(_:_:)",
+                            "path" : "\/documentation\/poieticcore\/variant\/decodingtype\/!=(_:_:)",
                             "title" : "static func != (Self, Self) -> Bool",
                             "type" : "op"
                           }
                         ],
-                        "path" : "\/documentation\/poieticcore\/variant\/codingtype\/equatable-implementations",
+                        "path" : "\/documentation\/poieticcore\/variant\/decodingtype\/equatable-implementations",
                         "title" : "Equatable Implementations",
                         "type" : "symbol"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/variant\/codingtype",
-                    "title" : "Variant.CodingType",
+                    "path" : "\/documentation\/poieticcore\/variant\/decodingtype",
+                    "title" : "Variant.DecodingType",
                     "type" : "enum"
                   },
                   {
@@ -3001,16 +3005,6 @@
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/variantatom\/init(json:)",
-                    "title" : "init(json: JSONValue) throws(ForeignValueError)",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variantatom\/init(type:json:)",
-                    "title" : "init?(type: AtomType, json: JSONValue)",
-                    "type" : "init"
-                  },
-                  {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
                   },
@@ -3042,11 +3036,6 @@
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variantatom\/asjson()",
-                    "title" : "func asJSON() -> JSONValue",
-                    "type" : "method"
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/variantatom\/boolvalue()",
@@ -3214,18 +3203,13 @@
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/variantarray\/init(jsonitems:)",
-                    "title" : "init(jsonItems: [JSONValue]) throws(ForeignValueError)",
+                    "path" : "\/documentation\/poieticcore\/variantarray\/init(ofone:)",
+                    "title" : "init(ofOne: VariantAtom)",
                     "type" : "init"
                   },
                   {
                     "path" : "\/documentation\/poieticcore\/variantarray\/init(type:)",
                     "title" : "init(type: AtomType)",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variantarray\/init(type:jsonitems:)",
-                    "title" : "init?(type: AtomType, jsonItems: [JSONValue])",
                     "type" : "init"
                   },
                   {
@@ -3274,11 +3258,6 @@
                   {
                     "path" : "\/documentation\/poieticcore\/variantarray\/append(_:)",
                     "title" : "func append(VariantAtom) throws(ValueError)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/variantarray\/asjson()",
-                    "title" : "func asJSON() -> JSONValue",
                     "type" : "method"
                   },
                   {
@@ -3971,6 +3950,11 @@
                   {
                     "path" : "\/documentation\/poieticcore\/valueerror\/conversiontoidfailed(_:)",
                     "title" : "case conversionToIDFailed(ValueType)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/valueerror\/invaliduserstring(_:)",
+                    "title" : "case invalidUserString(String)",
                     "type" : "case"
                   },
                   {
@@ -5112,15 +5096,6 @@
                     "path" : "\/documentation\/poieticcore\/metamodel\/subscript(_:)",
                     "title" : "subscript(String) -> ObjectType?",
                     "type" : "subscript"
-                  },
-                  {
-                    "title" : "Type Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/metamodel\/basic",
-                    "title" : "static let Basic: Metamodel",
-                    "type" : "property"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/metamodel",
@@ -5212,33 +5187,19 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/trait(forattribute:)",
-                    "title" : "func trait(forAttribute: String) -> Trait?",
+                    "path" : "\/documentation\/poieticcore\/objecttype\/matches(_:)-1xje8",
+                    "title" : "func matches(String) -> Bool",
                     "type" : "method"
                   },
                   {
-                    "title" : "Type Properties",
-                    "type" : "groupMarker"
+                    "path" : "\/documentation\/poieticcore\/objecttype\/matches(_:)-3oavi",
+                    "title" : "func matches(ObjectType) -> Bool",
+                    "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/bibliographicalreference",
-                    "title" : "static let BibliographicalReference: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/designinfo",
-                    "title" : "static let DesignInfo: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/diagramsettings",
-                    "title" : "static let DiagramSettings: ObjectType",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttype\/group",
-                    "title" : "static let Group: ObjectType",
-                    "type" : "property"
+                    "path" : "\/documentation\/poieticcore\/objecttype\/trait(forattribute:)",
+                    "title" : "func trait(forAttribute: String) -> Trait?",
+                    "type" : "method"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/objecttype",
@@ -5281,83 +5242,23 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/trait\/name-swift.property",
+                    "path" : "\/documentation\/poieticcore\/trait\/name",
                     "title" : "let name: String",
                     "type" : "property"
                   },
                   {
-                    "title" : "Type Properties",
+                    "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/trait\/audiencelevel",
-                    "title" : "static let AudienceLevel: Trait",
-                    "type" : "property"
+                    "path" : "\/documentation\/poieticcore\/trait\/matches(_:)-26cst",
+                    "title" : "func matches(String) -> Bool",
+                    "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/trait\/bibliographicalreference",
-                    "title" : "static let BibliographicalReference: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/color",
-                    "title" : "static let Color: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/designinfo",
-                    "title" : "static let DesignInfo: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/diagramblock",
-                    "title" : "static let DiagramBlock: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/diagramconnector",
-                    "title" : "static let DiagramConnector: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/diagramview",
-                    "title" : "static let DiagramView: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/documentation",
-                    "title" : "static let Documentation: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/formula",
-                    "title" : "static let Formula: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/keywords",
-                    "title" : "static let Keywords: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/name-swift.type.property",
-                    "title" : "static let Name: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/note",
-                    "title" : "static let Note: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/numericvalue",
-                    "title" : "static let NumericValue: Trait",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/trait\/orderable",
-                    "title" : "static let Orderable: Trait",
-                    "type" : "property"
+                    "path" : "\/documentation\/poieticcore\/trait\/matches(_:)-ep4b",
+                    "title" : "func matches(Trait) -> Bool",
+                    "type" : "method"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/trait",
@@ -5588,23 +5489,13 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/edgeruleviolation\/hints",
-                    "title" : "var hints: [String]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/edgeruleviolation\/message",
-                    "title" : "var message: String",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
+                    "title" : "Type Properties",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/edgeruleviolation\/asobjectissue()",
-                    "title" : "func asObjectIssue() -> Issue",
-                    "type" : "method"
+                    "path" : "\/documentation\/poieticcore\/edgeruleviolation\/issuesourcename",
+                    "title" : "static let IssueSourceName: String",
+                    "type" : "property"
                   },
                   {
                     "title" : "Default Implementations",
@@ -5624,6 +5515,37 @@
                     ],
                     "path" : "\/documentation\/poieticcore\/edgeruleviolation\/error-implementations",
                     "title" : "Error Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/edgeruleviolation\/details",
+                        "title" : "var details: [String : Variant]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/edgeruleviolation\/hints",
+                        "title" : "var hints: [String]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/edgeruleviolation\/issueidentifier",
+                        "title" : "var issueIdentifier: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/edgeruleviolation\/message",
+                        "title" : "var message: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/edgeruleviolation\/issueconvertible-implementations",
+                    "title" : "IssueConvertible Implementations",
                     "type" : "symbol"
                   }
                 ],
@@ -5761,196 +5683,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/init(domain:severity:identifier:message:hint:details:)",
-                    "title" : "init(domain: DesignIssue.Domain, severity: DesignIssue.Severity, identifier: String, message: String, hint: String?, details: [String : Variant])",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/description",
-                    "title" : "var description: String",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/details",
-                    "title" : "let details: [String : Variant]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.property",
-                    "title" : "let domain: DesignIssue.Domain",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/hint",
-                    "title" : "let hint: String?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/identifier",
-                    "title" : "let identifier: String",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/message",
-                    "title" : "let message: String",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.property",
-                    "title" : "let severity: DesignIssue.Severity",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Enumerations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Enumeration Cases",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/compilation",
-                        "title" : "case compilation",
-                        "type" : "case"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/foreigninterface",
-                        "title" : "case foreignInterface",
-                        "type" : "case"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/simulation",
-                        "title" : "case simulation",
-                        "type" : "case"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/validation",
-                        "title" : "case validation",
-                        "type" : "case"
-                      },
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/description",
-                        "title" : "var description: String",
-                        "type" : "property"
-                      },
-                      {
-                        "title" : "Default Implementations",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "children" : [
-                          {
-                            "title" : "Operators",
-                            "type" : "groupMarker"
-                          },
-                          {
-                            "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/!=(_:_:)",
-                            "title" : "static func != (Self, Self) -> Bool",
-                            "type" : "op"
-                          }
-                        ],
-                        "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum\/equatable-implementations",
-                        "title" : "Equatable Implementations",
-                        "type" : "symbol"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/designissue\/domain-swift.enum",
-                    "title" : "DesignIssue.Domain",
-                    "type" : "enum"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Enumeration Cases",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/error",
-                        "title" : "case error",
-                        "type" : "case"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/fatal",
-                        "title" : "case fatal",
-                        "type" : "case"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/warning",
-                        "title" : "case warning",
-                        "type" : "case"
-                      },
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/description",
-                        "title" : "var description: String",
-                        "type" : "property"
-                      },
-                      {
-                        "title" : "Default Implementations",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "children" : [
-                          {
-                            "title" : "Operators",
-                            "type" : "groupMarker"
-                          },
-                          {
-                            "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/!=(_:_:)",
-                            "title" : "static func != (Self, Self) -> Bool",
-                            "type" : "op"
-                          }
-                        ],
-                        "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum\/equatable-implementations",
-                        "title" : "Equatable Implementations",
-                        "type" : "symbol"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/designissue\/severity-swift.enum",
-                    "title" : "DesignIssue.Severity",
-                    "type" : "enum"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/designissue",
-                "title" : "DesignIssue",
-                "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/designissueconvertible\/asdesignissue()",
-                    "title" : "func asDesignIssue() -> DesignIssue",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/designissueconvertible",
-                "title" : "DesignIssueConvertible",
-                "type" : "protocol"
-              },
-              {
-                "children" : [
-                  {
                     "title" : "Enumeration Cases",
                     "type" : "groupMarker"
                   },
@@ -5982,30 +5714,6 @@
                     "path" : "\/documentation\/poieticcore\/objecttypeerror\/description",
                     "title" : "var description: String",
                     "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttypeerror\/hints",
-                    "title" : "var hints: [String]",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttypeerror\/message",
-                    "title" : "var message: String",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttypeerror\/asdesignissue()",
-                    "title" : "func asDesignIssue() -> DesignIssue",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/objecttypeerror\/asobjectissue()",
-                    "title" : "func asObjectIssue() -> Issue",
-                    "type" : "method"
                   },
                   {
                     "title" : "Default Implementations",
@@ -6041,6 +5749,37 @@
                     ],
                     "path" : "\/documentation\/poieticcore\/objecttypeerror\/error-implementations",
                     "title" : "Error Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objecttypeerror\/details",
+                        "title" : "var details: [String : Variant]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objecttypeerror\/hints",
+                        "title" : "var hints: [String]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objecttypeerror\/issueidentifier",
+                        "title" : "var issueIdentifier: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/objecttypeerror\/message",
+                        "title" : "var message: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/poieticcore\/objecttypeerror\/issueconvertible-implementations",
+                    "title" : "IssueConvertible Implementations",
                     "type" : "symbol"
                   }
                 ],
@@ -6240,46 +5979,6 @@
               {
                 "title" : "Common Components and Types",
                 "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/name-swift.type.property",
-                "title" : "static let Name: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/documentation",
-                "title" : "static let Documentation: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/keywords",
-                "title" : "static let Keywords: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/note",
-                "title" : "static let Note: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/designinfo",
-                "title" : "static let DesignInfo: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/designinfo",
-                "title" : "static let DesignInfo: Trait",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/objecttype\/designinfo",
-                "title" : "static let DesignInfo: ObjectType",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/trait\/audiencelevel",
-                "title" : "static let AudienceLevel: Trait",
-                "type" : "property"
               },
               {
                 "children" : [
@@ -6648,11 +6347,6 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/world\/query(_:)-v0ag",
-                    "title" : "func query<T>(T.Type) -> QueryResult<T>",
-                    "type" : "method"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/world\/query(_:_:)",
                     "title" : "func query<C1, C2>(C1.Type, C2.Type) -> QueryResult<(RuntimeEntity, C1, C2)>",
                     "type" : "method"
@@ -6660,6 +6354,11 @@
                   {
                     "path" : "\/documentation\/poieticcore\/world\/removecomponentforall(_:)",
                     "title" : "func removeComponentForAll<T>(T.Type)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/world\/removeintermediatesingletons()",
+                    "title" : "func removeIntermediateSingletons()",
                     "type" : "method"
                   },
                   {
@@ -6678,8 +6377,13 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/world\/run(schedule:)",
-                    "title" : "func run(schedule: any ScheduleLabel.Type) throws(InternalSystemError)",
+                    "path" : "\/documentation\/poieticcore\/world\/run(schedule:cleanintermediates:)",
+                    "title" : "func run(schedule: any ScheduleLabel.Type, cleanIntermediates: Bool) throws(InternalSystemError)",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/world\/run(systems:cleanintermediates:)",
+                    "title" : "func run(systems: [any System.Type], cleanIntermediates: Bool) throws(InternalSystemError)",
                     "type" : "method"
                   },
                   {
@@ -6698,13 +6402,13 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-7pusy",
-                    "title" : "func spawn([any Component]) -> RuntimeID",
+                    "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk",
+                    "title" : "func spawn(any Component...) -> RuntimeEntity",
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk",
-                    "title" : "func spawn(any Component...) -> RuntimeEntity",
+                    "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-o7dk",
+                    "title" : "func spawn([any Component]) -> RuntimeEntity",
                     "type" : "method"
                   }
                 ],
@@ -6805,6 +6509,11 @@
                   {
                     "path" : "\/documentation\/poieticcore\/runtimeentity\/firstoutgoing(_:)",
                     "title" : "func firstOutgoing<T>(T.Type) -> RuntimeEntity?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/runtimeentity\/hasissue(_:)",
+                    "title" : "func hasIssue(String) -> Bool",
                     "type" : "method"
                   },
                   {
@@ -7635,51 +7344,6 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/objectsnapshotref\/init(_:)",
-                    "title" : "init(ObjectSnapshotID)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Type Aliases",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/objectsnapshotref\/storage",
-                        "title" : "ObjectSnapshotRef.Storage",
-                        "type" : "typealias"
-                      },
-                      {
-                        "title" : "Type Methods",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/objectsnapshotref\/makestorage()",
-                        "title" : "static func makeStorage() -> any ComponentStorageProtocol",
-                        "type" : "method"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/objectsnapshotref\/component-implementations",
-                    "title" : "Component Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/objectsnapshotref",
-                "title" : "ObjectSnapshotRef",
-                "type" : "struct"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/objecttouched\/init()",
                     "title" : "init()",
                     "type" : "init"
@@ -7753,8 +7417,8 @@
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/parsedexpressioncomponent\/variables",
-                    "title" : "let variables: Set<String>",
+                    "path" : "\/documentation\/poieticcore\/parsedexpressioncomponent\/usedvariables",
+                    "title" : "let usedVariables: Set<String>",
                     "type" : "property"
                   },
                   {
@@ -7798,29 +7462,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/system\/init(_:)",
-                    "title" : "init(World)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/system\/update(_:)",
-                    "title" : "func update(World) throws(InternalSystemError)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/system\/update(_:context:)",
-                    "title" : "func update(World, context: inout PipelineContext) throws(InternalSystemError)",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Properties",
                     "type" : "groupMarker"
                   },
@@ -7828,6 +7469,15 @@
                     "path" : "\/documentation\/poieticcore\/system\/dependencies",
                     "title" : "static var dependencies: [SystemDependency]",
                     "type" : "property"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/system\/update(_:)",
+                    "title" : "static func update(World) throws(InternalSystemError)",
+                    "type" : "method"
                   }
                 ],
                 "path" : "\/documentation\/poieticcore\/system",
@@ -7905,11 +7555,6 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/schedule\/initialize(with:)",
-                    "title" : "func initialize(with: World) throws(InternalSystemError)",
-                    "type" : "method"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/schedule\/order(_:after:)",
                     "title" : "func order(any System.Type, after: any System.Type)",
                     "type" : "method"
@@ -7956,13 +7601,13 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/internalsystemerror\/init(_:message:context:)-7ibz6",
-                    "title" : "init(some System, message: String, context: InternalSystemError.Context)",
+                    "path" : "\/documentation\/poieticcore\/internalsystemerror\/init(_:message:context:)-7jyih",
+                    "title" : "init(String, message: String, context: InternalSystemError.Context)",
                     "type" : "init"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/internalsystemerror\/init(_:message:context:)-7jyih",
-                    "title" : "init(String, message: String, context: InternalSystemError.Context)",
+                    "path" : "\/documentation\/poieticcore\/internalsystemerror\/init(_:message:context:)-bb9s",
+                    "title" : "init(any System.Type, message: String, context: InternalSystemError.Context)",
                     "type" : "init"
                   },
                   {
@@ -8167,24 +7812,6 @@
                     "type" : "method"
                   },
                   {
-                    "children" : [
-                      {
-                        "children" : [
-                          {
-                            "path" : "\/documentation\/poieticcore\/componentstorageprotocol\/relationship(for:)-1vpc7",
-                            "title" : "func relationship(for: RuntimeID) -> (any Relationship)?",
-                            "type" : "method"
-                          }
-                        ],
-                        "title" : "ComponentStorageProtocol Implementations",
-                        "type" : "groupMarker"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/componentstorageprotocol\/relationship(for:)",
-                    "title" : "func relationship(for: RuntimeID) -> (any Relationship)?",
-                    "type" : "method"
-                  },
-                  {
                     "path" : "\/documentation\/poieticcore\/componentstorageprotocol\/removeall()",
                     "title" : "func removeAll()",
                     "type" : "method"
@@ -8234,13 +7861,8 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/poieticcore\/componentset\/remove(_:)-1aobu",
+                    "path" : "\/documentation\/poieticcore\/componentset\/remove(_:)",
                     "title" : "func remove(any Component.Type)",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/componentset\/remove(_:)-1qt72",
-                    "title" : "func remove(ObjectIdentifier)",
                     "type" : "method"
                   },
                   {
@@ -8795,11 +8417,6 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/world\/query(_:)-v0ag",
-                "title" : "func query<T>(T.Type) -> QueryResult<T>",
-                "type" : "method"
-              },
-              {
                 "path" : "\/documentation\/poieticcore\/world\/query(_:_:)",
                 "title" : "func query<C1, C2>(C1.Type, C2.Type) -> QueryResult<(RuntimeEntity, C1, C2)>",
                 "type" : "method"
@@ -8807,6 +8424,11 @@
               {
                 "path" : "\/documentation\/poieticcore\/world\/removecomponentforall(_:)",
                 "title" : "func removeComponentForAll<T>(T.Type)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/world\/removeintermediatesingletons()",
+                "title" : "func removeIntermediateSingletons()",
                 "type" : "method"
               },
               {
@@ -8825,8 +8447,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/world\/run(schedule:)",
-                "title" : "func run(schedule: any ScheduleLabel.Type) throws(InternalSystemError)",
+                "path" : "\/documentation\/poieticcore\/world\/run(schedule:cleanintermediates:)",
+                "title" : "func run(schedule: any ScheduleLabel.Type, cleanIntermediates: Bool) throws(InternalSystemError)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/world\/run(systems:cleanintermediates:)",
+                "title" : "func run(systems: [any System.Type], cleanIntermediates: Bool) throws(InternalSystemError)",
                 "type" : "method"
               },
               {
@@ -8845,13 +8472,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-7pusy",
-                "title" : "func spawn([any Component]) -> RuntimeID",
+                "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk",
+                "title" : "func spawn(any Component...) -> RuntimeEntity",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk",
-                "title" : "func spawn(any Component...) -> RuntimeEntity",
+                "path" : "\/documentation\/poieticcore\/world\/spawn(_:)-o7dk",
+                "title" : "func spawn([any Component]) -> RuntimeEntity",
                 "type" : "method"
               }
             ],
@@ -8862,29 +8489,6 @@
           {
             "children" : [
               {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/system\/init(_:)",
-                "title" : "init(World)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/system\/update(_:)",
-                "title" : "func update(World) throws(InternalSystemError)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/system\/update(_:context:)",
-                "title" : "func update(World, context: inout PipelineContext) throws(InternalSystemError)",
-                "type" : "method"
-              },
-              {
                 "title" : "Type Properties",
                 "type" : "groupMarker"
               },
@@ -8892,6 +8496,15 @@
                 "path" : "\/documentation\/poieticcore\/system\/dependencies",
                 "title" : "static var dependencies: [SystemDependency]",
                 "type" : "property"
+              },
+              {
+                "title" : "Type Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/system\/update(_:)",
+                "title" : "static func update(World) throws(InternalSystemError)",
+                "type" : "method"
               }
             ],
             "path" : "\/documentation\/poieticcore\/system",
@@ -10362,6 +9975,11 @@
                     "type" : "property"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/rawdesignreadererror\/hint",
+                    "title" : "var hint: String",
+                    "type" : "property"
+                  },
+                  {
                     "title" : "Enumerations",
                     "type" : "groupMarker"
                   },
@@ -10423,22 +10041,6 @@
                   {
                     "title" : "Default Implementations",
                     "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Methods",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/rawdesignreadererror\/asdesignissue()",
-                        "title" : "func asDesignIssue() -> DesignIssue",
-                        "type" : "method"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/rawdesignreadererror\/designissueconvertible-implementations",
-                    "title" : "DesignIssueConvertible Implementations",
-                    "type" : "symbol"
                   },
                   {
                     "children" : [
@@ -10645,73 +10247,6 @@
                 ],
                 "path" : "\/documentation\/poieticcore\/variantcodingerror",
                 "title" : "VariantCodingError",
-                "type" : "enum"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Enumeration Cases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/invalidvalue",
-                    "title" : "case invalidValue",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/notconvertibletovariant",
-                    "title" : "case notConvertibleToVariant",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/typemismatch(_:)",
-                    "title" : "case typeMismatch(String)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/valuenotfound",
-                    "title" : "case valueNotFound",
-                    "type" : "case"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Operators",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/foreignvalueerror\/!=(_:_:)",
-                        "title" : "static func != (Self, Self) -> Bool",
-                        "type" : "op"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/equatable-implementations",
-                    "title" : "Equatable Implementations",
-                    "type" : "symbol"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/foreignvalueerror\/localizeddescription",
-                        "title" : "var localizedDescription: String",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/foreignvalueerror\/error-implementations",
-                    "title" : "Error Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/foreignvalueerror",
-                "title" : "ForeignValueError",
                 "type" : "enum"
               },
               {
@@ -11110,310 +10645,6 @@
                 "path" : "\/documentation\/poieticcore\/csvwriter",
                 "title" : "CSVWriter",
                 "type" : "class"
-              },
-              {
-                "title" : "JSON",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Enumeration Cases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/array(_:)",
-                    "title" : "case array([JSONValue])",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/bool(_:)",
-                    "title" : "case bool(Bool)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/float(_:)",
-                    "title" : "case float(Double)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/int(_:)",
-                    "title" : "case int(Int)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/null",
-                    "title" : "case null",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/object(_:)",
-                    "title" : "case object([String : JSONValue])",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/string(_:)",
-                    "title" : "case string(String)",
-                    "type" : "case"
-                  },
-                  {
-                    "title" : "Initializers",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/init(data:)",
-                    "title" : "init(data: Data) throws(JSONError)",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/init(from:)",
-                    "title" : "init(from: any Decoder) throws",
-                    "type" : "init"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/init(parsing:)",
-                    "title" : "init(parsing: String) throws(JSONError)",
-                    "type" : "init"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/arrayvalue",
-                    "title" : "var arrayValue: [JSONValue]?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/boolvalue",
-                    "title" : "var boolValue: Bool?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/doublevalue",
-                    "title" : "var doubleValue: Double?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/intvalue",
-                    "title" : "var intValue: Int?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/numericvalue",
-                    "title" : "var numericValue: Double?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/objectvalue",
-                    "title" : "var objectValue: [String : JSONValue]?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/stringvalue",
-                    "title" : "var stringValue: String?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/type",
-                    "title" : "var type: JSONType",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/asanyvalue()",
-                    "title" : "func asAnyValue() -> Any?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/data(formatting:userinfo:)",
-                    "title" : "func data(formatting: JSONEncoder.OutputFormatting, userInfo: [CodingUserInfoKey : any Sendable]?) throws -> Data",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/encode(to:)",
-                    "title" : "func encode(to: any Encoder) throws",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/exactdouble()",
-                    "title" : "func exactDouble() -> Double?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/exactint()",
-                    "title" : "func exactInt() -> Int?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/string(formatting:userinfo:)",
-                    "title" : "func string(formatting: JSONEncoder.OutputFormatting, userInfo: [CodingUserInfoKey : any Sendable]?) throws -> String?",
-                    "type" : "method"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Operators",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/jsonvalue\/!=(_:_:)",
-                        "title" : "static func != (Self, Self) -> Bool",
-                        "type" : "op"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/jsonvalue\/equatable-implementations",
-                    "title" : "Equatable Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/jsonvalue",
-                "title" : "JSONValue",
-                "type" : "enum"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Enumeration Cases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/array",
-                    "title" : "case array",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/bool",
-                    "title" : "case bool",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/float",
-                    "title" : "case float",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/int",
-                    "title" : "case int",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/null",
-                    "title" : "case null",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/object",
-                    "title" : "case object",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsontype\/string",
-                    "title" : "case string",
-                    "type" : "case"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Operators",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/jsontype\/!=(_:_:)",
-                        "title" : "static func != (Self, Self) -> Bool",
-                        "type" : "op"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/jsontype\/equatable-implementations",
-                    "title" : "Equatable Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/jsontype",
-                "title" : "JSONType",
-                "type" : "enum"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Enumeration Cases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/datacorrupted",
-                    "title" : "case dataCorrupted",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/propertynotfound(_:)",
-                    "title" : "case propertyNotFound(String)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/typemismatch(_:_:)",
-                    "title" : "case typeMismatch(JSONType, String?)",
-                    "type" : "case"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/description",
-                    "title" : "var description: String",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Operators",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/jsonerror\/!=(_:_:)",
-                        "title" : "static func != (Self, Self) -> Bool",
-                        "type" : "op"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/equatable-implementations",
-                    "title" : "Equatable Implementations",
-                    "type" : "symbol"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/poieticcore\/jsonerror\/localizeddescription",
-                        "title" : "var localizedDescription: String",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/poieticcore\/jsonerror\/error-implementations",
-                    "title" : "Error Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/jsonerror",
-                "title" : "JSONError",
-                "type" : "enum"
               }
             ],
             "path" : "\/documentation\/poieticcore\/foreigninterfaces",
@@ -12414,8 +11645,18 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/builtinfunction\/abstract",
+                    "title" : "var abstract: String",
+                    "type" : "property"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/builtinfunction\/description",
                     "title" : "var description: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/builtinfunction\/descriptionwithsignature",
+                    "title" : "var descriptionWithSignature: String",
                     "type" : "property"
                   },
                   {
@@ -12471,6 +11712,11 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/argumentstring",
+                        "title" : "var argumentString: String",
+                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/minimalargumentcount",
@@ -12968,6 +12214,11 @@
                         "type" : "case"
                       },
                       {
+                        "path" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/quotedidentifier",
+                        "title" : "case quotedIdentifier",
+                        "type" : "case"
+                      },
+                      {
                         "path" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/rightparen",
                         "title" : "case rightParen",
                         "type" : "case"
@@ -13009,8 +12260,18 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/emptyidentifier",
+                    "title" : "case emptyIdentifier",
+                    "type" : "case"
+                  },
+                  {
                     "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/expressionexpected",
                     "title" : "case expressionExpected",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/invalidcharacterinidentifier",
+                    "title" : "case invalidCharacterInIdentifier",
                     "type" : "case"
                   },
                   {
@@ -13031,6 +12292,11 @@
                   {
                     "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/unexpectedcharacter",
                     "title" : "case unexpectedCharacter",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/unexpectedend",
+                    "title" : "case unexpectedEnd",
                     "type" : "case"
                   },
                   {
@@ -13090,8 +12356,18 @@
                         "type" : "groupMarker"
                       },
                       {
+                        "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/details",
+                        "title" : "var details: [String : Variant]",
+                        "type" : "property"
+                      },
+                      {
                         "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/hints",
                         "title" : "var hints: [String]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/issueidentifier",
+                        "title" : "var issueIdentifier: String",
                         "type" : "property"
                       },
                       {
@@ -13100,8 +12376,8 @@
                         "type" : "property"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/issueprotocol-implementations",
-                    "title" : "IssueProtocol Implementations",
+                    "path" : "\/documentation\/poieticcore\/expressionsyntaxerror\/issueconvertible-implementations",
+                    "title" : "IssueConvertible Implementations",
                     "type" : "symbol"
                   }
                 ],
@@ -13187,8 +12463,18 @@
                         "type" : "groupMarker"
                       },
                       {
+                        "path" : "\/documentation\/poieticcore\/expressionerror\/details",
+                        "title" : "var details: [String : Variant]",
+                        "type" : "property"
+                      },
+                      {
                         "path" : "\/documentation\/poieticcore\/expressionerror\/hints",
                         "title" : "var hints: [String]",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/poieticcore\/expressionerror\/issueidentifier",
+                        "title" : "var issueIdentifier: String",
                         "type" : "property"
                       },
                       {
@@ -13197,8 +12483,8 @@
                         "type" : "property"
                       }
                     ],
-                    "path" : "\/documentation\/poieticcore\/expressionerror\/issueprotocol-implementations",
-                    "title" : "IssueProtocol Implementations",
+                    "path" : "\/documentation\/poieticcore\/expressionerror\/issueconvertible-implementations",
+                    "title" : "IssueConvertible Implementations",
                     "type" : "symbol"
                   }
                 ],
@@ -13346,26 +12632,6 @@
                 "path" : "\/documentation\/poieticcore\/dictionarycomponentstorage\/idcollection",
                 "title" : "DictionaryComponentStorage.IDCollection",
                 "type" : "typealias"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/dictionarycomponentstorage\/relationship(for:)",
-                    "title" : "func relationship(for: RuntimeID) -> (any Relationship)?",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/dictionarycomponentstorage\/componentstorageprotocol-implementations",
-                "title" : "ComponentStorageProtocol Implementations",
-                "type" : "symbol"
               }
             ],
             "path" : "\/documentation\/poieticcore\/dictionarycomponentstorage",
@@ -14065,26 +13331,6 @@
                 "path" : "\/documentation\/poieticcore\/tagcomponentstorage\/idcollection",
                 "title" : "TagComponentStorage.IDCollection",
                 "type" : "typealias"
-              },
-              {
-                "title" : "Default Implementations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/tagcomponentstorage\/relationship(for:)",
-                    "title" : "func relationship(for: RuntimeID) -> (any Relationship)?",
-                    "type" : "method"
-                  }
-                ],
-                "path" : "\/documentation\/poieticcore\/tagcomponentstorage\/componentstorageprotocol-implementations",
-                "title" : "ComponentStorageProtocol Implementations",
-                "type" : "symbol"
               }
             ],
             "path" : "\/documentation\/poieticcore\/tagcomponentstorage",
@@ -14121,24 +13367,65 @@
             "type" : "protocol"
           },
           {
+            "path" : "\/documentation\/poieticcore\/intermediatesingleton",
+            "title" : "IntermediateSingleton",
+            "type" : "protocol"
+          },
+          {
             "children" : [
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/issueprotocol\/hints",
+                "children" : [
+                  {
+                    "children" : [
+                      {
+                        "path" : "\/documentation\/poieticcore\/issueconvertible\/details-5uo67",
+                        "title" : "var details: [String : Variant]",
+                        "type" : "property"
+                      }
+                    ],
+                    "title" : "IssueConvertible Implementations",
+                    "type" : "groupMarker"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/issueconvertible\/details",
+                "title" : "var details: [String : Variant]",
+                "type" : "property"
+              },
+              {
+                "children" : [
+                  {
+                    "children" : [
+                      {
+                        "path" : "\/documentation\/poieticcore\/issueconvertible\/hints-6lf5i",
+                        "title" : "var hints: [String]",
+                        "type" : "property"
+                      }
+                    ],
+                    "title" : "IssueConvertible Implementations",
+                    "type" : "groupMarker"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/issueconvertible\/hints",
                 "title" : "var hints: [String]",
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/poieticcore\/issueprotocol\/message",
+                "path" : "\/documentation\/poieticcore\/issueconvertible\/issueidentifier",
+                "title" : "var issueIdentifier: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/issueconvertible\/message",
                 "title" : "var message: String",
                 "type" : "property"
               }
             ],
-            "path" : "\/documentation\/poieticcore\/issueprotocol",
-            "title" : "IssueProtocol",
+            "path" : "\/documentation\/poieticcore\/issueconvertible",
+            "title" : "IssueConvertible",
             "type" : "protocol"
           },
           {
@@ -14220,6 +13507,60 @@
           {
             "title" : "Structures",
             "type" : "groupMarker"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/adaptablecolor\/init(_:)",
+                "title" : "init(AdaptableColorKey)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/adaptablecolor\/key",
+                "title" : "let key: AdaptableColorKey",
+                "type" : "property"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/adaptablecolor\/storage",
+                    "title" : "AdaptableColor.Storage",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/adaptablecolor\/makestorage()",
+                    "title" : "static func makeStorage() -> any ComponentStorageProtocol",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/adaptablecolor\/component-implementations",
+                "title" : "Component Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/adaptablecolor",
+            "title" : "AdaptableColor",
+            "type" : "struct"
           },
           {
             "children" : [
@@ -14368,21 +13709,12 @@
           {
             "children" : [
               {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/expressionparsersystem\/init(_:)",
-                "title" : "init(World)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Methods",
+                "title" : "Type Methods",
                 "type" : "groupMarker"
               },
               {
                 "path" : "\/documentation\/poieticcore\/expressionparsersystem\/update(_:)",
-                "title" : "func update(World)",
+                "title" : "static func update(World) throws(InternalSystemError)",
                 "type" : "method"
               },
               {
@@ -14391,15 +13723,6 @@
               },
               {
                 "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/expressionparsersystem\/update(_:context:)",
-                    "title" : "func update(World, context: inout PipelineContext) throws(InternalSystemError)",
-                    "type" : "method"
-                  },
                   {
                     "title" : "Type Properties",
                     "type" : "groupMarker"
@@ -15077,18 +14400,18 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:system:error:relatedobjects:details:)",
-                "title" : "init(identifier: String, severity: Issue.Severity, system: any System, error: any IssueProtocol, relatedObjects: [ObjectID], details: [String : Variant])",
-                "type" : "init"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:system:message:hints:relatedobjects:details:)",
-                "title" : "init(identifier: String, severity: Issue.Severity, system: String, message: String, hints: [String], relatedObjects: [ObjectID], details: [String : Variant])",
+                "path" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:source:message:hints:relatedobjects:details:)",
+                "title" : "init(identifier: String, severity: Issue.Severity, source: String, message: String, hints: [String], relatedObjects: [ObjectID], details: [String : Variant])",
                 "type" : "init"
               },
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/issue\/debugdescription",
+                "title" : "var debugDescription: String",
+                "type" : "property"
               },
               {
                 "path" : "\/documentation\/poieticcore\/issue\/description",
@@ -15098,11 +14421,6 @@
               {
                 "path" : "\/documentation\/poieticcore\/issue\/details",
                 "title" : "let details: [String : Variant]",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/issue\/error",
-                "title" : "let error: (any IssueProtocol)?",
                 "type" : "property"
               },
               {
@@ -15131,8 +14449,8 @@
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/poieticcore\/issue\/system",
-                "title" : "let system: String",
+                "path" : "\/documentation\/poieticcore\/issue\/source",
+                "title" : "let source: String",
                 "type" : "property"
               },
               {
@@ -15420,36 +14738,213 @@
           {
             "children" : [
               {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/namenormalizationsystem\/issuesourcename",
+                "title" : "static let IssueSourceName: String",
+                "type" : "property"
+              },
+              {
+                "title" : "Type Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/namenormalizationsystem\/update(_:)",
+                "title" : "static func update(World) throws(InternalSystemError)",
+                "type" : "method"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/namenormalizationsystem\/dependencies",
+                    "title" : "static var dependencies: [SystemDependency]",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/namenormalizationsystem\/system-implementations",
+                "title" : "System Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/namenormalizationsystem",
+            "title" : "NameNormalizationSystem",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/normalizedname\/init(name:)",
+                "title" : "init(name: String)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/normalizedname\/displayname",
+                "title" : "let displayName: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/normalizedname\/isvisuallyempty",
+                "title" : "var isVisuallyEmpty: Bool",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/normalizedname\/key",
+                "title" : "let key: String",
+                "type" : "property"
+              },
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/pipelinecontext\/get(_:)",
-                "title" : "func get<T>(T.Type) -> T?",
+                "path" : "\/documentation\/poieticcore\/normalizedname\/matches(_:)",
+                "title" : "func matches(String) -> Bool",
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/poieticcore\/pipelinecontext\/remove(_:)",
-                "title" : "func remove<T>(T.Type)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/pipelinecontext\/set(_:for:)",
-                "title" : "func set<T>(T, for: T.Type)",
-                "type" : "method"
-              },
-              {
-                "title" : "Subscripts",
+                "title" : "Type Methods",
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/poieticcore\/pipelinecontext\/subscript(_:)",
-                "title" : "subscript<T>(T.Type) -> T?",
-                "type" : "subscript"
+                "path" : "\/documentation\/poieticcore\/normalizedname\/displayname(for:)",
+                "title" : "static func displayName(for: String) -> String",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/normalizedname\/normalize(_:)",
+                "title" : "static func normalize(String) -> String",
+                "type" : "method"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/normalizedname\/storage",
+                    "title" : "NormalizedName.Storage",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/normalizedname\/makestorage()",
+                    "title" : "static func makeStorage() -> any ComponentStorageProtocol",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/normalizedname\/component-implementations",
+                "title" : "Component Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Operators",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/normalizedname\/!=(_:_:)",
+                    "title" : "static func != (Self, Self) -> Bool",
+                    "type" : "op"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/normalizedname\/equatable-implementations",
+                "title" : "Equatable Implementations",
+                "type" : "symbol"
               }
             ],
-            "path" : "\/documentation\/poieticcore\/pipelinecontext",
-            "title" : "PipelineContext",
+            "path" : "\/documentation\/poieticcore\/normalizedname",
+            "title" : "NormalizedName",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/objectreference\/init(_:)",
+                "title" : "init(ObjectSnapshot)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/objectreference\/init(objectid:snapshotid:)",
+                "title" : "init(objectID: ObjectID, snapshotID: ObjectSnapshotID)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/objectreference\/objectid",
+                "title" : "let objectID: ObjectID",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/objectreference\/snapshotid",
+                "title" : "let snapshotID: ObjectSnapshotID",
+                "type" : "property"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectreference\/storage",
+                    "title" : "ObjectReference.Storage",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/objectreference\/makestorage()",
+                    "title" : "static func makeStorage() -> any ComponentStorageProtocol",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/objectreference\/component-implementations",
+                "title" : "Component Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/objectreference",
+            "title" : "ObjectReference",
             "type" : "struct"
           },
           {
@@ -15500,6 +14995,15 @@
                 "path" : "\/documentation\/poieticcore\/planevalidationresult\/violationsasissues()",
                 "title" : "func violationsAsIssues() -> [Issue]",
                 "type" : "method"
+              },
+              {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/planevalidationresult\/issuesourcename",
+                "title" : "static let IssueSourceName: String",
+                "type" : "property"
               }
             ],
             "path" : "\/documentation\/poieticcore\/planevalidationresult",
@@ -15806,6 +15310,104 @@
           {
             "children" : [
               {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/init(fromobject:)",
+                "title" : "init(fromObject: ObjectSnapshot)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/init(starttime:timestep:finaltime:)",
+                "title" : "init(startTime: Double, timeStep: Double, finalTime: Double)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/init(starttime:timestep:steps:)",
+                "title" : "init(startTime: Double, timeStep: Double, steps: Int)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/finaltime",
+                "title" : "var finalTime: Double",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/starttime",
+                "title" : "var startTime: Double",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/steps",
+                "title" : "var steps: Int",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/timestep",
+                "title" : "var timeStep: Double",
+                "type" : "property"
+              },
+              {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/finaltimeattributename",
+                "title" : "static let FinalTimeAttributeName: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/starttimeattributename",
+                "title" : "static let StartTimeAttributeName: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/timestepattributename",
+                "title" : "static let TimeStepAttributeName: String",
+                "type" : "property"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Aliases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationtimesettings\/storage",
+                    "title" : "SimulationTimeSettings.Storage",
+                    "type" : "typealias"
+                  },
+                  {
+                    "title" : "Type Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationtimesettings\/makestorage()",
+                    "title" : "static func makeStorage() -> any ComponentStorageProtocol",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/simulationtimesettings\/component-implementations",
+                "title" : "Component Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/simulationtimesettings",
+            "title" : "SimulationTimeSettings",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
@@ -15960,21 +15562,12 @@
           {
             "children" : [
               {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/poieticcore\/visualmetadatasystem\/init(_:)",
-                "title" : "init(World)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Methods",
+                "title" : "Type Methods",
                 "type" : "groupMarker"
               },
               {
                 "path" : "\/documentation\/poieticcore\/visualmetadatasystem\/update(_:)",
-                "title" : "func update(World) throws(InternalSystemError)",
+                "title" : "static func update(World) throws(InternalSystemError)",
                 "type" : "method"
               },
               {
@@ -15983,15 +15576,6 @@
               },
               {
                 "children" : [
-                  {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/poieticcore\/visualmetadatasystem\/update(_:context:)",
-                    "title" : "func update(World, context: inout PipelineContext) throws(InternalSystemError)",
-                    "type" : "method"
-                  },
                   {
                     "title" : "Type Properties",
                     "type" : "groupMarker"
@@ -16207,6 +15791,103 @@
           {
             "children" : [
               {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/basicdomain\/basicmetamodel",
+                "title" : "static let BasicMetamodel: Metamodel",
+                "type" : "property"
+              },
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/audiencelevel",
+                    "title" : "static let AudienceLevel: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/bibliographicalreference",
+                    "title" : "static let BibliographicalReference: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/designinfo",
+                    "title" : "static let DesignInfo: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/documentation",
+                    "title" : "static let Documentation: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/keywords",
+                    "title" : "static let Keywords: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/name",
+                    "title" : "static let Name: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/note",
+                    "title" : "static let Note: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/traits\/orderable",
+                    "title" : "static let Orderable: Trait",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/basicdomain\/traits",
+                "title" : "BasicDomain.Traits",
+                "type" : "enum"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/types\/bibliographicalreference",
+                    "title" : "static let BibliographicalReference: ObjectType",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/types\/designinfo",
+                    "title" : "static let DesignInfo: ObjectType",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/basicdomain\/types\/group",
+                    "title" : "static let Group: ObjectType",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/basicdomain\/types",
+                "title" : "BasicDomain.Types",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/basicdomain",
+            "title" : "BasicDomain",
+            "type" : "enum"
+          },
+          {
+            "children" : [
+              {
                 "title" : "Enumeration Cases",
                 "type" : "groupMarker"
               },
@@ -16295,6 +15976,85 @@
             ],
             "path" : "\/documentation\/poieticcore\/cardinality",
             "title" : "Cardinality",
+            "type" : "enum"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/diagramdomain\/traits\/accentcolor",
+                    "title" : "static let AccentColor: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/diagramdomain\/traits\/diagramblock",
+                    "title" : "static let DiagramBlock: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/diagramdomain\/traits\/diagramconnector",
+                    "title" : "static let DiagramConnector: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/diagramdomain\/traits\/diagramview",
+                    "title" : "static let DiagramView: Trait",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/diagramdomain\/traits",
+                "title" : "DiagramDomain.Traits",
+                "type" : "enum"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/diagramdomain\/types\/diagramsettings",
+                    "title" : "static let DiagramSettings: ObjectType",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/diagramdomain\/types",
+                "title" : "DiagramDomain.Types",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/diagramdomain",
+            "title" : "DiagramDomain",
+            "type" : "enum"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/issueidentifier\/emptyname",
+                "title" : "static let emptyName: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/poieticcore\/issueidentifier\/namerequired",
+                "title" : "static let nameRequired: String",
+                "type" : "property"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/issueidentifier",
+            "title" : "IssueIdentifier",
             "type" : "enum"
           },
           {
@@ -16490,6 +16250,48 @@
             ],
             "path" : "\/documentation\/poieticcore\/selectionchange",
             "title" : "SelectionChange",
+            "type" : "enum"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Type Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationdomain\/traits\/formula",
+                    "title" : "static let Formula: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationdomain\/traits\/numericvalue",
+                    "title" : "static let NumericValue: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationdomain\/traits\/scenario",
+                    "title" : "static let Scenario: Trait",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/poieticcore\/simulationdomain\/traits\/simulationtime",
+                    "title" : "static let SimulationTime: Trait",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/poieticcore\/simulationdomain\/traits",
+                "title" : "SimulationDomain.Traits",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/poieticcore\/simulationdomain",
+            "title" : "SimulationDomain",
             "type" : "enum"
           },
           {

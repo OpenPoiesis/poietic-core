@@ -1,0 +1,364 @@
+{
+  "abstract" : [
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingTypeKey"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "PoieticCore",
+    "externalID" : "s:11PoieticCore7VariantO15DecodingTypeKeys014CodingUserInfoF0VvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "DecodingTypeKey"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+        "text" : "CodingUserInfoKey"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "DecodingTypeKey"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "DecodingTypeKey"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+              "text" : "CodingUserInfoKey"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The value is of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/variant\/decodingtypekey"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType": {
+  "abstract" : [
+    {
+      "text" : "Specifier of the variant encoding method.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DecodingType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DecodingType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant.DecodingType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingTypeKey": {
+  "abstract" : [
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DecodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DecodingTypeKey",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtypekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/init(jsonWithFallback:)": {
+  "abstract" : [
+    {
+      "text" : "Try to read value from JSON: first try a variant-encoded dictionary",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then try to guess the value from JSON native value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsonWithFallback"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(jsonWithFallback:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)"
+}
+}
+}

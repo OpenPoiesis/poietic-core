@@ -116,6 +116,32 @@
           "type" : "heading"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "Entities represented by a design object have ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " component on them.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "This is a convenience method to retrieve the object ID from the component.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "content" : [
             {
               "inlineContent" : [
@@ -209,6 +235,40 @@
   "title" : "ObjectID",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
+  "abstract" : [
+    {
+      "text" : "References an object snapshot in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference"
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeEntity": {
   "abstract" : [

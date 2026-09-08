@@ -1,0 +1,768 @@
+{
+  "abstract" : [
+    {
+      "text" : "Normalised name of an object.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore14NormalizedNameV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "NormalizedName"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "NormalizedName"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "NormalizedName"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "NormalizedName"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Normalisation levels",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Trim whitespaces on both ends: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population growth",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population growth",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Collapse internal whitespaces: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population  growth",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population growth",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Underscore and space are equivalent: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population_growth",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population growth",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Case-insensitive: ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "Population Growth",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " matches ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "population growth",
+                      "type" : "codeVoice"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "orderedList"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Presence of this component marks that the object has a name attribute",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "that is non-empty after normalisation.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Presence of this component does not imply uniqueness or",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "that the name is not reserved — those are domain concerns.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+        "doc:\/\/PoieticCore\/SQ"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Initializers",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/init(name:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "anchor" : "Instance-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/displayName",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/isVisuallyEmpty",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/key"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "anchor" : "Instance-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/matches(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "anchor" : "Type-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/displayName(for:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/normalize(_:)"
+      ],
+      "title" : "Type Methods"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/Component-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/normalizedname"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Component": {
+  "abstract" : [
+    {
+      "text" : "Protocol for runtime components of objects.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Component",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Component",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/component"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName": {
+  "abstract" : [
+    {
+      "text" : "Normalised name of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NormalizedName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/Component-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/Component-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Component Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/component-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/displayName": {
+  "abstract" : [
+    {
+      "text" : "Display form of the original name as extracted from the object: trimmed whitespaces and",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "collapsed internal whitespaces and newlines into a single space.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "displayName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/displayName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "displayName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/displayname"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/displayName(for:)": {
+  "abstract" : [
+    {
+      "text" : "Trim leading and trailing whitespaces and collapse internal whitespaces into a single",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "space characters.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "displayName"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/displayName(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "displayName(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/displayname(for:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/init(name:)": {
+  "abstract" : [
+    {
+      "text" : "Create a normalised name from a string by trimming spaces and collapsing internal",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "whitespaces.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/init(name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/init(name:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/isVisuallyEmpty": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isVisuallyEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/isVisuallyEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isVisuallyEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/isvisuallyempty"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/key": {
+  "abstract" : [
+    {
+      "text" : "Normalised key.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/key",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "key",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/key"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/matches(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "matches"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/matches(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "matches(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/matches(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName/normalize(_:)": {
+  "abstract" : [
+    {
+      "text" : "Normalise a name.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "normalize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName\/normalize(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "normalize(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname\/normalize(_:)"
+}
+}
+}

@@ -1,0 +1,638 @@
+{
+  "abstract" : [
+    {
+      "text" : "Try to read value from JSON: first try a variant-encoded dictionary",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then try to guess the value from JSON native value.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "PoieticCore",
+    "externalID" : "s:11PoieticCore7VariantO16jsonWithFallbackACSS_tKcfc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "jsonWithFallback"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(jsonWithFallback:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "jsonWithFallback"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "string"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "header" : "row",
+          "rows" : [
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "JSON value",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Decoded variant",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Note",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "number",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "int or double atom",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Try to convert to int first then to double",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "string",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "string atom",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "bool",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "bool atom",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "array of numbers",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Try to convert to int first then to double",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "array of strings",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "string array",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "array of bools",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "bool array",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "array of arrays",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "array of points",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Must be 2-item arrays with numbers",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "heterogenous array",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "decoding error",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "object (dictionary)",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "decoding error",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ],
+              [
+                {
+                  "inlineContent" : [
+
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            ]
+          ],
+          "type" : "table"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "There is no direct way how to specify a single point in JSON.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Two item array is convertible to a point, therefore we do not need to guess it now.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Use this method only for user input, such as in command-line tools or",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "text fields in an application. Do not use for data interchange.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/init(jsonWithFallback:)": {
+  "abstract" : [
+    {
+      "text" : "Try to read value from JSON: first try a variant-encoded dictionary",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then try to guess the value from JSON native value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsonWithFallback"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(jsonWithFallback:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)"
+}
+}
+}

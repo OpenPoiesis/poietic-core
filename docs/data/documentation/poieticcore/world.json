@@ -105,9 +105,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-9x7jk",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "spawn(_:)->RuntimeEntity",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : ", ",
@@ -225,6 +224,40 @@
           "type" : "paragraph"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "Setting a design plane creates or updates entities that represent logical objects in the plane.",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Such entities have ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " component set on them on creation. The component is",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "updated when there is a new snapshot for given logical object.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "content" : [
             {
               "inlineContent" : [
@@ -260,6 +293,97 @@
             }
           ],
           "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Entities representing design objects live as long as the logical object",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "(identified by ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ") exists in the planes set by ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ". Once",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "despawned, new design object representing entities will get new ID, despite having",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "the same ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "ObjectID",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " as their previous instances.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "World must outlive all of its ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " handles.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
           "style" : "note",
           "type" : "aside"
         }
@@ -326,18 +450,19 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:)-4b2g0",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:)-8cgxm",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:)-9y39s",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:)-v0ag",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removeComponentForAll(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removeIntermediateSingletons()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removePlane()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removeRelationshipForAll(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removeSingleton(_:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:cleanIntermediates:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(systems:cleanIntermediates:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setPlane(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/setSingleton(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/singleton()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-7pusy",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-9x7jk"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-9x7jk",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-o7dk"
       ],
       "title" : "Instance Methods"
     }
@@ -403,6 +528,116 @@
   "title" : "Component",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/component"
+},
+"doc://PoieticCore/documentation/PoieticCore/IntermediateSingleton": {
+  "abstract" : [
+    {
+      "text" : "Marker for transient singletons that are needed between systems, usually within a single",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "schedule.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IntermediateSingleton",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/intermediatesingleton"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectID": {
+  "abstract" : [
+    {
+      "text" : "Identity of a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectID",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectid"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
+  "abstract" : [
+    {
+      "text" : "References an object snapshot in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference"
 },
 "doc://PoieticCore/documentation/PoieticCore/Relationship": {
   "abstract" : [
@@ -655,7 +890,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -1660,68 +1904,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/query(_:)-9y39s"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/query(_:)-v0ag": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "query"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore11QueryResultV",
-      "text" : "QueryResult"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/query(_:)-v0ag",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "query(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/query(_:)-v0ag"
-},
 "doc://PoieticCore/documentation/PoieticCore/World/query(_:_:)": {
   "abstract" : [
     {
@@ -1865,6 +2047,47 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/removecomponentforall(_:)"
 },
+"doc://PoieticCore/documentation/PoieticCore/World/removeIntermediateSingletons()": {
+  "abstract" : [
+    {
+      "text" : "Removes all singletons of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "removeIntermediateSingletons"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/removeIntermediateSingletons()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "removeIntermediateSingletons()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/removeintermediatesingletons()"
+},
 "doc://PoieticCore/documentation/PoieticCore/World/removePlane()": {
   "abstract" : [
 
@@ -1984,9 +2207,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/removesingleton(_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:)": {
+"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:cleanIntermediates:)": {
   "abstract" : [
-
+    {
+      "text" : "Runs systems in a schedule.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2020,7 +2246,24 @@
     },
     {
       "kind" : "text",
-      "text" : ".Type) "
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cleanIntermediates"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -2040,12 +2283,95 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:cleanIntermediates:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "run(schedule:)",
+  "title" : "run(schedule:cleanIntermediates:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/run(schedule:)"
+  "url" : "\/documentation\/poieticcore\/world\/run(schedule:cleanintermediates:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/run(systems:cleanIntermediates:)": {
+  "abstract" : [
+    {
+      "text" : "Run a collection of systems without registration.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "run"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "systems"
+    },
+    {
+      "kind" : "text",
+      "text" : ": [any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore6SystemP",
+      "text" : "System"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cleanIntermediates"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+      "text" : "InternalSystemError"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(systems:cleanIntermediates:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "run(systems:cleanIntermediates:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/run(systems:cleanintermediates:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/World/setPlane(_:)": {
   "abstract" : [
@@ -2221,52 +2547,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/singletons"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/spawn(_:)-7pusy": {
-  "abstract" : [
-    {
-      "text" : "Spawn an ephemeral entity.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "spawn"
-    },
-    {
-      "kind" : "text",
-      "text" : "([any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9RuntimeIDV",
-      "text" : "RuntimeID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-7pusy",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "spawn(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/spawn(_:)-7pusy"
-},
 "doc://PoieticCore/documentation/PoieticCore/World/spawn(_:)-9x7jk": {
   "abstract" : [
 
@@ -2309,6 +2589,52 @@
   "title" : "spawn(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/spawn(_:)-o7dk": {
+  "abstract" : [
+    {
+      "text" : "Spawn an ephemeral entity.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "spawn"
+    },
+    {
+      "kind" : "text",
+      "text" : "([any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore13RuntimeEntityV",
+      "text" : "RuntimeEntity"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-o7dk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "spawn(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/spawn(_:)-o7dk"
 }
 }
 }

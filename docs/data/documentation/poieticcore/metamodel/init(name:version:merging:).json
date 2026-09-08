@@ -185,21 +185,52 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
+          "content" : [
             {
-              "text" : "If multiple traits, constraints and object types have the same name, then the later",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "in the list will replace the former.",
-              "type" : "text"
+              "inlineContent" : [
+                {
+                  "text" : "Duplicate names are allowed only when the items (traits, object types and",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "constraints), are the same instance (when their identity is equal ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "===",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : ").",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "paragraph"
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Traits used by object types must exist in the list of traits.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"

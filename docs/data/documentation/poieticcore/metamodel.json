@@ -437,7 +437,7 @@
               "type" : "reference"
             },
             {
-              "text" : " initialiser. When merging, later definitions override",
+              "text" : " initialiser. This is a simple composition method provided for",
               "type" : "text"
             },
             {
@@ -445,7 +445,15 @@
               "type" : "text"
             },
             {
-              "text" : "earlier ones for traits, types, and constraints with the same name.",
+              "text" : "convenience. When merging multiple metamodels, the referenced items (object types, traits,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "constraints) that share the same name must be of the same identity (same instances).",
               "type" : "text"
             }
           ],
@@ -458,27 +466,83 @@
           "type" : "heading"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "The following example shows a minimal Stock-Flow domain metamodel. The ",
+              "type" : "text"
+            },
+            {
+              "code" : "StockFlowDomain",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " enum",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "is a convenience namespace for the domain object types.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "code" : [
+            "",
+            "enum StockFlowDomain {",
+            "    static let Stock = ObjectType(",
+            "        name: \"Stock\",",
+            "        topologyType: .node,",
+            "        traits: [",
+            "            BasicDomain.Traits.Name,",
+            "            BasicDomain.Traits.Position,",
+            "            SimulationDomain.Traits.Formula,",
+            "        ],",
+            "    )",
+            "    static let FlowRate = ObjectType(",
+            "        name: \"FlowRate\",",
+            "        topologyType: .node,",
+            "        traits: [",
+            "            BasicDomain.Traits.Position,",
+            "            SimulationDomain.Traits.Formula,",
+            "        ],",
+            "    )",
+            "    static let Fills = ObjectType(name: \"Fills\", topologyType: .edge)",
+            "    static let Drains = ObjectType(name: \"Drains\", topologyType: .edge)",
+            "    static let Parameter = ObjectType(name: \"Parameter\", topologyType: .edge)",
+            "}",
+            "",
             "let metamodel = Metamodel(",
-            "    name: \"MyDomain\",",
+            "    name: \"StockFlow\",",
             "    version: SemanticVersion(1, 0, 0),",
             "    traits: [",
-            "        Trait.Name,",
-            "        Trait.Formula,",
-            "        Trait.Position",
+            "        BasicDomain.Traits.Name,",
+            "        BasicDomain.Traits.Position,",
+            "        SimulationDomain.Traits.Formula,",
             "    ],",
             "    types: [",
-            "        ObjectType.Stock,",
-            "        ObjectType.Flow,",
-            "        ObjectType.Parameter",
+            "        StockFlowDomain.Stock,",
+            "        StockFlowDomain.FlowRate,",
+            "        StockFlowDomain.Fills,",
+            "        StockFlowDomain.Drains,",
+            "        StockFlowDomain.Parameter,",
             "    ],",
             "    edgeRules: [",
-            "        EdgeRule(type: ObjectType.Parameter, incoming: .many, outgoing: .many),",
-            "        EdgeRule(type: ObjectType.Flow,",
-            "                 origin: .isType(ObjectType.Stock),",
-            "                 target: .isType(ObjectType.FlowRate),",
+            "        EdgeRule(type: StockFlowDomain.Parameter, incoming: .many, outgoing: .many),",
+            "        EdgeRule(type: StockFlowDomain.Fills,",
+            "                 origin: .isType(StockFlowDomain.FlowRate),",
+            "                 target: .isType(StockFlowDomain.Stock),",
             "                 outgoing: .one,",
-            "                 incoming: .one)",
+            "                 incoming: .one),",
+            "        EdgeRule(type: StockFlowDomain.Drains,",
+            "                 origin: .isType(StockFlowDomain.Stock),",
+            "                 target: .isType(StockFlowDomain.FlowRate),",
+            "                 outgoing: .one,",
+            "                 incoming: .one),",
             "    ],",
             "    constraints: [",
             "        Constraint(",
@@ -642,14 +706,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/subscript(_:)"
       ],
       "title" : "Subscripts"
-    },
-    {
-      "anchor" : "Type-Properties",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/Basic"
-      ],
-      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -1032,59 +1088,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodel"
 },
-"doc://PoieticCore/documentation/PoieticCore/Metamodel/Basic": {
-  "abstract" : [
-    {
-      "text" : "Metamodel with some basic object types that are typical for multiple",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "kinds of designs.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Basic"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9MetamodelC",
-      "text" : "Metamodel"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Metamodel\/Basic",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "Basic",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/metamodel\/basic"
-},
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/constraints": {
   "abstract" : [
     {
@@ -1128,7 +1131,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeRules": {
   "abstract" : [
-
+    {
+      "text" : "Edge rules that the design must satisfy to be valid.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

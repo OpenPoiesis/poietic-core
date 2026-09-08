@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Edge rules that the design must satisfy to be valid.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -92,6 +98,48 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "There must be at least one edge rule per edge type. To allow any edge",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "connections, add a rule similar to this example for each edge type:",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            },
+            {
+              "code" : [
+                "EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),"
+              ],
+              "syntax" : "swift",
+              "type" : "codeListing"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -251,7 +299,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeRules": {
   "abstract" : [
-
+    {
+      "text" : "Edge rules that the design must satisfy to be valid.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

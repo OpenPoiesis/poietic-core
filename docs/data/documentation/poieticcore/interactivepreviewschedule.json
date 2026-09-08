@@ -111,9 +111,8 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-                  "isActive" : true,
-                  "type" : "reference"
+                  "code" : "World\/run(schedule:)",
+                  "type" : "codeVoice"
                 }
               ],
               "type" : "paragraph"
@@ -412,7 +411,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -477,14 +485,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/systemdependency"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:)": {
+"doc://PoieticCore/documentation/PoieticCore/World": {
   "abstract" : [
-
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -492,53 +503,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "run"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "schedule"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ScheduleLabelP",
-      "text" : "ScheduleLabel"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
-      "text" : "InternalSystemError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "text" : "World"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
   "role" : "symbol",
-  "title" : "run(schedule:)",
+  "title" : "World",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/run(schedule:)"
+  "url" : "\/documentation\/poieticcore\/world"
 }
 }
 }

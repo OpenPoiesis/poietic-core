@@ -92,9 +92,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "Trait\/NumericValue",
+              "type" : "codeVoice"
             },
             {
               "text" : " ",
@@ -542,51 +541,6 @@
   "title" : "min",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/displayvaluebounds\/min"
-},
-"doc://PoieticCore/documentation/PoieticCore/Trait/NumericValue": {
-  "abstract" : [
-    {
-      "text" : "Trait for objects that can be represented by a numeric value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NumericValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/NumericValue",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "NumericValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/numericvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/VisualMetadataSystem": {
   "abstract" : [

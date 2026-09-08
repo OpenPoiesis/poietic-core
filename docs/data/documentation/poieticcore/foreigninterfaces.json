@@ -109,8 +109,7 @@
     {
       "anchor" : "Foreign-Value",
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantCodingError"
       ],
       "title" : "Foreign Value"
     },
@@ -123,15 +122,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriter"
       ],
       "title" : "CSV Reading and Writing"
-    },
-    {
-      "anchor" : "JSON",
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError"
-      ],
-      "title" : "JSON"
     }
   ],
   "variants" : [
@@ -416,40 +406,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designloadererror"
 },
-"doc://PoieticCore/documentation/PoieticCore/ForeignValueError": {
-  "abstract" : [
-    {
-      "text" : "Errors that can occur with foreign object properties or attributes.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValueError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ForeignValueError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ForeignValueError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ForeignValueError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/foreignvalueerror"
-},
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
     {
@@ -517,102 +473,6 @@
   "title" : "JSONDesignWriter",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/jsondesignwriter"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONError"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONError",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonerror"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONType"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONType",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsontype"
-},
-"doc://PoieticCore/documentation/PoieticCore/JSONValue": {
-  "abstract" : [
-    {
-      "text" : "Representation of a JSON value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/JSONValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONValue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/jsonvalue"
 },
 "doc://PoieticCore/documentation/PoieticCore/Persistence": {
   "abstract" : [

@@ -98,6 +98,17 @@
       "kind" : "content"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 3,
@@ -385,7 +396,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -596,6 +616,50 @@
   "title" : "SystemDependency.requires(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/systemdependency\/requires(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/World": {
+  "abstract" : [
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

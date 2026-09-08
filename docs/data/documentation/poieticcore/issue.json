@@ -76,6 +76,56 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/appendIssue(_:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/issues",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ", ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/hasIssues",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -103,8 +153,7 @@
       "anchor" : "Initializers",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:system:error:relatedObjects:details:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:system:message:hints:relatedObjects:details:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:source:message:hints:relatedObjects:details:)"
       ],
       "title" : "Initializers"
     },
@@ -112,15 +161,15 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/debugDescription",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/description",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/details",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/error",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/hints",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/identifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/message",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/relatedObjects",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/severity-swift.property",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/system"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/source"
       ],
       "title" : "Instance Properties"
     },
@@ -226,6 +275,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issue\/severity-swift.enum"
 },
+"doc://PoieticCore/documentation/PoieticCore/Issue/debugDescription": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/debugDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debugDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issue\/debugdescription"
+},
 "doc://PoieticCore/documentation/PoieticCore/Issue/description": {
   "abstract" : [
 
@@ -309,47 +392,6 @@
   "title" : "details",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issue\/details"
-},
-"doc://PoieticCore/documentation/PoieticCore/Issue/error": {
-  "abstract" : [
-    {
-      "text" : "Concrete error that has been identified with an object.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "error"
-    },
-    {
-      "kind" : "text",
-      "text" : ": (any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13IssueProtocolP",
-      "text" : "IssueProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/error",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "error",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issue\/error"
 },
 "doc://PoieticCore/documentation/PoieticCore/Issue/hints": {
   "abstract" : [
@@ -437,7 +479,7 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issue\/identifier"
 },
-"doc://PoieticCore/documentation/PoieticCore/Issue/init(identifier:severity:system:error:relatedObjects:details:)": {
+"doc://PoieticCore/documentation/PoieticCore/Issue/init(identifier:severity:source:message:hints:relatedObjects:details:)": {
   "abstract" : [
     {
       "text" : "Create a new design issue.",
@@ -498,148 +540,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "system"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore6SystemP",
-      "text" : "System"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "error"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13IssueProtocolP",
-      "text" : "IssueProtocol"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "relatedObjects"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8ObjectIDa",
-      "text" : "ObjectID"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "details"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore7VariantO",
-      "text" : "Variant"
-    },
-    {
-      "kind" : "text",
-      "text" : "])"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:system:error:relatedObjects:details:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(identifier:severity:system:error:relatedObjects:details:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:system:error:relatedobjects:details:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Issue/init(identifier:severity:system:message:hints:relatedObjects:details:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "identifier"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "severity"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5IssueV",
-      "text" : "Issue"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5IssueV8SeverityO",
-      "text" : "Severity"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "system"
+      "text" : "source"
     },
     {
       "kind" : "text",
@@ -732,12 +633,12 @@
       "text" : "])"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:system:message:hints:relatedObjects:details:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/init(identifier:severity:source:message:hints:relatedObjects:details:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(identifier:severity:system:message:hints:relatedObjects:details:)",
+  "title" : "init(identifier:severity:source:message:hints:relatedObjects:details:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:system:message:hints:relatedobjects:details:)"
+  "url" : "\/documentation\/poieticcore\/issue\/init(identifier:severity:source:message:hints:relatedobjects:details:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Issue/message": {
   "abstract" : [
@@ -863,10 +764,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issue\/severity-swift.property"
 },
-"doc://PoieticCore/documentation/PoieticCore/Issue/system": {
+"doc://PoieticCore/documentation/PoieticCore/Issue/source": {
   "abstract" : [
     {
-      "text" : "Name of a system that detected the issue",
+      "text" : "Origin of the issue – in which system or part of the application the issue was created.",
       "type" : "text"
     }
   ],
@@ -881,7 +782,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "system"
+      "text" : "source"
     },
     {
       "kind" : "text",
@@ -893,12 +794,133 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/system",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue\/source",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "system",
+  "title" : "source",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issue\/system"
+  "url" : "\/documentation\/poieticcore\/issue\/source"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/appendIssue(_:)": {
+  "abstract" : [
+    {
+      "text" : "Append a user-facing issue for the entity representing a design object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appendIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/appendIssue(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appendIssue(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeentity\/appendissue(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/issues": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "issues"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5IssueV",
+      "text" : "Issue"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/issues",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "issues",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeentity\/issues"
+},
+"doc://PoieticCore/documentation/PoieticCore/World/hasIssues": {
+  "abstract" : [
+    {
+      "text" : "Flag indicating whether any design issues were registered.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasIssues"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/hasIssues",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasIssues",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world\/hasissues"
 },
 "doc://PoieticCore/s16SendableMetatypeP": {
   "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",

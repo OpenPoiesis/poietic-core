@@ -315,7 +315,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -345,6 +354,40 @@
   "title" : "System",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/system"
+},
+"doc://PoieticCore/documentation/PoieticCore/World": {
+  "abstract" : [
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world"
 }
 }
 }

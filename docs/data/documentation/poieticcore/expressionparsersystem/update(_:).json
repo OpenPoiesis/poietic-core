@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
@@ -27,8 +19,16 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore22ExpressionParserSystemV6updateyyAA5WorldCF",
+    "externalID" : "s:11PoieticCore22ExpressionParserSystemV6updateyyAA5WorldCAA08InternalE5ErrorVYKFZ",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -52,6 +52,23 @@
       },
       {
         "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+        "text" : "InternalSystemError"
+      },
+      {
+        "kind" : "text",
         "text" : ")"
       }
     ],
@@ -61,7 +78,7 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
+    "roleHeading" : "Type Method",
     "symbolKind" : "method",
     "title" : "update(_:)"
   },
@@ -76,6 +93,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -113,6 +138,24 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:11PoieticCore5WorldC",
               "text" : "World"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+              "text" : "InternalSystemError"
             },
             {
               "kind" : "text",
@@ -290,19 +333,19 @@
 "doc://PoieticCore/documentation/PoieticCore/ExpressionParserSystem/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -326,6 +369,23 @@
     },
     {
       "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+      "text" : "InternalSystemError"
+    },
+    {
+      "kind" : "text",
       "text" : ")"
     }
   ],
@@ -335,6 +395,48 @@
   "title" : "update(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparsersystem\/update(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/InternalSystemError": {
+  "abstract" : [
+    {
+      "text" : "Error thrown by systems that has not been caused by the user, but that is recoverable in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "runtime context.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InternalSystemError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InternalSystemError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InternalSystemError",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/internalsystemerror"
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/appendIssue(_:)": {
   "abstract" : [

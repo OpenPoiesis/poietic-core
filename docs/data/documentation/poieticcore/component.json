@@ -127,6 +127,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Relationship",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TagComponent"
       ],
@@ -136,6 +137,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ChildOf",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Controls",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
@@ -143,14 +145,16 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/HasNumericIndicator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsSelected",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MemberOf",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueSample",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueStats",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTouched",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParsedExpressionComponent",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RepresentationOf",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Selection",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SelectionChange"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SelectionChange",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -222,6 +226,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AdaptableColor": {
+  "abstract" : [
+    {
+      "text" : "Dominant adaptable colour of the object’s visual representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AdaptableColor",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/adaptablecolor"
 },
 "doc://PoieticCore/documentation/PoieticCore/ChildOf": {
   "abstract" : [
@@ -523,6 +561,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/hasnumericindicator"
 },
+"doc://PoieticCore/documentation/PoieticCore/IntermediateSingleton": {
+  "abstract" : [
+    {
+      "text" : "Marker for transient singletons that are needed between systems, usually within a single",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "schedule.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IntermediateSingleton",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/intermediatesingleton"
+},
 "doc://PoieticCore/documentation/PoieticCore/IsSelected": {
   "abstract" : [
     {
@@ -599,6 +679,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/memberof"
 },
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName": {
+  "abstract" : [
+    {
+      "text" : "Normalised name of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NormalizedName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname"
+},
 "doc://PoieticCore/documentation/PoieticCore/NumericValueSample": {
   "abstract" : [
     {
@@ -667,10 +781,10 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/numericvaluestats"
 },
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotRef": {
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
   "abstract" : [
     {
-      "text" : "Reference to an object snapshot by ID.",
+      "text" : "References an object snapshot in the design.",
       "type" : "text"
     }
   ],
@@ -685,21 +799,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshotRef"
+      "text" : "ObjectReference"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ObjectSnapshotRef"
+      "text" : "ObjectReference"
     }
   ],
   "role" : "symbol",
-  "title" : "ObjectSnapshotRef",
+  "title" : "ObjectReference",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshotref"
+  "url" : "\/documentation\/poieticcore\/objectreference"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTouched": {
   "abstract" : [
@@ -940,10 +1054,53 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selectionchange"
 },
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings": {
+  "abstract" : [
+    {
+      "text" : "Settings of the simulation time.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationTimeSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings"
+},
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],

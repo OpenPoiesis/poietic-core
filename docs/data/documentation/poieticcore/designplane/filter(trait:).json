@@ -157,24 +157,13 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The trait is compared using identity, therefore the snapshot",
+                  "text" : "The trait is compared my name matching. See ",
                   "type" : "text"
                 },
                 {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "matching the filter must have exactly the provided trait associated",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "with the object’s type.",
-                  "type" : "text"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/matches(_:)-ep4b",
+                  "isActive" : true,
+                  "type" : "reference"
                 }
               ],
               "type" : "paragraph"
@@ -383,6 +372,60 @@
   "title" : "Trait",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/matches(_:)-ep4b": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the trait matches name of other trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "matches"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/matches(_:)-ep4b",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "matches(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/matches(_:)-ep4b"
 }
 }
 }

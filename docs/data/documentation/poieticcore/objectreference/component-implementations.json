@@ -1,0 +1,187 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference\/Component-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "collectionGroup",
+    "roleHeading" : "API Collection",
+    "title" : "Component Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Type-Aliases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference\/Storage"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "anchor" : "Type-Methods",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference\/makeStorage()"
+      ],
+      "title" : "Type Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/objectreference\/component-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
+  "abstract" : [
+    {
+      "text" : "References an object snapshot in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference/Storage": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Storage"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference\/Storage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Storage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectReference.Storage",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference\/storage"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference/makeStorage()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeStorage"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> any "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore24ComponentStorageProtocolP",
+      "text" : "ComponentStorageProtocol"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference\/makeStorage()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeStorage()",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference\/makestorage()"
+}
+}
+}

@@ -81,12 +81,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
-        "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
         "doc:\/\/PoieticCore\/s5ErrorP",
-        "doc:\/\/PoieticCore\/s9EscapableP",
         "doc:\/\/PoieticCore\/s8SendableP",
         "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
@@ -143,7 +140,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/debugDescription",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/description"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/hint"
       ],
       "title" : "Instance Properties"
     },
@@ -159,7 +157,6 @@
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/DesignIssueConvertible-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/Equatable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/Error-Implementations"
       ],
@@ -198,40 +195,6 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
-  "abstract" : [
-    {
-      "text" : "Protocol for errors that can be converted to a design issue.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissueconvertible"
 },
 "doc://PoieticCore/documentation/PoieticCore/DesignLoader": {
   "abstract" : [
@@ -402,17 +365,6 @@
   "title" : "RawDesignReaderError.Context",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror\/context"
-},
-"doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError/DesignIssueConvertible-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/DesignIssueConvertible-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "DesignIssueConvertible Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/rawdesignreadererror\/designissueconvertible-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError/Equatable-Implementations": {
   "abstract" : [
@@ -609,6 +561,40 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/rawdesignreadererror\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError/hint": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RawDesignReaderError\/hint",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hint",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/rawdesignreadererror\/hint"
 },
 "doc://PoieticCore/documentation/PoieticCore/RawDesignReaderError/propertyNotFound(_:_:)": {
   "abstract" : [
@@ -845,19 +831,9 @@
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
-"doc://PoieticCore/s8CopyableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
-  "title" : "Swift.Copyable",
-  "type" : "unresolvable"
-},
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
   "title" : "Swift.Sendable",
-  "type" : "unresolvable"
-},
-"doc://PoieticCore/s9EscapableP": {
-  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
-  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

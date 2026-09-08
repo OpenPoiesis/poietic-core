@@ -140,7 +140,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/component(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/hasComponent(for:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/relationship(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/removeAll()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/removeComponent(for:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/setComponent(_:for:)"
@@ -510,63 +509,6 @@
   "title" : "ids",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/componentstorageprotocol\/ids"
-},
-"doc://PoieticCore/documentation/PoieticCore/ComponentStorageProtocol/relationship(for:)": {
-  "abstract" : [
-
-  ],
-  "defaultImplementations" : 1,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "relationship"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "for"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9RuntimeIDV",
-      "text" : "RuntimeID"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> (any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore12RelationshipP",
-      "text" : "Relationship"
-    },
-    {
-      "kind" : "text",
-      "text" : ")?"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ComponentStorageProtocol\/relationship(for:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "relationship(for:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/componentstorageprotocol\/relationship(for:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ComponentStorageProtocol/removeAll()": {
   "abstract" : [

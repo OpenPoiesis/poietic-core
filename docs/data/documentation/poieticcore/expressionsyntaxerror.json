@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
         "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/SQ",
@@ -123,11 +123,14 @@
       "anchor" : "Enumeration-Cases",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/emptyIdentifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/expressionExpected",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/invalidCharacterInIdentifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/invalidCharacterInNumber",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/missingRightParenthesis",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/numberExpected",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/unexpectedCharacter",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/unexpectedEnd",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/unexpectedToken"
       ],
       "title" : "Enumeration Cases"
@@ -146,7 +149,7 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/Equatable-Implementations",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/Error-Implementations",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/IssueProtocol-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/IssueConvertible-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -344,16 +347,16 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/IssueProtocol-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/IssueConvertible-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/IssueProtocol-Implementations",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/IssueConvertible-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "IssueProtocol Implementations",
+  "title" : "IssueConvertible Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/issueprotocol-implementations"
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/issueconvertible-implementations"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/description": {
   "abstract" : [
@@ -389,6 +392,31 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/description"
 },
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/emptyIdentifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "emptyIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/emptyIdentifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError.emptyIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/emptyidentifier"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/expressionExpected": {
   "abstract" : [
 
@@ -413,6 +441,31 @@
   "title" : "ExpressionSyntaxError.expressionExpected",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/expressionexpected"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/invalidCharacterInIdentifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidCharacterInIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/invalidCharacterInIdentifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError.invalidCharacterInIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/invalidcharacterinidentifier"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/invalidCharacterInNumber": {
   "abstract" : [
@@ -514,6 +567,31 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/unexpectedcharacter"
 },
+"doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/unexpectedEnd": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unexpectedEnd"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionSyntaxError\/unexpectedEnd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionSyntaxError.unexpectedEnd",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressionsyntaxerror\/unexpectedend"
+},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionSyntaxError/unexpectedToken": {
   "abstract" : [
 
@@ -573,9 +651,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken"
 },
-"doc://PoieticCore/documentation/PoieticCore/IssueProtocol": {
+"doc://PoieticCore/documentation/PoieticCore/IssueConvertible": {
   "abstract" : [
-
+    {
+      "text" : "Marker for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -588,21 +669,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IssueProtocol"
+      "text" : "IssueConvertible"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueProtocol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "IssueProtocol"
+      "text" : "IssueConvertible"
     }
   ],
   "role" : "symbol",
-  "title" : "IssueProtocol",
+  "title" : "IssueConvertible",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issueprotocol"
+  "url" : "\/documentation\/poieticcore\/issueconvertible"
 },
 "doc://PoieticCore/documentation/PoieticCore/TextLocation": {
   "abstract" : [

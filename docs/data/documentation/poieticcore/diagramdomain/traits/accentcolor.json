@@ -1,0 +1,432 @@
+{
+  "abstract" : [
+    {
+      "text" : "Trait for objects that have colour.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain\/Traits"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain\/Traits\/AccentColor"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:11PoieticCore13DiagramDomainO6TraitsO11AccentColorAA5TraitCvpZ",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "AccentColor"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:11PoieticCore5TraitC",
+        "text" : "Trait"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "AccentColor"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "AccentColor"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:11PoieticCore5TraitC",
+              "text" : "Trait"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The colour name should be one of the adaptable colour names, unless specified otherwise.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Adaptable colour names names are:",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "purple",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "red",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "pink",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "brown",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "orange",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "yellow",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ",",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "code" : "lime",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "green",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "cyan",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "teal",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", ",
+              "type" : "text"
+            },
+            {
+              "code" : "blue",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "indigo",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "User interface should adapt the colour to fit media the object is displayed at.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/diagramdomain\/traits\/accentcolor"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/DiagramDomain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramDomain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DiagramDomain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DiagramDomain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/diagramdomain"
+},
+"doc://PoieticCore/documentation/PoieticCore/DiagramDomain/Traits": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Traits"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain\/Traits",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Traits"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DiagramDomain.Traits",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/diagramdomain\/traits"
+},
+"doc://PoieticCore/documentation/PoieticCore/DiagramDomain/Traits/AccentColor": {
+  "abstract" : [
+    {
+      "text" : "Trait for objects that have colour.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AccentColor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain\/Traits\/AccentColor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AccentColor",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/diagramdomain\/traits\/accentcolor"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait": {
+  "abstract" : [
+    {
+      "text" : "Trait defines object details, its attributes or its role in the model.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Trait"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Trait",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait"
+}
+}
+}

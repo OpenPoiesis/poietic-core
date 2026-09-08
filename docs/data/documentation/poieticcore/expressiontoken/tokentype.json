@@ -106,6 +106,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/int",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/leftParen",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/operator",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/quotedIdentifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/rightParen"
       ],
       "title" : "Enumeration Cases"
@@ -440,6 +441,31 @@
   "title" : "ExpressionToken.TokenType.operator",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/operator"
+},
+"doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/quotedIdentifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "quotedIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionToken\/TokenType\/quotedIdentifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ExpressionToken.TokenType.quotedIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/expressiontoken\/tokentype\/quotedidentifier"
 },
 "doc://PoieticCore/documentation/PoieticCore/ExpressionToken/TokenType/rightParen": {
   "abstract" : [

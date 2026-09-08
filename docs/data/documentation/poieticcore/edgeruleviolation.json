@@ -75,8 +75,11 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
+        "doc:\/\/PoieticCore\/s8CopyableP",
         "doc:\/\/PoieticCore\/s23CustomStringConvertibleP",
         "doc:\/\/PoieticCore\/s5ErrorP",
+        "doc:\/\/PoieticCore\/s9EscapableP",
         "doc:\/\/PoieticCore\/s8SendableP",
         "doc:\/\/PoieticCore\/s16SendableMetatypeP"
       ],
@@ -119,25 +122,24 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/description",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/hints",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/message"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/description"
       ],
       "title" : "Instance Properties"
     },
     {
-      "anchor" : "Instance-Methods",
+      "anchor" : "Type-Properties",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asObjectIssue()"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/IssueSourceName"
       ],
-      "title" : "Instance Methods"
+      "title" : "Type Properties"
     },
     {
       "anchor" : "Default-Implementations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/Error-Implementations"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/Error-Implementations",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/IssueConvertible-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -277,14 +279,33 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/error-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/asObjectIssue()": {
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/IssueConvertible-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/IssueConvertible-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "IssueConvertible Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/issueconvertible-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/IssueSourceName": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -292,24 +313,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "asObjectIssue"
+      "text" : "IssueSourceName"
     },
     {
       "kind" : "text",
-      "text" : "() -> "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5IssueV",
-      "text" : "Issue"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/asObjectIssue()",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/IssueSourceName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "asObjectIssue()",
+  "title" : "IssueSourceName",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/asobjectissue()"
+  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/issuesourcename"
 },
 "doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/cardinalityViolation(_:_:)": {
   "abstract" : [
@@ -417,78 +438,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/edgenotallowed"
 },
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/hints": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hints"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/hints",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "hints",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/hints"
-},
-"doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/message": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "message"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/EdgeRuleViolation\/message",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "message",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/edgeruleviolation\/message"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeRuleViolation/noRuleSatisfied": {
   "abstract" : [
 
@@ -514,6 +463,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/edgeruleviolation\/norulesatisfied"
 },
+"doc://PoieticCore/documentation/PoieticCore/IssueConvertible": {
+  "abstract" : [
+    {
+      "text" : "Marker for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IssueConvertible"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IssueConvertible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IssueConvertible",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issueconvertible"
+},
 "doc://PoieticCore/s16SendableMetatypeP": {
   "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
   "title" : "Swift.SendableMetatype",
@@ -529,9 +512,19 @@
   "title" : "Swift.Error",
   "type" : "unresolvable"
 },
+"doc://PoieticCore/s8CopyableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8CopyableP",
+  "title" : "Swift.Copyable",
+  "type" : "unresolvable"
+},
 "doc://PoieticCore/s8SendableP": {
   "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
   "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s9EscapableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s9EscapableP",
+  "title" : "Swift.Escapable",
   "type" : "unresolvable"
 }
 }

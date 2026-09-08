@@ -105,9 +105,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "Trait\/Formula",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : ".",
@@ -189,6 +188,8 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/System"
       ],
       "kind" : "relationships",
@@ -206,20 +207,12 @@
   ],
   "topicSections" : [
     {
-      "anchor" : "Initializers",
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParserSystem\/init(_:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "anchor" : "Instance-Methods",
+      "anchor" : "Type-Methods",
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParserSystem\/update(_:)"
       ],
-      "title" : "Instance Methods"
+      "title" : "Type Methods"
     },
     {
       "anchor" : "Default-Implementations",
@@ -303,55 +296,22 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/expressionparsersystem\/system-implementations"
 },
-"doc://PoieticCore/documentation/PoieticCore/ExpressionParserSystem/init(_:)": {
-  "abstract" : [
-    {
-      "text" : "Initialise the system within the context of the provided world.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5WorldC",
-      "text" : "World"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ExpressionParserSystem\/init(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/expressionparsersystem\/init(_:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/ExpressionParserSystem/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -372,6 +332,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:11PoieticCore5WorldC",
       "text" : "World"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
+      "text" : "InternalSystemError"
     },
     {
       "kind" : "text",
@@ -422,7 +399,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -453,25 +439,17 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/system"
 },
-"doc://PoieticCore/documentation/PoieticCore/Trait/Formula": {
+"doc://PoieticCore/documentation/PoieticCore/World": {
   "abstract" : [
     {
-      "text" : "Trait of simulation nodes that are computed using an arithmetic formula.",
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -479,24 +457,31 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Formula"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5TraitC",
-      "text" : "Trait"
+      "text" : "World"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/Formula",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
   "role" : "symbol",
-  "title" : "Formula",
+  "title" : "World",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/trait\/formula"
+  "url" : "\/documentation\/poieticcore\/world"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

@@ -9,7 +9,15 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " of the object type has a given trait.",
+      "text" : " of the object type has a trait that matches the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "other trait.",
       "type" : "text"
     }
   ],
@@ -132,6 +140,42 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/matches(_:)-ep4b",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : ".",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -215,7 +259,15 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " of the object type has a given trait.",
+      "text" : " of the object type has a trait that matches the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "other trait.",
       "type" : "text"
     }
   ],
@@ -291,6 +343,60 @@
   "title" : "Trait",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/trait"
+},
+"doc://PoieticCore/documentation/PoieticCore/Trait/matches(_:)-ep4b": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the trait matches name of other trait.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "matches"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore5TraitC",
+      "text" : "Trait"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Trait\/matches(_:)-ep4b",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "matches(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/trait\/matches(_:)-ep4b"
 }
 }
 }

@@ -219,8 +219,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(_:)-9746l",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(_:)-nogc",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(any:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(json:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(type:json:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)"
       ],
       "title" : "Initializers"
     },
@@ -245,7 +244,6 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/asJSON()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/boolArray()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/boolValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/doubleArray()",
@@ -265,10 +263,18 @@
       "title" : "Instance Methods"
     },
     {
+      "anchor" : "Type-Properties",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingTypeKey"
+      ],
+      "title" : "Type Properties"
+    },
+    {
       "anchor" : "Enumerations",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType"
       ],
       "title" : "Enumerations"
     },
@@ -564,7 +570,18 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/!=(_:_:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/CodingType": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType": {
   "abstract" : [
     {
       "text" : "Specifier of the variant encoding method.",
@@ -582,32 +599,66 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CodingType"
+      "text" : "DecodingType"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/CodingType",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CodingType"
+      "text" : "DecodingType"
     }
   ],
   "role" : "symbol",
-  "title" : "Variant.CodingType",
+  "title" : "Variant.DecodingType",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/codingtype"
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/Decodable-Implementations": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingTypeKey": {
   "abstract" : [
-
+    {
+      "text" : "Coding key used for a flag denoting how the variants are encoded.",
+      "type" : "text"
+    }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/Decodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Decodable Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DecodingTypeKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingTypeKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "DecodingTypeKey",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/decodable-implementations"
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtypekey"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/Encodable-Implementations": {
   "abstract" : [
@@ -1017,43 +1068,6 @@
   "title" : "arrayItemType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/arrayitemtype"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/asJSON()": {
-  "abstract" : [
-    {
-      "text" : "Get a JSON-encoded variant value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/asJSON()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asJSON()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/asjson()"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/atom(_:)": {
   "abstract" : [
@@ -1815,65 +1829,18 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variant\/init(any:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Variant/init(json:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "json"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
-      "text" : "ForeignValueError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(json:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(json:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/init(json:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/Variant/init(type:json:)": {
+"doc://PoieticCore/documentation/PoieticCore/Variant/init(jsonWithFallback:)": {
   "abstract" : [
     {
-      "text" : "Create a new variant of a given type from a JSON value.",
+      "text" : "Try to read value from JSON: first try a variant-encoded dictionary",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then try to guess the value from JSON native value.",
       "type" : "text"
     }
   ],
@@ -1884,11 +1851,11 @@
     },
     {
       "kind" : "text",
-      "text" : "?("
+      "text" : "("
     },
     {
       "kind" : "externalParam",
-      "text" : "type"
+      "text" : "jsonWithFallback"
     },
     {
       "kind" : "text",
@@ -1896,37 +1863,24 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ValueTypeO",
-      "text" : "ValueType"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ") "
     },
     {
-      "kind" : "externalParam",
-      "text" : "json"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(type:json:)",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(type:json:)",
+  "title" : "init(jsonWithFallback:)",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variant\/init(type:json:)"
+  "url" : "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/Variant/intArray()": {
   "abstract" : [

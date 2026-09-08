@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Get object by a name, if the object contains a named component.",
+      "text" : "First object with exact name match or with normalised name match.",
       "type" : "text"
     }
   ],
@@ -189,23 +189,6 @@
         {
           "inlineContent" : [
             {
-              "text" : "A method that searches the plane for a first object with",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "a name component and with the given name.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
               "text" : "If the plane contains multiple objects with the same name,",
               "type" : "text"
             },
@@ -214,7 +197,7 @@
               "type" : "text"
             },
             {
-              "text" : "then one is returned arbitrarily. Subsequent calls of the method",
+              "text" : "then one is returned arbitrarily. Plane-level names can not assure uniqueness;",
               "type" : "text"
             },
             {
@@ -222,19 +205,27 @@
               "type" : "text"
             },
             {
-              "text" : "with the same name does not guarantee that the same object will",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "be returned.",
+              "text" : "uniqueness is a domain-level concern.",
               "type" : "text"
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "O(n)",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Complexity",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -347,7 +338,7 @@
 "doc://PoieticCore/documentation/PoieticCore/Plane/object(named:)": {
   "abstract" : [
     {
-      "text" : "Get object by a name, if the object contains a named component.",
+      "text" : "First object with exact name match or with normalised name match.",
       "type" : "text"
     }
   ],

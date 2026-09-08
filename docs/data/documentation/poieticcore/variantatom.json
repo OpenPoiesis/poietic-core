@@ -202,9 +202,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(_:)-5eu5u",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(_:)-aul7",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(_:)-xgxt",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(any:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(json:)",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(type:json:)"
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(any:)"
       ],
       "title" : "Initializers"
     },
@@ -224,7 +222,6 @@
       "anchor" : "Instance-Methods",
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/asJSON()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/boolValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/doubleValue()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/intValue()",
@@ -881,40 +878,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/_=(_:_:)-9l0yf"
 },
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom/asJSON()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/asJSON()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asJSON()",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom\/asjson()"
-},
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/bool(_:)": {
   "abstract" : [
     {
@@ -1340,119 +1303,6 @@
   "title" : "init(any:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/variantatom\/init(any:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom/init(json:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "json"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore17ForeignValueErrorO",
-      "text" : "ForeignValueError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(json:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(json:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom\/init(json:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/VariantAtom/init(type:json:)": {
-  "abstract" : [
-    {
-      "text" : "Create a new variant atom of given type from JSON value.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "type"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore8AtomTypeO",
-      "text" : "AtomType"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "json"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9JSONValueO",
-      "text" : "JSONValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariantAtom\/init(type:json:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(type:json:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/variantatom\/init(type:json:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/VariantAtom/int(_:)": {
   "abstract" : [

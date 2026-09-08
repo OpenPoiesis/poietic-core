@@ -337,7 +337,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "List of edge rules used for validation.",
+                  "text" : "List of edge rules used for validation (see note below).",
                   "type" : "text"
                 }
               ],
@@ -401,6 +401,85 @@
             }
           ],
           "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "There must be at least one edge rule per edge type. To allow any edge",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "connections, add a rule similar to this example for each edge type:",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            },
+            {
+              "code" : [
+                "EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),"
+              ],
+              "syntax" : "swift",
+              "type" : "codeListing"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Traits must have unique name.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Traits used in the object types must exist in the ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "traits",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " list and",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "must be the same instances as the traits in the list.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Precondition",
           "style" : "note",
           "type" : "aside"
         }

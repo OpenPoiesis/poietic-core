@@ -113,8 +113,6 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ConstraintChecker",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -564,74 +562,6 @@
   "title" : "ConstraintViolation",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/constraintviolation"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
-  "abstract" : [
-    {
-      "text" : "Representation of an issue in the design caused by the user.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissue"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
-  "abstract" : [
-    {
-      "text" : "Protocol for errors that can be converted to a design issue.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissueconvertible"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTypeError": {
   "abstract" : [

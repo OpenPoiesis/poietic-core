@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
@@ -27,8 +19,16 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore6SystemP6updateyyAA5WorldCAA08InternalC5ErrorVYKF",
+    "externalID" : "s:11PoieticCore6SystemP6updateyyAA5WorldCAA08InternalC5ErrorVYKFZ",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -79,7 +79,7 @@
     ],
     "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
+    "roleHeading" : "Type Method",
     "symbolKind" : "method",
     "title" : "update(_:)"
   },
@@ -94,6 +94,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -428,7 +436,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -462,19 +479,19 @@
 "doc://PoieticCore/documentation/PoieticCore/System/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"

@@ -298,6 +298,37 @@
           "name" : "See Also",
           "style" : "note",
           "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "There must be at least one edge rule per edge type in the metamodel. To allow any edge",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "connections, add a rule similar to this example for each edge type:",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            },
+            {
+              "code" : [
+                "EdgeRule(type: MyEdgeType, incoming: .many, outgoing: .many),"
+              ],
+              "syntax" : "swift",
+              "type" : "codeListing"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -317,8 +348,6 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Constraint",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTypeError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RejectAll",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AcceptAll",
@@ -1584,74 +1613,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/design\/accept(_:appendhistory:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/DesignIssue": {
-  "abstract" : [
-    {
-      "text" : "Representation of an issue in the design caused by the user.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssue"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssue",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissue"
-},
-"doc://PoieticCore/documentation/PoieticCore/DesignIssueConvertible": {
-  "abstract" : [
-    {
-      "text" : "Protocol for errors that can be converted to a design issue.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignIssueConvertible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DesignIssueConvertible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DesignIssueConvertible",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/designissueconvertible"
-},
 "doc://PoieticCore/documentation/PoieticCore/EdgeRule": {
   "abstract" : [
     {
@@ -1772,7 +1733,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/Metamodel/edgeRules": {
   "abstract" : [
-
+    {
+      "text" : "Edge rules that the design must satisfy to be valid.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

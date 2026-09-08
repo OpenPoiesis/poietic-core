@@ -148,16 +148,13 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "The type is compared for identity, that means that the snapshots",
+                  "text" : "The type is compared my name matching. See ",
                   "type" : "text"
                 },
                 {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "must have exactly the provided object type instance associated.",
-                  "type" : "text"
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/matches(_:)-3oavi",
+                  "isActive" : true,
+                  "type" : "reference"
                 }
               ],
               "type" : "paragraph"
@@ -274,6 +271,60 @@
   "title" : "ObjectType",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/objecttype"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectType/matches(_:)-3oavi": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the object type matches name of other object type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "matches"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:11PoieticCore10ObjectTypeC",
+      "text" : "ObjectType"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectType\/matches(_:)-3oavi",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "matches(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objecttype\/matches(_:)-3oavi"
 },
 "doc://PoieticCore/documentation/PoieticCore/Plane": {
   "abstract" : [

@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
@@ -27,8 +19,16 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:11PoieticCore20VisualMetadataSystemV6updateyyAA5WorldCAA08InternalE5ErrorVYKF",
+    "externalID" : "s:11PoieticCore20VisualMetadataSystemV6updateyyAA5WorldCAA08InternalE5ErrorVYKFZ",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -78,7 +78,7 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
+    "roleHeading" : "Type Method",
     "symbolKind" : "method",
     "title" : "update(_:)"
   },
@@ -93,6 +93,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -461,19 +469,19 @@
 "doc://PoieticCore/documentation/PoieticCore/VisualMetadataSystem/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"

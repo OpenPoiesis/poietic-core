@@ -1,0 +1,421 @@
+{
+  "abstract" : [
+    {
+      "text" : "Specifier of the variant encoding method.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "PoieticCore",
+    "externalID" : "s:11PoieticCore7VariantO12DecodingTypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "DecodingType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "PoieticCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "DecodingType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "Variant.DecodingType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "DecodingType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/SQ",
+        "doc:\/\/PoieticCore\/SH",
+        "doc:\/\/PoieticCore\/s8SendableP",
+        "doc:\/\/PoieticCore\/s16SendableMetatypeP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "anchor" : "Enumeration-Cases",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/dictionary",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/dictionaryWithFallback",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/tuple"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "anchor" : "Default-Implementations",
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/poieticcore\/variant\/decodingtype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://PoieticCore/SH": {
+  "identifier" : "doc:\/\/PoieticCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/SQ": {
+  "identifier" : "doc:\/\/PoieticCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/documentation/PoieticCore": {
+  "abstract" : [
+    {
+      "text" : "A core package for building virtual laboratories.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "PoieticCore",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant": {
+  "abstract" : [
+    {
+      "text" : "Variant holds a value of different core data types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Variant"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType": {
+  "abstract" : [
+    {
+      "text" : "Specifier of the variant encoding method.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DecodingType"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DecodingType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Variant.DecodingType",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType/dictionary": {
+  "abstract" : [
+    {
+      "text" : "Decode as dictionary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dictionary"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/dictionary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Variant.DecodingType.dictionary",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype\/dictionary"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType/dictionaryWithFallback": {
+  "abstract" : [
+    {
+      "text" : "Decode as dictionary first, then try to guess from simple JSON value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dictionaryWithFallback"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/dictionaryWithFallback",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Variant.DecodingType.dictionaryWithFallback",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype\/dictionarywithfallback"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/DecodingType/tuple": {
+  "abstract" : [
+    {
+      "text" : "Legacy coding type as a tuple. Do not use.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "tuple"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/DecodingType\/tuple",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Variant.DecodingType.tuple",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/decodingtype\/tuple"
+},
+"doc://PoieticCore/documentation/PoieticCore/Variant/init(jsonWithFallback:)": {
+  "abstract" : [
+    {
+      "text" : "Try to read value from JSON: first try a variant-encoded dictionary",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "then try to guess the value from JSON native value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsonWithFallback"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Variant\/init(jsonWithFallback:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(jsonWithFallback:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/variant\/init(jsonwithfallback:)"
+},
+"doc://PoieticCore/s16SendableMetatypeP": {
+  "identifier" : "doc:\/\/PoieticCore\/s16SendableMetatypeP",
+  "title" : "Swift.SendableMetatype",
+  "type" : "unresolvable"
+},
+"doc://PoieticCore/s8SendableP": {
+  "identifier" : "doc:\/\/PoieticCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

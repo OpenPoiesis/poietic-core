@@ -251,9 +251,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "World\/run(schedule:)",
+              "type" : "codeVoice"
             },
             {
               "text" : ") but might be",
@@ -388,9 +387,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-9x7jk",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "World\/spawn(_:)->RuntimeEntity",
+              "type" : "codeVoice"
             },
             {
               "text" : ") and managed by you. Some",
@@ -1709,9 +1707,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "World\/run(schedule:)",
+              "type" : "codeVoice"
             },
             {
               "text" : ":",
@@ -1798,7 +1795,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IsSelected",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueSample",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NumericValueStats",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectTouched",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ParsedExpressionComponent"
       ],
@@ -2369,40 +2365,6 @@
   "title" : "NumericValueStats",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/numericvaluestats"
-},
-"doc://PoieticCore/documentation/PoieticCore/ObjectSnapshotRef": {
-  "abstract" : [
-    {
-      "text" : "Reference to an object snapshot by ID.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshotRef"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectSnapshotRef",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ObjectSnapshotRef"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ObjectSnapshotRef",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/objectsnapshotref"
 },
 "doc://PoieticCore/documentation/PoieticCore/ObjectTouched": {
   "abstract" : [
@@ -3332,7 +3294,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -3366,19 +3337,19 @@
 "doc://PoieticCore/documentation/PoieticCore/System/update(_:)": {
   "abstract" : [
     {
-      "text" : "Convenience method to run the system that reads and updates a world without needing a",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "shared context.",
+      "text" : "Run the system that reads and updates a world.",
       "type" : "text"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -3583,69 +3554,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/entity(_:)-7nbga"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "run"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "schedule"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ScheduleLabelP",
-      "text" : "ScheduleLabel"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
-      "text" : "InternalSystemError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "run(schedule:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/run(schedule:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/World/setPlane(_:)": {
   "abstract" : [
     {
@@ -3686,49 +3594,6 @@
   "title" : "setPlane(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/setplane(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/World/spawn(_:)-9x7jk": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "spawn"
-    },
-    {
-      "kind" : "text",
-      "text" : "(any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : "...) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13RuntimeEntityV",
-      "text" : "RuntimeEntity"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-9x7jk",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "spawn(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/spawn(_:)-9x7jk"
 }
 }
 }

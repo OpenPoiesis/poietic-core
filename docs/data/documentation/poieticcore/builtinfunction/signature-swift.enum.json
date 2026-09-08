@@ -110,6 +110,7 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/argumentString",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/minimalArgumentCount",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/returnType"
       ],
@@ -245,6 +246,43 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/equatable-implementations"
+},
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/argumentString": {
+  "abstract" : [
+    {
+      "text" : "Human readable description of the arguments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "argumentString"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/Signature-swift.enum\/argumentString",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "argumentString",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/signature-swift.enum\/argumentstring"
 },
 "doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/Signature-swift.enum/minimalArgumentCount": {
   "abstract" : [

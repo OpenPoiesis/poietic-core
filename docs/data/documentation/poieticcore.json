@@ -646,9 +646,8 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-7pusy",
-              "isActive" : true,
-              "type" : "reference"
+              "code" : "World\/spawn(_:)->RuntimeID",
+              "type" : "codeVoice"
             },
             {
               "text" : " or you can set components on entities",
@@ -823,9 +822,8 @@
                       "type" : "text"
                     },
                     {
-                      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-                      "isActive" : true,
-                      "type" : "reference"
+                      "code" : "World\/run(schedule:)",
+                      "type" : "codeVoice"
                     },
                     {
                       "text" : " regularly or on particular events.",
@@ -1192,7 +1190,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/InspectableComponent",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueProtocol",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PropertyGraphProtocol",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RCTableElement",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/TagComponent"
@@ -1203,6 +1202,7 @@
       "anchor" : "Structures",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryInfo",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DesignLibraryItem",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DisplayValueBounds",
@@ -1210,10 +1210,13 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/GenerationalArray",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Issue",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/MetamodelValidationMode",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PipelineContext",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameNormalizationSystem",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PlaneValidationResult",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/QueryIterator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/QueryResult",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/StructuralValidator",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueBounds",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VisualMetadataSystem"
@@ -1242,11 +1245,15 @@
       "identifiers" : [
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColorKey",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ArgumentValidationResult",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicDomain",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/CSVWriterError",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Cardinality",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueIdentifier",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Predicate",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RelationshipRemovalPolicy",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SelectionChange",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/VariableType"
       ],
       "title" : "Enumerations"
@@ -1301,6 +1308,40 @@
   "title" : "PoieticCore",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore"
+},
+"doc://PoieticCore/documentation/PoieticCore/AdaptableColor": {
+  "abstract" : [
+    {
+      "text" : "Dominant adaptable colour of the object’s visual representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/AdaptableColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AdaptableColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AdaptableColor",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/adaptablecolor"
 },
 "doc://PoieticCore/documentation/PoieticCore/AdaptableColorKey": {
   "abstract" : [
@@ -1400,6 +1441,37 @@
   "title" : "AttributeKey",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/attributekey"
+},
+"doc://PoieticCore/documentation/PoieticCore/BasicDomain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BasicDomain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BasicDomain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BasicDomain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BasicDomain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/basicdomain"
 },
 "doc://PoieticCore/documentation/PoieticCore/CSVWriterError": {
   "abstract" : [
@@ -1830,6 +1902,37 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/designplane"
 },
+"doc://PoieticCore/documentation/PoieticCore/DiagramDomain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DiagramDomain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/DiagramDomain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DiagramDomain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DiagramDomain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/diagramdomain"
+},
 "doc://PoieticCore/documentation/PoieticCore/DictionaryComponentStorage": {
   "abstract" : [
 
@@ -2107,6 +2210,48 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/inspectablecomponent"
 },
+"doc://PoieticCore/documentation/PoieticCore/IntermediateSingleton": {
+  "abstract" : [
+    {
+      "text" : "Marker for transient singletons that are needed between systems, usually within a single",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "schedule.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IntermediateSingleton",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IntermediateSingleton"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IntermediateSingleton",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/intermediatesingleton"
+},
 "doc://PoieticCore/documentation/PoieticCore/Issue": {
   "abstract" : [
     {
@@ -2141,9 +2286,12 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/issue"
 },
-"doc://PoieticCore/documentation/PoieticCore/IssueProtocol": {
+"doc://PoieticCore/documentation/PoieticCore/IssueConvertible": {
   "abstract" : [
-
+    {
+      "text" : "Marker for errors that can be converted to a design issue.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2156,21 +2304,63 @@
     },
     {
       "kind" : "identifier",
-      "text" : "IssueProtocol"
+      "text" : "IssueConvertible"
     }
   ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueProtocol",
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueConvertible",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "IssueProtocol"
+      "text" : "IssueConvertible"
     }
   ],
   "role" : "symbol",
-  "title" : "IssueProtocol",
+  "title" : "IssueConvertible",
   "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/issueprotocol"
+  "url" : "\/documentation\/poieticcore\/issueconvertible"
+},
+"doc://PoieticCore/documentation/PoieticCore/IssueIdentifier": {
+  "abstract" : [
+    {
+      "text" : "Collection of issue identifiers that are attached to objects by systems in the PoieticCore",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "package.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IssueIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/IssueIdentifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IssueIdentifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "IssueIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/issueidentifier"
 },
 "doc://PoieticCore/documentation/PoieticCore/JSONDesignReader": {
   "abstract" : [
@@ -2367,6 +2557,108 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/metamodelvalidationmode"
 },
+"doc://PoieticCore/documentation/PoieticCore/NameNormalizationSystem": {
+  "abstract" : [
+    {
+      "text" : "System that collects object names and normalises them.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NameNormalizationSystem"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NameNormalizationSystem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NameNormalizationSystem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NameNormalizationSystem",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/namenormalizationsystem"
+},
+"doc://PoieticCore/documentation/PoieticCore/NormalizedName": {
+  "abstract" : [
+    {
+      "text" : "Normalised name of an object.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/NormalizedName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NormalizedName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NormalizedName",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/normalizedname"
+},
+"doc://PoieticCore/documentation/PoieticCore/ObjectReference": {
+  "abstract" : [
+    {
+      "text" : "References an object snapshot in the design.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ObjectReference",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectReference"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectReference",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/objectreference"
+},
 "doc://PoieticCore/documentation/PoieticCore/ObjectSnapshot": {
   "abstract" : [
     {
@@ -2414,40 +2706,6 @@
   "title" : "Persistence",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/persistence"
-},
-"doc://PoieticCore/documentation/PoieticCore/PipelineContext": {
-  "abstract" : [
-    {
-      "text" : "Context for storing inter-mediate products within a system pipeline.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "PipelineContext"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/PipelineContext",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "PipelineContext"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "PipelineContext",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/pipelinecontext"
 },
 "doc://PoieticCore/documentation/PoieticCore/Plane": {
   "abstract" : [
@@ -2916,6 +3174,71 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/selectionchange"
 },
+"doc://PoieticCore/documentation/PoieticCore/SimulationDomain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationDomain"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationDomain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationDomain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationDomain",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationdomain"
+},
+"doc://PoieticCore/documentation/PoieticCore/SimulationTimeSettings": {
+  "abstract" : [
+    {
+      "text" : "Settings of the simulation time.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/SimulationTimeSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SimulationTimeSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SimulationTimeSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/simulationtimesettings"
+},
 "doc://PoieticCore/documentation/PoieticCore/StructuralValidator": {
   "abstract" : [
     {
@@ -2964,7 +3287,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -3303,69 +3635,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/entity(_:)-7nbga"
 },
-"doc://PoieticCore/documentation/PoieticCore/World/run(schedule:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "run"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "schedule"
-    },
-    {
-      "kind" : "text",
-      "text" : ": any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore13ScheduleLabelP",
-      "text" : "ScheduleLabel"
-    },
-    {
-      "kind" : "text",
-      "text" : ".Type) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
-      "text" : "InternalSystemError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/run(schedule:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "run(schedule:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/run(schedule:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/World/setPlane(_:)": {
   "abstract" : [
     {
@@ -3406,52 +3675,6 @@
   "title" : "setPlane(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/world\/setplane(_:)"
-},
-"doc://PoieticCore/documentation/PoieticCore/World/spawn(_:)-7pusy": {
-  "abstract" : [
-    {
-      "text" : "Spawn an ephemeral entity.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "spawn"
-    },
-    {
-      "kind" : "text",
-      "text" : "([any "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9ComponentP",
-      "text" : "Component"
-    },
-    {
-      "kind" : "text",
-      "text" : "]) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore9RuntimeIDV",
-      "text" : "RuntimeID"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World\/spawn(_:)-7pusy",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "spawn(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/world\/spawn(_:)-7pusy"
 },
 "doc://PoieticCore/documentation/PoieticCore/topologicalSort(_:)": {
   "abstract" : [

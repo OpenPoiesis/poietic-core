@@ -118,6 +118,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/atomExpected",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionFailed(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/conversionToIDFailed(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/invalidUserString(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/notConvertible(_:_:)"
       ],
       "title" : "Enumeration Cases"
@@ -462,6 +463,55 @@
   "title" : "description",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/valueerror\/description"
+},
+"doc://PoieticCore/documentation/PoieticCore/ValueError/invalidUserString(_:)": {
+  "abstract" : [
+    {
+      "text" : "Thrown on user input parsing, when the input string can not be converted",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "to desired variable type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidUserString"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/ValueError\/invalidUserString(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ValueError.invalidUserString(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/valueerror\/invaliduserstring(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/ValueError/notConvertible(_:_:)": {
   "abstract" : [

@@ -102,6 +102,30 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Runtime entity handles must not be held longer than the world they point to.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Make sure to dispose of all handles when you are disposing of the world.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Important",
+          "style" : "important",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -167,6 +191,7 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/debugComponentNames()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/despawn()",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/firstOutgoing(_:)",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/hasIssue(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/incoming(_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/modify(_:_:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/modifyOrSet(default:_:)",
@@ -896,6 +921,49 @@
   "title" : "firstOutgoing(_:)",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/runtimeentity\/firstoutgoing(_:)"
+},
+"doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/hasIssue(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasIssue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/RuntimeEntity\/hasIssue(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasIssue(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/runtimeentity\/hasissue(_:)"
 },
 "doc://PoieticCore/documentation/PoieticCore/RuntimeEntity/hasIssues": {
   "abstract" : [

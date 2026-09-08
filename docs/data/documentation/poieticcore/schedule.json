@@ -217,7 +217,6 @@
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/add(_:)-6wycs",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/add(_:)-77zur",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/debugDependencyOrder()",
-        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/initialize(with:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/order(_:after:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/order(_:before:)",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/update(_:)"
@@ -679,72 +678,6 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/schedule\/init(label:systems:order:)"
 },
-"doc://PoieticCore/documentation/PoieticCore/Schedule/initialize(with:)": {
-  "abstract" : [
-    {
-      "text" : "Creates instances of the systems and initialises them with the world.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "initialize"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "with"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore5WorldC",
-      "text" : "World"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:11PoieticCore19InternalSystemErrorV",
-      "text" : "InternalSystemError"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/Schedule\/initialize(with:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "initialize(with:)",
-  "type" : "topic",
-  "url" : "\/documentation\/poieticcore\/schedule\/initialize(with:)"
-},
 "doc://PoieticCore/documentation/PoieticCore/Schedule/label": {
   "abstract" : [
 
@@ -1062,7 +995,16 @@
 "doc://PoieticCore/documentation/PoieticCore/System": {
   "abstract" : [
     {
-      "text" : "A system that reads and writes components and entities in a world.",
+      "text" : "System is a unit of computation that reads and writes a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -1177,6 +1119,40 @@
   "title" : "SystemDependency",
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/systemdependency"
+},
+"doc://PoieticCore/documentation/PoieticCore/World": {
+  "abstract" : [
+    {
+      "text" : "A container for storing and working with run-time entities, components and relationships.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/World",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "World"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "World",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/world"
 }
 }
 }

@@ -196,7 +196,9 @@
       "anchor" : "Instance-Properties",
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/abstract",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/description",
+        "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/descriptionWithSignature",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/name",
         "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/signature-swift.property"
       ],
@@ -426,6 +428,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinfunction\/abs"
 },
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/abstract": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "abstract"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/abstract",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "abstract",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/abstract"
+},
 "doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/and": {
   "abstract" : [
     {
@@ -529,6 +565,40 @@
   "type" : "topic",
   "url" : "\/documentation\/poieticcore\/builtinfunction\/description"
 },
+"doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/descriptionWithSignature": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "descriptionWithSignature"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/PoieticCore\/documentation\/PoieticCore\/BuiltinFunction\/descriptionWithSignature",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "descriptionWithSignature",
+  "type" : "topic",
+  "url" : "\/documentation\/poieticcore\/builtinfunction\/descriptionwithsignature"
+},
 "doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/exp": {
   "abstract" : [
 
@@ -612,7 +682,10 @@
 },
 "doc://PoieticCore/documentation/PoieticCore/BuiltinFunction/init(name:)": {
   "abstract" : [
-
+    {
+      "text" : "Get a function by name, where the name is case-insensitive.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

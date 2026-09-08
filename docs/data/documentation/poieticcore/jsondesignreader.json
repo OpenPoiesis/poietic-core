@@ -114,15 +114,27 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "process and maintain raw human-written textual representation of designs.",
+                  "text" : "process and maintain raw human-written textual representation of designs. Use ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "poietic",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "command-line tool for headless design file editing.",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "Note",
-          "style" : "note",
+          "name" : "Important",
+          "style" : "important",
           "type" : "aside"
         },
         {
@@ -151,7 +163,7 @@
                     {
                       "inlineContent" : [
                         {
-                          "text" : "(recommended, string)",
+                          "text" : "(required, string)",
                           "type" : "text"
                         }
                       ],
@@ -772,15 +784,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "Variant values are encoded as dictionaries with two keys. Required key is ",
-              "type" : "text"
-            },
-            {
-              "code" : "type",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " which",
+              "text" : "Variant values are encoded as dictionaries with two keys. Required are two keys:",
               "type" : "text"
             },
             {
@@ -788,7 +792,19 @@
               "type" : "text"
             },
             {
-              "text" : "denotes the variant type. The other key depends on the variant type:",
+              "code" : "type",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " – denotes the variant type and ",
+              "type" : "text"
+            },
+            {
+              "code" : "value",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " denotes variant data content.",
               "type" : "text"
             }
           ],
@@ -841,15 +857,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ": value is under the ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "value",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " key.",
+                      "text" : ".",
                       "type" : "text"
                     }
                   ],
@@ -902,23 +910,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ":",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "value is under the ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "items",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " key.",
+                      "text" : ".",
                       "type" : "text"
                     }
                   ],
@@ -1261,7 +1253,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "{\"type\": \"int_array\", \"items\": [10, 20, 30]}",
+                      "code" : "{\"type\": \"int_array\", \"value\": [10, 20, 30]}",
                       "type" : "codeVoice"
                     }
                   ],
@@ -1307,7 +1299,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "{\"type\": \"point_array\", \"items\": [[10, 20], [30, 40]]}",
+                      "code" : "{\"type\": \"point_array\", \"value\": [[10, 20], [30, 40]]}",
                       "type" : "codeVoice"
                     }
                   ],
